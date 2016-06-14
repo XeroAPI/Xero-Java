@@ -42,7 +42,7 @@ Below are the unique values you'll set in config.json for each type of Xero app.
 
 The pom.xml file contains two library dependencies.
 
-``
+```xml
 <dependency>
 	<groupId>com.google.oauth-client</groupId>
 	<artifactId>google-oauth-client</artifactId>
@@ -53,4 +53,4 @@ The pom.xml file contains two library dependencies.
 	<artifactId>json-simple</artifactId>
 	<version>1.1.1</version>
 </dependency>
-``
+```
