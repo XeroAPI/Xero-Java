@@ -10,10 +10,10 @@
 	"RequestTokenPath": "/oauth/RequestToken",
 	"AuthenticateUrl" : "https://api.xero.com/oauth/Authorize",
 	"AccessTokenPath"  : "/oauth/AccessToken",
-	"CallbackBaseUrl" : "https://localhost”,
+	"CallbackBaseUrl" : "https://localhost",
 	"CallbackPath" : "/CallbackServlet",
 	"PrivateKeyCert" :  "certs/public_privatekey.pfx",
-	"PrivateKeyPassword" :  "——YOUR-PRIVATE-KEY-PASSWORD—“,
+	"PrivateKeyPassword" :  "——YOUR-PRIVATE-KEY-PASSWORD—",
 	"EntrustCert" : "certs/xero-entrust3.p12",
-	"EntrustCertPassword" : "——YOUR-ENTRUST-PASSWORD—“
+	"EntrustCertPassword" : "——YOUR-ENTRUST-PASSWORD—"
 }
