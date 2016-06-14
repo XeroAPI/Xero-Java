@@ -9,14 +9,14 @@ Located in src/main/resources is the config.json file.  There are examples for p
 
 Below are the unique values you'll set in config.json for each type of Xero app. 
 
-### Public Xero App
+**Public Xero App**
 
 * Copy and paste, Consumer Key & Secret from app.xero.com
 * Set your callback url at app.xero.com to match CallbackBaseUrl
-* Set your callback path - this is appended to the CallbackBaseUrl
+* Set your CallbackPath - this is appended to the CallbackBaseUrl
 
 
-### Private Xero App
+**Private Xero App**
 
 * Copy and paste, Consumer Key & Secret from app.xero.com
 * Upload the public.cer file at app.xero.com
@@ -25,11 +25,11 @@ Below are the unique values you'll set in config.json for each type of Xero app.
 * Set the private key password
 
 
-### Partner Xero App
+**Partner Xero App**
 
 * Copy and paste, Consumer Key & Secret from app.xero.com
 * Set your callback url at app.xero.com to match CallbackBaseUrl
-* Set your callback path - this is appended to the CallbackBaseUrl
+* Set your CallbackPath - this is appended to the CallbackBaseUrl
 * Upload the public.cer file at app.xero.com
 * Copy the public_privatekey.pfx file created with OpenSSL in the certs folder
 [Public Private Key Docs](https://developer.xero.com/documentation/advanced-docs/public-private-keypair/)
