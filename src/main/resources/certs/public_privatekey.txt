@@ -1,0 +1,12 @@
+Public/Private Key is required for Xero Private and Partner Apps.
+
+You’ll use the private key for RSA-SHA1 oAuth signing and upload the public cert at app.xero.com.
+
+Creating your Public/Private Keys
+https://developer.xero.com/documentation/advanced-docs/public-private-keypair/
+
+Private App
+https://developer.xero.com/documentation/getting-started/private-applications/
+
+Partner App
+https://developer.xero.com/documentation/getting-started/partner-applications/

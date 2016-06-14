@@ -1,0 +1,7 @@
+Entrust SSL Certificates are required for connecting to Xero Partner API.  
+
+https://developer.xero.com/documentation/getting-started/partner-applications/
+
+Please contact Xero Developer Relations for more details on how to become a Xero Partner.
+
+https://developer.xero.com/partner/#become-a-partner
