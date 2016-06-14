@@ -3,13 +3,13 @@
 	"UserAgent" : "Xero-Java-Public",
 	"Accept" : "application/json", 
 	"SignatureMethod" : "HMAC",
-	"ConsumerKey" : “——YOUR-CONSUMER-KEY—”,
-	"ConsumerSecret" : "——YOUR-CONSUMER-SECRET—“,
+	"ConsumerKey" : "——YOUR-CONSUMER-KEY—",
+	"ConsumerSecret" : "——YOUR-CONSUMER-SECRET—",
 	"ApiBaseUrl" : "https://api.xero.com",
 	"ApiEndpointPath" : "/api.xro/2.0/",
 	"RequestTokenPath": "/oauth/RequestToken",
 	"AuthenticateUrl" : "https://api.xero.com/oauth/Authorize",
 	"AccessTokenPath"  : "/oauth/AccessToken",
-	"CallbackBaseUrl" : "https://localhost”,
+	"CallbackBaseUrl" : "https://localhost",
 	"CallbackPath" : "/CallbackServlet"
 }
