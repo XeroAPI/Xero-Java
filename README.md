@@ -4,7 +4,7 @@ A skinny Java wrapper of the Xero API. Supports Accounting API. All third party 
 ## Xero App
 You'll need to decide which type of Xero app you'll be building (Public, Private or Partner). Go to http://app.xero.com to login and create your app.
 
-## Config.json
+#### Config.json 
 Located in src/main/resources is the config.json file.  There are examples for public, private and partner - but the Config.java will look in this folder at the config.json file in order to initialize you Java code. 
 
 Below are the unique values you'll set in config.json for each type of Xero app. 
