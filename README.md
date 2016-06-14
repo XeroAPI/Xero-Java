@@ -1,10 +1,10 @@
 # Xero-Java
 A skinny Java wrapper of the Xero API. Supports Accounting API. All third party libraries dependencies managed with Maven
 
-## Xero App
+### Xero App
 You'll need to decide which type of Xero app you'll be building (Public, Private or Partner). Go to http://app.xero.com to login and create your app.
 
-#### Config.json 
+### config.json 
 Located in src/main/resources is the config.json file.  There are examples for public, private and partner - but the Config.java will look in this folder at the config.json file in order to initialize you Java code. 
 
 Below are the unique values you'll set in config.json for each type of Xero app. 
@@ -37,3 +37,20 @@ Below are the unique values you'll set in config.json for each type of Xero app.
 * Copy the xero-entrus.p12 file set to you by Xero API team.
 [Entrust Certificates Docs](https://developer.xero.com/documentation/getting-started/partner-applications/#certificates)
 * Set the Entrust Certifcate password
+
+### Maven Dependencies 
+
+The pom.xml file contains two library dependencies.
+
+``
+<dependency>
+	<groupId>com.google.oauth-client</groupId>
+	<artifactId>google-oauth-client</artifactId>
+	<version>1.20.0</version>
+</dependency>
+<dependency>
+	<groupId>com.googlecode.json-simple</groupId>
+	<artifactId>json-simple</artifactId>
+	<version>1.1.1</version>
+</dependency>
+``
