@@ -86,6 +86,15 @@ List<Account> updateAccount = client.updateAccount(newAccount);
 /* DELETE ACCOUNT */
 String status = client.deleteAccount(newAccount.get(0).getAccountID());
 
+// GET INVOICE MODIFIED in LAST 24 HOURS
+Date date = new Date();
+Calendar cal = Calendar.getInstance();
+cal.setTime(date);
+cal.add(Calendar.DAY_OF_MONTH, -1);
+		    
+List<Invoice> InvoiceList24hour = client.getInvoices(cal.getTime(),null,null);
+System.out.printlin("How many invoices modified in last 24 hours?: " + InvoiceList24hour.size());
+
 ```
 
 ### Maven Dependencies 
