@@ -33,9 +33,7 @@ Below are the unique values you'll set in config.json for each type of Xero app.
 
 | App Type			    | Attribute             | Purpose                               | Valid Options 
 | --------------------- | --------------------- |---------------------------------------| -------------
-| ALL				    | AppType               |  Defines your app type                | * PUBLIC  
-* PRIVATE 
-* PARTNER  
+| ALL				    | AppType               |  Defines your app type                | PUBLIC or PRIVATE or PARTNER  
 | ALL					| UserAgent             |  for debugging by Xero API ssues      | unique string
 | ALL					| Accept                |  format of data returned from API     | application/xml or application/json
 | ALL		    		| ConsumerKey           |  for oAuth Signature                  | App Key created at app.xero.com
