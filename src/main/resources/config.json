@@ -1,6 +1,6 @@
 { 
 	"AppType" : "PUBLIC",
-	"UserAgent" : "Xero-Java-Public-CUSTOMIZE-FOR-YOUR-APP",
+	"UserAgent" : "Xero-Java-Public—CUSTOMIZE-FOR-YOUR-APP",
 	"Accept" : "application/xml", 
 	"SignatureMethod" : "HMAC",
 	"ConsumerKey" : "——YOUR-CONSUMER-KEY—",

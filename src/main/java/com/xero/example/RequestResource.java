@@ -24,7 +24,7 @@ public class RequestResource extends HttpServlet
 			+ "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js\" integrity=\"sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS\" crossorigin=\"anonymous\"></script>"
 			+ "<div class=\"container\"><h1>Xero API - JAVA</h1>" 
 			+ "<div class=\"form-group\">"
-		  	+ "<a href=\"/Xero-Java-Example\" class=\"btn btn-default\" type=\"button\">Logout</a>"
+		  	+ "<a href=\"/\" class=\"btn btn-default\" type=\"button\">Logout</a>"
 		  	+ "</div>"
 			+ "<form action=\"./RequestResource\" method=\"post\">" 
 			+ "<div class=\"form-group\">" 
