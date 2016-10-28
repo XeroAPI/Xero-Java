@@ -63,15 +63,24 @@ We've included the XeroClient with methods to perform each action supported by e
 XeroClient client = new XeroClient(request, response);
 		
 /* CREATE ACCOUNT */
-List<Account> newAccount = client.createAccounts(SampleData.loadAccount().getAccount());
+ArrayOfAccount accountArray = new ArrayOfAccount();
+Account account = new Account();
+account.setCode("66000");
+account.setName("Office Expense");
+account.setType(AccountType.EXPENSE);
+accountArray.getAccount().add(account);
+List<Account> newAccount = client.createAccounts(accountArray);
 			
 /* READ ACCOUNT using a WHERE clause */
 List<Account> accountWhere = client.getAccounts(null,"Type==\"BANK\"",null);
 
 /* READ ACCOUNT using the ID */
-Account accountOne = client.getAccount(accountList.get(num).getAccountID());
+List<Account> accountList = client.getAccounts();
+Account accountOne = client.getAccount(accountList.get(0).getAccountID());
 			
 /* UPDATE ACCOUNT */
+newAccount.get(0).setName("Entertainment");
+newAccount.get(0).setStatus(null);
 List<Account> updateAccount = client.updateAccount(newAccount);
 
 /* DELETE ACCOUNT */
