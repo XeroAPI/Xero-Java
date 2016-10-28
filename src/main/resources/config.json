@@ -2,7 +2,6 @@
 	"AppType" : "PUBLIC",
 	"UserAgent" : "Xero-Java-Public—CUSTOMIZE-FOR-YOUR-APP",
 	"Accept" : "application/xml", 
-	"SignatureMethod" : "HMAC",
 	"ConsumerKey" : "——YOUR-CONSUMER-KEY—",
 	"ConsumerSecret" : "——YOUR-CONSUMER-SECRET—",
 	"ApiBaseUrl" : "https://api.xero.com",

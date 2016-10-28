@@ -9,34 +9,47 @@ Located in src/main/resources is the config.json file.  There are examples for p
 
 Below are the unique values you'll set in config.json for each type of Xero app. 
 
-**Public Xero App**
+```javascript
+{ 
+	"AppType" : "PARTNER",
+	"UserAgent" : "Xero-Java",
+	"Accept" : "application/xml", 
+	"SignatureMethod" : "RSA-SHA1",
+	"ConsumerKey" : "Z7DLBXSOMSQI9GMUHZB8RY6ZXHTTYC",
+	"ConsumerSecret" : "71K7QL8TKH7CKDVE6TLY02CTQOX36S",
+	"ApiBaseUrl" : "https://api-partner.network.xero.com",
+	"ApiEndpointPath" : "/api.xro/2.0/",
+	"RequestTokenPath": "/oauth/RequestToken",
+	"AuthenticateUrl" : "https://api.xero.com/oauth/Authorize",
+	"AccessTokenPath"  : "/oauth/AccessToken",
+	"CallbackBaseUrl" : "https://tranquil-falls-53784.herokuapp.com",
+	"CallbackPath" : "/CallbackServlet",
+	"PrivateKeyCert" :  "certs/public_privatekey.pfx",
+	"PrivateKeyPassword" :  "1234",
+	"EntrustCert" : "certs/xero-entrust-20170513.p12",
+	"EntrustCertPassword" : "123456"
+}
+```
 
-* Copy and paste, Consumer Key & Secret from app.xero.com
-* Set your callback url at app.xero.com to match CallbackBaseUrl
-* Set your CallbackPath - this is appended to the CallbackBaseUrl
+App Type			    | Attribute             | Purpose                               | Valid Options 
+| --------------------- | --------------------- |---------------------------------------|  
+| ALL				    | AppType               |  Defines your app type                | PUBLIC or PRIVATE or PARTNER  
+| ALL					| UserAgent             |  for debugging by Xero API ssues      | unique string
+| ALL					| Accept                |  format of data returned from API     | application/xml or application/json
+| ALL		    		| ConsumerKey           |  for oAuth Signature                  | App Key created at app.xero.com
+| ALL					| ConsumerSecret        |  for oAuth Signature       			| App Secret created at app.xero.com
+| ALL					| ApiBaseUrl            |  base URL for API calls               | https://api.xero.com or https://api-partner.network.xero.com
+| ALL					| ApiEndpointPath       |  path for API Calls                   | /api.xro/2.0/
+| Public or Partner		| RequestTokenPath      |  path for Request Token               | /oauth/RequestToken
+| Public or Partner 	| AuthenticateUrl       |  path for redirect to authorize       | /oauth/RequestToken
+| Public or Partner 	| AccessTokenPath       |  path for Access Token                | https://api.xero.com/oauth/Authorize
+| Public or Partner 	| CallbackBaseUrl       |  base URL for Callback url            | unique string
+| Public or Partner 	| CallbackPath          |  path for Callback url                | unique string
+| Private or Partner	| PrivateKeyCert        |  path to [Private Key Certificate](https://developer.xero.com/documentation/advanced-docs/public-private-keypair/)      | unique string
+| Private or Partner	| PrivateKeyPassword    |  password for Private key             | unique string
+| Partner				| EntrustCert           |  path to [Entrust Certificate](https://developer.xero.com/documentation/getting-started/partner-applications/#certificates)    | unique string
+| Partner				| EntrustCertPassword   |  password for Entrust certificate     | unique string
 
-
-**Private Xero App**
-
-* Copy and paste, Consumer Key & Secret from app.xero.com
-* Upload the public.cer file at app.xero.com
-* Copy the public_privatekey.pfx file created with OpenSSL in the certs folder
-[Public Private Key Docs](https://developer.xero.com/documentation/advanced-docs/public-private-keypair/)
-* Set the private key password
-
-
-**Partner Xero App**
-
-* Copy and paste, Consumer Key & Secret from app.xero.com
-* Set your callback url at app.xero.com to match CallbackBaseUrl
-* Set your CallbackPath - this is appended to the CallbackBaseUrl
-* Upload the public.cer file at app.xero.com
-* Copy the public_privatekey.pfx file created with OpenSSL in the certs folder
-[Public Private Key Docs](https://developer.xero.com/documentation/advanced-docs/public-private-keypair/)
-* Set the Private key password
-* Copy the xero-entrus.p12 file set to you by Xero API team.
-[Entrust Certificates Docs](https://developer.xero.com/documentation/getting-started/partner-applications/#certificates)
-* Set the Entrust Certifcate password
 
 ### Maven Dependencies 
 
@@ -54,8 +67,6 @@ The pom.xml file contains two library dependencies.
 	<version>1.1.1</version>
 </dependency>
 ```
-
-
 
 ##License
 

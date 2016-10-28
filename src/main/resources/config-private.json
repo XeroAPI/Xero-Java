@@ -2,7 +2,6 @@
 	"AppType" : "PRIVATE",
 	"UserAgent" : "Xero-Java-Private-CUSTOMIZE-FOR-YOUR-APP",
 	"Accept" : "application/xml", 
-	"SignatureMethod" : "RSA-SHA1",
 	"ConsumerKey" : "——YOUR-CONSUMER-KEY—",
 	"ConsumerSecret" : "——YOUR-CONSUMER-SECRET—",
 	"ApiBaseUrl" : "https://api.xero.com",
