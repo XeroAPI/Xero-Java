@@ -1,7 +1,7 @@
 { 
 	"AppType" : "PARTNER",
-	"UserAgent" : "Xero-Java",
-	"Accept" : "application/json", 
+	"UserAgent" : "Xero-Java—Partner-CUSTOMIZE-FOR-YOUR-APP",
+	"Accept" : "application/xml", 
 	"SignatureMethod" : "RSA-SHA1",
 	"ConsumerKey" : "——YOUR-CONSUMER-KEY—",
 	"ConsumerSecret" : "——YOUR-CONSUMER-SECRET—",

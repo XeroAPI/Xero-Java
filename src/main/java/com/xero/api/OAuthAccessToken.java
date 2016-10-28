@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-//import com.google.api.client.auth.oauth.OAuthParameters;
-
 import com.xero.api.OAuthParameters;
 
 import com.google.api.client.auth.oauth.OAuthSigner;
@@ -96,10 +94,11 @@ public class OAuthAccessToken {
 		return this;
 	}
 	
-	public void execute() throws IOException
+	public boolean execute() throws IOException
 	{
 		try {
 			HttpResponse response = request.execute();	
+			
 			isSuccess = response.isSuccessStatusCode();
 		
 			if (isSuccess)
@@ -110,17 +109,22 @@ public class OAuthAccessToken {
 				this.tokenSecret = oauthKeys.get("oauth_token_secret");
 				this.sessionHandle = oauthKeys.get("oauth_session_handle");
 				this.tokenTimestamp = System.currentTimeMillis() / 1000l;
+				isSuccess = true;
 			} 
 			else 
 			{
 				
 			}
 		} catch (HttpResponseException e) {
-			System.out.println("HttpException" + e.toString());
+			System.out.println("REFRESH EXECPTION");
+			
 			Map<String, String> oauthError = getQueryMap(e.getMessage());
 			this.problem = oauthError.get("oauth_problem");
 			this.advice = oauthError.get("oauth_problem_advice");
+			//System.out.println("HttpException" + e.toString());
+			isSuccess =  false;
 		}
+		return isSuccess;
 	}
 	
 	public void setToken(String token) 
@@ -239,14 +243,19 @@ public class OAuthAccessToken {
 	{
 		boolean bool = false;
 		
-		long currentTime = System.currentTimeMillis() / 1000l;
-		 
-		long tokenTimestamp = Long.parseLong(timestamp);
-		long secondsElapsed = (currentTime - tokenTimestamp);
+		if (timestamp == null || timestamp.isEmpty()) {
+			bool = false;
+		} else {
 		
-		if (secondsElapsed >= 1800) 
-		{
-			bool = true;
+			long currentTime = System.currentTimeMillis() / 1000l;
+			 
+			long tokenTimestamp = Long.parseLong(timestamp);
+			long secondsElapsed = (currentTime - tokenTimestamp);
+			
+			if (secondsElapsed >= 1800) 
+			{
+				bool = true;
+			}
 		}
 		
 		return bool;
