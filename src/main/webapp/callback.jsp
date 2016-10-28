@@ -12,28 +12,8 @@
 <body>
 <div class="container">
 	<h1>Xero API - Java</h1>
-	
-	<form action="./RequestResource" method="post">
-		<select name="method">
-			<option value="GET" selected>GET</option>
-			<option value="POST">POST</option>
-		</select>
-		<br>
-		<select name="resource">
-			<option value="Organisation" selected>Organisation</option>
-			<option value="Contact" >Contact</option>
-		</select>
-		<br>
-		<textarea rows="10" cols="50" name="body">
-	<Contacts>
-		<Contact>
-			<Name>Sid Maestre</Name>
-		</Contact>
-	</Contacts>
-		</textarea>
-		<br>
-		<input type="submit" value="submit">
-	</form>
+	<a href="./RequestResource">Let's make some API calls</a>
 </div>
+
 </body>
 </html>

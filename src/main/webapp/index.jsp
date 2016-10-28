@@ -7,8 +7,7 @@
 <body>
 <div class="container">
 	<h1>Xero API - Java</h1>
-	
-	<a href="./RequestTokenServlet"><img src="<%=request.getContextPath()%>/images/connect_xero_button_blue1.png"></a>
+	<a href="./RequestTokenServlet"><img src="<%=request.getContextPath()%>/images/connect_xero_button_blue1.png"></a>	
 </div>
 </body>
 </html>

@@ -19,7 +19,6 @@ import com.google.api.client.auth.oauth.OAuthSigner;
 import com.google.api.client.http.ByteArrayContent;
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpContent;
-import com.google.api.client.http.HttpMethods;
 import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
@@ -29,6 +28,9 @@ import com.google.api.client.http.apache.ApacheHttpTransport;
 import com.google.api.client.util.Beta;
 
 import java.io.IOException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.Map;
 
 /**
  * Generic OAuth 1.0a URL to request API resource from server.
@@ -72,6 +74,7 @@ public class OAuthRequestResource extends GenericUrl {
 	public String accept = "application/json";
 	private String body = null;
 	private HttpContent requestBody = null;
+	private String httpMethod = "GET";
 
 	private Config c = Config.getInstance();
 
@@ -81,14 +84,20 @@ public class OAuthRequestResource extends GenericUrl {
 	/**
 	 * @param authorizationServerUrl encoded authorization server URL
 	 */
-	public  OAuthRequestResource(String resource, String method, String body) {
+	public  OAuthRequestResource(String resource, String method, String body, Map<? extends String, ?> params) {
 		Url = new GenericUrl(c.getApiUrl() + resource);
-		if(method.equals("POST")){
+		this.httpMethod = method;
+		if(method.equals("POST") || method.equals("PUT")){
 			usePost = true;
-		}
+		} 
+		
+		if (params != null) {
+			 Url.putAll(params);
+	    }
+		
 		this.body = body;
 	}
-
+	
 	/**
 	 * Executes the HTTP request for a temporary or long-lived token.
 	 *
@@ -106,23 +115,32 @@ public class OAuthRequestResource extends GenericUrl {
 		}
 
 		HttpRequestFactory requestFactory = transport.createRequestFactory();
-		HttpRequest request = requestFactory.buildRequest(usePost ? HttpMethods.POST : HttpMethods.GET, Url, requestBody);
-
+		HttpRequest request = requestFactory.buildRequest(this.httpMethod, Url, requestBody);
+		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setUserAgent(c.getUserAgent());
 		headers.setAccept(c.getAccept());
 		headers.setContentType("application/xml");
-		//headers.setIfModifiedSince(ifModifiedSince);
+		if(ifModifiedSince != null) {
+			System.out.println("Set Header " + this.ifModifiedSince);
+			headers.setIfModifiedSince(this.ifModifiedSince);
+			
+		}
 		request.setHeaders(headers);    
-		
 		createParameters().intercept(request);
-
-		HttpResponse response = request.execute();
+		HttpResponse response;
+		
+		response = request.execute();
 		response.setContentLoggingLimit(0);
 
 		return response;
+		
 	}
-
+	
+	public void setMethod(String method) {
+		this.httpMethod = method; 
+	}
+	
 	public void setToken(String token) {
 		this.token = token; 
 		if(c.getAppType().equals("PRIVATE")) {
@@ -132,7 +150,12 @@ public class OAuthRequestResource extends GenericUrl {
 	public void setTokenSecret(String secret) {
 		this.tokenSecret = secret; 
 	}
-
+	
+	public void setIfModifiedSince(Date modifiedAfter) {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+		this.ifModifiedSince = formatter.format(modifiedAfter); 
+	}
+	
 	public OAuthParameters createParameters() 
 	{
 
