@@ -1,13 +1,13 @@
 # Xero-Java
-A skinny Java wrapper of the Xero API. Supports Accounting API. All third party libraries dependencies managed with Maven
+This is the official Java SDK for the Xero API. Currently, supports Accounting API. All third party libraries dependencies managed with Maven
 
 ### Xero App
-You'll need to decide which type of Xero app you'll be building (Public, Private or Partner). Go to http://app.xero.com to login and create your app.
+You'll need to decide which type of Xero app you'll be building (Public, Private or Partner). Go to [http://app.xero.com](http://app.xero.com) and login with your Xero user account and create an app.
 
 ### config.json 
-Located in src/main/resources is the config.json file.  There are examples for public, private and partner - but the Config.java will look in this folder at the config.json file in order to initialize you Java code. 
+Located in src/main/resources is the config.json file.  There are examples for public, private and partner - but the Config.java will look in this folder at the config.json file in order to initialize your Java code. 
 
-Below are the unique values you'll set in config.json for each type of Xero app. 
+Here is an example of config.json for a Partner App.
 
 ```javascript
 { 
@@ -31,6 +31,8 @@ Below are the unique values you'll set in config.json for each type of Xero app.
 }
 ```
 
+Below are the possible attributes for each App Type. 
+
 | App Type			    | Attribute             | Purpose                               | Valid Options 
 | --------------------- | --------------------- |---------------------------------------| -------------
 | ALL				    | AppType               |  Defines your app type                | PUBLIC or PRIVATE or PARTNER  
@@ -50,6 +52,32 @@ Below are the unique values you'll set in config.json for each type of Xero app.
 | Partner				| EntrustCert           |  path to [Entrust Certificate](https://developer.xero.com/documentation/getting-started/partner-applications/#certificates)    | unique string
 | Partner				| EntrustCertPassword   |  password for Entrust certificate     | unique string
 
+
+### Xero Model
+We've included a complete set of classes in `com.xero.model`.  These are generated from the  [Xero Schema XSDs](https://github.com/XeroAPI/XeroAPI-Schemas).  You can always download and generate updated classes in the future to replace the ones included in this project.
+
+### Xero Client 
+We've included the XeroClient with methods to perform each action supported by endpoints.  Once you instantiate XeroClient, you can begin using classes from the model directory to create, read, update and delete data through Xero's API.
+
+```java
+XeroClient client = new XeroClient(request, response);
+		
+/* CREATE ACCOUNT */
+List<Account> newAccount = client.createAccounts(SampleData.loadAccount().getAccount());
+			
+/* READ ACCOUNT using a WHERE clause */
+List<Account> accountWhere = client.getAccounts(null,"Type==\"BANK\"",null);
+
+/* READ ACCOUNT using the ID */
+Account accountOne = client.getAccount(accountList.get(num).getAccountID());
+			
+/* UPDATE ACCOUNT */
+List<Account> updateAccount = client.updateAccount(newAccount);
+
+/* DELETE ACCOUNT */
+String status = client.deleteAccount(newAccount.get(0).getAccountID());
+
+```
 
 ### Maven Dependencies 
 
