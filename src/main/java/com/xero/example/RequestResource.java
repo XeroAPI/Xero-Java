@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.xero.api.TokenStorage;
 import com.xero.api.XeroClient;
 import com.xero.model.*;
 
@@ -88,7 +89,9 @@ public class RequestResource extends HttpServlet
 		String object = request.getParameter("object");
 		ArrayList<String> messages = new ArrayList<String>();
 		
-		XeroClient client = new XeroClient(request, response);
+		// Get Xero API Resource - DEMONSTRATION ONLY get token from Cookie
+		TokenStorage storage = new TokenStorage();
+		XeroClient client = new XeroClient(request, response, storage);
 		
 		SampleData data = new SampleData(client);
 		
