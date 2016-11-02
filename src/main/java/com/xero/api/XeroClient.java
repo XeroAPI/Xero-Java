@@ -25,6 +25,7 @@ import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 
 import com.google.api.client.http.HttpResponse;
+import com.xero.api.TokenStorage;
 import com.xero.model.*;
 
 public class XeroClient {
@@ -46,20 +47,18 @@ public class XeroClient {
 	
 	protected HttpServletRequest request;
 	protected HttpServletResponse response;
+	protected TokenStorage storage;
 	
-	public XeroClient(HttpServletRequest request, HttpServletResponse response) {
+	public XeroClient(HttpServletRequest request, HttpServletResponse response, TokenStorage storage) {
 		this.request = request;
 		this.response = response;
-		
-		// Get Xero API Resource - DEMONSTRATION ONLY get token from Cookie
-		TokenStorage storage = new TokenStorage();
+		this.storage = storage;
 		
 		OAuthAccessToken refreshToken = new OAuthAccessToken();
 		tokenTimestamp = storage.get(request, "tokenTimestamp");
 		
 		if(c.getAppType().equals("PARTNER") && refreshToken.isStale(tokenTimestamp))
 		{
-			
 			System.out.println("Time for a refresh");
 
 			refreshToken.setToken(storage.get(request, "token"));
