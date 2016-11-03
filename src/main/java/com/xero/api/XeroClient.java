@@ -196,7 +196,8 @@ public class XeroClient {
 			
 		    return unmarshallResponse(resp.parseAsString(), Response.class);
 		} catch (IOException e) {
-			if(e.getMessage() == "401 Unauthorized") {
+			String error401 = "401 Unauthorized";
+			if(e.getMessage().toLowerCase().contains(error401.toLowerCase())) {
 				try {
 					this.request.getRequestDispatcher("index.jsp").forward(this.request, this.response);
 				} catch (ServletException e1) {
@@ -228,7 +229,8 @@ public class XeroClient {
 			}
 		    return unmarshallResponse(resp.parseAsString(), Response.class);
 		} catch (IOException e) {
-			if(e.getMessage() == "401 Unauthorized") {
+			String error401 = "401 Unauthorized";
+			if(e.getMessage().toLowerCase().contains(error401.toLowerCase())) {
 				try {
 					this.request.getRequestDispatcher("index.jsp").forward(this.request, this.response);
 				} catch (ServletException e1) {
@@ -264,7 +266,8 @@ public class XeroClient {
 			return unmarshallResponse(resp.parseAsString(), Response.class);
 			
 		} catch (IOException e) {
-			if(e.getMessage() == "401 Unauthorized") {
+			String error401 = "401 Unauthorized";
+			if(e.getMessage().toLowerCase().contains(error401.toLowerCase())) {
 				try {
 					this.request.getRequestDispatcher("index.jsp").forward(this.request, this.response);
 				} catch (ServletException e1) {
@@ -374,14 +377,27 @@ public class XeroClient {
 	
 	//BANK TRANSACTION 
 	public List<BankTransaction> getBankTransactions() {
-	    return get("BankTransactions").getBankTransactions().getBankTransaction();
+	    Response responseObj = get("BankTransactions");
+		if (responseObj.getBankTransactions() == null) {
+			ArrayOfBankTransaction array = new ArrayOfBankTransaction();
+			return array.getBankTransaction();
+		} else {
+			return responseObj.getBankTransactions().getBankTransaction();
+		}
 	}
 	
 	public List<BankTransaction> getBankTransactions(Date modifiedAfter, String where, String order) {
 	    Map<String, String> params = new HashMap<>();
 	    addToMapIfNotNull(params, "Where", where);
 	    addToMapIfNotNull(params, "order", order);
-	    return get("BankTransactions", modifiedAfter, params).getBankTransactions().getBankTransaction();
+	    
+	    Response responseObj = get("BankTransactions", modifiedAfter, params);
+		if (responseObj.getBankTransactions() == null) {
+			ArrayOfBankTransaction array = new ArrayOfBankTransaction();
+			return array.getBankTransaction();
+		} else {
+			return responseObj.getBankTransactions().getBankTransaction();
+		}	    
 	}
 	
 	public List<BankTransaction> createBankTransactions(List<BankTransaction> bankTransactions) {
@@ -396,14 +412,26 @@ public class XeroClient {
 	
 	//BANK TRANSFERS 
 	public List<BankTransfer> getBankTransfers() {
-	    return get("BankTransfers").getBankTransfers().getBankTransfer();
+	    Response responseObj = get("BankTransfers");
+		if (responseObj.getBankTransfers() == null) {
+			ArrayOfBankTransfer array = new ArrayOfBankTransfer();
+			return array.getBankTransfer();
+		} else {
+			return responseObj.getBankTransfers().getBankTransfer();
+		}
 	}
 	
 	public List<BankTransfer> getBankTransfers(Date modifiedAfter, String where, String order) {
 	    Map<String, String> params = new HashMap<>();
 	    addToMapIfNotNull(params, "Where", where);
 	    addToMapIfNotNull(params, "order", order);
-	    return get("BankTransfers", modifiedAfter, params).getBankTransfers().getBankTransfer();
+	    Response responseObj = get("BankTransfers", modifiedAfter, params);
+		if (responseObj.getBankTransfers() == null) {
+			ArrayOfBankTransfer array = new ArrayOfBankTransfer();
+			return array.getBankTransfer();
+		} else {
+			return responseObj.getBankTransfers().getBankTransfer();
+		}
 	}
 	
 	public List<BankTransfer> createBankTransfers(List<BankTransfer> bankTransfers) {
@@ -418,14 +446,26 @@ public class XeroClient {
 	
 	//BRANDING THEMES 
 	public List<BrandingTheme> getBrandingThemes() {
-	    return get("BrandingThemes").getBrandingThemes().getBrandingTheme();
+	    Response responseObj = get("BrandingThemes");
+		if (responseObj.getBrandingThemes() == null) {
+			ArrayOfBrandingTheme array = new ArrayOfBrandingTheme();
+			return array.getBrandingTheme();
+		} else {
+			return responseObj.getBrandingThemes().getBrandingTheme();
+		}
 	}
 	
 	public List<BrandingTheme> getBrandingThemes(Date modifiedAfter, String where, String order) {
 	    Map<String, String> params = new HashMap<>();
 	    addToMapIfNotNull(params, "Where", where);
 	    addToMapIfNotNull(params, "order", order);
-	    return get("BrandingThemes", modifiedAfter, params).getBrandingThemes().getBrandingTheme();
+	    Response responseObj = get("BrandingThemes", modifiedAfter, params);
+		if (responseObj.getBrandingThemes() == null) {
+			ArrayOfBrandingTheme array = new ArrayOfBrandingTheme();
+			return array.getBrandingTheme();
+		} else {
+			return responseObj.getBrandingThemes().getBrandingTheme();
+		}
 	}
 		
 	public BrandingTheme getBrandingTheme(String id) {
@@ -434,7 +474,6 @@ public class XeroClient {
 	
 	//CONTACT 
 	public List<Contact> getContacts() {
-		
 		Response responseObj = get("Contacts");
 		if (responseObj.getContacts() == null) {
 			ArrayOfContact array = new ArrayOfContact();
@@ -448,7 +487,6 @@ public class XeroClient {
 	    Map<String, String> params = new HashMap<>();
 	    addToMapIfNotNull(params, "Where", where);
 	    addToMapIfNotNull(params, "order", order);
-
 	    Response responseObj = get("Contacts", modifiedAfter, params);
 		if (responseObj.getContacts() == null) {
 			ArrayOfContact array = new ArrayOfContact();
@@ -476,14 +514,27 @@ public class XeroClient {
 			
 	//ContactGroups 
 	public List<ContactGroup> getContactGroups() {
-	    return get("ContactGroups").getContactGroups().getContactGroup();
+	    Response responseObj = get("ContactGroups");
+		if (responseObj.getContactGroups() == null) {
+			ArrayOfContactGroup array = new ArrayOfContactGroup();
+			return array.getContactGroup();
+		} else {
+			return responseObj.getContactGroups().getContactGroup();
+		}
 	}
 	
 	public List<ContactGroup> getContactGroups(Date modifiedAfter, String where, String order) {
 	    Map<String, String> params = new HashMap<>();
 	    addToMapIfNotNull(params, "Where", where);
 	    addToMapIfNotNull(params, "order", order);
-	    return get("ContactGroups", modifiedAfter, params).getContactGroups().getContactGroup();
+	    
+	    Response responseObj = get("ContactGroups", modifiedAfter, params);
+		if (responseObj.getContactGroups() == null) {
+			ArrayOfContactGroup array = new ArrayOfContactGroup();
+			return array.getContactGroup();
+		} else {
+			return responseObj.getContactGroups().getContactGroup();
+		}
 	}
 	
 	public List<ContactGroup> createContactGroups(List<ContactGroup> ContactGroups) {
@@ -528,14 +579,27 @@ public class XeroClient {
 	
 	//CreditNotes
 	public List<CreditNote> getCreditNotes() {
-	    return get("CreditNote").getCreditNotes().getCreditNote();
+	    Response responseObj = get("CreditNotes");
+		if (responseObj.getCreditNotes() == null) {
+			ArrayOfCreditNote array = new ArrayOfCreditNote();
+			return array.getCreditNote();
+		} else {
+			return responseObj.getCreditNotes().getCreditNote();
+		}
 	}
 	
 	public List<CreditNote> getCreditNotes(Date modifiedAfter, String where, String order) {
 	    Map<String, String> params = new HashMap<>();
 	    addToMapIfNotNull(params, "Where", where);
 	    addToMapIfNotNull(params, "order", order);
-	    return get("CreditNotes", modifiedAfter, params).getCreditNotes().getCreditNote();
+	    
+	    Response responseObj = get("CreditNotes", modifiedAfter, params);
+		if (responseObj.getCreditNotes() == null) {
+			ArrayOfCreditNote array = new ArrayOfCreditNote();
+			return array.getCreditNote();
+		} else {
+			return responseObj.getCreditNotes().getCreditNote();
+		}
 	}
 	
 	public List<CreditNote> createCreditNotes(List<CreditNote> objects) {
@@ -556,14 +620,27 @@ public class XeroClient {
 	
 	//CURRENCY
 	public List<Currency> getCurrencies() {
-	    return get("Currencies").getCurrencies().getCurrency();
+	    Response responseObj = get("Currencies");
+		if (responseObj.getCurrencies() == null) {
+			ArrayOfCurrency array = new ArrayOfCurrency();
+			return array.getCurrency();
+		} else {
+			return responseObj.getCurrencies().getCurrency();
+		}
 	}
 	
 	public List<Currency> getCurrencies(Date modifiedAfter, String where, String order) {
 	    Map<String, String> params = new HashMap<>();
 	    addToMapIfNotNull(params, "Where", where);
 	    addToMapIfNotNull(params, "order", order);
-	    return get("Currencies", modifiedAfter, params).getCurrencies().getCurrency();
+	    
+	    Response responseObj = get("Currencies", modifiedAfter, params);
+		if (responseObj.getCurrencies() == null) {
+			ArrayOfCurrency array = new ArrayOfCurrency();
+			return array.getCurrency();
+		} else {
+			return responseObj.getCurrencies().getCurrency();
+		}
 	}
 		
 	public Currency getCurrency(String id) {
@@ -572,14 +649,27 @@ public class XeroClient {
 	
 	//EMPLOYEES
 	public List<Employee> getEmployees() {
-	    return get("Employee").getEmployees().getEmployee();
+	    Response responseObj = get("Employees");
+		if (responseObj.getEmployees() == null) {
+			ArrayOfEmployee array = new ArrayOfEmployee();
+			return array.getEmployee();
+		} else {
+			return responseObj.getEmployees().getEmployee();
+		}
 	}
 	
 	public List<Employee> getEmployees(Date modifiedAfter, String where, String order) {
 	    Map<String, String> params = new HashMap<>();
 	    addToMapIfNotNull(params, "Where", where);
 	    addToMapIfNotNull(params, "order", order);
-	    return get("Employees", modifiedAfter, params).getEmployees().getEmployee();
+	    
+	    Response responseObj = get("Employees", modifiedAfter, params);
+		if (responseObj.getEmployees() == null) {
+			ArrayOfEmployee array = new ArrayOfEmployee();
+			return array.getEmployee();
+		} else {
+			return responseObj.getEmployees().getEmployee();
+		}
 	}
 	
 	public List<Employee> createEmployees(List<Employee> objects) {
@@ -598,17 +688,29 @@ public class XeroClient {
 	    return singleResult(get("Employees/" + id).getEmployees().getEmployee());
 	}
 	
-	
 	//EXPENSE CLAIMS
 	public List<ExpenseClaim> getExpenseClaims() {
-	    return get("ExpenseClaim").getExpenseClaims().getExpenseClaim();
+	    Response responseObj = get("ExpenseClaims");
+		if (responseObj.getExpenseClaims() == null) {
+			ArrayOfExpenseClaim array = new ArrayOfExpenseClaim();
+			return array.getExpenseClaim();
+		} else {
+			return responseObj.getExpenseClaims().getExpenseClaim();
+		}
 	}
 	
 	public List<ExpenseClaim> getExpenseClaims(Date modifiedAfter, String where, String order) {
 	    Map<String, String> params = new HashMap<>();
 	    addToMapIfNotNull(params, "Where", where);
 	    addToMapIfNotNull(params, "order", order);
-	    return get("ExpenseClaims", modifiedAfter, params).getExpenseClaims().getExpenseClaim();
+	    
+	    Response responseObj = get("ExpenseClaims", modifiedAfter, params);
+		if (responseObj.getExpenseClaims() == null) {
+			ArrayOfExpenseClaim array = new ArrayOfExpenseClaim();
+			return array.getExpenseClaim();
+		} else {
+			return responseObj.getExpenseClaims().getExpenseClaim();
+		}
 	}
 	
 	public List<ExpenseClaim> createExpenseClaims(List<ExpenseClaim> objects) {
@@ -629,14 +731,27 @@ public class XeroClient {
 	
 	//INVOICES
 	public List<Invoice> getInvoices() {
-	    return get("Invoice").getInvoices().getInvoice();
+	    Response responseObj = get("Invoices");
+		if (responseObj.getInvoices() == null) {
+			ArrayOfInvoice array = new ArrayOfInvoice();
+			return array.getInvoice();
+		} else {
+			return responseObj.getInvoices().getInvoice();
+		}
 	}
 	
 	public List<Invoice> getInvoices(Date modifiedAfter, String where, String order) {
 	    Map<String, String> params = new HashMap<>();
 	    addToMapIfNotNull(params, "Where", where);
 	    addToMapIfNotNull(params, "order", order);
-	    return get("Invoices", modifiedAfter, params).getInvoices().getInvoice();
+	    
+	    Response responseObj = get("Invoices", modifiedAfter, params);
+ 		if (responseObj.getInvoices() == null) {
+ 			ArrayOfInvoice array = new ArrayOfInvoice();
+ 			return array.getInvoice();
+ 		} else {
+ 			return responseObj.getInvoices().getInvoice();
+ 		}
 	}
 	
 	public List<Invoice> createInvoices(List<Invoice> invoices) {
@@ -657,19 +772,38 @@ public class XeroClient {
 	
 	// INVOICE REMINDER 
 	public List<InvoiceReminder> getInvoiceReminders() {
-	    return get("InvoiceReminders/Settings").getInvoiceReminders().getInvoiceReminder();
+	    Response responseObj = get("InvoiceReminders/Settings");
+		if (responseObj.getInvoiceReminders() == null) {
+			ArrayOfInvoiceReminder array = new ArrayOfInvoiceReminder();
+			return array.getInvoiceReminder();
+		} else {
+			return responseObj.getInvoiceReminders().getInvoiceReminder();
+		}
 	}
 	
 	//ITEMS 
 	public List<Item> getItems() {
-	    return get("Items").getItems().getItem();
+	    Response responseObj = get("Items");
+		if (responseObj.getItems() == null) {
+			ArrayOfItem array = new ArrayOfItem();
+			return array.getItem();
+		} else {
+			return responseObj.getItems().getItem();
+		}
 	}
 	
 	public List<Item> getItems(Date modifiedAfter, String where, String order) {
 	    Map<String, String> params = new HashMap<>();
 	    addToMapIfNotNull(params, "Where", where);
 	    addToMapIfNotNull(params, "order", order);
-	    return get("Items", modifiedAfter, params).getItems().getItem();
+
+	    Response responseObj = get("Items", modifiedAfter, params);
+  		if (responseObj.getItems() == null) {
+  			ArrayOfItem array = new ArrayOfItem();
+  			return array.getItem();
+  		} else {
+  			return responseObj.getItems().getItem();
+  		}
 	}
 	
 	public List<Item> createItems(List<Item> objects) {
@@ -694,14 +828,27 @@ public class XeroClient {
 	
 	// JOURNALS
 	public List<Journal> getJournals() {
-	    return get("Journals").getJournals().getJournal();
+	    Response responseObj = get("Journals");
+		if (responseObj.getJournals() == null) {
+			ArrayOfJournal array = new ArrayOfJournal();
+			return array.getJournal();
+		} else {
+			return responseObj.getJournals().getJournal();
+		}
 	}
 	
 	public List<Journal> getJournals(Date modifiedAfter, String where, String order) {
 	    Map<String, String> params = new HashMap<>();
 	    addToMapIfNotNull(params, "Where", where);
 	    addToMapIfNotNull(params, "order", order);
-	    return get("Journals", modifiedAfter, params).getJournals().getJournal();
+	    
+	    Response responseObj = get("Journals", modifiedAfter, params);
+		if (responseObj.getJournals() == null) {
+			ArrayOfJournal array = new ArrayOfJournal();
+			return array.getJournal();
+		} else {
+			return responseObj.getJournals().getJournal();
+		}
 	}
 		
 	public Journal getJournal(String id) {
@@ -710,14 +857,27 @@ public class XeroClient {
 	
 	//LINKED TRANSACTIONS 
 	public List<LinkedTransaction> getLinkedTransactions() {
-	    return get("LinkedTransactions").getLinkedTransactions().getLinkedTransaction();
+	    Response responseObj = get("LinkedTransactions");
+		if (responseObj.getLinkedTransactions() == null) {
+			ArrayOfLinkedTransaction array = new ArrayOfLinkedTransaction();
+			return array.getLinkedTransaction();
+		} else {
+			return responseObj.getLinkedTransactions().getLinkedTransaction();
+		}
 	}
 	
 	public List<LinkedTransaction> getLinkedTransactions(Date modifiedAfter, String where, String order) {
 	    Map<String, String> params = new HashMap<>();
 	    addToMapIfNotNull(params, "Where", where);
 	    addToMapIfNotNull(params, "order", order);
-	    return get("LinkedTransactions", modifiedAfter, params).getLinkedTransactions().getLinkedTransaction();
+
+	    Response responseObj = get("LinkedTransactions", modifiedAfter, params);
+		if (responseObj.getLinkedTransactions() == null) {
+			ArrayOfLinkedTransaction array = new ArrayOfLinkedTransaction();
+			return array.getLinkedTransaction();
+		} else {
+			return responseObj.getLinkedTransactions().getLinkedTransaction();
+		}
 	}
 	
 	public List<LinkedTransaction> createLinkedTransactions(List<LinkedTransaction> objects) {
@@ -788,14 +948,27 @@ public class XeroClient {
 	
 	//OVERPAYMENTS
 	public List<Overpayment> getOverpayments() {
-	    return get("Overpayment").getOverpayments().getOverpayment();
+	    Response responseObj = get("Overpayments");
+		if (responseObj.getOverpayments() == null) {
+			ArrayOfOverpayment array = new ArrayOfOverpayment();
+			return array.getOverpayment();
+		} else {
+			return responseObj.getOverpayments().getOverpayment();
+		}
 	}
 	
 	public List<Overpayment> getOverpayments(Date modifiedAfter, String where, String order) {
 	    Map<String, String> params = new HashMap<>();
 	    addToMapIfNotNull(params, "Where", where);
 	    addToMapIfNotNull(params, "order", order);
-	    return get("Overpayments", modifiedAfter, params).getOverpayments().getOverpayment();
+
+	    Response responseObj = get("Overpayments", modifiedAfter, params);
+  		if (responseObj.getOverpayments() == null) {
+  			ArrayOfOverpayment array = new ArrayOfOverpayment();
+  			return array.getOverpayment();
+  		} else {
+  			return responseObj.getOverpayments().getOverpayment();
+  		}
 	}
 	
 	public List<Allocation> createOverpaymentAllocations(List<Allocation> objects,String id) {
@@ -810,14 +983,27 @@ public class XeroClient {
 	
 	//PAYMENTS 
 	public List<Payment> getPayments() {
-	    return get("Payments").getPayments().getPayment();
+	    Response responseObj = get("Payments");
+		if (responseObj.getPayments() == null) {
+			ArrayOfPayment array = new ArrayOfPayment();
+			return array.getPayment();
+		} else {
+			return responseObj.getPayments().getPayment();
+		}
 	}
 	
 	public List<Payment> getPayments(Date modifiedAfter, String where, String order) {
 	    Map<String, String> params = new HashMap<>();
 	    addToMapIfNotNull(params, "Where", where);
 	    addToMapIfNotNull(params, "order", order);
-	    return get("Payments", modifiedAfter, params).getPayments().getPayment();
+
+	    Response responseObj = get("Payments", modifiedAfter, params);
+		if (responseObj.getPayments() == null) {
+			ArrayOfPayment array = new ArrayOfPayment();
+			return array.getPayment();
+		} else {
+			return responseObj.getPayments().getPayment();
+		}
 	}
 	
 	public List<Payment> createPayments(List<Payment> objects) {
@@ -838,14 +1024,27 @@ public class XeroClient {
 	
 	//PREPAYMENTS
 	public List<Prepayment> getPrepayments() {
-	    return get("Prepayment").getPrepayments().getPrepayment();
+	    Response responseObj = get("Prepayments");
+		if (responseObj.getPrepayments() == null) {
+			ArrayOfPrepayment array = new ArrayOfPrepayment();
+			return array.getPrepayment();
+		} else {
+			return responseObj.getPrepayments().getPrepayment();
+		}
 	}
 	
 	public List<Prepayment> getPrepayments(Date modifiedAfter, String where, String order) {
 	    Map<String, String> params = new HashMap<>();
 	    addToMapIfNotNull(params, "Where", where);
 	    addToMapIfNotNull(params, "order", order);
-	    return get("Prepayments", modifiedAfter, params).getPrepayments().getPrepayment();
+	    
+	    Response responseObj = get("Prepayments", modifiedAfter, params);
+ 		if (responseObj.getPrepayments() == null) {
+ 			ArrayOfPrepayment array = new ArrayOfPrepayment();
+ 			return array.getPrepayment();
+ 		} else {
+ 			return responseObj.getPrepayments().getPrepayment();
+ 		}
 	}
 	
 	public List<Allocation> createPrepaymentAllocations(List<Allocation> objects,String id) {
@@ -860,14 +1059,27 @@ public class XeroClient {
 	
 	//PURCHASE ORDERS 
 	public List<PurchaseOrder> getPurchaseOrders() {
-	    return get("PurchaseOrders").getPurchaseOrders().getPurchaseOrder();
+	    Response responseObj = get("PurchaseOrders");
+		if (responseObj.getPurchaseOrders() == null) {
+			ArrayOfPurchaseOrder array = new ArrayOfPurchaseOrder();
+			return array.getPurchaseOrder();
+		} else {
+			return responseObj.getPurchaseOrders().getPurchaseOrder();
+		}
 	}
 	
 	public List<PurchaseOrder> getPurchaseOrders(Date modifiedAfter, String where, String order) {
 	    Map<String, String> params = new HashMap<>();
 	    addToMapIfNotNull(params, "Where", where);
 	    addToMapIfNotNull(params, "order", order);
-	    return get("PurchaseOrders", modifiedAfter, params).getPurchaseOrders().getPurchaseOrder();
+
+	    Response responseObj = get("PurchaseOrders", modifiedAfter, params);
+ 		if (responseObj.getPurchaseOrders() == null) {
+ 			ArrayOfPurchaseOrder array = new ArrayOfPurchaseOrder();
+ 			return array.getPurchaseOrder();
+ 		} else {
+ 			return responseObj.getPurchaseOrders().getPurchaseOrder();
+ 		}
 	}
 	
 	public List<PurchaseOrder> createPurchaseOrders(List<PurchaseOrder> objects) {
@@ -888,14 +1100,27 @@ public class XeroClient {
 	
 	//RECEIPTS
 	public List<Receipt> getReceipts() {
-	    return get("Receipt").getReceipts().getReceipt();
+	    Response responseObj = get("Receipts");
+		if (responseObj.getReceipts() == null) {
+			ArrayOfReceipt array = new ArrayOfReceipt();
+			return array.getReceipt();
+		} else {
+			return responseObj.getReceipts().getReceipt();
+		}
 	}
 	
 	public List<Receipt> getReceipts(Date modifiedAfter, String where, String order) {
 	    Map<String, String> params = new HashMap<>();
 	    addToMapIfNotNull(params, "Where", where);
 	    addToMapIfNotNull(params, "order", order);
-	    return get("Receipts", modifiedAfter, params).getReceipts().getReceipt();
+
+	    Response responseObj = get("Receipts", modifiedAfter, params);
+		if (responseObj.getReceipts() == null) {
+			ArrayOfReceipt array = new ArrayOfReceipt();
+			return array.getReceipt();
+		} else {
+			return responseObj.getReceipts().getReceipt();
+		}
 	}
 	
 	public List<Receipt> createReceipts(List<Receipt> objects) {
@@ -930,7 +1155,14 @@ public class XeroClient {
 	    Map<String, String> params = new HashMap<>();
 	    addToMapIfNotNull(params, "Where", where);
 	    addToMapIfNotNull(params, "order", order);
-	    return get("RepeatingInvoices", modifiedAfter, params).getRepeatingInvoices().getRepeatingInvoice();
+
+	    Response responseObj = get("RepeatingInvoices", modifiedAfter, params);
+		if (responseObj.getRepeatingInvoices() == null) {
+			ArrayOfRepeatingInvoice array = new ArrayOfRepeatingInvoice();
+			return array.getRepeatingInvoice();
+		} else {
+			return responseObj.getRepeatingInvoices().getRepeatingInvoice();
+		}
 	}
 		
 	public RepeatingInvoice getRepeatingInvoice(String id) {
@@ -947,14 +1179,27 @@ public class XeroClient {
 	
 	//TAX RATES 
 	public List<TaxRate> getTaxRates() {
-	    return get("TaxRates").getTaxRates().getTaxRate();
+	    Response responseObj = get("TaxRates");
+		if (responseObj.getTaxRates() == null) {
+			ArrayOfTaxRate array = new ArrayOfTaxRate();
+			return array.getTaxRate();
+		} else {
+			return responseObj.getTaxRates().getTaxRate();
+		}
 	}
 	
 	public List<TaxRate> getTaxRates(Date modifiedAfter, String where, String order) {
 	    Map<String, String> params = new HashMap<>();
 	    addToMapIfNotNull(params, "Where", where);
 	    addToMapIfNotNull(params, "order", order);
-	    return get("TaxRates", modifiedAfter, params).getTaxRates().getTaxRate();
+
+	    Response responseObj = get("TaxRates", modifiedAfter, params);
+ 		if (responseObj.getTaxRates() == null) {
+ 			ArrayOfTaxRate array = new ArrayOfTaxRate();
+ 			return array.getTaxRate();
+ 		} else {
+ 			return responseObj.getTaxRates().getTaxRate();
+ 		}
 	}
 	
 	public List<TaxRate> createTaxRates(List<TaxRate> objects) {
@@ -975,14 +1220,27 @@ public class XeroClient {
 	
 	//TRACKING CATEGORIES 
 	public List<TrackingCategory> getTrackingCategories() {
-	    return get("TrackingCategories").getTrackingCategories().getTrackingCategory();
+	    Response responseObj = get("TrackingCategories");
+		if (responseObj.getTrackingCategories() == null) {
+			ArrayOfTrackingCategory array = new ArrayOfTrackingCategory();
+			return array.getTrackingCategory();
+		} else {
+			return responseObj.getTrackingCategories().getTrackingCategory();
+		}
 	}
 	
 	public List<TrackingCategory> getTrackingCategories(Date modifiedAfter, String where, String order) {
 	    Map<String, String> params = new HashMap<>();
 	    addToMapIfNotNull(params, "Where", where);
 	    addToMapIfNotNull(params, "order", order);
-	    return get("TrackingCategories", modifiedAfter, params).getTrackingCategories().getTrackingCategory();
+
+	    Response responseObj = get("TrackingCategories", modifiedAfter, params);
+		if (responseObj.getTrackingCategories() == null) {
+			ArrayOfTrackingCategory array = new ArrayOfTrackingCategory();
+			return array.getTrackingCategory();
+		} else {
+			return responseObj.getTrackingCategories().getTrackingCategory();
+		}
 	}
 	
 	public List<TrackingCategory> createTrackingCategories(List<TrackingCategory> objects) {
@@ -1014,7 +1272,6 @@ public class XeroClient {
 	
 	// USERS
 	public List<User> getUsers() {
-		
 		Response responseObj = get("Users");
 		if (responseObj.getUsers() == null) {
 			ArrayOfUser array = new ArrayOfUser();
