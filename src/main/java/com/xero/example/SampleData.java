@@ -59,21 +59,22 @@ public class SampleData {
 		BankTransfer bt = new BankTransfer();
 		
 		List<Account> accountWhere = client.getAccounts(null,"Type==\"BANK\"",null);
-				
-		BankAccount fromAccount = new BankAccount();
-		fromAccount.setAccountID(accountWhere.get(0).getAccountID());
-
-		BankAccount toAccount = new BankAccount();
-		toAccount.setAccountID(accountWhere.get(1).getAccountID());
 		
-		bt.setAmount(new BigDecimal(20.00));
-		bt.setDate(loadDate());
-		bt.setFromBankAccount(fromAccount);
-		bt.setToBankAccount(toAccount);
-		bt.setCurrencyRate(new BigDecimal(1.000000));
-		
-		array.getBankTransfer().add(bt);
+		if(accountWhere.size() > 2) {
+			BankAccount fromAccount = new BankAccount();
+			fromAccount.setAccountID(accountWhere.get(0).getAccountID());
 	
+			BankAccount toAccount = new BankAccount();
+			toAccount.setAccountID(accountWhere.get(1).getAccountID());
+			
+			bt.setAmount(new BigDecimal(20.00));
+			bt.setDate(loadDate());
+			bt.setFromBankAccount(fromAccount);
+			bt.setToBankAccount(toAccount);
+			bt.setCurrencyRate(new BigDecimal(1.000000));
+			
+			array.getBankTransfer().add(bt);
+		}
 		return array;
 	}
 	

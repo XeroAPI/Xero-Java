@@ -159,19 +159,30 @@ public class RequestResource extends HttpServlet
 			/* BANK TRANSFER */
 			List<Account> accountWhere = client.getAccounts(null,"Type==\"BANK\"",null);
 			if(accountWhere.size() > 0) {
-		
-				List<BankTransfer> newBankTransfer = client.createBankTransfers(SampleData.loadBankTransfer().getBankTransfer());
-				messages.add("Create a new Bank Transfer - ID : " +newBankTransfer.get(0).getBankTransferID());
+				
+				List<BankTransfer> bts = SampleData.loadBankTransfer().getBankTransfer();
+				if (bts.size() > 0) {
+					List<BankTransfer> newBankTransfer = client.createBankTransfers(SampleData.loadBankTransfer().getBankTransfer());
+					messages.add("Create a new Bank Transfer - ID : " +newBankTransfer.get(0).getBankTransferID());
+				} else {
+					messages.add("Can not create a new Bank Transfer without 2 Bank Accounts"); 
+				}
 				
 				List<BankTransfer> BankTransferWhere = client.getBankTransfers(null,"Amount>Decimal(1.00)",null);
-				messages.add("Get a BankTransfer with WHERE clause - ID : " + BankTransferWhere.get(0).getBankTransferID());
+				if(BankTransferWhere.size() > 0) {
+					messages.add("Get a BankTransfer with WHERE clause - ID : " + BankTransferWhere.get(0).getBankTransferID());
+				}
 				
 				List<BankTransfer> BankTransferList = client.getBankTransfers();
-				int num3 = SampleData.findRandomNum(BankTransferList.size());
-				messages.add("Get a random BankTransfer - ID : " + BankTransferList.get(num3).getBankTransferID());
-			
-				BankTransfer BankTransferOne = client.getBankTransfer(BankTransferList.get(num3).getBankTransferID());
-				messages.add("Get a single BankTransfer - ID : " + BankTransferOne.getBankTransferID());
+				if(BankTransferList.size() > 0) {
+					int num3 = SampleData.findRandomNum(BankTransferList.size());
+					messages.add("Get a random BankTransfer - ID : " + BankTransferList.get(num3).getBankTransferID());
+				
+					BankTransfer BankTransferOne = client.getBankTransfer(BankTransferList.get(num3).getBankTransferID());
+					messages.add("Get a single BankTransfer - ID : " + BankTransferOne.getBankTransferID());
+				} else {
+					messages.add("No Bank Transfers Found ");
+				}
 			} else {
 				messages.add("Please create a Bank Acccount before using the BankTransfer Endpoint");
 			}
@@ -606,21 +617,19 @@ public class RequestResource extends HttpServlet
 		} else if (object.equals("Users")) {
 
 			/* USER */
-			messages.add("Get a User with WHERE clause");
 			List<User> UserWhere = client.getUsers(null,"IsSubscriber==true",null);
 			if(UserWhere.size() > 0)  {
-				System.out.println(UserWhere.get(0).getEmailAddress());
+				messages.add("Get a User with WHERE clause - Email: " + UserWhere.get(0).getEmailAddress());
 			} else {
 				messages.add("No User with IsSubscriber True found - must be Demo Company");
 			}
-			messages.add("Get a random User");
+			
 			List<User> UserList = client.getUsers();
 			int num = SampleData.findRandomNum(UserList.size());
-			System.out.println(UserList.get(num).getEmailAddress());
+			messages.add("Get a random User - Email: " + UserList.get(num).getEmailAddress());
 		
-			messages.add("Get a single User");
 			User UserOne = client.getUser(UserList.get(num).getUserID());
-			System.out.println(UserOne.getEmailAddress());
+			messages.add("Get a single User - Email: " + UserOne.getEmailAddress());
 		}
 		
 		for (int i = 0; i < messages.size(); i++) {
