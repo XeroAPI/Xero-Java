@@ -5,7 +5,7 @@
 	<artifactId>Xero-Java-Example</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Xero-Java-Example Maven Webapp</name>
+	<name>Xero-Java Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
 		<dependency>
@@ -30,4 +30,26 @@
 			<version>1.1.1</version>
 		</dependency>
 	</dependencies>
+	<build>
+		<finalName>Xero-Java-SDK</finalName>
+		<plugins>
+			<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-compiler-plugin</artifactId>
+			    <version>3.1</version>
+			    <configuration>
+			        <source>1.7</source>
+			        <target>1.7</target>
+			    </configuration>
+			</plugin>
+            <plugin>
+		        <groupId>com.heroku.sdk</groupId>
+			        <artifactId>heroku-maven-plugin</artifactId>
+			        <version>1.0.3</version>
+			        <configuration>
+			  			<appName>tranquil-falls-53784</appName> 
+			        </configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
