@@ -114,6 +114,11 @@ The pom.xml file contains two library dependencies.
 </dependency>
 ```
 
+##Acknowledgement
+
+Special thanks to [Connectifier](https://github.com/connectifier) and [Ben Mccann](https://github.com/benmccann).  Marshalling and Unmarshalling in XeroClient was derived and extended from [Xero-Java-Client](https://github.com/connectifier/xero-java-client)
+  
+
 ##License
 
 This software is published under the [MIT License](http://en.wikipedia.org/wiki/MIT_License).
