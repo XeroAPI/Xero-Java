@@ -56,11 +56,15 @@ Below are the possible attributes for each App Type.
 ### Xero Model
 We've included a complete set of classes in `com.xero.model`.  These are generated from the  [Xero Schema XSDs](https://github.com/XeroAPI/XeroAPI-Schemas).  You can always download and generate updated classes in the future to replace the ones included in this project.
 
+### TokenStorage
+You'll want to extend this class to implement your own token storage mechanism.  The TokenStorage class currently uses a cookies to save access tokens and is for demonstration purposes only. 
+
 ### Xero Client 
 We've included the XeroClient with methods to perform each action supported by endpoints.  Once you instantiate XeroClient, you can begin using classes from the model directory to create, read, update and delete data through Xero's API.
 
 ```java
-XeroClient client = new XeroClient(request, response);
+TokenStorage storage = new TokenStorage();
+XeroClient client = new XeroClient(request, response, storage);
 		
 /* CREATE ACCOUNT */
 ArrayOfAccount accountArray = new ArrayOfAccount();
