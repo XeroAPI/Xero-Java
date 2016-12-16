@@ -186,12 +186,14 @@ public class Config {
 				String accessPath = (String) jsonObject.get("AccessTokenPath");
 				ACCESS_TOKEN_URL = API_BASE_URL + accessPath;
 			}
+			
+			if (jsonObject.containsKey("AuthenticateUrl")) 
+			{
+				String authenticatePath = (String) jsonObject.get("AuthenticateUrl");
+				AUTHENTICATE_URL = API_BASE_URL + authenticatePath;
+			}
 		}
 		
-		if (jsonObject.containsKey("AuthenticateUrl")) 
-		{
-			AUTHENTICATE_URL = (String) jsonObject.get("AuthenticateUrl");
-		}
 		
 		if (jsonObject.containsKey("CallbackBaseUrl")) 
 		{
@@ -203,6 +205,7 @@ public class Config {
 			}
 		}
 		
+		/*  DEPRECATED ENTRUST CERTIFICATES
 		if (jsonObject.containsKey("EntrustCert")) 
 		{
 			String entrustCert = (String) jsonObject.get("EntrustCert");
@@ -210,6 +213,7 @@ public class Config {
 			PATH_TO_ENTRUST_SSL_CERT = entrustPath.getPath();	
 			ENTRUST_SSL_PASSWORD = (String) jsonObject.get("EntrustCertPassword");
 		}
+		*/
 		
 		if (jsonObject.containsKey("PrivateKeyCert")) 
 		{
