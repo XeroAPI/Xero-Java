@@ -7,7 +7,7 @@
 	"ApiBaseUrl" : "https://api.xero.com",
 	"ApiEndpointPath" : "/api.xro/2.0/",
 	"RequestTokenPath": "/oauth/RequestToken",
-	"AuthenticateUrl" : "https://api.xero.com/oauth/Authorize",
+	"AuthenticateUrl" : "/oauth/Authorize",
 	"AccessTokenPath"  : "/oauth/AccessToken",
 	"CallbackBaseUrl" : "https://localhost",
 	"CallbackPath" : "/CallbackServlet"

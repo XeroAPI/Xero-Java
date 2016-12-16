@@ -1,8 +1,21 @@
 # Xero-Java
-This is the official Java SDK for the Xero API. Currently, supports Accounting API. All third party libraries dependencies managed with Maven
+This is the Xero Java SDK for the Xero API. Currently, supports Accounting API. All third party libraries dependencies managed with Maven
 
 ### Xero App
 You'll need to decide which type of Xero app you'll be building (Public, Private or Partner). Go to [http://app.xero.com](http://app.xero.com) and login with your Xero user account and create an app.
+
+### Setup/Install
+We haven't created a maven repository for this library yet, but it's coming soon.  In the meantime, you have everything you need to get up and running in this repo. 
+
+1. Add the com.xero.api and com.xero.model into your src/main/java dir (we are assuming this is included in your build path)
+2. Add the certs folder and config.json file into your src/main/resources dir (you'll need to add your keys and other values in config.json - see below)
+3. Add the dependencies from the pom.xml file to your project's pom file.
+
+Optional - Sample App 
+
+1. Add our com.xero.example dir to src/main/java
+2. Add webapp folder to src/main dir ... inside is your index.jsp, callback.jsp and web.xml settings to handle servlets
+
 
 ### config.json 
 Located in src/main/resources is the config.json file.  There are examples for public, private and partner - but the Config.java will look in this folder at the config.json file in order to initialize your Java code. 
@@ -15,19 +28,17 @@ Here is an example of config.json for a Partner App.
 	"UserAgent" : "Xero-Java",
 	"Accept" : "application/xml", 
 	"SignatureMethod" : "RSA-SHA1",
-	"ConsumerKey" : "Z7DLBXSOMSQI9GMUHZB8RY6ZXHTTYC",
-	"ConsumerSecret" : "71K7QL8TKH7CKDVE6TLY02CTQOX36S",
-	"ApiBaseUrl" : "https://api-partner.network.xero.com",
+	"ConsumerKey" : "Z7DLBXXXXXXXXXXXXXXXZXHTTYC",
+	"ConsumerSecret" : "71K7QLXXXXXXXXXXXXXXXQOX36S",
+	"ApiBaseUrl" : "https://api.xero.com",
 	"ApiEndpointPath" : "/api.xro/2.0/",
 	"RequestTokenPath": "/oauth/RequestToken",
-	"AuthenticateUrl" : "https://api.xero.com/oauth/Authorize",
+	"AuthenticateUrl" : "/oauth/Authorize",
 	"AccessTokenPath"  : "/oauth/AccessToken",
-	"CallbackBaseUrl" : "https://tranquil-falls-53784.herokuapp.com",
+	"CallbackBaseUrl" : "https://localhost:8080/MyApp",
 	"CallbackPath" : "/CallbackServlet",
 	"PrivateKeyCert" :  "certs/public_privatekey.pfx",
-	"PrivateKeyPassword" :  "1234",
-	"EntrustCert" : "certs/xero-entrust-20170513.p12",
-	"EntrustCertPassword" : "123456"
+	"PrivateKeyPassword" :  "1234"
 }
 ```
 
@@ -40,17 +51,15 @@ Below are the possible attributes for each App Type.
 | ALL					| Accept                |  format of data returned from API     | application/xml or application/json
 | ALL		    		| ConsumerKey           |  for oAuth Signature                  | App Key created at app.xero.com
 | ALL					| ConsumerSecret        |  for oAuth Signature       			| App Secret created at app.xero.com
-| ALL					| ApiBaseUrl            |  base URL for API calls               | https://api.xero.com or https://api-partner.network.xero.com
+| ALL					| ApiBaseUrl            |  base URL for API calls               | https://api.xero.com
 | ALL					| ApiEndpointPath       |  path for API Calls                   | /api.xro/2.0/
 | Public or Partner		| RequestTokenPath      |  path for Request Token               | /oauth/RequestToken
 | Public or Partner 	| AuthenticateUrl       |  path for redirect to authorize       | /oauth/RequestToken
-| Public or Partner 	| AccessTokenPath       |  path for Access Token                | https://api.xero.com/oauth/Authorize
+| Public or Partner 	| AccessTokenPath       |  path for Access Token                | /oauth/Authorize
 | Public or Partner 	| CallbackBaseUrl       |  base URL for Callback url            | unique string
 | Public or Partner 	| CallbackPath          |  path for Callback url                | unique string
 | Private or Partner	| PrivateKeyCert        |  path to [Private Key Certificate](https://developer.xero.com/documentation/advanced-docs/public-private-keypair/)      | unique string
 | Private or Partner	| PrivateKeyPassword    |  password for Private key             | unique string
-| Partner				| EntrustCert           |  path to [Entrust Certificate](https://developer.xero.com/documentation/getting-started/partner-applications/#certificates)    | unique string
-| Partner				| EntrustCertPassword   |  password for Entrust certificate     | unique string
 
 
 ### Xero Model

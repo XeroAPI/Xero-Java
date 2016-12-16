@@ -35,12 +35,15 @@ public class OAuthRequestToken
 		tokenRequest.consumerKey = c.getConsumerKey();
 		tokenRequest.callback = c.getRedirectUri();
 
+		/* DEPRECATED ENTRUST CERTIFICATE
 		if(c.getAppType().equals("PARTNER"))
 		{
 			tokenRequest.transport = new PartnerHttpClient().getPartnerHttpClient();
 		}	else {
 			tokenRequest.transport = new ApacheHttpTransport();
 		}
+		*/
+		tokenRequest.transport = new ApacheHttpTransport();
 
 		tokenRequest.signer= signer;
 

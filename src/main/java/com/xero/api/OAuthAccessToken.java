@@ -49,12 +49,17 @@ public class OAuthAccessToken {
 		this.tempTokenSecret = tempTokenSecret;
 		
 		Url = new GenericUrl(c.getAccessTokenUrl());
+		
+		/*  DEPRECATED ENTRUST CERTIFICATES
 		if(c.getAppType().equals("PARTNER"))
 		{
 			transport = new PartnerHttpClient().getPartnerHttpClient();
 		}	else {
 			transport = new ApacheHttpTransport();
 		}
+		*/
+		
+		transport = new ApacheHttpTransport();
 		  
 		HttpRequestFactory requestFactory = transport.createRequestFactory();
 		request = requestFactory.buildRequest(HttpMethods.GET, Url,null);
@@ -72,6 +77,8 @@ public class OAuthAccessToken {
 	public OAuthAccessToken build() throws IOException
 	{
 		Url = new GenericUrl(c.getAccessTokenUrl());
+		
+		/*  DEPRECATED ENTRUST CERTIFICATES
 		if(c.getAppType().equals("PARTNER"))
 		{
 			transport = new PartnerHttpClient().getPartnerHttpClient();
@@ -80,6 +87,9 @@ public class OAuthAccessToken {
 		{
 			transport = new ApacheHttpTransport();
 		}
+		*/
+		
+		transport = new ApacheHttpTransport();
 		  
 		HttpRequestFactory requestFactory = transport.createRequestFactory();
 		request = requestFactory.buildRequest(HttpMethods.GET, Url,null);
