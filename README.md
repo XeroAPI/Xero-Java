@@ -53,13 +53,13 @@ Below are the possible attributes for each App Type.
 | ALL					| ConsumerSecret        |  for oAuth Signature       			| App Secret created at app.xero.com
 | ALL					| ApiBaseUrl            |  base URL for API calls               | https://api.xero.com
 | ALL					| ApiEndpointPath       |  path for API Calls                   | /api.xro/2.0/
-| Public or Partner		| RequestTokenPath      |  path for Request Token               | /oauth/RequestToken
-| Public or Partner 	| AuthenticateUrl       |  path for redirect to authorize       | /oauth/RequestToken
-| Public or Partner 	| AccessTokenPath       |  path for Access Token                | /oauth/Authorize
-| Public or Partner 	| CallbackBaseUrl       |  base URL for Callback url            | unique string
-| Public or Partner 	| CallbackPath          |  path for Callback url                | unique string
-| Private or Partner	| PrivateKeyCert        |  path to [Private Key Certificate](https://developer.xero.com/documentation/advanced-docs/public-private-keypair/)      | unique string
-| Private or Partner	| PrivateKeyPassword    |  password for Private key             | unique string
+| Public/Partner		| RequestTokenPath      |  path for Request Token               | /oauth/RequestToken
+| Public/Partner 	| AuthenticateUrl       |  path for redirect to authorize       | /oauth/RequestToken
+| Public/Partner 	| AccessTokenPath       |  path for Access Token                | /oauth/Authorize
+| Public/Partner 	| CallbackBaseUrl       |  base URL for Callback url            | unique string
+| Public/Partner 	| CallbackPath          |  path for Callback url                | unique string
+| Private/Partner	| PrivateKeyCert        |  path to [Private Key Certificate](https://developer.xero.com/documentation/advanced-docs/public-private-keypair/)      | unique string
+| Private/Partner	| PrivateKeyPassword    |  password for Private key             | unique string
 
 
 ### Xero Model
