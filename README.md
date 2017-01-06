@@ -30,9 +30,18 @@ Add this repository to your project POM.xml
 
 
 ### Configure
-Create a file called config.json and place it in the src/main/resources directory. Config.java will look in this folder for config.jsonin order to initialize your Xero keys and secrets. 
+This library depends on an external JSON file in order to configure values unique to your Application.   Our example App is built using Eclipse.  We start with a Maven Project and select the maven-archetype-webapp during the creation of the Project.   This creates a web application structure based on Servlet & JSPs.  By default a src/main/resources directory is added to your project.  **Place the config.json file you create in the resources directory* 
 
-Below are required attributes for the config.json for each Xero Application Type
+The Xero Java SDK - Config.java class parses the JSON file from the resources directory using the following bit of code.
+
+```java
+final ClassLoader loader = Config.class.getClassLoader();
+URL path = loader.getResource("config.json");
+File f = new File(path.getFile());
+```
+
+To create a config.json based on your Xero Application type see the examples below.   Refer to Xero Developer Center for information where to get your Consusmer Key, Secret and for Private and Partner apps generate a public/private key pair.
+
 
 **Public Application**
 ```javascript
@@ -69,15 +78,15 @@ Below are required attributes for the config.json for each Xero Application Type
 ```
 
 
-**Additional Optional Attributes**
+**Optionals Attributes**
 
-UserAgent: for debugging by Xero API team (unique string)
-Accept: format of data returned from API  (application/xml or application/json) *default is XML*
-ApiBaseUrl: base URL for API calls      *default is https://api.xero.com*
-ApiEndpointPath: path for API Calls      *default is /api.xro/2.0/*
-RequestTokenPath: path for Request Token      *default it /oauth/RequestToken*
-AuthenticateUrl: path for redirect to authorize      *default is /oauth/RequestToken*
-AccessTokenPath: path for Access Token         *default is https://api.xero.com/oauth/Authorize*
+* UserAgent: for debugging by Xero API team (unique string)
+* Accept: format of data returned from API  (application/xml or application/json) *default is XML*
+* ApiBaseUrl: base URL for API calls      *default is https://api.xero.com*
+* ApiEndpointPath: path for API Calls      *default is /api.xro/2.0/*
+* RequestTokenPath: path for Request Token      *default it /oauth/RequestToken*
+* AuthenticateUrl: path for redirect to authorize      *default is /oauth/RequestToken*
+* AccessTokenPath: path for Access Token         *default is https://api.xero.com/oauth/Authorize*
 
 
 ### Xero Model
