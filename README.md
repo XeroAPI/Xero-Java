@@ -12,7 +12,7 @@ Add this dependency to your project POM.xml
     <dependency>
 	  <groupId>com.xero</groupId>
 	  <artifactId>xero-java-sdk</artifactId>
-	  <version>0.0.1</version>
+	  <version>0.0.2</version>
 	</dependency>
 
 Add this repository to your project POM.xml
