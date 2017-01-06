@@ -1,56 +1,83 @@
 # Xero-Java
-This is the official Java SDK for the Xero API. Currently, supports Accounting API. All third party libraries dependencies managed with Maven
+This is the official Java SDK for the Xero API. Currently, only supports the Accounting API. Additional third party libraries dependencies managed with Maven
 
 ### Xero App
 You'll need to decide which type of Xero app you'll be building (Public, Private or Partner). Go to [http://app.xero.com](http://app.xero.com) and login with your Xero user account and create an app.
 
-### config.json 
-Located in src/main/resources is the config.json file.  There are examples for public, private and partner - but the Config.java will look in this folder at the config.json file in order to initialize your Java code. 
+### Downloading
+This library is available from a branch of this github repository at the moment.  
 
-Here is an example of config.json for a Partner App.
+Add this dependency to your project POM.xml
 
+    <dependency>
+	  <groupId>com.xero</groupId>
+	  <artifactId>xero-java-sdk</artifactId>
+	  <version>0.0.1</version>
+	</dependency>
+
+Add this repository to your project POM.xml
+
+    <repositories>
+      <repository>
+        <id>xero-java-mvn-repo</id>
+	    <url>https://raw.github.com/SidneyAllen/Xero-Java/mvn-repo/</url>
+	    <snapshots>
+	      <enabled>true</enabled>
+	      <updatePolicy>always</updatePolicy>
+	    </snapshots>
+      </repository>
+    </repositories>
+
+
+### Configure
+Create a file called config.json and place it in the src/main/resources directory. Config.java will look in this folder for config.jsonin order to initialize your Xero keys and secrets. 
+
+Below are required attributes for the config.json for each Xero Application Type
+
+**Public Application**
 ```javascript
 { 
-	"AppType" : "PARTNER",
-	"UserAgent" : "Xero-Java",
-	"Accept" : "application/xml", 
-	"SignatureMethod" : "RSA-SHA1",
-	"ConsumerKey" : "Z7DLBXSOMSQI9GMUHZB8RY6ZXHTTYC",
-	"ConsumerSecret" : "71K7QL8TKH7CKDVE6TLY02CTQOX36S",
-	"ApiBaseUrl" : "https://api-partner.network.xero.com",
-	"ApiEndpointPath" : "/api.xro/2.0/",
-	"RequestTokenPath": "/oauth/RequestToken",
-	"AuthenticateUrl" : "https://api.xero.com/oauth/Authorize",
-	"AccessTokenPath"  : "/oauth/AccessToken",
-	"CallbackBaseUrl" : "https://tranquil-falls-53784.herokuapp.com",
-	"CallbackPath" : "/CallbackServlet",
-	"PrivateKeyCert" :  "certs/public_privatekey.pfx",
-	"PrivateKeyPassword" :  "1234",
-	"EntrustCert" : "certs/xero-entrust-20170513.p12",
-	"EntrustCertPassword" : "123456"
+	"AppType" : "PUBLIC",
+	"ConsumerKey" : "WTCXXXXXXXXXXXXXXXXXXXXXXKG",
+	"ConsumerSecret" : "GJ2XXXXXXXXXXXXXXXXXXXXXXXXWZ",
+	"CallbackBaseUrl" : "http://localhost:8080/myapp",
+	"CallbackPath" : "/CallbackServlet"
 }
 ```
 
-Below are the possible attributes for each App Type. 
+**Private Application**
+```javascript
+{ 
+	"AppType" : "PRIVATE",
+	"ConsumerKey" : "CW1XXXXXXXXXXXXXXXXXXXXXXXXYG",
+	"ConsumerSecret" : "SRJXXXXXXXXXXXXXXXXXXXXXXXZEA6",
+	"PrivateKeyCert" :  "certs/public_privatekey.pfx",
+	"PrivateKeyPassword" :  "1234"
+}
+```
+**Partner Application**
+```javascript
+{ 
+	"AppType" : "PARTNER",
+	"ConsumerKey" : "FA6UXXXXXXXXXXXXXXXXXXXXXXRC7",
+	"ConsumerSecret" : "7FMXXXXXXXXXXXXXXXXXXXXXXXXXCSA",
+	"CallbackBaseUrl" : "http://localhost:8080/myapp",
+	"CallbackPath" : "/CallbackServlet",
+	"PrivateKeyCert" :  "certs/public_privatekey.pfx",
+	"PrivateKeyPassword" :  "1234"
+}
+```
 
-| App Type			    | Attribute             | Purpose                               | Valid Options 
-| --------------------- | --------------------- |---------------------------------------| -------------
-| ALL				    | AppType               |  Defines your app type                | PUBLIC or PRIVATE or PARTNER  
-| ALL					| UserAgent             |  for debugging by Xero API ssues      | unique string
-| ALL					| Accept                |  format of data returned from API     | application/xml or application/json
-| ALL		    		| ConsumerKey           |  for oAuth Signature                  | App Key created at app.xero.com
-| ALL					| ConsumerSecret        |  for oAuth Signature       			| App Secret created at app.xero.com
-| ALL					| ApiBaseUrl            |  base URL for API calls               | https://api.xero.com or https://api-partner.network.xero.com
-| ALL					| ApiEndpointPath       |  path for API Calls                   | /api.xro/2.0/
-| Public or Partner		| RequestTokenPath      |  path for Request Token               | /oauth/RequestToken
-| Public or Partner 	| AuthenticateUrl       |  path for redirect to authorize       | /oauth/RequestToken
-| Public or Partner 	| AccessTokenPath       |  path for Access Token                | https://api.xero.com/oauth/Authorize
-| Public or Partner 	| CallbackBaseUrl       |  base URL for Callback url            | unique string
-| Public or Partner 	| CallbackPath          |  path for Callback url                | unique string
-| Private or Partner	| PrivateKeyCert        |  path to [Private Key Certificate](https://developer.xero.com/documentation/advanced-docs/public-private-keypair/)      | unique string
-| Private or Partner	| PrivateKeyPassword    |  password for Private key             | unique string
-| Partner				| EntrustCert           |  path to [Entrust Certificate](https://developer.xero.com/documentation/getting-started/partner-applications/#certificates)    | unique string
-| Partner				| EntrustCertPassword   |  password for Entrust certificate     | unique string
+
+**Additional Optional Attributes**
+
+UserAgent: for debugging by Xero API team (unique string)
+Accept: format of data returned from API  (application/xml or application/json) *default is XML*
+ApiBaseUrl: base URL for API calls      *default is https://api.xero.com*
+ApiEndpointPath: path for API Calls      *default is /api.xro/2.0/*
+RequestTokenPath: path for Request Token      *default it /oauth/RequestToken*
+AuthenticateUrl: path for redirect to authorize      *default is /oauth/RequestToken*
+AccessTokenPath: path for Access Token         *default is https://api.xero.com/oauth/Authorize*
 
 
 ### Xero Model
@@ -97,22 +124,6 @@ System.out.printlin("How many invoices modified in last 24 hours?: " + InvoiceLi
 
 ```
 
-### Maven Dependencies 
-
-The pom.xml file contains two library dependencies.
-
-```xml
-<dependency>
-	<groupId>com.google.oauth-client</groupId>
-	<artifactId>google-oauth-client</artifactId>
-	<version>1.20.0</version>
-</dependency>
-<dependency>
-	<groupId>com.googlecode.json-simple</groupId>
-	<artifactId>json-simple</artifactId>
-	<version>1.1.1</version>
-</dependency>
-```
 
 ##License
 
