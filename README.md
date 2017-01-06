@@ -2,20 +2,20 @@
 This is the official Java SDK for the Xero API. Currently, only supports the Accounting API. Additional third party libraries dependencies managed with Maven
 
 ### Xero App
-You'll need to decide which type of Xero app you'll be building (Public, Private or Partner). Go to [http://app.xero.com](http://app.xero.com) and login with your Xero user account and create an app.
+You'll need to decide which type of Xero app you'll be building [Private](http://developer.xero.com/documentation/auth-and-limits/private-applications/), [Public](http://developer.xero.com/documentation/auth-and-limits/public-applications/), or [Partner](http://developer.xero.com/documentation/auth-and-limits/partner-applications/)). Go to [http://app.xero.com](http://app.xero.com) and login with your Xero user account to create an app.
 
 ### Downloading
 This library is available from a branch of this github repository at the moment.  
 
-Add this dependency to your project POM.xml
+Add this dependency to your POM.xml
 
     <dependency>
 	  <groupId>com.xero</groupId>
 	  <artifactId>xero-java-sdk</artifactId>
-	  <version>0.0.2</version>
+	  <version>0.0.3</version>
 	</dependency>
 
-Add this repository to your project POM.xml
+Also, you'll need to add this repository to your POM.xml
 
     <repositories>
       <repository>
@@ -30,7 +30,7 @@ Add this repository to your project POM.xml
 
 
 ### Configure
-This library depends on an external JSON file in order to configure values unique to your Application.   Our example App is built using Eclipse.  We start with a Maven Project and select the maven-archetype-webapp during the creation of the Project.   This creates a web application structure based on Servlet & JSPs.  By default a src/main/resources directory is added to your project.  **Place the config.json file you create in the resources directory* 
+This library depends on an external JSON file in order to configure values unique to your Application.   Our example App is built using Eclipse.  We start with a Maven Project and select the maven-archetype-webapp during the creation of the Project.   This creates a web application structure based on Servlet & JSPs.  By default a src/main/resources directory is added to your project.  **Place the config.json file you create in the resources directory**. 
 
 The Xero Java SDK - Config.java class parses the JSON file from the resources directory using the following bit of code.
 
@@ -40,7 +40,9 @@ URL path = loader.getResource("config.json");
 File f = new File(path.getFile());
 ```
 
-To create a config.json based on your Xero Application type see the examples below.   Refer to Xero Developer Center for information where to get your Consusmer Key, Secret and for Private and Partner apps generate a public/private key pair.
+
+### How to Create the config.json file
+In a standard editor, create a file called config.json (examples are below)  Refer to [Xero Developer Center](http://developer.xero.com) for [Gettig Started](http://developer.xero.com/documentation/getting-started/getting-started-guide/) when you create a Xero App you'll get your Consumer Key and Secret. Private and Partner apps require a [public/private key pair](http://developer.xero.com/documentation/api-guides/create-publicprivate-key/) you'll create using OpenSSL.
 
 
 **Public Application**
