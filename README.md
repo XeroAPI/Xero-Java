@@ -42,7 +42,7 @@ File f = new File(path.getFile());
 
 
 ### How to Create the config.json file
-In a standard editor, create a file called config.json (examples are below)  Refer to [Xero Developer Center](http://developer.xero.com) for [Gettig Started](http://developer.xero.com/documentation/getting-started/getting-started-guide/) when you create a Xero App you'll get your Consumer Key and Secret. Private and Partner apps require a [public/private key pair](http://developer.xero.com/documentation/api-guides/create-publicprivate-key/) you'll create using OpenSSL.
+In a text editor, create a file called config.json (examples are below)  Refer to Xero Developer Center [Getting Started](http://developer.xero.com/documentation/getting-started/getting-started-guide/) when you are ready to create a Xero App - this is how you'll create a Consumer Key and Secret. Private and Partner apps require a [public/private key pair](http://developer.xero.com/documentation/api-guides/create-publicprivate-key/) you'll create using OpenSSL.  The private key should be exported as a pfx file and in our example we create a "certs" folder inside the resources folder and place it there.
 
 
 **Public Application**
