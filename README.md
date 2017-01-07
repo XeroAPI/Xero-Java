@@ -2,7 +2,7 @@
 This is the official Java SDK for the Xero API. Currently, only supports the Accounting API. Additional third party libraries dependencies managed with Maven
 
 ### Xero App
-You'll need to decide which type of Xero app you'll be building [Private](http://developer.xero.com/documentation/auth-and-limits/private-applications/), [Public](http://developer.xero.com/documentation/auth-and-limits/public-applications/), or [Partner](http://developer.xero.com/documentation/auth-and-limits/partner-applications/)). Go to [http://app.xero.com](http://app.xero.com) and login with your Xero user account to create an app.
+You'll need to decide which type of Xero app you'll be building [Private](http://developer.xero.com/documentation/auth-and-limits/private-applications/), [Public](http://developer.xero.com/documentation/auth-and-limits/public-applications/), or [Partner](http://developer.xero.com/documentation/auth-and-limits/partner-applications/). Go to [http://app.xero.com](http://app.xero.com) and login with your Xero user account to create an app.
 
 ### Download Xero Java SDK
 This library is available from a branch of this github repository at the moment.  
@@ -52,7 +52,7 @@ You will also add this repository to your POM.xml
 
 
 ### Configure
-This library depends on an external JSON file in order to configure values unique to your Application.   Our example App is built using Eclipse.  We start with a Maven Project and select the maven-archetype-webapp during the creation of the Project.   This creates a web application structure based on Servlet & JSPs.  By default a src/main/resources directory is added to your project.  **Place the config.json file you create in the resources directory**. 
+The Xero Java SDK depends on an external JSON file to configure values unique to your Application.   The Example App include in this repository was built using Eclipse.  We started with a Maven Project and select the maven-archetype-webapp during the setup Wizard.   This created web application structure good for use with Servlet & JSPs.  By default a src/main/resources directory is added to the project.  **Place the config.json file you create in the resources directory**. 
 
 The Xero Java SDK - Config.java class parses the JSON file from the resources directory using the following bit of code.
 
@@ -112,8 +112,14 @@ In a text editor, create a file called config.json (examples are below)  Refer t
 * AuthenticateUrl: path for redirect to authorize      *default is /oauth/RequestToken*
 * AccessTokenPath: path for Access Token         *default is https://api.xero.com/oauth/Authorize*
 
-### Xero Client 
-We've included the XeroClient with methods to perform each action supported by endpoints.  Once you instantiate XeroClient, you can begin using classes from the model directory to create, read, update and delete data through Xero's API.
+### Example App 
+This repo includes an Example App mentioned above.  The file structure mirrors that of an Eclipse Maven Project with the maven-archetype-webapp
+
+* src/main/java contains the com.xero.example package and the servlets for handling oAuth and sample API calls
+* src/main/resource contains examples of config.json files
+* src/main/webapp contains index and callback JSP files along with web.xml mappings for Servlets
+
+com.xero.example.XeroClient has methods to perform each action supported by various endpoints.  Once you instantiate XeroClient, you can begin using schema classes to create, read, update and delete data through Xero's API.
 
 ```java
 XeroClient client = new XeroClient(request, response);
