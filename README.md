@@ -4,7 +4,7 @@ This is the official Java SDK for the Xero API. Currently, only supports the Acc
 ### Xero App
 You'll need to decide which type of Xero app you'll be building [Private](http://developer.xero.com/documentation/auth-and-limits/private-applications/), [Public](http://developer.xero.com/documentation/auth-and-limits/public-applications/), or [Partner](http://developer.xero.com/documentation/auth-and-limits/partner-applications/)). Go to [http://app.xero.com](http://app.xero.com) and login with your Xero user account to create an app.
 
-### Downloading
+### Download Xero Java SDK
 This library is available from a branch of this github repository at the moment.  
 
 Add this dependency to your POM.xml
@@ -15,7 +15,7 @@ Add this dependency to your POM.xml
 	  <version>0.0.3</version>
 	</dependency>
 
-Also, you'll need to add this repository to your POM.xml
+You will also add this repository to your POM.xml
 
     <repositories>
       <repository>
@@ -27,6 +27,28 @@ Also, you'll need to add this repository to your POM.xml
 	    </snapshots>
       </repository>
     </repositories>
+
+### Download Xero Schema
+You'll likely want to include Xero Schema for marshalling and unmarshalling XML data.  These model classes are generated from [Xero Schema XSDs](https://github.com/SidneyAllen/XeroAPI-Schemas).  You always have the option to download and generate classes yourself.  We've create a maven artifact for Xero Schema.
+
+Add this dependency to your POM.xml
+
+    <dependency>
+	  <groupId>com.xero</groupId>
+	  <artifactId>xero-accounting-api-schema</artifactId>
+	  <version>0.0.1</version>
+	</dependency>
+
+You will also add this repository to your POM.xml
+
+     <repository>
+      <id>xero-accounting-api-schema-mvn-repo</id>
+	  <url>https://raw.github.com/SidneyAllen/XeroAPI-Schemas/mvn-repo/</url>
+	  <snapshots>
+	    <enabled>true</enabled>
+	    <updatePolicy>always</updatePolicy>
+	  </snapshots>
+    </repository>
 
 
 ### Configure
@@ -89,10 +111,6 @@ In a text editor, create a file called config.json (examples are below)  Refer t
 * RequestTokenPath: path for Request Token      *default it /oauth/RequestToken*
 * AuthenticateUrl: path for redirect to authorize      *default is /oauth/RequestToken*
 * AccessTokenPath: path for Access Token         *default is https://api.xero.com/oauth/Authorize*
-
-
-### Xero Model
-We've included a complete set of classes in `com.xero.model`.  These are generated from the  [Xero Schema XSDs](https://github.com/XeroAPI/XeroAPI-Schemas).  You can always download and generate updated classes in the future to replace the ones included in this project.
 
 ### Xero Client 
 We've included the XeroClient with methods to perform each action supported by endpoints.  Once you instantiate XeroClient, you can begin using classes from the model directory to create, read, update and delete data through Xero's API.
