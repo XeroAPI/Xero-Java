@@ -4,7 +4,7 @@
 	<groupId>com.xero</groupId>
 	<artifactId>xero-java-sdk</artifactId>
 	<packaging>jar</packaging>
-	<version>0.0.4</version>
+	<version>0.0.5</version>
 	<name>Xero-Java SDK</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
@@ -23,8 +23,23 @@
 			<artifactId>json-simple</artifactId>
 			<version>1.1.1</version>
 		</dependency>
+		<dependency>
+		  <groupId>com.xero</groupId>
+		  <artifactId>xero-accounting-api-schema</artifactId>
+		  <version>0.0.1</version>
+		</dependency>
 	</dependencies>
 
+	<repositories>
+		<repository>
+          <id>xero-accounting-api-schema-mvn-repo</id>
+          <url>https://raw.github.com/SidneyAllen/XeroAPI-Schemas/mvn-repo/</url>
+          <snapshots>
+            <enabled>true</enabled>
+            <updatePolicy>always</updatePolicy>
+          </snapshots>
+        </repository>
+      </repositories>
 	<distributionManagement>
 	    <repository>
 	        <id>internal.repo</id>
@@ -82,7 +97,6 @@
 		              </execution>
 		          </executions>
 			</plugin>
-
 
 			<plugin>
 			    <groupId>org.apache.maven.plugins</groupId>

@@ -3,10 +3,10 @@
   <groupId>com.xero</groupId>
   <artifactId>xero-java-sdk</artifactId>
   <versioning>
-    <release>0.0.4</release>
+    <release>0.0.5</release>
     <versions>
-      <version>0.0.4</version>
+      <version>0.0.5</version>
     </versions>
-    <lastUpdated>20170107004156</lastUpdated>
+    <lastUpdated>20170107013311</lastUpdated>
   </versioning>
 </metadata>
