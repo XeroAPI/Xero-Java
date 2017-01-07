@@ -95,44 +95,43 @@ This repo includes an Example App mentioned above.  The file structure mirrors t
 
 
 **oAuth Flow**
-For Public & Partner Apps, you'll implement 3 legged oAuth - Private Apps can skip down to the Data Endpoints (you Consumer Key will act as your Access Token)
+
+For Public & Partner Apps, you'll implement 3 legged oAuth - Private Apps can skip down to the Data Endpoints (you Consumer Key will act as your permenent Access Token)
 
 ```java
-{ 
-	// Start by requesting a temporary token from Xero
-    OAuthRequestToken requestToken = new OAuthRequestToken();
-	requestToken.execute();
+// Start by requesting a temporary token from Xero
+OAuthRequestToken requestToken = new OAuthRequestToken();
+requestToken.execute();
 
-	// DEMONSTRATION ONLY - Store in Cookie - you can extend TokenStorage
-	// and implement the save() method for your database
-	TokenStorage storage = new TokenStorage();
-	storage.save(response,requestToken.getAll());
+// DEMONSTRATION ONLY - Store in Cookie - you can extend TokenStorage
+// and implement the save() method for your database
+TokenStorage storage = new TokenStorage();
+storage.save(response,requestToken.getAll());
 
-	//Build the Authorization URL and redirect User
-	OAuthAuthorizeToken authToken = new OAuthAuthorizeToken(requestToken.getTempToken());
-	response.sendRedirect(authToken.getAuthUrl());	
-}
+//Build the Authorization URL and redirect User
+OAuthAuthorizeToken authToken = new OAuthAuthorizeToken(requestToken.getTempToken());
+response.sendRedirect(authToken.getAuthUrl());	
 ```
 
 In your callback Servlet you'll read the query params and swap your temporary for your 30 min access token.
 
 ```java
-	// DEMONSTRATION ONLY - retrieve TempToken from Cookie
-	TokenStorage storage = new TokenStorage();
+// DEMONSTRATION ONLY - retrieve TempToken from Cookie
+TokenStorage storage = new TokenStorage();
 
-	// retrieve OAuth verifier code from callback URL param
-	String verifier = request.getParameter("oauth_verifier");
+// retrieve OAuth verifier code from callback URL param
+String verifier = request.getParameter("oauth_verifier");
 
-	// Swap your temp token for 30 oauth token
-	OAuthAccessToken accessToken = new OAuthAccessToken();
-	accessToken.build(verifier,storage.get(request,"tempToken"),storage.get(request,"tempTokenSecret")).execute();
+// Swap your temp token for 30 oauth token
+OAuthAccessToken accessToken = new OAuthAccessToken();
+accessToken.build(verifier,storage.get(request,"tempToken"),storage.get(request,"tempTokenSecret")).execute();
 
-	if(accessToken.isSuccess())
-	{
-		// DEMONSTRATION ONLY - Store in Cookie - you can extend TokenStorage
-		// and implement the save() method for your database
-		storage.save(response,accessToken.getAll());	
-	}		
+if(accessToken.isSuccess())
+{
+	// DEMONSTRATION ONLY - Store in Cookie - you can extend TokenStorage
+	// and implement the save() method for your database
+	storage.save(response,accessToken.getAll());	
+}		
 ```
 
 **Data Endpoints**
@@ -140,44 +139,44 @@ In your callback Servlet you'll read the query params and swap your temporary fo
 The Xero Java SDK contains XeroClient which has helper methods to perform (Create, Read, Update and Delete) actions on each endpoints.  Once you instantiate XeroClient, you'll use Xero API schema classes to interact with Java Objects.
 
 ```java
-	// Get Xero API Resource - DEMONSTRATION ONLY get token from Cookie test
-	TokenStorage storage = new TokenStorage();
+// Get Xero API Resource - DEMONSTRATION ONLY get token from Cookie test
+TokenStorage storage = new TokenStorage();
 
-	// Create an instance of XeroClient
-	XeroClient client = new XeroClient(request, response, storage);
-					
-	/* CREATE ACCOUNT */
-	ArrayOfAccount accountArray = new ArrayOfAccount();
-	Account account = new Account();
-	account.setCode("66000");
-	account.setName("Office Expense");
-	account.setType(AccountType.EXPENSE);
-	accountArray.getAccount().add(account);
-	List<Account> newAccount = client.createAccounts(accountArray);
+// Create an instance of XeroClient
+XeroClient client = new XeroClient(request, response, storage);
 				
-	/* READ ACCOUNT using a WHERE clause */
-	List<Account> accountWhere = client.getAccounts(null,"Type==\"BANK\"",null);
+/* CREATE ACCOUNT */
+ArrayOfAccount accountArray = new ArrayOfAccount();
+Account account = new Account();
+account.setCode("66000");
+account.setName("Office Expense");
+account.setType(AccountType.EXPENSE);
+accountArray.getAccount().add(account);
+List<Account> newAccount = client.createAccounts(accountArray);
+			
+/* READ ACCOUNT using a WHERE clause */
+List<Account> accountWhere = client.getAccounts(null,"Type==\"BANK\"",null);
 
-	/* READ ACCOUNT using the ID */
-	List<Account> accountList = client.getAccounts();
-	Account accountOne = client.getAccount(accountList.get(0).getAccountID());
-				
-	/* UPDATE ACCOUNT */
-	newAccount.get(0).setName("Entertainment");
-	newAccount.get(0).setStatus(null);
-	List<Account> updateAccount = client.updateAccount(newAccount);
+/* READ ACCOUNT using the ID */
+List<Account> accountList = client.getAccounts();
+Account accountOne = client.getAccount(accountList.get(0).getAccountID());
+			
+/* UPDATE ACCOUNT */
+newAccount.get(0).setName("Entertainment");
+newAccount.get(0).setStatus(null);
+List<Account> updateAccount = client.updateAccount(newAccount);
 
-	/* DELETE ACCOUNT */
-	String status = client.deleteAccount(newAccount.get(0).getAccountID());
+/* DELETE ACCOUNT */
+String status = client.deleteAccount(newAccount.get(0).getAccountID());
 
-	// GET INVOICE MODIFIED in LAST 24 HOURS
-	Date date = new Date();
-	Calendar cal = Calendar.getInstance();
-	cal.setTime(date);
-	cal.add(Calendar.DAY_OF_MONTH, -1);
-			    
-	List<Invoice> InvoiceList24hour = client.getInvoices(cal.getTime(),null,null);
-	System.out.printlin("How many invoices modified in last 24 hours?: " + InvoiceList24hour.size());
+// GET INVOICE MODIFIED in LAST 24 HOURS
+Date date = new Date();
+Calendar cal = Calendar.getInstance();
+cal.setTime(date);
+cal.add(Calendar.DAY_OF_MONTH, -1);
+		    
+List<Invoice> InvoiceList24hour = client.getInvoices(cal.getTime(),null,null);
+System.out.printlin("How many invoices modified in last 24 hours?: " + InvoiceList24hour.size());
 ```
 
 ##License
