@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" 
+         version="2.5" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"> 
+
+   <servlet>
+  	<servlet-name>RequestTokenServlet</servlet-name>
+  	<servlet-class>com.xero.example.RequestTokenServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>RequestTokenServlet</servlet-name>
+  	<url-pattern>/RequestTokenServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+	<servlet-name>CallbackServlet</servlet-name>
+	<servlet-class>com.xero.example.CallbackServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>OAuthAccessToken</servlet-name>
+  	<servlet-class>com.xero.api.OAuthAccessToken</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>RequestResource</servlet-name>
+  	<servlet-class>com.xero.example.RequestResource</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>CallbackServlet</servlet-name>
+	<url-pattern>/CallbackServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>OAuthAccessToken</servlet-name>
+  	<url-pattern>/OAuthAccessToken</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>RequestResource</servlet-name>
+  	<url-pattern>/RequestResource</url-pattern>
+  </servlet-mapping>
+  <welcome-file-list>
+	<welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>

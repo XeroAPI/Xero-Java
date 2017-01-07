@@ -1,0 +1,11 @@
+{ 
+	"AppType" : "PRIVATE",
+	"UserAgent" : "Xero-Java-Private-CUSTOMIZE-FOR-YOUR-APP",
+	"Accept" : "application/xml", 
+	"ConsumerKey" : "——YOUR-CONSUMER-KEY—",
+	"ConsumerSecret" : "——YOUR-CONSUMER-SECRET—",
+	"ApiBaseUrl" : "https://api.xero.com",
+	"ApiEndpointPath" : "/api.xro/2.0/",
+	"PrivateKeyCert" :  "certs/public_privatekey.pfx",
+	"PrivateKeyPassword" :  "——YOUR-PRIVATE-KEY-PASSWORD—"
+}

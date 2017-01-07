@@ -1,0 +1,16 @@
+{ 
+	"AppType" : "PARTNER",
+	"UserAgent" : "Xero-Java—Partner-CUSTOMIZE-FOR-YOUR-APP",
+	"Accept" : "application/xml", 
+	"ConsumerKey" : "——YOUR-CONSUMER-KEY—",
+	"ConsumerSecret" : "——YOUR-CONSUMER-SECRET—",
+	"ApiBaseUrl" : "https://api.xero.com",
+	"ApiEndpointPath" : "/api.xro/2.0/",
+	"RequestTokenPath": "/oauth/RequestToken",
+	"AuthenticateUrl" : "/oauth/Authorize",
+	"AccessTokenPath"  : "/oauth/AccessToken",
+	"CallbackBaseUrl" : "https://localhost",
+	"CallbackPath" : "/CallbackServlet",
+	"PrivateKeyCert" :  "certs/public_privatekey.pfx",
+	"PrivateKeyPassword" :  "——YOUR-PRIVATE-KEY-PASSWORD—"
+}
