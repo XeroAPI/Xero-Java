@@ -18,7 +18,7 @@ Add this dependency and repository to your POM.xml
     <repositories>
       <repository>
         <id>xero-java-mvn-repo</id>
-	    <url>https://raw.github.com/SidneyAllen/Xero-Java/mvn-repo/</url>
+	    <url>https://raw.github.com/XeroAPI/Xero-Java/mvn-repo/</url>
 	    <snapshots>
 	      <enabled>true</enabled>
 	      <updatePolicy>always</updatePolicy>
