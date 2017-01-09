@@ -12,23 +12,20 @@ import org.json.simple.parser.ParseException;
 
 public class Config {
 
-	private String APP_TYPE;
-	private String USER_AGENT;
-	private String ACCEPT;
+	private String APP_TYPE = "Public";
+	private String USER_AGENT = "Xero-Java-SDK-Default";
+	private String ACCEPT = "application/xml";
 	private String CONSUMER_KEY;
 	private String CONSUMER_SECRET;
-	private String API_BASE_URL;
-	private String API_ENDPOINT_URL;
-	private String REQUEST_TOKEN_URL;
-	private String AUTHENTICATE_URL;
-	private String ACCESS_TOKEN_URL;
+	private String API_BASE_URL = "https://api.xero.com";
+	private String API_ENDPOINT_URL = "https://api.xero.com/api.xro/2.0/";
+	private String REQUEST_TOKEN_URL = "https://api.xero.com/oauth/RequestToken";
+	private String AUTHENTICATE_URL = "https://api.xero.com/oauth/Authorize";
+	private String ACCESS_TOKEN_URL = "https://api.xero.com/oauth/AccessToken";
 	private String CALLBACK_BASE_URL;
 	private String AUTH_CALLBACK_URL;
-	private String SIGNATURE_METHOD;
 	private String PATH_TO_PRIVATE_KEY_CERT;
 	private String PRIVATE_KEY_PASSWORD;
-	private String PATH_TO_ENTRUST_SSL_CERT;
-	private String ENTRUST_SSL_PASSWORD;
 		
 	private static Config instance = null;
    
@@ -50,16 +47,6 @@ public class Config {
 		return APP_TYPE;
 	}
 	  
-	public String getEntrustPassword() 
-	{
-		return ENTRUST_SSL_PASSWORD;
-	}
-	  
-	public String getPathToEntrust() 
-	{
-		return PATH_TO_ENTRUST_SSL_CERT;
-	}
-	  
 	public String getPrivateKeyPassword() 
 	{
 		return PRIVATE_KEY_PASSWORD;
@@ -68,11 +55,6 @@ public class Config {
 	public String getPathToPrivateKey() 
 	{
 		return PATH_TO_PRIVATE_KEY_CERT;
-	}
-	  
-	public String getSignatureMethod() 
-	{
-		return SIGNATURE_METHOD;
 	}
 
 	public String getConsumerKey() 
@@ -92,6 +74,7 @@ public class Config {
 	  
 	public String getRequestTokenUrl() 
 	{
+		System.out.println("Request Token URL: " + REQUEST_TOKEN_URL);
 		return REQUEST_TOKEN_URL;
 	}
 	  
@@ -204,16 +187,6 @@ public class Config {
 				AUTH_CALLBACK_URL = CALLBACK_BASE_URL + callbackPath;
 			}
 		}
-		
-		/*  DEPRECATED ENTRUST CERTIFICATES
-		if (jsonObject.containsKey("EntrustCert")) 
-		{
-			String entrustCert = (String) jsonObject.get("EntrustCert");
-			URL entrustPath = loader.getResource(entrustCert);
-			PATH_TO_ENTRUST_SSL_CERT = entrustPath.getPath();	
-			ENTRUST_SSL_PASSWORD = (String) jsonObject.get("EntrustCertPassword");
-		}
-		*/
 		
 		if (jsonObject.containsKey("PrivateKeyCert")) 
 		{

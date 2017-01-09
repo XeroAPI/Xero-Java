@@ -1,80 +1,166 @@
 # Xero-Java
+
 This is the Xero Java SDK for the Xero API. Currently, supports Accounting API. All third party libraries dependencies managed with Maven
 
 ### Xero App
-You'll need to decide which type of Xero app you'll be building (Public, Private or Partner). Go to [http://app.xero.com](http://app.xero.com) and login with your Xero user account and create an app.
+You'll need to decide which type of Xero app you'll be building [Private](http://developer.xero.com/documentation/auth-and-limits/private-applications/), [Public](http://developer.xero.com/documentation/auth-and-limits/public-applications/), or [Partner](http://developer.xero.com/documentation/auth-and-limits/partner-applications/). Go to [http://app.xero.com](http://app.xero.com) and login with your Xero user account to create an app.
 
-### Setup/Install
-We haven't created a maven repository for this library yet, but it's coming soon.  In the meantime, you have everything you need to get up and running in this repo. 
+### Download Xero Java SDK
 
-1. Add the com.xero.api and com.xero.model into your src/main/java dir (we are assuming this is included in your build path)
-2. Add the certs folder and config.json file into your src/main/resources dir (you'll need to add your keys and other values in config.json - see below)
-3. Add the dependencies from the pom.xml file to your project's pom file.
+Add this dependency and repository to your POM.xml
 
-Optional - Sample App 
+    <dependency>
+	  <groupId>com.xero</groupId>
+	  <artifactId>xero-java-sdk</artifactId>
+	  <version>0.0.5</version>
+	</dependency>
 
-1. Add our com.xero.example dir to src/main/java
-2. Add webapp folder to src/main dir ... inside is your index.jsp, callback.jsp and web.xml settings to handle servlets
+    <repositories>
+      <repository>
+        <id>xero-java-mvn-repo</id>
+	    <url>https://raw.github.com/SidneyAllen/Xero-Java/mvn-repo/</url>
+	    <snapshots>
+	      <enabled>true</enabled>
+	      <updatePolicy>always</updatePolicy>
+	    </snapshots>
+      </repository>
+    </repositories>
 
+### Configure
+The Xero Java SDK depends on an external JSON file to configure values unique to your Application.   The Example App include in this repository was built using Eclipse.  We started with a Maven Project and select the maven-archetype-webapp during the setup Wizard.   This created web application structure good for use with Servlet & JSPs.  By default a src/main/resources directory is added to the project.  **Place the config.json file you create in the resources directory**. 
 
-### config.json 
-Located in src/main/resources is the config.json file.  There are examples for public, private and partner - but the Config.java will look in this folder at the config.json file in order to initialize your Java code. 
+The Xero Java SDK - Config.java class parses the JSON file from the resources directory using the following bit of code.
 
-Here is an example of config.json for a Partner App.
+```java
+final ClassLoader loader = Config.class.getClassLoader();
+URL path = loader.getResource("config.json");
+File f = new File(path.getFile());
+```
 
+### How to Create the config.json file
+In a text editor, create a file called config.json (examples are below)  Refer to Xero Developer Center [Getting Started](http://developer.xero.com/documentation/getting-started/getting-started-guide/) when you are ready to create a Xero App - this is how you'll create a Consumer Key and Secret. Private and Partner apps require a [public/private key pair](http://developer.xero.com/documentation/api-guides/create-publicprivate-key/) you'll create using OpenSSL.  The private key should be exported as a pfx file and in our example we create a "certs" folder inside the resources folder and place it there.
+
+**Public Application**
+```javascript
+{ 
+	"AppType" : "PUBLIC",
+	"ConsumerKey" : "WTCXXXXXXXXXXXXXXXXXXXXXXKG",
+	"ConsumerSecret" : "GJ2XXXXXXXXXXXXXXXXXXXXXXXXWZ",
+	"CallbackBaseUrl" : "http://localhost:8080/myapp",
+	"CallbackPath" : "/CallbackServlet"
+}
+```
+
+**Private Application**
+```javascript
+{ 
+	"AppType" : "PRIVATE",
+	"ConsumerKey" : "CW1XXXXXXXXXXXXXXXXXXXXXXXXYG",
+	"ConsumerSecret" : "SRJXXXXXXXXXXXXXXXXXXXXXXXZEA6",
+	"PrivateKeyCert" :  "certs/public_privatekey.pfx",
+	"PrivateKeyPassword" :  "1234"
+}
+```
+**Partner Application**
 ```javascript
 { 
 	"AppType" : "PARTNER",
-	"UserAgent" : "Xero-Java",
-	"Accept" : "application/xml", 
-	"SignatureMethod" : "RSA-SHA1",
-	"ConsumerKey" : "Z7DLBXXXXXXXXXXXXXXXZXHTTYC",
-	"ConsumerSecret" : "71K7QLXXXXXXXXXXXXXXXQOX36S",
-	"ApiBaseUrl" : "https://api.xero.com",
-	"ApiEndpointPath" : "/api.xro/2.0/",
-	"RequestTokenPath": "/oauth/RequestToken",
-	"AuthenticateUrl" : "/oauth/Authorize",
-	"AccessTokenPath"  : "/oauth/AccessToken",
-	"CallbackBaseUrl" : "https://localhost:8080/MyApp",
+	"ConsumerKey" : "FA6UXXXXXXXXXXXXXXXXXXXXXXRC7",
+	"ConsumerSecret" : "7FMXXXXXXXXXXXXXXXXXXXXXXXXXCSA",
+	"CallbackBaseUrl" : "http://localhost:8080/myapp",
 	"CallbackPath" : "/CallbackServlet",
 	"PrivateKeyCert" :  "certs/public_privatekey.pfx",
 	"PrivateKeyPassword" :  "1234"
 }
 ```
 
-Below are the possible attributes for each App Type. 
+**Optionals Attributes**
 
-| App Type			    | Attribute             | Purpose                               | Valid Options 
-| --------------------- | --------------------- |---------------------------------------| -------------
-| ALL				    | AppType               |  Defines your app type                | PUBLIC or PRIVATE or PARTNER  
-| ALL					| UserAgent             |  for debugging by Xero API ssues      | unique string
-| ALL					| Accept                |  format of data returned from API     | application/xml or application/json
-| ALL		    		| ConsumerKey           |  for oAuth Signature                  | App Key created at app.xero.com
-| ALL					| ConsumerSecret        |  for oAuth Signature       			| App Secret created at app.xero.com
-| ALL					| ApiBaseUrl            |  base URL for API calls               | https://api.xero.com
-| ALL					| ApiEndpointPath       |  path for API Calls                   | /api.xro/2.0/
-| Public/Partner		| RequestTokenPath      |  path for Request Token               | /oauth/RequestToken
-| Public/Partner 	| AuthenticateUrl       |  path for redirect to authorize       | /oauth/RequestToken
-| Public/Partner 	| AccessTokenPath       |  path for Access Token                | /oauth/Authorize
-| Public/Partner 	| CallbackBaseUrl       |  base URL for Callback url            | unique string
-| Public/Partner 	| CallbackPath          |  path for Callback url                | unique string
-| Private/Partner	| PrivateKeyCert        |  path to [Private Key Certificate](https://developer.xero.com/documentation/advanced-docs/public-private-keypair/)      | unique string
-| Private/Partner	| PrivateKeyPassword    |  password for Private key             | unique string
+* UserAgent: for debugging by Xero API team (unique string)
+* Accept: format of data returned from API  (application/xml or application/json) *default is XML*
+* ApiBaseUrl: base URL for API calls      *default is https://api.xero.com*
+* ApiEndpointPath: path for API Calls      *default is /api.xro/2.0/*
+* RequestTokenPath: path for Request Token      *default it /oauth/RequestToken*
+* AuthenticateUrl: path for redirect to authorize      *default is /oauth/RequestToken*
+* AccessTokenPath: path for Access Token         *default is https://api.xero.com/oauth/Authorize*
+
+### Example App 
+This repo includes an Example App mentioned above.  The file structure mirrors that of an Eclipse Maven Project with the maven-archetype-webapp
+
+* src/main/java contains the com.xero.example package and the servlets for handling oAuth and sample API calls
+* src/main/resource contains examples of config.json files
+* src/main/webapp contains index and callback JSP files along with web.xml mappings for Servlets
 
 
-### Xero Model
-We've included a complete set of classes in `com.xero.model`.  These are generated from the  [Xero Schema XSDs](https://github.com/XeroAPI/XeroAPI-Schemas).  You can always download and generate updated classes in the future to replace the ones included in this project.
+**oAuth Flow**
 
-### TokenStorage
-You'll want to extend this class to implement your own token storage mechanism.  The TokenStorage class currently uses a cookies to save access tokens and is for demonstration purposes only. 
-
-### Xero Client 
-We've included the XeroClient with methods to perform each action supported by endpoints.  Once you instantiate XeroClient, you can begin using classes from the model directory to create, read, update and delete data through Xero's API.
+For Public & Partner Apps, you'll implement 3 legged oAuth - Private Apps can skip down to the Data Endpoints (you Consumer Key will act as your permenent Access Token)
 
 ```java
+// Start by requesting a temporary token from Xero
+OAuthRequestToken requestToken = new OAuthRequestToken();
+requestToken.execute();
+
+// DEMONSTRATION ONLY - Store in Cookie - you can extend TokenStorage
+// and implement the save() method for your database
 TokenStorage storage = new TokenStorage();
+storage.save(response,requestToken.getAll());
+
+//Build the Authorization URL and redirect User
+OAuthAuthorizeToken authToken = new OAuthAuthorizeToken(requestToken.getTempToken());
+response.sendRedirect(authToken.getAuthUrl());	
+```
+
+In your callback Servlet you'll read the query params and swap your temporary for your 30 min access token.  In our example, we forward the user to the callback.jsp if successful.
+
+```java
+// DEMONSTRATION ONLY - retrieve TempToken from Cookie
+TokenStorage storage = new TokenStorage();
+
+// retrieve OAuth verifier code from callback URL param
+String verifier = request.getParameter("oauth_verifier");
+
+// Swap your temp token for 30 oauth token
+OAuthAccessToken accessToken = new OAuthAccessToken();
+accessToken.build(verifier,storage.get(request,"tempToken"),storage.get(request,"tempTokenSecret")).execute();
+
+// Check if your Access Token call successful
+if(!accessToken.isSuccess())
+{
+	storage.clear(response);
+	request.getRequestDispatcher("index.jsp").forward(request, response);
+}
+else 
+{
+	// DEMONSTRATION ONLY - Store in Cookie - you can extend TokenStorage
+	// and implement the save() method for your database
+	storage.save(response,accessToken.getAll());			
+	request.getRequestDispatcher("callback.jsp").forward(request, response);			
+}		
+```
+
+
+In your callback.jsp, you can have a link to access some data resources.
+
+
+**Data Endpoints**
+
+The Xero Java SDK contains XeroClient which has helper methods to perform (Create, Read, Update and Delete) actions on each endpoints.  Once you instantiate XeroClient, you'll use Xero API schema classes to interact with Java Objects.
+
+```java
+import com.xero.api.*;
+import com.xero.model.*;
+
+// Get Xero API Resource - DEMONSTRATION ONLY get token from Cookie test
+TokenStorage storage = new TokenStorage();
+
+// Create an instance of XeroClient
 XeroClient client = new XeroClient(request, response, storage);
-		
+
+// Get All Contacts
+List<Contact> contactList = client.getContacts();
+System.out.println("How many contacts did we find: " + contactList.size());
+				
 /* CREATE ACCOUNT */
 ArrayOfAccount accountArray = new ArrayOfAccount();
 Account account = new Account();
@@ -106,25 +192,7 @@ cal.setTime(date);
 cal.add(Calendar.DAY_OF_MONTH, -1);
 		    
 List<Invoice> InvoiceList24hour = client.getInvoices(cal.getTime(),null,null);
-System.out.printlin("How many invoices modified in last 24 hours?: " + InvoiceList24hour.size());
-
-```
-
-### Maven Dependencies 
-
-The pom.xml file contains two library dependencies.
-
-```xml
-<dependency>
-	<groupId>com.google.oauth-client</groupId>
-	<artifactId>google-oauth-client</artifactId>
-	<version>1.20.0</version>
-</dependency>
-<dependency>
-	<groupId>com.googlecode.json-simple</groupId>
-	<artifactId>json-simple</artifactId>
-	<version>1.1.1</version>
-</dependency>
+System.out.println("How many invoices modified in last 24 hours?: " + InvoiceList24hour.size());
 ```
 
 ##Acknowledgement
