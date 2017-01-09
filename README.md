@@ -44,6 +44,7 @@ In a text editor, create a file called config.json (examples are below)  Refer t
 ```javascript
 { 
 	"AppType" : "PUBLIC",
+	"UserAgent": "Your App Name",
 	"ConsumerKey" : "WTCXXXXXXXXXXXXXXXXXXXXXXKG",
 	"ConsumerSecret" : "GJ2XXXXXXXXXXXXXXXXXXXXXXXXWZ",
 	"CallbackBaseUrl" : "http://localhost:8080/myapp",
@@ -55,6 +56,7 @@ In a text editor, create a file called config.json (examples are below)  Refer t
 ```javascript
 { 
 	"AppType" : "PRIVATE",
+	"UserAgent": "Your App Name",
 	"ConsumerKey" : "CW1XXXXXXXXXXXXXXXXXXXXXXXXYG",
 	"ConsumerSecret" : "SRJXXXXXXXXXXXXXXXXXXXXXXXZEA6",
 	"PrivateKeyCert" :  "certs/public_privatekey.pfx",
@@ -65,6 +67,7 @@ In a text editor, create a file called config.json (examples are below)  Refer t
 ```javascript
 { 
 	"AppType" : "PARTNER",
+	"UserAgent": "Your App Name",
 	"ConsumerKey" : "FA6UXXXXXXXXXXXXXXXXXXXXXXRC7",
 	"ConsumerSecret" : "7FMXXXXXXXXXXXXXXXXXXXXXXXXXCSA",
 	"CallbackBaseUrl" : "http://localhost:8080/myapp",
