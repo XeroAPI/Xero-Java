@@ -89,8 +89,8 @@ public class XeroClient {
 			System.out.println("Using the existing token");
 			token = storage.get(request, "token");
 			tokenSecret = storage.get(request, "tokenSecret");
-			System.out.println("Token: " + token);
-			System.out.println("Token Secret: " + tokenSecret);
+			//System.out.println("Token: " + token);
+			//System.out.println("Token Secret: " + tokenSecret);
 		}	
 	}
 	

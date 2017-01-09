@@ -17,7 +17,7 @@ import com.xero.api.TokenStorage;
 import com.xero.api.XeroClient;
 import com.xero.model.*;
 
-public class RequestResource extends HttpServlet 
+public class RequestResourceServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
 	private String htmlString =  "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css\" integrity=\"sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7\" crossorigin=\"anonymous\">"
@@ -27,7 +27,7 @@ public class RequestResource extends HttpServlet
 			+ "<div class=\"form-group\">"
 		  	+ "<a href=\"/\" class=\"btn btn-default\" type=\"button\">Logout</a>"
 		  	+ "</div>"
-			+ "<form action=\"./RequestResource\" method=\"post\">" 
+			+ "<form action=\"./RequestResourceServlet\" method=\"post\">" 
 			+ "<div class=\"form-group\">" 
 		  	+ "<label for=\"object\">Create, Read, Update & Delete</label>"
 		  	+ "<select name=\"object\" class=\"form-control\" id=\"object\">"

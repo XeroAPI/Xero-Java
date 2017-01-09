@@ -12,7 +12,7 @@
 <body>
 <div class="container">
 	<h1>Xero API - Java</h1>
-	<a href="./RequestResource">Let's make some API calls</a>
+	<a href="./RequestResourceServlet">Let's make some API calls</a>
 </div>
 
 </body>

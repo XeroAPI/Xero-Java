@@ -6,15 +6,13 @@ You'll need to decide which type of Xero app you'll be building [Private](http:/
 
 ### Download Xero Java SDK
 
-Add this dependency to your POM.xml
+Add this dependency and repository to your POM.xml
 
     <dependency>
 	  <groupId>com.xero</groupId>
 	  <artifactId>xero-java-sdk</artifactId>
-	  <version>0.0.3</version>
+	  <version>0.0.5</version>
 	</dependency>
-
-You will also add this repository to your POM.xml
 
     <repositories>
       <repository>
@@ -113,7 +111,7 @@ OAuthAuthorizeToken authToken = new OAuthAuthorizeToken(requestToken.getTempToke
 response.sendRedirect(authToken.getAuthUrl());	
 ```
 
-In your callback Servlet you'll read the query params and swap your temporary for your 30 min access token.
+In your callback Servlet you'll read the query params and swap your temporary for your 30 min access token.  In our example, we forward the user to the callback.jsp if successful.
 
 ```java
 // DEMONSTRATION ONLY - retrieve TempToken from Cookie
@@ -126,24 +124,42 @@ String verifier = request.getParameter("oauth_verifier");
 OAuthAccessToken accessToken = new OAuthAccessToken();
 accessToken.build(verifier,storage.get(request,"tempToken"),storage.get(request,"tempTokenSecret")).execute();
 
-if(accessToken.isSuccess())
+// Check if your Access Token call successful
+if(!accessToken.isSuccess())
+{
+	storage.clear(response);
+	request.getRequestDispatcher("index.jsp").forward(request, response);
+}
+else 
 {
 	// DEMONSTRATION ONLY - Store in Cookie - you can extend TokenStorage
 	// and implement the save() method for your database
-	storage.save(response,accessToken.getAll());	
+	storage.save(response,accessToken.getAll());			
+	request.getRequestDispatcher("callback.jsp").forward(request, response);			
 }		
 ```
+
+
+In your callback.jsp, you can have a link to access some data resources.
+
 
 **Data Endpoints**
 
 The Xero Java SDK contains XeroClient which has helper methods to perform (Create, Read, Update and Delete) actions on each endpoints.  Once you instantiate XeroClient, you'll use Xero API schema classes to interact with Java Objects.
 
 ```java
+import com.xero.api.*;
+import com.xero.model.*;
+
 // Get Xero API Resource - DEMONSTRATION ONLY get token from Cookie test
 TokenStorage storage = new TokenStorage();
 
 // Create an instance of XeroClient
 XeroClient client = new XeroClient(request, response, storage);
+
+// Get All Contacts
+List<Contact> contactList = client.getContacts();
+System.out.println("How many contacts did we find: " + contactList.size());
 				
 /* CREATE ACCOUNT */
 ArrayOfAccount accountArray = new ArrayOfAccount();
@@ -176,7 +192,7 @@ cal.setTime(date);
 cal.add(Calendar.DAY_OF_MONTH, -1);
 		    
 List<Invoice> InvoiceList24hour = client.getInvoices(cal.getTime(),null,null);
-System.out.printlin("How many invoices modified in last 24 hours?: " + InvoiceList24hour.size());
+System.out.println("How many invoices modified in last 24 hours?: " + InvoiceList24hour.size());
 ```
 
 ##License

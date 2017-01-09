@@ -22,8 +22,8 @@
   	<servlet-class>com.xero.api.OAuthAccessToken</servlet-class>
   </servlet>
   <servlet>
-  	<servlet-name>RequestResource</servlet-name>
-  	<servlet-class>com.xero.example.RequestResource</servlet-class>
+  	<servlet-name>RequestResourceServlet</servlet-name>
+  	<servlet-class>com.xero.example.RequestResourceServlet</servlet-class>
   </servlet>
   <servlet-mapping>
 	<servlet-name>CallbackServlet</servlet-name>
@@ -34,8 +34,8 @@
   	<url-pattern>/OAuthAccessToken</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-  	<servlet-name>RequestResource</servlet-name>
-  	<url-pattern>/RequestResource</url-pattern>
+  	<servlet-name>RequestResourceServlet</servlet-name>
+  	<url-pattern>/RequestResourceServlet</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
 	<welcome-file>index.jsp</welcome-file>
