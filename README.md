@@ -1,5 +1,6 @@
 # Xero-Java
-This is the official Java SDK for the Xero API. Currently, only supports the Accounting API. Additional third party libraries dependencies managed with Maven
+
+This is the Xero Java SDK for the Xero API. Currently, supports Accounting API. All third party libraries dependencies managed with Maven
 
 ### Xero App
 You'll need to decide which type of Xero app you'll be building [Private](http://developer.xero.com/documentation/auth-and-limits/private-applications/), [Public](http://developer.xero.com/documentation/auth-and-limits/public-applications/), or [Partner](http://developer.xero.com/documentation/auth-and-limits/partner-applications/). Go to [http://app.xero.com](http://app.xero.com) and login with your Xero user account to create an app.
@@ -72,7 +73,6 @@ In a text editor, create a file called config.json (examples are below)  Refer t
 	"PrivateKeyPassword" :  "1234"
 }
 ```
-
 
 **Optionals Attributes**
 
@@ -194,6 +194,11 @@ cal.add(Calendar.DAY_OF_MONTH, -1);
 List<Invoice> InvoiceList24hour = client.getInvoices(cal.getTime(),null,null);
 System.out.println("How many invoices modified in last 24 hours?: " + InvoiceList24hour.size());
 ```
+
+##Acknowledgement
+
+Special thanks to [Connectifier](https://github.com/connectifier) and [Ben Mccann](https://github.com/benmccann).  Marshalling and Unmarshalling in XeroClient was derived and extended from [Xero-Java-Client](https://github.com/connectifier/xero-java-client)
+  
 
 ##License
 

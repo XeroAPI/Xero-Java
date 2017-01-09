@@ -104,11 +104,15 @@ public class OAuthRequestResource extends GenericUrl {
 	 * @return OAuth credentials response object
 	 */
 	public final HttpResponse execute() throws IOException {
+		/*  DEPRECATED ENTRUST CERTIFICATES
 		if(c.getAppType().equals("PARTNER")){
 			transport = new PartnerHttpClient().getPartnerHttpClient();
 		}	else {
 			transport = new ApacheHttpTransport();
 		}
+		*/
+		
+		transport = new ApacheHttpTransport();
 
 		if(usePost){
 			requestBody = ByteArrayContent.fromString(null, body);
