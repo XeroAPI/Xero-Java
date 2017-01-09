@@ -27,7 +27,9 @@ Add this dependency and repository to your POM.xml
     </repositories>
 
 ### Configure
-The Xero Java SDK depends on an external JSON file to configure values unique to your Application.   The Example App include in this repository was built using Eclipse.  We started with a Maven Project and select the maven-archetype-webapp during the setup Wizard.   This created web application structure good for use with Servlet & JSPs.  By default a src/main/resources directory is added to the project.  **Place the config.json file you create in the resources directory**. 
+The Xero Java SDK depends on an external JSON file to configure values unique to your Application.   
+
+We include an Example App (in this repo) built using Eclipse.  We started with a Maven Project and selected the maven-archetype-webapp with the setup Wizard.   This created a web application structure good for use with Servlets & JSPs.  By default a src/main/resources directory is added to the project.  **Place the config.json file you create in the resources directory**. 
 
 The Xero Java SDK - Config.java class parses the JSON file from the resources directory using the following bit of code.
 
@@ -44,6 +46,7 @@ In a text editor, create a file called config.json (examples are below)  Refer t
 ```javascript
 { 
 	"AppType" : "PUBLIC",
+	"UserAgent": "Your App Name",
 	"ConsumerKey" : "WTCXXXXXXXXXXXXXXXXXXXXXXKG",
 	"ConsumerSecret" : "GJ2XXXXXXXXXXXXXXXXXXXXXXXXWZ",
 	"CallbackBaseUrl" : "http://localhost:8080/myapp",
@@ -55,6 +58,7 @@ In a text editor, create a file called config.json (examples are below)  Refer t
 ```javascript
 { 
 	"AppType" : "PRIVATE",
+	"UserAgent": "Your App Name",
 	"ConsumerKey" : "CW1XXXXXXXXXXXXXXXXXXXXXXXXYG",
 	"ConsumerSecret" : "SRJXXXXXXXXXXXXXXXXXXXXXXXZEA6",
 	"PrivateKeyCert" :  "certs/public_privatekey.pfx",
@@ -65,6 +69,7 @@ In a text editor, create a file called config.json (examples are below)  Refer t
 ```javascript
 { 
 	"AppType" : "PARTNER",
+	"UserAgent": "Your App Name",
 	"ConsumerKey" : "FA6UXXXXXXXXXXXXXXXXXXXXXXRC7",
 	"ConsumerSecret" : "7FMXXXXXXXXXXXXXXXXXXXXXXXXXCSA",
 	"CallbackBaseUrl" : "http://localhost:8080/myapp",
@@ -94,7 +99,7 @@ This repo includes an Example App mentioned above.  The file structure mirrors t
 
 **oAuth Flow**
 
-For Public & Partner Apps, you'll implement 3 legged oAuth - Private Apps can skip down to the Data Endpoints (you Consumer Key will act as your permenent Access Token)
+For Public & Partner Apps, you'll implement 3 legged oAuth - Private Apps can skip down to the Data Endpoints (your Consumer Key will act as your permenent Access Token)
 
 ```java
 // Start by requesting a temporary token from Xero
