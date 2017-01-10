@@ -5,6 +5,10 @@ This is the Xero Java SDK for the Xero API. Currently, supports Accounting API. 
 ### Xero App
 You'll need to decide which type of Xero app you'll be building [Private](http://developer.xero.com/documentation/auth-and-limits/private-applications/), [Public](http://developer.xero.com/documentation/auth-and-limits/public-applications/), or [Partner](http://developer.xero.com/documentation/auth-and-limits/partner-applications/). Go to [http://app.xero.com](http://app.xero.com) and login with your Xero user account to create an app.
 
+### Questions?
+[Watch this video](https://youtu.be/19UBlTDLxVc) walkthrough of how to setup Xero Java SDK in Eclipse.
+
+
 ### Download Xero Java SDK
 
 Add this dependency and repository to your POM.xml
