@@ -31,7 +31,7 @@ Add this dependency and repository to your POM.xml
     </repositories>
 
 ####Working with Gradle, sbt or leiningen?
-Head over to [Jitpack.io](https://jitpack.io/#XeroAPI/Xero-Java/) and lookup http://github.com/XeroAPI/Xero-Java  to get those dependency built off the master branch.
+Head over to [Jitpack.io](https://jitpack.io/#XeroAPI/Xero-Java/) and lookup http://github.com/XeroAPI/Xero-Java  to have your dependency built off the master branch.
 
 ### Configure
 The Xero Java SDK depends on an external JSON file to configure values unique to your Application.   
