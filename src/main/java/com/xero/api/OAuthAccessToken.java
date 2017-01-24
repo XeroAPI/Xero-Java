@@ -27,7 +27,7 @@ public class OAuthAccessToken {
 	private boolean isSuccess;
 	private String problem = null;
 	private String advice = null;
-	private Config c = Config.getInstance();
+	private Config config;
 	private HttpRequest request;
 	private GenericUrl Url;
 	
@@ -37,9 +37,9 @@ public class OAuthAccessToken {
 	public String tempToken;
 	private String tempTokenSecret;
 	
-	public OAuthAccessToken() 
+	public OAuthAccessToken(Config config)
 	{
-		
+		this.config = config;
 	}
 	
 	public OAuthAccessToken build(String verifier, String tempToken, String tempTokenSecret) throws IOException
@@ -48,7 +48,7 @@ public class OAuthAccessToken {
 		this.tempToken = tempToken;
 		this.tempTokenSecret = tempTokenSecret;
 		
-		Url = new GenericUrl(c.getAccessTokenUrl());
+		Url = new GenericUrl(config.getAccessTokenUrl());
 		
 		/*  DEPRECATED ENTRUST CERTIFICATES
 		if(c.getAppType().equals("PARTNER"))
@@ -65,8 +65,8 @@ public class OAuthAccessToken {
 		request = requestFactory.buildRequest(HttpMethods.GET, Url,null);
 
 		HttpHeaders headers = new HttpHeaders();
-		headers.setUserAgent(c.getUserAgent());
-		headers.setAccept(c.getAccept());
+		headers.setUserAgent(config.getUserAgent());
+		headers.setAccept(config.getAccept());
 		request.setHeaders(headers);    
 		
 		createParameters().intercept(request); 
@@ -76,7 +76,7 @@ public class OAuthAccessToken {
 	
 	public OAuthAccessToken build() throws IOException
 	{
-		Url = new GenericUrl(c.getAccessTokenUrl());
+		Url = new GenericUrl(config.getAccessTokenUrl());
 		
 		/*  DEPRECATED ENTRUST CERTIFICATES
 		if(c.getAppType().equals("PARTNER"))
@@ -95,8 +95,8 @@ public class OAuthAccessToken {
 		request = requestFactory.buildRequest(HttpMethods.GET, Url,null);
 
 		HttpHeaders headers = new HttpHeaders();
-		headers.setUserAgent(c.getUserAgent());
-		headers.setAccept(c.getAccept());
+		headers.setUserAgent(config.getUserAgent());
+		headers.setAccept(config.getAccept());
 
 		request.setHeaders(headers);    
 		createRefreshParameters().intercept(request); 
@@ -140,9 +140,9 @@ public class OAuthAccessToken {
 	public void setToken(String token) 
 	{
 		this.token = token; 
-		if(c.getAppType().equals("PRIVATE")) 
+		if(config.getAppType().equals("PRIVATE")) 
 		{
-			this.token = c.getConsumerKey();
+			this.token = config.getConsumerKey();
 		}
 	}
 	
@@ -221,16 +221,16 @@ public class OAuthAccessToken {
 	
 	private OAuthParameters createParameters() 
 	{
-		if(c.getAppType().equals("PUBLIC"))
+		if(config.getAppType().equals("PUBLIC"))
 		{
-			signer = new HmacSigner().createHmacSigner(tempTokenSecret);
+			signer = new HmacSigner(config).createHmacSigner(tempTokenSecret);
 		}	else {
-			signer = new RsaSigner().createRsaSigner();
+			signer = new RsaSigner(config).createRsaSigner();
 		}
 		  
 		
 		OAuthParameters result = new OAuthParameters();
-		result.consumerKey = c.getConsumerKey();
+		result.consumerKey = config.getConsumerKey();
 		result.token = tempToken;
 		result.verifier = verifier;
 		result.signer = signer;
@@ -239,10 +239,10 @@ public class OAuthAccessToken {
 	
 	private OAuthParameters createRefreshParameters() 
 	{
-		signer = new RsaSigner().createRsaSigner();
+		signer = new RsaSigner(config).createRsaSigner();
 		  
 		OAuthParameters result = new OAuthParameters();
-		result.consumerKey = c.getConsumerKey();
+		result.consumerKey = config.getConsumerKey();
 		result.token = this.token;
 		result.sessionHandle = this.sessionHandle;
 		result.signer = signer;

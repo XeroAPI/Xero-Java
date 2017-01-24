@@ -27,16 +27,21 @@ public class Config {
 	private String PATH_TO_PRIVATE_KEY_CERT;
 	private String PRIVATE_KEY_PASSWORD;
 		
+	private String configFile;
+	
 	private static Config instance = null;
    
-	private Config(){ }
+	public Config(String configFile) {
+		this.configFile = configFile;
+		load();
+	}
 	   
 	/* Static 'instance' method */
 	public static Config getInstance() 
 	{
 		if(instance == null) 
 		{
-			instance = new Config();
+			instance = new Config("config.json");
 			instance.load();
 		}
 	    return instance;
@@ -107,7 +112,7 @@ public class Config {
 	{
 		
 		final ClassLoader loader = Config.class.getClassLoader();
-		URL path = loader.getResource("config.json");
+		URL path = loader.getResource(configFile);
 		File f = new File(path.getFile());
 		
 		JSONParser parser = new JSONParser();
@@ -195,7 +200,5 @@ public class Config {
 			PATH_TO_PRIVATE_KEY_CERT = privateKeyPath.getPath();
 			PRIVATE_KEY_PASSWORD = (String) jsonObject.get("PrivateKeyPassword");
 		}
-		
-		System.out.println("Loading Instance");
 	}
 }

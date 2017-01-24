@@ -19,17 +19,17 @@ import com.google.api.client.auth.oauth.OAuthRsaSigner;
 public class RsaSigner implements Signer {
 
 	private OAuthRsaSigner signer = new OAuthRsaSigner();
-	private Config c = Config.getInstance();
-	public RsaSigner() {
+	
+	public RsaSigner(Config config) {
 
 		InputStream oauthPKCS12Stream = null;
 		try {
-			oauthPKCS12Stream = new FileInputStream(c.getPathToPrivateKey());
+			oauthPKCS12Stream = new FileInputStream(config.getPathToPrivateKey());
 		} catch (FileNotFoundException e4) {
 			// TODO Auto-generated catch block
 			e4.printStackTrace();
 		}
-		String oauthPKCS12Password = c.getPrivateKeyPassword();
+		String oauthPKCS12Password = config.getPrivateKeyPassword();
 
 		KeyStore oauthKeyStore = null;
 		try {

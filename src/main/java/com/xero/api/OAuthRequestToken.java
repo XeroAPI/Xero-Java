@@ -14,26 +14,26 @@ public class OAuthRequestToken
 	private String tempToken = null;
 	private String tempTokenSecret = null;
 	private OAuthGetTemporaryToken tokenRequest = null;
-	private Config c = Config.getInstance();
+	private Config config;
 
-	public OAuthRequestToken() 
+	public OAuthRequestToken(Config config) 
 	{
-
+		this.config = config;
 	}
 
 	public void execute() 
 	{
 		OAuthSigner signer = null;
-		if(c.getAppType().equals("PUBLIC"))
+		if(config.getAppType().equals("PUBLIC"))
 		{
-			signer = new HmacSigner().createHmacSigner();
+			signer = new HmacSigner(config).createHmacSigner();
 		}	else {
-			signer = new RsaSigner().createRsaSigner();
+			signer = new RsaSigner(config).createRsaSigner();
 		}
 
-		tokenRequest = new OAuthGetTemporaryToken(c.getRequestTokenUrl());
-		tokenRequest.consumerKey = c.getConsumerKey();
-		tokenRequest.callback = c.getRedirectUri();
+		tokenRequest = new OAuthGetTemporaryToken(config.getRequestTokenUrl());
+		tokenRequest.consumerKey = config.getConsumerKey();
+		tokenRequest.callback = config.getRedirectUri();
 
 		/* DEPRECATED ENTRUST CERTIFICATE
 		if(c.getAppType().equals("PARTNER"))
