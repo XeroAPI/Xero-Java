@@ -9,10 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.xero.api.OAuthAccessToken;
 import com.xero.api.TokenStorage;
+import com.xero.api.Config;
 
 public class CallbackServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
+	private Config config = Config.getInstance();
 
 	public CallbackServlet() 
 	{
@@ -32,7 +34,7 @@ public class CallbackServlet extends HttpServlet
 		String verifier = request.getParameter("oauth_verifier");
 
 		// Swap your temp token for 30 oauth token
-		OAuthAccessToken accessToken = new OAuthAccessToken();
+		OAuthAccessToken accessToken = new OAuthAccessToken(config);
 		accessToken.build(verifier,storage.get(request,"tempToken"),storage.get(request,"tempTokenSecret")).execute();
 
 		if(!accessToken.isSuccess())

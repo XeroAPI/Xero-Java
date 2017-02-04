@@ -91,13 +91,16 @@ public class RequestResourceServlet extends HttpServlet
 		
 		// Get Xero API Resource - DEMONSTRATION ONLY get token from Cookie
 		TokenStorage storage = new TokenStorage();
-		XeroClient client = new XeroClient(request, response, storage);
+		String token = storage.get(request,"token");
+		String tokenSecret = storage.get(request,"tokenSecret");
 		
-		SampleData data = new SampleData(client);
-		
-		if(client.tokenIsNull()) {
+		if(storage.tokenIsNull(token)) {
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
+		XeroClient client = new XeroClient();
+		client.setOAuthToken(token, tokenSecret);
+		
+		//SampleData data = new SampleData(client);
 		
 		if(object.equals("Accounts")) {
 			

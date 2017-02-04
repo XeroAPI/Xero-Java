@@ -1,5 +1,6 @@
 package com.xero.example;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -32,7 +33,7 @@ public class SampleData {
 	}
 	
 	// BANK TRANSACTION
-	public static ArrayOfBankTransaction loadBankTransaction() {
+	public static ArrayOfBankTransaction loadBankTransaction() throws IOException {
 		ArrayOfBankTransaction array = new ArrayOfBankTransaction();
 		BankTransaction bt = new BankTransaction();
 		bt.setDate(loadDate());;
@@ -54,7 +55,7 @@ public class SampleData {
 	}
 	
 	// BANK TRANSFER
-	public static ArrayOfBankTransfer loadBankTransfer() {
+	public static ArrayOfBankTransfer loadBankTransfer() throws IOException {
 		ArrayOfBankTransfer array = new ArrayOfBankTransfer();
 		BankTransfer bt = new BankTransfer();
 		
@@ -119,7 +120,7 @@ public class SampleData {
 	}
 	
 	// CREDIT NOTE
-	public static ArrayOfCreditNote loadCreditNote() {
+	public static ArrayOfCreditNote loadCreditNote() throws IOException {
 		ArrayOfCreditNote array = new ArrayOfCreditNote();
 	
 		CreditNote cn = new CreditNote();
@@ -149,7 +150,7 @@ public class SampleData {
 	}
 	
 	// EXPENSE CLAIM
-	public static ArrayOfExpenseClaim loadExpenseClaim() {
+	public static ArrayOfExpenseClaim loadExpenseClaim() throws IOException {
 		ArrayOfExpenseClaim array = new ArrayOfExpenseClaim();
 		
 		ExpenseClaim e = new ExpenseClaim();
@@ -171,7 +172,7 @@ public class SampleData {
 	}
 	
 	// INVOICE
-	public static ArrayOfInvoice loadInvoice() {
+	public static ArrayOfInvoice loadInvoice() throws IOException {
 		ArrayOfInvoice array = new ArrayOfInvoice();
 		
 		Invoice inv = new Invoice();
@@ -202,7 +203,7 @@ public class SampleData {
 	}
 	
 	// LINKED TRANSACTIONS
-	public static ArrayOfLinkedTransaction loadLinkedTransaction() {
+	public static ArrayOfLinkedTransaction loadLinkedTransaction() throws IOException {
 		ArrayOfLinkedTransaction array = new ArrayOfLinkedTransaction();
 		
 		Invoice newBill = loadNewBill();
@@ -220,7 +221,7 @@ public class SampleData {
 	}
 	
 	// MANUAL JOURNAL
-	public static ArrayOfManualJournal loadManualJournal() {
+	public static ArrayOfManualJournal loadManualJournal() throws IOException {
 		ArrayOfManualJournal array = new ArrayOfManualJournal();
 		ArrayOfManualJournalLine arrayOfMJLine = new ArrayOfManualJournalLine();
 		
@@ -258,7 +259,7 @@ public class SampleData {
 	}
 	
 	// NEW ALLOCATION
-	public static ArrayOfAllocation loadAllocation() {
+	public static ArrayOfAllocation loadAllocation() throws IOException {
 		ArrayOfAllocation array = new ArrayOfAllocation();
 		Allocation allocation = new Allocation();
 		allocation.setDate(loadDate());
@@ -272,7 +273,7 @@ public class SampleData {
 	}
 	
 	// OVERPAYMENT
-	public static BankTransaction loadNewlyCreatedOverpayment() {
+	public static BankTransaction loadNewlyCreatedOverpayment() throws IOException {
 		ArrayOfBankTransaction array = new ArrayOfBankTransaction();
 		BankTransaction bt = new BankTransaction();
 		bt.setDate(loadDate());;
@@ -297,7 +298,7 @@ public class SampleData {
 	}
 	
 	// PAYMENTS
-	public static ArrayOfPayment loadPayment() {
+	public static ArrayOfPayment loadPayment() throws IOException {
 		ArrayOfPayment array = new ArrayOfPayment();
 		Payment pay = new Payment();
 		pay.setDate(loadDate());
@@ -315,7 +316,7 @@ public class SampleData {
 	
 	
 	// PREPAYMENT
-	public static BankTransaction loadNewlyCreatedPrepayment() {
+	public static BankTransaction loadNewlyCreatedPrepayment() throws IOException {
 		ArrayOfBankTransaction array = new ArrayOfBankTransaction();
 		BankTransaction bt = new BankTransaction();
 		bt.setDate(loadDate());;
@@ -341,7 +342,7 @@ public class SampleData {
 	
 	
 	// PURCHASEORDER
-	public static ArrayOfPurchaseOrder loadPurchaseOrder() {
+	public static ArrayOfPurchaseOrder loadPurchaseOrder() throws IOException {
 		ArrayOfPurchaseOrder array = new ArrayOfPurchaseOrder();
 		PurchaseOrder po = new PurchaseOrder();
 		po.setDate(loadDate());
@@ -358,7 +359,7 @@ public class SampleData {
 	}
 		
 	// RECEIPT
-	public static ArrayOfReceipt loadReceipt() {
+	public static ArrayOfReceipt loadReceipt() throws IOException {
 		ArrayOfReceipt array = new ArrayOfReceipt();
 		
 		Receipt r = new Receipt();
@@ -429,18 +430,18 @@ public class SampleData {
 		return calendar;
 	}
 	
-	public static Contact loadSingleContact() {
+	public static Contact loadSingleContact() throws IOException {
 		List<Contact> contacts = SampleData.client.getContacts();
 		return contacts.get(0);
 	}
 	
 	@SuppressWarnings("unused")
-	private static Receipt loadSingleReceipt() {
+	private static Receipt loadSingleReceipt() throws IOException {
 		List<Receipt> r = SampleData.client.getReceipts();
 		return r.get(0);
 	}
 	
-	private static User loadSingleUser() {
+	private static User loadSingleUser() throws IOException {
 		List<User> users = SampleData.client.getUsers();
 		return users.get(0);
 	}
@@ -451,13 +452,13 @@ public class SampleData {
 		return randomInt;
 	}
 	
-	public static Account loadBankAccount() {
+	public static Account loadBankAccount() throws IOException {
 		List<Account> accountWhere = client.getAccounts(null,"Type==\"BANK\"",null);
 		
 		return accountWhere.get(0);
 	}
 	
-	private static Invoice loadNewBill() {	
+	private static Invoice loadNewBill() throws IOException {	
 		ArrayOfInvoice array = new ArrayOfInvoice();
 		
 		Invoice inv = new Invoice();
@@ -476,7 +477,7 @@ public class SampleData {
 		return newInvoice.get(0);
 	}
 	
-	private static Invoice loadNewSalesInvoice() {	
+	private static Invoice loadNewSalesInvoice() throws IOException {	
 		ArrayOfInvoice array = new ArrayOfInvoice();
 		
 		Invoice inv = new Invoice();
@@ -494,7 +495,7 @@ public class SampleData {
 		return newInvoice.get(0);
 	}
 	
-	private static ArrayOfLineItem loadLineItem(){
+	private static ArrayOfLineItem loadLineItem() throws IOException{
 		List<Account> accountDirectCosts = client.getAccounts(null,"Type==\"DIRECTCOSTS\"",null);
 	
 		ArrayOfLineItem array = new ArrayOfLineItem();
@@ -508,7 +509,7 @@ public class SampleData {
 		return array;	
 	}
 	
-	private static ArrayOfLineItem loadLineItemForOverpayment(){
+	private static ArrayOfLineItem loadLineItemForOverpayment() throws IOException{
 		List<Account> accountDebtors = client.getAccounts(null,"SystemAccount==\"DEBTORS\"",null);
 		
 		ArrayOfLineItem array = new ArrayOfLineItem();
@@ -534,7 +535,7 @@ public class SampleData {
 		return array;	
 	}
 	
-	private static ArrayOfLineItem loadEmptyLineItem(){
+	private static ArrayOfLineItem loadEmptyLineItem() throws IOException{
 		List<Account> accountSales = client.getAccounts(null,"Type==\"REVENUE\"",null);
 		
 		ArrayOfLineItem array = new ArrayOfLineItem();
@@ -548,7 +549,7 @@ public class SampleData {
 		return array;	
 	}
 	
-	private static ArrayOfLineItem loadExpenseLineItem(){
+	private static ArrayOfLineItem loadExpenseLineItem() throws IOException{
 		List<Account> accountExpense = client.getAccounts(null,"Type==\"EXPENSE\"",null);
 		
 		ArrayOfLineItem array = new ArrayOfLineItem();

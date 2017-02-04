@@ -17,7 +17,7 @@ import com.xero.api.TokenStorage;
  */
 public class RequestTokenServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private Config c = Config.getInstance();   
+	private Config config = Config.getInstance();   
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -33,11 +33,11 @@ public class RequestTokenServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		// IF Xero App is Private > 2 legged oauth - fwd to RequestResouce Servlet
-		if(c.getAppType().equals("PRIVATE")) {
+		if(config.getAppType().equals("PRIVATE")) {
 			response.sendRedirect("./callback.jsp");
 		} else {
 
-			OAuthRequestToken requestToken = new OAuthRequestToken();
+			OAuthRequestToken requestToken = new OAuthRequestToken(config);
 			requestToken.execute();
 
 			// DEMONSTRATION ONLY - Store in Cookie - you can extend TokenStorage

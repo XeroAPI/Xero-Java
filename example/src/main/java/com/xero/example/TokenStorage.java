@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class TokenStorage 
 {
-
+	
 	public  TokenStorage() 
 	{
 
@@ -20,18 +20,26 @@ public class TokenStorage
 
 	public String get(HttpServletRequest request,String key)
 	{
-		String token = null;
+		String item = null;
 		Cookie[] cookies = request.getCookies();
 		if (cookies != null) {
 			for (int i = 0; i < cookies.length; i++) 
 			{
 				if (cookies[i].getName().equals(key)) 
 				{
-					token = cookies[i].getValue();
+					item = cookies[i].getValue();
 				}
 			}
 		}
-		return token;
+		return item;
+	}
+	
+	public boolean tokenIsNull(String token) {
+		if (token != null && !token.isEmpty()) { 
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	public void clear(HttpServletResponse response)

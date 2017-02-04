@@ -16,7 +16,7 @@ Add this dependency and repository to your POM.xml
     <dependency>
 	  <groupId>com.xero</groupId>
 	  <artifactId>xero-java-sdk</artifactId>
-	  <version>0.0.5</version>
+	  <version>0.0.6</version>
 	</dependency>
 
     <repositories>
@@ -109,8 +109,10 @@ This repo includes an Example App mentioned above.  The file structure mirrors t
 For Public & Partner Apps, you'll implement 3 legged oAuth - Private Apps can skip down to the Data Endpoints (your Consumer Key will act as your permenent Access Token)
 
 ```java
+private Config config = Config.getInstance(); 
+
 // Start by requesting a temporary token from Xero
-OAuthRequestToken requestToken = new OAuthRequestToken();
+OAuthRequestToken requestToken = new OAuthRequestToken(config);
 requestToken.execute();
 
 // DEMONSTRATION ONLY - Store in Cookie - you can extend TokenStorage
@@ -126,6 +128,9 @@ response.sendRedirect(authToken.getAuthUrl());
 In your callback Servlet you'll read the query params and swap your temporary for your 30 min access token.  In our example, we forward the user to the callback.jsp if successful.
 
 ```java
+private Config config = Config.getInstance(); 
+
+
 // DEMONSTRATION ONLY - retrieve TempToken from Cookie
 TokenStorage storage = new TokenStorage();
 
@@ -133,7 +138,7 @@ TokenStorage storage = new TokenStorage();
 String verifier = request.getParameter("oauth_verifier");
 
 // Swap your temp token for 30 oauth token
-OAuthAccessToken accessToken = new OAuthAccessToken();
+OAuthAccessToken accessToken = new OAuthAccessToken(config);
 accessToken.build(verifier,storage.get(request,"tempToken"),storage.get(request,"tempTokenSecret")).execute();
 
 // Check if your Access Token call successful
@@ -163,11 +168,15 @@ The Xero Java SDK contains XeroClient which has helper methods to perform (Creat
 import com.xero.api.*;
 import com.xero.model.*;
 
-// Get Xero API Resource - DEMONSTRATION ONLY get token from Cookie test
-TokenStorage storage = new TokenStorage();
 
-// Create an instance of XeroClient
-XeroClient client = new XeroClient(request, response, storage);
+
+// Get Xero API Resource - DEMONSTRATION ONLY get token from Cookie
+TokenStorage storage = new TokenStorage();
+String token = storage.get(request,"token");
+String tokenSecret = storage.get(request,"tokenSecret");
+
+XeroClient client = new XeroClient();
+client.setOAuthToken(token, tokenSecret);
 
 // Get All Contacts
 List<Contact> contactList = client.getContacts();
