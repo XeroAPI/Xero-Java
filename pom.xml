@@ -86,7 +86,7 @@
 		                <!-- github repo name -->
 		                <repositoryName>Xero-Java</repositoryName>
 		                <!-- github username -->
-		                <repositoryOwner>SidneyAllen</repositoryOwner>
+		                <repositoryOwner>XeroAPI</repositoryOwner>
 		          </configuration>
 		          <executions>
 		              <execution>
