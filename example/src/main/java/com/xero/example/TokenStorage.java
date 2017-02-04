@@ -1,4 +1,4 @@
-package com.xero.api;
+package com.xero.example;
 
 import java.util.HashMap;
 import java.util.Iterator;
