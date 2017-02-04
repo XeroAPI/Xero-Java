@@ -6,11 +6,11 @@ import com.google.api.client.auth.oauth.OAuthRsaSigner;
 public class HmacSigner implements Signer {
 
 	private OAuthHmacSigner signer = new OAuthHmacSigner();
-	private Config c = Config.getInstance();
+	private Config config;
 
-	public HmacSigner()  
+	public HmacSigner(Config config)  
 	{
-		
+		this.config = config;
 	}
 	
 	public OAuthRsaSigner createRsaSigner() 
@@ -21,13 +21,13 @@ public class HmacSigner implements Signer {
 	public OAuthHmacSigner createHmacSigner(String tokenSecret) 
 	{
 		signer.tokenSharedSecret = tokenSecret;
-		signer.clientSharedSecret = c.getConsumerSecret();
+		signer.clientSharedSecret = config.getConsumerSecret();
 		return signer;
 	}
 
 	public OAuthHmacSigner createHmacSigner() 
 	{
-		signer.clientSharedSecret = c.getConsumerSecret();
+		signer.clientSharedSecret = config.getConsumerSecret();
 		return signer;
 	}
 

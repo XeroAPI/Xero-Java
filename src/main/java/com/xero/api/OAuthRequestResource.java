@@ -76,7 +76,7 @@ public class OAuthRequestResource extends GenericUrl {
 	private HttpContent requestBody = null;
 	private String httpMethod = "GET";
 
-	private Config c = Config.getInstance();
+	private Config config;
 
 	/** {@code true} for POST request or the default {@code false} for GET request. */
 	protected boolean usePost;
@@ -84,8 +84,10 @@ public class OAuthRequestResource extends GenericUrl {
 	/**
 	 * @param authorizationServerUrl encoded authorization server URL
 	 */
-	public  OAuthRequestResource(String resource, String method, String body, Map<? extends String, ?> params) {
-		Url = new GenericUrl(c.getApiUrl() + resource);
+	public  OAuthRequestResource(Config config, String resource, String method, String body, Map<? extends String, ?> params) {
+		this.config = config;
+		
+		Url = new GenericUrl(config.getApiUrl() + resource);
 		this.httpMethod = method;
 		if(method.equals("POST") || method.equals("PUT")){
 			usePost = true;
@@ -122,8 +124,8 @@ public class OAuthRequestResource extends GenericUrl {
 		HttpRequest request = requestFactory.buildRequest(this.httpMethod, Url, requestBody);
 		
 		HttpHeaders headers = new HttpHeaders();
-		headers.setUserAgent(c.getUserAgent());
-		headers.setAccept(c.getAccept());
+		headers.setUserAgent(config.getUserAgent());
+		headers.setAccept(config.getAccept());
 		headers.setContentType("application/xml");
 		if(ifModifiedSince != null) {
 			System.out.println("Set Header " + this.ifModifiedSince);
@@ -147,8 +149,8 @@ public class OAuthRequestResource extends GenericUrl {
 	
 	public void setToken(String token) {
 		this.token = token; 
-		if(c.getAppType().equals("PRIVATE")) {
-			this.token = c.getConsumerKey();
+		if(config.getAppType().equals("PRIVATE")) {
+			this.token = config.getConsumerKey();
 		}
 	}
 	public void setTokenSecret(String secret) {
@@ -163,14 +165,14 @@ public class OAuthRequestResource extends GenericUrl {
 	public OAuthParameters createParameters() 
 	{
 
-		if(c.getAppType().equals("PUBLIC")){
-			signer = new HmacSigner().createHmacSigner(this.tokenSecret);
+		if(config.getAppType().equals("PUBLIC")){
+			signer = new HmacSigner(config).createHmacSigner(this.tokenSecret);
 		}	else {
-			signer = new RsaSigner().createRsaSigner();
+			signer = new RsaSigner(config).createRsaSigner();
 		}
 
 		OAuthParameters result = new OAuthParameters();
-		result.consumerKey = c.getConsumerKey();;
+		result.consumerKey = config.getConsumerKey();;
 		result.token = token;
 		result.signer = signer;
 		return result;
