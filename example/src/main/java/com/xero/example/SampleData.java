@@ -385,8 +385,15 @@ public class SampleData {
 		ArrayOfTaxComponent arrayOfTaxComponent = new ArrayOfTaxComponent();
 		TaxComponent taxComponent = new TaxComponent();
 		taxComponent.setName("Little One-" + loadRandomNum());
-		taxComponent.setRate("8");
-		arrayOfTaxComponent.getTaxComponent().add(taxComponent);		
+		taxComponent.setRate("2");
+		taxComponent.setIsCompound(false);
+		arrayOfTaxComponent.getTaxComponent().add(taxComponent);	
+		
+		TaxComponent taxComponent2 = new TaxComponent();
+		taxComponent2.setName("Big One-" + loadRandomNum());
+		taxComponent2.setRate("5");
+		taxComponent2.setIsCompound(true);
+		arrayOfTaxComponent.getTaxComponent().add(taxComponent2);
 	
 		TaxRate taxrate = new TaxRate();
 		taxrate.setTaxComponents(arrayOfTaxComponent);
@@ -505,6 +512,25 @@ public class SampleData {
 		line.setUnitAmount(new BigDecimal("20.00"));
 		line.setLineAmount(new BigDecimal("20.00"));
 		line.setAccountCode(accountDirectCosts.get(0).getCode());
+		
+		
+		List<TrackingCategory> TrackingCategoryList = client.getTrackingCategories();
+		if (TrackingCategoryList.size() > 0) {
+			int num10 = SampleData.findRandomNum(TrackingCategoryList.size());
+			
+			ArrayOfTrackingCategory trackingCategories = new ArrayOfTrackingCategory();
+			TrackingCategory trackingCategory = new TrackingCategory();
+			
+			trackingCategory.setTrackingCategoryID(TrackingCategoryList.get(num10).getTrackingCategoryID());
+			trackingCategory.setName(TrackingCategoryList.get(num10).getName());
+			trackingCategory.setOption(TrackingCategoryList.get(num10).getOptions().getOption().get(0).getName());
+			
+			trackingCategories.getTrackingCategory().add(trackingCategory);
+			
+			line.setTracking(trackingCategories);
+			
+		}
+		
 		array.getLineItem().add(line);
 		return array;	
 	}

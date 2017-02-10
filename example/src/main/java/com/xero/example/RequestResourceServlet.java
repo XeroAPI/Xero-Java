@@ -13,13 +13,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.xero.api.TokenStorage;
 import com.xero.api.XeroClient;
+import com.xero.api.Config;
+import com.xero.api.OAuthAccessToken;
 import com.xero.model.*;
 
 public class RequestResourceServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
+	private Config config = Config.getInstance(); 
+	
 	private String htmlString =  "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css\" integrity=\"sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7\" crossorigin=\"anonymous\">"
 			+ "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css\" integrity=\"sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r\" crossorigin=\"anonymous\">"
 			+ "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js\" integrity=\"sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS\" crossorigin=\"anonymous\"></script>"
@@ -97,10 +100,37 @@ public class RequestResourceServlet extends HttpServlet
 		if(storage.tokenIsNull(token)) {
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
+		
+		OAuthAccessToken refreshToken = new OAuthAccessToken(config);
+		String tokenTimestamp = storage.get(request, "tokenTimestamp");
+		if(config.getAppType().equals("PARTNER") && refreshToken.isStale(tokenTimestamp)) {
+			System.out.println("Time for a refresh");
+
+			refreshToken.setToken(storage.get(request, "token"));
+			refreshToken.setTokenSecret(storage.get(request, "tokenSecret"));
+			refreshToken.setSessionHandle(storage.get(request, "sessionHandle"));
+			
+			boolean success = refreshToken.build().execute();
+			if (!success) {
+				try {
+					request.getRequestDispatcher("index.jsp").forward(request, response);
+				} catch (ServletException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			// DEMONSTRATION ONLY - Store in Cookie - you can extend TokenStorage
+			// and implement the save() method for your database
+			storage.save(response,refreshToken.getAll());
+			token =  refreshToken.getToken();
+			tokenSecret = refreshToken.getTokenSecret();
+		}
+		
 		XeroClient client = new XeroClient();
 		client.setOAuthToken(token, tokenSecret);
 		
-		//SampleData data = new SampleData(client);
+		SampleData data = new SampleData(client);
 		
 		if(object.equals("Accounts")) {
 			
@@ -329,9 +359,9 @@ public class RequestResourceServlet extends HttpServlet
 			messages.add("Update the ExpenseClaim - ID : " + updateExpenseClaim.get(0).getExpenseClaimID() + " Status : " + updateExpenseClaim.get(0).getStatus());
 
 		} else if (object.equals("Invoices")) {
-		
 			/*  INVOICE */
 			List<Invoice> newInvoice = client.createInvoices(SampleData.loadInvoice().getInvoice());
+			
 			newInvoice.get(0).setReference("Just Created my Ref.");
 			messages.add("Create a new Invoice ID : " + newInvoice.get(0).getInvoiceID() + " - Reference : " +newInvoice.get(0).getReference());
 			
