@@ -175,6 +175,8 @@ TokenStorage storage = new TokenStorage();
 String token = storage.get(request,"token");
 String tokenSecret = storage.get(request,"tokenSecret");
 
+// For Private Apps the token is your consumerKey and the tokenSecret is your consumerSecret
+// You can get these values out of the config object above
 XeroClient client = new XeroClient();
 client.setOAuthToken(token, tokenSecret);
 
