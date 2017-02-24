@@ -42,7 +42,6 @@ public class Config {
 		if(instance == null) 
 		{
 			instance = new Config("config.json");
-			instance.load();
 		}
 	    return instance;
 	}
