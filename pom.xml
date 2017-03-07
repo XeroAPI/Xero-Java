@@ -1,0 +1,99 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.xero</groupId>
+	<artifactId>xero-java-sdk</artifactId>
+	<packaging>jar</packaging>
+	<version>0.0.7</version>
+	<name>Xero-Java SDK</name>
+	<url>http://maven.apache.org</url>
+	<dependencies>
+		<dependency>
+			<groupId>com.google.oauth-client</groupId>
+			<artifactId>google-oauth-client</artifactId>
+			<version>1.20.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.xero</groupId>
+			<artifactId>xero-accounting-api-schema</artifactId>
+			<version>0.0.2</version>
+		</dependency>
+	</dependencies>
+	<repositories>
+		<repository>
+			<id>xero-accounting-api-schema-mvn-repo</id>
+			<url>https://raw.github.com/XeroAPI/XeroAPI-Schemas/mvn-repo/</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
+	</repositories>
+	<distributionManagement>
+		<repository>
+			<id>internal.repo</id>
+			<name>Temporary Staging Repository</name>
+			<url>file://${project.build.directory}/mvn-repo</url>
+		</repository>
+	</distributionManagement>
+	<properties>
+		<!-- github server corresponds to entry in ~/.m2/settings.xml -->
+		<github.global.server>github</github.global.server>
+	</properties> 
+	<build>
+		<finalName>Xero-Java-SDK</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-deploy-plugin</artifactId>
+		    	<version>2.8.1</version>
+		    	<configuration>
+		    		<altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-repo</altDeploymentRepository>
+		    	</configuration>
+		    </plugin>
+		    <plugin>
+		    	<groupId>com.github.github</groupId>
+		    	<artifactId>site-maven-plugin</artifactId>
+		    	<version>0.12</version>
+		    	<configuration>
+		    		<!-- git commit message -->
+		    		<message>Maven artifacts for ${project.version}</message>
+		    		<!-- disable webpage processing -->
+		    		<noJekyll>true</noJekyll>
+		    		<!-- matches distribution management repository url above -->
+		    		<outputDirectory>${project.build.directory}/mvn-repo</outputDirectory>
+		    		<branch>refs/heads/mvn-repo</branch>
+		    		<!-- If you remove this then the old artifact will be removed and new 
+		               one will replace. But with the merge tag you can just release by changing the version -->
+					<merge>true</merge>
+					<includes>
+						<include>**/*</include>
+					</includes>
+						<repositoryName>Xero-Java</repositoryName>
+						<repositoryOwner>XeroAPI</repositoryOwner>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>site</goal>
+						</goals>
+						<phase>deploy</phase>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
