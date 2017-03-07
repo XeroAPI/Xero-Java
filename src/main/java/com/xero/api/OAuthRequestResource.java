@@ -81,9 +81,6 @@ public class OAuthRequestResource extends GenericUrl {
 	/** {@code true} for POST request or the default {@code false} for GET request. */
 	protected boolean usePost;
 
-	/**
-	 * @param authorizationServerUrl encoded authorization server URL
-	 */
 	public  OAuthRequestResource(Config config, String resource, String method, String body, Map<? extends String, ?> params) {
 		this.config = config;
 		
