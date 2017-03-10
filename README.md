@@ -16,7 +16,7 @@ Add this dependency and repository to your POM.xml
     <dependency>
 	  <groupId>com.xero</groupId>
 	  <artifactId>xero-java-sdk</artifactId>
-	  <version>0.0.7</version>
+	  <version>0.0.8</version>
 	</dependency>
 
     <repositories>
@@ -30,8 +30,9 @@ Add this dependency and repository to your POM.xml
       </repository>
     </repositories>
 
-####Working with Gradle, sbt or leiningen?
-Head over to [Jitpack.io](https://jitpack.io/#XeroAPI/Xero-Java/) and lookup http://github.com/XeroAPI/Xero-Java  to have your dependency built off the master branch.
+####Working with sbt?
+We have a build.sbt file defined in the root.
+
 
 ### Configure
 The Xero Java SDK depends on an external JSON file to configure values unique to your Application.   
