@@ -1098,14 +1098,91 @@ public class XeroClient {
 	public RepeatingInvoice getRepeatingInvoice(String id) throws IOException {
 	    return singleResult(get("RepeatingInvoices/" + id).getRepeatingInvoices().getRepeatingInvoice());
 	}
-	
-	//REPORTS		
-	public Report getReport(String id, String where, String order) throws IOException {
-		Map<String, String> params = new HashMap<>();
-		addToMapIfNotNull(params, "Where", where);
-		addToMapIfNotNull(params, "order", order);
-	    return singleResult(get("Report/" + id, null,params).getReports().getReport());
-	}
+
+    //REPORTS
+    public Report getReport(String id, String where, String order) throws IOException {
+        Map<String, String> params = new HashMap<>();
+        addToMapIfNotNull(params, "where", where);
+        addToMapIfNotNull(params, "order", order);
+        return singleResult(get("reports/" + id, null, params).getReports().getReport());
+    }
+
+    public Report getReportAgedPayablesByContact(String contactId, String where, String order, String date, String fromDate, String toDate) throws IOException {
+        Map<String, String> params = new HashMap<>();
+        addToMapIfNotNull(params, "where", where);
+        addToMapIfNotNull(params, "order", order);
+        addToMapIfNotNull(params, "contactID", contactId);
+        addToMapIfNotNull(params, "date", date);
+        addToMapIfNotNull(params, "fromDate", fromDate);
+        addToMapIfNotNull(params, "toDate", toDate);
+        return singleResult(get("reports/AgedPayablesByContact", null, params).getReports().getReport());
+    }
+
+    public Report getReportAgedReceivablesByContact(String contactId, String where, String order, String date, String fromDate, String toDate) throws IOException {
+        Map<String, String> params = new HashMap<>();
+        addToMapIfNotNull(params, "where", where);
+        addToMapIfNotNull(params, "order", order);
+        addToMapIfNotNull(params, "contactID", contactId);
+        addToMapIfNotNull(params, "date", date);
+        addToMapIfNotNull(params, "fromDate", fromDate);
+        addToMapIfNotNull(params, "toDate", toDate);
+        return singleResult(get("reports/AgedReceivablesByContact", null, params).getReports().getReport());
+    }
+
+    public Report getReportBalanceSheet(String where, String order, String date, String trackingOptionId1, String trackingOptionId2, boolean standardLayout, boolean paymentsOnly) throws IOException {
+        Map<String, String> params = new HashMap<>();
+        addToMapIfNotNull(params, "where", where);
+        addToMapIfNotNull(params, "order", order);
+        addToMapIfNotNull(params, "date", date);
+        addToMapIfNotNull(params, "trackingOptionID1", trackingOptionId1);
+        addToMapIfNotNull(params, "trackingOptionID2", trackingOptionId2);
+        addToMapIfNotNull(params, "standardLayout", standardLayout);
+        addToMapIfNotNull(params, "paymentsOnly", paymentsOnly);
+        return singleResult(get("reports/BalanceSheet", null, params).getReports().getReport());
+    }
+
+    public Report getReportBankStatement(String accountId, String where, String order, String fromDate, String toDate) throws IOException {
+        Map<String, String> params = new HashMap<>();
+        addToMapIfNotNull(params, "bankAccountID", accountId);
+        addToMapIfNotNull(params, "where", where);
+        addToMapIfNotNull(params, "order", order);
+        addToMapIfNotNull(params, "fromDate", fromDate);
+        addToMapIfNotNull(params, "toDate", toDate);
+        return singleResult(get("reports/BankStatement", null, params).getReports().getReport());
+    }
+
+    public Report getReportBudgetSummary(String where, String order, String date, int periods, int timeframe) throws IOException {
+        Map<String, String> params = new HashMap<>();
+        addToMapIfNotNull(params, "where", where);
+        addToMapIfNotNull(params, "order", order);
+        addToMapIfNotNull(params, "date", date);
+        addToMapIfNotNull(params, "timeframe", timeframe);
+        addToMapIfNotNull(params, "periods", periods);
+        return singleResult(get("reports/BudgetSummary", null, params).getReports().getReport());
+    }
+
+    public Report getExecutiveSummary(String where, String order, String date) throws IOException {
+        Map<String, String> params = new HashMap<>();
+        addToMapIfNotNull(params, "where", where);
+        addToMapIfNotNull(params, "order", order);
+        addToMapIfNotNull(params, "date", date);
+        return singleResult(get("reports/ExecutiveSummary", null, params).getReports().getReport());
+    }
+
+    public Report getReportProfitLoss(String where, String order, String fromDate, String toDate, String trackingCategoryId, String trackingOptionId1, String trackingCategoryId2, String trackingOptionId2, boolean standardLayout, boolean paymentsOnly) throws IOException {
+        Map<String, String> params = new HashMap<>();
+        addToMapIfNotNull(params, "where", where);
+        addToMapIfNotNull(params, "order", order);
+        addToMapIfNotNull(params, "fromDate", fromDate);
+        addToMapIfNotNull(params, "toDate", toDate);
+        addToMapIfNotNull(params, "trackingCategoryID", trackingCategoryId);
+        addToMapIfNotNull(params, "trackingOptionID1", trackingOptionId1);
+        addToMapIfNotNull(params, "trackingCategoryID2", trackingCategoryId2);
+        addToMapIfNotNull(params, "trackingOptionID2", trackingOptionId2);
+        addToMapIfNotNull(params, "standardLayout", standardLayout);
+        addToMapIfNotNull(params, "paymentsOnly", paymentsOnly);
+        return singleResult(get("reports/ProfitAndLoss", null, params).getReports().getReport());
+    }
 	
 	//TAX RATES 
 	public List<TaxRate> getTaxRates() throws IOException {
