@@ -602,6 +602,36 @@ public class RequestResourceServlet extends HttpServlet
 			/* REPORTS */
 			Report newReport = client.getReport("BalanceSheet",null,null);
 			messages.add("Get a Reports - " + newReport.getReportID() + " : " + newReport.getReportDate());
+			
+			List<Contact> AgedPayablesByContactList = client.getContacts();
+			int num20 = SampleData.findRandomNum(AgedPayablesByContactList.size());
+			
+			Report newReportAgedPayablesByContact = client.getReportAgedPayablesByContact(AgedPayablesByContactList.get(num20).getContactID(), null, null, null, "1/1/2016", "1/1/2017");
+			messages.add("Get Aged Payables By Contact Reports for " +  AgedPayablesByContactList.get(num20).getName() + " - Report ID " + newReportAgedPayablesByContact.getReportID() );
+			
+			Report newReportAgedReceivablesByContact = client.getReportAgedReceivablesByContact(AgedPayablesByContactList.get(num20).getContactID(), null, null, null, "1/1/2016", "1/1/2017");
+			messages.add("Get Aged Receivables By Contact Reports for " +  AgedPayablesByContactList.get(num20).getName() + " - Report ID " + newReportAgedReceivablesByContact.getReportID() );
+			
+			Report newReportBalanceSheet = client.getReportBalanceSheet(null, null, "3/3/2017", null, null, true, false);
+			messages.add("Get Balance Sheet Report on " +  newReportBalanceSheet.getReportDate() + " - Name: " + newReportBalanceSheet.getReportTitles().getReportTitle().get(1).toString() );
+						
+			List<Account> accountForBankStatement = client.getAccounts(null,"Type==\"BANK\"",null);
+			if(accountForBankStatement.size() > 0) {
+				Report newReportBankStatement = client.getReportBankStatement(accountForBankStatement.get(0).getAccountID(), null, null, "10/1/2016","1/1/2017");
+				messages.add("Get Bank Statement " +  newReportBankStatement.getReportDate() + " - Name: " + newReportBankStatement.getReportName() );
+			} else {
+				messages.add("No Bank Account found - can not run Bank Statement Report");
+			}
+			
+			Report newReportBudgetSummary = client.getReportBudgetSummary(null, null, "1/1/2017", 3, 1);				
+			messages.add("Get Budget Summary Report on " +  newReportBudgetSummary.getReportDate() + " - Name: " + newReportBudgetSummary.getReportName() );
+			
+			Report newExecutiveSummary = client.getExecutiveSummary(null, null,"1/1/2017");			
+			messages.add("Get Executive Summary Report on " +  newExecutiveSummary.getReportDate() + " - Name: " + newExecutiveSummary.getReportName() );
+
+			Report newReportProfitLoss = client.getReportProfitLoss(null,null, "9/1/2016", "1/1/2017", null, null, null, null, true, false);		
+			messages.add("Get Profit Loss Report on " +  newReportProfitLoss.getReportDate() + " - Name: " + newReportProfitLoss.getReportName() );
+
 
 		} else if (object.equals("TaxRates")) {
 
