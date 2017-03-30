@@ -30,7 +30,7 @@ Add this dependency and repository to your POM.xml
       </repository>
     </repositories>
 
-####Working with sbt?
+#### Working with sbt?
 We have a build.sbt file defined in the root.
 
 
@@ -219,12 +219,12 @@ List<Invoice> InvoiceList24hour = client.getInvoices(cal.getTime(),null,null);
 System.out.println("How many invoices modified in last 24 hours?: " + InvoiceList24hour.size());
 ```
 
-##Acknowledgement
+## Acknowledgement
 
 Special thanks to [Connectifier](https://github.com/connectifier) and [Ben Mccann](https://github.com/benmccann).  Marshalling and Unmarshalling in XeroClient was derived and extended from [Xero-Java-Client](https://github.com/connectifier/xero-java-client)
   
 
-##License
+## License
 
 This software is published under the [MIT License](http://en.wikipedia.org/wiki/MIT_License).
 
