@@ -16,7 +16,7 @@ public class RsaSigner implements Signer {
 	public RsaSigner(Config config) {
 
 		InputStream oauthPKCS12Stream = null;
-		oauthPKCS12Stream = getClass().getResourceAsStream(config.getPathToPrivateKey());
+		oauthPKCS12Stream = getClass().getResourceAsStream("/" + config.getPathToPrivateKey());
 		String oauthPKCS12Password = config.getPrivateKeyPassword();
 
 		KeyStore oauthKeyStore = null;

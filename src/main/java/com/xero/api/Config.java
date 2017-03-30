@@ -109,7 +109,7 @@ public class Config {
 	public void load() 
 	{
 		
-		InputStream inputStream = Config.class.getResourceAsStream(configFile);
+		InputStream inputStream = Config.class.getResourceAsStream("/" + configFile);
 		InputStreamReader reader = new InputStreamReader(inputStream);
 
 		JSONParser parser = new JSONParser();
