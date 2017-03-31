@@ -3,6 +3,7 @@ package com.xero.api;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -225,7 +226,7 @@ public class XeroClient {
 		}
 	}
 
-	protected static <T> T unmarshallResponse(String responseBody, Class<T> clazz) {
+	protected static <T> T unmarshallResponse(String responseBody, Class<T> clazz) throws UnsupportedEncodingException {
 		try {
 			JAXBContext context = JAXBContext.newInstance(clazz);
 		    Unmarshaller u = context.createUnmarshaller();
@@ -237,7 +238,7 @@ public class XeroClient {
 		    		throw new RuntimeException(event.getMessage(),event.getLinkedException());
 		    	}
 		    });*/
-		    Source source = new StreamSource(new ByteArrayInputStream(responseBody.getBytes()));
+		    Source source = new StreamSource(new ByteArrayInputStream(responseBody.getBytes("UTF-8")));
 		    return u.unmarshal(source, clazz).getValue();
 		} catch (JAXBException e) {
 			throw new IllegalStateException("Error unmarshalling response: " + responseBody, e);
