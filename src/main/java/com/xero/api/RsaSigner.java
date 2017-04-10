@@ -1,20 +1,13 @@
 package com.xero.api;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException; 
-import java.io.InputStream;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.UnrecoverableKeyException;
-import java.security.cert.CertificateException;
-import java.security.PrivateKey;
-
-import java.util.Enumeration;
-
 import com.google.api.client.auth.oauth.OAuthHmacSigner;
 import com.google.api.client.auth.oauth.OAuthRsaSigner;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.security.*;
+import java.security.cert.CertificateException;
+import java.util.Enumeration;
 
 public class RsaSigner implements Signer {
 
@@ -23,12 +16,7 @@ public class RsaSigner implements Signer {
 	public RsaSigner(Config config) {
 
 		InputStream oauthPKCS12Stream = null;
-		try {
-			oauthPKCS12Stream = new FileInputStream(config.getPathToPrivateKey());
-		} catch (FileNotFoundException e4) {
-			// TODO Auto-generated catch block
-			e4.printStackTrace();
-		}
+		oauthPKCS12Stream = getClass().getResourceAsStream("/" + config.getPathToPrivateKey());
 		String oauthPKCS12Password = config.getPrivateKeyPassword();
 
 		KeyStore oauthKeyStore = null;

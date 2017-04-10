@@ -1,14 +1,13 @@
 package com.xero.api;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.net.URL;
-
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class Config {
 
@@ -110,15 +109,14 @@ public class Config {
 	public void load() 
 	{
 		
-		final ClassLoader loader = Config.class.getClassLoader();
-		URL path = loader.getResource(configFile);
-		File f = new File(path.getFile());
-		
+		InputStream inputStream = Config.class.getResourceAsStream("/" + configFile);
+		InputStreamReader reader = new InputStreamReader(inputStream);
+
 		JSONParser parser = new JSONParser();
 		  
 		Object obj = null;
 		try {
-			obj = parser.parse(new FileReader(f));
+			obj = parser.parse(reader);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -195,8 +193,7 @@ public class Config {
 		if (jsonObject.containsKey("PrivateKeyCert")) 
 		{
 			String privateKeyCert = (String) jsonObject.get("PrivateKeyCert");
-			URL privateKeyPath = loader.getResource(privateKeyCert);
-			PATH_TO_PRIVATE_KEY_CERT = privateKeyPath.getPath();
+			PATH_TO_PRIVATE_KEY_CERT = privateKeyCert;
 			PRIVATE_KEY_PASSWORD = (String) jsonObject.get("PrivateKeyPassword");
 		}
 	}
