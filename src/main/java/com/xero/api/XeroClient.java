@@ -1277,6 +1277,16 @@ public class XeroClient {
 		array.getOption().addAll(objects);	
 		return put("TrackingCategories/" + id + "/Options", objFactory.createTrackingCategoryOptions(array)).getOptions().getOption();	
 	}
+
+	public TrackingCategoryOption updateTrackingCategoryOption(TrackingCategoryOption object,String id) throws IOException {
+		ArrayOfTrackingCategoryOption array = new ArrayOfTrackingCategoryOption();
+		array.getOption().add(object);	
+		return post("TrackingCategories/" + id + "/Options", objFactory.createTrackingCategoryOptions(array)).getOptions().getOption().get(0);	
+	}
+
+	public String deleteTrackingCategoryOption(String TrackingCategoryID, String TrackingOptionID) throws IOException {
+	    return delete("TrackingCategories/" + TrackingCategoryID + "/Options/" + TrackingOptionID).getStatus();
+	}
 	
 	// USERS
 	public List<User> getUsers() throws IOException {
