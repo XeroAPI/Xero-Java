@@ -77,7 +77,6 @@ public class Config {
 	  
 	public String getRequestTokenUrl() 
 	{
-		System.out.println("Request Token URL: " + REQUEST_TOKEN_URL);
 		return REQUEST_TOKEN_URL;
 	}
 	  
@@ -108,7 +107,6 @@ public class Config {
 	  
 	public void load() 
 	{
-		
 		InputStream inputStream = Config.class.getResourceAsStream("/" + configFile);
 		InputStreamReader reader = new InputStreamReader(inputStream);
 
@@ -178,8 +176,7 @@ public class Config {
 				AUTHENTICATE_URL = API_BASE_URL + authenticatePath;
 			}
 		}
-		
-		
+
 		if (jsonObject.containsKey("CallbackBaseUrl")) 
 		{
 			CALLBACK_BASE_URL = (String) jsonObject.get("CallbackBaseUrl");
@@ -192,8 +189,7 @@ public class Config {
 		
 		if (jsonObject.containsKey("PrivateKeyCert")) 
 		{
-			String privateKeyCert = (String) jsonObject.get("PrivateKeyCert");
-			PATH_TO_PRIVATE_KEY_CERT = privateKeyCert;
+			PATH_TO_PRIVATE_KEY_CERT = (String) jsonObject.get("PrivateKeyCert");
 			PRIVATE_KEY_PASSWORD = (String) jsonObject.get("PrivateKeyPassword");
 		}
 	}

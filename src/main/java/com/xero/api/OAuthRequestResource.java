@@ -161,7 +161,6 @@ public class OAuthRequestResource extends GenericUrl {
 	
 	public OAuthParameters createParameters() 
 	{
-
 		if(config.getAppType().equals("PUBLIC")){
 			signer = new HmacSigner(config).createHmacSigner(this.tokenSecret);
 		}	else {
@@ -174,4 +173,5 @@ public class OAuthRequestResource extends GenericUrl {
 		result.signer = signer;
 		return result;
 	}
+
 }
