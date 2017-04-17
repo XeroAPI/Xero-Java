@@ -75,7 +75,7 @@ public class OAuthRequestResource extends GenericUrl {
 	private String body = null;
 	private HttpContent requestBody = null;
 	private String httpMethod = "GET";
-
+	
 	private Config config;
 
 	/** {@code true} for POST request or the default {@code false} for GET request. */
@@ -100,25 +100,16 @@ public class OAuthRequestResource extends GenericUrl {
 	/**
 	 * Executes the HTTP request for a temporary or long-lived token.
 	 *
-	 * @return OAuth credentials response object
+	 * @throws IOException 
 	 */
-	public final HttpResponse execute() throws IOException {
-		/*  DEPRECATED ENTRUST CERTIFICATES
-		if(c.getAppType().equals("PARTNER")){
-			transport = new PartnerHttpClient().getPartnerHttpClient();
-		}	else {
-			transport = new ApacheHttpTransport();
-		}
-		*/
+	
+	public final HttpResponse execute() throws IOException  {
 		
 		transport = new ApacheHttpTransport();
 
 		if(usePost){
 			requestBody = ByteArrayContent.fromString(null, body);
 		}
-
-		HttpRequestFactory requestFactory = transport.createRequestFactory();
-		HttpRequest request = requestFactory.buildRequest(this.httpMethod, Url, requestBody);
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setUserAgent(config.getUserAgent());
@@ -126,18 +117,20 @@ public class OAuthRequestResource extends GenericUrl {
 		headers.setContentType("application/xml");
 		if(ifModifiedSince != null) {
 			System.out.println("Set Header " + this.ifModifiedSince);
-			headers.setIfModifiedSince(this.ifModifiedSince);
-			
+			headers.setIfModifiedSince(this.ifModifiedSince);	
 		}
+
+		HttpRequestFactory requestFactory = transport.createRequestFactory();
+		HttpRequest request;
+		HttpResponse response = null;
+		request = requestFactory.buildRequest(this.httpMethod, Url, requestBody);
 		request.setHeaders(headers);    
 		createParameters().intercept(request);
-		HttpResponse response;
 		
 		response = request.execute();
 		response.setContentLoggingLimit(0);
 
 		return response;
-		
 	}
 	
 	public void setMethod(String method) {
@@ -161,7 +154,6 @@ public class OAuthRequestResource extends GenericUrl {
 	
 	public OAuthParameters createParameters() 
 	{
-
 		if(config.getAppType().equals("PUBLIC")){
 			signer = new HmacSigner(config).createHmacSigner(this.tokenSecret);
 		}	else {
