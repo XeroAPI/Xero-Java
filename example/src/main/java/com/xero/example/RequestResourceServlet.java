@@ -293,10 +293,7 @@ public class RequestResourceServlet extends HttpServlet
 			
 			String deleteSingleContactStatus = client.deleteSingleContactFromContactGroup(newContactGroup.get(0).getContactGroupID(),arrayContact.getContact().get(0).getContactID());
 			messages.add("Delete Single Contact from Group - Deleted Status: " + deleteSingleContactStatus);
-			
-			//String deleteSingleContactStatus = client.deleteAllContactsFromContactGroup(newContactGroup2.get(0).getContactGroupID());
-			//messages.add("Delete ALL Contacts from Group - Deleted Status: " + deleteSingleContactStatus);
-							
+									
 		} else if (object.equals("CreditNotes")) {
 		
 			/* CREDIT NOTE */
@@ -661,29 +658,43 @@ public class RequestResourceServlet extends HttpServlet
 		} else if (object.equals("TrackingCategories")) {
 
 			/* TRACKING CATEGORIES  */
-			List<TrackingCategory> newTrackingCategory = client.createTrackingCategories(SampleData.loadTrackingCategory().getTrackingCategory());
-			messages.add("Create a new TrackingCategory - ID : " + newTrackingCategory.get(0).getTrackingCategoryID() + " -  Name : " + newTrackingCategory.get(0).getName());
+			try {
+				List<TrackingCategory> newTrackingCategory = client.createTrackingCategories(SampleData.loadTrackingCategory().getTrackingCategory());
+				messages.add("Create a new TrackingCategory - ID : " + newTrackingCategory.get(0).getTrackingCategoryID() + " -  Name : " + newTrackingCategory.get(0).getName());
+				
+				/* TRACKING OPTIONS  */
+				List<TrackingCategoryOption> newTrackingCategoryOption = client.createTrackingCategoryOption(SampleData.loadTrackingCategoryOption().getOption(),newTrackingCategory.get(0).getTrackingCategoryID());
+				messages.add("Create a new TrackingCategory Option - Name : " + newTrackingCategoryOption.get(0).getName());
+					
+				TrackingCategoryOption oneTrackingCategoryOption = new TrackingCategoryOption();
+				oneTrackingCategoryOption.setName("Iron Man");
+				TrackingCategoryOption updateTrackingCategoryOption = client.updateTrackingCategoryOption(oneTrackingCategoryOption,newTrackingCategory.get(0).getTrackingCategoryID(),newTrackingCategoryOption.get(0).getTrackingOptionID());
+				messages.add("Update TrackingCategory Option - Name : " + updateTrackingCategoryOption.getName());
 			
-			/* TRACKING OPTIONS  */
-			List<TrackingCategoryOption> newTrackingCategoryOption = client.createTrackingCategoryOption(SampleData.loadTrackingCategoryOption().getOption(),newTrackingCategory.get(0).getTrackingCategoryID());
-			messages.add("Create a new TrackingCategory Option - ID : " + newTrackingCategoryOption.get(0).getTrackingOptionID());
+				String deleteTrackingCategoryOption = client.deleteTrackingCategoryOption(newTrackingCategory.get(0).getTrackingCategoryID(),newTrackingCategoryOption.get(0).getTrackingOptionID());
+				messages.add("Delete TrackingCategory Option -  : " + deleteTrackingCategoryOption);
+				
+				List<TrackingCategory> TrackingCategoryWhere = client.getTrackingCategories(null,"Status==\"ACTIVE\"",null);
+				messages.add("Get a TrackingCategory with WHERE clause - Name : " + TrackingCategoryWhere.get(0).getName());
+				
+				List<TrackingCategory> TrackingCategoryList = client.getTrackingCategories();
+				int num10 = SampleData.findRandomNum(TrackingCategoryList.size());
+				messages.add("Get a random TrackingCategory - Name : " + TrackingCategoryList.get(num10).getName());
 			
-			List<TrackingCategory> TrackingCategoryWhere = client.getTrackingCategories(null,"Status==\"ACTIVE\"",null);
-			messages.add("Get a TrackingCategory with WHERE clause - Name : " + TrackingCategoryWhere.get(0).getName());
+				TrackingCategory TrackingCategoryOne = client.getTrackingCategory(TrackingCategoryList.get(num10).getTrackingCategoryID());
+				messages.add("Get a single TrackingCategory - Name : " + TrackingCategoryOne.getName());
+				
+				newTrackingCategory.get(0).setName("Lord of the Rings-" + SampleData.loadRandomNum());
+				List<TrackingCategory> updateTrackingCategory = client.updateTrackingCategory(newTrackingCategory);
+				messages.add("Update the TrackingCategory - ID : " + updateTrackingCategory.get(0).getTrackingCategoryID() + " - Name : " + updateTrackingCategory.get(0).getName());
 			
-			List<TrackingCategory> TrackingCategoryList = client.getTrackingCategories();
-			int num10 = SampleData.findRandomNum(TrackingCategoryList.size());
-			messages.add("Get a random TrackingCategory - Name : " + TrackingCategoryList.get(num10).getName());
-		
-			TrackingCategory TrackingCategoryOne = client.getTrackingCategory(TrackingCategoryList.get(num10).getTrackingCategoryID());
-			messages.add("Get a single TrackingCategory - Name : " + TrackingCategoryOne.getName());
+				String status = client.deleteTrackingCategory(newTrackingCategory.get(0).getTrackingCategoryID());
+				messages.add("Delete a new TrackingCategory - Delete result: " + status);
 			
-			newTrackingCategory.get(0).setName("Lord of the Rings-" + SampleData.loadRandomNum());
-			List<TrackingCategory> updateTrackingCategory = client.updateTrackingCategory(newTrackingCategory);
-			messages.add("Update the TrackingCategory - ID : " + updateTrackingCategory.get(0).getTrackingCategoryID() + " - Name : " + updateTrackingCategory.get(0).getName());
-		
-			String status = client.deleteTrackingCategory(newTrackingCategory.get(0).getTrackingCategoryID());
-			messages.add("Delete a new TrackingCategory - Delete result: " + status);
+			} catch (XeroApiException e) {
+				System.out.println(e.getResponseCode());
+				System.out.println(e.getMessage());
+			}
 					
 		} else if (object.equals("Users")) {
 

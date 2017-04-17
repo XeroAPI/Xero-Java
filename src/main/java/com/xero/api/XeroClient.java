@@ -173,6 +173,7 @@ public class XeroClient {
 	            if (googleException.getStatusCode() == 400 ||
 	            		googleException.getStatusCode() == 401 ||
 	            		googleException.getStatusCode() == 404 ||
+	            		googleException.getStatusCode() == 500 ||
 	            		googleException.getStatusCode() == 503) {
 					throw newApiException(googleException);
 	            } else {
@@ -201,9 +202,10 @@ public class XeroClient {
 			if (ioe instanceof HttpResponseException) {
 				HttpResponseException googleException = (HttpResponseException)ioe;
 		           
-	            if (googleException.getStatusCode() == 400 ||
+				if (googleException.getStatusCode() == 400 ||
 	            		googleException.getStatusCode() == 401 ||
 	            		googleException.getStatusCode() == 404 ||
+	            		googleException.getStatusCode() == 500 ||
 	            		googleException.getStatusCode() == 503) {
 					throw newApiException(googleException);
 	            } else {
@@ -231,9 +233,10 @@ public class XeroClient {
 			if (ioe instanceof HttpResponseException) {
 				HttpResponseException googleException = (HttpResponseException)ioe;
 		           
-	            if (googleException.getStatusCode() == 400 ||
+				 if (googleException.getStatusCode() == 400 ||
 	            		googleException.getStatusCode() == 401 ||
 	            		googleException.getStatusCode() == 404 ||
+	            		googleException.getStatusCode() == 500 ||
 	            		googleException.getStatusCode() == 503) {
 					throw newApiException(googleException);
 	            } else {
@@ -264,9 +267,10 @@ public class XeroClient {
 			if (ioe instanceof HttpResponseException) {
 				HttpResponseException googleException = (HttpResponseException)ioe;
 		           
-	            if (googleException.getStatusCode() == 400 ||
+				if (googleException.getStatusCode() == 400 ||
 	            		googleException.getStatusCode() == 401 ||
 	            		googleException.getStatusCode() == 404 ||
+	            		googleException.getStatusCode() == 500 ||
 	            		googleException.getStatusCode() == 503) {
 					throw newApiException(googleException);
 	            } else {
@@ -1342,6 +1346,16 @@ public class XeroClient {
 		ArrayOfTrackingCategoryOption array = new ArrayOfTrackingCategoryOption();
 		array.getOption().addAll(objects);	
 		return put("TrackingCategories/" + id + "/Options", objFactory.createTrackingCategoryOptions(array)).getOptions().getOption();	
+	}
+	
+	public TrackingCategoryOption updateTrackingCategoryOption(TrackingCategoryOption object,String TrackingCategoryID, String TrackingOptionID) throws IOException {
+		ArrayOfTrackingCategoryOption array = new ArrayOfTrackingCategoryOption();
+		array.getOption().add(object);	
+		return post("TrackingCategories/" + TrackingCategoryID + "/Options/" + TrackingOptionID, objFactory.createTrackingCategoryOptions(array)).getOptions().getOption().get(0);	
+	}
+		 
+	public String deleteTrackingCategoryOption(String TrackingCategoryID, String TrackingOptionID) throws IOException {
+		 return delete("TrackingCategories/" + TrackingCategoryID + "/Options/" + TrackingOptionID).getStatus();
 	}
 	
 	// USERS
