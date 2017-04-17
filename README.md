@@ -219,6 +219,7 @@ System.out.println("How many invoices modified in last 24 hours?: " + InvoiceLis
 ```
 
 **Exception Handling**
+
 We've added better support for exception handling when errors are returned from the API.  We've tested 400, 401, 404, 500 and 503 errors.  This is still underdevelopment - if your find ways to improve error handling, please submit a pull request or file an issue with details around your suggestion.  Below is an example of how how to handle error.
 
 ```java
