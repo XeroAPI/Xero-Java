@@ -100,6 +100,10 @@ public class XeroClient {
 	protected static final Pattern MESSAGE_PATTERN = Pattern.compile("<Message>(.*)</Message>");
 	protected final ObjectFactory objFactory = new ObjectFactory();
 
+	public XeroClient() {
+		this.config = JsonConfig.getInstance();
+	}
+
 	public XeroClient(Config config) {
 		this.config = config;
 	}

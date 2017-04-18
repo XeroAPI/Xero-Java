@@ -35,11 +35,11 @@ We have a build.sbt file defined in the root.
 
 
 ### Configure
-The Xero Java SDK depends on an external JSON file to configure values unique to your Application.   
+The Xero Java SDK is easily configured using an external JSON file to configure values unique to your Application. This is the default configuration method, however you can implement the `Config` interface and pass it to the `XeroClient`.
 
 We include an Example App (in this repo) built using Eclipse.  We started with a Maven Project and selected the maven-archetype-webapp with the setup Wizard.   This created a web application structure good for use with Servlets & JSPs.  By default a src/main/resources directory is added to the project.  **Place the config.json file you create in the resources directory**. 
 
-The Xero Java SDK - Config.java class parses the JSON file from the resources directory using the following bit of code.
+The Xero Java SDK JsonConfig.java class parses the JSON file from the resources directory using the following bit of code.
 
 ```java
 final ClassLoader loader = Config.class.getClassLoader();
@@ -96,6 +96,33 @@ In a text editor, create a file called config.json (examples are below)  Refer t
 * RequestTokenPath: path for Request Token      *default it /oauth/RequestToken*
 * AuthenticateUrl: path for redirect to authorize      *default is /oauth/RequestToken*
 * AccessTokenPath: path for Access Token         *default is https://api.xero.com/oauth/Authorize*
+
+### Spring Framework based Config
+
+An alternative method of configuring the Xero Java SDK can be found in the `example/src/main/java` folder named `SpringConfig.java`.
+ 
+This class reads the configuration from the spring `Environment` backed by the `application.properties`. This handy way of configuring the SDK
+allows spring profiles to control your production and development environments.
+
+```java
+    @Bean
+    public XeroClient xeroClient(Environment environment) {
+        SpringConfig config = new SpringConfig("xero.", environment);
+        XeroClient client = new XeroClient(config);
+        client.setOAuthToken(config.getConsumerKey(), config.getConsumerSecret());
+        return client;
+    }
+```
+
+Application.properties 
+```
+xero.AppType=PRIVATE
+xero.UserAgent=Your App Name
+xero.ConsumerKey=FA6UXXXXXXXXXXXXXXXXXXXXXXRC7
+xero.ConsumerSecret=7FMXXXXXXXXXXXXXXXXXXXXXXXXXCSA
+xero.PrivateKeyCert=certs/public_privatekey.pfx
+xero.PrivateKeyPassword=
+```
 
 ### Example App 
 This repo includes an Example App mentioned above.  The file structure mirrors that of an Eclipse Maven Project with the maven-archetype-webapp
