@@ -156,13 +156,28 @@ public class XeroClient {
 		req.setToken(token);
 		req.setTokenSecret(tokenSecret);
 
-		resp = req.execute();
+		try {
+			resp = req.execute();
+			return unmarshallResponse(resp.parseAsString(), Response.class);
+		} catch (IOException ioe) {
+			if (ioe instanceof HttpResponseException) {
+				HttpResponseException googleException = (HttpResponseException)ioe;
 
-		if (resp.getStatusCode() != 200) {
-		      throw newApiException(resp);
+				if (googleException.getStatusCode() == 400 ||
+						googleException.getStatusCode() == 401 ||
+						googleException.getStatusCode() == 404 ||
+						googleException.getStatusCode() == 500 ||
+						googleException.getStatusCode() == 503) {
+					throw newApiException(googleException);
+				} else {
+					System.out.println("Error - not tested with newApiException method");
+					System.out.println(googleException.getStatusCode());
+					System.out.println(googleException.getContent());
+					throw newApiException(googleException);
+				}
+			}
+			return null;
 		}
-
-	    return unmarshallResponse(resp.parseAsString(), Response.class);
 	}
 
 	protected Response put(String endPoint, String contentType, File file) throws IOException {
@@ -171,13 +186,28 @@ public class XeroClient {
 		req.setToken(token);
 		req.setTokenSecret(tokenSecret);
 
-		resp = req.execute();
+		try {
+			resp = req.execute();
+			return unmarshallResponse(resp.parseAsString(), Response.class);
+		} catch (IOException ioe) {
+			if (ioe instanceof HttpResponseException) {
+				HttpResponseException googleException = (HttpResponseException)ioe;
 
-		if (resp.getStatusCode() != 200) {
-		      throw newApiException(resp);
+				if (googleException.getStatusCode() == 400 ||
+						googleException.getStatusCode() == 401 ||
+						googleException.getStatusCode() == 404 ||
+						googleException.getStatusCode() == 500 ||
+						googleException.getStatusCode() == 503) {
+					throw newApiException(googleException);
+				} else {
+					System.out.println("Error - not tested with newApiException method");
+					System.out.println(googleException.getStatusCode());
+					System.out.println(googleException.getContent());
+					throw newApiException(googleException);
+				}
+			}
+			return null;
 		}
-
-	    return unmarshallResponse(resp.parseAsString(), Response.class);
 	}
 
 	protected Response post(String endPoint, JAXBElement<?> object) throws IOException {
