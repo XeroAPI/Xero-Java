@@ -16,7 +16,7 @@ Add this dependency and repository to your POM.xml
     <dependency>
 	  <groupId>com.xero</groupId>
 	  <artifactId>xero-java-sdk</artifactId>
-	  <version>0.1.0</version>
+	  <version>0.2.0</version>
 	</dependency>
 
     <repositories>
@@ -197,7 +197,6 @@ import com.xero.api.*;
 import com.xero.model.*;
 
 
-
 // Get Xero API Resource - DEMONSTRATION ONLY get token from Cookie
 TokenStorage storage = new TokenStorage();
 String token = storage.get(request,"token");
@@ -245,6 +244,39 @@ cal.add(Calendar.DAY_OF_MONTH, -1);
 List<Invoice> InvoiceList24hour = client.getInvoices(cal.getTime(),null,null);
 System.out.println("How many invoices modified in last 24 hours?: " + InvoiceList24hour.size());
 ```
+
+**Exception Handling**
+
+We've added better support for exception handling when errors are returned from the API.  We've tested 400, 401, 404, 500 and 503 errors.  This is still underdevelopment - if your find ways to improve error handling, please submit a pull request or file an issue with details around your suggestion.  Below is an example of how how to handle error.
+
+```java
+import com.xero.api.*;
+import com.xero.model.*;
+
+// FORCE a 404 Error - there is no contact wtih ID 1234	
+try {
+	Contact ContactOne = client.getContact("1234");
+	messages.add("Get a single Contact - ID : " + ContactOne.getContactID());
+} catch (XeroApiException e) {
+	System.out.println(e.getResponseCode());
+	System.out.println(e.getMessage());	
+}
+
+// FORCE a 503 Error - try to make more than 60 API calls in a minute to trigger rate limit error.
+List<Contact> ContactList = client.getContacts();
+int num = SampleData.findRandomNum(ContactList.size());			
+try {
+	for(int i=65; i>1; i--){
+		Contact ContactOne = client.getContact(ContactList.get(num).getContactID());
+	}
+	System.out.println("Congrats - you made over 60 calls without hitting rate limit");
+} catch (XeroApiException e) {
+	System.out.println(e.getResponseCode());
+	System.out.println(e.getMessage());
+}		
+
+```
+
 
 ## Acknowledgement
 

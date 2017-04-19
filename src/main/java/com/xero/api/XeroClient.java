@@ -1,26 +1,20 @@
 package com.xero.api;
 
-import java.io.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TimeZone;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import com.google.api.client.http.HttpResponse;
+import com.google.api.client.http.HttpResponseException;
+import com.xero.model.*;
+import com.xero.model.Currency;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.*;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
-
-import com.google.api.client.http.HttpResponse;
-import com.xero.model.*;
+import java.io.*;
+import java.net.URLDecoder;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class XeroClient {
 	
@@ -51,30 +45,39 @@ public class XeroClient {
 		this.tokenSecret = tokenSecret;
 	}
 	
-	protected XeroApiException newApiException(HttpResponse response) throws IOException {
-	    ApiException exception = null;
-	    try {
-	      exception = unmarshallResponse(response.parseAsString(), ApiException.class);
-	    } catch (Exception e) {
-	    }
+	protected XeroApiException newApiException(HttpResponseException googleException) {
+		Matcher matcher = MESSAGE_PATTERN.matcher(googleException.getContent());
+		StringBuilder messages = new StringBuilder();
+		while (matcher.find()) {
+			if (messages.length() > 0) {
+				messages.append(", ");
+			}
+			messages.append(matcher.group(1));
+		}
 	    
-	    // Jibx doesn't support xsi:type, so we pull out errors this somewhat-hacky way 
-	    Matcher matcher = MESSAGE_PATTERN.matcher(response.parseAsString());
-	    StringBuilder messages = new StringBuilder();
-	    while (matcher.find()) {
-	      if (messages.length() > 0) {
-	        messages.append(", ");
-	      }
-	      messages.append(matcher.group(1));
-	    }
-	    
-	    if (exception == null) {
-	      if (messages.length() > 0) {
-	        return new XeroApiException(response.getStatusCode(), messages.toString());
-	      }
-	      return new XeroApiException(response.getStatusCode());
-	    }
-	    return new XeroApiException(response.getStatusCode(), "Error number " + exception.getErrorNumber() + ". " + messages);  
+		if (messages.length() > 0) {
+			throw new XeroApiException(googleException.getStatusCode(), messages.toString());
+		}
+		if (googleException.getContent().contains("=")) {
+			try {
+				String value = URLDecoder.decode(googleException.getContent(), "UTF-8");
+				String[] keyValuePairs = value.split("&"); 
+			   
+				Map<String,String> errorMap = new HashMap<>();               
+				for(String pair : keyValuePairs)                        
+				{
+				    String[] entry = pair.split("=");
+				    errorMap.put(entry[0].trim(), entry[1].trim());    
+				}
+				throw new XeroApiException(googleException.getStatusCode(),errorMap);
+
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		throw new XeroApiException(googleException.getStatusCode(),googleException.getContent());
 	}
 		
 	protected Response get(String endPoint) throws IOException {
@@ -82,7 +85,6 @@ public class XeroClient {
 	}
 
 	protected Response get(String endPoint, Date modifiedAfter, Map<String,String> params) throws IOException {
-		
 		HttpResponse resp = null;
 		
 		OAuthRequestResource req = new OAuthRequestResource(config, endPoint,"GET",null,params);
@@ -92,28 +94,60 @@ public class XeroClient {
 			req.setIfModifiedSince(modifiedAfter);
 		}
 		
-		resp = req.execute();
-		if (resp.getStatusCode() != 200) {
-			  throw newApiException(resp);
+		try {
+			resp = req.execute();
+			return unmarshallResponse(resp.parseAsString(), Response.class);
+		} catch (IOException ioe) {
+			if (ioe instanceof HttpResponseException) {
+	            HttpResponseException googleException = (HttpResponseException)ioe;
+	           
+	            if (googleException.getStatusCode() == 400 ||
+	            		googleException.getStatusCode() == 401 ||
+	            		googleException.getStatusCode() == 404 ||
+	            		googleException.getStatusCode() == 500 ||
+	            		googleException.getStatusCode() == 503) {
+					throw newApiException(googleException);
+	            } else {
+	            	System.out.println("Error - not tested with newApiException method");
+	            	System.out.println(googleException.getStatusCode());
+		            System.out.println(googleException.getContent());	
+		            throw newApiException(googleException);
+	            }
+	        }
+			return null;
 		}
-	    return unmarshallResponse(resp.parseAsString(), Response.class);
 	}
 	
-	protected Response put(String endPoint, JAXBElement<?> object) throws IOException {
+	protected Response put(String endPoint, JAXBElement<?> object)  {
 		String contents = marshallRequest(object);		
 
 		HttpResponse resp = null;
 		OAuthRequestResource req = new OAuthRequestResource(config, endPoint,"PUT",contents,null);
 		req.setToken(token);
 		req.setTokenSecret(tokenSecret);
-		
-		resp = req.execute();
-			
-		if (resp.getStatusCode() != 200) {
-		      throw newApiException(resp);
+
+		try {
+			resp = req.execute();
+			return unmarshallResponse(resp.parseAsString(), Response.class);
+		} catch (IOException ioe) {
+			if (ioe instanceof HttpResponseException) {
+				HttpResponseException googleException = (HttpResponseException)ioe;
+		           
+				if (googleException.getStatusCode() == 400 ||
+	            		googleException.getStatusCode() == 401 ||
+	            		googleException.getStatusCode() == 404 ||
+	            		googleException.getStatusCode() == 500 ||
+	            		googleException.getStatusCode() == 503) {
+					throw newApiException(googleException);
+	            } else {
+	            	System.out.println("Error - not tested with newApiException method");
+	            	System.out.println(googleException.getStatusCode());
+		            System.out.println(googleException.getContent());	
+		            throw newApiException(googleException);
+	            }
+	        }
+			return null;
 		}
-		
-	    return unmarshallResponse(resp.parseAsString(), Response.class);
 	}
 
 	protected Response put(String endPoint, String contentType, byte[] bytes) throws IOException {
@@ -153,13 +187,28 @@ public class XeroClient {
 		req.setToken(token);
 		req.setTokenSecret(tokenSecret);
 
-		resp = req.execute();
-		if (resp.getStatusCode() == 401) {
-			System.out.println("Token Problem: " + resp.parseAsString());
-		} else if (resp.getStatusCode() != 200) {
-		      throw newApiException(resp);
-		}
-	    return unmarshallResponse(resp.parseAsString(), Response.class);
+		try {
+			resp = req.execute();
+			return unmarshallResponse(resp.parseAsString(), Response.class);
+		} catch (IOException ioe) {
+			if (ioe instanceof HttpResponseException) {
+				HttpResponseException googleException = (HttpResponseException)ioe;
+		           
+				 if (googleException.getStatusCode() == 400 ||
+	            		googleException.getStatusCode() == 401 ||
+	            		googleException.getStatusCode() == 404 ||
+	            		googleException.getStatusCode() == 500 ||
+	            		googleException.getStatusCode() == 503) {
+					throw newApiException(googleException);
+	            } else {
+	            	System.out.println("Error - not tested with newApiException method");
+	            	System.out.println(googleException.getStatusCode());
+		            System.out.println(googleException.getContent());	
+		            throw newApiException(googleException);
+	            }
+	        }
+			return null;
+		}	
 	}
 	
 	protected Response delete(String endPoint) throws IOException {
@@ -168,18 +217,32 @@ public class XeroClient {
 		req.setToken(token);
 		req.setTokenSecret(tokenSecret);
 
-		resp = req.execute();
-		// No-Content Returned from Xero API
-		if (resp.getStatusCode() == 204) {
-			//System.out.println("No Content Returned");
-			return unmarshallResponse("<Response><Status>DELETED</Status></Response>", Response.class);
-		} else if (resp.getStatusCode() == 401) {
-			System.out.println("Token Problem: " + resp.parseAsString());
-		} else if (resp.getStatusCode() != 200) {
-		      throw newApiException(resp);
+		try {
+			resp = req.execute();
+			// No-Content Returned from Xero API
+			if (resp.getStatusCode() == 204) {
+				return unmarshallResponse("<Response><Status>DELETED</Status></Response>", Response.class);
+			}
+			return unmarshallResponse(resp.parseAsString(), Response.class);
+		} catch (IOException ioe) {
+			if (ioe instanceof HttpResponseException) {
+				HttpResponseException googleException = (HttpResponseException)ioe;
+		           
+				if (googleException.getStatusCode() == 400 ||
+	            		googleException.getStatusCode() == 401 ||
+	            		googleException.getStatusCode() == 404 ||
+	            		googleException.getStatusCode() == 500 ||
+	            		googleException.getStatusCode() == 503) {
+					throw newApiException(googleException);
+	            } else {
+	            	System.out.println("Error - not tested with newApiException method");
+	            	System.out.println(googleException.getStatusCode());
+		            System.out.println(googleException.getContent());	
+		            throw newApiException(googleException);
+	            }
+	        }
+			return null;
 		}
-			
-		return unmarshallResponse(resp.parseAsString(), Response.class);
 	}
 	
 	protected <T> String marshallRequest(JAXBElement<?> object) {
@@ -194,7 +257,7 @@ public class XeroClient {
 		}
 	}
 
-	protected static <T> T unmarshallResponse(String responseBody, Class<T> clazz) throws UnsupportedEncodingException {
+	public static <T> T unmarshallResponse(String responseBody, Class<T> clazz) throws UnsupportedEncodingException {
 		try {
 			JAXBContext context = JAXBContext.newInstance(clazz);
 		    Unmarshaller u = context.createUnmarshaller();
@@ -1244,6 +1307,16 @@ public class XeroClient {
 		ArrayOfTrackingCategoryOption array = new ArrayOfTrackingCategoryOption();
 		array.getOption().addAll(objects);	
 		return put("TrackingCategories/" + id + "/Options", objFactory.createTrackingCategoryOptions(array)).getOptions().getOption();	
+	}
+	
+	public TrackingCategoryOption updateTrackingCategoryOption(TrackingCategoryOption object,String TrackingCategoryID, String TrackingOptionID) throws IOException {
+		ArrayOfTrackingCategoryOption array = new ArrayOfTrackingCategoryOption();
+		array.getOption().add(object);	
+		return post("TrackingCategories/" + TrackingCategoryID + "/Options/" + TrackingOptionID, objFactory.createTrackingCategoryOptions(array)).getOptions().getOption().get(0);	
+	}
+		 
+	public String deleteTrackingCategoryOption(String TrackingCategoryID, String TrackingOptionID) throws IOException {
+		 return delete("TrackingCategories/" + TrackingCategoryID + "/Options/" + TrackingOptionID).getStatus();
 	}
 	
 	// USERS

@@ -3,10 +3,10 @@ package com.xero.example;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.xero.api.XeroClient;
 import com.xero.api.Config;
 import com.xero.api.OAuthAccessToken;
+import com.xero.api.XeroApiException;
 import com.xero.model.*;
 
 public class RequestResourceServlet extends HttpServlet 
@@ -62,6 +63,7 @@ public class RequestResourceServlet extends HttpServlet
 		  	+ "<option value=\"TaxRates\">TaxRates</option>"
 		  	+ "<option value=\"TrackingCategories\">TrackingCategories</option>"
 		  	+ "<option value=\"Users\">Users</option>"
+		  	+ "<option value=\"Errors\">Errors</option>"
 		  	+ "</select>"
 		  	+ "</div>"
 		  	+ "<div class=\"form-group\">"
@@ -135,34 +137,40 @@ public class RequestResourceServlet extends HttpServlet
 		if(object.equals("Accounts")) {
 			
 			/* ACCOUNT */
-			List<Account> newAccount = client.createAccounts(SampleData.loadAccount().getAccount());
-			messages.add("Create a new Account - Name : " + newAccount.get(0).getName() 
-					+ " Description : " + newAccount.get(0).getDescription() + "");
-			
-			List<Account> accountWhere = client.getAccounts(null,"Type==\"BANK\"",null);
-			if(accountWhere.size() > 0) {
+			try {
+				List<Account> newAccount = client.createAccounts(SampleData.loadAccount().getAccount());
+				messages.add("Create a new Account - Name : " + newAccount.get(0).getName() 
+						+ " Description : " + newAccount.get(0).getDescription() + "");
 				
-				messages.add("Get a Account with WHERE clause - Name : " + accountWhere.get(0).getName() + "");
-			} else {
-				messages.add("Get a Account with WHERE clause - No Acccounts of Type BANK found");
-			}
+				List<Account> accountWhere = client.getAccounts(null,"Type==\"BANK\"",null);
+				if(accountWhere.size() > 0) {
+					
+					messages.add("Get a Account with WHERE clause - Name : " + accountWhere.get(0).getName() + "");
+				} else {
+					messages.add("Get a Account with WHERE clause - No Acccounts of Type BANK found");
+				}
 
-			List<Account> accountList = client.getAccounts();
-			int num = SampleData.findRandomNum(accountList.size());
-			messages.add("Get a random Account - Name : " + accountList.get(num).getName() + "");
-		
-			Account accountOne = client.getAccount(accountList.get(num).getAccountID());
-			messages.add("Get a single Account - Name : " + accountOne.getName() + "");
+				List<Account> accountList = client.getAccounts();
+				int num = SampleData.findRandomNum(accountList.size());
+				messages.add("Get a random Account - Name : " + accountList.get(num).getName() + "");
 			
-			newAccount.get(0).setDescription("Monsters Inc.");
-			newAccount.get(0).setStatus(null);
-			List<Account> updateAccount = client.updateAccount(newAccount);
-			messages.add("Update Account - Name : " + updateAccount.get(0).getName() 
-					+ " Description : " + updateAccount.get(0).getDescription() + "");
+				Account accountOne = client.getAccount(accountList.get(num).getAccountID());
+				messages.add("Get a single Account - Name : " + accountOne.getName() + "");
+				
+				newAccount.get(0).setDescription("Monsters Inc.");
+				newAccount.get(0).setStatus(null);
+				List<Account> updateAccount = client.updateAccount(newAccount);
+				messages.add("Update Account - Name : " + updateAccount.get(0).getName() 
+						+ " Description : " + updateAccount.get(0).getDescription() + "");
 
-			String status = client.deleteAccount(newAccount.get(0).getAccountID());
-			messages.add("Delete Account - Name : " + newAccount.get(0).getName() 
-					+ " result : " + status + "");
+				String status = client.deleteAccount(newAccount.get(0).getAccountID());
+				messages.add("Delete Account - Name : " + newAccount.get(0).getName() 
+						+ " result : " + status + "");
+			} catch (XeroApiException e) {
+				System.out.println(e.getResponseCode());
+				System.out.println(e.getMessage());	
+			}	
+
 			
 		} else if (object.equals("BankTransactions")) {
 		
@@ -226,12 +234,12 @@ public class RequestResourceServlet extends HttpServlet
 			List<BrandingTheme> newBrandingTheme = client.getBrandingThemes();
 			messages.add("Get a Branding Theme - Name : " + newBrandingTheme.get(0).getName());
 		
-		} else if (object.equals("Contacts")) {
+		} else if (object.equals("Contacts")) {		
 			
 			/* CONTACT */
 			List<Contact> newContact = client.createContact(SampleData.loadContact().getContact());
 			messages.add("Create a new Contact - Name : " + newContact.get(0).getName() + " Email : " + newContact.get(0).getEmailAddress());
-		
+			
 			List<Contact> ContactWhere = client.getContacts(null,"ContactStatus==\"ACTIVE\"",null);
 			messages.add("Get a Contact with WHERE clause - ID : " + ContactWhere.get(0).getContactID());
 			
@@ -285,10 +293,7 @@ public class RequestResourceServlet extends HttpServlet
 			
 			String deleteSingleContactStatus = client.deleteSingleContactFromContactGroup(newContactGroup.get(0).getContactGroupID(),arrayContact.getContact().get(0).getContactID());
 			messages.add("Delete Single Contact from Group - Deleted Status: " + deleteSingleContactStatus);
-			
-			//String deleteSingleContactStatus = client.deleteAllContactsFromContactGroup(newContactGroup2.get(0).getContactGroupID());
-			//messages.add("Delete ALL Contacts from Group - Deleted Status: " + deleteSingleContactStatus);
-							
+									
 		} else if (object.equals("CreditNotes")) {
 		
 			/* CREDIT NOTE */
@@ -653,29 +658,43 @@ public class RequestResourceServlet extends HttpServlet
 		} else if (object.equals("TrackingCategories")) {
 
 			/* TRACKING CATEGORIES  */
-			List<TrackingCategory> newTrackingCategory = client.createTrackingCategories(SampleData.loadTrackingCategory().getTrackingCategory());
-			messages.add("Create a new TrackingCategory - ID : " + newTrackingCategory.get(0).getTrackingCategoryID() + " -  Name : " + newTrackingCategory.get(0).getName());
+			try {
+				List<TrackingCategory> newTrackingCategory = client.createTrackingCategories(SampleData.loadTrackingCategory().getTrackingCategory());
+				messages.add("Create a new TrackingCategory - ID : " + newTrackingCategory.get(0).getTrackingCategoryID() + " -  Name : " + newTrackingCategory.get(0).getName());
+				
+				/* TRACKING OPTIONS  */
+				List<TrackingCategoryOption> newTrackingCategoryOption = client.createTrackingCategoryOption(SampleData.loadTrackingCategoryOption().getOption(),newTrackingCategory.get(0).getTrackingCategoryID());
+				messages.add("Create a new TrackingCategory Option - Name : " + newTrackingCategoryOption.get(0).getName());
+					
+				TrackingCategoryOption oneTrackingCategoryOption = new TrackingCategoryOption();
+				oneTrackingCategoryOption.setName("Iron Man");
+				TrackingCategoryOption updateTrackingCategoryOption = client.updateTrackingCategoryOption(oneTrackingCategoryOption,newTrackingCategory.get(0).getTrackingCategoryID(),newTrackingCategoryOption.get(0).getTrackingOptionID());
+				messages.add("Update TrackingCategory Option - Name : " + updateTrackingCategoryOption.getName());
 			
-			/* TRACKING OPTIONS  */
-			List<TrackingCategoryOption> newTrackingCategoryOption = client.createTrackingCategoryOption(SampleData.loadTrackingCategoryOption().getOption(),newTrackingCategory.get(0).getTrackingCategoryID());
-			messages.add("Create a new TrackingCategory Option - ID : " + newTrackingCategoryOption.get(0).getTrackingOptionID());
+				String deleteTrackingCategoryOption = client.deleteTrackingCategoryOption(newTrackingCategory.get(0).getTrackingCategoryID(),newTrackingCategoryOption.get(0).getTrackingOptionID());
+				messages.add("Delete TrackingCategory Option -  : " + deleteTrackingCategoryOption);
+				
+				List<TrackingCategory> TrackingCategoryWhere = client.getTrackingCategories(null,"Status==\"ACTIVE\"",null);
+				messages.add("Get a TrackingCategory with WHERE clause - Name : " + TrackingCategoryWhere.get(0).getName());
+				
+				List<TrackingCategory> TrackingCategoryList = client.getTrackingCategories();
+				int num10 = SampleData.findRandomNum(TrackingCategoryList.size());
+				messages.add("Get a random TrackingCategory - Name : " + TrackingCategoryList.get(num10).getName());
 			
-			List<TrackingCategory> TrackingCategoryWhere = client.getTrackingCategories(null,"Status==\"ACTIVE\"",null);
-			messages.add("Get a TrackingCategory with WHERE clause - Name : " + TrackingCategoryWhere.get(0).getName());
+				TrackingCategory TrackingCategoryOne = client.getTrackingCategory(TrackingCategoryList.get(num10).getTrackingCategoryID());
+				messages.add("Get a single TrackingCategory - Name : " + TrackingCategoryOne.getName());
+				
+				newTrackingCategory.get(0).setName("Lord of the Rings-" + SampleData.loadRandomNum());
+				List<TrackingCategory> updateTrackingCategory = client.updateTrackingCategory(newTrackingCategory);
+				messages.add("Update the TrackingCategory - ID : " + updateTrackingCategory.get(0).getTrackingCategoryID() + " - Name : " + updateTrackingCategory.get(0).getName());
 			
-			List<TrackingCategory> TrackingCategoryList = client.getTrackingCategories();
-			int num10 = SampleData.findRandomNum(TrackingCategoryList.size());
-			messages.add("Get a random TrackingCategory - Name : " + TrackingCategoryList.get(num10).getName());
-		
-			TrackingCategory TrackingCategoryOne = client.getTrackingCategory(TrackingCategoryList.get(num10).getTrackingCategoryID());
-			messages.add("Get a single TrackingCategory - Name : " + TrackingCategoryOne.getName());
+				String status = client.deleteTrackingCategory(newTrackingCategory.get(0).getTrackingCategoryID());
+				messages.add("Delete a new TrackingCategory - Delete result: " + status);
 			
-			newTrackingCategory.get(0).setName("Lord of the Rings-" + SampleData.loadRandomNum());
-			List<TrackingCategory> updateTrackingCategory = client.updateTrackingCategory(newTrackingCategory);
-			messages.add("Update the TrackingCategory - ID : " + updateTrackingCategory.get(0).getTrackingCategoryID() + " - Name : " + updateTrackingCategory.get(0).getName());
-		
-			String status = client.deleteTrackingCategory(newTrackingCategory.get(0).getTrackingCategoryID());
-			messages.add("Delete a new TrackingCategory - Delete result: " + status);
+			} catch (XeroApiException e) {
+				System.out.println(e.getResponseCode());
+				System.out.println(e.getMessage());
+			}
 					
 		} else if (object.equals("Users")) {
 
@@ -693,6 +712,45 @@ public class RequestResourceServlet extends HttpServlet
 		
 			User UserOne = client.getUser(UserList.get(num).getUserID());
 			messages.add("Get a single User - Email: " + UserOne.getEmailAddress());
+		
+		} else if (object.equals("Errors")) {
+			
+			/* CONTACT */
+			ArrayOfContact array = new ArrayOfContact();
+			Contact contact = new Contact();
+			contact.setName("Sidney Maestre");
+			array.getContact().add(contact);
+			
+			// FORCE a 400 Error
+			try {
+				List<Contact> duplicateContact = client.createContact(array.getContact());
+				messages.add("Create a new Contact - Name : " + duplicateContact.get(0).getName());
+			} catch (XeroApiException e) {
+				System.out.println(e.getResponseCode());
+				System.out.println(e.getMessage());
+			}			
+			
+			// FORCE a 404 Error
+			try {
+				Contact ContactOne = client.getContact("1234");
+				messages.add("Get a single Contact - ID : " + ContactOne.getContactID());
+			} catch (XeroApiException e) {
+				System.out.println(e.getResponseCode());
+				System.out.println(e.getMessage());	
+			}	
+			
+			// FORCE a 503 Error
+			List<Contact> ContactList = client.getContacts();
+			int num4 = SampleData.findRandomNum(ContactList.size());			
+			try {
+				for(int i=65; i>1; i--){
+					Contact ContactOne = client.getContact(ContactList.get(num4).getContactID());
+				}
+				messages.add("Congrats - you made over 60 calls without hitting rate limit");
+			} catch (XeroApiException e) {
+				System.out.println(e.getResponseCode());
+				System.out.println(e.getMessage());
+			}				
 		}
 		
 		for (int i = 0; i < messages.size(); i++) {
@@ -702,6 +760,5 @@ public class RequestResourceServlet extends HttpServlet
 		
 		respWriter.println("<hr>end processing request<hr><div class=\"form-group\">");
 		respWriter.println("</div></div>");
-		
 	}
 }
