@@ -16,17 +16,11 @@ package com.xero.api;
 
 import com.google.api.client.auth.oauth.OAuthParameters;
 import com.google.api.client.auth.oauth.OAuthSigner;
-import com.google.api.client.http.ByteArrayContent;
-import com.google.api.client.http.GenericUrl;
-import com.google.api.client.http.HttpContent;
-import com.google.api.client.http.HttpHeaders;
-import com.google.api.client.http.HttpRequest;
-import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.HttpResponse;
-import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.*;
 import com.google.api.client.http.apache.ApacheHttpTransport;
 import com.google.api.client.util.Beta;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.text.SimpleDateFormat;
@@ -81,20 +75,35 @@ public class OAuthRequestResource extends GenericUrl {
 	/** {@code true} for POST request or the default {@code false} for GET request. */
 	protected boolean usePost;
 
-	public  OAuthRequestResource(Config config, String resource, String method, String body, Map<? extends String, ?> params) {
+	private void init(Config config, String resource, String method, Map<? extends String, ?> params) {
 		this.config = config;
-		
+
 		Url = new GenericUrl(config.getApiUrl() + resource);
 		this.httpMethod = method;
 		if(method.equals("POST") || method.equals("PUT")){
 			usePost = true;
-		} 
-		
+		}
+
 		if (params != null) {
-			 Url.putAll(params);
-	    }
-		
+			Url.putAll(params);
+		}
+	}
+
+	public  OAuthRequestResource(Config config, String resource, String method, String body, Map<? extends String, ?> params) {
+		init(config, resource, method, params);
 		this.body = body;
+	}
+
+	public  OAuthRequestResource(Config config, String resource, String method, String contentType, byte[] bytes, Map<? extends String, ?> params) {
+		init(config, resource, method, params);
+		this.contentType = contentType;
+		this.requestBody = new ByteArrayContent(contentType,  bytes);
+	}
+
+	public  OAuthRequestResource(Config config, String resource, String method, String contentType, File file, Map<? extends String, ?> params) {
+		init(config, resource, method, params);
+		this.contentType = contentType;
+		this.requestBody = new FileContent(contentType, file);
 	}
 	
 	/**
@@ -113,7 +122,7 @@ public class OAuthRequestResource extends GenericUrl {
 		
 		transport = new ApacheHttpTransport();
 
-		if(usePost){
+		if(usePost && body != null){
 			requestBody = ByteArrayContent.fromString(null, body);
 		}
 
@@ -123,7 +132,7 @@ public class OAuthRequestResource extends GenericUrl {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setUserAgent(config.getUserAgent());
 		headers.setAccept(config.getAccept());
-		headers.setContentType("application/xml");
+		headers.setContentType(contentType == null ? "application/xml" : contentType);
 		if(ifModifiedSince != null) {
 			System.out.println("Set Header " + this.ifModifiedSince);
 			headers.setIfModifiedSince(this.ifModifiedSince);

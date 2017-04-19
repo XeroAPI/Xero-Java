@@ -1,9 +1,6 @@
 package com.xero.api;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,66 +20,7 @@ import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 
 import com.google.api.client.http.HttpResponse;
-import com.xero.model.Account;
-import com.xero.model.Allocation;
-import com.xero.model.ApiException;
-import com.xero.model.ArrayOfAccount;
-import com.xero.model.ArrayOfAllocation;
-import com.xero.model.ArrayOfBankTransaction;
-import com.xero.model.ArrayOfBankTransfer;
-import com.xero.model.ArrayOfBrandingTheme;
-import com.xero.model.ArrayOfContact;
-import com.xero.model.ArrayOfContactGroup;
-import com.xero.model.ArrayOfCreditNote;
-import com.xero.model.ArrayOfCurrency;
-import com.xero.model.ArrayOfEmployee;
-import com.xero.model.ArrayOfExpenseClaim;
-import com.xero.model.ArrayOfInvoice;
-import com.xero.model.ArrayOfInvoiceReminder;
-import com.xero.model.ArrayOfItem;
-import com.xero.model.ArrayOfJournal;
-import com.xero.model.ArrayOfLinkedTransaction;
-import com.xero.model.ArrayOfManualJournal;
-import com.xero.model.ArrayOfOverpayment;
-import com.xero.model.ArrayOfPayment;
-import com.xero.model.ArrayOfPrepayment;
-import com.xero.model.ArrayOfPurchaseOrder;
-import com.xero.model.ArrayOfReceipt;
-import com.xero.model.ArrayOfRepeatingInvoice;
-import com.xero.model.ArrayOfTaxRate;
-import com.xero.model.ArrayOfTrackingCategory;
-import com.xero.model.ArrayOfTrackingCategoryOption;
-import com.xero.model.ArrayOfUser;
-import com.xero.model.BankTransaction;
-import com.xero.model.BankTransfer;
-import com.xero.model.BrandingTheme;
-import com.xero.model.Contact;
-import com.xero.model.ContactGroup;
-import com.xero.model.ContactGroupStatus;
-import com.xero.model.CreditNote;
-import com.xero.model.Currency;
-import com.xero.model.Employee;
-import com.xero.model.ExpenseClaim;
-import com.xero.model.Invoice;
-import com.xero.model.InvoiceReminder;
-import com.xero.model.Item;
-import com.xero.model.Journal;
-import com.xero.model.LinkedTransaction;
-import com.xero.model.ManualJournal;
-import com.xero.model.ObjectFactory;
-import com.xero.model.Organisation;
-import com.xero.model.Overpayment;
-import com.xero.model.Payment;
-import com.xero.model.Prepayment;
-import com.xero.model.PurchaseOrder;
-import com.xero.model.Receipt;
-import com.xero.model.RepeatingInvoice;
-import com.xero.model.Report;
-import com.xero.model.Response;
-import com.xero.model.TaxRate;
-import com.xero.model.TrackingCategory;
-import com.xero.model.TrackingCategoryOption;
-import com.xero.model.User;
+import com.xero.model.*;
 
 public class XeroClient {
 	
@@ -175,6 +113,36 @@ public class XeroClient {
 		      throw newApiException(resp);
 		}
 		
+	    return unmarshallResponse(resp.parseAsString(), Response.class);
+	}
+
+	protected Response put(String endPoint, String contentType, byte[] bytes) throws IOException {
+		HttpResponse resp = null;
+		OAuthRequestResource req = new OAuthRequestResource(config, endPoint,"PUT", contentType, bytes,null);
+		req.setToken(token);
+		req.setTokenSecret(tokenSecret);
+
+		resp = req.execute();
+
+		if (resp.getStatusCode() != 200) {
+		      throw newApiException(resp);
+		}
+
+	    return unmarshallResponse(resp.parseAsString(), Response.class);
+	}
+
+	protected Response put(String endPoint, String contentType, File file) throws IOException {
+		HttpResponse resp = null;
+		OAuthRequestResource req = new OAuthRequestResource(config, endPoint,"PUT", contentType, file,null);
+		req.setToken(token);
+		req.setTokenSecret(tokenSecret);
+
+		resp = req.execute();
+
+		if (resp.getStatusCode() != 200) {
+		      throw newApiException(resp);
+		}
+
 	    return unmarshallResponse(resp.parseAsString(), Response.class);
 	}
 
@@ -1305,6 +1273,19 @@ public class XeroClient {
 		
 	public User getUser(String id) throws IOException {
 	    return singleResult(get("Users/" + id).getUsers().getUser());
+	}
+
+	// ATTACHMENTS
+	public List<Attachment> getAttachments(String endpoint, String guid) throws IOException {
+		return get(endpoint + "/" + guid + "/Attachments/", null, null).getAttachments().getAttachment();
+	}
+
+	public Attachment createAttachment(String endpoint, String guid, String filename, String contentType, byte[] bytes) throws IOException {
+		return singleResult(put(endpoint + "/" + guid + "/Attachments/" + filename, contentType, bytes).getAttachments().getAttachment());
+	}
+
+	public Attachment createAttachment(String endpoint, String guid, String filename, String contentType, File file) throws IOException {
+		return singleResult(put(endpoint + "/" + guid + "/Attachments/" + filename, contentType, file).getAttachments().getAttachment());
 	}
 
 }
