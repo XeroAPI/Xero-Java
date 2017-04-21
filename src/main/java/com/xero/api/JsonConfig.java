@@ -102,7 +102,7 @@ public class JsonConfig implements Config {
 	@Override
 	public String getUserAgent()
 	{
-		return USER_AGENT;
+		return USER_AGENT + " [Xero-Java-0.3.2]";
 	}
 	  
 	@Override
@@ -144,7 +144,6 @@ public class JsonConfig implements Config {
 		if (jsonObject.containsKey("UserAgent")) 
 		{
 			USER_AGENT = (String) jsonObject.get("UserAgent");
-			USER_AGENT = USER_AGENT + " [Xero-Java-0.3.1]";
 		}
 		
 		if (jsonObject.containsKey("Accept")) 
