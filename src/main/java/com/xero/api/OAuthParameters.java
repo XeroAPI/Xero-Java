@@ -236,4 +236,5 @@ public class OAuthParameters implements HttpExecuteInterceptor, HttpRequestIniti
 		}
 		request.getHeaders().setAuthorization(getAuthorizationHeader());
 	}
+
 }

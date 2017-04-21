@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.xero.api.Config;
+import com.xero.api.JsonConfig;
 import com.xero.api.OAuthAuthorizeToken;
 import com.xero.api.OAuthRequestToken;
 
@@ -16,7 +17,7 @@ import com.xero.api.OAuthRequestToken;
  */
 public class RequestTokenServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private Config config = Config.getInstance();   
+	private Config config = JsonConfig.getInstance();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -45,7 +46,7 @@ public class RequestTokenServlet extends HttpServlet {
 			storage.save(response,requestToken.getAll());
 
 			//Build the Authorization URL and redirect User
-			OAuthAuthorizeToken authToken = new OAuthAuthorizeToken(requestToken.getTempToken());
+			OAuthAuthorizeToken authToken = new OAuthAuthorizeToken(config, requestToken.getTempToken());
 			response.sendRedirect(authToken.getAuthUrl());	
 
 		}
