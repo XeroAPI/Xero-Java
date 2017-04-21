@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.xero.api.OAuthAccessToken;
 import com.xero.api.Config;
+import com.xero.api.JsonConfig;
 
 public class CallbackServlet extends HttpServlet 
 {

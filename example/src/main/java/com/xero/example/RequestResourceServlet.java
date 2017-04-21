@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.xero.api.XeroClient;
 import com.xero.api.Config;
+import com.xero.api.JsonConfig;
 import com.xero.api.OAuthAccessToken;
 import com.xero.api.XeroApiException;
 import com.xero.model.*;

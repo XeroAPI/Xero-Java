@@ -144,7 +144,7 @@ public class JsonConfig implements Config {
 		if (jsonObject.containsKey("UserAgent")) 
 		{
 			USER_AGENT = (String) jsonObject.get("UserAgent");
-			USER_AGENT = USER_AGENT + " [Xero-Java-0.3.0]";
+			USER_AGENT = USER_AGENT + " [Xero-Java-0.3.1]";
 		}
 		
 		if (jsonObject.containsKey("Accept")) 
