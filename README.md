@@ -137,7 +137,7 @@ This repo includes an Example App mentioned above.  The file structure mirrors t
 For Public & Partner Apps, you'll implement 3 legged oAuth - Private Apps can skip down to the Data Endpoints (your Consumer Key will act as your permenent Access Token)
 
 ```java
-private Config config = Config.getInstance(); 
+private Config config = JsonConfig.getInstance();
 
 // Start by requesting a temporary token from Xero
 OAuthRequestToken requestToken = new OAuthRequestToken(config);
@@ -156,7 +156,7 @@ response.sendRedirect(authToken.getAuthUrl());
 In your callback Servlet you'll read the query params and swap your temporary for your 30 min access token.  In our example, we forward the user to the callback.jsp if successful.
 
 ```java
-private Config config = Config.getInstance(); 
+private Config config = JsonConfig.getInstance(); 
 
 
 // DEMONSTRATION ONLY - retrieve TempToken from Cookie
@@ -196,6 +196,7 @@ The Xero Java SDK contains XeroClient which has helper methods to perform (Creat
 import com.xero.api.*;
 import com.xero.model.*;
 
+private Config config = JsonConfig.getInstance();
 
 // Get Xero API Resource - DEMONSTRATION ONLY get token from Cookie
 TokenStorage storage = new TokenStorage();
