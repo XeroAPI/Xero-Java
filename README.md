@@ -16,7 +16,7 @@ Add this dependency and repository to your POM.xml
     <dependency>
 	  <groupId>com.xero</groupId>
 	  <artifactId>xero-java-sdk</artifactId>
-	  <version>0.2.0</version>
+	  <version>0.3.0</version>
 	</dependency>
 
     <repositories>
@@ -99,7 +99,7 @@ In a text editor, create a file called config.json (examples are below)  Refer t
 
 ### Spring Framework based Config
 
-An alternative method of configuring the Xero Java SDK can be found in the `example/src/main/java` folder named `SpringConfig.java`.
+An alternative method of configuring the Xero Java SDK can be found in the `example-spring/src/main/java` folder named `SpringConfig.java`.
  
 This class reads the configuration from the spring `Environment` backed by the `application.properties`. This handy way of configuring the SDK
 allows spring profiles to control your production and development environments.

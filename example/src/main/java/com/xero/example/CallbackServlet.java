@@ -13,7 +13,7 @@ import com.xero.api.Config;
 public class CallbackServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
-	private Config config = Config.getInstance();
+	private Config config = JsonConfig.getInstance();
 
 	public CallbackServlet() 
 	{
