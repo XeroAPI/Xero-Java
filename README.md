@@ -30,9 +30,6 @@ Add this dependency and repository to your POM.xml
       </repository>
     </repositories>
 
-#### Working with sbt?
-We have a build.sbt file defined in the root.
-
 
 ### Configure
 The Xero Java SDK is easily configured using an external JSON file to configure values unique to your Application. This is the default configuration method, however you can implement the `Config` interface and pass it to the `XeroClient`.
