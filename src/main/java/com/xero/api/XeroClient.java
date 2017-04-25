@@ -15,12 +15,15 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.io.File;
+import java.io.FileOutputStream;
 
 public class XeroClient {
 	
 	private Config config;  
 	private String token = null;
 	private String tokenSecret = null;
+	private static final int BUFFER_SIZE = 4096;
 	
 	protected static final DateFormat utcFormatter;
 	static 
@@ -83,7 +86,7 @@ public class XeroClient {
 	protected Response get(String endPoint) throws IOException {
 		return get(endPoint, null, null);
 	}
-
+	
 	protected Response get(String endPoint, Date modifiedAfter, Map<String,String> params) throws IOException {
 		HttpResponse resp = null;
 		
@@ -115,6 +118,64 @@ public class XeroClient {
 	            }
 	        }
 			return null;
+		}
+	}
+	
+
+	protected String getFile(String endPoint, Date modifiedAfter, Map<String,String> params, String accept, String dirPath) throws IOException {
+		HttpResponse resp = null;
+		String saveFilePath = "";
+		OAuthRequestResource req = new OAuthRequestResource(config, endPoint,"GET",null,params, accept);
+		req.setToken(token);
+		req.setTokenSecret(tokenSecret);
+		if (modifiedAfter != null) {
+			req.setIfModifiedSince(modifiedAfter);
+		}
+		
+		try {
+			resp = req.execute();
+					
+			InputStream inputStream = resp.getContent();
+			List<String> disposition = resp.getHeaders().getHeaderStringValues("Content-Disposition");
+			
+			String fileName = null;
+			Pattern regex = Pattern.compile("(?<=filename=\").*?(?=\")");
+			Matcher regexMatcher = regex.matcher(disposition.toString());
+			if (regexMatcher.find()) {
+			    fileName = regexMatcher.group();
+			}
+			
+			saveFilePath = dirPath + File.separator + fileName;	             
+			FileOutputStream outputStream = new FileOutputStream(saveFilePath);
+	 
+	        int bytesRead = -1;
+	        byte[] buffer = new byte[BUFFER_SIZE];
+	        while ((bytesRead = inputStream.read(buffer)) != -1) {
+	        	 outputStream.write(buffer, 0, bytesRead);
+	         }
+	         outputStream.close();
+	         inputStream.close();
+	         
+	         return saveFilePath;
+		
+		} catch (IOException ioe) {
+			if (ioe instanceof HttpResponseException) {
+	            HttpResponseException googleException = (HttpResponseException)ioe;
+	           
+	            if (googleException.getStatusCode() == 400 ||
+	            		googleException.getStatusCode() == 401 ||
+	            		googleException.getStatusCode() == 404 ||
+	            		googleException.getStatusCode() == 500 ||
+	            		googleException.getStatusCode() == 503) {
+					throw newApiException(googleException);
+	            } else {
+	            	System.out.println("Error - not tested with newApiException method");
+	            	System.out.println(googleException.getStatusCode());
+		            System.out.println(googleException.getContent());	
+		            throw newApiException(googleException);
+	            }
+	        }
+			return "";
 		}
 	}
 	
@@ -610,6 +671,10 @@ public class XeroClient {
 	    return singleResult(get("CreditNotes/" + id).getCreditNotes().getCreditNote());
 	}
 	
+	public String getCreditNotePdf(String id, String dirPath) throws IOException {
+		return getFile("CreditNotes/" + id,null,null,"application/pdf", dirPath);
+	}
+	
 	//CURRENCY
 	public List<Currency> getCurrencies() throws IOException {
 	    Response responseObj = get("Currencies");
@@ -760,6 +825,10 @@ public class XeroClient {
 		
 	public Invoice getInvoice(String id) throws IOException {
 	    return singleResult(get("Invoices/" + id).getInvoices().getInvoice());
+	}
+	
+	public String getInvoicePdf(String id, String dirPath) throws IOException {	
+		return getFile("Invoices/" + id,null,null,"application/pdf", dirPath);
 	}
 	
 	// INVOICE REMINDER 
@@ -1090,6 +1159,10 @@ public class XeroClient {
 	    return singleResult(get("PurchaseOrders/" + id).getPurchaseOrders().getPurchaseOrder());
 	}
 	
+	public String getPurchaseOrderPdf(String id, String dirPath) throws IOException {
+		return getFile("PurchaseOrders/" + id,null,null,"application/pdf", dirPath);
+	}
+	
 	//RECEIPTS
 	public List<Receipt> getReceipts() throws IOException {
 	    Response responseObj = get("Receipts");
@@ -1179,7 +1252,8 @@ public class XeroClient {
         addToMapIfNotNull(params, "toDate", toDate);
         return singleResult(get("reports/AgedPayablesByContact", null, params).getReports().getReport());
     }
-
+    
+    
     public Report getReportAgedReceivablesByContact(String contactId, String where, String order, String date, String fromDate, String toDate) throws IOException {
         Map<String, String> params = new HashMap<>();
         addToMapIfNotNull(params, "where", where);
@@ -1386,9 +1460,8 @@ public class XeroClient {
 	public Attachment createAttachment(String endpoint, String guid, String filename, String contentType, byte[] bytes) throws IOException {
 		return singleResult(put(endpoint + "/" + guid + "/Attachments/" + filename, contentType, bytes).getAttachments().getAttachment());
 	}
-
-	public Attachment createAttachment(String endpoint, String guid, String filename, String contentType, File file) throws IOException {
-		return singleResult(put(endpoint + "/" + guid + "/Attachments/" + filename, contentType, file).getAttachments().getAttachment());
+	
+	public String getAttachmentContent(String endpoint, String guid,String filename,String accept,String dirPath) throws IOException {
+		return getFile(endpoint + "/" + guid + "/Attachments/" + filename, null,null, accept, dirPath);
 	}
-
 }

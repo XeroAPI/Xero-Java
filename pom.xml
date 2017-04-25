@@ -19,6 +19,11 @@
 			<version>1.1.1</version>
 		</dependency>
 		<dependency>
+		    <groupId>commons-io</groupId>
+		    <artifactId>commons-io</artifactId>
+		    <version>2.5</version>
+		</dependency>
+		<dependency>
 			<groupId>com.xero</groupId>
 			<artifactId>xero-accounting-api-schema</artifactId>
 			<version>0.0.3</version>

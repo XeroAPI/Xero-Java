@@ -1,17 +1,20 @@
 package com.xero.example;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.io.IOUtils;
 
 import com.xero.api.XeroClient;
 import com.xero.api.Config;
@@ -23,7 +26,8 @@ import com.xero.model.*;
 public class RequestResourceServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
-	private Config config = JsonConfig.getInstance(); 
+	//private Config config = Config.getInstance(); 
+	private Config config = JsonConfig.getInstance();
 	
 	private String htmlString =  "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css\" integrity=\"sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7\" crossorigin=\"anonymous\">"
 			+ "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css\" integrity=\"sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r\" crossorigin=\"anonymous\">"
@@ -37,6 +41,7 @@ public class RequestResourceServlet extends HttpServlet
 		  	+ "<label for=\"object\">Create, Read, Update & Delete</label>"
 		  	+ "<select name=\"object\" class=\"form-control\" id=\"object\">"
 		  	+ "<option value=\"Accounts\" selected>Accounts</option>"
+			+ "<option value=\"Attachments\" selected>Attachments</option>"
 		  	+ "<option value=\"BankTransactions\">BankTransactions</option>"
 		  	+ "<option value=\"BankTransfers\">BankTransfers</option>"
 		  	+ "<option value=\"BrandingThemes\">BrandingThemes</option>"
@@ -172,6 +177,28 @@ public class RequestResourceServlet extends HttpServlet
 				System.out.println(e.getMessage());	
 			}	
 
+		} else if (object.equals("Attachments")) {
+	
+			/*  INVOICE ATTACHMENT as BYTE ARRAY */
+			List<Invoice> newInvoice = client.createInvoices(SampleData.loadInvoice().getInvoice());
+			messages.add("Create a new Invoice ID : " + newInvoice.get(0).getInvoiceID() + " - Reference : " +newInvoice.get(0).getReference());
+			
+			InputStream is = JsonConfig.class.getResourceAsStream("/helo-heros.jpg");
+			byte[] bytes = IOUtils.toByteArray(is);
+			
+			String fileName = "sample.jpg";
+			Attachment invoiceAttachment = client.createAttachment("Invoices",newInvoice.get(0).getInvoiceID(), fileName, "application/jpeg", bytes);
+			messages.add("Attachment to Invoice complete - ID: " + invoiceAttachment.getAttachmentID());
+			
+			List<Attachment> getInvoiceAttachment = client.getAttachments("Invoices", newInvoice.get(0).getInvoiceID());
+			messages.add("Get Attachment for Invoice - complete -attachment ID: " + getInvoiceAttachment.get(0).getAttachmentID());	
+
+			System.out.println(getInvoiceAttachment.get(0).getFileName() + " --- " +getInvoiceAttachment.get(0).getMimeType());
+			
+			File f = new File("./");
+			String dirPath =  f.getCanonicalPath();
+			String contentPath = client.getAttachmentContent("Invoices", newInvoice.get(0).getInvoiceID(),getInvoiceAttachment.get(0).getFileName(),getInvoiceAttachment.get(0).getMimeType(),dirPath);
+			messages.add("Get Attachment content - save to server - location: " + contentPath);				
 			
 		} else if (object.equals("BankTransactions")) {
 		
@@ -301,6 +328,13 @@ public class RequestResourceServlet extends HttpServlet
 			List<CreditNote> newCreditNote = client.createCreditNotes(SampleData.loadCreditNote().getCreditNote());
 			messages.add("Create a new Credit Note - ID: " + newCreditNote.get(0).getCreditNoteID());
 		
+			// GET PDF of CREDIT NOTE
+			File f = new File("./");
+			String dirPath =  f.getCanonicalPath();
+			String fileSavePath = client.getCreditNotePdf(newCreditNote.get(0).getCreditNoteID(),dirPath);
+			messages.add("Get a PDF copy of Credit Note - save it here: " + fileSavePath);
+			//System.out.println(fileSavePath);
+				
 			List<CreditNote> CreditNoteWhere = client.getCreditNotes(null,"Status==\"DRAFT\"",null);
 			if(CreditNoteWhere.size() > 0) {
 				messages.add("Get a CreditNote with WHERE clause - ID: " + CreditNoteWhere.get(0).getCreditNoteID());
@@ -367,9 +401,14 @@ public class RequestResourceServlet extends HttpServlet
 		} else if (object.equals("Invoices")) {
 			/*  INVOICE */
 			List<Invoice> newInvoice = client.createInvoices(SampleData.loadInvoice().getInvoice());
-			
 			newInvoice.get(0).setReference("Just Created my Ref.");
 			messages.add("Create a new Invoice ID : " + newInvoice.get(0).getInvoiceID() + " - Reference : " +newInvoice.get(0).getReference());
+			
+			// GET PDF of INVOICE
+			File f = new File("./");
+			String dirPath =  f.getCanonicalPath();
+			String fileSavePath = client.getInvoicePdf(newInvoice.get(0).getInvoiceID(),dirPath);
+			messages.add("Get a PDF copy of Invoice - save it here: " + fileSavePath);	
 			
 			List<Invoice> InvoiceWhere = client.getInvoices(null,"Status==\"DRAFT\"",null);
 			messages.add("Get a Invoice with WHERE clause - InvNum : " + InvoiceWhere.get(0).getInvoiceID());
@@ -390,7 +429,7 @@ public class RequestResourceServlet extends HttpServlet
 			Invoice InvoiceOne = client.getInvoice(InvoiceList.get(num7).getInvoiceID());
 			messages.add("Get a single Invoice - InvNum : " + InvoiceOne.getInvoiceID());
 			
-			newInvoice.get(0).setReference("Just Updated my Ref.");
+			newInvoice.get(0).setReference("Just Updated APRIL my Ref.");
 			newInvoice.get(0).setStatus(null);
 			List<Invoice> updateInvoice = client.updateInvoice(newInvoice);
 			messages.add("Update the Invoice - InvNum : " + updateInvoice.get(0).getInvoiceID() + " - Reference : " + updateInvoice.get(0).getReference());
@@ -557,6 +596,13 @@ public class RequestResourceServlet extends HttpServlet
 			List<PurchaseOrder> newPurchaseOrder = client.createPurchaseOrders(SampleData.loadPurchaseOrder().getPurchaseOrder());
 			messages.add("Create a new PurchaseOrder - ID : " + newPurchaseOrder.get(0).getPurchaseOrderID() + " - Reference :" + newPurchaseOrder.get(0).getReference());
 			
+			// GET PDF of PURCHASE ORDER
+			File f = new File("./");
+			String dirPath =  f.getCanonicalPath();
+			String fileSavePath = client.getPurchaseOrderPdf(newPurchaseOrder.get(0).getPurchaseOrderID(),dirPath);
+			messages.add("Get a PDF copy of PurchaseOrder - save it here: " + fileSavePath);
+			System.out.println(fileSavePath);
+			
 			List<PurchaseOrder> PurchaseOrderWhere = client.getPurchaseOrders(null,"Status==\"DRAFT\"",null);
 			messages.add("Get a PurchaseOrder with WHERE clause - ID : " + PurchaseOrderWhere.get(0).getPurchaseOrderID());
 			
@@ -605,7 +651,6 @@ public class RequestResourceServlet extends HttpServlet
 		
 		} else if (object.equals("Reports")) {
 
-			/* REPORTS */
 			Report newReport = client.getReport("BalanceSheet",null,null);
 			messages.add("Get a Reports - " + newReport.getReportID() + " : " + newReport.getReportDate());
 			
@@ -614,7 +659,7 @@ public class RequestResourceServlet extends HttpServlet
 			
 			Report newReportAgedPayablesByContact = client.getReportAgedPayablesByContact(AgedPayablesByContactList.get(num20).getContactID(), null, null, null, "1/1/2016", "1/1/2017");
 			messages.add("Get Aged Payables By Contact Reports for " +  AgedPayablesByContactList.get(num20).getName() + " - Report ID " + newReportAgedPayablesByContact.getReportID() );
-			
+								
 			Report newReportAgedReceivablesByContact = client.getReportAgedReceivablesByContact(AgedPayablesByContactList.get(num20).getContactID(), null, null, null, "1/1/2016", "1/1/2017");
 			messages.add("Get Aged Receivables By Contact Reports for " +  AgedPayablesByContactList.get(num20).getName() + " - Report ID " + newReportAgedReceivablesByContact.getReportID() );
 			
