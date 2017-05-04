@@ -26,7 +26,7 @@
 		<dependency>
 			<groupId>com.xero</groupId>
 			<artifactId>xero-accounting-api-schema</artifactId>
-			<version>0.0.3</version>
+			<version>0.0.4</version>
 		</dependency>
 	</dependencies>
 	<repositories>
