@@ -25,6 +25,7 @@ public class JsonConfig implements Config {
 	private String AUTH_CALLBACK_URL;
 	private String PATH_TO_PRIVATE_KEY_CERT;
 	private String PRIVATE_KEY_PASSWORD;
+	private int CONNECT_TIMEOUT = 60;
 		
 	private String configFile;
 	
@@ -115,6 +116,20 @@ public class JsonConfig implements Config {
 	public String getRedirectUri()
 	{
 		return AUTH_CALLBACK_URL;
+	}
+	
+	@Override
+	public int getConnectTimeout()
+	{
+		// in seconds
+		return CONNECT_TIMEOUT;
+	}
+	
+	@Override
+	public void setConnectTimeout(int connectTimeout)
+	{
+		// in seconds
+		CONNECT_TIMEOUT = connectTimeout;
 	}
 	  
 	public void load() 

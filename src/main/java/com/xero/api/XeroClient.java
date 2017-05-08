@@ -99,7 +99,8 @@ public class XeroClient {
 		
 		try {
 			resp = req.execute();
-			return unmarshallResponse(resp.parseAsString(), Response.class);
+			String r = resp.parseAsString();
+			return unmarshallResponse(r, Response.class);
 		} catch (IOException ioe) {
 			if (ioe instanceof HttpResponseException) {
 	            HttpResponseException googleException = (HttpResponseException)ioe;
@@ -440,9 +441,14 @@ public class XeroClient {
 	}
 	
 	public List<BankTransaction> getBankTransactions(Date modifiedAfter, String where, String order) throws IOException {
+		return getBankTransactions(modifiedAfter, where, order, null);
+	}
+	
+	public List<BankTransaction> getBankTransactions(Date modifiedAfter, String where, String order, String page) throws IOException {
 	    Map<String, String> params = new HashMap<>();
 	    addToMapIfNotNull(params, "Where", where);
 	    addToMapIfNotNull(params, "order", order);
+	    addToMapIfNotNull(params, "page", page);
 	    
 	    Response responseObj = get("BankTransactions", modifiedAfter, params);
 		if (responseObj.getBankTransactions() == null) {
@@ -537,9 +543,15 @@ public class XeroClient {
 	}
 	
 	public List<Contact> getContacts(Date modifiedAfter, String where, String order) throws IOException {
+		return getContacts(modifiedAfter, where, order, null);
+	}
+	
+	public List<Contact> getContacts(Date modifiedAfter, String where, String order, String page) throws IOException {
 	    Map<String, String> params = new HashMap<>();
 	    addToMapIfNotNull(params, "Where", where);
 	    addToMapIfNotNull(params, "order", order);
+	    addToMapIfNotNull(params, "page", page);
+	    
 	    Response responseObj = get("Contacts", modifiedAfter, params);
 		if (responseObj.getContacts() == null) {
 			ArrayOfContact array = new ArrayOfContact();
@@ -798,9 +810,19 @@ public class XeroClient {
 	}
 	
 	public List<Invoice> getInvoices(Date modifiedAfter, String where, String order) throws IOException {
+		return getInvoices(modifiedAfter,where,order,null,null);
+	}
+	
+	public List<Invoice> getInvoices(Date modifiedAfter, String where, String order,String page) throws IOException {
+		return getInvoices(modifiedAfter,where,order,page,null);
+	}
+	
+	public List<Invoice> getInvoices(Date modifiedAfter, String where, String order,String page,String ids) throws IOException {
 	    Map<String, String> params = new HashMap<>();
 	    addToMapIfNotNull(params, "Where", where);
 	    addToMapIfNotNull(params, "order", order);
+	    addToMapIfNotNull(params, "page", page);
+	    addToMapIfNotNull(params, "Ids", ids);
 	    
 	    Response responseObj = get("Invoices", modifiedAfter, params);
  		if (responseObj.getInvoices() == null) {
@@ -928,9 +950,14 @@ public class XeroClient {
 	}
 	
 	public List<LinkedTransaction> getLinkedTransactions(Date modifiedAfter, String where, String order) throws IOException {
+		return getLinkedTransactions(modifiedAfter, where, order, null);
+	}
+	
+	public List<LinkedTransaction> getLinkedTransactions(Date modifiedAfter, String where, String order, String page) throws IOException {
 	    Map<String, String> params = new HashMap<>();
 	    addToMapIfNotNull(params, "Where", where);
 	    addToMapIfNotNull(params, "order", order);
+	    addToMapIfNotNull(params, "page", page);
 
 	    Response responseObj = get("LinkedTransactions", modifiedAfter, params);
 		if (responseObj.getLinkedTransactions() == null) {
@@ -973,9 +1000,14 @@ public class XeroClient {
 	}
 	
 	public List<ManualJournal> getManualJournals(Date modifiedAfter, String where, String order) throws IOException {
+		return getManualJournals(modifiedAfter, where, order, null);
+	}
+	
+	public List<ManualJournal> getManualJournals(Date modifiedAfter, String where, String order, String page) throws IOException {
 	    Map<String, String> params = new HashMap<>();
 	    addToMapIfNotNull(params, "Where", where);
 	    addToMapIfNotNull(params, "order", order);
+	    addToMapIfNotNull(params, "page", page);
 	    
 	    Response responseObj = get("ManualJournals", modifiedAfter, params);
 		if (responseObj.getManualJournals() == null) {
@@ -1019,9 +1051,14 @@ public class XeroClient {
 	}
 	
 	public List<Overpayment> getOverpayments(Date modifiedAfter, String where, String order) throws IOException {
+		return  getOverpayments(modifiedAfter, where, order, null);
+	}
+	
+	public List<Overpayment> getOverpayments(Date modifiedAfter, String where, String order, String page) throws IOException {
 	    Map<String, String> params = new HashMap<>();
 	    addToMapIfNotNull(params, "Where", where);
 	    addToMapIfNotNull(params, "order", order);
+	    addToMapIfNotNull(params, "page", page);
 
 	    Response responseObj = get("Overpayments", modifiedAfter, params);
   		if (responseObj.getOverpayments() == null) {
@@ -1095,9 +1132,14 @@ public class XeroClient {
 	}
 	
 	public List<Prepayment> getPrepayments(Date modifiedAfter, String where, String order) throws IOException {
+		return getPrepayments(modifiedAfter, where, order, null);
+	}
+	
+	public List<Prepayment> getPrepayments(Date modifiedAfter, String where, String order, String page) throws IOException {
 	    Map<String, String> params = new HashMap<>();
 	    addToMapIfNotNull(params, "Where", where);
 	    addToMapIfNotNull(params, "order", order);
+	    addToMapIfNotNull(params, "page", page);
 	    
 	    Response responseObj = get("Prepayments", modifiedAfter, params);
  		if (responseObj.getPrepayments() == null) {
@@ -1130,9 +1172,14 @@ public class XeroClient {
 	}
 	
 	public List<PurchaseOrder> getPurchaseOrders(Date modifiedAfter, String where, String order) throws IOException {
+		return getPurchaseOrders(modifiedAfter, where, order, null);
+	}
+	
+	public List<PurchaseOrder> getPurchaseOrders(Date modifiedAfter, String where, String order, String page) throws IOException {
 	    Map<String, String> params = new HashMap<>();
 	    addToMapIfNotNull(params, "Where", where);
 	    addToMapIfNotNull(params, "order", order);
+	    addToMapIfNotNull(params, "page", page);
 
 	    Response responseObj = get("PurchaseOrders", modifiedAfter, params);
  		if (responseObj.getPurchaseOrders() == null) {

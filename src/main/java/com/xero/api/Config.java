@@ -25,5 +25,10 @@ public interface Config {
     String getAccept();
 
     String getRedirectUri();
+    
+    int getConnectTimeout();
+    
+    // in seconds
+    void setConnectTimeout(int connectTimeout);
 
 }

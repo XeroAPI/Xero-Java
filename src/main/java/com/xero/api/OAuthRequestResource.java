@@ -70,6 +70,7 @@ public class OAuthRequestResource extends GenericUrl {
 	private String body = null;
 	private HttpContent requestBody = null;
 	private String httpMethod = "GET";
+	private int connectTimeout = 20;
 	
 	private Config config;
 
@@ -88,6 +89,8 @@ public class OAuthRequestResource extends GenericUrl {
 		if (params != null) {
 			Url.putAll(params);
 		}
+		
+		connectTimeout = config.getConnectTimeout() * 1000;
 	}
 
 	public  OAuthRequestResource(Config config, String resource, String method, String body, Map<? extends String, ?> params) {
@@ -130,23 +133,26 @@ public class OAuthRequestResource extends GenericUrl {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setUserAgent(config.getUserAgent());
 		headers.setAccept(accept != null ? accept : config.getAccept());
-		//headers.setAccept(config.getAccept());
 		
 		headers.setContentType(contentType == null ? "application/xml" : contentType);
+		
 		if(ifModifiedSince != null) {
-			System.out.println("Set Header " + this.ifModifiedSince);
+			//System.out.println("Set Header " + this.ifModifiedSince);
 			headers.setIfModifiedSince(this.ifModifiedSince);	
 		}
 
 		HttpRequestFactory requestFactory = transport.createRequestFactory();
 		HttpRequest request;
 		HttpResponse response = null;
+		
 		request = requestFactory.buildRequest(this.httpMethod, Url, requestBody);
+		request.setConnectTimeout(connectTimeout);
 		request.setHeaders(headers);    
 		createParameters().intercept(request);
 		
 		response = request.execute();
 		response.setContentLoggingLimit(0);
+	
 
 		return response;
 	}

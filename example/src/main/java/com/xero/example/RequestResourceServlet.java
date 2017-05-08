@@ -41,7 +41,7 @@ public class RequestResourceServlet extends HttpServlet
 		  	+ "<label for=\"object\">Create, Read, Update & Delete</label>"
 		  	+ "<select name=\"object\" class=\"form-control\" id=\"object\">"
 		  	+ "<option value=\"Accounts\" selected>Accounts</option>"
-			+ "<option value=\"Attachments\" selected>Attachments</option>"
+			+ "<option value=\"Attachments\">Attachments</option>"
 		  	+ "<option value=\"BankTransactions\">BankTransactions</option>"
 		  	+ "<option value=\"BankTransfers\">BankTransfers</option>"
 		  	+ "<option value=\"BrandingThemes\">BrandingThemes</option>"
@@ -202,27 +202,32 @@ public class RequestResourceServlet extends HttpServlet
 			
 		} else if (object.equals("BankTransactions")) {
 		
-			/* BANK TRANSACTION */
-			List<Account> accountWhere = client.getAccounts(null,"Type==\"BANK\"",null);
-			if(accountWhere.size() > 0) {
+			try {
+				/* BANK TRANSACTION */
+				List<Account> accountWhere = client.getAccounts(null,"Type==\"BANK\"",null);
+				if(accountWhere.size() > 0) {
+					
+					List<BankTransaction> newBankTransaction = client.createBankTransactions(SampleData.loadBankTransaction().getBankTransaction());
+					messages.add("Create a new Bank Transaction - ID : " +newBankTransaction.get(0).getBankTransactionID() + "");
 				
-				List<BankTransaction> newBankTransaction = client.createBankTransactions(SampleData.loadBankTransaction().getBankTransaction());
-				messages.add("Create a new Bank Transaction - ID : " +newBankTransaction.get(0).getBankTransactionID() + "");
-			
-				List<BankTransaction> BankTransactionWhere = client.getBankTransactions(null,"Status==\"AUTHORISED\"",null);
-				messages.add("Get a BankTransaction with WHERE clause - ID : " + BankTransactionWhere.get(0).getBankTransactionID() + "");
+					List<BankTransaction> BankTransactionWhere = client.getBankTransactions(null,"Status==\"AUTHORISED\"",null,null);
+					messages.add("Get a BankTransaction with WHERE clause - ID : " + BankTransactionWhere.get(0).getBankTransactionID() + "");
+					
+					List<BankTransaction> BankTransactionList = client.getBankTransactions();
+					int num = SampleData.findRandomNum(BankTransactionList.size());
+					messages.add("Get a random BankTransaction - ID : " + BankTransactionList.get(num).getBankTransactionID() + "");
 				
-				List<BankTransaction> BankTransactionList = client.getBankTransactions();
-				int num = SampleData.findRandomNum(BankTransactionList.size());
-				messages.add("Get a random BankTransaction - ID : " + BankTransactionList.get(num).getBankTransactionID() + "");
-			
-				BankTransaction BankTransactionOne = client.getBankTransaction(BankTransactionList.get(num).getBankTransactionID());
-				messages.add("Get a single BankTransaction - ID : " + BankTransactionOne.getBankTransactionID());
-				
-			} else {
-				messages.add("Please create a Bank Acccount before using the BankTransaction Endpoint");
+					BankTransaction BankTransactionOne = client.getBankTransaction(BankTransactionList.get(num).getBankTransactionID());
+					messages.add("Get a single BankTransaction - ID : " + BankTransactionOne.getBankTransactionID());
+					
+				} else {
+					messages.add("Please create a Bank Acccount before using the BankTransaction Endpoint");
+				}
+
+			} catch (XeroApiException e) {
+				System.out.println(e.getResponseCode());
+				System.out.println(e.getMessage());
 			}
-		
 		} else if (object.equals("BankTransfers")) {
 			
 			/* BANK TRANSFER */
@@ -268,7 +273,7 @@ public class RequestResourceServlet extends HttpServlet
 			List<Contact> newContact = client.createContact(SampleData.loadContact().getContact());
 			messages.add("Create a new Contact - Name : " + newContact.get(0).getName() + " Email : " + newContact.get(0).getEmailAddress());
 			
-			List<Contact> ContactWhere = client.getContacts(null,"ContactStatus==\"ACTIVE\"",null);
+			List<Contact> ContactWhere = client.getContacts(null,"ContactStatus==\"ACTIVE\"",null,null);
 			messages.add("Get a Contact with WHERE clause - ID : " + ContactWhere.get(0).getContactID());
 			
 			List<Contact> ContactList = client.getContacts();
@@ -284,44 +289,51 @@ public class RequestResourceServlet extends HttpServlet
 		
 		} else if (object.equals("ContactGroups")) {
 		
-			/* CONTACT GROUP  */	
-			List<ContactGroup> newContactGroup = client.createContactGroups(SampleData.loadContactGroup().getContactGroup());
-			messages.add("Create a new Contact Group - ID : " + newContactGroup.get(0).getContactGroupID());
-			
-			List<ContactGroup> newContactGroup2 = client.createContactGroups(SampleData.loadContactGroup().getContactGroup());
-			messages.add("Create a new Contact Group 2 - ID : " + newContactGroup2.get(0).getContactGroupID());
-			
-			List<ContactGroup> ContactGroupWhere = client.getContactGroups(null,"Status==\"ACTIVE\"",null);
-			messages.add("Get a ContactGroup with WHERE clause - ID : " + ContactGroupWhere.get(0).getContactGroupID());
-			
-			List<ContactGroup> ContactGroupList = client.getContactGroups();
-			int num = SampleData.findRandomNum(ContactGroupList.size());
-			messages.add("Get a random ContactGroup - ID : " + ContactGroupList.get(num).getContactGroupID());
-			
-			ContactGroup ContactGroupOne = client.getContactGroup(ContactGroupList.get(num).getContactGroupID());
-			messages.add("Get a single ContactGroup - ID : " + ContactGroupOne.getContactGroupID());
-					
-			newContactGroup.get(0).setName("My Updated Group-" + SampleData.loadRandomNum());
-			List<ContactGroup> updateContactGroup = client.updateContactGroup(newContactGroup);
-			messages.add("Update Contact Group - ID : " + updateContactGroup.get(0).getContactGroupID() + " - Name: " + updateContactGroup.get(0).getName());
-			
-			List<ContactGroup> deleteContactGroup = client.deleteContactGroup(ContactGroupList.get(num));
-			messages.add("Delete Contact Group - Deleted : " + deleteContactGroup.get(0).getContactGroupID());
-			
+			try {
+				/* CONTACT GROUP  */	
+				List<ContactGroup> newContactGroup = client.createContactGroups(SampleData.loadContactGroup().getContactGroup());
+				messages.add("Create a new Contact Group - ID : " + newContactGroup.get(0).getContactGroupID());
+				
+				List<ContactGroup> newContactGroup2 = client.createContactGroups(SampleData.loadContactGroup().getContactGroup());
+				messages.add("Create a new Contact Group 2 - ID : " + newContactGroup2.get(0).getContactGroupID());
+				
+				List<ContactGroup> ContactGroupWhere = client.getContactGroups(null,"Status==\"ACTIVE\"",null);
+				messages.add("Get a ContactGroup with WHERE clause - ID : " + ContactGroupWhere.get(0).getContactGroupID());
+				
+				List<ContactGroup> ContactGroupList = client.getContactGroups();
+				int num = SampleData.findRandomNum(ContactGroupList.size());
+				messages.add("Get a random ContactGroup - ID : " + ContactGroupList.get(num).getContactGroupID());
+				
+				ContactGroup ContactGroupOne = client.getContactGroup(ContactGroupList.get(num).getContactGroupID());
+				messages.add("Get a single ContactGroup - ID : " + ContactGroupOne.getContactGroupID());
+						
+				newContactGroup.get(0).setName("My Updated Group-" + SampleData.loadRandomNum());
+				List<ContactGroup> updateContactGroup = client.updateContactGroup(newContactGroup);
+				messages.add("Update Contact Group - ID : " + updateContactGroup.get(0).getContactGroupID() + " - Name: " + updateContactGroup.get(0).getName());
+				
+				List<ContactGroup> deleteContactGroup = client.deleteContactGroup(ContactGroupList.get(num));
+				messages.add("Delete Contact Group - Deleted : " + deleteContactGroup.get(0).getContactGroupID());
+			} catch (XeroApiException e) {
+				System.out.println(e.getResponseCode());
+				System.out.println(e.getMessage());
+			}	
 		} else if (object.equals("ContactGroupContacts")) {
-			
-			/* CONTACT GROUP  */	
-			List<ContactGroup> newContactGroup = client.createContactGroups(SampleData.loadContactGroup().getContactGroup());
-			messages.add("Create a new Contact Group - ID : " + newContactGroup.get(0).getContactGroupID());
-			
-			ArrayOfContact arrayContact = new ArrayOfContact();
-			arrayContact.getContact().add(SampleData.loadSingleContact());
-			List<Contact> newContactGroupContacts = client.createContactGroupContacts(arrayContact.getContact(),newContactGroup.get(0).getContactGroupID());
-			messages.add("Add Contacts to Contact Group = ContactId : " + newContactGroupContacts.get(0).getContactID());
-			
-			String deleteSingleContactStatus = client.deleteSingleContactFromContactGroup(newContactGroup.get(0).getContactGroupID(),arrayContact.getContact().get(0).getContactID());
-			messages.add("Delete Single Contact from Group - Deleted Status: " + deleteSingleContactStatus);
-									
+			try {
+				/* CONTACT GROUP  */	
+				List<ContactGroup> newContactGroup = client.createContactGroups(SampleData.loadContactGroup().getContactGroup());
+				messages.add("Create a new Contact Group - ID : " + newContactGroup.get(0).getContactGroupID());
+				
+				ArrayOfContact arrayContact = new ArrayOfContact();
+				arrayContact.getContact().add(SampleData.loadSingleContact());
+				List<Contact> newContactGroupContacts = client.createContactGroupContacts(arrayContact.getContact(),newContactGroup.get(0).getContactGroupID());
+				messages.add("Add Contacts to Contact Group = ContactId : " + newContactGroupContacts.get(0).getContactID());
+				
+				String deleteSingleContactStatus = client.deleteSingleContactFromContactGroup(newContactGroup.get(0).getContactGroupID(),arrayContact.getContact().get(0).getContactID());
+				messages.add("Delete Single Contact from Group - Deleted Status: " + deleteSingleContactStatus);
+			} catch (XeroApiException e) {
+				System.out.println(e.getResponseCode());
+				System.out.println(e.getMessage());
+			}							
 		} else if (object.equals("CreditNotes")) {
 		
 			/* CREDIT NOTE */
@@ -400,6 +412,7 @@ public class RequestResourceServlet extends HttpServlet
 
 		} else if (object.equals("Invoices")) {
 			/*  INVOICE */
+			
 			List<Invoice> newInvoice = client.createInvoices(SampleData.loadInvoice().getInvoice());
 			newInvoice.get(0).setReference("Just Created my Ref.");
 			messages.add("Create a new Invoice ID : " + newInvoice.get(0).getInvoiceID() + " - Reference : " +newInvoice.get(0).getReference());
@@ -410,7 +423,7 @@ public class RequestResourceServlet extends HttpServlet
 			String fileSavePath = client.getInvoicePdf(newInvoice.get(0).getInvoiceID(),dirPath);
 			messages.add("Get a PDF copy of Invoice - save it here: " + fileSavePath);	
 			
-			List<Invoice> InvoiceWhere = client.getInvoices(null,"Status==\"DRAFT\"",null);
+			List<Invoice> InvoiceWhere = client.getInvoices(null,"Status==\"DRAFT\"",null,null,null);
 			messages.add("Get a Invoice with WHERE clause - InvNum : " + InvoiceWhere.get(0).getInvoiceID());
 			
 			// Set If Modified Since in last 24 hours
@@ -419,15 +432,20 @@ public class RequestResourceServlet extends HttpServlet
 		    cal.setTime(date);
 		    cal.add(Calendar.DAY_OF_MONTH, -1);
 		    
-		    List<Invoice> InvoiceList24hour = client.getInvoices(cal.getTime(),null,null);
+		    List<Invoice> InvoiceList24hour = client.getInvoices(cal.getTime(),null,null,null,null);
 			messages.add("How many invoices modified in last 24 hours?: " + InvoiceList24hour.size());
 			
 			List<Invoice> InvoiceList = client.getInvoices();
 			int num7 = SampleData.findRandomNum(InvoiceList.size());
 			messages.add("Get a random Invoice - InvNum : " + InvoiceList.get(num7).getInvoiceID());
-		
+			
 			Invoice InvoiceOne = client.getInvoice(InvoiceList.get(num7).getInvoiceID());
 			messages.add("Get a single Invoice - InvNum : " + InvoiceOne.getInvoiceID());
+			
+			String ids = InvoiceList.get(0).getInvoiceID() + "," + InvoiceList.get(1).getInvoiceID();
+			
+			List<Invoice> InvoiceMultiple = client.getInvoices(null,null,null,null,ids);
+			messages.add("Get a Muliple Invoices by ID filter : " + InvoiceMultiple.size());
 			
 			newInvoice.get(0).setReference("Just Updated APRIL my Ref.");
 			newInvoice.get(0).setStatus(null);
@@ -477,7 +495,7 @@ public class RequestResourceServlet extends HttpServlet
 			System.out.println(newLinkedTransaction.get(0).getLinkedTransactionID());
 			messages.add("Create a new LinkedTransaction -  Id:" + newLinkedTransaction.get(0).getContactID());
 			
-			List<LinkedTransaction> LinkedTransactionWhere = client.getLinkedTransactions(null,"Status==\"BANK\"",null);
+			List<LinkedTransaction> LinkedTransactionWhere = client.getLinkedTransactions(null,"Status==\"BANK\"",null,null);
 			messages.add("Get a LinkedTransaction with WHERE clause - ID : " + LinkedTransactionWhere.get(0).getLinkedTransactionID());
 			
 			List<LinkedTransaction> LinkedTransactionList = client.getLinkedTransactions();
@@ -502,7 +520,7 @@ public class RequestResourceServlet extends HttpServlet
 			List<ManualJournal> newManualJournal = client.createManualJournals(SampleData.loadManualJournal().getManualJournal());
 			messages.add("Create a new Manual Journal - ID : " + newManualJournal.get(0).getManualJournalID() + " - Narration : " + newManualJournal.get(0).getNarration());
 			
-			List<ManualJournal> ManualJournalWhere = client.getManualJournals(null,"Status==\"DRAFT\"",null);
+			List<ManualJournal> ManualJournalWhere = client.getManualJournals(null,"Status==\"DRAFT\"",null,null);
 			if (ManualJournalWhere.size() > 0) {
 				messages.add("Get a ManualJournal with WHERE clause - Narration : " + ManualJournalWhere.get(0).getNarration());
 			} else {
@@ -603,7 +621,7 @@ public class RequestResourceServlet extends HttpServlet
 			messages.add("Get a PDF copy of PurchaseOrder - save it here: " + fileSavePath);
 			System.out.println(fileSavePath);
 			
-			List<PurchaseOrder> PurchaseOrderWhere = client.getPurchaseOrders(null,"Status==\"DRAFT\"",null);
+			List<PurchaseOrder> PurchaseOrderWhere = client.getPurchaseOrders(null,"Status==\"DRAFT\"",null,null);
 			messages.add("Get a PurchaseOrder with WHERE clause - ID : " + PurchaseOrderWhere.get(0).getPurchaseOrderID());
 			
 			List<PurchaseOrder> PurchaseOrderList = client.getPurchaseOrders();
