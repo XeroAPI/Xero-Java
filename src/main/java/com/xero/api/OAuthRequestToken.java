@@ -35,14 +35,6 @@ public class OAuthRequestToken
 		tokenRequest.consumerKey = config.getConsumerKey();
 		tokenRequest.callback = config.getRedirectUri();
 
-		/* DEPRECATED ENTRUST CERTIFICATE
-		if(c.getAppType().equals("PARTNER"))
-		{
-			tokenRequest.transport = new PartnerHttpClient().getPartnerHttpClient();
-		}	else {
-			tokenRequest.transport = new ApacheHttpTransport();
-		}
-		*/
 		tokenRequest.transport = new ApacheHttpTransport();
 
 		tokenRequest.signer= signer;
@@ -51,13 +43,14 @@ public class OAuthRequestToken
 		try 
 		{
 			temporaryTokenResponse = tokenRequest.execute();
+
+			tempToken = temporaryTokenResponse.token;
+			tempTokenSecret = temporaryTokenResponse.tokenSecret;
 		} 
 		catch (IOException e) 
 		{
 			e.printStackTrace();
 		}
-		tempToken = temporaryTokenResponse.token;
-		tempTokenSecret = temporaryTokenResponse.tokenSecret;
 	}
 
 	public String getTempToken()

@@ -853,6 +853,10 @@ public class XeroClient {
 		return getFile("Invoices/" + id,null,null,"application/pdf", dirPath);
 	}
 	
+	public OnlineInvoice getOnlineInvoice(String id) throws IOException {
+	    return singleResult(get("Invoices/" + id + "/OnlineInvoice").getOnlineInvoices().getOnlineInvoice());
+	}
+	
 	// INVOICE REMINDER 
 	public List<InvoiceReminder> getInvoiceReminders() throws IOException {
 	    Response responseObj = get("InvoiceReminders/Settings");

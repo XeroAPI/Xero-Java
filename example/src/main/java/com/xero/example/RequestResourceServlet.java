@@ -442,6 +442,11 @@ public class RequestResourceServlet extends HttpServlet
 			Invoice InvoiceOne = client.getInvoice(InvoiceList.get(num7).getInvoiceID());
 			messages.add("Get a single Invoice - InvNum : " + InvoiceOne.getInvoiceID());
 			
+			OnlineInvoice OnlineInvoice = client.getOnlineInvoice(InvoiceList.get(num7).getInvoiceID());
+			messages.add("Get a Online Invoice -  : " + OnlineInvoice.getOnlineInvoiceUrl());
+
+			
+			
 			String ids = InvoiceList.get(0).getInvoiceID() + "," + InvoiceList.get(1).getInvoiceID();
 			
 			List<Invoice> InvoiceMultiple = client.getInvoices(null,null,null,null,ids);
@@ -792,6 +797,7 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
+				messages.add("Error Code : " + e.getResponseCode() + " Message: " + e.getMessage());
 			}			
 			
 			// FORCE a 404 Error
@@ -801,6 +807,7 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());	
+				messages.add("Error Code : " + e.getResponseCode() + " Message: " + e.getMessage());
 			}	
 			
 			// FORCE a 503 Error
@@ -814,6 +821,7 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
+				messages.add("Error Code : " + e.getResponseCode() + " Message: " + e.getMessage());
 			}				
 		}
 		
