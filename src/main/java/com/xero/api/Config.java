@@ -26,6 +26,12 @@ public interface Config {
 
     String getRedirectUri();
     
+    String getProxyHost();
+    
+    long getProxyPort();
+    
+    boolean getProxyHttpsEnabled();
+    
     int getConnectTimeout();
     
     // in seconds
