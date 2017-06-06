@@ -28,17 +28,6 @@
 			<artifactId>xero-accounting-api-schema</artifactId>
 			<version>0.0.5</version>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.5.3</version>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-			<scope>test</scope>
-		</dependency>
 	</dependencies>
 	<repositories>
 		<repository>
@@ -128,6 +117,44 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.8</version>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>3.0.4</version>
+			</plugin>
 		</plugins>
 	</build>
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>2.9</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.8</version>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>findbugs-maven-plugin</artifactId>
+				<version>3.0.4</version>
+				<configuration>
+					<!-- Enables analysis which takes more memory but finds more bugs. If 
+						you run out of memory, changes the value of the effort element to 'low'. -->
+					<effort>Max</effort>
+					<!-- Reports all bugs (other values are medium and max) -->
+					<threshold>Low</threshold>
+					<!-- Produces XML report -->
+					<xmlOutput>true</xmlOutput>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
 </project>
