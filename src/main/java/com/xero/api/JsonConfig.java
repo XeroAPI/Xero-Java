@@ -25,6 +25,10 @@ public class JsonConfig implements Config {
 	private String AUTH_CALLBACK_URL;
 	private String PATH_TO_PRIVATE_KEY_CERT;
 	private String PRIVATE_KEY_PASSWORD;
+	private String PROXY_HOST;
+	private long PROXY_PORT = 80;
+	private boolean PROXY_HTTPS_ENABLED = false;
+	
 	private int CONNECT_TIMEOUT = 60;
 		
 	private String configFile;
@@ -116,6 +120,24 @@ public class JsonConfig implements Config {
 	public String getRedirectUri()
 	{
 		return AUTH_CALLBACK_URL;
+	}
+	
+	@Override
+	public String getProxyHost()
+	{
+		return PROXY_HOST;
+	}
+	
+	@Override
+	public long getProxyPort()
+	{
+		return PROXY_PORT;
+	}
+	
+	@Override
+	public boolean getProxyHttpsEnabled()
+	{
+		return PROXY_HTTPS_ENABLED;
 	}
 	
 	@Override
@@ -218,6 +240,20 @@ public class JsonConfig implements Config {
 		{
 			PATH_TO_PRIVATE_KEY_CERT = (String) jsonObject.get("PrivateKeyCert");
 			PRIVATE_KEY_PASSWORD = (String) jsonObject.get("PrivateKeyPassword");
+		}
+		
+		if (jsonObject.containsKey("ProxyHost")) 
+		{
+			PROXY_HOST = (String) jsonObject.get("ProxyHost");
+			if (jsonObject.containsKey("ProxyPort")) 
+			{
+				PROXY_PORT = (long) jsonObject.get("ProxyPort");
+			}
+			
+			if (jsonObject.containsKey("ProxyHttpsEnabled")) 
+			{
+				PROXY_HTTPS_ENABLED = (boolean) jsonObject.get("ProxyHttpsEnabled");
+			}
 		}
 	}
 
