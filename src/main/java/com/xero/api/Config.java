@@ -37,4 +37,12 @@ public interface Config {
     // in seconds
     void setConnectTimeout(int connectTimeout);
 
+    void setConsumerKey(String consumerKey);
+
+    void setConsumerSecret(String consumerSecret);
+
+    void setAppType(String appType);
+
+    void setAuthCallBackUrl(String authCallbackUrl);
+
 }

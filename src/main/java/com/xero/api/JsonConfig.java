@@ -153,6 +153,34 @@ public class JsonConfig implements Config {
 		// in seconds
 		CONNECT_TIMEOUT = connectTimeout;
 	}
+
+	@Override
+	public void setConsumerKey(String consumerKey)
+	{
+		// in seconds
+		CONSUMER_KEY = consumerKey;
+	}
+
+	@Override
+	public void setConsumerSecret(String consumerSecret)
+	{
+		// in seconds
+		CONSUMER_SECRET = consumerSecret;
+	}
+
+	@Override
+	public void setAppType(String appType)
+	{
+		// in seconds
+		APP_TYPE = appType;
+	}
+
+	@Override
+	public void setAuthCallBackUrl(String authCallbackUrl)
+	{
+		// in seconds
+		AUTH_CALLBACK_URL = authCallbackUrl;
+	}
 	  
 	public void load() 
 	{
