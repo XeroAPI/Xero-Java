@@ -541,6 +541,12 @@ public class XeroClient {
 		array.getBankTransaction().addAll(bankTransactions);
 		return put("BankTransactions", objFactory.createBankTransactions(array)).getBankTransactions().getBankTransaction();
 	}
+
+	public List<BankTransaction> updateBankTransactions(List<BankTransaction> bankTransactions) throws IOException {
+		ArrayOfBankTransaction array = new ArrayOfBankTransaction();
+		array.getBankTransaction().addAll(bankTransactions);
+		return post("BankTransactions", objFactory.createBankTransactions(array)).getBankTransactions().getBankTransaction();
+	}
 		
 	public BankTransaction getBankTransaction(String id) throws IOException {
 	    return singleResult(get("BankTransactions/" + id).getBankTransactions().getBankTransaction());
