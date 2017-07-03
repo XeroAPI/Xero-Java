@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -220,6 +221,10 @@ public class RequestResourceServlet extends HttpServlet
 					BankTransaction BankTransactionOne = client.getBankTransaction(BankTransactionList.get(num).getBankTransactionID());
 					messages.add("Get a single BankTransaction - ID : " + BankTransactionOne.getBankTransactionID());
 					
+					newBankTransaction.get(0).setReference("My Updated Reference");
+					List<BankTransaction> updatedBankTransaction = client.updateBankTransactions(newBankTransaction);
+					messages.add("Updated a new Bank Transaction - ID : " +updatedBankTransaction.get(0).getBankTransactionID() + "");
+					
 				} else {
 					messages.add("Please create a Bank Acccount before using the BankTransaction Endpoint");
 				}
@@ -411,51 +416,57 @@ public class RequestResourceServlet extends HttpServlet
 			messages.add("Update the ExpenseClaim - ID : " + updateExpenseClaim.get(0).getExpenseClaimID() + " Status : " + updateExpenseClaim.get(0).getStatus());
 
 		} else if (object.equals("Invoices")) {
-			/*  INVOICE */
+				
+			try {
+				/*  INVOICE */
+				List<Invoice> newInvoice = client.createInvoices(SampleData.loadInvoice().getInvoice());
+				newInvoice.get(0).setReference("Just Created my Ref.");
+				messages.add("Create a new Invoice ID : " + newInvoice.get(0).getInvoiceID() + " - Reference : " +newInvoice.get(0).getReference());
+				
+				// GET PDF of INVOICE
+				File f = new File("./");
+				String dirPath =  f.getCanonicalPath();
+				String fileSavePath = client.getInvoicePdf(newInvoice.get(0).getInvoiceID(),dirPath);
+				messages.add("Get a PDF copy of Invoice - save it here: " + fileSavePath);	
+				
+				List<Invoice> InvoiceWhere = client.getInvoices(null,"Status==\"DRAFT\"",null,null,null);
+				messages.add("Get a Invoice with WHERE clause - InvNum : " + InvoiceWhere.get(0).getInvoiceID());
+				
+				// Set If Modified Since in last 24 hours
+				Date date = new Date();
+				Calendar cal = Calendar.getInstance();
+			    cal.setTime(date);
+			    cal.add(Calendar.DAY_OF_MONTH, -1);
+			    
+			    List<Invoice> InvoiceList24hour = client.getInvoices(cal.getTime(),null,null,null,null);
+				messages.add("How many invoices modified in last 24 hours?: " + InvoiceList24hour.size());
+				
+				List<Invoice> InvoiceList = client.getInvoices();
+				int num7 = SampleData.findRandomNum(InvoiceList.size());
+				messages.add("Get a random Invoice - InvNum : " + InvoiceList.get(num7).getInvoiceID());
+				
+				Invoice InvoiceOne = client.getInvoice(InvoiceList.get(num7).getInvoiceID());
+				messages.add("Get a single Invoice - InvNum : " + InvoiceOne.getInvoiceID());
+				
+				OnlineInvoice OnlineInvoice = client.getOnlineInvoice(InvoiceList.get(num7).getInvoiceID());
+				messages.add("Get a Online Invoice -  : " + OnlineInvoice.getOnlineInvoiceUrl());
+	
+				
+				
+				String ids = InvoiceList.get(0).getInvoiceID() + "," + InvoiceList.get(1).getInvoiceID();
+				
+				List<Invoice> InvoiceMultiple = client.getInvoices(null,null,null,null,ids);
+				messages.add("Get a Muliple Invoices by ID filter : " + InvoiceMultiple.size());
+				
+				newInvoice.get(0).setReference("Just Updated APRIL my Ref.");
+				newInvoice.get(0).setStatus(null);
+				List<Invoice> updateInvoice = client.updateInvoice(newInvoice);
+				messages.add("Update the Invoice - InvNum : " + updateInvoice.get(0).getInvoiceID() + " - Reference : " + updateInvoice.get(0).getReference());
 			
-			List<Invoice> newInvoice = client.createInvoices(SampleData.loadInvoice().getInvoice());
-			newInvoice.get(0).setReference("Just Created my Ref.");
-			messages.add("Create a new Invoice ID : " + newInvoice.get(0).getInvoiceID() + " - Reference : " +newInvoice.get(0).getReference());
-			
-			// GET PDF of INVOICE
-			File f = new File("./");
-			String dirPath =  f.getCanonicalPath();
-			String fileSavePath = client.getInvoicePdf(newInvoice.get(0).getInvoiceID(),dirPath);
-			messages.add("Get a PDF copy of Invoice - save it here: " + fileSavePath);	
-			
-			List<Invoice> InvoiceWhere = client.getInvoices(null,"Status==\"DRAFT\"",null,null,null);
-			messages.add("Get a Invoice with WHERE clause - InvNum : " + InvoiceWhere.get(0).getInvoiceID());
-			
-			// Set If Modified Since in last 24 hours
-			Date date = new Date();
-			Calendar cal = Calendar.getInstance();
-		    cal.setTime(date);
-		    cal.add(Calendar.DAY_OF_MONTH, -1);
-		    
-		    List<Invoice> InvoiceList24hour = client.getInvoices(cal.getTime(),null,null,null,null);
-			messages.add("How many invoices modified in last 24 hours?: " + InvoiceList24hour.size());
-			
-			List<Invoice> InvoiceList = client.getInvoices();
-			int num7 = SampleData.findRandomNum(InvoiceList.size());
-			messages.add("Get a random Invoice - InvNum : " + InvoiceList.get(num7).getInvoiceID());
-			
-			Invoice InvoiceOne = client.getInvoice(InvoiceList.get(num7).getInvoiceID());
-			messages.add("Get a single Invoice - InvNum : " + InvoiceOne.getInvoiceID());
-			
-			OnlineInvoice OnlineInvoice = client.getOnlineInvoice(InvoiceList.get(num7).getInvoiceID());
-			messages.add("Get a Online Invoice -  : " + OnlineInvoice.getOnlineInvoiceUrl());
-
-			
-			
-			String ids = InvoiceList.get(0).getInvoiceID() + "," + InvoiceList.get(1).getInvoiceID();
-			
-			List<Invoice> InvoiceMultiple = client.getInvoices(null,null,null,null,ids);
-			messages.add("Get a Muliple Invoices by ID filter : " + InvoiceMultiple.size());
-			
-			newInvoice.get(0).setReference("Just Updated APRIL my Ref.");
-			newInvoice.get(0).setStatus(null);
-			List<Invoice> updateInvoice = client.updateInvoice(newInvoice);
-			messages.add("Update the Invoice - InvNum : " + updateInvoice.get(0).getInvoiceID() + " - Reference : " + updateInvoice.get(0).getReference());
+			} catch (XeroApiException e) {
+				System.out.println(e.getResponseCode());
+				System.out.println(e.getMessage());
+			}
 			
 		} else if (object.equals("InvoiceReminders")) {
 		
@@ -735,6 +746,12 @@ public class RequestResourceServlet extends HttpServlet
 				List<TrackingCategoryOption> newTrackingCategoryOption = client.createTrackingCategoryOption(SampleData.loadTrackingCategoryOption().getOption(),newTrackingCategory.get(0).getTrackingCategoryID());
 				messages.add("Create a new TrackingCategory Option - Name : " + newTrackingCategoryOption.get(0).getName());
 					
+				/* MULTIPLE TRACKING OPTIONS  */
+				List<TrackingCategoryOption> newTrackingCategoryOption2 = client.createTrackingCategoryOption(SampleData.loadTrackingCategoryOptionMulti().getOption(),newTrackingCategory.get(0).getTrackingCategoryID(),false);	
+				messages.add("Create a new TrackingCategory MULTI Option - Name : " + newTrackingCategoryOption2.get(0).getName());
+				messages.add("Create a new TrackingCategory MULTI Option - Name : " + newTrackingCategoryOption2.get(1).getName());
+				
+				
 				TrackingCategoryOption oneTrackingCategoryOption = new TrackingCategoryOption();
 				oneTrackingCategoryOption.setName("Iron Man");
 				TrackingCategoryOption updateTrackingCategoryOption = client.updateTrackingCategoryOption(oneTrackingCategoryOption,newTrackingCategory.get(0).getTrackingCategoryID(),newTrackingCategoryOption.get(0).getTrackingOptionID());
@@ -761,6 +778,7 @@ public class RequestResourceServlet extends HttpServlet
 				messages.add("Delete a new TrackingCategory - Delete result: " + status);
 			
 			} catch (XeroApiException e) {
+				
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
 			}

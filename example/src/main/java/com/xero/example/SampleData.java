@@ -424,6 +424,25 @@ public class SampleData {
 		return array;
 	}
 	
+	public static ArrayOfTrackingCategoryOption loadTrackingCategoryOptionMulti() {
+		ArrayOfTrackingCategoryOption array = new ArrayOfTrackingCategoryOption();
+		
+		TrackingCategoryOption tc = new TrackingCategoryOption();
+		tc.setName("The Empire Strikes Back-"+ loadRandomNum());
+		
+		TrackingCategoryOption tc2 = new TrackingCategoryOption();
+		tc2.setName("Return of the Jedi");
+
+		TrackingCategoryOption tc3 = new TrackingCategoryOption();
+		tc3.setName("Return of the Jedi");
+
+		
+		array.getOption().add(tc);
+		array.getOption().add(tc2);
+		array.getOption().add(tc3);
+		return array;
+	}
+	
 	// GENERAL 
 	
 	public static int findRandomNum(int total) {

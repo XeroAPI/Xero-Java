@@ -318,6 +318,38 @@ public class XeroClient {
 			return null;
 		}
 	}
+	
+	protected Response put(String endPoint, JAXBElement<?> object,Map<String,String> params)  {
+		String contents = marshallRequest(object);		
+
+		HttpResponse resp = null;
+		OAuthRequestResource req = new OAuthRequestResource(config, endPoint,"PUT",contents,params);
+		req.setToken(token);
+		req.setTokenSecret(tokenSecret);
+
+		try {
+			resp = req.execute();
+			return unmarshallResponse(resp.parseAsString(), Response.class);
+		} catch (IOException ioe) {
+			if (ioe instanceof HttpResponseException) {
+				HttpResponseException googleException = (HttpResponseException)ioe;
+		           
+				if (googleException.getStatusCode() == 400 ||
+	            		googleException.getStatusCode() == 401 ||
+	            		googleException.getStatusCode() == 404 ||
+	            		googleException.getStatusCode() == 500 ||
+	            		googleException.getStatusCode() == 503) {
+					throw newApiException(googleException);
+	            } else {
+	            	System.out.println("Error - not tested with newApiException method");
+	            	System.out.println(googleException.getStatusCode());
+		            System.out.println(googleException.getContent());	
+		            throw newApiException(googleException);
+	            }
+	        }
+			return null;
+		}
+	}
 
 	protected Response put(String endPoint, String contentType, File file) throws IOException {
 		HttpResponse resp = null;
@@ -541,7 +573,7 @@ public class XeroClient {
 		array.getBankTransaction().addAll(bankTransactions);
 		return put("BankTransactions", objFactory.createBankTransactions(array)).getBankTransactions().getBankTransaction();
 	}
-
+	
 	public List<BankTransaction> updateBankTransactions(List<BankTransaction> bankTransactions) throws IOException {
 		ArrayOfBankTransaction array = new ArrayOfBankTransaction();
 		array.getBankTransaction().addAll(bankTransactions);
@@ -1526,7 +1558,25 @@ public class XeroClient {
 		return put("TrackingCategories", objFactory.createTrackingCategories(array)).getTrackingCategories().getTrackingCategory();
 	}
 	
+	public List<TrackingCategory> createTrackingCategories(List<TrackingCategory> objects,boolean summarizeErrors) throws IOException {
+		Map<String, String> params = new HashMap<>();
+	    addToMapIfNotNull(params, "summarizeErrors", summarizeErrors);
+	
+		ArrayOfTrackingCategory array = new ArrayOfTrackingCategory();
+		array.getTrackingCategory().addAll(objects);
+		return put("TrackingCategories", objFactory.createTrackingCategories(array),params).getTrackingCategories().getTrackingCategory();
+	}
+	
 	public List<TrackingCategory> updateTrackingCategory(List<TrackingCategory> objects) throws IOException {
+		ArrayOfTrackingCategory array = new ArrayOfTrackingCategory();
+		array.getTrackingCategory().addAll(objects);
+		return post("TrackingCategories", objFactory.createTrackingCategories(array)).getTrackingCategories().getTrackingCategory();
+	}
+	
+	public List<TrackingCategory> updateTrackingCategory(List<TrackingCategory> objects,boolean summarizeErrors) throws IOException {
+		Map<String, String> params = new HashMap<>();
+	    addToMapIfNotNull(params, "summarizeErrors", summarizeErrors);
+	    
 		ArrayOfTrackingCategory array = new ArrayOfTrackingCategory();
 		array.getTrackingCategory().addAll(objects);
 		return post("TrackingCategories", objFactory.createTrackingCategories(array)).getTrackingCategories().getTrackingCategory();
@@ -1547,7 +1597,26 @@ public class XeroClient {
 		return put("TrackingCategories/" + id + "/Options", objFactory.createTrackingCategoryOptions(array)).getOptions().getOption();	
 	}
 	
+	public List<TrackingCategoryOption> createTrackingCategoryOption(List<TrackingCategoryOption> objects,String id,boolean summarizeErrors) throws IOException {
+		Map<String, String> params = new HashMap<>();
+	    addToMapIfNotNull(params, "summarizeErrors", summarizeErrors);
+	    System.out.println("SIZE " + objects.size());
+
+		ArrayOfTrackingCategoryOption array = new ArrayOfTrackingCategoryOption();
+		array.getOption().addAll(objects);	
+		return put("TrackingCategories/" + id + "/Options", objFactory.createTrackingCategoryOptions(array),params).getOptions().getOption();	
+	}
+	
 	public TrackingCategoryOption updateTrackingCategoryOption(TrackingCategoryOption object,String TrackingCategoryID, String TrackingOptionID) throws IOException {
+		ArrayOfTrackingCategoryOption array = new ArrayOfTrackingCategoryOption();
+		array.getOption().add(object);	
+		return post("TrackingCategories/" + TrackingCategoryID + "/Options/" + TrackingOptionID, objFactory.createTrackingCategoryOptions(array)).getOptions().getOption().get(0);	
+	}
+	
+	public TrackingCategoryOption updateTrackingCategoryOption(TrackingCategoryOption object,String TrackingCategoryID, String TrackingOptionID,boolean summarizeErrors) throws IOException {
+		Map<String, String> params = new HashMap<>();
+	    addToMapIfNotNull(params, "summarizeErrors", summarizeErrors);
+		
 		ArrayOfTrackingCategoryOption array = new ArrayOfTrackingCategoryOption();
 		array.getOption().add(object);	
 		return post("TrackingCategories/" + TrackingCategoryID + "/Options/" + TrackingOptionID, objFactory.createTrackingCategoryOptions(array)).getOptions().getOption().get(0);	
