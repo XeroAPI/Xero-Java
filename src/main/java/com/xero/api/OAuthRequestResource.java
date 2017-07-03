@@ -107,8 +107,6 @@ public class OAuthRequestResource extends GenericUrl {
 		
 		connectTimeout = config.getConnectTimeout() * 1000;
 		
-		System.out.println("Proxy Host: " + config.getProxyHost());
-		
 		//Proxy Service Setup
 		if(!"".equals(config.getProxyHost()) && config.getProxyHost() != null) {
 			String host = config.getProxyHost();

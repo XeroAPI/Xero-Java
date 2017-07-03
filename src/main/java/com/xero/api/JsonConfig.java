@@ -30,7 +30,6 @@ public class JsonConfig implements Config {
 	private boolean PROXY_HTTPS_ENABLED = false;
 	
 	private int CONNECT_TIMEOUT = 60;
-		
 	private String configFile;
 	
 	private static Config instance = null;

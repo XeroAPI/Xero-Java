@@ -3,6 +3,8 @@ package com.xero.api;
 import java.io.IOException;
 import java.util.HashMap;
 
+import org.apache.http.HttpHost;
+
 import com.google.api.client.auth.oauth.OAuthCredentialsResponse;
 import com.google.api.client.auth.oauth.OAuthGetTemporaryToken;
 import com.google.api.client.auth.oauth.OAuthSigner;
@@ -15,6 +17,11 @@ public class OAuthRequestToken
 	private String tempTokenSecret = null;
 	private OAuthGetTemporaryToken tokenRequest = null;
 	private Config config;
+	
+	// Used for proxy purposes
+	private HttpHost proxy;
+	private boolean proxyEnabled = false;
+
 
 	public OAuthRequestToken(Config config) 
 	{
