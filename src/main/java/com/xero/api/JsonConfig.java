@@ -83,6 +83,7 @@ public class JsonConfig implements Config {
 	@Override
 	public String getApiUrl()
 	{
+		System.out.println("1Returning: " + API_BASE_URL + DEFAULT_API_ENDPOINT_URL);
 		return API_BASE_URL + DEFAULT_API_ENDPOINT_URL;
 	}
 	
@@ -99,31 +100,38 @@ public class JsonConfig implements Config {
 		
 		switch (resource) {
 		case "feedconnections":
-			endpointUrl = BANKFEEDS_API_ENDPOINT_URL + resource;
+			endpointUrl = API_BASE_URL + BANKFEEDS_API_ENDPOINT_URL + resource;
 			break;
 		default:
 			endpointUrl = DEFAULT_API_ENDPOINT_URL + resource;
 			break;
 		}
-		return API_BASE_URL + endpointUrl;
+		
+		System.out.println("2Returning: " + endpointUrl);
+
+		
+		return endpointUrl;
 	}
 	  
 	@Override
 	public String getRequestTokenUrl()
 	{
-		return API_BASE_URL + REQUEST_TOKEN_URL;
+		System.out.println("3Returning: " + REQUEST_TOKEN_URL);
+		return REQUEST_TOKEN_URL;
 	}
 	  
 	@Override
 	public String getAuthorizeUrl()
 	{
-		return API_BASE_URL + AUTHENTICATE_URL;
+		System.out.println("4Returning: " + AUTHENTICATE_URL);
+		return AUTHENTICATE_URL;
 	}
 	  
 	@Override
 	public String getAccessTokenUrl()
 	{
-		return API_BASE_URL + ACCESS_TOKEN_URL;
+		System.out.println("5Returning: " + ACCESS_TOKEN_URL);
+		return ACCESS_TOKEN_URL;
 	}
 	  
 	@Override

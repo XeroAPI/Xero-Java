@@ -8,7 +8,69 @@ import java.util.List;
 import java.util.Random;
 
 import com.xero.api.XeroClient;
-import com.xero.model.*;
+import com.xero.model.Account;
+import com.xero.model.AccountType;
+import com.xero.model.Address;
+import com.xero.model.Allocation;
+import com.xero.model.ArrayOfAccount;
+import com.xero.model.ArrayOfAddress;
+import com.xero.model.ArrayOfAllocation;
+import com.xero.model.ArrayOfBankTransaction;
+import com.xero.model.ArrayOfBankTransfer;
+import com.xero.model.ArrayOfContact;
+import com.xero.model.ArrayOfContactGroup;
+import com.xero.model.ArrayOfCreditNote;
+import com.xero.model.ArrayOfEmployee;
+import com.xero.model.ArrayOfExpenseClaim;
+import com.xero.model.ArrayOfInvoice;
+import com.xero.model.ArrayOfItem;
+import com.xero.model.ArrayOfLineItem;
+import com.xero.model.ArrayOfLinkedTransaction;
+import com.xero.model.ArrayOfManualJournal;
+import com.xero.model.ArrayOfManualJournalLine;
+import com.xero.model.ArrayOfPayment;
+import com.xero.model.ArrayOfPhone;
+import com.xero.model.ArrayOfPurchaseOrder;
+import com.xero.model.ArrayOfReceipt;
+import com.xero.model.ArrayOfTaxComponent;
+import com.xero.model.ArrayOfTaxRate;
+import com.xero.model.ArrayOfTrackingCategory;
+import com.xero.model.ArrayOfTrackingCategoryOption;
+import com.xero.model.BankAccount;
+import com.xero.model.BankTransaction;
+import com.xero.model.BankTransactionStatus;
+import com.xero.model.BankTransactionType;
+import com.xero.model.BankTransfer;
+import com.xero.model.Contact;
+import com.xero.model.ContactGroup;
+import com.xero.model.CreditNote;
+import com.xero.model.CreditNoteType;
+import com.xero.model.CurrencyCode;
+import com.xero.model.Employee;
+import com.xero.model.ExpenseClaim;
+import com.xero.model.Hyperlink;
+import com.xero.model.Invoice;
+import com.xero.model.InvoiceStatus;
+import com.xero.model.InvoiceType;
+import com.xero.model.Item;
+import com.xero.model.LineAmountType;
+import com.xero.model.LineItem;
+import com.xero.model.LinkedTransaction;
+import com.xero.model.ManualJournal;
+import com.xero.model.ManualJournalLine;
+import com.xero.model.ManualJournalStatus;
+import com.xero.model.Payment;
+import com.xero.model.Phone;
+import com.xero.model.PurchaseOrder;
+import com.xero.model.PurchaseOrderStatus;
+import com.xero.model.Receipt;
+import com.xero.model.ReceiptStatus;
+import com.xero.model.TaxComponent;
+import com.xero.model.TaxRate;
+import com.xero.model.TrackingCategory;
+import com.xero.model.TrackingCategoryOption;
+import com.xero.model.User;
+import com.xero.models.FeedConnection;
 
 public class SampleData {
 	
@@ -607,4 +669,10 @@ public class SampleData {
 		array.getLineItem().add(line);
 		return array;	
 	}
+	
+	
+	
+	//Bank Feed Connections API
+	
+	
 }

@@ -8,6 +8,6 @@
 	"RequestTokenPath": "/oauth/RequestToken",
 	"AuthenticateUrl" : "/oauth/Authorize",
 	"AccessTokenPath"  : "/oauth/AccessToken",
-	"CallbackBaseUrl" : "https://localhost:8080",
+	"CallbackBaseUrl" : "http://localhost:8080/Xero-Java-SDK",
 	"CallbackPath" : "/CallbackServlet"
 }
