@@ -8,6 +8,6 @@
 	"RequestTokenPath": "/oauth/RequestToken",
 	"AuthenticateUrl" : "/oauth/Authorize",
 	"AccessTokenPath"  : "/oauth/AccessToken",
-	"CallbackBaseUrl" : "https://localhost",
+	"CallbackBaseUrl" : "https://localhost:8080",
 	"CallbackPath" : "/CallbackServlet"
 }
