@@ -1,0 +1,17 @@
+{
+	"AppType": "PUBLIC",
+	"UserAgent": "simple-example",
+	"Accept": "application/xml",
+	"ConsumerKey": "FEEBLBGPPKMB4KPMSVMAQSLY7IOMF0",
+	"ConsumerSecret": "DJAPZ9CWPSIY56HHU5Z7QLWPQ99EH7",
+	"ApiBaseUrl": "https://api.xero.com",
+	"ApiEndpointPath": "/api.xro/2.0/",
+	"RequestTokenPath": "/oauth/RequestToken",
+	"AuthenticateUrl": "/oauth/Authorize",
+	"AccessTokenPath": "/oauth/AccessToken",
+	"CallbackBaseUrl": "http://hkg3vl5594s.hk.hsbc:8060/BankFeed-Xero",
+	"CallbackPath": "/CallbackServlet",
+	"ProxyHost": "localhost",
+	"ProxyPort": 9000,
+	"ProxyHttpsEnabled": false
+}
