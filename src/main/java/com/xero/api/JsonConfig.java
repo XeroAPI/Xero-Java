@@ -25,8 +25,11 @@ public class JsonConfig implements Config {
 	private String AUTH_CALLBACK_URL;
 	private String PATH_TO_PRIVATE_KEY_CERT;
 	private String PRIVATE_KEY_PASSWORD;
+	private String PROXY_HOST;
+	private long PROXY_PORT = 80;
+	private boolean PROXY_HTTPS_ENABLED = false;
+	
 	private int CONNECT_TIMEOUT = 60;
-		
 	private String configFile;
 	
 	private static Config instance = null;
@@ -103,7 +106,7 @@ public class JsonConfig implements Config {
 	@Override
 	public String getUserAgent()
 	{
-		return USER_AGENT + " [Xero-Java-0.4.2]";
+		return USER_AGENT + " [Xero-Java-0.4.5]";
 	}
 	  
 	@Override
@@ -119,6 +122,24 @@ public class JsonConfig implements Config {
 	}
 	
 	@Override
+	public String getProxyHost()
+	{
+		return PROXY_HOST;
+	}
+	
+	@Override
+	public long getProxyPort()
+	{
+		return PROXY_PORT;
+	}
+	
+	@Override
+	public boolean getProxyHttpsEnabled()
+	{
+		return PROXY_HTTPS_ENABLED;
+	}
+	
+	@Override
 	public int getConnectTimeout()
 	{
 		// in seconds
@@ -130,6 +151,34 @@ public class JsonConfig implements Config {
 	{
 		// in seconds
 		CONNECT_TIMEOUT = connectTimeout;
+	}
+
+	@Override
+	public void setConsumerKey(String consumerKey)
+	{
+		// in seconds
+		CONSUMER_KEY = consumerKey;
+	}
+
+	@Override
+	public void setConsumerSecret(String consumerSecret)
+	{
+		// in seconds
+		CONSUMER_SECRET = consumerSecret;
+	}
+
+	@Override
+	public void setAppType(String appType)
+	{
+		// in seconds
+		APP_TYPE = appType;
+	}
+
+	@Override
+	public void setAuthCallBackUrl(String authCallbackUrl)
+	{
+		// in seconds
+		AUTH_CALLBACK_URL = authCallbackUrl;
 	}
 	  
 	public void load() 
@@ -218,6 +267,20 @@ public class JsonConfig implements Config {
 		{
 			PATH_TO_PRIVATE_KEY_CERT = (String) jsonObject.get("PrivateKeyCert");
 			PRIVATE_KEY_PASSWORD = (String) jsonObject.get("PrivateKeyPassword");
+		}
+		
+		if (jsonObject.containsKey("ProxyHost")) 
+		{
+			PROXY_HOST = (String) jsonObject.get("ProxyHost");
+			if (jsonObject.containsKey("ProxyPort")) 
+			{
+				PROXY_PORT = (long) jsonObject.get("ProxyPort");
+			}
+			
+			if (jsonObject.containsKey("ProxyHttpsEnabled")) 
+			{
+				PROXY_HTTPS_ENABLED = (boolean) jsonObject.get("ProxyHttpsEnabled");
+			}
 		}
 	}
 

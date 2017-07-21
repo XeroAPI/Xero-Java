@@ -14,17 +14,27 @@
 
 package com.xero.api;
 
-import com.google.api.client.auth.oauth.OAuthParameters;
-import com.google.api.client.auth.oauth.OAuthSigner;
-import com.google.api.client.http.*;
-import com.google.api.client.http.apache.ApacheHttpTransport;
-import com.google.api.client.util.Beta;
-
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
+
+import org.apache.http.HttpHost;
+
+import com.google.api.client.auth.oauth.OAuthParameters;
+import com.google.api.client.auth.oauth.OAuthSigner;
+import com.google.api.client.http.ByteArrayContent;
+import com.google.api.client.http.FileContent;
+import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpContent;
+import com.google.api.client.http.HttpHeaders;
+import com.google.api.client.http.HttpRequest;
+import com.google.api.client.http.HttpRequestFactory;
+import com.google.api.client.http.HttpResponse;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.apache.ApacheHttpTransport;
+import com.google.api.client.util.Beta;
 
 /**
  * Generic OAuth 1.0a URL to request API resource from server.
@@ -73,6 +83,11 @@ public class OAuthRequestResource extends GenericUrl {
 	private int connectTimeout = 20;
 	
 	private Config config;
+	
+	// Used for proxy purposes
+	private HttpHost proxy;
+	private boolean proxyEnabled = false;
+
 
 	/** {@code true} for POST request or the default {@code false} for GET request. */
 	protected boolean usePost;
@@ -91,6 +106,15 @@ public class OAuthRequestResource extends GenericUrl {
 		}
 		
 		connectTimeout = config.getConnectTimeout() * 1000;
+		
+		//Proxy Service Setup
+		if(!"".equals(config.getProxyHost()) && config.getProxyHost() != null) {
+			String host = config.getProxyHost();
+			boolean httpsEnabled = config.getProxyHttpsEnabled();
+			int port = (int) (config.getProxyPort() == 80 && httpsEnabled ? 443 : config.getProxyPort());
+			
+			this.setProxy(host, port, httpsEnabled);
+		}
 	}
 
 	public  OAuthRequestResource(Config config, String resource, String method, String body, Map<? extends String, ?> params) {
@@ -124,7 +148,13 @@ public class OAuthRequestResource extends GenericUrl {
 	
 	public final HttpResponse execute() throws IOException  {
 		
-		transport = new ApacheHttpTransport();
+		ApacheHttpTransport.Builder builder = new ApacheHttpTransport.Builder();
+		
+		if(this.proxyEnabled) {
+			builder.setProxy(this.proxy);
+		}
+		
+		transport = builder.build();
 
 		if(usePost && body != null){
 			requestBody = ByteArrayContent.fromString(null, body);
@@ -147,7 +177,8 @@ public class OAuthRequestResource extends GenericUrl {
 		
 		request = requestFactory.buildRequest(this.httpMethod, Url, requestBody);
 		request.setConnectTimeout(connectTimeout);
-		request.setHeaders(headers);    
+		request.setHeaders(headers);
+		
 		createParameters().intercept(request);
 		
 		response = request.execute();
@@ -189,6 +220,18 @@ public class OAuthRequestResource extends GenericUrl {
 		result.token = token;
 		result.signer = signer;
 		return result;
+	}
+
+	public void setProxy(String host, int port, boolean httpsEnabled) {
+
+		String scheme = "http";
+
+		if (httpsEnabled) {
+			scheme = "https";
+		}
+
+		this.proxy = new HttpHost(host, port, scheme);
+		this.proxyEnabled = true;
 	}
 
 }

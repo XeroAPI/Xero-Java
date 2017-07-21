@@ -26,9 +26,23 @@ public interface Config {
 
     String getRedirectUri();
     
+    String getProxyHost();
+    
+    long getProxyPort();
+    
+    boolean getProxyHttpsEnabled();
+    
     int getConnectTimeout();
     
     // in seconds
     void setConnectTimeout(int connectTimeout);
+
+    void setConsumerKey(String consumerKey);
+
+    void setConsumerSecret(String consumerSecret);
+
+    void setAppType(String appType);
+
+    void setAuthCallBackUrl(String authCallbackUrl);
 
 }

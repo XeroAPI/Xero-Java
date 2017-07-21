@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import org.apache.http.HttpHost;
+
 import com.xero.api.OAuthParameters;
 
 import com.google.api.client.auth.oauth.OAuthSigner;
@@ -50,8 +52,25 @@ public class OAuthAccessToken {
 		
 		Url = new GenericUrl(config.getAccessTokenUrl());
 		
-		transport = new ApacheHttpTransport();
-		  
+		//transport = new ApacheHttpTransport();
+		
+		ApacheHttpTransport.Builder  transBuilder = new  ApacheHttpTransport.Builder();
+		if ( config.getProxyHost() != null && "" !=  config.getProxyHost() ) {
+			String proxy_host = config.getProxyHost();
+			long proxy_port = config.getProxyPort();
+			boolean proxyHttps = config.getProxyHttpsEnabled();
+			String proxy_schema = proxyHttps==true? "https":"http";
+			System.out.println("proxy.host="+proxy_host +", proxy.port="+proxy_port +", proxy_schema="+proxy_schema);
+			HttpHost proxy = new HttpHost(proxy_host, (int)proxy_port, proxy_schema);
+			transBuilder.setProxy(proxy);
+			transport = transBuilder.build();
+		} else {
+			transport = new ApacheHttpTransport();
+		}
+		
+		
+		
+		
 		HttpRequestFactory requestFactory = transport.createRequestFactory();
 		request = requestFactory.buildRequest(HttpMethods.GET, Url,null);
 

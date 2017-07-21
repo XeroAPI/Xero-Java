@@ -3,6 +3,8 @@ package com.xero.api;
 import java.io.IOException;
 import java.util.HashMap;
 
+import org.apache.http.HttpHost;
+
 import com.google.api.client.auth.oauth.OAuthCredentialsResponse;
 import com.google.api.client.auth.oauth.OAuthGetTemporaryToken;
 import com.google.api.client.auth.oauth.OAuthSigner;
@@ -15,6 +17,11 @@ public class OAuthRequestToken
 	private String tempTokenSecret = null;
 	private OAuthGetTemporaryToken tokenRequest = null;
 	private Config config;
+	
+	// Used for proxy purposes
+	private HttpHost proxy;
+	private boolean proxyEnabled = false;
+
 
 	public OAuthRequestToken(Config config) 
 	{
@@ -35,7 +42,19 @@ public class OAuthRequestToken
 		tokenRequest.consumerKey = config.getConsumerKey();
 		tokenRequest.callback = config.getRedirectUri();
 
-		tokenRequest.transport = new ApacheHttpTransport();
+		ApacheHttpTransport.Builder  transBuilder = new  ApacheHttpTransport.Builder();
+		if ( config.getProxyHost() != null && "" !=  config.getProxyHost() ) {
+			String proxy_host = config.getProxyHost();
+			long proxy_port = config.getProxyPort();
+			boolean proxyHttps = config.getProxyHttpsEnabled();
+			String proxy_schema = proxyHttps==true? "https":"http";
+			System.out.println("proxy.host="+proxy_host +", proxy.port="+proxy_port +", proxy_schema="+proxy_schema);
+			HttpHost proxy = new HttpHost(proxy_host, (int)proxy_port, proxy_schema);
+			transBuilder.setProxy(proxy);
+			tokenRequest.transport = transBuilder.build();
+		} else {
+			tokenRequest.transport = new ApacheHttpTransport();
+		}
 
 		tokenRequest.signer= signer;
 
