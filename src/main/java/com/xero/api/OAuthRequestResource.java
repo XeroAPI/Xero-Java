@@ -95,7 +95,8 @@ public class OAuthRequestResource extends GenericUrl {
 	private void init(Config config, String resource, String method, Map<? extends String, ?> params) {
 		this.config = config;
 
-		Url = new GenericUrl(config.getApiUrl() + resource);
+		Url = new GenericUrl(config.getApiUrl(resource));
+				
 		this.httpMethod = method;
 		if(method.equals("POST") || method.equals("PUT")){
 			usePost = true;

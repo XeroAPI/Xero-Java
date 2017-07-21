@@ -17,10 +17,11 @@ public class JsonConfig implements Config {
 	private String CONSUMER_KEY;
 	private String CONSUMER_SECRET;
 	private String API_BASE_URL = "https://api.xero.com";
-	private String API_ENDPOINT_URL = "https://api.xero.com/api.xro/2.0/";
-	private String REQUEST_TOKEN_URL = "https://api.xero.com/oauth/RequestToken";
-	private String AUTHENTICATE_URL = "https://api.xero.com/oauth/Authorize";
-	private String ACCESS_TOKEN_URL = "https://api.xero.com/oauth/AccessToken";
+	private String DEFAULT_API_ENDPOINT_URL = "/api.xro/2.0/";
+	private String BANKFEEDS_API_ENDPOINT_URL = "/bankfeeds.xro/1.0/";
+	private String REQUEST_TOKEN_URL = "/oauth/RequestToken";
+	private String AUTHENTICATE_URL = "/oauth/Authorize";
+	private String ACCESS_TOKEN_URL = "/oauth/AccessToken";
 	private String CALLBACK_BASE_URL;
 	private String AUTH_CALLBACK_URL;
 	private String PATH_TO_PRIVATE_KEY_CERT;
@@ -82,25 +83,47 @@ public class JsonConfig implements Config {
 	@Override
 	public String getApiUrl()
 	{
-		return API_ENDPOINT_URL;
+		return API_BASE_URL + DEFAULT_API_ENDPOINT_URL;
+	}
+	
+	@Override
+	public String getApiUrl(String resource)
+	{
+		if("".equals(resource) || resource == null) {
+			return getApiUrl();
+		}
+		
+		//Check the resource to determine which API to use.
+		resource = resource.toLowerCase();
+		String endpointUrl;
+		
+		switch (resource) {
+		case "feedconnections":
+			endpointUrl = BANKFEEDS_API_ENDPOINT_URL + resource;
+			break;
+		default:
+			endpointUrl = DEFAULT_API_ENDPOINT_URL + resource;
+			break;
+		}
+		return API_BASE_URL + endpointUrl;
 	}
 	  
 	@Override
 	public String getRequestTokenUrl()
 	{
-		return REQUEST_TOKEN_URL;
+		return API_BASE_URL + REQUEST_TOKEN_URL;
 	}
 	  
 	@Override
 	public String getAuthorizeUrl()
 	{
-		return AUTHENTICATE_URL;
+		return API_BASE_URL + AUTHENTICATE_URL;
 	}
 	  
 	@Override
 	public String getAccessTokenUrl()
 	{
-		return ACCESS_TOKEN_URL;
+		return API_BASE_URL + ACCESS_TOKEN_URL;
 	}
 	  
 	@Override
@@ -231,7 +254,7 @@ public class JsonConfig implements Config {
 			if (jsonObject.containsKey("ApiEndpointPath")) 
 			{	
 				String endpointPath = (String) jsonObject.get("ApiEndpointPath");
-				API_ENDPOINT_URL = API_BASE_URL + endpointPath;
+				DEFAULT_API_ENDPOINT_URL = API_BASE_URL + endpointPath;
 			}
 			
 			if (jsonObject.containsKey("RequestTokenPath")) 

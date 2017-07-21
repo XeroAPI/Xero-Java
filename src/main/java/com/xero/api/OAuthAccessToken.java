@@ -68,9 +68,6 @@ public class OAuthAccessToken {
 			transport = new ApacheHttpTransport();
 		}
 		
-		
-		
-		
 		HttpRequestFactory requestFactory = transport.createRequestFactory();
 		request = requestFactory.buildRequest(HttpMethods.GET, Url,null);
 

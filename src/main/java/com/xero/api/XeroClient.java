@@ -11,6 +11,7 @@ import java.net.ConnectException;
 import java.net.URLDecoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -90,6 +91,7 @@ import com.xero.model.TaxRate;
 import com.xero.model.TrackingCategory;
 import com.xero.model.TrackingCategoryOption;
 import com.xero.model.User;
+import com.xero.models.FeedConnection;
 
 public class XeroClient {
 	
@@ -1666,5 +1668,14 @@ public class XeroClient {
 	
 	public String getAttachmentContent(String endpoint, String guid,String filename,String accept,String dirPath) throws IOException {
 		return getFile(endpoint + "/" + guid + "/Attachments/" + filename, null,null, accept, dirPath);
+	}
+	
+	
+	//BankFeeds API
+	
+	public List<FeedConnection> getFeedConnections() throws IOException {
+		Response responseObj = get("FeedConnections");
+		System.out.println(responseObj);
+		return new ArrayList<FeedConnection>();
 	}
 }

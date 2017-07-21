@@ -10,31 +10,23 @@ import com.google.api.client.auth.oauth.OAuthGetTemporaryToken;
 import com.google.api.client.auth.oauth.OAuthSigner;
 import com.google.api.client.http.apache.ApacheHttpTransport;
 
-public class OAuthRequestToken 
-{
+public class OAuthRequestToken {
 
 	private String tempToken = null;
 	private String tempTokenSecret = null;
 	private OAuthGetTemporaryToken tokenRequest = null;
 	private Config config;
-	
-	// Used for proxy purposes
-	private HttpHost proxy;
-	private boolean proxyEnabled = false;
 
 
-	public OAuthRequestToken(Config config) 
-	{
+	public OAuthRequestToken(Config config) {
 		this.config = config;
 	}
 
-	public void execute() 
-	{
+	public void execute() {
 		OAuthSigner signer = null;
-		if(config.getAppType().equals("PUBLIC"))
-		{
+		if (config.getAppType().equals("PUBLIC")) {
 			signer = new HmacSigner(config).createHmacSigner();
-		}	else {
+		} else {
 			signer = new RsaSigner(config).createRsaSigner();
 		}
 
@@ -42,53 +34,49 @@ public class OAuthRequestToken
 		tokenRequest.consumerKey = config.getConsumerKey();
 		tokenRequest.callback = config.getRedirectUri();
 
-		ApacheHttpTransport.Builder  transBuilder = new  ApacheHttpTransport.Builder();
-		if ( config.getProxyHost() != null && "" !=  config.getProxyHost() ) {
+		ApacheHttpTransport.Builder transBuilder = new ApacheHttpTransport.Builder();
+		if (config.getProxyHost() != null && "" != config.getProxyHost()) {
 			String proxy_host = config.getProxyHost();
 			long proxy_port = config.getProxyPort();
 			boolean proxyHttps = config.getProxyHttpsEnabled();
-			String proxy_schema = proxyHttps==true? "https":"http";
-			System.out.println("proxy.host="+proxy_host +", proxy.port="+proxy_port +", proxy_schema="+proxy_schema);
-			HttpHost proxy = new HttpHost(proxy_host, (int)proxy_port, proxy_schema);
+			String proxy_schema = proxyHttps == true ? "https" : "http";
+			System.out.println(
+					"proxy.host=" + proxy_host + ", proxy.port=" + proxy_port + ", proxy_schema=" + proxy_schema);
+			HttpHost proxy = new HttpHost(proxy_host, (int) proxy_port, proxy_schema);
 			transBuilder.setProxy(proxy);
 			tokenRequest.transport = transBuilder.build();
 		} else {
 			tokenRequest.transport = new ApacheHttpTransport();
 		}
 
-		tokenRequest.signer= signer;
+		tokenRequest.signer = signer;
 
 		OAuthCredentialsResponse temporaryTokenResponse = null;
-		try 
-		{
+		try {
 			temporaryTokenResponse = tokenRequest.execute();
 
 			tempToken = temporaryTokenResponse.token;
 			tempTokenSecret = temporaryTokenResponse.tokenSecret;
-		} 
-		catch (IOException e) 
-		{
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public String getTempToken()
-	{
+	public String getTempToken() {
 		return tempToken;
 	}
 
-	public String getTempTokenSecret()
-	{
+	public String getTempTokenSecret() {
 		return tempTokenSecret;
 	}
 
-	public HashMap<String, String> getAll(){
-		HashMap<String,String> map = new HashMap<String,String>();
+	public HashMap<String, String> getAll() {
+		HashMap<String, String> map = new HashMap<String, String>();
 
-		map.put("tempToken",getTempToken());
-		map.put("tempTokenSecret",getTempTokenSecret());
-		map.put("sessionHandle","");
-		map.put("tokenTimestamp","");
+		map.put("tempToken", getTempToken());
+		map.put("tempTokenSecret", getTempTokenSecret());
+		map.put("sessionHandle", "");
+		map.put("tokenTimestamp", "");
 
 		return map;
 	}

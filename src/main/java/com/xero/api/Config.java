@@ -13,6 +13,8 @@ public interface Config {
     String getConsumerSecret();
 
     String getApiUrl();
+    
+    String getApiUrl(String resource);
 
     String getRequestTokenUrl();
 
