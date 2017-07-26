@@ -1500,6 +1500,13 @@ public class XeroClient {
         addToMapIfNotNull(params, "paymentsOnly", paymentsOnly);
         return singleResult(get("reports/ProfitAndLoss", null, params).getReports().getReport());
     }
+
+	public Report getReportTrialBalance(String date, boolean paymentsOnly) throws IOException {
+		Map<String, String> params = new HashMap<>();
+		this.addToMapIfNotNull(params, "date", date);
+		this.addToMapIfNotNull(params, "paymentsOnly", paymentsOnly);
+		return this.singleResult(this.get("reports/TrialBalance", null, params).getReports().getReport());
+	}
 	
 	//TAX RATES 
 	public List<TaxRate> getTaxRates() throws IOException {
