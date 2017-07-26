@@ -781,7 +781,22 @@ public class XeroClient {
 			return responseObj.getCreditNotes().getCreditNote();
 		}
 	}
-	
+
+	public List<CreditNote> getCreditNotes(Date modifiedAfter, String where, String order, String page) throws IOException {
+		Map<String, String> params = new HashMap<>();
+		this.addToMapIfNotNull(params, "Where", where);
+		this.addToMapIfNotNull(params, "order", order);
+		this.addToMapIfNotNull(params, "page", page);
+
+		Response responseObj = this.get("CreditNotes", modifiedAfter, params);
+		if (responseObj.getCreditNotes() == null) {
+			ArrayOfCreditNote array = new ArrayOfCreditNote();
+			return array.getCreditNote();
+		} else {
+			return responseObj.getCreditNotes().getCreditNote();
+		}
+	}
+
 	public List<CreditNote> createCreditNotes(List<CreditNote> objects) throws IOException {
 		ArrayOfCreditNote array = new ArrayOfCreditNote();
 		array.getCreditNote().addAll(objects);
@@ -1038,12 +1053,25 @@ public class XeroClient {
 			return responseObj.getJournals().getJournal();
 		}
 	}
-	
+
+	public List<Journal> getJournals(Date modifiedAfter, String offset, boolean paymentsOnly) throws IOException {
+		Map<String, String> params = new HashMap<>();
+		this.addToMapIfNotNull(params, "offset", offset);
+		this.addToMapIfNotNull(params, "paymentsOnly", paymentsOnly);
+		Response responseObj = this.get("Journals", modifiedAfter, params);
+		if (responseObj.getJournals() == null) {
+			ArrayOfJournal array = new ArrayOfJournal();
+			return array.getJournal();
+		} else {
+			return responseObj.getJournals().getJournal();
+		}
+	}
+
 	public List<Journal> getJournals(Date modifiedAfter, String where, String order) throws IOException {
 	    Map<String, String> params = new HashMap<>();
 	    addToMapIfNotNull(params, "Where", where);
 	    addToMapIfNotNull(params, "order", order);
-	    
+
 	    Response responseObj = get("Journals", modifiedAfter, params);
 		if (responseObj.getJournals() == null) {
 			ArrayOfJournal array = new ArrayOfJournal();
