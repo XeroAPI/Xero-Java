@@ -781,7 +781,22 @@ public class XeroClient {
 			return responseObj.getCreditNotes().getCreditNote();
 		}
 	}
-	
+
+	public List<CreditNote> getCreditNotes(Date modifiedAfter, String where, String order, String page) throws IOException {
+		Map<String, String> params = new HashMap<>();
+		this.addToMapIfNotNull(params, "Where", where);
+		this.addToMapIfNotNull(params, "order", order);
+		this.addToMapIfNotNull(params, "page", page);
+
+		Response responseObj = this.get("CreditNotes", modifiedAfter, params);
+		if (responseObj.getCreditNotes() == null) {
+			ArrayOfCreditNote array = new ArrayOfCreditNote();
+			return array.getCreditNote();
+		} else {
+			return responseObj.getCreditNotes().getCreditNote();
+		}
+	}
+
 	public List<CreditNote> createCreditNotes(List<CreditNote> objects) throws IOException {
 		ArrayOfCreditNote array = new ArrayOfCreditNote();
 		array.getCreditNote().addAll(objects);
@@ -1485,6 +1500,13 @@ public class XeroClient {
         addToMapIfNotNull(params, "paymentsOnly", paymentsOnly);
         return singleResult(get("reports/ProfitAndLoss", null, params).getReports().getReport());
     }
+
+	public Report getReportTrialBalance(String date, boolean paymentsOnly) throws IOException {
+		Map<String, String> params = new HashMap<>();
+		this.addToMapIfNotNull(params, "date", date);
+		this.addToMapIfNotNull(params, "paymentsOnly", paymentsOnly);
+		return this.singleResult(this.get("reports/TrialBalance", null, params).getReports().getReport());
+	}
 	
 	//TAX RATES 
 	public List<TaxRate> getTaxRates() throws IOException {
