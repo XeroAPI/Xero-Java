@@ -1053,13 +1053,13 @@ public class XeroClient {
 			return responseObj.getJournals().getJournal();
 		}
 	}
-	
-	public List<Journal> getJournals(Date modifiedAfter, String where, String order) throws IOException {
-	    Map<String, String> params = new HashMap<>();
-	    addToMapIfNotNull(params, "Where", where);
-	    addToMapIfNotNull(params, "order", order);
-	    
-	    Response responseObj = get("Journals", modifiedAfter, params);
+
+	@Override
+	public List<Journal> getJournals(Date modifiedAfter, String where, String offset) throws IOException {
+		Map<String, String> params = new HashMap<>();
+		this.addToMapIfNotNull(params, "Where", where);
+		this.addToMapIfNotNull(params, "offset", offset);
+		Response responseObj = this.get("Journals", modifiedAfter, params);
 		if (responseObj.getJournals() == null) {
 			ArrayOfJournal array = new ArrayOfJournal();
 			return array.getJournal();
