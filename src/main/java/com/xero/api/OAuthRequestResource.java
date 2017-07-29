@@ -81,6 +81,7 @@ public class OAuthRequestResource extends GenericUrl {
 	private HttpContent requestBody = null;
 	private String httpMethod = "GET";
 	private int connectTimeout = 20;
+	private int readTimeout = 20;
 	
 	private Config config;
 	
@@ -106,6 +107,7 @@ public class OAuthRequestResource extends GenericUrl {
 		}
 		
 		connectTimeout = config.getConnectTimeout() * 1000;
+		readTimeout = config.getReadTimeout() * 1000;
 		
 		//Proxy Service Setup
 		if(!"".equals(config.getProxyHost()) && config.getProxyHost() != null) {
@@ -177,6 +179,7 @@ public class OAuthRequestResource extends GenericUrl {
 		
 		request = requestFactory.buildRequest(this.httpMethod, Url, requestBody);
 		request.setConnectTimeout(connectTimeout);
+		request.setReadTimeout(readTimeout);
 		request.setHeaders(headers);
 		
 		createParameters().intercept(request);
