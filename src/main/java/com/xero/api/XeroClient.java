@@ -651,9 +651,14 @@ public class XeroClient {
 	}
 
 	public List<CreditNote> getCreditNotes(Date modifiedAfter, String where, String order) throws IOException {
+		return getCreditNotes(modifiedAfter,where,order,null);
+	}
+
+	public List<CreditNote> getCreditNotes(Date modifiedAfter, String where, String order, String page) throws IOException {
 	    Map<String, String> params = new HashMap<>();
-	    addToMapIfNotNull(params, "Where", where);
+	    addToMapIfNotNull(params, "where", where);
 	    addToMapIfNotNull(params, "order", order);
+	    addToMapIfNotNull(params, "page", page);
 
 	    Response responseObj = get("CreditNotes", modifiedAfter, params);
 		if (responseObj.getCreditNotes() == null) {
@@ -934,6 +939,20 @@ public class XeroClient {
 			return responseObj.getJournals().getJournal();
 		}
 	}
+
+	public List<Journal> getJournals(Date modifiedAfter, String offset, boolean paymentsOnly) throws IOException {
+ 		Map<String, String> params = new HashMap<>();
+ 		addToMapIfNotNull(params, "offset", offset);
+ 		addToMapIfNotNull(params, "paymentsOnly", paymentsOnly);
+
+ 		Response responseObj = get("Journals", modifiedAfter, params);
+ 		if (responseObj.getJournals() == null) {
+ 			ArrayOfJournal array = new ArrayOfJournal();
+ 			return array.getJournal();
+ 		} else {
+ 			return responseObj.getJournals().getJournal();
+ 		}
+ 	}
 
 	public Journal getJournal(String id) throws IOException {
 	    return singleResult(get("Journals/" + id).getJournals().getJournal());
@@ -1367,6 +1386,14 @@ public class XeroClient {
         addToMapIfNotNull(params, "paymentsOnly", paymentsOnly);
         return singleResult(get("reports/ProfitAndLoss", null, params).getReports().getReport());
     }
+
+    public Report getReportTrialBalance(String date, boolean paymentsOnly) throws IOException {
+ 		Map<String, String> params = new HashMap<>();
+ 		addToMapIfNotNull(params, "date", date);
+ 		addToMapIfNotNull(params, "paymentsOnly", paymentsOnly);
+
+ 		return singleResult(this.get("reports/TrialBalance", null, params).getReports().getReport());
+ 	}
 
 	//TAX RATES
 	public List<TaxRate> getTaxRates() throws IOException {

@@ -376,6 +376,11 @@ public class RequestResourceServlet extends HttpServlet
 					messages.add("Get a CreditNote with WHERE clause - ID: " + CreditNoteWhere.get(0).getCreditNoteID());
 				}
 				
+				List<CreditNote> CreditNotePage = client.getCreditNotes(null,"Status==\"DRAFT\"",null,"1");
+				if(CreditNotePage.size() > 0) {
+					messages.add("Get a CreditNote with PAGE=1 clause - ID: " + CreditNoteWhere.get(0).getCreditNoteID());
+				}
+				
 				List<CreditNote> CreditNoteList = client.getCreditNotes();
 				int num = SampleData.findRandomNum(CreditNoteList.size());
 				messages.add("Get a random CreditNote - ID : " + CreditNoteList.get(num).getCreditNoteID());
@@ -545,6 +550,10 @@ public class RequestResourceServlet extends HttpServlet
 			try {
 				List<Journal> newJournal = client.getJournals();
 				messages.add("Get a Journal - Number : " + newJournal.get(0).getJournalNumber() + " - ID: " + newJournal.get(0).getJournalID());
+			
+				List<Journal> newJournalOffset = client.getJournals(null,"10",true);
+				messages.add("Get a Journal - Number : " + newJournalOffset.get(0).getJournalNumber() + " - ID: " + newJournalOffset.get(0).getJournalID());
+			
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
@@ -805,6 +814,10 @@ public class RequestResourceServlet extends HttpServlet
 	
 				Report newReportProfitLoss = client.getReportProfitLoss(null,null, "9/1/2016", "1/1/2017", null, null, null, null, true, false);		
 				messages.add("Get Profit Loss Report on " +  newReportProfitLoss.getReportDate() + " - Name: " + newReportProfitLoss.getReportName() );
+			
+				Report newTrialBalance = client.getReportTrialBalance("9/1/2016", true);		
+				messages.add("Get Trial Balance Report on " +  newTrialBalance.getReportDate() + " - Name: " + newTrialBalance.getReportName() );
+			
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
