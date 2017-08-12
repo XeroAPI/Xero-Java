@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import static java.lang.String.format;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -167,8 +168,11 @@ public class JsonConfig implements Config {
     AUTH_CALLBACK_URL = authCallbackUrl;
   }
 
-  public void load() {
+  private void load() {
     InputStream inputStream = JsonConfig.class.getResourceAsStream("/" + configFile);
+    if (inputStream == null) {
+        throw new XeroClientException(format("Config file '%s' could not be opened. Missing file?", configFile));
+    }
     InputStreamReader reader = new InputStreamReader(inputStream);
 
     JSONParser parser = new JSONParser();
@@ -177,11 +181,11 @@ public class JsonConfig implements Config {
     try {
       obj = parser.parse(reader);
     } catch (FileNotFoundException e) {
-      e.printStackTrace();
+        throw new XeroClientException(format("Config file '%s' not found", configFile), e);
     } catch (IOException e) {
-      e.printStackTrace();
+        throw new XeroClientException(format("IO error reading config file '%s' not found", configFile), e);
     } catch (ParseException e) {
-      e.printStackTrace();
+        throw new XeroClientException(format("Parse error reading config file '%s' not found", configFile), e);
     }
     JSONObject jsonObject = (JSONObject) obj;
 
