@@ -1,6 +1,6 @@
 { 
 	"AppType" : "PRIVATE",
-	"UserAgent" : "Xero-Java-Private-CUSTOMIZE-FOR-YOUR-APP",
+	"UserAgent" : "YouAppName",
 	"Accept" : "application/xml", 
 	"ConsumerKey" : "——YOUR-CONSUMER-KEY—",
 	"ConsumerSecret" : "——YOUR-CONSUMER-SECRET—",

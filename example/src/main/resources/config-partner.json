@@ -1,6 +1,6 @@
 { 
 	"AppType" : "PARTNER",
-	"UserAgent" : "Xero-Java—Partner-CUSTOMIZE-FOR-YOUR-APP",
+	"UserAgent" : "YouAppName",
 	"Accept" : "application/xml", 
 	"ConsumerKey" : "——YOUR-CONSUMER-KEY—",
 	"ConsumerSecret" : "——YOUR-CONSUMER-SECRET—",
