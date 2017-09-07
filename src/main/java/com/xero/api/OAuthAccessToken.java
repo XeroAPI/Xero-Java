@@ -68,6 +68,9 @@ public class OAuthAccessToken {
 			transport = new ApacheHttpTransport();
 		}
 		
+		
+		
+		
 		HttpRequestFactory requestFactory = transport.createRequestFactory();
 		request = requestFactory.buildRequest(HttpMethods.GET, Url,null);
 
@@ -122,12 +125,10 @@ public class OAuthAccessToken {
 				
 			}
 		} catch (HttpResponseException e) {
-			System.out.println("REFRESH EXECPTION");
 			
 			Map<String, String> oauthError = getQueryMap(e.getMessage());
 			this.problem = oauthError.get("oauth_problem");
 			this.advice = oauthError.get("oauth_problem_advice");
-			//System.out.println("HttpException" + e.toString());
 			isSuccess =  false;
 		}
 		return isSuccess;

@@ -13,8 +13,6 @@ public interface Config {
     String getConsumerSecret();
 
     String getApiUrl();
-    
-    String getApiUrl(String resource);
 
     String getRequestTokenUrl();
 
@@ -35,9 +33,12 @@ public interface Config {
     boolean getProxyHttpsEnabled();
     
     int getConnectTimeout();
+
+    int getReadTimeout();
     
     // in seconds
     void setConnectTimeout(int connectTimeout);
+    void setReadTimeout(int readTimeout);
 
     void setConsumerKey(String consumerKey);
 

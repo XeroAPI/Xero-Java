@@ -11,7 +11,6 @@ import com.xero.api.Config;
 import com.xero.api.JsonConfig;
 import com.xero.api.XeroClient;
 import com.xero.model.Contact;
-import com.xero.models.FeedConnection;
 
 public class XeroClientTests {
 	XeroClient client;

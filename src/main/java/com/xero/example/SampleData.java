@@ -70,16 +70,12 @@ import com.xero.model.TaxRate;
 import com.xero.model.TrackingCategory;
 import com.xero.model.TrackingCategoryOption;
 import com.xero.model.User;
-import com.xero.models.FeedConnection;
 
 public class SampleData {
 	
 	public static XeroClient client = null;
 
-	public SampleData(XeroClient client) {
-		// TODO Auto-generated constructor stub
-		SampleData.client = client;
-	}
+	public SampleData() {}
 	
 	public static ArrayOfAccount loadAccount() {
 		ArrayOfAccount array = new ArrayOfAccount();
@@ -584,7 +580,7 @@ public class SampleData {
 	}
 	
 	private static ArrayOfLineItem loadLineItem() throws IOException{
-		List<Account> accountDirectCosts = client.getAccounts(null,"Type==\"DIRECTCOSTS\"",null);
+		List<Account> accountRevenue = client.getAccounts(null,"Type==\"REVENUE\"",null);
 	
 		ArrayOfLineItem array = new ArrayOfLineItem();
 		LineItem line = new LineItem();
@@ -592,7 +588,7 @@ public class SampleData {
 		line.setQuantity(new BigDecimal("1.00"));
 		line.setUnitAmount(new BigDecimal("20.00"));
 		line.setLineAmount(new BigDecimal("20.00"));
-		line.setAccountCode(accountDirectCosts.get(0).getCode());
+		line.setAccountCode(accountRevenue.get(0).getCode());
 		
 		
 		List<TrackingCategory> TrackingCategoryList = client.getTrackingCategories();
@@ -668,11 +664,5 @@ public class SampleData {
 		line.setAccountCode(accountExpense.get(0).getCode());
 		array.getLineItem().add(line);
 		return array;	
-	}
-	
-	
-	
-	//Bank Feed Connections API
-	
-	
+	}	
 }

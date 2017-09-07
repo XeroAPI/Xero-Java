@@ -1,13 +1,14 @@
 { 
 	"AppType" : "PUBLIC",
-	"UserAgent" : "Jordan-BankFeeds-Tester",
-	"ConsumerKey" : "FEWNKLGTEWOOAS5K87SJ19UZH8QCY0",
-	"ConsumerSecret" : "K0PEG9MHW91NTBGUGCPJEY8CBK8VJS",
+	"UserAgent" : "YouAppName",
+	"Accept" : "application/xml", 
+	"ConsumerKey" : "——YOUR-CONSUMER-KEY—",
+	"ConsumerSecret" : "——YOUR-CONSUMER-SECRET—",
 	"ApiBaseUrl" : "https://api.xero.com",
 	"ApiEndpointPath" : "/api.xro/2.0/",
 	"RequestTokenPath": "/oauth/RequestToken",
 	"AuthenticateUrl" : "/oauth/Authorize",
 	"AccessTokenPath"  : "/oauth/AccessToken",
-	"CallbackBaseUrl" : "http://localhost:8080/Xero-Java-SDK",
+	"CallbackBaseUrl" : "https://localhost",
 	"CallbackPath" : "/CallbackServlet"
 }
