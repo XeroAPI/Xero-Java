@@ -540,15 +540,15 @@ public class XeroClient {
 	}
 
 	public List<Contact> getContacts(Date modifiedAfter, String where, String order) throws IOException {
-		return getContacts(modifiedAfter, where, order, null, false);
+		return getContacts(modifiedAfter, where, order, null, null);
 	}
 
 	public List<Contact> getContacts(Date modifiedAfter, String where, String order, String page) throws IOException {
-		return getContacts(modifiedAfter, where, order, page, false);
+		return getContacts(modifiedAfter, where, order, page, null);
 	}
 
 	public List<Contact> getContacts(Date modifiedAfter, String where, String order, String page,
-			boolean includeArchived) throws IOException {
+			Boolean includeArchived) throws IOException {
 		Map<String, String> params = new HashMap<>();
 		this.addToMapIfNotNull(params, "Where", where);
 		this.addToMapIfNotNull(params, "order", order);
