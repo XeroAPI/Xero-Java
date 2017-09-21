@@ -78,6 +78,7 @@ import com.xero.model.OnlineInvoice;
 import com.xero.model.Organisation;
 import com.xero.model.Overpayment;
 import com.xero.model.Payment;
+import com.xero.model.PaymentStatus;
 import com.xero.model.Prepayment;
 import com.xero.model.PurchaseOrder;
 import com.xero.model.Receipt;
@@ -1130,6 +1131,13 @@ public class XeroClient {
 		return put("Payments", objFactory.createPayments(array)).getPayments().getPayment();
 	}
 
+	public List<Payment> deletePayment(Payment object) throws IOException {
+		Payment payment = new Payment();
+		payment.setStatus(PaymentStatus.DELETED);
+		
+		return post("Payments/"+object.getPaymentID(), objFactory.createPayment(payment)).getPayments().getPayment();
+	}
+	
 	public List<Payment> deletePayment(List<Payment> objects) throws IOException {
 		ArrayOfPayment array = new ArrayOfPayment();
 		array.getPayment().addAll(objects);
