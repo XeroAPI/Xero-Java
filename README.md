@@ -35,17 +35,15 @@ We have a build.sbt file defined in the root.
 
 
 ### Configure
-The Xero Java SDK is easily configured using an external JSON file to configure values unique to your Application. This is the default configuration method, however you can implement the `Config` interface and pass it to the `XeroClient`.
+The Xero Java SDK is configured using a config.json file to provide API Keys and other values unique to your Application. This is the default configuration method, however you can implement the `Config` interface and pass it to the `XeroClient`.  
 
-We include an Example App (in this repo) built using Eclipse.  We started with a Maven Project and selected the maven-archetype-webapp with the setup Wizard.   This created a web application structure good for use with Servlets & JSPs.  By default a src/main/resources directory is added to the project.  **Place the config.json file you create in the resources directory**. 
+To build the example app as a WAR file, **update the config.json in example/src/main/resources directory** and from the terminal run 
 
-The Xero Java SDK JsonConfig.java class parses the JSON file from the resources directory using the following bit of code.
-
-```java
-final ClassLoader loader = Config.class.getClassLoader();
-URL path = loader.getResource("config.json");
-File f = new File(path.getFile());
+```javascript
+mvn clean compile war:war
 ```
+Then deploy the Xero-Java-SDK.war found in the target directory to your Java server.
+
 
 ### How to Create the config.json file
 In a text editor, create a file called config.json (examples are below)  Refer to Xero Developer Center [Getting Started](http://developer.xero.com/documentation/getting-started/getting-started-guide/) when you are ready to create a Xero App - this is how you'll create a Consumer Key and Secret. Private and Partner apps require a [public/private key pair](http://developer.xero.com/documentation/api-guides/create-publicprivate-key/) you'll create using OpenSSL.  The private key should be exported as a pfx file and in our example we create a "certs" folder inside the resources folder and place it there.
@@ -97,6 +95,12 @@ In a text editor, create a file called config.json (examples are below)  Refer t
 * AuthenticateUrl: path for redirect to authorize      *default is /oauth/RequestToken*
 * AccessTokenPath: path for Access Token         *default is https://api.xero.com/oauth/Authorize*
 
+## Custom Request Signing
+
+You can provide your own signing mechanism by using the `public XeroClient(Config config, SignerFactory signerFactory)` constructor. Simply implement the `SignerFactory` interface with your implementation.
+
+You can also provide a `RsaSignerFactory` using the `public RsaSignerFactory(InputStream privateKeyInputStream, String privateKeyPassword)` constructor to fetch keys from any InputStream.
+
 ### Spring Framework based Config
 
 An alternative method of configuring the Xero Java SDK can be found in the `example-spring/src/main/java` folder named `SpringConfig.java`.
@@ -123,6 +127,8 @@ xero.ConsumerSecret=7FMXXXXXXXXXXXXXXXXXXXXXXXXXCSA
 xero.PrivateKeyCert=certs/public_privatekey.pfx
 xero.PrivateKeyPassword=
 ```
+
+
 
 ### Example App 
 This repo includes an Example App mentioned above.  The file structure mirrors that of an Eclipse Maven Project with the maven-archetype-webapp
@@ -278,12 +284,6 @@ try {
 
 ```
 
-## Custom request signing
-
-You can provide your own signing mechanism by using the `public XeroClient(Config config, SignerFactory signerFactory)` constructor. Simply implement the `SignerFactory` interface with your implementation.
-
-You can also provide a `RsaSignerFactory` using the `public RsaSignerFactory(InputStream privateKeyInputStream, String privateKeyPassword)` constructor to fetch keys from any InputStream.
-``` 
 
 ## Acknowledgement
 
