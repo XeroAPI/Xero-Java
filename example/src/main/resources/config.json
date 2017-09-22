@@ -1,14 +1,14 @@
 { 
 	"AppType" : "PUBLIC",
-	"UserAgent" : "XeroJavaPublic",
+	"UserAgent" : "YouAppName",
 	"Accept" : "application/xml", 
-	"ConsumerKey" : "WTC7OFFMWXGQZOMATU6OJ1J50XBAKG",
-	"ConsumerSecret" : "GJ2P9FWOAMGBNNE9Q4NXJEZL2UWJWZ",
+	"ConsumerKey" : "——YOUR-CONSUMER-KEY—",
+	"ConsumerSecret" : "——YOUR-CONSUMER-SECRET—",
 	"ApiBaseUrl" : "https://api.xero.com",
 	"ApiEndpointPath" : "/api.xro/2.0/",
 	"RequestTokenPath": "/oauth/RequestToken",
 	"AuthenticateUrl" : "/oauth/Authorize",
 	"AccessTokenPath"  : "/oauth/AccessToken",
-	"CallbackBaseUrl" : "http://awsxero01-env.us-west-2.elasticbeanstalk.com",
+	"CallbackBaseUrl" : "https://localhost",
 	"CallbackPath" : "/CallbackServlet"
 }
