@@ -37,6 +37,8 @@ We have a build.sbt file defined in the root.
 ### Configure
 The Xero Java SDK is configured using a config.json file to provide API Keys and other values unique to your Application. This is the default configuration method, however you can implement the `Config` interface and pass it to the `XeroClient`.  
 
+
+### Example App
 To build the example app as a WAR file, **update the config.json in example/src/main/resources directory** and from the terminal run 
 
 ```javascript
