@@ -278,6 +278,12 @@ try {
 
 ```
 
+## Custom request signing
+
+You can provide your own signing mechanism by using the `public XeroClient(Config config, SignerFactory signerFactory)` constructor. Simply implement the `SignerFactory` interface with your implementation.
+
+You can also provide a `RsaSignerFactory` using the `public RsaSignerFactory(InputStream privateKeyInputStream, String privateKeyPassword)` constructor to fetch keys from any InputStream.
+``` 
 
 ## Acknowledgement
 
