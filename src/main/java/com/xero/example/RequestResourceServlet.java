@@ -731,6 +731,13 @@ public class RequestResourceServlet extends HttpServlet
 					aPayment.getPayment().add(deletePayment);
 					List<Payment> removedPayment = client.deletePayment(aPayment.getPayment());
 					messages.add("Delete the Payment - ID : " + removedPayment.get(0).getPaymentID());
+
+					int num2 = SampleData.findRandomNum(PaymentList.size());
+					Payment PaymentTwo = client.getPayment(PaymentList.get(num2).getPaymentID());
+					List<Payment> removedPayment2 = client.deletePayment(PaymentTwo);
+
+					messages.add("Delete the Payment 2 with ID : " + removedPayment2.get(0).getPaymentID());
+
 				} else {
 					messages.add("Please create a Bank Acccount before trying to Apply a Payment to Account Type Bank");
 				}
