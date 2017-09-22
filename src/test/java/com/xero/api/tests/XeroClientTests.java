@@ -7,11 +7,14 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.xero.api.Config;
+import com.xero.api.JsonConfig;
 import com.xero.api.XeroClient;
 import com.xero.model.Contact;
 
 public class XeroClientTests {
 	XeroClient client;
+	Config config;
 
 	// Squid Proxy Error Code is 407 (Proxy Authentication Required)
 	protected static final int PROXY_ERROR_CODE = 407;
@@ -19,6 +22,7 @@ public class XeroClientTests {
 	@Before
 	public void setUp() {
 		client = new XeroClient();
+		config = JsonConfig.getInstance();
 	}
 
 	@After

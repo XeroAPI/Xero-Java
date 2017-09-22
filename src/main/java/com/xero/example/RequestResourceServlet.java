@@ -4,10 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -17,12 +16,46 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 
-import com.xero.api.XeroClient;
 import com.xero.api.Config;
 import com.xero.api.JsonConfig;
 import com.xero.api.OAuthAccessToken;
 import com.xero.api.XeroApiException;
-import com.xero.model.*;
+import com.xero.api.XeroClient;
+import com.xero.model.Account;
+import com.xero.model.Allocation;
+import com.xero.model.ArrayOfContact;
+import com.xero.model.ArrayOfPayment;
+import com.xero.model.Attachment;
+import com.xero.model.BankTransaction;
+import com.xero.model.BankTransfer;
+import com.xero.model.BrandingTheme;
+import com.xero.model.Contact;
+import com.xero.model.ContactGroup;
+import com.xero.model.CreditNote;
+import com.xero.model.Currency;
+import com.xero.model.Employee;
+import com.xero.model.ExpenseClaim;
+import com.xero.model.ExpenseClaimStatus;
+import com.xero.model.Invoice;
+import com.xero.model.InvoiceReminder;
+import com.xero.model.Item;
+import com.xero.model.Journal;
+import com.xero.model.LinkedTransaction;
+import com.xero.model.ManualJournal;
+import com.xero.model.OnlineInvoice;
+import com.xero.model.Organisation;
+import com.xero.model.Overpayment;
+import com.xero.model.Payment;
+import com.xero.model.PaymentStatus;
+import com.xero.model.Prepayment;
+import com.xero.model.PurchaseOrder;
+import com.xero.model.Receipt;
+import com.xero.model.RepeatingInvoice;
+import com.xero.model.Report;
+import com.xero.model.TaxRate;
+import com.xero.model.TrackingCategory;
+import com.xero.model.TrackingCategoryOption;
+import com.xero.model.User;
 
 public class RequestResourceServlet extends HttpServlet 
 {
@@ -83,7 +116,6 @@ public class RequestResourceServlet extends HttpServlet
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		
 		PrintWriter respWriter = response.getWriter();
 		response.setStatus(200);
 		response.setContentType("text/html"); 
@@ -139,7 +171,7 @@ public class RequestResourceServlet extends HttpServlet
 		XeroClient client = new XeroClient();
 		client.setOAuthToken(token, tokenSecret);
 		
-		SampleData data = new SampleData(client);
+		SampleData.client = client;
 		
 		if(object.equals("Accounts")) {
 			
@@ -176,6 +208,7 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());	
+				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}	
 
 		} else if (object.equals("Attachments")) {
@@ -204,12 +237,14 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());	
+				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}	
 		} else if (object.equals("BankTransactions")) {
 		
 			/* BANK TRANSACTION */
 			try {
 				List<Account> accountWhere = client.getAccounts(null,"Type==\"BANK\"",null);
+				System.out.println("Size:" + accountWhere.size());
 				if(accountWhere.size() > 0) {
 					
 					List<BankTransaction> newBankTransaction = client.createBankTransactions(SampleData.loadBankTransaction().getBankTransaction());
@@ -236,6 +271,7 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
+				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
 		} else if (object.equals("BankTransfers")) {
 			
@@ -273,6 +309,7 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());	
+				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}	
 		} else if (object.equals("BrandingThemes")) {
 				
@@ -283,6 +320,7 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());	
+				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}	
 			
 		} else if (object.equals("Contacts")) {		
@@ -308,6 +346,7 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());	
+				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}	
 		} else if (object.equals("ContactGroups")) {
 		
@@ -338,6 +377,7 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
+				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}	
 		} else if (object.equals("ContactGroupContacts")) {
 			
@@ -356,6 +396,7 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
+				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}							
 		} else if (object.equals("CreditNotes")) {
 		
@@ -394,6 +435,7 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());	
+				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}	
 		} else if (object.equals("Currencies")) {
 
@@ -404,6 +446,7 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());	
+				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}	
 		} else if (object.equals("Employees")) {
 
@@ -429,6 +472,7 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());	
+				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}	
 		} else if (object.equals("ExpenseClaims")) {
 
@@ -453,6 +497,7 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());	
+				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}	
 		} else if (object.equals("Invoices")) {
 				
@@ -503,6 +548,7 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
+				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
 			
 		} else if (object.equals("InvoiceReminders")) {
@@ -514,6 +560,7 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
+				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
 		} else if (object.equals("Items")) {
 	
@@ -543,6 +590,7 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
+				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
 		} else if (object.equals("Journals")) {
 		
@@ -557,6 +605,7 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
+				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
 		} else if (object.equals("LinkedTransactions")) {
 
@@ -588,6 +637,7 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
+				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
 
 		} else if (object.equals("ManualJournals")) {
@@ -618,6 +668,7 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
+				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
 		} else if (object.equals("Organisations")) {
 
@@ -628,6 +679,7 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
+				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
 		} else if (object.equals("Overpayments")) {
 
@@ -650,6 +702,7 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
+				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
 		} else if (object.equals("Payments")) {
 
@@ -685,6 +738,7 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
+				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
 		} else if (object.equals("Prepayments")) {
 
@@ -705,6 +759,7 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
+				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
 		} else if (object.equals("PurchaseOrders")) {
 
@@ -738,6 +793,7 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
+				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
 		} else if (object.equals("Receipts")) {
 	
@@ -764,6 +820,7 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
+				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}							
 		} else if (object.equals("RepeatingInvoices")) {
 
@@ -778,6 +835,7 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
+				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
 		} else if (object.equals("Reports")) {
 
@@ -821,6 +879,7 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
+				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
 		} else if (object.equals("TaxRates")) {
 
@@ -842,6 +901,7 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
+				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
 		} else if (object.equals("TrackingCategories")) {
 
@@ -888,6 +948,7 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
+				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
 		} else if (object.equals("Users")) {
 
@@ -909,6 +970,7 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
+				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
 		} else if (object.equals("Errors")) {
 			
@@ -943,7 +1005,7 @@ public class RequestResourceServlet extends HttpServlet
 			int num4 = SampleData.findRandomNum(ContactList.size());			
 			try {
 				for(int i=65; i>1; i--){
-					Contact ContactOne = client.getContact(ContactList.get(num4).getContactID());
+					client.getContact(ContactList.get(num4).getContactID());
 				}
 				messages.add("Congrats - you made over 60 calls without hitting rate limit");
 			} catch (XeroApiException e) {
