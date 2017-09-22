@@ -67,9 +67,6 @@ public class OAuthRequestResource extends GenericUrl {
 	 */
 	private String tokenSecret;
 
-	/** Required OAuth signature algorithm. */
-	public OAuthSigner signer;
-
 	/** Required Generic Url. */
 	private GenericUrl Url;
 
@@ -84,6 +81,7 @@ public class OAuthRequestResource extends GenericUrl {
 	private int readTimeout = 20;
 	
 	private Config config;
+	private SignerFactory signerFactory;
 	
 	// Used for proxy purposes
 	private HttpHost proxy;
@@ -93,8 +91,9 @@ public class OAuthRequestResource extends GenericUrl {
 	/** {@code true} for POST request or the default {@code false} for GET request. */
 	protected boolean usePost;
 
-	private void init(Config config, String resource, String method, Map<? extends String, ?> params) {
+	private OAuthRequestResource(Config config, SignerFactory signerFactory, String resource, String method, Map<? extends String, ?> params) {
 		this.config = config;
+		this.signerFactory = signerFactory;
 
 		Url = new GenericUrl(config.getApiUrl() + resource);
 		this.httpMethod = method;
@@ -119,25 +118,25 @@ public class OAuthRequestResource extends GenericUrl {
 		}
 	}
 
-	public  OAuthRequestResource(Config config, String resource, String method, String body, Map<? extends String, ?> params) {
-		init(config, resource, method, params);
+	public  OAuthRequestResource(Config config, SignerFactory signerFactory, String resource, String method, String body, Map<? extends String, ?> params) {
+		this(config, signerFactory, resource, method, params);
 		this.body = body;
 	}
 
-	public  OAuthRequestResource(Config config, String resource, String method, String body, Map<? extends String, ?> params, String accept) {
-		init(config, resource, method, params);
+	public  OAuthRequestResource(Config config, SignerFactory signerFactory, String resource, String method, String body, Map<? extends String, ?> params, String accept) {
+		this(config, signerFactory, resource, method, params);
 		this.accept = accept;
 		this.body = body;
 	}
 	
-	public  OAuthRequestResource(Config config, String resource, String method, String contentType, byte[] bytes, Map<? extends String, ?> params) {
-		init(config, resource, method, params);
+	public  OAuthRequestResource(Config config, SignerFactory signerFactory, String resource, String method, String contentType, byte[] bytes, Map<? extends String, ?> params) {
+		this(config, signerFactory, resource, method, params);
 		this.contentType = contentType;
 		this.requestBody = new ByteArrayContent(contentType,  bytes);
 	}
 
-	public  OAuthRequestResource(Config config, String resource, String method, String contentType, File file, Map<? extends String, ?> params) {
-		init(config, resource, method, params);
+	public  OAuthRequestResource(Config config, SignerFactory signerFactory, String resource, String method, String contentType, File file, Map<? extends String, ?> params) {
+		this(config, signerFactory, resource, method, params);
 		this.contentType = contentType;
 		this.requestBody = new FileContent(contentType, file);
 	}
@@ -212,11 +211,7 @@ public class OAuthRequestResource extends GenericUrl {
 	
 	public OAuthParameters createParameters() 
 	{
-		if(config.getAppType().equals("PUBLIC")){
-			signer = new HmacSigner(config).createHmacSigner(this.tokenSecret);
-		}	else {
-			signer = new RsaSigner(config).createRsaSigner();
-		}
+		OAuthSigner signer = signerFactory.createSigner(tokenSecret);
 
 		OAuthParameters result = new OAuthParameters();
 		result.consumerKey = config.getConsumerKey();;
