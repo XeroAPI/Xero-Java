@@ -13,6 +13,12 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 
+/**
+ * Marshall and unmarshall from schema derived class and/or java
+ * to schema (JAXB-annotated) mapped classes found in com.xero.model
+ * Will throw {@link XeroClientException} if {@link JAXBContext}
+ * cannot create the marshaller or unmarshaller
+ */
 public class XeroJAXBMarshaller {
 
     private final Marshaller marshaller;
