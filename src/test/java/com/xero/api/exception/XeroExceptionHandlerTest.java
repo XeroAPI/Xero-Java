@@ -58,6 +58,24 @@ public class XeroExceptionHandlerTest {
         assertTrue(object instanceof Invoice);
     }
 
+    @Test
+    public void handleOAuthErrorRequest() throws Exception {
+        when(httpResponseException.getContent()).thenReturn(sampleOAuthExceptionContent());
+        XeroApiException xeroApiException = xeroExceptionHandler.handleBadRequest(httpResponseException);
+        assertNotNull(xeroApiException);
+        assertNotNull(xeroApiException.getMessages());
+        assertNotNull(xeroApiException.getMessage());
+    }
+
+    /**
+     * sample oauth exception
+     * @return oauth exception
+     */
+    private String sampleOAuthExceptionContent() {
+        return "oauth_problem=signature_method_rejected&oauth_problem_advice=Public%20applications%20must%20use%20the%20HMAC-SHA1%20signature%20method";
+    }
+
+
     /**
      * extracted a sample payment exception
      *

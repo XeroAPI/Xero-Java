@@ -2,6 +2,7 @@ package com.xero.api.exception;
 
 import com.google.api.client.http.HttpResponseException;
 import com.xero.api.XeroApiException;
+import com.xero.api.XeroClientException;
 import com.xero.api.jaxb.XeroJAXBMarshaller;
 import com.xero.model.ApiException;
 
@@ -73,10 +74,10 @@ public class XeroExceptionHandler {
                 return new XeroApiException(httpResponseException.getStatusCode(), content, apiException);
             } catch (Exception e) {
                 LOGGER.severe(e.getMessage());
-                throw convertException(httpResponseException);
+                return convertException(httpResponseException);
             }
         } else {
-            throw convertException(httpResponseException);
+            return convertException(httpResponseException);
         }
     }
 
@@ -86,7 +87,7 @@ public class XeroExceptionHandler {
      * @param ioe exception to convert
      * @return the converted exception
      */
-    public RuntimeException convertException(IOException ioe) {
+    public XeroApiException convertException(IOException ioe) {
         if (ioe instanceof HttpResponseException) {
             HttpResponseException httpResponseException = (HttpResponseException) ioe;
             if (httpResponseException.getStatusCode() == 400 ||
@@ -99,7 +100,7 @@ public class XeroExceptionHandler {
                 return newApiException(httpResponseException);
             }
         }
-        return new RuntimeException(ioe);
+        throw new XeroClientException(ioe.getMessage(), ioe);
     }
 
     /**
@@ -119,7 +120,7 @@ public class XeroExceptionHandler {
         }
 
         if (messages.length() > 0) {
-            throw new XeroApiException(httpResponseException.getStatusCode(), messages.toString());
+            return new XeroApiException(httpResponseException.getStatusCode(), messages.toString());
         }
         if (httpResponseException.getContent().contains("=")) {
             try {
@@ -131,15 +132,15 @@ public class XeroExceptionHandler {
                     String[] entry = pair.split("=");
                     errorMap.put(entry[0].trim(), entry[1].trim());
                 }
-                throw new XeroApiException(httpResponseException.getStatusCode(), errorMap);
+                return new XeroApiException(httpResponseException.getStatusCode(), errorMap);
 
             } catch (UnsupportedEncodingException e) {
                 LOGGER.severe(e.getMessage());
-                throw new RuntimeException(e);
+                throw new XeroClientException(e.getMessage(), e);
             }
         }
 
-        throw new XeroApiException(httpResponseException.getStatusCode(), httpResponseException.getContent());
+        return new XeroApiException(httpResponseException.getStatusCode(), httpResponseException.getContent());
     }
 
 }
