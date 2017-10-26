@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
 
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpResponseException;
-import com.xero.api.util.JAXBUtils;
+import com.xero.api.jaxb.XeroJAXBMarshaller;
 import com.xero.model.Account;
 import com.xero.model.Allocation;
 import com.xero.model.ArrayOfAccount;
@@ -331,7 +331,7 @@ public class XeroClient {
 
   /**
    * @deprecated As of xero-java-sdk version 0.6.0, to be removed
-   * in favour of {@link JAXBUtils#marshall(JAXBElement)}
+   * in favour of {@link XeroJAXBMarshaller#marshall(JAXBElement)}
    */
   @Deprecated
   protected <T> String marshallRequest(JAXBElement<?> object) {
@@ -348,7 +348,7 @@ public class XeroClient {
 
   /**
    * @deprecated As of xero-java-sdk version 0.6.0, to be removed
-   * in favour of {@link JAXBUtils#unmarshall(String, Class)}
+   * in favour of {@link XeroJAXBMarshaller#unmarshall(String, Class)}
    */
   public static <T> T unmarshallResponse(String responseBody, Class<T> clazz) throws UnsupportedEncodingException {
     try {
