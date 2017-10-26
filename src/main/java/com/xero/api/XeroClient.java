@@ -2,6 +2,7 @@ package com.xero.api;
 
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpResponseException;
+import com.xero.api.exception.XeroExceptionHandler;
 import com.xero.api.jaxb.XeroJAXBMarshaller;
 import com.xero.model.Account;
 import com.xero.model.Allocation;
@@ -93,6 +94,7 @@ import java.util.regex.Pattern;
 
 public class XeroClient {
 
+    private XeroExceptionHandler xeroExceptionHandler;
     private Config config;
     private SignerFactory signerFactory;
     private String token = null;
@@ -120,6 +122,7 @@ public class XeroClient {
     public XeroClient(Config config, SignerFactory signerFactory) {
         this.config = config;
         this.signerFactory = signerFactory;
+        this.xeroExceptionHandler = new XeroExceptionHandler();
     }
 
     public void setOAuthToken(String token, String tokenSecret) {
@@ -127,6 +130,10 @@ public class XeroClient {
         this.tokenSecret = tokenSecret;
     }
 
+    /**
+     * @deprecated As of xero-java-sdk version 0.6.0, to be removed
+     * in favour of {@link XeroExceptionHandler#newApiException(HttpResponseException)}
+     */
     protected XeroApiException newApiException(HttpResponseException googleException) {
         Matcher matcher = MESSAGE_PATTERN.matcher(googleException.getContent());
         StringBuilder messages = new StringBuilder();
@@ -159,6 +166,10 @@ public class XeroClient {
         throw new XeroApiException(googleException.getStatusCode(), googleException.getContent());
     }
 
+    /**
+     * @deprecated As of xero-java-sdk version 0.6.0, to be removed
+     * in favour of {@link XeroExceptionHandler#convertException(IOException)}
+     */
     protected RuntimeException convertException(IOException ioe) {
         if (ioe instanceof HttpResponseException) {
             HttpResponseException googleException = (HttpResponseException) ioe;
@@ -195,7 +206,7 @@ public class XeroClient {
             String r = resp.parseAsString();
             return unmarshallResponse(r, Response.class);
         } catch (IOException ioe) {
-            throw convertException(ioe);
+            throw xeroExceptionHandler.convertException(ioe);
         }
     }
 
@@ -237,7 +248,7 @@ public class XeroClient {
 
             return saveFilePath;
         } catch (IOException ioe) {
-            throw convertException(ioe);
+            throw xeroExceptionHandler.convertException(ioe);
         }
     }
 
@@ -252,7 +263,7 @@ public class XeroClient {
             HttpResponse resp = req.execute();
             return unmarshallResponse(resp.parseAsString(), Response.class);
         } catch (IOException ioe) {
-            throw convertException(ioe);
+            throw xeroExceptionHandler.convertException(ioe);
         }
     }
 
@@ -265,7 +276,7 @@ public class XeroClient {
             HttpResponse resp = req.execute();
             return unmarshallResponse(resp.parseAsString(), Response.class);
         } catch (IOException ioe) {
-            throw convertException(ioe);
+            throw xeroExceptionHandler.convertException(ioe);
         }
     }
 
@@ -280,7 +291,7 @@ public class XeroClient {
             HttpResponse resp = req.execute();
             return unmarshallResponse(resp.parseAsString(), Response.class);
         } catch (IOException ioe) {
-            throw convertException(ioe);
+            throw xeroExceptionHandler.convertException(ioe);
         }
     }
 
@@ -293,7 +304,7 @@ public class XeroClient {
             HttpResponse resp = req.execute();
             return unmarshallResponse(resp.parseAsString(), Response.class);
         } catch (IOException ioe) {
-            throw convertException(ioe);
+            throw xeroExceptionHandler.convertException(ioe);
         }
     }
 
@@ -307,7 +318,7 @@ public class XeroClient {
             HttpResponse resp = req.execute();
             return unmarshallResponse(resp.parseAsString(), Response.class);
         } catch (IOException ioe) {
-            throw convertException(ioe);
+            throw xeroExceptionHandler.convertException(ioe);
         }
     }
 
@@ -325,7 +336,7 @@ public class XeroClient {
             }
             return unmarshallResponse(resp.parseAsString(), Response.class);
         } catch (IOException ioe) {
-            throw convertException(ioe);
+            throw xeroExceptionHandler.convertException(ioe);
         }
     }
 
