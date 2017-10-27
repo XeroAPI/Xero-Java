@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -1654,13 +1655,16 @@ public class XeroClient {
 
   public Attachment createAttachment(String endpoint, String guid, String filename, String contentType, byte[] bytes)
     throws IOException {
-    return singleResult(put(endpoint + "/" + guid + "/Attachments/" + filename, contentType, bytes)
+	
+	String alphaNumbericFileName = filename.replaceAll("[^\\p{L}\\p{Z}\\.]","").replaceAll(" ", "_");
+	return singleResult(put(endpoint + "/" + guid + "/Attachments/" + alphaNumbericFileName, contentType, bytes)
                           .getAttachments()
                           .getAttachment());
   }
 
   public String getAttachmentContent(String endpoint, String guid, String filename, String accept, String dirPath)
     throws IOException {
-    return getFile(endpoint + "/" + guid + "/Attachments/" + filename, null, null, accept, dirPath);
+	String encodedFileName = URLEncoder.encode(filename, "UTF-8").replace("+", "%20"); 
+    return getFile(endpoint + "/" + guid + "/Attachments/" + encodedFileName, null, null, accept, dirPath);
   }
 }
