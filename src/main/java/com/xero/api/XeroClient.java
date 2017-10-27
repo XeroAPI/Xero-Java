@@ -7,6 +7,9 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
+
+import org.apache.commons.io.IOUtils;
+
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -240,6 +243,33 @@ public class XeroClient {
       throw convertException(ioe);
     }
   }
+  
+  protected ByteArrayInputStream getInputStream(String endPoint,
+          Date modifiedAfter,
+          Map<String, String> params,
+          String accept) throws IOException {
+	OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "GET", null, params, accept);
+	req.setToken(token);
+	req.setTokenSecret(tokenSecret);
+	if (modifiedAfter != null) {
+	req.setIfModifiedSince(modifiedAfter);
+	}
+	
+	try {
+		HttpResponse resp = req.execute();
+		
+		InputStream is = resp.getContent();
+
+		byte[] bytes = IOUtils.toByteArray(is);
+				
+		is.close();
+		return new ByteArrayInputStream(bytes);
+		
+	} catch (IOException ioe) {
+		throw convertException(ioe);
+	}
+}
+  
 
   protected Response put(String endPoint, JAXBElement<?> object) {
     String contents = marshallRequest(object);
@@ -1666,5 +1696,11 @@ public class XeroClient {
     throws IOException {
 	String encodedFileName = URLEncoder.encode(filename, "UTF-8").replace("+", "%20"); 
     return getFile(endpoint + "/" + guid + "/Attachments/" + encodedFileName, null, null, accept, dirPath);
+  }
+  
+  public ByteArrayInputStream getAttachmentContent(String endpoint, String guid, String filename, String accept)
+    throws IOException {
+	String encodedFileName = URLEncoder.encode(filename, "UTF-8").replace("+", "%20"); 
+    return getInputStream(endpoint + "/" + guid + "/Attachments/" + encodedFileName, null, null, accept);
   }
 }
