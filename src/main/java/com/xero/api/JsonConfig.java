@@ -19,6 +19,7 @@ public class JsonConfig implements Config {
   private String CONSUMER_SECRET;
   private String API_BASE_URL = "https://api.xero.com";
   private String API_ENDPOINT_URL = "https://api.xero.com/api.xro/2.0/";
+  private String FILES_ENDPOINT_URL = "https://api.xero.com/files.xro/1.0/";
   private String REQUEST_TOKEN_URL = "https://api.xero.com/oauth/RequestToken";
   private String AUTHENTICATE_URL = "https://api.xero.com/oauth/Authorize";
   private String ACCESS_TOKEN_URL = "https://api.xero.com/oauth/AccessToken";
@@ -29,9 +30,10 @@ public class JsonConfig implements Config {
   private String PROXY_HOST;
   private long PROXY_PORT = 80;
   private boolean PROXY_HTTPS_ENABLED = false;
-
   private int CONNECT_TIMEOUT = 60;
   private int READ_TIMEOUT = 60;
+  private String DECIMAL_PLACES = null;
+
   private String configFile;
 
   private static Config instance = null;
@@ -77,6 +79,11 @@ public class JsonConfig implements Config {
   @Override
   public String getApiUrl() {
     return API_ENDPOINT_URL;
+  }
+
+  @Override
+  public String getFilesUrl() {
+    return FILES_ENDPOINT_URL;
   }
 
   @Override
@@ -137,16 +144,12 @@ public class JsonConfig implements Config {
   }
 
   @Override
-  public void setConnectTimeout(int connectTimeout) {
-    // in seconds
-    CONNECT_TIMEOUT = connectTimeout;
+  public String getDecimalPlaces(){
+    // 2 or 4
+    return DECIMAL_PLACES;
   }
 
-  @Override
-  public void setReadTimeout(int readTimeout) {
-    // in seconds
-    READ_TIMEOUT = readTimeout;
-  }
+  // SETTERS
 
   @Override
   public void setConsumerKey(String consumerKey) {
@@ -166,6 +169,24 @@ public class JsonConfig implements Config {
   @Override
   public void setAuthCallBackUrl(String authCallbackUrl) {
     AUTH_CALLBACK_URL = authCallbackUrl;
+  }
+
+  @Override
+  public void setConnectTimeout(int connectTimeout) {
+    // in seconds
+    CONNECT_TIMEOUT = connectTimeout;
+  }
+
+  @Override
+  public void setReadTimeout(int readTimeout) {
+    // in seconds
+    READ_TIMEOUT = readTimeout;
+  }
+
+   @Override
+  public void setDecimalPlaces(String decimalPlaces) {
+    // 2 or 4
+    DECIMAL_PLACES = decimalPlaces;
   }
 
   private void load() {
@@ -216,6 +237,11 @@ public class JsonConfig implements Config {
         API_ENDPOINT_URL = API_BASE_URL + endpointPath;
       }
 
+      if (jsonObject.containsKey("FilesEndpointPath")) {
+        String filesEndpointPath = (String) jsonObject.get("FilesEndpointPath");
+        FILES_ENDPOINT_URL = API_BASE_URL + filesEndpointPath;
+      }      
+
       if (jsonObject.containsKey("RequestTokenPath")) {
         String requestPath = (String) jsonObject.get("RequestTokenPath");
         REQUEST_TOKEN_URL = API_BASE_URL + requestPath;
@@ -254,6 +280,10 @@ public class JsonConfig implements Config {
       if (jsonObject.containsKey("ProxyHttpsEnabled")) {
         PROXY_HTTPS_ENABLED = (boolean) jsonObject.get("ProxyHttpsEnabled");
       }
+    }
+
+    if (jsonObject.containsKey("DecimalPlaces")) {
+    	DECIMAL_PLACES = (String) jsonObject.get("DecimalPlaces");
     }
   }
 }
