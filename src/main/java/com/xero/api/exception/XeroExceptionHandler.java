@@ -90,8 +90,9 @@ public class XeroExceptionHandler {
     public XeroApiException convertException(IOException ioe) {
         if (ioe instanceof HttpResponseException) {
             HttpResponseException httpResponseException = (HttpResponseException) ioe;
-            if (httpResponseException.getStatusCode() == 400 ||
-                httpResponseException.getStatusCode() == 401 ||
+            if (httpResponseException.getStatusCode() == 400) {
+                return handleBadRequest(httpResponseException);
+            } else if (httpResponseException.getStatusCode() == 401 ||
                 httpResponseException.getStatusCode() == 404 ||
                 httpResponseException.getStatusCode() == 500 ||
                 httpResponseException.getStatusCode() == 503) {
