@@ -1,5 +1,34 @@
 package com.xero.api;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.transform.Source;
+import javax.xml.transform.stream.StreamSource;
+
+import org.apache.commons.io.IOUtils;
+
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TimeZone;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpResponseException;
 import com.xero.api.exception.XeroExceptionHandler;
@@ -252,8 +281,32 @@ public class XeroClient {
         }
     }
 
-    protected Response put(String endPoint, JAXBElement<?> object) {
-        String contents = marshallRequest(object);
+  protected ByteArrayInputStream getInputStream(String endPoint,
+          Date modifiedAfter,
+          Map<String, String> params,
+          String accept) throws IOException {
+	OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "GET", null, params, accept);
+	req.setToken(token);
+	req.setTokenSecret(tokenSecret);
+	if (modifiedAfter != null) {
+	req.setIfModifiedSince(modifiedAfter);
+	}
+
+	try {
+		HttpResponse resp = req.execute();
+
+		InputStream is = resp.getContent();
+
+byte[] bytes = IOUtils.toByteArray(is);
+
+		is.close();
+		return new ByteArrayInputStream(bytes);
+
+	} catch (IOException ioe) {
+		throw convertException(ioe);
+	}
+}  protected Response put(String endPoint, JAXBElement<?> object) {
+    String contents = marshallRequest(object);
 
         OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "PUT", contents, null);
         req.setToken(token);
@@ -322,11 +375,23 @@ public class XeroClient {
         }
     }
 
-    protected Response delete(String endPoint) throws IOException {
-        HttpResponse resp = null;
-        OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "DELETE", null, null);
-        req.setToken(token);
-        req.setTokenSecret(tokenSecret);
+  protected Response post(String endPoint, JAXBElement<?> object, Map<String, String> params) throws IOException {
+    String contents = marshallRequest(object);
+    OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "POST", contents, params);
+    req.setToken(token);
+    req.setTokenSecret(tokenSecret);
+
+  try {
+      HttpResponse resp = req.execute();
+      return unmarshallResponse(resp.parseAsString(), Response.class);
+    } catch (IOException ioe) {
+      throw convertException(ioe);
+    }
+  }protected Response delete(String endPoint) throws IOException {
+    HttpResponse resp = null;
+    OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "DELETE", null, null);
+    req.setToken(token);
+    req.setTokenSecret(tokenSecret);
 
         try {
             resp = req.execute();
@@ -473,34 +538,67 @@ public class XeroClient {
         }
     }
 
-    public List<BankTransaction> createBankTransactions(List<BankTransaction> bankTransactions) throws IOException {
-        ArrayOfBankTransaction array = new ArrayOfBankTransaction();
-        array.getBankTransaction().addAll(bankTransactions);
-        return put("BankTransactions", objFactory.createBankTransactions(array)).getBankTransactions().getBankTransaction();
-    }
 
-    public List<BankTransaction> updateBankTransactions(List<BankTransaction> bankTransactions) throws IOException {
-        ArrayOfBankTransaction array = new ArrayOfBankTransaction();
-        array.getBankTransaction().addAll(bankTransactions);
-        return post("BankTransactions", objFactory.createBankTransactions(array))
-            .getBankTransactions()
-            .getBankTransaction();
-    }
+  public List<BankTransaction> getBankTransactions(Date modifiedAfter, String where, String order, String page, String unitdp)
+    throws IOException {
+    Map<String, String> params = new HashMap<>();
+    addToMapIfNotNull(params, "Where", where);
+    addToMapIfNotNull(params, "order", order);
+    addToMapIfNotNull(params, "page", page);
+    addToMapIfNotNull(params, "unitdp", unitdp);
 
-    public BankTransaction getBankTransaction(String id) throws IOException {
-        return singleResult(get("BankTransactions/" + id).getBankTransactions().getBankTransaction());
+    Response responseObj = get("BankTransactions", modifiedAfter, params);
+    if (responseObj.getBankTransactions() == null) {
+      ArrayOfBankTransaction array = new ArrayOfBankTransaction();
+      return array.getBankTransaction();
+    } else {
+      return responseObj.getBankTransactions().getBankTransaction();
     }
+  }public List<BankTransaction> createBankTransactions(List<BankTransaction> bankTransactions) throws IOException {
+    ArrayOfBankTransaction array = new ArrayOfBankTransaction();
+    array.getBankTransaction().addAll(bankTransactions);
+    return put("BankTransactions", objFactory.createBankTransactions(array)).getBankTransactions().getBankTransaction();
+  }public List<BankTransaction> createBankTransactions(List<BankTransaction> bankTransactions,String unitdp) throws IOException {
+	Map<String, String> params = new HashMap<>();
+    addToMapIfNotNull(params, "unitdp", unitdp);
 
-    //BANK TRANSFERS
-    public List<BankTransfer> getBankTransfers() throws IOException {
-        Response responseObj = get("BankTransfers");
-        if (responseObj.getBankTransfers() == null) {
-            ArrayOfBankTransfer array = new ArrayOfBankTransfer();
-            return array.getBankTransfer();
-        } else {
-            return responseObj.getBankTransfers().getBankTransfer();
-        }
+ArrayOfBankTransaction array = new ArrayOfBankTransaction();
+    array.getBankTransaction().addAll(bankTransactions);
+    return put("BankTransactions", objFactory.createBankTransactions(array),params).getBankTransactions().getBankTransaction();
+  }  public List<BankTransaction> updateBankTransactions(List<BankTransaction> bankTransactions) throws IOException {
+    ArrayOfBankTransaction array = new ArrayOfBankTransaction();
+    array.getBankTransaction().addAll(bankTransactions);
+    return post("BankTransactions", objFactory.createBankTransactions(array))
+      .getBankTransactions()
+      .getBankTransaction();
+  }public List<BankTransaction> updateBankTransactions(List<BankTransaction> bankTransactions, String unitdp) throws IOException {
+	Map<String, String> params = new HashMap<>();
+	addToMapIfNotNull(params, "unitdp", unitdp);
+
+  ArrayOfBankTransaction array = new ArrayOfBankTransaction();
+    array.getBankTransaction().addAll(bankTransactions);
+    return post("BankTransactions", objFactory.createBankTransactions(array),params)
+      .getBankTransactions()
+      .getBankTransaction();
+  }public BankTransaction getBankTransaction(String id) throws IOException {
+    return singleResult(get("BankTransactions/" + id).getBankTransactions().getBankTransaction());}
+
+  public BankTransaction getBankTransaction(String id,String unitdp) throws IOException {
+	Map<String, String> params = new HashMap<>();
+    addToMapIfNotNull(params, "unitdp", unitdp);
+    return singleResult(get("BankTransactions/" + id,null,params).getBankTransactions().getBankTransaction());
+  }
+
+  //BANK TRANSFERS
+  public List<BankTransfer> getBankTransfers() throws IOException {
+    Response responseObj = get("BankTransfers");
+    if (responseObj.getBankTransfers() == null) {
+      ArrayOfBankTransfer array = new ArrayOfBankTransfer();
+      return array.getBankTransfer();
+    } else {
+      return responseObj.getBankTransfers().getBankTransfer();
     }
+  }
 
     public List<BankTransfer> getBankTransfers(Date modifiedAfter, String where, String order) throws IOException {
         Map<String, String> params = new HashMap<>();
@@ -866,11 +964,34 @@ public class XeroClient {
         }
     }
 
-    public List<Invoice> createInvoices(List<Invoice> invoices) throws IOException {
-        ArrayOfInvoice array = new ArrayOfInvoice();
-        array.getInvoice().addAll(invoices);
-        return put("Invoices", objFactory.createInvoices(array)).getInvoices().getInvoice();
+  public List<Invoice> getInvoices(Date modifiedAfter, String where, String order, String page, String ids, String unitdp)
+    throws IOException {
+    Map<String, String> params = new HashMap<>();
+    addToMapIfNotNull(params, "Where", where);
+    addToMapIfNotNull(params, "order", order);
+    addToMapIfNotNull(params, "page", page);
+    addToMapIfNotNull(params, "Ids", ids);
+    addToMapIfNotNull(params, "unitdp", unitdp);
+
+  Response responseObj = get("Invoices", modifiedAfter, params);
+    if (responseObj.getInvoices() == null) {
+      ArrayOfInvoice array = new ArrayOfInvoice();
+      return array.getInvoice();
+    } else {
+      return responseObj.getInvoices().getInvoice();
     }
+  }public List<Invoice> createInvoices(List<Invoice> invoices) throws IOException {
+    ArrayOfInvoice array = new ArrayOfInvoice();
+    array.getInvoice().addAll(invoices);
+    return put("Invoices", objFactory.createInvoices(array)).getInvoices().getInvoice();
+  }public List<Invoice> createInvoices(List<Invoice> invoices,String unitdp) throws IOException {
+	Map<String, String> params = new HashMap<>();
+	addToMapIfNotNull(params, "unitdp", unitdp);
+
+	ArrayOfInvoice array = new ArrayOfInvoice();
+	array.getInvoice().addAll(invoices);
+	return put("Invoices", objFactory.createInvoices(array),params).getInvoices().getInvoice();
+  }
 
     public List<Invoice> updateInvoice(List<Invoice> objects) throws IOException {
         ArrayOfInvoice array = new ArrayOfInvoice();
@@ -878,9 +999,20 @@ public class XeroClient {
         return post("Invoices", objFactory.createInvoices(array)).getInvoices().getInvoice();
     }
 
-    public Invoice getInvoice(String id) throws IOException {
-        return singleResult(get("Invoices/" + id).getInvoices().getInvoice());
-    }
+  public List<Invoice> updateInvoice(List<Invoice> objects,String unitdp) throws IOException {
+	Map<String, String> params = new HashMap<>();
+	addToMapIfNotNull(params, "unitdp", unitdp);
+
+ArrayOfInvoice array = new ArrayOfInvoice();
+    array.getInvoice().addAll(objects);
+    return post("Invoices", objFactory.createInvoices(array),params).getInvoices().getInvoice();
+  }  public Invoice getInvoice(String id) throws IOException {
+    return singleResult(get("Invoices/" + id).getInvoices().getInvoice());
+  }public Invoice getInvoice(String id, String unitdp) throws IOException {
+	Map<String, String> params = new HashMap<>();
+	addToMapIfNotNull(params, "unitdp", unitdp);
+    return singleResult(get("Invoices/" + id, null,params).getInvoices().getInvoice());
+  }
 
     public String getInvoicePdf(String id, String dirPath) throws IOException {
         return getFile("Invoices/" + id, null, null, "application/pdf", dirPath);
@@ -926,25 +1058,54 @@ public class XeroClient {
         }
     }
 
-    public List<Item> createItems(List<Item> objects) throws IOException {
-        ArrayOfItem array = new ArrayOfItem();
-        array.getItem().addAll(objects);
-        return put("Items", objFactory.createItems(array)).getItems().getItem();
-    }
+  public List<Item> getItems(Date modifiedAfter, String where, String order, String unitdp) throws IOException {
+    Map<String, String> params = new HashMap<>();
+    addToMapIfNotNull(params, "Where", where);
+    addToMapIfNotNull(params, "order", order);
+    addToMapIfNotNull(params, "unitdp", unitdp);
 
-    public List<Item> updateItem(List<Item> objects) throws IOException {
-        ArrayOfItem array = new ArrayOfItem();
-        array.getItem().addAll(objects);
-        return post("Items", objFactory.createItems(array)).getItems().getItem();
+  Response responseObj = get("Items", modifiedAfter, params);
+    if (responseObj.getItems() == null) {
+      ArrayOfItem array = new ArrayOfItem();
+      return array.getItem();
+    } else {
+      return responseObj.getItems().getItem();
     }
+  }public List<Item> createItems(List<Item> objects) throws IOException {
+    ArrayOfItem array = new ArrayOfItem();
+    array.getItem().addAll(objects);
+    return put("Items", objFactory.createItems(array)).getItems().getItem();
+  }public List<Item> createItems(List<Item> objects,String unitdp) throws IOException {
+	Map<String, String> params = new HashMap<>();
+	addToMapIfNotNull(params, "unitdp", unitdp);
+
+ArrayOfItem array = new ArrayOfItem();
+    array.getItem().addAll(objects);
+    return put("Items", objFactory.createItems(array),params).getItems().getItem();
+  }  public List<Item> updateItem(List<Item> objects) throws IOException {
+    ArrayOfItem array = new ArrayOfItem();
+    array.getItem().addAll(objects);
+    return post("Items", objFactory.createItems(array)).getItems().getItem();
+  }public List<Item> updateItem(List<Item> objects,String unitdp) throws IOException {
+	Map<String, String> params = new HashMap<>();
+	addToMapIfNotNull(params, "unitdp", unitdp);
+
+    ArrayOfItem array = new ArrayOfItem();
+    array.getItem().addAll(objects);
+    return post("Items", objFactory.createItems(array),params).getItems().getItem();
+  }
 
     public Item getItem(String id) throws IOException {
         return singleResult(get("Items/" + id).getItems().getItem());
     }
 
-    public String deleteItem(String id) throws IOException {
-        return delete("Items/" + id).getStatus();
-    }
+  public Item getItem(String id, String unitdp) throws IOException {
+	Map<String, String> params = new HashMap<>();
+    addToMapIfNotNull(params, "unitdp", unitdp);
+    return singleResult(get("Items/" + id, null, params).getItems().getItem());
+  }public String deleteItem(String id) throws IOException {
+    return delete("Items/" + id).getStatus();
+  }
 
     // JOURNALS
     public List<Journal> getJournals() throws IOException {
@@ -1673,15 +1834,19 @@ public class XeroClient {
         return get(endpoint + "/" + guid + "/Attachments/", null, null).getAttachments().getAttachment();
     }
 
-    public Attachment createAttachment(String endpoint, String guid, String filename, String contentType, byte[] bytes)
-        throws IOException {
-        return singleResult(put(endpoint + "/" + guid + "/Attachments/" + filename, contentType, bytes)
-            .getAttachments()
-            .getAttachment());
-    }
+  public Attachment createAttachment(String endpoint, String guid, String filename, String contentType, byte[] bytes)
+    throws IOException {
+    String alphaNumbericFileName = filename.replaceAll("[^\\p{L}\\p{Z}\\.]","").replaceAll(" ", "_");return singleResult(put(endpoint + "/" + guid + "/Attachments/" + alphaNumbericFileName, contentType, bytes)
+                          .getAttachments()
+                          .getAttachment());
+  }
 
-    public String getAttachmentContent(String endpoint, String guid, String filename, String accept, String dirPath)
-        throws IOException {
-        return getFile(endpoint + "/" + guid + "/Attachments/" + filename, null, null, accept, dirPath);
-    }
+  public String getAttachmentContent(String endpoint, String guid, String filename, String accept, String dirPath)
+    throws IOException {
+String encodedFileName = URLEncoder.encode(filename, "UTF-8").replace("+", "%20");    return getFile(endpoint + "/" + guid + "/Attachments/" + encodedFileName, null, null, accept, dirPath);
+  }public ByteArrayInputStream getAttachmentContent(String endpoint, String guid, String filename, String accept)
+    throws IOException {
+	String encodedFileName = URLEncoder.encode(filename, "UTF-8").replace("+", "%20");
+    return getInputStream(endpoint + "/" + guid + "/Attachments/" + encodedFileName, null, null, accept);
+  }
 }

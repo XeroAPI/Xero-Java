@@ -14,6 +14,8 @@ public interface Config {
 
     String getApiUrl();
 
+    String getFilesUrl();
+
     String getRequestTokenUrl();
 
     String getAuthorizeUrl();
@@ -27,7 +29,7 @@ public interface Config {
     String getRedirectUri();
     
     String getProxyHost();
-    
+  
     long getProxyPort();
     
     boolean getProxyHttpsEnabled();
@@ -35,10 +37,10 @@ public interface Config {
     int getConnectTimeout();
 
     int getReadTimeout();
-    
-    // in seconds
-    void setConnectTimeout(int connectTimeout);
-    void setReadTimeout(int readTimeout);
+
+    String getDecimalPlaces();
+
+    // SETTERS
 
     void setConsumerKey(String consumerKey);
 
@@ -48,4 +50,10 @@ public interface Config {
 
     void setAuthCallBackUrl(String authCallbackUrl);
 
+    void setConnectTimeout(int connectTimeout);
+
+    void setReadTimeout(int readTimeout);
+
+    void setDecimalPlaces(String decimalPlaces);
+    
 }
