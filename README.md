@@ -256,7 +256,7 @@ System.out.println("How many invoices modified in last 24 hours?: " + InvoiceLis
 
 **Exception Handling**
 
-We've added better support for exception handling when errors are returned from the API.  We've tested 400, 401, 404, 500 and 503 errors.  This is still underdevelopment - if your find ways to improve error handling, please submit a pull request or file an issue with details around your suggestion.  Below is an example of how how to handle error.
+Below is an example of how how to handle errors.
 
 ```java
 import com.xero.api.*;
@@ -265,11 +265,12 @@ import com.xero.model.*;
 // FORCE a 404 Error - there is no contact wtih ID 1234	
 try {
 	Contact ContactOne = client.getContact("1234");
-	messages.add("Get a single Contact - ID : " + ContactOne.getContactID());
+	System.out.println("Get a single Contact - ID : " + ContactOne.getContactID());
 } catch (XeroApiException e) {
 	System.out.println(e.getResponseCode());
 	System.out.println(e.getMessage());	
-}
+}	
+
 
 // FORCE a 503 Error - try to make more than 60 API calls in a minute to trigger rate limit error.
 List<Contact> ContactList = client.getContacts();
@@ -281,10 +282,44 @@ try {
 	System.out.println("Congrats - you made over 60 calls without hitting rate limit");
 } catch (XeroApiException e) {
 	System.out.println(e.getResponseCode());
-	System.out.println(e.getMessage());
+	System.out.println(e.getMessage());  
 }		
 
 ```
+
+Version 0.6.2 adds improved ApiException handling if you are creating multiple Invoices and pass the SummarizeError=true parameter - Thanks Lance Reid (lancedfr)
+
+
+```java
+import com.xero.api.*;
+import com.xero.model.*;
+
+try {
+	List<Invoice> listOfInvoices = new ArrayList<Invoice>();
+	listOfInvoices.add(SampleData.loadBadInvoice().getInvoice().get(0));
+	listOfInvoices.add(SampleData.loadBadInvoice2().getInvoice().get(0));
+	
+	List<Invoice> newInvoice = client.createInvoices(listOfInvoices,null,true);
+	System.out.println("Create a new Invoice ID : " + newInvoice.get(0).getInvoiceID() + " - Reference : " +newInvoice.get(0).getReference());
+		
+} catch (XeroApiException e) {
+	System.out.println(e.getResponseCode());
+
+	List<Elements> elements = e.getApiException().getElements();
+	Elements element = elements.get(0);
+ 	List<Object> dataContractBase = element.getDataContractBase();
+	for (Object dataContract : dataContractBase) {
+		Invoice failedInvoice = (Invoice) dataContract;
+		ArrayOfValidationError validationErrors = failedInvoice.getValidationErrors();
+            
+		System.out.println("Failure message : " + errors.get(0).getMessage());
+		System.out.println("Failure invoice Num : " + failedInvoice.getInvoiceNumber());
+	}
+}
+
+```
+
+
 
 
 ## Acknowledgement
