@@ -1,12 +1,18 @@
 package com.xero.example;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -16,46 +22,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 
+import com.xero.api.XeroClient;
 import com.xero.api.Config;
 import com.xero.api.JsonConfig;
 import com.xero.api.OAuthAccessToken;
 import com.xero.api.XeroApiException;
-import com.xero.api.XeroClient;
-import com.xero.model.Account;
-import com.xero.model.Allocation;
-import com.xero.model.ArrayOfContact;
-import com.xero.model.ArrayOfPayment;
-import com.xero.model.Attachment;
-import com.xero.model.BankTransaction;
-import com.xero.model.BankTransfer;
-import com.xero.model.BrandingTheme;
-import com.xero.model.Contact;
-import com.xero.model.ContactGroup;
-import com.xero.model.CreditNote;
-import com.xero.model.Currency;
-import com.xero.model.Employee;
-import com.xero.model.ExpenseClaim;
-import com.xero.model.ExpenseClaimStatus;
-import com.xero.model.Invoice;
-import com.xero.model.InvoiceReminder;
-import com.xero.model.Item;
-import com.xero.model.Journal;
-import com.xero.model.LinkedTransaction;
-import com.xero.model.ManualJournal;
-import com.xero.model.OnlineInvoice;
-import com.xero.model.Organisation;
-import com.xero.model.Overpayment;
-import com.xero.model.Payment;
-import com.xero.model.PaymentStatus;
-import com.xero.model.Prepayment;
-import com.xero.model.PurchaseOrder;
-import com.xero.model.Receipt;
-import com.xero.model.RepeatingInvoice;
-import com.xero.model.Report;
-import com.xero.model.TaxRate;
-import com.xero.model.TrackingCategory;
-import com.xero.model.TrackingCategoryOption;
-import com.xero.model.User;
+import com.xero.model.*;
 
 public class RequestResourceServlet extends HttpServlet 
 {
@@ -116,12 +88,14 @@ public class RequestResourceServlet extends HttpServlet
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		
 		PrintWriter respWriter = response.getWriter();
 		response.setStatus(200);
 		response.setContentType("text/html"); 
 		respWriter.println(htmlString);
 	}
 	
+	@SuppressWarnings("null")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		PrintWriter respWriter = response.getWriter();
@@ -171,7 +145,7 @@ public class RequestResourceServlet extends HttpServlet
 		XeroClient client = new XeroClient();
 		client.setOAuthToken(token, tokenSecret);
 		
-		SampleData.client = client;
+		SampleData data = new SampleData(client);
 		
 		if(object.equals("Accounts")) {
 			
@@ -208,7 +182,6 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());	
-				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}	
 
 		} else if (object.equals("Attachments")) {
@@ -237,14 +210,12 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());	
-				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}	
 		} else if (object.equals("BankTransactions")) {
 		
 			/* BANK TRANSACTION */
 			try {
 				List<Account> accountWhere = client.getAccounts(null,"Type==\"BANK\"",null);
-				System.out.println("Size:" + accountWhere.size());
 				if(accountWhere.size() > 0) {
 					
 					List<BankTransaction> newBankTransaction = client.createBankTransactions(SampleData.loadBankTransaction().getBankTransaction());
@@ -271,7 +242,6 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
-				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
 		} else if (object.equals("BankTransfers")) {
 			
@@ -309,7 +279,6 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());	
-				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}	
 		} else if (object.equals("BrandingThemes")) {
 				
@@ -320,7 +289,6 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());	
-				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}	
 			
 		} else if (object.equals("Contacts")) {		
@@ -346,7 +314,6 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());	
-				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}	
 		} else if (object.equals("ContactGroups")) {
 		
@@ -377,7 +344,6 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
-				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}	
 		} else if (object.equals("ContactGroupContacts")) {
 			
@@ -396,7 +362,6 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
-				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}							
 		} else if (object.equals("CreditNotes")) {
 		
@@ -435,7 +400,6 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());	
-				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}	
 		} else if (object.equals("Currencies")) {
 
@@ -446,7 +410,6 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());	
-				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}	
 		} else if (object.equals("Employees")) {
 
@@ -472,7 +435,6 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());	
-				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}	
 		} else if (object.equals("ExpenseClaims")) {
 
@@ -497,12 +459,13 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());	
-				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}	
 		} else if (object.equals("Invoices")) {
 				
 			/*  INVOICE */
+			
 			try {
+				
 				List<Invoice> newInvoice = client.createInvoices(SampleData.loadInvoice().getInvoice());
 				newInvoice.get(0).setReference("Just Created my Ref.");
 				messages.add("Create a new Invoice ID : " + newInvoice.get(0).getInvoiceID() + " - Reference : " +newInvoice.get(0).getReference());
@@ -532,9 +495,6 @@ public class RequestResourceServlet extends HttpServlet
 				Invoice InvoiceOne = client.getInvoice(InvoiceList.get(num7).getInvoiceID());
 				messages.add("Get a single Invoice - InvNum : " + InvoiceOne.getInvoiceID());
 				
-				OnlineInvoice OnlineInvoice = client.getOnlineInvoice(InvoiceList.get(num7).getInvoiceID());
-				messages.add("Get a Online Invoice -  : " + OnlineInvoice.getOnlineInvoiceUrl());
-		
 				String ids = InvoiceList.get(0).getInvoiceID() + "," + InvoiceList.get(1).getInvoiceID();
 				
 				List<Invoice> InvoiceMultiple = client.getInvoices(null,null,null,null,ids);
@@ -544,12 +504,62 @@ public class RequestResourceServlet extends HttpServlet
 				newInvoice.get(0).setStatus(null);
 				List<Invoice> updateInvoice = client.updateInvoice(newInvoice);
 				messages.add("Update the Invoice - InvNum : " + updateInvoice.get(0).getInvoiceID() + " - Reference : " + updateInvoice.get(0).getReference());
-			
+
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
-				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
+			
+			try {
+				
+				List<Invoice> listOfInvoices = new ArrayList<Invoice>();
+				listOfInvoices.add(SampleData.loadBadInvoice().getInvoice().get(0));
+				listOfInvoices.add(SampleData.loadBadInvoice2().getInvoice().get(0));
+			
+				List<Invoice> newInvoice = client.createInvoices(listOfInvoices,null,true);
+				messages.add("Create a new Invoice ID : " + newInvoice.get(0).getInvoiceID() + " - Reference : " +newInvoice.get(0).getReference());
+				
+			} catch (XeroApiException e) {
+				System.out.println(e.getResponseCode());
+					
+				List<Elements> elements = e.getApiException().getElements();
+				Elements element = elements.get(0);
+				List<Object> dataContractBase = element.getDataContractBase();
+				for (Object dataContract : dataContractBase) {
+					Invoice failedInvoice = (Invoice) dataContract;
+					ArrayOfValidationError validationErrors = failedInvoice.getValidationErrors();
+			        List<ValidationError> errors = validationErrors.getValidationError();
+			        
+			        messages.add("Fail message : " + errors.get(0).getMessage());
+			        messages.add("Fail invoice Num : " + failedInvoice.getInvoiceNumber());
+				}
+			}
+			
+			/*
+			try {
+				List<Invoice> InvoiceList = client.getInvoices();
+				int num33 = SampleData.findRandomNum(InvoiceList.size());
+			
+				OnlineInvoice OnlineInvoice = client.getOnlineInvoice(InvoiceList.get(num33).getInvoiceID());
+				messages.add("Get a Online Invoice -  : " + OnlineInvoice.getOnlineInvoiceUrl());
+		
+			} catch (XeroApiException e) {
+				System.out.println(e.getResponseCode());
+					
+				List<Elements> elements = e.getApiException().getElements();
+				Elements element = elements.get(0);
+				List<Object> dataContractBase = element.getDataContractBase();
+				for (Object dataContract : dataContractBase) {
+					OnlineInvoice failedInvoice = (OnlineInvoice) dataContract;
+					ArrayOfValidationError validationErrors = failedInvoice.getValidationErrors();
+			        List<ValidationError> errors = validationErrors.getValidationError();
+			        
+			        System.out.println("Fail message : " + errors.get(0).getMessage());
+			        messages.add("Fail message : " + errors.get(0).getMessage());
+			        
+				}
+			}
+			*/
 			
 		} else if (object.equals("InvoiceReminders")) {
 		
@@ -560,7 +570,6 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
-				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
 		} else if (object.equals("Items")) {
 	
@@ -590,7 +599,6 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
-				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
 		} else if (object.equals("Journals")) {
 		
@@ -605,7 +613,6 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
-				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
 		} else if (object.equals("LinkedTransactions")) {
 
@@ -637,7 +644,6 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
-				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
 
 		} else if (object.equals("ManualJournals")) {
@@ -668,7 +674,6 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
-				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
 		} else if (object.equals("Organisations")) {
 
@@ -679,7 +684,6 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
-				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
 		} else if (object.equals("Overpayments")) {
 
@@ -702,7 +706,6 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
-				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
 		} else if (object.equals("Payments")) {
 
@@ -731,13 +734,6 @@ public class RequestResourceServlet extends HttpServlet
 					aPayment.getPayment().add(deletePayment);
 					List<Payment> removedPayment = client.deletePayment(aPayment.getPayment());
 					messages.add("Delete the Payment - ID : " + removedPayment.get(0).getPaymentID());
-
-					int num2 = SampleData.findRandomNum(PaymentList.size());
-					Payment PaymentTwo = client.getPayment(PaymentList.get(num2).getPaymentID());
-					List<Payment> removedPayment2 = client.deletePayment(PaymentTwo);
-
-					messages.add("Delete the Payment 2 with ID : " + removedPayment2.get(0).getPaymentID());
-
 				} else {
 					messages.add("Please create a Bank Acccount before trying to Apply a Payment to Account Type Bank");
 				}
@@ -745,7 +741,6 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
-				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
 		} else if (object.equals("Prepayments")) {
 
@@ -766,7 +761,6 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
-				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
 		} else if (object.equals("PurchaseOrders")) {
 
@@ -800,7 +794,6 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
-				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
 		} else if (object.equals("Receipts")) {
 	
@@ -827,7 +820,6 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
-				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}							
 		} else if (object.equals("RepeatingInvoices")) {
 
@@ -842,7 +834,6 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
-				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
 		} else if (object.equals("Reports")) {
 
@@ -886,7 +877,6 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
-				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
 		} else if (object.equals("TaxRates")) {
 
@@ -908,7 +898,6 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
-				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
 		} else if (object.equals("TrackingCategories")) {
 
@@ -955,7 +944,6 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
-				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
 		} else if (object.equals("Users")) {
 
@@ -977,7 +965,6 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
-				messages.add(e.getResponseCode() + " " + e.getMessage());
 			}
 		} else if (object.equals("Errors")) {
 			
@@ -993,8 +980,24 @@ public class RequestResourceServlet extends HttpServlet
 				messages.add("Create a new Contact - Name : " + duplicateContact.get(0).getName());
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
-				System.out.println(e.getMessage());
-				messages.add("Error Code : " + e.getResponseCode() + " Message: " + e.getMessage());
+
+				messages.add("Error Code : " + e.getResponseCode() );
+				
+				List<Elements> elements = e.getApiException().getElements();
+			    Elements element = elements.get(0);
+			    List<Object> dataContractBase = element.getDataContractBase();
+			    for (Object dataContract : dataContractBase) {
+		           Contact failedContact = (Contact) dataContract;
+		           ArrayOfValidationError validationErrors = failedContact.getValidationErrors();
+		            
+		           List<ValidationError> validationErrorList= validationErrors.getValidationError();
+		           
+				   System.out.println(failedContact.getContactID());
+		           System.out.println(validationErrorList.get(0).getMessage());
+		           messages.add("Failed Contact ID : " + failedContact.getContactID());
+		           messages.add("Validation Error : " + validationErrorList.get(0).getMessage());
+		           
+			    }
 			}			
 			
 			// FORCE a 404 Error
@@ -1012,7 +1015,7 @@ public class RequestResourceServlet extends HttpServlet
 			int num4 = SampleData.findRandomNum(ContactList.size());			
 			try {
 				for(int i=65; i>1; i--){
-					client.getContact(ContactList.get(num4).getContactID());
+					Contact ContactOne = client.getContact(ContactList.get(num4).getContactID());
 				}
 				messages.add("Congrats - you made over 60 calls without hitting rate limit");
 			} catch (XeroApiException e) {

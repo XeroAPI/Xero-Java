@@ -8,74 +8,16 @@ import java.util.List;
 import java.util.Random;
 
 import com.xero.api.XeroClient;
-import com.xero.model.Account;
-import com.xero.model.AccountType;
-import com.xero.model.Address;
-import com.xero.model.Allocation;
-import com.xero.model.ArrayOfAccount;
-import com.xero.model.ArrayOfAddress;
-import com.xero.model.ArrayOfAllocation;
-import com.xero.model.ArrayOfBankTransaction;
-import com.xero.model.ArrayOfBankTransfer;
-import com.xero.model.ArrayOfContact;
-import com.xero.model.ArrayOfContactGroup;
-import com.xero.model.ArrayOfCreditNote;
-import com.xero.model.ArrayOfEmployee;
-import com.xero.model.ArrayOfExpenseClaim;
-import com.xero.model.ArrayOfInvoice;
-import com.xero.model.ArrayOfItem;
-import com.xero.model.ArrayOfLineItem;
-import com.xero.model.ArrayOfLinkedTransaction;
-import com.xero.model.ArrayOfManualJournal;
-import com.xero.model.ArrayOfManualJournalLine;
-import com.xero.model.ArrayOfPayment;
-import com.xero.model.ArrayOfPhone;
-import com.xero.model.ArrayOfPurchaseOrder;
-import com.xero.model.ArrayOfReceipt;
-import com.xero.model.ArrayOfTaxComponent;
-import com.xero.model.ArrayOfTaxRate;
-import com.xero.model.ArrayOfTrackingCategory;
-import com.xero.model.ArrayOfTrackingCategoryOption;
-import com.xero.model.BankAccount;
-import com.xero.model.BankTransaction;
-import com.xero.model.BankTransactionStatus;
-import com.xero.model.BankTransactionType;
-import com.xero.model.BankTransfer;
-import com.xero.model.Contact;
-import com.xero.model.ContactGroup;
-import com.xero.model.CreditNote;
-import com.xero.model.CreditNoteType;
-import com.xero.model.CurrencyCode;
-import com.xero.model.Employee;
-import com.xero.model.ExpenseClaim;
-import com.xero.model.Hyperlink;
-import com.xero.model.Invoice;
-import com.xero.model.InvoiceStatus;
-import com.xero.model.InvoiceType;
-import com.xero.model.Item;
-import com.xero.model.LineAmountType;
-import com.xero.model.LineItem;
-import com.xero.model.LinkedTransaction;
-import com.xero.model.ManualJournal;
-import com.xero.model.ManualJournalLine;
-import com.xero.model.ManualJournalStatus;
-import com.xero.model.Payment;
-import com.xero.model.Phone;
-import com.xero.model.PurchaseOrder;
-import com.xero.model.PurchaseOrderStatus;
-import com.xero.model.Receipt;
-import com.xero.model.ReceiptStatus;
-import com.xero.model.TaxComponent;
-import com.xero.model.TaxRate;
-import com.xero.model.TrackingCategory;
-import com.xero.model.TrackingCategoryOption;
-import com.xero.model.User;
+import com.xero.model.*;
 
 public class SampleData {
 	
 	public static XeroClient client = null;
 
-	public SampleData() {}
+	public SampleData(XeroClient client) {
+		// TODO Auto-generated constructor stub
+		SampleData.client = client;
+	}
 	
 	public static ArrayOfAccount loadAccount() {
 		ArrayOfAccount array = new ArrayOfAccount();
@@ -236,6 +178,40 @@ public class SampleData {
 		Invoice inv = new Invoice();
 		inv.setContact(loadSingleContact());
 		inv.setCurrencyCode(CurrencyCode.USD);
+		inv.setLineItems(loadLineItem());
+		inv.setDate(loadDate());
+		inv.setDueDate(loadDate());
+		inv.setInvoiceNumber( Integer.toString(loadRandomNum()) );
+		inv.setType(InvoiceType.ACCREC);
+		inv.setStatus(InvoiceStatus.DRAFT);
+		array.getInvoice().add(inv);
+		return array;
+	}
+	
+	// BAD INVOICE
+	public static ArrayOfInvoice loadBadInvoice() throws IOException {
+		ArrayOfInvoice array = new ArrayOfInvoice();
+		
+		Invoice inv = new Invoice();
+		inv.setContact(loadSingleContact());
+		inv.setCurrencyCode(CurrencyCode.AUD);
+		inv.setLineItems(loadLineItem());
+		inv.setDate(loadDate());
+		inv.setDueDate(loadDate());
+		inv.setInvoiceNumber( Integer.toString(loadRandomNum()) );
+		inv.setType(InvoiceType.ACCREC);
+		inv.setStatus(InvoiceStatus.DRAFT);
+		array.getInvoice().add(inv);
+		return array;
+	}
+	
+	// BAD INVOICE 2
+	public static ArrayOfInvoice loadBadInvoice2() throws IOException {
+		ArrayOfInvoice array = new ArrayOfInvoice();
+		
+		Invoice inv = new Invoice();
+		inv.setContact(loadSingleContact());
+		inv.setCurrencyCode(CurrencyCode.NZD);
 		inv.setLineItems(loadLineItem());
 		inv.setDate(loadDate());
 		inv.setDueDate(loadDate());
@@ -580,7 +556,7 @@ public class SampleData {
 	}
 	
 	private static ArrayOfLineItem loadLineItem() throws IOException{
-		List<Account> accountRevenue = client.getAccounts(null,"Type==\"REVENUE\"",null);
+		List<Account> accountDirectCosts = client.getAccounts(null,"Type==\"DIRECTCOSTS\"",null);
 	
 		ArrayOfLineItem array = new ArrayOfLineItem();
 		LineItem line = new LineItem();
@@ -588,7 +564,7 @@ public class SampleData {
 		line.setQuantity(new BigDecimal("1.00"));
 		line.setUnitAmount(new BigDecimal("20.00"));
 		line.setLineAmount(new BigDecimal("20.00"));
-		line.setAccountCode(accountRevenue.get(0).getCode());
+		line.setAccountCode(accountDirectCosts.get(0).getCode());
 		
 		
 		List<TrackingCategory> TrackingCategoryList = client.getTrackingCategories();
@@ -664,5 +640,5 @@ public class SampleData {
 		line.setAccountCode(accountExpense.get(0).getCode());
 		array.getLineItem().add(line);
 		return array;	
-	}	
+	}
 }
