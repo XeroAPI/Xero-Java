@@ -1577,7 +1577,9 @@ public class XeroClient {
                                         String trackingOptionId1,
                                         String trackingOptionId2,
                                         boolean standardLayout,
-                                        boolean paymentsOnly) throws IOException {
+                                        boolean paymentsOnly,
+                                        Integer periods,
+                                        String timeframe) throws IOException {
         Map<String, String> params = new HashMap<>();
         addToMapIfNotNull(params, "where", where);
         addToMapIfNotNull(params, "order", order);
@@ -1586,6 +1588,8 @@ public class XeroClient {
         addToMapIfNotNull(params, "trackingOptionID2", trackingOptionId2);
         addToMapIfNotNull(params, "standardLayout", standardLayout);
         addToMapIfNotNull(params, "paymentsOnly", paymentsOnly);
+        addToMapIfNotNull(params, "periods", periods);
+        addToMapIfNotNull(params, "timeframe", timeframe);
         return singleResult(get("reports/BalanceSheet", null, params).getReports().getReport());
     }
 
@@ -1600,7 +1604,7 @@ public class XeroClient {
         return singleResult(get("reports/BankStatement", null, params).getReports().getReport());
     }
 
-    public Report getReportBudgetSummary(String where, String order, String date, int periods, int timeframe)
+    public Report getReportBudgetSummary(String where, String order, String date, Integer periods, Integer timeframe)
         throws IOException {
         Map<String, String> params = new HashMap<>();
         addToMapIfNotNull(params, "where", where);
@@ -1628,7 +1632,9 @@ public class XeroClient {
                                       String trackingCategoryId2,
                                       String trackingOptionId2,
                                       boolean standardLayout,
-                                      boolean paymentsOnly) throws IOException {
+                                      boolean paymentsOnly,
+                                      Integer periods,
+                                      String timeframe) throws IOException {
         Map<String, String> params = new HashMap<>();
         addToMapIfNotNull(params, "where", where);
         addToMapIfNotNull(params, "order", order);
@@ -1640,6 +1646,8 @@ public class XeroClient {
         addToMapIfNotNull(params, "trackingOptionID2", trackingOptionId2);
         addToMapIfNotNull(params, "standardLayout", standardLayout);
         addToMapIfNotNull(params, "paymentsOnly", paymentsOnly);
+        addToMapIfNotNull(params, "periods", periods);
+        addToMapIfNotNull(params, "timeframe", timeframe);
         return singleResult(get("reports/ProfitAndLoss", null, params).getReports().getReport());
     }
 
