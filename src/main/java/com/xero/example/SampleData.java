@@ -90,17 +90,18 @@ public class SampleData {
 		
 		ArrayOfAddress arrayOfAddress = new ArrayOfAddress();
 		Address address = new Address();
-		address.setAddressLine1("176 Shuey Dr");
-		address.setCity("Moraga");
-		address.setPostalCode("94556");
+		address.setAddressLine1("100 Green Street");
+		address.setCity("San Francisco");
+		address.setPostalCode("94111");
+		address.setAddressType(AddressType.STREET);
 		arrayOfAddress.getAddress().add(address);
 		
 		contact.setAddresses(arrayOfAddress);
 		
 		ArrayOfPhone arrayOfPhone = new ArrayOfPhone();
 		Phone phone = new Phone();
-		phone.setPhoneAreaCode("925");
-		phone.setPhoneNumber("3770907");
+		phone.setPhoneAreaCode("415");
+		phone.setPhoneNumber("5551212");
 		arrayOfPhone.getPhone().add(phone);
 		contact.setPhones(arrayOfPhone);
 
