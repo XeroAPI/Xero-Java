@@ -33,6 +33,9 @@ public class JsonConfig implements Config {
   private int CONNECT_TIMEOUT = 60;
   private int READ_TIMEOUT = 60;
   private String DECIMAL_PLACES = null;
+  private boolean USING_APP_FIREWALL = false;
+  private String APP_FIREWALL_HOSTNAME;
+  private String APP_FIREWALL_URL_PREFIX;
 
   private String configFile;
 
@@ -149,7 +152,22 @@ public class JsonConfig implements Config {
     return DECIMAL_PLACES;
   }
 
-  // SETTERS
+  @Override
+  public boolean isUsingAppFirewall() {
+    return USING_APP_FIREWALL;
+  }
+
+  @Override
+  public String getAppFirewallHostname() {
+    return APP_FIREWALL_HOSTNAME;
+  }
+
+  @Override
+  public String getAppFirewallUrlPrefix() {
+    return APP_FIREWALL_URL_PREFIX;
+  }
+
+// SETTERS
 
   @Override
   public void setConsumerKey(String consumerKey) {
@@ -187,6 +205,21 @@ public class JsonConfig implements Config {
   public void setDecimalPlaces(String decimalPlaces) {
     // 2 or 4
     DECIMAL_PLACES = decimalPlaces;
+  }
+
+  @Override
+    public void setUsingAppFirewall(boolean usingAppFirewall) {
+      this.USING_APP_FIREWALL = usingAppFirewall;
+  }
+
+  @Override
+  public void setAppFirewallHostname(String appFirewallHostname) {
+      this.APP_FIREWALL_HOSTNAME = appFirewallHostname;
+  }
+
+  @Override
+  public void setAppFirewallUrlPrefix(String appFirewallUrlPrefix) {
+      this.APP_FIREWALL_URL_PREFIX = appFirewallUrlPrefix;
   }
 
   private void load() {
@@ -284,6 +317,18 @@ public class JsonConfig implements Config {
 
     if (jsonObject.containsKey("DecimalPlaces")) {
     	DECIMAL_PLACES = (String) jsonObject.get("DecimalPlaces");
+    }
+
+    if (jsonObject.containsKey("usingAppFirewall")) {
+        USING_APP_FIREWALL = (boolean) jsonObject.get("usingAppFirewall");
+
+        if (jsonObject.containsKey("appFirewallHostname")) {
+            APP_FIREWALL_HOSTNAME = (String) jsonObject.get("appFirewallHostname");
+        }
+
+        if (jsonObject.containsKey("appFirewallUrlPrefix")) {
+            APP_FIREWALL_URL_PREFIX = (String) jsonObject.get("appFirewallUrlPrefix");
+        }
     }
   }
 }

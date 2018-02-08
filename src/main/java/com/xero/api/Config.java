@@ -40,6 +40,12 @@ public interface Config {
 
     String getDecimalPlaces();
 
+    String getAppFirewallHostname();
+
+    String getAppFirewallUrlPrefix();
+
+    boolean isUsingAppFirewall();
+
     // SETTERS
 
     void setConsumerKey(String consumerKey);
@@ -55,5 +61,10 @@ public interface Config {
     void setReadTimeout(int readTimeout);
 
     void setDecimalPlaces(String decimalPlaces);
-    
+
+    void setUsingAppFirewall(boolean usingAppFirewall);
+
+    void setAppFirewallHostname(String appFirewallHostname);
+
+    void setAppFirewallUrlPrefix(String appFirewallUrlPrefix);
 }
