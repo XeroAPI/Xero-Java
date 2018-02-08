@@ -22,7 +22,6 @@ import java.util.Map;
 
 import org.apache.http.HttpHost;
 
-import com.google.api.client.auth.oauth.OAuthParameters;
 import com.google.api.client.auth.oauth.OAuthSigner;
 import com.google.api.client.http.ByteArrayContent;
 import com.google.api.client.http.FileContent;
@@ -214,7 +213,10 @@ public class OAuthRequestResource extends GenericUrl {
 		OAuthSigner signer = signerFactory.createSigner(tokenSecret);
 
 		OAuthParameters result = new OAuthParameters();
-		result.consumerKey = config.getConsumerKey();;
+		result.consumerKey = config.getConsumerKey();
+		result.usingAppFirewall = config.isUsingAppFirewall();
+		result.appFirewallHostname = config.getAppFirewallHostname();
+		result.appFirewallUrlPrefix = config.getAppFirewallUrlPrefix();
 		result.token = token;
 		result.signer = signer;
 		return result;

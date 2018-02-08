@@ -6,7 +6,6 @@ import java.util.HashMap;
 import org.apache.http.HttpHost;
 
 import com.google.api.client.auth.oauth.OAuthCredentialsResponse;
-import com.google.api.client.auth.oauth.OAuthGetTemporaryToken;
 import com.google.api.client.auth.oauth.OAuthSigner;
 import com.google.api.client.http.apache.ApacheHttpTransport;
 
@@ -30,11 +29,17 @@ public class OAuthRequestToken {
   public void execute() {
     OAuthSigner signer = signerFactory.createSigner(null);
 
-    tokenRequest = new OAuthGetTemporaryToken(config.getRequestTokenUrl());
+    if (config.isUsingAppFirewall()) {
+        tokenRequest = new OAuthGetTemporaryToken(config.getRequestTokenUrl(), config.isUsingAppFirewall(),
+                                                    config.getAppFirewallHostname(), config.getAppFirewallUrlPrefix());
+    } else {
+        tokenRequest = new OAuthGetTemporaryToken(config.getRequestTokenUrl());
+
+    }
     tokenRequest.consumerKey = config.getConsumerKey();
     tokenRequest.callback = config.getRedirectUri();
 
-    ApacheHttpTransport.Builder transBuilder = new ApacheHttpTransport.Builder();
+      ApacheHttpTransport.Builder transBuilder = new ApacheHttpTransport.Builder();
     if (config.getProxyHost() != null && "" != config.getProxyHost()) {
       String proxy_host = config.getProxyHost();
       long proxy_port = config.getProxyPort();
