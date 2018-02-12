@@ -106,7 +106,7 @@ public class JsonConfig implements Config {
 
   @Override
   public String getUserAgent() {
-    return USER_AGENT + " [Xero-Java-0.6.4]";
+    return USER_AGENT + " [Xero-Java-0.6.5]";
   }
 
   @Override
