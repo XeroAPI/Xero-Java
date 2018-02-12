@@ -1593,6 +1593,25 @@ public class XeroClient {
         return singleResult(get("reports/BalanceSheet", null, params).getReports().getReport());
     }
 
+    public Report getReportBalanceSheet(String where,
+                                        String order,
+                                        String date,
+                                        String trackingOptionId1,
+                                        String trackingOptionId2,
+                                        boolean standardLayout,
+                                        boolean paymentsOnly) throws IOException {
+        Map<String, String> params = new HashMap<>();
+        addToMapIfNotNull(params, "where", where);
+        addToMapIfNotNull(params, "order", order);
+        addToMapIfNotNull(params, "date", date);
+        addToMapIfNotNull(params, "trackingOptionID1", trackingOptionId1);
+        addToMapIfNotNull(params, "trackingOptionID2", trackingOptionId2);
+        addToMapIfNotNull(params, "standardLayout", standardLayout);
+        addToMapIfNotNull(params, "paymentsOnly", paymentsOnly);
+        return singleResult(get("reports/BalanceSheet", null, params).getReports().getReport());
+    }
+
+
     public Report getReportBankStatement(String accountId, String where, String order, String fromDate, String toDate)
         throws IOException {
         Map<String, String> params = new HashMap<>();
@@ -1621,6 +1640,30 @@ public class XeroClient {
         addToMapIfNotNull(params, "order", order);
         addToMapIfNotNull(params, "date", date);
         return singleResult(get("reports/ExecutiveSummary", null, params).getReports().getReport());
+    }
+
+    public Report getReportProfitLoss(String where,
+                                      String order,
+                                      String fromDate,
+                                      String toDate,
+                                      String trackingCategoryId,
+                                      String trackingOptionId1,
+                                      String trackingCategoryId2,
+                                      String trackingOptionId2,
+                                      boolean standardLayout,
+                                      boolean paymentsOnly) throws IOException {
+        Map<String, String> params = new HashMap<>();
+        addToMapIfNotNull(params, "where", where);
+        addToMapIfNotNull(params, "order", order);
+        addToMapIfNotNull(params, "fromDate", fromDate);
+        addToMapIfNotNull(params, "toDate", toDate);
+        addToMapIfNotNull(params, "trackingCategoryID", trackingCategoryId);
+        addToMapIfNotNull(params, "trackingOptionID1", trackingOptionId1);
+        addToMapIfNotNull(params, "trackingCategoryID2", trackingCategoryId2);
+        addToMapIfNotNull(params, "trackingOptionID2", trackingOptionId2);
+        addToMapIfNotNull(params, "standardLayout", standardLayout);
+        addToMapIfNotNull(params, "paymentsOnly", paymentsOnly);
+        return singleResult(get("reports/ProfitAndLoss", null, params).getReports().getReport());
     }
 
     public Report getReportProfitLoss(String where,

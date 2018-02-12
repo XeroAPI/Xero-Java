@@ -16,7 +16,7 @@ Add this dependency and repository to your POM.xml
     <dependency>
 	  <groupId>com.xero</groupId>
 	  <artifactId>xero-java-sdk</artifactId>
-	  <version>0.6.2</version>
+	  <version>0.6.3</version>
 	</dependency>
 
     <repositories>
@@ -157,7 +157,7 @@ TokenStorage storage = new TokenStorage();
 storage.save(response,requestToken.getAll());
 
 //Build the Authorization URL and redirect User
-OAuthAuthorizeToken authToken = new OAuthAuthorizeToken(requestToken.getTempToken());
+OAuthAuthorizeToken authToken = new OAuthAuthorizeToken(config,requestToken.getTempToken());
 response.sendRedirect(authToken.getAuthUrl());	
 ```
 
