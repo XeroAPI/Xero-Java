@@ -212,6 +212,9 @@ public class OAuthAccessToken {
 
     OAuthParameters result = new OAuthParameters();
     result.consumerKey = config.getConsumerKey();
+    result.usingAppFirewall = config.isUsingAppFirewall();
+    result.appFirewallHostname = config.getAppFirewallHostname();
+    result.appFirewallUrlPrefix = config.getAppFirewallUrlPrefix();
     result.token = this.token;
     result.sessionHandle = this.sessionHandle;
     result.signer = signer;
