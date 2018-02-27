@@ -2,10 +2,10 @@
 	"AppType" : "PRIVATE",
 	"UserAgent" : "YouAppName",
 	"Accept" : "application/xml", 
-	"ConsumerKey" : "——YOUR-CONSUMER-KEY—",
-	"ConsumerSecret" : "——YOUR-CONSUMER-SECRET—",
+	"ConsumerKey" : "YOUR_CONSUMER_KEY",
+	"ConsumerSecret" : "YOUR_CONSUMER_SECRET",
 	"ApiBaseUrl" : "https://api.xero.com",
 	"ApiEndpointPath" : "/api.xro/2.0/",
-	"PrivateKeyCert" :  "certs/public_privatekey.pfx",
+	"PrivateKeyCert" :  "/certs/public_privatekey.pfx",
 	"PrivateKeyPassword" :  "——YOUR-PRIVATE-KEY-PASSWORD—"
 }

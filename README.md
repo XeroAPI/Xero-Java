@@ -69,7 +69,7 @@ In a text editor, create a file called config.json (examples are below)  Refer t
 	"UserAgent": "YourAppName",
 	"ConsumerKey" : "CW1XXXXXXXXXXXXXXXXXXXXXXXXYG",
 	"ConsumerSecret" : "SRJXXXXXXXXXXXXXXXXXXXXXXXZEA6",
-	"PrivateKeyCert" :  "certs/public_privatekey.pfx",
+	"PrivateKeyCert" :  "/certs/public_privatekey.pfx",
 	"PrivateKeyPassword" :  "1234"
 }
 ```
@@ -82,7 +82,7 @@ In a text editor, create a file called config.json (examples are below)  Refer t
 	"ConsumerSecret" : "7FMXXXXXXXXXXXXXXXXXXXXXXXXXCSA",
 	"CallbackBaseUrl" : "http://localhost:8080/myapp",
 	"CallbackPath" : "/CallbackServlet",
-	"PrivateKeyCert" :  "certs/public_privatekey.pfx",
+	"PrivateKeyCert" :  "/certs/public_privatekey.pfx",
 	"PrivateKeyPassword" :  "1234"
 }
 ```
@@ -126,7 +126,7 @@ xero.AppType=PRIVATE
 xero.UserAgent=Your App Name
 xero.ConsumerKey=FA6UXXXXXXXXXXXXXXXXXXXXXXRC7
 xero.ConsumerSecret=7FMXXXXXXXXXXXXXXXXXXXXXXXXXCSA
-xero.PrivateKeyCert=certs/public_privatekey.pfx
+xero.PrivateKeyCert=/certs/public_privatekey.pfx
 xero.PrivateKeyPassword=
 ```
 
