@@ -270,18 +270,50 @@ public class SampleData {
 		if (accountDirectCosts.size() == 0 ){
 			System.out.println("no direct cost accounts");
 		}
+		
+		// GET ALL YOUR TRACKING CATEGORIES
+		List<TrackingCategory> TrackingCategoryList = client.getTrackingCategories();
 
+		// Create a New Array to Populate with a chosen Tracking Category
+		ArrayOfTrackingCategory arrayTracking = new ArrayOfTrackingCategory();
+		
+		if (TrackingCategoryList.size() > 0) {
+			// Get the options for a  Tracking Category 1
+			ArrayOfTrackingCategoryOption options1 = TrackingCategoryList.get(0).getOptions();
+			List<TrackingCategoryOption> optionList1 = options1.getOption();
+
+			// Populate the option 1 with the Name of the Cateogry and Option
+			TrackingCategory category1 = new TrackingCategory();
+			category1.setName(TrackingCategoryList.get(0).getName());
+			category1.setOption(optionList1.get(0).getName());
+			
+			arrayTracking.getTrackingCategory().add(category1);
+
+			// Get the options for a  Tracking Category 2
+			ArrayOfTrackingCategoryOption options2 = TrackingCategoryList.get(1).getOptions();
+			List<TrackingCategoryOption> optionList2 = options2.getOption();
+			
+			// Populate the option 2 with the Name of the Cateogry and Option
+			TrackingCategory category2 = new TrackingCategory();
+			category2.setName(TrackingCategoryList.get(1).getName());
+			category2.setOption(optionList2.get(1).getName());
+			
+			arrayTracking.getTrackingCategory().add(category2);
+			
+		}
 		
 		ManualJournalLine debit = new ManualJournalLine();
 		debit.setDescription("My MJ Debit");
 		debit.setAccountCode("400");
 		debit.setLineAmount(new BigDecimal(10.00));
+		debit.setTracking(arrayTracking);
 		arrayOfMJLine.getJournalLine().add(debit);
 		
 		ManualJournalLine credit = new ManualJournalLine();
 		credit.setDescription("My MJ Credit");
 		credit.setAccountCode("500");
 		credit.setLineAmount(new BigDecimal(-10.00));
+		credit.setTracking(arrayTracking);
 		arrayOfMJLine.getJournalLine().add(credit);
 	
 		ManualJournal mj = new ManualJournal();
