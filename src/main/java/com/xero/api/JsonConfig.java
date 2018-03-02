@@ -23,6 +23,12 @@ public class JsonConfig implements Config {
   private String REQUEST_TOKEN_URL = "https://api.xero.com/oauth/RequestToken";
   private String AUTHENTICATE_URL = "https://api.xero.com/oauth/Authorize";
   private String ACCESS_TOKEN_URL = "https://api.xero.com/oauth/AccessToken";
+  private String API_ENDPOINT_STEM = "/api.xro/2.0/";
+  private String FILES_ENDPOINT_STEM = "/files.xro/1.0/";
+  private String REQUEST_TOKEN_STEM = "/oauth/RequestToken";
+  private String AUTHENTICATE_STEM = "/oauth/Authorize";
+  private String ACCESS_TOKEN_STEM = "/oauth/AccessToken";
+
   private String CALLBACK_BASE_URL;
   private String AUTH_CALLBACK_URL;
   private String PATH_TO_PRIVATE_KEY_CERT;
@@ -268,26 +274,36 @@ public class JsonConfig implements Config {
       if (jsonObject.containsKey("ApiEndpointPath")) {
         String endpointPath = (String) jsonObject.get("ApiEndpointPath");
         API_ENDPOINT_URL = API_BASE_URL + endpointPath;
-      }
+      } else {
+    	  	API_ENDPOINT_URL = API_BASE_URL + API_ENDPOINT_STEM;
+    	  }
 
       if (jsonObject.containsKey("FilesEndpointPath")) {
         String filesEndpointPath = (String) jsonObject.get("FilesEndpointPath");
         FILES_ENDPOINT_URL = API_BASE_URL + filesEndpointPath;
-      }      
+      } else {
+    	  	FILES_ENDPOINT_URL = API_BASE_URL + FILES_ENDPOINT_STEM;
+      }
 
       if (jsonObject.containsKey("RequestTokenPath")) {
         String requestPath = (String) jsonObject.get("RequestTokenPath");
         REQUEST_TOKEN_URL = API_BASE_URL + requestPath;
+      } else {
+    	  	REQUEST_TOKEN_URL = API_BASE_URL + REQUEST_TOKEN_STEM;            
       }
 
       if (jsonObject.containsKey("AccessTokenPath")) {
         String accessPath = (String) jsonObject.get("AccessTokenPath");
         ACCESS_TOKEN_URL = API_BASE_URL + accessPath;
+      } else {
+    	  	ACCESS_TOKEN_URL = API_BASE_URL + ACCESS_TOKEN_STEM;
       }
 
       if (jsonObject.containsKey("AuthenticateUrl")) {
         String authenticatePath = (String) jsonObject.get("AuthenticateUrl");
         AUTHENTICATE_URL = API_BASE_URL + authenticatePath;
+      } else {
+    	  	AUTHENTICATE_URL = API_BASE_URL + AUTHENTICATE_STEM;
       }
     }
 
