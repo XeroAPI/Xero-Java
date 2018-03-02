@@ -16,7 +16,7 @@ Add this dependency and repository to your POM.xml
     <dependency>
 	  <groupId>com.xero</groupId>
 	  <artifactId>xero-java-sdk</artifactId>
-	  <version>0.4.7</version>
+	  <version>0.6.7</version>
 	</dependency>
 
     <repositories>
@@ -35,17 +35,17 @@ We have a build.sbt file defined in the root.
 
 
 ### Configure
-The Xero Java SDK is easily configured using an external JSON file to configure values unique to your Application. This is the default configuration method, however you can implement the `Config` interface and pass it to the `XeroClient`.
+The Xero Java SDK is configured using a config.json file to provide API Keys and other values unique to your Application. This is the default configuration method, however you can implement the `Config` interface and pass it to the `XeroClient`.  
 
-We include an Example App (in this repo) built using Eclipse.  We started with a Maven Project and selected the maven-archetype-webapp with the setup Wizard.   This created a web application structure good for use with Servlets & JSPs.  By default a src/main/resources directory is added to the project.  **Place the config.json file you create in the resources directory**. 
 
-The Xero Java SDK JsonConfig.java class parses the JSON file from the resources directory using the following bit of code.
+### Example App
+To build the example app as a WAR file, **update the config.json in example/src/main/resources directory** and from the terminal run 
 
-```java
-final ClassLoader loader = Config.class.getClassLoader();
-URL path = loader.getResource("config.json");
-File f = new File(path.getFile());
+```javascript
+mvn clean compile war:war
 ```
+Then deploy the Xero-Java-SDK.war found in the target directory to your Java server.
+
 
 ### How to Create the config.json file
 In a text editor, create a file called config.json (examples are below)  Refer to Xero Developer Center [Getting Started](http://developer.xero.com/documentation/getting-started/getting-started-guide/) when you are ready to create a Xero App - this is how you'll create a Consumer Key and Secret. Private and Partner apps require a [public/private key pair](http://developer.xero.com/documentation/api-guides/create-publicprivate-key/) you'll create using OpenSSL.  The private key should be exported as a pfx file and in our example we create a "certs" folder inside the resources folder and place it there.
@@ -54,7 +54,7 @@ In a text editor, create a file called config.json (examples are below)  Refer t
 ```javascript
 { 
 	"AppType" : "PUBLIC",
-	"UserAgent": "Your App Name",
+	"UserAgent": "YourAppName",
 	"ConsumerKey" : "WTCXXXXXXXXXXXXXXXXXXXXXXKG",
 	"ConsumerSecret" : "GJ2XXXXXXXXXXXXXXXXXXXXXXXXWZ",
 	"CallbackBaseUrl" : "http://localhost:8080/myapp",
@@ -66,10 +66,10 @@ In a text editor, create a file called config.json (examples are below)  Refer t
 ```javascript
 { 
 	"AppType" : "PRIVATE",
-	"UserAgent": "Your App Name",
+	"UserAgent": "YourAppName",
 	"ConsumerKey" : "CW1XXXXXXXXXXXXXXXXXXXXXXXXYG",
 	"ConsumerSecret" : "SRJXXXXXXXXXXXXXXXXXXXXXXXZEA6",
-	"PrivateKeyCert" :  "certs/public_privatekey.pfx",
+	"PrivateKeyCert" :  "/certs/public_privatekey.pfx",
 	"PrivateKeyPassword" :  "1234"
 }
 ```
@@ -77,12 +77,12 @@ In a text editor, create a file called config.json (examples are below)  Refer t
 ```javascript
 { 
 	"AppType" : "PARTNER",
-	"UserAgent": "Your App Name",
+	"UserAgent": "YourAppName",
 	"ConsumerKey" : "FA6UXXXXXXXXXXXXXXXXXXXXXXRC7",
 	"ConsumerSecret" : "7FMXXXXXXXXXXXXXXXXXXXXXXXXXCSA",
 	"CallbackBaseUrl" : "http://localhost:8080/myapp",
 	"CallbackPath" : "/CallbackServlet",
-	"PrivateKeyCert" :  "certs/public_privatekey.pfx",
+	"PrivateKeyCert" :  "/certs/public_privatekey.pfx",
 	"PrivateKeyPassword" :  "1234"
 }
 ```
@@ -96,6 +96,12 @@ In a text editor, create a file called config.json (examples are below)  Refer t
 * RequestTokenPath: path for Request Token      *default it /oauth/RequestToken*
 * AuthenticateUrl: path for redirect to authorize      *default is /oauth/RequestToken*
 * AccessTokenPath: path for Access Token         *default is https://api.xero.com/oauth/Authorize*
+
+## Custom Request Signing
+
+You can provide your own signing mechanism by using the `public XeroClient(Config config, SignerFactory signerFactory)` constructor. Simply implement the `SignerFactory` interface with your implementation.
+
+You can also provide a `RsaSignerFactory` using the `public RsaSignerFactory(InputStream privateKeyInputStream, String privateKeyPassword)` constructor to fetch keys from any InputStream.
 
 ### Spring Framework based Config
 
@@ -120,9 +126,11 @@ xero.AppType=PRIVATE
 xero.UserAgent=Your App Name
 xero.ConsumerKey=FA6UXXXXXXXXXXXXXXXXXXXXXXRC7
 xero.ConsumerSecret=7FMXXXXXXXXXXXXXXXXXXXXXXXXXCSA
-xero.PrivateKeyCert=certs/public_privatekey.pfx
+xero.PrivateKeyCert=/certs/public_privatekey.pfx
 xero.PrivateKeyPassword=
 ```
+
+
 
 ### Example App 
 This repo includes an Example App mentioned above.  The file structure mirrors that of an Eclipse Maven Project with the maven-archetype-webapp
@@ -149,7 +157,7 @@ TokenStorage storage = new TokenStorage();
 storage.save(response,requestToken.getAll());
 
 //Build the Authorization URL and redirect User
-OAuthAuthorizeToken authToken = new OAuthAuthorizeToken(requestToken.getTempToken());
+OAuthAuthorizeToken authToken = new OAuthAuthorizeToken(config,requestToken.getTempToken());
 response.sendRedirect(authToken.getAuthUrl());	
 ```
 
@@ -248,7 +256,7 @@ System.out.println("How many invoices modified in last 24 hours?: " + InvoiceLis
 
 **Exception Handling**
 
-We've added better support for exception handling when errors are returned from the API.  We've tested 400, 401, 404, 500 and 503 errors.  This is still underdevelopment - if your find ways to improve error handling, please submit a pull request or file an issue with details around your suggestion.  Below is an example of how how to handle error.
+Below is an example of how how to handle errors.
 
 ```java
 import com.xero.api.*;
@@ -257,11 +265,12 @@ import com.xero.model.*;
 // FORCE a 404 Error - there is no contact wtih ID 1234	
 try {
 	Contact ContactOne = client.getContact("1234");
-	messages.add("Get a single Contact - ID : " + ContactOne.getContactID());
+	System.out.println("Get a single Contact - ID : " + ContactOne.getContactID());
 } catch (XeroApiException e) {
 	System.out.println(e.getResponseCode());
 	System.out.println(e.getMessage());	
-}
+}	
+
 
 // FORCE a 503 Error - try to make more than 60 API calls in a minute to trigger rate limit error.
 List<Contact> ContactList = client.getContacts();
@@ -273,10 +282,44 @@ try {
 	System.out.println("Congrats - you made over 60 calls without hitting rate limit");
 } catch (XeroApiException e) {
 	System.out.println(e.getResponseCode());
-	System.out.println(e.getMessage());
+	System.out.println(e.getMessage());  
 }		
 
 ```
+
+Version 0.6.2 adds improved ApiException handling if you are creating multiple Invoices and pass the SummarizeError=true parameter - Thanks Lance Reid (lancedfr)
+
+
+```java
+import com.xero.api.*;
+import com.xero.model.*;
+
+try {
+	List<Invoice> listOfInvoices = new ArrayList<Invoice>();
+	listOfInvoices.add(SampleData.loadBadInvoice().getInvoice().get(0));
+	listOfInvoices.add(SampleData.loadBadInvoice2().getInvoice().get(0));
+	
+	List<Invoice> newInvoice = client.createInvoices(listOfInvoices,null,true);
+	System.out.println("Create a new Invoice ID : " + newInvoice.get(0).getInvoiceID() + " - Reference : " +newInvoice.get(0).getReference());
+		
+} catch (XeroApiException e) {
+	System.out.println(e.getResponseCode());
+
+	List<Elements> elements = e.getApiException().getElements();
+	Elements element = elements.get(0);
+ 	List<Object> dataContractBase = element.getDataContractBase();
+	for (Object dataContract : dataContractBase) {
+		Invoice failedInvoice = (Invoice) dataContract;
+		ArrayOfValidationError validationErrors = failedInvoice.getValidationErrors();
+            
+		System.out.println("Failure message : " + errors.get(0).getMessage());
+		System.out.println("Failure invoice Num : " + failedInvoice.getInvoiceNumber());
+	}
+}
+
+```
+
+
 
 
 ## Acknowledgement

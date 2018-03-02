@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import static java.lang.String.format;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -18,6 +19,7 @@ public class JsonConfig implements Config {
   private String CONSUMER_SECRET;
   private String API_BASE_URL = "https://api.xero.com";
   private String API_ENDPOINT_URL = "https://api.xero.com/api.xro/2.0/";
+  private String FILES_ENDPOINT_URL = "https://api.xero.com/files.xro/1.0/";
   private String REQUEST_TOKEN_URL = "https://api.xero.com/oauth/RequestToken";
   private String AUTHENTICATE_URL = "https://api.xero.com/oauth/Authorize";
   private String ACCESS_TOKEN_URL = "https://api.xero.com/oauth/AccessToken";
@@ -28,9 +30,13 @@ public class JsonConfig implements Config {
   private String PROXY_HOST;
   private long PROXY_PORT = 80;
   private boolean PROXY_HTTPS_ENABLED = false;
-
   private int CONNECT_TIMEOUT = 60;
   private int READ_TIMEOUT = 60;
+  private String DECIMAL_PLACES = null;
+  private boolean USING_APP_FIREWALL = false;
+  private String APP_FIREWALL_HOSTNAME;
+  private String APP_FIREWALL_URL_PREFIX;
+
   private String configFile;
 
   private static Config instance = null;
@@ -79,6 +85,11 @@ public class JsonConfig implements Config {
   }
 
   @Override
+  public String getFilesUrl() {
+    return FILES_ENDPOINT_URL;
+  }
+
+  @Override
   public String getRequestTokenUrl() {
     return REQUEST_TOKEN_URL;
   }
@@ -95,7 +106,7 @@ public class JsonConfig implements Config {
 
   @Override
   public String getUserAgent() {
-    return USER_AGENT + " [Xero-Java-0.4.7]";
+    return USER_AGENT + " [Xero-Java-0.6.7]";
   }
 
   @Override
@@ -136,16 +147,27 @@ public class JsonConfig implements Config {
   }
 
   @Override
-  public void setConnectTimeout(int connectTimeout) {
-    // in seconds
-    CONNECT_TIMEOUT = connectTimeout;
+  public String getDecimalPlaces(){
+    // 2 or 4
+    return DECIMAL_PLACES;
   }
 
   @Override
-  public void setReadTimeout(int readTimeout) {
-    // in seconds
-    READ_TIMEOUT = readTimeout;
+  public boolean isUsingAppFirewall() {
+    return USING_APP_FIREWALL;
   }
+
+  @Override
+  public String getAppFirewallHostname() {
+    return APP_FIREWALL_HOSTNAME;
+  }
+
+  @Override
+  public String getAppFirewallUrlPrefix() {
+    return APP_FIREWALL_URL_PREFIX;
+  }
+
+// SETTERS
 
   @Override
   public void setConsumerKey(String consumerKey) {
@@ -167,8 +189,44 @@ public class JsonConfig implements Config {
     AUTH_CALLBACK_URL = authCallbackUrl;
   }
 
-  public void load() {
+  @Override
+  public void setConnectTimeout(int connectTimeout) {
+    // in seconds
+    CONNECT_TIMEOUT = connectTimeout;
+  }
+
+  @Override
+  public void setReadTimeout(int readTimeout) {
+    // in seconds
+    READ_TIMEOUT = readTimeout;
+  }
+
+   @Override
+  public void setDecimalPlaces(String decimalPlaces) {
+    // 2 or 4
+    DECIMAL_PLACES = decimalPlaces;
+  }
+
+  @Override
+    public void setUsingAppFirewall(boolean usingAppFirewall) {
+      this.USING_APP_FIREWALL = usingAppFirewall;
+  }
+
+  @Override
+  public void setAppFirewallHostname(String appFirewallHostname) {
+      this.APP_FIREWALL_HOSTNAME = appFirewallHostname;
+  }
+
+  @Override
+  public void setAppFirewallUrlPrefix(String appFirewallUrlPrefix) {
+      this.APP_FIREWALL_URL_PREFIX = appFirewallUrlPrefix;
+  }
+
+  private void load() {
     InputStream inputStream = JsonConfig.class.getResourceAsStream("/" + configFile);
+    if (inputStream == null) {
+        throw new XeroClientException(format("Config file '%s' could not be opened. Missing file?", configFile));
+    }
     InputStreamReader reader = new InputStreamReader(inputStream);
 
     JSONParser parser = new JSONParser();
@@ -177,11 +235,11 @@ public class JsonConfig implements Config {
     try {
       obj = parser.parse(reader);
     } catch (FileNotFoundException e) {
-      e.printStackTrace();
+        throw new XeroClientException(format("Config file '%s' not found", configFile), e);
     } catch (IOException e) {
-      e.printStackTrace();
+        throw new XeroClientException(format("IO error reading config file '%s' not found", configFile), e);
     } catch (ParseException e) {
-      e.printStackTrace();
+        throw new XeroClientException(format("Parse error reading config file '%s' not found", configFile), e);
     }
     JSONObject jsonObject = (JSONObject) obj;
 
@@ -211,6 +269,11 @@ public class JsonConfig implements Config {
         String endpointPath = (String) jsonObject.get("ApiEndpointPath");
         API_ENDPOINT_URL = API_BASE_URL + endpointPath;
       }
+
+      if (jsonObject.containsKey("FilesEndpointPath")) {
+        String filesEndpointPath = (String) jsonObject.get("FilesEndpointPath");
+        FILES_ENDPOINT_URL = API_BASE_URL + filesEndpointPath;
+      }      
 
       if (jsonObject.containsKey("RequestTokenPath")) {
         String requestPath = (String) jsonObject.get("RequestTokenPath");
@@ -250,6 +313,22 @@ public class JsonConfig implements Config {
       if (jsonObject.containsKey("ProxyHttpsEnabled")) {
         PROXY_HTTPS_ENABLED = (boolean) jsonObject.get("ProxyHttpsEnabled");
       }
+    }
+
+    if (jsonObject.containsKey("DecimalPlaces")) {
+    	DECIMAL_PLACES = (String) jsonObject.get("DecimalPlaces");
+    }
+
+    if (jsonObject.containsKey("usingAppFirewall")) {
+        USING_APP_FIREWALL = (boolean) jsonObject.get("usingAppFirewall");
+
+        if (jsonObject.containsKey("appFirewallHostname")) {
+            APP_FIREWALL_HOSTNAME = (String) jsonObject.get("appFirewallHostname");
+        }
+
+        if (jsonObject.containsKey("appFirewallUrlPrefix")) {
+            APP_FIREWALL_URL_PREFIX = (String) jsonObject.get("appFirewallUrlPrefix");
+        }
     }
   }
 }

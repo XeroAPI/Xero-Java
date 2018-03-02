@@ -1,10 +1,15 @@
 package com.xero.example;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -90,6 +95,7 @@ public class RequestResourceServlet extends HttpServlet
 		respWriter.println(htmlString);
 	}
 	
+	@SuppressWarnings("null")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		PrintWriter respWriter = response.getWriter();
@@ -457,7 +463,9 @@ public class RequestResourceServlet extends HttpServlet
 		} else if (object.equals("Invoices")) {
 				
 			/*  INVOICE */
+			
 			try {
+				
 				List<Invoice> newInvoice = client.createInvoices(SampleData.loadInvoice().getInvoice());
 				newInvoice.get(0).setReference("Just Created my Ref.");
 				messages.add("Create a new Invoice ID : " + newInvoice.get(0).getInvoiceID() + " - Reference : " +newInvoice.get(0).getReference());
@@ -487,9 +495,6 @@ public class RequestResourceServlet extends HttpServlet
 				Invoice InvoiceOne = client.getInvoice(InvoiceList.get(num7).getInvoiceID());
 				messages.add("Get a single Invoice - InvNum : " + InvoiceOne.getInvoiceID());
 				
-				OnlineInvoice OnlineInvoice = client.getOnlineInvoice(InvoiceList.get(num7).getInvoiceID());
-				messages.add("Get a Online Invoice -  : " + OnlineInvoice.getOnlineInvoiceUrl());
-		
 				String ids = InvoiceList.get(0).getInvoiceID() + "," + InvoiceList.get(1).getInvoiceID();
 				
 				List<Invoice> InvoiceMultiple = client.getInvoices(null,null,null,null,ids);
@@ -499,11 +504,62 @@ public class RequestResourceServlet extends HttpServlet
 				newInvoice.get(0).setStatus(null);
 				List<Invoice> updateInvoice = client.updateInvoice(newInvoice);
 				messages.add("Update the Invoice - InvNum : " + updateInvoice.get(0).getInvoiceID() + " - Reference : " + updateInvoice.get(0).getReference());
-			
+
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
 			}
+			
+			try {
+				
+				List<Invoice> listOfInvoices = new ArrayList<Invoice>();
+				listOfInvoices.add(SampleData.loadBadInvoice().getInvoice().get(0));
+				listOfInvoices.add(SampleData.loadBadInvoice2().getInvoice().get(0));
+			
+				List<Invoice> newInvoice = client.createInvoices(listOfInvoices,null,true);
+				messages.add("Create a new Invoice ID : " + newInvoice.get(0).getInvoiceID() + " - Reference : " +newInvoice.get(0).getReference());
+				
+			} catch (XeroApiException e) {
+				System.out.println(e.getResponseCode());
+					
+				List<Elements> elements = e.getApiException().getElements();
+				Elements element = elements.get(0);
+				List<Object> dataContractBase = element.getDataContractBase();
+				for (Object dataContract : dataContractBase) {
+					Invoice failedInvoice = (Invoice) dataContract;
+					ArrayOfValidationError validationErrors = failedInvoice.getValidationErrors();
+			        List<ValidationError> errors = validationErrors.getValidationError();
+			        
+			        messages.add("Fail message : " + errors.get(0).getMessage());
+			        messages.add("Fail invoice Num : " + failedInvoice.getInvoiceNumber());
+				}
+			}
+			
+			/*
+			try {
+				List<Invoice> InvoiceList = client.getInvoices();
+				int num33 = SampleData.findRandomNum(InvoiceList.size());
+			
+				OnlineInvoice OnlineInvoice = client.getOnlineInvoice(InvoiceList.get(num33).getInvoiceID());
+				messages.add("Get a Online Invoice -  : " + OnlineInvoice.getOnlineInvoiceUrl());
+		
+			} catch (XeroApiException e) {
+				System.out.println(e.getResponseCode());
+					
+				List<Elements> elements = e.getApiException().getElements();
+				Elements element = elements.get(0);
+				List<Object> dataContractBase = element.getDataContractBase();
+				for (Object dataContract : dataContractBase) {
+					OnlineInvoice failedInvoice = (OnlineInvoice) dataContract;
+					ArrayOfValidationError validationErrors = failedInvoice.getValidationErrors();
+			        List<ValidationError> errors = validationErrors.getValidationError();
+			        
+			        System.out.println("Fail message : " + errors.get(0).getMessage());
+			        messages.add("Fail message : " + errors.get(0).getMessage());
+			        
+				}
+			}
+			*/
 			
 		} else if (object.equals("InvoiceReminders")) {
 		
@@ -795,7 +851,7 @@ public class RequestResourceServlet extends HttpServlet
 				Report newReportAgedReceivablesByContact = client.getReportAgedReceivablesByContact(AgedPayablesByContactList.get(num20).getContactID(), null, null, null, "1/1/2016", "1/1/2017");
 				messages.add("Get Aged Receivables By Contact Reports for " +  AgedPayablesByContactList.get(num20).getName() + " - Report ID " + newReportAgedReceivablesByContact.getReportID() );
 				
-				Report newReportBalanceSheet = client.getReportBalanceSheet(null, null, "3/3/2017", null, null, true, false);
+				Report newReportBalanceSheet = client.getReportBalanceSheet(null, null, "3/3/2017", null, null, true, false, null, null);
 				messages.add("Get Balance Sheet Report on " +  newReportBalanceSheet.getReportDate() + " - Name: " + newReportBalanceSheet.getReportTitles().getReportTitle().get(1).toString() );
 							
 				List<Account> accountForBankStatement = client.getAccounts(null,"Type==\"BANK\"",null);
@@ -812,7 +868,7 @@ public class RequestResourceServlet extends HttpServlet
 				Report newExecutiveSummary = client.getExecutiveSummary(null, null,"1/1/2017");			
 				messages.add("Get Executive Summary Report on " +  newExecutiveSummary.getReportDate() + " - Name: " + newExecutiveSummary.getReportName() );
 	
-				Report newReportProfitLoss = client.getReportProfitLoss(null,null, "9/1/2016", "1/1/2017", null, null, null, null, true, false);		
+				Report newReportProfitLoss = client.getReportProfitLoss(null,null, "9/1/2016", "1/1/2017", null, null, null, null, true, false, null, null);
 				messages.add("Get Profit Loss Report on " +  newReportProfitLoss.getReportDate() + " - Name: " + newReportProfitLoss.getReportName() );
 			
 				Report newTrialBalance = client.getReportTrialBalance("9/1/2016", true);		
@@ -924,8 +980,24 @@ public class RequestResourceServlet extends HttpServlet
 				messages.add("Create a new Contact - Name : " + duplicateContact.get(0).getName());
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
-				System.out.println(e.getMessage());
-				messages.add("Error Code : " + e.getResponseCode() + " Message: " + e.getMessage());
+
+				messages.add("Error Code : " + e.getResponseCode() );
+				
+				List<Elements> elements = e.getApiException().getElements();
+			    Elements element = elements.get(0);
+			    List<Object> dataContractBase = element.getDataContractBase();
+			    for (Object dataContract : dataContractBase) {
+		           Contact failedContact = (Contact) dataContract;
+		           ArrayOfValidationError validationErrors = failedContact.getValidationErrors();
+		            
+		           List<ValidationError> validationErrorList= validationErrors.getValidationError();
+		           
+				   System.out.println(failedContact.getContactID());
+		           System.out.println(validationErrorList.get(0).getMessage());
+		           messages.add("Failed Contact ID : " + failedContact.getContactID());
+		           messages.add("Validation Error : " + validationErrorList.get(0).getMessage());
+		           
+			    }
 			}			
 			
 			// FORCE a 404 Error
