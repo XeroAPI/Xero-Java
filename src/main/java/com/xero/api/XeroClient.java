@@ -296,7 +296,11 @@ public class XeroClient {
     }
 
     protected Response put(String endPoint, String contentType, byte[] bytes) throws IOException {
-        OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "PUT", contentType, bytes, null);
+        return put(endPoint, contentType, bytes, null);
+    }
+
+    protected Response put(String endPoint, String contentType, byte[] bytes, Map<? extends String, ?> params) throws IOException {
+        OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "PUT", contentType, bytes, params);
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
 
@@ -1903,8 +1907,17 @@ public class XeroClient {
 
     public Attachment createAttachment(String endpoint, String guid, String filename, String contentType, byte[] bytes)
         throws IOException {
+        return createAttachment(endpoint, guid, filename, contentType, bytes, false);
+    }
+
+    public Attachment createAttachment(String endpoint, String guid, String filename, String contentType, byte[] bytes, boolean includeOnline)
+        throws IOException {
+        Map<String, String> params = new HashMap<>();
+        if (includeOnline) {
+            params.put("IncludeOnline", Boolean.toString(true));
+        }
         String alphaNumbericFileName = filename.replaceAll("[^\\p{L}\\p{Z}\\.]", "").replaceAll(" ", "_");
-        return singleResult(put(endpoint + "/" + guid + "/Attachments/" + alphaNumbericFileName, contentType, bytes)
+        return singleResult(put(endpoint + "/" + guid + "/Attachments/" + alphaNumbericFileName, contentType, bytes, params)
             .getAttachments()
             .getAttachment());
     }
