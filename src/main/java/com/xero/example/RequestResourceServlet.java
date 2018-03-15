@@ -3,8 +3,10 @@ package com.xero.example;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
@@ -186,7 +188,7 @@ public class RequestResourceServlet extends HttpServlet
 
 		} else if (object.equals("Attachments")) {
 			
-			/*  INVOICE ATTACHMENT as BYTE ARRAY */
+			/*  INVOICE ATTACHMENT as BYTE ARRAY and save to local file system */
 			try {
 				List<Invoice> newInvoice = client.createInvoices(SampleData.loadInvoice().getInvoice());
 				messages.add("Create a new Invoice ID : " + newInvoice.get(0).getInvoiceID() + " - Reference : " +newInvoice.get(0).getReference());
@@ -204,9 +206,23 @@ public class RequestResourceServlet extends HttpServlet
 				System.out.println(getInvoiceAttachment.get(0).getFileName() + " --- " +getInvoiceAttachment.get(0).getMimeType());
 				
 				File f = new File("./");
+				String fileName1 = "filename.jpg";
 				String dirPath =  f.getCanonicalPath();
-				String contentPath = client.getAttachmentContent("Invoices", newInvoice.get(0).getInvoiceID(),getInvoiceAttachment.get(0).getFileName(),getInvoiceAttachment.get(0).getMimeType(),dirPath);
-				messages.add("Get Attachment content - save to server - location: " + contentPath);				
+				String saveFilePath = dirPath + File.separator + fileName1;
+				
+				InputStream in = client.getAttachmentContent("Invoices", newInvoice.get(0).getInvoiceID(),getInvoiceAttachment.get(0).getFileName(),getInvoiceAttachment.get(0).getMimeType());
+				
+				OutputStream out = new FileOutputStream(saveFilePath);
+
+				// Transfer bytes from in to out
+				byte[] buf = new byte[1024];
+				int len;
+				while ((len = in.read(buf)) > 0) {
+				    out.write(buf, 0, len);
+				}
+				in.close();
+				out.close();
+				messages.add("Get Attachment content - save to server - location: " + saveFilePath );				
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());	
@@ -369,14 +385,28 @@ public class RequestResourceServlet extends HttpServlet
 			try {
 				List<CreditNote> newCreditNote = client.createCreditNotes(SampleData.loadCreditNote().getCreditNote());
 				messages.add("Create a new Credit Note - ID: " + newCreditNote.get(0).getCreditNoteID());
-			
+				
+				
 				// GET PDF of CREDIT NOTE
 				File f = new File("./");
+				String fileName1 = "creditnote.pdf";
 				String dirPath =  f.getCanonicalPath();
-				String fileSavePath = client.getCreditNotePdf(newCreditNote.get(0).getCreditNoteID(),dirPath);
-				messages.add("Get a PDF copy of Credit Note - save it here: " + fileSavePath);
-				//System.out.println(fileSavePath);
-					
+				String saveFilePath = dirPath + File.separator + fileName1;
+				
+				InputStream in = client.getCreditNotePdf(newCreditNote.get(0).getCreditNoteID());
+								
+				OutputStream out = new FileOutputStream(saveFilePath);
+
+				// Transfer bytes from in to out
+				byte[] buf = new byte[1024];
+				int len;
+				while ((len = in.read(buf)) > 0) {
+				    out.write(buf, 0, len);
+				}
+				in.close();
+				out.close();
+				messages.add("Get a PDF copy of CreditNote save to location: " + saveFilePath );	
+				
 				List<CreditNote> CreditNoteWhere = client.getCreditNotes(null,"Status==\"DRAFT\"",null);
 				if(CreditNoteWhere.size() > 0) {
 					messages.add("Get a CreditNote with WHERE clause - ID: " + CreditNoteWhere.get(0).getCreditNoteID());
@@ -472,9 +502,23 @@ public class RequestResourceServlet extends HttpServlet
 				
 				// GET PDF of INVOICE
 				File f = new File("./");
+				String fileName1 = "invoice.pdf";
 				String dirPath =  f.getCanonicalPath();
-				String fileSavePath = client.getInvoicePdf(newInvoice.get(0).getInvoiceID(),dirPath);
-				messages.add("Get a PDF copy of Invoice - save it here: " + fileSavePath);	
+				String saveFilePath = dirPath + File.separator + fileName1;
+				
+				InputStream in = client.getCreditNotePdf(newInvoice.get(0).getInvoiceID());
+								
+				OutputStream out = new FileOutputStream(saveFilePath);
+
+				// Transfer bytes from in to out
+				byte[] buf = new byte[1024];
+				int len;
+				while ((len = in.read(buf)) > 0) {
+				    out.write(buf, 0, len);
+				}
+				in.close();
+				out.close();
+				messages.add("Get a PDF copy of Invoice save to location: " + saveFilePath );	
 				
 				List<Invoice> InvoiceWhere = client.getInvoices(null,"Status==\"DRAFT\"",null,null,null);
 				messages.add("Get a Invoice with WHERE clause - InvNum : " + InvoiceWhere.get(0).getInvoiceID());
@@ -511,6 +555,31 @@ public class RequestResourceServlet extends HttpServlet
 			}
 			
 			try {
+				List<Invoice> InvoiceList = client.getInvoices();
+				int num33 = SampleData.findRandomNum(InvoiceList.size());
+			
+				OnlineInvoice OnlineInvoice = client.getOnlineInvoice(InvoiceList.get(num33).getInvoiceID());
+				messages.add("Get a Online Invoice -  : " + OnlineInvoice.getOnlineInvoiceUrl());
+		
+			} catch (XeroApiException e) {
+				System.out.println(e.getResponseCode());
+					
+				List<Elements> elements = e.getApiException().getElements();
+				Elements element = elements.get(0);
+				List<Object> dataContractBase = element.getDataContractBase();
+				for (Object dataContract : dataContractBase) {
+					OnlineInvoice failedInvoice = (OnlineInvoice) dataContract;
+					ArrayOfValidationError validationErrors = failedInvoice.getValidationErrors();
+			        List<ValidationError> errors = validationErrors.getValidationError();
+			        
+			        System.out.println("Fail message : " + errors.get(0).getMessage());
+			        messages.add("Fail message : " + errors.get(0).getMessage());
+			        
+				}
+			}
+			
+			/*
+			try {
 				
 				List<Invoice> listOfInvoices = new ArrayList<Invoice>();
 				listOfInvoices.add(SampleData.loadBadInvoice().getInvoice().get(0));
@@ -532,31 +601,6 @@ public class RequestResourceServlet extends HttpServlet
 			        
 			        messages.add("Fail message : " + errors.get(0).getMessage());
 			        messages.add("Fail invoice Num : " + failedInvoice.getInvoiceNumber());
-				}
-			}
-			
-			/*
-			try {
-				List<Invoice> InvoiceList = client.getInvoices();
-				int num33 = SampleData.findRandomNum(InvoiceList.size());
-			
-				OnlineInvoice OnlineInvoice = client.getOnlineInvoice(InvoiceList.get(num33).getInvoiceID());
-				messages.add("Get a Online Invoice -  : " + OnlineInvoice.getOnlineInvoiceUrl());
-		
-			} catch (XeroApiException e) {
-				System.out.println(e.getResponseCode());
-					
-				List<Elements> elements = e.getApiException().getElements();
-				Elements element = elements.get(0);
-				List<Object> dataContractBase = element.getDataContractBase();
-				for (Object dataContract : dataContractBase) {
-					OnlineInvoice failedInvoice = (OnlineInvoice) dataContract;
-					ArrayOfValidationError validationErrors = failedInvoice.getValidationErrors();
-			        List<ValidationError> errors = validationErrors.getValidationError();
-			        
-			        System.out.println("Fail message : " + errors.get(0).getMessage());
-			        messages.add("Fail message : " + errors.get(0).getMessage());
-			        
 				}
 			}
 			*/
@@ -771,10 +815,23 @@ public class RequestResourceServlet extends HttpServlet
 				
 				// GET PDF of PURCHASE ORDER
 				File f = new File("./");
+				String fileName1 = "PurchaseOrder.pdf";
 				String dirPath =  f.getCanonicalPath();
-				String fileSavePath = client.getPurchaseOrderPdf(newPurchaseOrder.get(0).getPurchaseOrderID(),dirPath);
-				messages.add("Get a PDF copy of PurchaseOrder - save it here: " + fileSavePath);
-				System.out.println(fileSavePath);
+				String saveFilePath = dirPath + File.separator + fileName1;
+				
+				InputStream in = client.getCreditNotePdf(newPurchaseOrder.get(0).getPurchaseOrderID());
+								
+				OutputStream out = new FileOutputStream(saveFilePath);
+
+				// Transfer bytes from in to out
+				byte[] buf = new byte[1024];
+				int len;
+				while ((len = in.read(buf)) > 0) {
+				    out.write(buf, 0, len);
+				}
+				in.close();
+				out.close();
+				messages.add("Get a PDF copy of CreditNote save to location: " + saveFilePath );	
 				
 				List<PurchaseOrder> PurchaseOrderWhere = client.getPurchaseOrders(null,"Status==\"DRAFT\"",null,null);
 				messages.add("Get a PurchaseOrder with WHERE clause - ID : " + PurchaseOrderWhere.get(0).getPurchaseOrderID());
