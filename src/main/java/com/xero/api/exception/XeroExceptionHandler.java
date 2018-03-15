@@ -80,6 +80,21 @@ public class XeroExceptionHandler {
             return convertException(httpResponseException);
         }
     }
+    
+    public XeroApiException handleBadRequest(String content) {
+
+        //TODO we could use the ApiException.xsd to validate that the content is an ApiException xml
+        if (content.contains("ApiException")) {
+            try {
+                ApiException apiException = xeroJaxbMarshaller.unmarshall(content, ApiException.class);
+                return new XeroApiException(412, content, apiException);
+            } catch (Exception e) {
+                LOGGER.severe(e.getMessage());
+                
+            }
+        }
+		return null;
+    }
 
     /**
      * For backwards comparability with xero-java-sdk version 0.6.0 keep the old way of handling exceptions

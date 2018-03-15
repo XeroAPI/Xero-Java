@@ -9,6 +9,11 @@ package com.xero.api;
 public class XeroClientException extends RuntimeException {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
      * Create new exception.
      *
      * @param message Error message

@@ -1,72 +1,9 @@
 package com.xero.api;
 
-import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpResponseException;
 import com.xero.api.exception.XeroExceptionHandler;
 import com.xero.api.jaxb.XeroJAXBMarshaller;
-import com.xero.model.Account;
-import com.xero.model.Allocation;
-import com.xero.model.ArrayOfAccount;
-import com.xero.model.ArrayOfAllocation;
-import com.xero.model.ArrayOfBankTransaction;
-import com.xero.model.ArrayOfBankTransfer;
-import com.xero.model.ArrayOfBrandingTheme;
-import com.xero.model.ArrayOfContact;
-import com.xero.model.ArrayOfContactGroup;
-import com.xero.model.ArrayOfCreditNote;
-import com.xero.model.ArrayOfCurrency;
-import com.xero.model.ArrayOfEmployee;
-import com.xero.model.ArrayOfExpenseClaim;
-import com.xero.model.ArrayOfInvoice;
-import com.xero.model.ArrayOfInvoiceReminder;
-import com.xero.model.ArrayOfItem;
-import com.xero.model.ArrayOfJournal;
-import com.xero.model.ArrayOfLinkedTransaction;
-import com.xero.model.ArrayOfManualJournal;
-import com.xero.model.ArrayOfOverpayment;
-import com.xero.model.ArrayOfPayment;
-import com.xero.model.ArrayOfPrepayment;
-import com.xero.model.ArrayOfPurchaseOrder;
-import com.xero.model.ArrayOfReceipt;
-import com.xero.model.ArrayOfRepeatingInvoice;
-import com.xero.model.ArrayOfTaxRate;
-import com.xero.model.ArrayOfTrackingCategory;
-import com.xero.model.ArrayOfTrackingCategoryOption;
-import com.xero.model.ArrayOfUser;
-import com.xero.model.Attachment;
-import com.xero.model.BankTransaction;
-import com.xero.model.BankTransfer;
-import com.xero.model.BrandingTheme;
-import com.xero.model.Contact;
-import com.xero.model.ContactGroup;
-import com.xero.model.ContactGroupStatus;
-import com.xero.model.CreditNote;
-import com.xero.model.Currency;
-import com.xero.model.Employee;
-import com.xero.model.ExpenseClaim;
-import com.xero.model.Invoice;
-import com.xero.model.InvoiceReminder;
-import com.xero.model.Item;
-import com.xero.model.Journal;
-import com.xero.model.LinkedTransaction;
-import com.xero.model.ManualJournal;
-import com.xero.model.ObjectFactory;
-import com.xero.model.OnlineInvoice;
-import com.xero.model.Organisation;
-import com.xero.model.Overpayment;
-import com.xero.model.Payment;
-import com.xero.model.PaymentStatus;
-import com.xero.model.Prepayment;
-import com.xero.model.PurchaseOrder;
-import com.xero.model.Receipt;
-import com.xero.model.RepeatingInvoice;
-import com.xero.model.Report;
-import com.xero.model.Response;
-import com.xero.model.TaxRate;
-import com.xero.model.TrackingCategory;
-import com.xero.model.TrackingCategoryOption;
-import com.xero.model.User;
-import org.apache.commons.io.IOUtils;
+import com.xero.model.*;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -79,7 +16,6 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -101,7 +37,6 @@ public class XeroClient {
     private SignerFactory signerFactory;
     private String token = null;
     private String tokenSecret = null;
-    private static final int BUFFER_SIZE = 4096;
 
     protected static final DateFormat utcFormatter;
 
@@ -194,8 +129,7 @@ public class XeroClient {
     }
 
     protected Response get(String endPoint, Date modifiedAfter, Map<String, String> params) throws IOException {
-        HttpResponse resp = null;
-
+    		
         OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "GET", null, params);
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
@@ -204,9 +138,9 @@ public class XeroClient {
         }
 
         try {
-            resp = req.execute();
-            String r = resp.parseAsString();
-            return unmarshallResponse(r, Response.class);
+        		Map<String, String>  resp = req.execute();
+        		Object r = resp.get("content");
+            return unmarshallResponse(r.toString(), Response.class);
         } catch (IOException ioe) {
             throw xeroExceptionHandler.convertException(ioe);
         }
@@ -217,38 +151,41 @@ public class XeroClient {
                              Map<String, String> params,
                              String accept,
                              String dirPath) throws IOException {
-        OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "GET", null, params, accept);
-        req.setToken(token);
-        req.setTokenSecret(tokenSecret);
+        
+    		OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "GET", null, params, accept);
+        req.setToken(this.token);
+        req.setTokenSecret(this.tokenSecret);
+        
         if (modifiedAfter != null) {
             req.setIfModifiedSince(modifiedAfter);
         }
-
+        
+        String saveFilePath = null;
+        String fileName = null;
+    
         try {
-            HttpResponse resp = req.execute();
+    	
+        		ByteArrayInputStream input = req.executefile();
+            fileName = req.getFileName();
+			saveFilePath = dirPath + File.separator + fileName;
+			
+			FileOutputStream output = new FileOutputStream(saveFilePath);
 
-            InputStream inputStream = resp.getContent();
-            List<String> disposition = resp.getHeaders().getHeaderStringValues("Content-Disposition");
+			int DEFAULT_BUFFER_SIZE = 1024;
+			byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
+			int n = 0;
 
-            String fileName = null;
-            Pattern regex = Pattern.compile("(?<=filename=\").*?(?=\")");
-            Matcher regexMatcher = regex.matcher(disposition.toString());
-            if (regexMatcher.find()) {
-                fileName = regexMatcher.group();
-            }
+			n = input.read(buffer, 0, DEFAULT_BUFFER_SIZE);
 
-            String saveFilePath = dirPath + File.separator + fileName;
-            FileOutputStream outputStream = new FileOutputStream(saveFilePath);
-
-            int bytesRead = -1;
-            byte[] buffer = new byte[BUFFER_SIZE];
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);
-            }
-            outputStream.close();
-            inputStream.close();
-
-            return saveFilePath;
+			while (n >= 0) {
+			   output.write(buffer, 0, n);
+			   n = input.read(buffer, 0, DEFAULT_BUFFER_SIZE);
+			}
+			
+			input.close();
+			output.close();
+			
+			return saveFilePath;	
         } catch (IOException ioe) {
             throw xeroExceptionHandler.convertException(ioe);
         }
@@ -266,17 +203,10 @@ public class XeroClient {
         }
 
         try {
-            HttpResponse resp = req.execute();
-
-            InputStream is = resp.getContent();
-
-            byte[] bytes = IOUtils.toByteArray(is);
-
-            is.close();
-            return new ByteArrayInputStream(bytes);
-
+            ByteArrayInputStream byteStream = req.executefile();
+            return byteStream;
         } catch (IOException ioe) {
-            throw convertException(ioe);
+        	throw xeroExceptionHandler.convertException(ioe);
         }
     }
 
@@ -288,8 +218,9 @@ public class XeroClient {
         req.setTokenSecret(tokenSecret);
 
         try {
-            HttpResponse resp = req.execute();
-            return unmarshallResponse(resp.parseAsString(), Response.class);
+        		Map<String, String> resp = req.execute();
+	    		Object r = resp.get("content");
+            return unmarshallResponse(r.toString(), Response.class);
         } catch (IOException ioe) {
             throw xeroExceptionHandler.convertException(ioe);
         }
@@ -301,8 +232,9 @@ public class XeroClient {
         req.setTokenSecret(tokenSecret);
 
         try {
-            HttpResponse resp = req.execute();
-            return unmarshallResponse(resp.parseAsString(), Response.class);
+        		Map<String, String> resp = req.execute();
+	    		Object r = resp.get("content");
+            return unmarshallResponse(r.toString(), Response.class);
         } catch (IOException ioe) {
             throw xeroExceptionHandler.convertException(ioe);
         }
@@ -316,8 +248,9 @@ public class XeroClient {
         req.setTokenSecret(tokenSecret);
 
         try {
-            HttpResponse resp = req.execute();
-            return unmarshallResponse(resp.parseAsString(), Response.class);
+        		Map<String, String> resp = req.execute();
+        		Object r = resp.get("content");
+            return unmarshallResponse(r.toString(), Response.class);
         } catch (IOException ioe) {
             throw xeroExceptionHandler.convertException(ioe);
         }
@@ -329,8 +262,9 @@ public class XeroClient {
         req.setTokenSecret(tokenSecret);
 
         try {
-            HttpResponse resp = req.execute();
-            return unmarshallResponse(resp.parseAsString(), Response.class);
+        		Map<String, String> resp = req.execute();
+	    		Object r = resp.get("content");
+            return unmarshallResponse(r.toString(), Response.class);
         } catch (IOException ioe) {
             throw xeroExceptionHandler.convertException(ioe);
         }
@@ -343,8 +277,9 @@ public class XeroClient {
         req.setTokenSecret(tokenSecret);
 
         try {
-            HttpResponse resp = req.execute();
-            return unmarshallResponse(resp.parseAsString(), Response.class);
+        		Map<String, String> resp = req.execute();
+    			Object r = resp.get("content");
+            return unmarshallResponse(r.toString(), Response.class);
         } catch (IOException ioe) {
             throw xeroExceptionHandler.convertException(ioe);
         }
@@ -357,26 +292,29 @@ public class XeroClient {
         req.setTokenSecret(tokenSecret);
 
         try {
-            HttpResponse resp = req.execute();
-            return unmarshallResponse(resp.parseAsString(), Response.class);
+        		Map<String, String>  resp = req.execute();
+        		Object r = resp.get("content");
+            return unmarshallResponse(r.toString(), Response.class);
         } catch (IOException ioe) {
-            throw convertException(ioe);
+        		throw xeroExceptionHandler.convertException(ioe);
         }
     }
 
     protected Response delete(String endPoint) throws IOException {
-        HttpResponse resp = null;
         OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "DELETE", null, null);
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
-
+        System.out.println("About to delete");
         try {
-            resp = req.execute();
+        		Map<String, String> resp = req.execute();
+        		Object r = resp.get("content");
+        		Object code = resp.get("code");
             // No-Content Returned from Xero API
-            if (resp.getStatusCode() == 204) {
+        		if (code.equals("204")) {
+        			System.out.println(code.toString());
                 return unmarshallResponse("<Response><Status>DELETED</Status></Response>", Response.class);
             }
-            return unmarshallResponse(resp.parseAsString(), Response.class);
+            return unmarshallResponse(r.toString(), Response.class);
         } catch (IOException ioe) {
             throw xeroExceptionHandler.convertException(ioe);
         }
@@ -747,6 +685,9 @@ public class XeroClient {
     }
 
     public String deleteSingleContactFromContactGroup(String ContactGroupId, String ContactId) throws IOException {
+        System.out.println(ContactGroupId);
+        System.out.println(ContactId);
+        
         return delete("ContactGroups/" + ContactGroupId + "/Contacts/" + ContactId).getStatus();
     }
 
@@ -1022,6 +963,10 @@ public class XeroClient {
 
     public String getInvoicePdf(String id, String dirPath) throws IOException {
         return getFile("Invoices/" + id, null, null, "application/pdf", dirPath);
+    }
+    
+    public ByteArrayInputStream getInvoicePdfContent(String id) throws IOException {
+        return getInputStream("Invoices/" + id, null, null, "application/pdf");
     }
 
     public OnlineInvoice getOnlineInvoice(String id) throws IOException {
@@ -1487,7 +1432,7 @@ public class XeroClient {
     public List<Receipt> createReceipts(List<Receipt> objects) throws IOException {
         ArrayOfReceipt array = new ArrayOfReceipt();
         array.getReceipt().addAll(objects);
-        return put("Receipt", objFactory.createReceipts(array)).getReceipts().getReceipt();
+        return put("Receipts", objFactory.createReceipts(array)).getReceipts().getReceipt();
     }
 
     public List<Receipt> updateReceipt(List<Receipt> objects) throws IOException {

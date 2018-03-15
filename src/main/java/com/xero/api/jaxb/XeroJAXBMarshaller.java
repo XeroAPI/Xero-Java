@@ -21,6 +21,7 @@ import java.io.UnsupportedEncodingException;
  */
 public class XeroJAXBMarshaller {
 
+	
     private final Marshaller marshaller;
     private final Unmarshaller unmarshaller;
 

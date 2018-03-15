@@ -43,6 +43,10 @@ public interface Config {
     String getAppFirewallHostname();
 
     String getAppFirewallUrlPrefix();
+    
+    String getKeyStorePath();
+    
+    String getKeyStorePassword();
 
     boolean isUsingAppFirewall();
 
@@ -67,4 +71,8 @@ public interface Config {
     void setAppFirewallHostname(String appFirewallHostname);
 
     void setAppFirewallUrlPrefix(String appFirewallUrlPrefix);
+    
+    void setKeyStorePath(String keyStorePath);
+    
+    void setKeyStorePassword(String keyStorePassword);
 }

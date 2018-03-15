@@ -10,22 +10,35 @@ package com.xero.api;
 
 import com.google.api.client.auth.oauth.OAuthCredentialsResponse;
 import com.google.api.client.auth.oauth.OAuthSigner;
-import com.google.api.client.http.*;
+import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.UrlEncodedParser;
+import com.xero.api.exception.XeroExceptionHandler;
 
 import java.io.IOException;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.util.EntityUtils;
 
 public class OAuthGetTemporaryToken extends GenericUrl {
 
     public String callback;
-    public HttpTransport transport;
     public String consumerKey;
     public OAuthSigner signer;
     protected boolean usePost;
-
     private boolean usingAppFirewall;
     private String appFirewallHostname = "";
     private String appFirewallUrlPrefix = "";
-
+    public Config config;
+    private CloseableHttpClient httpclient;
+    private XeroExceptionHandler xeroExceptionHandler;
+	private int connectTimeout = 20;
+	private int readTimeout = 20;
+    
     public OAuthGetTemporaryToken(String authorizationServerUrl) {
         super(authorizationServerUrl);
     }
@@ -36,19 +49,55 @@ public class OAuthGetTemporaryToken extends GenericUrl {
         this.usingAppFirewall = usingAppFirewall;
         this.appFirewallHostname = appFirewallHostname;
         this.appFirewallUrlPrefix = appFirewallUrlPrefix;
+        this.xeroExceptionHandler = new XeroExceptionHandler();
     }
-
 
     public final OAuthCredentialsResponse execute() throws IOException {
-       HttpRequestFactory requestFactory = this.transport.createRequestFactory();
-       HttpRequest request = requestFactory.buildRequest(this.usePost ? "POST" : "GET", this, (HttpContent)null);
-       this.createParameters().intercept(request);
-       HttpResponse response = request.execute();
-       response.setContentLoggingLimit(0);
-       OAuthCredentialsResponse oauthResponse = new OAuthCredentialsResponse();
-       UrlEncodedParser.parse(response.parseAsString(), oauthResponse);
-       return oauthResponse;
-    }
+    		this.connectTimeout = config.getConnectTimeout() * 1000;
+		this.readTimeout = config.getReadTimeout() * 1000;
+		
+    		httpclient = new XeroHttpContext(config).getHttpClient();
+
+	    	GenericUrl requestUrl = new GenericUrl(this.config.getRequestTokenUrl());
+	   
+       	HttpGet httpget = new HttpGet(this.config.getRequestTokenUrl());
+	  	
+       	RequestConfig.Builder requestConfig = RequestConfig.custom()
+				.setConnectTimeout(connectTimeout)
+				.setConnectionRequestTimeout(readTimeout)
+				.setSocketTimeout(connectTimeout);
+		
+		//Proxy Service Setup - unable to fully test as we don't have a proxy 
+		// server to test against.
+		if(!"".equals(config.getProxyHost()) && config.getProxyHost() != null) {
+			int port = (int) (config.getProxyPort() == 80 && config.getProxyHttpsEnabled() ? 443 : config.getProxyPort());		
+			HttpHost proxy = new HttpHost(config.getProxyHost(), port, config.getProxyHttpsEnabled() ? "https" : "http");
+			requestConfig.setProxy(proxy);
+		}
+		this.createParameters().intercept(httpget,requestUrl);
+		httpget.setConfig(requestConfig.build());
+		
+		try {
+	        CloseableHttpResponse response = httpclient.execute(httpget);
+	        try {
+	            HttpEntity entity = response.getEntity();  
+	            String retSrc = EntityUtils.toString(entity); 
+	             
+	            OAuthCredentialsResponse oauthResponse = new OAuthCredentialsResponse();
+	            UrlEncodedParser.parse(retSrc, oauthResponse); 
+	            
+	            //System.out.println("RequestToken Response: " + retSrc);
+	            
+	            EntityUtils.consume(entity);
+	            return oauthResponse;
+	        } finally {
+	            response.close();
+	        }
+	        
+	    } finally {
+	        httpclient.close();
+	    }
+    	}
 
     public OAuthParameters createParameters() {
         OAuthParameters result = new OAuthParameters();
@@ -59,5 +108,11 @@ public class OAuthGetTemporaryToken extends GenericUrl {
         result.signer = this.signer;
         result.callback = this.callback;
         return result;
+    }
+    
+    public void setConfig(Config config) {
+    		this.config = config;
+    	    this.consumerKey = config.getConsumerKey();
+    	    this.callback = config.getRedirectUri();
     }
 }

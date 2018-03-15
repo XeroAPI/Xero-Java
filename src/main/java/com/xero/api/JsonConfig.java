@@ -42,6 +42,8 @@ public class JsonConfig implements Config {
   private boolean USING_APP_FIREWALL = false;
   private String APP_FIREWALL_HOSTNAME;
   private String APP_FIREWALL_URL_PREFIX;
+  private String KEY_STORE_PATH;
+  private String KEY_STORE_PASSWORD;
 
   private String configFile;
 
@@ -112,7 +114,7 @@ public class JsonConfig implements Config {
 
   @Override
   public String getUserAgent() {
-    return USER_AGENT + " [Xero-Java-0.6.7]";
+    return USER_AGENT + " [Xero-Java-0.7.0-beta-1]";
   }
 
   @Override
@@ -172,6 +174,16 @@ public class JsonConfig implements Config {
   public String getAppFirewallUrlPrefix() {
     return APP_FIREWALL_URL_PREFIX;
   }
+  
+  @Override
+  public String getKeyStorePath() {
+    return KEY_STORE_PATH;
+  }
+  
+  @Override
+  public String getKeyStorePassword() {
+    return KEY_STORE_PASSWORD;
+  }
 
 // SETTERS
 
@@ -226,6 +238,16 @@ public class JsonConfig implements Config {
   @Override
   public void setAppFirewallUrlPrefix(String appFirewallUrlPrefix) {
       this.APP_FIREWALL_URL_PREFIX = appFirewallUrlPrefix;
+  }
+  
+  @Override
+  public void setKeyStorePath(String keyStorePath) {
+      this.KEY_STORE_PATH = keyStorePath;
+  }
+  
+  @Override
+  public void setKeyStorePassword(String keyStorePassword) {
+      this.KEY_STORE_PASSWORD = keyStorePassword;
   }
 
   private void load() {
@@ -332,7 +354,15 @@ public class JsonConfig implements Config {
     }
 
     if (jsonObject.containsKey("DecimalPlaces")) {
-    	DECIMAL_PLACES = (String) jsonObject.get("DecimalPlaces");
+    		DECIMAL_PLACES = (String) jsonObject.get("DecimalPlaces");
+    }
+    
+    if (jsonObject.containsKey("KeyStorePath")) {
+		KEY_STORE_PATH = (String) jsonObject.get("KeyStorePath");
+    }
+    
+    if (jsonObject.containsKey("KeyStorePassword")) {
+		KEY_STORE_PASSWORD = (String) jsonObject.get("KeyStorePassword");
     }
 
     if (jsonObject.containsKey("usingAppFirewall")) {

@@ -14,6 +14,10 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 
 public class OAuthParameters implements HttpExecuteInterceptor, HttpRequestInitializer {
 
@@ -265,6 +269,66 @@ public class OAuthParameters implements HttpExecuteInterceptor, HttpRequestIniti
 			throw io;
 		}
 		request.getHeaders().setAuthorization(getAuthorizationHeader());
+	}
+	
+	public void intercept(HttpGet request, GenericUrl url) throws IOException 
+	{
+		computeNonce();
+		computeTimestamp();
+	
+		try {
+			computeSignature(request.getMethod(), url);
+		} catch (GeneralSecurityException e) {
+			IOException io = new IOException();
+			io.initCause(e);
+			throw io;
+		}
+		request.addHeader("Authorization", getAuthorizationHeader());
+	}
+	
+	public void intercept(HttpPost request, GenericUrl url) throws IOException 
+	{
+		computeNonce();
+		computeTimestamp();
+	
+		try {
+			computeSignature(request.getMethod(), url);
+		} catch (GeneralSecurityException e) {
+			IOException io = new IOException();
+			io.initCause(e);
+			throw io;
+		};
+		request.addHeader("Authorization", getAuthorizationHeader());
+	}
+	
+	public void intercept(HttpPut request, GenericUrl url) throws IOException 
+	{
+		computeNonce();
+		computeTimestamp();
+	
+		try {
+			computeSignature(request.getMethod(), url);
+		} catch (GeneralSecurityException e) {
+			IOException io = new IOException();
+			io.initCause(e);
+			throw io;
+		}
+		request.addHeader("Authorization", getAuthorizationHeader());
+	}
+	
+	public void intercept(HttpDelete request, GenericUrl url) throws IOException 
+	{
+		computeNonce();
+		computeTimestamp();
+	
+		try {
+			computeSignature(request.getMethod(), url);
+		} catch (GeneralSecurityException e) {
+			IOException io = new IOException();
+			io.initCause(e);
+			throw io;
+		}
+		request.addHeader("Authorization", getAuthorizationHeader());
 	}
 
 }
