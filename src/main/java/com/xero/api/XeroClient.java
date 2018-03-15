@@ -742,6 +742,11 @@ public class XeroClient {
         return singleResult(get("CreditNotes/" + id).getCreditNotes().getCreditNote());
     }
 
+    public ByteArrayInputStream getCreditNotePdf(String id) throws IOException {
+        return getInputStream("CreditNotes/" + id, null, null, "application/pdf");
+    }
+
+
     public String getCreditNotePdf(String id, String dirPath) throws IOException {
         return getFile("CreditNotes/" + id, null, null, "application/pdf", dirPath);
     }
@@ -1402,6 +1407,10 @@ public class XeroClient {
 
     public String getPurchaseOrderPdf(String id, String dirPath) throws IOException {
         return getFile("PurchaseOrders/" + id, null, null, "application/pdf", dirPath);
+    }
+
+    public ByteArrayInputStream getPurchaseOrderPdf(String id) throws IOException {
+        return getInputStream("PurchaseOrders/" + id, null, null, "application/pdf");
     }
 
     //RECEIPTS

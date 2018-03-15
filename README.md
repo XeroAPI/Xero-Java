@@ -97,6 +97,20 @@ In a text editor, create a file called config.json (examples are below)  Refer t
 * AuthenticateUrl: path for redirect to authorize      *default is /oauth/RequestToken*
 * AccessTokenPath: path for Access Token         *default is https://api.xero.com/oauth/Authorize*
 
+## TLS 1.0 deprecation
+As of June 30, 2018, Xero's API will remove support for TLS 1.0.  
+
+The easiest way to force TLS 1.2 is to set the Runtime Environment for your server (Tomcat, etc) to Java 1.8 which defaults to TLS 1.2.
+
+Those using Java 1.7 or 1.6 will need to add two attributes to the config.json file.
+
+* KeyStorePath: Path to your cacerts is typically inside your $JAVA_HOME/jre/lib/security/cacerts 
+* KeyStorePassword: your password
+
+On a Mac your KeyStorePath value would look something like this ... 
+*/Library/Java/JavaVirtualMachines/jdk1.7.0_67.jdk/Contents/Home/jre/lib/security/cacerts*
+
+
 ## Custom Request Signing
 
 You can provide your own signing mechanism by using the `public XeroClient(Config config, SignerFactory signerFactory)` constructor. Simply implement the `SignerFactory` interface with your implementation.
