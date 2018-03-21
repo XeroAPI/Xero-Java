@@ -163,7 +163,8 @@ public class SampleData {
 		}
 		e.setUser(UserWhere.get(0));
 		
-		List<Receipt> newReceipt = client.createReceipts(SampleData.loadReceipt().getReceipt());
+		List<Receipt> receipt = SampleData.loadReceipt().getReceipt();
+		List<Receipt> newReceipt = client.createReceipts(receipt);
 		ArrayOfReceipt arrayReceipts = new ArrayOfReceipt();
 		arrayReceipts.getReceipt().add(newReceipt.get(0));
 		e.setReceipts(arrayReceipts);
@@ -288,7 +289,10 @@ public class SampleData {
 			category1.setOption(optionList1.get(0).getName());
 			
 			arrayTracking.getTrackingCategory().add(category1);
-
+		}
+		
+		
+		if (TrackingCategoryList.size() > 1) {
 			// Get the options for a  Tracking Category 2
 			ArrayOfTrackingCategoryOption options2 = TrackingCategoryList.get(1).getOptions();
 			List<TrackingCategoryOption> optionList2 = options2.getOption();
@@ -299,7 +303,6 @@ public class SampleData {
 			category2.setOption(optionList2.get(1).getName());
 			
 			arrayTracking.getTrackingCategory().add(category2);
-			
 		}
 		
 		ManualJournalLine debit = new ManualJournalLine();
@@ -436,7 +439,7 @@ public class SampleData {
 			UserWhere = client.getUsers();
 		}
 		r.setUser(UserWhere.get(0));
-		r.setLineItems(loadExpenseLineItem());
+		r.setLineItems(loadExpenseClaimLineItem());
 		r.setDate(loadDate());
 		r.setReference("Does Barry Manilow know you raid his wardrobe?");
 		r.setStatus(ReceiptStatus.DRAFT);
@@ -663,6 +666,20 @@ public class SampleData {
 	
 	private static ArrayOfLineItem loadExpenseLineItem() throws IOException{
 		List<Account> accountExpense = client.getAccounts(null,"Type==\"EXPENSE\"",null);
+		
+		ArrayOfLineItem array = new ArrayOfLineItem();
+		LineItem line = new LineItem();
+		line.setDescription("Coffee and Bagel");
+		line.setQuantity(new BigDecimal("1.00"));
+		line.setUnitAmount(new BigDecimal("7.50"));
+		line.setLineAmount(new BigDecimal("7.50"));
+		line.setAccountCode(accountExpense.get(0).getCode());
+		array.getLineItem().add(line);
+		return array;	
+	}
+	
+	private static ArrayOfLineItem loadExpenseClaimLineItem() throws IOException{
+		List<Account> accountExpense = client.getAccounts(null,"Type==\"EXPENSE\" and ShowInExpenseClaims==TRUE",null);
 		
 		ArrayOfLineItem array = new ArrayOfLineItem();
 		LineItem line = new LineItem();
