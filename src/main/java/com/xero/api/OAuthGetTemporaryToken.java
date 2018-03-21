@@ -83,6 +83,10 @@ public class OAuthGetTemporaryToken extends GenericUrl {
     				UrlEncodedParser.parse(content, oauthResponse); 
     				
     				int code = response.getStatusLine().getStatusCode();
+    				if (oauthResponse.token == null) {
+    					XeroApiException e = new XeroApiException(400,content);
+		        		throw e;
+		        }
     				if (code != 200) {
     					XeroApiException e = new XeroApiException(code,content);
 		        		throw e;

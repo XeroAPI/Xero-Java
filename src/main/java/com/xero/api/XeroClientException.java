@@ -12,7 +12,6 @@ public class XeroClientException extends RuntimeException {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
 	/**
      * Create new exception.
      *
@@ -31,5 +30,5 @@ public class XeroClientException extends RuntimeException {
     public XeroClientException(String message, Throwable cause) {
         super(message, cause);
     }
-
+   
 }
