@@ -1010,7 +1010,7 @@ public class RequestResourceServlet extends HttpServlet
 			}
 		} else if (object.equals("Errors")) {
 			
-			/* CONTACT */
+			// CONTACT 
 			ArrayOfContact array = new ArrayOfContact();
 			Contact contact = new Contact();
 			contact.setName("Sidney Maestre");
@@ -1052,6 +1052,35 @@ public class RequestResourceServlet extends HttpServlet
 				messages.add("Error Code : " + e.getResponseCode() + " Message: " + e.getMessage());
 			}	
 			
+			try {
+				List<Invoice> listOfInvoices = new ArrayList<Invoice>();
+				listOfInvoices.add(SampleData.loadBadInvoice().getInvoice().get(0));
+				listOfInvoices.add(SampleData.loadBadInvoice2().getInvoice().get(0));
+			
+				List<Invoice> newInvoice = client.createInvoices(listOfInvoices,null,true);
+				messages.add("Create a new Invoice ID : " + newInvoice.get(0).getInvoiceID() + " - Reference : " +newInvoice.get(0).getReference());
+				
+			} catch (XeroApiException e) {
+				int code = e.getResponseCode();
+				
+				if (code == 400) {
+					List<Elements> elements = e.getApiException().getElements();
+					
+					if(e.getApiException().getElements().size() > 0) {
+						Elements element = elements.get(0);
+						List<Object> dataContractBase = element.getDataContractBase();
+						for (Object dataContract : dataContractBase) {
+							Invoice failedInvoice = (Invoice) dataContract;
+							ArrayOfValidationError validationErrors = failedInvoice.getValidationErrors();
+					        List<ValidationError> errors = validationErrors.getValidationError();
+					        
+					        messages.add("Error Code:" + e.getResponseCode() + " message : "  + errors.get(0).getMessage());
+					        messages.add("Error invoice Num : " + failedInvoice.getInvoiceNumber());
+						}
+					}
+				}
+			}	
+			
 			// FORCE a 503 Error
 			List<Contact> ContactList = client.getContacts();
 			int num4 = SampleData.findRandomNum(ContactList.size());			
@@ -1064,32 +1093,6 @@ public class RequestResourceServlet extends HttpServlet
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
 				messages.add("Error Code : " + e.getResponseCode() + " Message: " + e.getMessage());
-			}	
-			
-			try {
-				List<Invoice> listOfInvoices = new ArrayList<Invoice>();
-				listOfInvoices.add(SampleData.loadBadInvoice().getInvoice().get(0));
-				listOfInvoices.add(SampleData.loadBadInvoice2().getInvoice().get(0));
-			
-				List<Invoice> newInvoice = client.createInvoices(listOfInvoices,null,true);
-				messages.add("Create a new Invoice ID : " + newInvoice.get(0).getInvoiceID() + " - Reference : " +newInvoice.get(0).getReference());
-				
-			} catch (XeroApiException e) {
-				int code = e.getResponseCode();
-				List<Elements> elements = e.getApiException().getElements();
-				
-				if(e.getApiException().getElements().size() > 0) {
-					Elements element = elements.get(0);
-					List<Object> dataContractBase = element.getDataContractBase();
-					for (Object dataContract : dataContractBase) {
-						Invoice failedInvoice = (Invoice) dataContract;
-						ArrayOfValidationError validationErrors = failedInvoice.getValidationErrors();
-				        List<ValidationError> errors = validationErrors.getValidationError();
-				        
-				        messages.add("Error Code:" + e.getResponseCode() + " message : "  + errors.get(0).getMessage());
-				        messages.add("Error invoice Num : " + failedInvoice.getInvoiceNumber());
-					}
-				}
 			}		
 		}
 		
