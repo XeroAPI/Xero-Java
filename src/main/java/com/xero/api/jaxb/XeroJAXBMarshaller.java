@@ -35,6 +35,7 @@ public class XeroJAXBMarshaller {
         }
     }
 
+    
     public String marshall(JAXBElement<?> object) {
         try {
             StringWriter writer = new StringWriter();

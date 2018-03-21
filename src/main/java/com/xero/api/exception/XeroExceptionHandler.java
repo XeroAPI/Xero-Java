@@ -95,6 +95,23 @@ public class XeroExceptionHandler {
         }
 		return null;
     }
+    
+    public XeroApiException handleBadRequest(String content,int code) {
+
+        //TODO we could use the ApiException.xsd to validate that the content is an ApiException xml
+        if (content.contains("ApiException")) {
+            try {
+                ApiException apiException = xeroJaxbMarshaller.unmarshall(content, ApiException.class);
+                return new XeroApiException(code, content, apiException);
+            } catch (Exception e) {
+                LOGGER.severe(e.getMessage());
+                
+            }
+        } else {
+        		return  newApiException(content, code);
+        }
+		return null;
+    }
 
     /**
      * For backwards comparability with xero-java-sdk version 0.6.0 keep the old way of handling exceptions
@@ -157,6 +174,40 @@ public class XeroExceptionHandler {
         }
 
         return new XeroApiException(httpResponseException.getStatusCode(), httpResponseException.getContent());
+    }
+    
+    public XeroApiException newApiException(String content, int code) {
+        Matcher matcher = MESSAGE_PATTERN.matcher(content);
+        StringBuilder messages = new StringBuilder();
+        while (matcher.find()) {
+            if (messages.length() > 0) {
+                messages.append(", ");
+            }
+            messages.append(matcher.group(1));
+        }
+
+        if (messages.length() > 0) {
+            return new XeroApiException(code, messages.toString());
+        }
+        if (content.contains("=")) {
+            try {
+                String value = URLDecoder.decode(content, "UTF-8");
+                String[] keyValuePairs = value.split("&");
+
+                Map<String, String> errorMap = new HashMap<>();
+                for (String pair : keyValuePairs) {
+                    String[] entry = pair.split("=");
+                    errorMap.put(entry[0].trim(), entry[1].trim());
+                }
+                return new XeroApiException(code, errorMap);
+
+            } catch (UnsupportedEncodingException e) {
+                LOGGER.severe(e.getMessage());
+                throw new XeroClientException(e.getMessage(), e);
+            }
+        }
+
+        return new XeroApiException(code, content);
     }
 
 }

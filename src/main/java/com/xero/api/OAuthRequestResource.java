@@ -44,18 +44,8 @@ import org.apache.http.util.EntityUtils;
 
 import com.google.api.client.auth.oauth.OAuthSigner;
 import com.google.api.client.http.GenericUrl;
-import com.google.api.client.util.Beta;
 
-/**
- * Generic OAuth 1.0a URL to request API resource from server.
- *
- * @since 1.0
- * @author Sidney Maestre
- */
-@Beta
-public class OAuthRequestResource extends GenericUrl {
-
-	private CloseableHttpClient httpclient;
+public class OAuthRequestResource {
 	private String token;
 	private String tokenSecret;
 	private GenericUrl url;
@@ -74,10 +64,6 @@ public class OAuthRequestResource extends GenericUrl {
 	
 	private Config config;
 	private SignerFactory signerFactory;
-	
-	// Used for proxy purposes
-	private HttpHost proxy;
-	private boolean proxyEnabled = false;
 	private String fileName;
 
 	private OAuthRequestResource(Config config, SignerFactory signerFactory, String resource, String method, Map<? extends String, ?> params) {
@@ -113,6 +99,7 @@ public class OAuthRequestResource extends GenericUrl {
 	}
 	
 	public final ByteArrayInputStream executefile() throws UnsupportedOperationException, IOException {
+		CloseableHttpClient httpclient =null;
 		httpclient = new XeroHttpContext(config,this.accept,this.contentType,this.ifModifiedSince).getHttpClient();
 
 		url = new GenericUrl(config.getApiUrl() + this.resource);
@@ -195,7 +182,8 @@ public class OAuthRequestResource extends GenericUrl {
 		return this.fileName;
 	}
 	
-	public final Map<String, String> execute() throws IOException  {
+	public final Map<String, String> execute() throws IOException,XeroApiException  {
+		CloseableHttpClient httpclient =null;
 		httpclient = new XeroHttpContext(config,this.accept,this.contentType,this.ifModifiedSince).getHttpClient();
 		
 		url = new GenericUrl(config.getApiUrl() + this.resource);
@@ -243,7 +231,6 @@ public class OAuthRequestResource extends GenericUrl {
 		
 		HttpDelete httpdelete = new HttpDelete(url.toString());
 		if (httpMethod == "DELETE") {
-			System.out.println("DELETE METHOD");
 			this.createParameters().intercept(httpdelete,url);
 			httpdelete.setConfig(requestConfig.build());
 		}
@@ -267,18 +254,27 @@ public class OAuthRequestResource extends GenericUrl {
 			if (httpMethod == "DELETE") {
 				response = httpclient.execute(httpdelete);
 			}
-		   
-			String content = "";
-		    try {		    		
+			
+		    try {	
+				String content = "";
 		        entity = response.getEntity();
 		        if(entity != null) {
 		        		content = EntityUtils.toString(entity);
 			    }
+		        int code = response.getStatusLine().getStatusCode();
+		         if (code == 204) {
+					content = "<Response><Status>DELETED</Status></Response>";
+		        }
+		        if (code != 200 && code != 204) {
+					XeroApiException e = new XeroApiException(code,content);
+		        		throw e;
+		        }
 		        
 		        Map<String, String> responseMap = new HashMap<>();
 		        addToMapIfNotNull(responseMap, "content", content);
-		        addToMapIfNotNull(responseMap, "code", response.getStatusLine().getStatusCode());
-		        // ADD LOGGING of RESPONSE
+		        addToMapIfNotNull(responseMap, "code", code);
+		        
+		        // TODO: ADD LOGGING of Code & Content
 		        if(entity != null) {
 			     	EntityUtils.consume(entity);
 		        }
@@ -329,16 +325,9 @@ public class OAuthRequestResource extends GenericUrl {
 		result.signer = signer;
 		return result;
 	}
-
+	
+	@Deprecated
 	public void setProxy(String host, int port, boolean httpsEnabled) {
 
-		String scheme = "http";
-
-		if (httpsEnabled) {
-			scheme = "https";
-		}
-
-		this.proxy = new HttpHost(host, port, scheme);
-		this.proxyEnabled = true;
 	}
 }

@@ -12,7 +12,6 @@ import com.google.api.client.auth.oauth.OAuthCredentialsResponse;
 import com.google.api.client.auth.oauth.OAuthSigner;
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.UrlEncodedParser;
-import com.xero.api.exception.XeroExceptionHandler;
 
 import java.io.IOException;
 
@@ -35,7 +34,6 @@ public class OAuthGetTemporaryToken extends GenericUrl {
     private String appFirewallUrlPrefix = "";
     public Config config;
     private CloseableHttpClient httpclient;
-    private XeroExceptionHandler xeroExceptionHandler;
 	private int connectTimeout = 20;
 	private int readTimeout = 20;
     
@@ -49,55 +47,57 @@ public class OAuthGetTemporaryToken extends GenericUrl {
         this.usingAppFirewall = usingAppFirewall;
         this.appFirewallHostname = appFirewallHostname;
         this.appFirewallUrlPrefix = appFirewallUrlPrefix;
-        this.xeroExceptionHandler = new XeroExceptionHandler();
     }
 
-    public final OAuthCredentialsResponse execute() throws IOException {
+    public final OAuthCredentialsResponse execute() throws IOException,XeroApiException {
     		this.connectTimeout = config.getConnectTimeout() * 1000;
-		this.readTimeout = config.getReadTimeout() * 1000;
-		
+    		this.readTimeout = config.getReadTimeout() * 1000;
+    		
     		httpclient = new XeroHttpContext(config).getHttpClient();
+    		GenericUrl requestUrl = new GenericUrl(this.config.getRequestTokenUrl());
+    		
+    		HttpGet httpget = new HttpGet(this.config.getRequestTokenUrl());
+    		
+    		RequestConfig.Builder requestConfig = RequestConfig.custom()
+    				.setConnectTimeout(connectTimeout)
+    				.setConnectionRequestTimeout(readTimeout)
+    				.setSocketTimeout(connectTimeout);
+		
+    		//Proxy Service Setup - unable to fully test as we don't have a proxy 
+    		// server to test against.
+    		if(!"".equals(config.getProxyHost()) && config.getProxyHost() != null) {
+    			int port = (int) (config.getProxyPort() == 80 && config.getProxyHttpsEnabled() ? 443 : config.getProxyPort());		
+    			HttpHost proxy = new HttpHost(config.getProxyHost(), port, config.getProxyHttpsEnabled() ? "https" : "http");
+    			requestConfig.setProxy(proxy);
+    		}
+    		this.createParameters().intercept(httpget,requestUrl);
+    		httpget.setConfig(requestConfig.build());
+    		
+    		try {
+    			CloseableHttpResponse response = httpclient.execute(httpget);
+    			try {
+    				HttpEntity entity = response.getEntity();  
+    				String content = EntityUtils.toString(entity); 
+ 
+    				OAuthCredentialsResponse oauthResponse = new OAuthCredentialsResponse();
+    				UrlEncodedParser.parse(content, oauthResponse); 
+    				
+    				int code = response.getStatusLine().getStatusCode();
+    				if (code != 200) {
+    					XeroApiException e = new XeroApiException(code,content);
+		        		throw e;
+		        }
 
-	    	GenericUrl requestUrl = new GenericUrl(this.config.getRequestTokenUrl());
-	   
-       	HttpGet httpget = new HttpGet(this.config.getRequestTokenUrl());
-	  	
-       	RequestConfig.Builder requestConfig = RequestConfig.custom()
-				.setConnectTimeout(connectTimeout)
-				.setConnectionRequestTimeout(readTimeout)
-				.setSocketTimeout(connectTimeout);
-		
-		//Proxy Service Setup - unable to fully test as we don't have a proxy 
-		// server to test against.
-		if(!"".equals(config.getProxyHost()) && config.getProxyHost() != null) {
-			int port = (int) (config.getProxyPort() == 80 && config.getProxyHttpsEnabled() ? 443 : config.getProxyPort());		
-			HttpHost proxy = new HttpHost(config.getProxyHost(), port, config.getProxyHttpsEnabled() ? "https" : "http");
-			requestConfig.setProxy(proxy);
-		}
-		this.createParameters().intercept(httpget,requestUrl);
-		httpget.setConfig(requestConfig.build());
-		
-		try {
-	        CloseableHttpResponse response = httpclient.execute(httpget);
-	        try {
-	            HttpEntity entity = response.getEntity();  
-	            String retSrc = EntityUtils.toString(entity); 
-	             
-	            OAuthCredentialsResponse oauthResponse = new OAuthCredentialsResponse();
-	            UrlEncodedParser.parse(retSrc, oauthResponse); 
-	            
-	            //System.out.println("RequestToken Response: " + retSrc);
-	            
-	            EntityUtils.consume(entity);
-	            return oauthResponse;
-	        } finally {
-	            response.close();
-	        }
-	        
-	    } finally {
-	        httpclient.close();
-	    }
-    	}
+    				//System.out.println("RequestToken Response: " + retSrc);
+    				EntityUtils.consume(entity);
+    				return oauthResponse;
+    			} finally {
+    				response.close();
+    			}
+    		} finally {
+    			httpclient.close();
+    		}
+    }
 
     public OAuthParameters createParameters() {
         OAuthParameters result = new OAuthParameters();

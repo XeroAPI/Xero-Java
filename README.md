@@ -16,7 +16,7 @@ Add this dependency and repository to your POM.xml
     <dependency>
 	  <groupId>com.xero</groupId>
 	  <artifactId>xero-java-sdk</artifactId>
-	  <version>0.6.7</version>
+	  <version>1.0.0-beta-1</version>
 	</dependency>
 
     <repositories>
@@ -109,6 +109,21 @@ Those using Java 1.7 or 1.6 will need to add two attributes to the config.json f
 
 On a Mac your KeyStorePath value would look something like this ... 
 */Library/Java/JavaVirtualMachines/jdk1.7.0_67.jdk/Contents/Home/jre/lib/security/cacerts*
+
+Example config.json with optional keystore attributes
+
+```javascript
+{ 
+	"AppType" : "PUBLIC",
+	"UserAgent": "YourAppName",
+	"ConsumerKey" : "WTCXXXXXXXXXXXXXXXXXXXXXXKG",
+	"ConsumerSecret" : "GJ2XXXXXXXXXXXXXXXXXXXXXXXXWZ",
+	"CallbackBaseUrl" : "http://localhost:8080/myapp",
+	"CallbackPath" : "/CallbackServlet",
+	"KeyStorePath" : "/Library/Java/JavaVirtualMachines/jdk1.7.0_67.jdk/Contents/Home/jre/lib/security/cacerts",
+	"KeyStorePassword" : "changeit"
+}
+```
 
 
 ## Custom Request Signing

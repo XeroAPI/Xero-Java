@@ -23,7 +23,7 @@ public class OAuthRequestToken {
     this.signerFactory = signerFactory;
   }
 
-  public void execute() {
+  public void execute() throws XeroApiException {
     OAuthSigner signer = signerFactory.createSigner(null);
 
     if (config.isUsingAppFirewall()) {
@@ -41,6 +41,9 @@ public class OAuthRequestToken {
     	  	temporaryTokenResponse = tokenRequest.execute();
     		tempToken = temporaryTokenResponse.token;
     		tempTokenSecret = temporaryTokenResponse.tokenSecret;
+    } catch (XeroApiException e) {
+		// TODO: ADD LOGGING
+		throw e;    	
     } catch (IOException e) {
     		e.printStackTrace();
     }
