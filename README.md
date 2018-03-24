@@ -163,7 +163,16 @@ xero.PrivateKeyPassword=
 
 
 ## Logging
-Log4j package is included.  To configure, add a log4j.properties file to the Resources directory.
+You can add the log4j dependency to your pom.xml
+
+    <dependency>
+	    <groupId>log4j</groupId>
+        <artifactId>log4j</artifactId>
+        <version>1.2.17</version>
+    </dependency>
+
+
+To configure, add a log4j.properties file to the Resources directory.
 
 * Update log4j.rootLogger attribute to change the level of detail and where you want the data output.
 * Update log4j.appender.file.File attribute to change where you want the log file saved on your local filesystem.

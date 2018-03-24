@@ -174,16 +174,21 @@ public class XeroClient {
         }
     }
 
+
     protected Response put(String endPoint, String contentType, byte[] bytes) throws IOException {
-    		XeroJAXBMarshaller u = new XeroJAXBMarshaller();
-    	
-    		OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "PUT", contentType, bytes, null);
-        req.setToken(token);
+        return put(endPoint, contentType, bytes, null);
+    }
+
+    protected Response put(String endPoint, String contentType, byte[] bytes, Map<? extends String, ?> params) throws IOException {
+        XeroJAXBMarshaller u = new XeroJAXBMarshaller();
+
+        OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "PUT", contentType, bytes, params);
+    	req.setToken(token);
         req.setTokenSecret(tokenSecret);
 
         try {
-        		Map<String, String> resp = req.execute();
-	    		Object r = resp.get("content");
+        	Map<String, String> resp = req.execute();
+	    	Object r = resp.get("content");
             return u.unmarshall(r.toString(), Response.class);
         } catch (IOException ioe) {
     			throw xeroExceptionHandler.convertException(ioe);
@@ -193,17 +198,17 @@ public class XeroClient {
     }
 
     protected Response put(String endPoint, JAXBElement<?> object, Map<String, String> params) {
-    		XeroJAXBMarshaller u = new XeroJAXBMarshaller();
+    	XeroJAXBMarshaller u = new XeroJAXBMarshaller();
     	
-    		String contents = u.marshall(object);
+    	String contents = u.marshall(object);
 
         OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "PUT", contents, params);
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
 
         try {
-        		Map<String, String> resp = req.execute();
-        		Object r = resp.get("content");
+        	Map<String, String> resp = req.execute();
+        	Object r = resp.get("content");
             return u.unmarshall(r.toString(), Response.class);
         } catch (IOException ioe) {
 			throw xeroExceptionHandler.convertException(ioe);
@@ -213,15 +218,15 @@ public class XeroClient {
     }
 
     protected Response put(String endPoint, String contentType, File file) throws IOException {
-    		XeroJAXBMarshaller u = new XeroJAXBMarshaller();
+    	XeroJAXBMarshaller u = new XeroJAXBMarshaller();
     	
-    		OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "PUT", contentType, file, null);
+    	OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "PUT", contentType, file, null);
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
 
         try {
-        		Map<String, String> resp = req.execute();
-	    		Object r = resp.get("content");
+        	Map<String, String> resp = req.execute();
+	    	Object r = resp.get("content");
             return u.unmarshall(r.toString(), Response.class);
         } catch (IOException ioe) {
 			throw xeroExceptionHandler.convertException(ioe);
@@ -1784,10 +1789,20 @@ public class XeroClient {
 
     public Attachment createAttachment(String endpoint, String guid, String filename, String contentType, byte[] bytes)
         throws IOException {
+         return createAttachment(endpoint, guid, filename, contentType, bytes, false);
+    }
+
+    public Attachment createAttachment(String endpoint, String guid, String filename, String contentType, byte[] bytes, boolean includeOnline)
+        throws IOException {
+        Map<String, String> params = new HashMap<>();
+        if (includeOnline) {
+            params.put("IncludeOnline", Boolean.toString(true));
+        }
+        
         String alphaNumbericFileName = filename.replaceAll("[^\\p{L}\\p{Z}\\.]", "").replaceAll(" ", "_");
-        return singleResult(put(endpoint + "/" + guid + "/Attachments/" + alphaNumbericFileName, contentType, bytes)
-            .getAttachments()
-            .getAttachment());
+        return singleResult(put(endpoint + "/" + guid + "/Attachments/" + alphaNumbericFileName, contentType, bytes, params)
+             .getAttachments()
+             .getAttachment());
     }
 
     public String getAttachmentContent(String endpoint, String guid, String filename, String accept, String dirPath)
