@@ -1,6 +1,7 @@
 package com.xero.api.exception;
 
 import com.google.api.client.http.HttpResponseException;
+import com.xero.api.OAuthRequestResource;
 import com.xero.api.XeroApiException;
 import com.xero.api.XeroClientException;
 import com.xero.api.jaxb.XeroJAXBMarshaller;
@@ -12,17 +13,19 @@ import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class is to handle Xero API exceptions with the help of the {@link XeroJAXBMarshaller}
  */
 public class XeroExceptionHandler {
 
-    private final static Logger LOGGER = Logger.getLogger(XeroExceptionHandler.class.getName());
-
+    //private final static Logger LOGGER = Logger.getLogger(XeroExceptionHandler.class.getName());
+    final static Logger logger = Logger.getLogger(XeroExceptionHandler.class);
+    
     private static final Pattern MESSAGE_PATTERN = Pattern.compile("<Message>(.*)</Message>");
     private XeroJAXBMarshaller xeroJaxbMarshaller;
 
@@ -73,7 +76,7 @@ public class XeroExceptionHandler {
                 ApiException apiException = xeroJaxbMarshaller.unmarshall(content, ApiException.class);
                 return new XeroApiException(httpResponseException.getStatusCode(), content, apiException);
             } catch (Exception e) {
-                LOGGER.severe(e.getMessage());
+            		logger.error(e);
                 return convertException(httpResponseException);
             }
         } else {
@@ -89,8 +92,7 @@ public class XeroExceptionHandler {
                 ApiException apiException = xeroJaxbMarshaller.unmarshall(content, ApiException.class);
                 return new XeroApiException(412, content, apiException);
             } catch (Exception e) {
-                LOGGER.severe(e.getMessage());
-                
+                logger.error(e);
             }
         }
 		return null;
@@ -104,8 +106,7 @@ public class XeroExceptionHandler {
                 ApiException apiException = xeroJaxbMarshaller.unmarshall(content, ApiException.class);
                 return new XeroApiException(code, content, apiException);
             } catch (Exception e) {
-                LOGGER.severe(e.getMessage());
-                
+            		logger.error(e);
             }
         } else {
         		return  newApiException(content, code);
@@ -168,7 +169,7 @@ public class XeroExceptionHandler {
                 return new XeroApiException(httpResponseException.getStatusCode(), errorMap);
 
             } catch (UnsupportedEncodingException e) {
-                LOGGER.severe(e.getMessage());
+            		logger.error(e);
                 throw new XeroClientException(e.getMessage(), e);
             }
         }
@@ -202,13 +203,11 @@ public class XeroExceptionHandler {
                 return new XeroApiException(code, errorMap);
 
             } catch (UnsupportedEncodingException e) {
-                LOGGER.severe(e.getMessage());
+            		logger.error(e);
                 throw new XeroClientException(e.getMessage(), e);
             }
         }
 
         return new XeroApiException(code, content);
     }
-
 }
-

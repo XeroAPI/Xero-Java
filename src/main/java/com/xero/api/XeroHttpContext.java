@@ -21,12 +21,14 @@ import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicHeader;
+import org.apache.log4j.Logger;
 
 public class XeroHttpContext {
 	private Config config;
 	private String accept;
 	private String contentType;
 	private String ifModifiedSince = null;
+	final static Logger logger = Logger.getLogger(XeroHttpContext.class);
 	
 	public XeroHttpContext(Config config)
 	{
@@ -47,50 +49,54 @@ public class XeroHttpContext {
 		
 		if ((config.getKeyStorePath() == null || config.getKeyStorePath().length() == 0) && (config.getKeyStorePassword() == null || config.getKeyStorePassword().length() == 0))
 		{
-			System.out.println("You must use Java 1.8 to skip setting the Key Store Path & Key Store Password in config.json");
+			if(logger.isInfoEnabled()){
+				logger.info("You must use Java 1.8 to skip setting the Key Store Path & Key Store Password in config.json");
+			}
 			httpclient = HttpClients.createDefault();
 			
 		} else {
-			System.out.println("Key Store Path & Key Store Password in config.json will be used to set the SSLContext and force TLS 1.2");
+			if(logger.isInfoEnabled()){
+				logger.info("Key Store Path & Key Store Password in config.json will be used to set the SSLContext and force TLS 1.2");
+			}
 			   
 			KeyStore keyStore = null;
 			try {
 				keyStore = KeyStore.getInstance("JKS");
 			} catch (KeyStoreException e) {
-				e.printStackTrace();
+				logger.error(e);
 			}
 				
 			try {
 				keyStore.load(new FileInputStream(config.getKeyStorePath()), 
 						config.getKeyStorePassword().toCharArray());
 			} catch (NoSuchAlgorithmException | CertificateException e1) {
-				e1.printStackTrace();
+				logger.error(e1);
 			}
 		 	TrustManagerFactory tmf = null;
 			try {
 				tmf = TrustManagerFactory.getInstance(
 				    TrustManagerFactory.getDefaultAlgorithm());
 			} catch (NoSuchAlgorithmException e) {
-				e.printStackTrace();
+				logger.error(e);
 			}
 		
 		    try {
 			tmf.init(keyStore);
 			
 			} catch (KeyStoreException e) {
-				e.printStackTrace();
+				logger.error(e);
 			}
 			    SSLContext ctx = null;
 			try {
 				ctx = SSLContext.getInstance("TLS");
 			} catch (NoSuchAlgorithmException e) {
-				e.printStackTrace();
+				logger.error(e);
 			}
 		
 			try {
 				ctx.init(null, tmf.getTrustManagers(), new SecureRandom());
 			} catch (KeyManagementException e) {
-				e.printStackTrace();
+				logger.error(e);
 			}
 			    
 		    SSLContext.setDefault(ctx);

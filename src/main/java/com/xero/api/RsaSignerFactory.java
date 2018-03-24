@@ -7,12 +7,15 @@ import java.security.KeyStore;
 import java.security.PrivateKey;
 import java.util.Collections;
 
+import org.apache.log4j.Logger;
+
 import com.google.api.client.auth.oauth.OAuthRsaSigner;
 
 public class RsaSignerFactory implements SignerFactory {
 
   private OAuthRsaSigner signer = new OAuthRsaSigner();
-
+  final static Logger logger = Logger.getLogger(RsaSignerFactory.class);
+  
   public RsaSignerFactory(String pathToPrivateKey, String privateKeyPassword) {
     this(RsaSignerFactory.class.getResourceAsStream(pathToPrivateKey), privateKeyPassword);
   }
@@ -33,7 +36,8 @@ public class RsaSignerFactory implements SignerFactory {
 
       signer.privateKey = oauthKey;
     } catch (IOException | GeneralSecurityException | RuntimeException ex) {
-      throw new RuntimeException(ex);
+    		logger.error(ex);
+    		throw new RuntimeException(ex);
     }
   }
 

@@ -41,6 +41,7 @@ import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.apache.log4j.Logger;
 
 import com.google.api.client.auth.oauth.OAuthSigner;
 import com.google.api.client.http.GenericUrl;
@@ -65,6 +66,7 @@ public class OAuthRequestResource {
 	private Config config;
 	private SignerFactory signerFactory;
 	private String fileName;
+	final static Logger logger = Logger.getLogger(OAuthRequestResource.class);
 
 	private OAuthRequestResource(Config config, SignerFactory signerFactory, String resource, String method, Map<? extends String, ?> params) {
 		this.config = config;
@@ -208,10 +210,18 @@ public class OAuthRequestResource {
 		if (httpMethod == "GET") {
 			this.createParameters().intercept(httpget,url);
 			httpget.setConfig(requestConfig.build());
+			if(logger.isInfoEnabled()){
+				logger.info("------------------ GET : URL -------------------");
+				logger.info(url.toString());
+			}
 		}
 		
 		HttpPost httppost = new HttpPost(url.toString());
 		if (httpMethod == "POST") {
+			if(logger.isInfoEnabled()){
+				logger.info("------------------ POST: BODY  -------------------");
+				logger.info(this.body);
+			}
 			httppost.setEntity(new StringEntity(this.body, "utf-8"));
 		    this.createParameters().intercept(httppost,url);
 		  	httppost.setConfig(requestConfig.build());
@@ -219,6 +229,10 @@ public class OAuthRequestResource {
 		
 		HttpPut httpput = new HttpPut(url.toString());
 		if (httpMethod == "PUT") {
+			if(logger.isInfoEnabled()){
+				logger.info("------------------ PUT : BODY  -------------------");
+				logger.info(this.body);
+			}
 			if(this.requestBody != null) {
 				httpput.setEntity(new ByteArrayEntity(this.requestBody));				
 			} else {
@@ -233,6 +247,10 @@ public class OAuthRequestResource {
 		if (httpMethod == "DELETE") {
 			this.createParameters().intercept(httpdelete,url);
 			httpdelete.setConfig(requestConfig.build());
+			if(logger.isInfoEnabled()){
+				logger.info("------------------ DELTE : URL -------------------");
+				logger.info(url.toString());
+			}
 		}
 	
 		HttpEntity entity;

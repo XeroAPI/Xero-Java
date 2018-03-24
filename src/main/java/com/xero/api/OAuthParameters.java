@@ -18,9 +18,11 @@ import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
+import org.apache.log4j.Logger;
 
 public class OAuthParameters implements HttpExecuteInterceptor, HttpRequestInitializer {
-
+	final static Logger logger = Logger.getLogger(OAuthParameters.class);
+	   
 	public OAuthParameters()  {
 
 	}
@@ -264,6 +266,7 @@ public class OAuthParameters implements HttpExecuteInterceptor, HttpRequestIniti
 		try {
 			computeSignature(request.getRequestMethod(), request.getUrl());
 		} catch (GeneralSecurityException e) {
+			logger.error(e);
 			IOException io = new IOException();
 			io.initCause(e);
 			throw io;
@@ -279,6 +282,7 @@ public class OAuthParameters implements HttpExecuteInterceptor, HttpRequestIniti
 		try {
 			computeSignature(request.getMethod(), url);
 		} catch (GeneralSecurityException e) {
+			logger.error(e);
 			IOException io = new IOException();
 			io.initCause(e);
 			throw io;
@@ -294,6 +298,7 @@ public class OAuthParameters implements HttpExecuteInterceptor, HttpRequestIniti
 		try {
 			computeSignature(request.getMethod(), url);
 		} catch (GeneralSecurityException e) {
+			logger.error(e);
 			IOException io = new IOException();
 			io.initCause(e);
 			throw io;
@@ -309,6 +314,7 @@ public class OAuthParameters implements HttpExecuteInterceptor, HttpRequestIniti
 		try {
 			computeSignature(request.getMethod(), url);
 		} catch (GeneralSecurityException e) {
+			logger.error(e);
 			IOException io = new IOException();
 			io.initCause(e);
 			throw io;
@@ -324,6 +330,7 @@ public class OAuthParameters implements HttpExecuteInterceptor, HttpRequestIniti
 		try {
 			computeSignature(request.getMethod(), url);
 		} catch (GeneralSecurityException e) {
+			logger.error(e);
 			IOException io = new IOException();
 			io.initCause(e);
 			throw io;
