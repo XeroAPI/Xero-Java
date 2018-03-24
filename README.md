@@ -163,7 +163,7 @@ xero.PrivateKeyPassword=
 
 
 ## Logging
-The SDK includes a log4j.
+The SDK includes a log4j.  This [post gives you the basics](https://www.mkyong.com/logging/log4j-hello-world-example/) on log4j.
 
 To configure, add a log4j.properties file to the Resources directory.
 

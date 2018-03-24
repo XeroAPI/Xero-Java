@@ -37,7 +37,6 @@ public class CallbackServlet extends HttpServlet
 		// Swap your temp token for 30 oauth token
 		OAuthAccessToken accessToken = new OAuthAccessToken(config);
 		accessToken.build(verifier,storage.get(request,"tempToken"),storage.get(request,"tempTokenSecret")).execute();
-		System.out.println(accessToken.getAll());
 		if(!accessToken.isSuccess())
 		{
 			storage.clear(response);

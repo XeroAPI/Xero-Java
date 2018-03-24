@@ -10,9 +10,11 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,11 +22,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.log4j.Logger;
 
 import com.xero.api.XeroClient;
 import com.xero.api.Config;
 import com.xero.api.JsonConfig;
 import com.xero.api.OAuthAccessToken;
+import com.xero.api.OAuthRequestResource;
 import com.xero.api.XeroApiException;
 import com.xero.model.*;
 
@@ -32,8 +36,8 @@ public class RequestResourceServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L; 
 	private Config config = JsonConfig.getInstance();
-    private static final int BUFFER_SIZE = 4096;
-	
+    final static Logger logger = Logger.getLogger(OAuthRequestResource.class);
+   
 	private String htmlString =  "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css\" integrity=\"sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7\" crossorigin=\"anonymous\">"
 			+ "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css\" integrity=\"sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r\" crossorigin=\"anonymous\">"
 			+ "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js\" integrity=\"sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS\" crossorigin=\"anonymous\"></script>"
@@ -129,8 +133,7 @@ public class RequestResourceServlet extends HttpServlet
 				try {
 					request.getRequestDispatcher("index.jsp").forward(request, response);
 				} catch (ServletException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					logger.error(e);
 				}
 			}
 			
@@ -196,7 +199,7 @@ public class RequestResourceServlet extends HttpServlet
 				byte[] bytes = IOUtils.toByteArray(is);
 				
 				String fileName = "sample.jpg";
-				Attachment invoiceAttachment = client.createAttachment("Invoices",newInvoice.get(0).getInvoiceID(), fileName, "application/jpeg", bytes);
+				Attachment invoiceAttachment = client.createAttachment("Invoices",newInvoice.get(0).getInvoiceID(), fileName, "application/jpeg", bytes,true);
 				messages.add("Attachment to Invoice complete - ID: " + invoiceAttachment.getAttachmentID());
 				
 				List<Attachment> getInvoiceAttachment = client.getAttachments("Invoices", newInvoice.get(0).getInvoiceID());
@@ -536,6 +539,12 @@ public class RequestResourceServlet extends HttpServlet
 				List<Invoice> InvoiceMultiple = client.getInvoices(null,null,null,null,ids);
 				messages.add("Get a Muliple Invoices by ID filter : " + InvoiceMultiple.size());
 				
+				String invNum ="%SIDNEY";
+				Map<String, String> filter = new HashMap<>();
+				addToMapIfNotNull(filter, "invoicenumbers", invNum);
+				List<Invoice> InvoiceMultiple2 = client.getInvoices(null,"Type==\"ACCREC\"",null,null,"4",filter);
+				messages.add("Get a Muliple Invoices by ID filter : " + InvoiceMultiple2.size());
+			
 				newInvoice.get(0).setReference("Just Updated APRIL my Ref.");
 				newInvoice.get(0).setStatus(null);
 				List<Invoice> updateInvoice = client.updateInvoice(newInvoice);
@@ -1009,7 +1018,6 @@ public class RequestResourceServlet extends HttpServlet
 				System.out.println(e.getMessage());
 			}
 		} else if (object.equals("Errors")) {
-			
 			// CONTACT 
 			ArrayOfContact array = new ArrayOfContact();
 			Contact contact = new Contact();
@@ -1104,4 +1112,10 @@ public class RequestResourceServlet extends HttpServlet
 		respWriter.println("<hr>end processing request<hr><div class=\"form-group\">");
 		respWriter.println("</div></div>");
 	}
+	
+	protected void addToMapIfNotNull(Map<String, String> map, String key, Object value) {
+        if (value != null) {
+            map.put(key, value.toString());
+        }
+    }
 }

@@ -15,7 +15,6 @@ public class SampleData {
 	public static XeroClient client = null;
 
 	public SampleData(XeroClient client) {
-		// TODO Auto-generated constructor stub
 		SampleData.client = client;
 	}
 	
