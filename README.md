@@ -163,14 +163,7 @@ xero.PrivateKeyPassword=
 
 
 ## Logging
-You can add the log4j dependency to your pom.xml
-
-    <dependency>
-	    <groupId>log4j</groupId>
-        <artifactId>log4j</artifactId>
-        <version>1.2.17</version>
-    </dependency>
-
+The SDK includes a log4j.
 
 To configure, add a log4j.properties file to the Resources directory.
 
