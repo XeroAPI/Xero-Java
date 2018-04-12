@@ -103,6 +103,9 @@ public class XeroClient {
     private String tokenSecret = null;
     private static final int BUFFER_SIZE = 4096;
 
+
+    private static Map<String, JAXBContext> classToContext = new HashMap<>();
+
     protected static final DateFormat utcFormatter;
 
     static {
@@ -389,7 +392,14 @@ public class XeroClient {
     @Deprecated
     protected <T> String marshallRequest(JAXBElement<?> object) {
         try {
-            JAXBContext context = JAXBContext.newInstance(object.getValue().getClass());
+
+            JAXBContext context;
+            if (!classToContext.containsKey(object.getValue().getClass().getName())) {
+                context = JAXBContext.newInstance(object.getValue().getClass().getClass());
+                classToContext.put(object.getValue().getClass().getName(), context);
+            } else {
+                context = classToContext.get(object.getValue().getClass().getName());
+            }
             Marshaller marshaller = context.createMarshaller();
             StringWriter writer = new StringWriter();
             marshaller.marshal(object, writer);
@@ -405,7 +415,13 @@ public class XeroClient {
      */
     public static <T> T unmarshallResponse(String responseBody, Class<T> clazz) throws UnsupportedEncodingException {
         try {
-            JAXBContext context = JAXBContext.newInstance(clazz);
+            JAXBContext context;
+            if (!classToContext.containsKey(clazz.getName())) {
+                context = JAXBContext.newInstance(clazz);
+                classToContext.put(clazz.getName(), context);
+            } else {
+                context = classToContext.get(clazz.getName());
+            }
             Unmarshaller u = context.createUnmarshaller();
         /*u.setEventHandler(new ValidationEventHandler()
         {
