@@ -30,7 +30,7 @@ public class XeroClient {
     private String token = null;
     private String tokenSecret = null;
     final static Logger logger = Logger.getLogger(XeroClient.class);
-    
+    static XeroJAXBMarshaller u = new XeroJAXBMarshaller();
     protected static final DateFormat utcFormatter;
 
     static {
@@ -67,7 +67,7 @@ public class XeroClient {
     }
 
     protected Response get(String endPoint, Date modifiedAfter, Map<String, String> params) throws IOException {
-    	   	XeroJAXBMarshaller u = new XeroJAXBMarshaller();
+    	//XeroJAXBMarshaller u = new XeroJAXBMarshaller();
 
         OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "GET", null, params);
         req.setToken(token);
@@ -77,15 +77,15 @@ public class XeroClient {
         }
 
         try {
-        		Map<String, String>  resp = req.execute();
-        		Object r = resp.get("content");
+       		Map<String, String>  resp = req.execute();
+       		Object r = resp.get("content");
             return u.unmarshall(r.toString(), Response.class);
         } catch (IOException ioe) {
-        		logger.error(ioe);
+       		logger.error(ioe);
 			throw xeroExceptionHandler.convertException(ioe);
 	    } catch (XeroApiException e) {
-	    		logger.error(e);
-	    		throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(),e.getResponseCode());
+    		logger.error(e);
+    		throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(),e.getResponseCode());
 	    }
     }
     /*
@@ -111,7 +111,7 @@ public class XeroClient {
         String fileName = null;
     
         try {    	
-        		ByteArrayInputStream input = req.executefile();
+       		ByteArrayInputStream input = req.executefile();
             fileName = req.getFileName();
 			saveFilePath = dirPath + File.separator + fileName;
 			
@@ -133,11 +133,11 @@ public class XeroClient {
 			
 			return saveFilePath;	
         } catch (IOException ioe) {
-        		logger.error(ioe);
+       		logger.error(ioe);
 			throw xeroExceptionHandler.convertException(ioe);
 	    } catch (XeroApiException e) {
-	    		logger.error(e);
-	    		throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(),e.getResponseCode());
+    		logger.error(e);
+    		throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(),e.getResponseCode());
 	    }
     }
 
@@ -156,16 +156,16 @@ public class XeroClient {
             ByteArrayInputStream byteStream = req.executefile();
             return byteStream;
         } catch (IOException ioe) {
-        		logger.error(ioe);
+       		logger.error(ioe);
 			throw xeroExceptionHandler.convertException(ioe);
 	    } catch (XeroApiException e) {
-	    		logger.error(e);
-	    		throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(),e.getResponseCode());
+    		logger.error(e);
+    		throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(),e.getResponseCode());
 	    }
     }
 
     protected Response put(String endPoint, JAXBElement<?> object) {
-        XeroJAXBMarshaller u = new XeroJAXBMarshaller();
+        //XeroJAXBMarshaller u = new XeroJAXBMarshaller();
 
         String contents = u.marshall(object);
 
@@ -174,144 +174,143 @@ public class XeroClient {
         req.setTokenSecret(tokenSecret);
         
         try {
-        		Map<String, String> resp = req.execute();
-	    		Object r = resp.get("content");
-	    		return u.unmarshall(r.toString(), Response.class);
+       		Map<String, String> resp = req.execute();
+    		Object r = resp.get("content");
+    		return u.unmarshall(r.toString(), Response.class);
         } catch (IOException ioe) {
-        		logger.error(ioe);
-        		throw xeroExceptionHandler.convertException(ioe);
+       		logger.error(ioe);
+       		throw xeroExceptionHandler.convertException(ioe);
         } catch (XeroApiException e) {
-        		logger.error(e);
-        		throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(),e.getResponseCode());
+       		logger.error(e);
+       		throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(),e.getResponseCode());
         }
     }
 
     protected Response put(String endPoint, String contentType, byte[] bytes) throws IOException {
-    		return put(endPoint, contentType, bytes, null);
+   		return put(endPoint, contentType, bytes, null);
     }
     	
-    	protected Response put(String endPoint, String contentType, byte[] bytes, Map<? extends String, ?> params) throws IOException {
-    		XeroJAXBMarshaller u = new XeroJAXBMarshaller();
+    protected Response put(String endPoint, String contentType, byte[] bytes, Map<? extends String, ?> params) throws IOException {
+    	//XeroJAXBMarshaller u = new XeroJAXBMarshaller();
 
-    		OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "PUT", contentType, bytes, params);
+    	OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "PUT", contentType, bytes, params);
     	
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
 
         try {
-        		Map<String, String> resp = req.execute();
-	    		Object r = resp.get("content");
+       		Map<String, String> resp = req.execute();
+    		Object r = resp.get("content");
             return u.unmarshall(r.toString(), Response.class);
         } catch (IOException ioe) {
-        		logger.error(ioe);
-    			throw xeroExceptionHandler.convertException(ioe);
+       		logger.error(ioe);
+   			throw xeroExceptionHandler.convertException(ioe);
 	    } catch (XeroApiException e) {
-	    		logger.error(e);
-	    		throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(),e.getResponseCode());
+    		logger.error(e);
+    		throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(),e.getResponseCode());
 	    }
     }
 
     protected Response put(String endPoint, JAXBElement<?> object, Map<String, String> params) {
-    		XeroJAXBMarshaller u = new XeroJAXBMarshaller();
-    	
-    		String contents = u.marshall(object);
+    	//XeroJAXBMarshaller u = new XeroJAXBMarshaller();	
+    	String contents = u.marshall(object);
 
         OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "PUT", contents, params);
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
 
         try {
-        		Map<String, String> resp = req.execute();
-        		Object r = resp.get("content");
+        	Map<String, String> resp = req.execute();
+        	Object r = resp.get("content");
             return u.unmarshall(r.toString(), Response.class);
         } catch (IOException ioe) {
-        		logger.error(ioe);
+        	logger.error(ioe);
 			throw xeroExceptionHandler.convertException(ioe);
 	    } catch (XeroApiException e) {
-	    		logger.error(e);
-	    		throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(),e.getResponseCode());
+	    	logger.error(e);
+	    	throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(),e.getResponseCode());
 	    }
     }
 
     protected Response put(String endPoint, String contentType, File file) throws IOException {
-    		XeroJAXBMarshaller u = new XeroJAXBMarshaller();
+    	//XeroJAXBMarshaller u = new XeroJAXBMarshaller();
     	
-    		OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "PUT", contentType, file, null);
+    	OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "PUT", contentType, file, null);
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
 
         try {
-        		Map<String, String> resp = req.execute();
-	    		Object r = resp.get("content");
+        	Map<String, String> resp = req.execute();
+	    	Object r = resp.get("content");
             return u.unmarshall(r.toString(), Response.class);
         } catch (IOException ioe) {
-        		logger.error(ioe);
+        	logger.error(ioe);
 			throw xeroExceptionHandler.convertException(ioe);
 	    } catch (XeroApiException e) {
-	    		logger.error(e);
-	    		throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(),e.getResponseCode());
+	    	logger.error(e);
+	    	throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(),e.getResponseCode());
 	    }
     }
 
     protected Response post(String endPoint, JAXBElement<?> object) throws IOException {
-    		XeroJAXBMarshaller u = new XeroJAXBMarshaller();
+    	//XeroJAXBMarshaller u = new XeroJAXBMarshaller();
     	
-    		String contents = u.marshall(object);
+    	String contents = u.marshall(object);
         OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "POST", contents, null);
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
 
         try {
-        		Map<String, String> resp = req.execute();
-    			Object r = resp.get("content");
+        	Map<String, String> resp = req.execute();
+    		Object r = resp.get("content");
             return u.unmarshall(r.toString(), Response.class);
         } catch (IOException ioe) {
-        		logger.error(ioe);
+        	logger.error(ioe);
 			throw xeroExceptionHandler.convertException(ioe);
 	    } catch (XeroApiException e) {
-	    		logger.error(e);
-	    		throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(),e.getResponseCode());
+	    	logger.error(e);
+	    	throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(),e.getResponseCode());
 	    }
     }
 
     protected Response post(String endPoint, JAXBElement<?> object, Map<String, String> params) throws IOException {
-    		XeroJAXBMarshaller u = new XeroJAXBMarshaller();
+    	//XeroJAXBMarshaller u = new XeroJAXBMarshaller();
     	
-    		String contents = u.marshall(object);
+    	String contents = u.marshall(object);
         OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "POST", contents, params);
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
 
         try {
-        		Map<String, String>  resp = req.execute();
-        		Object r = resp.get("content");
+        	Map<String, String>  resp = req.execute();
+        	Object r = resp.get("content");
             return u.unmarshall(r.toString(), Response.class);
         } catch (IOException ioe) {
-        		logger.error(ioe);
+        	logger.error(ioe);
 			throw xeroExceptionHandler.convertException(ioe);
 	    } catch (XeroApiException e) {
-	    		logger.error(e);
-	    		throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(),e.getResponseCode());
+	    	logger.error(e);
+	    	throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(),e.getResponseCode());
 	    }
     }
 
     protected Response delete(String endPoint) throws IOException {
-    		XeroJAXBMarshaller u = new XeroJAXBMarshaller();
+    	//XeroJAXBMarshaller u = new XeroJAXBMarshaller();
     	
-    		OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "DELETE", null, null);
+    	OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "DELETE", null, null);
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
     
         try {
-        		Map<String, String> resp = req.execute();
-        		Object r = resp.get("content");
+        	Map<String, String> resp = req.execute();
+        	Object r = resp.get("content");
             return u.unmarshall(r.toString(), Response.class);
         } catch (IOException ioe) {
-        		logger.error(ioe);
-        		throw xeroExceptionHandler.convertException(ioe);
+        	logger.error(ioe);
+        	throw xeroExceptionHandler.convertException(ioe);
 	    } catch (XeroApiException e) {
-	    		logger.error(e);
-	    		throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(),e.getResponseCode());
+	    	logger.error(e);
+	    	throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(),e.getResponseCode());
 	    }
     }
 

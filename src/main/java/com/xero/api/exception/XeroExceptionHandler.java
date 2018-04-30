@@ -80,7 +80,7 @@ public class XeroExceptionHandler {
                 return convertException(httpResponseException);
             }
         } else {
-            return convertException(httpResponseException);
+            return newApiException(httpResponseException);
         }
     }
     
