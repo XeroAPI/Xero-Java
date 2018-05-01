@@ -684,6 +684,16 @@ public class XeroClient {
         array.getCreditNote().addAll(objects);
         return put("CreditNote", objFactory.createCreditNotes(array)).getCreditNotes().getCreditNote();
     }
+    
+    
+    public List<CreditNote> createCreditNotes(List<CreditNote> objects, String unitdp) throws IOException {
+        Map<String, String> params = new HashMap<>();
+        addToMapIfNotNull(params, "unitdp", unitdp);
+
+        ArrayOfCreditNote array = new ArrayOfCreditNote();
+        array.getCreditNote().addAll(objects);
+        return put("CreditNote", objFactory.createCreditNotes(array),params).getCreditNotes().getCreditNote();
+    }
 
     public List<CreditNote> updateCreditNote(List<CreditNote> objects) throws IOException {
         ArrayOfCreditNote array = new ArrayOfCreditNote();
@@ -1410,7 +1420,16 @@ public class XeroClient {
         array.getReceipt().addAll(objects);
         return put("Receipts", objFactory.createReceipts(array)).getReceipts().getReceipt();
     }
+    
+    public List<Receipt> createReceipts(List<Receipt> objects, String unitdp) throws IOException {        
+        Map<String, String> params = new HashMap<>();
+        addToMapIfNotNull(params, "unitdp", unitdp);
 
+        ArrayOfReceipt array = new ArrayOfReceipt();
+        array.getReceipt().addAll(objects);
+        return put("Receipts", objFactory.createReceipts(array),params).getReceipts().getReceipt();
+    }
+  
     public List<Receipt> updateReceipt(List<Receipt> objects) throws IOException {
         ArrayOfReceipt array = new ArrayOfReceipt();
         array.getReceipt().addAll(objects);

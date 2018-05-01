@@ -132,6 +132,22 @@ public class SampleData {
 		array.getCreditNote().add(cn);
 		return array;
 	}
+
+	public static ArrayOfCreditNote loadCreditNote4dp() throws IOException {
+		ArrayOfCreditNote array = new ArrayOfCreditNote();
+	
+		CreditNote cn = new CreditNote();
+		cn.setType(CreditNoteType.ACCPAYCREDIT);
+		cn.setDate(loadDate());
+		cn.setLineAmountTypes(LineAmountType.INCLUSIVE);
+		cn.setLineItems(loadLineItem4dp());
+		cn.setContact(loadSingleContact());
+		array.getCreditNote().add(cn);
+		return array;
+	}
+
+	
+	
 	
 	// EMPLOYEE
 	public static ArrayOfEmployee loadEmployee() {
@@ -599,6 +615,39 @@ public class SampleData {
 		line.setQuantity(new BigDecimal("1.00"));
 		line.setUnitAmount(new BigDecimal("20.00"));
 		line.setLineAmount(new BigDecimal("20.00"));
+		line.setAccountCode(accountDirectCosts.get(0).getCode());
+		
+		
+		List<TrackingCategory> TrackingCategoryList = client.getTrackingCategories();
+		if (TrackingCategoryList.size() > 0) {
+			int num10 = SampleData.findRandomNum(TrackingCategoryList.size());
+			
+			ArrayOfTrackingCategory trackingCategories = new ArrayOfTrackingCategory();
+			TrackingCategory trackingCategory = new TrackingCategory();
+			
+			trackingCategory.setTrackingCategoryID(TrackingCategoryList.get(num10).getTrackingCategoryID());
+			trackingCategory.setName(TrackingCategoryList.get(num10).getName());
+			trackingCategory.setOption(TrackingCategoryList.get(num10).getOptions().getOption().get(0).getName());
+			
+			trackingCategories.getTrackingCategory().add(trackingCategory);
+			
+			line.setTracking(trackingCategories);
+			
+		}
+		
+		array.getLineItem().add(line);
+		return array;	
+	}
+	
+	private static ArrayOfLineItem loadLineItem4dp() throws IOException{
+		List<Account> accountDirectCosts = client.getAccounts(null,"Type==\"DIRECTCOSTS\"",null);
+	
+		ArrayOfLineItem array = new ArrayOfLineItem();
+		LineItem line = new LineItem();
+		line.setDescription("Yearly Bank Account Fee");
+		line.setQuantity(new BigDecimal("1.00"));
+		line.setUnitAmount(new BigDecimal("20.0344"));
+		line.setLineAmount(new BigDecimal("20.0344"));
 		line.setAccountCode(accountDirectCosts.get(0).getCode());
 		
 		

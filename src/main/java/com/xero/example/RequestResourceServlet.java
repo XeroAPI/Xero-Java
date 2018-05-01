@@ -2,7 +2,6 @@ package com.xero.example;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -389,6 +388,36 @@ public class RequestResourceServlet extends HttpServlet
 			/* CREDIT NOTE */
 			try {
 				
+				
+				List<CreditNote> newCreditNote = client.createCreditNotes(SampleData.loadCreditNote().getCreditNote());
+				messages.add("Create a new CreditNote ID : " + newCreditNote.get(0).getCreditNoteID() );
+							
+				List<CreditNote> newCreditNote4dp = client.createCreditNotes(SampleData.loadCreditNote4dp().getCreditNote(),"4");
+				messages.add("Create a new CreditNote ID 4dp: " + newCreditNote4dp.get(0).getCreditNoteID() );
+				
+				
+				List<CreditNote> CreditNoteWhere = client.getCreditNotes(null,"Status==\"DRAFT\"",null);
+				if(CreditNoteWhere.size() > 0) {
+					messages.add("Get a CreditNote with WHERE clause - ID: " + CreditNoteWhere.get(0).getCreditNoteID());
+				}
+				
+				List<CreditNote> CreditNotePage = client.getCreditNotes(null,"Status==\"DRAFT\"",null,"1");
+				if(CreditNotePage.size() > 0) {
+					messages.add("Get a CreditNote with PAGE=1 clause - ID: " + CreditNoteWhere.get(0).getCreditNoteID());
+				}
+				
+				List<CreditNote> CreditNoteList = client.getCreditNotes();
+				int num = SampleData.findRandomNum(CreditNoteList.size());
+				messages.add("Get a random CreditNote - ID : " + CreditNoteList.get(num).getCreditNoteID());
+						
+				CreditNote CreditNoteOne = client.getCreditNote(CreditNoteList.get(num).getCreditNoteID());
+				messages.add("Get a single CreditNote - ID : " + CreditNoteOne.getCreditNoteID());
+					
+				newCreditNote.get(0).setReference("My updated Credit Note");
+				List<CreditNote> updateCreditNote = client.updateCreditNote(newCreditNote);
+				messages.add("Update CreditNote - ID: " + updateCreditNote.get(0).getCreditNoteID() + " - Reference: " + updateCreditNote.get(0).getReference());
+				
+				
 				List<CreditNote> CreditNoteListForPdf = client.getCreditNotes();
 				
 				// GET PDF of CREDIT NOTE
@@ -417,29 +446,7 @@ public class RequestResourceServlet extends HttpServlet
 				String saveFilePath = dirPath + File.separator + fileName;
 				messages.add("Get a PDF copy of CreditNote - save it here: " + saveFilePath);
 			
-				List<CreditNote> newCreditNote = client.createCreditNotes(SampleData.loadCreditNote().getCreditNote());
-				messages.add("Create a new CreditNote ID : " + newCreditNote.get(0).getCreditNoteID() );
-							
-				List<CreditNote> CreditNoteWhere = client.getCreditNotes(null,"Status==\"DRAFT\"",null);
-				if(CreditNoteWhere.size() > 0) {
-					messages.add("Get a CreditNote with WHERE clause - ID: " + CreditNoteWhere.get(0).getCreditNoteID());
-				}
 				
-				List<CreditNote> CreditNotePage = client.getCreditNotes(null,"Status==\"DRAFT\"",null,"1");
-				if(CreditNotePage.size() > 0) {
-					messages.add("Get a CreditNote with PAGE=1 clause - ID: " + CreditNoteWhere.get(0).getCreditNoteID());
-				}
-				
-				List<CreditNote> CreditNoteList = client.getCreditNotes();
-				int num = SampleData.findRandomNum(CreditNoteList.size());
-				messages.add("Get a random CreditNote - ID : " + CreditNoteList.get(num).getCreditNoteID());
-						
-				CreditNote CreditNoteOne = client.getCreditNote(CreditNoteList.get(num).getCreditNoteID());
-				messages.add("Get a single CreditNote - ID : " + CreditNoteOne.getCreditNoteID());
-					
-				newCreditNote.get(0).setReference("My updated Credit Note");
-				List<CreditNote> updateCreditNote = client.updateCreditNote(newCreditNote);
-				messages.add("Update CreditNote - ID: " + updateCreditNote.get(0).getCreditNoteID() + " - Reference: " + updateCreditNote.get(0).getReference());
 				
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
