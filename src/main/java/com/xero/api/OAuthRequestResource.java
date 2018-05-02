@@ -284,6 +284,10 @@ public class OAuthRequestResource {
 					content = "<Response><Status>DELETED</Status></Response>";
 		        }
 		        if (code != 200 && code != 204) {
+		            Header rateHeader = response.getFirstHeader("x-rate-limit-problem");
+		            if (rateHeader != null) {
+		                content += "&rate=" + rateHeader.getValue().toLowerCase();
+                    }
 					XeroApiException e = new XeroApiException(code,content);
 		        		throw e;
 		        }
