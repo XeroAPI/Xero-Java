@@ -4,7 +4,7 @@
 	<groupId>com.xero</groupId>
 	<artifactId>xero-java-sdk</artifactId>
 	<packaging>jar</packaging>
-	<version>0.6.2</version>
+	<version>1.0.1</version>
 	<name>Xero-Java SDK</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
@@ -26,7 +26,7 @@
 		<dependency>
 			<groupId>com.xero</groupId>
 			<artifactId>xero-accounting-api-schema</artifactId>
-			<version>0.0.7</version>
+			<version>0.1.2</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -45,6 +45,16 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+		    <groupId>org.apache.httpcomponents</groupId>
+		    <artifactId>httpclient</artifactId>
+		    <version>4.5.3</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
     </dependencies>
 	<repositories>
 		<repository>

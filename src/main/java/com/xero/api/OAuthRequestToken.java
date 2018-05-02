@@ -3,12 +3,10 @@ package com.xero.api;
 import java.io.IOException;
 import java.util.HashMap;
 
-import org.apache.http.HttpHost;
+import org.apache.log4j.Logger;
 
 import com.google.api.client.auth.oauth.OAuthCredentialsResponse;
-import com.google.api.client.auth.oauth.OAuthGetTemporaryToken;
 import com.google.api.client.auth.oauth.OAuthSigner;
-import com.google.api.client.http.apache.ApacheHttpTransport;
 
 public class OAuthRequestToken {
 
@@ -17,7 +15,8 @@ public class OAuthRequestToken {
   private OAuthGetTemporaryToken tokenRequest = null;
   private Config config;
   private SignerFactory signerFactory;
-
+  final static Logger logger = Logger.getLogger(OAuthRequestToken.class);
+  
   public OAuthRequestToken(Config config) {
     this(config, new ConfigBasedSignerFactory(config));
   }
@@ -27,37 +26,30 @@ public class OAuthRequestToken {
     this.signerFactory = signerFactory;
   }
 
-  public void execute() {
+  public void execute() throws XeroApiException, IOException {
     OAuthSigner signer = signerFactory.createSigner(null);
 
-    tokenRequest = new OAuthGetTemporaryToken(config.getRequestTokenUrl());
-    tokenRequest.consumerKey = config.getConsumerKey();
-    tokenRequest.callback = config.getRedirectUri();
-
-    ApacheHttpTransport.Builder transBuilder = new ApacheHttpTransport.Builder();
-    if (config.getProxyHost() != null && "" != config.getProxyHost()) {
-      String proxy_host = config.getProxyHost();
-      long proxy_port = config.getProxyPort();
-      boolean proxyHttps = config.getProxyHttpsEnabled();
-      String proxy_schema = proxyHttps == true ? "https" : "http";
-      System.out.println("proxy.host=" + proxy_host + ", proxy.port=" + proxy_port + ", proxy_schema=" + proxy_schema);
-      HttpHost proxy = new HttpHost(proxy_host, (int) proxy_port, proxy_schema);
-      transBuilder.setProxy(proxy);
-      tokenRequest.transport = transBuilder.build();
+    if (config.isUsingAppFirewall()) {
+        tokenRequest = new OAuthGetTemporaryToken(config.getRequestTokenUrl(), config.isUsingAppFirewall(),
+                                                    config.getAppFirewallHostname(), config.getAppFirewallUrlPrefix());
     } else {
-      tokenRequest.transport = new ApacheHttpTransport();
+        tokenRequest = new OAuthGetTemporaryToken(config.getRequestTokenUrl());
     }
-
+  
+    tokenRequest.setConfig(config);
     tokenRequest.signer = signer;
-
+    
     OAuthCredentialsResponse temporaryTokenResponse = null;
     try {
-      temporaryTokenResponse = tokenRequest.execute();
-
-      tempToken = temporaryTokenResponse.token;
-      tempTokenSecret = temporaryTokenResponse.tokenSecret;
+    	  	temporaryTokenResponse = tokenRequest.execute();
+    		tempToken = temporaryTokenResponse.token;
+    		tempTokenSecret = temporaryTokenResponse.tokenSecret;
+    } catch (XeroApiException e) {
+		logger.error(e);
+		throw e;    	
     } catch (IOException e) {
-      e.printStackTrace();
+		logger.error(e);
+		throw e;
     }
   }
 
@@ -71,7 +63,6 @@ public class OAuthRequestToken {
 
   public HashMap<String, String> getAll() {
     HashMap<String, String> map = new HashMap<String, String>();
-
     map.put("tempToken", getTempToken());
     map.put("tempTokenSecret", getTempTokenSecret());
     map.put("sessionHandle", "");

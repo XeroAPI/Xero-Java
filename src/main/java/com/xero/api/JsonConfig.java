@@ -23,6 +23,12 @@ public class JsonConfig implements Config {
   private String REQUEST_TOKEN_URL = "https://api.xero.com/oauth/RequestToken";
   private String AUTHENTICATE_URL = "https://api.xero.com/oauth/Authorize";
   private String ACCESS_TOKEN_URL = "https://api.xero.com/oauth/AccessToken";
+  private String API_ENDPOINT_STEM = "/api.xro/2.0/";
+  private String FILES_ENDPOINT_STEM = "/files.xro/1.0/";
+  private String REQUEST_TOKEN_STEM = "/oauth/RequestToken";
+  private String AUTHENTICATE_STEM = "/oauth/Authorize";
+  private String ACCESS_TOKEN_STEM = "/oauth/AccessToken";
+
   private String CALLBACK_BASE_URL;
   private String AUTH_CALLBACK_URL;
   private String PATH_TO_PRIVATE_KEY_CERT;
@@ -33,6 +39,11 @@ public class JsonConfig implements Config {
   private int CONNECT_TIMEOUT = 60;
   private int READ_TIMEOUT = 60;
   private String DECIMAL_PLACES = null;
+  private boolean USING_APP_FIREWALL = false;
+  private String APP_FIREWALL_HOSTNAME;
+  private String APP_FIREWALL_URL_PREFIX;
+  private String KEY_STORE_PATH;
+  private String KEY_STORE_PASSWORD;
 
   private String configFile;
 
@@ -103,7 +114,7 @@ public class JsonConfig implements Config {
 
   @Override
   public String getUserAgent() {
-    return USER_AGENT + " [Xero-Java-0.6.2]";
+    return USER_AGENT + " " + CONSUMER_KEY + " [Xero-Java-1.0.1]";
   }
 
   @Override
@@ -149,7 +160,32 @@ public class JsonConfig implements Config {
     return DECIMAL_PLACES;
   }
 
-  // SETTERS
+  @Override
+  public boolean isUsingAppFirewall() {
+    return USING_APP_FIREWALL;
+  }
+
+  @Override
+  public String getAppFirewallHostname() {
+    return APP_FIREWALL_HOSTNAME;
+  }
+
+  @Override
+  public String getAppFirewallUrlPrefix() {
+    return APP_FIREWALL_URL_PREFIX;
+  }
+  
+  @Override
+  public String getKeyStorePath() {
+    return KEY_STORE_PATH;
+  }
+  
+  @Override
+  public String getKeyStorePassword() {
+    return KEY_STORE_PASSWORD;
+  }
+
+// SETTERS
 
   @Override
   public void setConsumerKey(String consumerKey) {
@@ -187,6 +223,31 @@ public class JsonConfig implements Config {
   public void setDecimalPlaces(String decimalPlaces) {
     // 2 or 4
     DECIMAL_PLACES = decimalPlaces;
+  }
+
+  @Override
+    public void setUsingAppFirewall(boolean usingAppFirewall) {
+      this.USING_APP_FIREWALL = usingAppFirewall;
+  }
+
+  @Override
+  public void setAppFirewallHostname(String appFirewallHostname) {
+      this.APP_FIREWALL_HOSTNAME = appFirewallHostname;
+  }
+
+  @Override
+  public void setAppFirewallUrlPrefix(String appFirewallUrlPrefix) {
+      this.APP_FIREWALL_URL_PREFIX = appFirewallUrlPrefix;
+  }
+  
+  @Override
+  public void setKeyStorePath(String keyStorePath) {
+      this.KEY_STORE_PATH = keyStorePath;
+  }
+  
+  @Override
+  public void setKeyStorePassword(String keyStorePassword) {
+      this.KEY_STORE_PASSWORD = keyStorePassword;
   }
 
   private void load() {
@@ -235,26 +296,36 @@ public class JsonConfig implements Config {
       if (jsonObject.containsKey("ApiEndpointPath")) {
         String endpointPath = (String) jsonObject.get("ApiEndpointPath");
         API_ENDPOINT_URL = API_BASE_URL + endpointPath;
-      }
+      } else {
+    	  	API_ENDPOINT_URL = API_BASE_URL + API_ENDPOINT_STEM;
+    	  }
 
       if (jsonObject.containsKey("FilesEndpointPath")) {
         String filesEndpointPath = (String) jsonObject.get("FilesEndpointPath");
         FILES_ENDPOINT_URL = API_BASE_URL + filesEndpointPath;
-      }      
+      } else {
+    	  	FILES_ENDPOINT_URL = API_BASE_URL + FILES_ENDPOINT_STEM;
+      }
 
       if (jsonObject.containsKey("RequestTokenPath")) {
         String requestPath = (String) jsonObject.get("RequestTokenPath");
         REQUEST_TOKEN_URL = API_BASE_URL + requestPath;
+      } else {
+    	  	REQUEST_TOKEN_URL = API_BASE_URL + REQUEST_TOKEN_STEM;            
       }
 
       if (jsonObject.containsKey("AccessTokenPath")) {
         String accessPath = (String) jsonObject.get("AccessTokenPath");
         ACCESS_TOKEN_URL = API_BASE_URL + accessPath;
+      } else {
+    	  	ACCESS_TOKEN_URL = API_BASE_URL + ACCESS_TOKEN_STEM;
       }
 
       if (jsonObject.containsKey("AuthenticateUrl")) {
         String authenticatePath = (String) jsonObject.get("AuthenticateUrl");
         AUTHENTICATE_URL = API_BASE_URL + authenticatePath;
+      } else {
+    	  	AUTHENTICATE_URL = API_BASE_URL + AUTHENTICATE_STEM;
       }
     }
 
@@ -283,7 +354,27 @@ public class JsonConfig implements Config {
     }
 
     if (jsonObject.containsKey("DecimalPlaces")) {
-    	DECIMAL_PLACES = (String) jsonObject.get("DecimalPlaces");
+    		DECIMAL_PLACES = (String) jsonObject.get("DecimalPlaces");
+    }
+    
+    if (jsonObject.containsKey("KeyStorePath")) {
+		KEY_STORE_PATH = (String) jsonObject.get("KeyStorePath");
+    }
+    
+    if (jsonObject.containsKey("KeyStorePassword")) {
+		KEY_STORE_PASSWORD = (String) jsonObject.get("KeyStorePassword");
+    }
+
+    if (jsonObject.containsKey("usingAppFirewall")) {
+        USING_APP_FIREWALL = (boolean) jsonObject.get("usingAppFirewall");
+
+        if (jsonObject.containsKey("appFirewallHostname")) {
+            APP_FIREWALL_HOSTNAME = (String) jsonObject.get("appFirewallHostname");
+        }
+
+        if (jsonObject.containsKey("appFirewallUrlPrefix")) {
+            APP_FIREWALL_URL_PREFIX = (String) jsonObject.get("appFirewallUrlPrefix");
+        }
     }
   }
 }

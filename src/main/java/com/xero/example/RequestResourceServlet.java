@@ -2,18 +2,18 @@ package com.xero.example;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+
 import java.util.Date;
+import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,20 +21,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.log4j.Logger;
 
 import com.xero.api.XeroClient;
 import com.xero.api.Config;
 import com.xero.api.JsonConfig;
 import com.xero.api.OAuthAccessToken;
+import com.xero.api.OAuthRequestResource;
 import com.xero.api.XeroApiException;
 import com.xero.model.*;
 
 public class RequestResourceServlet extends HttpServlet 
 {
-	private static final long serialVersionUID = 1L;
-	//private Config config = Config.getInstance(); 
+	private static final long serialVersionUID = 1L; 
 	private Config config = JsonConfig.getInstance();
-	
+    final static Logger logger = Logger.getLogger(OAuthRequestResource.class);
+   
 	private String htmlString =  "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css\" integrity=\"sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7\" crossorigin=\"anonymous\">"
 			+ "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css\" integrity=\"sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r\" crossorigin=\"anonymous\">"
 			+ "<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js\" integrity=\"sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS\" crossorigin=\"anonymous\"></script>"
@@ -130,8 +132,7 @@ public class RequestResourceServlet extends HttpServlet
 				try {
 					request.getRequestDispatcher("index.jsp").forward(request, response);
 				} catch (ServletException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					logger.error(e);
 				}
 			}
 			
@@ -179,6 +180,7 @@ public class RequestResourceServlet extends HttpServlet
 				String status = client.deleteAccount(newAccount.get(0).getAccountID());
 				messages.add("Delete Account - Name : " + newAccount.get(0).getName() 
 						+ " result : " + status + "");
+						
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());	
@@ -188,25 +190,41 @@ public class RequestResourceServlet extends HttpServlet
 			
 			/*  INVOICE ATTACHMENT as BYTE ARRAY */
 			try {
+
 				List<Invoice> newInvoice = client.createInvoices(SampleData.loadInvoice().getInvoice());
-				messages.add("Create a new Invoice ID : " + newInvoice.get(0).getInvoiceID() + " - Reference : " +newInvoice.get(0).getReference());
+				messages.add("Create a new Invoice ID : " + newInvoice.get(0).getInvoiceID());
 				
 				InputStream is = JsonConfig.class.getResourceAsStream("/helo-heros.jpg");
 				byte[] bytes = IOUtils.toByteArray(is);
 				
 				String fileName = "sample.jpg";
-				Attachment invoiceAttachment = client.createAttachment("Invoices",newInvoice.get(0).getInvoiceID(), fileName, "application/jpeg", bytes);
+				Attachment invoiceAttachment = client.createAttachment("Invoices",newInvoice.get(0).getInvoiceID(), fileName, "application/jpeg", bytes,true);
 				messages.add("Attachment to Invoice complete - ID: " + invoiceAttachment.getAttachmentID());
 				
 				List<Attachment> getInvoiceAttachment = client.getAttachments("Invoices", newInvoice.get(0).getInvoiceID());
 				messages.add("Get Attachment for Invoice - complete -attachment ID: " + getInvoiceAttachment.get(0).getAttachmentID());	
-	
+				
 				System.out.println(getInvoiceAttachment.get(0).getFileName() + " --- " +getInvoiceAttachment.get(0).getMimeType());
 				
 				File f = new File("./");
+				String fileName1 = "filename.jpg";
 				String dirPath =  f.getCanonicalPath();
-				String contentPath = client.getAttachmentContent("Invoices", newInvoice.get(0).getInvoiceID(),getInvoiceAttachment.get(0).getFileName(),getInvoiceAttachment.get(0).getMimeType(),dirPath);
-				messages.add("Get Attachment content - save to server - location: " + contentPath);				
+				String saveFilePath = dirPath + File.separator + fileName1;
+				
+				InputStream in = client.getAttachmentContent("Invoices", newInvoice.get(0).getInvoiceID(),getInvoiceAttachment.get(0).getFileName(),getInvoiceAttachment.get(0).getMimeType());
+				
+				OutputStream out = new FileOutputStream(saveFilePath);
+
+				// Transfer bytes from in to out
+				byte[] buf = new byte[1024];
+				int len;
+				while ((len = in.read(buf)) > 0) {
+				    out.write(buf, 0, len);
+				}
+				in.close();
+				out.close();
+				messages.add("Get Attachment content - save to server - location: " + saveFilePath );				
+				
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());	
@@ -359,7 +377,9 @@ public class RequestResourceServlet extends HttpServlet
 				
 				String deleteSingleContactStatus = client.deleteSingleContactFromContactGroup(newContactGroup.get(0).getContactGroupID(),arrayContact.getContact().get(0).getContactID());
 				messages.add("Delete Single Contact from Group - Deleted Status: " + deleteSingleContactStatus);
+				
 			} catch (XeroApiException e) {
+				System.out.println("ERROR");
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
 			}							
@@ -367,16 +387,15 @@ public class RequestResourceServlet extends HttpServlet
 		
 			/* CREDIT NOTE */
 			try {
+				
+				
 				List<CreditNote> newCreditNote = client.createCreditNotes(SampleData.loadCreditNote().getCreditNote());
-				messages.add("Create a new Credit Note - ID: " + newCreditNote.get(0).getCreditNoteID());
-			
-				// GET PDF of CREDIT NOTE
-				File f = new File("./");
-				String dirPath =  f.getCanonicalPath();
-				String fileSavePath = client.getCreditNotePdf(newCreditNote.get(0).getCreditNoteID(),dirPath);
-				messages.add("Get a PDF copy of Credit Note - save it here: " + fileSavePath);
-				//System.out.println(fileSavePath);
-					
+				messages.add("Create a new CreditNote ID : " + newCreditNote.get(0).getCreditNoteID() );
+							
+				List<CreditNote> newCreditNote4dp = client.createCreditNotes(SampleData.loadCreditNote4dp().getCreditNote(),"4");
+				messages.add("Create a new CreditNote ID 4dp: " + newCreditNote4dp.get(0).getCreditNoteID() );
+				
+				
 				List<CreditNote> CreditNoteWhere = client.getCreditNotes(null,"Status==\"DRAFT\"",null);
 				if(CreditNoteWhere.size() > 0) {
 					messages.add("Get a CreditNote with WHERE clause - ID: " + CreditNoteWhere.get(0).getCreditNoteID());
@@ -397,6 +416,38 @@ public class RequestResourceServlet extends HttpServlet
 				newCreditNote.get(0).setReference("My updated Credit Note");
 				List<CreditNote> updateCreditNote = client.updateCreditNote(newCreditNote);
 				messages.add("Update CreditNote - ID: " + updateCreditNote.get(0).getCreditNoteID() + " - Reference: " + updateCreditNote.get(0).getReference());
+				
+				
+				List<CreditNote> CreditNoteListForPdf = client.getCreditNotes();
+				
+				// GET PDF of CREDIT NOTE
+				File f = new File("./");
+				String dirPath =  f.getCanonicalPath();
+				ByteArrayInputStream input = client.getCreditNotePdfContent(CreditNoteListForPdf.get(0).getCreditNoteID());
+				
+				String fileName = "creditnote.pdf";
+				
+				FileOutputStream output = new FileOutputStream(fileName);
+
+				int DEFAULT_BUFFER_SIZE = 1024;
+				byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
+				int n = 0;
+
+				n = input.read(buffer, 0, DEFAULT_BUFFER_SIZE);
+
+				while (n >= 0) {
+				   output.write(buffer, 0, n);
+				   n = input.read(buffer, 0, DEFAULT_BUFFER_SIZE);
+				}
+				
+				input.close();
+				output.close();
+				
+				String saveFilePath = dirPath + File.separator + fileName;
+				messages.add("Get a PDF copy of CreditNote - save it here: " + saveFilePath);
+			
+				
+				
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());	
@@ -440,8 +491,9 @@ public class RequestResourceServlet extends HttpServlet
 
 			/*  EXPENSE CLAIM */
 			try {
+				
 				List<ExpenseClaim> newExpenseClaim = client.createExpenseClaims(SampleData.loadExpenseClaim().getExpenseClaim());
-				messages.add("Create a new Expense Claim - ID : " + newExpenseClaim.get(0).getExpenseClaimID() + " Status : " + newExpenseClaim.get(0).getStatus());
+				messages.add("Create a new Expense Claim - ID : " + newExpenseClaim.get(0).getExpenseClaimID() + " Status : " + newExpenseClaim.get(0).getStatus());					
 				
 				List<ExpenseClaim> ExpenseClaimWhere = client.getExpenseClaims(null,"AmountDue>Decimal(1.00)",null);
 				messages.add("Get a ExpenseClaim with WHERE clause - ID" + ExpenseClaimWhere.get(0).getExpenseClaimID());
@@ -456,25 +508,19 @@ public class RequestResourceServlet extends HttpServlet
 				newExpenseClaim.get(0).setStatus(ExpenseClaimStatus.AUTHORISED);;
 				List<ExpenseClaim> updateExpenseClaim = client.updateExpenseClaim(newExpenseClaim);
 				messages.add("Update the ExpenseClaim - ID : " + updateExpenseClaim.get(0).getExpenseClaimID() + " Status : " + updateExpenseClaim.get(0).getStatus());
+				
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());	
 			}	
 		} else if (object.equals("Invoices")) {
 				
-			/*  INVOICE */
-			
+			/*  INVOICE */			
 			try {
-				
+			
 				List<Invoice> newInvoice = client.createInvoices(SampleData.loadInvoice().getInvoice());
 				newInvoice.get(0).setReference("Just Created my Ref.");
-				messages.add("Create a new Invoice ID : " + newInvoice.get(0).getInvoiceID() + " - Reference : " +newInvoice.get(0).getReference());
-				
-				// GET PDF of INVOICE
-				File f = new File("./");
-				String dirPath =  f.getCanonicalPath();
-				String fileSavePath = client.getInvoicePdf(newInvoice.get(0).getInvoiceID(),dirPath);
-				messages.add("Get a PDF copy of Invoice - save it here: " + fileSavePath);	
+				messages.add("Create a new Invoice ID : " + newInvoice.get(0).getInvoiceID());
 				
 				List<Invoice> InvoiceWhere = client.getInvoices(null,"Status==\"DRAFT\"",null,null,null);
 				messages.add("Get a Invoice with WHERE clause - InvNum : " + InvoiceWhere.get(0).getInvoiceID());
@@ -500,67 +546,59 @@ public class RequestResourceServlet extends HttpServlet
 				List<Invoice> InvoiceMultiple = client.getInvoices(null,null,null,null,ids);
 				messages.add("Get a Muliple Invoices by ID filter : " + InvoiceMultiple.size());
 				
+				String invNum ="%SIDNEY";
+				Map<String, String> filter = new HashMap<>();
+				addToMapIfNotNull(filter, "invoicenumbers", invNum);
+				List<Invoice> InvoiceMultiple2 = client.getInvoices(null,"Type==\"ACCREC\"",null,null,"4",filter);
+				messages.add("Get a Muliple Invoices by ID filter : " + InvoiceMultiple2.size());
+			
 				newInvoice.get(0).setReference("Just Updated APRIL my Ref.");
 				newInvoice.get(0).setStatus(null);
 				List<Invoice> updateInvoice = client.updateInvoice(newInvoice);
 				messages.add("Update the Invoice - InvNum : " + updateInvoice.get(0).getInvoiceID() + " - Reference : " + updateInvoice.get(0).getReference());
 
+				// GET PDF of Invoice
+				File f = new File("./");
+				String dirPath =  f.getCanonicalPath();
+				ByteArrayInputStream input = client.getInvoicePdfContent(InvoiceList.get(0).getInvoiceID());
+				
+				String fileName = "invoice.pdf";
+				
+				FileOutputStream output = new FileOutputStream(fileName);
+
+				int DEFAULT_BUFFER_SIZE = 1024;
+				byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
+				int n = 0;
+
+				n = input.read(buffer, 0, DEFAULT_BUFFER_SIZE);
+
+				while (n >= 0) {
+				   output.write(buffer, 0, n);
+				   n = input.read(buffer, 0, DEFAULT_BUFFER_SIZE);
+				}
+				
+				input.close();
+				output.close();
+				
+				String saveFilePath = dirPath + File.separator + fileName;
+				messages.add("Get a PDF copy of Invoice - save it here: " + saveFilePath);
+			
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
 			}
 			
 			try {
-				
-				List<Invoice> listOfInvoices = new ArrayList<Invoice>();
-				listOfInvoices.add(SampleData.loadBadInvoice().getInvoice().get(0));
-				listOfInvoices.add(SampleData.loadBadInvoice2().getInvoice().get(0));
-			
-				List<Invoice> newInvoice = client.createInvoices(listOfInvoices,null,true);
-				messages.add("Create a new Invoice ID : " + newInvoice.get(0).getInvoiceID() + " - Reference : " +newInvoice.get(0).getReference());
-				
-			} catch (XeroApiException e) {
-				System.out.println(e.getResponseCode());
-					
-				List<Elements> elements = e.getApiException().getElements();
-				Elements element = elements.get(0);
-				List<Object> dataContractBase = element.getDataContractBase();
-				for (Object dataContract : dataContractBase) {
-					Invoice failedInvoice = (Invoice) dataContract;
-					ArrayOfValidationError validationErrors = failedInvoice.getValidationErrors();
-			        List<ValidationError> errors = validationErrors.getValidationError();
-			        
-			        messages.add("Fail message : " + errors.get(0).getMessage());
-			        messages.add("Fail invoice Num : " + failedInvoice.getInvoiceNumber());
-				}
-			}
-			
-			/*
-			try {
 				List<Invoice> InvoiceList = client.getInvoices();
 				int num33 = SampleData.findRandomNum(InvoiceList.size());
-			
 				OnlineInvoice OnlineInvoice = client.getOnlineInvoice(InvoiceList.get(num33).getInvoiceID());
 				messages.add("Get a Online Invoice -  : " + OnlineInvoice.getOnlineInvoiceUrl());
-		
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
-					
-				List<Elements> elements = e.getApiException().getElements();
-				Elements element = elements.get(0);
-				List<Object> dataContractBase = element.getDataContractBase();
-				for (Object dataContract : dataContractBase) {
-					OnlineInvoice failedInvoice = (OnlineInvoice) dataContract;
-					ArrayOfValidationError validationErrors = failedInvoice.getValidationErrors();
-			        List<ValidationError> errors = validationErrors.getValidationError();
-			        
-			        System.out.println("Fail message : " + errors.get(0).getMessage());
-			        messages.add("Fail message : " + errors.get(0).getMessage());
-			        
-				}
-			}
-			*/
-			
+				System.out.println(e.getMessage());
+				messages.add("Error - online invoice: " + e.getMessage());
+			}	
+				
 		} else if (object.equals("InvoiceReminders")) {
 		
 			/* INVOICE REMINDER */
@@ -671,6 +709,7 @@ public class RequestResourceServlet extends HttpServlet
 				newManualJournal.get(0).setStatus(null);
 				List<ManualJournal> updateManualJournal = client.updateManualJournal(newManualJournal);
 				messages.add("Update the ManualJournal - ID : " + updateManualJournal.get(0).getManualJournalID() + " - Narration : " + updateManualJournal.get(0).getNarration());
+				
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
@@ -768,14 +807,7 @@ public class RequestResourceServlet extends HttpServlet
 			try {
 				List<PurchaseOrder> newPurchaseOrder = client.createPurchaseOrders(SampleData.loadPurchaseOrder().getPurchaseOrder());
 				messages.add("Create a new PurchaseOrder - ID : " + newPurchaseOrder.get(0).getPurchaseOrderID() + " - Reference :" + newPurchaseOrder.get(0).getReference());
-				
-				// GET PDF of PURCHASE ORDER
-				File f = new File("./");
-				String dirPath =  f.getCanonicalPath();
-				String fileSavePath = client.getPurchaseOrderPdf(newPurchaseOrder.get(0).getPurchaseOrderID(),dirPath);
-				messages.add("Get a PDF copy of PurchaseOrder - save it here: " + fileSavePath);
-				System.out.println(fileSavePath);
-				
+					
 				List<PurchaseOrder> PurchaseOrderWhere = client.getPurchaseOrders(null,"Status==\"DRAFT\"",null,null);
 				messages.add("Get a PurchaseOrder with WHERE clause - ID : " + PurchaseOrderWhere.get(0).getPurchaseOrderID());
 				
@@ -790,7 +822,33 @@ public class RequestResourceServlet extends HttpServlet
 				newPurchaseOrder.get(0).setStatus(null);
 				List<PurchaseOrder> updatePurchaseOrder = client.updatePurchaseOrder(newPurchaseOrder);
 				messages.add("Update the PurchaseOrder - ID : " + updatePurchaseOrder.get(0).getPurchaseOrderID() + " - Reference:" + updatePurchaseOrder.get(0).getReference());
+				
+				// GET PDF of Invoice
+				File f = new File("./");
+				String dirPath =  f.getCanonicalPath();
+				ByteArrayInputStream input = client.getPurchaseOrderPdfContent(PurchaseOrderList.get(0).getPurchaseOrderID());
+				
+				String fileName = "PurchaseOrder.pdf";
+				
+				FileOutputStream output = new FileOutputStream(fileName);
 
+				int DEFAULT_BUFFER_SIZE = 1024;
+				byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
+				int n = 0;
+
+				n = input.read(buffer, 0, DEFAULT_BUFFER_SIZE);
+
+				while (n >= 0) {
+				   output.write(buffer, 0, n);
+				   n = input.read(buffer, 0, DEFAULT_BUFFER_SIZE);
+				}
+				
+				input.close();
+				output.close();
+				
+				String saveFilePath = dirPath + File.separator + fileName;
+				messages.add("Get a PDF copy of PurchaseOrder - save it here: " + saveFilePath);
+			
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
@@ -967,8 +1025,7 @@ public class RequestResourceServlet extends HttpServlet
 				System.out.println(e.getMessage());
 			}
 		} else if (object.equals("Errors")) {
-			
-			/* CONTACT */
+			// CONTACT 
 			ArrayOfContact array = new ArrayOfContact();
 			Contact contact = new Contact();
 			contact.setName("Sidney Maestre");
@@ -1010,6 +1067,35 @@ public class RequestResourceServlet extends HttpServlet
 				messages.add("Error Code : " + e.getResponseCode() + " Message: " + e.getMessage());
 			}	
 			
+			try {
+				List<Invoice> listOfInvoices = new ArrayList<Invoice>();
+				listOfInvoices.add(SampleData.loadBadInvoice().getInvoice().get(0));
+				listOfInvoices.add(SampleData.loadBadInvoice2().getInvoice().get(0));
+			
+				List<Invoice> newInvoice = client.createInvoices(listOfInvoices,null,true);
+				messages.add("Create a new Invoice ID : " + newInvoice.get(0).getInvoiceID() + " - Reference : " +newInvoice.get(0).getReference());
+				
+			} catch (XeroApiException e) {
+				int code = e.getResponseCode();
+				
+				if (code == 400) {
+					List<Elements> elements = e.getApiException().getElements();
+					
+					if(e.getApiException().getElements().size() > 0) {
+						Elements element = elements.get(0);
+						List<Object> dataContractBase = element.getDataContractBase();
+						for (Object dataContract : dataContractBase) {
+							Invoice failedInvoice = (Invoice) dataContract;
+							ArrayOfValidationError validationErrors = failedInvoice.getValidationErrors();
+					        List<ValidationError> errors = validationErrors.getValidationError();
+					        
+					        messages.add("Error Code:" + e.getResponseCode() + " message : "  + errors.get(0).getMessage());
+					        messages.add("Error invoice Num : " + failedInvoice.getInvoiceNumber());
+						}
+					}
+				}
+			}	
+			
 			// FORCE a 503 Error
 			List<Contact> ContactList = client.getContacts();
 			int num4 = SampleData.findRandomNum(ContactList.size());			
@@ -1022,7 +1108,7 @@ public class RequestResourceServlet extends HttpServlet
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
 				messages.add("Error Code : " + e.getResponseCode() + " Message: " + e.getMessage());
-			}				
+			}		
 		}
 		
 		for (int i = 0; i < messages.size(); i++) {
@@ -1033,4 +1119,10 @@ public class RequestResourceServlet extends HttpServlet
 		respWriter.println("<hr>end processing request<hr><div class=\"form-group\">");
 		respWriter.println("</div></div>");
 	}
+	
+	protected void addToMapIfNotNull(Map<String, String> map, String key, Object value) {
+        if (value != null) {
+            map.put(key, value.toString());
+        }
+    }
 }

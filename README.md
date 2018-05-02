@@ -16,7 +16,7 @@ Add this dependency and repository to your POM.xml
     <dependency>
 	  <groupId>com.xero</groupId>
 	  <artifactId>xero-java-sdk</artifactId>
-	  <version>0.6.2</version>
+	  <version>1.0.1</version>
 	</dependency>
 
     <repositories>
@@ -69,7 +69,7 @@ In a text editor, create a file called config.json (examples are below)  Refer t
 	"UserAgent": "YourAppName",
 	"ConsumerKey" : "CW1XXXXXXXXXXXXXXXXXXXXXXXXYG",
 	"ConsumerSecret" : "SRJXXXXXXXXXXXXXXXXXXXXXXXZEA6",
-	"PrivateKeyCert" :  "certs/public_privatekey.pfx",
+	"PrivateKeyCert" :  "/certs/public_privatekey.pfx",
 	"PrivateKeyPassword" :  "1234"
 }
 ```
@@ -82,7 +82,7 @@ In a text editor, create a file called config.json (examples are below)  Refer t
 	"ConsumerSecret" : "7FMXXXXXXXXXXXXXXXXXXXXXXXXXCSA",
 	"CallbackBaseUrl" : "http://localhost:8080/myapp",
 	"CallbackPath" : "/CallbackServlet",
-	"PrivateKeyCert" :  "certs/public_privatekey.pfx",
+	"PrivateKeyCert" :  "/certs/public_privatekey.pfx",
 	"PrivateKeyPassword" :  "1234"
 }
 ```
@@ -96,6 +96,37 @@ In a text editor, create a file called config.json (examples are below)  Refer t
 * RequestTokenPath: path for Request Token      *default it /oauth/RequestToken*
 * AuthenticateUrl: path for redirect to authorize      *default is /oauth/RequestToken*
 * AccessTokenPath: path for Access Token         *default is https://api.xero.com/oauth/Authorize*
+* KeyStorePath: Path to your cacerts is typically inside your $JAVA_HOME/jre/lib/security/cacerts 
+* KeyStorePassword: your password
+
+## TLS 1.0 deprecation
+As of June 30, 2018, Xero's API will remove support for TLS 1.0.  
+
+The easiest way to force TLS 1.2 is to set the Runtime Environment for your server (Tomcat, etc) to Java 1.8 which defaults to TLS 1.2.
+
+Those using Java 1.7 or 1.6 will need to add two attributes to the config.json file.
+
+* KeyStorePath: Path to your cacerts is typically inside your $JAVA_HOME/jre/lib/security/cacerts 
+* KeyStorePassword: your password
+
+On a Mac your KeyStorePath value would look something like this ... 
+*/Library/Java/JavaVirtualMachines/jdk1.7.0_67.jdk/Contents/Home/jre/lib/security/cacerts*
+
+Example config.json with optional keystore attributes
+
+```javascript
+{ 
+	"AppType" : "PUBLIC",
+	"UserAgent": "YourAppName",
+	"ConsumerKey" : "WTCXXXXXXXXXXXXXXXXXXXXXXKG",
+	"ConsumerSecret" : "GJ2XXXXXXXXXXXXXXXXXXXXXXXXWZ",
+	"CallbackBaseUrl" : "http://localhost:8080/myapp",
+	"CallbackPath" : "/CallbackServlet",
+	"KeyStorePath" : "/Library/Java/JavaVirtualMachines/jdk1.7.0_67.jdk/Contents/Home/jre/lib/security/cacerts",
+	"KeyStorePassword" : "changeit"
+}
+```
+
 
 ## Custom Request Signing
 
@@ -126,21 +157,41 @@ xero.AppType=PRIVATE
 xero.UserAgent=Your App Name
 xero.ConsumerKey=FA6UXXXXXXXXXXXXXXXXXXXXXXRC7
 xero.ConsumerSecret=7FMXXXXXXXXXXXXXXXXXXXXXXXXXCSA
-xero.PrivateKeyCert=certs/public_privatekey.pfx
+xero.PrivateKeyCert=/certs/public_privatekey.pfx
 xero.PrivateKeyPassword=
 ```
 
 
+## Logging
+The SDK includes a log4j.  This [post gives you the basics](https://www.mkyong.com/logging/log4j-hello-world-example/) on log4j.
 
-### Example App 
-This repo includes an Example App mentioned above.  The file structure mirrors that of an Eclipse Maven Project with the maven-archetype-webapp
+To configure, add a log4j.properties file to the Resources directory.
 
-* src/main/java contains the com.xero.example package and the servlets for handling oAuth and sample API calls
-* src/main/resource contains examples of config.json files
-* src/main/webapp contains index and callback JSP files along with web.xml mappings for Servlets
+* Update log4j.rootLogger attribute to change the level of detail and where you want the data output.
+* Update log4j.appender.file.File attribute to change where you want the log file saved on your local filesystem.
+
+log4j.properties
+```
+# Root logger option
+log4j.rootLogger=DEBUG, stdout, file
+
+# Redirect log messages to console
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.Target=System.out
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n
+
+# Redirect log messages to a log file, support file rolling.
+log4j.appender.file=org.apache.log4j.RollingFileAppender
+log4j.appender.file.File=/Users/sid.maestre/logs/log4j-application.log
+log4j.appender.file.MaxFileSize=5MB
+log4j.appender.file.MaxBackupIndex=10
+log4j.appender.file.layout=org.apache.log4j.PatternLayout
+log4j.appender.file.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n
+```
 
 
-**oAuth Flow**
+## oAuth Flow
 
 For Public & Partner Apps, you'll implement 3 legged oAuth - Private Apps can skip down to the Data Endpoints (your Consumer Key will act as your permenent Access Token)
 
@@ -157,7 +208,7 @@ TokenStorage storage = new TokenStorage();
 storage.save(response,requestToken.getAll());
 
 //Build the Authorization URL and redirect User
-OAuthAuthorizeToken authToken = new OAuthAuthorizeToken(requestToken.getTempToken());
+OAuthAuthorizeToken authToken = new OAuthAuthorizeToken(config,requestToken.getTempToken());
 response.sendRedirect(authToken.getAuthUrl());	
 ```
 

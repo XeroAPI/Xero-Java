@@ -15,7 +15,6 @@ public class SampleData {
 	public static XeroClient client = null;
 
 	public SampleData(XeroClient client) {
-		// TODO Auto-generated constructor stub
 		SampleData.client = client;
 	}
 	
@@ -90,17 +89,18 @@ public class SampleData {
 		
 		ArrayOfAddress arrayOfAddress = new ArrayOfAddress();
 		Address address = new Address();
-		address.setAddressLine1("176 Shuey Dr");
-		address.setCity("Moraga");
-		address.setPostalCode("94556");
+		address.setAddressLine1("100 Green Street");
+		address.setCity("San Francisco");
+		address.setPostalCode("94111");
+		address.setAddressType(AddressType.STREET);
 		arrayOfAddress.getAddress().add(address);
 		
 		contact.setAddresses(arrayOfAddress);
 		
 		ArrayOfPhone arrayOfPhone = new ArrayOfPhone();
 		Phone phone = new Phone();
-		phone.setPhoneAreaCode("925");
-		phone.setPhoneNumber("3770907");
+		phone.setPhoneAreaCode("415");
+		phone.setPhoneNumber("5551212");
 		arrayOfPhone.getPhone().add(phone);
 		contact.setPhones(arrayOfPhone);
 
@@ -132,6 +132,22 @@ public class SampleData {
 		array.getCreditNote().add(cn);
 		return array;
 	}
+
+	public static ArrayOfCreditNote loadCreditNote4dp() throws IOException {
+		ArrayOfCreditNote array = new ArrayOfCreditNote();
+	
+		CreditNote cn = new CreditNote();
+		cn.setType(CreditNoteType.ACCPAYCREDIT);
+		cn.setDate(loadDate());
+		cn.setLineAmountTypes(LineAmountType.INCLUSIVE);
+		cn.setLineItems(loadLineItem4dp());
+		cn.setContact(loadSingleContact());
+		array.getCreditNote().add(cn);
+		return array;
+	}
+
+	
+	
 	
 	// EMPLOYEE
 	public static ArrayOfEmployee loadEmployee() {
@@ -162,7 +178,8 @@ public class SampleData {
 		}
 		e.setUser(UserWhere.get(0));
 		
-		List<Receipt> newReceipt = client.createReceipts(SampleData.loadReceipt().getReceipt());
+		List<Receipt> receipt = SampleData.loadReceipt().getReceipt();
+		List<Receipt> newReceipt = client.createReceipts(receipt);
 		ArrayOfReceipt arrayReceipts = new ArrayOfReceipt();
 		arrayReceipts.getReceipt().add(newReceipt.get(0));
 		e.setReceipts(arrayReceipts);
@@ -269,18 +286,52 @@ public class SampleData {
 		if (accountDirectCosts.size() == 0 ){
 			System.out.println("no direct cost accounts");
 		}
+		
+		// GET ALL YOUR TRACKING CATEGORIES
+		List<TrackingCategory> TrackingCategoryList = client.getTrackingCategories();
 
+		// Create a New Array to Populate with a chosen Tracking Category
+		ArrayOfTrackingCategory arrayTracking = new ArrayOfTrackingCategory();
+		
+		if (TrackingCategoryList.size() > 0) {
+			// Get the options for a  Tracking Category 1
+			ArrayOfTrackingCategoryOption options1 = TrackingCategoryList.get(0).getOptions();
+			List<TrackingCategoryOption> optionList1 = options1.getOption();
+
+			// Populate the option 1 with the Name of the Cateogry and Option
+			TrackingCategory category1 = new TrackingCategory();
+			category1.setName(TrackingCategoryList.get(0).getName());
+			category1.setOption(optionList1.get(0).getName());
+			
+			arrayTracking.getTrackingCategory().add(category1);
+		}
+		
+		
+		if (TrackingCategoryList.size() > 1) {
+			// Get the options for a  Tracking Category 2
+			ArrayOfTrackingCategoryOption options2 = TrackingCategoryList.get(1).getOptions();
+			List<TrackingCategoryOption> optionList2 = options2.getOption();
+			
+			// Populate the option 2 with the Name of the Cateogry and Option
+			TrackingCategory category2 = new TrackingCategory();
+			category2.setName(TrackingCategoryList.get(1).getName());
+			category2.setOption(optionList2.get(1).getName());
+			
+			arrayTracking.getTrackingCategory().add(category2);
+		}
 		
 		ManualJournalLine debit = new ManualJournalLine();
 		debit.setDescription("My MJ Debit");
 		debit.setAccountCode("400");
 		debit.setLineAmount(new BigDecimal(10.00));
+		debit.setTracking(arrayTracking);
 		arrayOfMJLine.getJournalLine().add(debit);
 		
 		ManualJournalLine credit = new ManualJournalLine();
 		credit.setDescription("My MJ Credit");
 		credit.setAccountCode("500");
 		credit.setLineAmount(new BigDecimal(-10.00));
+		credit.setTracking(arrayTracking);
 		arrayOfMJLine.getJournalLine().add(credit);
 	
 		ManualJournal mj = new ManualJournal();
@@ -403,7 +454,7 @@ public class SampleData {
 			UserWhere = client.getUsers();
 		}
 		r.setUser(UserWhere.get(0));
-		r.setLineItems(loadExpenseLineItem());
+		r.setLineItems(loadExpenseClaimLineItem());
 		r.setDate(loadDate());
 		r.setReference("Does Barry Manilow know you raid his wardrobe?");
 		r.setStatus(ReceiptStatus.DRAFT);
@@ -588,6 +639,39 @@ public class SampleData {
 		return array;	
 	}
 	
+	private static ArrayOfLineItem loadLineItem4dp() throws IOException{
+		List<Account> accountDirectCosts = client.getAccounts(null,"Type==\"DIRECTCOSTS\"",null);
+	
+		ArrayOfLineItem array = new ArrayOfLineItem();
+		LineItem line = new LineItem();
+		line.setDescription("Yearly Bank Account Fee");
+		line.setQuantity(new BigDecimal("1.00"));
+		line.setUnitAmount(new BigDecimal("20.0344"));
+		line.setLineAmount(new BigDecimal("20.0344"));
+		line.setAccountCode(accountDirectCosts.get(0).getCode());
+		
+		
+		List<TrackingCategory> TrackingCategoryList = client.getTrackingCategories();
+		if (TrackingCategoryList.size() > 0) {
+			int num10 = SampleData.findRandomNum(TrackingCategoryList.size());
+			
+			ArrayOfTrackingCategory trackingCategories = new ArrayOfTrackingCategory();
+			TrackingCategory trackingCategory = new TrackingCategory();
+			
+			trackingCategory.setTrackingCategoryID(TrackingCategoryList.get(num10).getTrackingCategoryID());
+			trackingCategory.setName(TrackingCategoryList.get(num10).getName());
+			trackingCategory.setOption(TrackingCategoryList.get(num10).getOptions().getOption().get(0).getName());
+			
+			trackingCategories.getTrackingCategory().add(trackingCategory);
+			
+			line.setTracking(trackingCategories);
+			
+		}
+		
+		array.getLineItem().add(line);
+		return array;	
+	}
+	
 	private static ArrayOfLineItem loadLineItemForOverpayment() throws IOException{
 		List<Account> accountDebtors = client.getAccounts(null,"SystemAccount==\"DEBTORS\"",null);
 		
@@ -630,6 +714,20 @@ public class SampleData {
 	
 	private static ArrayOfLineItem loadExpenseLineItem() throws IOException{
 		List<Account> accountExpense = client.getAccounts(null,"Type==\"EXPENSE\"",null);
+		
+		ArrayOfLineItem array = new ArrayOfLineItem();
+		LineItem line = new LineItem();
+		line.setDescription("Coffee and Bagel");
+		line.setQuantity(new BigDecimal("1.00"));
+		line.setUnitAmount(new BigDecimal("7.50"));
+		line.setLineAmount(new BigDecimal("7.50"));
+		line.setAccountCode(accountExpense.get(0).getCode());
+		array.getLineItem().add(line);
+		return array;	
+	}
+	
+	private static ArrayOfLineItem loadExpenseClaimLineItem() throws IOException{
+		List<Account> accountExpense = client.getAccounts(null,"Type==\"EXPENSE\" and ShowInExpenseClaims==TRUE",null);
 		
 		ArrayOfLineItem array = new ArrayOfLineItem();
 		LineItem line = new LineItem();

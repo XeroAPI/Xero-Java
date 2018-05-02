@@ -8,7 +8,6 @@ import java.util.Map;
 public class XeroApiException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
-
     private final int responseCode;
     private String message;
     private Map<String, String> messageMap = new HashMap<String, String>();

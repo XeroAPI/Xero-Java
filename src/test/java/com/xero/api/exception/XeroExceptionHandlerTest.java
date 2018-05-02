@@ -13,9 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -65,6 +63,17 @@ public class XeroExceptionHandlerTest {
         assertNotNull(xeroApiException);
         assertNotNull(xeroApiException.getMessages());
         assertNotNull(xeroApiException.getMessage());
+    }
+
+    @Test
+    public void handleOtherErrorRequest() throws Exception {
+        when(httpResponseException.getContent()).thenReturn("dummy");
+        when(httpResponseException.getStatusCode()).thenReturn(400);
+        XeroApiException xeroApiException = xeroExceptionHandler.handleBadRequest(httpResponseException);
+        assertNotNull(xeroApiException);
+        assertNotNull(xeroApiException.getMessages());
+        assertNotNull(xeroApiException.getMessage());
+        assertEquals(xeroApiException.getResponseCode(), 400);
     }
 
     /**

@@ -21,16 +21,21 @@ import java.io.UnsupportedEncodingException;
  */
 public class XeroJAXBMarshaller {
 
-    private Marshaller marshaller;
-    private Unmarshaller unmarshaller;
+    private final Marshaller marshaller;
+    private final Unmarshaller unmarshaller;
+    static final JAXBContext context = initContext();
 
-    private static JAXBContext context = null;
+    private static JAXBContext initContext() {
+        try { 
+            return JAXBContext.newInstance("com.xero.model", XeroJAXBMarshaller.class.getClassLoader());
+        } catch (Exception e) {
+            throw new XeroClientException(e.getMessage(), e);
+        }        
+    }
 
     public XeroJAXBMarshaller() {
-        try {
-            if (context == null) {
-                context = JAXBContext.newInstance("com.xero.model");
-            }
+        try { 
+            //context = JAXBContext.newInstance("com.xero.model");
             marshaller = context.createMarshaller();
             unmarshaller = context.createUnmarshaller();
         } catch (Exception e) {
@@ -38,6 +43,7 @@ public class XeroJAXBMarshaller {
         }
     }
 
+    
     public String marshall(JAXBElement<?> object) {
         try {
             StringWriter writer = new StringWriter();

@@ -14,9 +14,15 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.log4j.Logger;
 
 public class OAuthParameters implements HttpExecuteInterceptor, HttpRequestInitializer {
-
+	final static Logger logger = Logger.getLogger(OAuthParameters.class);
+	   
 	public OAuthParameters()  {
 
 	}
@@ -78,7 +84,28 @@ public class OAuthParameters implements HttpExecuteInterceptor, HttpRequestIniti
 	 */
 	public String version;
 
-	private static final PercentEscaper ESCAPER = new PercentEscaper("-_.~", false);
+    /**
+     * A value of true indicates that server is sitting behind and application firewall (e.g. L7)
+     * Values for hostname and URL's will be adjusted when calculating oauth signatures as the
+     * application firewall will be changing the request
+     */
+    public boolean usingAppFirewall = false;
+
+    /**
+     * The hostname used for communicating through the application firewall.  If the url hostname
+     * matches this, the value of "api.xero.com" will be used instead when calculating the oauth
+     * signature.
+     */
+    public String appFirewallHostname = "";
+    private static final String XERO_API_HOST = "api.xero.com";
+
+    /**
+     * The prefix the application firewall uses to identify mappings for it's own URL rewriting.
+     * The value of the prefix will be stripped from the URL when calculating the oauth signature.
+     */
+    public String appFirewallUrlPrefix = "";
+
+    private static final PercentEscaper ESCAPER = new PercentEscaper("-_.~", false);
 
 	/**
 	 * Computes a nonce based on the hex string of a random non-negative long, setting the value of
@@ -153,8 +180,17 @@ public class OAuthParameters implements HttpExecuteInterceptor, HttpRequestIniti
 		GenericUrl normalized = new GenericUrl();
 		String scheme = requestUrl.getScheme();
 		normalized.setScheme(scheme);
-		normalized.setHost(requestUrl.getHost());
-		normalized.setPathParts(requestUrl.getPathParts());
+		if (usingAppFirewall && (requestUrl.getHost().equals(appFirewallHostname))) {
+			normalized.setHost(XERO_API_HOST);
+		} else {
+		    normalized.setHost(requestUrl.getHost());
+		}
+		if (usingAppFirewall &&(requestUrl.getRawPath().startsWith(appFirewallUrlPrefix))) {
+		    String modifiedPath = requestUrl.getRawPath().replace(appFirewallUrlPrefix, "");
+            normalized.setPathParts(requestUrl.toPathParts(modifiedPath));
+        } else {
+            normalized.setPathParts(requestUrl.getPathParts());
+        }
 		int port = requestUrl.getPort();
 		if ("http".equals(scheme) && port == 80 || "https".equals(scheme) && port == 443) {
 			port = -1;
@@ -230,11 +266,76 @@ public class OAuthParameters implements HttpExecuteInterceptor, HttpRequestIniti
 		try {
 			computeSignature(request.getRequestMethod(), request.getUrl());
 		} catch (GeneralSecurityException e) {
+			logger.error(e);
 			IOException io = new IOException();
 			io.initCause(e);
 			throw io;
 		}
 		request.getHeaders().setAuthorization(getAuthorizationHeader());
+	}
+	
+	public void intercept(HttpGet request, GenericUrl url) throws IOException 
+	{
+		computeNonce();
+		computeTimestamp();
+	
+		try {
+			computeSignature(request.getMethod(), url);
+		} catch (GeneralSecurityException e) {
+			logger.error(e);
+			IOException io = new IOException();
+			io.initCause(e);
+			throw io;
+		}
+		request.addHeader("Authorization", getAuthorizationHeader());
+	}
+	
+	public void intercept(HttpPost request, GenericUrl url) throws IOException 
+	{
+		computeNonce();
+		computeTimestamp();
+	
+		try {
+			computeSignature(request.getMethod(), url);
+		} catch (GeneralSecurityException e) {
+			logger.error(e);
+			IOException io = new IOException();
+			io.initCause(e);
+			throw io;
+		};
+		request.addHeader("Authorization", getAuthorizationHeader());
+	}
+	
+	public void intercept(HttpPut request, GenericUrl url) throws IOException 
+	{
+		computeNonce();
+		computeTimestamp();
+	
+		try {
+			computeSignature(request.getMethod(), url);
+		} catch (GeneralSecurityException e) {
+			logger.error(e);
+			IOException io = new IOException();
+			io.initCause(e);
+			throw io;
+		}
+		request.addHeader("Authorization", getAuthorizationHeader());
+	}
+	
+	public void intercept(HttpDelete request, GenericUrl url) throws IOException 
+	{
+		computeNonce();
+		computeTimestamp();
+	
+		try {
+			computeSignature(request.getMethod(), url);
+		} catch (GeneralSecurityException e) {
+			logger.error(e);
+			IOException io = new IOException();
+			io.initCause(e);
+			throw io;
+		}
+		request.addHeader("Authorization", getAuthorizationHeader());
 	}
 
 }

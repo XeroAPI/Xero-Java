@@ -1,6 +1,7 @@
 package com.xero.api.exception;
 
 import com.google.api.client.http.HttpResponseException;
+import com.xero.api.OAuthRequestResource;
 import com.xero.api.XeroApiException;
 import com.xero.api.XeroClientException;
 import com.xero.api.jaxb.XeroJAXBMarshaller;
@@ -12,17 +13,19 @@ import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class is to handle Xero API exceptions with the help of the {@link XeroJAXBMarshaller}
  */
 public class XeroExceptionHandler {
 
-    private final static Logger LOGGER = Logger.getLogger(XeroExceptionHandler.class.getName());
-
+    //private final static Logger LOGGER = Logger.getLogger(XeroExceptionHandler.class.getName());
+    final static Logger logger = Logger.getLogger(XeroExceptionHandler.class);
+    
     private static final Pattern MESSAGE_PATTERN = Pattern.compile("<Message>(.*)</Message>");
     private XeroJAXBMarshaller xeroJaxbMarshaller;
 
@@ -73,12 +76,42 @@ public class XeroExceptionHandler {
                 ApiException apiException = xeroJaxbMarshaller.unmarshall(content, ApiException.class);
                 return new XeroApiException(httpResponseException.getStatusCode(), content, apiException);
             } catch (Exception e) {
-                LOGGER.severe(e.getMessage());
+            		logger.error(e);
                 return convertException(httpResponseException);
             }
         } else {
-            return convertException(httpResponseException);
+            return newApiException(httpResponseException);
         }
+    }
+    
+    public XeroApiException handleBadRequest(String content) {
+
+        //TODO we could use the ApiException.xsd to validate that the content is an ApiException xml
+        if (content.contains("ApiException")) {
+            try {
+                ApiException apiException = xeroJaxbMarshaller.unmarshall(content, ApiException.class);
+                return new XeroApiException(412, content, apiException);
+            } catch (Exception e) {
+                logger.error(e);
+            }
+        }
+		return null;
+    }
+    
+    public XeroApiException handleBadRequest(String content,int code) {
+
+        //TODO we could use the ApiException.xsd to validate that the content is an ApiException xml
+        if (content.contains("ApiException")) {
+            try {
+                ApiException apiException = xeroJaxbMarshaller.unmarshall(content, ApiException.class);
+                return new XeroApiException(code, content, apiException);
+            } catch (Exception e) {
+            		logger.error(e);
+            }
+        } else {
+        		return  newApiException(content, code);
+        }
+		return null;
     }
 
     /**
@@ -136,13 +169,45 @@ public class XeroExceptionHandler {
                 return new XeroApiException(httpResponseException.getStatusCode(), errorMap);
 
             } catch (UnsupportedEncodingException e) {
-                LOGGER.severe(e.getMessage());
+            		logger.error(e);
                 throw new XeroClientException(e.getMessage(), e);
             }
         }
 
         return new XeroApiException(httpResponseException.getStatusCode(), httpResponseException.getContent());
     }
+    
+    public XeroApiException newApiException(String content, int code) {
+        Matcher matcher = MESSAGE_PATTERN.matcher(content);
+        StringBuilder messages = new StringBuilder();
+        while (matcher.find()) {
+            if (messages.length() > 0) {
+                messages.append(", ");
+            }
+            messages.append(matcher.group(1));
+        }
 
+        if (messages.length() > 0) {
+            return new XeroApiException(code, messages.toString());
+        }
+        if (content.contains("=")) {
+            try {
+                String value = URLDecoder.decode(content, "UTF-8");
+                String[] keyValuePairs = value.split("&");
+
+                Map<String, String> errorMap = new HashMap<>();
+                for (String pair : keyValuePairs) {
+                    String[] entry = pair.split("=");
+                    errorMap.put(entry[0].trim(), entry[1].trim());
+                }
+                return new XeroApiException(code, errorMap);
+
+            } catch (UnsupportedEncodingException e) {
+            		logger.error(e);
+                throw new XeroClientException(e.getMessage(), e);
+            }
+        }
+
+        return new XeroApiException(code, content);
+    }
 }
-

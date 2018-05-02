@@ -14,108 +14,68 @@
 
 package com.xero.api;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import org.apache.commons.io.IOUtils;
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.entity.ByteArrayEntity;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.apache.log4j.Logger;
 
-import com.google.api.client.auth.oauth.OAuthParameters;
 import com.google.api.client.auth.oauth.OAuthSigner;
-import com.google.api.client.http.ByteArrayContent;
-import com.google.api.client.http.FileContent;
 import com.google.api.client.http.GenericUrl;
-import com.google.api.client.http.HttpContent;
-import com.google.api.client.http.HttpHeaders;
-import com.google.api.client.http.HttpRequest;
-import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.HttpResponse;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.apache.ApacheHttpTransport;
-import com.google.api.client.util.Beta;
 
-/**
- * Generic OAuth 1.0a URL to request API resource from server.
- *
- * @since 1.0
- * @author Sidney Maestre
- */
-@Beta
-public class OAuthRequestResource extends GenericUrl {
-
-	/**
-	 * HTTP transport required for executing request in {@link #execute()}.
-	 *
-	 * @since 1.3
-	 */
-	public HttpTransport transport;
-
-	/**
-	 * Required identifier portion of the client credentials (equivalent to a username).
-	 */
-	//private String consumerKey;
-
-	/**
-	 * Required access token - obtained from user through oAuth process.
-	 */
+public class OAuthRequestResource {
 	private String token;
-	
-	/**
-	 * Required access token - obtained from user through oAuth process.
-	 */
 	private String tokenSecret;
-
-	/** Required Generic Url. */
-	private GenericUrl Url;
-
+	private GenericUrl url;
+	private byte[] requestBody = null;
+	
 	public String contentType = null;
 	public String ifModifiedSince = null;
-	//public String accept = "application/json";
 	public String accept = null;
 	private String body = null;
-	private HttpContent requestBody = null;
+
 	private String httpMethod = "GET";
+	private String resource;
 	private int connectTimeout = 20;
 	private int readTimeout = 20;
+	private Map<? extends String, ?> params = null;
 	
 	private Config config;
 	private SignerFactory signerFactory;
-	
-	// Used for proxy purposes
-	private HttpHost proxy;
-	private boolean proxyEnabled = false;
-
-
-	/** {@code true} for POST request or the default {@code false} for GET request. */
-	protected boolean usePost;
+	private String fileName;
+	final static Logger logger = Logger.getLogger(OAuthRequestResource.class);
 
 	private OAuthRequestResource(Config config, SignerFactory signerFactory, String resource, String method, Map<? extends String, ?> params) {
 		this.config = config;
 		this.signerFactory = signerFactory;
-
-		Url = new GenericUrl(config.getApiUrl() + resource);
+		this.resource = resource;
 		this.httpMethod = method;
-		if(method.equals("POST") || method.equals("PUT")){
-			usePost = true;
-		}
-
-		if (params != null) {
-			Url.putAll(params);
-		}
-		
-		connectTimeout = config.getConnectTimeout() * 1000;
-		readTimeout = config.getReadTimeout() * 1000;
-		
-		//Proxy Service Setup
-		if(!"".equals(config.getProxyHost()) && config.getProxyHost() != null) {
-			String host = config.getProxyHost();
-			boolean httpsEnabled = config.getProxyHttpsEnabled();
-			int port = (int) (config.getProxyPort() == 80 && httpsEnabled ? 443 : config.getProxyPort());
-			
-			this.setProxy(host, port, httpsEnabled);
-		}
+		this.params = params;
+		this.connectTimeout = config.getConnectTimeout() * 1000;
+		this.readTimeout = config.getReadTimeout() * 1000;
 	}
 
 	public  OAuthRequestResource(Config config, SignerFactory signerFactory, String resource, String method, String body, Map<? extends String, ?> params) {
@@ -132,63 +92,224 @@ public class OAuthRequestResource extends GenericUrl {
 	public  OAuthRequestResource(Config config, SignerFactory signerFactory, String resource, String method, String contentType, byte[] bytes, Map<? extends String, ?> params) {
 		this(config, signerFactory, resource, method, params);
 		this.contentType = contentType;
-		this.requestBody = new ByteArrayContent(contentType,  bytes);
+		this.requestBody = bytes;
 	}
 
-	public  OAuthRequestResource(Config config, SignerFactory signerFactory, String resource, String method, String contentType, File file, Map<? extends String, ?> params) {
+	public OAuthRequestResource(Config config, SignerFactory signerFactory, String resource, String method, String contentType, File file, Map<? extends String, ?> params) {
 		this(config, signerFactory, resource, method, params);
 		this.contentType = contentType;
-		this.requestBody = new FileContent(contentType, file);
 	}
 	
-	/**
-	 * Executes the HTTP request for a temporary or long-lived token.
-	 *
-	 * @throws IOException 
-	 */
-	
-	public final HttpResponse execute() throws IOException  {
-		
-		ApacheHttpTransport.Builder builder = new ApacheHttpTransport.Builder();
-		
-		if(this.proxyEnabled) {
-			builder.setProxy(this.proxy);
-		}
-		
-		transport = builder.build();
+	public final ByteArrayInputStream executefile() throws UnsupportedOperationException, IOException {
+		CloseableHttpClient httpclient =null;
+		httpclient = new XeroHttpContext(config,this.accept,this.contentType,this.ifModifiedSince).getHttpClient();
 
-		if(usePost && body != null){
-			requestBody = ByteArrayContent.fromString(null, body);
-		}
-		
-		HttpHeaders headers = new HttpHeaders();
-		headers.setUserAgent(config.getUserAgent());
-		headers.setAccept(accept != null ? accept : config.getAccept());
-		
-		headers.setContentType(contentType == null ? "application/xml" : contentType);
-		
-		if(ifModifiedSince != null) {
-			//System.out.println("Set Header " + this.ifModifiedSince);
-			headers.setIfModifiedSince(this.ifModifiedSince);	
+		url = new GenericUrl(config.getApiUrl() + this.resource);
+		if (this.params != null) {
+			url.putAll(this.params);
 		}
 
-		HttpRequestFactory requestFactory = transport.createRequestFactory();
-		HttpRequest request;
-		HttpResponse response = null;
+		HttpGet httpget = new HttpGet(url.toString());
+		if (httpMethod == "GET") {
+			this.createParameters().intercept(httpget,url);
+			httpget.addHeader("accept", "application/pdf");
+		}
 		
-		request = requestFactory.buildRequest(this.httpMethod, Url, requestBody);
-		request.setConnectTimeout(connectTimeout);
-		request.setReadTimeout(readTimeout);
-		request.setHeaders(headers);
+		HttpPost httppost = new HttpPost(url.toString());
+		if (httpMethod == "POST") {
+			httppost.setEntity(new StringEntity(this.body, "utf-8"));
+		    this.createParameters().intercept(httppost,url);
+		}
 		
-		createParameters().intercept(request);
+		HttpPut httpput = new HttpPut(url.toString());
+		if (httpMethod == "PUT") {
+			httpput.setEntity(new StringEntity(this.body, "utf-8"));
+		    this.createParameters().intercept(httpput,url);
+		}
 		
-		response = request.execute();
-		response.setContentLoggingLimit(0);
-	
+		HttpEntity entity;
+		try {
+			CloseableHttpResponse response = null;
+			  
+			if (httpMethod == "GET") {
+				response = httpclient.execute(httpget);
+			}
+			
+			if (httpMethod == "POST") {
+				response = httpclient.execute(httppost);
+			}
+			
+			if (httpMethod == "PUT") {
+				response = httpclient.execute(httpput);
+			}
+			
+		    try {		    
+		    		entity = response.getEntity();
+		    	
+		    		List<Header> httpHeaders = Arrays.asList(response.getAllHeaders());        
+		    	    for (Header header : httpHeaders) {
+		    	    		if (header.getName() == "Content-Disposition") {
+		    	    			this.fileName = parseFileName(header.getValue());
+		    	    		}
+		    	        //System.out.println("Headers.. name,value:"+header.getName() + "," + header.getValue());
+		    	    }
+		    		
+		        InputStream is = entity.getContent();		       
+	            byte[] bytes = IOUtils.toByteArray(is);
 
-		return response;
+	            is.close();
+	            return new ByteArrayInputStream(bytes);
+		       
+		    } finally {
+		        response.close();
+		    }
+		} finally {
+		    httpclient.close();
+		}
 	}
+	
+	private String parseFileName(String param)
+	{
+		String fileName = null; 
+		Pattern regex = Pattern.compile("(?<=filename=\").*?(?=\")");
+        Matcher regexMatcher = regex.matcher(param);
+        if (regexMatcher.find()) {
+        		fileName = regexMatcher.group();
+        }
+        return fileName;
+	}
+	
+	public String getFileName() 
+	{
+		return this.fileName;
+	}
+	
+	public final Map<String, String> execute() throws IOException,XeroApiException  {
+		CloseableHttpClient httpclient =null;
+		httpclient = new XeroHttpContext(config,this.accept,this.contentType,this.ifModifiedSince).getHttpClient();
+		
+		url = new GenericUrl(config.getApiUrl() + this.resource);
+		if (this.params != null) {
+			url.putAll(this.params);
+		}
+	   
+		RequestConfig.Builder requestConfig = RequestConfig.custom()
+				.setConnectTimeout(connectTimeout)
+				.setConnectionRequestTimeout(readTimeout)
+				.setSocketTimeout(connectTimeout);
+		
+		//Proxy Service Setup - unable to fully test as we don't have a proxy 
+		// server to test against.
+		if(!"".equals(config.getProxyHost()) && config.getProxyHost() != null) {
+			int port = (int) (config.getProxyPort() == 80 && config.getProxyHttpsEnabled() ? 443 : config.getProxyPort());		
+			HttpHost proxy = new HttpHost(config.getProxyHost(), port, config.getProxyHttpsEnabled() ? "https" : "http");
+			requestConfig.setProxy(proxy);
+		}
+		
+		HttpGet httpget = new HttpGet(url.toString());
+		if (httpMethod == "GET") {
+			this.createParameters().intercept(httpget,url);
+			httpget.setConfig(requestConfig.build());
+			if(logger.isInfoEnabled()){
+				logger.info("------------------ GET : URL -------------------");
+				logger.info(url.toString());
+			}
+		}
+		
+		HttpPost httppost = new HttpPost(url.toString());
+		if (httpMethod == "POST") {
+			if(logger.isInfoEnabled()){
+				logger.info("------------------ POST: BODY  -------------------");
+				logger.info(this.body);
+			}
+			httppost.setEntity(new StringEntity(this.body, "utf-8"));
+		    this.createParameters().intercept(httppost,url);
+		  	httppost.setConfig(requestConfig.build());
+		}
+		
+		HttpPut httpput = new HttpPut(url.toString());
+		if (httpMethod == "PUT") {
+			if(logger.isInfoEnabled()){
+				logger.info("------------------ PUT : BODY  -------------------");
+				logger.info(this.body);
+			}
+			if(this.requestBody != null) {
+				httpput.setEntity(new ByteArrayEntity(this.requestBody));				
+			} else {
+				httpput.setEntity(new StringEntity(this.body, "utf-8"));
+			}
+			
+		    this.createParameters().intercept(httpput,url);
+		    httpput.setConfig(requestConfig.build());
+		}
+		
+		HttpDelete httpdelete = new HttpDelete(url.toString());
+		if (httpMethod == "DELETE") {
+			this.createParameters().intercept(httpdelete,url);
+			httpdelete.setConfig(requestConfig.build());
+			if(logger.isInfoEnabled()){
+				logger.info("------------------ DELTE : URL -------------------");
+				logger.info(url.toString());
+			}
+		}
+	
+		HttpEntity entity;
+		try {
+			CloseableHttpResponse response = null;
+			  
+			if (httpMethod == "GET") {
+				response = httpclient.execute(httpget);
+			}
+			
+			if (httpMethod == "POST") {
+				response = httpclient.execute(httppost);
+			}
+			
+			if (httpMethod == "PUT") {
+				response = httpclient.execute(httpput);
+			}
+			
+			if (httpMethod == "DELETE") {
+				response = httpclient.execute(httpdelete);
+			}
+			
+		    try {	
+				String content = "";
+		        entity = response.getEntity();
+		        if(entity != null) {
+		        		content = EntityUtils.toString(entity);
+			    }
+		        int code = response.getStatusLine().getStatusCode();
+		         if (code == 204) {
+					content = "<Response><Status>DELETED</Status></Response>";
+		        }
+		        if (code != 200 && code != 204) {
+					XeroApiException e = new XeroApiException(code,content);
+		        		throw e;
+		        }
+		        
+		        Map<String, String> responseMap = new HashMap<>();
+		        addToMapIfNotNull(responseMap, "content", content);
+		        addToMapIfNotNull(responseMap, "code", code);
+		        
+		        // TODO: ADD LOGGING of Code & Content
+		        if(entity != null) {
+			     	EntityUtils.consume(entity);
+		        }
+		        return responseMap;
+		    } finally {
+		        response.close();
+		    }
+		} finally {
+		    httpclient.close();
+		}
+	}
+	
+	protected void addToMapIfNotNull(Map<String, String> map, String key, Object value) {
+        if (value != null) {
+            map.put(key, value.toString());
+        }
+    }
 	
 	public void setMethod(String method) {
 		this.httpMethod = method; 
@@ -214,22 +335,17 @@ public class OAuthRequestResource extends GenericUrl {
 		OAuthSigner signer = signerFactory.createSigner(tokenSecret);
 
 		OAuthParameters result = new OAuthParameters();
-		result.consumerKey = config.getConsumerKey();;
+		result.consumerKey = config.getConsumerKey();
+		result.usingAppFirewall = config.isUsingAppFirewall();
+		result.appFirewallHostname = config.getAppFirewallHostname();
+		result.appFirewallUrlPrefix = config.getAppFirewallUrlPrefix();
 		result.token = token;
 		result.signer = signer;
 		return result;
 	}
-
+	
+	@Deprecated
 	public void setProxy(String host, int port, boolean httpsEnabled) {
 
-		String scheme = "http";
-
-		if (httpsEnabled) {
-			scheme = "https";
-		}
-
-		this.proxy = new HttpHost(host, port, scheme);
-		this.proxyEnabled = true;
 	}
-
 }

@@ -5,17 +5,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import com.google.api.client.auth.oauth.OAuthCredentialsResponse;
 import com.google.api.client.auth.oauth.OAuthSigner;
 import com.google.api.client.http.GenericUrl;
-import com.google.api.client.http.HttpHeaders;
-import com.google.api.client.http.HttpMethods;
-import com.google.api.client.http.HttpRequest;
-import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.HttpResponse;
-import com.google.api.client.http.HttpResponseException;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.apache.ApacheHttpTransport;
+import com.google.api.client.http.UrlEncodedParser;
+
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.util.EntityUtils;
 
 public class OAuthAccessToken {
 
@@ -28,14 +29,13 @@ public class OAuthAccessToken {
   private String advice = null;
   private Config config;
   private SignerFactory signerFactory;
-  private HttpRequest request;
-  private GenericUrl Url;
-
-  private HttpTransport transport;
+  private CloseableHttpClient httpclient;
   public String verifier;
   public String tempToken;
   private String tempTokenSecret;
-
+  private int connectTimeout = 20;
+  private int readTimeout = 20;
+	
   public OAuthAccessToken(Config config) {
     this(config, new ConfigBasedSignerFactory(config));
   }
@@ -49,81 +49,73 @@ public class OAuthAccessToken {
     this.verifier = verifier;
     this.tempToken = tempToken;
     this.tempTokenSecret = tempTokenSecret;
-
-    Url = new GenericUrl(config.getAccessTokenUrl());
-
-    //transport = new ApacheHttpTransport();
-
-    ApacheHttpTransport.Builder transBuilder = new ApacheHttpTransport.Builder();
-    if (config.getProxyHost() != null && "" != config.getProxyHost()) {
-      String proxy_host = config.getProxyHost();
-      long proxy_port = config.getProxyPort();
-      boolean proxyHttps = config.getProxyHttpsEnabled();
-      String proxy_schema = proxyHttps == true ? "https" : "http";
-      System.out.println("proxy.host=" + proxy_host + ", proxy.port=" + proxy_port + ", proxy_schema=" + proxy_schema);
-      HttpHost proxy = new HttpHost(proxy_host, (int) proxy_port, proxy_schema);
-      transBuilder.setProxy(proxy);
-      transport = transBuilder.build();
-    } else {
-      transport = new ApacheHttpTransport();
-    }
-
-    HttpRequestFactory requestFactory = transport.createRequestFactory();
-    request = requestFactory.buildRequest(HttpMethods.GET, Url, null);
-
-    HttpHeaders headers = new HttpHeaders();
-    headers.setUserAgent(config.getUserAgent());
-    headers.setAccept(config.getAccept());
-    request.setHeaders(headers);
-
-    createParameters().intercept(request);
-
+    this.connectTimeout = config.getConnectTimeout() * 1000;
+	this.readTimeout = config.getReadTimeout() * 1000;
+   
+    	httpclient = new XeroHttpContext(config).getHttpClient();
+	
     return this;
   }
 
   public OAuthAccessToken build() throws IOException {
-    Url = new GenericUrl(config.getAccessTokenUrl());
-
-    transport = new ApacheHttpTransport();
-
-    HttpRequestFactory requestFactory = transport.createRequestFactory();
-    request = requestFactory.buildRequest(HttpMethods.GET, Url, null);
-
-    HttpHeaders headers = new HttpHeaders();
-    headers.setUserAgent(config.getUserAgent());
-    headers.setAccept(config.getAccept());
-
-    request.setHeaders(headers);
-    createRefreshParameters().intercept(request);
-
+    
     return this;
   }
 
   public boolean execute() throws IOException {
-    try {
-      HttpResponse response = request.execute();
+	  GenericUrl requestUrl = new GenericUrl(this.config.getAccessTokenUrl());
 
-      isSuccess = response.isSuccessStatusCode();
-
-      if (isSuccess) {
-        Map<String, String> oauthKeys = getQueryMap(response.parseAsString());
-
-        this.token = oauthKeys.get("oauth_token");
-        this.tokenSecret = oauthKeys.get("oauth_token_secret");
-        this.sessionHandle = oauthKeys.get("oauth_session_handle");
-        this.tokenTimestamp = System.currentTimeMillis() / 1000l;
-        isSuccess = true;
-      } else {
-
-      }
-    } catch (HttpResponseException e) {
-
-      Map<String, String> oauthError = getQueryMap(e.getMessage());
-      this.problem = oauthError.get("oauth_problem");
-      this.advice = oauthError.get("oauth_problem_advice");
-      isSuccess = false;
-    }
-    return isSuccess;
+	  HttpGet httpget = new HttpGet(this.config.getAccessTokenUrl());
+	  
+	  RequestConfig.Builder requestConfig = RequestConfig.custom()
+				.setConnectTimeout(connectTimeout)
+				.setConnectionRequestTimeout(readTimeout)
+				.setSocketTimeout(connectTimeout);
+		
+	  //Proxy Service Setup - unable to fully test as we don't have a proxy 
+	  // server to test against.
+	  if(!"".equals(config.getProxyHost()) && config.getProxyHost() != null) {
+		  int port = (int) (config.getProxyPort() == 80 && config.getProxyHttpsEnabled() ? 443 : config.getProxyPort());		
+		  HttpHost proxy = new HttpHost(config.getProxyHost(), port, config.getProxyHttpsEnabled() ? "https" : "http");
+		  requestConfig.setProxy(proxy);
+	  }
+	  this.createParameters().intercept(httpget,requestUrl);
+	  httpget.setConfig(requestConfig.build());
+	
+	  try {
+		  CloseableHttpResponse response = httpclient.execute(httpget);
+		  try {
+			  HttpEntity entity = response.getEntity();  
+			  String retSrc = EntityUtils.toString(entity);
+			  
+			  OAuthCredentialsResponse oauthResponse = new OAuthCredentialsResponse();
+			  UrlEncodedParser.parse(retSrc, oauthResponse); 
+			  
+			  if ((oauthResponse.token == null || oauthResponse.token.length() == 0) && (config.getKeyStorePassword() == null || config.getKeyStorePassword().length() == 0))
+			  {
+				  Map<String, String> oauthError = getQueryMap(retSrc);
+				  this.problem = oauthError.get("oauth_problem");
+				  this.advice = oauthError.get("oauth_problem_advice");
+				  isSuccess = false;   
+			  } else {
+				  Map<String, String> oauthKeys = getQueryMap(retSrc);
+				  this.token = oauthKeys.get("oauth_token");
+				  this.tokenSecret = oauthKeys.get("oauth_token_secret");
+				  this.sessionHandle = oauthKeys.get("oauth_session_handle");
+				  this.tokenTimestamp = System.currentTimeMillis() / 1000l;
+				  isSuccess = true;
+			  }
+		        
+			  EntityUtils.consume(entity);
+		        
+		  } finally {
+			  response.close();
+		  }
+		    
+	  } finally {
+		  httpclient.close();
+	  }
+	  return isSuccess;
   }
 
   public void setToken(String token) {
@@ -198,17 +190,24 @@ public class OAuthAccessToken {
 
     OAuthParameters result = new OAuthParameters();
     result.consumerKey = config.getConsumerKey();
+    result.usingAppFirewall = config.isUsingAppFirewall();
+    result.appFirewallHostname = config.getAppFirewallHostname();
+    result.appFirewallUrlPrefix = config.getAppFirewallUrlPrefix();
     result.token = tempToken;
     result.verifier = verifier;
     result.signer = signer;
     return result;
   }
 
-  private OAuthParameters createRefreshParameters() {
+@SuppressWarnings("unused")
+private OAuthParameters createRefreshParameters() {
     OAuthSigner signer = signerFactory.createSigner(null);
 
     OAuthParameters result = new OAuthParameters();
     result.consumerKey = config.getConsumerKey();
+    result.usingAppFirewall = config.isUsingAppFirewall();
+    result.appFirewallHostname = config.getAppFirewallHostname();
+    result.appFirewallUrlPrefix = config.getAppFirewallUrlPrefix();
     result.token = this.token;
     result.sessionHandle = this.sessionHandle;
     result.signer = signer;
