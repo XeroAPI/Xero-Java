@@ -20,9 +20,6 @@ import java.io.UnsupportedEncodingException;
  * cannot create the marshaller or unmarshaller
  */
 public class XeroJAXBMarshaller {
-
-    private final Marshaller marshaller;
-    private final Unmarshaller unmarshaller;
     static final JAXBContext context = initContext();
 
     private static JAXBContext initContext() {
@@ -34,20 +31,13 @@ public class XeroJAXBMarshaller {
     }
 
     public XeroJAXBMarshaller() {
-        try { 
-            //context = JAXBContext.newInstance("com.xero.model");
-            marshaller = context.createMarshaller();
-            unmarshaller = context.createUnmarshaller();
-        } catch (Exception e) {
-            throw new XeroClientException(e.getMessage(), e);
-        }
     }
 
     
     public String marshall(JAXBElement<?> object) {
         try {
             StringWriter writer = new StringWriter();
-            marshaller.marshal(object, writer);
+            context.createMarshaller().marshal(object, writer);
             return writer.toString();
         } catch (JAXBException e) {
             throw new IllegalStateException("Error marshalling request object " + object.getClass(), e);
@@ -57,7 +47,7 @@ public class XeroJAXBMarshaller {
     public <T> T unmarshall(String responseBody, Class<T> clazz) throws UnsupportedEncodingException {
         try {
             Source source = new StreamSource(new StringReader(responseBody));
-            return unmarshaller.unmarshal(source, clazz).getValue();
+            return context.createUnmarshaller().unmarshal(source, clazz).getValue();
         } catch (JAXBException e) {
             throw new IllegalStateException("Error unmarshalling response: " + responseBody, e);
         }
