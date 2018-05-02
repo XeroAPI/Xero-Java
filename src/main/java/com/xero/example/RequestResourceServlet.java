@@ -982,7 +982,7 @@ public class RequestResourceServlet extends HttpServlet
 				String deleteTrackingCategoryOption = client.deleteTrackingCategoryOption(newTrackingCategory.get(0).getTrackingCategoryID(),newTrackingCategoryOption.get(0).getTrackingOptionID());
 				messages.add("Delete TrackingCategory Option -  : " + deleteTrackingCategoryOption);
 				
-				List<TrackingCategory> TrackingCategoryWhere = client.getTrackingCategories(null,"Status==\"ACTIVE\"",null);
+				List<TrackingCategory> TrackingCategoryWhere = client.getTrackingCategories(null,"Status==\"ACTIVE\"",null, false);
 				messages.add("Get a TrackingCategory with WHERE clause - Name : " + TrackingCategoryWhere.get(0).getName());
 				
 				List<TrackingCategory> TrackingCategoryList = client.getTrackingCategories();
