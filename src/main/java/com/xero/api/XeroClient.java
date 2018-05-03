@@ -1694,11 +1694,13 @@ public class XeroClient {
         }
     }
 
-    public List<TrackingCategory> getTrackingCategories(Date modifiedAfter, String where, String order)
+    public List<TrackingCategory> getTrackingCategories(Date modifiedAfter, String where, String order,
+                                                        Boolean includeArchived)
         throws IOException {
         Map<String, String> params = new HashMap<>();
         addToMapIfNotNull(params, "Where", where);
         addToMapIfNotNull(params, "order", order);
+        addToMapIfNotNull(params, "includeArchived", includeArchived);
 
         Response responseObj = get("TrackingCategories", modifiedAfter, params);
         if (responseObj.getTrackingCategories() == null) {
