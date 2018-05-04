@@ -58,7 +58,7 @@ public class OAuthAccessToken {
   }
 
   public OAuthAccessToken build() throws IOException {
-    
+    httpclient = new XeroHttpContext(config).getHttpClient();
     return this;
   }
 
