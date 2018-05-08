@@ -35,6 +35,8 @@ public class OAuthAccessToken {
   private String tempTokenSecret;
   private int connectTimeout = 20;
   private int readTimeout = 20;
+  private GenericUrl requestUrl;
+  private HttpGet httpget;
 	
   public OAuthAccessToken(Config config) {
     this(config, new ConfigBasedSignerFactory(config));
@@ -50,36 +52,46 @@ public class OAuthAccessToken {
     this.tempToken = tempToken;
     this.tempTokenSecret = tempTokenSecret;
     this.connectTimeout = config.getConnectTimeout() * 1000;
-	this.readTimeout = config.getReadTimeout() * 1000;
+    this.readTimeout = config.getReadTimeout() * 1000;
    
-    	httpclient = new XeroHttpContext(config).getHttpClient();
-	
+    httpclient = new XeroHttpContext(config).getHttpClient();
+
+    requestUrl = new GenericUrl(this.config.getAccessTokenUrl());
+    httpget = new HttpGet(this.config.getAccessTokenUrl());
+
+    this.createParameters().intercept(httpget,requestUrl);
+    
     return this;
   }
 
   public OAuthAccessToken build() throws IOException {
+    this.connectTimeout = config.getConnectTimeout() * 1000;
+    this.readTimeout = config.getReadTimeout() * 1000;
     httpclient = new XeroHttpContext(config).getHttpClient();
+
+    requestUrl = new GenericUrl(this.config.getAccessTokenUrl());
+    httpget = new HttpGet(this.config.getAccessTokenUrl());
+    
+    this.createRefreshParameters().intercept(httpget,requestUrl);
+
     return this;
   }
 
   public boolean execute() throws IOException {
-	  GenericUrl requestUrl = new GenericUrl(this.config.getAccessTokenUrl());
 
-	  HttpGet httpget = new HttpGet(this.config.getAccessTokenUrl());
-	  
-	  RequestConfig.Builder requestConfig = RequestConfig.custom()
-				.setConnectTimeout(connectTimeout)
-				.setConnectionRequestTimeout(readTimeout)
-				.setSocketTimeout(connectTimeout);
-		
-	  //Proxy Service Setup - unable to fully test as we don't have a proxy 
-	  // server to test against.
-	  if(!"".equals(config.getProxyHost()) && config.getProxyHost() != null) {
-		  int port = (int) (config.getProxyPort() == 80 && config.getProxyHttpsEnabled() ? 443 : config.getProxyPort());		
-		  HttpHost proxy = new HttpHost(config.getProxyHost(), port, config.getProxyHttpsEnabled() ? "https" : "http");
-		  requestConfig.setProxy(proxy);
-	  }
-	  this.createParameters().intercept(httpget,requestUrl);
+    RequestConfig.Builder requestConfig = RequestConfig.custom()
+        .setConnectTimeout(connectTimeout)
+        .setConnectionRequestTimeout(readTimeout)
+        .setSocketTimeout(connectTimeout);
+    
+    //Proxy Service Setup - unable to fully test as we don't have a proxy 
+    // server to test against.
+    if(!"".equals(config.getProxyHost()) && config.getProxyHost() != null) {
+      int port = (int) (config.getProxyPort() == 80 && config.getProxyHttpsEnabled() ? 443 : config.getProxyPort());    
+      HttpHost proxy = new HttpHost(config.getProxyHost(), port, config.getProxyHttpsEnabled() ? "https" : "http");
+      requestConfig.setProxy(proxy);
+    }
+
 	  httpget.setConfig(requestConfig.build());
 	
 	  try {
