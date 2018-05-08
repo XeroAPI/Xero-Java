@@ -51,13 +51,15 @@ public class OAuthAccessToken {
     this.tempTokenSecret = tempTokenSecret;
     this.connectTimeout = config.getConnectTimeout() * 1000;
 	this.readTimeout = config.getReadTimeout() * 1000;
-   
+
     	httpclient = new XeroHttpContext(config).getHttpClient();
-	
+
     return this;
   }
 
   public OAuthAccessToken build() throws IOException {
+    this.connectTimeout = config.getConnectTimeout() * 1000;
+    this.readTimeout = config.getReadTimeout() * 1000;
     httpclient = new XeroHttpContext(config).getHttpClient();
     return this;
   }
