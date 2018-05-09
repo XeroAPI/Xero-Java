@@ -95,7 +95,7 @@ In a text editor, create a file called config.json (examples are below)  Refer t
 * ApiEndpointPath: path for API Calls      *default is /api.xro/2.0/*
 * RequestTokenPath: path for Request Token      *default it /oauth/RequestToken*
 * AuthenticateUrl: path for redirect to authorize      *default is /oauth/RequestToken*
-* AccessTokenPath: path for Access Token         *default is https://api.xero.com/oauth/Authorize*
+* AccessTokenPath: path for Access Token         *default it /oauth/AccessToken*
 * KeyStorePath: Path to your cacerts is typically inside your $JAVA_HOME/jre/lib/security/cacerts 
 * KeyStorePassword: your password
 
