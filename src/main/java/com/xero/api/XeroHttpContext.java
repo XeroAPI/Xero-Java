@@ -47,12 +47,27 @@ public class XeroHttpContext {
 	{
 		CloseableHttpClient httpclient = null;
 		
+		Header contentHeader = new BasicHeader( HttpHeaders.CONTENT_TYPE, this.contentType == null ? "application/xml" : this.contentType);
+	    Header acceptHeader = new BasicHeader( HttpHeaders.ACCEPT, this.accept != null ? this.accept : config.getAccept());
+	    Header userAgentHeader = new BasicHeader( HttpHeaders.USER_AGENT,  config.getUserAgent());
+	    
+		List<Header> headers = new ArrayList<Header>();
+		headers.add(contentHeader);
+		headers.add(acceptHeader);
+		headers.add(userAgentHeader);
+		
+		if(this.ifModifiedSince != null) {
+			Header modifiedHeader = new BasicHeader( HttpHeaders.IF_MODIFIED_SINCE, this.ifModifiedSince);
+			headers.add(modifiedHeader);
+		}
+		
+		
 		if ((config.getKeyStorePath() == null || config.getKeyStorePath().length() == 0) && (config.getKeyStorePassword() == null || config.getKeyStorePassword().length() == 0))
 		{
 			if(logger.isInfoEnabled()){
 				logger.info("You must use Java 1.8 to skip setting the Key Store Path & Key Store Password in config.json");
 			}
-			httpclient = HttpClients.createDefault();
+			httpclient = HttpClients.custom().setDefaultHeaders(headers).build();
 			
 		} else {
 			if(logger.isInfoEnabled()){
@@ -107,20 +122,6 @@ public class XeroHttpContext {
 		                 new String[] {"TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256","TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256","TLS_RSA_WITH_AES_128_CBC_SHA256","TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256","TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256","TLS_DHE_RSA_WITH_AES_128_CBC_SHA256","TLS_DHE_DSS_WITH_AES_128_CBC_SHA256","TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA","TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA","TLS_RSA_WITH_AES_128_CBC_SHA","TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA","TLS_ECDH_RSA_WITH_AES_128_CBC_SHA","TLS_DHE_RSA_WITH_AES_128_CBC_SHA","TLS_DHE_DSS_WITH_AES_128_CBC_SHA","TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA","TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA","TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA","TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA","TLS_EMPTY_RENEGOTIATION_INFO_SCSV"},
 		                 SSLConnectionSocketFactory.getDefaultHostnameVerifier());
 		    
-		    Header contentHeader = new BasicHeader( HttpHeaders.CONTENT_TYPE, this.contentType == null ? "application/xml" : this.contentType);
-		    Header acceptHeader = new BasicHeader( HttpHeaders.ACCEPT, this.accept != null ? this.accept : config.getAccept());
-		    Header userAgentHeader = new BasicHeader( HttpHeaders.USER_AGENT,  config.getUserAgent());
-		    
-			List<Header> headers = new ArrayList<Header>();
-			headers.add(contentHeader);
-			headers.add(acceptHeader);
-			headers.add(userAgentHeader);
-			
-			if(this.ifModifiedSince != null) {
-				Header modifiedHeader = new BasicHeader( HttpHeaders.IF_MODIFIED_SINCE, this.ifModifiedSince);
-				headers.add(modifiedHeader);
-			}
-			
 		    httpclient = HttpClients.custom()
 		                .setSSLSocketFactory(sslsf)
 		                .setDefaultHeaders(headers)
