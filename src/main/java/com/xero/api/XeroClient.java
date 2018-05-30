@@ -743,6 +743,12 @@ public class XeroClient {
         return singleResult(get("Currencies/" + id).getCurrencies().getCurrency());
     }
 
+    public List<Currency> createCurrencies(List<Currency> objects) {
+        ArrayOfCurrency array = new ArrayOfCurrency();
+        array.getCurrency().addAll(objects);
+        return put("Currencies", objFactory.createCurrencies(array)).getCurrencies().getCurrency();
+    }
+
     //EMPLOYEES
     public List<Employee> getEmployees() throws IOException {
         Response responseObj = get("Employees");
