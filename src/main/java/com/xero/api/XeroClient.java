@@ -22,6 +22,9 @@ import java.util.Map;
 import java.util.TimeZone;
 import java.util.regex.Pattern;
 
+import static java.lang.String.format;
+import static java.util.Objects.requireNonNull;
+
 public class XeroClient {
 
     private XeroExceptionHandler xeroExceptionHandler;
@@ -1853,18 +1856,50 @@ public class XeroClient {
             throws IOException {
     		return createAttachment(endpoint, guid, filename, contentType, bytes, false);
     }
-   
-    public Attachment createAttachment(String endpoint, String guid, String filename, String contentType, byte[] bytes, boolean includeOnline)
-    		throws IOException {
-    		Map<String, String> params = new HashMap<>();
-    		if (includeOnline) {
-    			params.put("IncludeOnline", Boolean.toString(true));
-    		}
-    		String alphaNumbericFileName = filename.replaceAll("[^\\p{L}\\p{Z}\\.]", "").replaceAll(" ", "_");
-    		return singleResult(put(endpoint + "/" + guid + "/Attachments/" + alphaNumbericFileName, contentType, bytes, params)
-    				.getAttachments()
-    				.getAttachment());
+
+    public Attachment createAttachment(
+        final String endpoint,
+        final String guid,
+        final String filename,
+        final String contentType,
+        final byte[] bytes,
+        final boolean includeOnline) throws IOException {
+
+        requireNonNull(endpoint, "endpoint must not be null");
+        requireNonNull(guid, "guid must not be null");
+        requireNonNull(filename, "filename must not be null");
+        requireNonNull(contentType, "contentType must not be null");
+        requireNonNull(bytes, "bytes must not be null");
+
+        final HashMap<String, String> params = new HashMap();
+        if (includeOnline) {
+            params.put("IncludeOnline",  Boolean.toString(true));
+        }
+
+        final String alphaNumericFileName = normalizeFileNameForURI(filename);
+        return singleResult(
+            put(
+                format("%s/%s/Attachments/%s",endpoint, guid, alphaNumericFileName),
+                contentType,
+                bytes,
+                params
+            ).getAttachments().getAttachment());
     }
+
+
+    /**
+     * Normalizes file name with respect to https://tools.ietf.org/html/rfc3986#section-2.3
+     *
+     * @param fileName
+     * @return file name which does not contain invalid URI characters
+     */
+    protected String normalizeFileNameForURI(final String fileName) {
+        return fileName
+            .trim()
+            .replaceAll(" ", "_")
+            .replaceAll("[^\\p{Alnum}\\-_.~]", "");
+    }
+
 
     public String getAttachmentContent(String endpoint, String guid, String filename, String accept, String dirPath)
         throws IOException {
