@@ -147,7 +147,17 @@ public class SampleData {
 	}
 
 	
+	// CURRENCY
+	public static ArrayOfCurrency loadCurrency() {
+		ArrayOfCurrency array = new ArrayOfCurrency();
 	
+		Currency currency = new Currency();
+		currency.setCode(CurrencyCode.CAD);
+		
+		array.getCurrency().add(currency);
+		return array;
+	}
+		
 	
 	// EMPLOYEE
 	public static ArrayOfEmployee loadEmployee() {

@@ -458,10 +458,15 @@ public class RequestResourceServlet extends HttpServlet
 			try {
 				List<Currency> newCurrency = client.getCurrencies();
 				messages.add("GET a Currency - Description: " + newCurrency.get(0).getDescription());
+				
+				List<Currency> currency = client.createCurrencies(SampleData.loadCurrency().getCurrency());
+				messages.add("Create a new Currency : " + currency.get(0).getDescription());
+				
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());	
 			}	
+			
 		} else if (object.equals("Employees")) {
 
 			/*  EMPLOYEE */
