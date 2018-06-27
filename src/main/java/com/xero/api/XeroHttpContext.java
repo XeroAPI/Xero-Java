@@ -21,14 +21,15 @@ import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicHeader;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class XeroHttpContext {
 	private Config config;
 	private String accept;
 	private String contentType;
 	private String ifModifiedSince = null;
-	final static Logger logger = Logger.getLogger(XeroHttpContext.class);
+	final static Logger logger = LogManager.getLogger(XeroHttpContext.class);
 	
 	public XeroHttpContext(Config config)
 	{

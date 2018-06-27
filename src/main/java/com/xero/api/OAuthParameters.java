@@ -18,10 +18,11 @@ import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class OAuthParameters implements HttpExecuteInterceptor, HttpRequestInitializer {
-	final static Logger logger = Logger.getLogger(OAuthParameters.class);
+	final static Logger logger = LogManager.getLogger(OAuthParameters.class);
 	   
 	public OAuthParameters()  {
 

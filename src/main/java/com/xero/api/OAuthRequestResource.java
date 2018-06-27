@@ -41,7 +41,8 @@ import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.google.api.client.auth.oauth.OAuthSigner;
 import com.google.api.client.http.GenericUrl;
@@ -66,7 +67,7 @@ public class OAuthRequestResource {
 	private Config config;
 	private SignerFactory signerFactory;
 	private String fileName;
-	final static Logger logger = Logger.getLogger(OAuthRequestResource.class);
+	final static Logger logger = LogManager.getLogger(OAuthRequestResource.class);
 
 	private OAuthRequestResource(Config config, SignerFactory signerFactory, String resource, String method, Map<? extends String, ?> params) {
 		this.config = config;

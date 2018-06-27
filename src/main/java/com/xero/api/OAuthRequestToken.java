@@ -3,7 +3,8 @@ package com.xero.api;
 import java.io.IOException;
 import java.util.HashMap;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.google.api.client.auth.oauth.OAuthCredentialsResponse;
 import com.google.api.client.auth.oauth.OAuthSigner;
@@ -15,7 +16,7 @@ public class OAuthRequestToken {
   private OAuthGetTemporaryToken tokenRequest = null;
   private Config config;
   private SignerFactory signerFactory;
-  final static Logger logger = Logger.getLogger(OAuthRequestToken.class);
+  final static Logger logger = LogManager.getLogger(OAuthRequestToken.class);
   
   public OAuthRequestToken(Config config) {
     this(config, new ConfigBasedSignerFactory(config));

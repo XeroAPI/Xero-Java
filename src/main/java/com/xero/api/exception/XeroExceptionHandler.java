@@ -16,15 +16,16 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * This class is to handle Xero API exceptions with the help of the {@link XeroJAXBMarshaller}
  */
 public class XeroExceptionHandler {
 
-    //private final static Logger LOGGER = Logger.getLogger(XeroExceptionHandler.class.getName());
-    final static Logger logger = Logger.getLogger(XeroExceptionHandler.class);
+    //private final static Logger logger = LogManager.getLogger(XeroExceptionHandler.class.getName());
+    final static Logger logger = LogManager.getLogger(XeroExceptionHandler.class);
     
     private static final Pattern MESSAGE_PATTERN = Pattern.compile("<Message>(.*)</Message>");
     private XeroJAXBMarshaller xeroJaxbMarshaller;
