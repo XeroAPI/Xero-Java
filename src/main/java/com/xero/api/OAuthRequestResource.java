@@ -112,7 +112,6 @@ public class OAuthRequestResource {
 		HttpGet httpget = new HttpGet(url.toString());
 		if (httpMethod == "GET") {
 			this.createParameters().intercept(httpget,url);
-			httpget.addHeader("accept", "application/pdf");
 		}
 		
 		HttpPost httppost = new HttpPost(url.toString());
