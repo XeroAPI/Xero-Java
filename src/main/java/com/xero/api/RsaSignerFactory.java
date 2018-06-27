@@ -7,14 +7,15 @@ import java.security.KeyStore;
 import java.security.PrivateKey;
 import java.util.Collections;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.google.api.client.auth.oauth.OAuthRsaSigner;
 
 public class RsaSignerFactory implements SignerFactory {
 
   private OAuthRsaSigner signer = new OAuthRsaSigner();
-  final static Logger logger = Logger.getLogger(RsaSignerFactory.class);
+  final static Logger logger = LogManager.getLogger(RsaSignerFactory.class);
   
   public RsaSignerFactory(String pathToPrivateKey, String privateKeyPassword) {
     this(RsaSignerFactory.class.getResourceAsStream(pathToPrivateKey), privateKeyPassword);

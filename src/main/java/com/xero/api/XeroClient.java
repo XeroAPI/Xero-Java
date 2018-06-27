@@ -6,7 +6,8 @@ import com.xero.model.*;
 
 import javax.xml.bind.JAXBElement;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -32,7 +33,7 @@ public class XeroClient {
     private SignerFactory signerFactory;
     private String token = null;
     private String tokenSecret = null;
-    final static Logger logger = Logger.getLogger(XeroClient.class);
+    final static Logger logger = LogManager.getLogger(XeroClient.class);
     static XeroJAXBMarshaller u = new XeroJAXBMarshaller();
     protected static final DateFormat utcFormatter;
 
