@@ -1901,7 +1901,6 @@ public class XeroClient {
             .replaceAll("[^\\p{Alnum}\\-_.~]", "");
     }
 
-
     public String getAttachmentContent(String endpoint, String guid, String filename, String accept, String dirPath)
         throws IOException {
         String encodedFileName = URLEncoder.encode(filename, "UTF-8").replace("+", "%20");
@@ -1912,5 +1911,10 @@ public class XeroClient {
         throws IOException {
         String encodedFileName = URLEncoder.encode(filename, "UTF-8").replace("+", "%20");
         return getInputStream(endpoint + "/" + guid + "/Attachments/" + encodedFileName, null, null, accept);
+    }
+    
+    public ByteArrayInputStream getAttachmentContentById(String endpoint, String guid, String attachmentid, String accept)
+        throws IOException {
+        return getInputStream(endpoint + "/" + guid + "/Attachments/" + attachmentid, null, null, accept);
     }
 }
