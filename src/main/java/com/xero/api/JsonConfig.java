@@ -4,6 +4,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import static java.lang.String.format;
 
 import org.json.simple.JSONObject;
@@ -13,7 +16,7 @@ import org.json.simple.parser.ParseException;
 public class JsonConfig implements Config {
 
   private String APP_TYPE = "Public";
-  private String USER_AGENT = "Xero-Java-SDK-Default";
+  private String USER_AGENT = "Xero-Java-SDK";
   private String ACCEPT = "application/xml";
   private String CONSUMER_KEY;
   private String CONSUMER_SECRET;
@@ -44,14 +47,14 @@ public class JsonConfig implements Config {
   private String APP_FIREWALL_URL_PREFIX;
   private String KEY_STORE_PATH;
   private String KEY_STORE_PASSWORD;
-
   private String configFile;
-
   private static Config instance = null;
-
+  final static Logger logger = LogManager.getLogger(JsonConfig.class);
+  
   public JsonConfig(String configFile) {
     this.configFile = configFile;
-    load();
+    
+	load(); 
   }
 
   /* Static 'instance' method */
@@ -250,131 +253,137 @@ public class JsonConfig implements Config {
       this.KEY_STORE_PASSWORD = keyStorePassword;
   }
 
-  private void load() {
-    InputStream inputStream = JsonConfig.class.getResourceAsStream("/" + configFile);
-    if (inputStream == null) {
-        throw new XeroClientException(format("Config file '%s' could not be opened. Missing file?", configFile));
-    }
-    InputStreamReader reader = new InputStreamReader(inputStream);
-
-    JSONParser parser = new JSONParser();
-
-    Object obj = null;
-    try {
-      obj = parser.parse(reader);
-    } catch (FileNotFoundException e) {
-        throw new XeroClientException(format("Config file '%s' not found", configFile), e);
-    } catch (IOException e) {
-        throw new XeroClientException(format("IO error reading config file '%s' not found", configFile), e);
-    } catch (ParseException e) {
-        throw new XeroClientException(format("Parse error reading config file '%s' not found", configFile), e);
-    }
-    JSONObject jsonObject = (JSONObject) obj;
-
-    if (jsonObject.containsKey("AppType")) {
-      APP_TYPE = (String) jsonObject.get("AppType");
-    }
-
-    if (jsonObject.containsKey("UserAgent")) {
-      USER_AGENT = (String) jsonObject.get("UserAgent");
-    }
-
-    if (jsonObject.containsKey("Accept")) {
-      ACCEPT = (String) jsonObject.get("Accept");
-    }
-
-    if (jsonObject.containsKey("ConsumerKey")) {
-      CONSUMER_KEY = (String) jsonObject.get("ConsumerKey");
-    }
-
-    if (jsonObject.containsKey("ConsumerSecret")) {
-      CONSUMER_SECRET = (String) jsonObject.get("ConsumerSecret");
-    }
-
-    if (jsonObject.containsKey("ApiBaseUrl")) {
-      API_BASE_URL = (String) jsonObject.get("ApiBaseUrl");
-      if (jsonObject.containsKey("ApiEndpointPath")) {
-        String endpointPath = (String) jsonObject.get("ApiEndpointPath");
-        API_ENDPOINT_URL = API_BASE_URL + endpointPath;
-      } else {
-    	  	API_ENDPOINT_URL = API_BASE_URL + API_ENDPOINT_STEM;
-    	  }
-
-      if (jsonObject.containsKey("FilesEndpointPath")) {
-        String filesEndpointPath = (String) jsonObject.get("FilesEndpointPath");
-        FILES_ENDPOINT_URL = API_BASE_URL + filesEndpointPath;
-      } else {
-    	  	FILES_ENDPOINT_URL = API_BASE_URL + FILES_ENDPOINT_STEM;
-      }
-
-      if (jsonObject.containsKey("RequestTokenPath")) {
-        String requestPath = (String) jsonObject.get("RequestTokenPath");
-        REQUEST_TOKEN_URL = API_BASE_URL + requestPath;
-      } else {
-    	  	REQUEST_TOKEN_URL = API_BASE_URL + REQUEST_TOKEN_STEM;            
-      }
-
-      if (jsonObject.containsKey("AccessTokenPath")) {
-        String accessPath = (String) jsonObject.get("AccessTokenPath");
-        ACCESS_TOKEN_URL = API_BASE_URL + accessPath;
-      } else {
-    	  	ACCESS_TOKEN_URL = API_BASE_URL + ACCESS_TOKEN_STEM;
-      }
-
-      if (jsonObject.containsKey("AuthenticateUrl")) {
-        String authenticatePath = (String) jsonObject.get("AuthenticateUrl");
-        AUTHENTICATE_URL = API_BASE_URL + authenticatePath;
-      } else {
-    	  	AUTHENTICATE_URL = API_BASE_URL + AUTHENTICATE_STEM;
-      }
-    }
-
-    if (jsonObject.containsKey("CallbackBaseUrl")) {
-      CALLBACK_BASE_URL = (String) jsonObject.get("CallbackBaseUrl");
-      if (jsonObject.containsKey("CallbackPath")) {
-        String callbackPath = (String) jsonObject.get("CallbackPath");
-        AUTH_CALLBACK_URL = CALLBACK_BASE_URL + callbackPath;
-      }
-    }
-
-    if (jsonObject.containsKey("PrivateKeyCert")) {
-      PATH_TO_PRIVATE_KEY_CERT = (String) jsonObject.get("PrivateKeyCert");
-      PRIVATE_KEY_PASSWORD = (String) jsonObject.get("PrivateKeyPassword");
-    }
-
-    if (jsonObject.containsKey("ProxyHost")) {
-      PROXY_HOST = (String) jsonObject.get("ProxyHost");
-      if (jsonObject.containsKey("ProxyPort")) {
-        PROXY_PORT = (long) jsonObject.get("ProxyPort");
-      }
-
-      if (jsonObject.containsKey("ProxyHttpsEnabled")) {
-        PROXY_HTTPS_ENABLED = (boolean) jsonObject.get("ProxyHttpsEnabled");
-      }
-    }
-
-    if (jsonObject.containsKey("DecimalPlaces")) {
-    		DECIMAL_PLACES = (String) jsonObject.get("DecimalPlaces");
-    }
+  private void load() {  
+	InputStream inputStream = JsonConfig.class.getResourceAsStream("/" + configFile);
     
-    if (jsonObject.containsKey("KeyStorePath")) {
-		KEY_STORE_PATH = (String) jsonObject.get("KeyStorePath");
-    }
-    
-    if (jsonObject.containsKey("KeyStorePassword")) {
-		KEY_STORE_PASSWORD = (String) jsonObject.get("KeyStorePassword");
-    }
-
-    if (jsonObject.containsKey("usingAppFirewall")) {
-        USING_APP_FIREWALL = (boolean) jsonObject.get("usingAppFirewall");
-
-        if (jsonObject.containsKey("appFirewallHostname")) {
-            APP_FIREWALL_HOSTNAME = (String) jsonObject.get("appFirewallHostname");
-        }
-
-        if (jsonObject.containsKey("appFirewallUrlPrefix")) {
-            APP_FIREWALL_URL_PREFIX = (String) jsonObject.get("appFirewallUrlPrefix");
-        }
+	if (inputStream == null) {
+  		logger.error(format("Config file '%s' could not be found in src/resources folder. Missing file?", configFile));
+		throw new XeroClientException(format("Config file '%s' could not be opened. Missing file?", configFile));    
+	} else {
+	    InputStreamReader reader = new InputStreamReader(inputStream);
+	
+	    JSONParser parser = new JSONParser();
+	
+	    Object obj = null;
+	    try {
+	      obj = parser.parse(reader);
+	    } catch (FileNotFoundException e) {
+	    		logger.error(e);			
+	    		throw new XeroClientException(format("Config file '%s' not found", configFile), e);
+	    } catch (IOException e) {
+	    		logger.error(e);
+	    		throw new XeroClientException(format("IO error reading config file '%s' not found", configFile), e);
+	    } catch (ParseException e) {
+	    		logger.error(e);
+	    		throw new XeroClientException(format("Parse error reading config file '%s' not found", configFile), e);
+	    }
+	    JSONObject jsonObject = (JSONObject) obj;
+	
+	    if (jsonObject.containsKey("AppType")) {
+	      APP_TYPE = (String) jsonObject.get("AppType");
+	    }
+	
+	    if (jsonObject.containsKey("UserAgent")) {
+	      USER_AGENT = (String) jsonObject.get("UserAgent");
+	    }
+	
+	    if (jsonObject.containsKey("Accept")) {
+	      ACCEPT = (String) jsonObject.get("Accept");
+	    }
+	
+	    if (jsonObject.containsKey("ConsumerKey")) {
+	      CONSUMER_KEY = (String) jsonObject.get("ConsumerKey");
+	    }
+	
+	    if (jsonObject.containsKey("ConsumerSecret")) {
+	      CONSUMER_SECRET = (String) jsonObject.get("ConsumerSecret");
+	    }
+	
+	    if (jsonObject.containsKey("ApiBaseUrl")) {
+	      API_BASE_URL = (String) jsonObject.get("ApiBaseUrl");
+	      if (jsonObject.containsKey("ApiEndpointPath")) {
+	        String endpointPath = (String) jsonObject.get("ApiEndpointPath");
+	        API_ENDPOINT_URL = API_BASE_URL + endpointPath;
+	      } else {
+	    	  	API_ENDPOINT_URL = API_BASE_URL + API_ENDPOINT_STEM;
+	    	  }
+	
+	      if (jsonObject.containsKey("FilesEndpointPath")) {
+	        String filesEndpointPath = (String) jsonObject.get("FilesEndpointPath");
+	        FILES_ENDPOINT_URL = API_BASE_URL + filesEndpointPath;
+	      } else {
+	    	  	FILES_ENDPOINT_URL = API_BASE_URL + FILES_ENDPOINT_STEM;
+	      }
+	
+	      if (jsonObject.containsKey("RequestTokenPath")) {
+	        String requestPath = (String) jsonObject.get("RequestTokenPath");
+	        REQUEST_TOKEN_URL = API_BASE_URL + requestPath;
+	      } else {
+	    	  	REQUEST_TOKEN_URL = API_BASE_URL + REQUEST_TOKEN_STEM;            
+	      }
+	
+	      if (jsonObject.containsKey("AccessTokenPath")) {
+	        String accessPath = (String) jsonObject.get("AccessTokenPath");
+	        ACCESS_TOKEN_URL = API_BASE_URL + accessPath;
+	      } else {
+	    	  	ACCESS_TOKEN_URL = API_BASE_URL + ACCESS_TOKEN_STEM;
+	      }
+	
+	      if (jsonObject.containsKey("AuthenticateUrl")) {
+	        String authenticatePath = (String) jsonObject.get("AuthenticateUrl");
+	        AUTHENTICATE_URL = API_BASE_URL + authenticatePath;
+	      } else {
+	    	  	AUTHENTICATE_URL = API_BASE_URL + AUTHENTICATE_STEM;
+	      }
+	    }
+	
+	    if (jsonObject.containsKey("CallbackBaseUrl")) {
+	      CALLBACK_BASE_URL = (String) jsonObject.get("CallbackBaseUrl");
+	      if (jsonObject.containsKey("CallbackPath")) {
+	        String callbackPath = (String) jsonObject.get("CallbackPath");
+	        AUTH_CALLBACK_URL = CALLBACK_BASE_URL + callbackPath;
+	      }
+	    }
+	
+	    if (jsonObject.containsKey("PrivateKeyCert")) {
+	      PATH_TO_PRIVATE_KEY_CERT = (String) jsonObject.get("PrivateKeyCert");
+	      PRIVATE_KEY_PASSWORD = (String) jsonObject.get("PrivateKeyPassword");
+	    }
+	
+	    if (jsonObject.containsKey("ProxyHost")) {
+	      PROXY_HOST = (String) jsonObject.get("ProxyHost");
+	      if (jsonObject.containsKey("ProxyPort")) {
+	        PROXY_PORT = (long) jsonObject.get("ProxyPort");
+	      }
+	
+	      if (jsonObject.containsKey("ProxyHttpsEnabled")) {
+	        PROXY_HTTPS_ENABLED = (boolean) jsonObject.get("ProxyHttpsEnabled");
+	      }
+	    }
+	
+	    if (jsonObject.containsKey("DecimalPlaces")) {
+	    		DECIMAL_PLACES = (String) jsonObject.get("DecimalPlaces");
+	    }
+	    
+	    if (jsonObject.containsKey("KeyStorePath")) {
+			KEY_STORE_PATH = (String) jsonObject.get("KeyStorePath");
+	    }
+	    
+	    if (jsonObject.containsKey("KeyStorePassword")) {
+			KEY_STORE_PASSWORD = (String) jsonObject.get("KeyStorePassword");
+	    }
+	
+	    if (jsonObject.containsKey("usingAppFirewall")) {
+	        USING_APP_FIREWALL = (boolean) jsonObject.get("usingAppFirewall");
+	
+	        if (jsonObject.containsKey("appFirewallHostname")) {
+	            APP_FIREWALL_HOSTNAME = (String) jsonObject.get("appFirewallHostname");
+	        }
+	
+	        if (jsonObject.containsKey("appFirewallUrlPrefix")) {
+	            APP_FIREWALL_URL_PREFIX = (String) jsonObject.get("appFirewallUrlPrefix");
+	        }
+	    }
     }
   }
 }
