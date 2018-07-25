@@ -164,7 +164,7 @@ Then deploy the Xero-Java-SDK.war found in the target directory to your Java ser
 
 ### Step by Step Video
 We've created a video walking through how to create a new Eclipse project, add your dependencies and make your first API call.
-[Watch this video](https://youtu.be/19UBlTDLxVc). New Video is development
+[Watch this video](https://youtu.be/V9SJ8zK0x6I). 
 
 ### Hello Organization
 
@@ -224,6 +224,7 @@ In your callback Servlet you'll read the query params and swap your temporary fo
 package com.xero.example;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -232,6 +233,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.xero.api.OAuthAccessToken;
+import com.xero.api.XeroClient;
+import com.xero.model.Organisation;
 import com.xero.api.Config;
 import com.xero.api.JsonConfig;
 
@@ -276,7 +279,7 @@ public class CallbackServlet extends HttpServlet
 }		
 ```
 
-The TokenStorage class uses cookies to store your temporary token & secret so they can be swapped for 30 min access token & secret.  Of course, you'd want to create your own implmentation to store this user information in a database.  This class is merely for demo purposes so you can trying out the SDK.
+The TokenStorage class uses cookies to store your temporary token & secret so they can be swapped for 30 min access token & secret.  Of course, you'd want to create your own implementation to store this user information in a database.  This class is merely for demo purposes so you can trying out the SDK.
 
 *TokenStorage.java*
 ```java
