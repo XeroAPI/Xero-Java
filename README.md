@@ -51,7 +51,7 @@ try {
 }
 ```
 
-Above is the default configuration method.  You also have the option to customize your configuration.
+Above is the default configuration method.  You also have the option to [customize your configuration](#custom-configuration).
 
 #### Config.json example
 You should get the minimum config.json from app.xero.com. 
