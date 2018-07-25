@@ -217,7 +217,7 @@ public class RequestTokenServlet extends HttpServlet {
 }
 ```
 
-In your callback Servlet you'll read the query params and swap your temporary for your 30 min access token.  In our example, we forward the user to the callback.jsp if successful.
+In your callback Servlet you'll read the query params and swap your temporary for your 30 min access token. 
 
 *CallbackServlet.java*
 ```java
@@ -275,6 +275,8 @@ public class CallbackServlet extends HttpServlet
 	}	
 }		
 ```
+
+The TokenStorage class uses cookies to store your temporary token & secret so they can be swapped for 30 min access token & secret.  Of course, you'd want to create your own implmentation to store this user information in a database.  This class is merely for demo purposes so you can trying out the SDK.
 
 *TokenStorage.java*
 ```java
@@ -350,7 +352,6 @@ public class TokenStorage
 }
 ```
 
-In your callback.jsp, you can have a link to access some data resources.
 
 **Data Endpoints**
 
