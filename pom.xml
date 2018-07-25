@@ -4,7 +4,7 @@
 	<groupId>com.xero</groupId>
 	<artifactId>xero-java-sdk</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.8</version>
+	<version>1.0.9</version>
 	<name>Xero-Java SDK</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
@@ -51,10 +51,15 @@
 		    <version>4.5.3</version>
 		</dependency>
         <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>2.11.0</version>
-        </dependency>
+	       <groupId>org.apache.logging.log4j</groupId>
+	       <artifactId>log4j-api</artifactId>
+	       <version>2.11.0</version>
+	   </dependency>
+	   <dependency>
+	       <groupId>org.apache.logging.log4j</groupId>
+	       <artifactId>log4j-core</artifactId>
+	       <version>2.11.0</version>
+	   </dependency>
     </dependencies>
 	<repositories>
 		<repository>

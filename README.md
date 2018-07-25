@@ -1,22 +1,20 @@
 # Xero-Java
 
-This is the Xero Java SDK for the Xero API. Currently, supports Accounting API. All third party libraries dependencies managed with Maven
+This is the Java SDK for the Xero API. Currently, supports Accounting API. All third party libraries dependencies managed with Maven
 
-### Xero App
-You'll need to decide which type of Xero app you'll be building [Private](http://developer.xero.com/documentation/auth-and-limits/private-applications/), [Public](http://developer.xero.com/documentation/auth-and-limits/public-applications/), or [Partner](http://developer.xero.com/documentation/auth-and-limits/partner-applications/). Go to [http://app.xero.com](http://app.xero.com) and login with your Xero user account to create an app.
+## Getting Started
 
-### Questions?
-[Watch this video](https://youtu.be/19UBlTDLxVc) walkthrough of how to setup Xero Java SDK in Eclipse.
+### Xero App Type
+Start by deciding which type of Xero app you'll be building [Private](http://developer.xero.com/documentation/auth-and-limits/private-applications/), [Public](http://developer.xero.com/documentation/auth-and-limits/public-applications/), or [Partner](http://developer.xero.com/documentation/auth-and-limits/partner-applications/). Go to [http://app.xero.com](http://app.xero.com) and login with your Xero user account to create a Private or Public app (Public apps can be upgraded to Partner).
 
+### Add Xero-Java Dependency
 
-### Download Xero Java SDK
-
-Add this dependency and repository to your POM.xml
+For those using maven, add the dependency and repository to your pom.xml
 
     <dependency>
 	  <groupId>com.xero</groupId>
 	  <artifactId>xero-java-sdk</artifactId>
-	  <version>1.0.8</version>
+	  <version>1.0.9</version>
 	</dependency>
 
     <repositories>
@@ -30,27 +28,37 @@ Add this dependency and repository to your POM.xml
       </repository>
     </repositories>
 
-#### Working with sbt?
-We have a build.sbt file defined in the root.
+### Where are the jars?
 
+You can download the latest build as a jar file from the *mvn-repo* branch of this project.
 
-### Configure
-The Xero Java SDK is configured using a config.json file to provide API Keys and other values unique to your Application. This is the default configuration method, however you can implement the `Config` interface and pass it to the `XeroClient`.  
+### Working with sbt?
+We have a build.sbt file defined in the root of this project.
 
+### Default Configuration
+The SDK uses a config.json file to manage API keys along with other configuration values.  The SDK will look for a file *config.json* in a source folder called *resources*.
 
-### Example App
-To build the example app as a WAR file, **update the config.json in example/src/main/resources directory** and from the terminal run 
+To create you config.json file, login to app.xero.com. Create a Xero App, if you have not already. Under the *SDK Configuration* heading, select Java to see your config.json and copy it.  Create a new file named *config.json* paste your configuration information and save the file in a source folder named *resources*.
 
-```javascript
-mvn clean compile war:war
+You can confirm your config.json file is loading properly by running the code below in your project. If successful, in the debugging console you'll see your User Agent string displayed.
+
+```java
+try {
+	Config config = JsonConfig.getInstance();		
+	System.out.println("Your user agent is: " + config.getUserAgent());			
+} catch(Exception e) {
+	System.out.println(e.getMessage());
+}
 ```
-Then deploy the Xero-Java-SDK.war found in the target directory to your Java server.
 
+Above is the default configuration method.  You also have the option to customize your configuration.
 
-### How to Create the config.json file
-In a text editor, create a file called config.json (examples are below)  Refer to Xero Developer Center [Getting Started](http://developer.xero.com/documentation/getting-started/getting-started-guide/) when you are ready to create a Xero App - this is how you'll create a Consumer Key and Secret. Private and Partner apps require a [public/private key pair](http://developer.xero.com/documentation/api-guides/create-publicprivate-key/) you'll create using OpenSSL.  The private key should be exported as a pfx file and in our example we create a "certs" folder inside the resources folder and place it there.
+#### Config.json example
+You should get the minimum config.json from app.xero.com. 
 
-**Public Application**
+Here is an examples of the minimum config.json for different Xero App Types.
+
+**Public**
 ```javascript
 { 
 	"AppType" : "PUBLIC",
@@ -62,7 +70,7 @@ In a text editor, create a file called config.json (examples are below)  Refer t
 }
 ```
 
-**Private Application**
+**Private**
 ```javascript
 { 
 	"AppType" : "PRIVATE",
@@ -73,7 +81,8 @@ In a text editor, create a file called config.json (examples are below)  Refer t
 	"PrivateKeyPassword" :  "1234"
 }
 ```
-**Partner Application**
+
+**Partner**
 ```javascript
 { 
 	"AppType" : "PARTNER",
@@ -87,9 +96,8 @@ In a text editor, create a file called config.json (examples are below)  Refer t
 }
 ```
 
-**Optionals Attributes**
+**Optional Attributes**
 
-* UserAgent: for debugging by Xero API team (unique string)
 * Accept: format of data returned from API  (application/xml or application/json) *default is XML*
 * ApiBaseUrl: base URL for API calls      *default is https://api.xero.com*
 * ApiEndpointPath: path for API Calls      *default is /api.xro/2.0/*
@@ -99,42 +107,13 @@ In a text editor, create a file called config.json (examples are below)  Refer t
 * KeyStorePath: Path to your cacerts is typically inside your $JAVA_HOME/jre/lib/security/cacerts 
 * KeyStorePassword: your password
 
-## TLS 1.0 deprecation
-As of June 30, 2018, Xero's API will remove support for TLS 1.0.  
+### Custom Configuration
 
-The easiest way to force TLS 1.2 is to set the Runtime Environment for your server (Tomcat, etc) to Java 1.8 which defaults to TLS 1.2.
+You have the option to implement your own Config class and pass it as an argument to the OAuthRequestToken, OAuthAccessToken and XeroClient constructors. 
 
-Those using Java 1.7 or 1.6 will need to add two attributes to the config.json file.
+An example of how you might implement Config can be found in the `/src/main/java/com/xero/example` folder named `CustomJsonConfig.java`.
 
-* KeyStorePath: Path to your cacerts is typically inside your $JAVA_HOME/jre/lib/security/cacerts 
-* KeyStorePassword: your password
-
-On a Mac your KeyStorePath value would look something like this ... 
-*/Library/Java/JavaVirtualMachines/jdk1.7.0_67.jdk/Contents/Home/jre/lib/security/cacerts*
-
-Example config.json with optional keystore attributes
-
-```javascript
-{ 
-	"AppType" : "PUBLIC",
-	"UserAgent": "YourAppName",
-	"ConsumerKey" : "WTCXXXXXXXXXXXXXXXXXXXXXXKG",
-	"ConsumerSecret" : "GJ2XXXXXXXXXXXXXXXXXXXXXXXXWZ",
-	"CallbackBaseUrl" : "http://localhost:8080/myapp",
-	"CallbackPath" : "/CallbackServlet",
-	"KeyStorePath" : "/Library/Java/JavaVirtualMachines/jdk1.7.0_67.jdk/Contents/Home/jre/lib/security/cacerts",
-	"KeyStorePassword" : "changeit"
-}
-```
-
-
-## Custom Request Signing
-
-You can provide your own signing mechanism by using the `public XeroClient(Config config, SignerFactory signerFactory)` constructor. Simply implement the `SignerFactory` interface with your implementation.
-
-You can also provide a `RsaSignerFactory` using the `public RsaSignerFactory(InputStream privateKeyInputStream, String privateKeyPassword)` constructor to fetch keys from any InputStream.
-
-### Spring Framework based Config
+### Spring Framework based Configuration
 
 An alternative method of configuring the Xero Java SDK can be found in the `example-spring/src/main/java` folder named `SpringConfig.java`.
  
@@ -161,91 +140,217 @@ xero.PrivateKeyCert=/certs/public_privatekey.pfx
 xero.PrivateKeyPassword=
 ```
 
+## Customize Request Signing
+
+You can provide your own signing mechanism by using the `public XeroClient(Config config, SignerFactory signerFactory)` constructor. Simply implement the `SignerFactory` interface with your implementation.
+
+You can also provide a `RsaSignerFactory` using the `public RsaSignerFactory(InputStream privateKeyInputStream, String privateKeyPassword)` constructor to fetch keys from any InputStream.
+
 
 ## Logging
-The SDK includes a log4j.  This [post gives you the basics](https://www.mkyong.com/logging/log4j-hello-world-example/) on log4j.
+The SDK uses log4j2.  To configure, add a log4j.properties file to the Resources directory.
 
-To configure, add a log4j.properties file to the Resources directory.
 
-* Update log4j.rootLogger attribute to change the level of detail and where you want the data output.
-* Update log4j.appender.file.File attribute to change where you want the log file saved on your local filesystem.
+## How to use the Xero-Java SDK
 
-log4j.properties
-```
-# Root logger option
-log4j.rootLogger=DEBUG, stdout, file
+### Example App
+We've created an example app with code examples for each endpoint.  To build the example app as a WAR file, **update the config.json in example/src/main/resources directory** and from the terminal run 
 
-# Redirect log messages to console
-log4j.appender.stdout=org.apache.logging.log4j.ConsoleAppender
-log4j.appender.stdout.Target=System.out
-log4j.appender.stdout.layout=org.apache.logging.log4j.PatternLayout
-log4j.appender.stdout.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n
-
-# Redirect log messages to a log file, support file rolling.
-log4j.appender.file=org.apache.logging.log4j.RollingFileAppender
-log4j.appender.file.File=/Users/sid.maestre/logs/log4j-application.log
-log4j.appender.file.MaxFileSize=5MB
-log4j.appender.file.MaxBackupIndex=10
-log4j.appender.file.layout=org.apache.logging.log4j.PatternLayout
-log4j.appender.file.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n
+```javascript
+mvn clean compile war:war
 ```
 
+Then deploy the Xero-Java-SDK.war found in the target directory to your Java server.
 
-## oAuth Flow
+### Step by Step Video
+We've created a video walking through how to create a new Eclipse project, add your dependencies and make your first API call.
+[Watch this video](https://youtu.be/19UBlTDLxVc). New Video is development
 
-For Public & Partner Apps, you'll implement 3 legged oAuth - Private Apps can skip down to the Data Endpoints (your Consumer Key will act as your permenent Access Token)
+### Hello Organization
 
+This is the code we used in our video.
+
+For Public & Partner Apps, you'll implement 3 legged oAuth - Private Apps can skip down to the Data Endpoints (your Consumer Key is your long lived  Access Token)
+
+*RequestTokenServlet.java*
 ```java
-private Config config = JsonConfig.getInstance();
+package com.xero.example;
 
-// Start by requesting a temporary token from Xero
-OAuthRequestToken requestToken = new OAuthRequestToken(config);
-requestToken.execute();
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-// DEMONSTRATION ONLY - Store in Cookie - you can extend TokenStorage
-// and implement the save() method for your database
-TokenStorage storage = new TokenStorage();
-storage.save(response,requestToken.getAll());
+import com.xero.api.Config;
+import com.xero.api.JsonConfig;
+import com.xero.api.OAuthAuthorizeToken;
+import com.xero.api.OAuthRequestToken;
 
-//Build the Authorization URL and redirect User
-OAuthAuthorizeToken authToken = new OAuthAuthorizeToken(config,requestToken.getTempToken());
-response.sendRedirect(authToken.getAuthUrl());	
+@WebServlet("/RequestTokenServlet")
+public class RequestTokenServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	
+	public RequestTokenServlet() {
+		super();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		try {
+			Config config = JsonConfig.getInstance();
+			
+			OAuthRequestToken requestToken = new OAuthRequestToken(config);
+			requestToken.execute();	
+			
+			TokenStorage storage = new TokenStorage();
+			storage.save(response,requestToken.getAll());
+
+			OAuthAuthorizeToken authToken = new OAuthAuthorizeToken(config, requestToken.getTempToken());
+			response.sendRedirect(authToken.getAuthUrl());	
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+	}
+}
 ```
 
 In your callback Servlet you'll read the query params and swap your temporary for your 30 min access token.  In our example, we forward the user to the callback.jsp if successful.
 
+*CallbackServlet.java*
 ```java
-private Config config = JsonConfig.getInstance(); 
+package com.xero.example;
 
+import java.io.IOException;
 
-// DEMONSTRATION ONLY - retrieve TempToken from Cookie
-TokenStorage storage = new TokenStorage();
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-// retrieve OAuth verifier code from callback URL param
-String verifier = request.getParameter("oauth_verifier");
+import com.xero.api.OAuthAccessToken;
+import com.xero.api.Config;
+import com.xero.api.JsonConfig;
 
-// Swap your temp token for 30 oauth token
-OAuthAccessToken accessToken = new OAuthAccessToken(config);
-accessToken.build(verifier,storage.get(request,"tempToken"),storage.get(request,"tempTokenSecret")).execute();
-
-// Check if your Access Token call successful
-if(!accessToken.isSuccess())
+@WebServlet("/CallbackServlet")
+public class CallbackServlet extends HttpServlet 
 {
-	storage.clear(response);
-	request.getRequestDispatcher("index.jsp").forward(request, response);
-}
-else 
-{
-	// DEMONSTRATION ONLY - Store in Cookie - you can extend TokenStorage
-	// and implement the save() method for your database
-	storage.save(response,accessToken.getAll());			
-	request.getRequestDispatcher("callback.jsp").forward(request, response);			
+	private static final long serialVersionUID = 1L;
+	
+	public CallbackServlet() 
+	{
+		super();
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{	
+			TokenStorage storage = new TokenStorage();
+		String verifier = request.getParameter("oauth_verifier");
+
+		try {
+			Config config = JsonConfig.getInstance();
+			
+			OAuthAccessToken accessToken = new OAuthAccessToken(config);
+			
+			accessToken.build(verifier,storage.get(request,"tempToken"),storage.get(request,"tempTokenSecret")).execute();
+			
+			if(!accessToken.isSuccess()) {
+				storage.clear(response);
+				request.getRequestDispatcher("index.jsp").forward(request, response);
+			} else {
+				storage.save(response,accessToken.getAll());			
+				
+				XeroClient client = new XeroClient();
+				client.setOAuthToken(accessToken.getToken(), accessToken.getTokenSecret());
+				
+				List<Organisation> newOrganisation = client.getOrganisations();
+				System.out.println("Get a Organisation - Name : " + newOrganisation.get(0).getName());		
+			}
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}	
 }		
 ```
 
+*TokenStorage.java*
+```java
+package com.xero.example;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class TokenStorage 
+{
+	
+	public  TokenStorage() 
+	{
+		super();
+	}
+
+	public String get(HttpServletRequest request,String key)
+	{
+		String item = null;
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (int i = 0; i < cookies.length; i++) 
+			{
+				if (cookies[i].getName().equals(key)) 
+				{
+					item = cookies[i].getValue();
+				}
+			}
+		}
+		return item;
+	}
+	
+	public boolean tokenIsNull(String token) {
+		if (token != null && !token.isEmpty()) { 
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public void clear(HttpServletResponse response)
+	{
+		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("tempToken","");
+		map.put("tempTokenSecret","");
+		map.put("sessionHandle","");
+		map.put("tokenTimestamp","");
+
+		save(response,map);
+	}
+
+	public void save(HttpServletResponse response,HashMap<String,String> map)
+	{
+		Set<Entry<String, String>> set = map.entrySet();
+		Iterator<Entry<String, String>> iterator = set.iterator();
+	
+		while(iterator.hasNext()) {
+			Map.Entry<?, ?> mentry = iterator.next();
+			String key = (String)mentry.getKey();
+			String value = (String)mentry.getValue();
+
+			Cookie t = new Cookie(key,value);
+			response.addCookie(t);
+		}
+	}
+}
+```
 
 In your callback.jsp, you can have a link to access some data resources.
-
 
 **Data Endpoints**
 
@@ -254,8 +359,6 @@ The Xero Java SDK contains XeroClient which has helper methods to perform (Creat
 ```java
 import com.xero.api.*;
 import com.xero.model.*;
-
-private Config config = JsonConfig.getInstance();
 
 // Get Xero API Resource - DEMONSTRATION ONLY get token from Cookie
 TokenStorage storage = new TokenStorage();
@@ -370,6 +473,34 @@ try {
 
 ```
 
+
+## TLS 1.0 deprecation
+As of June 30, 2018, Xero's API will remove support for TLS 1.0.  
+
+The easiest way to force TLS 1.2 is to set the Runtime Environment for your server (Tomcat, etc) to Java 1.8 which defaults to TLS 1.2.
+
+Those using Java 1.7 or 1.6 will need to add two attributes to the config.json file.
+
+* KeyStorePath: Path to your cacerts is typically inside your $JAVA_HOME/jre/lib/security/cacerts 
+* KeyStorePassword: your password
+
+On a Mac your KeyStorePath value would look something like this ... 
+*/Library/Java/JavaVirtualMachines/jdk1.7.0_67.jdk/Contents/Home/jre/lib/security/cacerts*
+
+Example config.json with optional keystore attributes
+
+```javascript
+{ 
+	"AppType" : "PUBLIC",
+	"UserAgent": "YourAppName",
+	"ConsumerKey" : "WTCXXXXXXXXXXXXXXXXXXXXXXKG",
+	"ConsumerSecret" : "GJ2XXXXXXXXXXXXXXXXXXXXXXXXWZ",
+	"CallbackBaseUrl" : "http://localhost:8080/myapp",
+	"CallbackPath" : "/CallbackServlet",
+	"KeyStorePath" : "/Library/Java/JavaVirtualMachines/jdk1.7.0_67.jdk/Contents/Home/jre/lib/security/cacerts",
+	"KeyStorePassword" : "changeit"
+}
+```
 
 
 

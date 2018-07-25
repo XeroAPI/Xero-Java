@@ -54,18 +54,15 @@ public class TokenStorage
 		save(response,map);
 	}
 
-	public void save(HttpServletResponse response,HashMap<String,String> map)
+	public void save(HttpServletResponse response, HashMap<String,String> map)
 	{
 		Set<Entry<String, String>> set = map.entrySet();
 		Iterator<Entry<String, String>> iterator = set.iterator();
-		System.out.print("Saving tokens");
-
+		
 		while(iterator.hasNext()) {
 			Map.Entry<?, ?> mentry = iterator.next();
 			String key = (String)mentry.getKey();
 			String value = (String)mentry.getValue();
-
-			//System.out.print("key is: "+ key + " & Value is: " + value);
 
 			Cookie t = new Cookie(key,value);
 			response.addCookie(t);
