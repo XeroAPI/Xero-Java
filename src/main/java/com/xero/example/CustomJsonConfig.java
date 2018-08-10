@@ -14,6 +14,7 @@ public class CustomJsonConfig implements Config {
   private String CONSUMER_SECRET = "YOUR_CONSUMER_SECRET";
   private String API_ENDPOINT_URL = "https://api.xero.com/api.xro/2.0/";
   private String FILES_ENDPOINT_URL = "https://api.xero.com/files.xro/1.0/";
+  private String ASSETS_ENDPOINT_URL = "https://api.xero.com/assets.xro/1.0/";
   private String REQUEST_TOKEN_URL = "https://api.xero.com/oauth/RequestToken";
   private String AUTHENTICATE_URL = "https://api.xero.com/oauth/Authorize";
   private String ACCESS_TOKEN_URL = "https://api.xero.com/oauth/AccessToken";
@@ -60,6 +61,10 @@ public class CustomJsonConfig implements Config {
 
   public String getFilesUrl() {
     return FILES_ENDPOINT_URL;
+  }
+  
+  public String getAssetsUrl() {
+    return ASSETS_ENDPOINT_URL;
   }
 
   public String getRequestTokenUrl() {

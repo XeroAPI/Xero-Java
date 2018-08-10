@@ -23,11 +23,13 @@ public class JsonConfig implements Config {
   private String API_BASE_URL = "https://api.xero.com";
   private String API_ENDPOINT_URL = "https://api.xero.com/api.xro/2.0/";
   private String FILES_ENDPOINT_URL = "https://api.xero.com/files.xro/1.0/";
+  private String ASSETS_ENDPOINT_URL = "https://api.xero.com/assets.xro/1.0/";
   private String REQUEST_TOKEN_URL = "https://api.xero.com/oauth/RequestToken";
   private String AUTHENTICATE_URL = "https://api.xero.com/oauth/Authorize";
   private String ACCESS_TOKEN_URL = "https://api.xero.com/oauth/AccessToken";
   private String API_ENDPOINT_STEM = "/api.xro/2.0/";
   private String FILES_ENDPOINT_STEM = "/files.xro/1.0/";
+  private String ASSETS_ENDPOINT_STEM = "/assets.xro/1.0/";
   private String REQUEST_TOKEN_STEM = "/oauth/RequestToken";
   private String AUTHENTICATE_STEM = "/oauth/Authorize";
   private String ACCESS_TOKEN_STEM = "/oauth/AccessToken";
@@ -98,6 +100,11 @@ public class JsonConfig implements Config {
   @Override
   public String getFilesUrl() {
     return FILES_ENDPOINT_URL;
+  }
+  
+  @Override
+  public String getAssetsUrl() {
+    return ASSETS_ENDPOINT_URL;
   }
 
   @Override
@@ -313,6 +320,13 @@ public class JsonConfig implements Config {
 	        FILES_ENDPOINT_URL = API_BASE_URL + filesEndpointPath;
 	      } else {
 	    	  	FILES_ENDPOINT_URL = API_BASE_URL + FILES_ENDPOINT_STEM;
+	      }
+	      
+	      if (jsonObject.containsKey("AssetsEndpointPath")) {
+	    	  	String assetsEndpointPath = (String) jsonObject.get("AssetsEndpointPath");
+	    	  		ASSETS_ENDPOINT_URL = API_BASE_URL + assetsEndpointPath;
+	      } else {
+	      		ASSETS_ENDPOINT_URL = API_BASE_URL + ASSETS_ENDPOINT_STEM;
 	      }
 	
 	      if (jsonObject.containsKey("RequestTokenPath")) {

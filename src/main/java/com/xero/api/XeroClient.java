@@ -1,13 +1,16 @@
 package com.xero.api;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.xero.api.exception.XeroExceptionHandler;
 import com.xero.api.jaxb.XeroJAXBMarshaller;
 import com.xero.model.*;
+import com.xero.models.assets.*;
 
 import javax.xml.bind.JAXBElement;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.simple.parser.ParseException;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -1917,4 +1920,42 @@ public class XeroClient {
         throws IOException {
         return getInputStream(endpoint + "/" + guid + "/Attachments/" + attachmentid, null, null, accept);
     }
+    
+  //Assets
+    public Assets getAssets() throws XeroApiException, ParseException {
+   
+        try {
+            Map<String, String> params = new HashMap<String, String>();
+
+            params.put("Status","REGISTERED");
+            String resource = "https://api.xero.com/assets.xro/1.0/Assets";
+            String response = this.get2(resource, null, params);
+            
+            TypeReference<Assets> typeRef = new TypeReference<Assets>() {};
+            ApiClient apiClient = new ApiClient();
+			
+            return apiClient.getObjectMapper().readValue(response, typeRef);
+    
+        } catch (IOException e) {
+            throw xeroExceptionHandler.convertException(e);
+        }
+    }
+        
+    protected String get2(String resource, Date modifiedAfter, Map<String, String> params) throws IOException {
+		
+    		OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, resource, "GET", null, params,"application/json");
+        req.setToken(token);
+        req.setTokenSecret(tokenSecret);
+        if (modifiedAfter != null) {
+            req.setIfModifiedSince(modifiedAfter);
+        }
+
+        try {
+       		Map<String, String>  resp = req.execute();
+       		Object r = resp.get("content");
+            return r.toString();
+		} catch (IOException ioe) {
+			 throw xeroExceptionHandler.convertException(ioe);
+		}
+	}
 }

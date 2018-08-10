@@ -15,6 +15,8 @@ public interface Config {
     String getApiUrl();
 
     String getFilesUrl();
+    
+    String getAssetsUrl();
 
     String getRequestTokenUrl();
 

@@ -105,7 +105,11 @@ public class OAuthRequestResource {
 		CloseableHttpClient httpclient =null;
 		httpclient = new XeroHttpContext(config,this.accept,this.contentType,this.ifModifiedSince).getHttpClient();
 
-		url = new GenericUrl(config.getApiUrl() + this.resource);
+		if(this.resource.indexOf("https") ==-1) {
+			this.resource = config.getApiUrl() + this.resource;
+		}
+		
+		url = new GenericUrl(this.resource);
 		if (this.params != null) {
 			url.putAll(this.params);
 		}
@@ -188,7 +192,11 @@ public class OAuthRequestResource {
 		CloseableHttpClient httpclient =null;
 		httpclient = new XeroHttpContext(config,this.accept,this.contentType,this.ifModifiedSince).getHttpClient();
 		
-		url = new GenericUrl(config.getApiUrl() + this.resource);
+		if(this.resource.indexOf("https") ==-1) {
+			this.resource = config.getApiUrl() + this.resource;
+		}
+		
+		url = new GenericUrl(this.resource);
 		if (this.params != null) {
 			url.putAll(this.params);
 		}

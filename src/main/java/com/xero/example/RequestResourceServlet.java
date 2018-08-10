@@ -31,6 +31,7 @@ import com.xero.api.OAuthAccessToken;
 import com.xero.api.OAuthRequestResource;
 import com.xero.api.XeroApiException;
 import com.xero.model.*;
+import com.xero.models.assets.*;
 
 public class RequestResourceServlet extends HttpServlet 
 {
@@ -49,7 +50,8 @@ public class RequestResourceServlet extends HttpServlet
 			+ "<div class=\"form-group\">" 
 		  	+ "<label for=\"object\">Create, Read, Update & Delete</label>"
 		  	+ "<select name=\"object\" class=\"form-control\" id=\"object\">"
-		  	+ "<option value=\"Accounts\" selected>Accounts</option>"
+		  	+ "<option value=\"Assets\" selected>Assets</option>"
+			+ "<option value=\"Accounts\" selected>Accounts</option>"
 			+ "<option value=\"Attachments\">Attachments</option>"
 		  	+ "<option value=\"BankTransactions\">BankTransactions</option>"
 		  	+ "<option value=\"BankTransfers\">BankTransfers</option>"
@@ -149,7 +151,16 @@ public class RequestResourceServlet extends HttpServlet
 		
 		SampleData data = new SampleData(client);
 		
-		if(object.equals("Accounts")) {
+		if(object.equals("Assets")) {
+			
+			try {
+				Assets assets = client.getAssets();
+				messages.add("Assets Found: " + assets.getItems().get(0).getAssetName());
+				
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+		} else if(object.equals("Accounts")) {
 			
 			/* ACCOUNT */
 			try {
