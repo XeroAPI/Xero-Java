@@ -87,6 +87,11 @@
 			<artifactId>swagger-annotations</artifactId>
 			<version>${swagger-annotations-version}</version>
 		</dependency>
+		<dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-common</artifactId>
+            <version>${jersey-common-version}</version>
+        </dependency>
 	</dependencies>
 	<repositories>
 		<repository>
