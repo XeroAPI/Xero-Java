@@ -11,6 +11,7 @@ import com.google.api.client.http.HttpRequestFactory;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.Json;
+import com.xero.api.client.*;
 
 import java.io.IOException;
 import java.io.OutputStream;

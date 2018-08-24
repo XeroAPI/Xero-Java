@@ -24,12 +24,14 @@ public class JsonConfig implements Config {
   private String API_ENDPOINT_URL = "https://api.xero.com/api.xro/2.0/";
   private String FILES_ENDPOINT_URL = "https://api.xero.com/files.xro/1.0/";
   private String ASSETS_ENDPOINT_URL = "https://api.xero.com/assets.xro/1.0/";
+  private String FEEDCONNECTIONS_ENDPOINT_URL = "https://api.xero.com/bankfeeds.xro/1.0";
   private String REQUEST_TOKEN_URL = "https://api.xero.com/oauth/RequestToken";
   private String AUTHENTICATE_URL = "https://api.xero.com/oauth/Authorize";
   private String ACCESS_TOKEN_URL = "https://api.xero.com/oauth/AccessToken";
   private String API_ENDPOINT_STEM = "/api.xro/2.0/";
   private String FILES_ENDPOINT_STEM = "/files.xro/1.0/";
   private String ASSETS_ENDPOINT_STEM = "/assets.xro/1.0/";
+  private String FEEDCONNECTIONS_ENDPOINT_STEM = "/bankfeeds.xro/1.0/";
   private String REQUEST_TOKEN_STEM = "/oauth/RequestToken";
   private String AUTHENTICATE_STEM = "/oauth/Authorize";
   private String ACCESS_TOKEN_STEM = "/oauth/AccessToken";
@@ -106,6 +108,11 @@ public class JsonConfig implements Config {
   public String getAssetsUrl() {
     return ASSETS_ENDPOINT_URL;
   }
+  
+  @Override
+  public String getFeedConnectionsUrl() {
+    return FEEDCONNECTIONS_ENDPOINT_URL;
+  }  
 
   @Override
   public String getRequestTokenUrl() {
@@ -328,7 +335,14 @@ public class JsonConfig implements Config {
 	      } else {
 	      		ASSETS_ENDPOINT_URL = API_BASE_URL + ASSETS_ENDPOINT_STEM;
 	      }
-	
+	      
+	      if (jsonObject.containsKey("FeedConnectionsEndpointPath")) {
+	    	  	String feedConnectionsEndpointPath = (String) jsonObject.get("feedConnectionsEndpointPath");
+	    	  	FEEDCONNECTIONS_ENDPOINT_URL = API_BASE_URL + feedConnectionsEndpointPath;
+	      } else {
+	    	  FEEDCONNECTIONS_ENDPOINT_URL = API_BASE_URL + FEEDCONNECTIONS_ENDPOINT_STEM;
+	      }
+	      
 	      if (jsonObject.containsKey("RequestTokenPath")) {
 	        String requestPath = (String) jsonObject.get("RequestTokenPath");
 	        REQUEST_TOKEN_URL = API_BASE_URL + requestPath;

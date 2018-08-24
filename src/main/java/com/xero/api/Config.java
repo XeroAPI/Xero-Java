@@ -17,6 +17,8 @@ public interface Config {
     String getFilesUrl();
     
     String getAssetsUrl();
+    
+    String getFeedConnectionsUrl();
 
     String getRequestTokenUrl();
 

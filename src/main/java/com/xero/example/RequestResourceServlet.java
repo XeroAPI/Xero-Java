@@ -25,6 +25,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.xero.api.XeroClient;
+import com.xero.api.client.*;
 import com.xero.api.Config;
 import com.xero.api.JsonConfig;
 import com.xero.api.OAuthAccessToken;
@@ -32,6 +33,8 @@ import com.xero.api.OAuthRequestResource;
 import com.xero.api.XeroApiException;
 import com.xero.model.*;
 import com.xero.models.assets.*;
+import com.xero.models.feedconnections.*;
+import com.xero.models.feedconnections.FeedConnection.AccountTypeEnum;
 
 public class RequestResourceServlet extends HttpServlet 
 {
@@ -63,6 +66,7 @@ public class RequestResourceServlet extends HttpServlet
 		  	+ "<option value=\"Currencies\">Currencies</option>"
 		  	+ "<option value=\"Employees\">Employees</option>"
 		  	+ "<option value=\"ExpenseClaims\">ExpenseClaims</option>"
+		  	+ "<option value=\"FeedConnections\">FeedConnections</option>"
 		  	+ "<option value=\"Invoices\">Invoices</option>"
 		  	+ "<option value=\"InvoiceReminders\">InvoiceReminders</option>"
 		  	+ "<option value=\"Items\">Items</option>"
@@ -151,8 +155,66 @@ public class RequestResourceServlet extends HttpServlet
 		
 		SampleData data = new SampleData(client);
 		
-		if(object.equals("Assets")) {
+		if(object.equals("FeedConnections")) {
 			
+			/* BANKFEED */
+			FeedConnectionApi feedConnectionApi = new FeedConnectionApi();
+			feedConnectionApi.setOAuthToken(token, tokenSecret);
+			
+			try {
+				FeedConnection newBank = new FeedConnection();
+				newBank.setAccountName("SDK Bank " + SampleData.loadRandomNum());
+				newBank.setAccountNumber("1234" + SampleData.loadRandomNum());
+				newBank.setAccountType(AccountTypeEnum.BANK);
+				newBank.setAccountToken("foobar" + SampleData.loadRandomNum());
+				newBank.setCurrency("GBP");
+				
+				FeedConnections arrayFeedConnections = new FeedConnections();
+				arrayFeedConnections.addItemsItem(newBank);
+				
+				FeedConnections fc1 = feedConnectionApi.createFeedConnections(arrayFeedConnections, null);
+				messages.add("New Bank with status: " + fc1.getItems().get(0).getStatus());
+			} catch (Exception e) {
+				System.out.println(e.toString());
+			}
+			
+			try {
+				FeedConnections fc = feedConnectionApi.getFeedConnections(null);
+				messages.add("Total Banks found: " + fc.getItems().size());
+			} catch (Exception e) {
+				System.out.println(e.toString());
+			}
+			
+			try {
+				Map<String, String> params = null;
+				FeedConnections fc = feedConnectionApi.getFeedConnections(null);
+				FeedConnection oneFC = feedConnectionApi.getFeedConnection(fc.getItems().get(0).getId(),null);
+				messages.add("One Bank: " + oneFC.getAccountName());
+			} catch (Exception e) {
+				System.out.println(e.toString());
+			}
+			
+			try {
+				FeedConnections allFeedConnections = feedConnectionApi.getFeedConnections(null);
+				FeedConnections deleteFeedConnections = new FeedConnections();
+				
+				FeedConnection feedConnectionOne = new FeedConnection();
+				feedConnectionOne.setId(allFeedConnections.getItems().get(0).getId());
+				deleteFeedConnections.addItemsItem(feedConnectionOne);
+				
+				FeedConnection feedConnectionTwo = new FeedConnection();
+				feedConnectionTwo.setId(allFeedConnections.getItems().get(1).getId());
+				deleteFeedConnections.addItemsItem(feedConnectionTwo);
+				
+				FeedConnections deletedFeedConnection = feedConnectionApi.deleteFeedConnections(deleteFeedConnections,null);
+				messages.add("DELETED Bank status: " + deletedFeedConnection.getItems().get(0).getStatus());
+			} catch (Exception e) {
+				System.out.println(e.toString());
+			}
+			
+		} else if(object.equals("Assets")) {
+			
+			/* Asset */
 			try {
 				Assets assets = client.getAssets();
 				messages.add("Assets Found: " + assets.getItems().get(0).getAssetName());
@@ -160,6 +222,7 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
+			
 		} else if(object.equals("Accounts")) {
 			
 			/* ACCOUNT */

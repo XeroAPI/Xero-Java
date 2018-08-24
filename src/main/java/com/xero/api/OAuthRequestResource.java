@@ -291,7 +291,7 @@ public class OAuthRequestResource {
 		         if (code == 204) {
 					content = "<Response><Status>DELETED</Status></Response>";
 		        }
-		        if (code != 200 && code != 204) {
+		        if (code != 200 && code != 201 && code != 202 && code != 204) {
 		            Header rateHeader = response.getFirstHeader("x-rate-limit-problem");
 		            if (rateHeader != null) {
 		                content += "&rate=" + rateHeader.getValue().toLowerCase();
