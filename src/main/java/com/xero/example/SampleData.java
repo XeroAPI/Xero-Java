@@ -31,6 +31,48 @@ public class SampleData {
 		return array;
 	}
 	
+	public static Account loadAccountFixedAsset() throws IOException {
+		ArrayOfAccount array = new ArrayOfAccount();
+		Account account = new Account();
+		int ranNum = loadRandomNum();
+		account.setCode(Integer.toString(ranNum));
+		account.setName("FixedAsset " + Integer.toString(ranNum));
+		account.setDescription("New Fixed Asset via SDK");
+		
+		account.setType(AccountType.FIXED);
+		array.getAccount().add(account);
+		List<Account> newAccount = client.createAccounts(array.getAccount());
+		return newAccount.get(0);
+	}
+	
+	public static Account loadAccountExpenses() throws IOException {
+		ArrayOfAccount array = new ArrayOfAccount();
+		Account account = new Account();
+		int ranNum = loadRandomNum();
+		account.setCode(Integer.toString(ranNum));
+		account.setName("Expense " + Integer.toString(ranNum));
+		account.setDescription("New Expense via SDK");
+		
+		account.setType(AccountType.EXPENSE);
+		array.getAccount().add(account);
+		List<Account> newAccount = client.createAccounts(array.getAccount());
+		return newAccount.get(0);
+	}
+	
+	public static Account loadAccountDepreciation() throws IOException {
+		ArrayOfAccount array = new ArrayOfAccount();
+		Account account = new Account();
+		int ranNum = loadRandomNum();
+		account.setCode(Integer.toString(ranNum));
+		account.setName("Depreciation " + Integer.toString(ranNum));
+		account.setDescription("New Depreciation via SDK");
+		
+		account.setType(AccountType.DEPRECIATN);
+		array.getAccount().add(account);
+		List<Account> newAccount = client.createAccounts(array.getAccount());
+		return newAccount.get(0);
+	}
+	
 	// BANK TRANSACTION
 	public static ArrayOfBankTransaction loadBankTransaction() throws IOException {
 		ArrayOfBankTransaction array = new ArrayOfBankTransaction();

@@ -1,6 +1,6 @@
 /*
- * Xero Fixed Assets API
- * This the Xero Fixed Assets API
+ * Xero Assets API
+ * This the Xero Assets API
  *
  * OpenAPI spec version: 1.1.2
  * Contact: api@xero.com

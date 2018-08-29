@@ -23,7 +23,7 @@ public class JsonConfig implements Config {
   private String API_BASE_URL = "https://api.xero.com";
   private String API_ENDPOINT_URL = "https://api.xero.com/api.xro/2.0/";
   private String FILES_ENDPOINT_URL = "https://api.xero.com/files.xro/1.0/";
-  private String ASSETS_ENDPOINT_URL = "https://api.xero.com/assets.xro/1.0/";
+  private String ASSETS_ENDPOINT_URL = "https://api.xero.com/assets.xro/1.0";
   private String FEEDCONNECTIONS_ENDPOINT_URL = "https://api.xero.com/bankfeeds.xro/1.0";
   private String REQUEST_TOKEN_URL = "https://api.xero.com/oauth/RequestToken";
   private String AUTHENTICATE_URL = "https://api.xero.com/oauth/Authorize";

@@ -26,6 +26,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.xero.api.XeroClient;
 import com.xero.api.client.*;
+import com.xero.api.ApiClient;
 import com.xero.api.Config;
 import com.xero.api.JsonConfig;
 import com.xero.api.OAuthAccessToken;
@@ -33,6 +34,9 @@ import com.xero.api.OAuthRequestResource;
 import com.xero.api.XeroApiException;
 import com.xero.model.*;
 import com.xero.models.assets.*;
+import com.xero.models.assets.BookDepreciationSetting.AveragingMethodEnum;
+import com.xero.models.assets.BookDepreciationSetting.DepreciationCalculationMethodEnum;
+import com.xero.models.assets.BookDepreciationSetting.DepreciationMethodEnum;
 import com.xero.models.feedconnections.*;
 import com.xero.models.feedconnections.FeedConnection.AccountTypeEnum;
 
@@ -158,7 +162,8 @@ public class RequestResourceServlet extends HttpServlet
 		if(object.equals("FeedConnections")) {
 			
 			/* BANKFEED */
-			FeedConnectionApi feedConnectionApi = new FeedConnectionApi();
+			ApiClient apiClient = new ApiClient(config.getFeedConnectionsUrl(),null,null,null);
+			FeedConnectionApi feedConnectionApi = new FeedConnectionApi(apiClient);
 			feedConnectionApi.setOAuthToken(token, tokenSecret);
 			
 			try {
@@ -213,15 +218,73 @@ public class RequestResourceServlet extends HttpServlet
 			}
 			
 		} else if(object.equals("Assets")) {
+
+			ApiClient apiClient = new ApiClient(config.getAssetsUrl(),null,null,null);
+			AssetApi assetApi = new AssetApi(apiClient);
+			assetApi.setOAuthToken(token, tokenSecret);
 			
 			/* Asset */
+			/*
 			try {
-				Assets assets = client.getAssets();
-				messages.add("Assets Found: " + assets.getItems().get(0).getAssetName());
-				
+				Asset asset = new Asset();
+				asset.setAssetName("Computer" + SampleData.loadRandomNum());
+				asset.setAssetNumber("1234" + SampleData.loadRandomNum());
+				Asset newAsset = assetApi.createAsset(asset, null);
+				messages.add("New asset created: " + newAsset.getAssetName());	
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
+			
+			try {
+				Map<String, String> filter = new HashMap<>();
+				addToMapIfNotNull(filter, "status", "DRAFT");				
+				Assets assets = assetApi.getAssets(filter);
+				messages.add("Assets Found: " + assets.getItems().get(0).getAssetName());
+				
+			} catch (Exception e) {
+				System.out.println("blah");
+				System.out.println(e.toString());
+			}
+			
+			try {
+				Map<String, String> filter = new HashMap<>();			
+				List<AssetType> assetTypes = assetApi.getAssetTypes(filter);
+				messages.add("AssetType Found: " + assetTypes.get(0).getAssetTypeName());
+			} catch (Exception e) {
+				System.out.println(e.toString());
+			}
+			
+			
+			try {
+				AssetType assetType = new AssetType();
+				assetType.setAssetTypeName("Machinery" + SampleData.loadRandomNum());
+				assetType.setFixedAssetAccountId(SampleData.loadAccountFixedAsset().getAccountID());
+				assetType.setDepreciationExpenseAccountId(SampleData.loadAccountExpenses().getAccountID());
+				assetType.setAccumulatedDepreciationAccountId(SampleData.loadAccountDepreciation().getAccountID());
+				
+				BookDepreciationSetting bookDepreciationSetting = new BookDepreciationSetting();
+				bookDepreciationSetting.setAveragingMethod(AveragingMethodEnum.ACTUALDAYS);
+				bookDepreciationSetting.setDepreciationCalculationMethod(DepreciationCalculationMethodEnum.NONE);
+				bookDepreciationSetting.setDepreciationRate(40);
+				bookDepreciationSetting.setDepreciationMethod(DepreciationMethodEnum.DIMINISHINGVALUE100);
+				assetType.setBookDepreciationSetting(bookDepreciationSetting);
+				
+				Map<String, String> filter = new HashMap<>();			
+				AssetType newAssetType = assetApi.createAssetType(assetType, filter);
+				
+				messages.add("Asset Type Created: " + newAssetType.getAssetTypeName());
+			} catch (Exception e) {
+				System.out.println(e.toString());
+			}
+			*/
+			try {
+				Map<String, String> filter = new HashMap<>();			
+				Setting setting = assetApi.getAssetSettings(filter);
+				messages.add("Asset Setting Start date: " + setting.getAssetStartDate());
+			} catch (Exception e) {
+				System.out.println(e.toString());
+			}
+			
 			
 		} else if(object.equals("Accounts")) {
 			
