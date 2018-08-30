@@ -4,7 +4,7 @@
 	<groupId>com.xero</groupId>
 	<artifactId>xero-java-sdk</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0.9</version>
+	<version>1.1.0</version>
 	<name>Xero-Java SDK</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
