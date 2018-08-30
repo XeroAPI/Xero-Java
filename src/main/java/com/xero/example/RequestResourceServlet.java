@@ -200,16 +200,14 @@ public class RequestResourceServlet extends HttpServlet
 			}
 			
 			try {
+				FeedConnections fc = feedConnectionApi.getFeedConnections(null);
+				
 				FeedConnections allFeedConnections = feedConnectionApi.getFeedConnections(null);
 				FeedConnections deleteFeedConnections = new FeedConnections();
 				
 				FeedConnection feedConnectionOne = new FeedConnection();
-				feedConnectionOne.setId(allFeedConnections.getItems().get(0).getId());
+				feedConnectionOne.setId(allFeedConnections.getItems().get(fc.getItems().size()-1).getId());
 				deleteFeedConnections.addItemsItem(feedConnectionOne);
-				
-				FeedConnection feedConnectionTwo = new FeedConnection();
-				feedConnectionTwo.setId(allFeedConnections.getItems().get(1).getId());
-				deleteFeedConnections.addItemsItem(feedConnectionTwo);
 				
 				FeedConnections deletedFeedConnection = feedConnectionApi.deleteFeedConnections(deleteFeedConnections,null);
 				messages.add("DELETED Bank status: " + deletedFeedConnection.getItems().get(0).getStatus());

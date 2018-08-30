@@ -19,6 +19,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 import java.util.regex.Pattern;
@@ -60,6 +61,8 @@ public class FeedConnectionApi {
     }
 
     public FeedConnectionApi(ApiClient apiClient) {
+        this(JsonConfig.getInstance());
+        this.xeroExceptionHandler = new XeroExceptionHandler();
         this.apiClient = apiClient;
     }
 
@@ -146,7 +149,7 @@ public class FeedConnectionApi {
     public FeedConnections createFeedConnections(FeedConnections feedConnections, Map<String, String> params) throws IOException {
         
         try {
-            UriBuilder uriBuilder = UriBuilder.fromUri(config.getFeedConnectionsUrl() + "/FeedConnections");
+            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/FeedConnections");
             String url = uriBuilder.build().toString();
 
             String body = null;
@@ -175,7 +178,7 @@ public class FeedConnectionApi {
     public FeedConnections deleteFeedConnections(FeedConnections feedConnections, Map<String, String> params) throws IOException {
         
         try {
-            UriBuilder uriBuilder = UriBuilder.fromUri(config.getFeedConnectionsUrl() + "/FeedConnections/DeleteRequests");
+            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/FeedConnections/DeleteRequests");
             String url = uriBuilder.build().toString();
 
             String body = null;
@@ -207,7 +210,7 @@ public class FeedConnectionApi {
             // create a map of path variables
             final Map<String, String> uriVariables = new HashMap<String, String>();
             uriVariables.put("id", id.toString());
-            UriBuilder uriBuilder = UriBuilder.fromUri(config.getFeedConnectionsUrl() + "/FeedConnections/{id}");
+            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/FeedConnections/{id}");
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
             String body = null;
@@ -236,7 +239,7 @@ public class FeedConnectionApi {
     public FeedConnections getFeedConnections(Map<String, String> params) throws IOException {
         
         try {
-            UriBuilder uriBuilder = UriBuilder.fromUri(config.getFeedConnectionsUrl() + "/FeedConnections");
+            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/FeedConnections");
             String url = uriBuilder.build().toString();
 
             String body = null;
