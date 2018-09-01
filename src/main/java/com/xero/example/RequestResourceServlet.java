@@ -33,6 +33,10 @@ import com.xero.api.OAuthAccessToken;
 import com.xero.api.OAuthRequestResource;
 import com.xero.api.XeroApiException;
 import com.xero.model.*;
+import com.xero.models.assets.*;
+import com.xero.models.assets.BookDepreciationSetting.AveragingMethodEnum;
+import com.xero.models.assets.BookDepreciationSetting.DepreciationCalculationMethodEnum;
+import com.xero.models.assets.BookDepreciationSetting.DepreciationMethodEnum;
 import com.xero.models.feedconnections.*;
 import com.xero.models.feedconnections.FeedConnection.AccountTypeEnum;
 
@@ -212,14 +216,12 @@ public class RequestResourceServlet extends HttpServlet
 			}
 			
 		} else if(object.equals("Assets")) {
-			/* Asset */
-			/*
+
 			ApiClient apiClient = new ApiClient(config.getAssetsUrl(),null,null,null);
 			AssetApi assetApi = new AssetApi(apiClient);
 			assetApi.setOAuthToken(token, tokenSecret);
 			
-			
-			
+			/* Asset */
 			try {
 				Asset asset = new Asset();
 				asset.setAssetName("Computer" + SampleData.loadRandomNum());
@@ -237,7 +239,6 @@ public class RequestResourceServlet extends HttpServlet
 				messages.add("Assets Found: " + assets.getItems().get(0).getAssetName());
 				
 			} catch (Exception e) {
-				System.out.println("blah");
 				System.out.println(e.toString());
 			}
 			
@@ -279,7 +280,7 @@ public class RequestResourceServlet extends HttpServlet
 			} catch (Exception e) {
 				System.out.println(e.toString());
 			}
-			*/
+			
 			
 		} else if(object.equals("Accounts")) {
 			

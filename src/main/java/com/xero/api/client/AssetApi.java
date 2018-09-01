@@ -2,8 +2,10 @@ package com.xero.api.client;
 
 import com.xero.api.ApiClient;
 
-import com.xero.models.feedconnections.FeedConnection;
-import com.xero.models.feedconnections.FeedConnections;
+import com.xero.models.assets.Asset;
+import com.xero.models.assets.AssetType;
+import com.xero.models.assets.Assets;
+import com.xero.models.assets.Setting;
 import java.util.UUID;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -26,7 +28,7 @@ import java.util.regex.Pattern;
 
 import javax.ws.rs.core.UriBuilder;
 
-public class FeedConnectionApi {
+public class AssetApi {
     private ApiClient apiClient;
     private XeroExceptionHandler xeroExceptionHandler;
     private Config config;
@@ -44,23 +46,23 @@ public class FeedConnectionApi {
     protected static final Pattern MESSAGE_PATTERN = Pattern.compile("<Message>(.*)</Message>");
     protected final ObjectFactory objFactory = new ObjectFactory();
 
-    public FeedConnectionApi() {
+    public AssetApi() {
         this(JsonConfig.getInstance());
         this.xeroExceptionHandler = new XeroExceptionHandler();
     }
 
-    public FeedConnectionApi(Config config) {
+    public AssetApi(Config config) {
         this(config, new ConfigBasedSignerFactory(config));
         this.xeroExceptionHandler = new XeroExceptionHandler();
     }
 
-    public FeedConnectionApi(Config config, SignerFactory signerFactory) {
+    public AssetApi(Config config, SignerFactory signerFactory) {
         this.config = config;
         this.signerFactory = signerFactory;
         this.xeroExceptionHandler = new XeroExceptionHandler();
     }
 
-    public FeedConnectionApi(ApiClient apiClient) {
+    public AssetApi(ApiClient apiClient) {
         this(JsonConfig.getInstance());
         this.xeroExceptionHandler = new XeroExceptionHandler();
         this.apiClient = apiClient;
@@ -180,28 +182,28 @@ public class FeedConnectionApi {
     }
 
   /**
-    * create one or more new feed connection
-    * By passing in the appropriate body, you can create one or more new feed connections in the system 
-    * <p><b>201</b> - feed connection created
+    * adds a fixed asset
+    * Adds an asset to the system
+    * <p><b>200</b> - search results matching criteria
     * <p><b>400</b> - invalid input, object invalid
-    * @param feedConnections Feed Connection(s) to add
-    * @return FeedConnections
+    * @param asset Fixed asset to add
+    * @return Asset
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public FeedConnections createFeedConnections(FeedConnections feedConnections, Map<String, String> params) throws IOException {
+    public Asset createAsset(Asset asset, Map<String, String> params) throws IOException {
         
         try {
-            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/FeedConnections");
+            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Assets");
             String url = uriBuilder.build().toString();
 
             String body = null;
             Date modifiedAfter = null;
 
             ApiClient apiClient = new ApiClient();
-            body = apiClient.getObjectMapper().writeValueAsString(feedConnections);
+            body = apiClient.getObjectMapper().writeValueAsString(asset);
             String response = this.POST(url, body, params, modifiedAfter);
 
-            TypeReference<FeedConnections> typeRef = new TypeReference<FeedConnections>() {};
+            TypeReference<Asset> typeRef = new TypeReference<Asset>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
     
         } catch (IOException e) {
@@ -209,28 +211,29 @@ public class FeedConnectionApi {
         }
     }
   /**
-    * delete an exsiting feed connection
-    * By passing in the appropriate body, you can create a new feed connections in the system 
-    * <p><b>202</b> - create results matching body content
-    * <p><b>400</b> - bad input parameter
-    * @param feedConnections Feed Connections to delete
-    * @return FeedConnections
+    * adds a fixed asset type
+    * Adds an fixed asset type to the system
+    * <p><b>200</b> - search results matching criteria
+    * <p><b>400</b> - invalid input, object invalid
+    * <p><b>409</b> - an existing type already exists
+    * @param assetType Asset type to add
+    * @return AssetType
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public FeedConnections deleteFeedConnections(FeedConnections feedConnections, Map<String, String> params) throws IOException {
+    public AssetType createAssetType(AssetType assetType, Map<String, String> params) throws IOException {
         
         try {
-            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/FeedConnections/DeleteRequests");
+            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/AssetTypes");
             String url = uriBuilder.build().toString();
 
             String body = null;
             Date modifiedAfter = null;
 
             ApiClient apiClient = new ApiClient();
-            body = apiClient.getObjectMapper().writeValueAsString(feedConnections);
+            body = apiClient.getObjectMapper().writeValueAsString(assetType);
             String response = this.POST(url, body, params, modifiedAfter);
 
-            TypeReference<FeedConnections> typeRef = new TypeReference<FeedConnections>() {};
+            TypeReference<AssetType> typeRef = new TypeReference<AssetType>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
     
         } catch (IOException e) {
@@ -238,21 +241,21 @@ public class FeedConnectionApi {
         }
     }
   /**
-    * get single feed connection by id
-    * By passing in a FeedConnection Id options, you can search for available feed connections in the system 
+    * retrieves fixed asset by id
+    * By passing in the appropriate asset id, you can search for a specific fixed asset in the system 
     * <p><b>200</b> - search results matching criteria
     * <p><b>400</b> - bad input parameter
-    * @param id feed connection id for single object
-    * @return FeedConnection
+    * @param id fixed asset id for single object
+    * @return Asset
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public FeedConnection getFeedConnection(UUID id, Map<String, String> params) throws IOException {
+    public Asset getAssetById(UUID id, Map<String, String> params) throws IOException {
         
         try {
             // create a map of path variables
             final Map<String, String> uriVariables = new HashMap<String, String>();
             uriVariables.put("id", id.toString());
-            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/FeedConnections/{id}");
+            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Assets/{id}");
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
             String body = null;
@@ -261,7 +264,7 @@ public class FeedConnectionApi {
             ApiClient apiClient = new ApiClient();
             String response = this.GET(url, body, params, modifiedAfter);
 
-            TypeReference<FeedConnection> typeRef = new TypeReference<FeedConnection>() {};
+            TypeReference<Asset> typeRef = new TypeReference<Asset>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
     
         } catch (IOException e) {
@@ -269,19 +272,17 @@ public class FeedConnectionApi {
         }
     }
   /**
-    * searches feed connections
-    * By passing in the appropriate options, you can search for available feed connections in the system
-    * <p><b>201</b> - search results matching criteria
+    * searches fixed asset settings
+    * By passing in the appropriate options, you can search for available fixed asset types in the system 
+    * <p><b>200</b> - search results matching criteria
     * <p><b>400</b> - bad input parameter
-    * @param page Page number which specifies the set of records to retrieve. By default the number of the records per set is 10. Example - https://api.xero.com/bankfeeds.xro/1.0/FeedConnections?page&#x3D;1 to get the second set of the records. When page value is not a number or a negative number, by default, the first set of records is returned.
-    * @param pageSize Page size which specifies how many records per page will be returned (default 10). Example - https://api.xero.com/bankfeeds.xro/1.0/FeedConnections?pageSize&#x3D;100 to specify page size of 100.
-    * @return FeedConnections
+    * @return Setting
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public FeedConnections getFeedConnections(Map<String, String> params) throws IOException {
+    public Setting getAssetSettings(Map<String, String> params) throws IOException {
         
         try {
-            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/FeedConnections");
+            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Settings");
             String url = uriBuilder.build().toString();
 
             String body = null;
@@ -290,7 +291,67 @@ public class FeedConnectionApi {
             ApiClient apiClient = new ApiClient();
             String response = this.GET(url, body, params, modifiedAfter);
 
-            TypeReference<FeedConnections> typeRef = new TypeReference<FeedConnections>() {};
+            TypeReference<Setting> typeRef = new TypeReference<Setting>() {};
+            return apiClient.getObjectMapper().readValue(response, typeRef);
+    
+        } catch (IOException e) {
+            throw xeroExceptionHandler.convertException(e);
+        }
+    }
+  /**
+    * searches fixed asset types
+    * By passing in the appropriate options, you can search for available fixed asset types in the system 
+    * <p><b>200</b> - search results matching criteria
+    * <p><b>400</b> - bad input parameter
+    * @return List&lt;AssetType&gt;
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public List<AssetType> getAssetTypes(Map<String, String> params) throws IOException {
+        
+        try {
+            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/AssetTypes");
+            String url = uriBuilder.build().toString();
+
+            String body = null;
+            Date modifiedAfter = null;
+
+            ApiClient apiClient = new ApiClient();
+            String response = this.GET(url, body, params, modifiedAfter);
+
+            TypeReference<List<AssetType>> typeRef = new TypeReference<List<AssetType>>() {};
+            return apiClient.getObjectMapper().readValue(response, typeRef);
+    
+        } catch (IOException e) {
+            throw xeroExceptionHandler.convertException(e);
+        }
+    }
+  /**
+    * searches fixed asset
+    * By passing in the appropriate options, you can search for available fixed asset in the system 
+    * <p><b>200</b> - search results matching criteria
+    * <p><b>400</b> - bad input parameter
+    * @param status Required when retrieving a collection of assets. See Asset Status Codes
+    * @param page Results are paged. This specifies which page of the results to return. The default page is 1.
+    * @param pageSize The number of records returned per page. By default the number of records returned is 10.
+    * @param orderBy Requests can be ordered by AssetType, AssetName, AssetNumber, PurchaseDate and PurchasePrice. If the asset status is DISPOSED it also allows DisposalDate and DisposalPrice.
+    * @param sortDirection ASC or DESC
+    * @param filterBy A string that can be used to filter the list to only return assets containing the text. Checks it against the AssetName, AssetNumber, Description and AssetTypeName fields.
+    * @return Assets
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public Assets getAssets(Map<String, String> params) throws IOException {
+        
+        try {
+            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Assets");
+            String url = uriBuilder.build().toString();
+
+            String body = null;
+            Date modifiedAfter = null;
+
+            ApiClient apiClient = new ApiClient();
+            String response = this.GET(url, body, params, modifiedAfter);
+
+            TypeReference<Assets> typeRef = new TypeReference<Assets>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
     
         } catch (IOException e) {

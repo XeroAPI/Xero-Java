@@ -83,6 +83,13 @@ public class OAuthRequestResource {
 		this(config, signerFactory, resource, method, params);
 		this.body = body;
 	}
+	
+	public  OAuthRequestResource(Config config, SignerFactory signerFactory, String resource, String method, String body, Map<? extends String, ?> params, String accept, String contentType) {
+		this(config, signerFactory, resource, method, params);
+		this.accept = accept;
+		this.contentType = contentType;
+		this.body = body;
+	}
 
 	public  OAuthRequestResource(Config config, SignerFactory signerFactory, String resource, String method, String body, Map<? extends String, ?> params, String accept) {
 		this(config, signerFactory, resource, method, params);
@@ -190,6 +197,7 @@ public class OAuthRequestResource {
 	
 	public final Map<String, String> execute() throws IOException,XeroApiException  {
 		CloseableHttpClient httpclient =null;
+		
 		httpclient = new XeroHttpContext(config,this.accept,this.contentType,this.ifModifiedSince).getHttpClient();
 		
 		if(this.resource.indexOf("https") ==-1) {
