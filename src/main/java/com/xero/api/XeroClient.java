@@ -701,6 +701,17 @@ public class XeroClient {
         return put("CreditNote", objFactory.createCreditNotes(array),params).getCreditNotes().getCreditNote();
     }
 
+
+    public List<CreditNote> createCreditNotes(List<CreditNote> objects, String unitdp, Boolean summarizeErrors) throws IOException {
+        Map<String, String> params = new HashMap<>();
+        addToMapIfNotNull(params, "unitdp", unitdp);
+        addToMapIfNotNull(params, "SummarizeErrors", summarizeErrors);
+
+        ArrayOfCreditNote array = new ArrayOfCreditNote();
+        array.getCreditNote().addAll(objects);
+        return put("CreditNote", objFactory.createCreditNotes(array), params).getCreditNotes().getCreditNote();
+    }
+
     public List<CreditNote> updateCreditNote(List<CreditNote> objects) throws IOException {
         ArrayOfCreditNote array = new ArrayOfCreditNote();
         array.getCreditNote().addAll(objects);
@@ -918,7 +929,7 @@ public class XeroClient {
         return put("Invoices", objFactory.createInvoices(array), params).getInvoices().getInvoice();
     }
     
-    public List<Invoice> createInvoices(List<Invoice> invoices, String unitdp,Boolean summarizeErrors) throws IOException {
+    public List<Invoice> createInvoices(List<Invoice> invoices, String unitdp, Boolean summarizeErrors) throws IOException {
         Map<String, String> params = new HashMap<>();
         addToMapIfNotNull(params, "unitdp", unitdp);
         addToMapIfNotNull(params, "SummarizeErrors", summarizeErrors);
