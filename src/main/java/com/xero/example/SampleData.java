@@ -573,7 +573,6 @@ public class SampleData {
 		TrackingCategoryOption tc3 = new TrackingCategoryOption();
 		tc3.setName("Return of the Jedi");
 
-		
 		array.getOption().add(tc);
 		array.getOption().add(tc2);
 		array.getOption().add(tc3);

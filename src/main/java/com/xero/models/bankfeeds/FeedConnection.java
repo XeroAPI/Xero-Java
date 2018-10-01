@@ -1,6 +1,6 @@
 /*
- * Feed Connection API
- * This is a Feed Connection API
+ * Bank Feeds API
+ * The Xero Bank Feeds API
  *
  * OpenAPI spec version: 1.0.0
  * Contact: api@xero.com
@@ -11,17 +11,16 @@
  */
 
 
-package com.xero.models.feedconnections;
+package com.xero.models.bankfeeds;
 
 import java.util.Objects;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.feedconnections.Error;
+import com.xero.models.bankfeeds.Error;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.UUID;
 
 /**
  * FeedConnection
@@ -29,7 +28,7 @@ import java.util.UUID;
 
 public class FeedConnection {
   @JsonProperty("id")
-  private UUID id = null;
+  private String id = null;
 
   @JsonProperty("accountToken")
   private String accountToken = null;
@@ -125,7 +124,7 @@ public class FeedConnection {
   @JsonProperty("error")
   private Error error = null;
 
-  public FeedConnection id(UUID id) {
+  public FeedConnection id(String id) {
     this.id = id;
     return this;
   }
@@ -134,12 +133,12 @@ public class FeedConnection {
    * Get id
    * @return id
   **/
-  @ApiModelProperty(example = "00d3cf8d-95dc-4466-8dc0-47e6d1197e28", required = true, value = "")
-  public UUID getId() {
+  @ApiModelProperty(example = "0d3cf8d-95dc-4466-8dc0-47e6d1197e28", required = true, value = "")
+  public String getId() {
     return id;
   }
 
-  public void setId(UUID id) {
+  public void setId(String id) {
     this.id = id;
   }
 

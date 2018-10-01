@@ -18,7 +18,7 @@ public interface Config {
     
     String getAssetsUrl();
     
-    String getFeedConnectionsUrl();
+    String getBankFeedsUrl();
 
     String getRequestTokenUrl();
 

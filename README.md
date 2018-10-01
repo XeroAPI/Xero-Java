@@ -14,7 +14,7 @@ For those using maven, add the dependency and repository to your pom.xml
     <dependency>
 	  <groupId>com.xero</groupId>
 	  <artifactId>xero-java-sdk</artifactId>
-	  <version>1.2.0</version>
+	  <version>1.3.0</version>
 	</dependency>
 
     <repositories>
@@ -411,6 +411,122 @@ cal.add(Calendar.DAY_OF_MONTH, -1);
 List<Invoice> InvoiceList24hour = client.getInvoices(cal.getTime(),null,null);
 System.out.println("How many invoices modified in last 24 hours?: " + InvoiceList24hour.size());
 ```
+
+**BankFeed Endpoints**
+
+Currently, BankFeed endpoints (FeedConnection & Statements) is limited beta financial institutions who are engaged with Xero.  Once these endpoints have been enabled for your Xero Partner App, use the following pattern to make API calls.
+
+```java
+import com.xero.api.*;
+import com.xero.api.ApiClient;
+import com.xero.models.bankfeeds.*;
+import com.xero.models.bankfeeds.Statements;
+import com.xero.models.bankfeeds.FeedConnection.AccountTypeEnum;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import org.threeten.bp.LocalDate;
+
+// Get Xero API Resource - DEMONSTRATION ONLY get token from Cookie
+TokenStorage storage = new TokenStorage();
+String token = storage.get(request,"token");
+String tokenSecret = storage.get(request,"tokenSecret");
+
+// Initialize the BankFeedApi object and set the token & secret
+ApiClient apiClientForBankFeeds = new ApiClient(config.getBankFeedsUrl(),null,null,null);
+BankFeedsApi bankFeedsApi = new BankFeedsApi(apiClientForBankFeeds);
+bankFeedsApi.setOAuthToken(token, tokenSecret);
+Map<String, String> params = null;
+
+// Get ALL Feed Connections
+try {
+	FeedConnections fc = bankFeedsApi.getFeedConnections(null);
+	System.out.println("Total Banks found: " + fc.getItems().size());
+} catch (Exception e) {
+	System.out.println(e.toString());
+}
+
+// Get one Feed Connection
+try {
+	FeedConnections fc = bankFeedsApi.getFeedConnections(null);
+	FeedConnection oneFC = bankFeedsApi.getFeedConnection("123456789",null);
+	System.out.println("One Bank: " + oneFC.getAccountName());
+} catch (Exception e) {
+	System.out.println(e.toString());
+}
+
+try {
+	FeedConnection newBank = new FeedConnection();
+	newBank.setAccountName("SDK Bank " + SampleData.loadRandomNum());
+	newBank.setAccountNumber("1234" + SampleData.loadRandomNum());
+	newBank.setAccountType(AccountTypeEnum.BANK);
+	newBank.setAccountToken("foobar" + SampleData.loadRandomNum());
+	newBank.setCurrency("GBP");
+	
+	FeedConnections arrayFeedConnections = new FeedConnections();
+	arrayFeedConnections.addItemsItem(newBank);
+	
+	FeedConnections fc1 = bankFeedsApi.createFeedConnections(arrayFeedConnections, null);
+	System.out.println("New Bank with status: " + fc1.getItems().get(0).getStatus());
+} catch (Exception e) {
+	System.out.println(e.toString());
+}
+
+
+// Create Bank Statement
+// Create One Statement
+try {
+	Statements arrayOfStatements = new Statements();
+	Statement newStatement = new Statement();
+	LocalDate stDate = LocalDate.of(2018, 9, 01);
+	newStatement.setStartDate(stDate);
+	LocalDate endDate = LocalDate.of(2018, 9, 15);
+	newStatement.endDate(endDate);
+	StartBalance stBalance = new StartBalance();
+	stBalance.setAmount("100");
+	stBalance.setCreditDebitIndicator(CreditDebitIndicator.CREDIT);
+	newStatement.setStartBalance(stBalance);
+	
+	EndBalance endBalance = new EndBalance();
+	endBalance.setAmount("300");
+	endBalance.setCreditDebitIndicator(CreditDebitIndicator.CREDIT);
+	newStatement.endBalance(endBalance);
+	
+	FeedConnections fc = bankFeedsApi.getFeedConnections(null);
+	newStatement.setFeedConnectionId(fc.getItems().get(0).getId().toString());
+	
+	StatementLine newStatementLine = new StatementLine();
+	newStatementLine.setAmount("50");
+	newStatementLine.setChequeNumber("123");
+	newStatementLine.setDescription("My new line");
+	newStatementLine.setCreditDebitIndicator(CreditDebitIndicator.CREDIT);
+	newStatementLine.setReference("Foobar");
+	newStatementLine.setPayeeName("StarLord");
+	newStatementLine.setTransactionId("1234");
+	LocalDate postedDate = LocalDate.of(2017, 9, 05);
+	newStatementLine.setPostedDate(postedDate);
+
+	StatementLines arrayStatementLines = new StatementLines();
+	arrayStatementLines.add(newStatementLine);
+	
+	newStatement.setStatementLines(arrayStatementLines);
+	arrayOfStatements.addItemsItem(newStatement);
+	Statements rStatements = bankFeedsApi.createStatements(arrayOfStatements, params);
+	
+	System.out.println("New Bank Statement Status: " + rStatements.getItems().get(0).getStatus());
+				
+} catch (Exception e) {
+	// Error throw is of type Statements - it contains an array of Errors.
+	TypeReference<Statements> typeRef = new TypeReference<Statements>() {};
+	Statements statementErrors =  apiClientForBankFeeds.getObjectMapper().readValue(e.getMessage(), typeRef);
+	System.out.println(statementErrors.getItems().get(0).getErrors().get(0).getDetail());
+}
+
+
+
+
+```
+
+
 
 **Exception Handling**
 

@@ -44,8 +44,13 @@ import org.apache.http.util.EntityUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.api.client.auth.oauth.OAuthSigner;
 import com.google.api.client.http.GenericUrl;
+import com.xero.api.exception.XeroExceptionHandler;
+import com.xero.models.bankfeeds.Statements;
 
 public class OAuthRequestResource {
 	private String token;
@@ -237,7 +242,9 @@ public class OAuthRequestResource {
 			if(logger.isInfoEnabled()){
 				logger.info("------------------ POST: BODY  -------------------");
 				logger.info(this.body);
+				
 			}
+		
 			httppost.setEntity(new StringEntity(this.body, "utf-8"));
 		    this.createParameters().intercept(httppost,url);
 		  	httppost.setConfig(requestConfig.build());
@@ -293,10 +300,12 @@ public class OAuthRequestResource {
 				String content = "";
 		        entity = response.getEntity();
 		        if(entity != null) {
-		        		content = EntityUtils.toString(entity);
+		        	content = EntityUtils.toString(entity);
 			    }
+	        	
 		        int code = response.getStatusLine().getStatusCode();
-		         if (code == 204) {
+		        
+		        if (code == 204) {
 					content = "<Response><Status>DELETED</Status></Response>";
 		        }
 		        if (code != 200 && code != 201 && code != 202 && code != 204) {
@@ -304,6 +313,7 @@ public class OAuthRequestResource {
 		            if (rateHeader != null) {
 		                content += "&rate=" + rateHeader.getValue().toLowerCase();
                     }
+		            
 					XeroApiException e = new XeroApiException(code,content);
 		        		throw e;
 		        }
@@ -368,4 +378,14 @@ public class OAuthRequestResource {
 	public void setProxy(String host, int port, boolean httpsEnabled) {
 
 	}
+	
+	public static boolean isJSONValid(String jsonInString ) {
+    	try {
+    		final ObjectMapper mapper = new ObjectMapper();
+    		mapper.readTree(jsonInString);
+    		return true;
+    	} catch (IOException e) {
+    		return false;
+    	}
+    } 
 }

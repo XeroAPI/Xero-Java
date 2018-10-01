@@ -1,6 +1,6 @@
 /*
- * Feed Connection API
- * This is a Feed Connection API
+ * Bank Feeds API
+ * The Xero Bank Feeds API
  *
  * OpenAPI spec version: 1.0.0
  * Contact: api@xero.com
@@ -11,32 +11,32 @@
  */
 
 
-package com.xero.models.feedconnections;
+package com.xero.models.bankfeeds;
 
 import java.util.Objects;
 import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.feedconnections.FeedConnection;
-import com.xero.models.feedconnections.Pagination;
+import com.xero.models.bankfeeds.Pagination;
+import com.xero.models.bankfeeds.Statement;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * FeedConnections
+ * Statements
  */
 
-public class FeedConnections {
+public class Statements {
   @JsonProperty("pagination")
   private Pagination pagination = null;
 
   @JsonProperty("items")
-  private List<FeedConnection> items = null;
+  private List<Statement> items = null;
 
-  public FeedConnections pagination(Pagination pagination) {
+  public Statements pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
@@ -54,14 +54,14 @@ public class FeedConnections {
     this.pagination = pagination;
   }
 
-  public FeedConnections items(List<FeedConnection> items) {
+  public Statements items(List<Statement> items) {
     this.items = items;
     return this;
   }
 
-  public FeedConnections addItemsItem(FeedConnection itemsItem) {
+  public Statements addItemsItem(Statement itemsItem) {
     if (this.items == null) {
-      this.items = new ArrayList<FeedConnection>();
+      this.items = new ArrayList<Statement>();
     }
     this.items.add(itemsItem);
     return this;
@@ -72,11 +72,11 @@ public class FeedConnections {
    * @return items
   **/
   @ApiModelProperty(value = "")
-  public List<FeedConnection> getItems() {
+  public List<Statement> getItems() {
     return items;
   }
 
-  public void setItems(List<FeedConnection> items) {
+  public void setItems(List<Statement> items) {
     this.items = items;
   }
 
@@ -89,9 +89,9 @@ public class FeedConnections {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    FeedConnections feedConnections = (FeedConnections) o;
-    return Objects.equals(this.pagination, feedConnections.pagination) &&
-        Objects.equals(this.items, feedConnections.items);
+    Statements statements = (Statements) o;
+    return Objects.equals(this.pagination, statements.pagination) &&
+        Objects.equals(this.items, statements.items);
   }
 
   @Override
@@ -103,7 +103,7 @@ public class FeedConnections {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class FeedConnections {\n");
+    sb.append("class Statements {\n");
     
     sb.append("    pagination: ").append(toIndentedString(pagination)).append("\n");
     sb.append("    items: ").append(toIndentedString(items)).append("\n");

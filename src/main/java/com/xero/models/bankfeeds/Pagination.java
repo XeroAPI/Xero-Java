@@ -1,6 +1,6 @@
 /*
- * Feed Connection API
- * This is a Feed Connection API
+ * Bank Feeds API
+ * The Xero Bank Feeds API
  *
  * OpenAPI spec version: 1.0.0
  * Contact: api@xero.com
@@ -11,7 +11,7 @@
  */
 
 
-package com.xero.models.feedconnections;
+package com.xero.models.bankfeeds;
 
 import java.util.Objects;
 import java.util.Arrays;

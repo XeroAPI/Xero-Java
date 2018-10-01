@@ -26,19 +26,25 @@ import org.apache.logging.log4j.Logger;
 
 import com.xero.api.XeroClient;
 import com.xero.api.client.*;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.xero.api.ApiClient;
 import com.xero.api.Config;
 import com.xero.api.JsonConfig;
 import com.xero.api.OAuthAccessToken;
 import com.xero.api.OAuthRequestResource;
+import com.xero.api.RsaSignerFactory;
 import com.xero.api.XeroApiException;
 import com.xero.model.*;
 import com.xero.models.assets.*;
 import com.xero.models.assets.BookDepreciationSetting.AveragingMethodEnum;
 import com.xero.models.assets.BookDepreciationSetting.DepreciationCalculationMethodEnum;
 import com.xero.models.assets.BookDepreciationSetting.DepreciationMethodEnum;
-import com.xero.models.feedconnections.*;
-import com.xero.models.feedconnections.FeedConnection.AccountTypeEnum;
+import com.xero.models.bankfeeds.*;
+import com.xero.models.bankfeeds.Error;
+import com.xero.models.bankfeeds.Statements;
+import com.xero.models.bankfeeds.FeedConnection.AccountTypeEnum;
+
+import org.threeten.bp.LocalDate;
 
 public class RequestResourceServlet extends HttpServlet 
 {
@@ -57,9 +63,11 @@ public class RequestResourceServlet extends HttpServlet
 			+ "<div class=\"form-group\">" 
 		  	+ "<label for=\"object\">Create, Read, Update & Delete</label>"
 		  	+ "<select name=\"object\" class=\"form-control\" id=\"object\">"
-		  	+ "<option value=\"Assets\" selected>Assets</option>"
-			+ "<option value=\"Accounts\" selected>Accounts</option>"
+		  	+ "<option value=\"Assets\" >Assets</option>"
+			+ "<option value=\"Accounts\" >Accounts</option>"
 			+ "<option value=\"Attachments\">Attachments</option>"
+		  	+ "<option value=\"FeedConnections\">Bank Feed Connections</option>"
+			+ "<option value=\"Statements\">Bank Statements</option>"
 		  	+ "<option value=\"BankTransactions\">BankTransactions</option>"
 		  	+ "<option value=\"BankTransfers\">BankTransfers</option>"
 		  	+ "<option value=\"BrandingThemes\">BrandingThemes</option>"
@@ -70,7 +78,6 @@ public class RequestResourceServlet extends HttpServlet
 		  	+ "<option value=\"Currencies\">Currencies</option>"
 		  	+ "<option value=\"Employees\">Employees</option>"
 		  	+ "<option value=\"ExpenseClaims\">ExpenseClaims</option>"
-		  	+ "<option value=\"FeedConnections\">FeedConnections</option>"
 		  	+ "<option value=\"Invoices\">Invoices</option>"
 		  	+ "<option value=\"InvoiceReminders\">InvoiceReminders</option>"
 		  	+ "<option value=\"Items\">Items</option>"
@@ -158,14 +165,18 @@ public class RequestResourceServlet extends HttpServlet
 		client.setOAuthToken(token, tokenSecret);
 		
 		SampleData data = new SampleData(client);
+
+		//System.out.println(token);
+		//System.out.println(tokenSecret);
+		
+		ApiClient apiClientForBankFeeds = new ApiClient(config.getBankFeedsUrl(),null,null,null);
+		BankFeedsApi bankFeedsApi = new BankFeedsApi(apiClientForBankFeeds);
+		bankFeedsApi.setOAuthToken(token, tokenSecret);
+		Map<String, String> params = null;
 		
 		if(object.equals("FeedConnections")) {
-			
-			/* BANKFEED */
-			ApiClient apiClient = new ApiClient(config.getFeedConnectionsUrl(),null,null,null);
-			FeedConnectionApi feedConnectionApi = new FeedConnectionApi(apiClient);
-			feedConnectionApi.setOAuthToken(token, tokenSecret);
-			
+			/* BANKFEED CONNECTIONS */
+			// Create New Feed Connection
 			try {
 				FeedConnection newBank = new FeedConnection();
 				newBank.setAccountName("SDK Bank " + SampleData.loadRandomNum());
@@ -177,43 +188,217 @@ public class RequestResourceServlet extends HttpServlet
 				FeedConnections arrayFeedConnections = new FeedConnections();
 				arrayFeedConnections.addItemsItem(newBank);
 				
-				FeedConnections fc1 = feedConnectionApi.createFeedConnections(arrayFeedConnections, null);
+				FeedConnections fc1 = bankFeedsApi.createFeedConnections(arrayFeedConnections, null);
 				messages.add("New Bank with status: " + fc1.getItems().get(0).getStatus());
 			} catch (Exception e) {
 				System.out.println(e.toString());
 			}
 			
+			// Get ALL Feed Connection
 			try {
-				FeedConnections fc = feedConnectionApi.getFeedConnections(null);
+				FeedConnections fc = bankFeedsApi.getFeedConnections(null);
 				messages.add("Total Banks found: " + fc.getItems().size());
 			} catch (Exception e) {
 				System.out.println(e.toString());
 			}
 			
+			// Get one Feed Connection
 			try {
-				Map<String, String> params = null;
-				FeedConnections fc = feedConnectionApi.getFeedConnections(null);
-				FeedConnection oneFC = feedConnectionApi.getFeedConnection(fc.getItems().get(0).getId(),null);
+				FeedConnections fc = bankFeedsApi.getFeedConnections(null);
+				FeedConnection oneFC = bankFeedsApi.getFeedConnection(fc.getItems().get(0).getId(),null);
 				messages.add("One Bank: " + oneFC.getAccountName());
 			} catch (Exception e) {
 				System.out.println(e.toString());
 			}
 			
+			// Delete Feed Connection
 			try {
-				FeedConnections fc = feedConnectionApi.getFeedConnections(null);
-				
-				FeedConnections allFeedConnections = feedConnectionApi.getFeedConnections(null);
+				FeedConnections fc = bankFeedsApi.getFeedConnections(null);
+				FeedConnections allFeedConnections = bankFeedsApi.getFeedConnections(null);
 				FeedConnections deleteFeedConnections = new FeedConnections();
 				
 				FeedConnection feedConnectionOne = new FeedConnection();
 				feedConnectionOne.setId(allFeedConnections.getItems().get(fc.getItems().size()-1).getId());
 				deleteFeedConnections.addItemsItem(feedConnectionOne);
 				
-				FeedConnections deletedFeedConnection = feedConnectionApi.deleteFeedConnections(deleteFeedConnections,null);
+				FeedConnections deletedFeedConnection = bankFeedsApi.deleteFeedConnections(deleteFeedConnections,null);
 				messages.add("DELETED Bank status: " + deletedFeedConnection.getItems().get(0).getStatus());
 			} catch (Exception e) {
 				System.out.println(e.toString());
 			}
+
+		} else if(object.equals("Statements")) {
+			/* BANK STATEMENTS */
+			/*
+			// Create One Statement
+			try {
+				Statements arrayOfStatements = new Statements();
+				Statement newStatement = new Statement();
+				LocalDate stDate = LocalDate.of(2017, 9, 01);
+				newStatement.setStartDate(stDate);
+				LocalDate endDate = LocalDate.of(2017, 9, 15);
+				newStatement.endDate(endDate);
+				StartBalance stBalance = new StartBalance();
+				stBalance.setAmount("100");
+				stBalance.setCreditDebitIndicator(CreditDebitIndicator.CREDIT);
+				newStatement.setStartBalance(stBalance);
+				
+				EndBalance endBalance = new EndBalance();
+				endBalance.setAmount("300");
+				endBalance.setCreditDebitIndicator(CreditDebitIndicator.CREDIT);
+				newStatement.endBalance(endBalance);
+				
+				FeedConnections fc = bankFeedsApi.getFeedConnections(null);
+				newStatement.setFeedConnectionId(fc.getItems().get(2).getId().toString());
+				
+				StatementLine newStatementLine = new StatementLine();
+				newStatementLine.setAmount("50");
+				newStatementLine.setChequeNumber("123" + SampleData.loadRandomNum());
+				newStatementLine.setDescription("My new line");
+				newStatementLine.setCreditDebitIndicator(CreditDebitIndicator.CREDIT);
+				newStatementLine.setReference("Foobar" + SampleData.loadRandomNum());
+				newStatementLine.setPayeeName("StarLord" + SampleData.loadRandomNum());
+				newStatementLine.setTransactionId("1234" + SampleData.loadRandomNum());
+				LocalDate postedDate = LocalDate.of(2017, 9, 05);
+				newStatementLine.setPostedDate(postedDate);
+			
+				StatementLines arrayStatementLines = new StatementLines();
+				arrayStatementLines.add(newStatementLine);
+				
+				newStatement.setStatementLines(arrayStatementLines);
+				arrayOfStatements.addItemsItem(newStatement);
+				Statements rStatements = bankFeedsApi.createStatements(arrayOfStatements, params);
+				System.out.println(rStatements.toString());
+				messages.add("New Bank Statement Status: " + rStatements.getItems().get(0).getStatus());
+							
+			} catch (Exception e) {
+				TypeReference<Statements> typeRef = new TypeReference<Statements>() {};
+				Statements statementErrors =  apiClientForBankFeeds.getObjectMapper().readValue(e.getMessage(), typeRef);
+				System.out.println(statementErrors.getItems().get(0).getErrors().get(0).getDetail());
+			}
+			
+			// Create One Statement, Then GET One Statement
+			try {
+				Statements arrayOfStatements = new Statements();
+				Statement newStatement = new Statement();
+				LocalDate stDate = LocalDate.of(2017, 9, 01);
+				newStatement.setStartDate(stDate);
+				LocalDate endDate = LocalDate.of(2017, 9, 15);
+				newStatement.endDate(endDate);
+				StartBalance stBalance = new StartBalance();
+				stBalance.setAmount("100");
+				stBalance.setCreditDebitIndicator(CreditDebitIndicator.CREDIT);
+				newStatement.setStartBalance(stBalance);
+				
+				EndBalance endBalance = new EndBalance();
+				endBalance.setAmount("300");
+				endBalance.setCreditDebitIndicator(CreditDebitIndicator.CREDIT);
+				newStatement.endBalance(endBalance);
+				
+				FeedConnections fc = bankFeedsApi.getFeedConnections(null);
+				newStatement.setFeedConnectionId(fc.getItems().get(2).getId().toString());
+				
+				StatementLine newStatementLine = new StatementLine();
+				newStatementLine.setAmount("50");
+				newStatementLine.setChequeNumber("123" + SampleData.loadRandomNum());
+				newStatementLine.setDescription("My new line");
+				newStatementLine.setCreditDebitIndicator(CreditDebitIndicator.CREDIT);
+				newStatementLine.setReference("Foobar" + SampleData.loadRandomNum());
+				newStatementLine.setPayeeName("StarLord" + SampleData.loadRandomNum());
+				newStatementLine.setTransactionId("1234" + SampleData.loadRandomNum());
+				LocalDate postedDate = LocalDate.of(2017, 9, 05);
+				newStatementLine.setPostedDate(postedDate);
+			
+				StatementLines arrayStatementLines = new StatementLines();
+				arrayStatementLines.add(newStatementLine);
+				
+				newStatement.setStatementLines(arrayStatementLines);
+				arrayOfStatements.addItemsItem(newStatement);
+				Statements rStatements = bankFeedsApi.createStatements(arrayOfStatements, params);
+			
+				Statement oneStatement = bankFeedsApi.getStatement(rStatements.getItems().get(0).getId(), params);
+				
+				System.out.println(oneStatement.toString());
+				messages.add("New Bank Statement Status: " + oneStatement.getStatementLineCount());
+				
+			} catch (Exception e) {
+				//TypeReference<Statements> typeRef = new TypeReference<Statements>() {};
+				//Statements statementErrors =  apiClientForBankFeeds.getObjectMapper().readValue(e.getMessage(), typeRef);
+				//System.out.println(statementErrors.getItems().get(0).getErrors().get(0).getDetail());
+				System.out.println(e.toString());
+			}
+				
+			*/
+			
+			
+			// Create Duplicate Statement - to test error handling
+			try {
+				Statements arrayOfStatements = new Statements();
+				Statement newStatement = new Statement();
+				LocalDate stDate = LocalDate.of(2017, 9, 01);
+				newStatement.setStartDate(stDate);
+				LocalDate endDate = LocalDate.of(2017, 9, 15);
+				newStatement.endDate(endDate);
+				StartBalance stBalance = new StartBalance();
+				stBalance.setAmount("100");
+				stBalance.setCreditDebitIndicator(CreditDebitIndicator.CREDIT);
+				newStatement.setStartBalance(stBalance);
+				
+				EndBalance endBalance = new EndBalance();
+				endBalance.setAmount("300");
+				endBalance.setCreditDebitIndicator(CreditDebitIndicator.CREDIT);
+				newStatement.endBalance(endBalance);
+				
+				FeedConnections fc = bankFeedsApi.getFeedConnections(null);
+				newStatement.setFeedConnectionId(fc.getItems().get(2).getId().toString());
+				
+				StatementLine newStatementLine = new StatementLine();
+				newStatementLine.setAmount("50");
+				newStatementLine.setChequeNumber("123");
+				newStatementLine.setDescription("My new line");
+				newStatementLine.setCreditDebitIndicator(CreditDebitIndicator.CREDIT);
+				newStatementLine.setReference("Foobar" );
+				newStatementLine.setPayeeName("StarLord");
+				newStatementLine.setTransactionId("1234");
+				LocalDate postedDate = LocalDate.of(2017, 9, 05);
+				newStatementLine.setPostedDate(postedDate);
+			
+				StatementLines arrayStatementLines = new StatementLines();
+				arrayStatementLines.add(newStatementLine);
+				
+				newStatement.setStatementLines(arrayStatementLines);
+				arrayOfStatements.addItemsItem(newStatement);
+				Statements rStatements2 = bankFeedsApi.createStatements(arrayOfStatements, params);
+				
+				messages.add("New Bank Statement Status: " + rStatements2.getItems().get(0).getStatus());
+				
+				//DUPLICATE
+				Statements rStatements3 = bankFeedsApi.createStatements(arrayOfStatements, params);
+				
+				System.out.println(rStatements3.toString());
+				messages.add("New Bank Statement Status: " + rStatements3.getItems().get(0).getStatus());
+				
+			} catch (Exception e) {
+				    
+				TypeReference<Statements> typeRef = new TypeReference<Statements>() {};
+				Statements statementErrors =  apiClientForBankFeeds.getObjectMapper().readValue(e.getMessage(), typeRef);
+				System.out.println(statementErrors.getItems().get(0).getErrors().get(0).getDetail());
+				System.out.println(statementErrors.getItems().get(0).getErrors().get(0).getStatus());
+			}
+			
+			/*
+			// Create ALL Statements - currently not tested due to 500 error from API
+			try {
+				Statements allStatements = bankFeedsApi.getStatements(params);
+				System.out.println(allStatements.toString());							
+			} catch (Exception e) {
+				TypeReference<Statements> typeRef = new TypeReference<Statements>() {};
+				Statements statementErrors =  apiClientForBankFeeds.getObjectMapper().readValue(e.getMessage(), typeRef);
+				System.out.println(statementErrors.getItems().get(0).getErrors().get(0).getDetail());
+			}
+			*/
+			
+	
 			
 		} else if(object.equals("Assets")) {
 
@@ -328,8 +513,8 @@ public class RequestResourceServlet extends HttpServlet
 				List<Invoice> newInvoice = client.createInvoices(SampleData.loadInvoice().getInvoice());
 				messages.add("Create a new Invoice ID : " + newInvoice.get(0).getInvoiceID());
 				
-				InputStream is = JsonConfig.class.getResourceAsStream("/helo-heros.jpg");
-				byte[] bytes = IOUtils.toByteArray(is);
+				InputStream inputStream = JsonConfig.class.getResourceAsStream("/helo-heros.jpg");
+				byte[] bytes = IOUtils.toByteArray(inputStream);
 				
 				String fileName = "sample.jpg";
 				Attachment invoiceAttachment = client.createAttachment("Invoices",newInvoice.get(0).getInvoiceID(), fileName, "application/jpeg", bytes,true);

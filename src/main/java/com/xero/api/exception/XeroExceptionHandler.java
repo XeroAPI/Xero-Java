@@ -1,11 +1,14 @@
 package com.xero.api.exception;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.api.client.http.HttpResponseException;
+import com.xero.api.ApiClient;
 import com.xero.api.OAuthRequestResource;
 import com.xero.api.XeroApiException;
 import com.xero.api.XeroClientException;
 import com.xero.api.jaxb.XeroJAXBMarshaller;
 import com.xero.model.ApiException;
+import com.xero.models.bankfeeds.Statements;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -107,10 +110,10 @@ public class XeroExceptionHandler {
                 ApiException apiException = xeroJaxbMarshaller.unmarshall(content, ApiException.class);
                 return new XeroApiException(code, content, apiException);
             } catch (Exception e) {
-            		logger.error(e);
+            	logger.error(e);
             }
         } else {
-        		return  newApiException(content, code);
+        	return  newApiException(content, code);
         }
 		return null;
     }
@@ -145,6 +148,7 @@ public class XeroExceptionHandler {
      * @return XeroApiException
      */
     public XeroApiException newApiException(HttpResponseException httpResponseException) {
+    	
         Matcher matcher = MESSAGE_PATTERN.matcher(httpResponseException.getContent());
         StringBuilder messages = new StringBuilder();
         while (matcher.find()) {
@@ -180,6 +184,7 @@ public class XeroExceptionHandler {
     
     public XeroApiException newApiException(String content, int code) {
         Matcher matcher = MESSAGE_PATTERN.matcher(content);
+        
         StringBuilder messages = new StringBuilder();
         while (matcher.find()) {
             if (messages.length() > 0) {
