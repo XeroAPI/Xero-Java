@@ -15,12 +15,16 @@ package com.xero.models.bankfeeds;
 
 import java.util.Objects;
 import java.util.Arrays;
+import java.util.UUID;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.bankfeeds.Error;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * FeedConnection
@@ -29,6 +33,9 @@ import io.swagger.annotations.ApiModelProperty;
 public class FeedConnection {
   @JsonProperty("id")
   private String id = null;
+
+  @JsonProperty("accountId")
+  private UUID accountId;
 
   @JsonProperty("accountToken")
   private String accountToken = null;
@@ -140,6 +147,24 @@ public class FeedConnection {
 
   public void setId(String id) {
     this.id = id;
+  }
+
+  /**
+   * Get accountId
+   * @return account id
+   */
+  @ApiModelProperty(example = "0d3cf8d-95dc-4466-8dc0-47e6d1197e28", value = "")
+  public UUID getAccountId() {
+      return accountId;
+  }
+
+  public void setAccountId(final UUID accountId) {
+      this.accountId = requireNonNull(accountId, "accountId must not be null");
+  }
+
+  public FeedConnection accountId(final UUID accountId) {
+      this.setAccountId(accountId);
+      return this;
   }
 
   public FeedConnection accountToken(String accountToken) {
@@ -297,6 +322,7 @@ public class FeedConnection {
     }
     FeedConnection feedConnection = (FeedConnection) o;
     return Objects.equals(this.id, feedConnection.id) &&
+        Objects.equals(this.accountId, feedConnection.accountId) &&
         Objects.equals(this.accountToken, feedConnection.accountToken) &&
         Objects.equals(this.accountNumber, feedConnection.accountNumber) &&
         Objects.equals(this.accountName, feedConnection.accountName) &&
@@ -309,7 +335,7 @@ public class FeedConnection {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, accountToken, accountNumber, accountName, accountType, currency, country, status, error);
+    return Objects.hash(id, accountId, accountToken, accountNumber, accountName, accountType, currency, country, status, error);
   }
 
 
@@ -317,8 +343,8 @@ public class FeedConnection {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class FeedConnection {\n");
-    
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
     sb.append("    accountToken: ").append(toIndentedString(accountToken)).append("\n");
     sb.append("    accountNumber: ").append(toIndentedString(accountNumber)).append("\n");
     sb.append("    accountName: ").append(toIndentedString(accountName)).append("\n");
