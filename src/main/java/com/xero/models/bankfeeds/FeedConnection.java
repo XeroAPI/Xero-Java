@@ -39,6 +39,9 @@ public class FeedConnection {
   @JsonProperty("accountName")
   private String accountName = null;
 
+  @JsonProperty("accountId")
+  private String accountId = null;
+
   /**
    * Gets or Sets accountType
    */
@@ -196,6 +199,24 @@ public class FeedConnection {
     this.accountName = accountName;
   }
 
+  public FeedConnection accountId(String accountId) {
+    this.accountId = accountId;
+    return this;
+  }
+
+   /**
+   * Get accountId
+   * @return accountId
+  **/
+  @ApiModelProperty(example = "079a88ea-276d-41fb-a1f1-366ef3e22921", value = "")
+  public String getAccountId() {
+    return accountId;
+  }
+
+  public void setAccountId(String accountId) {
+    this.accountId = accountId;
+  }
+
   public FeedConnection accountType(AccountTypeEnum accountType) {
     this.accountType = accountType;
     return this;
@@ -300,6 +321,7 @@ public class FeedConnection {
         Objects.equals(this.accountToken, feedConnection.accountToken) &&
         Objects.equals(this.accountNumber, feedConnection.accountNumber) &&
         Objects.equals(this.accountName, feedConnection.accountName) &&
+        Objects.equals(this.accountId, feedConnection.accountId) &&
         Objects.equals(this.accountType, feedConnection.accountType) &&
         Objects.equals(this.currency, feedConnection.currency) &&
         Objects.equals(this.country, feedConnection.country) &&
@@ -309,7 +331,7 @@ public class FeedConnection {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, accountToken, accountNumber, accountName, accountType, currency, country, status, error);
+    return Objects.hash(id, accountToken, accountNumber, accountName, accountId, accountType, currency, country, status, error);
   }
 
 
@@ -322,6 +344,7 @@ public class FeedConnection {
     sb.append("    accountToken: ").append(toIndentedString(accountToken)).append("\n");
     sb.append("    accountNumber: ").append(toIndentedString(accountNumber)).append("\n");
     sb.append("    accountName: ").append(toIndentedString(accountName)).append("\n");
+    sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
     sb.append("    accountType: ").append(toIndentedString(accountType)).append("\n");
     sb.append("    currency: ").append(toIndentedString(currency)).append("\n");
     sb.append("    country: ").append(toIndentedString(country)).append("\n");
