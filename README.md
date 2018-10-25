@@ -14,7 +14,7 @@ For those using maven, add the dependency and repository to your pom.xml
     <dependency>
 	  <groupId>com.xero</groupId>
 	  <artifactId>xero-java-sdk</artifactId>
-	  <version>1.3.1</version>
+	  <version>1.3.2</version>
 	</dependency>
 
     <repositories>
