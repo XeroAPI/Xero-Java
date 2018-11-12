@@ -1,7 +1,6 @@
 package com.xero.api;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 import java.security.PrivateKey;
@@ -18,10 +17,10 @@ public class RsaSignerFactory implements SignerFactory {
   final static Logger logger = LogManager.getLogger(RsaSignerFactory.class);
   
   public RsaSignerFactory(String pathToPrivateKey, String privateKeyPassword) {
-    this(RsaSignerFactory.class.getResourceAsStream(pathToPrivateKey), privateKeyPassword);
+    this(getInputStreamForPath(pathToPrivateKey), privateKeyPassword);
   }
 
-  public RsaSignerFactory(InputStream privateKeyInputStream, String privateKeyPassword) {
+    public RsaSignerFactory(InputStream privateKeyInputStream, String privateKeyPassword) {
     try {
       KeyStore oauthKeyStore;
       oauthKeyStore = KeyStore.getInstance("PKCS12");
@@ -45,5 +44,18 @@ public class RsaSignerFactory implements SignerFactory {
   @Override
   public OAuthRsaSigner createSigner(String tokenSharedSecret) {
     return signer;
+  }
+
+  private static InputStream getInputStreamForPath(String path) {
+    File f = new File(path);
+    if (f.isFile()) {
+      try {
+        return new FileInputStream(f);
+      } catch (FileNotFoundException e) {
+        logger.info("Could not open file from file system, defaulting to classpath.");
+      }
+    }
+
+    return RsaSignerFactory.class.getResourceAsStream(path);
   }
 }
