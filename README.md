@@ -426,7 +426,7 @@ The Xero Java SDK contains XeroClient which has helper methods to perform (Creat
 import com.xero.api.*;
 import com.xero.api.ApiClient;
 import com.xero.api.client.AccountingApi;
-import com.xero.models.bankfeeds.*;
+import com.xero.models.accounting.*;
 
 // Get Xero API Resource - DEMONSTRATION ONLY get token from Cookie
 TokenStorage storage = new TokenStorage();
@@ -439,7 +439,6 @@ ApiClient apiClientForAccounting = new ApiClient(config.getApiUrl(),null,null,nu
 AccountingApi accountingApi = new AccountingApi(apiClientForAccounting);
 accountingApi.setOAuthToken(token, tokenSecret);
 		
-
 // Get All Contacts
 Contacts contactList = accountingApi.getContacts(null, null, null, null, null, null);
 System.out.println("How many contacts did we find: " + contactList.getContacts().size());
@@ -594,62 +593,23 @@ try {
 
 Below is an example of how how to handle errors.
 
-```java
-import com.xero.api.*;
-import com.xero.model.*;
-
-// FORCE a 404 Error - there is no contact wtih ID 1234	
-try {
-	Contact ContactOne = client.getContact("1234");
-	System.out.println("Get a single Contact - ID : " + ContactOne.getContactID());
-} catch (XeroApiException e) {
-	System.out.println(e.getResponseCode());
-	System.out.println(e.getMessage());	
-}	
-
-
-// FORCE a 503 Error - try to make more than 60 API calls in a minute to trigger rate limit error.
-List<Contact> ContactList = client.getContacts();
-int num = SampleData.findRandomNum(ContactList.size());			
-try {
-	for(int i=65; i>1; i--){
-		Contact ContactOne = client.getContact(ContactList.get(num).getContactID());
-	}
-	System.out.println("Congrats - you made over 60 calls without hitting rate limit");
-} catch (XeroApiException e) {
-	System.out.println(e.getResponseCode());
-	System.out.println(e.getMessage());  
-}		
-
-```
-
-Version 0.6.2 adds improved ApiException handling if you are creating multiple Invoices and pass the SummarizeError=true parameter - Thanks Lance Reid (lancedfr)
-
 
 ```java
 import com.xero.api.*;
-import com.xero.model.*;
+import com.xero.api.ApiClient;
+import com.xero.api.client.AccountingApi;
+import com.xero.models.accounting.*;
 
 try {
-	List<Invoice> listOfInvoices = new ArrayList<Invoice>();
-	listOfInvoices.add(SampleData.loadBadInvoice().getInvoice().get(0));
-	listOfInvoices.add(SampleData.loadBadInvoice2().getInvoice().get(0));
-	
-	List<Invoice> newInvoice = client.createInvoices(listOfInvoices,null,true);
-	System.out.println("Create a new Invoice ID : " + newInvoice.get(0).getInvoiceID() + " - Reference : " +newInvoice.get(0).getReference());
+	// BAD invoice data
 		
 } catch (XeroApiException e) {
-	System.out.println(e.getResponseCode());
-
-	List<Elements> elements = e.getApiException().getElements();
-	Elements element = elements.get(0);
- 	List<Object> dataContractBase = element.getDataContractBase();
-	for (Object dataContract : dataContractBase) {
-		Invoice failedInvoice = (Invoice) dataContract;
-		ArrayOfValidationError validationErrors = failedInvoice.getValidationErrors();
-            
-		System.out.println("Failure message : " + errors.get(0).getMessage());
-		System.out.println("Failure invoice Num : " + failedInvoice.getInvoiceNumber());
+	System.out.println("Response Code: " + e.getResponseCode());
+	System.out.println("Error Type: " + e.getError().getType());
+	System.out.println("Error Number: " + e.getError().getErrorNumber());
+	System.out.println("Error Message: " + e.getError().getMessage());
+	if (e.getResponseCode() == 400) {
+		System.out.println("Validation Message: " + e.getError().getElements().get(0).getValidationErrors().get(0).getMessage());
 	}
 }
 
