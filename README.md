@@ -167,7 +167,7 @@ Here are examples of the minimum config.json for different Xero App Types.
 
 ### Custom Configuration
 
-You have the option to implement your own Config class and pass it as an argument to the OAuthRequestToken, OAuthAccessToken and XeroClient constructors. 
+You have the option to implement your own Config class and pass it as an argument to the OAuthRequestToken, OAuthAccessToken and Api Clients (AccountingApi, AssetsApi, etc). 
 
 An example of how you might implement Config can be found in the `/src/main/java/com/xero/example` folder named `CustomJsonConfig.java`.
 
@@ -178,6 +178,7 @@ An alternative method of configuring the Xero Java SDK can be found in the `exam
 This class reads the configuration from the spring `Environment` backed by the `application.properties`. This handy way of configuring the SDK
 allows spring profiles to control your production and development environments.
 
+This code should be updated and replace XeroClient with new Clients (AccountingApi, AssetsApi, etc)
 ```java
     @Bean
     public XeroClient xeroClient(Environment environment) {
@@ -200,7 +201,7 @@ xero.PrivateKeyPassword=
 
 ## Customize Request Signing
 
-You can provide your own signing mechanism by using the `public XeroClient(Config config, SignerFactory signerFactory)` constructor. Simply implement the `SignerFactory` interface with your implementation.
+You can provide your own signing mechanism by using the `public AccountingApi(Config config, SignerFactory signerFactory)` constructor. Simply implement the `SignerFactory` interface with your implementation.
 
 You can also provide a `RsaSignerFactory` using the `public RsaSignerFactory(InputStream privateKeyInputStream, String privateKeyPassword)` constructor to fetch keys from any InputStream.
 
@@ -420,7 +421,7 @@ public class TokenStorage
 
 **Data Endpoints**
 
-The Xero Java SDK contains XeroClient which has helper methods to perform (Create, Read, Update and Delete) actions on each endpoints.  Once you instantiate XeroClient, you'll use Xero API schema classes to interact with Java Objects.
+The Xero Java SDK contains Client classes (AccountingApi, AssetsApi, etc) which have helper methods to perform (Create, Read, Update and Delete) actions on each endpoints.  Once you instantiate a Client class, you'll use Xero API models to interact with Java Objects.
 
 ```java
 import com.xero.api.*;
