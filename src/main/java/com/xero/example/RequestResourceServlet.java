@@ -444,59 +444,73 @@ public class RequestResourceServlet extends HttpServlet
 			String newFileName = "sample2.jpg";
 
 			// CREATE Accounts attachment
+		    where = "Status==\"ACTIVE\"";
 			Accounts myAccounts = accountingApi.getAccounts(ifModifiedSince, where, order);
-			UUID accountID = myAccounts.getAccounts().get(0).getAccountID();			
-			Attachments createdAttachments = accountingApi.createAccountAttachmentByFileName(accountID, newFileName, bytes);
-			messages.add("Attachment to Account ID: " + accountID + " attachment - ID: " + createdAttachments.getAttachments().get(0).getAttachmentID());
-	 		
+			if ( myAccounts.getAccounts().size() > 0) {
+				UUID accountID = myAccounts.getAccounts().get(0).getAccountID();			
+				Attachments createdAttachments = accountingApi.createAccountAttachmentByFileName(accountID, newFileName, bytes);
+				messages.add("Attachment to Account ID: " + accountID + " attachment - ID: " + createdAttachments.getAttachments().get(0).getAttachmentID());
+			}
 			// CREATE BankTransactions attachment
 			BankTransactions myBanktransactions = accountingApi.getBankTransactions(ifModifiedSince, where, order, page);
-			UUID banktransactionID = myBanktransactions.getBankTransactions().get(0).getBankTransactionID();			
-			Attachments createdBanktransationAttachments = accountingApi.createBankTransactionAttachmentByFileName(banktransactionID, newFileName, bytes);
-			messages.add("Attachment to BankTransaction ID: " + banktransactionID + " attachment - ID: "  + createdBanktransationAttachments.getAttachments().get(0).getAttachmentID());
-			
+			if ( myBanktransactions.getBankTransactions().size() > 0) {
+				UUID banktransactionID = myBanktransactions.getBankTransactions().get(0).getBankTransactionID();			
+				Attachments createdBanktransationAttachments = accountingApi.createBankTransactionAttachmentByFileName(banktransactionID, newFileName, bytes);
+				messages.add("Attachment to BankTransaction ID: " + banktransactionID + " attachment - ID: "  + createdBanktransationAttachments.getAttachments().get(0).getAttachmentID());
+			}
 			// CREATE BankTransfer attachment
+			where = null;
 			BankTransfers myBankTransfer = accountingApi.getBankTransfers(ifModifiedSince, where, order);
-			UUID bankTransferID = myBankTransfer.getBankTransfers().get(0).getBankTransferID();			
-			Attachments createdBankTransferAttachments = accountingApi.createBankTransferAttachmentByFileName(bankTransferID, newFileName, bytes);
-			messages.add("Attachment to BankTransfer ID: " + bankTransferID + " attachment - ID: " + createdBankTransferAttachments.getAttachments().get(0).getAttachmentID());
-			
+			if ( myBankTransfer.getBankTransfers().size() > 0) {
+				UUID bankTransferID = myBankTransfer.getBankTransfers().get(0).getBankTransferID();			
+				Attachments createdBankTransferAttachments = accountingApi.createBankTransferAttachmentByFileName(bankTransferID, newFileName, bytes);
+				messages.add("Attachment to BankTransfer ID: " + bankTransferID + " attachment - ID: " + createdBankTransferAttachments.getAttachments().get(0).getAttachmentID());
+			}
 			// CREATE Contacts attachment
+		    where = "Status==\"ACTIVE\"";
 			Contacts myContacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
-			UUID contactID = myContacts.getContacts().get(0).getContactID();
-			Attachments createdContactAttachments = accountingApi.createContactAttachmentByFileName(contactID, newFileName, bytes);
-			messages.add("Attachment to Contact ID: " + contactID + " attachment - ID: " + createdContactAttachments.getAttachments().get(0).getAttachmentID());
-	 		
+			if ( myContacts.getContacts().size() > 0) {
+				UUID contactID = myContacts.getContacts().get(0).getContactID();
+				Attachments createdContactAttachments = accountingApi.createContactAttachmentByFileName(contactID, newFileName, bytes);
+				messages.add("Attachment to Contact ID: " + contactID + " attachment - ID: " + createdContactAttachments.getAttachments().get(0).getAttachmentID());
+			}
+			
 			// CREATE CreditNotes attachment
 			CreditNotes myCreditNotes = accountingApi.getCreditNotes(ifModifiedSince, where, order, page);
-			UUID creditNoteID = myCreditNotes.getCreditNotes().get(0).getCreditNoteID();
-			Attachments createdCreditNoteAttachments = accountingApi.createCreditNoteAttachmentByFileName(creditNoteID, newFileName, bytes);
-			messages.add("Attachment to Credit Notes ID: " + creditNoteID + " attachment - ID: " + createdCreditNoteAttachments.getAttachments().get(0).getAttachmentID());
-	 		
+			if ( myCreditNotes.getCreditNotes().size() > 0) {
+				UUID creditNoteID = myCreditNotes.getCreditNotes().get(0).getCreditNoteID();
+				Attachments createdCreditNoteAttachments = accountingApi.createCreditNoteAttachmentByFileName(creditNoteID, newFileName, bytes);
+				messages.add("Attachment to Credit Notes ID: " + creditNoteID + " attachment - ID: " + createdCreditNoteAttachments.getAttachments().get(0).getAttachmentID());
+			}
 			// CREATE invoice attachment
 			Invoices myInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp);
-			UUID invoiceID = myInvoices.getInvoices().get(0).getInvoiceID();
-			Attachments createdInvoiceAttachments = accountingApi.createInvoiceAttachmentByFileName(invoiceID, newFileName, bytes);
-			messages.add("Attachment to Invoice ID: " + invoiceID + " attachment - ID: "  + createdInvoiceAttachments.getAttachments().get(0).getAttachmentID());
-	 		
+			if ( myInvoices.getInvoices().size() > 0) {
+				UUID invoiceID = myInvoices.getInvoices().get(0).getInvoiceID();
+				Attachments createdInvoiceAttachments = accountingApi.createInvoiceAttachmentByFileName(invoiceID, newFileName, bytes);
+				messages.add("Attachment to Invoice ID: " + invoiceID + " attachment - ID: "  + createdInvoiceAttachments.getAttachments().get(0).getAttachmentID());
+			}
 			// CREATE ManualJournals attachment
 			ManualJournals myManualJournals = accountingApi.getManualJournals(ifModifiedSince, where, order, page);
-			UUID manualJournalID = myManualJournals.getManualJournals().get(0).getManualJournalID();
-			Attachments createdManualJournalAttachments = accountingApi.createManualJournalAttachmentByFileName(manualJournalID, newFileName, bytes);
-			messages.add("Attachment to Manual Journal ID: " + manualJournalID + " attachment - ID: " + createdManualJournalAttachments.getAttachments().get(0).getAttachmentID());
-	 
+			if ( myManualJournals.getManualJournals().size() > 0) {
+				UUID manualJournalID = myManualJournals.getManualJournals().get(0).getManualJournalID();
+				Attachments createdManualJournalAttachments = accountingApi.createManualJournalAttachmentByFileName(manualJournalID, newFileName, bytes);
+				messages.add("Attachment to Manual Journal ID: " + manualJournalID + " attachment - ID: " + createdManualJournalAttachments.getAttachments().get(0).getAttachmentID());
+			}
 			// CREATE Receipts attachment
 			Receipts myReceipts = accountingApi.getReceipts(ifModifiedSince, where, order);
-			UUID receiptID = myReceipts.getReceipts().get(0).getReceiptID();
-			Attachments createdReceiptsAttachments = accountingApi.createReceiptAttachmentByFileName(receiptID, newFileName, bytes);
-			messages.add("Attachment to Receipt ID: " + receiptID + " attachment - ID: " + createdReceiptsAttachments.getAttachments().get(0).getAttachmentID());
-	 
+			if ( myReceipts.getReceipts().size() > 0) {
+				UUID receiptID = myReceipts.getReceipts().get(0).getReceiptID();
+				Attachments createdReceiptsAttachments = accountingApi.createReceiptAttachmentByFileName(receiptID, newFileName, bytes);
+				messages.add("Attachment to Receipt ID: " + receiptID + " attachment - ID: " + createdReceiptsAttachments.getAttachments().get(0).getAttachmentID());
+			}
 			// CREATE Repeating Invoices attachment
 			RepeatingInvoices myRepeatingInvoices = accountingApi.getRepeatingInvoices(where, order);
-			UUID repeatingInvoiceID = myRepeatingInvoices.getRepeatingInvoices().get(0).getRepeatingInvoiceID();
-			Attachments createdRepeatingInvoiceAttachments = accountingApi.createRepeatingInvoiceAttachmentByFileName(repeatingInvoiceID, newFileName, bytes);
-			messages.add("Attachment to Repeating Invoices ID: " + repeatingInvoiceID + " attachment - ID: " + createdRepeatingInvoiceAttachments.getAttachments().get(0).getAttachmentID());
-			
+			if ( myRepeatingInvoices.getRepeatingInvoices().size() > 0) {	
+				UUID repeatingInvoiceID = myRepeatingInvoices.getRepeatingInvoices().get(0).getRepeatingInvoiceID();
+				Attachments createdRepeatingInvoiceAttachments = accountingApi.createRepeatingInvoiceAttachmentByFileName(repeatingInvoiceID, newFileName, bytes);
+				messages.add("Attachment to Repeating Invoices ID: " + repeatingInvoiceID + " attachment - ID: " + createdRepeatingInvoiceAttachments.getAttachments().get(0).getAttachmentID());
+			}
+			where = null;
 		} else if(object.equals("Assets")) {
 			/* Asset */
 			// Create Asset

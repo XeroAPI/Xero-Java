@@ -134,23 +134,41 @@ public class OAuthRequestResource {
 		if (this.params != null) {
 			url.putAll(this.params);
 		}
+		
+		RequestConfig.Builder requestConfig = RequestConfig.custom()
+				.setConnectTimeout(connectTimeout)
+				.setConnectionRequestTimeout(readTimeout)
+				.setSocketTimeout(connectTimeout);
+		
+		//Proxy Service Setup - unable to fully test as we don't have a proxy 
+		// server to test against.
+		if(!"".equals(config.getProxyHost()) && config.getProxyHost() != null) {
+			int port = (int) (config.getProxyPort() == 80 && config.getProxyHttpsEnabled() ? 443 : config.getProxyPort());		
+			HttpHost proxy = new HttpHost(config.getProxyHost(), port, config.getProxyHttpsEnabled() ? "https" : "http");
+			requestConfig.setProxy(proxy);
+		}
 
 		HttpGet httpget = new HttpGet(url.toString());
 		if (httpMethod == "GET") {
 			this.createParameters().intercept(httpget,url);
+			httpget.setConfig(requestConfig.build());
 		}
 		
 		HttpPost httppost = new HttpPost(url.toString());
 		if (httpMethod == "POST") {
 			httppost.setEntity(new StringEntity(this.body, "utf-8"));
 		    this.createParameters().intercept(httppost,url);
+		    httppost.setConfig(requestConfig.build());
 		}
 		
 		HttpPut httpput = new HttpPut(url.toString());
 		if (httpMethod == "PUT") {
 			httpput.setEntity(new StringEntity(this.body, "utf-8"));
 		    this.createParameters().intercept(httpput,url);
+		    httpput.setConfig(requestConfig.build());
 		}
+		
+		
 		
 		HttpEntity entity;
 		try {
@@ -252,8 +270,7 @@ public class OAuthRequestResource {
 		if (httpMethod == "POST") {
 			if(logger.isInfoEnabled()){
 				logger.info("------------------ POST: BODY  -------------------");
-				logger.info(this.body);
-				
+				logger.info(this.body);	
 			}
 		
 			httppost.setEntity(new StringEntity(this.body, "utf-8"));
