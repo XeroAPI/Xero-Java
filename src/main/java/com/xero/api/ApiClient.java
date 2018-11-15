@@ -1,5 +1,6 @@
 package com.xero.api;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -28,7 +29,8 @@ public class ApiClient {
         ObjectMapper objectMapper = new ObjectMapper()
             .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
             .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-            .setDateFormat(new RFC3339DateFormat());
+            .setDateFormat(new RFC3339DateFormat())
+            .setSerializationInclusion(Include.NON_NULL);
         ThreeTenModule module = new ThreeTenModule();
         module.addDeserializer(Instant.class, CustomInstantDeserializer.INSTANT);
         module.addDeserializer(OffsetDateTime.class, CustomInstantDeserializer.OFFSET_DATE_TIME);

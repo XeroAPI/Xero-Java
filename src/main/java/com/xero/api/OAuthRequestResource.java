@@ -43,6 +43,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.format.DateTimeFormatter;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -106,6 +108,13 @@ public class OAuthRequestResource {
 		this(config, signerFactory, resource, method, params);
 		this.contentType = contentType;
 		this.requestBody = bytes;
+	}
+	
+	public  OAuthRequestResource(Config config, SignerFactory signerFactory, String resource, String method, String contentType, byte[] bytes, Map<? extends String, ?> params, String accept) {
+		this(config, signerFactory, resource, method, params);
+		this.contentType = contentType;
+		this.requestBody = bytes;
+		this.accept = accept;
 	}
 
 	public OAuthRequestResource(Config config, SignerFactory signerFactory, String resource, String method, String contentType, File file, Map<? extends String, ?> params) {
@@ -209,6 +218,8 @@ public class OAuthRequestResource {
 			this.resource = config.getApiUrl() + this.resource;
 		}
 		
+		//params.forEach((k,v)->System.out.println("Key : " + k + " Value : " + v));
+		
 		url = new GenericUrl(this.resource);
 		if (this.params != null) {
 			url.putAll(this.params);
@@ -306,7 +317,11 @@ public class OAuthRequestResource {
 		        int code = response.getStatusLine().getStatusCode();
 		        
 		        if (code == 204) {
-					content = "<Response><Status>DELETED</Status></Response>";
+		        	if (this.contentType == "application/json") {
+						content = "{\"Status\": \"DELETED\" }";
+		        	} else {
+						content = "<Response><Status>DELETED</Status></Response>";		        		
+		        	}
 		        }
 		        if (code != 200 && code != 201 && code != 202 && code != 204) {
 		            Header rateHeader = response.getFirstHeader("x-rate-limit-problem");
@@ -314,7 +329,7 @@ public class OAuthRequestResource {
 		                content += "&rate=" + rateHeader.getValue().toLowerCase();
                     }
 		            
-					XeroApiException e = new XeroApiException(code,content);
+		          	XeroApiException e = new XeroApiException(code,content);
 		        		throw e;
 		        }
 		        
@@ -353,6 +368,10 @@ public class OAuthRequestResource {
 	}
 	public void setTokenSecret(String secret) {
 		this.tokenSecret = secret; 
+	}
+	
+	public void setIfModifiedSince(OffsetDateTime modifiedAfter) {
+		this.ifModifiedSince = modifiedAfter.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
 	}
 	
 	public void setIfModifiedSince(Date modifiedAfter) {

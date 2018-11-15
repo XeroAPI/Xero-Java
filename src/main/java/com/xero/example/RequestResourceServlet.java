@@ -5,15 +5,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.net.URLEncoder;
-import java.util.Date;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -24,7 +23,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.xero.api.XeroClient;
+//import com.xero.api.XeroClient;
 import com.xero.api.client.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.xero.api.ApiClient;
@@ -32,19 +31,87 @@ import com.xero.api.Config;
 import com.xero.api.JsonConfig;
 import com.xero.api.OAuthAccessToken;
 import com.xero.api.OAuthRequestResource;
-import com.xero.api.RsaSignerFactory;
 import com.xero.api.XeroApiException;
-import com.xero.model.*;
+
+import com.xero.models.accounting.Account;
+import com.xero.models.accounting.Accounts;
+import com.xero.models.accounting.Allocation;
+import com.xero.models.accounting.Allocations;
+import com.xero.models.accounting.Attachments;
+import com.xero.models.accounting.BankAccount;
+import com.xero.models.accounting.BankTransaction;
+import com.xero.models.accounting.BankTransactions;
+import com.xero.models.accounting.BankTransfer;
+import com.xero.models.accounting.BankTransfers;
+import com.xero.models.accounting.BatchPayment;
+import com.xero.models.accounting.BatchPayments;
+import com.xero.models.accounting.BrandingThemes;
+import com.xero.models.accounting.CISSettings;
+import com.xero.models.accounting.Contact;
+import com.xero.models.accounting.ContactGroup;
+import com.xero.models.accounting.ContactGroups;
+import com.xero.models.accounting.Contacts;
+import com.xero.models.accounting.CreditNote;
+import com.xero.models.accounting.CreditNotes;
+import com.xero.models.accounting.Currencies;
+import com.xero.models.accounting.Currency;
+import com.xero.models.accounting.Employee;
+import com.xero.models.accounting.Employees;
+import com.xero.models.accounting.ExpenseClaim;
+import com.xero.models.accounting.ExpenseClaims;
+import com.xero.models.accounting.ExternalLink;
+import com.xero.models.accounting.HistoryRecord;
+import com.xero.models.accounting.HistoryRecords;
+import com.xero.models.accounting.Invoice;
+import com.xero.models.accounting.InvoiceReminders;
+import com.xero.models.accounting.Invoices;
+import com.xero.models.accounting.Item;
+import com.xero.models.accounting.Items;
+import com.xero.models.accounting.JournalLine;
+import com.xero.models.accounting.Journals;
+import com.xero.models.accounting.LineItem;
+import com.xero.models.accounting.LinkedTransaction;
+import com.xero.models.accounting.LinkedTransactions;
+import com.xero.models.accounting.ManualJournal;
+import com.xero.models.accounting.ManualJournals;
+import com.xero.models.accounting.OnlineInvoices;
+import com.xero.models.accounting.Organisations;
+import com.xero.models.accounting.Overpayments;
+import com.xero.models.accounting.Payment;
+import com.xero.models.accounting.PaymentService;
+import com.xero.models.accounting.PaymentServices;
+import com.xero.models.accounting.Payments;
+import com.xero.models.accounting.Prepayments;
+import com.xero.models.accounting.PurchaseOrder;
+import com.xero.models.accounting.PurchaseOrders;
+import com.xero.models.accounting.Receipt;
+import com.xero.models.accounting.Receipts;
+import com.xero.models.accounting.RepeatingInvoices;
+import com.xero.models.accounting.ReportWithRows;
+import com.xero.models.accounting.Reports;
+import com.xero.models.accounting.RequestEmpty;
+import com.xero.models.accounting.Response204;
+import com.xero.models.accounting.TaxComponent;
+import com.xero.models.accounting.TaxRate;
+import com.xero.models.accounting.TaxRates;
+import com.xero.models.accounting.TrackingCategories;
+import com.xero.models.accounting.TrackingCategory;
+import com.xero.models.accounting.TrackingOption;
+import com.xero.models.accounting.TrackingOptions;
+import com.xero.models.accounting.User;
+import com.xero.models.accounting.Users;
 import com.xero.models.assets.*;
 import com.xero.models.assets.BookDepreciationSetting.AveragingMethodEnum;
 import com.xero.models.assets.BookDepreciationSetting.DepreciationCalculationMethodEnum;
 import com.xero.models.assets.BookDepreciationSetting.DepreciationMethodEnum;
 import com.xero.models.bankfeeds.*;
-import com.xero.models.bankfeeds.Error;
 import com.xero.models.bankfeeds.Statements;
 import com.xero.models.bankfeeds.FeedConnection.AccountTypeEnum;
 
 import org.threeten.bp.LocalDate;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.ZoneOffset;
 
 public class RequestResourceServlet extends HttpServlet 
 {
@@ -65,18 +132,21 @@ public class RequestResourceServlet extends HttpServlet
 		  	+ "<select name=\"object\" class=\"form-control\" id=\"object\">"
 		  	+ "<option value=\"Assets\" >Assets</option>"
 			+ "<option value=\"Accounts\" >Accounts</option>"
-			+ "<option value=\"Attachments\">Attachments</option>"
-		  	+ "<option value=\"FeedConnections\">Bank Feed Connections</option>"
-			+ "<option value=\"Statements\">Bank Statements</option>"
-		  	+ "<option value=\"BankTransactions\">BankTransactions</option>"
-		  	+ "<option value=\"BankTransfers\">BankTransfers</option>"
+			+ "<option value=\"CreateAttachments\">Attachments - Create</option>"
+			+ "<option value=\"GetAttachments\">Attachments - Get</option>"
+			+ "<option value=\"BankFeedConnections\">Bank Feed Connections</option>"
+			+ "<option value=\"BankStatements\">Bank Statements</option>"
+		  	+ "<option value=\"BankTransactions\" >BankTransactions</option>"
+		  	+ "<option value=\"BankTransfers\" >BankTransfers</option>"
+		  	+ "<option value=\"BatchPayments\" SELECTED>BatchPayments</option>"
 		  	+ "<option value=\"BrandingThemes\">BrandingThemes</option>"
 		  	+ "<option value=\"Contacts\">Contacts</option>"
-		  	+ "<option value=\"ContactGroups\">ContactGroups</option>"
+		  	+ "<option value=\"ContactGroups\" >ContactGroups</option>"
 		  	+ "<option value=\"ContactGroupContacts\">ContactGroups Contacts</option>"
-		  	+ "<option value=\"CreditNotes\">CreditNotes</option>"
+		  	+ "<option value=\"CreditNotes\" >CreditNotes</option>"
+		  	+ "<option value=\"CreditNotesPDF\" >CreditNote As PDF</option>"
 		  	+ "<option value=\"Currencies\">Currencies</option>"
-		  	+ "<option value=\"Employees\">Employees</option>"
+		  	+ "<option value=\"Employees\" >Employees</option>"
 		  	+ "<option value=\"ExpenseClaims\">ExpenseClaims</option>"
 		  	+ "<option value=\"Invoices\">Invoices</option>"
 		  	+ "<option value=\"InvoiceReminders\">InvoiceReminders</option>"
@@ -87,15 +157,16 @@ public class RequestResourceServlet extends HttpServlet
 		  	+ "<option value=\"Organisations\">Organisations</option>"
 		  	+ "<option value=\"Overpayments\">Overpayments</option>"
 		  	+ "<option value=\"Payments\">Payments</option>"
+		  	+ "<option value=\"PaymentServices\">PaymentServices</option>"
 		  	+ "<option value=\"Prepayments\">Prepayments</option>"
 		  	+ "<option value=\"PurchaseOrders\">PurchaseOrders</option>"
 		  	+ "<option value=\"Receipts\">Receipts</option>"
-		  	+ "<option value=\"RepeatingInvoices\">RepeatingInvoices</option>"
-		  	+ "<option value=\"Reports\">Reports</option>"
+		  	+ "<option value=\"RepeatingInvoices\" >RepeatingInvoices</option>"
+		  	+ "<option value=\"Reports\" >Reports</option>"
 		  	+ "<option value=\"TaxRates\">TaxRates</option>"
-		  	+ "<option value=\"TrackingCategories\">TrackingCategories</option>"
+		  	+ "<option value=\"TrackingCategories\" >TrackingCategories</option>"
 		  	+ "<option value=\"Users\">Users</option>"
-		  	+ "<option value=\"Errors\">Errors</option>"
+		  	+ "<option value=\"Errors\" >Errors</option>"
 		  	+ "</select>"
 		  	+ "</div>"
 		  	+ "<div class=\"form-group\">"
@@ -108,7 +179,6 @@ public class RequestResourceServlet extends HttpServlet
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		
 		PrintWriter respWriter = response.getWriter();
 		response.setStatus(200);
 		response.setContentType("text/html"); 
@@ -139,8 +209,7 @@ public class RequestResourceServlet extends HttpServlet
 		OAuthAccessToken refreshToken = new OAuthAccessToken(config);
 		String tokenTimestamp = storage.get(request, "tokenTimestamp");
 		if(config.getAppType().equals("PARTNER") && refreshToken.isStale(tokenTimestamp)) {
-			System.out.println("Time for a refresh");
-
+			System.out.println("Time to refresh access token");
 			refreshToken.setToken(storage.get(request, "token"));
 			refreshToken.setTokenSecret(storage.get(request, "tokenSecret"));
 			refreshToken.setSessionHandle(storage.get(request, "sessionHandle"));
@@ -153,7 +222,6 @@ public class RequestResourceServlet extends HttpServlet
 					logger.error(e);
 				}
 			}
-			
 			// DEMONSTRATION ONLY - Store in Cookie - you can extend TokenStorage
 			// and implement the save() method for your database
 			storage.save(response,refreshToken.getAll());
@@ -161,20 +229,336 @@ public class RequestResourceServlet extends HttpServlet
 			tokenSecret = refreshToken.getTokenSecret();
 		}
 		
-		XeroClient client = new XeroClient();
-		client.setOAuthToken(token, tokenSecret);
-		
-		SampleData data = new SampleData(client);
-
-		//System.out.println(token);
-		//System.out.println(tokenSecret);
+		System.out.println(token);
+		System.out.println(tokenSecret);
 		
 		ApiClient apiClientForBankFeeds = new ApiClient(config.getBankFeedsUrl(),null,null,null);
 		BankFeedsApi bankFeedsApi = new BankFeedsApi(apiClientForBankFeeds);
 		bankFeedsApi.setOAuthToken(token, tokenSecret);
-		Map<String, String> params = null;
 		
-		if(object.equals("FeedConnections")) {
+		ApiClient apiClientForAssets = new ApiClient(config.getAssetsUrl(),null,null,null);
+		AssetApi assetApi = new AssetApi(apiClientForAssets);
+		assetApi.setOAuthToken(token, tokenSecret);
+		
+		ApiClient apiClientForAccounting = new ApiClient(config.getApiUrl(),null,null,null);
+		AccountingApi accountingApi = new AccountingApi(apiClientForAccounting);
+		accountingApi.setOAuthToken(token, tokenSecret);
+		
+		Map<String, String> params = null;
+		OffsetDateTime ifModifiedSince = null;
+		String where = null;
+		String order = null;
+		BigDecimal page = null;
+		boolean summarizeErrors = false;
+		String ids= null;
+		boolean includeArchived = false;
+		String invoiceNumbers = null;
+		String contactIDs = null;
+		String statuses = null;
+		boolean createdByMyApp = false;
+		Calendar now = Calendar.getInstance();
+		
+		if (object.equals("Accounts")) {
+			/* ACCOUNTS */
+			//JSON 
+			try {
+				// GET all accounts
+				Accounts accounts = accountingApi.getAccounts(ifModifiedSince, where, order);
+				messages.add("Get a all Accounts - total : " + accounts.getAccounts().size());				
+				
+				// GET one account
+				Accounts oneAccount = accountingApi.getAccount(accounts.getAccounts().get(0).getAccountID());
+				messages.add("Get a one Account - name : " + oneAccount.getAccounts().get(0).getName());				
+				
+				// CREATE account
+				Account acct = new Account();
+				acct.setName("Bye" + SampleData.loadRandomNum());
+				acct.setCode("Hello" + SampleData.loadRandomNum());
+				acct.setDescription("Foo boo");
+				acct.setType(Account.TypeEnum.EXPENSE);
+				Accounts newAccount = accountingApi.createAccount(acct);
+				messages.add("Create a new Account - Name : " + newAccount.getAccounts().get(0).getName() + " Description : " + newAccount.getAccounts().get(0).getDescription() + "");
+				UUID accountID = newAccount.getAccounts().get(0).getAccountID();
+				
+				// CREATE Bank account
+				Account bankAcct = new Account();
+				bankAcct.setName("Checking " + SampleData.loadRandomNum());
+				bankAcct.setCode("12" + SampleData.loadRandomNum());
+				bankAcct.setType(Account.TypeEnum.BANK);
+				bankAcct.setBankAccountNumber("1234" + SampleData.loadRandomNum());
+				Accounts newBankAccount = accountingApi.createAccount(bankAcct);
+				messages.add("Create Bank Account - Name : " + newBankAccount.getAccounts().get(0).getName());				
+				
+				// GET BANK account
+			    where = "Status==\"ACTIVE\"&&Type==\"BANK\"";
+				Accounts accountsWhere = accountingApi.getAccounts(ifModifiedSince, where, order);
+				messages.add("Get a all Accounts - total : " + accountsWhere.getAccounts().size());				
+			
+				// UDPATE Account
+				newAccount.getAccounts().get(0).setDescription("Monsters Inc.");
+				newAccount.getAccounts().get(0).setStatus(null);
+				Accounts updateAccount = accountingApi.updateAccount(accountID, newAccount);
+				messages.add("Update Account - Name : " + updateAccount.getAccounts().get(0).getName() + " Description : " + updateAccount.getAccounts().get(0).getDescription() + "");
+				
+				// ARCHIVE Account
+				Accounts archiveAccounts = new Accounts();
+				Account archiveAccount = new Account();
+				archiveAccount.setStatus(com.xero.models.accounting.Account.StatusEnum.ARCHIVED);
+				archiveAccount.setAccountID(accountID);
+				archiveAccounts.addAccountsItem(archiveAccount);
+				Accounts achivedAccount = accountingApi.updateAccount(accountID, archiveAccounts);
+				messages.add("Archived Account - Name : " + achivedAccount.getAccounts().get(0).getName() + " Status: " + achivedAccount.getAccounts().get(0).getStatus());
+				
+				// DELETE Account
+				
+				// DELETE all Contacts in Group
+				UUID deleteAccountID = newAccount.getAccounts().get(0).getAccountID();
+				Accounts deleteAccount = accountingApi.deleteAccount(deleteAccountID);
+				messages.add("Delete account - Status? : " + deleteAccount.getAccounts().get(0).getStatus());	
+								
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+	
+		} else if (object.equals("GetAttachments")) {
+			
+			try {
+				// GET Account Attachment 
+				Accounts accounts = accountingApi.getAccounts(ifModifiedSince, where, order);
+				UUID accountID = accounts.getAccounts().get(0).getAccountID();				
+				Attachments attachments = accountingApi.getAccountAttachments(accountID);
+				UUID attachementId = attachments.getAttachments().get(0).getAttachmentID();
+				String contentType = attachments.getAttachments().get(0).getMimeType();
+				ByteArrayInputStream input	 = accountingApi.getAccountAttachmentById(accountID,attachementId, contentType);
+				String fileName = "Account_" + attachments.getAttachments().get(0).getFileName();
+				
+				String saveFilePath = saveFile(input,fileName);
+				messages.add("Get Account attachment - save it here: " + saveFilePath);
+				
+				// GET BankTransactions Attachment 
+				BankTransactions bankTransactions = accountingApi.getBankTransactions(ifModifiedSince, where, order, page);
+				UUID BankTransactionID = bankTransactions.getBankTransactions().get(0).getBankTransactionID();				
+				Attachments BankTransactionsAttachments = accountingApi.getBankTransactionAttachments(BankTransactionID);
+				UUID BankTransactionAttachementID = BankTransactionsAttachments.getAttachments().get(0).getAttachmentID();
+				String BankTransactionContentType = BankTransactionsAttachments.getAttachments().get(0).getMimeType();
+				ByteArrayInputStream BankTransactionInput	 = accountingApi.getAccountAttachmentById(BankTransactionID,BankTransactionAttachementID, BankTransactionContentType);
+				String BankTransactionFileName = "BankTransaction_" + BankTransactionsAttachments.getAttachments().get(0).getFileName();
+				
+				String BankTransactionSaveFilePath = saveFile(BankTransactionInput,BankTransactionFileName);
+				messages.add("Get BankTransactions attachment - save it here: " + BankTransactionSaveFilePath);
+				
+				// GET BankTransfers Attachment 
+				BankTransfers BankTransfers = accountingApi.getBankTransfers(ifModifiedSince, where, order);
+				UUID BankTransferID = BankTransfers.getBankTransfers().get(0).getBankTransferID();				
+				Attachments BankTransfersAttachments = accountingApi.getBankTransferAttachments(BankTransferID);
+				UUID BankTransferAttachementID = BankTransfersAttachments.getAttachments().get(0).getAttachmentID();
+				String BankTransferContentType = BankTransfersAttachments.getAttachments().get(0).getMimeType();
+				ByteArrayInputStream BankTransferInput	 = accountingApi.getAccountAttachmentById(BankTransferID,BankTransferAttachementID, BankTransferContentType);
+				String BankTransferFileName = "BankTransfer_" + BankTransfersAttachments.getAttachments().get(0).getFileName();
+				
+				String BankTransferSaveFilePath = saveFile(BankTransferInput,BankTransferFileName);
+				messages.add("Get BankTransfers attachment - save it here: " + BankTransferSaveFilePath);
+			
+				// GET Contacts Attachment 
+				Contacts Contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+				UUID ContactID = Contacts.getContacts().get(0).getContactID();				
+				Attachments ContactsAttachments = accountingApi.getContactAttachments(ContactID);
+				UUID ContactAttachementID = ContactsAttachments.getAttachments().get(0).getAttachmentID();
+				String ContactContentType = ContactsAttachments.getAttachments().get(0).getMimeType();
+				ByteArrayInputStream ContactInput	 = accountingApi.getAccountAttachmentById(ContactID,ContactAttachementID, ContactContentType);
+				String ContactFileName = "Contact_" + ContactsAttachments.getAttachments().get(0).getFileName();
+				
+				String ContactSaveFilePath = saveFile(ContactInput,ContactFileName);
+				messages.add("Get Contacts attachment - save it here: " + ContactSaveFilePath);
+				
+				// GET CreditNotes Attachment 
+				CreditNotes CreditNotes = accountingApi.getCreditNotes(ifModifiedSince, where, order, page);
+				UUID CreditNoteID = CreditNotes.getCreditNotes().get(0).getCreditNoteID();				
+				Attachments CreditNotesAttachments = accountingApi.getCreditNoteAttachments(CreditNoteID);
+				UUID CreditNoteAttachementID = CreditNotesAttachments.getAttachments().get(0).getAttachmentID();
+				String CreditNoteContentType = CreditNotesAttachments.getAttachments().get(0).getMimeType();
+				ByteArrayInputStream CreditNoteInput	 = accountingApi.getAccountAttachmentById(CreditNoteID,CreditNoteAttachementID, CreditNoteContentType);
+				String CreditNoteFileName = "CreditNote_" + CreditNotesAttachments.getAttachments().get(0).getFileName();
+				
+				String CreditNoteSaveFilePath = saveFile(CreditNoteInput,CreditNoteFileName);
+				messages.add("Get CreditNotes attachment - save it here: " + CreditNoteSaveFilePath);
+				
+
+				// GET Invoices Attachment 
+				Invoices Invoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp);
+				UUID InvoiceID = Invoices.getInvoices().get(0).getInvoiceID();				
+				Attachments InvoicesAttachments = accountingApi.getInvoiceAttachments(InvoiceID);
+				UUID InvoiceAttachementID = InvoicesAttachments.getAttachments().get(0).getAttachmentID();
+				String InvoiceContentType = InvoicesAttachments.getAttachments().get(0).getMimeType();
+				ByteArrayInputStream InvoiceInput	 = accountingApi.getAccountAttachmentById(InvoiceID,InvoiceAttachementID, InvoiceContentType);
+				String InvoiceFileName = "Invoice_" + InvoicesAttachments.getAttachments().get(0).getFileName();
+				
+				String InvoiceSaveFilePath = saveFile(InvoiceInput,InvoiceFileName);
+				messages.add("Get Invoices attachment - save it here: " + InvoiceSaveFilePath);
+				
+				// GET ManualJournals Attachment 
+				ManualJournals ManualJournals = accountingApi.getManualJournals(ifModifiedSince, where, order, page);
+				UUID ManualJournalID = ManualJournals.getManualJournals().get(0).getManualJournalID();				
+				Attachments ManualJournalsAttachments = accountingApi.getManualJournalAttachments(ManualJournalID);
+				UUID ManualJournalAttachementID = ManualJournalsAttachments.getAttachments().get(0).getAttachmentID();
+				String ManualJournalContentType = ManualJournalsAttachments.getAttachments().get(0).getMimeType();
+				ByteArrayInputStream ManualJournalInput	 = accountingApi.getAccountAttachmentById(ManualJournalID,ManualJournalAttachementID, ManualJournalContentType);
+				String ManualJournalFileName = "ManualJournal_" + ManualJournalsAttachments.getAttachments().get(0).getFileName();
+				
+				String ManualJournalSaveFilePath = saveFile(ManualJournalInput,ManualJournalFileName);
+				messages.add("Get ManualJournals attachment - save it here: " + ManualJournalSaveFilePath);
+				
+				// GET Receipts Attachment 
+				Receipts Receipts = accountingApi.getReceipts(ifModifiedSince, where, order);
+				UUID ReceiptID = Receipts.getReceipts().get(0).getReceiptID();				
+				Attachments ReceiptsAttachments = accountingApi.getReceiptAttachments(ReceiptID);
+				UUID ReceiptAttachementID = ReceiptsAttachments.getAttachments().get(0).getAttachmentID();
+				String ReceiptContentType = ReceiptsAttachments.getAttachments().get(0).getMimeType();
+				ByteArrayInputStream ReceiptInput	 = accountingApi.getAccountAttachmentById(ReceiptID,ReceiptAttachementID, ReceiptContentType);
+				String ReceiptFileName = "Receipt_" + ReceiptsAttachments.getAttachments().get(0).getFileName();
+				
+				String ReceiptSaveFilePath = saveFile(ReceiptInput,ReceiptFileName);
+				messages.add("Get Receipts attachment - save it here: " + ReceiptSaveFilePath);
+				
+
+				// GET RepeatingInvoices Attachment 
+				RepeatingInvoices RepeatingInvoices = accountingApi.getRepeatingInvoices(where, order);
+				UUID RepeatingInvoiceID = RepeatingInvoices.getRepeatingInvoices().get(0).getRepeatingInvoiceID();				
+				Attachments RepeatingInvoicesAttachments = accountingApi.getRepeatingInvoiceAttachments(RepeatingInvoiceID);
+				UUID RepeatingInvoiceAttachementID = RepeatingInvoicesAttachments.getAttachments().get(0).getAttachmentID();
+				String RepeatingInvoiceContentType = RepeatingInvoicesAttachments.getAttachments().get(0).getMimeType();
+				ByteArrayInputStream RepeatingInvoiceInput	 = accountingApi.getAccountAttachmentById(RepeatingInvoiceID,RepeatingInvoiceAttachementID, RepeatingInvoiceContentType);
+				String RepeatingInvoiceFileName = "RepeatingInvoice_" + RepeatingInvoicesAttachments.getAttachments().get(0).getFileName();
+				
+				String RepeatingInvoiceSaveFilePath = saveFile(RepeatingInvoiceInput,RepeatingInvoiceFileName);
+				messages.add("Get RepeatingInvoices attachment - save it here: " + RepeatingInvoiceSaveFilePath);
+				
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+	
+		} else if (object.equals("CreateAttachments")) {
+			// JSON
+			InputStream inputStream = JsonConfig.class.getResourceAsStream("/helo-heros.jpg");
+			byte[] bytes = IOUtils.toByteArray(inputStream);
+			String newFileName = "sample2.jpg";
+
+			// CREATE Accounts attachment
+			Accounts myAccounts = accountingApi.getAccounts(ifModifiedSince, where, order);
+			UUID accountID = myAccounts.getAccounts().get(0).getAccountID();			
+			Attachments createdAttachments = accountingApi.createAccountAttachmentByFileName(accountID, newFileName, bytes);
+			messages.add("Attachment to Account ID: " + accountID + " attachment - ID: " + createdAttachments.getAttachments().get(0).getAttachmentID());
+	 		
+			// CREATE BankTransactions attachment
+			BankTransactions myBanktransactions = accountingApi.getBankTransactions(ifModifiedSince, where, order, page);
+			UUID banktransactionID = myBanktransactions.getBankTransactions().get(0).getBankTransactionID();			
+			Attachments createdBanktransationAttachments = accountingApi.createBankTransactionAttachmentByFileName(banktransactionID, newFileName, bytes);
+			messages.add("Attachment to BankTransaction ID: " + banktransactionID + " attachment - ID: "  + createdBanktransationAttachments.getAttachments().get(0).getAttachmentID());
+			
+			// CREATE BankTransfer attachment
+			BankTransfers myBankTransfer = accountingApi.getBankTransfers(ifModifiedSince, where, order);
+			UUID bankTransferID = myBankTransfer.getBankTransfers().get(0).getBankTransferID();			
+			Attachments createdBankTransferAttachments = accountingApi.createBankTransferAttachmentByFileName(bankTransferID, newFileName, bytes);
+			messages.add("Attachment to BankTransfer ID: " + bankTransferID + " attachment - ID: " + createdBankTransferAttachments.getAttachments().get(0).getAttachmentID());
+			
+			// CREATE Contacts attachment
+			Contacts myContacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+			UUID contactID = myContacts.getContacts().get(0).getContactID();
+			Attachments createdContactAttachments = accountingApi.createContactAttachmentByFileName(contactID, newFileName, bytes);
+			messages.add("Attachment to Contact ID: " + contactID + " attachment - ID: " + createdContactAttachments.getAttachments().get(0).getAttachmentID());
+	 		
+			// CREATE CreditNotes attachment
+			CreditNotes myCreditNotes = accountingApi.getCreditNotes(ifModifiedSince, where, order, page);
+			UUID creditNoteID = myCreditNotes.getCreditNotes().get(0).getCreditNoteID();
+			Attachments createdCreditNoteAttachments = accountingApi.createCreditNoteAttachmentByFileName(creditNoteID, newFileName, bytes);
+			messages.add("Attachment to Credit Notes ID: " + creditNoteID + " attachment - ID: " + createdCreditNoteAttachments.getAttachments().get(0).getAttachmentID());
+	 		
+			// CREATE invoice attachment
+			Invoices myInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp);
+			UUID invoiceID = myInvoices.getInvoices().get(0).getInvoiceID();
+			Attachments createdInvoiceAttachments = accountingApi.createInvoiceAttachmentByFileName(invoiceID, newFileName, bytes);
+			messages.add("Attachment to Invoice ID: " + invoiceID + " attachment - ID: "  + createdInvoiceAttachments.getAttachments().get(0).getAttachmentID());
+	 		
+			// CREATE ManualJournals attachment
+			ManualJournals myManualJournals = accountingApi.getManualJournals(ifModifiedSince, where, order, page);
+			UUID manualJournalID = myManualJournals.getManualJournals().get(0).getManualJournalID();
+			Attachments createdManualJournalAttachments = accountingApi.createManualJournalAttachmentByFileName(manualJournalID, newFileName, bytes);
+			messages.add("Attachment to Manual Journal ID: " + manualJournalID + " attachment - ID: " + createdManualJournalAttachments.getAttachments().get(0).getAttachmentID());
+	 
+			// CREATE Receipts attachment
+			Receipts myReceipts = accountingApi.getReceipts(ifModifiedSince, where, order);
+			UUID receiptID = myReceipts.getReceipts().get(0).getReceiptID();
+			Attachments createdReceiptsAttachments = accountingApi.createReceiptAttachmentByFileName(receiptID, newFileName, bytes);
+			messages.add("Attachment to Receipt ID: " + receiptID + " attachment - ID: " + createdReceiptsAttachments.getAttachments().get(0).getAttachmentID());
+	 
+			// CREATE Repeating Invoices attachment
+			RepeatingInvoices myRepeatingInvoices = accountingApi.getRepeatingInvoices(where, order);
+			UUID repeatingInvoiceID = myRepeatingInvoices.getRepeatingInvoices().get(0).getRepeatingInvoiceID();
+			Attachments createdRepeatingInvoiceAttachments = accountingApi.createRepeatingInvoiceAttachmentByFileName(repeatingInvoiceID, newFileName, bytes);
+			messages.add("Attachment to Repeating Invoices ID: " + repeatingInvoiceID + " attachment - ID: " + createdRepeatingInvoiceAttachments.getAttachments().get(0).getAttachmentID());
+			
+		} else if(object.equals("Assets")) {
+			/* Asset */
+			// Create Asset
+			try {
+				Asset asset = new Asset();
+				asset.setAssetName("Computer" + SampleData.loadRandomNum());
+				asset.setAssetNumber("1234" + SampleData.loadRandomNum());
+				Asset newAsset = assetApi.createAsset(asset, null);
+				messages.add("New asset created: " + newAsset.getAssetName());	
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+			
+			try {
+				Map<String, String> filter = new HashMap<>();
+				addToMapIfNotNull(filter, "status", "DRAFT");				
+				Assets assets = assetApi.getAssets(filter);
+				messages.add("Assets Found: " + assets.getItems().get(0).getAssetName());
+				
+			} catch (Exception e) {
+				System.out.println(e.toString());
+			}
+			
+			try {
+				Map<String, String> filter = new HashMap<>();			
+				List<AssetType> assetTypes = assetApi.getAssetTypes(filter);
+				messages.add("AssetType Found: " + assetTypes.get(0).getAssetTypeName());
+			} catch (Exception e) {
+				System.out.println(e.toString());
+			}
+			
+			try {
+				AssetType assetType = new AssetType();
+				assetType.setAssetTypeName("Machinery" + SampleData.loadRandomNum());
+				assetType.setFixedAssetAccountId(SampleData.loadAccountFixedAsset().getAccountID());
+				assetType.setDepreciationExpenseAccountId(SampleData.loadAccountExpenses().getAccountID());
+				assetType.setAccumulatedDepreciationAccountId(SampleData.loadAccountDepreciation().getAccountID());
+				
+				BookDepreciationSetting bookDepreciationSetting = new BookDepreciationSetting();
+				bookDepreciationSetting.setAveragingMethod(AveragingMethodEnum.ACTUALDAYS);
+				bookDepreciationSetting.setDepreciationCalculationMethod(DepreciationCalculationMethodEnum.NONE);
+				bookDepreciationSetting.setDepreciationRate(40);
+				bookDepreciationSetting.setDepreciationMethod(DepreciationMethodEnum.DIMINISHINGVALUE100);
+				assetType.setBookDepreciationSetting(bookDepreciationSetting);
+				
+				Map<String, String> filter = new HashMap<>();			
+				AssetType newAssetType = assetApi.createAssetType(assetType, filter);
+				
+				messages.add("Asset Type Created: " + newAssetType.getAssetTypeName());
+			} catch (Exception e) {
+				System.out.println(e.toString());
+			}
+			
+			try {
+				Map<String, String> filter = new HashMap<>();			
+				Setting setting = assetApi.getAssetSettings(filter);
+				messages.add("Asset Setting Start date: " + setting.getAssetStartDate());
+			} catch (Exception e) {
+				System.out.println(e.toString());
+			}
+		
+		} else if(object.equals("BankFeedConnections")) {
 			/* BANKFEED CONNECTIONS */
 			// Create New Feed Connection
 			try {
@@ -198,6 +582,7 @@ public class RequestResourceServlet extends HttpServlet
 			try {
 				FeedConnections fc = bankFeedsApi.getFeedConnections(null);
 				messages.add("Total Banks found: " + fc.getItems().size());
+				System.out.println(fc.getItems().get(0).toString());
 			} catch (Exception e) {
 				System.out.println(e.toString());
 			}
@@ -222,19 +607,20 @@ public class RequestResourceServlet extends HttpServlet
 				deleteFeedConnections.addItemsItem(feedConnectionOne);
 				
 				FeedConnections deletedFeedConnection = bankFeedsApi.deleteFeedConnections(deleteFeedConnections,null);
+				
 				messages.add("DELETED Bank status: " + deletedFeedConnection.getItems().get(0).getStatus());
 			} catch (Exception e) {
 				System.out.println(e.toString());
 			}
 
-		} else if(object.equals("Statements")) {
+		} else if(object.equals("BankStatements")) {
 			/* BANK STATEMENTS */
-			/*
 			// Create One Statement
 			try {
+				
 				Statements arrayOfStatements = new Statements();
 				Statement newStatement = new Statement();
-				LocalDate stDate = LocalDate.of(2017, 9, 01);
+				LocalDate stDate = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) + 1), now.get(Calendar.DATE));
 				newStatement.setStartDate(stDate);
 				LocalDate endDate = LocalDate.of(2017, 9, 15);
 				newStatement.endDate(endDate);
@@ -267,7 +653,7 @@ public class RequestResourceServlet extends HttpServlet
 				
 				newStatement.setStatementLines(arrayStatementLines);
 				arrayOfStatements.addItemsItem(newStatement);
-				Statements rStatements = bankFeedsApi.createStatements(arrayOfStatements, params);
+				Statements rStatements = bankFeedsApi.createStatements(arrayOfStatements,params);
 				System.out.println(rStatements.toString());
 				messages.add("New Bank Statement Status: " + rStatements.getItems().get(0).getStatus());
 							
@@ -314,23 +700,17 @@ public class RequestResourceServlet extends HttpServlet
 				
 				newStatement.setStatementLines(arrayStatementLines);
 				arrayOfStatements.addItemsItem(newStatement);
-				Statements rStatements = bankFeedsApi.createStatements(arrayOfStatements, params);
+				Statements rStatements = bankFeedsApi.createStatements(arrayOfStatements,params);
 			
-				Statement oneStatement = bankFeedsApi.getStatement(rStatements.getItems().get(0).getId(), params);
+				Statement oneStatement = bankFeedsApi.getStatement(rStatements.getItems().get(0).getId(),params);
 				
 				System.out.println(oneStatement.toString());
 				messages.add("New Bank Statement Status: " + oneStatement.getStatementLineCount());
 				
 			} catch (Exception e) {
-				//TypeReference<Statements> typeRef = new TypeReference<Statements>() {};
-				//Statements statementErrors =  apiClientForBankFeeds.getObjectMapper().readValue(e.getMessage(), typeRef);
-				//System.out.println(statementErrors.getItems().get(0).getErrors().get(0).getDetail());
 				System.out.println(e.toString());
 			}
 				
-			*/
-			
-			
 			// Create Duplicate Statement - to test error handling
 			try {
 				Statements arrayOfStatements = new Statements();
@@ -368,26 +748,23 @@ public class RequestResourceServlet extends HttpServlet
 				
 				newStatement.setStatementLines(arrayStatementLines);
 				arrayOfStatements.addItemsItem(newStatement);
-				Statements rStatements2 = bankFeedsApi.createStatements(arrayOfStatements, params);
-				
+				Statements rStatements2 = bankFeedsApi.createStatements(arrayOfStatements,params);
 				messages.add("New Bank Statement Status: " + rStatements2.getItems().get(0).getStatus());
 				
 				//DUPLICATE
-				Statements rStatements3 = bankFeedsApi.createStatements(arrayOfStatements, params);
+				Statements rStatements3 = bankFeedsApi.createStatements(arrayOfStatements,params);
 				
 				System.out.println(rStatements3.toString());
 				messages.add("New Bank Statement Status: " + rStatements3.getItems().get(0).getStatus());
 				
-			} catch (Exception e) {
-				    
+			} catch (Exception e) { 
 				TypeReference<Statements> typeRef = new TypeReference<Statements>() {};
 				Statements statementErrors =  apiClientForBankFeeds.getObjectMapper().readValue(e.getMessage(), typeRef);
 				System.out.println(statementErrors.getItems().get(0).getErrors().get(0).getDetail());
 				System.out.println(statementErrors.getItems().get(0).getErrors().get(0).getStatus());
 			}
 			
-			/*
-			// Create ALL Statements - currently not tested due to 500 error from API
+			//Get ALL Statements
 			try {
 				Statements allStatements = bankFeedsApi.getStatements(params);
 				System.out.println(allStatements.toString());							
@@ -396,1043 +773,1684 @@ public class RequestResourceServlet extends HttpServlet
 				Statements statementErrors =  apiClientForBankFeeds.getObjectMapper().readValue(e.getMessage(), typeRef);
 				System.out.println(statementErrors.getItems().get(0).getErrors().get(0).getDetail());
 			}
-			*/
 			
-	
-			
-		} else if(object.equals("Assets")) {
+			try {
+				Statements arrayOfStatements = new Statements();
+				Statement newStatement = new Statement();
 
-			ApiClient apiClient = new ApiClient(config.getAssetsUrl(),null,null,null);
-			AssetApi assetApi = new AssetApi(apiClient);
-			assetApi.setOAuthToken(token, tokenSecret);
-			
-			/* Asset */
-			try {
-				Asset asset = new Asset();
-				asset.setAssetName("Computer" + SampleData.loadRandomNum());
-				asset.setAssetNumber("1234" + SampleData.loadRandomNum());
-				Asset newAsset = assetApi.createAsset(asset, null);
-				messages.add("New asset created: " + newAsset.getAssetName());	
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-			}
-			
-			try {
-				Map<String, String> filter = new HashMap<>();
-				addToMapIfNotNull(filter, "status", "DRAFT");				
-				Assets assets = assetApi.getAssets(filter);
-				messages.add("Assets Found: " + assets.getItems().get(0).getAssetName());
+				LocalDate stDate = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), now.get(Calendar.DATE));				
+				newStatement.setStartDate(stDate);
+
+				LocalDate endDate = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), now.get(Calendar.DATE));							
+				newStatement.endDate(endDate);
+				StartBalance stBalance = new StartBalance();
+				stBalance.setAmount("100");
+				stBalance.setCreditDebitIndicator(CreditDebitIndicator.CREDIT);
+				newStatement.setStartBalance(stBalance);
 				
-			} catch (Exception e) {
-				System.out.println(e.toString());
-			}
-			
-			try {
-				Map<String, String> filter = new HashMap<>();			
-				List<AssetType> assetTypes = assetApi.getAssetTypes(filter);
-				messages.add("AssetType Found: " + assetTypes.get(0).getAssetTypeName());
-			} catch (Exception e) {
-				System.out.println(e.toString());
-			}
-			
-			
-			try {
-				AssetType assetType = new AssetType();
-				assetType.setAssetTypeName("Machinery" + SampleData.loadRandomNum());
-				assetType.setFixedAssetAccountId(SampleData.loadAccountFixedAsset().getAccountID());
-				assetType.setDepreciationExpenseAccountId(SampleData.loadAccountExpenses().getAccountID());
-				assetType.setAccumulatedDepreciationAccountId(SampleData.loadAccountDepreciation().getAccountID());
+				EndBalance endBalance = new EndBalance();
+				endBalance.setAmount("150");
+				endBalance.setCreditDebitIndicator(CreditDebitIndicator.CREDIT);
+				newStatement.endBalance(endBalance);
 				
-				BookDepreciationSetting bookDepreciationSetting = new BookDepreciationSetting();
-				bookDepreciationSetting.setAveragingMethod(AveragingMethodEnum.ACTUALDAYS);
-				bookDepreciationSetting.setDepreciationCalculationMethod(DepreciationCalculationMethodEnum.NONE);
-				bookDepreciationSetting.setDepreciationRate(40);
-				bookDepreciationSetting.setDepreciationMethod(DepreciationMethodEnum.DIMINISHINGVALUE100);
-				assetType.setBookDepreciationSetting(bookDepreciationSetting);
+				FeedConnections fc = bankFeedsApi.getFeedConnections(null);
 				
-				Map<String, String> filter = new HashMap<>();			
-				AssetType newAssetType = assetApi.createAssetType(assetType, filter);
-				
-				messages.add("Asset Type Created: " + newAssetType.getAssetTypeName());
-			} catch (Exception e) {
-				System.out.println(e.toString());
-			}
-			
-			try {
-				Map<String, String> filter = new HashMap<>();			
-				Setting setting = assetApi.getAssetSettings(filter);
-				messages.add("Asset Setting Start date: " + setting.getAssetStartDate());
-			} catch (Exception e) {
-				System.out.println(e.toString());
-			}
-			
-			
-		} else if(object.equals("Accounts")) {
-			
-			/* ACCOUNT */
-			try {
-				List<Account> newAccount = client.createAccounts(SampleData.loadAccount().getAccount());
-				messages.add("Create a new Account - Name : " + newAccount.get(0).getName() 
-						+ " Description : " + newAccount.get(0).getDescription() + "");
-				
-				List<Account> accountWhere = client.getAccounts(null,"Type==\"BANK\"",null);
-				if(accountWhere.size() > 0) {
+				if (fc.getItems().size() > 2) {
+					newStatement.setFeedConnectionId(fc.getItems().get(0).getId().toString());
 					
-					messages.add("Get a Account with WHERE clause - Name : " + accountWhere.get(0).getName() + "");
+					StatementLine newStatementLine = new StatementLine();
+					newStatementLine.setAmount("50");
+					newStatementLine.setChequeNumber("123" + SampleData.loadRandomNum());
+					newStatementLine.setDescription("My new line");
+					newStatementLine.setCreditDebitIndicator(CreditDebitIndicator.CREDIT);
+					newStatementLine.setReference("Foobar" + SampleData.loadRandomNum());
+					newStatementLine.setPayeeName("StarLord" + SampleData.loadRandomNum());
+					newStatementLine.setTransactionId("1234" + SampleData.loadRandomNum());
+					
+					LocalDate postedDate = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), now.get(Calendar.DATE));				
+					newStatementLine.setPostedDate(postedDate);
+				
+					StatementLines arrayStatementLines = new StatementLines();
+					arrayStatementLines.add(newStatementLine);
+					
+					newStatement.setStatementLines(arrayStatementLines);
+					
+					arrayOfStatements.addItemsItem(newStatement);
+					
+					Statement newStatement2 = new Statement();
+					LocalDate stDate2 = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), now.get(Calendar.DATE));				
+					newStatement2.setStartDate(stDate2);
+	
+					LocalDate endDate2 = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), now.get(Calendar.DATE));				
+					newStatement2.endDate(endDate2);
+					StartBalance stBalance2 = new StartBalance();
+					stBalance2.setAmount("100");
+					stBalance2.setCreditDebitIndicator(CreditDebitIndicator.CREDIT);
+					newStatement2.setStartBalance(stBalance2);
+					
+					EndBalance endBalance2 = new EndBalance();
+					endBalance2.setAmount("150");
+					endBalance2.setCreditDebitIndicator(CreditDebitIndicator.CREDIT);
+					newStatement2.endBalance(endBalance2);
+					
+					newStatement2.setFeedConnectionId(fc.getItems().get(1).getId().toString());
+					
+					StatementLine newStatementLine2 = new StatementLine();
+					newStatementLine2.setAmount("50");
+					newStatementLine2.setChequeNumber("123" + SampleData.loadRandomNum());
+					newStatementLine2.setDescription("My new line");
+					newStatementLine2.setCreditDebitIndicator(CreditDebitIndicator.CREDIT);
+					newStatementLine2.setReference("Foobar" + SampleData.loadRandomNum());
+					newStatementLine2.setPayeeName("StarLord" + SampleData.loadRandomNum());
+					newStatementLine2.setTransactionId("1234" + SampleData.loadRandomNum());
+					LocalDate postedDate2 = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), now.get(Calendar.DATE));
+					newStatementLine2.setPostedDate(postedDate2);
+				
+					StatementLines arrayStatementLines2 = new StatementLines();
+					arrayStatementLines2.add(newStatementLine2);
+					
+					newStatement2.setStatementLines(arrayStatementLines2);
+					
+					arrayOfStatements.addItemsItem(newStatement2);
+					
+					Statements rStatements = bankFeedsApi.createStatements(arrayOfStatements, params);
+					
+					assert(rStatements.getItems().size() > 0);
+					System.out.println("Statement Status: " + rStatements.getItems().get(0).getStatus());
 				} else {
-					messages.add("Get a Account with WHERE clause - No Acccounts of Type BANK found");
+					System.out.println("Need at least 2 feed connections to perform this test");
 				}
-
-				List<Account> accountList = client.getAccounts();
-				int num = SampleData.findRandomNum(accountList.size());
-				messages.add("Get a random Account - Name : " + accountList.get(num).getName() + "");
-			
-				Account accountOne = client.getAccount(accountList.get(num).getAccountID());
-				messages.add("Get a single Account - Name : " + accountOne.getName() + "");
 				
-				newAccount.get(0).setDescription("Monsters Inc.");
-				newAccount.get(0).setStatus(null);
-				List<Account> updateAccount = client.updateAccount(newAccount);
-				messages.add("Update Account - Name : " + updateAccount.get(0).getName() 
-						+ " Description : " + updateAccount.get(0).getDescription() + "");
-
-				String status = client.deleteAccount(newAccount.get(0).getAccountID());
-				messages.add("Delete Account - Name : " + newAccount.get(0).getName() 
-						+ " result : " + status + "");
-						
-			} catch (XeroApiException e) {
-				System.out.println(e.getResponseCode());
-				System.out.println(e.getMessage());	
-			}	
-
-		} else if (object.equals("Attachments")) {
-			
-			/*  INVOICE ATTACHMENT as BYTE ARRAY */
-			try {
-
-				List<Invoice> newInvoice = client.createInvoices(SampleData.loadInvoice().getInvoice());
-				messages.add("Create a new Invoice ID : " + newInvoice.get(0).getInvoiceID());
-				
-				InputStream inputStream = JsonConfig.class.getResourceAsStream("/helo-heros.jpg");
-				byte[] bytes = IOUtils.toByteArray(inputStream);
-				
-				String fileName = "sample.jpg";
-				Attachment invoiceAttachment = client.createAttachment("Invoices",newInvoice.get(0).getInvoiceID(), fileName, "application/jpeg", bytes,true);
-				messages.add("Attachment to Invoice complete - ID: " + invoiceAttachment.getAttachmentID());
-				
-				List<Attachment> getInvoiceAttachment = client.getAttachments("Invoices", newInvoice.get(0).getInvoiceID());
-				messages.add("Get Attachment for Invoice - complete -attachment ID: " + getInvoiceAttachment.get(0).getAttachmentID());	
-				
-				System.out.println(getInvoiceAttachment.get(0).getFileName() + " --- " +getInvoiceAttachment.get(0).getMimeType());
-				
-				File f = new File("./");
-				String fileName1 = getInvoiceAttachment.get(0).getFileName();
-				String dirPath =  f.getCanonicalPath();
-				String saveFilePath = dirPath + File.separator + fileName1;
-			
-				InputStream in = client.getAttachmentContentById("Invoices",newInvoice.get(0).getInvoiceID(),getInvoiceAttachment.get(0).getAttachmentID(),getInvoiceAttachment.get(0).getMimeType());
-				
-				OutputStream out = new FileOutputStream(saveFilePath);
-
-				// Transfer bytes from in to out
-				byte[] buf = new byte[1024];
-				int len;
-				while ((len = in.read(buf)) > 0) {
-				    out.write(buf, 0, len);
-				}
-				in.close();
-				out.close();
-				messages.add("Get Attachment content - save to server - location: " + saveFilePath );				
 				
 			} catch (XeroApiException e) {
-				System.out.println(e.getResponseCode());
-				System.out.println(e.getMessage());	
-			}	
-		} else if (object.equals("BankTransactions")) {
+				
+				int actualCode = e.getResponseCode();
+				//assertThat(actualCode, is(equalTo(403)));
+
+				try {
+					TypeReference<com.xero.models.bankfeeds.Error> typeRef = new TypeReference<com.xero.models.bankfeeds.Error>() {};
+					com.xero.models.bankfeeds.Error error =  apiClientForBankFeeds.getObjectMapper().readValue(e.getMessage(), typeRef);
+					assert(error.getStatus().equals(403));
+					System.out.println(error.getDetail());
+				} catch (IOException ioe) {
+					System.out.println("IO:" + ioe.toString());
+				}
+			} catch (Exception e) {
+				System.out.println("Generic Exception " + e.toString());
+			}
 		
+		} else if (object.equals("BankTransactions")) {
 			/* BANK TRANSACTION */
 			try {
-				List<Account> accountWhere = client.getAccounts(null,"Type==\"BANK\"",null);
-				if(accountWhere.size() > 0) {
-					
-					List<BankTransaction> newBankTransaction = client.createBankTransactions(SampleData.loadBankTransaction().getBankTransaction());
-					messages.add("Create a new Bank Transaction - ID : " +newBankTransaction.get(0).getBankTransactionID() + "");
+			    where = "Status==\"ACTIVE\"&&Type==\"BANK\"";
+				Accounts accountsWhere = accountingApi.getAccounts(ifModifiedSince, where, order);
 				
-					List<BankTransaction> BankTransactionWhere = client.getBankTransactions(null,"Status==\"AUTHORISED\"",null,null);
-					messages.add("Get a BankTransaction with WHERE clause - ID : " + BankTransactionWhere.get(0).getBankTransactionID() + "");
-					
-					List<BankTransaction> BankTransactionList = client.getBankTransactions();
-					int num = SampleData.findRandomNum(BankTransactionList.size());
-					messages.add("Get a random BankTransaction - ID : " + BankTransactionList.get(num).getBankTransactionID() + "");
+				Account bankAcct = new Account();
+				bankAcct.setCode(accountsWhere.getAccounts().get(0).getCode());
 				
-					BankTransaction BankTransactionOne = client.getBankTransaction(BankTransactionList.get(num).getBankTransactionID());
-					messages.add("Get a single BankTransaction - ID : " + BankTransactionOne.getBankTransactionID());
+				where = null;
+				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+				Contact useContact = new Contact();
+				useContact.setContactID(contacts.getContacts().get(0).getContactID());
+				
+				// Maker sure we have at least 1 bank
+				if(accountsWhere.getAccounts().size() > 0) {
+					// Create Bank Transaction
+					List<LineItem> lineItems = new ArrayList<>();
+					LineItem li = new LineItem();
+					li.setAccountCode("400");
+					li.setDescription("Foobar");
+					li.setQuantity("2");
+					BigDecimal BigDec1 = new BigDecimal("20.00");
+					li.setUnitAmount(BigDec1);
+					lineItems.add(li);
+					BankTransaction bt = new BankTransaction();
+					bt.setBankAccount(bankAcct);
+					bt.setContact(useContact);
+					bt.setLineitems(lineItems);
+					bt.setType(com.xero.models.accounting.BankTransaction.TypeEnum.SPEND);
+					BankTransactions bts = new BankTransactions();
+					bts.addBankTransactionsItem(bt);					
+					BankTransactions newBankTransaction = accountingApi.createBankTransaction(bts, summarizeErrors);
+					messages.add("Create new BankTransaction : amount:" + newBankTransaction.getBankTransactions().get(0).getTotal());				
 					
-					newBankTransaction.get(0).setReference("My Updated Reference");
-					List<BankTransaction> updatedBankTransaction = client.updateBankTransactions(newBankTransaction);
-					messages.add("Updated a new Bank Transaction - ID : " +updatedBankTransaction.get(0).getBankTransactionID() + "");
-					
-				} else {
-					messages.add("Please create a Bank Acccount before using the BankTransaction Endpoint");
-				}
+					// GET all Bank Transaction
+					BankTransactions bankTransactions = accountingApi.getBankTransactions(ifModifiedSince, where, order, page);
+					messages.add("Get a all Bank Transactions - total : " + bankTransactions.getBankTransactions().size());				
 
+					// GET one Bank Transaction
+					BankTransactions oneBankTransaction = accountingApi.getBankTransaction(bankTransactions.getBankTransactions().get(0).getBankTransactionID());
+					messages.add("Get a one Bank Transaction : amount:" + oneBankTransaction.getBankTransactions().get(0).getTotal());				
+					
+					// UDPATE Bank Transaction
+					newBankTransaction.getBankTransactions().get(0).setSubTotal(null);
+					newBankTransaction.getBankTransactions().get(0).setTotal(null);	
+					newBankTransaction.getBankTransactions().get(0).setReference("You just updated");
+					BankTransactions updateBankTransaction = accountingApi.updateBankTransaction(newBankTransaction.getBankTransactions().get(0).getBankTransactionID(),newBankTransaction);
+					messages.add("Update new BankTransaction : reference:" + updateBankTransaction.getBankTransactions().get(0).getReference());				
+
+					// DELETE Bank Transaction
+					newBankTransaction.getBankTransactions().get(0).setStatus(com.xero.models.accounting.BankTransaction.StatusEnum.DELETED);
+					BankTransactions deletedBankTransaction = accountingApi.updateBankTransaction(newBankTransaction.getBankTransactions().get(0).getBankTransactionID(),newBankTransaction);
+					messages.add("Deleted new Bank Transaction : Status:" + deletedBankTransaction.getBankTransactions().get(0).getStatus());				
+				
+					// GET  Bank Transaction History
+					HistoryRecords hr = accountingApi.getBankTransactionsHistory(oneBankTransaction.getBankTransactions().get(0).getBankTransactionID());
+					messages.add("Get a one Bank Transaction History Record - details :" + hr.getHistoryRecords().get(0).getDetails());				
+					
+					// CREATE  Bank Transaction History
+					// Error: "The document with the supplied id was not found for this end point.
+					/*
+					HistoryRecords historyRecords = new HistoryRecords();	
+					HistoryRecord historyRecord = new HistoryRecord();
+					historyRecord.setDetails("This is a sample history note");
+					historyRecords.addHistoryRecordsItem(historyRecord);
+					HistoryRecords newHr = accountingApi.createBankTransactionHistoryRecord(oneBankTransaction.getBankTransactions().get(0).getBankTransactionID(), historyRecords);  
+					messages.add("Create a one Bank Transaction History Record - details :" + newHr.getHistoryRecords().get(0).getDetails());				
+					*/
+				}
+				
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}			
+			
+		} else if (object.equals("BankTransfers")) {		
+			/* BANK TRANSFER */
+			try {
+			    where = "Status==\"ACTIVE\"&&Type==\"BANK\"";
+				Accounts accountsWhere = accountingApi.getAccounts(ifModifiedSince, where, order);
+				where = null;
+				// Maker sure we have at least 2 banks
+				if(accountsWhere.getAccounts().size() > 1) {				
+					// CREATE bank transfer
+					BankTransfer bankTransfer = new BankTransfer();
+					bankTransfer.setFromBankAccount(accountsWhere.getAccounts().get(1));
+					bankTransfer.setToBankAccount(accountsWhere.getAccounts().get(0));
+					bankTransfer.setAmount("50.00");
+					BankTransfers newBTs = new BankTransfers();
+					newBTs.addBankTransfersItem(bankTransfer);					
+					BankTransfers newBankTranfer = accountingApi.createBankTransfer(newBTs);
+					messages.add("Get a one Bank Transfer - amount : " + newBankTranfer.getBankTransfers().get(0).getAmount());				
+
+					// GET all Bank Transfers
+					BankTransfers bankTranfers = accountingApi.getBankTransfers(ifModifiedSince, where, order);
+					messages.add("Get a all Bank Transfers - total : " + bankTranfers.getBankTransfers().size());				
+					UUID bankTransferId = bankTranfers.getBankTransfers().get(0).getBankTransferID();
+
+					// GET one Bank Transfer
+					BankTransfers oneBankTranfer = accountingApi.getBankTransfer(bankTransferId);
+					messages.add("Get a one Bank Transfer - amount : " + oneBankTranfer.getBankTransfers().get(0).getAmount());				
+			
+					// GET  Bank Transfer History
+					HistoryRecords hr = accountingApi.getBankTransferHistory(bankTransferId);
+					messages.add("Get a one Bank Transfer History Record - details :" + hr.getHistoryRecords().get(0).getDetails());				
+					
+					// CREATE  Bank Transfer History
+					// Error: "The document with the supplied id was not found for this endpoint.
+					/*
+					HistoryRecords historyRecords = new HistoryRecords();	
+					HistoryRecord historyRecord = new HistoryRecord();
+					historyRecord.setDetails("This is a sample history note");
+					historyRecords.addHistoryRecordsItem(historyRecord);
+					HistoryRecords newHr = accountingApi.createBankTransferHistoryRecord(bankTransferId, historyRecords);  
+					messages.add("Get a one Bank Transfer History Record - details :" + newHr.getHistoryRecords().get(0).getDetails());				
+					*/
+				}
+			} catch (Exception e) {
+				System.out.println(e.toString());
+			}	
+			
+		} else if (object.equals("BatchPayments")) {
+			try {
+				/* BATCH PAYMENTS */
+				// CREATE payment
+				where =  "Status==\"AUTHORISED\"&&Type==\"ACCREC\"";			
+				Invoices allInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp);
+				Invoice inv = new Invoice();
+				inv.setInvoiceID(allInvoices.getInvoices().get(0).getInvoiceID());
+				Invoice inv2 = new Invoice();
+				inv2.setInvoiceID(allInvoices.getInvoices().get(1).getInvoiceID());
+				Invoice inv3 = new Invoice();
+				inv3.setInvoiceID(allInvoices.getInvoices().get(3).getInvoiceID());
+				where = null;
+			
+			    where = "EnablePaymentsToAccount==true";
+				Accounts accountsWhere = accountingApi.getAccounts(ifModifiedSince, where, order);
+				Account paymentAccount = new Account();
+				paymentAccount.setAccountID(accountsWhere.getAccounts().get(0).getAccountID());
+				where = null;
+				
+				BatchPayments createBatchPayments = new BatchPayments();
+				BatchPayment createBatchPayment = new BatchPayment();
+				createBatchPayment.setAccount(paymentAccount);
+				BigDecimal paymentAmt = new BigDecimal("3.00");
+				createBatchPayment.setAmount(paymentAmt);
+				createBatchPayment.setDate("11-05-2018");
+				createBatchPayment.setReference("Foobar" + SampleData.loadRandomNum());
+
+				Payment payment01 = new Payment();
+				payment01.setAccount(paymentAccount);
+				payment01.setInvoice(inv);
+				BigDecimal payment01Amt = new BigDecimal("1.00");
+				payment01.setAmount(payment01Amt);
+				payment01.setDate("11-1-2018");
+				
+				Payment payment02 = new Payment();
+				payment02.setAccount(paymentAccount);
+				payment02.setInvoice(inv2);
+				BigDecimal payment02Amt = new BigDecimal("1.00");
+				payment02.setAmount(payment02Amt);
+				payment02.setDate("11-1-2018");
+				
+				Payment payment03 = new Payment();
+				payment03.setAccount(paymentAccount);
+				payment03.setInvoice(inv3);
+				BigDecimal payment03Amt = new BigDecimal("1.00");
+				payment03.setAmount(payment03Amt);
+				payment03.setDate("11-1-2018");
+				
+				createBatchPayment.addPaymentsItem(payment01);
+				createBatchPayment.addPaymentsItem(payment02);
+				createBatchPayment.addPaymentsItem(payment03);
+				
+				createBatchPayments.addBatchPaymentsItem(createBatchPayment);
+				
+				BatchPayments newBatchPayments = accountingApi.createBatchPayment(createBatchPayments);
+				messages.add("Create BatchPayments - ID : " + newBatchPayments.getBatchPayments().get(0).getTotalAmount());					
+				
+				// GET all Payments
+				BatchPayments allBatchPayments = accountingApi.getBatchPayments(ifModifiedSince, where, order);
+				messages.add("Get BatchPayments - Total : " + allBatchPayments.getBatchPayments().size());					
+			} catch (XeroApiException e) {
+				System.out.println(e.getResponseCode());
+				System.out.println(e.getMessage());	
+			}
+		
+		} else if (object.equals("BrandingThemes")) {
+			/* BRANDING THEME */
+			try {
+				// GET all BrandingTheme
+				BrandingThemes bt = accountingApi.getBrandingThemes();
+				messages.add("Get a All Branding Themes - total : " + bt.getBrandingThemes().size());				
+
+				// GET one BrandingTheme
+				UUID btID = bt.getBrandingThemes().get(0).getBrandingThemeID();
+				BrandingThemes oneBt = accountingApi.getBrandingTheme(btID);
+				messages.add("Get a one Branding Themes - name : " + oneBt.getBrandingThemes().get(0).getName());				
+
+				// Create PaymentService for a Branding Theme  
+				PaymentServices paymentServices = accountingApi.getPaymentServices();
+				UUID paymentServiceID = paymentServices.getPaymentServices().get(0).getPaymentServiceID();
+				PaymentServices btPaymentServices = new PaymentServices();
+				PaymentService btPaymentService = new PaymentService();
+				btPaymentService.setPaymentServiceID(paymentServiceID);
+				btPaymentServices.addPaymentServicesItem(btPaymentService);
+				PaymentServices createdPaymentService = accountingApi.createBrandingThemePaymentServices(btID, btPaymentServices);
+				messages.add("Created payment services for Branding Themes - name : " + createdPaymentService.getPaymentServices().get(0).getPaymentServiceName());				
+
+				// GET Payment Services for a single Branding Theme
+				PaymentServices paymentServicesForBrandingTheme = accountingApi.getBrandingThemePaymentServices(btID);
+				messages.add("Get payment services for Branding Themes - name : " + paymentServicesForBrandingTheme.getPaymentServices().get(0).getPaymentServiceName());				
+
+			} catch (XeroApiException e) {
+				System.out.println(e.getResponseCode());
+				System.out.println(e.getMessage());	
+			}
+			
+		} else if (object.equals("Contacts")) {		
+			/* CONTACTS */
+			try {
+				// CREATE contact
+				Contact contact = new Contact();
+				contact.setName("Foo" + SampleData.loadRandomNum());
+				contact.setEmailAddress("sid" + SampleData.loadRandomNum() + "@blah.com");
+				Contacts newContact = accountingApi.createContact(contact);
+				messages.add("Create new Contact - Name : " + newContact.getContacts().get(0).getName());
+				
+				// UPDATE contact
+				newContact.getContacts().get(0).setName("Bar" + SampleData.loadRandomNum());
+				UUID contactID = newContact.getContacts().get(0).getContactID();
+				Contacts updatedContact = accountingApi.updateContact(contactID, newContact);
+				messages.add("Update new Contact - Name : " + updatedContact.getContacts().get(0).getName());
+				
+				// GET all contact
+				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+				messages.add("Get a All Contacts - Total : " + contacts.getContacts().size());	
+
+				// GET one contact
+				UUID oneContactID = contacts.getContacts().get(0).getContactID();
+				Contacts oneContact = accountingApi.getContact(oneContactID);
+				messages.add("Get a One Contact - Name : " + oneContact.getContacts().get(0).getName());	
+				
+				// GET contact cisSettings
+			    where = "Name==\"sidney\"";   
+				Contacts cisContact = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+				if (cisContact.getContacts().size() > 0) {
+					CISSettings cisSettings = accountingApi.getContactCISSettings(cisContact.getContacts().get(0).getContactID());
+					messages.add("Get a Contact cisSettings - Enabled? : " + cisSettings.getCiSSettings().get(0).getCiSEnabled());	
+				}
+				where = null;
+				
+				// GET active contacts
+			    where =  "ContactStatus==\"ACTIVE\"";
+				Contacts contactsWhere = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+				messages.add("Get a all ACTIVE Contacts - Total : " + contactsWhere.getContacts().size());
+				where = null;
+				
+				// Get Contact History
+				HistoryRecords contactHistory = accountingApi.getContactHistory(contactID);
+				messages.add("Contact History - count : " + contactHistory.getHistoryRecords().size() );
+			
+				// Create Contact History
+				HistoryRecords newHistoryRecords = new  HistoryRecords();
+				HistoryRecord newHistoryRecord = new  HistoryRecord();
+				newHistoryRecord.setDetails("Hello World");
+				newHistoryRecords.addHistoryRecordsItem(newHistoryRecord);
+				
+				HistoryRecords newInvoiceHistory = accountingApi.createContactHistory(contactID,newHistoryRecords);
+				messages.add("Contact History - note added to  : " + newInvoiceHistory.getHistoryRecords().get(0).getDetails());
+				
+			} catch (XeroApiException e) {
+				System.out.println(e.getResponseCode());
+				System.out.println(e.getMessage());	
+			}
+		} else if (object.equals("ContactGroups")) {
+		
+			/* CONTACT GROUP  */		
+			try {
+				// Create contact group
+				ContactGroups newCGs = new ContactGroups();
+				ContactGroup cg = new ContactGroup();
+				cg.setName("NewGroup" + SampleData.loadRandomNum());
+				newCGs.addContactGroupsItem(cg);
+				ContactGroups newContactGroup = accountingApi.createContactGroup(newCGs);
+				messages.add("Create a ContactGroup - Name : " + newContactGroup.getContactGroups().get(0).getName());
+				
+				// UPDATE Contact group
+				newCGs.getContactGroups().get(0).setName("Old Group" + SampleData.loadRandomNum());
+				UUID newContactGroupID = newContactGroup.getContactGroups().get(0).getContactGroupID();
+				ContactGroups updateContactGroup = accountingApi.updateContactGroup(newContactGroupID, newCGs);
+				messages.add("Update a ContactGroup - Name : " + updateContactGroup.getContactGroups().get(0).getName());
+
+				// GET all contact groups
+				ContactGroups contactGroups = accountingApi.getContactGroups(where, order);
+				messages.add("Get all ContactGroups - Total : " + contactGroups.getContactGroups().size());
+				
+				// GET one contact groups
+				UUID contactGroupId = contactGroups.getContactGroups().get(0).getContactGroupID();
+				ContactGroups oneCg = accountingApi.getContactGroup(contactGroupId);
+				messages.add("Get one ContactGroups - Name : " + oneCg.getContactGroups().get(0).getName());
+				
+				// DELETE contact Group
+				newCGs.getContactGroups().get(0).setStatus(com.xero.models.accounting.ContactGroup.StatusEnum.DELETED);
+				UUID contactGroupID = newContactGroup.getContactGroups().get(0).getContactGroupID();
+				ContactGroups deletedContactGroup = accountingApi.updateContactGroup(contactGroupID, contactGroups);
+				messages.add("Delete a ContactGroup - Name : " + deletedContactGroup.getContactGroups().get(0).getName());
+					
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
 			}
-		} else if (object.equals("BankTransfers")) {
 			
-			/* BANK TRANSFER */
-			try {
-				List<Account> accountWhere = client.getAccounts(null,"Type==\"BANK\"",null);
-				if(accountWhere.size() > 0) {
-					
-					List<BankTransfer> bts = SampleData.loadBankTransfer().getBankTransfer();
-					if (bts.size() > 0) {
-						List<BankTransfer> newBankTransfer = client.createBankTransfers(SampleData.loadBankTransfer().getBankTransfer());
-						messages.add("Create a new Bank Transfer - ID : " +newBankTransfer.get(0).getBankTransferID());
-					} else {
-						messages.add("Can not create a new Bank Transfer without 2 Bank Accounts"); 
-					}
-					
-					List<BankTransfer> BankTransferWhere = client.getBankTransfers(null,"Amount>Decimal(1.00)",null);
-					if(BankTransferWhere.size() > 0) {
-						messages.add("Get a BankTransfer with WHERE clause - ID : " + BankTransferWhere.get(0).getBankTransferID());
-					}
-					
-					List<BankTransfer> BankTransferList = client.getBankTransfers();
-					if(BankTransferList.size() > 0) {
-						int num3 = SampleData.findRandomNum(BankTransferList.size());
-						messages.add("Get a random BankTransfer - ID : " + BankTransferList.get(num3).getBankTransferID());
-					
-						BankTransfer BankTransferOne = client.getBankTransfer(BankTransferList.get(num3).getBankTransferID());
-						messages.add("Get a single BankTransfer - ID : " + BankTransferOne.getBankTransferID());
-					} else {
-						messages.add("No Bank Transfers Found ");
-					}
-				} else {
-					messages.add("Please create a Bank Acccount before using the BankTransfer Endpoint");
-				}
-			} catch (XeroApiException e) {
-				System.out.println(e.getResponseCode());
-				System.out.println(e.getMessage());	
-			}	
-		} else if (object.equals("BrandingThemes")) {
-				
-			/* BRANDING THEME */
-			try {
-				List<BrandingTheme> newBrandingTheme = client.getBrandingThemes();
-				messages.add("Get a Branding Theme - Name : " + newBrandingTheme.get(0).getName());
-			} catch (XeroApiException e) {
-				System.out.println(e.getResponseCode());
-				System.out.println(e.getMessage());	
-			}	
-			
-		} else if (object.equals("Contacts")) {		
-			
-			/* CONTACT */
-			try {
-				List<Contact> newContact = client.createContact(SampleData.loadContact().getContact());
-				messages.add("Create a new Contact - Name : " + newContact.get(0).getName() + " Email : " + newContact.get(0).getEmailAddress());
-				
-				List<Contact> ContactWhere = client.getContacts(null,"ContactStatus==\"ACTIVE\"",null,null);
-				messages.add("Get a Contact with WHERE clause - ID : " + ContactWhere.get(0).getContactID());
-				
-				List<Contact> ContactList = client.getContacts();
-				int num4 = SampleData.findRandomNum(ContactList.size());
-				messages.add("Get a random Contact - ID : " + ContactList.get(num4).getContactID());
-			
-				Contact ContactOne = client.getContact(ContactList.get(num4).getContactID());
-				messages.add("Get a single Contact - ID : " + ContactOne.getContactID());
-			 	
-				newContact.get(0).setEmailAddress("sid.maestre+barney@xero.com");
-				List<Contact> updateContact = client.updateContact(newContact);
-				messages.add("Update Contact - Name : " + updateContact.get(0).getName() + " email : " + updateContact.get(0).getEmailAddress());
-			} catch (XeroApiException e) {
-				System.out.println(e.getResponseCode());
-				System.out.println(e.getMessage());	
-			}	
-		} else if (object.equals("ContactGroups")) {
-		
-			/* CONTACT GROUP  */	
-			try {
-				List<ContactGroup> newContactGroup = client.createContactGroups(SampleData.loadContactGroup().getContactGroup());
-				messages.add("Create a new Contact Group - ID : " + newContactGroup.get(0).getContactGroupID());
-				
-				List<ContactGroup> newContactGroup2 = client.createContactGroups(SampleData.loadContactGroup().getContactGroup());
-				messages.add("Create a new Contact Group 2 - ID : " + newContactGroup2.get(0).getContactGroupID());
-				
-				List<ContactGroup> ContactGroupWhere = client.getContactGroups(null,"Status==\"ACTIVE\"",null);
-				messages.add("Get a ContactGroup with WHERE clause - ID : " + ContactGroupWhere.get(0).getContactGroupID());
-				
-				List<ContactGroup> ContactGroupList = client.getContactGroups();
-				int num = SampleData.findRandomNum(ContactGroupList.size());
-				messages.add("Get a random ContactGroup - ID : " + ContactGroupList.get(num).getContactGroupID());
-				
-				ContactGroup ContactGroupOne = client.getContactGroup(ContactGroupList.get(num).getContactGroupID());
-				messages.add("Get a single ContactGroup - ID : " + ContactGroupOne.getContactGroupID());
-						
-				newContactGroup.get(0).setName("My Updated Group-" + SampleData.loadRandomNum());
-				List<ContactGroup> updateContactGroup = client.updateContactGroup(newContactGroup);
-				messages.add("Update Contact Group - ID : " + updateContactGroup.get(0).getContactGroupID() + " - Name: " + updateContactGroup.get(0).getName());
-				
-				List<ContactGroup> deleteContactGroup = client.deleteContactGroup(ContactGroupList.get(num));
-				messages.add("Delete Contact Group - Deleted : " + deleteContactGroup.get(0).getContactGroupID());
-			} catch (XeroApiException e) {
-				System.out.println(e.getResponseCode());
-				System.out.println(e.getMessage());
-			}	
 		} else if (object.equals("ContactGroupContacts")) {
+			/* CONTACT GROUP CONTACTS */
+			try {	
+				// Create new Contact Group
+				ContactGroups newCGs = new ContactGroups();
+				ContactGroup cg = new ContactGroup();
+				cg.setName("NewGroup" + SampleData.loadRandomNum());
+				newCGs.addContactGroupsItem(cg);
+				ContactGroups newContactGroup = accountingApi.createContactGroup(newCGs);
 			
-			/* CONTACT GROUP  */	
-			try {
-				List<ContactGroup> newContactGroup = client.createContactGroups(SampleData.loadContactGroup().getContactGroup());
-				messages.add("Create a new Contact Group - ID : " + newContactGroup.get(0).getContactGroupID());
+				Contacts allContacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
 				
-				ArrayOfContact arrayContact = new ArrayOfContact();
-				arrayContact.getContact().add(SampleData.loadSingleContact());
-				List<Contact> newContactGroupContacts = client.createContactGroupContacts(arrayContact.getContact(),newContactGroup.get(0).getContactGroupID());
-				messages.add("Add Contacts to Contact Group = ContactId : " + newContactGroupContacts.get(0).getContactID());
+				// Create Contacts in Group
+				Contacts contactList = new Contacts();
+				contactList.addContactsItem(allContacts.getContacts().get(0));
+				contactList.addContactsItem(allContacts.getContacts().get(1));
+				UUID contactGroupID = newContactGroup.getContactGroups().get(0).getContactGroupID();
+				Contacts addContacts = accountingApi.createContactGroupContacts(contactGroupID, contactList);
+				messages.add("Add 2 Contacts to Contact Group - Total : " + addContacts.getContacts().size());	
+			
+				// DELETE all Contacts in Group
+				Response204 deleteContacts = accountingApi.deleteContactGroupContacts(newContactGroup.getContactGroups().get(0).getContactGroupID());
+				messages.add("Delete All Contacts  to Contact Group - Status? : " + deleteContacts.getStatus());	
+				ContactGroups oneCg = accountingApi.getContactGroup(newContactGroup.getContactGroups().get(0).getContactGroupID());
+				messages.add("Get ContactGroups - Total Contacts : " + oneCg.getContactGroups().get(0).getContacts().size());
 				
-				String deleteSingleContactStatus = client.deleteSingleContactFromContactGroup(newContactGroup.get(0).getContactGroupID(),arrayContact.getContact().get(0).getContactID());
-				messages.add("Delete Single Contact from Group - Deleted Status: " + deleteSingleContactStatus);
+				// DELETE Single Contact
+				Contacts contactList2 = new Contacts();
+				contactList2.addContactsItem(allContacts.getContacts().get(3));
+				contactList2.addContactsItem(allContacts.getContacts().get(4));
+				
+				UUID newContactGroupID = newContactGroup.getContactGroups().get(0).getContactGroupID();
+				Contacts addContacts2 = accountingApi.createContactGroupContacts(newContactGroupID, contactList2);				
+				messages.add("Add 2 Contacts to Contact Group - Total : " + addContacts2.getContacts().size());	
+			
+				// DELETE Single CONACTS
+				Response204 deleteContacts2 = accountingApi.deleteContactGroupContact(newContactGroup.getContactGroups().get(0).getContactGroupID(),allContacts.getContacts().get(3).getContactID());
+				messages.add("Delete 1 contact from Contact Group - Status? : " + deleteContacts2.getStatus());	
+				ContactGroups oneCg2 = accountingApi.getContactGroup(newContactGroup.getContactGroups().get(0).getContactGroupID());
+				messages.add("Get ContactGroups - Total Contacts : " + oneCg2.getContactGroups().get(0).getContacts().size());
 				
 			} catch (XeroApiException e) {
-				System.out.println("ERROR");
-				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
-			}							
-		} else if (object.equals("CreditNotes")) {
-		
-			/* CREDIT NOTE */
-			try {
-				
-				
-				List<CreditNote> newCreditNote = client.createCreditNotes(SampleData.loadCreditNote().getCreditNote());
-				messages.add("Create a new CreditNote ID : " + newCreditNote.get(0).getCreditNoteID() );
-							
-				List<CreditNote> newCreditNote4dp = client.createCreditNotes(SampleData.loadCreditNote4dp().getCreditNote(),"4");
-				messages.add("Create a new CreditNote ID 4dp: " + newCreditNote4dp.get(0).getCreditNoteID() );
-				
-				
-				List<CreditNote> CreditNoteWhere = client.getCreditNotes(null,"Status==\"DRAFT\"",null);
-				if(CreditNoteWhere.size() > 0) {
-					messages.add("Get a CreditNote with WHERE clause - ID: " + CreditNoteWhere.get(0).getCreditNoteID());
-				}
-				
-				List<CreditNote> CreditNotePage = client.getCreditNotes(null,"Status==\"DRAFT\"",null,"1");
-				if(CreditNotePage.size() > 0) {
-					messages.add("Get a CreditNote with PAGE=1 clause - ID: " + CreditNoteWhere.get(0).getCreditNoteID());
-				}
-				
-				List<CreditNote> CreditNoteList = client.getCreditNotes();
-				int num = SampleData.findRandomNum(CreditNoteList.size());
-				messages.add("Get a random CreditNote - ID : " + CreditNoteList.get(num).getCreditNoteID());
-						
-				CreditNote CreditNoteOne = client.getCreditNote(CreditNoteList.get(num).getCreditNoteID());
-				messages.add("Get a single CreditNote - ID : " + CreditNoteOne.getCreditNoteID());
-					
-				newCreditNote.get(0).setReference("My updated Credit Note");
-				List<CreditNote> updateCreditNote = client.updateCreditNote(newCreditNote);
-				messages.add("Update CreditNote - ID: " + updateCreditNote.get(0).getCreditNoteID() + " - Reference: " + updateCreditNote.get(0).getReference());
-				
-				
-				List<CreditNote> CreditNoteListForPdf = client.getCreditNotes();
-				
-				// GET PDF of CREDIT NOTE
-				File f = new File("./");
-				String dirPath =  f.getCanonicalPath();
-				ByteArrayInputStream input = client.getCreditNotePdfContent(CreditNoteListForPdf.get(0).getCreditNoteID());
-				
-				String fileName = "creditnote.pdf";
-				
-				FileOutputStream output = new FileOutputStream(fileName);
-
-				int DEFAULT_BUFFER_SIZE = 1024;
-				byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
-				int n = 0;
-
-				n = input.read(buffer, 0, DEFAULT_BUFFER_SIZE);
-
-				while (n >= 0) {
-				   output.write(buffer, 0, n);
-				   n = input.read(buffer, 0, DEFAULT_BUFFER_SIZE);
-				}
-				
-				input.close();
-				output.close();
-				
-				String saveFilePath = dirPath + File.separator + fileName;
-				messages.add("Get a PDF copy of CreditNote - save it here: " + saveFilePath);
+			}
 			
+		} else if (object.equals("CreditNotesPDF")) {
+			// GET CreditNote As a PDF
+			CreditNotes creditNotes = accountingApi.getCreditNotes(ifModifiedSince, where, order, page);
+			UUID creditNoteId = creditNotes.getCreditNotes().get(0).getCreditNoteID();
+			ByteArrayInputStream CreditNoteInput	 = accountingApi.getCreditNoteAsPdf(creditNoteId, "application/pdf");
+			String CreditNoteFileName = "InvoiceAsPDF.pdf";
+			
+			String CreditNoteSaveFilePath = saveFile(CreditNoteInput,CreditNoteFileName);
+			messages.add("Get CreditNote attachment - save it here: " + CreditNoteSaveFilePath);
+					
+		} else if (object.equals("CreditNotes")) {
+			/* CREDIT NOTE */
+			// JSON - complete - except Attachment
+			try {	
+				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
 				
+				// Create Credit Note
+				List<LineItem> lineItems = new ArrayList<>();
+				LineItem li = new LineItem();
+				li.setAccountCode("400");
+				li.setDescription("Foobar");
+				li.setQuantity("2");
+				BigDecimal BigDec1 = new BigDecimal("20.00");
+				li.setUnitAmount(BigDec1);
+				lineItems.add(li);
 				
+				CreditNotes newCNs = new CreditNotes();
+				CreditNote cn = new CreditNote();
+				cn.setContact(contacts.getContacts().get(0));
+				cn.setLineItems(lineItems);  
+				cn.setType(com.xero.models.accounting.CreditNote.TypeEnum.ACCPAYCREDIT);
+				newCNs.addCreditNotesItem(cn);
+				CreditNotes newCreditNote = accountingApi.createCreditNote(summarizeErrors, newCNs);
+				messages.add("Create a CreditNote - Amount : " + newCreditNote.getCreditNotes().get(0).getTotal());
+				UUID newCreditNoteId = newCreditNote.getCreditNotes().get(0).getCreditNoteID();
+				
+				// GET all Credit Note
+				CreditNotes creditNotes = accountingApi.getCreditNotes(ifModifiedSince, where, order, page);
+				messages.add("Get all CreditNotes - Total : " + creditNotes.getCreditNotes().size());
+				
+				// GET One Credit Note
+				UUID creditNoteID = creditNotes.getCreditNotes().get(0).getCreditNoteID();
+				CreditNotes oneCreditNote = accountingApi.getCreditNote(creditNoteID);
+				messages.add("Get a CreditNote - Amount : " + oneCreditNote.getCreditNotes().get(0).getTotal());
+				
+				// UPDATE Credit Note
+				newCNs.getCreditNotes().get(0).setStatus(com.xero.models.accounting.CreditNote.StatusEnum.AUTHORISED);
+				CreditNotes updatedCreditNote = accountingApi.updateCreditNote(newCreditNoteId, newCNs);				
+				messages.add("Update a CreditNote - Ref : " + updatedCreditNote.getCreditNotes().get(0).getReference());
+				
+				// Allocate Credit Note
+				Allocations allocations = new Allocations();
+				Allocation allocation = new Allocation();
+				
+			    where =  "Status==\"AUTHORISED\"&&Type==\"ACCPAY\"";
+			    Invoices allInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp);
+				Invoice inv = new Invoice();
+				inv.setInvoiceID(allInvoices.getInvoices().get(0).getInvoiceID());
+				allocation.setInvoice(inv);
+				BigDecimal amount = new BigDecimal("1.00");
+				allocation.setAmount(amount);
+				allocations.addAllocationsItem(allocation);
+				where = null;
+				
+				Allocations allocatedCreditNote = accountingApi.createCreditNoteAllocation(newCreditNoteId,allocations);
+				messages.add("Update CreditNote Allocation - Amount : " + allocatedCreditNote.getAllocations().get(0).getAmount());
+				
+				// Get Invoice History
+				HistoryRecords history = accountingApi.getCreditNoteHistory(creditNoteID);
+				messages.add("History - count : " + history.getHistoryRecords().size() );
+			
+				// Create Invoice History
+				HistoryRecords newHistoryRecords = new  HistoryRecords();
+				HistoryRecord newHistoryRecord = new  HistoryRecord();
+				newHistoryRecord.setDetails("Hello World");
+				newHistoryRecords.addHistoryRecordsItem(newHistoryRecord);
+				
+				HistoryRecords newHistory = accountingApi.createCreditNoteHistory(creditNoteID, newHistoryRecords);
+				messages.add("History - note added to  : " + newHistory.getHistoryRecords().get(0).getDetails());
+			
 			} catch (XeroApiException e) {
-				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());	
-			}	
+			}
+			
+			
 		} else if (object.equals("Currencies")) {
 
 			/* CURRENCY  */
-			try {
-				List<Currency> newCurrency = client.getCurrencies();
-				messages.add("GET a Currency - Description: " + newCurrency.get(0).getDescription());
+			// JSON - incomplete
+			try {	
+				//Get All
+				Currencies currencies = accountingApi.getCurrencies(where, order);
+				messages.add("Get all Currencies - Total : " + currencies.getCurrencies().size());
 				
-				List<Currency> currency = client.createCurrencies(SampleData.loadCurrency().getCurrency());
-				messages.add("Create a new Currency : " + currency.get(0).getDescription());
-				
+				// Create New
+				// Error: 400
+				/*
+				Currency curr = new Currency();
+				curr.setCode("SGD");
+				Currencies currs = new Currencies();
+				currs.addCurrenciesItem(curr);
+				Currencies newCurrency = accountingApi.createCurrency(currs);
+				messages.add("New Currencies - Code : " + newCurrency.getCurrencies().get(0).getCode());
+				*/
 			} catch (XeroApiException e) {
-				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());	
 			}	
 			
 		} else if (object.equals("Employees")) {
 
 			/*  EMPLOYEE */
-			try {
-				List<Employee> newEmployee = client.createEmployees(SampleData.loadEmployee().getEmployee());
-				messages.add("Create a new Employee - ID: " + newEmployee.get(0).getEmployeeID());
+			// JSON 
+			try {	
+				// Create
+				Employee employee = new Employee();
+				employee.setFirstName("Sam");
+				employee.setLastName("Jackson" + SampleData.loadRandomNum());
+				ExternalLink extLink = new ExternalLink();
+				extLink.setUrl("http://twitter.com/#!/search/Homer+Simpson");
+				employee.setExternalLink(extLink);
+				Employees emps = new Employees();
+				emps.addEmployeesItem(employee);
 				
-				List<Employee> EmployeeWhere = client.getEmployees(null,"Status==\"ACTIVE\"",null);
-				messages.add("Get a Employee with WHERE clause - FirstName : " + EmployeeWhere.get(0).getFirstName());
-				
-				List<Employee> EmployeeList = client.getEmployees();
-				int num6 = SampleData.findRandomNum(EmployeeList.size());
-				messages.add("Get a random Employee - FirstName : " + EmployeeList.get(num6).getFirstName());
+				Employees newEmployee = accountingApi.createEmployee(emps);
+				messages.add("Create an Employee - Last Name : " + newEmployee.getEmployees().get(0).getLastName());
+		
+				// Update				
+				newEmployee.getEmployees().get(0).setLastName("Anderson" + SampleData.loadRandomNum());
+				Employees updateEmployee = accountingApi.updateEmployee(newEmployee.getEmployees().get(0).getEmployeeID(),newEmployee);
+				messages.add("Update an Employee - Last Name : " + updateEmployee.getEmployees().get(0).getLastName());
 			
-				Employee EmployeeOne = client.getEmployee(EmployeeList.get(num6).getEmployeeID());
-				messages.add("Get a single Employee - FirstName : " + EmployeeOne.getFirstName());
+				//Get All
+				Employees employees = accountingApi.getEmployees(ifModifiedSince, where, order);
+				messages.add("Get all Employees - Total : " + employees.getEmployees().size());
 				
-				newEmployee.get(0).setFirstName("David");
-				newEmployee.get(0).setStatus(null);
-				List<Employee> updateEmployee = client.updateEmployee(newEmployee);
-				messages.add("Update the Employee - FirstName : " + updateEmployee.get(0).getFirstName() + " - LastName : " + updateEmployee.get(0).getLastName());
+				// Get One
+				Employees oneEmployee = accountingApi.getEmployee(employees.getEmployees().get(0).getEmployeeID());
+				messages.add("Get one Employees - Name : " + oneEmployee.getEmployees().get(0).getFirstName());
+				
 			} catch (XeroApiException e) {
-				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());	
-			}	
-		} else if (object.equals("ExpenseClaims")) {
-
-			/*  EXPENSE CLAIM */
-			try {
-				
-				List<ExpenseClaim> newExpenseClaim = client.createExpenseClaims(SampleData.loadExpenseClaim().getExpenseClaim());
-				messages.add("Create a new Expense Claim - ID : " + newExpenseClaim.get(0).getExpenseClaimID() + " Status : " + newExpenseClaim.get(0).getStatus());					
-				
-				List<ExpenseClaim> ExpenseClaimWhere = client.getExpenseClaims(null,"AmountDue>Decimal(1.00)",null);
-				messages.add("Get a ExpenseClaim with WHERE clause - ID" + ExpenseClaimWhere.get(0).getExpenseClaimID());
-				
-				List<ExpenseClaim> ExpenseClaimList = client.getExpenseClaims();
-				int num = SampleData.findRandomNum(ExpenseClaimList.size());
-				messages.add("Get a random ExpenseClaim - ID : " + ExpenseClaimList.get(num).getExpenseClaimID());
-			
-				ExpenseClaim ExpenseClaimOne = client.getExpenseClaim(ExpenseClaimList.get(num).getExpenseClaimID());
-				messages.add("Get a single ExpenseClaim - ID : " + ExpenseClaimOne.getExpenseClaimID());
-				
-				newExpenseClaim.get(0).setStatus(ExpenseClaimStatus.AUTHORISED);;
-				List<ExpenseClaim> updateExpenseClaim = client.updateExpenseClaim(newExpenseClaim);
-				messages.add("Update the ExpenseClaim - ID : " + updateExpenseClaim.get(0).getExpenseClaimID() + " Status : " + updateExpenseClaim.get(0).getStatus());
-				
-			} catch (XeroApiException e) {
-				System.out.println(e.getResponseCode());
-				System.out.println(e.getMessage());	
-			}	
-		} else if (object.equals("Invoices")) {
-				
-			/*  INVOICE */			
-			try {
-			
-				List<Invoice> newInvoice = client.createInvoices(SampleData.loadInvoice().getInvoice());
-				newInvoice.get(0).setReference("Just Created my Ref.");
-				messages.add("Create a new Invoice ID : " + newInvoice.get(0).getInvoiceID());
-				
-				List<Invoice> InvoiceWhere = client.getInvoices(null,"Status==\"DRAFT\"",null,null,null);
-				messages.add("Get a Invoice with WHERE clause - InvNum : " + InvoiceWhere.get(0).getInvoiceID());
-				
-				// Set If Modified Since in last 24 hours
-				Date date = new Date();
-				Calendar cal = Calendar.getInstance();
-			    cal.setTime(date);
-			    cal.add(Calendar.DAY_OF_MONTH, -1);
-			    
-			    List<Invoice> InvoiceList24hour = client.getInvoices(cal.getTime(),null,null,null,null);
-				messages.add("How many invoices modified in last 24 hours?: " + InvoiceList24hour.size());
-				
-				List<Invoice> InvoiceList = client.getInvoices();
-				int num7 = SampleData.findRandomNum(InvoiceList.size());
-				messages.add("Get a random Invoice - InvNum : " + InvoiceList.get(num7).getInvoiceID());
-				
-				Invoice InvoiceOne = client.getInvoice(InvoiceList.get(num7).getInvoiceID());
-				messages.add("Get a single Invoice - InvNum : " + InvoiceOne.getInvoiceID());
-				
-				String ids = InvoiceList.get(0).getInvoiceID() + "," + InvoiceList.get(1).getInvoiceID();
-				
-				List<Invoice> InvoiceMultiple = client.getInvoices(null,null,null,null,ids);
-				messages.add("Get a Muliple Invoices by ID filter : " + InvoiceMultiple.size());
-				
-				String invNum ="%SIDNEY";
-				Map<String, String> filter = new HashMap<>();
-				addToMapIfNotNull(filter, "invoicenumbers", invNum);
-				List<Invoice> InvoiceMultiple2 = client.getInvoices(null,"Type==\"ACCREC\"",null,null,"4",filter);
-				messages.add("Get a Muliple Invoices by ID filter : " + InvoiceMultiple2.size());
-			
-				newInvoice.get(0).setReference("Just Updated APRIL my Ref.");
-				newInvoice.get(0).setStatus(null);
-				List<Invoice> updateInvoice = client.updateInvoice(newInvoice);
-				messages.add("Update the Invoice - InvNum : " + updateInvoice.get(0).getInvoiceID() + " - Reference : " + updateInvoice.get(0).getReference());
-
-				// GET PDF of Invoice
-				File f = new File("./");
-				String dirPath =  f.getCanonicalPath();
-				ByteArrayInputStream input = client.getInvoicePdfContent(InvoiceList.get(0).getInvoiceID());
-				
-				String fileName = "invoice.pdf";
-				
-				FileOutputStream output = new FileOutputStream(fileName);
-
-				int DEFAULT_BUFFER_SIZE = 1024;
-				byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
-				int n = 0;
-
-				n = input.read(buffer, 0, DEFAULT_BUFFER_SIZE);
-
-				while (n >= 0) {
-				   output.write(buffer, 0, n);
-				   n = input.read(buffer, 0, DEFAULT_BUFFER_SIZE);
-				}
-				
-				input.close();
-				output.close();
-				
-				String saveFilePath = dirPath + File.separator + fileName;
-				messages.add("Get a PDF copy of Invoice - save it here: " + saveFilePath);
-			
-			} catch (XeroApiException e) {
-				System.out.println(e.getResponseCode());
-				System.out.println(e.getMessage());
 			}
 			
-			try {
-				List<Invoice> InvoiceList = client.getInvoices();
-				int num33 = SampleData.findRandomNum(InvoiceList.size());
-				OnlineInvoice OnlineInvoice = client.getOnlineInvoice(InvoiceList.get(num33).getInvoiceID());
-				messages.add("Get a Online Invoice -  : " + OnlineInvoice.getOnlineInvoiceUrl());
-			} catch (XeroApiException e) {
-				System.out.println(e.getResponseCode());
-				System.out.println(e.getMessage());
-				messages.add("Error - online invoice: " + e.getMessage());
-			}	
+		} else if (object.equals("ExpenseClaims")) {
+			/*  EXPENSE CLAIM */
+			//Create
+		    where = "IsSubscriber==true";
+			Users users = accountingApi.getUsers(ifModifiedSince, where, order);
+			where = null;
+			
+		    where = "ShowInExpenseClaims==true&&Status==\"ACTIVE\"";
+			Accounts accounts = accountingApi.getAccounts(ifModifiedSince, where, order);
+			where = null;
+			
+			if (users.getUsers().size() > 0) {
+				User user = new User();
+				user.setUserID(users.getUsers().get(0).getUserID());
 				
-		} else if (object.equals("InvoiceReminders")) {
+				
+				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+				Contact useContact = new Contact();
+				useContact.setContactID(contacts.getContacts().get(0).getContactID());
+				
+				// CREATE NEW RECEIPT
+				Receipts receipts = new Receipts();
+				Receipt receipt = new Receipt();
+				
+				LineItem li = new LineItem();
+				li.setAccountCode(accounts.getAccounts().get(0).getCode());
+				li.setDescription("Foobar");
+				li.setQuantity("2");
+				BigDecimal BigDec1 = new BigDecimal("20.00");
+				li.setUnitAmount(BigDec1);
+				BigDecimal BigDecLineAmount = new BigDecimal("40.00");
+				li.setLineAmount(BigDecLineAmount);
+				li.setTaxType("NONE");
+				
+				receipt.addLineitemsItem(li);
+				receipt.setUser(user);
+				receipt.lineAmountTypes(com.xero.models.accounting.Receipt.LineAmountTypesEnum.NOTAX);
+				receipt.contact(useContact);
+				receipt.setStatus(com.xero.models.accounting.Receipt.StatusEnum.DRAFT);
+				receipts.addReceiptsItem(receipt);
+				Receipts newReceipts = accountingApi.createReceipt(receipts);
+	
+				// CREATE EXPENSE CLAIM
+				ExpenseClaims createExpenseClaims = new ExpenseClaims();
+				ExpenseClaim expenseClaim = new ExpenseClaim();
+				expenseClaim.setUser(user);
+				
+				Receipts myReceipts = new Receipts();
+				Receipt myReceipt = new Receipt();
+				myReceipt.setReceiptID(newReceipts.getReceipts().get(0).getReceiptID());
+				myReceipts.addReceiptsItem(myReceipt);
+				expenseClaim.setReceipts(myReceipts.getReceipts());
+				expenseClaim.setStatus(com.xero.models.accounting.ExpenseClaim.StatusEnum.SUBMITTED);
+				createExpenseClaims.addExpenseClaimsItem(expenseClaim);
+				ExpenseClaims newExpenseClaims = accountingApi.createExpenseClaim(createExpenseClaims, summarizeErrors);
+				messages.add("Create new Expense Claim - Status : " + newExpenseClaims.getExpenseClaims().get(0).getStatus());
+				
+				// UPDATE EXPENSE CLAIM
+				createExpenseClaims.getExpenseClaims().get(0).setStatus(com.xero.models.accounting.ExpenseClaim.StatusEnum.AUTHORISED);
+				UUID expenseClaimID = newExpenseClaims.getExpenseClaims().get(0).getExpenseClaimID();
+				ExpenseClaims updateExpenseClaims = accountingApi.updateExpenseClaim(expenseClaimID, createExpenseClaims);
+				messages.add("Update new Expense Claim - Status : " + updateExpenseClaims.getExpenseClaims().get(0).getStatus());
+				
+				//Get All Expense Claims
+				ExpenseClaims expenseClaims = accountingApi.getExpenseClaims(ifModifiedSince, where, order);
+				messages.add("Get all Expense Claim - Total : " + expenseClaims.getExpenseClaims().size());
+				
+				// Get One Expense Claim
+				ExpenseClaims oneExpenseClaim = accountingApi.getExpenseClaim(expenseClaims.getExpenseClaims().get(0).getExpenseClaimID());
+				messages.add("Get one Expense Claim - Total : " + oneExpenseClaim.getExpenseClaims().get(0).getTotal());
+				
+				// VOID EXPENSE CLAIM
+				createExpenseClaims.getExpenseClaims().get(0).setStatus(com.xero.models.accounting.ExpenseClaim.StatusEnum.VOIDED);
+				ExpenseClaims voidExpenseClaims = accountingApi.updateExpenseClaim(expenseClaimID, createExpenseClaims);
+				messages.add("Void new Expense Claim - Status : " + voidExpenseClaims.getExpenseClaims().get(0).getStatus());
+				
+				// Get Invoice History
+				HistoryRecords history = accountingApi.getExpenseClaimHistory(expenseClaimID);
+				messages.add("History - count : " + history.getHistoryRecords().size() );
+			
+				// Create Invoice History
+				// Error: "The document with the supplied id was not found for this endpoint.
+				/*
+				HistoryRecords newHistoryRecords = new  HistoryRecords();
+				HistoryRecord newHistoryRecord = new  HistoryRecord();
+				newHistoryRecord.setDetails("Hello World");
+				newHistoryRecords.addHistoryRecordsItem(newHistoryRecord);
+				HistoryRecords newHistory = accountingApi.createExpenseClaimHistory(expenseClaimID, newHistoryRecords);
+				messages.add("History - note added to  : " + newHistory.getHistoryRecords().get(0).getDetails());
+				*/
+			} else {
+				System.out.println("No User Found");
+			}
 		
+		} else if (object.equals("Invoices")) {
+			/*  INVOICE */	
+			// GET Invoice As a PDF
+			Invoices myInvoicesForPDF = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp);
+			UUID invoiceIDForPDF = myInvoicesForPDF.getInvoices().get(0).getInvoiceID();
+			ByteArrayInputStream InvoiceNoteInput	 = accountingApi.getInvoiceAsPdf(invoiceIDForPDF, "application/pdf");
+			String InvoiceFileName = "InvoiceAsPDF.pdf";			
+			String InvoiceSaveFilePath = saveFile(InvoiceNoteInput,InvoiceFileName);
+			messages.add("Get Invoice attachment - save it here: " + InvoiceSaveFilePath);
+
+			// Create Invoice
+		    where = "Type==\"REVENUE\"";
+			Accounts accounts = accountingApi.getAccounts(ifModifiedSince, where, order);
+			where = null;
+			
+			Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+			Contact useContact = new Contact();
+			useContact.setContactID(contacts.getContacts().get(0).getContactID());
+			
+			Invoices newInvoices = new Invoices();
+			Invoice myInvoice = new Invoice();
+			
+			LineItem li = new LineItem();
+			li.setAccountCode(accounts.getAccounts().get(0).getCode());
+			li.setDescription("Acme Tires");
+			li.setQuantity("2");
+			BigDecimal BigDec1 = new BigDecimal("20.00");
+			li.setUnitAmount(BigDec1);
+			BigDecimal BigDecLineAmount = new BigDecimal("40.00");
+			li.setLineAmount(BigDecLineAmount);
+			li.setTaxType("NONE");
+			
+			myInvoice.addLineItemsItem(li);
+			myInvoice.setContact(useContact);
+			myInvoice.setDueDate("2018-12-30");
+			myInvoice.setDate("2018-10-20");
+			myInvoice.setType(com.xero.models.accounting.Invoice.TypeEnum.ACCREC);
+			myInvoice.setReference("One Fish, Two Fish");
+			myInvoice.setStatus(com.xero.models.accounting.Invoice.StatusEnum.AUTHORISED);
+			newInvoices.addInvoicesItem(myInvoice);
+			
+			Invoices newInvoice = accountingApi.createInvoice(newInvoices, summarizeErrors);
+			messages.add("Create invoice - Reference : " + newInvoice.getInvoices().get(0).getReference());
+			
+			UUID newInvoiceID = newInvoice.getInvoices().get(0).getInvoiceID();
+			Invoices updateInvoices = new Invoices();
+			Invoice updateInvoice = new Invoice();
+			updateInvoice.setInvoiceID(newInvoiceID);
+			updateInvoice.setReference("Red Fish, Blue Fish");
+			updateInvoices.addInvoicesItem(updateInvoice);
+			
+			Invoices updatedInvoice = accountingApi.updateInvoice(newInvoiceID,updateInvoices);
+			messages.add("Update invoice - Reference : " + updatedInvoice.getInvoices().get(0).getReference());
+			
+			//Get All
+			Invoices invoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp);
+			messages.add("Get all invoices - Total : " + invoices.getInvoices().size());
+			
+			//Get Invoice If-Modified-Since
+			
+			OffsetDateTime invModified = OffsetDateTime.now();
+			invModified.minusDays(5);	
+			Invoices invoicesSince = accountingApi.getInvoices(invModified, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp);
+			messages.add("Get all invoices - Since Modfied Date - Total : " + invoicesSince.getInvoices().size());
+		
+			// Get One
+			Invoices oneInvoice = accountingApi.getInvoice(invoices.getInvoices().get(0).getInvoiceID());
+			messages.add("Get one invoice - total : " + oneInvoice.getInvoices().get(0).getTotal());
+			
+			// Get Online Invoice
+			OnlineInvoices onlineInvoice = accountingApi.getOnlineInvoice(newInvoiceID);
+			messages.add("Get Online invoice - URL : " + onlineInvoice.getOnlineInvoices().get(0).getOnlineInvoiceUrl());
+		
+			// Email Invoice
+			RequestEmpty empty = new RequestEmpty();
+			Response204 emailInvoice = accountingApi.emailInvoice(newInvoiceID,empty);
+			messages.add("Email invoice - response : " + emailInvoice.toString() );
+		
+			// Get Invoice History
+			HistoryRecords history = accountingApi.getInvoiceHistory(newInvoiceID);
+			messages.add("History - count : " + history.getHistoryRecords().size() );
+		
+			// Create Invoice History
+			HistoryRecords newHistoryRecords = new  HistoryRecords();
+			HistoryRecord newHistoryRecord = new  HistoryRecord();
+			newHistoryRecord.setDetails("Hello World");
+			newHistoryRecords.addHistoryRecordsItem(newHistoryRecord);
+			HistoryRecords newHistory = accountingApi.createInvoiceHistory(newInvoiceID,newHistoryRecords);
+			messages.add("History - note added to  : " + newHistory);
+			
+			// CREATE invoice attachment
+			Invoices myInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp);
+			UUID invoiceID = myInvoices.getInvoices().get(0).getInvoiceID();
+			InputStream inputStream = JsonConfig.class.getResourceAsStream("/helo-heros.jpg");
+			byte[] bytes = IOUtils.toByteArray(inputStream);
+			
+			String newFileName = "sample2.jpg";
+			Attachments createdAttachments = accountingApi.createInvoiceAttachmentByFileName(invoiceID, newFileName, bytes);
+			messages.add("Attachment to Invoice complete - ID: " + createdAttachments.getAttachments().get(0).getAttachmentID());
+	 		
+			// GET Invoice Attachment 
+			Attachments attachments = accountingApi.getInvoiceAttachments(invoiceID);
+			System.out.println(attachments.getAttachments().get(0).getFileName());
+			UUID attachementId = attachments.getAttachments().get(0).getAttachmentID();
+			String contentType = attachments.getAttachments().get(0).getMimeType();
+			ByteArrayInputStream InvoiceAttachmentInput	 = accountingApi.getInvoiceAttachmentById(invoiceID,attachementId, contentType);
+
+			String InvoiceAttachmentFileName = attachments.getAttachments().get(0).getFileName();
+			String InvoiceAttachmentSaveFilePath = saveFile(InvoiceAttachmentInput,InvoiceAttachmentFileName);
+			messages.add("Get Invoice attachment - save it here: " + InvoiceAttachmentSaveFilePath);				
+			
+		} else if (object.equals("InvoiceReminders")) {
 			/* INVOICE REMINDER */
-			try {
-				List<InvoiceReminder> newInvoiceReminder = client.getInvoiceReminders();
-				messages.add("Get a Invoice Reminder - Is Enabled: " + newInvoiceReminder.get(0).isEnabled() );
+			try {				
+				InvoiceReminders invReminders = accountingApi.getInvoiceReminders();
+				messages.add("Get a Invoice Reminder - Is Enabled: " + invReminders.getInvoiceReminders().get(0).getEnabled() );
 			} catch (XeroApiException e) {
-				System.out.println(e.getResponseCode());
-				System.out.println(e.getMessage());
+				System.out.println(e.getMessage());	
 			}
 		} else if (object.equals("Items")) {
-	
 			/* ITEM */
 			try {
-				List<Item> newItem = client.createItems(SampleData.loadItem().getItem());
-				messages.add("Create a new Item - ID : " + newItem.get(0).getItemID());
+				// Create Items
+				Items myItems = new Items();
+				Item myItem = new Item();
+				myItem.setCode("abc" + SampleData.loadRandomNum());
+				myItem.setDescription("foobar");
+				myItem.setName("Hello"+SampleData.loadRandomNum());
+				myItems.addItemsItem(myItem);
+				Items newItems = accountingApi.createItem(myItems);
+				messages.add("Create new item - Description : " + newItems.getItems().get(0).getDescription());
+				UUID newItemId = newItems.getItems().get(0).getItemID();
 				
-				List<Item> ItemWhere = client.getItems(null,"IsSold==true",null);
-				messages.add("Get a Item with WHERE clause - Name : " + ItemWhere.get(0).getName());
+				// Update Item
+				newItems.getItems().get(0).setDescription("Barfoo");
+				Items updateItem = accountingApi.updateItem(newItemId, newItems);
+				messages.add("Update item - Description : " + updateItem.getItems().get(0).getDescription());
 				
-				List<Item> ItemList = client.getItems();
-				int num = SampleData.findRandomNum(ItemList.size());
-				messages.add("Get a random Item - Name : " + ItemList.get(num).getName());
+				//Get All Items
+				Items items = accountingApi.getItems(ifModifiedSince, where, order);
+				messages.add("Get all items - Total : " + items.getItems().size());
+				
+				// Get One Item
+				UUID itemId = items.getItems().get(0).getItemID();
+				Items oneItem = accountingApi.getItem(itemId);
+				messages.add("Get one item - Description : " + oneItem.getItems().get(0).getDescription());
 			
-				Item ItemOne = client.getItem(ItemList.get(num).getItemID());
-				messages.add("Get a single Item - Name : " + ItemOne.getName());	
-				
-				newItem.get(0).setDescription("My Updated Description");
-				newItem.get(0).setStatus(null);
-				List<Item> updateItem = client.updateItem(newItem);
-				messages.add("Update the Item - Name : " + updateItem.get(0).getName() + " - Description : " + updateItem.get(0).getDescription());
+				// Get Invoice History
+				HistoryRecords history = accountingApi.getItemHistory(itemId);
+				messages.add("History - count : " + history.getHistoryRecords().size() );
 			
-				String status = client.deleteItem(newItem.get(0).getItemID());
-				messages.add("Delete a new Item - Delete result: " + status);
-
+				// Create Invoice History
+				// Error: "The document with the supplied id was not found for this endpoint.
+				/*
+				HistoryRecords newHistoryRecords = new  HistoryRecords();
+				HistoryRecord newHistoryRecord = new  HistoryRecord();
+				newHistoryRecord.setDetails("Hello World");
+				newHistoryRecords.addHistoryRecordsItem(newHistoryRecord);
+				HistoryRecords createdHistory = accountingApi.createItemHistory(itemId,newHistoryRecords);
+				messages.add("History - note added to  : " + createdHistory.getHistoryRecords().get(0).getDetails());
+				*/
+				
+				//Delete
+				Response204 deleteItem = accountingApi.deleteItem(newItemId);
+				messages.add("Delete one item - status : " + deleteItem.getStatus());
 			} catch (XeroApiException e) {
-				System.out.println(e.getResponseCode());
-				System.out.println(e.getMessage());
+				System.out.println(e.getMessage());	
 			}
+			
 		} else if (object.equals("Journals")) {
-		
 			/* JOURNAL */
 			try {
-				List<Journal> newJournal = client.getJournals();
-				messages.add("Get a Journal - Number : " + newJournal.get(0).getJournalNumber() + " - ID: " + newJournal.get(0).getJournalID());
-			
-				List<Journal> newJournalOffset = client.getJournals(null,"10",true);
-				messages.add("Get a Journal - Number : " + newJournalOffset.get(0).getJournalNumber() + " - ID: " + newJournalOffset.get(0).getJournalID());
-			
+				BigDecimal offset = null;
+				boolean paymentsOnly = false;
+				// GET all Journals
+				Journals journals = accountingApi.getJournals(ifModifiedSince, offset, paymentsOnly);
+				messages.add("Get Journals - total : " + journals.getJournals().size());
+				
+				// GET Journal with offset
+			    offset = new BigDecimal("10");
+				Journals journalsOffset = accountingApi.getJournals(ifModifiedSince, offset, paymentsOnly);
+				messages.add("Get Journals offset - total : " + journalsOffset.getJournals().size());
+				
+				// GET one Journal
+				UUID journalId = journals.getJournals().get(0).getJournalID();
+				Journals oneJournal = accountingApi.getJournal(journalId);
+				messages.add("Get one Journal - number : " + oneJournal.getJournals().get(0).getJournalNumber());
 			} catch (XeroApiException e) {
-				System.out.println(e.getResponseCode());
-				System.out.println(e.getMessage());
+				System.out.println(e.getMessage());	
 			}
 		} else if (object.equals("LinkedTransactions")) {
 
 			/* LINKED TRANSACTION */
 			try {
-				List<LinkedTransaction> newLinkedTransaction = client.createLinkedTransactions(SampleData.loadLinkedTransaction().getLinkedTransaction());
-				System.out.println(newLinkedTransaction.get(0).getLinkedTransactionID());
-				messages.add("Create a new LinkedTransaction -  Id:" + newLinkedTransaction.get(0).getContactID());
+				// Create Linked Transaction
+			    where = "Type==\"EXPENSE\"";
+				Accounts accounts = accountingApi.getAccounts(ifModifiedSince, where, order);
+				where = null;
 				
-				List<LinkedTransaction> LinkedTransactionWhere = client.getLinkedTransactions(null,"Status==\"BANK\"",null,null);
-				messages.add("Get a LinkedTransaction with WHERE clause - ID : " + LinkedTransactionWhere.get(0).getLinkedTransactionID());
+				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+				Contact useContact = new Contact();
+				useContact.setContactID(contacts.getContacts().get(0).getContactID());
 				
-				List<LinkedTransaction> LinkedTransactionList = client.getLinkedTransactions();
-				int num = SampleData.findRandomNum(LinkedTransactionList.size());
-				messages.add("Get a random LinkedTransaction - ID : " + LinkedTransactionList.get(num).getLinkedTransactionID());
-			
-				LinkedTransaction LinkedTransactionOne = client.getLinkedTransaction(LinkedTransactionList.get(num).getLinkedTransactionID());
-				messages.add("Get a single LinkedTransaction - ID : " + LinkedTransactionOne.getLinkedTransactionID());
+				Invoices newInvoices = new Invoices();
+				Invoice myInvoice = new Invoice();
 				
-				List<Contact> ContactList2 = client.getContacts();
-				int num2 = SampleData.findRandomNum(ContactList2.size());
-				newLinkedTransaction.get(0).setContactID(ContactList2.get(num2).getContactID());
-				List<LinkedTransaction> updateLinkedTransaction = client.updateLinkedTransaction(newLinkedTransaction);
-				messages.add("Update the LinkedTransaction - ID : " + updateLinkedTransaction.get(0).getLinkedTransactionID() + " - Status : " + updateLinkedTransaction.get(0).getStatus());
-					
-				String status = client.deleteLinkedTransaction(newLinkedTransaction.get(0).getLinkedTransactionID());
-				messages.add("Delete a new LinkedTransaction - Delete result: " + status);
-
+				LineItem li = new LineItem();
+				li.setAccountCode(accounts.getAccounts().get(0).getCode());
+				li.setDescription("Acme Tires");
+				li.setQuantity("2");
+				BigDecimal BigDec1 = new BigDecimal("20.00");
+				li.setUnitAmount(BigDec1);
+				BigDecimal BigDecLineAmount = new BigDecimal("40.00");
+				li.setLineAmount(BigDecLineAmount);
+				li.setTaxType("NONE");
+				
+				myInvoice.addLineItemsItem(li);
+				myInvoice.setContact(useContact);
+				myInvoice.setDueDate("2018-12-30");
+				myInvoice.setDate("2018-10-20");
+				myInvoice.setType(com.xero.models.accounting.Invoice.TypeEnum.ACCPAY);
+				myInvoice.setReference("One Fish, Two Fish");
+				myInvoice.setStatus(com.xero.models.accounting.Invoice.StatusEnum.AUTHORISED);
+				newInvoices.addInvoicesItem(myInvoice);
+				
+				Invoices newInvoice = accountingApi.createInvoice(newInvoices, summarizeErrors);
+				
+				UUID sourceTransactionID1 = newInvoice.getInvoices().get(0).getInvoiceID();
+				UUID sourceLineItemID1 = newInvoice.getInvoices().get(0).getLineItems().get(0).getLineItemID();
+				LinkedTransactions newLinkedTransactions = new LinkedTransactions();
+				LinkedTransaction newLinkedTransaction = new LinkedTransaction();
+				newLinkedTransaction.setSourceTransactionID(sourceTransactionID1);
+				newLinkedTransaction.setSourceLineItemID(sourceLineItemID1);
+				newLinkedTransactions.addLinkedTransactionsItem(newLinkedTransaction);
+				
+				LinkedTransactions createdLinkedTransaction = accountingApi.createLinkedTransaction(newLinkedTransactions);
+				messages.add("Create LinkedTransaction - Status : " + createdLinkedTransaction.getLinkedTransactions().get(0).getStatus());
+				
+				// Created Linked Transaction 2
+				Contact contact = new Contact();
+				contact.setName("Foo" + SampleData.loadRandomNum());
+				contact.setEmailAddress("sid" + SampleData.loadRandomNum() + "@blah.com");
+				Contacts newContact = accountingApi.createContact(contact);
+				UUID newContactID = newContact.getContacts().get(0).getContactID();
+				
+				Invoices newInvoice2 = accountingApi.createInvoice(newInvoices, summarizeErrors);
+				
+				UUID sourceTransactionID2 = newInvoice2.getInvoices().get(0).getInvoiceID();
+				UUID sourceLineItemID2 = newInvoice2.getInvoices().get(0).getLineItems().get(0).getLineItemID();
+				LinkedTransactions newLinkedTransactions2 = new LinkedTransactions();
+				LinkedTransaction newLinkedTransaction2 = new LinkedTransaction();
+				newLinkedTransaction2.setSourceTransactionID(sourceTransactionID2);
+				newLinkedTransaction2.setSourceLineItemID(sourceLineItemID2);
+				newLinkedTransaction2.setContactID(newContactID);
+				newLinkedTransactions2.addLinkedTransactionsItem(newLinkedTransaction2);
+				
+				LinkedTransactions createdLinkedTransaction2 = accountingApi.createLinkedTransaction(newLinkedTransactions2);
+				messages.add("Create LinkedTransaction 2 - Status : " + createdLinkedTransaction2.getLinkedTransactions().get(0).getStatus());
+				
+				// Created Linked Transaction 3
+				Invoices newInvoicesAccRec = new Invoices();
+				Invoice myInvoiceAccRec = new Invoice();
+				
+				myInvoiceAccRec.addLineItemsItem(li);
+				myInvoiceAccRec.setContact(useContact);
+				myInvoiceAccRec.setDueDate("2018-12-30");
+				myInvoiceAccRec.setDate("2018-10-20");
+				myInvoiceAccRec.setType(com.xero.models.accounting.Invoice.TypeEnum.ACCREC);
+				myInvoiceAccRec.setStatus(com.xero.models.accounting.Invoice.StatusEnum.AUTHORISED);
+				newInvoicesAccRec.addInvoicesItem(myInvoiceAccRec);
+				
+				Invoices newInvoiceAccRec = accountingApi.createInvoice(newInvoicesAccRec, summarizeErrors);
+				UUID sourceTransactionID4 = newInvoiceAccRec.getInvoices().get(0).getInvoiceID();
+				UUID sourceLineItemID4 = newInvoiceAccRec.getInvoices().get(0).getLineItems().get(0).getLineItemID();
+				
+				Invoices newInvoice3 = accountingApi.createInvoice(newInvoices, summarizeErrors);
+				
+				UUID sourceTransactionID3 = newInvoice3.getInvoices().get(0).getInvoiceID();
+				UUID sourceLineItemID3 = newInvoice3.getInvoices().get(0).getLineItems().get(0).getLineItemID();
+				LinkedTransactions newLinkedTransactions3 = new LinkedTransactions();
+				LinkedTransaction newLinkedTransaction3 = new LinkedTransaction();
+				newLinkedTransaction3.setSourceTransactionID(sourceTransactionID3);
+				newLinkedTransaction3.setSourceLineItemID(sourceLineItemID3);
+				newLinkedTransaction3.setContactID(useContact.getContactID());
+				newLinkedTransaction3.setTargetTransactionID(sourceTransactionID4);
+				newLinkedTransaction3.setTargetLineItemID(sourceLineItemID4);
+				newLinkedTransactions3.addLinkedTransactionsItem(newLinkedTransaction3);
+				
+				LinkedTransactions createdLinkedTransaction3 = accountingApi.createLinkedTransaction(newLinkedTransactions3);
+				messages.add("Create LinkedTransaction 3 - Status : " + createdLinkedTransaction3.getLinkedTransactions().get(0).getStatus());
+				
+				// GET all Link Transactions
+				
+				BigDecimal pageNum = new BigDecimal("1");
+				String linkedTransactionID = null;
+				String sourceTransactionID = null;
+				String targetTransactionID = null;
+				String status = null;
+				String contactID = null;
+				LinkedTransactions linkTransactions = accountingApi.getLinkedTransactions(pageNum, linkedTransactionID, sourceTransactionID, contactID, status, targetTransactionID);
+				messages.add("Get Link Transactions - total : " + linkTransactions.getLinkedTransactions().size());
+				
+				// GET all Link Transactions
+				UUID linkedTransactionID2 = linkTransactions.getLinkedTransactions().get(0).getLinkedTransactionID();
+				LinkedTransactions oneLinkTransaction = accountingApi.getLinkedTransaction(linkedTransactionID2);
+				messages.add("Get one Link Transaction - Status : " + oneLinkTransaction.getLinkedTransactions().get(0).getStatus());
+				
+				// DELETE LINKEDTRANSACTION
+				UUID newLinkedTransactionID = createdLinkedTransaction.getLinkedTransactions().get(0).getLinkedTransactionID();
+				Response204 deleteLinkedTransaction = accountingApi.deleteLinkedTransaction(newLinkedTransactionID);
+				messages.add("Delete LinkedTransaction - Status : " + deleteLinkedTransaction.getStatus());
+				
 			} catch (XeroApiException e) {
-				System.out.println(e.getResponseCode());
-				System.out.println(e.getMessage());
+				System.out.println(e.getMessage());	
 			}
-
+			
 		} else if (object.equals("ManualJournals")) {
-
-			/* MANUAL JOURNAL */
-				try {
-				List<ManualJournal> newManualJournal = client.createManualJournals(SampleData.loadManualJournal().getManualJournal());
-				messages.add("Create a new Manual Journal - ID : " + newManualJournal.get(0).getManualJournalID() + " - Narration : " + newManualJournal.get(0).getNarration());
+			/* MANUAL JOURNAL */ 
+			try {
+				// Create Manual Journal
+			    where = "Type==\"EXPENSE\"";
+				Accounts accounts = accountingApi.getAccounts(ifModifiedSince, where, order);
+				String accountCode = accounts.getAccounts().get(0).getCode();
+				where = null;
 				
-				List<ManualJournal> ManualJournalWhere = client.getManualJournals(null,"Status==\"DRAFT\"",null,null);
-				if (ManualJournalWhere.size() > 0) {
-					messages.add("Get a ManualJournal with WHERE clause - Narration : " + ManualJournalWhere.get(0).getNarration());
-				} else {
-					messages.add("Get a ManualJournal with WHERE clause - No Manual Journal DRAFT found");
-				}
+				ManualJournals manualJournals = new ManualJournals();
+				ManualJournal manualJournal = new ManualJournal();
+				manualJournal.setDate("2018-10-01");
+				manualJournal.setNarration("Foo bar");
 				
-				List<ManualJournal> ManualJournalList = client.getManualJournals();
-				int num8 = SampleData.findRandomNum(ManualJournalList.size());
-				messages.add("Get a random ManualJournal - Narration : " + ManualJournalList.get(num8).getNarration());
-			
-				ManualJournal ManualJournalOne = client.getManualJournal(ManualJournalList.get(num8).getManualJournalID());
-				messages.add("Get a single ManualJournal - Narration : " + ManualJournalOne.getNarration());
+				JournalLine credit = new JournalLine();
+				credit.description("Hello there");
+				credit.setAccountCode(accountCode);
+				credit.setLineAmount("100");
+				manualJournal.addJournalLinesItem(credit);
 				
-				newManualJournal.get(0).setNarration("My Updated Narration");
-				newManualJournal.get(0).setStatus(null);
-				List<ManualJournal> updateManualJournal = client.updateManualJournal(newManualJournal);
-				messages.add("Update the ManualJournal - ID : " + updateManualJournal.get(0).getManualJournalID() + " - Narration : " + updateManualJournal.get(0).getNarration());
+				JournalLine debit = new JournalLine();
+				debit.description("Goodbye");
+				debit.setAccountCode(accountCode);
+				debit.setLineAmount("-100");
+				manualJournal.addJournalLinesItem(debit);
+				manualJournals.addManualJournalsItem(manualJournal);
+				ManualJournals createdManualJournals = accountingApi.createManualJournal(manualJournals);
+				messages.add("Create Manual Journal - Narration : " + createdManualJournals.getManualJournals().get(0).getNarration());
 				
+				// GET all Manual Journal
+				ManualJournals getManualJournals = accountingApi.getManualJournals(ifModifiedSince, where, order, page);
+				messages.add("Get Manual Journal - total : " + getManualJournals.getManualJournals().size());
+				
+				// GET one Manual Journal
+				UUID manualJournalId = getManualJournals.getManualJournals().get(0).getManualJournalID();			
+				ManualJournals oneManualJournal = accountingApi.getManualJournal(manualJournalId);
+				messages.add("Get one Manual Journal - Narration : " + oneManualJournal.getManualJournals().get(0).getNarration());
+				
+				// Update Manual Journal
+				ManualJournals updateManualJournals = new ManualJournals();
+				ManualJournal updateManualJournal = new ManualJournal();
+				updateManualJournal.setManualJournalID(manualJournalId);
+				updateManualJournal.setNarration("Hello Xero");
+				updateManualJournals.addManualJournalsItem(updateManualJournal);
+				ManualJournals updatedManualJournal = accountingApi.updateManualJournal(manualJournalId,updateManualJournals);
+				messages.add("Update Manual Journal - Narration : " + updatedManualJournal.getManualJournals().get(0).getNarration());
 			} catch (XeroApiException e) {
-				System.out.println(e.getResponseCode());
-				System.out.println(e.getMessage());
+				System.out.println(e.getMessage());	
 			}
+	
 		} else if (object.equals("Organisations")) {
-
-			/* Organisation */
+			/* Organisation */ 
 			try {
-				List<Organisation> newOrganisation = client.getOrganisations();
-				messages.add("Get a Organisation - Name : " + newOrganisation.get(0).getName());
+				Organisations organisations = accountingApi.getOrganisations();
+				messages.add("Get a Organisation - Name : " + organisations.getOrganisations().get(0).getName());
 			} catch (XeroApiException e) {
-				System.out.println(e.getResponseCode());
-				System.out.println(e.getMessage());
-			}
+				System.out.println(e.getMessage());	
+			}			
 		} else if (object.equals("Overpayments")) {
-
 			/* OVERPAYMENT */
-			try {
-				List<Account> accountWhere = client.getAccounts(null,"Type==\"BANK\"",null);
-				if(accountWhere.size() > 0) {
-					BankTransaction bt = SampleData.loadNewlyCreatedOverpayment();
-					List<Overpayment> newOverpayment = client.getOverpayments();
-					if (newOverpayment.size() > 0) {
-						messages.add("Get a Overpayment - ID" + newOverpayment.get(0).getOverpaymentID());
-					}
-					
-					List<Allocation> newAllocation = client.createOverpaymentAllocations(SampleData.loadAllocation().getAllocation(),bt.getOverpaymentID());
-					messages.add("Create a new Overpayment and Allocate - Applied Amount : " + newAllocation.get(0).getAppliedAmount());
-				} else {
-					messages.add("Please create a Bank Acccount before using the Overpayment Endpoint");
-				}
-
-			} catch (XeroApiException e) {
-				System.out.println(e.getResponseCode());
-				System.out.println(e.getMessage());
-			}
-		} else if (object.equals("Payments")) {
-
-			/* Payment 	*/
-			try {
-				List<Account> accountWhere = client.getAccounts(null,"Type==\"BANK\"",null);
-				if(accountWhere.size() > 0) {
-					
-					List<Payment> newPayment = client.createPayments(SampleData.loadPayment().getPayment());
-					messages.add("Create a new Payment - ID : " + newPayment.get(0).getPaymentID() + " : " + newPayment.get(0).getAmount());
-					
-					List<Payment> PaymentWhere = client.getPayments(null,"Status==\"AUTHORISED\"",null);
-					messages.add("Get a Payment with WHERE clause - ID : " + PaymentWhere.get(0).getPaymentID());
-					
-					List<Payment> PaymentList = client.getPayments();
-					int num = SampleData.findRandomNum(PaymentList.size());
-					messages.add("Get a random Payment - ID : " + PaymentList.get(num).getPaymentID());
+		    where = "Status==\"ACTIVE\"&&Type==\"BANK\"";
+			Accounts accountsWhere = accountingApi.getAccounts(ifModifiedSince, where, order);
+			BankAccount bankAccount = new BankAccount();
+			bankAccount.setAccountID(accountsWhere.getAccounts().get(0).getAccountID());
+			where = null;
+			
+		    where = "SystemAccount==\"DEBTORS\"";
+			Accounts arAccounts = accountingApi.getAccounts(ifModifiedSince, where, order);
+			Account arAccount = arAccounts.getAccounts().get(0);
+			where = null;
+			
+			Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+			Contact useContact = new Contact();
+			useContact.setContactID(contacts.getContacts().get(0).getContactID());
+			
+			// Maker sure we have at least 2 banks
+			if(accountsWhere.getAccounts().size() > 0) {	
+				List<LineItem> lineItems = new ArrayList<>();
+				LineItem li = new LineItem();
+				li.setAccountCode(arAccount.getCode());
+				li.setDescription("Foobar");
+				li.setQuantity("1");
+				BigDecimal BigDec1 = new BigDecimal("20.00");
+				li.setUnitAmount(BigDec1);
+				lineItems.add(li);
 				
-					Payment PaymentOne = client.getPayment(PaymentList.get(num).getPaymentID());
-					messages.add("Get a single Payment - ID : " + PaymentOne.getPaymentID());
+				BankTransaction bt = new BankTransaction();
+				bt.setBankAccount(bankAccount);
+				bt.setContact(useContact);
+				bt.setLineitems(lineItems);
+				bt.setType(com.xero.models.accounting.BankTransaction.TypeEnum.RECEIVE_OVERPAYMENT);
+				BankTransactions bts = new BankTransactions();
+				bts.addBankTransactionsItem(bt);					
+				BankTransactions newBankTransaction = accountingApi.createBankTransaction(bts, summarizeErrors);
+				
+				Overpayments overpayments = accountingApi.getOverpayments(ifModifiedSince, where, order, page);
+				messages.add("Get a Overpayments - Count : " + overpayments.getOverpayments().size());
+				
+				if(overpayments.getOverpayments().size() > 0) {	
+					UUID overpaymentId = overpayments.getOverpayments().get(2).getOverpaymentID();
+					Overpayments oneOverpayment = accountingApi.getOverpayment(overpaymentId);
+					messages.add("Get one Overpayment - Total : " + oneOverpayment.getOverpayments().get(0).getTotal());					
 					
-					Payment deletePayment = new Payment();
-					deletePayment.setPaymentID(newPayment.get(0).getPaymentID());
-					deletePayment.setStatus(PaymentStatus.DELETED);
-					ArrayOfPayment aPayment = new ArrayOfPayment();
-					aPayment.getPayment().add(deletePayment);
-					List<Payment> removedPayment = client.deletePayment(aPayment.getPayment());
-					messages.add("Delete the Payment - ID : " + removedPayment.get(0).getPaymentID());
-				} else {
-					messages.add("Please create a Bank Acccount before trying to Apply a Payment to Account Type Bank");
+				    where = "Status==\"AUTHORISED\"&&Type==\"ACCREC\"";					
+					Invoices allInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp);
+					Invoice inv = new Invoice();
+					inv.setInvoiceID(allInvoices.getInvoices().get(0).getInvoiceID());
+					where = null;
+					
+					Allocations allocations = new Allocations();
+					Allocation allocation = new Allocation();
+					BigDecimal allocAmt = new BigDecimal("1.00");
+					allocation.setAmount(allocAmt);
+					allocation.setInvoice(inv);
+					allocations.addAllocationsItem(allocation);
+					
+					Allocations newAllocation = accountingApi.createOverpaymentAllocation(overpaymentId, allocations);
+					messages.add("Create OverPayment allocation - Amt : " + newAllocation.getAllocations().get(0).getAmount());					
+				
+					// Get History
+					HistoryRecords history = accountingApi.getOverpaymentHistory(overpaymentId);
+					messages.add("History - count : " + history.getHistoryRecords().size() );
+				
+					// Create  History
+					// Error: "The document with the supplied id was not found for this endpoint.					
+					/*
+					HistoryRecords newHistoryRecords = new  HistoryRecords();
+					HistoryRecord newHistoryRecord = new  HistoryRecord();
+					newHistoryRecord.setDetails("Hello World");
+					newHistoryRecords.addHistoryRecordsItem(newHistoryRecord);
+					HistoryRecords createdHistory = accountingApi.createOverpaymentHistory(overpaymentId,newHistoryRecords);
+					messages.add("History - note added to  : " + createdHistory.getHistoryRecords().get(0).getDetails());
+					*/
 				}
-
+			}
+	
+		} else if (object.equals("Payments")) {
+			/* Payment 	*/
+			// CREATE payment
+			where =  "Status==\"AUTHORISED\"&&Type==\"ACCREC\"";			
+			Invoices allInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp);
+			Invoice inv = new Invoice();
+			inv.setInvoiceID(allInvoices.getInvoices().get(0).getInvoiceID());
+			where = null;
+		
+		    where = "EnablePaymentsToAccount==true";
+			Accounts accountsWhere = accountingApi.getAccounts(ifModifiedSince, where, order);
+			Account paymentAccount = new Account();
+			paymentAccount.setCode(accountsWhere.getAccounts().get(0).getCode());
+			where = null;
+			
+			Payments createPayments = new Payments();
+			Payment createPayment = new Payment();
+			createPayment.setAccount(paymentAccount);
+			createPayment.setInvoice(inv);
+			BigDecimal paymentAmt = new BigDecimal("1.00");
+			createPayment.setAmount(paymentAmt);
+			createPayment.setDate("11-1-2018");
+			createPayments.addPaymentsItem(createPayment);
+			
+			Payments newPayments = accountingApi.createPayment(createPayments);
+			messages.add("Create Payments - Amt : " + newPayments.getPayments().get(0).getAmount());					
+			
+			// GET all Payments
+			Payments payments = accountingApi.getPayments(ifModifiedSince, where, order);
+			messages.add("Get Payments - Total : " + payments.getPayments().size());					
+			
+			// GET one Payment
+			UUID paymentID = payments.getPayments().get(0).getPaymentID();
+			Payments onePayment = accountingApi.getPayment(paymentID);
+			messages.add("Get Payments - Amount : " + onePayment.getPayments().get(0).getAmount());		
+			
+			// Get  History
+			HistoryRecords allHistory = accountingApi.getPaymentHistory(paymentID);
+			messages.add("History - count : " + allHistory.getHistoryRecords().size() );
+		
+			// Create History
+			/*
+			HistoryRecords newHistoryRecords = new  HistoryRecords();
+			HistoryRecord newHistoryRecord = new  HistoryRecord();
+			newHistoryRecord.setDetails("Hello World");
+			newHistoryRecords.addHistoryRecordsItem(newHistoryRecord);			
+			HistoryRecords newHistory = accountingApi.createPaymentHistory(paymentID,newHistoryRecords);
+			messages.add("History - note added to  : " + newHistory.getHistoryRecords().get(0).getDetails());
+			*/		
+			
+		} else if (object.equals("PaymentServices")) {
+			/* Payment Services	*/
+			try {
+				// CREATE PaymentService
+				PaymentServices newPaymentServices = new PaymentServices();
+				PaymentService newPaymentService = new PaymentService();
+				newPaymentService.setPaymentServiceName("PayUp"+SampleData.loadRandomNum());
+				newPaymentService.setPaymentServiceUrl("https://www.payupnow.com/");
+				newPaymentService.setPayNowText("Time To PayUp");
+				newPaymentServices.addPaymentServicesItem(newPaymentService);
+				PaymentServices createdPaymentService = accountingApi.createPaymentService(newPaymentServices);
+				messages.add("Create PaymentServices - name : " + createdPaymentService.getPaymentServices().get(0).getPaymentServiceName());				
+			
+				// GET all Payments
+				PaymentServices paymentServices = accountingApi.getPaymentServices();
+				messages.add("Get PaymentServices - Total : " + paymentServices.getPaymentServices().size());					
 			} catch (XeroApiException e) {
-				System.out.println(e.getResponseCode());
-				System.out.println(e.getMessage());
+				System.out.println(e.getMessage());	
 			}
 		} else if (object.equals("Prepayments")) {
-
 			/* PREPAYMENT */
-			try {
-				List<Account> accountWhere = client.getAccounts(null,"Type==\"BANK\"",null);
-				if(accountWhere.size() > 0) {
-					BankTransaction bt = SampleData.loadNewlyCreatedPrepayment();
-					
-					List<Prepayment> newPrepayment = client.getPrepayments();
-					messages.add("Get a existing Prepayment - ID : " + newPrepayment.get(0).getPrepaymentID() + " : " + newPrepayment.get(0).getTotal());
-					
-					List<Allocation> newAllocation = client.createPrepaymentAllocations(SampleData.loadAllocation().getAllocation(),bt.getPrepaymentID());
-					messages.add("Create a new Prepayment and Allocate - Applied Amount : " + newAllocation.get(0).getAppliedAmount());
-				} else {
-					messages.add("Please create a Bank Acccount before using the Prepayment Endpoint");
+		    where = "Status==\"ACTIVE\"&&Type==\"BANK\"";
+			Accounts accountsWhere = accountingApi.getAccounts(ifModifiedSince, where, order);
+			BankAccount bankAccount = new BankAccount();
+			bankAccount.setAccountID(accountsWhere.getAccounts().get(0).getAccountID());
+			where = null;
+			
+		    where = "Type==\"EXPENSE\"";
+			Accounts arAccounts = accountingApi.getAccounts(ifModifiedSince, where, order);
+			Account arAccount = arAccounts.getAccounts().get(0);
+			where = null;
+			
+			Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+			Contact useContact = new Contact();
+			useContact.setContactID(contacts.getContacts().get(0).getContactID());
+			
+			// Maker sure we have at least 2 banks
+			if(accountsWhere.getAccounts().size() > 0) {	
+				List<LineItem> lineItems = new ArrayList<>();
+				LineItem li = new LineItem();
+				li.setAccountCode(arAccount.getCode());
+				li.setDescription("Foobar");
+				li.setQuantity("1");
+				li.setTaxType("NONE");
+				BigDecimal BigDec1 = new BigDecimal("20.00");
+				li.setUnitAmount(BigDec1);
+				lineItems.add(li);
+				
+				BankTransaction bt = new BankTransaction();
+				bt.setBankAccount(bankAccount);
+				bt.setContact(useContact);
+				bt.setLineitems(lineItems);
+				bt.setType(com.xero.models.accounting.BankTransaction.TypeEnum.RECEIVE_PREPAYMENT);
+				BankTransactions bts = new BankTransactions();
+				bts.addBankTransactionsItem(bt);					
+				BankTransactions newBankTransaction = accountingApi.createBankTransaction(bts, summarizeErrors);
+				
+				Prepayments prepayments = accountingApi.getPrepayments(ifModifiedSince, where, order, page);
+				messages.add("Get a Prepayments - Count : " + prepayments.getPrepayments().size());
+				
+				if(prepayments.getPrepayments().size() > 0) {	
+					UUID prepaymentId = prepayments.getPrepayments().get(0).getPrepaymentID();
+					Prepayments onePrepayment = accountingApi.getPrepayment(prepaymentId);
+					messages.add("Get one Prepayment - Total : " + onePrepayment.getPrepayments().get(0).getTotal());					
 				}
-			} catch (XeroApiException e) {
-				System.out.println(e.getResponseCode());
-				System.out.println(e.getMessage());
 			}
 		} else if (object.equals("PurchaseOrders")) {
-
 			/* PURCHASE ORDERS */
 			try {
-				List<PurchaseOrder> newPurchaseOrder = client.createPurchaseOrders(SampleData.loadPurchaseOrder().getPurchaseOrder());
-				messages.add("Create a new PurchaseOrder - ID : " + newPurchaseOrder.get(0).getPurchaseOrderID() + " - Reference :" + newPurchaseOrder.get(0).getReference());
-					
-				List<PurchaseOrder> PurchaseOrderWhere = client.getPurchaseOrders(null,"Status==\"DRAFT\"",null,null);
-				messages.add("Get a PurchaseOrder with WHERE clause - ID : " + PurchaseOrderWhere.get(0).getPurchaseOrderID());
+				// CREATE Purchase Order
+			    where = "Type==\"EXPENSE\"";
+				Accounts arAccounts = accountingApi.getAccounts(ifModifiedSince, where, order);
+				Account arAccount = arAccounts.getAccounts().get(0);
+				where = null;
 				
-				List<PurchaseOrder> PurchaseOrderList = client.getPurchaseOrders();
-				int num = SampleData.findRandomNum(PurchaseOrderList.size());
-				messages.add("Get a random PurchaseOrder - ID : " + PurchaseOrderList.get(num).getPurchaseOrderID());
+				PurchaseOrders purchaseOrders = new PurchaseOrders();
+				PurchaseOrder purchaseOrder = new PurchaseOrder();
+				purchaseOrder.setDate("11-01-2018");
+				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+				Contact useContact = new Contact();
+				useContact.setContactID(contacts.getContacts().get(0).getContactID());
+				purchaseOrder.setContact(useContact);
+				
+				List<LineItem> lineItems = new ArrayList<>();
+				LineItem li = new LineItem();
+				li.setAccountCode(arAccount.getCode());
+				li.setDescription("Foobar");
+				li.setQuantity("1");
+				BigDecimal BigDec1 = new BigDecimal("20.00");
+				li.setUnitAmount(BigDec1);
+				lineItems.add(li);
+				purchaseOrder.setLineItems(lineItems);
+				purchaseOrders.addPurchaseOrdersItem(purchaseOrder);
+				PurchaseOrders createdPurchaseOrders = accountingApi.createPurchaseOrder(purchaseOrders, summarizeErrors);
+				messages.add("Create Purchase order - total : " + createdPurchaseOrders.getPurchaseOrders().get(0).getTotal());					
 			
-				PurchaseOrder PurchaseOrderOne = client.getPurchaseOrder(PurchaseOrderList.get(num).getPurchaseOrderID());
-				messages.add("Get a single PurchaseOrder - ID : " + PurchaseOrderOne.getPurchaseOrderID());
+				// UPDATE Purchase Orders
+				UUID newPurchaseOrderID = createdPurchaseOrders.getPurchaseOrders().get(0).getPurchaseOrderID();
+				createdPurchaseOrders.getPurchaseOrders().get(0).setAttentionTo("Jimmy");
+				PurchaseOrders updatePurchaseOrders = accountingApi.updatePurchaseOrder(newPurchaseOrderID, createdPurchaseOrders);
+				messages.add("Update Purchase order - attn : " + updatePurchaseOrders.getPurchaseOrders().get(0).getAttentionTo());								
 				
-				newPurchaseOrder.get(0).setReference("My Updated Reference");
-				newPurchaseOrder.get(0).setStatus(null);
-				List<PurchaseOrder> updatePurchaseOrder = client.updatePurchaseOrder(newPurchaseOrder);
-				messages.add("Update the PurchaseOrder - ID : " + updatePurchaseOrder.get(0).getPurchaseOrderID() + " - Reference:" + updatePurchaseOrder.get(0).getReference());
+				// GET Purchase Orders
+				String status = null;
+				String dateFrom = null;
+				String dateTo = null;
+				PurchaseOrders allPurchaseOrders = accountingApi.getPurchaseOrders(ifModifiedSince, status, dateFrom, dateTo, order, page);
+				messages.add("Get Purchase orders - Count : " + allPurchaseOrders.getPurchaseOrders().size());					
+			
+				// GET one Purchase Order
+				UUID purchaseOrderID = allPurchaseOrders.getPurchaseOrders().get(0).getPurchaseOrderID();
+				PurchaseOrders onePurchaseOrder = accountingApi.getPurchaseOrder(purchaseOrderID);
+				messages.add("Get one Purchase order - Total : " + onePurchaseOrder.getPurchaseOrders().get(0).getTotal());					
 				
-				// GET PDF of Invoice
-				File f = new File("./");
-				String dirPath =  f.getCanonicalPath();
-				ByteArrayInputStream input = client.getPurchaseOrderPdfContent(PurchaseOrderList.get(0).getPurchaseOrderID());
+				// DELETE Purchase Orders
+				createdPurchaseOrders.getPurchaseOrders().get(0).setStatus(com.xero.models.accounting.PurchaseOrder.StatusEnum.DELETED);
+				PurchaseOrders deletePurchaseOrders = accountingApi.updatePurchaseOrder(newPurchaseOrderID, createdPurchaseOrders);
+				messages.add("Delete Purchase order - Status : " + deletePurchaseOrders.getPurchaseOrders().get(0).getStatus());								
 				
-				String fileName = "PurchaseOrder.pdf";
-				
-				FileOutputStream output = new FileOutputStream(fileName);
-
-				int DEFAULT_BUFFER_SIZE = 1024;
-				byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
-				int n = 0;
-
-				n = input.read(buffer, 0, DEFAULT_BUFFER_SIZE);
-
-				while (n >= 0) {
-				   output.write(buffer, 0, n);
-				   n = input.read(buffer, 0, DEFAULT_BUFFER_SIZE);
-				}
-				
-				input.close();
-				output.close();
-				
-				String saveFilePath = dirPath + File.separator + fileName;
-				messages.add("Get a PDF copy of PurchaseOrder - save it here: " + saveFilePath);
+				// Get History
+				HistoryRecords history = accountingApi.getInvoiceHistory(purchaseOrderID);
+				messages.add("History - count : " + history.getHistoryRecords().size() );
+			
+				// Create History
+				HistoryRecords newHistoryRecords = new  HistoryRecords();
+				HistoryRecord newHistoryRecord = new  HistoryRecord();
+				newHistoryRecord.setDetails("Hello World");
+				newHistoryRecords.addHistoryRecordsItem(newHistoryRecord);
+				HistoryRecords newHistory = accountingApi.createPurchaseOrderHistory(purchaseOrderID,newHistoryRecords);
+				messages.add("History - note added to  : " + newHistory.getHistoryRecords().get(0).getDetails());
 			
 			} catch (XeroApiException e) {
-				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
 			}
 		} else if (object.equals("Receipts")) {
-	
 			/* RECEIPTS */
 			try {
-				List<Receipt> newReceipt = client.createReceipts(SampleData.loadReceipt().getReceipt());
-				messages.add("Create a new Receipt - ID : " + newReceipt.get(0).getReceiptID() + " - Reference:" + newReceipt.get(0).getReference());
+				//Create
+			    where = "IsSubscriber==true";
+				Users users = accountingApi.getUsers(ifModifiedSince, where, order);
+				where = null;
 				
-				List<Receipt> ReceiptWhere = client.getReceipts(null,"Status==\"DRAFT\"",null);
-				messages.add("Get a Receipt with WHERE clause - ID : " + ReceiptWhere.get(0).getReceiptID());
+			    where = "ShowInExpenseClaims==true";
+				Accounts accounts = accountingApi.getAccounts(ifModifiedSince, where, order);
+				where = null;
 				
-				List<Receipt> ReceiptList = client.getReceipts();
-				int num = SampleData.findRandomNum(ReceiptList.size());
-				messages.add("Get a random Receipt - ID : " + ReceiptList.get(num).getReceiptID());
+				User useUser = new User();
+				useUser.setUserID(users.getUsers().get(0).getUserID());
+					
+				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+				Contact useContact = new Contact();
+				useContact.setContactID(contacts.getContacts().get(0).getContactID());
+					
+				// CREATE NEW RECEIPT
+				Receipts receipts = new Receipts();
+				Receipt receipt = new Receipt();
+				
+				LineItem li = new LineItem();
+				li.setAccountCode(accounts.getAccounts().get(0).getCode());
+				li.setDescription("Foobar");
+				li.setQuantity("2");
+				BigDecimal BigDec1 = new BigDecimal("20.00");
+				li.setUnitAmount(BigDec1);
+				BigDecimal BigDecLineAmount = new BigDecimal("40.00");
+				li.setLineAmount(BigDecLineAmount);
+				li.setTaxType("NONE");
+				
+				receipt.addLineitemsItem(li);
+				receipt.setUser(useUser);
+				receipt.lineAmountTypes(com.xero.models.accounting.Receipt.LineAmountTypesEnum.NOTAX);
+				receipt.contact(useContact);
+				receipt.setStatus(com.xero.models.accounting.Receipt.StatusEnum.DRAFT);
+				receipts.addReceiptsItem(receipt);
+				Receipts newReceipts = accountingApi.createReceipt(receipts);
+				messages.add("Create Receipts - Total : " + newReceipts.getReceipts().get(0).getTotal());								
+				
+				// UPDATE Receipts
+				UUID newReceiptId = newReceipts.getReceipts().get(0).getReceiptID();
+				newReceipts.getReceipts().get(0).setReference("Foobar");
+				Receipts updateReceipts = accountingApi.updateReceipt(newReceiptId, newReceipts);
+				messages.add("Create Receipts - Ref : " + updateReceipts.getReceipts().get(0).getReference());								
+				
+				// GET all Receipts
+				Receipts allReceipts = accountingApi.getReceipts(ifModifiedSince, where, order);
+				messages.add("Create Receipts - Count : " + allReceipts.getReceipts().size());								
+				
+				// GET one Receipts
+				UUID receiptID = allReceipts.getReceipts().get(0).getReceiptID();
+				Receipts oneReceipts = accountingApi.getReceipt(receiptID);
+				messages.add("Create Receipts - Total : " + oneReceipts.getReceipts().get(0).getTotal());								
+				
+				// Get History
+				HistoryRecords history = accountingApi.getReceiptHistory(receiptID);
+				messages.add("History - count : " + history.getHistoryRecords().size() );
 			
-				Receipt ReceiptOne = client.getReceipt(ReceiptList.get(num).getReceiptID());
-				messages.add("Get a single Receipt - ID : " + ReceiptOne.getReceiptID());
-				
-				newReceipt.get(0).setReference("You'll get the answer NEXT Saturday");
-				newReceipt.get(0).setStatus(null);
-				List<Receipt> updateReceipt = client.updateReceipt(newReceipt);
-				messages.add("Update the Receipt - ID : " + updateReceipt.get(0).getReceiptID() + " - Reference:" + updateReceipt.get(0).getReference());
-
+				// Create History
+				// Error: "The document with the supplied id was not found for this endpoint.
+				/*
+				HistoryRecords newHistoryRecords = new  HistoryRecords();
+				HistoryRecord newHistoryRecord = new  HistoryRecord();
+				newHistoryRecord.setDetails("Hello World");
+				newHistoryRecords.addHistoryRecordsItem(newHistoryRecord);
+				HistoryRecords newHistory = accountingApi.createReceiptHistory(receiptID, newHistoryRecords);
+				messages.add("History - note added to  : " + newHistory.getHistoryRecords().get(0).getDetails());
+				*/
 			} catch (XeroApiException e) {
-				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
-			}							
+			}					
 		} else if (object.equals("RepeatingInvoices")) {
-
 	        /* REPEATING INVOICE */
 			try {
-				List<RepeatingInvoice> newRepeatingInvoice = client.getRepeatingInvoices();
-				if (newRepeatingInvoice.size() > 0 ){
-					messages.add("Get a Repeating Invoice - ID " + newRepeatingInvoice.get(0).getRepeatingInvoiceID());
-				} else {
-					messages.add("No Repeating Invoices Exists");
-				}
+				// GET all Repeating Invoices
+				RepeatingInvoices repeatingInvoices = accountingApi.getRepeatingInvoices(where, order);
+				messages.add("Repeating Invoice - count : " + repeatingInvoices.getRepeatingInvoices().size() );
+				
+				// GET one Repeating Invoices
+				UUID repeatingInvoiceID = repeatingInvoices.getRepeatingInvoices().get(0).getRepeatingInvoiceID();
+				RepeatingInvoices repeatingInvoice = accountingApi.getRepeatingInvoice(repeatingInvoiceID);
+				messages.add("Repeating Invoice - total : " + repeatingInvoice.getRepeatingInvoices().get(0).getTotal());
+				System.out.println(repeatingInvoiceID);
+				// Get History
+				
+				HistoryRecords history = accountingApi.getRepeatingInvoiceHistory(repeatingInvoiceID);
+				messages.add("History - count : " + history.getHistoryRecords().size() );
+				
+				// Create History
+				// Error: "The document with the supplied id was not found for this endpoint.
+				/*
+				HistoryRecords newHistoryRecords = new  HistoryRecords();
+				HistoryRecord newHistoryRecord = new  HistoryRecord();
+				newHistoryRecord.setDetails("Hello World");
+				newHistoryRecords.addHistoryRecordsItem(newHistoryRecord);
+				HistoryRecords newHistory = accountingApi.createRepeatingInvoiceHistory(repeatingInvoiceID,  newHistoryRecords);
+				messages.add("History - note added to  : " + newHistory.getHistoryRecords().get(0).getDetails());
+				*/
 			} catch (XeroApiException e) {
-				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
 			}
 		} else if (object.equals("Reports")) {
-
-			/* REPORTS */
-			try {
-				Report newReport = client.getReport("BalanceSheet",null,null);
-				messages.add("Get a Reports - " + newReport.getReportID() + " : " + newReport.getReportDate());
-				
-				List<Contact> AgedPayablesByContactList = client.getContacts();
-				int num20 = SampleData.findRandomNum(AgedPayablesByContactList.size());
-				
-				Report newReportAgedPayablesByContact = client.getReportAgedPayablesByContact(AgedPayablesByContactList.get(num20).getContactID(), null, null, null, "1/1/2016", "1/1/2017");
-				messages.add("Get Aged Payables By Contact Reports for " +  AgedPayablesByContactList.get(num20).getName() + " - Report ID " + newReportAgedPayablesByContact.getReportID() );
-									
-				Report newReportAgedReceivablesByContact = client.getReportAgedReceivablesByContact(AgedPayablesByContactList.get(num20).getContactID(), null, null, null, "1/1/2016", "1/1/2017");
-				messages.add("Get Aged Receivables By Contact Reports for " +  AgedPayablesByContactList.get(num20).getName() + " - Report ID " + newReportAgedReceivablesByContact.getReportID() );
-				
-				Report newReportBalanceSheet = client.getReportBalanceSheet(null, null, "3/3/2017", null, null, true, false, null, null);
-				messages.add("Get Balance Sheet Report on " +  newReportBalanceSheet.getReportDate() + " - Name: " + newReportBalanceSheet.getReportTitles().getReportTitle().get(1).toString() );
-							
-				List<Account> accountForBankStatement = client.getAccounts(null,"Type==\"BANK\"",null);
-				if(accountForBankStatement.size() > 0) {
-					Report newReportBankStatement = client.getReportBankStatement(accountForBankStatement.get(0).getAccountID(), null, null, "10/1/2016","1/1/2017");
-					messages.add("Get Bank Statement " +  newReportBankStatement.getReportDate() + " - Name: " + newReportBankStatement.getReportName() );
-				} else {
-					messages.add("No Bank Account found - can not run Bank Statement Report");
-				}
-				
-				Report newReportBudgetSummary = client.getReportBudgetSummary(null, null, "1/1/2017", 3, 1);				
-				messages.add("Get Budget Summary Report on " +  newReportBudgetSummary.getReportDate() + " - Name: " + newReportBudgetSummary.getReportName() );
-				
-				Report newExecutiveSummary = client.getExecutiveSummary(null, null,"1/1/2017");			
-				messages.add("Get Executive Summary Report on " +  newExecutiveSummary.getReportDate() + " - Name: " + newExecutiveSummary.getReportName() );
-	
-				Report newReportProfitLoss = client.getReportProfitLoss(null,null, "9/1/2016", "1/1/2017", null, null, null, null, true, false, null, null);
-				messages.add("Get Profit Loss Report on " +  newReportProfitLoss.getReportDate() + " - Name: " + newReportProfitLoss.getReportName() );
+			/* REPORTS */			
+			// TenNinetyNine - US Only
+			String reportYear = null;
+			Reports reports = accountingApi.getReportTenNinetyNine(reportYear);
+			System.out.println(reports.toString());
+		  
+			// AgedPayablesByContact
+			String date = null;
+			String fromDate = null;
+			String toDate = null;
+			BigDecimal periods  = null;
+			BigDecimal timeframe = null;
+			String trackingOptionID1 = null;
+			String trackingOptionID2 = null;
+			boolean standardLayout = false;
+			boolean paymentsOnly = false;
+			String trackingCategoryID = null;
+			String trackingCategoryID2 = null;
+			String trackingOptionID = null;
 			
-				Report newTrialBalance = client.getReportTrialBalance("9/1/2016", true);		
-				messages.add("Get Trial Balance Report on " +  newTrialBalance.getReportDate() + " - Name: " + newTrialBalance.getReportName() );
+			Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+			UUID contactId = contacts.getContacts().get(0).getContactID();
+			ReportWithRows reportAgedPayablesByContact = accountingApi.getReportAgedPayablesByContact(contactId, date, fromDate, toDate);
+			messages.add("Get a Reports - Name:" + reportAgedPayablesByContact.getReports().get(0).getReportName());
 			
-			} catch (XeroApiException e) {
-				System.out.println(e.getResponseCode());
-				System.out.println(e.getMessage());
-			}
+			// AgedReceivablesByContact
+			ReportWithRows reportAgedReceivablesByContact = accountingApi.getReportAgedReceivablesByContact(contactId, date, fromDate, toDate);
+			messages.add("Get a Reports - Name:" + reportAgedReceivablesByContact.getReports().get(0).getReportName());
+			
+			// reportBalanceSheet
+			ReportWithRows reportBalanceSheet = accountingApi.getReportBalanceSheet(toDate, periods, timeframe, trackingOptionID1, trackingOptionID2, standardLayout, paymentsOnly);
+			messages.add("Get a Reports - Name:" + reportBalanceSheet.getReports().get(0).getReportName());
+			
+			// reportBalanceSheet
+			BigDecimal period = null;
+			ReportWithRows reportBankSummary = accountingApi.getReportBankSummary(toDate, period, timeframe);
+			messages.add("Get a Reports - Name:" + reportBankSummary.getReports().get(0).getReportName());
+			
+			// reportBASorGSTlist - AU and NZ only
+			ReportWithRows reportTax = accountingApi.getReportBASorGSTList();
+			System.out.println(reportTax.toString());
+			
+			// reportExecutiveSummary
+			ReportWithRows reportExecutiveSummary = accountingApi.getReportExecutiveSummary(toDate);
+			messages.add("Get a Reports - Name:" + reportExecutiveSummary.getReports().get(0).getReportName());
+			
+			// reportProfitandLoss
+			Map<String, String> reportParams = new HashMap<>();
+		    addToMapIfNotNull(reportParams, "fromDate", "2018-07-01");
+		    addToMapIfNotNull(reportParams, "toDate", "2018-09-01");
+			
+			ReportWithRows reportProfitLoss = accountingApi.getReportProfitAndLoss(fromDate, toDate, periods, timeframe, trackingCategoryID, trackingCategoryID2, trackingOptionID, trackingOptionID2, standardLayout, paymentsOnly);
+			messages.add("Get a Reports - Name:" + reportProfitLoss.getReports().get(0).getReportName());
+			
+			// reportTrialBalance
+			ReportWithRows reportTrialBalance = accountingApi.getReportTrialBalance(toDate, paymentsOnly);
+			messages.add("Get a Reports - Name:" + reportTrialBalance.getReports().get(0).getReportName());
+			
 		} else if (object.equals("TaxRates")) {
-
 			/* TAX RATE   */
 			try {
-				List<TaxRate> newTaxRate = client.createTaxRates(SampleData.loadTaxRate().getTaxRate());
-				messages.add("Create a new TaxRate - Name : " + newTaxRate.get(0).getName());
+				// CREATE Tax Rate
+				TaxRates newTaxRates = new TaxRates();
+				TaxRate newTaxRate = new TaxRate();
+				TaxComponent rate01 = new TaxComponent();
+				rate01.setName("State Tax");
+				rate01.setRate(new BigDecimal("2.25"));
+				newTaxRate.setName("SDKTax"+SampleData.loadRandomNum());
+				newTaxRate.addTaxComponentsItem(rate01);
+				newTaxRates.addTaxRatesItem(newTaxRate);
+				TaxRates createdTaxRate = accountingApi.createTaxRate(newTaxRates);
+				messages.add("CREATE TaxRate - name : " + createdTaxRate.getTaxRates().get(0).getName());
 				
-				List<TaxRate> TaxRateWhere = client.getTaxRates(null,"Status==\"ACTIVE\"",null);
-				messages.add("Get a TaxRate with WHERE clause - Name : " + TaxRateWhere.get(0).getName());
+				// UDPATE Tax Rate
+				newTaxRates.getTaxRates().get(0).setStatus(com.xero.models.accounting.TaxRate.StatusEnum.DELETED);
+				TaxRates updatedTaxRate = accountingApi.updateTaxRate(newTaxRates);
+				messages.add("UPDATED TaxRate - status : " + updatedTaxRate.getTaxRates().get(0).getStatus());
 				
-				List<TaxRate> TaxRateList = client.getTaxRates();
-				int num11 = SampleData.findRandomNum(TaxRateList.size());
-				messages.add("Get a random TaxRate - Name : " + TaxRateList.get(num11).getName());
+				// GET Tax Rate
+				String taxType = null;
+				TaxRates taxRates = accountingApi.getTaxRates(where, order, taxType);
+				messages.add("GET TaxRate - cnt : " + taxRates.getTaxRates().size());
 				
-				newTaxRate.get(0).setName("Yet Another Tax Rate-" + SampleData.loadRandomNum());
-				List<TaxRate> updateTaxRate = client.updateTaxRate(newTaxRate);
-				messages.add("Update the TaxRate - Type : " + updateTaxRate.get(0).getTaxType() + " - Name : " + updateTaxRate.get(0).getName());
+				// GET Tax Rate
+			    taxType = "CAPEXINPUT2";
+				TaxRates taxRatesByType = accountingApi.getTaxRates(where, order, taxType);
+				messages.add("GET TaxRate by Cap Purchase Type : " + taxRatesByType.getTaxRates().size());
+				
 			} catch (XeroApiException e) {
-				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
 			}
+			
 		} else if (object.equals("TrackingCategories")) {
 
 			/* TRACKING CATEGORIES  */
 			try {
-				List<TrackingCategory> newTrackingCategory = client.createTrackingCategories(SampleData.loadTrackingCategory().getTrackingCategory());
-				messages.add("Create a new TrackingCategory - ID : " + newTrackingCategory.get(0).getTrackingCategoryID() + " -  Name : " + newTrackingCategory.get(0).getName());
+				// GET Tracking Categories
+				TrackingCategories trackingCategories = accountingApi.getTrackingCategories(where, order, includeArchived);
+				messages.add("GET tracking categories - cnt : " + trackingCategories.getTrackingCategories().size());
+				int count = trackingCategories.getTrackingCategories().size();
 				
-				/* TRACKING OPTIONS  */
-				List<TrackingCategoryOption> newTrackingCategoryOption = client.createTrackingCategoryOption(SampleData.loadTrackingCategoryOption().getOption(),newTrackingCategory.get(0).getTrackingCategoryID());
-				messages.add("Create a new TrackingCategory Option - Name : " + newTrackingCategoryOption.get(0).getName());
-					
-				/* MULTIPLE TRACKING OPTIONS  */
-				List<TrackingCategoryOption> newTrackingCategoryOption2 = client.createTrackingCategoryOption(SampleData.loadTrackingCategoryOptionMulti().getOption(),newTrackingCategory.get(0).getTrackingCategoryID(),false);	
-				messages.add("Create a new TrackingCategory MULTI Option - Name : " + newTrackingCategoryOption2.get(0).getName());
-				messages.add("Create a new TrackingCategory MULTI Option - Name : " + newTrackingCategoryOption2.get(1).getName());
+				if (count == 2) {
+					//DELETE Tracking Categories
+					UUID trackingCategoryID = trackingCategories.getTrackingCategories().get(0).getTrackingCategoryID();
+					TrackingCategories deletedTrackingCategories = accountingApi.deleteTrackingCategory(trackingCategoryID);
+					messages.add("DELETED tracking categories - status : " + deletedTrackingCategories.getTrackingCategories().get(0).getStatus());					
+				}
 				
-				
-				TrackingCategoryOption oneTrackingCategoryOption = new TrackingCategoryOption();
-				oneTrackingCategoryOption.setName("Iron Man");
-				TrackingCategoryOption updateTrackingCategoryOption = client.updateTrackingCategoryOption(oneTrackingCategoryOption,newTrackingCategory.get(0).getTrackingCategoryID(),newTrackingCategoryOption.get(0).getTrackingOptionID());
-				messages.add("Update TrackingCategory Option - Name : " + updateTrackingCategoryOption.getName());
+				// CREATE  Tracking Categories
+				TrackingCategory newTrackingCategory = new TrackingCategory();
+				newTrackingCategory.setName("Foo"+SampleData.loadRandomNum());
+				TrackingCategories createdTrackingCategories = accountingApi.createTrackingCategory(newTrackingCategory);
+				messages.add("CREATED tracking categories - name : " + createdTrackingCategories.getTrackingCategories().get(0).getName());					
 			
-				String deleteTrackingCategoryOption = client.deleteTrackingCategoryOption(newTrackingCategory.get(0).getTrackingCategoryID(),newTrackingCategoryOption.get(0).getTrackingOptionID());
-				messages.add("Delete TrackingCategory Option -  : " + deleteTrackingCategoryOption);
+				// UPDATE  Tracking Categories
+				UUID newTrackingCategoryID = createdTrackingCategories.getTrackingCategories().get(0).getTrackingCategoryID();
+				newTrackingCategory.setName("Foo"+SampleData.loadRandomNum());
+				TrackingCategories updatedTrackingCategories = accountingApi.updateTrackingCategory(newTrackingCategoryID,newTrackingCategory);
+				messages.add("UPDATED tracking categories - name : " + updatedTrackingCategories.getTrackingCategories().get(0).getName());					
 				
-				List<TrackingCategory> TrackingCategoryWhere = client.getTrackingCategories(null,"Status==\"ACTIVE\"",null, false);
-				messages.add("Get a TrackingCategory with WHERE clause - Name : " + TrackingCategoryWhere.get(0).getName());
+				// GET one Tracking Categories
+				UUID oneTrackingCategoryID = trackingCategories.getTrackingCategories().get(0).getTrackingCategoryID();
+				TrackingCategories oneTrackingCategories = accountingApi.getTrackingCategory(oneTrackingCategoryID);
+				messages.add("GET ONE tracking categories - name : " + oneTrackingCategories.getTrackingCategories().get(0).getName());
 				
-				List<TrackingCategory> TrackingCategoryList = client.getTrackingCategories();
-				int num10 = SampleData.findRandomNum(TrackingCategoryList.size());
-				messages.add("Get a random TrackingCategory - Name : " + TrackingCategoryList.get(num10).getName());
-			
-				TrackingCategory TrackingCategoryOne = client.getTrackingCategory(TrackingCategoryList.get(num10).getTrackingCategoryID());
-				messages.add("Get a single TrackingCategory - Name : " + TrackingCategoryOne.getName());
+				// Create one Option
+				TrackingOption option = new TrackingOption();
+				option.setName("Bar"+SampleData.loadRandomNum());
+				TrackingOptions newTrackingOptions = accountingApi.createTrackingOptions(oneTrackingCategoryID,option);
+				messages.add("CREATE option - name : " + newTrackingOptions.getOptions().get(0).getName());
 				
-				newTrackingCategory.get(0).setName("Lord of the Rings-" + SampleData.loadRandomNum());
-				List<TrackingCategory> updateTrackingCategory = client.updateTrackingCategory(newTrackingCategory);
-				messages.add("Update the TrackingCategory - ID : " + updateTrackingCategory.get(0).getTrackingCategoryID() + " - Name : " + updateTrackingCategory.get(0).getName());
-			
-				String status = client.deleteTrackingCategory(newTrackingCategory.get(0).getTrackingCategoryID());
-				messages.add("Delete a new TrackingCategory - Delete result: " + status);
-			
+				// DELETE All options
+				UUID newOptionId = newTrackingOptions.getOptions().get(0).getTrackingOptionID();                                 
+				TrackingOptions deleteOptions = accountingApi.deleteTrackingOptions(oneTrackingCategoryID, newOptionId);
+				messages.add("DELETE one option - Status : " + deleteOptions.getOptions().get(0).getStatus());
+				
 			} catch (XeroApiException e) {
-				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
 			}
+			
 		} else if (object.equals("Users")) {
-
 			/* USER */
 			try {
-				List<User> UserWhere = client.getUsers(null,"IsSubscriber==true",null);
-				if(UserWhere.size() > 0)  {
-					messages.add("Get a User with WHERE clause - Email: " + UserWhere.get(0).getEmailAddress());
-				} else {
-					messages.add("No User with IsSubscriber True found - must be Demo Company");
-				}
+				// GET Users
+				Users users = accountingApi.getUsers(ifModifiedSince, where, order);
+				messages.add("GET Users - cnt : " + users.getUsers().size());
 				
-				List<User> UserList = client.getUsers();
-				int num = SampleData.findRandomNum(UserList.size());
-				messages.add("Get a random User - Email: " + UserList.get(num).getEmailAddress());
-			
-				User UserOne = client.getUser(UserList.get(num).getUserID());
-				messages.add("Get a single User - Email: " + UserOne.getEmailAddress());
+				//GET One User
+				UUID userID = users.getUsers().get(0).getUserID();
+				Users user = accountingApi.getUser(userID);
+				messages.add("GET Users - First Name : " + user.getUsers().get(0).getFirstName());
 			} catch (XeroApiException e) {
-				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
 			}
+		
 		} else if (object.equals("Errors")) {
-			// CONTACT 
-			ArrayOfContact array = new ArrayOfContact();
-			Contact contact = new Contact();
-			contact.setName("Sidney Maestre");
-			array.getContact().add(contact);
-			
-			// FORCE a 400 Error
 			try {
-				List<Contact> duplicateContact = client.createContact(array.getContact());
-				messages.add("Create a new Contact - Name : " + duplicateContact.get(0).getName());
+				Contact contact = new Contact();
+				contact.setName("Sidney Maestre");
+				Contacts createContact1 = accountingApi.createContact(contact);
+				Contacts createContact2 = accountingApi.createContact(contact);	
 			} catch (XeroApiException e) {
-				System.out.println(e.getResponseCode());
-
-				messages.add("Error Code : " + e.getResponseCode() );
-				
-				List<Elements> elements = e.getApiException().getElements();
-			    Elements element = elements.get(0);
-			    List<Object> dataContractBase = element.getDataContractBase();
-			    for (Object dataContract : dataContractBase) {
-		           Contact failedContact = (Contact) dataContract;
-		           ArrayOfValidationError validationErrors = failedContact.getValidationErrors();
-		            
-		           List<ValidationError> validationErrorList= validationErrors.getValidationError();
-		           
-				   System.out.println(failedContact.getContactID());
-		           System.out.println(validationErrorList.get(0).getMessage());
-		           messages.add("Failed Contact ID : " + failedContact.getContactID());
-		           messages.add("Validation Error : " + validationErrorList.get(0).getMessage());
-		           
-			    }
-			}			
-			
-			// FORCE a 404 Error
-			try {
-				Contact ContactOne = client.getContact("1234");
-				messages.add("Get a single Contact - ID : " + ContactOne.getContactID());
-			} catch (XeroApiException e) {
-				System.out.println(e.getResponseCode());
-				System.out.println(e.getMessage());	
-				messages.add("Error Code : " + e.getResponseCode() + " Message: " + e.getMessage());
-			}	
-			
-			try {
-				List<Invoice> listOfInvoices = new ArrayList<Invoice>();
-				listOfInvoices.add(SampleData.loadBadInvoice().getInvoice().get(0));
-				listOfInvoices.add(SampleData.loadBadInvoice2().getInvoice().get(0));
-			
-				List<Invoice> newInvoice = client.createInvoices(listOfInvoices,null,true);
-				messages.add("Create a new Invoice ID : " + newInvoice.get(0).getInvoiceID() + " - Reference : " +newInvoice.get(0).getReference());
-				
-			} catch (XeroApiException e) {
-				int code = e.getResponseCode();
-				
-				if (code == 400) {
-					List<Elements> elements = e.getApiException().getElements();
-					
-					if(e.getApiException().getElements().size() > 0) {
-						Elements element = elements.get(0);
-						List<Object> dataContractBase = element.getDataContractBase();
-						for (Object dataContract : dataContractBase) {
-							Invoice failedInvoice = (Invoice) dataContract;
-							ArrayOfValidationError validationErrors = failedInvoice.getValidationErrors();
-					        List<ValidationError> errors = validationErrors.getValidationError();
-					        
-					        messages.add("Error Code:" + e.getResponseCode() + " message : "  + errors.get(0).getMessage());
-					        messages.add("Error invoice Num : " + failedInvoice.getInvoiceNumber());
-						}
-					}
+				System.out.println("Response Code: " + e.getResponseCode());
+				System.out.println("Error Type: " + e.getError().getType());
+				System.out.println("Error Number: " + e.getError().getErrorNumber());
+				System.out.println("Error Message: " + e.getError().getMessage());
+				if (e.getResponseCode() == 400) {
+					System.out.println("Validation Message: " + e.getError().getElements().get(0).getValidationErrors().get(0).getMessage());
 				}
-			}	
+			}
+					
+			try {
+				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+				Contact useContact = new Contact();
+				useContact.setContactID(contacts.getContacts().get(0).getContactID());
+				
+				Invoices newInvoices = new Invoices();
+				Invoice myInvoice = new Invoice();
+				
+				LineItem li = new LineItem();
+				li.setAccountCode("123456789");
+				li.setDescription("Acme Tires");
+				li.setQuantity("2");
+				BigDecimal BigDec1 = new BigDecimal("20.00");
+				li.setUnitAmount(BigDec1);
+				BigDecimal BigDecLineAmount = new BigDecimal("40.00");
+				li.setLineAmount(BigDecLineAmount);
+				li.setTaxType("NONE");
+				
+				myInvoice.addLineItemsItem(li);
+				myInvoice.setContact(useContact);
+				myInvoice.setDueDate("2018-12-30");
+				myInvoice.setDate("2018-10-20");
+				myInvoice.setType(com.xero.models.accounting.Invoice.TypeEnum.ACCREC);
+				myInvoice.setReference("One Fish, Two Fish");
+				myInvoice.setStatus(com.xero.models.accounting.Invoice.StatusEnum.AUTHORISED);
+				newInvoices.addInvoicesItem(myInvoice);
+				
+				Invoices newInvoice = accountingApi.createInvoice(newInvoices, summarizeErrors);
+				messages.add("Create invoice - Reference : " + newInvoice.getInvoices().get(0).getReference());
+			} catch (XeroApiException e) {
+				System.out.println("Response Code: " + e.getResponseCode());
+				System.out.println("Error Type: " + e.getError().getType());
+				System.out.println("Error Number: " + e.getError().getErrorNumber());
+				System.out.println("Error Message: " + e.getError().getMessage());
+				if (e.getResponseCode() == 400) {
+					System.out.println("Validation Message: " + e.getError().getElements().get(0).getValidationErrors().get(0).getMessage());
+				}
+			}
 			
-			// FORCE a 503 Error
-			List<Contact> ContactList = client.getContacts();
-			int num4 = SampleData.findRandomNum(ContactList.size());			
+			try {
+				UUID badContactId = UUID.fromString("bd2270c3-0000-4c11-9cfb-000b551c3f51");
+				Contacts badContacts = accountingApi.getContact(badContactId);	
+			} catch (XeroApiException e) {
+				System.out.println("Response Code: " + e.getResponseCode());
+				System.out.println("Error Type: " + e.getError().getType());
+				System.out.println("Error Number: " + e.getError().getErrorNumber());
+				System.out.println("Error Message: " + e.getError().getMessage());
+				if (e.getResponseCode() == 400) {
+					System.out.println("Validation Message: " + e.getError().getElements().get(0).getValidationErrors().get(0).getMessage());
+				}
+			}
+			
+			Contacts ContactList = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+			int num4 = SampleData.findRandomNum(ContactList.getContacts().size());			
+			UUID contactId = ContactList.getContacts().get(num4).getContactID();
 			try {
 				for(int i=65; i>1; i--){
-					Contact ContactOne = client.getContact(ContactList.get(num4).getContactID());
+					Contacts allMyContacts = accountingApi.getContact(contactId);
 				}
 				messages.add("Congrats - you made over 60 calls without hitting rate limit");
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());
 				messages.add("Error Code : " + e.getResponseCode() + " Message: " + e.getMessage());
-			}		
+			}
 		}
 		
 		for (int i = 0; i < messages.size(); i++) {
@@ -1444,9 +2462,39 @@ public class RequestResourceServlet extends HttpServlet
 		respWriter.println("</div></div>");
 	}
 	
+	
 	protected void addToMapIfNotNull(Map<String, String> map, String key, Object value) {
         if (value != null) {
             map.put(key, value.toString());
         }
     }
+	
+	protected String saveFile(ByteArrayInputStream input, String fileName) {
+		String saveFilePath = null;
+		File f = new File("./");
+		String dirPath;
+		try {
+			dirPath = f.getCanonicalPath();
+		
+			FileOutputStream output = new FileOutputStream(fileName);
+	
+			int DEFAULT_BUFFER_SIZE = 1024;
+			byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
+			int n = 0;
+			n = input.read(buffer, 0, DEFAULT_BUFFER_SIZE);
+			while (n >= 0) {
+			   output.write(buffer, 0, n);
+			   n = input.read(buffer, 0, DEFAULT_BUFFER_SIZE);
+			}
+			input.close();
+			output.close();
+			
+			saveFilePath = dirPath + File.separator + fileName;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return saveFilePath;
+	}
 }

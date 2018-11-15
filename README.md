@@ -1,6 +1,64 @@
 # Xero-Java
 
-This is the Java SDK for the Xero API. Currently, supports Accounting API. All third party libraries dependencies managed with Maven
+This is the official Java SDK for Xero's API. It supports accounting, fixed asset and bank feed API endpoints. All third party libraries dependencies managed with Maven.
+
+
+## Migrating from version 1.0 to 2.0 of SDK
+We've made some big changes to our Java SDK with version 2.0.
+
+2.0 implements requests and responses for accounting API endpoints using JSON only.  Don't worry we won't be removing any of the existing methods for XML, but will mark them as deprecated in favor of JSON.
+
+Our XSD schema files will also be deprecated in favor of OpenAPI spec 3.0 files now available on Github.
+
+Lastly, our trusty XeroClient class that holds methods for interacting with each endpoint will be deprecated in favor of clients for each major API group at Xero.  See below. 
+
+### Initializing Client
+
+1.0 Client (deprecated)
+```java
+XeroClient client = new XeroClient();
+client.setOAuthToken(accessToken.getToken(), accessToken.getTokenSecret());				
+```
+
+2.0 Client
+```java
+// Accounting API endpoints
+ApiClient apiClientForAccounting = new ApiClient(config.getApiUrl(),null,null,null);
+AccountingApi accountingApi = new AccountingApi(apiClientForAccounting);
+accountingApi.setOAuthToken(token, tokenSecret);
+
+// Fixed Assets API endpoints
+ApiClient apiClientForAssets = new ApiClient(config.getAssetsUrl(),null,null,null);
+AssetApi assetApi = new AssetApi(apiClientForAssets);
+assetApi.setOAuthToken(token, tokenSecret);
+
+// BankFeeds API endpoints (for approved Partners)
+ApiClient apiClientForBankFeeds = new ApiClient(config.getBankFeedsUrl(),null,null,null);
+BankFeedsApi bankFeedsApi = new BankFeedsApi(apiClientForBankFeeds);
+bankFeedsApi.setOAuthToken(token, tokenSecret);
+```
+
+### Making API calls will change as well.
+
+1.0 Example GET
+```java
+List<Organisation> organisations = client.getOrganisations();
+System.out.println("Org Name : " + organisations.get(0).getName());
+```
+
+2.0 Example GET
+```java
+Organisations organisations = accountingApi.getOrganisations();
+System.out.println("Org Name : " + organisations.getOrganisations().get(0).getName());
+```
+
+### Models are moving
+
+1.0 models where imported from com.xero.model.*
+
+2.0 models are separated into major API groups under *com.xero.models* 
+i.e. com.xero.models.accounting.*
+
 
 ## Getting Started
 
@@ -14,7 +72,7 @@ For those using maven, add the dependency and repository to your pom.xml
     <dependency>
 	  <groupId>com.xero</groupId>
 	  <artifactId>xero-java-sdk</artifactId>
-	  <version>1.3.2</version>
+	  <version>2.0.0</version>
 	</dependency>
 
     <repositories>
@@ -56,7 +114,7 @@ Above is the default configuration method.  You also have the option to [customi
 #### Config.json example
 You should get the minimum config.json from app.xero.com. 
 
-Here is an examples of the minimum config.json for different Xero App Types.
+Here are examples of the minimum config.json for different Xero App Types.
 
 **Public**
 ```javascript
@@ -162,9 +220,10 @@ mvn clean compile war:war
 
 Then deploy the Xero-Java-SDK.war found in the target directory to your Java server.
 
+
 ### Step by Step Video
 We've created a video walking through how to create a new Eclipse project, add your dependencies and make your first API call.
-[Watch this video](https://youtu.be/V9SJ8zK0x6I). 
+[Watch this video](https://youtu.be/F3upynnpztc). 
 
 ### Hello Organization
 
@@ -232,9 +291,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.xero.api.ApiClient;
 import com.xero.api.OAuthAccessToken;
-import com.xero.api.XeroClient;
+import com.xero.api.client.AccountingApi;
 import com.xero.model.Organisation;
+import com.xero.models.accounting.Organisations;
 import com.xero.api.Config;
 import com.xero.api.JsonConfig;
 
@@ -250,7 +311,7 @@ public class CallbackServlet extends HttpServlet
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{	
-			TokenStorage storage = new TokenStorage();
+		TokenStorage storage = new TokenStorage();
 		String verifier = request.getParameter("oauth_verifier");
 
 		try {
@@ -266,11 +327,13 @@ public class CallbackServlet extends HttpServlet
 			} else {
 				storage.save(response,accessToken.getAll());			
 				
-				XeroClient client = new XeroClient();
-				client.setOAuthToken(accessToken.getToken(), accessToken.getTokenSecret());
+				ApiClient apiClientForAccounting = new ApiClient(config.getApiUrl(),null,null,null);
+				AccountingApi accountingApi = new AccountingApi(apiClientForAccounting);
+				accountingApi.setOAuthToken(accessToken.getToken(), accessToken.getTokenSecret());
+		
+				Organisations organisations = accountingApi.getOrganisations();
+				System.out.println("Get a Organisation - Name : " + organisations.getOrganisations().get(0).getName());
 				
-				List<Organisation> newOrganisation = client.getOrganisations();
-				System.out.println("Get a Organisation - Name : " + newOrganisation.get(0).getName());		
 			}
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
@@ -371,45 +434,48 @@ String tokenSecret = storage.get(request,"tokenSecret");
 
 // For Private Apps the token is your consumerKey and the tokenSecret is your consumerSecret
 // You can get these values out of the config object above
-XeroClient client = new XeroClient();
-client.setOAuthToken(token, tokenSecret);
+ApiClient apiClientForAccounting = new ApiClient(config.getApiUrl(),null,null,null);
+AccountingApi accountingApi = new AccountingApi(apiClientForAccounting);
+accountingApi.setOAuthToken(token, tokenSecret);
+		
 
 // Get All Contacts
-List<Contact> contactList = client.getContacts();
-System.out.println("How many contacts did we find: " + contactList.size());
+Contacts contactList = accountingApi.getContacts(null, null, null, null, null, null);
+System.out.println("How many contacts did we find: " + contactList.getContacts().size());
 				
 /* CREATE ACCOUNT */
-ArrayOfAccount accountArray = new ArrayOfAccount();
-Account account = new Account();
-account.setCode("66000");
-account.setName("Office Expense");
-account.setType(AccountType.EXPENSE);
-accountArray.getAccount().add(account);
-List<Account> newAccount = client.createAccounts(accountArray);
+Account newAccount = new Account();
+newAccount.setName("Office Expense");
+newAccount.setCode("66000"));
+newAccount.setType(Account.TypeEnum.EXPENSE);
+Accounts newAccount = accountingApi.createAccount(newAccount);
+messages.add("Create a new Account - Name : " + newAccount.getAccounts().get(0).getName());
 			
 /* READ ACCOUNT using a WHERE clause */
-List<Account> accountWhere = client.getAccounts(null,"Type==\"BANK\"",null);
+where = "Status==\"ACTIVE\"&&Type==\"BANK\"";
+Accounts accountsWhere = accountingApi.getAccounts(null, where, null);
 
 /* READ ACCOUNT using the ID */
-List<Account> accountList = client.getAccounts();
-Account accountOne = client.getAccount(accountList.get(0).getAccountID());
-			
+Accounts accountList = accountingApi.getAccounts(null, null, null);
+UUID accountID = accountList.getAccounts().get(0).getAccountID();
+Accounts oneAccount = accountingApi.getAccount(accountID);
+							
 /* UPDATE ACCOUNT */
-newAccount.get(0).setName("Entertainment");
-newAccount.get(0).setStatus(null);
-List<Account> updateAccount = client.updateAccount(newAccount);
+UUID newAccountID = newAccount.getAccounts().get(0).getAccountID();
+newAccount.getAccounts().get(0).setDescription("Monsters Inc.");
+newAccount.getAccounts().get(0).setStatus(null);
+Accounts updateAccount = accountingApi.updateAccount(newAccountID, newAccount);
 
 /* DELETE ACCOUNT */
-String status = client.deleteAccount(newAccount.get(0).getAccountID());
+UUID deleteAccountID = newAccount.getAccounts().get(0).getAccountID();
+Accounts deleteAccount = accountingApi.deleteAccount(deleteAccountID);
+String status = deleteAccount.getAccounts().get(0).getStatus();
 
 // GET INVOICE MODIFIED in LAST 24 HOURS
-Date date = new Date();
-Calendar cal = Calendar.getInstance();
-cal.setTime(date);
-cal.add(Calendar.DAY_OF_MONTH, -1);
-		    
-List<Invoice> InvoiceList24hour = client.getInvoices(cal.getTime(),null,null);
-System.out.println("How many invoices modified in last 24 hours?: " + InvoiceList24hour.size());
+OffsetDateTime invModified = OffsetDateTime.now();
+invModified.minusDays(1);	
+Invoices InvoiceList24hour = accountingApi.getInvoices(invModified, null, null, null, null, null, null, null, null, null);
+System.out.println("How many invoices modified in last 24 hours?: " + InvoiceList24hour.getInvoices().size());
 ```
 
 **BankFeed Endpoints**
@@ -521,12 +587,7 @@ try {
 	System.out.println(statementErrors.getItems().get(0).getErrors().get(0).getDetail());
 }
 
-
-
-
 ```
-
-
 
 **Exception Handling**
 

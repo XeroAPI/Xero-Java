@@ -8,6 +8,7 @@ import com.xero.api.XeroApiException;
 import com.xero.api.XeroClientException;
 import com.xero.api.jaxb.XeroJAXBMarshaller;
 import com.xero.model.ApiException;
+import com.xero.models.accounting.Error;
 import com.xero.models.bankfeeds.Statements;
 
 import java.io.IOException;
@@ -32,6 +33,8 @@ public class XeroExceptionHandler {
     
     private static final Pattern MESSAGE_PATTERN = Pattern.compile("<Message>(.*)</Message>");
     private XeroJAXBMarshaller xeroJaxbMarshaller;
+    private ApiClient apiClient = new ApiClient(null,null,null,null);
+	
 
     public XeroExceptionHandler() {
         this.xeroJaxbMarshaller = new XeroJAXBMarshaller();
@@ -89,7 +92,6 @@ public class XeroExceptionHandler {
     }
     
     public XeroApiException handleBadRequest(String content) {
-
         //TODO we could use the ApiException.xsd to validate that the content is an ApiException xml
         if (content.contains("ApiException")) {
             try {
@@ -102,8 +104,25 @@ public class XeroExceptionHandler {
 		return null;
     }
     
+    public XeroApiException handleBadRequest(String content, int code, boolean isJson) {
+        //TODO we could use the ApiException.xsd to validate that the content is an ApiException xml
+        if (isJson) {
+        	TypeReference<Error> typeRef = new TypeReference<Error>() {};
+			try {
+				Error error =  apiClient.getObjectMapper().readValue(content, typeRef);
+				return new XeroApiException(code, content, error);
+			} catch (IOException e) {
+				logger.error(e);
+			}
+        } else {
+        	Error error = new Error();
+        	error.setMessage(content);
+        	return new XeroApiException(code, content, error);
+        }
+    	return null;
+    }
+    
     public XeroApiException handleBadRequest(String content,int code) {
-
         //TODO we could use the ApiException.xsd to validate that the content is an ApiException xml
         if (content.contains("ApiException")) {
             try {
@@ -148,7 +167,6 @@ public class XeroExceptionHandler {
      * @return XeroApiException
      */
     public XeroApiException newApiException(HttpResponseException httpResponseException) {
-    	
         Matcher matcher = MESSAGE_PATTERN.matcher(httpResponseException.getContent());
         StringBuilder messages = new StringBuilder();
         while (matcher.find()) {

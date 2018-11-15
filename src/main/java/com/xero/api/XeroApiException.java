@@ -3,6 +3,7 @@ package com.xero.api;
 import com.xero.api.exception.XeroExceptionHandler;
 import com.xero.model.ApiException;
 import com.xero.models.bankfeeds.Statements;
+import com.xero.models.accounting.Error;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -24,6 +25,7 @@ public class XeroApiException extends RuntimeException {
     private String message;
     private Map<String, String> messageMap = new HashMap<String, String>();
     private ApiException apiException;
+    private Error error;
 
     public XeroApiException(int responseCode) {
         super(responseCode + " response.");
@@ -32,7 +34,6 @@ public class XeroApiException extends RuntimeException {
 
     public XeroApiException(int responseCode, String message) {
         super(responseCode + " response: " + message);
-        
         this.responseCode = responseCode;
         this.message = message;
     }
@@ -50,11 +51,20 @@ public class XeroApiException extends RuntimeException {
         this.messageMap = map;
     }
 
+    // response type XML uses ApiException class to unmarshall
     public XeroApiException(int responseCode, String message, ApiException apiException) {
         super(responseCode + " response: " + message);
         this.responseCode = responseCode;
         this.message = message;
         this.apiException = apiException;
+    }
+    
+    // response type JSON uses Error class
+    public XeroApiException(int responseCode, String message, Error error) {
+        super(responseCode + " response: " + message);
+        this.responseCode = responseCode;
+        this.message = message;
+        this.error = error;
     }
 
     public int getResponseCode() {
@@ -71,6 +81,10 @@ public class XeroApiException extends RuntimeException {
 
     public ApiException getApiException() {
         return apiException;
+    }
+    
+    public Error getError() {
+        return error;
     }
 
 }

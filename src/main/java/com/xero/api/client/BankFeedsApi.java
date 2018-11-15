@@ -204,7 +204,8 @@ public class BankFeedsApi {
             return apiClient.getObjectMapper().readValue(response, typeRef);
     
         } catch (IOException e) {
-            throw xeroExceptionHandler.convertException(e);
+            throw xeroExceptionHandler.handleBadRequest(e.getMessage());
+            //throw xeroExceptionHandler.convertException(e);
         }
     }
   /**
@@ -230,11 +231,13 @@ public class BankFeedsApi {
             ApiClient apiClient = new ApiClient();
             body = apiClient.getObjectMapper().writeValueAsString(statements);
             String response = this.POST(url, body, params, modifiedAfter);
+
             TypeReference<Statements> typeRef = new TypeReference<Statements>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
     
         } catch (IOException e) {
-            throw xeroExceptionHandler.convertException(e);
+            throw xeroExceptionHandler.handleBadRequest(e.getMessage());
+            //throw xeroExceptionHandler.convertException(e);
         }
     }
   /**
@@ -258,12 +261,13 @@ public class BankFeedsApi {
             ApiClient apiClient = new ApiClient();
             body = apiClient.getObjectMapper().writeValueAsString(feedConnections);
             String response = this.POST(url, body, params, modifiedAfter);
-
+            System.out.println(response);
             TypeReference<FeedConnections> typeRef = new TypeReference<FeedConnections>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
     
         } catch (IOException e) {
-             throw xeroExceptionHandler.convertException(e);
+            throw xeroExceptionHandler.handleBadRequest(e.getMessage());
+            //throw xeroExceptionHandler.convertException(e);
         }
     }
   /**
@@ -294,7 +298,8 @@ public class BankFeedsApi {
             return apiClient.getObjectMapper().readValue(response, typeRef);
     
         } catch (IOException e) {
-            throw xeroExceptionHandler.convertException(e);
+            throw xeroExceptionHandler.handleBadRequest(e.getMessage());
+            //throw xeroExceptionHandler.convertException(e);
         }
     }
   /**
@@ -323,7 +328,8 @@ public class BankFeedsApi {
             return apiClient.getObjectMapper().readValue(response, typeRef);
     
         } catch (IOException e) {
-            throw xeroExceptionHandler.convertException(e);
+            throw xeroExceptionHandler.handleBadRequest(e.getMessage());
+            //throw xeroExceptionHandler.convertException(e);
         }
     }
   /**
@@ -352,7 +358,8 @@ public class BankFeedsApi {
             return apiClient.getObjectMapper().readValue(response, typeRef);
     
         } catch (IOException e) {
-            throw xeroExceptionHandler.convertException(e);
+            throw xeroExceptionHandler.handleBadRequest(e.getMessage());
+            //throw xeroExceptionHandler.convertException(e);
         }
     }
   /**
@@ -382,7 +389,8 @@ public class BankFeedsApi {
             return apiClient.getObjectMapper().readValue(response, typeRef);
     
         } catch (IOException e) {
-            throw xeroExceptionHandler.convertException(e);
+            throw xeroExceptionHandler.handleBadRequest(e.getMessage());
+            //throw xeroExceptionHandler.convertException(e);
         }
     }
 }

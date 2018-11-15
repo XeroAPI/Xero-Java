@@ -409,6 +409,22 @@ public class SampleData {
 		return array;
 	}
 	
+	// NEW CREDIT NOTE ALLOCATION
+		public static ArrayOfAllocation loadCreditNoteAllocation() throws IOException {
+			ArrayOfAllocation array = new ArrayOfAllocation();
+			Allocation allocation = new Allocation();
+			allocation.setDate(loadDate());
+			allocation.setAppliedAmount(new BigDecimal("1.00"));
+			
+			Invoice inv = loadNewBill();
+			Invoice useInv = new Invoice();
+			useInv.setInvoiceID(inv.getInvoiceID());
+			allocation.setInvoice(useInv);
+			
+			array.getAllocation().add(allocation);
+			return array;
+		}
+	
 	// OVERPAYMENT
 	public static BankTransaction loadNewlyCreatedOverpayment() throws IOException {
 		ArrayOfBankTransaction array = new ArrayOfBankTransaction();
@@ -624,8 +640,10 @@ public class SampleData {
 		ArrayOfInvoice array = new ArrayOfInvoice();
 		
 		Invoice inv = new Invoice();
-		inv.setContact(loadSingleContact());
-		inv.setCurrencyCode(CurrencyCode.USD);
+		Contact contact = loadSingleContact();
+		Contact useContact = new Contact();
+		useContact.setContactID(contact.getContactID());
+		inv.setContact(useContact);
 		inv.setLineItems(loadLineItem());
 		inv.setDate(loadDate());
 		inv.setDueDate(loadDate());
