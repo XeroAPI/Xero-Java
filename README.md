@@ -294,7 +294,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.xero.api.ApiClient;
 import com.xero.api.OAuthAccessToken;
 import com.xero.api.client.AccountingApi;
-import com.xero.model.Organisation;
 import com.xero.models.accounting.Organisations;
 import com.xero.api.Config;
 import com.xero.api.JsonConfig;
@@ -425,7 +424,9 @@ The Xero Java SDK contains XeroClient which has helper methods to perform (Creat
 
 ```java
 import com.xero.api.*;
-import com.xero.model.*;
+import com.xero.api.ApiClient;
+import com.xero.api.client.AccountingApi;
+import com.xero.models.bankfeeds.*;
 
 // Get Xero API Resource - DEMONSTRATION ONLY get token from Cookie
 TokenStorage storage = new TokenStorage();
