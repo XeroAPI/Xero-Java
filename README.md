@@ -4,7 +4,7 @@ This is the official Java SDK for Xero's API. It supports accounting, fixed asse
 
 
 ## Migrating from version 1.0 to 2.0 of SDK
-We've made some big changes to our Java SDK with version 2.0.
+We've made some big changes to our Java SDK with version 2.0.  All code examples in this README are for version 2.0.  We've archived [code samples for version 1.0 here](https://github.com/XeroAPI/Xero-Java/tree/master/example).
 
 2.0 implements requests and responses for accounting API endpoints using JSON only.  Don't worry we won't be removing any of the existing methods for XML, but will mark them as deprecated in favor of JSON.
 
@@ -72,7 +72,7 @@ For those using maven, add the dependency and repository to your pom.xml
     <dependency>
 	  <groupId>com.xero</groupId>
 	  <artifactId>xero-java-sdk</artifactId>
-	  <version>2.0.0</version>
+	  <version>2.0.1</version>
 	</dependency>
 
     <repositories>

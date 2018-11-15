@@ -2215,18 +2215,21 @@ public class RequestResourceServlet extends HttpServlet
 				System.out.println(e.getMessage());
 			}
 		} else if (object.equals("Reports")) {
+			
 			/* REPORTS */			
+			/*
 			// TenNinetyNine - US Only
 			String reportYear = null;
 			Reports reports = accountingApi.getReportTenNinetyNine(reportYear);
 			System.out.println(reports.toString());
-		  
+		    */
 			// AgedPayablesByContact
 			String date = null;
 			String fromDate = null;
 			String toDate = null;
 			BigDecimal periods  = null;
 			BigDecimal timeframe = null;
+			String profitLossTimeframe = null;
 			String trackingOptionID1 = null;
 			String trackingOptionID2 = null;
 			boolean standardLayout = false;
@@ -2248,7 +2251,7 @@ public class RequestResourceServlet extends HttpServlet
 			ReportWithRows reportBalanceSheet = accountingApi.getReportBalanceSheet(toDate, periods, timeframe, trackingOptionID1, trackingOptionID2, standardLayout, paymentsOnly);
 			messages.add("Get a Reports - Name:" + reportBalanceSheet.getReports().get(0).getReportName());
 			
-			// reportBalanceSheet
+			// reportBankSummary
 			BigDecimal period = null;
 			ReportWithRows reportBankSummary = accountingApi.getReportBankSummary(toDate, period, timeframe);
 			messages.add("Get a Reports - Name:" + reportBankSummary.getReports().get(0).getReportName());
@@ -2262,12 +2265,17 @@ public class RequestResourceServlet extends HttpServlet
 			messages.add("Get a Reports - Name:" + reportExecutiveSummary.getReports().get(0).getReportName());
 			
 			// reportProfitandLoss
-			Map<String, String> reportParams = new HashMap<>();
-		    addToMapIfNotNull(reportParams, "fromDate", "2018-07-01");
-		    addToMapIfNotNull(reportParams, "toDate", "2018-09-01");
+			fromDate = "2018-07-01";
+		    toDate = "2018-11-30";
 			
-			ReportWithRows reportProfitLoss = accountingApi.getReportProfitAndLoss(fromDate, toDate, periods, timeframe, trackingCategoryID, trackingCategoryID2, trackingOptionID, trackingOptionID2, standardLayout, paymentsOnly);
+		    profitLossTimeframe = "MONTH";
+			ReportWithRows reportProfitLoss = accountingApi.getReportProfitAndLoss(fromDate, toDate, periods, profitLossTimeframe, trackingCategoryID, trackingCategoryID2, trackingOptionID, trackingOptionID2, standardLayout, paymentsOnly);
 			messages.add("Get a Reports - Name:" + reportProfitLoss.getReports().get(0).getReportName());
+			fromDate = null;
+		    toDate = null;
+			
+			System.out.println(reportProfitLoss.toString());
+			
 			
 			// reportTrialBalance
 			ReportWithRows reportTrialBalance = accountingApi.getReportTrialBalance(toDate, paymentsOnly);

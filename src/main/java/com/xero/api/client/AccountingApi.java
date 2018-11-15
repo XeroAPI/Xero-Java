@@ -6573,7 +6573,7 @@ public class AccountingApi {
     * @return ReportWithRows
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public ReportWithRows getReportProfitAndLoss(String fromDate, String toDate, BigDecimal periods, BigDecimal timeframe, String trackingCategoryID, String trackingCategoryID2, String trackingOptionID, String trackingOptionID2, Boolean standardLayout, Boolean paymentsOnly) throws IOException {
+    public ReportWithRows getReportProfitAndLoss(String fromDate, String toDate, BigDecimal periods, String timeframe, String trackingCategoryID, String trackingCategoryID2, String trackingOptionID, String trackingOptionID2, Boolean standardLayout, Boolean paymentsOnly) throws IOException {
         //, Map<String, String> params
         try {
             String strBody = null;
