@@ -1,6 +1,6 @@
 # Xero-Java
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.xeroapi/xero-java/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.xeroapi/xero-java)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.xeroapi/xero-java/badge.png)](https://maven-badges.herokuapp.com/maven-central/com.github.xeroapi/xero-java)
 
 This is the official Java SDK for Xero's API. It supports accounting, fixed asset and bank feed API endpoints. All third party libraries dependencies managed with Maven.
 
