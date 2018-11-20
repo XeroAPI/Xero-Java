@@ -69,7 +69,7 @@ Start by deciding which type of Xero app you'll be building [Private](http://dev
 
 ### Add Xero-Java Dependency
 
-For those using maven, add the dependency and repository to your pom.xml
+Add the dependency to your pom.xml.  Gradle, sbt and other build tools can be found on [maven central](https://search.maven.org/artifact/com.github.xeroapi/xero-java/2.1.0/jar).
 
     <dependency>
       <groupId>com.github.xeroapi</groupId>
