@@ -4,7 +4,7 @@ package com.xero.api;
  * Exception thrown by Xero Java API if there is an error which is not related
  * to remote API calls (like for example no config).
  *
- * @author GideonLeGrange <gideon@legrange.me>
+ * @author GideonLeGrange gideon@legrange.me
  */
 public class XeroClientException extends RuntimeException {
 

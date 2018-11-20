@@ -1903,7 +1903,7 @@ public class XeroClient {
     /**
      * Normalizes file name with respect to https://tools.ietf.org/html/rfc3986#section-2.3
      *
-     * @param fileName
+     * @param fileName the name of the file you are posting or putting to the API
      * @return file name which does not contain invalid URI characters
      */
     protected String normalizeFileNameForURI(final String fileName) {

@@ -6,8 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -88,7 +86,6 @@ import com.xero.models.accounting.Receipt;
 import com.xero.models.accounting.Receipts;
 import com.xero.models.accounting.RepeatingInvoices;
 import com.xero.models.accounting.ReportWithRows;
-import com.xero.models.accounting.Reports;
 import com.xero.models.accounting.RequestEmpty;
 import com.xero.models.accounting.Response204;
 import com.xero.models.accounting.TaxComponent;
@@ -109,9 +106,7 @@ import com.xero.models.bankfeeds.Statements;
 import com.xero.models.bankfeeds.FeedConnection.AccountTypeEnum;
 
 import org.threeten.bp.LocalDate;
-import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.ZoneOffset;
 
 public class RequestResourceServlet extends HttpServlet 
 {
@@ -244,11 +239,9 @@ public class RequestResourceServlet extends HttpServlet
 		AccountingApi accountingApi = new AccountingApi(apiClientForAccounting);
 		accountingApi.setOAuthToken(token, tokenSecret);
 		
-		Map<String, String> params = null;
 		OffsetDateTime ifModifiedSince = null;
 		String where = null;
 		String order = null;
-		BigDecimal page = null;
 		boolean summarizeErrors = false;
 		String ids= null;
 		boolean includeArchived = false;
@@ -336,7 +329,7 @@ public class RequestResourceServlet extends HttpServlet
 				messages.add("Get Account attachment - save it here: " + saveFilePath);
 				
 				// GET BankTransactions Attachment 
-				BankTransactions bankTransactions = accountingApi.getBankTransactions(ifModifiedSince, where, order, page);
+				BankTransactions bankTransactions = accountingApi.getBankTransactions(ifModifiedSince, where, order, null);
 				UUID BankTransactionID = bankTransactions.getBankTransactions().get(0).getBankTransactionID();				
 				Attachments BankTransactionsAttachments = accountingApi.getBankTransactionAttachments(BankTransactionID);
 				UUID BankTransactionAttachementID = BankTransactionsAttachments.getAttachments().get(0).getAttachmentID();
@@ -360,7 +353,7 @@ public class RequestResourceServlet extends HttpServlet
 				messages.add("Get BankTransfers attachment - save it here: " + BankTransferSaveFilePath);
 			
 				// GET Contacts Attachment 
-				Contacts Contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+				Contacts Contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
 				UUID ContactID = Contacts.getContacts().get(0).getContactID();				
 				Attachments ContactsAttachments = accountingApi.getContactAttachments(ContactID);
 				UUID ContactAttachementID = ContactsAttachments.getAttachments().get(0).getAttachmentID();
@@ -372,7 +365,7 @@ public class RequestResourceServlet extends HttpServlet
 				messages.add("Get Contacts attachment - save it here: " + ContactSaveFilePath);
 				
 				// GET CreditNotes Attachment 
-				CreditNotes CreditNotes = accountingApi.getCreditNotes(ifModifiedSince, where, order, page);
+				CreditNotes CreditNotes = accountingApi.getCreditNotes(ifModifiedSince, where, order, null);
 				UUID CreditNoteID = CreditNotes.getCreditNotes().get(0).getCreditNoteID();				
 				Attachments CreditNotesAttachments = accountingApi.getCreditNoteAttachments(CreditNoteID);
 				UUID CreditNoteAttachementID = CreditNotesAttachments.getAttachments().get(0).getAttachmentID();
@@ -383,11 +376,11 @@ public class RequestResourceServlet extends HttpServlet
 				String CreditNoteSaveFilePath = saveFile(CreditNoteInput,CreditNoteFileName);
 				messages.add("Get CreditNotes attachment - save it here: " + CreditNoteSaveFilePath);
 				
-
 				// GET Invoices Attachment 
-				Invoices Invoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp);
+				Invoices Invoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp);
 				UUID InvoiceID = Invoices.getInvoices().get(0).getInvoiceID();				
 				Attachments InvoicesAttachments = accountingApi.getInvoiceAttachments(InvoiceID);
+				
 				UUID InvoiceAttachementID = InvoicesAttachments.getAttachments().get(0).getAttachmentID();
 				String InvoiceContentType = InvoicesAttachments.getAttachments().get(0).getMimeType();
 				ByteArrayInputStream InvoiceInput	 = accountingApi.getAccountAttachmentById(InvoiceID,InvoiceAttachementID, InvoiceContentType);
@@ -395,9 +388,9 @@ public class RequestResourceServlet extends HttpServlet
 				
 				String InvoiceSaveFilePath = saveFile(InvoiceInput,InvoiceFileName);
 				messages.add("Get Invoices attachment - save it here: " + InvoiceSaveFilePath);
-				
+
 				// GET ManualJournals Attachment 
-				ManualJournals ManualJournals = accountingApi.getManualJournals(ifModifiedSince, where, order, page);
+				ManualJournals ManualJournals = accountingApi.getManualJournals(ifModifiedSince, where, order, null);
 				UUID ManualJournalID = ManualJournals.getManualJournals().get(0).getManualJournalID();				
 				Attachments ManualJournalsAttachments = accountingApi.getManualJournalAttachments(ManualJournalID);
 				UUID ManualJournalAttachementID = ManualJournalsAttachments.getAttachments().get(0).getAttachmentID();
@@ -419,7 +412,6 @@ public class RequestResourceServlet extends HttpServlet
 				
 				String ReceiptSaveFilePath = saveFile(ReceiptInput,ReceiptFileName);
 				messages.add("Get Receipts attachment - save it here: " + ReceiptSaveFilePath);
-				
 
 				// GET RepeatingInvoices Attachment 
 				RepeatingInvoices RepeatingInvoices = accountingApi.getRepeatingInvoices(where, order);
@@ -432,7 +424,7 @@ public class RequestResourceServlet extends HttpServlet
 				
 				String RepeatingInvoiceSaveFilePath = saveFile(RepeatingInvoiceInput,RepeatingInvoiceFileName);
 				messages.add("Get RepeatingInvoices attachment - save it here: " + RepeatingInvoiceSaveFilePath);
-				
+
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
@@ -452,7 +444,7 @@ public class RequestResourceServlet extends HttpServlet
 				messages.add("Attachment to Account ID: " + accountID + " attachment - ID: " + createdAttachments.getAttachments().get(0).getAttachmentID());
 			}
 			// CREATE BankTransactions attachment
-			BankTransactions myBanktransactions = accountingApi.getBankTransactions(ifModifiedSince, where, order, page);
+			BankTransactions myBanktransactions = accountingApi.getBankTransactions(ifModifiedSince, where, order, null);
 			if ( myBanktransactions.getBankTransactions().size() > 0) {
 				UUID banktransactionID = myBanktransactions.getBankTransactions().get(0).getBankTransactionID();			
 				Attachments createdBanktransationAttachments = accountingApi.createBankTransactionAttachmentByFileName(banktransactionID, newFileName, bytes);
@@ -468,7 +460,7 @@ public class RequestResourceServlet extends HttpServlet
 			}
 			// CREATE Contacts attachment
 		    where = "Status==\"ACTIVE\"";
-			Contacts myContacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+			Contacts myContacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
 			if ( myContacts.getContacts().size() > 0) {
 				UUID contactID = myContacts.getContacts().get(0).getContactID();
 				Attachments createdContactAttachments = accountingApi.createContactAttachmentByFileName(contactID, newFileName, bytes);
@@ -476,21 +468,21 @@ public class RequestResourceServlet extends HttpServlet
 			}
 			
 			// CREATE CreditNotes attachment
-			CreditNotes myCreditNotes = accountingApi.getCreditNotes(ifModifiedSince, where, order, page);
+			CreditNotes myCreditNotes = accountingApi.getCreditNotes(ifModifiedSince, where, order, null);
 			if ( myCreditNotes.getCreditNotes().size() > 0) {
 				UUID creditNoteID = myCreditNotes.getCreditNotes().get(0).getCreditNoteID();
 				Attachments createdCreditNoteAttachments = accountingApi.createCreditNoteAttachmentByFileName(creditNoteID, newFileName, bytes);
 				messages.add("Attachment to Credit Notes ID: " + creditNoteID + " attachment - ID: " + createdCreditNoteAttachments.getAttachments().get(0).getAttachmentID());
 			}
 			// CREATE invoice attachment
-			Invoices myInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp);
+			Invoices myInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp);
 			if ( myInvoices.getInvoices().size() > 0) {
 				UUID invoiceID = myInvoices.getInvoices().get(0).getInvoiceID();
 				Attachments createdInvoiceAttachments = accountingApi.createInvoiceAttachmentByFileName(invoiceID, newFileName, bytes);
 				messages.add("Attachment to Invoice ID: " + invoiceID + " attachment - ID: "  + createdInvoiceAttachments.getAttachments().get(0).getAttachmentID());
 			}
 			// CREATE ManualJournals attachment
-			ManualJournals myManualJournals = accountingApi.getManualJournals(ifModifiedSince, where, order, page);
+			ManualJournals myManualJournals = accountingApi.getManualJournals(ifModifiedSince, where, order, null);
 			if ( myManualJournals.getManualJournals().size() > 0) {
 				UUID manualJournalID = myManualJournals.getManualJournals().get(0).getManualJournalID();
 				Attachments createdManualJournalAttachments = accountingApi.createManualJournalAttachmentByFileName(manualJournalID, newFileName, bytes);
@@ -518,55 +510,65 @@ public class RequestResourceServlet extends HttpServlet
 				Asset asset = new Asset();
 				asset.setAssetName("Computer" + SampleData.loadRandomNum());
 				asset.setAssetNumber("1234" + SampleData.loadRandomNum());
-				Asset newAsset = assetApi.createAsset(asset, null);
-				messages.add("New asset created: " + newAsset.getAssetName());	
+				Asset newAsset = assetApi.createAsset(asset);
+				messages.add("New Asset created: " + newAsset.getAssetName());	
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
 			
 			try {
-				Map<String, String> filter = new HashMap<>();
-				addToMapIfNotNull(filter, "status", "DRAFT");				
-				Assets assets = assetApi.getAssets(filter);
+				String orderBy = null;
+				String sortDirection = null;
+				String filterBy = null;
+				String status = "DRAFT";				
+				Assets assets = assetApi.getAssets(status, null, null, orderBy, sortDirection, filterBy);
 				messages.add("Assets Found: " + assets.getItems().get(0).getAssetName());
 				
 			} catch (Exception e) {
 				System.out.println(e.toString());
 			}
 			
-			try {
-				Map<String, String> filter = new HashMap<>();			
-				List<AssetType> assetTypes = assetApi.getAssetTypes(filter);
+			try {		
+				List<AssetType> assetTypes = assetApi.getAssetTypes();
 				messages.add("AssetType Found: " + assetTypes.get(0).getAssetTypeName());
 			} catch (Exception e) {
 				System.out.println(e.toString());
 			}
 			
 			try {
+				where = "Type==\"FIXED\"";
+				Accounts accountFixedAsset = accountingApi.getAccounts(ifModifiedSince, where, order);
+				UUID fixedAssetAccountId = accountFixedAsset.getAccounts().get(0).getAccountID();
+				where = "Type==\"EXPENSE\"";
+				Accounts accountDepreciationExpense = accountingApi.getAccounts(ifModifiedSince, where, order);
+				UUID depreciationExpenseAccountId = accountDepreciationExpense.getAccounts().get(0).getAccountID();
+				where = "Type==\"DEPRECIATN\"";
+				Accounts accountAccumulatedDepreciation = accountingApi.getAccounts(ifModifiedSince, where, order);
+				UUID accumulatedDepreciationAccountId = accountAccumulatedDepreciation.getAccounts().get(0).getAccountID();
+				
 				AssetType assetType = new AssetType();
 				assetType.setAssetTypeName("Machinery" + SampleData.loadRandomNum());
-				assetType.setFixedAssetAccountId(SampleData.loadAccountFixedAsset().getAccountID());
-				assetType.setDepreciationExpenseAccountId(SampleData.loadAccountExpenses().getAccountID());
-				assetType.setAccumulatedDepreciationAccountId(SampleData.loadAccountDepreciation().getAccountID());
+				assetType.setFixedAssetAccountId(fixedAssetAccountId);
+				assetType.setDepreciationExpenseAccountId(depreciationExpenseAccountId);
+				assetType.setAccumulatedDepreciationAccountId(accumulatedDepreciationAccountId);
 				
+				float depreciationRate = 0.05f;
 				BookDepreciationSetting bookDepreciationSetting = new BookDepreciationSetting();
 				bookDepreciationSetting.setAveragingMethod(AveragingMethodEnum.ACTUALDAYS);
 				bookDepreciationSetting.setDepreciationCalculationMethod(DepreciationCalculationMethodEnum.NONE);
-				bookDepreciationSetting.setDepreciationRate(40);
+				bookDepreciationSetting.setDepreciationRate(depreciationRate);
 				bookDepreciationSetting.setDepreciationMethod(DepreciationMethodEnum.DIMINISHINGVALUE100);
 				assetType.setBookDepreciationSetting(bookDepreciationSetting);
 				
-				Map<String, String> filter = new HashMap<>();			
-				AssetType newAssetType = assetApi.createAssetType(assetType, filter);
-				
+				AssetType newAssetType = assetApi.createAssetType(assetType);	
 				messages.add("Asset Type Created: " + newAssetType.getAssetTypeName());
+			
 			} catch (Exception e) {
 				System.out.println(e.toString());
 			}
 			
-			try {
-				Map<String, String> filter = new HashMap<>();			
-				Setting setting = assetApi.getAssetSettings(filter);
+			try {			
+				Setting setting = assetApi.getAssetSettings();
 				messages.add("Asset Setting Start date: " + setting.getAssetStartDate());
 			} catch (Exception e) {
 				System.out.println(e.toString());
@@ -583,10 +585,10 @@ public class RequestResourceServlet extends HttpServlet
 				newBank.setAccountToken("foobar" + SampleData.loadRandomNum());
 				newBank.setCurrency("GBP");
 				
-				FeedConnections arrayFeedConnections = new FeedConnections();
-				arrayFeedConnections.addItemsItem(newBank);
+				FeedConnections feedConnections = new FeedConnections();
+				feedConnections.addItemsItem(newBank);
 				
-				FeedConnections fc1 = bankFeedsApi.createFeedConnections(arrayFeedConnections, null);
+				FeedConnections fc1 = bankFeedsApi.createFeedConnections(feedConnections);
 				messages.add("New Bank with status: " + fc1.getItems().get(0).getStatus());
 			} catch (Exception e) {
 				System.out.println(e.toString());
@@ -594,7 +596,7 @@ public class RequestResourceServlet extends HttpServlet
 			
 			// Get ALL Feed Connection
 			try {
-				FeedConnections fc = bankFeedsApi.getFeedConnections(null);
+				FeedConnections fc = bankFeedsApi.getFeedConnections(null,null);
 				messages.add("Total Banks found: " + fc.getItems().size());
 				System.out.println(fc.getItems().get(0).toString());
 			} catch (Exception e) {
@@ -603,8 +605,9 @@ public class RequestResourceServlet extends HttpServlet
 			
 			// Get one Feed Connection
 			try {
-				FeedConnections fc = bankFeedsApi.getFeedConnections(null);
-				FeedConnection oneFC = bankFeedsApi.getFeedConnection(fc.getItems().get(0).getId(),null);
+				FeedConnections fc = bankFeedsApi.getFeedConnections(null, null);
+				String id = fc.getItems().get(0).getId();
+				FeedConnection oneFC = bankFeedsApi.getFeedConnection(id);
 				messages.add("One Bank: " + oneFC.getAccountName());
 			} catch (Exception e) {
 				System.out.println(e.toString());
@@ -612,16 +615,15 @@ public class RequestResourceServlet extends HttpServlet
 			
 			// Delete Feed Connection
 			try {
-				FeedConnections fc = bankFeedsApi.getFeedConnections(null);
-				FeedConnections allFeedConnections = bankFeedsApi.getFeedConnections(null);
+				FeedConnections fc = bankFeedsApi.getFeedConnections(null, null);
+				FeedConnections allFeedConnections = bankFeedsApi.getFeedConnections(null, null);
 				FeedConnections deleteFeedConnections = new FeedConnections();
 				
 				FeedConnection feedConnectionOne = new FeedConnection();
 				feedConnectionOne.setId(allFeedConnections.getItems().get(fc.getItems().size()-1).getId());
 				deleteFeedConnections.addItemsItem(feedConnectionOne);
 				
-				FeedConnections deletedFeedConnection = bankFeedsApi.deleteFeedConnections(deleteFeedConnections,null);
-				
+				FeedConnections deletedFeedConnection = bankFeedsApi.deleteFeedConnections(deleteFeedConnections);				
 				messages.add("DELETED Bank status: " + deletedFeedConnection.getItems().get(0).getStatus());
 			} catch (Exception e) {
 				System.out.println(e.toString());
@@ -648,7 +650,7 @@ public class RequestResourceServlet extends HttpServlet
 				endBalance.setCreditDebitIndicator(CreditDebitIndicator.CREDIT);
 				newStatement.endBalance(endBalance);
 				
-				FeedConnections fc = bankFeedsApi.getFeedConnections(null);
+				FeedConnections fc = bankFeedsApi.getFeedConnections(null, null);
 				newStatement.setFeedConnectionId(fc.getItems().get(2).getId().toString());
 				
 				StatementLine newStatementLine = new StatementLine();
@@ -667,8 +669,7 @@ public class RequestResourceServlet extends HttpServlet
 				
 				newStatement.setStatementLines(arrayStatementLines);
 				arrayOfStatements.addItemsItem(newStatement);
-				Statements rStatements = bankFeedsApi.createStatements(arrayOfStatements,params);
-				System.out.println(rStatements.toString());
+				Statements rStatements = bankFeedsApi.createStatements(arrayOfStatements);
 				messages.add("New Bank Statement Status: " + rStatements.getItems().get(0).getStatus());
 							
 			} catch (Exception e) {
@@ -695,7 +696,7 @@ public class RequestResourceServlet extends HttpServlet
 				endBalance.setCreditDebitIndicator(CreditDebitIndicator.CREDIT);
 				newStatement.endBalance(endBalance);
 				
-				FeedConnections fc = bankFeedsApi.getFeedConnections(null);
+				FeedConnections fc = bankFeedsApi.getFeedConnections(null, null);
 				newStatement.setFeedConnectionId(fc.getItems().get(2).getId().toString());
 				
 				StatementLine newStatementLine = new StatementLine();
@@ -714,11 +715,9 @@ public class RequestResourceServlet extends HttpServlet
 				
 				newStatement.setStatementLines(arrayStatementLines);
 				arrayOfStatements.addItemsItem(newStatement);
-				Statements rStatements = bankFeedsApi.createStatements(arrayOfStatements,params);
-			
-				Statement oneStatement = bankFeedsApi.getStatement(rStatements.getItems().get(0).getId(),params);
-				
-				System.out.println(oneStatement.toString());
+				Statements rStatements = bankFeedsApi.createStatements(arrayOfStatements);
+				String statementId = rStatements.getItems().get(0).getId();
+				Statement oneStatement = bankFeedsApi.getStatement(statementId);				
 				messages.add("New Bank Statement Status: " + oneStatement.getStatementLineCount());
 				
 			} catch (Exception e) {
@@ -743,7 +742,7 @@ public class RequestResourceServlet extends HttpServlet
 				endBalance.setCreditDebitIndicator(CreditDebitIndicator.CREDIT);
 				newStatement.endBalance(endBalance);
 				
-				FeedConnections fc = bankFeedsApi.getFeedConnections(null);
+				FeedConnections fc = bankFeedsApi.getFeedConnections(null,null);
 				newStatement.setFeedConnectionId(fc.getItems().get(2).getId().toString());
 				
 				StatementLine newStatementLine = new StatementLine();
@@ -762,11 +761,11 @@ public class RequestResourceServlet extends HttpServlet
 				
 				newStatement.setStatementLines(arrayStatementLines);
 				arrayOfStatements.addItemsItem(newStatement);
-				Statements rStatements2 = bankFeedsApi.createStatements(arrayOfStatements,params);
+				Statements rStatements2 = bankFeedsApi.createStatements(arrayOfStatements);
 				messages.add("New Bank Statement Status: " + rStatements2.getItems().get(0).getStatus());
 				
 				//DUPLICATE
-				Statements rStatements3 = bankFeedsApi.createStatements(arrayOfStatements,params);
+				Statements rStatements3 = bankFeedsApi.createStatements(arrayOfStatements);
 				
 				System.out.println(rStatements3.toString());
 				messages.add("New Bank Statement Status: " + rStatements3.getItems().get(0).getStatus());
@@ -780,7 +779,7 @@ public class RequestResourceServlet extends HttpServlet
 			
 			//Get ALL Statements
 			try {
-				Statements allStatements = bankFeedsApi.getStatements(params);
+				Statements allStatements = bankFeedsApi.getStatements(null, null, null, null, null);
 				System.out.println(allStatements.toString());							
 			} catch (Exception e) {
 				TypeReference<Statements> typeRef = new TypeReference<Statements>() {};
@@ -807,7 +806,7 @@ public class RequestResourceServlet extends HttpServlet
 				endBalance.setCreditDebitIndicator(CreditDebitIndicator.CREDIT);
 				newStatement.endBalance(endBalance);
 				
-				FeedConnections fc = bankFeedsApi.getFeedConnections(null);
+				FeedConnections fc = bankFeedsApi.getFeedConnections(null,null);
 				
 				if (fc.getItems().size() > 2) {
 					newStatement.setFeedConnectionId(fc.getItems().get(0).getId().toString());
@@ -867,7 +866,7 @@ public class RequestResourceServlet extends HttpServlet
 					
 					arrayOfStatements.addItemsItem(newStatement2);
 					
-					Statements rStatements = bankFeedsApi.createStatements(arrayOfStatements, params);
+					Statements rStatements = bankFeedsApi.createStatements(arrayOfStatements);
 					
 					assert(rStatements.getItems().size() > 0);
 					System.out.println("Statement Status: " + rStatements.getItems().get(0).getStatus());
@@ -875,12 +874,7 @@ public class RequestResourceServlet extends HttpServlet
 					System.out.println("Need at least 2 feed connections to perform this test");
 				}
 				
-				
 			} catch (XeroApiException e) {
-				
-				int actualCode = e.getResponseCode();
-				//assertThat(actualCode, is(equalTo(403)));
-
 				try {
 					TypeReference<com.xero.models.bankfeeds.Error> typeRef = new TypeReference<com.xero.models.bankfeeds.Error>() {};
 					com.xero.models.bankfeeds.Error error =  apiClientForBankFeeds.getObjectMapper().readValue(e.getMessage(), typeRef);
@@ -903,7 +897,7 @@ public class RequestResourceServlet extends HttpServlet
 				bankAcct.setCode(accountsWhere.getAccounts().get(0).getCode());
 				
 				where = null;
-				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
 				Contact useContact = new Contact();
 				useContact.setContactID(contacts.getContacts().get(0).getContactID());
 				
@@ -914,9 +908,8 @@ public class RequestResourceServlet extends HttpServlet
 					LineItem li = new LineItem();
 					li.setAccountCode("400");
 					li.setDescription("Foobar");
-					li.setQuantity("2");
-					BigDecimal BigDec1 = new BigDecimal("20.00");
-					li.setUnitAmount(BigDec1);
+					li.setQuantity(1.0f);
+					li.setUnitAmount(20.0f);
 					lineItems.add(li);
 					BankTransaction bt = new BankTransaction();
 					bt.setBankAccount(bankAcct);
@@ -929,7 +922,7 @@ public class RequestResourceServlet extends HttpServlet
 					messages.add("Create new BankTransaction : amount:" + newBankTransaction.getBankTransactions().get(0).getTotal());				
 					
 					// GET all Bank Transaction
-					BankTransactions bankTransactions = accountingApi.getBankTransactions(ifModifiedSince, where, order, page);
+					BankTransactions bankTransactions = accountingApi.getBankTransactions(ifModifiedSince, where, order, null);
 					messages.add("Get a all Bank Transactions - total : " + bankTransactions.getBankTransactions().size());				
 
 					// GET one Bank Transaction
@@ -1019,7 +1012,7 @@ public class RequestResourceServlet extends HttpServlet
 				/* BATCH PAYMENTS */
 				// CREATE payment
 				where =  "Status==\"AUTHORISED\"&&Type==\"ACCREC\"";			
-				Invoices allInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp);
+				Invoices allInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp);
 				Invoice inv = new Invoice();
 				inv.setInvoiceID(allInvoices.getInvoices().get(0).getInvoiceID());
 				Invoice inv2 = new Invoice();
@@ -1037,30 +1030,26 @@ public class RequestResourceServlet extends HttpServlet
 				BatchPayments createBatchPayments = new BatchPayments();
 				BatchPayment createBatchPayment = new BatchPayment();
 				createBatchPayment.setAccount(paymentAccount);
-				BigDecimal paymentAmt = new BigDecimal("3.00");
-				createBatchPayment.setAmount(paymentAmt);
+				createBatchPayment.setAmount(3.0f);
 				createBatchPayment.setDate("11-05-2018");
 				createBatchPayment.setReference("Foobar" + SampleData.loadRandomNum());
 
 				Payment payment01 = new Payment();
 				payment01.setAccount(paymentAccount);
 				payment01.setInvoice(inv);
-				BigDecimal payment01Amt = new BigDecimal("1.00");
-				payment01.setAmount(payment01Amt);
+				payment01.setAmount(1.0f);
 				payment01.setDate("11-1-2018");
 				
 				Payment payment02 = new Payment();
 				payment02.setAccount(paymentAccount);
 				payment02.setInvoice(inv2);
-				BigDecimal payment02Amt = new BigDecimal("1.00");
-				payment02.setAmount(payment02Amt);
+				payment02.setAmount(1.0f);
 				payment02.setDate("11-1-2018");
 				
 				Payment payment03 = new Payment();
 				payment03.setAccount(paymentAccount);
 				payment03.setInvoice(inv3);
-				BigDecimal payment03Amt = new BigDecimal("1.00");
-				payment03.setAmount(payment03Amt);
+				payment03.setAmount(1.0f);
 				payment03.setDate("11-1-2018");
 				
 				createBatchPayment.addPaymentsItem(payment01);
@@ -1128,7 +1117,7 @@ public class RequestResourceServlet extends HttpServlet
 				messages.add("Update new Contact - Name : " + updatedContact.getContacts().get(0).getName());
 				
 				// GET all contact
-				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
 				messages.add("Get a All Contacts - Total : " + contacts.getContacts().size());	
 
 				// GET one contact
@@ -1138,7 +1127,7 @@ public class RequestResourceServlet extends HttpServlet
 				
 				// GET contact cisSettings
 			    where = "Name==\"sidney\"";   
-				Contacts cisContact = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+				Contacts cisContact = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
 				if (cisContact.getContacts().size() > 0) {
 					CISSettings cisSettings = accountingApi.getContactCISSettings(cisContact.getContacts().get(0).getContactID());
 					messages.add("Get a Contact cisSettings - Enabled? : " + cisSettings.getCiSSettings().get(0).getCiSEnabled());	
@@ -1147,7 +1136,7 @@ public class RequestResourceServlet extends HttpServlet
 				
 				// GET active contacts
 			    where =  "ContactStatus==\"ACTIVE\"";
-				Contacts contactsWhere = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+				Contacts contactsWhere = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
 				messages.add("Get a all ACTIVE Contacts - Total : " + contactsWhere.getContacts().size());
 				where = null;
 				
@@ -1216,7 +1205,7 @@ public class RequestResourceServlet extends HttpServlet
 				newCGs.addContactGroupsItem(cg);
 				ContactGroups newContactGroup = accountingApi.createContactGroup(newCGs);
 			
-				Contacts allContacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+				Contacts allContacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
 				
 				// Create Contacts in Group
 				Contacts contactList = new Contacts();
@@ -1253,7 +1242,7 @@ public class RequestResourceServlet extends HttpServlet
 			
 		} else if (object.equals("CreditNotesPDF")) {
 			// GET CreditNote As a PDF
-			CreditNotes creditNotes = accountingApi.getCreditNotes(ifModifiedSince, where, order, page);
+			CreditNotes creditNotes = accountingApi.getCreditNotes(ifModifiedSince, where, order, null);
 			UUID creditNoteId = creditNotes.getCreditNotes().get(0).getCreditNoteID();
 			ByteArrayInputStream CreditNoteInput	 = accountingApi.getCreditNoteAsPdf(creditNoteId, "application/pdf");
 			String CreditNoteFileName = "InvoiceAsPDF.pdf";
@@ -1265,16 +1254,15 @@ public class RequestResourceServlet extends HttpServlet
 			/* CREDIT NOTE */
 			// JSON - complete - except Attachment
 			try {	
-				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
 				
 				// Create Credit Note
 				List<LineItem> lineItems = new ArrayList<>();
 				LineItem li = new LineItem();
 				li.setAccountCode("400");
 				li.setDescription("Foobar");
-				li.setQuantity("2");
-				BigDecimal BigDec1 = new BigDecimal("20.00");
-				li.setUnitAmount(BigDec1);
+				li.setQuantity(2.0f);
+				li.setUnitAmount(20.0f);
 				lineItems.add(li);
 				
 				CreditNotes newCNs = new CreditNotes();
@@ -1288,7 +1276,7 @@ public class RequestResourceServlet extends HttpServlet
 				UUID newCreditNoteId = newCreditNote.getCreditNotes().get(0).getCreditNoteID();
 				
 				// GET all Credit Note
-				CreditNotes creditNotes = accountingApi.getCreditNotes(ifModifiedSince, where, order, page);
+				CreditNotes creditNotes = accountingApi.getCreditNotes(ifModifiedSince, where, order, null);
 				messages.add("Get all CreditNotes - Total : " + creditNotes.getCreditNotes().size());
 				
 				// GET One Credit Note
@@ -1306,12 +1294,11 @@ public class RequestResourceServlet extends HttpServlet
 				Allocation allocation = new Allocation();
 				
 			    where =  "Status==\"AUTHORISED\"&&Type==\"ACCPAY\"";
-			    Invoices allInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp);
+			    Invoices allInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp);
 				Invoice inv = new Invoice();
 				inv.setInvoiceID(allInvoices.getInvoices().get(0).getInvoiceID());
 				allocation.setInvoice(inv);
-				BigDecimal amount = new BigDecimal("1.00");
-				allocation.setAmount(amount);
+				allocation.setAmount(1.0f);
 				allocations.addAllocationsItem(allocation);
 				where = null;
 				
@@ -1410,7 +1397,7 @@ public class RequestResourceServlet extends HttpServlet
 				user.setUserID(users.getUsers().get(0).getUserID());
 				
 				
-				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
 				Contact useContact = new Contact();
 				useContact.setContactID(contacts.getContacts().get(0).getContactID());
 				
@@ -1421,11 +1408,9 @@ public class RequestResourceServlet extends HttpServlet
 				LineItem li = new LineItem();
 				li.setAccountCode(accounts.getAccounts().get(0).getCode());
 				li.setDescription("Foobar");
-				li.setQuantity("2");
-				BigDecimal BigDec1 = new BigDecimal("20.00");
-				li.setUnitAmount(BigDec1);
-				BigDecimal BigDecLineAmount = new BigDecimal("40.00");
-				li.setLineAmount(BigDecLineAmount);
+				li.setQuantity(2.0f);
+				li.setUnitAmount(20.00f);
+				li.setLineAmount(40.00f);
 				li.setTaxType("NONE");
 				
 				receipt.addLineitemsItem(li);
@@ -1491,7 +1476,7 @@ public class RequestResourceServlet extends HttpServlet
 		} else if (object.equals("Invoices")) {
 			/*  INVOICE */	
 			// GET Invoice As a PDF
-			Invoices myInvoicesForPDF = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp);
+			Invoices myInvoicesForPDF = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp);
 			UUID invoiceIDForPDF = myInvoicesForPDF.getInvoices().get(0).getInvoiceID();
 			ByteArrayInputStream InvoiceNoteInput	 = accountingApi.getInvoiceAsPdf(invoiceIDForPDF, "application/pdf");
 			String InvoiceFileName = "InvoiceAsPDF.pdf";			
@@ -1503,7 +1488,7 @@ public class RequestResourceServlet extends HttpServlet
 			Accounts accounts = accountingApi.getAccounts(ifModifiedSince, where, order);
 			where = null;
 			
-			Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+			Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
 			Contact useContact = new Contact();
 			useContact.setContactID(contacts.getContacts().get(0).getContactID());
 			
@@ -1513,11 +1498,9 @@ public class RequestResourceServlet extends HttpServlet
 			LineItem li = new LineItem();
 			li.setAccountCode(accounts.getAccounts().get(0).getCode());
 			li.setDescription("Acme Tires");
-			li.setQuantity("2");
-			BigDecimal BigDec1 = new BigDecimal("20.00");
-			li.setUnitAmount(BigDec1);
-			BigDecimal BigDecLineAmount = new BigDecimal("40.00");
-			li.setLineAmount(BigDecLineAmount);
+			li.setQuantity(2f);
+			li.setUnitAmount(20.00f);
+			li.setLineAmount(40.00f);
 			li.setTaxType("NONE");
 			
 			myInvoice.addLineItemsItem(li);
@@ -1543,14 +1526,14 @@ public class RequestResourceServlet extends HttpServlet
 			messages.add("Update invoice - Reference : " + updatedInvoice.getInvoices().get(0).getReference());
 			
 			//Get All
-			Invoices invoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp);
+			Invoices invoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp);
 			messages.add("Get all invoices - Total : " + invoices.getInvoices().size());
 			
 			//Get Invoice If-Modified-Since
 			
 			OffsetDateTime invModified = OffsetDateTime.now();
 			invModified.minusDays(5);	
-			Invoices invoicesSince = accountingApi.getInvoices(invModified, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp);
+			Invoices invoicesSince = accountingApi.getInvoices(invModified, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp);
 			messages.add("Get all invoices - Since Modfied Date - Total : " + invoicesSince.getInvoices().size());
 		
 			// Get One
@@ -1579,7 +1562,7 @@ public class RequestResourceServlet extends HttpServlet
 			messages.add("History - note added to  : " + newHistory);
 			
 			// CREATE invoice attachment
-			Invoices myInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp);
+			Invoices myInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp);
 			UUID invoiceID = myInvoices.getInvoices().get(0).getInvoiceID();
 			InputStream inputStream = JsonConfig.class.getResourceAsStream("/helo-heros.jpg");
 			byte[] bytes = IOUtils.toByteArray(inputStream);
@@ -1660,15 +1643,13 @@ public class RequestResourceServlet extends HttpServlet
 		} else if (object.equals("Journals")) {
 			/* JOURNAL */
 			try {
-				BigDecimal offset = null;
 				boolean paymentsOnly = false;
 				// GET all Journals
-				Journals journals = accountingApi.getJournals(ifModifiedSince, offset, paymentsOnly);
+				Journals journals = accountingApi.getJournals(ifModifiedSince, null, paymentsOnly);
 				messages.add("Get Journals - total : " + journals.getJournals().size());
 				
 				// GET Journal with offset
-			    offset = new BigDecimal("10");
-				Journals journalsOffset = accountingApi.getJournals(ifModifiedSince, offset, paymentsOnly);
+				Journals journalsOffset = accountingApi.getJournals(ifModifiedSince, null, paymentsOnly);
 				messages.add("Get Journals offset - total : " + journalsOffset.getJournals().size());
 				
 				// GET one Journal
@@ -1687,7 +1668,7 @@ public class RequestResourceServlet extends HttpServlet
 				Accounts accounts = accountingApi.getAccounts(ifModifiedSince, where, order);
 				where = null;
 				
-				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
 				Contact useContact = new Contact();
 				useContact.setContactID(contacts.getContacts().get(0).getContactID());
 				
@@ -1697,11 +1678,9 @@ public class RequestResourceServlet extends HttpServlet
 				LineItem li = new LineItem();
 				li.setAccountCode(accounts.getAccounts().get(0).getCode());
 				li.setDescription("Acme Tires");
-				li.setQuantity("2");
-				BigDecimal BigDec1 = new BigDecimal("20.00");
-				li.setUnitAmount(BigDec1);
-				BigDecimal BigDecLineAmount = new BigDecimal("40.00");
-				li.setLineAmount(BigDecLineAmount);
+				li.setQuantity(2f);
+				li.setUnitAmount(20.00f);
+				li.setLineAmount(40.00f);
 				li.setTaxType("NONE");
 				
 				myInvoice.addLineItemsItem(li);
@@ -1781,13 +1760,13 @@ public class RequestResourceServlet extends HttpServlet
 				
 				// GET all Link Transactions
 				
-				BigDecimal pageNum = new BigDecimal("1");
+				int page = 1;
 				String linkedTransactionID = null;
 				String sourceTransactionID = null;
 				String targetTransactionID = null;
 				String status = null;
 				String contactID = null;
-				LinkedTransactions linkTransactions = accountingApi.getLinkedTransactions(pageNum, linkedTransactionID, sourceTransactionID, contactID, status, targetTransactionID);
+				LinkedTransactions linkTransactions = accountingApi.getLinkedTransactions(page, linkedTransactionID, sourceTransactionID, contactID, status, targetTransactionID);
 				messages.add("Get Link Transactions - total : " + linkTransactions.getLinkedTransactions().size());
 				
 				// GET all Link Transactions
@@ -1834,7 +1813,7 @@ public class RequestResourceServlet extends HttpServlet
 				messages.add("Create Manual Journal - Narration : " + createdManualJournals.getManualJournals().get(0).getNarration());
 				
 				// GET all Manual Journal
-				ManualJournals getManualJournals = accountingApi.getManualJournals(ifModifiedSince, where, order, page);
+				ManualJournals getManualJournals = accountingApi.getManualJournals(ifModifiedSince, where, order, null);
 				messages.add("Get Manual Journal - total : " + getManualJournals.getManualJournals().size());
 				
 				// GET one Manual Journal
@@ -1875,7 +1854,7 @@ public class RequestResourceServlet extends HttpServlet
 			Account arAccount = arAccounts.getAccounts().get(0);
 			where = null;
 			
-			Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+			Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
 			Contact useContact = new Contact();
 			useContact.setContactID(contacts.getContacts().get(0).getContactID());
 			
@@ -1885,9 +1864,8 @@ public class RequestResourceServlet extends HttpServlet
 				LineItem li = new LineItem();
 				li.setAccountCode(arAccount.getCode());
 				li.setDescription("Foobar");
-				li.setQuantity("1");
-				BigDecimal BigDec1 = new BigDecimal("20.00");
-				li.setUnitAmount(BigDec1);
+				li.setQuantity(1f);
+				li.setUnitAmount(20.00f);
 				lineItems.add(li);
 				
 				BankTransaction bt = new BankTransaction();
@@ -1899,7 +1877,7 @@ public class RequestResourceServlet extends HttpServlet
 				bts.addBankTransactionsItem(bt);					
 				BankTransactions newBankTransaction = accountingApi.createBankTransaction(bts, summarizeErrors);
 				
-				Overpayments overpayments = accountingApi.getOverpayments(ifModifiedSince, where, order, page);
+				Overpayments overpayments = accountingApi.getOverpayments(ifModifiedSince, where, order, null);
 				messages.add("Get a Overpayments - Count : " + overpayments.getOverpayments().size());
 				
 				if(overpayments.getOverpayments().size() > 0) {	
@@ -1908,15 +1886,14 @@ public class RequestResourceServlet extends HttpServlet
 					messages.add("Get one Overpayment - Total : " + oneOverpayment.getOverpayments().get(0).getTotal());					
 					
 				    where = "Status==\"AUTHORISED\"&&Type==\"ACCREC\"";					
-					Invoices allInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp);
+					Invoices allInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp);
 					Invoice inv = new Invoice();
 					inv.setInvoiceID(allInvoices.getInvoices().get(0).getInvoiceID());
 					where = null;
 					
 					Allocations allocations = new Allocations();
 					Allocation allocation = new Allocation();
-					BigDecimal allocAmt = new BigDecimal("1.00");
-					allocation.setAmount(allocAmt);
+					allocation.setAmount(1.0f);
 					allocation.setInvoice(inv);
 					allocations.addAllocationsItem(allocation);
 					
@@ -1944,7 +1921,7 @@ public class RequestResourceServlet extends HttpServlet
 			/* Payment 	*/
 			// CREATE payment
 			where =  "Status==\"AUTHORISED\"&&Type==\"ACCREC\"";			
-			Invoices allInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp);
+			Invoices allInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp);
 			Invoice inv = new Invoice();
 			inv.setInvoiceID(allInvoices.getInvoices().get(0).getInvoiceID());
 			where = null;
@@ -1959,8 +1936,7 @@ public class RequestResourceServlet extends HttpServlet
 			Payment createPayment = new Payment();
 			createPayment.setAccount(paymentAccount);
 			createPayment.setInvoice(inv);
-			BigDecimal paymentAmt = new BigDecimal("1.00");
-			createPayment.setAmount(paymentAmt);
+			createPayment.setAmount(1.00f);
 			createPayment.setDate("11-1-2018");
 			createPayments.addPaymentsItem(createPayment);
 			
@@ -2022,7 +1998,7 @@ public class RequestResourceServlet extends HttpServlet
 			Account arAccount = arAccounts.getAccounts().get(0);
 			where = null;
 			
-			Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+			Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
 			Contact useContact = new Contact();
 			useContact.setContactID(contacts.getContacts().get(0).getContactID());
 			
@@ -2032,10 +2008,9 @@ public class RequestResourceServlet extends HttpServlet
 				LineItem li = new LineItem();
 				li.setAccountCode(arAccount.getCode());
 				li.setDescription("Foobar");
-				li.setQuantity("1");
+				li.setQuantity(1f);
 				li.setTaxType("NONE");
-				BigDecimal BigDec1 = new BigDecimal("20.00");
-				li.setUnitAmount(BigDec1);
+				li.setUnitAmount(20.00f);
 				lineItems.add(li);
 				
 				BankTransaction bt = new BankTransaction();
@@ -2047,7 +2022,7 @@ public class RequestResourceServlet extends HttpServlet
 				bts.addBankTransactionsItem(bt);					
 				BankTransactions newBankTransaction = accountingApi.createBankTransaction(bts, summarizeErrors);
 				
-				Prepayments prepayments = accountingApi.getPrepayments(ifModifiedSince, where, order, page);
+				Prepayments prepayments = accountingApi.getPrepayments(ifModifiedSince, where, order, null);
 				messages.add("Get a Prepayments - Count : " + prepayments.getPrepayments().size());
 				
 				if(prepayments.getPrepayments().size() > 0) {	
@@ -2068,7 +2043,7 @@ public class RequestResourceServlet extends HttpServlet
 				PurchaseOrders purchaseOrders = new PurchaseOrders();
 				PurchaseOrder purchaseOrder = new PurchaseOrder();
 				purchaseOrder.setDate("11-01-2018");
-				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
 				Contact useContact = new Contact();
 				useContact.setContactID(contacts.getContacts().get(0).getContactID());
 				purchaseOrder.setContact(useContact);
@@ -2077,9 +2052,8 @@ public class RequestResourceServlet extends HttpServlet
 				LineItem li = new LineItem();
 				li.setAccountCode(arAccount.getCode());
 				li.setDescription("Foobar");
-				li.setQuantity("1");
-				BigDecimal BigDec1 = new BigDecimal("20.00");
-				li.setUnitAmount(BigDec1);
+				li.setQuantity(1f);
+				li.setUnitAmount(20.00f);
 				lineItems.add(li);
 				purchaseOrder.setLineItems(lineItems);
 				purchaseOrders.addPurchaseOrdersItem(purchaseOrder);
@@ -2096,7 +2070,7 @@ public class RequestResourceServlet extends HttpServlet
 				String status = null;
 				String dateFrom = null;
 				String dateTo = null;
-				PurchaseOrders allPurchaseOrders = accountingApi.getPurchaseOrders(ifModifiedSince, status, dateFrom, dateTo, order, page);
+				PurchaseOrders allPurchaseOrders = accountingApi.getPurchaseOrders(ifModifiedSince, status, dateFrom, dateTo, order, null);
 				messages.add("Get Purchase orders - Count : " + allPurchaseOrders.getPurchaseOrders().size());					
 			
 				// GET one Purchase Order
@@ -2139,7 +2113,7 @@ public class RequestResourceServlet extends HttpServlet
 				User useUser = new User();
 				useUser.setUserID(users.getUsers().get(0).getUserID());
 					
-				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
 				Contact useContact = new Contact();
 				useContact.setContactID(contacts.getContacts().get(0).getContactID());
 					
@@ -2150,11 +2124,9 @@ public class RequestResourceServlet extends HttpServlet
 				LineItem li = new LineItem();
 				li.setAccountCode(accounts.getAccounts().get(0).getCode());
 				li.setDescription("Foobar");
-				li.setQuantity("2");
-				BigDecimal BigDec1 = new BigDecimal("20.00");
-				li.setUnitAmount(BigDec1);
-				BigDecimal BigDecLineAmount = new BigDecimal("40.00");
-				li.setLineAmount(BigDecLineAmount);
+				li.setQuantity(2f);
+				li.setUnitAmount(20.00f);
+				li.setLineAmount(40.00f);
 				li.setTaxType("NONE");
 				
 				receipt.addLineitemsItem(li);
@@ -2241,8 +2213,6 @@ public class RequestResourceServlet extends HttpServlet
 			String date = null;
 			String fromDate = null;
 			String toDate = null;
-			BigDecimal periods  = null;
-			BigDecimal timeframe = null;
 			String profitLossTimeframe = null;
 			String trackingOptionID1 = null;
 			String trackingOptionID2 = null;
@@ -2252,7 +2222,7 @@ public class RequestResourceServlet extends HttpServlet
 			String trackingCategoryID2 = null;
 			String trackingOptionID = null;
 			
-			Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+			Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
 			UUID contactId = contacts.getContacts().get(0).getContactID();
 			ReportWithRows reportAgedPayablesByContact = accountingApi.getReportAgedPayablesByContact(contactId, date, fromDate, toDate);
 			messages.add("Get a Reports - Name:" + reportAgedPayablesByContact.getReports().get(0).getReportName());
@@ -2262,12 +2232,11 @@ public class RequestResourceServlet extends HttpServlet
 			messages.add("Get a Reports - Name:" + reportAgedReceivablesByContact.getReports().get(0).getReportName());
 			
 			// reportBalanceSheet
-			ReportWithRows reportBalanceSheet = accountingApi.getReportBalanceSheet(toDate, periods, timeframe, trackingOptionID1, trackingOptionID2, standardLayout, paymentsOnly);
+			ReportWithRows reportBalanceSheet = accountingApi.getReportBalanceSheet(toDate, null, null, trackingOptionID1, trackingOptionID2, standardLayout, paymentsOnly);
 			messages.add("Get a Reports - Name:" + reportBalanceSheet.getReports().get(0).getReportName());
 			
 			// reportBankSummary
-			BigDecimal period = null;
-			ReportWithRows reportBankSummary = accountingApi.getReportBankSummary(toDate, period, timeframe);
+			ReportWithRows reportBankSummary = accountingApi.getReportBankSummary(toDate, null, null);
 			messages.add("Get a Reports - Name:" + reportBankSummary.getReports().get(0).getReportName());
 			
 			// reportBASorGSTlist - AU and NZ only
@@ -2279,15 +2248,15 @@ public class RequestResourceServlet extends HttpServlet
 			messages.add("Get a Reports - Name:" + reportExecutiveSummary.getReports().get(0).getReportName());
 			
 			// reportProfitandLoss
-			fromDate = "2018-07-01";
-		    toDate = "2018-11-30";
-			
+			fromDate = "2018-01-01";
+		    toDate = "2018-12-31";
 		    profitLossTimeframe = "MONTH";
-			ReportWithRows reportProfitLoss = accountingApi.getReportProfitAndLoss(fromDate, toDate, periods, profitLossTimeframe, trackingCategoryID, trackingCategoryID2, trackingOptionID, trackingOptionID2, standardLayout, paymentsOnly);
+		    standardLayout = true;
+		    paymentsOnly = false;
+			ReportWithRows reportProfitLoss = accountingApi.getReportProfitAndLoss(fromDate, toDate, null, profitLossTimeframe, trackingCategoryID, trackingCategoryID2, trackingOptionID, trackingOptionID2, standardLayout, paymentsOnly);
 			messages.add("Get a Reports - Name:" + reportProfitLoss.getReports().get(0).getReportName());
 			fromDate = null;
 		    toDate = null;
-			
 			System.out.println(reportProfitLoss.toString());
 			
 			
@@ -2303,7 +2272,7 @@ public class RequestResourceServlet extends HttpServlet
 				TaxRate newTaxRate = new TaxRate();
 				TaxComponent rate01 = new TaxComponent();
 				rate01.setName("State Tax");
-				rate01.setRate(new BigDecimal("2.25"));
+				rate01.setRate(2.25f);
 				newTaxRate.setName("SDKTax"+SampleData.loadRandomNum());
 				newTaxRate.addTaxComponentsItem(rate01);
 				newTaxRates.addTaxRatesItem(newTaxRate);
@@ -2409,7 +2378,7 @@ public class RequestResourceServlet extends HttpServlet
 			}
 					
 			try {
-				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
 				Contact useContact = new Contact();
 				useContact.setContactID(contacts.getContacts().get(0).getContactID());
 				
@@ -2419,11 +2388,9 @@ public class RequestResourceServlet extends HttpServlet
 				LineItem li = new LineItem();
 				li.setAccountCode("123456789");
 				li.setDescription("Acme Tires");
-				li.setQuantity("2");
-				BigDecimal BigDec1 = new BigDecimal("20.00");
-				li.setUnitAmount(BigDec1);
-				BigDecimal BigDecLineAmount = new BigDecimal("40.00");
-				li.setLineAmount(BigDecLineAmount);
+				li.setQuantity(2f);
+				li.setUnitAmount(20.00f);
+				li.setLineAmount(40.00f);
 				li.setTaxType("NONE");
 				
 				myInvoice.addLineItemsItem(li);
@@ -2460,7 +2427,7 @@ public class RequestResourceServlet extends HttpServlet
 				}
 			}
 			
-			Contacts ContactList = accountingApi.getContacts(ifModifiedSince, where, order, ids, page, includeArchived);
+			Contacts ContactList = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
 			int num4 = SampleData.findRandomNum(ContactList.getContacts().size());			
 			UUID contactId = ContactList.getContacts().get(num4).getContactID();
 			try {

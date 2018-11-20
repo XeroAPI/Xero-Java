@@ -48,9 +48,9 @@ public class XeroExceptionHandler {
      * For example: if you use {@link com.xero.api.XeroClient#createPayments(List)} and this fails
      * with a XeroApiException, you can extract details from the exception with the following code example.
      * <pre>
-     * List<{@link com.xero.model.Elements}> elements = xeroApiException.getApiException().getElements();
+     * List&lt;{@link com.xero.model.Elements}&gt; elements = xeroApiException.getApiException().getElements();
      * {@link com.xero.model.Elements} element = elements.get(0);
-     * List<{@link Object}> dataContractBase = element.getDataContractBase();
+     * List&lt;{@link Object}&gt; dataContractBase = element.getDataContractBase();
      * for (Object dataContract : dataContractBase) {
      *      {@link com.xero.model.Payment} failedPayment = ({@link com.xero.model.Payment}) dataContract;
      *      {@link com.xero.model.ArrayOfValidationError} validationErrors = failedPayment.getValidationErrors();
@@ -61,9 +61,9 @@ public class XeroExceptionHandler {
      * Or if you use {@link com.xero.api.XeroClient#createInvoices(List)} and this fails
      * with a XeroApiException, you can extract details from the exception with the following code example.
      * <pre>
-     * List<{@link com.xero.model.Elements}> elements = xeroApiException.getApiException().getElements();
+     * List&lt;{@link com.xero.model.Elements}&gt; elements = xeroApiException.getApiException().getElements();
      * {@link com.xero.model.Elements} element = elements.get(0);
-     * List<{@link Object}> dataContractBase = element.getDataContractBase();
+     * List&lt;{@link Object}&gt; dataContractBase = element.getDataContractBase();
      * for (Object dataContract : dataContractBase) {
      *      {@link com.xero.model.Invoice} failedInvoice = ({@link com.xero.model.Invoice}) dataContract;
      *      {@link com.xero.model.ArrayOfValidationError} validationErrors = failedInvoice.getValidationErrors();

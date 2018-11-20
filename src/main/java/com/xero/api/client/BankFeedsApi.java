@@ -15,7 +15,9 @@ import com.xero.api.*;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.threeten.bp.OffsetDateTime;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -78,21 +80,38 @@ public class BankFeedsApi {
         this.tokenSecret = tokenSecret;
     }
 
-    protected String POST(String url, String body, Map<String, String> params, Date modifiedAfter) throws IOException {
+    
+    protected String DATA(String url, String body, Map<String, String> params, String method) throws IOException {
+        return this.DATA(url,body,params,method,null, "application/json");
+    }
+
+    protected String DATA(String url, String body, Map<String, String> params, String method, OffsetDateTime ifModifiedSince) throws IOException {
+        return this.DATA(url,body,params,method,ifModifiedSince,"application/json");
+    }
+
+    protected String DATA(String url, String body, Map<String, String> params, String method, String contentType) throws IOException {
+        return this.DATA(url,body,params,method,null,contentType);
+    }
+
+    protected String DATA(String url, String body, Map<String, String> params, String method, OffsetDateTime ifModifiedSince, String contentType) throws IOException {
         
         OAuthRequestResource req = new OAuthRequestResource(
             config, 
             signerFactory, 
             url, 
-            "POST", 
+            method, 
             body, 
             params,
-            "application/json",
+            contentType,
             "application/json");
         
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
-       
+        
+        if (ifModifiedSince != null) {
+            req.setIfModifiedSince(ifModifiedSince);
+        }
+
         try {
             Map<String, String>  resp = req.execute();
             Object r = resp.get("content");
@@ -102,21 +121,25 @@ public class BankFeedsApi {
         }
     }
 
-    protected String PUT(String url, String body, Map<String, String> params, Date modifiedAfter) throws IOException {
+    protected String DATA(String url, String body, Map<String, String> params, String method, String xeroApplicationId, String xeroTenantId, String xeroUserId) throws IOException {
         
         OAuthRequestResource req = new OAuthRequestResource(
             config, 
             signerFactory, 
             url, 
-            "PUT", 
+            method, 
             body, 
             params,
-            "application/json",
+            null,
             "application/json");
         
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
-       
+        
+        //if (ifModifiedSince != null) {
+        //    req.setIfModifiedSince(ifModifiedSince);
+        //}
+
         try {
             Map<String, String>  resp = req.execute();
             Object r = resp.get("content");
@@ -126,49 +149,49 @@ public class BankFeedsApi {
         }
     }
 
-    protected String DELETE(String url, String body, Map<String, String> params, Date modifiedAfter) throws IOException {
+   
+    protected ByteArrayInputStream FILE(String url, String body, Map<String, String> params, String method) throws IOException {
+       return this.FILE(url,body,params,method,"application/octet-stream");
+    }
+
+    protected ByteArrayInputStream FILE(String url, String body, Map<String, String> params, String method, String accept) throws IOException {
         
         OAuthRequestResource req = new OAuthRequestResource(
             config, 
             signerFactory, 
             url, 
-            "DELETE", 
+            method, 
             body, 
             params,
-            "application/json",
+            accept,
             "application/json");
         
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
-       
+        
         try {
-            Map<String, String>  resp = req.execute();
-            Object r = resp.get("content");
-            return r.toString();
+            ByteArrayInputStream resp = req.executefile();
+            return resp;
         } catch (IOException ioe) {
              throw xeroExceptionHandler.convertException(ioe);
         }
     }
 
-    protected String GET(String url, String body, Map<String, String> params, Date modifiedAfter) throws IOException {
+    protected String FILE(String url, String body, Map<String, String> params, String method, byte[] byteBody) throws IOException {
         
         OAuthRequestResource req = new OAuthRequestResource(
             config, 
             signerFactory, 
             url, 
-            "GET", 
-            null, 
+            method,
+            "application/octet-stream",
+            byteBody, 
             params,
-            "application/json",
             "application/json");
         
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
-        
-        if (modifiedAfter != null) {
-            req.setIfModifiedSince(modifiedAfter);
-        }
-
+       
         try {
             Map<String, String>  resp = req.execute();
             Object r = resp.get("content");
@@ -187,25 +210,29 @@ public class BankFeedsApi {
     * @return FeedConnections
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public FeedConnections createFeedConnections(FeedConnections feedConnections, Map<String, String> params) throws IOException {
-        
+    public FeedConnections createFeedConnections(FeedConnections feedConnections) throws IOException {
+        //, Map<String, String> params
         try {
-            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/FeedConnections");
+            String strBody = null;
+            Map<String, String> params = null;
+            String correctPath = "/FeedConnections";
+            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            String body = null;
-            Date modifiedAfter = null;
 
             ApiClient apiClient = new ApiClient();
-            body = apiClient.getObjectMapper().writeValueAsString(feedConnections);
-            String response = this.POST(url, body, params, modifiedAfter);
 
+            strBody = apiClient.getObjectMapper().writeValueAsString(feedConnections);
+                        
+            String response = this.DATA(url, strBody, params, "POST");
+                        
             TypeReference<FeedConnections> typeRef = new TypeReference<FeedConnections>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
-    
+
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
-            //throw xeroExceptionHandler.convertException(e);
+        } catch (XeroApiException e) {
+            throw xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode(),JSONUtils.isJSONValid(e.getMessage()));
         }
     }
   /**
@@ -219,25 +246,29 @@ public class BankFeedsApi {
     * @return Statements
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Statements createStatements(Statements statements, Map<String, String> params) throws IOException {
-        
+    public Statements createStatements(Statements statements) throws IOException {
+        //, Map<String, String> params
         try {
-            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Statements");
+            String strBody = null;
+            Map<String, String> params = null;
+            String correctPath = "/Statements";
+            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            String body = null;
-            Date modifiedAfter = null;
 
             ApiClient apiClient = new ApiClient();
-            body = apiClient.getObjectMapper().writeValueAsString(statements);
-            String response = this.POST(url, body, params, modifiedAfter);
 
+            strBody = apiClient.getObjectMapper().writeValueAsString(statements);
+                        
+            String response = this.DATA(url, strBody, params, "POST");
+                        
             TypeReference<Statements> typeRef = new TypeReference<Statements>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
-    
+
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
-            //throw xeroExceptionHandler.convertException(e);
+        } catch (XeroApiException e) {
+            throw xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode(),JSONUtils.isJSONValid(e.getMessage()));
         }
     }
   /**
@@ -249,25 +280,29 @@ public class BankFeedsApi {
     * @return FeedConnections
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public FeedConnections deleteFeedConnections(FeedConnections feedConnections, Map<String, String> params) throws IOException {
-        
+    public FeedConnections deleteFeedConnections(FeedConnections feedConnections) throws IOException {
+        //, Map<String, String> params
         try {
-            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/FeedConnections/DeleteRequests");
+            String strBody = null;
+            Map<String, String> params = null;
+            String correctPath = "/FeedConnections/DeleteRequests";
+            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            String body = null;
-            Date modifiedAfter = null;
 
             ApiClient apiClient = new ApiClient();
-            body = apiClient.getObjectMapper().writeValueAsString(feedConnections);
-            String response = this.POST(url, body, params, modifiedAfter);
-            System.out.println(response);
+
+            strBody = apiClient.getObjectMapper().writeValueAsString(feedConnections);
+                        
+            String response = this.DATA(url, strBody, params, "POST");
+                        
             TypeReference<FeedConnections> typeRef = new TypeReference<FeedConnections>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
-    
+
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
-            //throw xeroExceptionHandler.convertException(e);
+        } catch (XeroApiException e) {
+            throw xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode(),JSONUtils.isJSONValid(e.getMessage()));
         }
     }
   /**
@@ -279,27 +314,39 @@ public class BankFeedsApi {
     * @return FeedConnection
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public FeedConnection getFeedConnection(String id, Map<String, String> params) throws IOException {
-        
+    public FeedConnection getFeedConnection(String id) throws IOException {
+        //, Map<String, String> params
         try {
+            String strBody = null;
+            Map<String, String> params = null;
+            String correctPath = "/FeedConnections/{id}";
+            // Hacky path manipulation to support different return types from same endpoint
+            String path = "/FeedConnections/{id}";
+            String type = "/pdf";
+            if(path.toLowerCase().contains(type.toLowerCase()))
+            {
+                correctPath = path.replace("/pdf","");
+            } 
+
             // create a map of path variables
             final Map<String, String> uriVariables = new HashMap<String, String>();
             uriVariables.put("id", id.toString());
-            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/FeedConnections/{id}");
+            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            String body = null;
-            Date modifiedAfter = null;
 
             ApiClient apiClient = new ApiClient();
-            String response = this.GET(url, body, params, modifiedAfter);
-
+            
+            
+            String response = this.DATA(url, strBody, params, "GET");
+            
             TypeReference<FeedConnection> typeRef = new TypeReference<FeedConnection>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
-    
+
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
-            //throw xeroExceptionHandler.convertException(e);
+        } catch (XeroApiException e) {
+            throw xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode(),JSONUtils.isJSONValid(e.getMessage()));
         }
     }
   /**
@@ -312,24 +359,33 @@ public class BankFeedsApi {
     * @return FeedConnections
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public FeedConnections getFeedConnections(Map<String, String> params) throws IOException {
-        
+    public FeedConnections getFeedConnections(Integer page, Integer pageSize) throws IOException {
+        //, Map<String, String> params
         try {
-            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/FeedConnections");
+            String strBody = null;
+            Map<String, String> params = null;
+            String correctPath = "/FeedConnections";
+            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            String body = null;
-            Date modifiedAfter = null;
-
+            params = new HashMap<>();
+            if (page != null) {
+                addToMapIfNotNull(params, "page", page);
+            }if (pageSize != null) {
+                addToMapIfNotNull(params, "pageSize", pageSize);
+            }
             ApiClient apiClient = new ApiClient();
-            String response = this.GET(url, body, params, modifiedAfter);
-
+            
+            
+            String response = this.DATA(url, strBody, params, "GET");
+            
             TypeReference<FeedConnections> typeRef = new TypeReference<FeedConnections>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
-    
+
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
-            //throw xeroExceptionHandler.convertException(e);
+        } catch (XeroApiException e) {
+            throw xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode(),JSONUtils.isJSONValid(e.getMessage()));
         }
     }
   /**
@@ -339,27 +395,39 @@ public class BankFeedsApi {
     * @return Statement
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Statement getStatement(String statementId, Map<String, String> params) throws IOException {
-        
+    public Statement getStatement(String statementId) throws IOException {
+        //, Map<String, String> params
         try {
+            String strBody = null;
+            Map<String, String> params = null;
+            String correctPath = "/Statements/{statementId}";
+            // Hacky path manipulation to support different return types from same endpoint
+            String path = "/Statements/{statementId}";
+            String type = "/pdf";
+            if(path.toLowerCase().contains(type.toLowerCase()))
+            {
+                correctPath = path.replace("/pdf","");
+            } 
+
             // create a map of path variables
             final Map<String, String> uriVariables = new HashMap<String, String>();
             uriVariables.put("statementId", statementId.toString());
-            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Statements/{statementId}");
+            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            String body = null;
-            Date modifiedAfter = null;
 
             ApiClient apiClient = new ApiClient();
-            String response = this.GET(url, body, params, modifiedAfter);
-
+            
+            
+            String response = this.DATA(url, strBody, params, "GET");
+            
             TypeReference<Statement> typeRef = new TypeReference<Statement>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
-    
+
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
-            //throw xeroExceptionHandler.convertException(e);
+        } catch (XeroApiException e) {
+            throw xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode(),JSONUtils.isJSONValid(e.getMessage()));
         }
     }
   /**
@@ -373,24 +441,41 @@ public class BankFeedsApi {
     * @return Statements
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Statements getStatements(Map<String, String> params) throws IOException {
-        
+    public Statements getStatements(Integer page, Integer pageSize, String xeroApplicationId, String xeroTenantId, String xeroUserId) throws IOException {
+        //, Map<String, String> params
         try {
-            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Statements");
+            String strBody = null;
+            Map<String, String> params = null;
+            String correctPath = "/Statements";
+            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            String body = null;
-            Date modifiedAfter = null;
-
+            params = new HashMap<>();
+            if (page != null) {
+                addToMapIfNotNull(params, "page", page);
+            }if (pageSize != null) {
+                addToMapIfNotNull(params, "pageSize", pageSize);
+            }
             ApiClient apiClient = new ApiClient();
-            String response = this.GET(url, body, params, modifiedAfter);
-
+            
+            
+            String response = this.DATA(url, strBody, params, "GET", xeroApplicationId, xeroTenantId, xeroUserId);
+            
             TypeReference<Statements> typeRef = new TypeReference<Statements>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
-    
+
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
-            //throw xeroExceptionHandler.convertException(e);
+        } catch (XeroApiException e) {
+            throw xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode(),JSONUtils.isJSONValid(e.getMessage()));
         }
     }
+
+    protected void addToMapIfNotNull(Map<String, String> map, String key, Object value) {
+        if (value != null) {
+            map.put(key, value.toString());
+        }
+    }
+
 }
+

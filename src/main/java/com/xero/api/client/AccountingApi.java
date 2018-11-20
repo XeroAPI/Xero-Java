@@ -10,7 +10,6 @@ import com.xero.models.accounting.Attachments;
 import com.xero.models.accounting.BankTransactions;
 import com.xero.models.accounting.BankTransfers;
 import com.xero.models.accounting.BatchPayments;
-import java.math.BigDecimal;
 import com.xero.models.accounting.BrandingThemes;
 import com.xero.models.accounting.CISSettings;
 import com.xero.models.accounting.Contact;
@@ -58,7 +57,7 @@ import com.xero.api.*;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
+import org.threeten.bp.OffsetDateTime;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -154,6 +153,34 @@ public class AccountingApi {
         if (ifModifiedSince != null) {
             req.setIfModifiedSince(ifModifiedSince);
         }
+
+        try {
+            Map<String, String>  resp = req.execute();
+            Object r = resp.get("content");
+            return r.toString();
+        } catch (IOException ioe) {
+             throw xeroExceptionHandler.convertException(ioe);
+        }
+    }
+
+    protected String DATA(String url, String body, Map<String, String> params, String method, String xeroApplicationId, String xeroTenantId, String xeroUserId) throws IOException {
+        
+        OAuthRequestResource req = new OAuthRequestResource(
+            config, 
+            signerFactory, 
+            url, 
+            method, 
+            body, 
+            params,
+            null,
+            "application/json");
+        
+        req.setToken(token);
+        req.setTokenSecret(tokenSecret);
+        
+        //if (ifModifiedSince != null) {
+        //    req.setIfModifiedSince(ifModifiedSince);
+        //}
 
         try {
             Map<String, String>  resp = req.execute();
@@ -2888,7 +2915,7 @@ public class AccountingApi {
     * @return BankTransactions
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public BankTransactions getBankTransactions(OffsetDateTime ifModifiedSince, String where, String order, BigDecimal page) throws IOException {
+    public BankTransactions getBankTransactions(OffsetDateTime ifModifiedSince, String where, String order, Integer page) throws IOException {
         //, Map<String, String> params
         try {
             String strBody = null;
@@ -3752,7 +3779,7 @@ public class AccountingApi {
     * @return Contacts
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Contacts getContacts(OffsetDateTime ifModifiedSince, String where, String order, String ids, BigDecimal page, Boolean includeArchived) throws IOException {
+    public Contacts getContacts(OffsetDateTime ifModifiedSince, String where, String order, String ids, Integer page, Boolean includeArchived) throws IOException {
         //, Map<String, String> params
         try {
             String strBody = null;
@@ -4050,7 +4077,7 @@ public class AccountingApi {
     * @return CreditNotes
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public CreditNotes getCreditNotes(OffsetDateTime ifModifiedSince, String where, String order, BigDecimal page) throws IOException {
+    public CreditNotes getCreditNotes(OffsetDateTime ifModifiedSince, String where, String order, Integer page) throws IOException {
         //, Map<String, String> params
         try {
             String strBody = null;
@@ -4619,7 +4646,7 @@ public class AccountingApi {
     * @return Invoices
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Invoices getInvoices(OffsetDateTime ifModifiedSince, String where, String order, String ids, String invoiceNumbers, String contactIDs, String statuses, BigDecimal page, Boolean includeArchived, Boolean createdByMyApp) throws IOException {
+    public Invoices getInvoices(OffsetDateTime ifModifiedSince, String where, String order, String ids, String invoiceNumbers, String contactIDs, String statuses, Integer page, Boolean includeArchived, Boolean createdByMyApp) throws IOException {
         //, Map<String, String> params
         try {
             String strBody = null;
@@ -4835,7 +4862,7 @@ public class AccountingApi {
     * @return Journals
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Journals getJournals(OffsetDateTime ifModifiedSince, BigDecimal offset, Boolean paymentsOnly) throws IOException {
+    public Journals getJournals(OffsetDateTime ifModifiedSince, Integer offset, Boolean paymentsOnly) throws IOException {
         //, Map<String, String> params
         try {
             String strBody = null;
@@ -4918,7 +4945,7 @@ public class AccountingApi {
     * @return LinkedTransactions
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public LinkedTransactions getLinkedTransactions(BigDecimal page, String linkedTransactionID, String sourceTransactionID, String contactID, String status, String targetTransactionID) throws IOException {
+    public LinkedTransactions getLinkedTransactions(Integer page, String linkedTransactionID, String sourceTransactionID, String contactID, String status, String targetTransactionID) throws IOException {
         //, Map<String, String> params
         try {
             String strBody = null;
@@ -5136,7 +5163,7 @@ public class AccountingApi {
     * @return ManualJournals
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public ManualJournals getManualJournals(OffsetDateTime ifModifiedSince, String where, String order, BigDecimal page) throws IOException {
+    public ManualJournals getManualJournals(OffsetDateTime ifModifiedSince, String where, String order, Integer page) throws IOException {
         //, Map<String, String> params
         try {
             String strBody = null;
@@ -5375,7 +5402,7 @@ public class AccountingApi {
     * @return Overpayments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Overpayments getOverpayments(OffsetDateTime ifModifiedSince, String where, String order, BigDecimal page) throws IOException {
+    public Overpayments getOverpayments(OffsetDateTime ifModifiedSince, String where, String order, Integer page) throws IOException {
         //, Map<String, String> params
         try {
             String strBody = null;
@@ -5610,7 +5637,7 @@ public class AccountingApi {
     * @return Prepayments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Prepayments getPrepayments(OffsetDateTime ifModifiedSince, String where, String order, BigDecimal page) throws IOException {
+    public Prepayments getPrepayments(OffsetDateTime ifModifiedSince, String where, String order, Integer page) throws IOException {
         //, Map<String, String> params
         try {
             String strBody = null;
@@ -5737,7 +5764,7 @@ public class AccountingApi {
     * @return PurchaseOrders
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public PurchaseOrders getPurchaseOrders(OffsetDateTime ifModifiedSince, String status, String dateFrom, String dateTo, String order, BigDecimal page) throws IOException {
+    public PurchaseOrders getPurchaseOrders(OffsetDateTime ifModifiedSince, String status, String dateFrom, String dateTo, String order, Integer page) throws IOException {
         //, Map<String, String> params
         try {
             String strBody = null;
@@ -6444,7 +6471,7 @@ public class AccountingApi {
     * @return ReportWithRows
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public ReportWithRows getReportBalanceSheet(String date, BigDecimal periods, BigDecimal timeframe, String trackingOptionID1, String trackingOptionID2, Boolean standardLayout, Boolean paymentsOnly) throws IOException {
+    public ReportWithRows getReportBalanceSheet(String date, Integer periods, Integer timeframe, String trackingOptionID1, String trackingOptionID2, Boolean standardLayout, Boolean paymentsOnly) throws IOException {
         //, Map<String, String> params
         try {
             String strBody = null;
@@ -6492,7 +6519,7 @@ public class AccountingApi {
     * @return ReportWithRows
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public ReportWithRows getReportBankSummary(String date, BigDecimal period, BigDecimal timeframe) throws IOException {
+    public ReportWithRows getReportBankSummary(String date, Integer period, Integer timeframe) throws IOException {
         //, Map<String, String> params
         try {
             String strBody = null;
@@ -6573,7 +6600,7 @@ public class AccountingApi {
     * @return ReportWithRows
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public ReportWithRows getReportProfitAndLoss(String fromDate, String toDate, BigDecimal periods, String timeframe, String trackingCategoryID, String trackingCategoryID2, String trackingOptionID, String trackingOptionID2, Boolean standardLayout, Boolean paymentsOnly) throws IOException {
+    public ReportWithRows getReportProfitAndLoss(String fromDate, String toDate, Integer periods, String timeframe, String trackingCategoryID, String trackingCategoryID2, String trackingOptionID, String trackingOptionID2, Boolean standardLayout, Boolean paymentsOnly) throws IOException {
         //, Map<String, String> params
         try {
             String strBody = null;

@@ -127,7 +127,8 @@ public class OAuthParameters implements HttpExecuteInterceptor, HttpRequestIniti
 	/**
 	 * Computes a new signature based on the fields and the given request method and URL, setting the
 	 * values of the {@link #signature} and {@link #signatureMethod} fields.
-	 *
+     * @param requestUrl The full URL including paramters
+     * @param requestMethod The REST verb GET, PUT, POST, DELETE
 	 * @throws GeneralSecurityException general security exception
 	 */
 	public void computeSignature(String requestMethod, GenericUrl requestUrl)
@@ -210,6 +211,7 @@ public class OAuthParameters implements HttpExecuteInterceptor, HttpRequestIniti
 	/**
 	 * Returns the {@code Authorization} header value to use with the OAuth parameter values found in
 	 * the fields.
+     * @return String
 	 */
 	public String getAuthorizationHeader() 
 	{
@@ -249,7 +251,10 @@ public class OAuthParameters implements HttpExecuteInterceptor, HttpRequestIniti
 		parameters.put(escape(key), value == null ? null : escape(value.toString()));
 	}
 
-	/** Returns the escaped form of the given value using OAuth escaping rules. */
+	/** Returns the escaped form of the given value using OAuth escaping rules. 
+    * @param value The string value you wish to escape
+    * @return String
+	*/
 	public static String escape(String value) 
 	{
 		return ESCAPER.escape(value);

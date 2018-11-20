@@ -1,5 +1,7 @@
 # Xero-Java
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.xeroapi/xero-java/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.xeroapi/xero-java)
+
 This is the official Java SDK for Xero's API. It supports accounting, fixed asset and bank feed API endpoints. All third party libraries dependencies managed with Maven.
 
 
@@ -70,28 +72,11 @@ Start by deciding which type of Xero app you'll be building [Private](http://dev
 For those using maven, add the dependency and repository to your pom.xml
 
     <dependency>
-	  <groupId>com.xero</groupId>
-	  <artifactId>xero-java-sdk</artifactId>
-	  <version>2.0.2</version>
+      <groupId>com.github.xeroapi</groupId>
+      <artifactId>xero-java</artifactId>
+      <version>2.1.0</version>
 	</dependency>
 
-    <repositories>
-      <repository>
-        <id>xero-java-mvn-repo</id>
-	    <url>https://raw.github.com/XeroAPI/Xero-Java/mvn-repo/</url>
-	    <snapshots>
-	      <enabled>true</enabled>
-	      <updatePolicy>always</updatePolicy>
-	    </snapshots>
-      </repository>
-    </repositories>
-
-### Where are the jars?
-
-You can download the latest build as a jar file from the *mvn-repo* branch of this project.
-
-### Working with sbt?
-We have a build.sbt file defined in the root of this project.
 
 ### Default Configuration
 The SDK uses a config.json file to manage API keys along with other configuration values.  The SDK will look for a file *config.json* in a source folder called *resources*.

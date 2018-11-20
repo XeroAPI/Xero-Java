@@ -86,7 +86,7 @@ public class XeroBankFeedTests {
 			FeedConnections arrayFeedConnections = new FeedConnections();
 			arrayFeedConnections.addItemsItem(newBank);
 			
-			FeedConnections fc = bankFeedsApi.createFeedConnections(arrayFeedConnections, null);
+			FeedConnections fc = bankFeedsApi.createFeedConnections(arrayFeedConnections);
 			
 			// ASSERT
 			assert(fc.getItems().size() > 0);
@@ -114,7 +114,7 @@ public class XeroBankFeedTests {
 			arrayFeedConnections.addItemsItem(newBank);
 			
 			bankFeedsApi.setOAuthToken(badToken, badTokenSecret);
-			FeedConnections fc = bankFeedsApi.createFeedConnections(arrayFeedConnections, null);
+			FeedConnections fc = bankFeedsApi.createFeedConnections(arrayFeedConnections);
 		
 		
 		} catch (XeroApiException e) {
@@ -140,7 +140,7 @@ public class XeroBankFeedTests {
         System.out.println("@Test - feedconnection_success_get_all");
 		
 		try {
-			FeedConnections fc = bankFeedsApi.getFeedConnections(null);
+			FeedConnections fc = bankFeedsApi.getFeedConnections(null,null);
 			
 			// ASSERT
 			assert(fc.getItems().size() > 0);
@@ -155,8 +155,8 @@ public class XeroBankFeedTests {
         System.out.println("@Test - feedconnection_success_get_one");
 		
 		try {
-			FeedConnections fc = bankFeedsApi.getFeedConnections(null);
-			FeedConnection oneFC = bankFeedsApi.getFeedConnection(fc.getItems().get(0).getId(),null);
+			FeedConnections fc = bankFeedsApi.getFeedConnections(null,null);
+			FeedConnection oneFC = bankFeedsApi.getFeedConnection(fc.getItems().get(0).getId());
 			
 			// ASSERT
 			assert(!"".equals(oneFC.getAccountToken()));
@@ -173,7 +173,7 @@ public class XeroBankFeedTests {
         System.out.println("@Test - feedconnection_success_delete");
         
         try {
-			FeedConnections fc = bankFeedsApi.getFeedConnections(null);
+			FeedConnections fc = bankFeedsApi.getFeedConnections(null,null);
 			Integer idx = (fc.getItems().size()-1);
 
 			// Create FeedConnection object
@@ -184,7 +184,7 @@ public class XeroBankFeedTests {
 			// Add FeedConnection Object
 			deleteFeedConnections.addItemsItem(feedConnectionOne);
 			// Call DELETE method
-			FeedConnections deletedFeedConnection = bankFeedsApi.deleteFeedConnections(deleteFeedConnections,null);
+			FeedConnections deletedFeedConnection = bankFeedsApi.deleteFeedConnections(deleteFeedConnections);
 			String actualStatus = deletedFeedConnection.getItems().get(0).getStatus().toString();
 	
 			// ASSERT
@@ -218,7 +218,7 @@ public class XeroBankFeedTests {
 			endBalance.setCreditDebitIndicator(CreditDebitIndicator.CREDIT);
 			newStatement.endBalance(endBalance);
 			
-			FeedConnections fc = bankFeedsApi.getFeedConnections(null);
+			FeedConnections fc = bankFeedsApi.getFeedConnections(null,null);
 			newStatement.setFeedConnectionId(fc.getItems().get(2).getId().toString());
 			
 			StatementLine newStatementLine = new StatementLine();
@@ -240,7 +240,7 @@ public class XeroBankFeedTests {
 			
 			newStatement.setStatementLines(arrayStatementLines);
 			arrayOfStatements.addItemsItem(newStatement);
-			Statements rStatements = bankFeedsApi.createStatements(arrayOfStatements, params);
+			Statements rStatements = bankFeedsApi.createStatements(arrayOfStatements);
 			
 			assert(rStatements.getItems().size() > 0);
 			System.out.println("Statement Status: " + rStatements.getItems().get(0).getStatus());
@@ -274,7 +274,7 @@ public class XeroBankFeedTests {
 			endBalance.setCreditDebitIndicator(CreditDebitIndicator.CREDIT);
 			newStatement.endBalance(endBalance);
 			
-			FeedConnections fc = bankFeedsApi.getFeedConnections(null);
+			FeedConnections fc = bankFeedsApi.getFeedConnections(null, null);
 
 			if (fc.getItems().size() > 2) {
 				
@@ -337,7 +337,7 @@ public class XeroBankFeedTests {
 				arrayOfStatements.addItemsItem(newStatement2);
 
 				Map<String, String> params = null;
-				Statements rStatements = bankFeedsApi.createStatements(arrayOfStatements, params);
+				Statements rStatements = bankFeedsApi.createStatements(arrayOfStatements);
 				assert(rStatements.getItems().size() > 0);
 				System.out.println("Statement Status: " + rStatements.getItems().get(0).getStatus());
 
@@ -368,7 +368,7 @@ public class XeroBankFeedTests {
         System.out.println("@Test - statement_success_get_all");
 		
         try {
-			Statements allStatements = bankFeedsApi.getStatements(params);
+			Statements allStatements = bankFeedsApi.getStatements(null, null, null, null, null);
 			assert(allStatements.getItems().size() > 0);
 			System.out.println("All Statments - Total: " + allStatements.getItems().size());
 		} catch (Exception e) {
@@ -399,7 +399,7 @@ public class XeroBankFeedTests {
 			endBalance.setCreditDebitIndicator(CreditDebitIndicator.CREDIT);
 			newStatement.endBalance(endBalance);
 			
-			FeedConnections fc = bankFeedsApi.getFeedConnections(null);
+			FeedConnections fc = bankFeedsApi.getFeedConnections(null, null);
 			newStatement.setFeedConnectionId(fc.getItems().get(2).getId().toString());
 			
 			StatementLine newStatementLine = new StatementLine();
@@ -421,10 +421,10 @@ public class XeroBankFeedTests {
 			arrayOfStatements.addItemsItem(newStatement);
 			
 			Map<String, String> params = null;
-			Statements rStatements = bankFeedsApi.createStatements(arrayOfStatements, params);
+			Statements rStatements = bankFeedsApi.createStatements(arrayOfStatements);
 			
 			String statementId = rStatements.getItems().get(0).getId();
-			Statement oneStatement = bankFeedsApi.getStatement(statementId, params);	
+			Statement oneStatement = bankFeedsApi.getStatement(statementId);	
 			String actualStatus = oneStatement.getStatus().toString();
 	
 			// ASSERT
@@ -459,7 +459,7 @@ public class XeroBankFeedTests {
 			endBalance.setCreditDebitIndicator(CreditDebitIndicator.CREDIT);
 			newStatement.endBalance(endBalance);
 			
-			FeedConnections fc = bankFeedsApi.getFeedConnections(null);
+			FeedConnections fc = bankFeedsApi.getFeedConnections(null,null);
 			newStatement.setFeedConnectionId(fc.getItems().get(2).getId().toString());
 			
 			StatementLine newStatementLine = new StatementLine();
@@ -478,9 +478,9 @@ public class XeroBankFeedTests {
 			
 			newStatement.setStatementLines(arrayStatementLines);
 			arrayOfStatements.addItemsItem(newStatement);
-			Statements rStatements = bankFeedsApi.createStatements(arrayOfStatements, params);
+			Statements rStatements = bankFeedsApi.createStatements(arrayOfStatements);
 		
-			Statement oneStatement = bankFeedsApi.getStatement(rStatements.getItems().get(0).getId(), params);			
+			Statement oneStatement = bankFeedsApi.getStatement(rStatements.getItems().get(0).getId());			
 			String actualStatus = oneStatement.getStatus().toString();
 	
 			// ASSERT
@@ -515,7 +515,7 @@ public class XeroBankFeedTests {
 			endBalance.setCreditDebitIndicator(CreditDebitIndicator.CREDIT);
 			newStatement.endBalance(endBalance);
 			
-			FeedConnections fc = bankFeedsApi.getFeedConnections(null);
+			FeedConnections fc = bankFeedsApi.getFeedConnections(null,null);
 			newStatement.setFeedConnectionId(fc.getItems().get(2).getId().toString());
 			
 			StatementLine newStatementLine = new StatementLine();
@@ -534,10 +534,10 @@ public class XeroBankFeedTests {
 			
 			newStatement.setStatementLines(arrayStatementLines);
 			arrayOfStatements.addItemsItem(newStatement);
-			Statements rStatements = bankFeedsApi.createStatements(arrayOfStatements, null);
+			Statements rStatements = bankFeedsApi.createStatements(arrayOfStatements);
 			
 			//DUPLICATE
-			Statements rStatements2 = bankFeedsApi.createStatements(arrayOfStatements, null);
+			Statements rStatements2 = bankFeedsApi.createStatements(arrayOfStatements);
 		
 		} catch (XeroApiException e) {
 			int actualCode = e.getResponseCode();
@@ -580,7 +580,7 @@ public class XeroBankFeedTests {
 			endBalance.setCreditDebitIndicator(CreditDebitIndicator.CREDIT);
 			newStatement.endBalance(endBalance);
 			
-			FeedConnections fc = bankFeedsApi.getFeedConnections(null);
+			FeedConnections fc = bankFeedsApi.getFeedConnections(null,null);
 			newStatement.setFeedConnectionId(fc.getItems().get(2).getId().toString());
 			
 			StatementLine newStatementLine = new StatementLine();
@@ -599,7 +599,7 @@ public class XeroBankFeedTests {
 			
 			newStatement.setStatementLines(arrayStatementLines);
 			arrayOfStatements.addItemsItem(newStatement);
-			Statements rStatements = bankFeedsApi.createStatements(arrayOfStatements, null);
+			Statements rStatements = bankFeedsApi.createStatements(arrayOfStatements);
 		
 		} catch (XeroApiException e) {
 			int actualCode = e.getResponseCode();
@@ -661,7 +661,7 @@ public class XeroBankFeedTests {
 			
 			newStatement.setStatementLines(arrayStatementLines);
 			arrayOfStatements.addItemsItem(newStatement);
-			Statements rStatements = bankFeedsApi.createStatements(arrayOfStatements, null);
+			Statements rStatements = bankFeedsApi.createStatements(arrayOfStatements);
 			
 		} catch (XeroApiException e) {
 			int actualCode = e.getResponseCode();
