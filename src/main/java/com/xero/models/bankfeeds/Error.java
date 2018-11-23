@@ -43,7 +43,7 @@ public class Error {
     INVALID_REQUEST("invalid-request"),
     
     INVALID_APPLICATION("invalid-application"),
-    
+
     INVALID_FEED_CONNECTION("invalid-feed-connection"),
 
     DUPLICATE_STATEMENT("duplicate-statement"),
