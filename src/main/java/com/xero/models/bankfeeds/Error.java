@@ -46,10 +46,14 @@ public class Error {
     
     INVALID_FEED_CONNECTION("invalid-feed-connection"),
 
+    DUPLICATE_STATEMENT("duplicate-statement"),
+
+    INVALID_END_BALANCE("invalid-end-balance"),
+
+    INVALID_START_AND_END_DATE("invalid-start-and-end-date"),
+
     INVALID_START_DATE("invalid-start-date"),
 
-    DUPLICATE_STATEMENT("duplicate-statement"),
-    
     INTERNAL_ERROR("internal-error");
 
     private String value;
