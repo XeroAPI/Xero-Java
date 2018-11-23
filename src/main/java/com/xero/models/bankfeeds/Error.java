@@ -45,7 +45,9 @@ public class Error {
     INVALID_APPLICATION("invalid-application"),
     
     INVALID_FEED_CONNECTION("invalid-feed-connection"),
-    
+
+    INVALID_START_DATE("invalid-start-date"),
+
     DUPLICATE_STATEMENT("duplicate-statement"),
     
     INTERNAL_ERROR("internal-error");
