@@ -241,6 +241,7 @@ public class BankFeedsApi {
     * <p><b>403</b> - Invalid application or feed connection
     * <p><b>409</b> - Duplicate statement received
     * <p><b>413</b> - Statement exceeds size limit
+    * <p><b>422</b> - Unprocessable Entity
     * <p><b>500</b> - Intermittent Xero Error
     * @param statements Feed Connection(s) to add
     * @return Statements

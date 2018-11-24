@@ -10,7 +10,7 @@ We've made some big changes to our Java SDK with version 2.0.  All code examples
 
 2.0 implements requests and responses for accounting API endpoints using JSON only.  Don't worry we won't be removing any of the existing methods for XML, but will mark them as deprecated in favor of JSON.
 
-Our XSD schema files will also be deprecated in favor of OpenAPI spec 3.0 files now available on Github.
+Our XSD schema files will also be deprecated in favor of [OpenAPI spec 3.0 files now available on Github](https://github.com/XeroAPI/Xero-OpenAPI).
 
 Lastly, our trusty XeroClient class that holds methods for interacting with each endpoint will be deprecated in favor of clients for each major API group at Xero.  See below. 
 
@@ -74,7 +74,7 @@ Add the dependency to your pom.xml.  Gradle, sbt and other build tools can be fo
     <dependency>
       <groupId>com.github.xeroapi</groupId>
       <artifactId>xero-java</artifactId>
-      <version>2.1.0</version>
+      <version>2.1.1</version>
 	</dependency>
 
 
