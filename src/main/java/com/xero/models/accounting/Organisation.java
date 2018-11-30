@@ -248,6 +248,62 @@ public class Organisation {
   @JsonProperty("ShortCode")
   private String shortCode = null;
 
+  /**
+   * Organisation Classes describe which plan the Xero organisation is on (e.g. DEMO, TRIAL, PREMIUM)
+   */
+  public enum PropertyClassEnum {
+    DEMO("DEMO"),
+    
+    TRIAL("TRIAL"),
+    
+    STARTER("STARTER"),
+    
+    STANDARD("STANDARD"),
+    
+    PREMIUM("PREMIUM"),
+    
+    PREMIUM_20("PREMIUM_20"),
+    
+    PREMIUM_50("PREMIUM_50"),
+    
+    PREMIUM_100("PREMIUM_100"),
+    
+    LEDGER("LEDGER"),
+    
+    GST_CASHBOOK("GST_CASHBOOK"),
+    
+    NON_GST_CASHBOOK("NON_GST_CASHBOOK");
+
+    private String value;
+
+    PropertyClassEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static PropertyClassEnum fromValue(String text) {
+      for (PropertyClassEnum b : PropertyClassEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+  }
+
+  @JsonProperty("Class")
+  private PropertyClassEnum propertyClass = null;
+
   @JsonProperty("LineOfBusiness")
   private String lineOfBusiness = null;
 
@@ -695,6 +751,24 @@ public class Organisation {
     this.shortCode = shortCode;
   }
 
+  public Organisation propertyClass(PropertyClassEnum propertyClass) {
+    this.propertyClass = propertyClass;
+    return this;
+  }
+
+   /**
+   * Organisation Classes describe which plan the Xero organisation is on (e.g. DEMO, TRIAL, PREMIUM)
+   * @return propertyClass
+  **/
+  @ApiModelProperty(value = "Organisation Classes describe which plan the Xero organisation is on (e.g. DEMO, TRIAL, PREMIUM)")
+  public PropertyClassEnum getPropertyClass() {
+    return propertyClass;
+  }
+
+  public void setPropertyClass(PropertyClassEnum propertyClass) {
+    this.propertyClass = propertyClass;
+  }
+
   public Organisation lineOfBusiness(String lineOfBusiness) {
     this.lineOfBusiness = lineOfBusiness;
     return this;
@@ -843,6 +917,7 @@ public class Organisation {
         Objects.equals(this.timezone, organisation.timezone) &&
         Objects.equals(this.organisationEntityType, organisation.organisationEntityType) &&
         Objects.equals(this.shortCode, organisation.shortCode) &&
+        Objects.equals(this.propertyClass, organisation.propertyClass) &&
         Objects.equals(this.lineOfBusiness, organisation.lineOfBusiness) &&
         Objects.equals(this.addresses, organisation.addresses) &&
         Objects.equals(this.phones, organisation.phones) &&
@@ -852,7 +927,7 @@ public class Organisation {
 
   @Override
   public int hashCode() {
-    return Objects.hash(apIKey, name, legalName, paysTax, version, organisationType, baseCurrency, countryCode, isDemoCompany, organisationStatus, registrationNumber, taxNumber, financialYearEndDay, financialYearEndMonth, salesTaxBasis, salesTaxPeriod, defaultSalesTax, defaultPurchasesTax, periodLockDate, endOfYearLockDate, createdDateUTC, timezone, organisationEntityType, shortCode, lineOfBusiness, addresses, phones, externalLinks, paymentTerms);
+    return Objects.hash(apIKey, name, legalName, paysTax, version, organisationType, baseCurrency, countryCode, isDemoCompany, organisationStatus, registrationNumber, taxNumber, financialYearEndDay, financialYearEndMonth, salesTaxBasis, salesTaxPeriod, defaultSalesTax, defaultPurchasesTax, periodLockDate, endOfYearLockDate, createdDateUTC, timezone, organisationEntityType, shortCode, propertyClass, lineOfBusiness, addresses, phones, externalLinks, paymentTerms);
   }
 
 
@@ -885,6 +960,7 @@ public class Organisation {
     sb.append("    timezone: ").append(toIndentedString(timezone)).append("\n");
     sb.append("    organisationEntityType: ").append(toIndentedString(organisationEntityType)).append("\n");
     sb.append("    shortCode: ").append(toIndentedString(shortCode)).append("\n");
+    sb.append("    propertyClass: ").append(toIndentedString(propertyClass)).append("\n");
     sb.append("    lineOfBusiness: ").append(toIndentedString(lineOfBusiness)).append("\n");
     sb.append("    addresses: ").append(toIndentedString(addresses)).append("\n");
     sb.append("    phones: ").append(toIndentedString(phones)).append("\n");
