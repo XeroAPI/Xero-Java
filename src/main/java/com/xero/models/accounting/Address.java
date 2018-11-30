@@ -26,6 +26,46 @@ import io.swagger.annotations.ApiModelProperty;
  */
 
 public class Address {
+  /**
+   * define the type of address
+   */
+  public enum AddressTypeEnum {
+    POBOX("POBOX"),
+    
+    STREET("STREET"),
+    
+    DELIVERY("DELIVERY");
+
+    private String value;
+
+    AddressTypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static AddressTypeEnum fromValue(String text) {
+      for (AddressTypeEnum b : AddressTypeEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+  }
+
+  @JsonProperty("AddressType")
+  private AddressTypeEnum addressType = null;
+
   @JsonProperty("AddressLine1")
   private String addressLine1 = null;
 
@@ -52,6 +92,24 @@ public class Address {
 
   @JsonProperty("AttentionTo")
   private String attentionTo = null;
+
+  public Address addressType(AddressTypeEnum addressType) {
+    this.addressType = addressType;
+    return this;
+  }
+
+   /**
+   * define the type of address
+   * @return addressType
+  **/
+  @ApiModelProperty(value = "define the type of address")
+  public AddressTypeEnum getAddressType() {
+    return addressType;
+  }
+
+  public void setAddressType(AddressTypeEnum addressType) {
+    this.addressType = addressType;
+  }
 
   public Address addressLine1(String addressLine1) {
     this.addressLine1 = addressLine1;
@@ -225,7 +283,8 @@ public class Address {
       return false;
     }
     Address address = (Address) o;
-    return Objects.equals(this.addressLine1, address.addressLine1) &&
+    return Objects.equals(this.addressType, address.addressType) &&
+        Objects.equals(this.addressLine1, address.addressLine1) &&
         Objects.equals(this.addressLine2, address.addressLine2) &&
         Objects.equals(this.addressLine3, address.addressLine3) &&
         Objects.equals(this.addressLine4, address.addressLine4) &&
@@ -238,7 +297,7 @@ public class Address {
 
   @Override
   public int hashCode() {
-    return Objects.hash(addressLine1, addressLine2, addressLine3, addressLine4, city, region, postalCode, country, attentionTo);
+    return Objects.hash(addressType, addressLine1, addressLine2, addressLine3, addressLine4, city, region, postalCode, country, attentionTo);
   }
 
 
@@ -247,6 +306,7 @@ public class Address {
     StringBuilder sb = new StringBuilder();
     sb.append("class Address {\n");
     
+    sb.append("    addressType: ").append(toIndentedString(addressType)).append("\n");
     sb.append("    addressLine1: ").append(toIndentedString(addressLine1)).append("\n");
     sb.append("    addressLine2: ").append(toIndentedString(addressLine2)).append("\n");
     sb.append("    addressLine3: ").append(toIndentedString(addressLine3)).append("\n");
