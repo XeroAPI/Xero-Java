@@ -24,11 +24,14 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * Items
  */
 
 public class Items {
+  
   @JsonProperty("Items")
   private List<Item> items = null;
 

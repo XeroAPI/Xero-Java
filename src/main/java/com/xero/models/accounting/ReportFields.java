@@ -21,17 +21,22 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * ReportFields
  */
 
 public class ReportFields {
+  
   @JsonProperty("FieldID")
   private String fieldID = null;
 
+  
   @JsonProperty("Description")
   private String description = null;
 
+  
   @JsonProperty("Value")
   private String value = null;
 

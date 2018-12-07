@@ -23,15 +23,19 @@ import com.xero.models.accounting.AccountsReceivable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * The raw AccountsReceivable(sales invoices) and AccountsPayable(bills) outstanding and overdue amounts, not converted to base currency (read only)
  */
 @ApiModel(description = "The raw AccountsReceivable(sales invoices) and AccountsPayable(bills) outstanding and overdue amounts, not converted to base currency (read only)")
 
 public class Balances {
+  
   @JsonProperty("AccountsReceivable")
   private AccountsReceivable accountsReceivable = null;
 
+  
   @JsonProperty("AccountsPayable")
   private AccountsPayable accountsPayable = null;
 

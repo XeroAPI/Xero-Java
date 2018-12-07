@@ -21,23 +21,30 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import org.threeten.bp.OffsetDateTime;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * BrandingTheme
  */
 
 public class BrandingTheme {
+  
   @JsonProperty("BrandingThemeID")
   private UUID brandingThemeID = null;
 
+  
   @JsonProperty("Name")
   private String name = null;
 
+  
   @JsonProperty("SortOrder")
   private Integer sortOrder = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("CreatedDateUTC")
-  private String createdDateUTC = null;
+  private OffsetDateTime createdDateUTC = null;
 
   public BrandingTheme brandingThemeID(UUID brandingThemeID) {
     this.brandingThemeID = brandingThemeID;
@@ -93,7 +100,7 @@ public class BrandingTheme {
     this.sortOrder = sortOrder;
   }
 
-  public BrandingTheme createdDateUTC(String createdDateUTC) {
+  public BrandingTheme createdDateUTC(OffsetDateTime createdDateUTC) {
     this.createdDateUTC = createdDateUTC;
     return this;
   }
@@ -103,11 +110,11 @@ public class BrandingTheme {
    * @return createdDateUTC
   **/
   @ApiModelProperty(value = "UTC timestamp of creation date of branding theme")
-  public String getCreatedDateUTC() {
+  public OffsetDateTime getCreatedDateUTC() {
     return createdDateUTC;
   }
 
-  public void setCreatedDateUTC(String createdDateUTC) {
+  public void setCreatedDateUTC(OffsetDateTime createdDateUTC) {
     this.createdDateUTC = createdDateUTC;
   }
 

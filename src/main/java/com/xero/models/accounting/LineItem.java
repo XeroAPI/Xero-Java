@@ -25,44 +25,58 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * LineItem
  */
 
 public class LineItem {
+  
   @JsonProperty("LineItemID")
   private UUID lineItemID = null;
 
+  
   @JsonProperty("Description")
   private String description = null;
 
+  
   @JsonProperty("Quantity")
   private Float quantity = null;
 
+  
   @JsonProperty("UnitAmount")
   private Float unitAmount = null;
 
+  
   @JsonProperty("ItemCode")
   private String itemCode = null;
 
+  
   @JsonProperty("AccountCode")
   private String accountCode = null;
 
+  
   @JsonProperty("TaxType")
   private String taxType = null;
 
+  
   @JsonProperty("TaxAmount")
   private Float taxAmount = null;
 
+  
   @JsonProperty("LineAmount")
   private Float lineAmount = null;
 
+  
   @JsonProperty("Tracking")
   private List<TrackingCategory> tracking = null;
 
+  
   @JsonProperty("DiscountRate")
   private String discountRate = null;
 
+  
   @JsonProperty("RepeatingInvoiceID")
   private UUID repeatingInvoiceID = null;
 

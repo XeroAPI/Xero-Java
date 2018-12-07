@@ -24,11 +24,14 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * LinkedTransactions
  */
 
 public class LinkedTransactions {
+  
   @JsonProperty("LinkedTransactions")
   private List<LinkedTransaction> linkedTransactions = null;
 

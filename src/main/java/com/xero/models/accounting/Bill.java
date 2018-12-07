@@ -21,18 +21,59 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * Bill
  */
 
 public class Bill {
+  
   @JsonProperty("Day")
-  private String day = null;
+  private Integer day = null;
 
+  /**
+   * One of the following values OFFOLLOWINGMONTH/DAYSAFTERBILLDATE/OFCURRENTMONTH
+   */
+  public enum TypeEnum {
+    OFFOLLOWINGMONTH("OFFOLLOWINGMONTH"),
+    
+    DAYSAFTERBILLDATE("DAYSAFTERBILLDATE"),
+    
+    OFCURRENTMONTH("OFCURRENTMONTH");
+
+    private String value;
+
+    TypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static TypeEnum fromValue(String text) {
+      for (TypeEnum b : TypeEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+    }
+  }
+
+  
   @JsonProperty("Type")
-  private String type = null;
+  private TypeEnum type = null;
 
-  public Bill day(String day) {
+  public Bill day(Integer day) {
     this.day = day;
     return this;
   }
@@ -42,15 +83,15 @@ public class Bill {
    * @return day
   **/
   @ApiModelProperty(value = "Day of Month (0-31)")
-  public String getDay() {
+  public Integer getDay() {
     return day;
   }
 
-  public void setDay(String day) {
+  public void setDay(Integer day) {
     this.day = day;
   }
 
-  public Bill type(String type) {
+  public Bill type(TypeEnum type) {
     this.type = type;
     return this;
   }
@@ -60,11 +101,11 @@ public class Bill {
    * @return type
   **/
   @ApiModelProperty(value = "One of the following values OFFOLLOWINGMONTH/DAYSAFTERBILLDATE/OFCURRENTMONTH")
-  public String getType() {
+  public TypeEnum getType() {
     return type;
   }
 
-  public void setType(String type) {
+  public void setType(TypeEnum type) {
     this.type = type;
   }
 

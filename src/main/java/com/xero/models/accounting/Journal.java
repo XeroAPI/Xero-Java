@@ -24,33 +24,45 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.OffsetDateTime;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * Journal
  */
 
 public class Journal {
+  
   @JsonProperty("JournalID")
   private UUID journalID = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("JournalDate")
-  private String journalDate = null;
+  private LocalDate journalDate = null;
 
+  
   @JsonProperty("JournalNumber")
   private String journalNumber = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("CreatedDateUTC")
-  private String createdDateUTC = null;
+  private OffsetDateTime createdDateUTC = null;
 
+  
   @JsonProperty("Reference")
   private String reference = null;
 
+  
   @JsonProperty("SourceID")
   private UUID sourceID = null;
 
+  
   @JsonProperty("SourceType")
   private String sourceType = null;
 
+  
   @JsonProperty("JournalLines")
   private List<JournalLine> journalLines = null;
 
@@ -72,7 +84,7 @@ public class Journal {
     this.journalID = journalID;
   }
 
-  public Journal journalDate(String journalDate) {
+  public Journal journalDate(LocalDate journalDate) {
     this.journalDate = journalDate;
     return this;
   }
@@ -82,11 +94,11 @@ public class Journal {
    * @return journalDate
   **/
   @ApiModelProperty(value = "Date the journal was posted")
-  public String getJournalDate() {
+  public LocalDate getJournalDate() {
     return journalDate;
   }
 
-  public void setJournalDate(String journalDate) {
+  public void setJournalDate(LocalDate journalDate) {
     this.journalDate = journalDate;
   }
 
@@ -108,22 +120,13 @@ public class Journal {
     this.journalNumber = journalNumber;
   }
 
-  public Journal createdDateUTC(String createdDateUTC) {
-    this.createdDateUTC = createdDateUTC;
-    return this;
-  }
-
    /**
    * Created date UTC format
    * @return createdDateUTC
   **/
   @ApiModelProperty(value = "Created date UTC format")
-  public String getCreatedDateUTC() {
+  public OffsetDateTime getCreatedDateUTC() {
     return createdDateUTC;
-  }
-
-  public void setCreatedDateUTC(String createdDateUTC) {
-    this.createdDateUTC = createdDateUTC;
   }
 
   public Journal reference(String reference) {
@@ -132,10 +135,10 @@ public class Journal {
   }
 
    /**
-   *  
+   * reference field for additional indetifying information
    * @return reference
   **/
-  @ApiModelProperty(value = " ")
+  @ApiModelProperty(value = "reference field for additional indetifying information")
   public String getReference() {
     return reference;
   }

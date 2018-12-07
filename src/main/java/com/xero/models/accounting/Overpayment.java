@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.accounting.Allocation;
+import com.xero.models.accounting.Contact;
 import com.xero.models.accounting.LineItem;
 import com.xero.models.accounting.Payment;
 import io.swagger.annotations.ApiModel;
@@ -26,20 +27,62 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.OffsetDateTime;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * Overpayment
  */
 
 public class Overpayment {
+  /**
+   * See Overpayment Types
+   */
+  public enum TypeEnum {
+    RECEIVE_OVERPAYMENT("RECEIVE-OVERPAYMENT"),
+    
+    SPEND_OVERPAYMENT("SPEND-OVERPAYMENT");
+
+    private String value;
+
+    TypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static TypeEnum fromValue(String text) {
+      for (TypeEnum b : TypeEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+    }
+  }
+
+  
   @JsonProperty("Type")
-  private String type = null;
+  private TypeEnum type = null;
 
+  
   @JsonProperty("Contact")
-  private Object contact = null;
+  private Contact contact = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("Date")
-  private String date = null;
+  private LocalDate date = null;
 
   /**
    * See Overpayment Status Codes
@@ -74,53 +117,67 @@ public class Overpayment {
           return b;
         }
       }
-      return null;
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
     }
   }
 
+  
   @JsonProperty("Status")
   private StatusEnum status = null;
 
+  
   @JsonProperty("LineAmountTypes")
   private String lineAmountTypes = null;
 
+  
   @JsonProperty("LineItems")
   private List<LineItem> lineItems = null;
 
+  
   @JsonProperty("SubTotal")
   private Float subTotal = null;
 
+  
   @JsonProperty("TotalTax")
   private Float totalTax = null;
 
+  
   @JsonProperty("Total")
   private Float total = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private String updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC = null;
 
+  
   @JsonProperty("CurrencyCode")
   private String currencyCode = null;
 
+  
   @JsonProperty("OverpaymentID")
   private UUID overpaymentID = null;
 
+  
   @JsonProperty("CurrencyRate")
   private Float currencyRate = null;
 
+  
   @JsonProperty("RemainingCredit")
   private String remainingCredit = null;
 
+  
   @JsonProperty("Allocations")
   private List<Allocation> allocations = null;
 
+  
   @JsonProperty("Payments")
   private List<Payment> payments = null;
 
+  
   @JsonProperty("HasAttachments")
   private Boolean hasAttachments = null;
 
-  public Overpayment type(String type) {
+  public Overpayment type(TypeEnum type) {
     this.type = type;
     return this;
   }
@@ -130,15 +187,15 @@ public class Overpayment {
    * @return type
   **/
   @ApiModelProperty(value = "See Overpayment Types")
-  public String getType() {
+  public TypeEnum getType() {
     return type;
   }
 
-  public void setType(String type) {
+  public void setType(TypeEnum type) {
     this.type = type;
   }
 
-  public Overpayment contact(Object contact) {
+  public Overpayment contact(Contact contact) {
     this.contact = contact;
     return this;
   }
@@ -148,15 +205,15 @@ public class Overpayment {
    * @return contact
   **/
   @ApiModelProperty(value = "")
-  public Object getContact() {
+  public Contact getContact() {
     return contact;
   }
 
-  public void setContact(Object contact) {
+  public void setContact(Contact contact) {
     this.contact = contact;
   }
 
-  public Overpayment date(String date) {
+  public Overpayment date(LocalDate date) {
     this.date = date;
     return this;
   }
@@ -166,11 +223,11 @@ public class Overpayment {
    * @return date
   **/
   @ApiModelProperty(value = "The date the overpayment is created YYYY-MM-DD")
-  public String getDate() {
+  public LocalDate getDate() {
     return date;
   }
 
-  public void setDate(String date) {
+  public void setDate(LocalDate date) {
     this.date = date;
   }
 
@@ -290,7 +347,7 @@ public class Overpayment {
     this.total = total;
   }
 
-  public Overpayment updatedDateUTC(String updatedDateUTC) {
+  public Overpayment updatedDateUTC(OffsetDateTime updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
     return this;
   }
@@ -300,11 +357,11 @@ public class Overpayment {
    * @return updatedDateUTC
   **/
   @ApiModelProperty(value = "UTC timestamp of last update to the overpayment")
-  public String getUpdatedDateUTC() {
+  public OffsetDateTime getUpdatedDateUTC() {
     return updatedDateUTC;
   }
 
-  public void setUpdatedDateUTC(String updatedDateUTC) {
+  public void setUpdatedDateUTC(OffsetDateTime updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
   }
 

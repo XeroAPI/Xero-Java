@@ -21,6 +21,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * Address
  */
@@ -59,37 +61,47 @@ public class Address {
           return b;
         }
       }
-      return null;
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
     }
   }
 
+  
   @JsonProperty("AddressType")
   private AddressTypeEnum addressType = null;
 
+  
   @JsonProperty("AddressLine1")
   private String addressLine1 = null;
 
+  
   @JsonProperty("AddressLine2")
   private String addressLine2 = null;
 
+  
   @JsonProperty("AddressLine3")
   private String addressLine3 = null;
 
+  
   @JsonProperty("AddressLine4")
   private String addressLine4 = null;
 
+  
   @JsonProperty("City")
   private String city = null;
 
+  
   @JsonProperty("Region")
   private String region = null;
 
+  
   @JsonProperty("PostalCode")
   private String postalCode = null;
 
+  
   @JsonProperty("Country")
   private String country = null;
 
+  
   @JsonProperty("AttentionTo")
   private String attentionTo = null;
 

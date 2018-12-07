@@ -24,20 +24,26 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * Error
  */
 
 public class Error {
+  
   @JsonProperty("ErrorNumber")
   private Integer errorNumber = null;
 
+  
   @JsonProperty("Type")
   private String type = null;
 
+  
   @JsonProperty("Message")
   private String message = null;
 
+  
   @JsonProperty("Elements")
   private List<Element> elements = null;
 

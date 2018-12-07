@@ -21,17 +21,26 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import org.threeten.bp.OffsetDateTime;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * Account
  */
 
 public class Account {
+  
   @JsonProperty("Code")
   private String code = null;
 
+  
   @JsonProperty("Name")
   private String name = null;
+
+  
+  @JsonProperty("AccountID")
+  private UUID accountID = null;
 
   /**
    * See Account Types
@@ -104,13 +113,15 @@ public class Account {
           return b;
         }
       }
-      return null;
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
     }
   }
 
+  
   @JsonProperty("Type")
   private TypeEnum type = null;
 
+  
   @JsonProperty("BankAccountNumber")
   private String bankAccountNumber = null;
 
@@ -120,7 +131,9 @@ public class Account {
   public enum StatusEnum {
     ACTIVE("ACTIVE"),
     
-    ARCHIVED("ARCHIVED");
+    ARCHIVED("ARCHIVED"),
+    
+    DELETED("DELETED");
 
     private String value;
 
@@ -145,13 +158,15 @@ public class Account {
           return b;
         }
       }
-      return null;
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
     }
   }
 
+  
   @JsonProperty("Status")
   private StatusEnum status = null;
 
+  
   @JsonProperty("Description")
   private String description = null;
 
@@ -188,27 +203,29 @@ public class Account {
           return b;
         }
       }
-      return null;
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
     }
   }
 
+  
   @JsonProperty("BankAccountType")
   private BankAccountTypeEnum bankAccountType = null;
 
+  
   @JsonProperty("CurrencyCode")
   private String currencyCode = null;
 
+  
   @JsonProperty("TaxType")
   private String taxType = null;
 
+  
   @JsonProperty("EnablePaymentsToAccount")
   private Boolean enablePaymentsToAccount = null;
 
+  
   @JsonProperty("ShowInExpenseClaims")
   private Boolean showInExpenseClaims = null;
-
-  @JsonProperty("AccountID")
-  private UUID accountID = null;
 
   /**
    * See Account Class Types
@@ -247,10 +264,11 @@ public class Account {
           return b;
         }
       }
-      return null;
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
     }
   }
 
+  
   @JsonProperty("Class")
   private PropertyClassEnum propertyClass = null;
 
@@ -307,24 +325,29 @@ public class Account {
           return b;
         }
       }
-      return null;
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
     }
   }
 
+  
   @JsonProperty("SystemAccount")
   private SystemAccountEnum systemAccount = null;
 
+  
   @JsonProperty("ReportingCode")
   private String reportingCode = null;
 
+  
   @JsonProperty("ReportingCodeName")
   private String reportingCodeName = null;
 
+  
   @JsonProperty("HasAttachments")
   private Boolean hasAttachments = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private String updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC = null;
 
   public Account code(String code) {
     this.code = code;
@@ -360,6 +383,24 @@ public class Account {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public Account accountID(UUID accountID) {
+    this.accountID = accountID;
+    return this;
+  }
+
+   /**
+   * The Xero identifier for an account – specified as a string following  the endpoint name   e.g. /297c2dc5-cc47-4afd-8ec8-74990b8761e9
+   * @return accountID
+  **/
+  @ApiModelProperty(value = "The Xero identifier for an account – specified as a string following  the endpoint name   e.g. /297c2dc5-cc47-4afd-8ec8-74990b8761e9")
+  public UUID getAccountID() {
+    return accountID;
+  }
+
+  public void setAccountID(UUID accountID) {
+    this.accountID = accountID;
   }
 
   public Account type(TypeEnum type) {
@@ -524,24 +565,6 @@ public class Account {
     this.showInExpenseClaims = showInExpenseClaims;
   }
 
-  public Account accountID(UUID accountID) {
-    this.accountID = accountID;
-    return this;
-  }
-
-   /**
-   * The Xero identifier for an account – specified as a string following the endpoint name e.g. /297c2dc5-cc47-4afd-8ec8-74990b8761e9
-   * @return accountID
-  **/
-  @ApiModelProperty(value = "The Xero identifier for an account – specified as a string following the endpoint name e.g. /297c2dc5-cc47-4afd-8ec8-74990b8761e9")
-  public UUID getAccountID() {
-    return accountID;
-  }
-
-  public void setAccountID(UUID accountID) {
-    this.accountID = accountID;
-  }
-
    /**
    * See Account Class Types
    * @return propertyClass
@@ -592,7 +615,7 @@ public class Account {
    * @return updatedDateUTC
   **/
   @ApiModelProperty(value = "Last modified date UTC format")
-  public String getUpdatedDateUTC() {
+  public OffsetDateTime getUpdatedDateUTC() {
     return updatedDateUTC;
   }
 
@@ -608,6 +631,7 @@ public class Account {
     Account account = (Account) o;
     return Objects.equals(this.code, account.code) &&
         Objects.equals(this.name, account.name) &&
+        Objects.equals(this.accountID, account.accountID) &&
         Objects.equals(this.type, account.type) &&
         Objects.equals(this.bankAccountNumber, account.bankAccountNumber) &&
         Objects.equals(this.status, account.status) &&
@@ -617,7 +641,6 @@ public class Account {
         Objects.equals(this.taxType, account.taxType) &&
         Objects.equals(this.enablePaymentsToAccount, account.enablePaymentsToAccount) &&
         Objects.equals(this.showInExpenseClaims, account.showInExpenseClaims) &&
-        Objects.equals(this.accountID, account.accountID) &&
         Objects.equals(this.propertyClass, account.propertyClass) &&
         Objects.equals(this.systemAccount, account.systemAccount) &&
         Objects.equals(this.reportingCode, account.reportingCode) &&
@@ -628,7 +651,7 @@ public class Account {
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, name, type, bankAccountNumber, status, description, bankAccountType, currencyCode, taxType, enablePaymentsToAccount, showInExpenseClaims, accountID, propertyClass, systemAccount, reportingCode, reportingCodeName, hasAttachments, updatedDateUTC);
+    return Objects.hash(code, name, accountID, type, bankAccountNumber, status, description, bankAccountType, currencyCode, taxType, enablePaymentsToAccount, showInExpenseClaims, propertyClass, systemAccount, reportingCode, reportingCodeName, hasAttachments, updatedDateUTC);
   }
 
 
@@ -639,6 +662,7 @@ public class Account {
     
     sb.append("    code: ").append(toIndentedString(code)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    accountID: ").append(toIndentedString(accountID)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    bankAccountNumber: ").append(toIndentedString(bankAccountNumber)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
@@ -648,7 +672,6 @@ public class Account {
     sb.append("    taxType: ").append(toIndentedString(taxType)).append("\n");
     sb.append("    enablePaymentsToAccount: ").append(toIndentedString(enablePaymentsToAccount)).append("\n");
     sb.append("    showInExpenseClaims: ").append(toIndentedString(showInExpenseClaims)).append("\n");
-    sb.append("    accountID: ").append(toIndentedString(accountID)).append("\n");
     sb.append("    propertyClass: ").append(toIndentedString(propertyClass)).append("\n");
     sb.append("    systemAccount: ").append(toIndentedString(systemAccount)).append("\n");
     sb.append("    reportingCode: ").append(toIndentedString(reportingCode)).append("\n");

@@ -19,12 +19,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.accounting.Allocation;
+import com.xero.models.accounting.Contact;
 import com.xero.models.accounting.LineItem;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.OffsetDateTime;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * Prepayment
@@ -62,18 +67,21 @@ public class Prepayment {
           return b;
         }
       }
-      return null;
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
     }
   }
 
+  
   @JsonProperty("Type")
   private TypeEnum type = null;
 
+  
   @JsonProperty("Contact")
-  private Object contact = null;
+  private Contact contact = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("Date")
-  private String date = null;
+  private LocalDate date = null;
 
   /**
    * See Prepayment Status Codes
@@ -108,46 +116,59 @@ public class Prepayment {
           return b;
         }
       }
-      return null;
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
     }
   }
 
+  
   @JsonProperty("Status")
   private StatusEnum status = null;
 
+  
   @JsonProperty("LineAmountTypes")
   private String lineAmountTypes = null;
 
+  
   @JsonProperty("LineItems")
   private List<LineItem> lineItems = null;
 
+  
   @JsonProperty("SubTotal")
   private Float subTotal = null;
 
+  
   @JsonProperty("TotalTax")
   private Float totalTax = null;
 
+  
   @JsonProperty("Total")
   private Float total = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private String updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC = null;
 
+  
   @JsonProperty("CurrencyCode")
   private String currencyCode = null;
 
+  
   @JsonProperty("PrepaymentID")
   private UUID prepaymentID = null;
 
+  
   @JsonProperty("CurrencyRate")
   private Float currencyRate = null;
 
+  
   @JsonProperty("RemainingCredit")
-  private String remainingCredit = null;
+  private Float remainingCredit = null;
 
+  
   @JsonProperty("Allocations")
   private List<Allocation> allocations = null;
 
+  
   @JsonProperty("HasAttachments")
   private Boolean hasAttachments = null;
 
@@ -169,7 +190,7 @@ public class Prepayment {
     this.type = type;
   }
 
-  public Prepayment contact(Object contact) {
+  public Prepayment contact(Contact contact) {
     this.contact = contact;
     return this;
   }
@@ -179,15 +200,15 @@ public class Prepayment {
    * @return contact
   **/
   @ApiModelProperty(value = "")
-  public Object getContact() {
+  public Contact getContact() {
     return contact;
   }
 
-  public void setContact(Object contact) {
+  public void setContact(Contact contact) {
     this.contact = contact;
   }
 
-  public Prepayment date(String date) {
+  public Prepayment date(LocalDate date) {
     this.date = date;
     return this;
   }
@@ -197,11 +218,11 @@ public class Prepayment {
    * @return date
   **/
   @ApiModelProperty(value = "The date the prepayment is created YYYY-MM-DD")
-  public String getDate() {
+  public LocalDate getDate() {
     return date;
   }
 
-  public void setDate(String date) {
+  public void setDate(LocalDate date) {
     this.date = date;
   }
 
@@ -321,7 +342,7 @@ public class Prepayment {
     this.total = total;
   }
 
-  public Prepayment updatedDateUTC(String updatedDateUTC) {
+  public Prepayment updatedDateUTC(OffsetDateTime updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
     return this;
   }
@@ -331,11 +352,11 @@ public class Prepayment {
    * @return updatedDateUTC
   **/
   @ApiModelProperty(value = "UTC timestamp of last update to the prepayment")
-  public String getUpdatedDateUTC() {
+  public OffsetDateTime getUpdatedDateUTC() {
     return updatedDateUTC;
   }
 
-  public void setUpdatedDateUTC(String updatedDateUTC) {
+  public void setUpdatedDateUTC(OffsetDateTime updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
   }
 
@@ -393,7 +414,7 @@ public class Prepayment {
     this.currencyRate = currencyRate;
   }
 
-  public Prepayment remainingCredit(String remainingCredit) {
+  public Prepayment remainingCredit(Float remainingCredit) {
     this.remainingCredit = remainingCredit;
     return this;
   }
@@ -403,11 +424,11 @@ public class Prepayment {
    * @return remainingCredit
   **/
   @ApiModelProperty(value = "The remaining credit balance on the prepayment")
-  public String getRemainingCredit() {
+  public Float getRemainingCredit() {
     return remainingCredit;
   }
 
-  public void setRemainingCredit(String remainingCredit) {
+  public void setRemainingCredit(Float remainingCredit) {
     this.remainingCredit = remainingCredit;
   }
 

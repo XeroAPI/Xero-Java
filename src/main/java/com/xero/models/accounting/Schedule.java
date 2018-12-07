@@ -22,29 +22,112 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.threeten.bp.LocalDate;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * Schedule
  */
 
 public class Schedule {
+  
   @JsonProperty("Period")
   private Integer period = null;
 
-  @JsonProperty("Unit")
-  private String unit = null;
+  /**
+   * One of the following - WEEKLY or MONTHLY
+   */
+  public enum UnitEnum {
+    WEEKLY("WEEKLY"),
+    
+    MONTHLY("MONTHLY");
 
+    private String value;
+
+    UnitEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static UnitEnum fromValue(String text) {
+      for (UnitEnum b : UnitEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+    }
+  }
+
+  
+  @JsonProperty("Unit")
+  private UnitEnum unit = null;
+
+  
   @JsonProperty("DueDate")
   private Integer dueDate = null;
 
-  @JsonProperty("DueDateType")
-  private Object dueDateType = null;
+  /**
+   * the payment terms
+   */
+  public enum DueDateTypeEnum {
+    DAYSAFTERBILLDATE("DAYSAFTERBILLDATE"),
+    
+    DAYSAFTERBILLMONTH("DAYSAFTERBILLMONTH"),
+    
+    OFCURRENTMONTH("OFCURRENTMONTH"),
+    
+    OFFOLLOWINGMONTH("OFFOLLOWINGMONTH");
 
+    private String value;
+
+    DueDateTypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static DueDateTypeEnum fromValue(String text) {
+      for (DueDateTypeEnum b : DueDateTypeEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+    }
+  }
+
+  
+  @JsonProperty("DueDateType")
+  private DueDateTypeEnum dueDateType = null;
+
+  @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("StartDate")
   private LocalDate startDate = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("NextScheduledDate")
   private LocalDate nextScheduledDate = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("EndDate")
   private LocalDate endDate = null;
 
@@ -66,21 +149,21 @@ public class Schedule {
     this.period = period;
   }
 
-  public Schedule unit(String unit) {
+  public Schedule unit(UnitEnum unit) {
     this.unit = unit;
     return this;
   }
 
    /**
-   * One of the following : WEEKLY or MONTHLY
+   * One of the following - WEEKLY or MONTHLY
    * @return unit
   **/
-  @ApiModelProperty(value = "One of the following : WEEKLY or MONTHLY")
-  public String getUnit() {
+  @ApiModelProperty(value = "One of the following - WEEKLY or MONTHLY")
+  public UnitEnum getUnit() {
     return unit;
   }
 
-  public void setUnit(String unit) {
+  public void setUnit(UnitEnum unit) {
     this.unit = unit;
   }
 
@@ -102,21 +185,21 @@ public class Schedule {
     this.dueDate = dueDate;
   }
 
-  public Schedule dueDateType(Object dueDateType) {
+  public Schedule dueDateType(DueDateTypeEnum dueDateType) {
     this.dueDateType = dueDateType;
     return this;
   }
 
    /**
-   * Get dueDateType
+   * the payment terms
    * @return dueDateType
   **/
-  @ApiModelProperty(value = "")
-  public Object getDueDateType() {
+  @ApiModelProperty(value = "the payment terms")
+  public DueDateTypeEnum getDueDateType() {
     return dueDateType;
   }
 
-  public void setDueDateType(Object dueDateType) {
+  public void setDueDateType(DueDateTypeEnum dueDateType) {
     this.dueDateType = dueDateType;
   }
 

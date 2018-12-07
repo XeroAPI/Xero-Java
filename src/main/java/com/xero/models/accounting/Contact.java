@@ -19,8 +19,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.accounting.Address;
+import com.xero.models.accounting.Balances;
+import com.xero.models.accounting.BrandingTheme;
 import com.xero.models.accounting.ContactGroup;
 import com.xero.models.accounting.ContactPerson;
+import com.xero.models.accounting.PaymentTerm;
 import com.xero.models.accounting.Phone;
 import com.xero.models.accounting.TrackingCategory;
 import com.xero.models.accounting.ValidationError;
@@ -29,117 +32,156 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import org.threeten.bp.OffsetDateTime;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * Contact
  */
 
 public class Contact {
+  
   @JsonProperty("ContactID")
   private UUID contactID = null;
 
+  
   @JsonProperty("ContactNumber")
   private String contactNumber = null;
 
+  
   @JsonProperty("AccountNumber")
   private String accountNumber = null;
 
+  
   @JsonProperty("ContactStatus")
   private String contactStatus = null;
 
+  
   @JsonProperty("Name")
   private String name = null;
 
+  
   @JsonProperty("FirstName")
   private String firstName = null;
 
+  
   @JsonProperty("LastName")
   private String lastName = null;
 
+  
   @JsonProperty("EmailAddress")
   private String emailAddress = null;
 
+  
   @JsonProperty("SkypeUserName")
   private String skypeUserName = null;
 
+  
   @JsonProperty("ContactPersons")
   private List<ContactPerson> contactPersons = null;
 
+  
   @JsonProperty("BankAccountDetails")
   private String bankAccountDetails = null;
 
+  
   @JsonProperty("TaxNumber")
   private String taxNumber = null;
 
+  
   @JsonProperty("AccountsReceivableTaxType")
   private String accountsReceivableTaxType = null;
 
+  
   @JsonProperty("AccountsPayableTaxType")
   private String accountsPayableTaxType = null;
 
+  
   @JsonProperty("Addresses")
   private List<Address> addresses = null;
 
+  
   @JsonProperty("Phones")
   private List<Phone> phones = null;
 
+  
   @JsonProperty("IsSupplier")
   private Boolean isSupplier = null;
 
+  
   @JsonProperty("IsCustomer")
   private Boolean isCustomer = null;
 
+  
   @JsonProperty("DefaultCurrency")
   private String defaultCurrency = null;
 
+  
   @JsonProperty("XeroNetworkKey")
   private String xeroNetworkKey = null;
 
+  
   @JsonProperty("SalesDefaultAccountCode")
   private String salesDefaultAccountCode = null;
 
+  
   @JsonProperty("PurchasesDefaultAccountCode")
   private String purchasesDefaultAccountCode = null;
 
+  
   @JsonProperty("SalesTrackingCategories")
   private List<TrackingCategory> salesTrackingCategories = null;
 
+  
   @JsonProperty("PurchasesTrackingCategories")
   private List<TrackingCategory> purchasesTrackingCategories = null;
 
+  
   @JsonProperty("TrackingCategoryName")
   private String trackingCategoryName = null;
 
+  
   @JsonProperty("TrackingCategoryOption")
   private String trackingCategoryOption = null;
 
+  
   @JsonProperty("PaymentTerms")
-  private Object paymentTerms = null;
+  private PaymentTerm paymentTerms = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private String updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC = null;
 
+  
   @JsonProperty("ContactGroups")
   private List<ContactGroup> contactGroups = null;
 
+  
   @JsonProperty("Website")
   private String website = null;
 
+  
   @JsonProperty("BrandingTheme")
-  private Object brandingTheme = null;
+  private BrandingTheme brandingTheme = null;
 
+  
   @JsonProperty("BatchPayments")
   private String batchPayments = null;
 
+  
   @JsonProperty("Discount")
   private Float discount = null;
 
+  
   @JsonProperty("Balances")
-  private Object balances = null;
+  private Balances balances = null;
 
+  
   @JsonProperty("HasAttachments")
   private Boolean hasAttachments = null;
 
+  
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = null;
 
@@ -642,7 +684,7 @@ public class Contact {
     this.trackingCategoryOption = trackingCategoryOption;
   }
 
-  public Contact paymentTerms(Object paymentTerms) {
+  public Contact paymentTerms(PaymentTerm paymentTerms) {
     this.paymentTerms = paymentTerms;
     return this;
   }
@@ -652,15 +694,15 @@ public class Contact {
    * @return paymentTerms
   **/
   @ApiModelProperty(value = "")
-  public Object getPaymentTerms() {
+  public PaymentTerm getPaymentTerms() {
     return paymentTerms;
   }
 
-  public void setPaymentTerms(Object paymentTerms) {
+  public void setPaymentTerms(PaymentTerm paymentTerms) {
     this.paymentTerms = paymentTerms;
   }
 
-  public Contact updatedDateUTC(String updatedDateUTC) {
+  public Contact updatedDateUTC(OffsetDateTime updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
     return this;
   }
@@ -670,11 +712,11 @@ public class Contact {
    * @return updatedDateUTC
   **/
   @ApiModelProperty(value = "UTC timestamp of last update to contact")
-  public String getUpdatedDateUTC() {
+  public OffsetDateTime getUpdatedDateUTC() {
     return updatedDateUTC;
   }
 
-  public void setUpdatedDateUTC(String updatedDateUTC) {
+  public void setUpdatedDateUTC(OffsetDateTime updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
   }
 
@@ -713,7 +755,7 @@ public class Contact {
     return website;
   }
 
-  public Contact brandingTheme(Object brandingTheme) {
+  public Contact brandingTheme(BrandingTheme brandingTheme) {
     this.brandingTheme = brandingTheme;
     return this;
   }
@@ -723,11 +765,11 @@ public class Contact {
    * @return brandingTheme
   **/
   @ApiModelProperty(value = "")
-  public Object getBrandingTheme() {
+  public BrandingTheme getBrandingTheme() {
     return brandingTheme;
   }
 
-  public void setBrandingTheme(Object brandingTheme) {
+  public void setBrandingTheme(BrandingTheme brandingTheme) {
     this.brandingTheme = brandingTheme;
   }
 
@@ -749,7 +791,7 @@ public class Contact {
     return discount;
   }
 
-  public Contact balances(Object balances) {
+  public Contact balances(Balances balances) {
     this.balances = balances;
     return this;
   }
@@ -759,11 +801,11 @@ public class Contact {
    * @return balances
   **/
   @ApiModelProperty(value = "")
-  public Object getBalances() {
+  public Balances getBalances() {
     return balances;
   }
 
-  public void setBalances(Object balances) {
+  public void setBalances(Balances balances) {
     this.balances = balances;
   }
 

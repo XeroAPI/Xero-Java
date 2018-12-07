@@ -24,11 +24,14 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * TrackingOptions
  */
 
 public class TrackingOptions {
+  
   @JsonProperty("Options")
   private List<TrackingOption> options = null;
 

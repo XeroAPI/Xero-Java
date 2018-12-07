@@ -21,14 +21,18 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * Currency
  */
 
 public class Currency {
+  
   @JsonProperty("Code")
   private String code = null;
 
+  
   @JsonProperty("Description")
   private String description = null;
 

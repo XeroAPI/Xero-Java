@@ -25,20 +25,61 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * TrackingCategory
  */
 
 public class TrackingCategory {
+  
   @JsonProperty("TrackingCategoryID")
   private UUID trackingCategoryID = null;
 
+  
   @JsonProperty("Name")
   private String name = null;
 
-  @JsonProperty("Status")
-  private String status = null;
+  /**
+   * The status of a tracking category
+   */
+  public enum StatusEnum {
+    ACTIVE("ACTIVE"),
+    
+    ARCHIVED("ARCHIVED");
 
+    private String value;
+
+    StatusEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static StatusEnum fromValue(String text) {
+      for (StatusEnum b : StatusEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+    }
+  }
+
+  
+  @JsonProperty("Status")
+  private StatusEnum status = null;
+
+  
   @JsonProperty("Options")
   private List<TrackingOption> options = null;
 
@@ -78,7 +119,7 @@ public class TrackingCategory {
     this.name = name;
   }
 
-  public TrackingCategory status(String status) {
+  public TrackingCategory status(StatusEnum status) {
     this.status = status;
     return this;
   }
@@ -88,11 +129,11 @@ public class TrackingCategory {
    * @return status
   **/
   @ApiModelProperty(value = "The status of a tracking category")
-  public String getStatus() {
+  public StatusEnum getStatus() {
     return status;
   }
 
-  public void setStatus(String status) {
+  public void setStatus(StatusEnum status) {
     this.status = status;
   }
 

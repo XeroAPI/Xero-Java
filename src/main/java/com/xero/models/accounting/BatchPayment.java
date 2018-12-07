@@ -18,6 +18,7 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.Account;
 import com.xero.models.accounting.Payment;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -25,61 +26,80 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import org.threeten.bp.LocalDate;
+import org.threeten.bp.OffsetDateTime;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * BatchPayment
  */
 
 public class BatchPayment {
+  
   @JsonProperty("Account")
-  private Object account = null;
+  private Account account = null;
 
+  
   @JsonProperty("Reference")
   private String reference = null;
 
+  
   @JsonProperty("Particulars")
   private String particulars = null;
 
+  
   @JsonProperty("Code")
   private String code = null;
 
+  
   @JsonProperty("Details")
   private String details = null;
 
+  
   @JsonProperty("Narrative")
   private String narrative = null;
 
+  
   @JsonProperty("BatchPaymentID")
   private UUID batchPaymentID = null;
 
+  
   @JsonProperty("DateString")
-  private LocalDate dateString = null;
+  private String dateString = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("Date")
-  private String date = null;
+  private LocalDate date = null;
 
+  
   @JsonProperty("Amount")
   private Float amount = null;
 
+  
   @JsonProperty("Payments")
   private List<Payment> payments = null;
 
+  
   @JsonProperty("Type")
   private String type = null;
 
+  
   @JsonProperty("Status")
   private String status = null;
 
+  
   @JsonProperty("TotalAmount")
   private String totalAmount = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private String updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC = null;
 
+  
   @JsonProperty("IsReconciled")
   private String isReconciled = null;
 
-  public BatchPayment account(Object account) {
+  public BatchPayment account(Account account) {
     this.account = account;
     return this;
   }
@@ -89,11 +109,11 @@ public class BatchPayment {
    * @return account
   **/
   @ApiModelProperty(value = "")
-  public Object getAccount() {
+  public Account getAccount() {
     return account;
   }
 
-  public void setAccount(Object account) {
+  public void setAccount(Account account) {
     this.account = account;
   }
 
@@ -196,7 +216,7 @@ public class BatchPayment {
     return batchPaymentID;
   }
 
-  public BatchPayment dateString(LocalDate dateString) {
+  public BatchPayment dateString(String dateString) {
     this.dateString = dateString;
     return this;
   }
@@ -206,15 +226,15 @@ public class BatchPayment {
    * @return dateString
   **/
   @ApiModelProperty(value = "Date the payment is being made (YYYY-MM-DD) e.g. 2009-09-06")
-  public LocalDate getDateString() {
+  public String getDateString() {
     return dateString;
   }
 
-  public void setDateString(LocalDate dateString) {
+  public void setDateString(String dateString) {
     this.dateString = dateString;
   }
 
-  public BatchPayment date(String date) {
+  public BatchPayment date(LocalDate date) {
     this.date = date;
     return this;
   }
@@ -224,11 +244,11 @@ public class BatchPayment {
    * @return date
   **/
   @ApiModelProperty(value = "Date the payment is being made (YYYY-MM-DD) e.g. 2009-09-06")
-  public String getDate() {
+  public LocalDate getDate() {
     return date;
   }
 
-  public void setDate(String date) {
+  public void setDate(LocalDate date) {
     this.date = date;
   }
 
@@ -308,7 +328,7 @@ public class BatchPayment {
    * @return updatedDateUTC
   **/
   @ApiModelProperty(value = "UTC timestamp of last update to the payment")
-  public String getUpdatedDateUTC() {
+  public OffsetDateTime getUpdatedDateUTC() {
     return updatedDateUTC;
   }
 

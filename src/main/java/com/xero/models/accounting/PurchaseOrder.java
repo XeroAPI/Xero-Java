@@ -18,6 +18,7 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.Contact;
 import com.xero.models.accounting.LineItem;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -25,36 +26,48 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import org.threeten.bp.LocalDate;
+import org.threeten.bp.OffsetDateTime;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * PurchaseOrder
  */
 
 public class PurchaseOrder {
+  
   @JsonProperty("Contact")
-  private Object contact = null;
+  private Contact contact = null;
 
+  
   @JsonProperty("LineItems")
   private List<LineItem> lineItems = new ArrayList<LineItem>();
 
+  @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("Date")
-  private String date = null;
+  private LocalDate date = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("DeliveryDate")
   private LocalDate deliveryDate = null;
 
+  
   @JsonProperty("LineAmountTypes")
   private String lineAmountTypes = null;
 
+  
   @JsonProperty("PurchaseOrderNumber")
   private String purchaseOrderNumber = null;
 
+  
   @JsonProperty("Reference")
   private String reference = null;
 
+  
   @JsonProperty("BrandingThemeID")
   private UUID brandingThemeID = null;
 
+  
   @JsonProperty("CurrencyCode")
   private String currencyCode = null;
 
@@ -95,56 +108,71 @@ public class PurchaseOrder {
           return b;
         }
       }
-      return null;
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
     }
   }
 
+  
   @JsonProperty("Status")
   private StatusEnum status = null;
 
+  
   @JsonProperty("SentToContact")
   private Boolean sentToContact = null;
 
+  
   @JsonProperty("DeliveryAddress")
   private String deliveryAddress = null;
 
+  
   @JsonProperty("AttentionTo")
   private String attentionTo = null;
 
+  
   @JsonProperty("Telephone")
   private String telephone = null;
 
+  
   @JsonProperty("DeliveryInstructions")
   private String deliveryInstructions = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("ExpectedArrivalDate")
   private LocalDate expectedArrivalDate = null;
 
+  
   @JsonProperty("PurchaseOrderID")
   private UUID purchaseOrderID = null;
 
+  
   @JsonProperty("CurrencyRate")
   private Float currencyRate = null;
 
+  
   @JsonProperty("SubTotal")
   private Float subTotal = null;
 
+  
   @JsonProperty("TotalTax")
   private Float totalTax = null;
 
+  
   @JsonProperty("Total")
   private Float total = null;
 
+  
   @JsonProperty("TotalDiscount")
   private Float totalDiscount = null;
 
+  
   @JsonProperty("HasAttachments")
   private Boolean hasAttachments = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private String updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC = null;
 
-  public PurchaseOrder contact(Object contact) {
+  public PurchaseOrder contact(Contact contact) {
     this.contact = contact;
     return this;
   }
@@ -154,11 +182,11 @@ public class PurchaseOrder {
    * @return contact
   **/
   @ApiModelProperty(required = true, value = "")
-  public Object getContact() {
+  public Contact getContact() {
     return contact;
   }
 
-  public void setContact(Object contact) {
+  public void setContact(Contact contact) {
     this.contact = contact;
   }
 
@@ -185,7 +213,7 @@ public class PurchaseOrder {
     this.lineItems = lineItems;
   }
 
-  public PurchaseOrder date(String date) {
+  public PurchaseOrder date(LocalDate date) {
     this.date = date;
     return this;
   }
@@ -195,11 +223,11 @@ public class PurchaseOrder {
    * @return date
   **/
   @ApiModelProperty(value = "Date purchase order was issued – YYYY-MM-DD. If the Date element is not specified then it will default to the current date based on the timezone setting of the organisation")
-  public String getDate() {
+  public LocalDate getDate() {
     return date;
   }
 
-  public void setDate(String date) {
+  public void setDate(LocalDate date) {
     this.date = date;
   }
 
@@ -456,10 +484,10 @@ public class PurchaseOrder {
   }
 
    /**
-   * The currency rate for a multicurrency purchase order. As no rate can be specified, the XE.com day rate is used.
+   * The currency rate for a multicurrency purchase order. As no rate can  be specified, the XE.com day rate is used.
    * @return currencyRate
   **/
-  @ApiModelProperty(value = "The currency rate for a multicurrency purchase order. As no rate can be specified, the XE.com day rate is used.")
+  @ApiModelProperty(value = "The currency rate for a multicurrency purchase order. As no rate can  be specified, the XE.com day rate is used.")
   public Float getCurrencyRate() {
     return currencyRate;
   }
@@ -514,7 +542,7 @@ public class PurchaseOrder {
    * @return updatedDateUTC
   **/
   @ApiModelProperty(value = "Last modified date UTC format")
-  public String getUpdatedDateUTC() {
+  public OffsetDateTime getUpdatedDateUTC() {
     return updatedDateUTC;
   }
 

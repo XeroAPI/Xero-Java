@@ -21,17 +21,22 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * Phone
  */
 
 public class Phone {
+  
   @JsonProperty("PhoneNumber")
   private String phoneNumber = null;
 
+  
   @JsonProperty("PhoneAreaCode")
   private String phoneAreaCode = null;
 
+  
   @JsonProperty("PhoneCountryCode")
   private String phoneCountryCode = null;
 

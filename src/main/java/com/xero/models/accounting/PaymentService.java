@@ -22,23 +22,30 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * PaymentService
  */
 
 public class PaymentService {
+  
   @JsonProperty("PaymentServiceID")
   private UUID paymentServiceID = null;
 
+  
   @JsonProperty("PaymentServiceName")
   private String paymentServiceName = null;
 
+  
   @JsonProperty("PaymentServiceUrl")
   private String paymentServiceUrl = null;
 
+  
   @JsonProperty("PayNowText")
   private String payNowText = null;
 
+  
   @JsonProperty("PaymentServiceType")
   private String paymentServiceType = null;
 

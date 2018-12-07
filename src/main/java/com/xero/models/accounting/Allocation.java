@@ -21,20 +21,26 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.accounting.Invoice;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.threeten.bp.LocalDate;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * Allocation
  */
 
 public class Allocation {
+  
   @JsonProperty("Invoice")
   private Invoice invoice = null;
 
+  
   @JsonProperty("Amount")
   private Float amount = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("Date")
-  private String date = null;
+  private LocalDate date = null;
 
   public Allocation invoice(Invoice invoice) {
     this.invoice = invoice;
@@ -72,21 +78,21 @@ public class Allocation {
     this.amount = amount;
   }
 
-  public Allocation date(String date) {
+  public Allocation date(LocalDate date) {
     this.date = date;
     return this;
   }
 
    /**
-   * the date the prepayment is applied YYYY-MM-DD (read-only). This will be the latter of the invoice date and the prepayment date.
+   * the date the prepayment is applied YYYY-MM-DD (read-only). This will   be the latter of the invoice date and the prepayment date.
    * @return date
   **/
-  @ApiModelProperty(value = "the date the prepayment is applied YYYY-MM-DD (read-only). This will be the latter of the invoice date and the prepayment date.")
-  public String getDate() {
+  @ApiModelProperty(value = "the date the prepayment is applied YYYY-MM-DD (read-only). This will   be the latter of the invoice date and the prepayment date.")
+  public LocalDate getDate() {
     return date;
   }
 
-  public void setDate(String date) {
+  public void setDate(LocalDate date) {
     this.date = date;
   }
 

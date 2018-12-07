@@ -21,20 +21,26 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * ContactPerson
  */
 
 public class ContactPerson {
+  
   @JsonProperty("FirstName")
   private String firstName = null;
 
+  
   @JsonProperty("LastName")
   private String lastName = null;
 
+  
   @JsonProperty("EmailAddress")
   private String emailAddress = null;
 
+  
   @JsonProperty("IncludeInEmails")
   private Boolean includeInEmails = null;
 

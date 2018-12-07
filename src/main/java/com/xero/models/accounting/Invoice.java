@@ -18,6 +18,7 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.Contact;
 import com.xero.models.accounting.CreditNote;
 import com.xero.models.accounting.LineItem;
 import com.xero.models.accounting.Overpayment;
@@ -28,6 +29,10 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.OffsetDateTime;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * Invoice
@@ -65,24 +70,29 @@ public class Invoice {
           return b;
         }
       }
-      return null;
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
     }
   }
 
+  
   @JsonProperty("Type")
   private TypeEnum type = null;
 
+  
   @JsonProperty("Contact")
-  private Object contact = null;
+  private Contact contact = null;
 
+  
   @JsonProperty("LineItems")
   private List<LineItem> lineItems = new ArrayList<LineItem>();
 
+  @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("Date")
-  private String date = null;
+  private LocalDate date = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("DueDate")
-  private String dueDate = null;
+  private LocalDate dueDate = null;
 
   /**
    * Line amounts are exclusive of tax by default if you don’t specify this element. See Line Amount Types
@@ -117,28 +127,35 @@ public class Invoice {
           return b;
         }
       }
-      return null;
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
     }
   }
 
+  
   @JsonProperty("LineAmountTypes")
   private LineAmountTypesEnum lineAmountTypes = null;
 
+  
   @JsonProperty("InvoiceNumber")
   private String invoiceNumber = null;
 
+  
   @JsonProperty("Reference")
   private String reference = null;
 
+  
   @JsonProperty("BrandingThemeID")
   private UUID brandingThemeID = null;
 
+  
   @JsonProperty("Url")
   private String url = null;
 
+  
   @JsonProperty("CurrencyCode")
   private String currencyCode = null;
 
+  
   @JsonProperty("CurrencyRate")
   private Float currencyRate = null;
 
@@ -181,64 +198,83 @@ public class Invoice {
           return b;
         }
       }
-      return null;
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
     }
   }
 
+  
   @JsonProperty("Status")
   private StatusEnum status = null;
 
+  
   @JsonProperty("SentToContact")
   private Boolean sentToContact = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("ExpectedPaymentDate")
-  private String expectedPaymentDate = null;
+  private LocalDate expectedPaymentDate = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("PlannedPaymentDate")
-  private String plannedPaymentDate = null;
+  private LocalDate plannedPaymentDate = null;
 
+  
   @JsonProperty("SubTotal")
   private Float subTotal = null;
 
+  
   @JsonProperty("TotalTax")
   private Float totalTax = null;
 
+  
   @JsonProperty("Total")
   private Float total = null;
 
+  
   @JsonProperty("TotalDiscount")
   private Float totalDiscount = null;
 
+  
   @JsonProperty("InvoiceID")
   private UUID invoiceID = null;
 
+  
   @JsonProperty("HasAttachments")
   private Boolean hasAttachments = null;
 
+  
   @JsonProperty("Payments")
   private List<Payment> payments = null;
 
+  
   @JsonProperty("Prepayments")
   private List<Prepayment> prepayments = null;
 
+  
   @JsonProperty("Overpayments")
   private List<Overpayment> overpayments = null;
 
+  
   @JsonProperty("AmountDue")
   private Float amountDue = null;
 
+  
   @JsonProperty("AmountPaid")
   private Float amountPaid = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("FullyPaidOnDate")
-  private String fullyPaidOnDate = null;
+  private LocalDate fullyPaidOnDate = null;
 
+  
   @JsonProperty("AmountCredited")
   private Float amountCredited = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private String updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC = null;
 
+  
   @JsonProperty("CreditNotes")
   private List<CreditNote> creditNotes = null;
 
@@ -260,7 +296,7 @@ public class Invoice {
     this.type = type;
   }
 
-  public Invoice contact(Object contact) {
+  public Invoice contact(Contact contact) {
     this.contact = contact;
     return this;
   }
@@ -270,11 +306,11 @@ public class Invoice {
    * @return contact
   **/
   @ApiModelProperty(required = true, value = "")
-  public Object getContact() {
+  public Contact getContact() {
     return contact;
   }
 
-  public void setContact(Object contact) {
+  public void setContact(Contact contact) {
     this.contact = contact;
   }
 
@@ -301,7 +337,7 @@ public class Invoice {
     this.lineItems = lineItems;
   }
 
-  public Invoice date(String date) {
+  public Invoice date(LocalDate date) {
     this.date = date;
     return this;
   }
@@ -311,15 +347,15 @@ public class Invoice {
    * @return date
   **/
   @ApiModelProperty(value = "Date invoice was issued – YYYY-MM-DD. If the Date element is not specified it will default to the current date based on the timezone setting of the organisation")
-  public String getDate() {
+  public LocalDate getDate() {
     return date;
   }
 
-  public void setDate(String date) {
+  public void setDate(LocalDate date) {
     this.date = date;
   }
 
-  public Invoice dueDate(String dueDate) {
+  public Invoice dueDate(LocalDate dueDate) {
     this.dueDate = dueDate;
     return this;
   }
@@ -329,11 +365,11 @@ public class Invoice {
    * @return dueDate
   **/
   @ApiModelProperty(value = "Date invoice is due – YYYY-MM-DD")
-  public String getDueDate() {
+  public LocalDate getDueDate() {
     return dueDate;
   }
 
-  public void setDueDate(String dueDate) {
+  public void setDueDate(LocalDate dueDate) {
     this.dueDate = dueDate;
   }
 
@@ -499,7 +535,7 @@ public class Invoice {
     this.sentToContact = sentToContact;
   }
 
-  public Invoice expectedPaymentDate(String expectedPaymentDate) {
+  public Invoice expectedPaymentDate(LocalDate expectedPaymentDate) {
     this.expectedPaymentDate = expectedPaymentDate;
     return this;
   }
@@ -509,15 +545,15 @@ public class Invoice {
    * @return expectedPaymentDate
   **/
   @ApiModelProperty(value = "Shown on sales invoices (Accounts Receivable) when this has been set")
-  public String getExpectedPaymentDate() {
+  public LocalDate getExpectedPaymentDate() {
     return expectedPaymentDate;
   }
 
-  public void setExpectedPaymentDate(String expectedPaymentDate) {
+  public void setExpectedPaymentDate(LocalDate expectedPaymentDate) {
     this.expectedPaymentDate = expectedPaymentDate;
   }
 
-  public Invoice plannedPaymentDate(String plannedPaymentDate) {
+  public Invoice plannedPaymentDate(LocalDate plannedPaymentDate) {
     this.plannedPaymentDate = plannedPaymentDate;
     return this;
   }
@@ -527,11 +563,11 @@ public class Invoice {
    * @return plannedPaymentDate
   **/
   @ApiModelProperty(value = "Shown on bills (Accounts Payable) when this has been set")
-  public String getPlannedPaymentDate() {
+  public LocalDate getPlannedPaymentDate() {
     return plannedPaymentDate;
   }
 
-  public void setPlannedPaymentDate(String plannedPaymentDate) {
+  public void setPlannedPaymentDate(LocalDate plannedPaymentDate) {
     this.plannedPaymentDate = plannedPaymentDate;
   }
 
@@ -648,7 +684,7 @@ public class Invoice {
    * @return fullyPaidOnDate
   **/
   @ApiModelProperty(value = "The date the invoice was fully paid. Only returned on fully paid invoices")
-  public String getFullyPaidOnDate() {
+  public LocalDate getFullyPaidOnDate() {
     return fullyPaidOnDate;
   }
 
@@ -666,7 +702,7 @@ public class Invoice {
    * @return updatedDateUTC
   **/
   @ApiModelProperty(value = "Last modified date UTC format")
-  public String getUpdatedDateUTC() {
+  public OffsetDateTime getUpdatedDateUTC() {
     return updatedDateUTC;
   }
 

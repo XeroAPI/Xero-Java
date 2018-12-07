@@ -18,61 +18,190 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.Contact;
 import com.xero.models.accounting.LineItem;
+import com.xero.models.accounting.Schedule;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * RepeatingInvoice
  */
 
 public class RepeatingInvoice {
+  /**
+   * See Invoice Types
+   */
+  public enum TypeEnum {
+    ACCPAY("ACCPAY"),
+    
+    ACCREC("ACCREC");
+
+    private String value;
+
+    TypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static TypeEnum fromValue(String text) {
+      for (TypeEnum b : TypeEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+    }
+  }
+
+  
   @JsonProperty("Type")
-  private String type = null;
+  private TypeEnum type = null;
 
+  
   @JsonProperty("Contact")
-  private Object contact = null;
+  private Contact contact = null;
 
+  
   @JsonProperty("Schedule")
-  private Object schedule = null;
+  private Schedule schedule = null;
 
+  
   @JsonProperty("LineItems")
   private List<LineItem> lineItems = null;
 
-  @JsonProperty("LineAmountTypes")
-  private String lineAmountTypes = null;
+  /**
+   * Line amounts are exclusive of tax by default if you don’t specify this element. See Line Amount Types
+   */
+  public enum LineAmountTypesEnum {
+    EXCLUSIVE("Exclusive"),
+    
+    INCLUSIVE("Inclusive"),
+    
+    NOTAX("NoTax");
 
+    private String value;
+
+    LineAmountTypesEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static LineAmountTypesEnum fromValue(String text) {
+      for (LineAmountTypesEnum b : LineAmountTypesEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+    }
+  }
+
+  
+  @JsonProperty("LineAmountTypes")
+  private LineAmountTypesEnum lineAmountTypes = null;
+
+  
   @JsonProperty("Reference")
   private String reference = null;
 
+  
   @JsonProperty("BrandingThemeID")
   private UUID brandingThemeID = null;
 
+  
   @JsonProperty("CurrencyCode")
   private String currencyCode = null;
 
-  @JsonProperty("Status")
-  private String status = null;
+  /**
+   * One of the following - DRAFT or AUTHORISED – See Invoice Status Codes
+   */
+  public enum StatusEnum {
+    DRAFT("DRAFT"),
+    
+    AUTHORISED("AUTHORISED");
 
+    private String value;
+
+    StatusEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static StatusEnum fromValue(String text) {
+      for (StatusEnum b : StatusEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+    }
+  }
+
+  
+  @JsonProperty("Status")
+  private StatusEnum status = null;
+
+  
   @JsonProperty("SubTotal")
   private Float subTotal = null;
 
+  
   @JsonProperty("TotalTax")
   private Float totalTax = null;
 
+  
   @JsonProperty("Total")
   private Float total = null;
 
+  
   @JsonProperty("RepeatingInvoiceID")
   private UUID repeatingInvoiceID = null;
 
+  
+  @JsonProperty("ID")
+  private UUID ID = null;
+
+  
   @JsonProperty("HasAttachments")
   private Boolean hasAttachments = null;
 
-  public RepeatingInvoice type(String type) {
+  public RepeatingInvoice type(TypeEnum type) {
     this.type = type;
     return this;
   }
@@ -82,15 +211,15 @@ public class RepeatingInvoice {
    * @return type
   **/
   @ApiModelProperty(value = "See Invoice Types")
-  public String getType() {
+  public TypeEnum getType() {
     return type;
   }
 
-  public void setType(String type) {
+  public void setType(TypeEnum type) {
     this.type = type;
   }
 
-  public RepeatingInvoice contact(Object contact) {
+  public RepeatingInvoice contact(Contact contact) {
     this.contact = contact;
     return this;
   }
@@ -100,15 +229,15 @@ public class RepeatingInvoice {
    * @return contact
   **/
   @ApiModelProperty(value = "")
-  public Object getContact() {
+  public Contact getContact() {
     return contact;
   }
 
-  public void setContact(Object contact) {
+  public void setContact(Contact contact) {
     this.contact = contact;
   }
 
-  public RepeatingInvoice schedule(Object schedule) {
+  public RepeatingInvoice schedule(Schedule schedule) {
     this.schedule = schedule;
     return this;
   }
@@ -118,11 +247,11 @@ public class RepeatingInvoice {
    * @return schedule
   **/
   @ApiModelProperty(value = "")
-  public Object getSchedule() {
+  public Schedule getSchedule() {
     return schedule;
   }
 
-  public void setSchedule(Object schedule) {
+  public void setSchedule(Schedule schedule) {
     this.schedule = schedule;
   }
 
@@ -152,7 +281,7 @@ public class RepeatingInvoice {
     this.lineItems = lineItems;
   }
 
-  public RepeatingInvoice lineAmountTypes(String lineAmountTypes) {
+  public RepeatingInvoice lineAmountTypes(LineAmountTypesEnum lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
     return this;
   }
@@ -162,11 +291,11 @@ public class RepeatingInvoice {
    * @return lineAmountTypes
   **/
   @ApiModelProperty(value = "Line amounts are exclusive of tax by default if you don’t specify this element. See Line Amount Types")
-  public String getLineAmountTypes() {
+  public LineAmountTypesEnum getLineAmountTypes() {
     return lineAmountTypes;
   }
 
-  public void setLineAmountTypes(String lineAmountTypes) {
+  public void setLineAmountTypes(LineAmountTypesEnum lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
   }
 
@@ -224,21 +353,21 @@ public class RepeatingInvoice {
     this.currencyCode = currencyCode;
   }
 
-  public RepeatingInvoice status(String status) {
+  public RepeatingInvoice status(StatusEnum status) {
     this.status = status;
     return this;
   }
 
    /**
-   * One of the following : DRAFT or AUTHORISED – See Invoice Status Codes
+   * One of the following - DRAFT or AUTHORISED – See Invoice Status Codes
    * @return status
   **/
-  @ApiModelProperty(value = "One of the following : DRAFT or AUTHORISED – See Invoice Status Codes")
-  public String getStatus() {
+  @ApiModelProperty(value = "One of the following - DRAFT or AUTHORISED – See Invoice Status Codes")
+  public StatusEnum getStatus() {
     return status;
   }
 
-  public void setStatus(String status) {
+  public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
@@ -314,6 +443,24 @@ public class RepeatingInvoice {
     this.repeatingInvoiceID = repeatingInvoiceID;
   }
 
+  public RepeatingInvoice ID(UUID ID) {
+    this.ID = ID;
+    return this;
+  }
+
+   /**
+   * Xero generated unique identifier for repeating invoice template
+   * @return ID
+  **/
+  @ApiModelProperty(value = "Xero generated unique identifier for repeating invoice template")
+  public UUID getID() {
+    return ID;
+  }
+
+  public void setID(UUID ID) {
+    this.ID = ID;
+  }
+
   public RepeatingInvoice hasAttachments(Boolean hasAttachments) {
     this.hasAttachments = hasAttachments;
     return this;
@@ -355,12 +502,13 @@ public class RepeatingInvoice {
         Objects.equals(this.totalTax, repeatingInvoice.totalTax) &&
         Objects.equals(this.total, repeatingInvoice.total) &&
         Objects.equals(this.repeatingInvoiceID, repeatingInvoice.repeatingInvoiceID) &&
+        Objects.equals(this.ID, repeatingInvoice.ID) &&
         Objects.equals(this.hasAttachments, repeatingInvoice.hasAttachments);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, contact, schedule, lineItems, lineAmountTypes, reference, brandingThemeID, currencyCode, status, subTotal, totalTax, total, repeatingInvoiceID, hasAttachments);
+    return Objects.hash(type, contact, schedule, lineItems, lineAmountTypes, reference, brandingThemeID, currencyCode, status, subTotal, totalTax, total, repeatingInvoiceID, ID, hasAttachments);
   }
 
 
@@ -382,6 +530,7 @@ public class RepeatingInvoice {
     sb.append("    totalTax: ").append(toIndentedString(totalTax)).append("\n");
     sb.append("    total: ").append(toIndentedString(total)).append("\n");
     sb.append("    repeatingInvoiceID: ").append(toIndentedString(repeatingInvoiceID)).append("\n");
+    sb.append("    ID: ").append(toIndentedString(ID)).append("\n");
     sb.append("    hasAttachments: ").append(toIndentedString(hasAttachments)).append("\n");
     sb.append("}");
     return sb.toString();

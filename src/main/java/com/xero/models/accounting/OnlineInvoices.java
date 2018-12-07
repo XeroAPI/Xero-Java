@@ -24,11 +24,14 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * OnlineInvoices
  */
 
 public class OnlineInvoices {
+  
   @JsonProperty("OnlineInvoices")
   private List<OnlineInvoice> onlineInvoices = null;
 

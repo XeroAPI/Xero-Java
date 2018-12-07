@@ -24,14 +24,18 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * ReportCell
  */
 
 public class ReportCell {
+  
   @JsonProperty("Value")
   private String value = null;
 
+  
   @JsonProperty("Attributes")
   private List<ReportAttribute> attributes = null;
 

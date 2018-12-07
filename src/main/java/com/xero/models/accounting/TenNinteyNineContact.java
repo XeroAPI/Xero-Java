@@ -21,74 +21,98 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * TenNinteyNineContact
  */
 
 public class TenNinteyNineContact {
+  
   @JsonProperty("Box1")
   private String box1 = null;
 
+  
   @JsonProperty("Box2")
   private String box2 = null;
 
+  
   @JsonProperty("Box3")
   private String box3 = null;
 
+  
   @JsonProperty("Box4")
   private String box4 = null;
 
+  
   @JsonProperty("Box5")
   private String box5 = null;
 
+  
   @JsonProperty("Box6")
   private String box6 = null;
 
+  
   @JsonProperty("Box7")
   private String box7 = null;
 
+  
   @JsonProperty("Box8")
   private String box8 = null;
 
+  
   @JsonProperty("Box9")
   private String box9 = null;
 
+  
   @JsonProperty("Box10")
   private String box10 = null;
 
+  
   @JsonProperty("Box11")
   private String box11 = null;
 
+  
   @JsonProperty("Box13")
   private String box13 = null;
 
+  
   @JsonProperty("Box14")
   private String box14 = null;
 
+  
   @JsonProperty("Name")
   private String name = null;
 
+  
   @JsonProperty("FederalTaxIDType")
   private String federalTaxIDType = null;
 
+  
   @JsonProperty("City")
   private String city = null;
 
+  
   @JsonProperty("Zip")
   private String zip = null;
 
+  
   @JsonProperty("State")
   private String state = null;
 
+  
   @JsonProperty("Email")
   private String email = null;
 
+  
   @JsonProperty("StreetAddress")
   private String streetAddress = null;
 
+  
   @JsonProperty("TaxID")
   private String taxID = null;
 
+  
   @JsonProperty("ContactId")
   private String contactId = null;
 

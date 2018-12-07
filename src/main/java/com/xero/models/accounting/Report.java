@@ -23,15 +23,20 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
+import org.threeten.bp.OffsetDateTime;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * Report
  */
 
 public class Report {
+  
   @JsonProperty("ReportID")
   private String reportID = null;
 
+  
   @JsonProperty("ReportName")
   private String reportName = null;
 
@@ -64,22 +69,27 @@ public class Report {
           return b;
         }
       }
-      return null;
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
     }
   }
 
+  
   @JsonProperty("ReportType")
   private ReportTypeEnum reportType = null;
 
+  
   @JsonProperty("ReportTitle")
   private String reportTitle = null;
 
+  
   @JsonProperty("ReportDate")
   private String reportDate = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private String updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC = null;
 
+  
   @JsonProperty("Contacts")
   private List<TenNinteyNineContact> contacts = null;
 
@@ -173,7 +183,7 @@ public class Report {
     this.reportDate = reportDate;
   }
 
-  public Report updatedDateUTC(String updatedDateUTC) {
+  public Report updatedDateUTC(OffsetDateTime updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
     return this;
   }
@@ -183,11 +193,11 @@ public class Report {
    * @return updatedDateUTC
   **/
   @ApiModelProperty(value = "Updated Date")
-  public String getUpdatedDateUTC() {
+  public OffsetDateTime getUpdatedDateUTC() {
     return updatedDateUTC;
   }
 
-  public void setUpdatedDateUTC(String updatedDateUTC) {
+  public void setUpdatedDateUTC(OffsetDateTime updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
   }
 

@@ -18,30 +18,41 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.Contact;
 import com.xero.models.accounting.LineItem;
+import com.xero.models.accounting.User;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.OffsetDateTime;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * Receipt
  */
 
 public class Receipt {
+  @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("Date")
-  private String date = null;
+  private LocalDate date = null;
 
+  
   @JsonProperty("Contact")
-  private Object contact = null;
+  private Contact contact = null;
 
+  
   @JsonProperty("Lineitems")
   private List<LineItem> lineitems = new ArrayList<LineItem>();
 
+  
   @JsonProperty("User")
-  private Object user = null;
+  private User user = null;
 
+  
   @JsonProperty("Reference")
   private String reference = null;
 
@@ -78,22 +89,27 @@ public class Receipt {
           return b;
         }
       }
-      return null;
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
     }
   }
 
+  
   @JsonProperty("LineAmountTypes")
   private LineAmountTypesEnum lineAmountTypes = null;
 
+  
   @JsonProperty("SubTotal")
   private Float subTotal = null;
 
+  
   @JsonProperty("TotalTax")
   private Float totalTax = null;
 
+  
   @JsonProperty("Total")
   private Float total = null;
 
+  
   @JsonProperty("ReceiptID")
   private UUID receiptID = null;
 
@@ -132,26 +148,31 @@ public class Receipt {
           return b;
         }
       }
-      return null;
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
     }
   }
 
+  
   @JsonProperty("Status")
   private StatusEnum status = null;
 
+  
   @JsonProperty("ReceiptNumber")
   private String receiptNumber = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private String updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC = null;
 
+  
   @JsonProperty("HasAttachments")
   private Boolean hasAttachments = null;
 
+  
   @JsonProperty("Url")
   private String url = null;
 
-  public Receipt date(String date) {
+  public Receipt date(LocalDate date) {
     this.date = date;
     return this;
   }
@@ -161,15 +182,15 @@ public class Receipt {
    * @return date
   **/
   @ApiModelProperty(required = true, value = "Date of receipt – YYYY-MM-DD")
-  public String getDate() {
+  public LocalDate getDate() {
     return date;
   }
 
-  public void setDate(String date) {
+  public void setDate(LocalDate date) {
     this.date = date;
   }
 
-  public Receipt contact(Object contact) {
+  public Receipt contact(Contact contact) {
     this.contact = contact;
     return this;
   }
@@ -179,11 +200,11 @@ public class Receipt {
    * @return contact
   **/
   @ApiModelProperty(required = true, value = "")
-  public Object getContact() {
+  public Contact getContact() {
     return contact;
   }
 
-  public void setContact(Object contact) {
+  public void setContact(Contact contact) {
     this.contact = contact;
   }
 
@@ -210,7 +231,7 @@ public class Receipt {
     this.lineitems = lineitems;
   }
 
-  public Receipt user(Object user) {
+  public Receipt user(User user) {
     this.user = user;
     return this;
   }
@@ -220,11 +241,11 @@ public class Receipt {
    * @return user
   **/
   @ApiModelProperty(required = true, value = "")
-  public Object getUser() {
+  public User getUser() {
     return user;
   }
 
-  public void setUser(Object user) {
+  public void setUser(User user) {
     this.user = user;
   }
 
@@ -368,7 +389,7 @@ public class Receipt {
    * @return updatedDateUTC
   **/
   @ApiModelProperty(value = "Last modified date UTC format")
-  public String getUpdatedDateUTC() {
+  public OffsetDateTime getUpdatedDateUTC() {
     return updatedDateUTC;
   }
 

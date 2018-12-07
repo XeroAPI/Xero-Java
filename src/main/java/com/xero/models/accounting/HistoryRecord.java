@@ -20,23 +20,30 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.threeten.bp.OffsetDateTime;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * HistoryRecord
  */
 
 public class HistoryRecord {
+  
   @JsonProperty("Details")
   private String details = null;
 
+  
   @JsonProperty("Changes")
   private String changes = null;
 
+  
   @JsonProperty("User")
   private String user = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("DateUTC")
-  private String dateUTC = null;
+  private OffsetDateTime dateUTC = null;
 
   public HistoryRecord details(String details) {
     this.details = details;
@@ -92,7 +99,7 @@ public class HistoryRecord {
     this.user = user;
   }
 
-  public HistoryRecord dateUTC(String dateUTC) {
+  public HistoryRecord dateUTC(OffsetDateTime dateUTC) {
     this.dateUTC = dateUTC;
     return this;
   }
@@ -102,11 +109,11 @@ public class HistoryRecord {
    * @return dateUTC
   **/
   @ApiModelProperty(value = "UTC timestamp of creation date of branding theme")
-  public String getDateUTC() {
+  public OffsetDateTime getDateUTC() {
     return dateUTC;
   }
 
-  public void setDateUTC(String dateUTC) {
+  public void setDateUTC(OffsetDateTime dateUTC) {
     this.dateUTC = dateUTC;
   }
 

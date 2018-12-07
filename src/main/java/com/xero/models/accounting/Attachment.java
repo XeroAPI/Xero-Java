@@ -23,26 +23,34 @@ import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * Attachment
  */
 
 public class Attachment {
+  
   @JsonProperty("AttachmentID")
   private UUID attachmentID = null;
 
+  
   @JsonProperty("FileName")
   private String fileName = null;
 
+  
   @JsonProperty("Url")
   private String url = null;
 
+  
   @JsonProperty("MimeType")
   private String mimeType = null;
 
+  
   @JsonProperty("ContentLength")
   private BigDecimal contentLength = null;
 
+  
   @JsonProperty("IncludeOnline")
   private Boolean includeOnline = null;
 

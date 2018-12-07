@@ -24,11 +24,14 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * BrandingThemes
  */
 
 public class BrandingThemes {
+  
   @JsonProperty("BrandingThemes")
   private List<BrandingTheme> brandingThemes = null;
 

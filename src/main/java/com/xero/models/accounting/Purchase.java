@@ -21,20 +21,26 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * Purchase
  */
 
 public class Purchase {
+  
   @JsonProperty("UnitPrice")
   private Float unitPrice = null;
 
+  
   @JsonProperty("AccountCode")
   private String accountCode = null;
 
+  
   @JsonProperty("COGSAccountCode")
   private String coGSAccountCode = null;
 
+  
   @JsonProperty("TaxType")
   private String taxType = null;
 

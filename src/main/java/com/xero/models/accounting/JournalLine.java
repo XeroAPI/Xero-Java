@@ -24,26 +24,34 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * JournalLine
  */
 
 public class JournalLine {
+  
   @JsonProperty("LineAmount")
   private String lineAmount = null;
 
+  
   @JsonProperty("AccountCode")
   private String accountCode = null;
 
+  
   @JsonProperty("Description")
   private String description = null;
 
+  
   @JsonProperty("TaxType")
   private String taxType = null;
 
+  
   @JsonProperty("Tracking")
   private List<TrackingCategory> tracking = null;
 
+  
   @JsonProperty("TaxAmount")
   private Float taxAmount = null;
 

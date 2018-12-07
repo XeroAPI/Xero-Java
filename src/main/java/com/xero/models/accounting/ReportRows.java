@@ -25,20 +25,26 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * ReportRows
  */
 
 public class ReportRows {
+  
   @JsonProperty("RowType")
   private String rowType = null;
 
+  
   @JsonProperty("Title")
   private String title = null;
 
+  
   @JsonProperty("Cells")
   private List<ReportCell> cells = null;
 
+  
   @JsonProperty("Rows")
   private List<ReportRow> rows = null;
 

@@ -21,14 +21,18 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * CISSetting
  */
 
 public class CISSetting {
+  
   @JsonProperty("CISEnabled")
   private Boolean ciSEnabled = null;
 
+  
   @JsonProperty("Rate")
   private Integer rate = null;
 

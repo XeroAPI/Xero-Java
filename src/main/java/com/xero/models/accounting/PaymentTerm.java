@@ -18,21 +18,26 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.Bill;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * PaymentTerm
  */
 
 public class PaymentTerm {
+  
   @JsonProperty("Bills")
-  private Object bills = null;
+  private Bill bills = null;
 
+  
   @JsonProperty("Sales")
-  private Object sales = null;
+  private Bill sales = null;
 
-  public PaymentTerm bills(Object bills) {
+  public PaymentTerm bills(Bill bills) {
     this.bills = bills;
     return this;
   }
@@ -42,15 +47,15 @@ public class PaymentTerm {
    * @return bills
   **/
   @ApiModelProperty(value = "")
-  public Object getBills() {
+  public Bill getBills() {
     return bills;
   }
 
-  public void setBills(Object bills) {
+  public void setBills(Bill bills) {
     this.bills = bills;
   }
 
-  public PaymentTerm sales(Object sales) {
+  public PaymentTerm sales(Bill sales) {
     this.sales = sales;
     return this;
   }
@@ -60,11 +65,11 @@ public class PaymentTerm {
    * @return sales
   **/
   @ApiModelProperty(value = "")
-  public Object getSales() {
+  public Bill getSales() {
     return sales;
   }
 
-  public void setSales(Object sales) {
+  public void setSales(Bill sales) {
     this.sales = sales;
   }
 

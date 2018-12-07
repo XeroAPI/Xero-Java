@@ -19,12 +19,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.accounting.Allocation;
+import com.xero.models.accounting.Contact;
 import com.xero.models.accounting.LineItem;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.OffsetDateTime;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * CreditNote
@@ -62,16 +67,19 @@ public class CreditNote {
           return b;
         }
       }
-      return null;
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
     }
   }
 
+  
   @JsonProperty("Type")
   private TypeEnum type = null;
 
+  
   @JsonProperty("Contact")
-  private Object contact = null;
+  private Contact contact = null;
 
+  
   @JsonProperty("Date")
   private String date = null;
 
@@ -114,61 +122,79 @@ public class CreditNote {
           return b;
         }
       }
-      return null;
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
     }
   }
 
+  
   @JsonProperty("Status")
   private StatusEnum status = null;
 
+  
   @JsonProperty("LineAmountTypes")
   private String lineAmountTypes = null;
 
+  
   @JsonProperty("LineItems")
   private List<LineItem> lineItems = null;
 
+  
   @JsonProperty("SubTotal")
   private Float subTotal = null;
 
+  
   @JsonProperty("TotalTax")
   private Float totalTax = null;
 
+  
   @JsonProperty("Total")
   private Float total = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private String updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC = null;
 
+  
   @JsonProperty("CurrencyCode")
   private String currencyCode = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("FullyPaidOnDate")
-  private String fullyPaidOnDate = null;
+  private LocalDate fullyPaidOnDate = null;
 
+  
   @JsonProperty("CreditNoteID")
   private UUID creditNoteID = null;
 
+  
   @JsonProperty("CreditNoteNumber")
   private String creditNoteNumber = null;
 
+  
   @JsonProperty("Reference")
   private String reference = null;
 
+  
   @JsonProperty("SentToContact")
   private Boolean sentToContact = null;
 
+  
   @JsonProperty("CurrencyRate")
   private Float currencyRate = null;
 
+  
   @JsonProperty("RemainingCredit")
   private String remainingCredit = null;
 
+  
   @JsonProperty("Allocations")
   private List<Allocation> allocations = null;
 
+  
   @JsonProperty("BrandingThemeID")
   private UUID brandingThemeID = null;
 
+  
   @JsonProperty("HasAttachments")
   private Boolean hasAttachments = null;
 
@@ -190,7 +216,7 @@ public class CreditNote {
     this.type = type;
   }
 
-  public CreditNote contact(Object contact) {
+  public CreditNote contact(Contact contact) {
     this.contact = contact;
     return this;
   }
@@ -200,11 +226,11 @@ public class CreditNote {
    * @return contact
   **/
   @ApiModelProperty(value = "")
-  public Object getContact() {
+  public Contact getContact() {
     return contact;
   }
 
-  public void setContact(Object contact) {
+  public void setContact(Contact contact) {
     this.contact = contact;
   }
 
@@ -342,7 +368,7 @@ public class CreditNote {
     this.total = total;
   }
 
-  public CreditNote updatedDateUTC(String updatedDateUTC) {
+  public CreditNote updatedDateUTC(OffsetDateTime updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
     return this;
   }
@@ -352,11 +378,11 @@ public class CreditNote {
    * @return updatedDateUTC
   **/
   @ApiModelProperty(value = "UTC timestamp of last update to the credit note")
-  public String getUpdatedDateUTC() {
+  public OffsetDateTime getUpdatedDateUTC() {
     return updatedDateUTC;
   }
 
-  public void setUpdatedDateUTC(String updatedDateUTC) {
+  public void setUpdatedDateUTC(OffsetDateTime updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
   }
 
@@ -378,7 +404,7 @@ public class CreditNote {
     this.currencyCode = currencyCode;
   }
 
-  public CreditNote fullyPaidOnDate(String fullyPaidOnDate) {
+  public CreditNote fullyPaidOnDate(LocalDate fullyPaidOnDate) {
     this.fullyPaidOnDate = fullyPaidOnDate;
     return this;
   }
@@ -388,11 +414,11 @@ public class CreditNote {
    * @return fullyPaidOnDate
   **/
   @ApiModelProperty(value = "Date when credit note was fully paid(UTC format)")
-  public String getFullyPaidOnDate() {
+  public LocalDate getFullyPaidOnDate() {
     return fullyPaidOnDate;
   }
 
-  public void setFullyPaidOnDate(String fullyPaidOnDate) {
+  public void setFullyPaidOnDate(LocalDate fullyPaidOnDate) {
     this.fullyPaidOnDate = fullyPaidOnDate;
   }
 
@@ -451,10 +477,10 @@ public class CreditNote {
   }
 
    /**
-   * boolean to indicate if a credit note has been sent to a contact via the Xero app (currently read only)
+   * boolean to indicate if a credit note has been sent to a contact via  the Xero app (currently read only)
    * @return sentToContact
   **/
-  @ApiModelProperty(value = "boolean to indicate if a credit note has been sent to a contact via the Xero app (currently read only)")
+  @ApiModelProperty(value = "boolean to indicate if a credit note has been sent to a contact via  the Xero app (currently read only)")
   public Boolean getSentToContact() {
     return sentToContact;
   }

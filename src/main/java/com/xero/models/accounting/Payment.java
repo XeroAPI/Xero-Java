@@ -18,51 +18,73 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.Account;
+import com.xero.models.accounting.CreditNote;
+import com.xero.models.accounting.Invoice;
+import com.xero.models.accounting.Overpayment;
+import com.xero.models.accounting.Prepayment;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.OffsetDateTime;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * Payment
  */
 
 public class Payment {
+  
   @JsonProperty("Invoice")
-  private Object invoice = null;
+  private Invoice invoice = null;
 
+  
   @JsonProperty("CreditNote")
-  private Object creditNote = null;
+  private CreditNote creditNote = null;
 
+  
   @JsonProperty("Prepayment")
-  private Object prepayment = null;
+  private Prepayment prepayment = null;
 
+  
   @JsonProperty("Overpayment")
-  private Object overpayment = null;
+  private Overpayment overpayment = null;
 
+  
   @JsonProperty("InvoiceNumber")
   private String invoiceNumber = null;
 
+  
   @JsonProperty("CreditNoteNumber")
   private String creditNoteNumber = null;
 
+  
   @JsonProperty("Account")
-  private Object account = null;
+  private Account account = null;
 
+  
   @JsonProperty("Code")
   private String code = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("Date")
-  private String date = null;
+  private LocalDate date = null;
 
+  
   @JsonProperty("CurrencyRate")
   private Float currencyRate = null;
 
+  
   @JsonProperty("Amount")
   private Float amount = null;
 
+  
   @JsonProperty("Reference")
   private String reference = null;
 
+  
   @JsonProperty("IsReconciled")
   private String isReconciled = null;
 
@@ -97,10 +119,11 @@ public class Payment {
           return b;
         }
       }
-      return null;
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
     }
   }
 
+  
   @JsonProperty("Status")
   private StatusEnum status = null;
 
@@ -147,29 +170,35 @@ public class Payment {
           return b;
         }
       }
-      return null;
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
     }
   }
 
+  
   @JsonProperty("PaymentType")
   private PaymentTypeEnum paymentType = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private String updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC = null;
 
+  
   @JsonProperty("PaymentID")
   private UUID paymentID = null;
 
+  
   @JsonProperty("BankAccountNumber")
   private String bankAccountNumber = null;
 
+  
   @JsonProperty("Particulars")
   private String particulars = null;
 
+  
   @JsonProperty("Details")
   private String details = null;
 
-  public Payment invoice(Object invoice) {
+  public Payment invoice(Invoice invoice) {
     this.invoice = invoice;
     return this;
   }
@@ -179,15 +208,15 @@ public class Payment {
    * @return invoice
   **/
   @ApiModelProperty(value = "")
-  public Object getInvoice() {
+  public Invoice getInvoice() {
     return invoice;
   }
 
-  public void setInvoice(Object invoice) {
+  public void setInvoice(Invoice invoice) {
     this.invoice = invoice;
   }
 
-  public Payment creditNote(Object creditNote) {
+  public Payment creditNote(CreditNote creditNote) {
     this.creditNote = creditNote;
     return this;
   }
@@ -197,15 +226,15 @@ public class Payment {
    * @return creditNote
   **/
   @ApiModelProperty(value = "")
-  public Object getCreditNote() {
+  public CreditNote getCreditNote() {
     return creditNote;
   }
 
-  public void setCreditNote(Object creditNote) {
+  public void setCreditNote(CreditNote creditNote) {
     this.creditNote = creditNote;
   }
 
-  public Payment prepayment(Object prepayment) {
+  public Payment prepayment(Prepayment prepayment) {
     this.prepayment = prepayment;
     return this;
   }
@@ -215,15 +244,15 @@ public class Payment {
    * @return prepayment
   **/
   @ApiModelProperty(value = "")
-  public Object getPrepayment() {
+  public Prepayment getPrepayment() {
     return prepayment;
   }
 
-  public void setPrepayment(Object prepayment) {
+  public void setPrepayment(Prepayment prepayment) {
     this.prepayment = prepayment;
   }
 
-  public Payment overpayment(Object overpayment) {
+  public Payment overpayment(Overpayment overpayment) {
     this.overpayment = overpayment;
     return this;
   }
@@ -233,11 +262,11 @@ public class Payment {
    * @return overpayment
   **/
   @ApiModelProperty(value = "")
-  public Object getOverpayment() {
+  public Overpayment getOverpayment() {
     return overpayment;
   }
 
-  public void setOverpayment(Object overpayment) {
+  public void setOverpayment(Overpayment overpayment) {
     this.overpayment = overpayment;
   }
 
@@ -277,7 +306,7 @@ public class Payment {
     this.creditNoteNumber = creditNoteNumber;
   }
 
-  public Payment account(Object account) {
+  public Payment account(Account account) {
     this.account = account;
     return this;
   }
@@ -287,11 +316,11 @@ public class Payment {
    * @return account
   **/
   @ApiModelProperty(value = "")
-  public Object getAccount() {
+  public Account getAccount() {
     return account;
   }
 
-  public void setAccount(Object account) {
+  public void setAccount(Account account) {
     this.account = account;
   }
 
@@ -301,10 +330,10 @@ public class Payment {
   }
 
    /**
-   * Code of account you are using to make the payment e.g. 001 (note: not all accounts have a code value)
+   * Code of account you are using to make the payment e.g. 001 (note- not all accounts have a code value)
    * @return code
   **/
-  @ApiModelProperty(value = "Code of account you are using to make the payment e.g. 001 (note: not all accounts have a code value)")
+  @ApiModelProperty(value = "Code of account you are using to make the payment e.g. 001 (note- not all accounts have a code value)")
   public String getCode() {
     return code;
   }
@@ -313,7 +342,7 @@ public class Payment {
     this.code = code;
   }
 
-  public Payment date(String date) {
+  public Payment date(LocalDate date) {
     this.date = date;
     return this;
   }
@@ -323,11 +352,11 @@ public class Payment {
    * @return date
   **/
   @ApiModelProperty(value = "Date the payment is being made (YYYY-MM-DD) e.g. 2009-09-06")
-  public String getDate() {
+  public LocalDate getDate() {
     return date;
   }
 
-  public void setDate(String date) {
+  public void setDate(LocalDate date) {
     this.date = date;
   }
 
@@ -435,7 +464,7 @@ public class Payment {
    * @return updatedDateUTC
   **/
   @ApiModelProperty(value = "UTC timestamp of last update to the payment")
-  public String getUpdatedDateUTC() {
+  public OffsetDateTime getUpdatedDateUTC() {
     return updatedDateUTC;
   }
 

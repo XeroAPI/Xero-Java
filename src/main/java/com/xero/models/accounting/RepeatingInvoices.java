@@ -24,11 +24,14 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * RepeatingInvoices
  */
 
 public class RepeatingInvoices {
+  
   @JsonProperty("RepeatingInvoices")
   private List<RepeatingInvoice> repeatingInvoices = null;
 

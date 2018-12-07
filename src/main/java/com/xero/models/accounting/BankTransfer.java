@@ -18,46 +18,61 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.Account;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.OffsetDateTime;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * BankTransfer
  */
 
 public class BankTransfer {
+  
   @JsonProperty("FromBankAccount")
-  private Object fromBankAccount = null;
+  private Account fromBankAccount = null;
 
+  
   @JsonProperty("ToBankAccount")
-  private Object toBankAccount = null;
+  private Account toBankAccount = null;
 
+  
   @JsonProperty("Amount")
   private String amount = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("Date")
-  private String date = null;
+  private LocalDate date = null;
 
+  
   @JsonProperty("BankTransferID")
   private UUID bankTransferID = null;
 
+  
   @JsonProperty("CurrencyRate")
   private Float currencyRate = null;
 
+  
   @JsonProperty("FromBankTransactionID")
   private UUID fromBankTransactionID = null;
 
+  
   @JsonProperty("ToBankTransactionID")
   private UUID toBankTransactionID = null;
 
+  
   @JsonProperty("HasAttachments")
   private Boolean hasAttachments = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("CreatedDateUTC")
-  private String createdDateUTC = null;
+  private OffsetDateTime createdDateUTC = null;
 
-  public BankTransfer fromBankAccount(Object fromBankAccount) {
+  public BankTransfer fromBankAccount(Account fromBankAccount) {
     this.fromBankAccount = fromBankAccount;
     return this;
   }
@@ -67,15 +82,15 @@ public class BankTransfer {
    * @return fromBankAccount
   **/
   @ApiModelProperty(required = true, value = "")
-  public Object getFromBankAccount() {
+  public Account getFromBankAccount() {
     return fromBankAccount;
   }
 
-  public void setFromBankAccount(Object fromBankAccount) {
+  public void setFromBankAccount(Account fromBankAccount) {
     this.fromBankAccount = fromBankAccount;
   }
 
-  public BankTransfer toBankAccount(Object toBankAccount) {
+  public BankTransfer toBankAccount(Account toBankAccount) {
     this.toBankAccount = toBankAccount;
     return this;
   }
@@ -85,11 +100,11 @@ public class BankTransfer {
    * @return toBankAccount
   **/
   @ApiModelProperty(required = true, value = "")
-  public Object getToBankAccount() {
+  public Account getToBankAccount() {
     return toBankAccount;
   }
 
-  public void setToBankAccount(Object toBankAccount) {
+  public void setToBankAccount(Account toBankAccount) {
     this.toBankAccount = toBankAccount;
   }
 
@@ -99,10 +114,10 @@ public class BankTransfer {
   }
 
    /**
-   * Get amount
+   * amount of the transaction
    * @return amount
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "amount of the transaction")
   public String getAmount() {
     return amount;
   }
@@ -111,7 +126,7 @@ public class BankTransfer {
     this.amount = amount;
   }
 
-  public BankTransfer date(String date) {
+  public BankTransfer date(LocalDate date) {
     this.date = date;
     return this;
   }
@@ -121,11 +136,11 @@ public class BankTransfer {
    * @return date
   **/
   @ApiModelProperty(value = "The date of the Transfer YYYY-MM-DD")
-  public String getDate() {
+  public LocalDate getDate() {
     return date;
   }
 
-  public void setDate(String date) {
+  public void setDate(LocalDate date) {
     this.date = date;
   }
 
@@ -179,7 +194,7 @@ public class BankTransfer {
    * @return createdDateUTC
   **/
   @ApiModelProperty(value = "UTC timestamp of creation date of bank transfer")
-  public String getCreatedDateUTC() {
+  public OffsetDateTime getCreatedDateUTC() {
     return createdDateUTC;
   }
 

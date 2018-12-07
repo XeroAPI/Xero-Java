@@ -36,7 +36,6 @@ import com.xero.models.accounting.Accounts;
 import com.xero.models.accounting.Allocation;
 import com.xero.models.accounting.Allocations;
 import com.xero.models.accounting.Attachments;
-import com.xero.models.accounting.BankAccount;
 import com.xero.models.accounting.BankTransaction;
 import com.xero.models.accounting.BankTransactions;
 import com.xero.models.accounting.BankTransfer;
@@ -103,10 +102,13 @@ import com.xero.models.assets.BookDepreciationSetting.DepreciationCalculationMet
 import com.xero.models.assets.BookDepreciationSetting.DepreciationMethodEnum;
 import com.xero.models.bankfeeds.*;
 import com.xero.models.bankfeeds.Statements;
+import com.xero.models.files.Files;
+import com.xero.models.files.Folder;
+import com.xero.models.files.Folders;
 import com.xero.models.bankfeeds.FeedConnection.AccountTypeEnum;
 
-import org.threeten.bp.LocalDate;
-import org.threeten.bp.OffsetDateTime;
+//import java.time.LocalDate;
+import org.threeten.bp.*;
 
 public class RequestResourceServlet extends HttpServlet 
 {
@@ -125,15 +127,16 @@ public class RequestResourceServlet extends HttpServlet
 			+ "<div class=\"form-group\">" 
 		  	+ "<label for=\"object\">Create, Read, Update & Delete</label>"
 		  	+ "<select name=\"object\" class=\"form-control\" id=\"object\">"
+		  	+ "<option value=\"Files\" >Files</option>"
 		  	+ "<option value=\"Assets\" >Assets</option>"
-			+ "<option value=\"Accounts\" >Accounts</option>"
+			+ "<option value=\"Accounts\" SELECTED>Accounts</option>"
 			+ "<option value=\"CreateAttachments\">Attachments - Create</option>"
 			+ "<option value=\"GetAttachments\">Attachments - Get</option>"
 			+ "<option value=\"BankFeedConnections\">Bank Feed Connections</option>"
 			+ "<option value=\"BankStatements\">Bank Statements</option>"
 		  	+ "<option value=\"BankTransactions\" >BankTransactions</option>"
 		  	+ "<option value=\"BankTransfers\" >BankTransfers</option>"
-		  	+ "<option value=\"BatchPayments\" SELECTED>BatchPayments</option>"
+		  	+ "<option value=\"BatchPayments\" >BatchPayments</option>"
 		  	+ "<option value=\"BrandingThemes\">BrandingThemes</option>"
 		  	+ "<option value=\"Contacts\">Contacts</option>"
 		  	+ "<option value=\"ContactGroups\" >ContactGroups</option>"
@@ -143,7 +146,7 @@ public class RequestResourceServlet extends HttpServlet
 		  	+ "<option value=\"Currencies\">Currencies</option>"
 		  	+ "<option value=\"Employees\" >Employees</option>"
 		  	+ "<option value=\"ExpenseClaims\">ExpenseClaims</option>"
-		  	+ "<option value=\"Invoices\">Invoices</option>"
+		  	+ "<option value=\"Invoices\" >Invoices</option>"
 		  	+ "<option value=\"InvoiceReminders\">InvoiceReminders</option>"
 		  	+ "<option value=\"Items\">Items</option>"
 		  	+ "<option value=\"Journals\">Journals</option>"
@@ -239,6 +242,10 @@ public class RequestResourceServlet extends HttpServlet
 		AccountingApi accountingApi = new AccountingApi(apiClientForAccounting);
 		accountingApi.setOAuthToken(token, tokenSecret);
 		
+		ApiClient apiClientForFiles = new ApiClient(config.getFilesUrl(),null,null,null);
+		FilesApi filesApi = new FilesApi(apiClientForFiles);
+		filesApi.setOAuthToken(token, tokenSecret);
+		
 		OffsetDateTime ifModifiedSince = null;
 		String where = null;
 		String order = null;
@@ -250,18 +257,40 @@ public class RequestResourceServlet extends HttpServlet
 		String statuses = null;
 		boolean createdByMyApp = false;
 		Calendar now = Calendar.getInstance();
+		if (object.equals("Files")) {
+			/* FILES */
+			//JSON 
+			try {
+				Files myFiles = filesApi.getFiles(null, null, null);
+				if (myFiles.getItems().size() > 0) {
+					UUID fileId = myFiles.getItems().get(0).getId();
+					String name = myFiles.getItems().get(0).getName();
+					messages.add("Files found - total: " + myFiles.getItems().size());	
+
+					ByteArrayInputStream input= filesApi.getFileContent(fileId);
+					String saveFilePath = saveFile(input,"MyNewFile.jpg");
+					messages.add("Save it here: " + saveFilePath);
+				}
+				
+				List<Folder> myFolders = filesApi.getFolders(null);
+				System.out.println(myFolders.get(0).getName());
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}	
 		
-		if (object.equals("Accounts")) {
+		} else if (object.equals("Accounts")) {
 			/* ACCOUNTS */
 			//JSON 
 			try {
 				// GET all accounts
-				Accounts accounts = accountingApi.getAccounts(ifModifiedSince, where, order);
+				Accounts accounts = accountingApi.getAccounts(null, null, null);
 				messages.add("Get a all Accounts - total : " + accounts.getAccounts().size());				
 				
 				// GET one account
 				Accounts oneAccount = accountingApi.getAccount(accounts.getAccounts().get(0).getAccountID());
 				messages.add("Get a one Account - name : " + oneAccount.getAccounts().get(0).getName());				
+				
+				System.out.println(oneAccount.toString());
 				
 				// CREATE account
 				Account acct = new Account();
@@ -303,14 +332,13 @@ public class RequestResourceServlet extends HttpServlet
 				messages.add("Archived Account - Name : " + achivedAccount.getAccounts().get(0).getName() + " Status: " + achivedAccount.getAccounts().get(0).getStatus());
 				
 				// DELETE Account
-				
-				// DELETE all Contacts in Group
 				UUID deleteAccountID = newAccount.getAccounts().get(0).getAccountID();
 				Accounts deleteAccount = accountingApi.deleteAccount(deleteAccountID);
 				messages.add("Delete account - Status? : " + deleteAccount.getAccounts().get(0).getStatus());	
-								
+							
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
+				System.out.println(e.toString());
+				e.printStackTrace();
 			}
 	
 		} else if (object.equals("GetAttachments")) {
@@ -630,7 +658,7 @@ public class RequestResourceServlet extends HttpServlet
 			}
 
 		} else if(object.equals("BankStatements")) {
-			/* BANK STATEMENTS */
+			// BANK STATEMENTS 
 			// Create One Statement
 			try {
 				
@@ -1031,26 +1059,27 @@ public class RequestResourceServlet extends HttpServlet
 				BatchPayment createBatchPayment = new BatchPayment();
 				createBatchPayment.setAccount(paymentAccount);
 				createBatchPayment.setAmount(3.0f);
-				createBatchPayment.setDate("11-05-2018");
+				LocalDate currDate = LocalDate.now();
+				createBatchPayment.setDate(currDate);
 				createBatchPayment.setReference("Foobar" + SampleData.loadRandomNum());
 
 				Payment payment01 = new Payment();
 				payment01.setAccount(paymentAccount);
 				payment01.setInvoice(inv);
 				payment01.setAmount(1.0f);
-				payment01.setDate("11-1-2018");
+				payment01.setDate(currDate);
 				
 				Payment payment02 = new Payment();
 				payment02.setAccount(paymentAccount);
 				payment02.setInvoice(inv2);
 				payment02.setAmount(1.0f);
-				payment02.setDate("11-1-2018");
+				payment02.setDate(currDate);
 				
 				Payment payment03 = new Payment();
 				payment03.setAccount(paymentAccount);
 				payment03.setInvoice(inv3);
 				payment03.setAmount(1.0f);
-				payment03.setDate("11-1-2018");
+				payment03.setDate(currDate);
 				
 				createBatchPayment.addPaymentsItem(payment01);
 				createBatchPayment.addPaymentsItem(payment02);
@@ -1245,7 +1274,7 @@ public class RequestResourceServlet extends HttpServlet
 			CreditNotes creditNotes = accountingApi.getCreditNotes(ifModifiedSince, where, order, null);
 			UUID creditNoteId = creditNotes.getCreditNotes().get(0).getCreditNoteID();
 			ByteArrayInputStream CreditNoteInput	 = accountingApi.getCreditNoteAsPdf(creditNoteId, "application/pdf");
-			String CreditNoteFileName = "InvoiceAsPDF.pdf";
+			String CreditNoteFileName = "CreditNoteAsPDF.pdf";
 			
 			String CreditNoteSaveFilePath = saveFile(CreditNoteInput,CreditNoteFileName);
 			messages.add("Get CreditNote attachment - save it here: " + CreditNoteSaveFilePath);
@@ -1299,6 +1328,8 @@ public class RequestResourceServlet extends HttpServlet
 				inv.setInvoiceID(allInvoices.getInvoices().get(0).getInvoiceID());
 				allocation.setInvoice(inv);
 				allocation.setAmount(1.0f);
+				LocalDate currDate = LocalDate.now();
+				allocation.setDate(currDate);
 				allocations.addAllocationsItem(allocation);
 				where = null;
 				
@@ -1396,7 +1427,6 @@ public class RequestResourceServlet extends HttpServlet
 				User user = new User();
 				user.setUserID(users.getUsers().get(0).getUserID());
 				
-				
 				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
 				Contact useContact = new Contact();
 				useContact.setContactID(contacts.getContacts().get(0).getContactID());
@@ -1448,7 +1478,7 @@ public class RequestResourceServlet extends HttpServlet
 				
 				// Get One Expense Claim
 				ExpenseClaims oneExpenseClaim = accountingApi.getExpenseClaim(expenseClaims.getExpenseClaims().get(0).getExpenseClaimID());
-				messages.add("Get one Expense Claim - Total : " + oneExpenseClaim.getExpenseClaims().get(0).getTotal());
+				messages.add("Get one Expense Claim - Total : " + oneExpenseClaim.getExpenseClaims().get(0).getStatus());
 				
 				// VOID EXPENSE CLAIM
 				createExpenseClaims.getExpenseClaims().get(0).setStatus(com.xero.models.accounting.ExpenseClaim.StatusEnum.VOIDED);
@@ -1475,6 +1505,7 @@ public class RequestResourceServlet extends HttpServlet
 		
 		} else if (object.equals("Invoices")) {
 			/*  INVOICE */	
+			/*
 			// GET Invoice As a PDF
 			Invoices myInvoicesForPDF = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp);
 			UUID invoiceIDForPDF = myInvoicesForPDF.getInvoices().get(0).getInvoiceID();
@@ -1486,17 +1517,20 @@ public class RequestResourceServlet extends HttpServlet
 			// Create Invoice
 		    where = "Type==\"REVENUE\"";
 			Accounts accounts = accountingApi.getAccounts(ifModifiedSince, where, order);
+			String accountCodeForInvoice = accounts.getAccounts().get(0).getCode();
 			where = null;
 			
 			Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
+			UUID contactIDForInvoice = contacts.getContacts().get(0).getContactID();
+			
 			Contact useContact = new Contact();
-			useContact.setContactID(contacts.getContacts().get(0).getContactID());
+			useContact.setContactID(contactIDForInvoice);
 			
 			Invoices newInvoices = new Invoices();
 			Invoice myInvoice = new Invoice();
 			
 			LineItem li = new LineItem();
-			li.setAccountCode(accounts.getAccounts().get(0).getCode());
+			li.setAccountCode(accountCodeForInvoice);
 			li.setDescription("Acme Tires");
 			li.setQuantity(2f);
 			li.setUnitAmount(20.00f);
@@ -1505,8 +1539,10 @@ public class RequestResourceServlet extends HttpServlet
 			
 			myInvoice.addLineItemsItem(li);
 			myInvoice.setContact(useContact);
-			myInvoice.setDueDate("2018-12-30");
-			myInvoice.setDate("2018-10-20");
+			LocalDate dueDate =  LocalDate.of(2018,Month.DECEMBER,10);
+			myInvoice.setDueDate(dueDate);
+			LocalDate todayDate =  LocalDate.now();
+			myInvoice.setDate(todayDate);
 			myInvoice.setType(com.xero.models.accounting.Invoice.TypeEnum.ACCREC);
 			myInvoice.setReference("One Fish, Two Fish");
 			myInvoice.setStatus(com.xero.models.accounting.Invoice.StatusEnum.AUTHORISED);
@@ -1528,18 +1564,23 @@ public class RequestResourceServlet extends HttpServlet
 			//Get All
 			Invoices invoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp);
 			messages.add("Get all invoices - Total : " + invoices.getInvoices().size());
+			*/
 			
 			//Get Invoice If-Modified-Since
+			OffsetDateTime invModified =  OffsetDateTime.of(LocalDateTime.of(2018, 12, 06, 15, 00), ZoneOffset.UTC);
 			
-			OffsetDateTime invModified = OffsetDateTime.now();
-			invModified.minusDays(5);	
+			System.out.println(invModified.toString());
+
 			Invoices invoicesSince = accountingApi.getInvoices(invModified, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp);
 			messages.add("Get all invoices - Since Modfied Date - Total : " + invoicesSince.getInvoices().size());
 		
+			/*
 			// Get One
 			Invoices oneInvoice = accountingApi.getInvoice(invoices.getInvoices().get(0).getInvoiceID());
 			messages.add("Get one invoice - total : " + oneInvoice.getInvoices().get(0).getTotal());
-			
+			LocalDate myDate = oneInvoice.getInvoices().get(0).getDate();
+			OffsetDateTime myUTC = oneInvoice.getInvoices().get(0).getUpdatedDateUTC();
+	
 			// Get Online Invoice
 			OnlineInvoices onlineInvoice = accountingApi.getOnlineInvoice(newInvoiceID);
 			messages.add("Get Online invoice - URL : " + onlineInvoice.getOnlineInvoices().get(0).getOnlineInvoiceUrl());
@@ -1581,7 +1622,7 @@ public class RequestResourceServlet extends HttpServlet
 			String InvoiceAttachmentFileName = attachments.getAttachments().get(0).getFileName();
 			String InvoiceAttachmentSaveFilePath = saveFile(InvoiceAttachmentInput,InvoiceAttachmentFileName);
 			messages.add("Get Invoice attachment - save it here: " + InvoiceAttachmentSaveFilePath);				
-			
+			*/
 		} else if (object.equals("InvoiceReminders")) {
 			/* INVOICE REMINDER */
 			try {				
@@ -1685,8 +1726,10 @@ public class RequestResourceServlet extends HttpServlet
 				
 				myInvoice.addLineItemsItem(li);
 				myInvoice.setContact(useContact);
-				myInvoice.setDueDate("2018-12-30");
-				myInvoice.setDate("2018-10-20");
+				LocalDate dueDate =  LocalDate.of(2018,Month.OCTOBER,10);
+				myInvoice.setDueDate(dueDate);
+				LocalDate todayDate =  LocalDate.now();
+				myInvoice.setDate(todayDate);
 				myInvoice.setType(com.xero.models.accounting.Invoice.TypeEnum.ACCPAY);
 				myInvoice.setReference("One Fish, Two Fish");
 				myInvoice.setStatus(com.xero.models.accounting.Invoice.StatusEnum.AUTHORISED);
@@ -1732,8 +1775,10 @@ public class RequestResourceServlet extends HttpServlet
 				
 				myInvoiceAccRec.addLineItemsItem(li);
 				myInvoiceAccRec.setContact(useContact);
-				myInvoiceAccRec.setDueDate("2018-12-30");
-				myInvoiceAccRec.setDate("2018-10-20");
+				
+				myInvoiceAccRec.setDueDate(dueDate);
+				myInvoiceAccRec.setDate(todayDate);
+				
 				myInvoiceAccRec.setType(com.xero.models.accounting.Invoice.TypeEnum.ACCREC);
 				myInvoiceAccRec.setStatus(com.xero.models.accounting.Invoice.StatusEnum.AUTHORISED);
 				newInvoicesAccRec.addInvoicesItem(myInvoiceAccRec);
@@ -1794,7 +1839,8 @@ public class RequestResourceServlet extends HttpServlet
 				
 				ManualJournals manualJournals = new ManualJournals();
 				ManualJournal manualJournal = new ManualJournal();
-				manualJournal.setDate("2018-10-01");
+				LocalDate currDate = LocalDate.now();
+				manualJournal.setDate(currDate);
 				manualJournal.setNarration("Foo bar");
 				
 				JournalLine credit = new JournalLine();
@@ -1845,7 +1891,7 @@ public class RequestResourceServlet extends HttpServlet
 			/* OVERPAYMENT */
 		    where = "Status==\"ACTIVE\"&&Type==\"BANK\"";
 			Accounts accountsWhere = accountingApi.getAccounts(ifModifiedSince, where, order);
-			BankAccount bankAccount = new BankAccount();
+			Account bankAccount = new Account();
 			bankAccount.setAccountID(accountsWhere.getAccounts().get(0).getAccountID());
 			where = null;
 			
@@ -1937,7 +1983,9 @@ public class RequestResourceServlet extends HttpServlet
 			createPayment.setAccount(paymentAccount);
 			createPayment.setInvoice(inv);
 			createPayment.setAmount(1.00f);
-			createPayment.setDate("11-1-2018");
+
+			LocalDate currDate = LocalDate.now();
+			createPayment.setDate(currDate);
 			createPayments.addPaymentsItem(createPayment);
 			
 			Payments newPayments = accountingApi.createPayment(createPayments);
@@ -1989,7 +2037,7 @@ public class RequestResourceServlet extends HttpServlet
 			/* PREPAYMENT */
 		    where = "Status==\"ACTIVE\"&&Type==\"BANK\"";
 			Accounts accountsWhere = accountingApi.getAccounts(ifModifiedSince, where, order);
-			BankAccount bankAccount = new BankAccount();
+			Account bankAccount = new Account();
 			bankAccount.setAccountID(accountsWhere.getAccounts().get(0).getAccountID());
 			where = null;
 			
@@ -2042,7 +2090,8 @@ public class RequestResourceServlet extends HttpServlet
 				
 				PurchaseOrders purchaseOrders = new PurchaseOrders();
 				PurchaseOrder purchaseOrder = new PurchaseOrder();
-				purchaseOrder.setDate("11-01-2018");
+				LocalDate currDate = LocalDate.now();
+				purchaseOrder.setDate(currDate);
 				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
 				Contact useContact = new Contact();
 				useContact.setContactID(contacts.getContacts().get(0).getContactID());
@@ -2175,28 +2224,32 @@ public class RequestResourceServlet extends HttpServlet
 			try {
 				// GET all Repeating Invoices
 				RepeatingInvoices repeatingInvoices = accountingApi.getRepeatingInvoices(where, order);
-				messages.add("Repeating Invoice - count : " + repeatingInvoices.getRepeatingInvoices().size() );
+				if ( repeatingInvoices.getRepeatingInvoices().size() > 0) {
+					messages.add("Repeating Invoice - count : " + repeatingInvoices.getRepeatingInvoices().size() );
+					
+					// GET one Repeating Invoices
+					UUID repeatingInvoiceID = repeatingInvoices.getRepeatingInvoices().get(0).getRepeatingInvoiceID();
+					RepeatingInvoices repeatingInvoice = accountingApi.getRepeatingInvoice(repeatingInvoiceID);
+					messages.add("Repeating Invoice - total : " + repeatingInvoice.getRepeatingInvoices().get(0).getTotal());
 				
-				// GET one Repeating Invoices
-				UUID repeatingInvoiceID = repeatingInvoices.getRepeatingInvoices().get(0).getRepeatingInvoiceID();
-				RepeatingInvoices repeatingInvoice = accountingApi.getRepeatingInvoice(repeatingInvoiceID);
-				messages.add("Repeating Invoice - total : " + repeatingInvoice.getRepeatingInvoices().get(0).getTotal());
-				System.out.println(repeatingInvoiceID);
-				// Get History
-				
-				HistoryRecords history = accountingApi.getRepeatingInvoiceHistory(repeatingInvoiceID);
-				messages.add("History - count : " + history.getHistoryRecords().size() );
-				
-				// Create History
-				// Error: "The document with the supplied id was not found for this endpoint.
-				/*
-				HistoryRecords newHistoryRecords = new  HistoryRecords();
-				HistoryRecord newHistoryRecord = new  HistoryRecord();
-				newHistoryRecord.setDetails("Hello World");
-				newHistoryRecords.addHistoryRecordsItem(newHistoryRecord);
-				HistoryRecords newHistory = accountingApi.createRepeatingInvoiceHistory(repeatingInvoiceID,  newHistoryRecords);
-				messages.add("History - note added to  : " + newHistory.getHistoryRecords().get(0).getDetails());
-				*/
+					// Get History
+					HistoryRecords history = accountingApi.getRepeatingInvoiceHistory(repeatingInvoiceID);
+					messages.add("History - count : " + history.getHistoryRecords().size() );
+					
+					// Create History
+					// Error: "The document with the supplied id was not found for this endpoint.
+					/*
+					HistoryRecords newHistoryRecords = new  HistoryRecords();
+					HistoryRecord newHistoryRecord = new  HistoryRecord();
+					newHistoryRecord.setDetails("Hello World");
+					newHistoryRecords.addHistoryRecordsItem(newHistoryRecord);
+					HistoryRecords newHistory = accountingApi.createRepeatingInvoiceHistory(repeatingInvoiceID,  newHistoryRecords);
+					messages.add("History - note added to  : " + newHistory.getHistoryRecords().get(0).getDetails());
+					*/
+				} else {
+					messages.add("Zero repeating Invoices found" );
+					
+				}
 			} catch (XeroApiException e) {
 				System.out.println(e.getMessage());
 			}
@@ -2224,7 +2277,11 @@ public class RequestResourceServlet extends HttpServlet
 			
 			Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
 			UUID contactId = contacts.getContacts().get(0).getContactID();
-			ReportWithRows reportAgedPayablesByContact = accountingApi.getReportAgedPayablesByContact(contactId, date, fromDate, toDate);
+			LocalDate xDate = LocalDate.now();
+			LocalDate xFromDate = LocalDate.now();
+			LocalDate xToDate = LocalDate.now();
+			
+			ReportWithRows reportAgedPayablesByContact = accountingApi.getReportAgedPayablesByContact(contactId, xDate, xFromDate, xToDate);
 			messages.add("Get a Reports - Name:" + reportAgedPayablesByContact.getReports().get(0).getReportName());
 			
 			// AgedReceivablesByContact
@@ -2257,9 +2314,7 @@ public class RequestResourceServlet extends HttpServlet
 			messages.add("Get a Reports - Name:" + reportProfitLoss.getReports().get(0).getReportName());
 			fromDate = null;
 		    toDate = null;
-			System.out.println(reportProfitLoss.toString());
-			
-			
+						
 			// reportTrialBalance
 			ReportWithRows reportTrialBalance = accountingApi.getReportTrialBalance(toDate, paymentsOnly);
 			messages.add("Get a Reports - Name:" + reportTrialBalance.getReports().get(0).getReportName());
@@ -2273,9 +2328,11 @@ public class RequestResourceServlet extends HttpServlet
 				TaxComponent rate01 = new TaxComponent();
 				rate01.setName("State Tax");
 				rate01.setRate(2.25f);
+				newTaxRate.setReportTaxType(com.xero.models.accounting.TaxRate.ReportTaxTypeEnum.INPUT);
 				newTaxRate.setName("SDKTax"+SampleData.loadRandomNum());
 				newTaxRate.addTaxComponentsItem(rate01);
 				newTaxRates.addTaxRatesItem(newTaxRate);
+				
 				TaxRates createdTaxRate = accountingApi.createTaxRate(newTaxRates);
 				messages.add("CREATE TaxRate - name : " + createdTaxRate.getTaxRates().get(0).getName());
 				
@@ -2304,7 +2361,6 @@ public class RequestResourceServlet extends HttpServlet
 			try {
 				// GET Tracking Categories
 				TrackingCategories trackingCategories = accountingApi.getTrackingCategories(where, order, includeArchived);
-				messages.add("GET tracking categories - cnt : " + trackingCategories.getTrackingCategories().size());
 				int count = trackingCategories.getTrackingCategories().size();
 				
 				if (count == 2) {
@@ -2395,8 +2451,11 @@ public class RequestResourceServlet extends HttpServlet
 				
 				myInvoice.addLineItemsItem(li);
 				myInvoice.setContact(useContact);
-				myInvoice.setDueDate("2018-12-30");
-				myInvoice.setDate("2018-10-20");
+				LocalDate dueDate =  LocalDate.of(2018,Month.OCTOBER,10);
+				myInvoice.setDueDate(dueDate);
+				LocalDate todayDate =  LocalDate.now();
+				myInvoice.setDate(todayDate);
+				
 				myInvoice.setType(com.xero.models.accounting.Invoice.TypeEnum.ACCREC);
 				myInvoice.setReference("One Fish, Two Fish");
 				myInvoice.setStatus(com.xero.models.accounting.Invoice.StatusEnum.AUTHORISED);

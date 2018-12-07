@@ -20,26 +20,35 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.accounting.Address;
 import com.xero.models.accounting.ExternalLink;
+import com.xero.models.accounting.PaymentTerm;
 import com.xero.models.accounting.Phone;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.OffsetDateTime;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * Organisation
  */
 
 public class Organisation {
+  
   @JsonProperty("APIKey")
   private String apIKey = null;
 
+  
   @JsonProperty("Name")
   private String name = null;
 
+  
   @JsonProperty("LegalName")
   private String legalName = null;
 
+  
   @JsonProperty("PaysTax")
   private Boolean paysTax = null;
 
@@ -90,10 +99,11 @@ public class Organisation {
           return b;
         }
       }
-      return null;
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
     }
   }
 
+  
   @JsonProperty("Version")
   private VersionEnum version = null;
 
@@ -140,58 +150,181 @@ public class Organisation {
           return b;
         }
       }
-      return null;
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
     }
   }
 
+  
   @JsonProperty("OrganisationType")
   private OrganisationTypeEnum organisationType = null;
 
+  
   @JsonProperty("BaseCurrency")
   private String baseCurrency = null;
 
+  
   @JsonProperty("CountryCode")
   private String countryCode = null;
 
+  
   @JsonProperty("IsDemoCompany")
   private Boolean isDemoCompany = null;
 
+  
   @JsonProperty("OrganisationStatus")
   private String organisationStatus = null;
 
+  
   @JsonProperty("RegistrationNumber")
   private String registrationNumber = null;
 
+  
   @JsonProperty("TaxNumber")
   private String taxNumber = null;
 
+  
   @JsonProperty("FinancialYearEndDay")
-  private String financialYearEndDay = null;
+  private Integer financialYearEndDay = null;
 
+  
   @JsonProperty("FinancialYearEndMonth")
-  private String financialYearEndMonth = null;
+  private Integer financialYearEndMonth = null;
 
+  /**
+   * The accounting basis used for tax returns. See Sales Tax Basis
+   */
+  public enum SalesTaxBasisEnum {
+    PAYMENTS("PAYMENTS"),
+    
+    INVOICE("INVOICE"),
+    
+    NONE("NONE"),
+    
+    CASH("CASH"),
+    
+    ACCRUAL("ACCRUAL"),
+    
+    FLATRATECASH("FLATRATECASH"),
+    
+    FLATRATEACCRUAL("FLATRATEACCRUAL"),
+    
+    ACCRUALS("ACCRUALS");
+
+    private String value;
+
+    SalesTaxBasisEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static SalesTaxBasisEnum fromValue(String text) {
+      for (SalesTaxBasisEnum b : SalesTaxBasisEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+    }
+  }
+
+  
   @JsonProperty("SalesTaxBasis")
-  private String salesTaxBasis = null;
+  private SalesTaxBasisEnum salesTaxBasis = null;
 
+  /**
+   * The frequency with which tax returns are processed. See Sales Tax Period
+   */
+  public enum SalesTaxPeriodEnum {
+    MONTHLY("MONTHLY"),
+    
+    QUARTERLY1("QUARTERLY1"),
+    
+    QUARTERLY2("QUARTERLY2"),
+    
+    QUARTERLY3("QUARTERLY3"),
+    
+    ANNUALLY("ANNUALLY"),
+    
+    ONEMONTHS("ONEMONTHS"),
+    
+    TWOMONTHS("TWOMONTHS"),
+    
+    SIXMONTHS("SIXMONTHS"),
+    
+    _1MONTHLY("1MONTHLY"),
+    
+    _2MONTHLY("2MONTHLY"),
+    
+    _3MONTHLY("3MONTHLY"),
+    
+    _6MONTHLY("6MONTHLY"),
+    
+    QUARTERLY("QUARTERLY"),
+    
+    YEARLY("YEARLY");
+
+    private String value;
+
+    SalesTaxPeriodEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static SalesTaxPeriodEnum fromValue(String text) {
+      for (SalesTaxPeriodEnum b : SalesTaxPeriodEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+    }
+  }
+
+  
   @JsonProperty("SalesTaxPeriod")
-  private String salesTaxPeriod = null;
+  private SalesTaxPeriodEnum salesTaxPeriod = null;
 
+  
   @JsonProperty("DefaultSalesTax")
   private String defaultSalesTax = null;
 
+  
   @JsonProperty("DefaultPurchasesTax")
   private String defaultPurchasesTax = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("PeriodLockDate")
-  private String periodLockDate = null;
+  private LocalDate periodLockDate = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("EndOfYearLockDate")
-  private String endOfYearLockDate = null;
+  private LocalDate endOfYearLockDate = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("CreatedDateUTC")
-  private String createdDateUTC = null;
+  private OffsetDateTime createdDateUTC = null;
 
+  
   @JsonProperty("Timezone")
   private String timezone = null;
 
@@ -238,13 +371,15 @@ public class Organisation {
           return b;
         }
       }
-      return null;
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
     }
   }
 
+  
   @JsonProperty("OrganisationEntityType")
   private OrganisationEntityTypeEnum organisationEntityType = null;
 
+  
   @JsonProperty("ShortCode")
   private String shortCode = null;
 
@@ -297,27 +432,33 @@ public class Organisation {
           return b;
         }
       }
-      return null;
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
     }
   }
 
+  
   @JsonProperty("Class")
   private PropertyClassEnum propertyClass = null;
 
+  
   @JsonProperty("LineOfBusiness")
   private String lineOfBusiness = null;
 
+  
   @JsonProperty("Addresses")
   private List<Address> addresses = null;
 
+  
   @JsonProperty("Phones")
   private List<Phone> phones = null;
 
+  
   @JsonProperty("ExternalLinks")
   private List<ExternalLink> externalLinks = null;
 
+  
   @JsonProperty("PaymentTerms")
-  private Object paymentTerms = null;
+  private PaymentTerm paymentTerms = null;
 
   public Organisation apIKey(String apIKey) {
     this.apIKey = apIKey;
@@ -535,7 +676,7 @@ public class Organisation {
     this.taxNumber = taxNumber;
   }
 
-  public Organisation financialYearEndDay(String financialYearEndDay) {
+  public Organisation financialYearEndDay(Integer financialYearEndDay) {
     this.financialYearEndDay = financialYearEndDay;
     return this;
   }
@@ -545,15 +686,15 @@ public class Organisation {
    * @return financialYearEndDay
   **/
   @ApiModelProperty(value = "Calendar day e.g. 0-31")
-  public String getFinancialYearEndDay() {
+  public Integer getFinancialYearEndDay() {
     return financialYearEndDay;
   }
 
-  public void setFinancialYearEndDay(String financialYearEndDay) {
+  public void setFinancialYearEndDay(Integer financialYearEndDay) {
     this.financialYearEndDay = financialYearEndDay;
   }
 
-  public Organisation financialYearEndMonth(String financialYearEndMonth) {
+  public Organisation financialYearEndMonth(Integer financialYearEndMonth) {
     this.financialYearEndMonth = financialYearEndMonth;
     return this;
   }
@@ -563,15 +704,15 @@ public class Organisation {
    * @return financialYearEndMonth
   **/
   @ApiModelProperty(value = "Calendar Month e.g. 1-12")
-  public String getFinancialYearEndMonth() {
+  public Integer getFinancialYearEndMonth() {
     return financialYearEndMonth;
   }
 
-  public void setFinancialYearEndMonth(String financialYearEndMonth) {
+  public void setFinancialYearEndMonth(Integer financialYearEndMonth) {
     this.financialYearEndMonth = financialYearEndMonth;
   }
 
-  public Organisation salesTaxBasis(String salesTaxBasis) {
+  public Organisation salesTaxBasis(SalesTaxBasisEnum salesTaxBasis) {
     this.salesTaxBasis = salesTaxBasis;
     return this;
   }
@@ -581,15 +722,15 @@ public class Organisation {
    * @return salesTaxBasis
   **/
   @ApiModelProperty(value = "The accounting basis used for tax returns. See Sales Tax Basis")
-  public String getSalesTaxBasis() {
+  public SalesTaxBasisEnum getSalesTaxBasis() {
     return salesTaxBasis;
   }
 
-  public void setSalesTaxBasis(String salesTaxBasis) {
+  public void setSalesTaxBasis(SalesTaxBasisEnum salesTaxBasis) {
     this.salesTaxBasis = salesTaxBasis;
   }
 
-  public Organisation salesTaxPeriod(String salesTaxPeriod) {
+  public Organisation salesTaxPeriod(SalesTaxPeriodEnum salesTaxPeriod) {
     this.salesTaxPeriod = salesTaxPeriod;
     return this;
   }
@@ -599,11 +740,11 @@ public class Organisation {
    * @return salesTaxPeriod
   **/
   @ApiModelProperty(value = "The frequency with which tax returns are processed. See Sales Tax Period")
-  public String getSalesTaxPeriod() {
+  public SalesTaxPeriodEnum getSalesTaxPeriod() {
     return salesTaxPeriod;
   }
 
-  public void setSalesTaxPeriod(String salesTaxPeriod) {
+  public void setSalesTaxPeriod(SalesTaxPeriodEnum salesTaxPeriod) {
     this.salesTaxPeriod = salesTaxPeriod;
   }
 
@@ -643,7 +784,7 @@ public class Organisation {
     this.defaultPurchasesTax = defaultPurchasesTax;
   }
 
-  public Organisation periodLockDate(String periodLockDate) {
+  public Organisation periodLockDate(LocalDate periodLockDate) {
     this.periodLockDate = periodLockDate;
     return this;
   }
@@ -653,15 +794,15 @@ public class Organisation {
    * @return periodLockDate
   **/
   @ApiModelProperty(value = "Shown if set. See lock dates")
-  public String getPeriodLockDate() {
+  public LocalDate getPeriodLockDate() {
     return periodLockDate;
   }
 
-  public void setPeriodLockDate(String periodLockDate) {
+  public void setPeriodLockDate(LocalDate periodLockDate) {
     this.periodLockDate = periodLockDate;
   }
 
-  public Organisation endOfYearLockDate(String endOfYearLockDate) {
+  public Organisation endOfYearLockDate(LocalDate endOfYearLockDate) {
     this.endOfYearLockDate = endOfYearLockDate;
     return this;
   }
@@ -671,15 +812,15 @@ public class Organisation {
    * @return endOfYearLockDate
   **/
   @ApiModelProperty(value = "Shown if set. See lock dates")
-  public String getEndOfYearLockDate() {
+  public LocalDate getEndOfYearLockDate() {
     return endOfYearLockDate;
   }
 
-  public void setEndOfYearLockDate(String endOfYearLockDate) {
+  public void setEndOfYearLockDate(LocalDate endOfYearLockDate) {
     this.endOfYearLockDate = endOfYearLockDate;
   }
 
-  public Organisation createdDateUTC(String createdDateUTC) {
+  public Organisation createdDateUTC(OffsetDateTime createdDateUTC) {
     this.createdDateUTC = createdDateUTC;
     return this;
   }
@@ -689,11 +830,11 @@ public class Organisation {
    * @return createdDateUTC
   **/
   @ApiModelProperty(value = "Timestamp when the organisation was created in Xero")
-  public String getCreatedDateUTC() {
+  public OffsetDateTime getCreatedDateUTC() {
     return createdDateUTC;
   }
 
-  public void setCreatedDateUTC(String createdDateUTC) {
+  public void setCreatedDateUTC(OffsetDateTime createdDateUTC) {
     this.createdDateUTC = createdDateUTC;
   }
 
@@ -865,7 +1006,7 @@ public class Organisation {
     this.externalLinks = externalLinks;
   }
 
-  public Organisation paymentTerms(Object paymentTerms) {
+  public Organisation paymentTerms(PaymentTerm paymentTerms) {
     this.paymentTerms = paymentTerms;
     return this;
   }
@@ -875,11 +1016,11 @@ public class Organisation {
    * @return paymentTerms
   **/
   @ApiModelProperty(value = "")
-  public Object getPaymentTerms() {
+  public PaymentTerm getPaymentTerms() {
     return paymentTerms;
   }
 
-  public void setPaymentTerms(Object paymentTerms) {
+  public void setPaymentTerms(PaymentTerm paymentTerms) {
     this.paymentTerms = paymentTerms;
   }
 

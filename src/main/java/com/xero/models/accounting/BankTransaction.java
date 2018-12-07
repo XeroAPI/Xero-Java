@@ -18,12 +18,18 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.Account;
+import com.xero.models.accounting.Contact;
 import com.xero.models.accounting.LineItem;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.OffsetDateTime;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * BankTransaction
@@ -73,37 +79,47 @@ public class BankTransaction {
           return b;
         }
       }
-      return null;
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
     }
   }
 
+  
   @JsonProperty("Type")
   private TypeEnum type = null;
 
+  
   @JsonProperty("Contact")
-  private Object contact = null;
+  private Contact contact = null;
 
+  
   @JsonProperty("Lineitems")
   private List<LineItem> lineitems = new ArrayList<LineItem>();
 
+  
   @JsonProperty("BankAccount")
-  private Object bankAccount = null;
+  private Account bankAccount = null;
 
+  
   @JsonProperty("IsReconciled")
   private Boolean isReconciled = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("Date")
-  private String date = null;
+  private LocalDate date = null;
 
+  
   @JsonProperty("Reference")
   private String reference = null;
 
+  
   @JsonProperty("CurrencyCode")
   private String currencyCode = null;
 
+  
   @JsonProperty("CurrencyRate")
   private Float currencyRate = null;
 
+  
   @JsonProperty("Url")
   private String url = null;
 
@@ -138,37 +154,47 @@ public class BankTransaction {
           return b;
         }
       }
-      return null;
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
     }
   }
 
+  
   @JsonProperty("Status")
   private StatusEnum status = null;
 
+  
   @JsonProperty("LineAmountTypes")
   private String lineAmountTypes = null;
 
+  
   @JsonProperty("SubTotal")
   private Float subTotal = null;
 
+  
   @JsonProperty("TotalTax")
   private Float totalTax = null;
 
+  
   @JsonProperty("Total")
   private Float total = null;
 
+  
   @JsonProperty("BankTransactionID")
   private UUID bankTransactionID = null;
 
+  
   @JsonProperty("PrepaymentID")
   private UUID prepaymentID = null;
 
+  
   @JsonProperty("OverpaymentID")
   private UUID overpaymentID = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private String updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC = null;
 
+  
   @JsonProperty("HasAttachments")
   private Boolean hasAttachments = null;
 
@@ -190,7 +216,7 @@ public class BankTransaction {
     this.type = type;
   }
 
-  public BankTransaction contact(Object contact) {
+  public BankTransaction contact(Contact contact) {
     this.contact = contact;
     return this;
   }
@@ -200,11 +226,11 @@ public class BankTransaction {
    * @return contact
   **/
   @ApiModelProperty(required = true, value = "")
-  public Object getContact() {
+  public Contact getContact() {
     return contact;
   }
 
-  public void setContact(Object contact) {
+  public void setContact(Contact contact) {
     this.contact = contact;
   }
 
@@ -231,7 +257,7 @@ public class BankTransaction {
     this.lineitems = lineitems;
   }
 
-  public BankTransaction bankAccount(Object bankAccount) {
+  public BankTransaction bankAccount(Account bankAccount) {
     this.bankAccount = bankAccount;
     return this;
   }
@@ -241,11 +267,11 @@ public class BankTransaction {
    * @return bankAccount
   **/
   @ApiModelProperty(required = true, value = "")
-  public Object getBankAccount() {
+  public Account getBankAccount() {
     return bankAccount;
   }
 
-  public void setBankAccount(Object bankAccount) {
+  public void setBankAccount(Account bankAccount) {
     this.bankAccount = bankAccount;
   }
 
@@ -267,7 +293,7 @@ public class BankTransaction {
     this.isReconciled = isReconciled;
   }
 
-  public BankTransaction date(String date) {
+  public BankTransaction date(LocalDate date) {
     this.date = date;
     return this;
   }
@@ -277,11 +303,11 @@ public class BankTransaction {
    * @return date
   **/
   @ApiModelProperty(value = "Date of transaction – YYYY-MM-DD")
-  public String getDate() {
+  public LocalDate getDate() {
     return date;
   }
 
-  public void setDate(String date) {
+  public void setDate(LocalDate date) {
     this.date = date;
   }
 
@@ -479,7 +505,7 @@ public class BankTransaction {
    * @return updatedDateUTC
   **/
   @ApiModelProperty(value = "Last modified date UTC format")
-  public String getUpdatedDateUTC() {
+  public OffsetDateTime getUpdatedDateUTC() {
     return updatedDateUTC;
   }
 

@@ -22,20 +22,61 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * TrackingOption
  */
 
 public class TrackingOption {
+  
   @JsonProperty("TrackingOptionID")
   private UUID trackingOptionID = null;
 
+  
   @JsonProperty("Name")
   private String name = null;
 
-  @JsonProperty("Status")
-  private String status = null;
+  /**
+   * The status of a tracking option
+   */
+  public enum StatusEnum {
+    ACTIVE("ACTIVE"),
+    
+    ARCHIVED("ARCHIVED");
 
+    private String value;
+
+    StatusEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static StatusEnum fromValue(String text) {
+      for (StatusEnum b : StatusEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+    }
+  }
+
+  
+  @JsonProperty("Status")
+  private StatusEnum status = null;
+
+  
   @JsonProperty("TrackingCategoryID")
   private UUID trackingCategoryID = null;
 
@@ -75,7 +116,7 @@ public class TrackingOption {
     this.name = name;
   }
 
-  public TrackingOption status(String status) {
+  public TrackingOption status(StatusEnum status) {
     this.status = status;
     return this;
   }
@@ -85,11 +126,11 @@ public class TrackingOption {
    * @return status
   **/
   @ApiModelProperty(value = "The status of a tracking option")
-  public String getStatus() {
+  public StatusEnum getStatus() {
     return status;
   }
 
-  public void setStatus(String status) {
+  public void setStatus(StatusEnum status) {
     this.status = status;
   }
 

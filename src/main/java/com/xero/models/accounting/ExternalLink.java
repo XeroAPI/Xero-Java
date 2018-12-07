@@ -21,6 +21,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * ExternalLink
  */
@@ -63,16 +65,19 @@ public class ExternalLink {
           return b;
         }
       }
-      return null;
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
     }
   }
 
+  
   @JsonProperty("LinkType")
   private LinkTypeEnum linkType = null;
 
+  
   @JsonProperty("Url")
   private String url = null;
 
+  
   @JsonProperty("Description")
   private String description = null;
 

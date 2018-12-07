@@ -24,11 +24,14 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * TaxRate
  */
 
 public class TaxRate {
+  
   @JsonProperty("Name")
   private String name = null;
 
@@ -163,13 +166,15 @@ public class TaxRate {
           return b;
         }
       }
-      return null;
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
     }
   }
 
+  
   @JsonProperty("TaxType")
   private TaxTypeEnum taxType = null;
 
+  
   @JsonProperty("TaxComponents")
   private List<TaxComponent> taxComponents = null;
 
@@ -206,10 +211,11 @@ public class TaxRate {
           return b;
         }
       }
-      return null;
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
     }
   }
 
+  
   @JsonProperty("Status")
   private StatusEnum status = null;
 
@@ -268,31 +274,39 @@ public class TaxRate {
           return b;
         }
       }
-      return null;
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
     }
   }
 
+  
   @JsonProperty("ReportTaxType")
   private ReportTaxTypeEnum reportTaxType = null;
 
+  
   @JsonProperty("CanApplyToAssets")
   private Boolean canApplyToAssets = null;
 
+  
   @JsonProperty("CanApplyToEquity")
   private Boolean canApplyToEquity = null;
 
+  
   @JsonProperty("CanApplyToExpenses")
   private Boolean canApplyToExpenses = null;
 
+  
   @JsonProperty("CanApplyToLiabilities")
   private Boolean canApplyToLiabilities = null;
 
+  
   @JsonProperty("CanApplyToRevenue")
   private Boolean canApplyToRevenue = null;
 
+  
   @JsonProperty("DisplayTaxRate")
   private Float displayTaxRate = null;
 
+  
   @JsonProperty("EffectiveRate")
   private Float effectiveRate = null;
 
@@ -413,19 +427,19 @@ public class TaxRate {
   }
 
    /**
-   * Boolean to describe if tax rate can be used for expense accounts i.e. true,false
+   * Boolean to describe if tax rate can be used for expense accounts  i.e. true,false
    * @return canApplyToExpenses
   **/
-  @ApiModelProperty(value = "Boolean to describe if tax rate can be used for expense accounts i.e. true,false")
+  @ApiModelProperty(value = "Boolean to describe if tax rate can be used for expense accounts  i.e. true,false")
   public Boolean getCanApplyToExpenses() {
     return canApplyToExpenses;
   }
 
    /**
-   * Boolean to describe if tax rate can be used for liability accounts i.e. true,false
+   * Boolean to describe if tax rate can be used for liability accounts  i.e. true,false
    * @return canApplyToLiabilities
   **/
-  @ApiModelProperty(value = "Boolean to describe if tax rate can be used for liability accounts i.e. true,false")
+  @ApiModelProperty(value = "Boolean to describe if tax rate can be used for liability accounts  i.e. true,false")
   public Boolean getCanApplyToLiabilities() {
     return canApplyToLiabilities;
   }

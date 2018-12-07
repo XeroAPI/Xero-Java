@@ -27,6 +27,7 @@ import com.xero.models.accounting.Invoices;
 import com.xero.models.accounting.Items;
 import com.xero.models.accounting.Journals;
 import com.xero.models.accounting.LinkedTransactions;
+import org.threeten.bp.LocalDate;
 import com.xero.models.accounting.ManualJournals;
 import org.threeten.bp.OffsetDateTime;
 import com.xero.models.accounting.OnlineInvoices;
@@ -57,7 +58,6 @@ import com.xero.api.*;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.threeten.bp.OffsetDateTime;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -251,7 +251,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Accounts createAccount(Account account) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -259,9 +258,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(account);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -285,7 +282,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments createAccountAttachmentByFileName(UUID accountID, String fileName, byte[] body) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -305,9 +301,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             
             String response = this.FILE(url, strBody, params, "PUT", body);
             
@@ -329,20 +323,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public BankTransactions createBankTransaction(BankTransactions bankTransactions, Boolean summarizeErrors) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/BankTransactions";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (summarizeErrors != null) {
                 addToMapIfNotNull(params, "SummarizeErrors", summarizeErrors);
             }
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(bankTransactions);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -366,7 +357,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments createBankTransactionAttachmentByFileName(UUID bankTransactionID, String fileName, byte[] body) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -386,9 +376,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             
             String response = this.FILE(url, strBody, params, "PUT", body);
             
@@ -410,7 +398,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords createBankTransactionHistoryRecord(UUID bankTransactionID, HistoryRecords historyRecords) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -429,9 +416,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -453,7 +438,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public BankTransfers createBankTransfer(BankTransfers bankTransfers) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -461,9 +445,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(bankTransfers);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -487,7 +469,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments createBankTransferAttachmentByFileName(UUID bankTransferID, String fileName, byte[] body) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -507,9 +488,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             
             String response = this.FILE(url, strBody, params, "PUT", body);
             
@@ -531,7 +510,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords createBankTransferHistoryRecord(UUID bankTransferID, HistoryRecords historyRecords) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -550,9 +528,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -574,7 +550,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public BatchPayments createBatchPayment(BatchPayments batchPayments) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -582,9 +557,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(batchPayments);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -607,7 +580,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords createBatchPaymentHistoryRecord(UUID batchPaymentID, HistoryRecords historyRecords) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -626,9 +598,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -651,7 +621,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public PaymentServices createBrandingThemePaymentServices(UUID brandingThemeID, PaymentServices paymentServices) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -670,9 +639,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(paymentServices);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -694,7 +661,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Contacts createContact(Contact contact) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -702,9 +668,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(contact);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -728,7 +692,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments createContactAttachmentByFileName(UUID contactID, String fileName, byte[] body) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -748,9 +711,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             
             String response = this.FILE(url, strBody, params, "PUT", body);
             
@@ -771,7 +732,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ContactGroups createContactGroup(ContactGroups contactGroups) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -779,9 +739,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(contactGroups);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -804,7 +762,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Contacts createContactGroupContacts(UUID contactGroupID, Contacts contacts) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -823,9 +780,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(contacts);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -849,7 +804,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords createContactHistory(UUID contactID, HistoryRecords historyRecords) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -868,9 +822,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -893,20 +845,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public CreditNotes createCreditNote(Boolean summarizeErrors, CreditNotes creditNotes) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/CreditNotes";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (summarizeErrors != null) {
                 addToMapIfNotNull(params, "SummarizeErrors", summarizeErrors);
             }
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(creditNotes);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -929,7 +878,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Allocations createCreditNoteAllocation(UUID creditNoteID, Allocations allocations) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -948,9 +896,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(allocations);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -974,7 +920,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments createCreditNoteAttachmentByFileName(UUID creditNoteID, String fileName, byte[] body) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -994,9 +939,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             
             String response = this.FILE(url, strBody, params, "PUT", body);
             
@@ -1019,7 +962,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords createCreditNoteHistory(UUID creditNoteID, HistoryRecords historyRecords) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -1038,9 +980,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -1062,7 +1002,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Currencies createCurrency(Currencies currencies) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -1070,9 +1009,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(currencies);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -1094,7 +1031,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Employees createEmployee(Employees employees) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -1102,9 +1038,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(employees);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -1127,20 +1061,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ExpenseClaims createExpenseClaim(ExpenseClaims expenseClaims, Boolean summarizeErrors) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/ExpenseClaims";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (summarizeErrors != null) {
                 addToMapIfNotNull(params, "SummarizeErrors", summarizeErrors);
             }
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(expenseClaims);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -1164,7 +1095,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords createExpenseClaimHistory(UUID expenseClaimID, HistoryRecords historyRecords) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -1183,9 +1113,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -1208,20 +1136,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Invoices createInvoice(Invoices invoices, Boolean summarizeErrors) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/Invoices";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (summarizeErrors != null) {
                 addToMapIfNotNull(params, "SummarizeErrors", summarizeErrors);
             }
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(invoices);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -1245,7 +1170,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments createInvoiceAttachmentByFileName(UUID invoiceID, String fileName, byte[] body) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -1265,9 +1189,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             
             String response = this.FILE(url, strBody, params, "PUT", body);
             
@@ -1290,7 +1212,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords createInvoiceHistory(UUID invoiceID, HistoryRecords historyRecords) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -1309,9 +1230,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -1333,7 +1252,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Items createItem(Items items) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -1341,9 +1259,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(items);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -1366,7 +1282,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords createItemHistory(UUID itemID, HistoryRecords historyRecords) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -1385,9 +1300,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -1409,7 +1322,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public LinkedTransactions createLinkedTransaction(LinkedTransactions linkedTransactions) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -1417,9 +1329,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(linkedTransactions);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -1441,7 +1351,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ManualJournals createManualJournal(ManualJournals manualJournals) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -1449,9 +1358,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(manualJournals);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -1475,7 +1382,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments createManualJournalAttachmentByFileName(UUID manualJournalID, String fileName, byte[] body) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -1495,9 +1401,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             
             String response = this.FILE(url, strBody, params, "PUT", body);
             
@@ -1519,7 +1423,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Allocations createOverpaymentAllocation(UUID overpaymentID, Allocations allocations) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -1538,9 +1441,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(allocations);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -1564,7 +1465,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords createOverpaymentHistory(UUID overpaymentID, HistoryRecords historyRecords) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -1583,9 +1483,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -1607,7 +1505,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Payments createPayment(Payments payments) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -1615,9 +1512,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(payments);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -1641,7 +1536,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords createPaymentHistory(UUID paymentID, HistoryRecords historyRecords) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -1660,9 +1554,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -1684,7 +1576,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public PaymentServices createPaymentService(PaymentServices paymentServices) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -1692,9 +1583,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(paymentServices);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -1716,7 +1605,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Prepayments createPrepayment(Prepayments prepayments) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -1724,9 +1612,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(prepayments);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -1749,7 +1635,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Allocation createPrepaymentAllocation(UUID prepaymentID, Allocation allocation) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -1768,9 +1653,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(allocation);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -1793,20 +1676,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public PurchaseOrders createPurchaseOrder(PurchaseOrders purchaseOrders, Boolean summarizeErrors) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/PurchaseOrders";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (summarizeErrors != null) {
                 addToMapIfNotNull(params, "SummarizeErrors", summarizeErrors);
             }
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(purchaseOrders);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -1829,7 +1709,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords createPurchaseOrderHistory(UUID purchaseOrderID, HistoryRecords historyRecords) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -1848,9 +1727,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -1872,7 +1749,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Receipts createReceipt(Receipts receipts) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -1880,9 +1756,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(receipts);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -1906,7 +1780,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments createReceiptAttachmentByFileName(UUID receiptID, String fileName, byte[] body) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -1926,9 +1799,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             
             String response = this.FILE(url, strBody, params, "PUT", body);
             
@@ -1951,7 +1822,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords createReceiptHistory(UUID receiptID, HistoryRecords historyRecords) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -1970,9 +1840,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -1996,7 +1864,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments createRepeatingInvoiceAttachmentByFileName(UUID repeatingInvoiceID, String fileName, byte[] body) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -2016,9 +1883,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             
             String response = this.FILE(url, strBody, params, "PUT", body);
             
@@ -2040,7 +1905,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords createRepeatingInvoiceHistory(UUID repeatingInvoiceID, HistoryRecords historyRecords) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -2059,9 +1923,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -2083,7 +1945,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public TaxRates createTaxRate(TaxRates taxRates) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -2091,9 +1952,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(taxRates);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -2115,7 +1974,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public TrackingCategories createTrackingCategory(TrackingCategory trackingCategory) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -2123,9 +1981,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(trackingCategory);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -2148,7 +2004,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public TrackingOptions createTrackingOptions(UUID trackingCategoryID, TrackingOption trackingOption) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -2167,9 +2022,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(trackingOption);
                         
             String response = this.DATA(url, strBody, params, "PUT");
@@ -2191,7 +2044,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Accounts deleteAccount(UUID accountID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -2209,7 +2061,6 @@ public class AccountingApi {
             uriVariables.put("AccountID", accountID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -2234,7 +2085,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Response204 deleteContactGroupContact(UUID contactGroupID, UUID contactID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -2253,7 +2103,6 @@ public class AccountingApi {
             uriVariables.put("ContactID", contactID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -2276,7 +2125,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Response204 deleteContactGroupContacts(UUID contactGroupID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -2294,7 +2142,6 @@ public class AccountingApi {
             uriVariables.put("ContactGroupID", contactGroupID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -2318,7 +2165,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Response204 deleteItem(UUID itemID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -2336,7 +2182,6 @@ public class AccountingApi {
             uriVariables.put("ItemID", itemID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -2360,7 +2205,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Response204 deleteLinkedTransaction(UUID linkedTransactionID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -2378,7 +2222,6 @@ public class AccountingApi {
             uriVariables.put("LinkedTransactionID", linkedTransactionID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -2402,7 +2245,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public TrackingCategories deleteTrackingCategory(UUID trackingCategoryID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -2420,7 +2262,6 @@ public class AccountingApi {
             uriVariables.put("TrackingCategoryID", trackingCategoryID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -2445,7 +2286,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public TrackingOptions deleteTrackingOptions(UUID trackingCategoryID, UUID trackingOptionID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -2464,7 +2304,6 @@ public class AccountingApi {
             uriVariables.put("TrackingOptionID", trackingOptionID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -2490,7 +2329,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Response204 emailInvoice(UUID invoiceID, RequestEmpty requestEmpty) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -2509,9 +2347,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(requestEmpty);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -2533,7 +2369,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Accounts getAccount(UUID accountID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -2551,7 +2386,6 @@ public class AccountingApi {
             uriVariables.put("AccountID", accountID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -2577,7 +2411,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments getAccountAttachmentByFileName(UUID accountID, String fileName, String contentType) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -2596,7 +2429,6 @@ public class AccountingApi {
             uriVariables.put("FileName", fileName.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -2622,7 +2454,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ByteArrayInputStream getAccountAttachmentById(UUID accountID, UUID attachmentID, String contentType) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -2642,11 +2473,9 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
             ByteArrayInputStream response = this.FILE(url, strBody, params, "GET", contentType);
             return response;
-           
             
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -2662,7 +2491,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments getAccountAttachments(UUID accountID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -2680,7 +2508,6 @@ public class AccountingApi {
             uriVariables.put("AccountID", accountID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -2706,14 +2533,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Accounts getAccounts(OffsetDateTime ifModifiedSince, String where, String order) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/Accounts";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (where != null) {
                 addToMapIfNotNull(params, "where", where);
@@ -2742,7 +2567,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public BankTransactions getBankTransaction(UUID bankTransactionID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -2760,7 +2584,6 @@ public class AccountingApi {
             uriVariables.put("BankTransactionID", bankTransactionID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -2786,7 +2609,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments getBankTransactionAttachmentByFileName(UUID bankTransactionID, String fileName, String contentType) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -2805,7 +2627,6 @@ public class AccountingApi {
             uriVariables.put("FileName", fileName.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -2831,7 +2652,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ByteArrayInputStream getBankTransactionAttachmentById(UUID bankTransactionID, UUID attachmentID, String contentType) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -2851,11 +2671,9 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
             ByteArrayInputStream response = this.FILE(url, strBody, params, "GET", contentType);
             return response;
-           
             
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -2871,7 +2689,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments getBankTransactionAttachments(UUID bankTransactionID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -2889,7 +2706,6 @@ public class AccountingApi {
             uriVariables.put("BankTransactionID", bankTransactionID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -2916,14 +2732,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public BankTransactions getBankTransactions(OffsetDateTime ifModifiedSince, String where, String order, Integer page) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/BankTransactions";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (where != null) {
                 addToMapIfNotNull(params, "where", where);
@@ -2954,7 +2768,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords getBankTransactionsHistory(UUID bankTransactionID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -2972,7 +2785,6 @@ public class AccountingApi {
             uriVariables.put("BankTransactionID", bankTransactionID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -2996,7 +2808,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public BankTransfers getBankTransfer(UUID bankTransferID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -3014,7 +2825,6 @@ public class AccountingApi {
             uriVariables.put("BankTransferID", bankTransferID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -3040,7 +2850,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments getBankTransferAttachmentByFileName(UUID bankTransferID, String fileName, String contentType) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -3059,7 +2868,6 @@ public class AccountingApi {
             uriVariables.put("FileName", fileName.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -3085,7 +2893,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ByteArrayInputStream getBankTransferAttachmentById(UUID bankTransferID, UUID attachmentID, String contentType) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -3105,11 +2912,9 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
             ByteArrayInputStream response = this.FILE(url, strBody, params, "GET", contentType);
             return response;
-           
             
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -3125,7 +2930,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments getBankTransferAttachments(UUID bankTransferID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -3143,7 +2947,6 @@ public class AccountingApi {
             uriVariables.put("BankTransferID", bankTransferID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -3167,7 +2970,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords getBankTransferHistory(UUID bankTransferID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -3185,7 +2987,6 @@ public class AccountingApi {
             uriVariables.put("BankTransferID", bankTransferID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -3211,14 +3012,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public BankTransfers getBankTransfers(OffsetDateTime ifModifiedSince, String where, String order) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/BankTransfers";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (where != null) {
                 addToMapIfNotNull(params, "where", where);
@@ -3247,7 +3046,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords getBatchPaymentHistory(UUID batchPaymentID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -3265,7 +3063,6 @@ public class AccountingApi {
             uriVariables.put("BatchPaymentID", batchPaymentID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -3291,14 +3088,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public BatchPayments getBatchPayments(OffsetDateTime ifModifiedSince, String where, String order) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/BatchPayments";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (where != null) {
                 addToMapIfNotNull(params, "where", where);
@@ -3327,7 +3122,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public BrandingThemes getBrandingTheme(UUID brandingThemeID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -3345,7 +3139,6 @@ public class AccountingApi {
             uriVariables.put("BrandingThemeID", brandingThemeID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -3369,7 +3162,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public PaymentServices getBrandingThemePaymentServices(UUID brandingThemeID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -3387,7 +3179,6 @@ public class AccountingApi {
             uriVariables.put("BrandingThemeID", brandingThemeID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -3410,14 +3201,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public BrandingThemes getBrandingThemes() throws IOException {
-        // Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/BrandingThemes";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -3441,7 +3230,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Contacts getContact(UUID contactID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -3459,7 +3247,6 @@ public class AccountingApi {
             uriVariables.put("ContactID", contactID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -3485,7 +3272,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments getContactAttachmentByFileName(UUID contactID, String fileName, String contentType) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -3504,7 +3290,6 @@ public class AccountingApi {
             uriVariables.put("FileName", fileName.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -3530,7 +3315,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ByteArrayInputStream getContactAttachmentById(UUID contactID, UUID attachmentID, String contentType) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -3550,11 +3334,9 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
             ByteArrayInputStream response = this.FILE(url, strBody, params, "GET", contentType);
             return response;
-           
             
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -3570,7 +3352,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments getContactAttachments(UUID contactID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -3588,7 +3369,6 @@ public class AccountingApi {
             uriVariables.put("ContactID", contactID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -3612,7 +3392,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public CISSettings getContactCISSettings(UUID contactID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -3630,7 +3409,6 @@ public class AccountingApi {
             uriVariables.put("ContactID", contactID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -3654,7 +3432,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ContactGroups getContactGroup(UUID contactGroupID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -3672,7 +3449,6 @@ public class AccountingApi {
             uriVariables.put("ContactGroupID", contactGroupID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -3697,14 +3473,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ContactGroups getContactGroups(String where, String order) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/ContactGroups";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (where != null) {
                 addToMapIfNotNull(params, "where", where);
@@ -3733,7 +3507,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords getContactHistory(UUID contactID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -3751,7 +3524,6 @@ public class AccountingApi {
             uriVariables.put("ContactID", contactID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -3780,14 +3552,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Contacts getContacts(OffsetDateTime ifModifiedSince, String where, String order, String ids, Integer page, Boolean includeArchived) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/Contacts";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (where != null) {
                 addToMapIfNotNull(params, "where", where);
@@ -3822,7 +3592,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public CreditNotes getCreditNote(UUID creditNoteID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -3840,7 +3609,6 @@ public class AccountingApi {
             uriVariables.put("CreditNoteID", creditNoteID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -3865,7 +3633,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ByteArrayInputStream getCreditNoteAsPdf(UUID creditNoteID, String contentType) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -3884,11 +3651,9 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
             ByteArrayInputStream response = this.FILE(url, strBody, params, "GET", contentType);
             return response;
-           
             
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -3906,7 +3671,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments getCreditNoteAttachmentByFileName(UUID creditNoteID, String fileName, String contentType) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -3925,7 +3689,6 @@ public class AccountingApi {
             uriVariables.put("FileName", fileName.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -3951,7 +3714,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ByteArrayInputStream getCreditNoteAttachmentById(UUID creditNoteID, UUID attachmentID, String contentType) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -3971,11 +3733,9 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
             ByteArrayInputStream response = this.FILE(url, strBody, params, "GET", contentType);
             return response;
-           
             
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -3991,7 +3751,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments getCreditNoteAttachments(UUID creditNoteID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -4009,7 +3768,6 @@ public class AccountingApi {
             uriVariables.put("CreditNoteID", creditNoteID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -4033,7 +3791,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords getCreditNoteHistory(UUID creditNoteID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -4051,7 +3808,6 @@ public class AccountingApi {
             uriVariables.put("CreditNoteID", creditNoteID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -4078,14 +3834,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public CreditNotes getCreditNotes(OffsetDateTime ifModifiedSince, String where, String order, Integer page) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/CreditNotes";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (where != null) {
                 addToMapIfNotNull(params, "where", where);
@@ -4117,14 +3871,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Currencies getCurrencies(String where, String order) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/Currencies";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (where != null) {
                 addToMapIfNotNull(params, "where", where);
@@ -4153,7 +3905,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Employees getEmployee(UUID employeeID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -4171,7 +3922,6 @@ public class AccountingApi {
             uriVariables.put("EmployeeID", employeeID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -4197,14 +3947,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Employees getEmployees(OffsetDateTime ifModifiedSince, String where, String order) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/Employees";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (where != null) {
                 addToMapIfNotNull(params, "where", where);
@@ -4233,7 +3981,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ExpenseClaims getExpenseClaim(UUID expenseClaimID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -4251,7 +3998,6 @@ public class AccountingApi {
             uriVariables.put("ExpenseClaimID", expenseClaimID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -4275,7 +4021,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords getExpenseClaimHistory(UUID expenseClaimID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -4293,7 +4038,6 @@ public class AccountingApi {
             uriVariables.put("ExpenseClaimID", expenseClaimID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -4319,14 +4063,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ExpenseClaims getExpenseClaims(OffsetDateTime ifModifiedSince, String where, String order) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/ExpenseClaims";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (where != null) {
                 addToMapIfNotNull(params, "where", where);
@@ -4355,7 +4097,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Invoices getInvoice(UUID invoiceID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -4373,7 +4114,6 @@ public class AccountingApi {
             uriVariables.put("InvoiceID", invoiceID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -4398,7 +4138,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ByteArrayInputStream getInvoiceAsPdf(UUID invoiceID, String contentType) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -4417,11 +4156,9 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
             ByteArrayInputStream response = this.FILE(url, strBody, params, "GET", contentType);
             return response;
-           
             
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -4439,7 +4176,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments getInvoiceAttachmentByFileName(UUID invoiceID, String fileName, String contentType) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -4458,7 +4194,6 @@ public class AccountingApi {
             uriVariables.put("FileName", fileName.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -4484,7 +4219,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ByteArrayInputStream getInvoiceAttachmentById(UUID invoiceID, UUID attachmentID, String contentType) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -4504,11 +4238,9 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
             ByteArrayInputStream response = this.FILE(url, strBody, params, "GET", contentType);
             return response;
-           
             
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -4524,7 +4256,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments getInvoiceAttachments(UUID invoiceID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -4542,7 +4273,6 @@ public class AccountingApi {
             uriVariables.put("InvoiceID", invoiceID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -4566,7 +4296,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords getInvoiceHistory(UUID invoiceID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -4584,7 +4313,6 @@ public class AccountingApi {
             uriVariables.put("InvoiceID", invoiceID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -4607,14 +4335,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public InvoiceReminders getInvoiceReminders() throws IOException {
-        // Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/InvoiceReminders/Settings";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -4647,14 +4373,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Invoices getInvoices(OffsetDateTime ifModifiedSince, String where, String order, String ids, String invoiceNumbers, String contactIDs, String statuses, Integer page, Boolean includeArchived, Boolean createdByMyApp) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/Invoices";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (where != null) {
                 addToMapIfNotNull(params, "where", where);
@@ -4697,7 +4421,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Items getItem(UUID itemID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -4715,7 +4438,6 @@ public class AccountingApi {
             uriVariables.put("ItemID", itemID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -4739,7 +4461,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords getItemHistory(UUID itemID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -4757,7 +4478,6 @@ public class AccountingApi {
             uriVariables.put("ItemID", itemID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -4783,14 +4503,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Items getItems(OffsetDateTime ifModifiedSince, String where, String order) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/Items";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (where != null) {
                 addToMapIfNotNull(params, "where", where);
@@ -4819,7 +4537,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Journals getJournal(UUID journalID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -4837,7 +4554,6 @@ public class AccountingApi {
             uriVariables.put("JournalID", journalID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -4863,14 +4579,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Journals getJournals(OffsetDateTime ifModifiedSince, Integer offset, Boolean paymentsOnly) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/Journals";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (offset != null) {
                 addToMapIfNotNull(params, "offset", offset);
@@ -4899,7 +4613,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public LinkedTransactions getLinkedTransaction(UUID linkedTransactionID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -4917,7 +4630,6 @@ public class AccountingApi {
             uriVariables.put("LinkedTransactionID", linkedTransactionID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -4946,14 +4658,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public LinkedTransactions getLinkedTransactions(Integer page, String linkedTransactionID, String sourceTransactionID, String contactID, String status, String targetTransactionID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/LinkedTransactions";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (page != null) {
                 addToMapIfNotNull(params, "page", page);
@@ -4990,7 +4700,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ManualJournals getManualJournal(UUID manualJournalID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -5008,7 +4717,6 @@ public class AccountingApi {
             uriVariables.put("ManualJournalID", manualJournalID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -5034,7 +4742,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments getManualJournalAttachmentByFileName(UUID manualJournalID, String fileName, String contentType) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -5053,7 +4760,6 @@ public class AccountingApi {
             uriVariables.put("FileName", fileName.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -5079,7 +4785,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ByteArrayInputStream getManualJournalAttachmentById(UUID manualJournalID, UUID attachmentID, String contentType) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -5099,11 +4804,9 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
             ByteArrayInputStream response = this.FILE(url, strBody, params, "GET", contentType);
             return response;
-           
             
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -5119,7 +4822,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments getManualJournalAttachments(UUID manualJournalID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -5137,7 +4839,6 @@ public class AccountingApi {
             uriVariables.put("ManualJournalID", manualJournalID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -5164,14 +4865,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ManualJournals getManualJournals(OffsetDateTime ifModifiedSince, String where, String order, Integer page) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/ManualJournals";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (where != null) {
                 addToMapIfNotNull(params, "where", where);
@@ -5202,7 +4901,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public OnlineInvoices getOnlineInvoice(UUID invoiceID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -5220,7 +4918,6 @@ public class AccountingApi {
             uriVariables.put("InvoiceID", invoiceID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -5244,7 +4941,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Organisations getOrganisationByShortCode(UUID shortCode) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -5262,7 +4958,6 @@ public class AccountingApi {
             uriVariables.put("ShortCode", shortCode.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -5285,14 +4980,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Organisations getOrganisations() throws IOException {
-        // Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/Organisation";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -5316,7 +5009,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Overpayments getOverpayment(UUID overpaymentID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -5334,7 +5026,6 @@ public class AccountingApi {
             uriVariables.put("OverpaymentID", overpaymentID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -5358,7 +5049,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords getOverpaymentHistory(UUID overpaymentID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -5376,7 +5066,6 @@ public class AccountingApi {
             uriVariables.put("OverpaymentID", overpaymentID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -5403,14 +5092,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Overpayments getOverpayments(OffsetDateTime ifModifiedSince, String where, String order, Integer page) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/Overpayments";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (where != null) {
                 addToMapIfNotNull(params, "where", where);
@@ -5441,7 +5128,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Payments getPayment(UUID paymentID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -5459,7 +5145,6 @@ public class AccountingApi {
             uriVariables.put("PaymentID", paymentID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -5483,7 +5168,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords getPaymentHistory(UUID paymentID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -5501,7 +5185,6 @@ public class AccountingApi {
             uriVariables.put("PaymentID", paymentID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -5524,14 +5207,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public PaymentServices getPaymentServices() throws IOException {
-        // Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/PaymentServices";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -5557,14 +5238,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Payments getPayments(OffsetDateTime ifModifiedSince, String where, String order) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/Payments";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (where != null) {
                 addToMapIfNotNull(params, "where", where);
@@ -5593,7 +5272,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Prepayments getPrepayment(UUID prepaymentID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -5611,7 +5289,6 @@ public class AccountingApi {
             uriVariables.put("PrepaymentID", prepaymentID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -5638,14 +5315,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Prepayments getPrepayments(OffsetDateTime ifModifiedSince, String where, String order, Integer page) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/Prepayments";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (where != null) {
                 addToMapIfNotNull(params, "where", where);
@@ -5676,7 +5351,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public PurchaseOrders getPurchaseOrder(UUID purchaseOrderID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -5694,7 +5368,6 @@ public class AccountingApi {
             uriVariables.put("PurchaseOrderID", purchaseOrderID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -5718,7 +5391,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords getPurchaseOrderHistory(UUID purchaseOrderID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -5736,7 +5408,6 @@ public class AccountingApi {
             uriVariables.put("PurchaseOrderID", purchaseOrderID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -5765,14 +5436,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public PurchaseOrders getPurchaseOrders(OffsetDateTime ifModifiedSince, String status, String dateFrom, String dateTo, String order, Integer page) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/PurchaseOrders";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (status != null) {
                 addToMapIfNotNull(params, "Status", status);
@@ -5807,7 +5476,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Receipts getReceipt(UUID receiptID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -5825,7 +5493,6 @@ public class AccountingApi {
             uriVariables.put("ReceiptID", receiptID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -5851,7 +5518,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments getReceiptAttachmentByFileName(UUID receiptID, String fileName, String contentType) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -5870,7 +5536,6 @@ public class AccountingApi {
             uriVariables.put("FileName", fileName.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -5896,7 +5561,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ByteArrayInputStream getReceiptAttachmentById(UUID receiptID, UUID attachmentID, String contentType) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -5916,11 +5580,9 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
             ByteArrayInputStream response = this.FILE(url, strBody, params, "GET", contentType);
             return response;
-           
             
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -5936,7 +5598,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments getReceiptAttachments(UUID receiptID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -5954,7 +5615,6 @@ public class AccountingApi {
             uriVariables.put("ReceiptID", receiptID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -5978,7 +5638,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords getReceiptHistory(UUID receiptID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -5996,7 +5655,6 @@ public class AccountingApi {
             uriVariables.put("ReceiptID", receiptID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -6022,14 +5680,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Receipts getReceipts(OffsetDateTime ifModifiedSince, String where, String order) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/Receipts";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (where != null) {
                 addToMapIfNotNull(params, "where", where);
@@ -6058,7 +5714,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public RepeatingInvoices getRepeatingInvoice(UUID repeatingInvoiceID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -6076,7 +5731,6 @@ public class AccountingApi {
             uriVariables.put("RepeatingInvoiceID", repeatingInvoiceID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -6102,7 +5756,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments getRepeatingInvoiceAttachmentByFileName(UUID repeatingInvoiceID, String fileName, String contentType) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -6121,7 +5774,6 @@ public class AccountingApi {
             uriVariables.put("FileName", fileName.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -6147,7 +5799,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ByteArrayInputStream getRepeatingInvoiceAttachmentById(UUID repeatingInvoiceID, UUID attachmentID, String contentType) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -6167,11 +5818,9 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
             ByteArrayInputStream response = this.FILE(url, strBody, params, "GET", contentType);
             return response;
-           
             
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -6187,7 +5836,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments getRepeatingInvoiceAttachments(UUID repeatingInvoiceID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -6205,7 +5853,6 @@ public class AccountingApi {
             uriVariables.put("RepeatingInvoiceID", repeatingInvoiceID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -6229,7 +5876,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords getRepeatingInvoiceHistory(UUID repeatingInvoiceID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -6247,7 +5893,6 @@ public class AccountingApi {
             uriVariables.put("RepeatingInvoiceID", repeatingInvoiceID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -6272,14 +5917,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public RepeatingInvoices getRepeatingInvoices(String where, String order) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/RepeatingInvoices";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (where != null) {
                 addToMapIfNotNull(params, "where", where);
@@ -6310,15 +5953,13 @@ public class AccountingApi {
     * @return ReportWithRows
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public ReportWithRows getReportAgedPayablesByContact(UUID contactId, String date, String fromDate, String toDate) throws IOException {
-        //, Map<String, String> params
+    public ReportWithRows getReportAgedPayablesByContact(UUID contactId, LocalDate date, LocalDate fromDate, LocalDate toDate) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/Reports/AgedPayablesByContact";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (contactId != null) {
                 addToMapIfNotNull(params, "contactId", contactId);
@@ -6354,14 +5995,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ReportWithRows getReportAgedReceivablesByContact(UUID contactId, String date, String fromDate, String toDate) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/Reports/AgedReceivablesByContact";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (contactId != null) {
                 addToMapIfNotNull(params, "contactId", contactId);
@@ -6394,7 +6033,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ReportWithRows getReportBASorGST(String reportID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -6412,7 +6050,6 @@ public class AccountingApi {
             uriVariables.put("ReportID", reportID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -6435,14 +6072,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ReportWithRows getReportBASorGSTList() throws IOException {
-        // Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/Reports";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -6472,14 +6107,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ReportWithRows getReportBalanceSheet(String date, Integer periods, Integer timeframe, String trackingOptionID1, String trackingOptionID2, Boolean standardLayout, Boolean paymentsOnly) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/Reports/BalanceSheet";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (date != null) {
                 addToMapIfNotNull(params, "date", date);
@@ -6520,14 +6153,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ReportWithRows getReportBankSummary(String date, Integer period, Integer timeframe) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/Reports/BankSummary";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (date != null) {
                 addToMapIfNotNull(params, "date", date);
@@ -6558,14 +6189,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ReportWithRows getReportExecutiveSummary(String date) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/Reports/ExecutiveSummary";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (date != null) {
                 addToMapIfNotNull(params, "date", date);
@@ -6601,14 +6230,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ReportWithRows getReportProfitAndLoss(String fromDate, String toDate, Integer periods, String timeframe, String trackingCategoryID, String trackingCategoryID2, String trackingOptionID, String trackingOptionID2, Boolean standardLayout, Boolean paymentsOnly) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/Reports/ProfitAndLoss";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (fromDate != null) {
                 addToMapIfNotNull(params, "fromDate", fromDate);
@@ -6653,14 +6280,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Reports getReportTenNinetyNine(String reportYear) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/Reports/TenNinetyNine";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (reportYear != null) {
                 addToMapIfNotNull(params, "reportYear", reportYear);
@@ -6688,14 +6313,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ReportWithRows getReportTrialBalance(String date, Boolean paymentsOnly) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/Reports/TrialBalance";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (date != null) {
                 addToMapIfNotNull(params, "date", date);
@@ -6726,14 +6349,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public TaxRates getTaxRates(String where, String order, String taxType) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/TaxRates";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (where != null) {
                 addToMapIfNotNull(params, "where", where);
@@ -6766,14 +6387,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public TrackingCategories getTrackingCategories(String where, String order, Boolean includeArchived) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/TrackingCategories";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (where != null) {
                 addToMapIfNotNull(params, "where", where);
@@ -6804,7 +6423,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public TrackingCategories getTrackingCategory(UUID trackingCategoryID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -6822,7 +6440,6 @@ public class AccountingApi {
             uriVariables.put("TrackingCategoryID", trackingCategoryID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -6846,7 +6463,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Users getUser(UUID userID) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -6864,7 +6480,6 @@ public class AccountingApi {
             uriVariables.put("UserID", userID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
-
 
             ApiClient apiClient = new ApiClient();
             
@@ -6890,14 +6505,12 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Users getUsers(OffsetDateTime ifModifiedSince, String where, String order) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/Users";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (where != null) {
                 addToMapIfNotNull(params, "where", where);
@@ -6927,7 +6540,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Accounts updateAccount(UUID accountID, Accounts accounts) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -6946,9 +6558,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(accounts);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -6972,7 +6582,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments updateAccountAttachmentByFileName(UUID accountID, UUID fileName, File body) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -6992,9 +6601,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -7018,7 +6625,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments updateAccountAttachmentById(UUID accountID, UUID attachmentID, File body) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -7038,9 +6644,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -7063,7 +6667,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public BankTransactions updateBankTransaction(UUID bankTransactionID, BankTransactions bankTransactions) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -7082,9 +6685,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(bankTransactions);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -7108,7 +6709,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments updateBankTransactionAttachmentByFileName(UUID bankTransactionID, UUID fileName, File body) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -7128,9 +6728,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -7154,7 +6752,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments updateBankTransactionAttachmentById(UUID bankTransactionID, UUID attachmentID, File body) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -7174,9 +6771,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -7200,7 +6795,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments updateBankTransferAttachmentByFileName(UUID bankTransferID, UUID fileName, File body) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -7220,9 +6814,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -7246,7 +6838,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments updateBankTransferAttachmentById(UUID bankTransferID, UUID attachmentID, File body) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -7266,9 +6857,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -7291,7 +6880,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Contacts updateContact(UUID contactID, Contacts contacts) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -7310,9 +6898,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(contacts);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -7336,7 +6922,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments updateContactAttachmentByFileName(UUID contactID, UUID fileName, File body) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -7356,9 +6941,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -7382,7 +6965,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments updateContactAttachmentById(UUID contactID, UUID attachmentID, File body) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -7402,9 +6984,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -7427,7 +7007,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ContactGroups updateContactGroup(UUID contactGroupID, ContactGroups contactGroups) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -7446,9 +7025,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(contactGroups);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -7471,7 +7048,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public CreditNotes updateCreditNote(UUID creditNoteID, CreditNotes creditNotes) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -7490,9 +7066,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(creditNotes);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -7516,7 +7090,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments updateCreditNoteAttachmentByFileName(UUID creditNoteID, UUID fileName, File body) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -7536,9 +7109,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -7562,7 +7133,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments updateCreditNoteAttachmentById(UUID creditNoteID, UUID attachmentID, File body) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -7582,9 +7152,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -7607,7 +7175,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Employees updateEmployee(UUID employeeID, Employees employees) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -7626,9 +7193,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(employees);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -7651,7 +7216,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ExpenseClaims updateExpenseClaim(UUID expenseClaimID, ExpenseClaims expenseClaims) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -7670,9 +7234,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(expenseClaims);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -7695,7 +7257,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Invoices updateInvoice(UUID invoiceID, Invoices invoices) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -7714,9 +7275,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(invoices);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -7740,7 +7299,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments updateInvoiceAttachmentByFileName(UUID invoiceID, UUID fileName, File body) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -7760,9 +7318,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -7786,7 +7342,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments updateInvoiceAttachmentById(UUID invoiceID, UUID attachmentID, File body) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -7806,9 +7361,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -7831,7 +7384,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Items updateItem(UUID itemID, Items items) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -7850,9 +7402,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(items);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -7875,7 +7425,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public LinkedTransactions updateLinkedTransaction(UUID linkedTransactionID, LinkedTransactions linkedTransactions) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -7894,9 +7443,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(linkedTransactions);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -7919,7 +7466,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ManualJournals updateManualJournal(UUID manualJournalID, ManualJournals manualJournals) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -7938,9 +7484,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(manualJournals);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -7964,7 +7508,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments updateManualJournalAttachmentByFileName(UUID manualJournalID, UUID fileName, File body) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -7984,9 +7527,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -8010,7 +7551,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments updateManualJournalAttachmentById(UUID manualJournalID, UUID attachmentID, File body) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -8030,9 +7570,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -8055,7 +7593,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Payments updatePayment(UUID paymentID, Payments payments) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -8074,9 +7611,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(payments);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -8099,7 +7634,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public PurchaseOrders updatePurchaseOrder(UUID purchaseOrderID, PurchaseOrders purchaseOrders) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -8118,9 +7652,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(purchaseOrders);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -8143,7 +7675,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Receipts updateReceipt(UUID receiptID, Receipts receipts) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -8162,9 +7693,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(receipts);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -8188,7 +7717,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments updateReceiptAttachmentByFileName(UUID receiptID, UUID fileName, File body) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -8208,9 +7736,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -8234,7 +7760,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments updateReceiptAttachmentById(UUID receiptID, UUID attachmentID, File body) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -8254,9 +7779,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -8280,7 +7803,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments updateRepeatingInvoiceAttachmentByFileName(UUID repeatingInvoiceID, UUID fileName, File body) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -8300,9 +7822,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -8326,7 +7846,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments updateRepeatingInvoiceAttachmentById(UUID repeatingInvoiceID, UUID attachmentID, File body) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -8346,9 +7865,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -8370,7 +7887,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public TaxRates updateTaxRate(TaxRates taxRates) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -8378,9 +7894,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(taxRates);
                         
             String response = this.DATA(url, strBody, params, "POST");
@@ -8403,7 +7917,6 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public TrackingCategories updateTrackingCategory(UUID trackingCategoryID, TrackingCategory trackingCategory) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -8422,9 +7935,7 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
             ApiClient apiClient = new ApiClient();
-
             strBody = apiClient.getObjectMapper().writeValueAsString(trackingCategory);
                         
             String response = this.DATA(url, strBody, params, "POST");

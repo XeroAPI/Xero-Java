@@ -24,20 +24,27 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.OffsetDateTime;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * ManualJournal
  */
 
 public class ManualJournal {
+  
   @JsonProperty("Narration")
   private String narration = null;
 
+  
   @JsonProperty("JournalLines")
   private List<JournalLine> journalLines = new ArrayList<JournalLine>();
 
+  @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("Date")
-  private String date = null;
+  private LocalDate date = null;
 
   /**
    * NoTax by default if you don’t specify this element. See Line Amount Types
@@ -72,28 +79,35 @@ public class ManualJournal {
           return b;
         }
       }
-      return null;
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
     }
   }
 
+  
   @JsonProperty("LineAmountTypes")
   private LineAmountTypesEnum lineAmountTypes = null;
 
+  
   @JsonProperty("Status")
   private String status = null;
 
+  
   @JsonProperty("Url")
   private String url = null;
 
+  
   @JsonProperty("ShowOnCashBasisReports")
   private Boolean showOnCashBasisReports = null;
 
+  
   @JsonProperty("HasAttachments")
   private Boolean hasAttachments = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private String updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC = null;
 
+  
   @JsonProperty("ManualJournalID")
   private UUID manualJournalID = null;
 
@@ -138,7 +152,7 @@ public class ManualJournal {
     this.journalLines = journalLines;
   }
 
-  public ManualJournal date(String date) {
+  public ManualJournal date(LocalDate date) {
     this.date = date;
     return this;
   }
@@ -148,11 +162,11 @@ public class ManualJournal {
    * @return date
   **/
   @ApiModelProperty(value = "Date journal was posted – YYYY-MM-DD")
-  public String getDate() {
+  public LocalDate getDate() {
     return date;
   }
 
-  public void setDate(String date) {
+  public void setDate(LocalDate date) {
     this.date = date;
   }
 
@@ -242,7 +256,7 @@ public class ManualJournal {
    * @return updatedDateUTC
   **/
   @ApiModelProperty(value = "Last modified date UTC format")
-  public String getUpdatedDateUTC() {
+  public OffsetDateTime getUpdatedDateUTC() {
     return updatedDateUTC;
   }
 

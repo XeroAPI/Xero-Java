@@ -21,14 +21,18 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * ReportAttribute
  */
 
 public class ReportAttribute {
+  
   @JsonProperty("Id")
   private String id = null;
 
+  
   @JsonProperty("Value")
   private String value = null;
 

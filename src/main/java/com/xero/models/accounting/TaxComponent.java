@@ -21,20 +21,26 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * TaxComponent
  */
 
 public class TaxComponent {
+  
   @JsonProperty("Name")
   private String name = null;
 
+  
   @JsonProperty("Rate")
   private Float rate = null;
 
+  
   @JsonProperty("IsCompound")
   private Boolean isCompound = null;
 
+  
   @JsonProperty("IsNonRecoverable")
   private Boolean isNonRecoverable = null;
 

@@ -23,23 +23,30 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * Employee
  */
 
 public class Employee {
+  
   @JsonProperty("EmployeeID")
   private UUID employeeID = null;
 
+  
   @JsonProperty("Status")
   private String status = null;
 
+  
   @JsonProperty("FirstName")
   private String firstName = null;
 
+  
   @JsonProperty("LastName")
   private String lastName = null;
 
+  
   @JsonProperty("ExternalLink")
   private ExternalLink externalLink = null;
 

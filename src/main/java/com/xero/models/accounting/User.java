@@ -21,30 +21,40 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import org.threeten.bp.OffsetDateTime;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * User
  */
 
 public class User {
+  
   @JsonProperty("UserID")
   private UUID userID = null;
 
+  
   @JsonProperty("EmailAddress")
   private String emailAddress = null;
 
+  
   @JsonProperty("FirstName")
   private String firstName = null;
 
+  
   @JsonProperty("LastName")
   private String lastName = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private String updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC = null;
 
+  
   @JsonProperty("IsSubscriber")
   private Boolean isSubscriber = null;
 
+  
   @JsonProperty("OrganisationRole")
   private String organisationRole = null;
 
@@ -120,7 +130,7 @@ public class User {
     this.lastName = lastName;
   }
 
-  public User updatedDateUTC(String updatedDateUTC) {
+  public User updatedDateUTC(OffsetDateTime updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
     return this;
   }
@@ -130,11 +140,11 @@ public class User {
    * @return updatedDateUTC
   **/
   @ApiModelProperty(value = "Timestamp of last change to user")
-  public String getUpdatedDateUTC() {
+  public OffsetDateTime getUpdatedDateUTC() {
     return updatedDateUTC;
   }
 
-  public void setUpdatedDateUTC(String updatedDateUTC) {
+  public void setUpdatedDateUTC(OffsetDateTime updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
   }
 

@@ -21,39 +21,52 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import org.threeten.bp.OffsetDateTime;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * LinkedTransaction
  */
 
 public class LinkedTransaction {
+  
   @JsonProperty("SourceTransactionID")
   private UUID sourceTransactionID = null;
 
+  
   @JsonProperty("SourceLineItemID")
   private UUID sourceLineItemID = null;
 
+  
   @JsonProperty("ContactID")
   private UUID contactID = null;
 
+  
   @JsonProperty("TargetTransactionID")
   private UUID targetTransactionID = null;
 
+  
   @JsonProperty("TargetLineItemID")
   private UUID targetLineItemID = null;
 
+  
   @JsonProperty("LinkedTransactionID")
   private UUID linkedTransactionID = null;
 
+  
   @JsonProperty("Status")
   private String status = null;
 
+  
   @JsonProperty("Type")
   private String type = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private String updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC = null;
 
+  
   @JsonProperty("SourceTransactionTypeCode")
   private String sourceTransactionTypeCode = null;
 
@@ -117,10 +130,10 @@ public class LinkedTransaction {
   }
 
    /**
-   * Filter by the TargetTransactionID. Get all the linked transactions allocated to a particular ACCREC invoice
+   * Filter by the TargetTransactionID. Get all the linked transactions  allocated to a particular ACCREC invoice
    * @return targetTransactionID
   **/
-  @ApiModelProperty(value = "Filter by the TargetTransactionID. Get all the linked transactions allocated to a particular ACCREC invoice")
+  @ApiModelProperty(value = "Filter by the TargetTransactionID. Get all the linked transactions  allocated to a particular ACCREC invoice")
   public UUID getTargetTransactionID() {
     return targetTransactionID;
   }
@@ -135,10 +148,10 @@ public class LinkedTransaction {
   }
 
    /**
-   * The line item identifier from the target transaction. It is possible to link multiple billable expenses to the same TargetLineItemID.
+   * The line item identifier from the target transaction. It is possible  to link multiple billable expenses to the same TargetLineItemID.
    * @return targetLineItemID
   **/
-  @ApiModelProperty(value = "The line item identifier from the target transaction. It is possible to link multiple billable expenses to the same TargetLineItemID.")
+  @ApiModelProperty(value = "The line item identifier from the target transaction. It is possible  to link multiple billable expenses to the same TargetLineItemID.")
   public UUID getTargetLineItemID() {
     return targetLineItemID;
   }
@@ -201,7 +214,7 @@ public class LinkedTransaction {
     this.type = type;
   }
 
-  public LinkedTransaction updatedDateUTC(String updatedDateUTC) {
+  public LinkedTransaction updatedDateUTC(OffsetDateTime updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
     return this;
   }
@@ -211,11 +224,11 @@ public class LinkedTransaction {
    * @return updatedDateUTC
   **/
   @ApiModelProperty(value = "The last modified date in UTC format")
-  public String getUpdatedDateUTC() {
+  public OffsetDateTime getUpdatedDateUTC() {
     return updatedDateUTC;
   }
 
-  public void setUpdatedDateUTC(String updatedDateUTC) {
+  public void setUpdatedDateUTC(OffsetDateTime updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
   }
 

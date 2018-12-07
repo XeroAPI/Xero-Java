@@ -24,11 +24,14 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * ReportWithRows
  */
 
 public class ReportWithRows {
+  
   @JsonProperty("Reports")
   private List<ReportWithRow> reports = null;
 

@@ -22,51 +22,68 @@ import com.xero.models.accounting.Purchase;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import org.threeten.bp.OffsetDateTime;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * Item
  */
 
 public class Item {
+  
   @JsonProperty("Code")
   private String code = null;
 
+  
   @JsonProperty("InventoryAssetAccountCode")
   private String inventoryAssetAccountCode = null;
 
+  
   @JsonProperty("Name")
   private String name = null;
 
+  
   @JsonProperty("IsSold")
   private Boolean isSold = null;
 
+  
   @JsonProperty("IsPurchased")
   private Boolean isPurchased = null;
 
+  
   @JsonProperty("Description")
   private String description = null;
 
+  
   @JsonProperty("PurchaseDescription")
   private String purchaseDescription = null;
 
+  
   @JsonProperty("PurchaseDetails")
   private Purchase purchaseDetails = null;
 
+  
   @JsonProperty("SalesDetails")
   private Purchase salesDetails = null;
 
+  
   @JsonProperty("IsTrackedAsInventory")
   private Boolean isTrackedAsInventory = null;
 
+  
   @JsonProperty("TotalCostPool")
   private String totalCostPool = null;
 
+  
   @JsonProperty("QuantityOnHand")
   private String quantityOnHand = null;
 
+  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private String updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC = null;
 
+  
   @JsonProperty("ItemID")
   private UUID itemID = null;
 
@@ -286,7 +303,7 @@ public class Item {
     this.quantityOnHand = quantityOnHand;
   }
 
-  public Item updatedDateUTC(String updatedDateUTC) {
+  public Item updatedDateUTC(OffsetDateTime updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
     return this;
   }
@@ -296,11 +313,11 @@ public class Item {
    * @return updatedDateUTC
   **/
   @ApiModelProperty(value = "Last modified date in UTC format")
-  public String getUpdatedDateUTC() {
+  public OffsetDateTime getUpdatedDateUTC() {
     return updatedDateUTC;
   }
 
-  public void setUpdatedDateUTC(String updatedDateUTC) {
+  public void setUpdatedDateUTC(OffsetDateTime updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
   }
 

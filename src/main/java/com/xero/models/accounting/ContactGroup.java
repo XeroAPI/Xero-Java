@@ -25,11 +25,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * ContactGroup
  */
 
 public class ContactGroup {
+  
   @JsonProperty("Name")
   private String name = null;
 
@@ -64,16 +67,19 @@ public class ContactGroup {
           return b;
         }
       }
-      return null;
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
     }
   }
 
+  
   @JsonProperty("Status")
   private StatusEnum status = null;
 
+  
   @JsonProperty("ContactGroupID")
   private UUID contactGroupID = null;
 
+  
   @JsonProperty("Contacts")
   private List<Contact> contacts = null;
 
@@ -83,10 +89,10 @@ public class ContactGroup {
   }
 
    /**
-   * The Name of the contact group. Required when creating a new contact group
+   * The Name of the contact group. Required when creating a new contact  group
    * @return name
   **/
-  @ApiModelProperty(value = "The Name of the contact group. Required when creating a new contact group")
+  @ApiModelProperty(value = "The Name of the contact group. Required when creating a new contact  group")
   public String getName() {
     return name;
   }

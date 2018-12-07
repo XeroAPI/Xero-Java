@@ -21,14 +21,18 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * AccountsPayable
  */
 
 public class AccountsPayable {
+  
   @JsonProperty("Outstanding")
   private String outstanding = null;
 
+  
   @JsonProperty("Overdue")
   private String overdue = null;
 
