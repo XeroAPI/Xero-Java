@@ -58,9 +58,90 @@ public class Journal {
   @JsonProperty("SourceID")
   private UUID sourceID = null;
 
+  /**
+   * The journal source type. The type of transaction that created the journal
+   */
+  public enum SourceTypeEnum {
+    ACCREC("ACCREC"),
+    
+    ACCPAY("ACCPAY"),
+    
+    ACCRECCREDIT("ACCRECCREDIT"),
+    
+    ACCPAYCREDIT("ACCPAYCREDIT"),
+    
+    ACCRECPAYMENT("ACCRECPAYMENT"),
+    
+    ACCPAYPAYMENT("ACCPAYPAYMENT"),
+    
+    ARCREDITPAYMENT("ARCREDITPAYMENT"),
+    
+    APCREDITPAYMENT("APCREDITPAYMENT"),
+    
+    CASHREC("CASHREC"),
+    
+    CASHPAID("CASHPAID"),
+    
+    TRANSFER("TRANSFER"),
+    
+    ARPREPAYMENT("ARPREPAYMENT"),
+    
+    APPREPAYMENT("APPREPAYMENT"),
+    
+    AROVERPAYMENT("AROVERPAYMENT"),
+    
+    APOVERPAYMENT("APOVERPAYMENT"),
+    
+    EXPCLAIM("EXPCLAIM"),
+    
+    EXPPAYMENT("EXPPAYMENT"),
+    
+    MANJOURNAL("MANJOURNAL"),
+    
+    PAYSLIP("PAYSLIP"),
+    
+    WAGEPAYABLE("WAGEPAYABLE"),
+    
+    INTEGRATEDPAYROLLPE("INTEGRATEDPAYROLLPE"),
+    
+    INTEGRATEDPAYROLLPT("INTEGRATEDPAYROLLPT"),
+    
+    EXTERNALSPENDMONEY("EXTERNALSPENDMONEY"),
+    
+    INTEGRATEDPAYROLLPTPAYMENT("INTEGRATEDPAYROLLPTPAYMENT"),
+    
+    INTEGRATEDPAYROLLCN("INTEGRATEDPAYROLLCN");
+
+    private String value;
+
+    SourceTypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static SourceTypeEnum fromValue(String text) {
+      for (SourceTypeEnum b : SourceTypeEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+    }
+  }
+
   
   @JsonProperty("SourceType")
-  private String sourceType = null;
+  private SourceTypeEnum sourceType = null;
 
   
   @JsonProperty("JournalLines")
@@ -165,7 +246,7 @@ public class Journal {
     this.sourceID = sourceID;
   }
 
-  public Journal sourceType(String sourceType) {
+  public Journal sourceType(SourceTypeEnum sourceType) {
     this.sourceType = sourceType;
     return this;
   }
@@ -175,11 +256,11 @@ public class Journal {
    * @return sourceType
   **/
   @ApiModelProperty(value = "The journal source type. The type of transaction that created the journal")
-  public String getSourceType() {
+  public SourceTypeEnum getSourceType() {
     return sourceType;
   }
 
-  public void setSourceType(String sourceType) {
+  public void setSourceType(SourceTypeEnum sourceType) {
     this.sourceType = sourceType;
   }
 

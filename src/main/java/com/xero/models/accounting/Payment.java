@@ -276,10 +276,10 @@ public class Payment {
   }
 
    /**
-   * Number of invoice or credit note you are applying payment to e.g. INV-4003
+   * Number of invoice or credit note you are applying payment to e.g.INV-4003
    * @return invoiceNumber
   **/
-  @ApiModelProperty(value = "Number of invoice or credit note you are applying payment to e.g. INV-4003")
+  @ApiModelProperty(value = "Number of invoice or credit note you are applying payment to e.g.INV-4003")
   public String getInvoiceNumber() {
     return invoiceNumber;
   }

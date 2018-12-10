@@ -19,9 +19,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.accounting.Address;
+import com.xero.models.accounting.CountryCode;
+import com.xero.models.accounting.CurrencyCode;
 import com.xero.models.accounting.ExternalLink;
 import com.xero.models.accounting.PaymentTerm;
 import com.xero.models.accounting.Phone;
+import com.xero.models.accounting.TimeZone;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -160,11 +163,11 @@ public class Organisation {
 
   
   @JsonProperty("BaseCurrency")
-  private String baseCurrency = null;
+  private CurrencyCode baseCurrency = null;
 
   
   @JsonProperty("CountryCode")
-  private String countryCode = null;
+  private CountryCode countryCode = null;
 
   
   @JsonProperty("IsDemoCompany")
@@ -326,7 +329,7 @@ public class Organisation {
 
   
   @JsonProperty("Timezone")
-  private String timezone = null;
+  private TimeZone timezone = null;
 
   /**
    * Organisation Type
@@ -568,39 +571,39 @@ public class Organisation {
     this.organisationType = organisationType;
   }
 
-  public Organisation baseCurrency(String baseCurrency) {
+  public Organisation baseCurrency(CurrencyCode baseCurrency) {
     this.baseCurrency = baseCurrency;
     return this;
   }
 
    /**
-   * Default currency for organisation. See ISO 4217 Currency Codes
+   * Get baseCurrency
    * @return baseCurrency
   **/
-  @ApiModelProperty(value = "Default currency for organisation. See ISO 4217 Currency Codes")
-  public String getBaseCurrency() {
+  @ApiModelProperty(value = "")
+  public CurrencyCode getBaseCurrency() {
     return baseCurrency;
   }
 
-  public void setBaseCurrency(String baseCurrency) {
+  public void setBaseCurrency(CurrencyCode baseCurrency) {
     this.baseCurrency = baseCurrency;
   }
 
-  public Organisation countryCode(String countryCode) {
+  public Organisation countryCode(CountryCode countryCode) {
     this.countryCode = countryCode;
     return this;
   }
 
    /**
-   * Country code for organisation. See ISO 3166-2 Country Codes
+   * Get countryCode
    * @return countryCode
   **/
-  @ApiModelProperty(value = "Country code for organisation. See ISO 3166-2 Country Codes")
-  public String getCountryCode() {
+  @ApiModelProperty(value = "")
+  public CountryCode getCountryCode() {
     return countryCode;
   }
 
-  public void setCountryCode(String countryCode) {
+  public void setCountryCode(CountryCode countryCode) {
     this.countryCode = countryCode;
   }
 
@@ -838,21 +841,21 @@ public class Organisation {
     this.createdDateUTC = createdDateUTC;
   }
 
-  public Organisation timezone(String timezone) {
+  public Organisation timezone(TimeZone timezone) {
     this.timezone = timezone;
     return this;
   }
 
    /**
-   * Timezone specifications
+   * Get timezone
    * @return timezone
   **/
-  @ApiModelProperty(value = "Timezone specifications")
-  public String getTimezone() {
+  @ApiModelProperty(value = "")
+  public TimeZone getTimezone() {
     return timezone;
   }
 
-  public void setTimezone(String timezone) {
+  public void setTimezone(TimeZone timezone) {
     this.timezone = timezone;
   }
 
@@ -994,10 +997,10 @@ public class Organisation {
   }
 
    /**
-   * Organisation profile links for popular services such as Facebook, Twitter, GooglePlus and LinkedIn. You can also add link to your website here. Shown if Organisation settings  is updated in Xero. See ExternalLinks below
+   * Organisation profile links for popular services such as Facebook,Twitter, GooglePlus and LinkedIn. You can also add link to your website here. Shown if Organisation settings  is updated in Xero. See ExternalLinks below
    * @return externalLinks
   **/
-  @ApiModelProperty(value = "Organisation profile links for popular services such as Facebook, Twitter, GooglePlus and LinkedIn. You can also add link to your website here. Shown if Organisation settings  is updated in Xero. See ExternalLinks below")
+  @ApiModelProperty(value = "Organisation profile links for popular services such as Facebook,Twitter, GooglePlus and LinkedIn. You can also add link to your website here. Shown if Organisation settings  is updated in Xero. See ExternalLinks below")
   public List<ExternalLink> getExternalLinks() {
     return externalLinks;
   }

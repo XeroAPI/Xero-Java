@@ -18,6 +18,7 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.PaymentTermType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -32,46 +33,9 @@ public class Bill {
   @JsonProperty("Day")
   private Integer day = null;
 
-  /**
-   * One of the following values OFFOLLOWINGMONTH/DAYSAFTERBILLDATE/OFCURRENTMONTH
-   */
-  public enum TypeEnum {
-    OFFOLLOWINGMONTH("OFFOLLOWINGMONTH"),
-    
-    DAYSAFTERBILLDATE("DAYSAFTERBILLDATE"),
-    
-    OFCURRENTMONTH("OFCURRENTMONTH");
-
-    private String value;
-
-    TypeEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static TypeEnum fromValue(String text) {
-      for (TypeEnum b : TypeEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
-    }
-  }
-
   
   @JsonProperty("Type")
-  private TypeEnum type = null;
+  private PaymentTermType type = null;
 
   public Bill day(Integer day) {
     this.day = day;
@@ -91,21 +55,21 @@ public class Bill {
     this.day = day;
   }
 
-  public Bill type(TypeEnum type) {
+  public Bill type(PaymentTermType type) {
     this.type = type;
     return this;
   }
 
    /**
-   * One of the following values OFFOLLOWINGMONTH/DAYSAFTERBILLDATE/OFCURRENTMONTH
+   * Get type
    * @return type
   **/
-  @ApiModelProperty(value = "One of the following values OFFOLLOWINGMONTH/DAYSAFTERBILLDATE/OFCURRENTMONTH")
-  public TypeEnum getType() {
+  @ApiModelProperty(value = "")
+  public PaymentTermType getType() {
     return type;
   }
 
-  public void setType(TypeEnum type) {
+  public void setType(PaymentTermType type) {
     this.type = type;
   }
 

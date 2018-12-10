@@ -51,7 +51,7 @@ public class Allocation {
    * Get invoice
    * @return invoice
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(required = true, value = "")
   public Invoice getInvoice() {
     return invoice;
   }
@@ -69,7 +69,7 @@ public class Allocation {
    * the amount being applied to the invoice
    * @return amount
   **/
-  @ApiModelProperty(value = "the amount being applied to the invoice")
+  @ApiModelProperty(required = true, value = "the amount being applied to the invoice")
   public Float getAmount() {
     return amount;
   }
@@ -84,10 +84,10 @@ public class Allocation {
   }
 
    /**
-   * the date the prepayment is applied YYYY-MM-DD (read-only). This will   be the latter of the invoice date and the prepayment date.
+   * the date the allocation is applied YYYY-MM-DD.
    * @return date
   **/
-  @ApiModelProperty(value = "the date the prepayment is applied YYYY-MM-DD (read-only). This will   be the latter of the invoice date and the prepayment date.")
+  @ApiModelProperty(required = true, value = "the date the allocation is applied YYYY-MM-DD.")
   public LocalDate getDate() {
     return date;
   }

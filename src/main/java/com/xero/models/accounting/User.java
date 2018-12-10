@@ -54,9 +54,52 @@ public class User {
   @JsonProperty("IsSubscriber")
   private Boolean isSubscriber = null;
 
+  /**
+   * User role (see Types)
+   */
+  public enum OrganisationRoleEnum {
+    READONLY("READONLY"),
+    
+    INVOICEONLY("INVOICEONLY"),
+    
+    STANDARD("STANDARD"),
+    
+    FINANCIALADVISER("FINANCIALADVISER"),
+    
+    MANAGEDCLIENT("MANAGEDCLIENT"),
+    
+    CASHBOOKCLIENT("CASHBOOKCLIENT");
+
+    private String value;
+
+    OrganisationRoleEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static OrganisationRoleEnum fromValue(String text) {
+      for (OrganisationRoleEnum b : OrganisationRoleEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+    }
+  }
+
   
   @JsonProperty("OrganisationRole")
-  private String organisationRole = null;
+  private OrganisationRoleEnum organisationRole = null;
 
   public User userID(UUID userID) {
     this.userID = userID;
@@ -166,7 +209,7 @@ public class User {
     this.isSubscriber = isSubscriber;
   }
 
-  public User organisationRole(String organisationRole) {
+  public User organisationRole(OrganisationRoleEnum organisationRole) {
     this.organisationRole = organisationRole;
     return this;
   }
@@ -176,11 +219,11 @@ public class User {
    * @return organisationRole
   **/
   @ApiModelProperty(value = "User role (see Types)")
-  public String getOrganisationRole() {
+  public OrganisationRoleEnum getOrganisationRole() {
     return organisationRole;
   }
 
-  public void setOrganisationRole(String organisationRole) {
+  public void setOrganisationRole(OrganisationRoleEnum organisationRole) {
     this.organisationRole = organisationRole;
   }
 

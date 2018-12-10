@@ -18,6 +18,7 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.CurrencyCode;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -30,27 +31,27 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class Currency {
   
   @JsonProperty("Code")
-  private String code = null;
+  private CurrencyCode code = null;
 
   
   @JsonProperty("Description")
   private String description = null;
 
-  public Currency code(String code) {
+  public Currency code(CurrencyCode code) {
     this.code = code;
     return this;
   }
 
    /**
-   * 3 letter alpha code for the currency – see list of currency codes
+   * Get code
    * @return code
   **/
-  @ApiModelProperty(value = "3 letter alpha code for the currency – see list of currency codes")
-  public String getCode() {
+  @ApiModelProperty(value = "")
+  public CurrencyCode getCode() {
     return code;
   }
 
-  public void setCode(String code) {
+  public void setCode(CurrencyCode code) {
     this.code = code;
   }
 

@@ -20,6 +20,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.accounting.Allocation;
 import com.xero.models.accounting.Contact;
+import com.xero.models.accounting.CurrencyCode;
+import com.xero.models.accounting.LineAmountTypes;
 import com.xero.models.accounting.LineItem;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -132,7 +134,7 @@ public class CreditNote {
 
   
   @JsonProperty("LineAmountTypes")
-  private String lineAmountTypes = null;
+  private LineAmountTypes lineAmountTypes = null;
 
   
   @JsonProperty("LineItems")
@@ -156,7 +158,7 @@ public class CreditNote {
 
   
   @JsonProperty("CurrencyCode")
-  private String currencyCode = null;
+  private CurrencyCode currencyCode = null;
 
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("FullyPaidOnDate")
@@ -184,7 +186,7 @@ public class CreditNote {
 
   
   @JsonProperty("RemainingCredit")
-  private String remainingCredit = null;
+  private Float remainingCredit = null;
 
   
   @JsonProperty("Allocations")
@@ -270,21 +272,21 @@ public class CreditNote {
     this.status = status;
   }
 
-  public CreditNote lineAmountTypes(String lineAmountTypes) {
+  public CreditNote lineAmountTypes(LineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
     return this;
   }
 
    /**
-   * See Invoice Line Amount Types
+   * Get lineAmountTypes
    * @return lineAmountTypes
   **/
-  @ApiModelProperty(value = "See Invoice Line Amount Types")
-  public String getLineAmountTypes() {
+  @ApiModelProperty(value = "")
+  public LineAmountTypes getLineAmountTypes() {
     return lineAmountTypes;
   }
 
-  public void setLineAmountTypes(String lineAmountTypes) {
+  public void setLineAmountTypes(LineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
   }
 
@@ -386,21 +388,21 @@ public class CreditNote {
     this.updatedDateUTC = updatedDateUTC;
   }
 
-  public CreditNote currencyCode(String currencyCode) {
+  public CreditNote currencyCode(CurrencyCode currencyCode) {
     this.currencyCode = currencyCode;
     return this;
   }
 
    /**
-   * Currency used for the Credit Note
+   * Get currencyCode
    * @return currencyCode
   **/
-  @ApiModelProperty(value = "Currency used for the Credit Note")
-  public String getCurrencyCode() {
+  @ApiModelProperty(value = "")
+  public CurrencyCode getCurrencyCode() {
     return currencyCode;
   }
 
-  public void setCurrencyCode(String currencyCode) {
+  public void setCurrencyCode(CurrencyCode currencyCode) {
     this.currencyCode = currencyCode;
   }
 
@@ -503,7 +505,7 @@ public class CreditNote {
     this.currencyRate = currencyRate;
   }
 
-  public CreditNote remainingCredit(String remainingCredit) {
+  public CreditNote remainingCredit(Float remainingCredit) {
     this.remainingCredit = remainingCredit;
     return this;
   }
@@ -513,11 +515,11 @@ public class CreditNote {
    * @return remainingCredit
   **/
   @ApiModelProperty(value = "The remaining credit balance on the Credit Note")
-  public String getRemainingCredit() {
+  public Float getRemainingCredit() {
     return remainingCredit;
   }
 
-  public void setRemainingCredit(String remainingCredit) {
+  public void setRemainingCredit(Float remainingCredit) {
     this.remainingCredit = remainingCredit;
   }
 

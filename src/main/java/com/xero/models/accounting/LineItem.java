@@ -18,6 +18,7 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.TaxType;
 import com.xero.models.accounting.TrackingCategory;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -58,7 +59,7 @@ public class LineItem {
 
   
   @JsonProperty("TaxType")
-  private String taxType = null;
+  private TaxType taxType = null;
 
   
   @JsonProperty("TaxAmount")
@@ -188,21 +189,21 @@ public class LineItem {
     this.accountCode = accountCode;
   }
 
-  public LineItem taxType(String taxType) {
+  public LineItem taxType(TaxType taxType) {
     this.taxType = taxType;
     return this;
   }
 
    /**
-   * Used as an override if the default Tax Code for the selected &lt;AccountCode&gt; is not correct – see TaxTypes.
+   * Get taxType
    * @return taxType
   **/
-  @ApiModelProperty(value = "Used as an override if the default Tax Code for the selected <AccountCode> is not correct – see TaxTypes.")
-  public String getTaxType() {
+  @ApiModelProperty(value = "")
+  public TaxType getTaxType() {
     return taxType;
   }
 
-  public void setTaxType(String taxType) {
+  public void setTaxType(TaxType taxType) {
     this.taxType = taxType;
   }
 
@@ -256,10 +257,10 @@ public class LineItem {
   }
 
    /**
-   * Optional Tracking Category – see Tracking.  Any LineItem can have a maximum of 2 &lt;TrackingCategory&gt; elements.
+   * Optional Tracking Category – see Tracking.  Any LineItem can have a  maximum of 2 &lt;TrackingCategory&gt; elements.
    * @return tracking
   **/
-  @ApiModelProperty(value = "Optional Tracking Category – see Tracking.  Any LineItem can have a maximum of 2 <TrackingCategory> elements.")
+  @ApiModelProperty(value = "Optional Tracking Category – see Tracking.  Any LineItem can have a  maximum of 2 <TrackingCategory> elements.")
   public List<TrackingCategory> getTracking() {
     return tracking;
   }
@@ -274,10 +275,10 @@ public class LineItem {
   }
 
    /**
-   * Percentage discount being applied to a line item (only supported on ACCREC invoices – ACC PAY invoices and credit notes in Xero do not support discounts
+   * Percentage discount being applied to a line item (only supported on  ACCREC invoices – ACC PAY invoices and credit notes in Xero do not support discounts
    * @return discountRate
   **/
-  @ApiModelProperty(value = "Percentage discount being applied to a line item (only supported on ACCREC invoices – ACC PAY invoices and credit notes in Xero do not support discounts")
+  @ApiModelProperty(value = "Percentage discount being applied to a line item (only supported on  ACCREC invoices – ACC PAY invoices and credit notes in Xero do not support discounts")
   public String getDiscountRate() {
     return discountRate;
   }

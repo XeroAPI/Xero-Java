@@ -23,8 +23,10 @@ import com.xero.models.accounting.Balances;
 import com.xero.models.accounting.BrandingTheme;
 import com.xero.models.accounting.ContactGroup;
 import com.xero.models.accounting.ContactPerson;
-import com.xero.models.accounting.PaymentTerm;
+import com.xero.models.accounting.CurrencyCode;
+import com.xero.models.accounting.PaymentTermType;
 import com.xero.models.accounting.Phone;
+import com.xero.models.accounting.TaxType;
 import com.xero.models.accounting.TrackingCategory;
 import com.xero.models.accounting.ValidationError;
 import io.swagger.annotations.ApiModel;
@@ -53,9 +55,46 @@ public class Contact {
   @JsonProperty("AccountNumber")
   private String accountNumber = null;
 
+  /**
+   * Current status of a contact – see contact status types
+   */
+  public enum ContactStatusEnum {
+    ACTIVE("ACTIVE"),
+    
+    ARCHIVED("ARCHIVED"),
+    
+    GDPRREQUEST("GDPRREQUEST");
+
+    private String value;
+
+    ContactStatusEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static ContactStatusEnum fromValue(String text) {
+      for (ContactStatusEnum b : ContactStatusEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+    }
+  }
+
   
   @JsonProperty("ContactStatus")
-  private String contactStatus = null;
+  private ContactStatusEnum contactStatus = null;
 
   
   @JsonProperty("Name")
@@ -91,11 +130,11 @@ public class Contact {
 
   
   @JsonProperty("AccountsReceivableTaxType")
-  private String accountsReceivableTaxType = null;
+  private TaxType accountsReceivableTaxType = null;
 
   
   @JsonProperty("AccountsPayableTaxType")
-  private String accountsPayableTaxType = null;
+  private TaxType accountsPayableTaxType = null;
 
   
   @JsonProperty("Addresses")
@@ -115,7 +154,7 @@ public class Contact {
 
   
   @JsonProperty("DefaultCurrency")
-  private String defaultCurrency = null;
+  private CurrencyCode defaultCurrency = null;
 
   
   @JsonProperty("XeroNetworkKey")
@@ -147,7 +186,7 @@ public class Contact {
 
   
   @JsonProperty("PaymentTerms")
-  private PaymentTerm paymentTerms = null;
+  private PaymentTermType paymentTerms = null;
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
@@ -230,7 +269,7 @@ public class Contact {
     this.accountNumber = accountNumber;
   }
 
-  public Contact contactStatus(String contactStatus) {
+  public Contact contactStatus(ContactStatusEnum contactStatus) {
     this.contactStatus = contactStatus;
     return this;
   }
@@ -240,11 +279,11 @@ public class Contact {
    * @return contactStatus
   **/
   @ApiModelProperty(value = "Current status of a contact – see contact status types")
-  public String getContactStatus() {
+  public ContactStatusEnum getContactStatus() {
     return contactStatus;
   }
 
-  public void setContactStatus(String contactStatus) {
+  public void setContactStatus(ContactStatusEnum contactStatus) {
     this.contactStatus = contactStatus;
   }
 
@@ -308,10 +347,10 @@ public class Contact {
   }
 
    /**
-   * Email address of contact person (umlauts not supported) (max length &#x3D; 255)
+   * Email address of contact person (umlauts not supported) (max length  &#x3D; 255)
    * @return emailAddress
   **/
-  @ApiModelProperty(value = "Email address of contact person (umlauts not supported) (max length = 255)")
+  @ApiModelProperty(value = "Email address of contact person (umlauts not supported) (max length  = 255)")
   public String getEmailAddress() {
     return emailAddress;
   }
@@ -400,39 +439,39 @@ public class Contact {
     this.taxNumber = taxNumber;
   }
 
-  public Contact accountsReceivableTaxType(String accountsReceivableTaxType) {
+  public Contact accountsReceivableTaxType(TaxType accountsReceivableTaxType) {
     this.accountsReceivableTaxType = accountsReceivableTaxType;
     return this;
   }
 
    /**
-   * Default tax type used for contact on AR invoices
+   * Get accountsReceivableTaxType
    * @return accountsReceivableTaxType
   **/
-  @ApiModelProperty(value = "Default tax type used for contact on AR invoices")
-  public String getAccountsReceivableTaxType() {
+  @ApiModelProperty(value = "")
+  public TaxType getAccountsReceivableTaxType() {
     return accountsReceivableTaxType;
   }
 
-  public void setAccountsReceivableTaxType(String accountsReceivableTaxType) {
+  public void setAccountsReceivableTaxType(TaxType accountsReceivableTaxType) {
     this.accountsReceivableTaxType = accountsReceivableTaxType;
   }
 
-  public Contact accountsPayableTaxType(String accountsPayableTaxType) {
+  public Contact accountsPayableTaxType(TaxType accountsPayableTaxType) {
     this.accountsPayableTaxType = accountsPayableTaxType;
     return this;
   }
 
    /**
-   * Default tax type used for contact on AP invoices
+   * Get accountsPayableTaxType
    * @return accountsPayableTaxType
   **/
-  @ApiModelProperty(value = "Default tax type used for contact on AP invoices")
-  public String getAccountsPayableTaxType() {
+  @ApiModelProperty(value = "")
+  public TaxType getAccountsPayableTaxType() {
     return accountsPayableTaxType;
   }
 
-  public void setAccountsPayableTaxType(String accountsPayableTaxType) {
+  public void setAccountsPayableTaxType(TaxType accountsPayableTaxType) {
     this.accountsPayableTaxType = accountsPayableTaxType;
   }
 
@@ -494,10 +533,10 @@ public class Contact {
   }
 
    /**
-   * true or false – Boolean that describes if a contact that has any AP invoices entered against them. Cannot be set via PUT or POST – it is automatically set when an accounts payable invoice is generated against this contact.
+   * true or false – Boolean that describes if a contact that has any AP  invoices entered against them. Cannot be set via PUT or POST – it is automatically set when an accounts payable invoice is generated against this contact.
    * @return isSupplier
   **/
-  @ApiModelProperty(value = "true or false – Boolean that describes if a contact that has any AP invoices entered against them. Cannot be set via PUT or POST – it is automatically set when an accounts payable invoice is generated against this contact.")
+  @ApiModelProperty(value = "true or false – Boolean that describes if a contact that has any AP  invoices entered against them. Cannot be set via PUT or POST – it is automatically set when an accounts payable invoice is generated against this contact.")
   public Boolean getIsSupplier() {
     return isSupplier;
   }
@@ -524,21 +563,21 @@ public class Contact {
     this.isCustomer = isCustomer;
   }
 
-  public Contact defaultCurrency(String defaultCurrency) {
+  public Contact defaultCurrency(CurrencyCode defaultCurrency) {
     this.defaultCurrency = defaultCurrency;
     return this;
   }
 
    /**
-   * Default currency for raising invoices against contact
+   * Get defaultCurrency
    * @return defaultCurrency
   **/
-  @ApiModelProperty(value = "Default currency for raising invoices against contact")
-  public String getDefaultCurrency() {
+  @ApiModelProperty(value = "")
+  public CurrencyCode getDefaultCurrency() {
     return defaultCurrency;
   }
 
-  public void setDefaultCurrency(String defaultCurrency) {
+  public void setDefaultCurrency(CurrencyCode defaultCurrency) {
     this.defaultCurrency = defaultCurrency;
   }
 
@@ -684,7 +723,7 @@ public class Contact {
     this.trackingCategoryOption = trackingCategoryOption;
   }
 
-  public Contact paymentTerms(PaymentTerm paymentTerms) {
+  public Contact paymentTerms(PaymentTermType paymentTerms) {
     this.paymentTerms = paymentTerms;
     return this;
   }
@@ -694,11 +733,11 @@ public class Contact {
    * @return paymentTerms
   **/
   @ApiModelProperty(value = "")
-  public PaymentTerm getPaymentTerms() {
+  public PaymentTermType getPaymentTerms() {
     return paymentTerms;
   }
 
-  public void setPaymentTerms(PaymentTerm paymentTerms) {
+  public void setPaymentTerms(PaymentTermType paymentTerms) {
     this.paymentTerms = paymentTerms;
   }
 

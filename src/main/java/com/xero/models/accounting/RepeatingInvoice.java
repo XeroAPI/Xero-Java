@@ -19,6 +19,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.accounting.Contact;
+import com.xero.models.accounting.CurrencyCode;
+import com.xero.models.accounting.LineAmountTypes;
 import com.xero.models.accounting.LineItem;
 import com.xero.models.accounting.Schedule;
 import io.swagger.annotations.ApiModel;
@@ -85,46 +87,9 @@ public class RepeatingInvoice {
   @JsonProperty("LineItems")
   private List<LineItem> lineItems = null;
 
-  /**
-   * Line amounts are exclusive of tax by default if you don’t specify this element. See Line Amount Types
-   */
-  public enum LineAmountTypesEnum {
-    EXCLUSIVE("Exclusive"),
-    
-    INCLUSIVE("Inclusive"),
-    
-    NOTAX("NoTax");
-
-    private String value;
-
-    LineAmountTypesEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static LineAmountTypesEnum fromValue(String text) {
-      for (LineAmountTypesEnum b : LineAmountTypesEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
-    }
-  }
-
   
   @JsonProperty("LineAmountTypes")
-  private LineAmountTypesEnum lineAmountTypes = null;
+  private LineAmountTypes lineAmountTypes = null;
 
   
   @JsonProperty("Reference")
@@ -136,7 +101,7 @@ public class RepeatingInvoice {
 
   
   @JsonProperty("CurrencyCode")
-  private String currencyCode = null;
+  private CurrencyCode currencyCode = null;
 
   /**
    * One of the following - DRAFT or AUTHORISED – See Invoice Status Codes
@@ -281,21 +246,21 @@ public class RepeatingInvoice {
     this.lineItems = lineItems;
   }
 
-  public RepeatingInvoice lineAmountTypes(LineAmountTypesEnum lineAmountTypes) {
+  public RepeatingInvoice lineAmountTypes(LineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
     return this;
   }
 
    /**
-   * Line amounts are exclusive of tax by default if you don’t specify this element. See Line Amount Types
+   * Get lineAmountTypes
    * @return lineAmountTypes
   **/
-  @ApiModelProperty(value = "Line amounts are exclusive of tax by default if you don’t specify this element. See Line Amount Types")
-  public LineAmountTypesEnum getLineAmountTypes() {
+  @ApiModelProperty(value = "")
+  public LineAmountTypes getLineAmountTypes() {
     return lineAmountTypes;
   }
 
-  public void setLineAmountTypes(LineAmountTypesEnum lineAmountTypes) {
+  public void setLineAmountTypes(LineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
   }
 
@@ -335,21 +300,21 @@ public class RepeatingInvoice {
     this.brandingThemeID = brandingThemeID;
   }
 
-  public RepeatingInvoice currencyCode(String currencyCode) {
+  public RepeatingInvoice currencyCode(CurrencyCode currencyCode) {
     this.currencyCode = currencyCode;
     return this;
   }
 
    /**
-   * The currency that invoice has been raised in (see Currencies)
+   * Get currencyCode
    * @return currencyCode
   **/
-  @ApiModelProperty(value = "The currency that invoice has been raised in (see Currencies)")
-  public String getCurrencyCode() {
+  @ApiModelProperty(value = "")
+  public CurrencyCode getCurrencyCode() {
     return currencyCode;
   }
 
-  public void setCurrencyCode(String currencyCode) {
+  public void setCurrencyCode(CurrencyCode currencyCode) {
     this.currencyCode = currencyCode;
   }
 

@@ -20,6 +20,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.accounting.Allocation;
 import com.xero.models.accounting.Contact;
+import com.xero.models.accounting.CurrencyCode;
+import com.xero.models.accounting.LineAmountTypes;
 import com.xero.models.accounting.LineItem;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -126,7 +128,7 @@ public class Prepayment {
 
   
   @JsonProperty("LineAmountTypes")
-  private String lineAmountTypes = null;
+  private LineAmountTypes lineAmountTypes = null;
 
   
   @JsonProperty("LineItems")
@@ -150,7 +152,7 @@ public class Prepayment {
 
   
   @JsonProperty("CurrencyCode")
-  private String currencyCode = null;
+  private CurrencyCode currencyCode = null;
 
   
   @JsonProperty("PrepaymentID")
@@ -244,21 +246,21 @@ public class Prepayment {
     this.status = status;
   }
 
-  public Prepayment lineAmountTypes(String lineAmountTypes) {
+  public Prepayment lineAmountTypes(LineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
     return this;
   }
 
    /**
-   * See Prepayment Line Amount Types
+   * Get lineAmountTypes
    * @return lineAmountTypes
   **/
-  @ApiModelProperty(value = "See Prepayment Line Amount Types")
-  public String getLineAmountTypes() {
+  @ApiModelProperty(value = "")
+  public LineAmountTypes getLineAmountTypes() {
     return lineAmountTypes;
   }
 
-  public void setLineAmountTypes(String lineAmountTypes) {
+  public void setLineAmountTypes(LineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
   }
 
@@ -360,21 +362,21 @@ public class Prepayment {
     this.updatedDateUTC = updatedDateUTC;
   }
 
-  public Prepayment currencyCode(String currencyCode) {
+  public Prepayment currencyCode(CurrencyCode currencyCode) {
     this.currencyCode = currencyCode;
     return this;
   }
 
    /**
-   * Currency used for the prepayment
+   * Get currencyCode
    * @return currencyCode
   **/
-  @ApiModelProperty(value = "Currency used for the prepayment")
-  public String getCurrencyCode() {
+  @ApiModelProperty(value = "")
+  public CurrencyCode getCurrencyCode() {
     return currencyCode;
   }
 
-  public void setCurrencyCode(String currencyCode) {
+  public void setCurrencyCode(CurrencyCode currencyCode) {
     this.currencyCode = currencyCode;
   }
 

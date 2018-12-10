@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.accounting.JournalLine;
+import com.xero.models.accounting.LineAmountTypes;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -46,19 +47,25 @@ public class ManualJournal {
   @JsonProperty("Date")
   private LocalDate date = null;
 
+  
+  @JsonProperty("LineAmountTypes")
+  private LineAmountTypes lineAmountTypes = null;
+
   /**
-   * NoTax by default if you don’t specify this element. See Line Amount Types
+   * See Manual Journal Status Codes
    */
-  public enum LineAmountTypesEnum {
-    INCLUSIVE("Inclusive"),
+  public enum StatusEnum {
+    DRAFT("DRAFT"),
     
-    EXCLUSIVE("Exclusive"),
+    POSTED("POSTED"),
     
-    NOTAX("NoTax");
+    DELETED("DELETED"),
+    
+    VOIDED("VOIDED");
 
     private String value;
 
-    LineAmountTypesEnum(String value) {
+    StatusEnum(String value) {
       this.value = value;
     }
 
@@ -73,8 +80,8 @@ public class ManualJournal {
     }
 
     @JsonCreator
-    public static LineAmountTypesEnum fromValue(String text) {
-      for (LineAmountTypesEnum b : LineAmountTypesEnum.values()) {
+    public static StatusEnum fromValue(String text) {
+      for (StatusEnum b : StatusEnum.values()) {
         if (String.valueOf(b.value).equals(text)) {
           return b;
         }
@@ -84,12 +91,8 @@ public class ManualJournal {
   }
 
   
-  @JsonProperty("LineAmountTypes")
-  private LineAmountTypesEnum lineAmountTypes = null;
-
-  
   @JsonProperty("Status")
-  private String status = null;
+  private StatusEnum status = null;
 
   
   @JsonProperty("Url")
@@ -170,25 +173,25 @@ public class ManualJournal {
     this.date = date;
   }
 
-  public ManualJournal lineAmountTypes(LineAmountTypesEnum lineAmountTypes) {
+  public ManualJournal lineAmountTypes(LineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
     return this;
   }
 
    /**
-   * NoTax by default if you don’t specify this element. See Line Amount Types
+   * Get lineAmountTypes
    * @return lineAmountTypes
   **/
-  @ApiModelProperty(value = "NoTax by default if you don’t specify this element. See Line Amount Types")
-  public LineAmountTypesEnum getLineAmountTypes() {
+  @ApiModelProperty(value = "")
+  public LineAmountTypes getLineAmountTypes() {
     return lineAmountTypes;
   }
 
-  public void setLineAmountTypes(LineAmountTypesEnum lineAmountTypes) {
+  public void setLineAmountTypes(LineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
   }
 
-  public ManualJournal status(String status) {
+  public ManualJournal status(StatusEnum status) {
     this.status = status;
     return this;
   }
@@ -198,11 +201,11 @@ public class ManualJournal {
    * @return status
   **/
   @ApiModelProperty(value = "See Manual Journal Status Codes")
-  public String getStatus() {
+  public StatusEnum getStatus() {
     return status;
   }
 
-  public void setStatus(String status) {
+  public void setStatus(StatusEnum status) {
     this.status = status;
   }
 

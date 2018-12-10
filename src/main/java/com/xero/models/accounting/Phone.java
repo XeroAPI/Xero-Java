@@ -28,6 +28,49 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class Phone {
+  /**
+   * Gets or Sets phoneType
+   */
+  public enum PhoneTypeEnum {
+    DEFAULT("DEFAULT"),
+    
+    DDI("DDI"),
+    
+    MOBILE("MOBILE"),
+    
+    FAX("FAX");
+
+    private String value;
+
+    PhoneTypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static PhoneTypeEnum fromValue(String text) {
+      for (PhoneTypeEnum b : PhoneTypeEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+    }
+  }
+
+  
+  @JsonProperty("PhoneType")
+  private PhoneTypeEnum phoneType = null;
+
   
   @JsonProperty("PhoneNumber")
   private String phoneNumber = null;
@@ -39,6 +82,24 @@ public class Phone {
   
   @JsonProperty("PhoneCountryCode")
   private String phoneCountryCode = null;
+
+  public Phone phoneType(PhoneTypeEnum phoneType) {
+    this.phoneType = phoneType;
+    return this;
+  }
+
+   /**
+   * Get phoneType
+   * @return phoneType
+  **/
+  @ApiModelProperty(value = "")
+  public PhoneTypeEnum getPhoneType() {
+    return phoneType;
+  }
+
+  public void setPhoneType(PhoneTypeEnum phoneType) {
+    this.phoneType = phoneType;
+  }
 
   public Phone phoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
@@ -104,14 +165,15 @@ public class Phone {
       return false;
     }
     Phone phone = (Phone) o;
-    return Objects.equals(this.phoneNumber, phone.phoneNumber) &&
+    return Objects.equals(this.phoneType, phone.phoneType) &&
+        Objects.equals(this.phoneNumber, phone.phoneNumber) &&
         Objects.equals(this.phoneAreaCode, phone.phoneAreaCode) &&
         Objects.equals(this.phoneCountryCode, phone.phoneCountryCode);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(phoneNumber, phoneAreaCode, phoneCountryCode);
+    return Objects.hash(phoneType, phoneNumber, phoneAreaCode, phoneCountryCode);
   }
 
 
@@ -120,6 +182,7 @@ public class Phone {
     StringBuilder sb = new StringBuilder();
     sb.append("class Phone {\n");
     
+    sb.append("    phoneType: ").append(toIndentedString(phoneType)).append("\n");
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
     sb.append("    phoneAreaCode: ").append(toIndentedString(phoneAreaCode)).append("\n");
     sb.append("    phoneCountryCode: ").append(toIndentedString(phoneCountryCode)).append("\n");

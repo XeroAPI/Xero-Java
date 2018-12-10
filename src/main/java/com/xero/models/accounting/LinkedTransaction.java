@@ -54,21 +54,130 @@ public class LinkedTransaction {
   @JsonProperty("LinkedTransactionID")
   private UUID linkedTransactionID = null;
 
+  /**
+   * Filter by the combination of ContactID and Status. Get all the linked transactions that have been assigned to a particular customer and have a particular status e.g. GET /LinkedTransactions?ContactID&#x3D;4bb34b03-3378-4bb2-a0ed-6345abf3224e&amp;Status&#x3D;APPROVED.
+   */
+  public enum StatusEnum {
+    APPROVED("APPROVED"),
+    
+    DRAFT("DRAFT"),
+    
+    ONDRAFT("ONDRAFT"),
+    
+    BILLED("BILLED"),
+    
+    VOIDED("VOIDED");
+
+    private String value;
+
+    StatusEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static StatusEnum fromValue(String text) {
+      for (StatusEnum b : StatusEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+    }
+  }
+
   
   @JsonProperty("Status")
-  private String status = null;
+  private StatusEnum status = null;
+
+  /**
+   * This will always be BILLABLEEXPENSE. More types may be added in future.
+   */
+  public enum TypeEnum {
+    BILLABLEEXPENSE("BILLABLEEXPENSE");
+
+    private String value;
+
+    TypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static TypeEnum fromValue(String text) {
+      for (TypeEnum b : TypeEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+    }
+  }
 
   
   @JsonProperty("Type")
-  private String type = null;
+  private TypeEnum type = null;
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
   private OffsetDateTime updatedDateUTC = null;
 
+  /**
+   * The Type of the source tranasction. This will be ACCPAY if the linked transaction was created from an invoice and SPEND if it was created from a bank transaction.
+   */
+  public enum SourceTransactionTypeCodeEnum {
+    ACCPAY("ACCPAY"),
+    
+    SPEND("SPEND");
+
+    private String value;
+
+    SourceTransactionTypeCodeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static SourceTransactionTypeCodeEnum fromValue(String text) {
+      for (SourceTransactionTypeCodeEnum b : SourceTransactionTypeCodeEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+    }
+  }
+
   
   @JsonProperty("SourceTransactionTypeCode")
-  private String sourceTransactionTypeCode = null;
+  private SourceTransactionTypeCodeEnum sourceTransactionTypeCode = null;
 
   public LinkedTransaction sourceTransactionID(UUID sourceTransactionID) {
     this.sourceTransactionID = sourceTransactionID;
@@ -178,7 +287,7 @@ public class LinkedTransaction {
     this.linkedTransactionID = linkedTransactionID;
   }
 
-  public LinkedTransaction status(String status) {
+  public LinkedTransaction status(StatusEnum status) {
     this.status = status;
     return this;
   }
@@ -188,15 +297,15 @@ public class LinkedTransaction {
    * @return status
   **/
   @ApiModelProperty(value = "Filter by the combination of ContactID and Status. Get all the linked transactions that have been assigned to a particular customer and have a particular status e.g. GET /LinkedTransactions?ContactID=4bb34b03-3378-4bb2-a0ed-6345abf3224e&Status=APPROVED.")
-  public String getStatus() {
+  public StatusEnum getStatus() {
     return status;
   }
 
-  public void setStatus(String status) {
+  public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
-  public LinkedTransaction type(String type) {
+  public LinkedTransaction type(TypeEnum type) {
     this.type = type;
     return this;
   }
@@ -206,11 +315,11 @@ public class LinkedTransaction {
    * @return type
   **/
   @ApiModelProperty(value = "This will always be BILLABLEEXPENSE. More types may be added in future.")
-  public String getType() {
+  public TypeEnum getType() {
     return type;
   }
 
-  public void setType(String type) {
+  public void setType(TypeEnum type) {
     this.type = type;
   }
 
@@ -232,7 +341,7 @@ public class LinkedTransaction {
     this.updatedDateUTC = updatedDateUTC;
   }
 
-  public LinkedTransaction sourceTransactionTypeCode(String sourceTransactionTypeCode) {
+  public LinkedTransaction sourceTransactionTypeCode(SourceTransactionTypeCodeEnum sourceTransactionTypeCode) {
     this.sourceTransactionTypeCode = sourceTransactionTypeCode;
     return this;
   }
@@ -242,11 +351,11 @@ public class LinkedTransaction {
    * @return sourceTransactionTypeCode
   **/
   @ApiModelProperty(value = "The Type of the source tranasction. This will be ACCPAY if the linked transaction was created from an invoice and SPEND if it was created from a bank transaction.")
-  public String getSourceTransactionTypeCode() {
+  public SourceTransactionTypeCodeEnum getSourceTransactionTypeCode() {
     return sourceTransactionTypeCode;
   }
 
-  public void setSourceTransactionTypeCode(String sourceTransactionTypeCode) {
+  public void setSourceTransactionTypeCode(SourceTransactionTypeCodeEnum sourceTransactionTypeCode) {
     this.sourceTransactionTypeCode = sourceTransactionTypeCode;
   }
 

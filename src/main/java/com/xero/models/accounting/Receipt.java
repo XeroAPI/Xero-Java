@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.accounting.Contact;
+import com.xero.models.accounting.LineAmountTypes;
 import com.xero.models.accounting.LineItem;
 import com.xero.models.accounting.User;
 import io.swagger.annotations.ApiModel;
@@ -56,46 +57,9 @@ public class Receipt {
   @JsonProperty("Reference")
   private String reference = null;
 
-  /**
-   * See Line Amount Types
-   */
-  public enum LineAmountTypesEnum {
-    EXCLUSIVE("Exclusive"),
-    
-    INCLUSIVE("Inclusive"),
-    
-    NOTAX("NoTax");
-
-    private String value;
-
-    LineAmountTypesEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static LineAmountTypesEnum fromValue(String text) {
-      for (LineAmountTypesEnum b : LineAmountTypesEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
-    }
-  }
-
   
   @JsonProperty("LineAmountTypes")
-  private LineAmountTypesEnum lineAmountTypes = null;
+  private LineAmountTypes lineAmountTypes = null;
 
   
   @JsonProperty("SubTotal")
@@ -267,21 +231,21 @@ public class Receipt {
     this.reference = reference;
   }
 
-  public Receipt lineAmountTypes(LineAmountTypesEnum lineAmountTypes) {
+  public Receipt lineAmountTypes(LineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
     return this;
   }
 
    /**
-   * See Line Amount Types
+   * Get lineAmountTypes
    * @return lineAmountTypes
   **/
-  @ApiModelProperty(value = "See Line Amount Types")
-  public LineAmountTypesEnum getLineAmountTypes() {
+  @ApiModelProperty(value = "")
+  public LineAmountTypes getLineAmountTypes() {
     return lineAmountTypes;
   }
 
-  public void setLineAmountTypes(LineAmountTypesEnum lineAmountTypes) {
+  public void setLineAmountTypes(LineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
   }
 

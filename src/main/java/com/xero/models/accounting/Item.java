@@ -73,11 +73,11 @@ public class Item {
 
   
   @JsonProperty("TotalCostPool")
-  private String totalCostPool = null;
+  private Float totalCostPool = null;
 
   
   @JsonProperty("QuantityOnHand")
-  private String quantityOnHand = null;
+  private Float quantityOnHand = null;
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
@@ -267,7 +267,7 @@ public class Item {
     this.isTrackedAsInventory = isTrackedAsInventory;
   }
 
-  public Item totalCostPool(String totalCostPool) {
+  public Item totalCostPool(Float totalCostPool) {
     this.totalCostPool = totalCostPool;
     return this;
   }
@@ -277,15 +277,15 @@ public class Item {
    * @return totalCostPool
   **/
   @ApiModelProperty(value = "The value of the item on hand. Calculated using average cost accounting.")
-  public String getTotalCostPool() {
+  public Float getTotalCostPool() {
     return totalCostPool;
   }
 
-  public void setTotalCostPool(String totalCostPool) {
+  public void setTotalCostPool(Float totalCostPool) {
     this.totalCostPool = totalCostPool;
   }
 
-  public Item quantityOnHand(String quantityOnHand) {
+  public Item quantityOnHand(Float quantityOnHand) {
     this.quantityOnHand = quantityOnHand;
     return this;
   }
@@ -295,11 +295,11 @@ public class Item {
    * @return quantityOnHand
   **/
   @ApiModelProperty(value = "The quantity of the item on hand")
-  public String getQuantityOnHand() {
+  public Float getQuantityOnHand() {
     return quantityOnHand;
   }
 
-  public void setQuantityOnHand(String quantityOnHand) {
+  public void setQuantityOnHand(Float quantityOnHand) {
     this.quantityOnHand = quantityOnHand;
   }
 

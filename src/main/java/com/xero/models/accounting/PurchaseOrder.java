@@ -19,6 +19,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.accounting.Contact;
+import com.xero.models.accounting.CurrencyCode;
+import com.xero.models.accounting.LineAmountTypes;
 import com.xero.models.accounting.LineItem;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -53,7 +55,7 @@ public class PurchaseOrder {
 
   
   @JsonProperty("LineAmountTypes")
-  private String lineAmountTypes = null;
+  private LineAmountTypes lineAmountTypes = null;
 
   
   @JsonProperty("PurchaseOrderNumber")
@@ -69,7 +71,7 @@ public class PurchaseOrder {
 
   
   @JsonProperty("CurrencyCode")
-  private String currencyCode = null;
+  private CurrencyCode currencyCode = null;
 
   /**
    * See Purchase Order Status Codes
@@ -249,21 +251,21 @@ public class PurchaseOrder {
     this.deliveryDate = deliveryDate;
   }
 
-  public PurchaseOrder lineAmountTypes(String lineAmountTypes) {
+  public PurchaseOrder lineAmountTypes(LineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
     return this;
   }
 
    /**
-   * Line amounts are exclusive of tax by default if you don’t specify this element. See Line Amount Types
+   * Get lineAmountTypes
    * @return lineAmountTypes
   **/
-  @ApiModelProperty(value = "Line amounts are exclusive of tax by default if you don’t specify this element. See Line Amount Types")
-  public String getLineAmountTypes() {
+  @ApiModelProperty(value = "")
+  public LineAmountTypes getLineAmountTypes() {
     return lineAmountTypes;
   }
 
-  public void setLineAmountTypes(String lineAmountTypes) {
+  public void setLineAmountTypes(LineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
   }
 
@@ -321,21 +323,21 @@ public class PurchaseOrder {
     this.brandingThemeID = brandingThemeID;
   }
 
-  public PurchaseOrder currencyCode(String currencyCode) {
+  public PurchaseOrder currencyCode(CurrencyCode currencyCode) {
     this.currencyCode = currencyCode;
     return this;
   }
 
    /**
-   * The currency that purchase order has been raised in (see Currencies)
+   * Get currencyCode
    * @return currencyCode
   **/
-  @ApiModelProperty(value = "The currency that purchase order has been raised in (see Currencies)")
-  public String getCurrencyCode() {
+  @ApiModelProperty(value = "")
+  public CurrencyCode getCurrencyCode() {
     return currencyCode;
   }
 
-  public void setCurrencyCode(String currencyCode) {
+  public void setCurrencyCode(CurrencyCode currencyCode) {
     this.currencyCode = currencyCode;
   }
 

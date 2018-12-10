@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.accounting.TaxComponent;
+import com.xero.models.accounting.TaxType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -35,144 +36,9 @@ public class TaxRate {
   @JsonProperty("Name")
   private String name = null;
 
-  /**
-   * See Tax Types – can only be used on update calls
-   */
-  public enum TaxTypeEnum {
-    OUTPUT("OUTPUT"),
-    
-    INPUT("INPUT"),
-    
-    CAPEXINPUT("CAPEXINPUT"),
-    
-    EXEMPTEXPORT("EXEMPTEXPORT"),
-    
-    EXEMPTEXPENSES("EXEMPTEXPENSES"),
-    
-    EXEMPTCAPITAL("EXEMPTCAPITAL"),
-    
-    EXEMPTOUTPUT("EXEMPTOUTPUT"),
-    
-    INPUTTAXED("INPUTTAXED"),
-    
-    BASEXCLUDED("BASEXCLUDED"),
-    
-    GSTONCAPIMPORTS("GSTONCAPIMPORTS"),
-    
-    GSTONIMPORTS("GSTONIMPORTS"),
-    
-    NONE("NONE"),
-    
-    INPUT2("INPUT2"),
-    
-    ZERORATED("ZERORATED"),
-    
-    OUTPUT2("OUTPUT2"),
-    
-    CAPEXINPUT2("CAPEXINPUT2"),
-    
-    CAPEXOUTPUT("CAPEXOUTPUT"),
-    
-    CAPEXOUTPUT2("CAPEXOUTPUT2"),
-    
-    CAPEXSRINPUT("CAPEXSRINPUT"),
-    
-    CAPEXSROUTPUT("CAPEXSROUTPUT"),
-    
-    ECACQUISITIONS("ECACQUISITIONS"),
-    
-    ECZRINPUT("ECZRINPUT"),
-    
-    ECZROUTPUT("ECZROUTPUT"),
-    
-    ECZROUTPUTSERVICES("ECZROUTPUTSERVICES"),
-    
-    EXEMPTINPUT("EXEMPTINPUT"),
-    
-    REVERSECHARGES("REVERSECHARGES"),
-    
-    RRINPUT("RRINPUT"),
-    
-    RROUTPUT("RROUTPUT"),
-    
-    SRINPUT("SRINPUT"),
-    
-    SROUTPUT("SROUTPUT"),
-    
-    ZERORATEDINPUT("ZERORATEDINPUT"),
-    
-    ZERORATEDOUTPUT("ZERORATEDOUTPUT"),
-    
-    BLINPUT("BLINPUT"),
-    
-    DSOUTPUT("DSOUTPUT"),
-    
-    EPINPUT("EPINPUT"),
-    
-    ES33OUTPUT("ES33OUTPUT"),
-    
-    ESN33OUTPUT("ESN33OUTPUT"),
-    
-    IGDSINPUT2("IGDSINPUT2"),
-    
-    IMINPUT2("IMINPUT2"),
-    
-    MEINPUT("MEINPUT"),
-    
-    NRINPUT("NRINPUT"),
-    
-    OPINPUT("OPINPUT"),
-    
-    OSOUTPUT("OSOUTPUT"),
-    
-    TXESSINPUT("TXESSINPUT"),
-    
-    TXN33INPUT("TXN33INPUT"),
-    
-    TXPETINPUT("TXPETINPUT"),
-    
-    TXREINPUT("TXREINPUT"),
-    
-    INPUT3("INPUT3"),
-    
-    INPUT4("INPUT4"),
-    
-    OUTPUT3("OUTPUT3"),
-    
-    OUTPUT4("OUTPUT4"),
-    
-    SROUTPUT2("SROUTPUT2");
-
-    private String value;
-
-    TaxTypeEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static TaxTypeEnum fromValue(String text) {
-      for (TaxTypeEnum b : TaxTypeEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
-    }
-  }
-
   
   @JsonProperty("TaxType")
-  private TaxTypeEnum taxType = null;
+  private TaxType taxType = null;
 
   
   @JsonProperty("TaxComponents")
@@ -328,21 +194,21 @@ public class TaxRate {
     this.name = name;
   }
 
-  public TaxRate taxType(TaxTypeEnum taxType) {
+  public TaxRate taxType(TaxType taxType) {
     this.taxType = taxType;
     return this;
   }
 
    /**
-   * See Tax Types – can only be used on update calls
+   * Get taxType
    * @return taxType
   **/
-  @ApiModelProperty(value = "See Tax Types – can only be used on update calls")
-  public TaxTypeEnum getTaxType() {
+  @ApiModelProperty(value = "")
+  public TaxType getTaxType() {
     return taxType;
   }
 
-  public void setTaxType(TaxTypeEnum taxType) {
+  public void setTaxType(TaxType taxType) {
     this.taxType = taxType;
   }
 

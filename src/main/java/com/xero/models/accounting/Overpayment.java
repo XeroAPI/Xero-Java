@@ -20,6 +20,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.accounting.Allocation;
 import com.xero.models.accounting.Contact;
+import com.xero.models.accounting.CurrencyCode;
+import com.xero.models.accounting.LineAmountTypes;
 import com.xero.models.accounting.LineItem;
 import com.xero.models.accounting.Payment;
 import io.swagger.annotations.ApiModel;
@@ -127,7 +129,7 @@ public class Overpayment {
 
   
   @JsonProperty("LineAmountTypes")
-  private String lineAmountTypes = null;
+  private LineAmountTypes lineAmountTypes = null;
 
   
   @JsonProperty("LineItems")
@@ -151,7 +153,7 @@ public class Overpayment {
 
   
   @JsonProperty("CurrencyCode")
-  private String currencyCode = null;
+  private CurrencyCode currencyCode = null;
 
   
   @JsonProperty("OverpaymentID")
@@ -249,21 +251,21 @@ public class Overpayment {
     this.status = status;
   }
 
-  public Overpayment lineAmountTypes(String lineAmountTypes) {
+  public Overpayment lineAmountTypes(LineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
     return this;
   }
 
    /**
-   * See Overpayment Line Amount Types
+   * Get lineAmountTypes
    * @return lineAmountTypes
   **/
-  @ApiModelProperty(value = "See Overpayment Line Amount Types")
-  public String getLineAmountTypes() {
+  @ApiModelProperty(value = "")
+  public LineAmountTypes getLineAmountTypes() {
     return lineAmountTypes;
   }
 
-  public void setLineAmountTypes(String lineAmountTypes) {
+  public void setLineAmountTypes(LineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
   }
 
@@ -365,21 +367,21 @@ public class Overpayment {
     this.updatedDateUTC = updatedDateUTC;
   }
 
-  public Overpayment currencyCode(String currencyCode) {
+  public Overpayment currencyCode(CurrencyCode currencyCode) {
     this.currencyCode = currencyCode;
     return this;
   }
 
    /**
-   * Currency used for the overpayment
+   * Get currencyCode
    * @return currencyCode
   **/
-  @ApiModelProperty(value = "Currency used for the overpayment")
-  public String getCurrencyCode() {
+  @ApiModelProperty(value = "")
+  public CurrencyCode getCurrencyCode() {
     return currencyCode;
   }
 
-  public void setCurrencyCode(String currencyCode) {
+  public void setCurrencyCode(CurrencyCode currencyCode) {
     this.currencyCode = currencyCode;
   }
 

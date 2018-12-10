@@ -18,6 +18,8 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.CurrencyCode;
+import com.xero.models.accounting.TaxType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
@@ -213,11 +215,11 @@ public class Account {
 
   
   @JsonProperty("CurrencyCode")
-  private String currencyCode = null;
+  private CurrencyCode currencyCode = null;
 
   
   @JsonProperty("TaxType")
-  private String taxType = null;
+  private TaxType taxType = null;
 
   
   @JsonProperty("EnablePaymentsToAccount")
@@ -493,39 +495,39 @@ public class Account {
     this.bankAccountType = bankAccountType;
   }
 
-  public Account currencyCode(String currencyCode) {
+  public Account currencyCode(CurrencyCode currencyCode) {
     this.currencyCode = currencyCode;
     return this;
   }
 
    /**
-   * For bank accounts only
+   * Get currencyCode
    * @return currencyCode
   **/
-  @ApiModelProperty(value = "For bank accounts only")
-  public String getCurrencyCode() {
+  @ApiModelProperty(value = "")
+  public CurrencyCode getCurrencyCode() {
     return currencyCode;
   }
 
-  public void setCurrencyCode(String currencyCode) {
+  public void setCurrencyCode(CurrencyCode currencyCode) {
     this.currencyCode = currencyCode;
   }
 
-  public Account taxType(String taxType) {
+  public Account taxType(TaxType taxType) {
     this.taxType = taxType;
     return this;
   }
 
    /**
-   * See Tax Types
+   * Get taxType
    * @return taxType
   **/
-  @ApiModelProperty(value = "See Tax Types")
-  public String getTaxType() {
+  @ApiModelProperty(value = "")
+  public TaxType getTaxType() {
     return taxType;
   }
 
-  public void setTaxType(String taxType) {
+  public void setTaxType(TaxType taxType) {
     this.taxType = taxType;
   }
 

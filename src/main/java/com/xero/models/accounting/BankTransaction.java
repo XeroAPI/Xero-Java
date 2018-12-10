@@ -20,6 +20,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.accounting.Account;
 import com.xero.models.accounting.Contact;
+import com.xero.models.accounting.CurrencyCode;
+import com.xero.models.accounting.LineAmountTypes;
 import com.xero.models.accounting.LineItem;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -113,7 +115,7 @@ public class BankTransaction {
 
   
   @JsonProperty("CurrencyCode")
-  private String currencyCode = null;
+  private CurrencyCode currencyCode = null;
 
   
   @JsonProperty("CurrencyRate")
@@ -164,7 +166,7 @@ public class BankTransaction {
 
   
   @JsonProperty("LineAmountTypes")
-  private String lineAmountTypes = null;
+  private LineAmountTypes lineAmountTypes = null;
 
   
   @JsonProperty("SubTotal")
@@ -329,21 +331,21 @@ public class BankTransaction {
     this.reference = reference;
   }
 
-  public BankTransaction currencyCode(String currencyCode) {
+  public BankTransaction currencyCode(CurrencyCode currencyCode) {
     this.currencyCode = currencyCode;
     return this;
   }
 
    /**
-   * The currency that bank transaction has been raised in (see Currencies). Setting currency is only supported on overpayments.
+   * Get currencyCode
    * @return currencyCode
   **/
-  @ApiModelProperty(value = "The currency that bank transaction has been raised in (see Currencies). Setting currency is only supported on overpayments.")
-  public String getCurrencyCode() {
+  @ApiModelProperty(value = "")
+  public CurrencyCode getCurrencyCode() {
     return currencyCode;
   }
 
-  public void setCurrencyCode(String currencyCode) {
+  public void setCurrencyCode(CurrencyCode currencyCode) {
     this.currencyCode = currencyCode;
   }
 
@@ -353,10 +355,10 @@ public class BankTransaction {
   }
 
    /**
-   * Exchange rate to base currency when money is spent or received. e.g. 0.7500 Only used for bank transactions in non base currency. If this isn’t specified for non base currency accounts then either the user-defined rate (preference) or the XE.com day rate will be used. Setting currency is only supported on overpayments.
+   * Exchange rate to base currency when money is spent or received. e.g.0.7500 Only used for bank transactions in non base currency. If this isn’t specified for non base currency accounts then either the user-defined rate (preference) or the XE.com day rate will be used. Setting currency is only supported on overpayments.
    * @return currencyRate
   **/
-  @ApiModelProperty(value = "Exchange rate to base currency when money is spent or received. e.g. 0.7500 Only used for bank transactions in non base currency. If this isn’t specified for non base currency accounts then either the user-defined rate (preference) or the XE.com day rate will be used. Setting currency is only supported on overpayments.")
+  @ApiModelProperty(value = "Exchange rate to base currency when money is spent or received. e.g.0.7500 Only used for bank transactions in non base currency. If this isn’t specified for non base currency accounts then either the user-defined rate (preference) or the XE.com day rate will be used. Setting currency is only supported on overpayments.")
   public Float getCurrencyRate() {
     return currencyRate;
   }
@@ -401,21 +403,21 @@ public class BankTransaction {
     this.status = status;
   }
 
-  public BankTransaction lineAmountTypes(String lineAmountTypes) {
+  public BankTransaction lineAmountTypes(LineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
     return this;
   }
 
    /**
-   * Line amounts are exclusive of tax by default if you don’t specify this element. See Line Amount Types
+   * Get lineAmountTypes
    * @return lineAmountTypes
   **/
-  @ApiModelProperty(value = "Line amounts are exclusive of tax by default if you don’t specify this element. See Line Amount Types")
-  public String getLineAmountTypes() {
+  @ApiModelProperty(value = "")
+  public LineAmountTypes getLineAmountTypes() {
     return lineAmountTypes;
   }
 
-  public void setLineAmountTypes(String lineAmountTypes) {
+  public void setLineAmountTypes(LineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
   }
 

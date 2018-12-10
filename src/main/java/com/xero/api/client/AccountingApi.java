@@ -4,7 +4,6 @@ import com.xero.api.ApiClient;
 
 import com.xero.models.accounting.Account;
 import com.xero.models.accounting.Accounts;
-import com.xero.models.accounting.Allocation;
 import com.xero.models.accounting.Allocations;
 import com.xero.models.accounting.Attachments;
 import com.xero.models.accounting.BankTransactions;
@@ -1630,11 +1629,11 @@ public class AccountingApi {
     * <p><b>200</b> - A successful request
     * <p><b>400</b> - A failed request due to validation error
     * @param prepaymentID The prepaymentID parameter
-    * @param allocation The allocation parameter
-    * @return Allocation
+    * @param allocations The allocations parameter
+    * @return Allocations
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Allocation createPrepaymentAllocation(UUID prepaymentID, Allocation allocation) throws IOException {
+    public Allocations createPrepaymentAllocation(UUID prepaymentID, Allocations allocations) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -1654,11 +1653,53 @@ public class AccountingApi {
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
             ApiClient apiClient = new ApiClient();
-            strBody = apiClient.getObjectMapper().writeValueAsString(allocation);
+            strBody = apiClient.getObjectMapper().writeValueAsString(allocations);
                         
             String response = this.DATA(url, strBody, params, "PUT");
                         
-            TypeReference<Allocation> typeRef = new TypeReference<Allocation>() {};
+            TypeReference<Allocations> typeRef = new TypeReference<Allocations>() {};
+            return apiClient.getObjectMapper().readValue(response, typeRef);
+
+        } catch (IOException e) {
+            throw xeroExceptionHandler.handleBadRequest(e.getMessage());
+        } catch (XeroApiException e) {
+            throw xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode(),JSONUtils.isJSONValid(e.getMessage()));
+        }
+    }
+  /**
+    * Allows you to retrieve a history records of an Overpayment
+    * <p><b>200</b> - A successful request
+    * <p><b>400</b> - A failed request due to validation error
+    * @param prepaymentID The prepaymentID parameter
+    * @param historyRecords The historyRecords parameter
+    * @return HistoryRecords
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HistoryRecords createPrepaymentHistory(UUID prepaymentID, HistoryRecords historyRecords) throws IOException {
+        try {
+            String strBody = null;
+            Map<String, String> params = null;
+            String correctPath = "/Prepayments/{PrepaymentID}/History";
+            // Hacky path manipulation to support different return types from same endpoint
+            String path = "/Prepayments/{PrepaymentID}/History";
+            String type = "/pdf";
+            if(path.toLowerCase().contains(type.toLowerCase()))
+            {
+                correctPath = path.replace("/pdf","");
+            } 
+
+            // create a map of path variables
+            final Map<String, String> uriVariables = new HashMap<String, String>();
+            uriVariables.put("PrepaymentID", prepaymentID.toString());
+            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+            String url = uriBuilder.buildFromMap(uriVariables).toString();
+
+            ApiClient apiClient = new ApiClient();
+            strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
+                        
+            String response = this.DATA(url, strBody, params, "PUT");
+                        
+            TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
 
         } catch (IOException e) {
@@ -5296,6 +5337,46 @@ public class AccountingApi {
             String response = this.DATA(url, strBody, params, "GET");
             
             TypeReference<Prepayments> typeRef = new TypeReference<Prepayments>() {};
+            return apiClient.getObjectMapper().readValue(response, typeRef);
+
+        } catch (IOException e) {
+            throw xeroExceptionHandler.handleBadRequest(e.getMessage());
+        } catch (XeroApiException e) {
+            throw xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode(),JSONUtils.isJSONValid(e.getMessage()));
+        }
+    }
+  /**
+    * Allows you to retrieve a history records of an Prepayment
+    * <p><b>200</b> - A successful request
+    * @param prepaymentID The prepaymentID parameter
+    * @return HistoryRecords
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HistoryRecords getPrepaymentHistory(UUID prepaymentID) throws IOException {
+        try {
+            String strBody = null;
+            Map<String, String> params = null;
+            String correctPath = "/Prepayments/{PrepaymentID}/History";
+            // Hacky path manipulation to support different return types from same endpoint
+            String path = "/Prepayments/{PrepaymentID}/History";
+            String type = "/pdf";
+            if(path.toLowerCase().contains(type.toLowerCase()))
+            {
+                correctPath = path.replace("/pdf","");
+            } 
+
+            // create a map of path variables
+            final Map<String, String> uriVariables = new HashMap<String, String>();
+            uriVariables.put("PrepaymentID", prepaymentID.toString());
+            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+            String url = uriBuilder.buildFromMap(uriVariables).toString();
+
+            ApiClient apiClient = new ApiClient();
+            
+            
+            String response = this.DATA(url, strBody, params, "GET");
+            
+            TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
 
         } catch (IOException e) {

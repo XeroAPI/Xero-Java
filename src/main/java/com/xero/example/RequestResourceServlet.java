@@ -66,6 +66,7 @@ import com.xero.models.accounting.Item;
 import com.xero.models.accounting.Items;
 import com.xero.models.accounting.JournalLine;
 import com.xero.models.accounting.Journals;
+import com.xero.models.accounting.LineAmountTypes;
 import com.xero.models.accounting.LineItem;
 import com.xero.models.accounting.LinkedTransaction;
 import com.xero.models.accounting.LinkedTransactions;
@@ -90,6 +91,7 @@ import com.xero.models.accounting.Response204;
 import com.xero.models.accounting.TaxComponent;
 import com.xero.models.accounting.TaxRate;
 import com.xero.models.accounting.TaxRates;
+import com.xero.models.accounting.TaxType;
 import com.xero.models.accounting.TrackingCategories;
 import com.xero.models.accounting.TrackingCategory;
 import com.xero.models.accounting.TrackingOption;
@@ -346,191 +348,223 @@ public class RequestResourceServlet extends HttpServlet
 			try {
 				// GET Account Attachment 
 				Accounts accounts = accountingApi.getAccounts(ifModifiedSince, where, order);
-				UUID accountID = accounts.getAccounts().get(0).getAccountID();				
-				Attachments attachments = accountingApi.getAccountAttachments(accountID);
-				UUID attachementId = attachments.getAttachments().get(0).getAttachmentID();
-				String contentType = attachments.getAttachments().get(0).getMimeType();
-				ByteArrayInputStream input	 = accountingApi.getAccountAttachmentById(accountID,attachementId, contentType);
-				String fileName = "Account_" + attachments.getAttachments().get(0).getFileName();
-				
-				String saveFilePath = saveFile(input,fileName);
-				messages.add("Get Account attachment - save it here: " + saveFilePath);
+				if (accounts.getAccounts().size() > 0) {
+					UUID accountID = accounts.getAccounts().get(0).getAccountID();				
+					Attachments accountsAttachments = accountingApi.getAccountAttachments(accountID);
+					if (accountsAttachments.getAttachments().size() > 0) {
+						UUID attachementId = accountsAttachments.getAttachments().get(0).getAttachmentID();
+						String contentType = accountsAttachments.getAttachments().get(0).getMimeType();
+						ByteArrayInputStream input	 = accountingApi.getAccountAttachmentById(accountID,attachementId, contentType);
+						String fileName = "Account_" + accountsAttachments.getAttachments().get(0).getFileName();
+						String saveFilePath = saveFile(input,fileName);
+						messages.add("Get Account attachment - save it here: " + saveFilePath);	
+					}
+				}
 				
 				// GET BankTransactions Attachment 
 				BankTransactions bankTransactions = accountingApi.getBankTransactions(ifModifiedSince, where, order, null);
-				UUID BankTransactionID = bankTransactions.getBankTransactions().get(0).getBankTransactionID();				
-				Attachments BankTransactionsAttachments = accountingApi.getBankTransactionAttachments(BankTransactionID);
-				UUID BankTransactionAttachementID = BankTransactionsAttachments.getAttachments().get(0).getAttachmentID();
-				String BankTransactionContentType = BankTransactionsAttachments.getAttachments().get(0).getMimeType();
-				ByteArrayInputStream BankTransactionInput	 = accountingApi.getAccountAttachmentById(BankTransactionID,BankTransactionAttachementID, BankTransactionContentType);
-				String BankTransactionFileName = "BankTransaction_" + BankTransactionsAttachments.getAttachments().get(0).getFileName();
-				
-				String BankTransactionSaveFilePath = saveFile(BankTransactionInput,BankTransactionFileName);
-				messages.add("Get BankTransactions attachment - save it here: " + BankTransactionSaveFilePath);
+				if (bankTransactions.getBankTransactions().size() > 0) {
+					UUID BankTransactionID = bankTransactions.getBankTransactions().get(0).getBankTransactionID();				
+					Attachments bankTransactionsAttachments = accountingApi.getBankTransactionAttachments(BankTransactionID);
+					if (bankTransactionsAttachments.getAttachments().size() > 0) {
+						UUID BankTransactionAttachementID = bankTransactionsAttachments.getAttachments().get(0).getAttachmentID();
+						String BankTransactionContentType = bankTransactionsAttachments.getAttachments().get(0).getMimeType();
+						ByteArrayInputStream BankTransactionInput	 = accountingApi.getAccountAttachmentById(BankTransactionID,BankTransactionAttachementID, BankTransactionContentType);
+						String BankTransactionFileName = "BankTransaction_" + bankTransactionsAttachments.getAttachments().get(0).getFileName();
+						String BankTransactionSaveFilePath = saveFile(BankTransactionInput,BankTransactionFileName);
+						messages.add("Get BankTransactions attachment - save it here: " + BankTransactionSaveFilePath);
+					}
+				}
 				
 				// GET BankTransfers Attachment 
-				BankTransfers BankTransfers = accountingApi.getBankTransfers(ifModifiedSince, where, order);
-				UUID BankTransferID = BankTransfers.getBankTransfers().get(0).getBankTransferID();				
-				Attachments BankTransfersAttachments = accountingApi.getBankTransferAttachments(BankTransferID);
-				UUID BankTransferAttachementID = BankTransfersAttachments.getAttachments().get(0).getAttachmentID();
-				String BankTransferContentType = BankTransfersAttachments.getAttachments().get(0).getMimeType();
-				ByteArrayInputStream BankTransferInput	 = accountingApi.getAccountAttachmentById(BankTransferID,BankTransferAttachementID, BankTransferContentType);
-				String BankTransferFileName = "BankTransfer_" + BankTransfersAttachments.getAttachments().get(0).getFileName();
-				
-				String BankTransferSaveFilePath = saveFile(BankTransferInput,BankTransferFileName);
-				messages.add("Get BankTransfers attachment - save it here: " + BankTransferSaveFilePath);
-			
+				BankTransfers bankTransfers = accountingApi.getBankTransfers(ifModifiedSince, where, order);
+				if (bankTransfers.getBankTransfers().size() > 0) {
+					UUID BankTransferID = bankTransfers.getBankTransfers().get(0).getBankTransferID();				
+					Attachments bankTransfersAttachments = accountingApi.getBankTransferAttachments(BankTransferID);
+					if (bankTransfersAttachments.getAttachments().size() > 0) {	
+						UUID BankTransferAttachementID = bankTransfersAttachments.getAttachments().get(0).getAttachmentID();
+						String BankTransferContentType = bankTransfersAttachments.getAttachments().get(0).getMimeType();
+						ByteArrayInputStream BankTransferInput	 = accountingApi.getAccountAttachmentById(BankTransferID,BankTransferAttachementID, BankTransferContentType);
+						String BankTransferFileName = "BankTransfer_" + bankTransfersAttachments.getAttachments().get(0).getFileName();
+						String BankTransferSaveFilePath = saveFile(BankTransferInput,BankTransferFileName);
+						messages.add("Get BankTransfers attachment - save it here: " + BankTransferSaveFilePath);
+					}
+				}
 				// GET Contacts Attachment 
-				Contacts Contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
-				UUID ContactID = Contacts.getContacts().get(0).getContactID();				
-				Attachments ContactsAttachments = accountingApi.getContactAttachments(ContactID);
-				UUID ContactAttachementID = ContactsAttachments.getAttachments().get(0).getAttachmentID();
-				String ContactContentType = ContactsAttachments.getAttachments().get(0).getMimeType();
-				ByteArrayInputStream ContactInput	 = accountingApi.getAccountAttachmentById(ContactID,ContactAttachementID, ContactContentType);
-				String ContactFileName = "Contact_" + ContactsAttachments.getAttachments().get(0).getFileName();
-				
-				String ContactSaveFilePath = saveFile(ContactInput,ContactFileName);
-				messages.add("Get Contacts attachment - save it here: " + ContactSaveFilePath);
-				
+				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
+				if (contacts.getContacts().size() > 0) {
+					UUID ContactID = contacts.getContacts().get(0).getContactID();				
+					Attachments contactsAttachments = accountingApi.getContactAttachments(ContactID);
+					if (contactsAttachments.getAttachments().size() > 0) {	
+						UUID ContactAttachementID = contactsAttachments.getAttachments().get(0).getAttachmentID();
+						String ContactContentType = contactsAttachments.getAttachments().get(0).getMimeType();
+						ByteArrayInputStream ContactInput	 = accountingApi.getAccountAttachmentById(ContactID,ContactAttachementID, ContactContentType);
+						String ContactFileName = "Contact_" + contactsAttachments.getAttachments().get(0).getFileName();
+						String ContactSaveFilePath = saveFile(ContactInput,ContactFileName);
+						messages.add("Get Contacts attachment - save it here: " + ContactSaveFilePath);
+					}
+				}
 				// GET CreditNotes Attachment 
-				CreditNotes CreditNotes = accountingApi.getCreditNotes(ifModifiedSince, where, order, null);
-				UUID CreditNoteID = CreditNotes.getCreditNotes().get(0).getCreditNoteID();				
-				Attachments CreditNotesAttachments = accountingApi.getCreditNoteAttachments(CreditNoteID);
-				UUID CreditNoteAttachementID = CreditNotesAttachments.getAttachments().get(0).getAttachmentID();
-				String CreditNoteContentType = CreditNotesAttachments.getAttachments().get(0).getMimeType();
-				ByteArrayInputStream CreditNoteInput	 = accountingApi.getAccountAttachmentById(CreditNoteID,CreditNoteAttachementID, CreditNoteContentType);
-				String CreditNoteFileName = "CreditNote_" + CreditNotesAttachments.getAttachments().get(0).getFileName();
-				
-				String CreditNoteSaveFilePath = saveFile(CreditNoteInput,CreditNoteFileName);
-				messages.add("Get CreditNotes attachment - save it here: " + CreditNoteSaveFilePath);
+				CreditNotes creditNotes = accountingApi.getCreditNotes(ifModifiedSince, where, order, null);
+				if (creditNotes.getCreditNotes().size() > 0) {	
+					UUID CreditNoteID = creditNotes.getCreditNotes().get(0).getCreditNoteID();				
+					Attachments creditNotesAttachments = accountingApi.getCreditNoteAttachments(CreditNoteID);
+					if (creditNotesAttachments.getAttachments().size() > 0) {
+						UUID CreditNoteAttachementID = creditNotesAttachments.getAttachments().get(0).getAttachmentID();
+						String CreditNoteContentType = creditNotesAttachments.getAttachments().get(0).getMimeType();
+						ByteArrayInputStream CreditNoteInput	 = accountingApi.getAccountAttachmentById(CreditNoteID,CreditNoteAttachementID, CreditNoteContentType);
+						String CreditNoteFileName = "CreditNote_" + creditNotesAttachments.getAttachments().get(0).getFileName();
+						String CreditNoteSaveFilePath = saveFile(CreditNoteInput,CreditNoteFileName);
+						messages.add("Get CreditNotes attachment - save it here: " + CreditNoteSaveFilePath);
+					}
+				}
 				
 				// GET Invoices Attachment 
-				Invoices Invoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp);
-				UUID InvoiceID = Invoices.getInvoices().get(0).getInvoiceID();				
-				Attachments InvoicesAttachments = accountingApi.getInvoiceAttachments(InvoiceID);
-				
-				UUID InvoiceAttachementID = InvoicesAttachments.getAttachments().get(0).getAttachmentID();
-				String InvoiceContentType = InvoicesAttachments.getAttachments().get(0).getMimeType();
-				ByteArrayInputStream InvoiceInput	 = accountingApi.getAccountAttachmentById(InvoiceID,InvoiceAttachementID, InvoiceContentType);
-				String InvoiceFileName = "Invoice_" + InvoicesAttachments.getAttachments().get(0).getFileName();
-				
-				String InvoiceSaveFilePath = saveFile(InvoiceInput,InvoiceFileName);
-				messages.add("Get Invoices attachment - save it here: " + InvoiceSaveFilePath);
+				Invoices invoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp);
+				if (invoices.getInvoices().size() > 0) {	
+					UUID InvoiceID = invoices.getInvoices().get(0).getInvoiceID();				
+					Attachments invoicesAttachments = accountingApi.getInvoiceAttachments(InvoiceID);
+					if (invoicesAttachments.getAttachments().size() > 0) {	
+						UUID InvoiceAttachementID = invoicesAttachments.getAttachments().get(0).getAttachmentID();
+						String InvoiceContentType = invoicesAttachments.getAttachments().get(0).getMimeType();
+						ByteArrayInputStream InvoiceInput	 = accountingApi.getAccountAttachmentById(InvoiceID,InvoiceAttachementID, InvoiceContentType);
+						String InvoiceFileName = "Invoice_" + invoicesAttachments.getAttachments().get(0).getFileName();
+						String InvoiceSaveFilePath = saveFile(InvoiceInput,InvoiceFileName);
+						messages.add("Get Invoices attachment - save it here: " + InvoiceSaveFilePath);
+					}
+				}
 
 				// GET ManualJournals Attachment 
-				ManualJournals ManualJournals = accountingApi.getManualJournals(ifModifiedSince, where, order, null);
-				UUID ManualJournalID = ManualJournals.getManualJournals().get(0).getManualJournalID();				
-				Attachments ManualJournalsAttachments = accountingApi.getManualJournalAttachments(ManualJournalID);
-				UUID ManualJournalAttachementID = ManualJournalsAttachments.getAttachments().get(0).getAttachmentID();
-				String ManualJournalContentType = ManualJournalsAttachments.getAttachments().get(0).getMimeType();
-				ByteArrayInputStream ManualJournalInput	 = accountingApi.getAccountAttachmentById(ManualJournalID,ManualJournalAttachementID, ManualJournalContentType);
-				String ManualJournalFileName = "ManualJournal_" + ManualJournalsAttachments.getAttachments().get(0).getFileName();
-				
-				String ManualJournalSaveFilePath = saveFile(ManualJournalInput,ManualJournalFileName);
-				messages.add("Get ManualJournals attachment - save it here: " + ManualJournalSaveFilePath);
+				ManualJournals manualJournals = accountingApi.getManualJournals(ifModifiedSince, where, order, null);
+				if (manualJournals.getManualJournals().size() > 0) {	
+					UUID ManualJournalID = manualJournals.getManualJournals().get(0).getManualJournalID();				
+					Attachments manualJournalsAttachments = accountingApi.getManualJournalAttachments(ManualJournalID);
+					if (manualJournalsAttachments.getAttachments().size() > 0) {	
+						UUID ManualJournalAttachementID = manualJournalsAttachments.getAttachments().get(0).getAttachmentID();
+						String ManualJournalContentType = manualJournalsAttachments.getAttachments().get(0).getMimeType();
+						ByteArrayInputStream ManualJournalInput	 = accountingApi.getAccountAttachmentById(ManualJournalID,ManualJournalAttachementID, ManualJournalContentType);
+						String ManualJournalFileName = "ManualJournal_" + manualJournalsAttachments.getAttachments().get(0).getFileName();
+						String ManualJournalSaveFilePath = saveFile(ManualJournalInput,ManualJournalFileName);
+						messages.add("Get ManualJournals attachment - save it here: " + ManualJournalSaveFilePath);
+					}
+				}
 				
 				// GET Receipts Attachment 
-				Receipts Receipts = accountingApi.getReceipts(ifModifiedSince, where, order);
-				UUID ReceiptID = Receipts.getReceipts().get(0).getReceiptID();				
-				Attachments ReceiptsAttachments = accountingApi.getReceiptAttachments(ReceiptID);
-				UUID ReceiptAttachementID = ReceiptsAttachments.getAttachments().get(0).getAttachmentID();
-				String ReceiptContentType = ReceiptsAttachments.getAttachments().get(0).getMimeType();
-				ByteArrayInputStream ReceiptInput	 = accountingApi.getAccountAttachmentById(ReceiptID,ReceiptAttachementID, ReceiptContentType);
-				String ReceiptFileName = "Receipt_" + ReceiptsAttachments.getAttachments().get(0).getFileName();
-				
-				String ReceiptSaveFilePath = saveFile(ReceiptInput,ReceiptFileName);
-				messages.add("Get Receipts attachment - save it here: " + ReceiptSaveFilePath);
+				Receipts receipts = accountingApi.getReceipts(ifModifiedSince, where, order);
+				if (receipts.getReceipts().size() > 0) {			
+					UUID ReceiptID = receipts.getReceipts().get(0).getReceiptID();				
+					Attachments receiptsAttachments = accountingApi.getReceiptAttachments(ReceiptID);
+					if (receiptsAttachments.getAttachments().size() > 0) {			
+						UUID ReceiptAttachementID = receiptsAttachments.getAttachments().get(0).getAttachmentID();
+						String ReceiptContentType = receiptsAttachments.getAttachments().get(0).getMimeType();
+						ByteArrayInputStream ReceiptInput	 = accountingApi.getAccountAttachmentById(ReceiptID,ReceiptAttachementID, ReceiptContentType);
+						String ReceiptFileName = "Receipt_" + receiptsAttachments.getAttachments().get(0).getFileName();						
+						String ReceiptSaveFilePath = saveFile(ReceiptInput,ReceiptFileName);
+						messages.add("Get Receipts attachment - save it here: " + ReceiptSaveFilePath);
+					}
+				}
 
 				// GET RepeatingInvoices Attachment 
-				RepeatingInvoices RepeatingInvoices = accountingApi.getRepeatingInvoices(where, order);
-				UUID RepeatingInvoiceID = RepeatingInvoices.getRepeatingInvoices().get(0).getRepeatingInvoiceID();				
-				Attachments RepeatingInvoicesAttachments = accountingApi.getRepeatingInvoiceAttachments(RepeatingInvoiceID);
-				UUID RepeatingInvoiceAttachementID = RepeatingInvoicesAttachments.getAttachments().get(0).getAttachmentID();
-				String RepeatingInvoiceContentType = RepeatingInvoicesAttachments.getAttachments().get(0).getMimeType();
-				ByteArrayInputStream RepeatingInvoiceInput	 = accountingApi.getAccountAttachmentById(RepeatingInvoiceID,RepeatingInvoiceAttachementID, RepeatingInvoiceContentType);
-				String RepeatingInvoiceFileName = "RepeatingInvoice_" + RepeatingInvoicesAttachments.getAttachments().get(0).getFileName();
-				
-				String RepeatingInvoiceSaveFilePath = saveFile(RepeatingInvoiceInput,RepeatingInvoiceFileName);
-				messages.add("Get RepeatingInvoices attachment - save it here: " + RepeatingInvoiceSaveFilePath);
-
+				RepeatingInvoices repeatingInvoices = accountingApi.getRepeatingInvoices(where, order);
+				if (repeatingInvoices.getRepeatingInvoices().size() > 0) {			
+					UUID RepeatingInvoiceID = repeatingInvoices.getRepeatingInvoices().get(0).getRepeatingInvoiceID();				
+					Attachments repeatingInvoicesAttachments = accountingApi.getRepeatingInvoiceAttachments(RepeatingInvoiceID);
+					if (repeatingInvoicesAttachments.getAttachments().size() > 0) {			
+						UUID RepeatingInvoiceAttachementID = repeatingInvoicesAttachments.getAttachments().get(0).getAttachmentID();
+						String RepeatingInvoiceContentType = repeatingInvoicesAttachments.getAttachments().get(0).getMimeType();
+						ByteArrayInputStream RepeatingInvoiceInput	 = accountingApi.getAccountAttachmentById(RepeatingInvoiceID,RepeatingInvoiceAttachementID, RepeatingInvoiceContentType);
+						String RepeatingInvoiceFileName = "RepeatingInvoice_" + repeatingInvoicesAttachments.getAttachments().get(0).getFileName();
+						String RepeatingInvoiceSaveFilePath = saveFile(RepeatingInvoiceInput,RepeatingInvoiceFileName);
+						messages.add("Get RepeatingInvoices attachment - save it here: " + RepeatingInvoiceSaveFilePath);
+					}
+				}
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
 	
 		} else if (object.equals("CreateAttachments")) {
-			// JSON
-			InputStream inputStream = JsonConfig.class.getResourceAsStream("/helo-heros.jpg");
-			byte[] bytes = IOUtils.toByteArray(inputStream);
-			String newFileName = "sample2.jpg";
+			try {
+				// JSON
+				InputStream inputStream = JsonConfig.class.getResourceAsStream("/helo-heros.jpg");
+				byte[] bytes = IOUtils.toByteArray(inputStream);
+				String newFileName = "sample2.jpg";
+	
+				// CREATE Accounts attachment
+			    where = "Status==\"ACTIVE\"";
+				Accounts myAccounts = accountingApi.getAccounts(ifModifiedSince, where, order);
+				if ( myAccounts.getAccounts().size() > 0) {
+					UUID accountID = myAccounts.getAccounts().get(0).getAccountID();			
+					Attachments createdAttachments = accountingApi.createAccountAttachmentByFileName(accountID, newFileName, bytes);
+					messages.add("Attachment to Account ID: " + accountID + " attachment - ID: " + createdAttachments.getAttachments().get(0).getAttachmentID());
+				}
+				where = null;
+				// CREATE BankTransactions attachment
+				BankTransactions myBanktransactions = accountingApi.getBankTransactions(ifModifiedSince, where, order, null);
+				if ( myBanktransactions.getBankTransactions().size() > 0) {
+					UUID banktransactionID = myBanktransactions.getBankTransactions().get(0).getBankTransactionID();			
+					Attachments createdBanktransationAttachments = accountingApi.createBankTransactionAttachmentByFileName(banktransactionID, newFileName, bytes);
+					messages.add("Attachment to BankTransaction ID: " + banktransactionID + " attachment - ID: "  + createdBanktransationAttachments.getAttachments().get(0).getAttachmentID());
+				}
+				
+				// CREATE BankTransfer attachment
+		
+				BankTransfers myBankTransfer = accountingApi.getBankTransfers(ifModifiedSince, where, order);
+				if ( myBankTransfer.getBankTransfers().size() > 0) {
+					UUID bankTransferID = myBankTransfer.getBankTransfers().get(0).getBankTransferID();			
+					Attachments createdBankTransferAttachments = accountingApi.createBankTransferAttachmentByFileName(bankTransferID, newFileName, bytes);
+					messages.add("Attachment to BankTransfer ID: " + bankTransferID + " attachment - ID: " + createdBankTransferAttachments.getAttachments().get(0).getAttachmentID());
+				}
+				
+				// CREATE Contacts attachment
+				where =  "ContactStatus==\"ACTIVE\"";
+				Contacts contactsWhere = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
+				if ( contactsWhere.getContacts().size() > 0) {
+					UUID contactID = contactsWhere.getContacts().get(0).getContactID();
+					Attachments createdContactAttachments = accountingApi.createContactAttachmentByFileName(contactID, newFileName, bytes);
+					messages.add("Attachment to Contact ID: " + contactID + " attachment - ID: " + createdContactAttachments.getAttachments().get(0).getAttachmentID());
+				}
+				where = null;
+		
+				// CREATE CreditNotes attachment
+				CreditNotes myCreditNotes = accountingApi.getCreditNotes(ifModifiedSince, where, order, null);
+				if ( myCreditNotes.getCreditNotes().size() > 0) {
+					UUID creditNoteID = myCreditNotes.getCreditNotes().get(0).getCreditNoteID();
+					Attachments createdCreditNoteAttachments = accountingApi.createCreditNoteAttachmentByFileName(creditNoteID, newFileName, bytes);
+					messages.add("Attachment to Credit Notes ID: " + creditNoteID + " attachment - ID: " + createdCreditNoteAttachments.getAttachments().get(0).getAttachmentID());
+				}
+				// CREATE invoice attachment
+				Invoices myInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp);
+				if ( myInvoices.getInvoices().size() > 0) {
+					UUID invoiceID = myInvoices.getInvoices().get(0).getInvoiceID();
+					Attachments createdInvoiceAttachments = accountingApi.createInvoiceAttachmentByFileName(invoiceID, newFileName, bytes);
+					messages.add("Attachment to Invoice ID: " + invoiceID + " attachment - ID: "  + createdInvoiceAttachments.getAttachments().get(0).getAttachmentID());
+				}
+				// CREATE ManualJournals attachment
+				ManualJournals myManualJournals = accountingApi.getManualJournals(ifModifiedSince, where, order, null);
+				if ( myManualJournals.getManualJournals().size() > 0) {
+					UUID manualJournalID = myManualJournals.getManualJournals().get(0).getManualJournalID();
+					Attachments createdManualJournalAttachments = accountingApi.createManualJournalAttachmentByFileName(manualJournalID, newFileName, bytes);
+					messages.add("Attachment to Manual Journal ID: " + manualJournalID + " attachment - ID: " + createdManualJournalAttachments.getAttachments().get(0).getAttachmentID());
+				}
+				// CREATE Receipts attachment
+				Receipts myReceipts = accountingApi.getReceipts(ifModifiedSince, where, order);
+				if ( myReceipts.getReceipts().size() > 0) {
+					UUID receiptID = myReceipts.getReceipts().get(0).getReceiptID();
+					Attachments createdReceiptsAttachments = accountingApi.createReceiptAttachmentByFileName(receiptID, newFileName, bytes);
+					messages.add("Attachment to Receipt ID: " + receiptID + " attachment - ID: " + createdReceiptsAttachments.getAttachments().get(0).getAttachmentID());
+				}
+				// CREATE Repeating Invoices attachment
+				RepeatingInvoices myRepeatingInvoices = accountingApi.getRepeatingInvoices(where, order);
+				if ( myRepeatingInvoices.getRepeatingInvoices().size() > 0) {	
+					UUID repeatingInvoiceID = myRepeatingInvoices.getRepeatingInvoices().get(0).getRepeatingInvoiceID();
+					Attachments createdRepeatingInvoiceAttachments = accountingApi.createRepeatingInvoiceAttachmentByFileName(repeatingInvoiceID, newFileName, bytes);
+					messages.add("Attachment to Repeating Invoices ID: " + repeatingInvoiceID + " attachment - ID: " + createdRepeatingInvoiceAttachments.getAttachments().get(0).getAttachmentID());
+				}
 
-			// CREATE Accounts attachment
-		    where = "Status==\"ACTIVE\"";
-			Accounts myAccounts = accountingApi.getAccounts(ifModifiedSince, where, order);
-			if ( myAccounts.getAccounts().size() > 0) {
-				UUID accountID = myAccounts.getAccounts().get(0).getAccountID();			
-				Attachments createdAttachments = accountingApi.createAccountAttachmentByFileName(accountID, newFileName, bytes);
-				messages.add("Attachment to Account ID: " + accountID + " attachment - ID: " + createdAttachments.getAttachments().get(0).getAttachmentID());
+			} catch (Exception e) {
+				System.out.println("BOO");
+				System.out.println(e);
 			}
-			// CREATE BankTransactions attachment
-			BankTransactions myBanktransactions = accountingApi.getBankTransactions(ifModifiedSince, where, order, null);
-			if ( myBanktransactions.getBankTransactions().size() > 0) {
-				UUID banktransactionID = myBanktransactions.getBankTransactions().get(0).getBankTransactionID();			
-				Attachments createdBanktransationAttachments = accountingApi.createBankTransactionAttachmentByFileName(banktransactionID, newFileName, bytes);
-				messages.add("Attachment to BankTransaction ID: " + banktransactionID + " attachment - ID: "  + createdBanktransationAttachments.getAttachments().get(0).getAttachmentID());
-			}
-			// CREATE BankTransfer attachment
-			where = null;
-			BankTransfers myBankTransfer = accountingApi.getBankTransfers(ifModifiedSince, where, order);
-			if ( myBankTransfer.getBankTransfers().size() > 0) {
-				UUID bankTransferID = myBankTransfer.getBankTransfers().get(0).getBankTransferID();			
-				Attachments createdBankTransferAttachments = accountingApi.createBankTransferAttachmentByFileName(bankTransferID, newFileName, bytes);
-				messages.add("Attachment to BankTransfer ID: " + bankTransferID + " attachment - ID: " + createdBankTransferAttachments.getAttachments().get(0).getAttachmentID());
-			}
-			// CREATE Contacts attachment
-		    where = "Status==\"ACTIVE\"";
-			Contacts myContacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
-			if ( myContacts.getContacts().size() > 0) {
-				UUID contactID = myContacts.getContacts().get(0).getContactID();
-				Attachments createdContactAttachments = accountingApi.createContactAttachmentByFileName(contactID, newFileName, bytes);
-				messages.add("Attachment to Contact ID: " + contactID + " attachment - ID: " + createdContactAttachments.getAttachments().get(0).getAttachmentID());
-			}
-			
-			// CREATE CreditNotes attachment
-			CreditNotes myCreditNotes = accountingApi.getCreditNotes(ifModifiedSince, where, order, null);
-			if ( myCreditNotes.getCreditNotes().size() > 0) {
-				UUID creditNoteID = myCreditNotes.getCreditNotes().get(0).getCreditNoteID();
-				Attachments createdCreditNoteAttachments = accountingApi.createCreditNoteAttachmentByFileName(creditNoteID, newFileName, bytes);
-				messages.add("Attachment to Credit Notes ID: " + creditNoteID + " attachment - ID: " + createdCreditNoteAttachments.getAttachments().get(0).getAttachmentID());
-			}
-			// CREATE invoice attachment
-			Invoices myInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp);
-			if ( myInvoices.getInvoices().size() > 0) {
-				UUID invoiceID = myInvoices.getInvoices().get(0).getInvoiceID();
-				Attachments createdInvoiceAttachments = accountingApi.createInvoiceAttachmentByFileName(invoiceID, newFileName, bytes);
-				messages.add("Attachment to Invoice ID: " + invoiceID + " attachment - ID: "  + createdInvoiceAttachments.getAttachments().get(0).getAttachmentID());
-			}
-			// CREATE ManualJournals attachment
-			ManualJournals myManualJournals = accountingApi.getManualJournals(ifModifiedSince, where, order, null);
-			if ( myManualJournals.getManualJournals().size() > 0) {
-				UUID manualJournalID = myManualJournals.getManualJournals().get(0).getManualJournalID();
-				Attachments createdManualJournalAttachments = accountingApi.createManualJournalAttachmentByFileName(manualJournalID, newFileName, bytes);
-				messages.add("Attachment to Manual Journal ID: " + manualJournalID + " attachment - ID: " + createdManualJournalAttachments.getAttachments().get(0).getAttachmentID());
-			}
-			// CREATE Receipts attachment
-			Receipts myReceipts = accountingApi.getReceipts(ifModifiedSince, where, order);
-			if ( myReceipts.getReceipts().size() > 0) {
-				UUID receiptID = myReceipts.getReceipts().get(0).getReceiptID();
-				Attachments createdReceiptsAttachments = accountingApi.createReceiptAttachmentByFileName(receiptID, newFileName, bytes);
-				messages.add("Attachment to Receipt ID: " + receiptID + " attachment - ID: " + createdReceiptsAttachments.getAttachments().get(0).getAttachmentID());
-			}
-			// CREATE Repeating Invoices attachment
-			RepeatingInvoices myRepeatingInvoices = accountingApi.getRepeatingInvoices(where, order);
-			if ( myRepeatingInvoices.getRepeatingInvoices().size() > 0) {	
-				UUID repeatingInvoiceID = myRepeatingInvoices.getRepeatingInvoices().get(0).getRepeatingInvoiceID();
-				Attachments createdRepeatingInvoiceAttachments = accountingApi.createRepeatingInvoiceAttachmentByFileName(repeatingInvoiceID, newFileName, bytes);
-				messages.add("Attachment to Repeating Invoices ID: " + repeatingInvoiceID + " attachment - ID: " + createdRepeatingInvoiceAttachments.getAttachments().get(0).getAttachmentID());
-			}
-			where = null;
 		} else if(object.equals("Assets")) {
 			/* Asset */
 			// Create Asset
@@ -1441,11 +1475,11 @@ public class RequestResourceServlet extends HttpServlet
 				li.setQuantity(2.0f);
 				li.setUnitAmount(20.00f);
 				li.setLineAmount(40.00f);
-				li.setTaxType("NONE");
+				li.setTaxType(TaxType.NONE);
 				
 				receipt.addLineitemsItem(li);
 				receipt.setUser(user);
-				receipt.lineAmountTypes(com.xero.models.accounting.Receipt.LineAmountTypesEnum.NOTAX);
+				receipt.lineAmountTypes(LineAmountTypes.NOTAX);
 				receipt.contact(useContact);
 				receipt.setStatus(com.xero.models.accounting.Receipt.StatusEnum.DRAFT);
 				receipts.addReceiptsItem(receipt);
@@ -1505,7 +1539,6 @@ public class RequestResourceServlet extends HttpServlet
 		
 		} else if (object.equals("Invoices")) {
 			/*  INVOICE */	
-			/*
 			// GET Invoice As a PDF
 			Invoices myInvoicesForPDF = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp);
 			UUID invoiceIDForPDF = myInvoicesForPDF.getInvoices().get(0).getInvoiceID();
@@ -1535,7 +1568,7 @@ public class RequestResourceServlet extends HttpServlet
 			li.setQuantity(2f);
 			li.setUnitAmount(20.00f);
 			li.setLineAmount(40.00f);
-			li.setTaxType("NONE");
+			li.setTaxType(TaxType.NONE);
 			
 			myInvoice.addLineItemsItem(li);
 			myInvoice.setContact(useContact);
@@ -1564,7 +1597,6 @@ public class RequestResourceServlet extends HttpServlet
 			//Get All
 			Invoices invoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp);
 			messages.add("Get all invoices - Total : " + invoices.getInvoices().size());
-			*/
 			
 			//Get Invoice If-Modified-Since
 			OffsetDateTime invModified =  OffsetDateTime.of(LocalDateTime.of(2018, 12, 06, 15, 00), ZoneOffset.UTC);
@@ -1574,7 +1606,6 @@ public class RequestResourceServlet extends HttpServlet
 			Invoices invoicesSince = accountingApi.getInvoices(invModified, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp);
 			messages.add("Get all invoices - Since Modfied Date - Total : " + invoicesSince.getInvoices().size());
 		
-			/*
 			// Get One
 			Invoices oneInvoice = accountingApi.getInvoice(invoices.getInvoices().get(0).getInvoiceID());
 			messages.add("Get one invoice - total : " + oneInvoice.getInvoices().get(0).getTotal());
@@ -1622,7 +1653,7 @@ public class RequestResourceServlet extends HttpServlet
 			String InvoiceAttachmentFileName = attachments.getAttachments().get(0).getFileName();
 			String InvoiceAttachmentSaveFilePath = saveFile(InvoiceAttachmentInput,InvoiceAttachmentFileName);
 			messages.add("Get Invoice attachment - save it here: " + InvoiceAttachmentSaveFilePath);				
-			*/
+			
 		} else if (object.equals("InvoiceReminders")) {
 			/* INVOICE REMINDER */
 			try {				
@@ -1722,7 +1753,7 @@ public class RequestResourceServlet extends HttpServlet
 				li.setQuantity(2f);
 				li.setUnitAmount(20.00f);
 				li.setLineAmount(40.00f);
-				li.setTaxType("NONE");
+				li.setTaxType(TaxType.NONE);
 				
 				myInvoice.addLineItemsItem(li);
 				myInvoice.setContact(useContact);
@@ -1940,6 +1971,8 @@ public class RequestResourceServlet extends HttpServlet
 					Allocations allocations = new Allocations();
 					Allocation allocation = new Allocation();
 					allocation.setAmount(1.0f);
+					LocalDate currDate = LocalDate.now();
+					allocation.setDate(currDate);
 					allocation.setInvoice(inv);
 					allocations.addAllocationsItem(allocation);
 					
@@ -2057,7 +2090,7 @@ public class RequestResourceServlet extends HttpServlet
 				li.setAccountCode(arAccount.getCode());
 				li.setDescription("Foobar");
 				li.setQuantity(1f);
-				li.setTaxType("NONE");
+				li.setTaxType(TaxType.NONE);
 				li.setUnitAmount(20.00f);
 				lineItems.add(li);
 				
@@ -2069,14 +2102,45 @@ public class RequestResourceServlet extends HttpServlet
 				BankTransactions bts = new BankTransactions();
 				bts.addBankTransactionsItem(bt);					
 				BankTransactions newBankTransaction = accountingApi.createBankTransaction(bts, summarizeErrors);
-				
+				where =  "Status==\"AUTHORISED\" && TYPE==\"RECEIVE-PREPAYMENT\"";
 				Prepayments prepayments = accountingApi.getPrepayments(ifModifiedSince, where, order, null);
 				messages.add("Get a Prepayments - Count : " + prepayments.getPrepayments().size());
-				
+				where = null;
 				if(prepayments.getPrepayments().size() > 0) {	
 					UUID prepaymentId = prepayments.getPrepayments().get(0).getPrepaymentID();
 					Prepayments onePrepayment = accountingApi.getPrepayment(prepaymentId);
-					messages.add("Get one Prepayment - Total : " + onePrepayment.getPrepayments().get(0).getTotal());					
+					messages.add("Get one Prepayment - Total : " + onePrepayment.getPrepayments().get(0).getTotal());
+				    where = "Status==\"AUTHORISED\"&&Type==\"ACCREC\"";					
+					Invoices allInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp);
+					Invoice inv = new Invoice();
+					inv.setInvoiceID(allInvoices.getInvoices().get(0).getInvoiceID());
+					where = null;
+					
+					Allocations allocations = new Allocations();
+					Allocation allocation = new Allocation();
+					allocation.setAmount(1.0f);
+					LocalDate currDate = LocalDate.now();
+					allocation.setDate(currDate);
+					allocation.setInvoice(inv);
+					allocations.addAllocationsItem(allocation);
+					
+					//Allocations newAllocation = accountingApi.createPrepaymentAllocation(prepaymentId, allocations);
+					//messages.add("Create PrePayment allocation - Amt : " + newAllocation.getAllocations().get(0).getAmount());		
+					
+					// Get History
+					HistoryRecords history = accountingApi.getPrepaymentHistory(prepaymentId);
+					messages.add("History - count : " + history.getHistoryRecords().size() );
+				
+					// Create  History
+					// Error: "The document with the supplied id was not found for this end point.					
+					/*
+					HistoryRecords newHistoryRecords = new  HistoryRecords();
+					HistoryRecord newHistoryRecord = new  HistoryRecord();
+					newHistoryRecord.setDetails("Hello World");
+					newHistoryRecords.addHistoryRecordsItem(newHistoryRecord);
+					HistoryRecords createdHistory = accountingApi.createPrepaymentHistory(prepaymentId,newHistoryRecords);
+					messages.add("History - note added to  : " + createdHistory.getHistoryRecords().get(0).getDetails());	
+					*/
 				}
 			}
 		} else if (object.equals("PurchaseOrders")) {
@@ -2155,7 +2219,7 @@ public class RequestResourceServlet extends HttpServlet
 				Users users = accountingApi.getUsers(ifModifiedSince, where, order);
 				where = null;
 				
-			    where = "ShowInExpenseClaims==true";
+			    where = "ShowInExpenseClaims==true && Status==\"ACTIVE\"";
 				Accounts accounts = accountingApi.getAccounts(ifModifiedSince, where, order);
 				where = null;
 				
@@ -2176,11 +2240,11 @@ public class RequestResourceServlet extends HttpServlet
 				li.setQuantity(2f);
 				li.setUnitAmount(20.00f);
 				li.setLineAmount(40.00f);
-				li.setTaxType("NONE");
+				li.setTaxType(TaxType.NONE);
 				
 				receipt.addLineitemsItem(li);
 				receipt.setUser(useUser);
-				receipt.lineAmountTypes(com.xero.models.accounting.Receipt.LineAmountTypesEnum.NOTAX);
+				receipt.lineAmountTypes(LineAmountTypes.NOTAX);
 				receipt.contact(useContact);
 				receipt.setStatus(com.xero.models.accounting.Receipt.StatusEnum.DRAFT);
 				receipts.addReceiptsItem(receipt);
@@ -2328,7 +2392,6 @@ public class RequestResourceServlet extends HttpServlet
 				TaxComponent rate01 = new TaxComponent();
 				rate01.setName("State Tax");
 				rate01.setRate(2.25f);
-				newTaxRate.setReportTaxType(com.xero.models.accounting.TaxRate.ReportTaxTypeEnum.INPUT);
 				newTaxRate.setName("SDKTax"+SampleData.loadRandomNum());
 				newTaxRate.addTaxComponentsItem(rate01);
 				newTaxRates.addTaxRatesItem(newTaxRate);
@@ -2447,7 +2510,7 @@ public class RequestResourceServlet extends HttpServlet
 				li.setQuantity(2f);
 				li.setUnitAmount(20.00f);
 				li.setLineAmount(40.00f);
-				li.setTaxType("NONE");
+				li.setTaxType(TaxType.NONE);
 				
 				myInvoice.addLineItemsItem(li);
 				myInvoice.setContact(useContact);
