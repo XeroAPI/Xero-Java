@@ -76,45 +76,29 @@ public class XeroHttpContext {
 			}
 			   
 			KeyStore keyStore = null;
-			try {
+			try(FileInputStream in = new FileInputStream(config.getKeyStorePath())) {
 				keyStore = KeyStore.getInstance("JKS");
-			} catch (KeyStoreException e) {
-				logger.error(e);
-			}
-				
-			try {
-				keyStore.load(new FileInputStream(config.getKeyStorePath()), 
-						config.getKeyStorePassword().toCharArray());
-			} catch (NoSuchAlgorithmException | CertificateException e1) {
+				keyStore.load(in, config.getKeyStorePassword().toCharArray());
+			} catch (KeyStoreException | NoSuchAlgorithmException | CertificateException e1) {
 				logger.error(e1);
 			}
+
 		 	TrustManagerFactory tmf = null;
 			try {
-				tmf = TrustManagerFactory.getInstance(
-				    TrustManagerFactory.getDefaultAlgorithm());
-			} catch (NoSuchAlgorithmException e) {
+				tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+				tmf.init(keyStore);
+			} catch (NoSuchAlgorithmException | KeyStoreException e) {
 				logger.error(e);
 			}
 		
-		    try {
-			tmf.init(keyStore);
-			
-			} catch (KeyStoreException e) {
-				logger.error(e);
-			}
-			    SSLContext ctx = null;
+			SSLContext ctx = null;
 			try {
 				ctx = SSLContext.getInstance("TLS");
-			} catch (NoSuchAlgorithmException e) {
+				ctx.init(null, tmf.getTrustManagers(), new SecureRandom());
+			} catch (NoSuchAlgorithmException | KeyManagementException e) {
 				logger.error(e);
 			}
 		
-			try {
-				ctx.init(null, tmf.getTrustManagers(), new SecureRandom());
-			} catch (KeyManagementException e) {
-				logger.error(e);
-			}
-			    
 		    SSLContext.setDefault(ctx);
 		      
 		    SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(

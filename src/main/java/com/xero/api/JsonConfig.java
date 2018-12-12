@@ -274,25 +274,21 @@ public class JsonConfig implements Config {
   		logger.error(format("Config file '%s' could not be found in src/resources folder. Missing file?", configFile));
 		throw new XeroClientException(format("Config file '%s' could not be opened. Missing file?", configFile));    
 	} else {
-	    InputStreamReader reader = new InputStreamReader(inputStream);
-	
-	    JSONParser parser = new JSONParser();
-	
-	    Object obj = null;
-	    try {
-	      obj = parser.parse(reader);
-	    } catch (FileNotFoundException e) {
-	    		logger.error(e);			
-	    		throw new XeroClientException(format("Config file '%s' not found", configFile), e);
-	    } catch (IOException e) {
-	    		logger.error(e);
-	    		throw new XeroClientException(format("IO error reading config file '%s' not found", configFile), e);
-	    } catch (ParseException e) {
-	    		logger.error(e);
-	    		throw new XeroClientException(format("Parse error reading config file '%s' not found", configFile), e);
-	    }
-	    JSONObject jsonObject = (JSONObject) obj;
-	
+		JSONObject jsonObject;
+		try(InputStreamReader reader = new InputStreamReader(inputStream)) {
+			JSONParser parser = new JSONParser();
+			jsonObject = (JSONObject) parser.parse(reader);
+		} catch (FileNotFoundException e) {
+			logger.error(e);
+			throw new XeroClientException(format("Config file '%s' not found", configFile), e);
+		} catch (IOException e) {
+			logger.error(e);
+			throw new XeroClientException(format("IO error reading config file '%s' not found", configFile), e);
+		} catch (ParseException e) {
+			logger.error(e);
+			throw new XeroClientException(format("Parse error reading config file '%s' not found", configFile), e);
+		}
+
 	    if (jsonObject.containsKey("AppType")) {
 	      APP_TYPE = (String) jsonObject.get("AppType");
 	    }
