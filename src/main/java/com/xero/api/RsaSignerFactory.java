@@ -15,35 +15,42 @@ public class RsaSignerFactory implements SignerFactory {
 
   private OAuthRsaSigner signer = new OAuthRsaSigner();
   final static Logger logger = LogManager.getLogger(RsaSignerFactory.class);
-  
+
   public RsaSignerFactory(String pathToPrivateKey, String privateKeyPassword) {
-    this(getInputStreamForPath(pathToPrivateKey), privateKeyPassword);
+    try(InputStream privateKeyInputStream = getInputStreamForPath(pathToPrivateKey)) {
+      signer.privateKey = loadPrivateKey(privateKeyInputStream, privateKeyPassword.toCharArray());
+    } catch (IOException ex) {
+      logger.error(ex);
+      throw new RuntimeException(ex);
+    }
   }
 
-    public RsaSignerFactory(InputStream privateKeyInputStream, String privateKeyPassword) {
-    try {
-      KeyStore oauthKeyStore;
-      oauthKeyStore = KeyStore.getInstance("PKCS12");
-
-      oauthKeyStore.load(privateKeyInputStream, privateKeyPassword.toCharArray());
-
-      PrivateKey oauthKey = null;
-      for (String alias : Collections.list(oauthKeyStore.aliases())) {
-        if (oauthKeyStore.isKeyEntry(alias)) {
-          oauthKey = (PrivateKey) oauthKeyStore.getKey(alias, privateKeyPassword.toCharArray());
-        }
-      }
-
-      signer.privateKey = oauthKey;
-    } catch (IOException | GeneralSecurityException | RuntimeException ex) {
-    		logger.error(ex);
-    		throw new RuntimeException(ex);
-    }
+  public RsaSignerFactory(InputStream privateKeyInputStream, String privateKeyPassword) {
+    signer.privateKey = loadPrivateKey(privateKeyInputStream, privateKeyPassword.toCharArray());
   }
 
   @Override
   public OAuthRsaSigner createSigner(String tokenSharedSecret) {
     return signer;
+  }
+
+  private static PrivateKey loadPrivateKey(InputStream stream, char[] password) {
+    PrivateKey oauthKey = null;
+    try {
+      KeyStore oauthKeyStore = KeyStore.getInstance("PKCS12");
+      oauthKeyStore.load(stream, password);
+
+      for (String alias : Collections.list(oauthKeyStore.aliases())) {
+        if (oauthKeyStore.isKeyEntry(alias)) {
+          oauthKey = (PrivateKey) oauthKeyStore.getKey(alias, password);
+        }
+      }
+    } catch (IOException | GeneralSecurityException | RuntimeException ex) {
+      logger.error(ex);
+      throw new RuntimeException(ex);
+    }
+
+    return oauthKey;
   }
 
   private static InputStream getInputStreamForPath(String path) {
