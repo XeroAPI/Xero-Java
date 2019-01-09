@@ -115,7 +115,11 @@ public class TaxRate {
     
     CAPITALEXPENSESINPUT("CAPITALEXPENSESINPUT"),
     
-    MOSSSALES("MOSSSALES");
+    MOSSSALES("MOSSSALES"),
+    
+    NONE("NONE"),
+    
+    GSTONIMPORTS("GSTONIMPORTS");
 
     private String value;
 

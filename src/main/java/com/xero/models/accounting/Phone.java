@@ -38,7 +38,9 @@ public class Phone {
     
     MOBILE("MOBILE"),
     
-    FAX("FAX");
+    FAX("FAX"),
+    
+    OFFICE("OFFICE");
 
     private String value;
 
