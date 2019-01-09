@@ -22,7 +22,7 @@ public class RequestTokenServlet extends HttpServlet {
 	public RequestTokenServlet() {
 		super();
 	}
-
+	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PrintWriter respWriter = response.getWriter();

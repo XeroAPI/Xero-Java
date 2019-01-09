@@ -22,23 +22,30 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * Folder
  */
 
 public class Folder {
+  
   @JsonProperty("Name")
   private String name = null;
 
+  
   @JsonProperty("FileCount")
   private Integer fileCount = null;
 
+  
   @JsonProperty("Email")
   private String email = null;
 
+  
   @JsonProperty("IsInbox")
   private Boolean isInbox = null;
 
+  
   @JsonProperty("Id")
   private UUID id = null;
 
@@ -120,10 +127,10 @@ public class Folder {
   }
 
    /**
-   * Xero unique identifier for a folder Files
+   * Xero unique identifier for a folder  Files
    * @return id
   **/
-  @ApiModelProperty(example = "4ff1e5cc-9835-40d5-bb18-09fdb118db9c", value = "Xero unique identifier for a folder Files")
+  @ApiModelProperty(example = "4ff1e5cc-9835-40d5-bb18-09fdb118db9c", value = "Xero unique identifier for a folder  Files")
   public UUID getId() {
     return id;
   }

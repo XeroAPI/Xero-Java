@@ -24,20 +24,26 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 /**
  * Files
  */
 
 public class Files {
+  
   @JsonProperty("TotalCount")
   private Integer totalCount = null;
 
+  
   @JsonProperty("Page")
   private Integer page = null;
 
+  
   @JsonProperty("PerPage")
   private Integer perPage = null;
 
+  
   @JsonProperty("Items")
   private List<FileObject> items = null;
 

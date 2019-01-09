@@ -45,6 +45,9 @@ public class XeroBankFeedTests {
 	String badTokenSecret;
 	Calendar now;
 	String expectedStatus;
+	int day;
+	int year;
+	int lastMonth;
 
 	@Before
 	public void setUp() {
@@ -61,7 +64,19 @@ public class XeroBankFeedTests {
 		bankFeedsApi = new BankFeedsApi(apiClientForBankFeeds);
 		bankFeedsApi.setOAuthToken(token, tokenSecret);
 		params = null;
-		now = Calendar.getInstance();	
+		now = Calendar.getInstance();
+
+		day = now.get(Calendar.DATE);
+		year = now.get(Calendar.YEAR);
+		lastMonth = now.get(Calendar.MONTH) - 1;
+		if (lastMonth == -1) {
+			lastMonth = 12;
+			year = year -1;
+		}
+		
+		if (day > 28) {
+			day = 28;
+		}	
 	}
    
 
@@ -203,10 +218,10 @@ public class XeroBankFeedTests {
         try {
 			Statements arrayOfStatements = new Statements();
 			Statement newStatement = new Statement();
-
-			LocalDate stDate = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), 1);							
+				
+			LocalDate stDate = LocalDate.of(year, lastMonth, 1);							
 			newStatement.setStartDate(stDate);			
-			LocalDate endDate = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), 15);				
+			LocalDate endDate = LocalDate.of(year, lastMonth, 15);				
 			newStatement.endDate(endDate);
 			StartBalance stBalance = new StartBalance();
 			stBalance.setAmount("100");
@@ -230,9 +245,7 @@ public class XeroBankFeedTests {
 			newStatementLine.setPayeeName("StarLord" + SampleData.loadRandomNum());
 			newStatementLine.setTransactionId("1234" + SampleData.loadRandomNum());
 			
-			 Calendar now = Calendar.getInstance();
-    
-			LocalDate postedDate = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), now.get(Calendar.DATE));				
+			LocalDate postedDate = LocalDate.of(year, lastMonth, day);				
 			newStatementLine.setPostedDate(postedDate);
 		
 			StatementLines arrayStatementLines = new StatementLines();
@@ -259,10 +272,10 @@ public class XeroBankFeedTests {
 			Statements arrayOfStatements = new Statements();
 			Statement newStatement = new Statement();
 
-			LocalDate stDate = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), now.get(Calendar.DATE));				
+			LocalDate stDate = LocalDate.of(year, lastMonth, day);				
 			newStatement.setStartDate(stDate);
 
-			LocalDate endDate = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), now.get(Calendar.DATE));							
+			LocalDate endDate = LocalDate.of(year, lastMonth, day);							
 			newStatement.endDate(endDate);
 			StartBalance stBalance = new StartBalance();
 			stBalance.setAmount("100");
@@ -289,7 +302,7 @@ public class XeroBankFeedTests {
 				newStatementLine.setPayeeName("StarLord" + SampleData.loadRandomNum());
 				newStatementLine.setTransactionId("1234" + SampleData.loadRandomNum());
 				
-				LocalDate postedDate = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), now.get(Calendar.DATE));				
+				LocalDate postedDate = LocalDate.of(year, lastMonth, day);				
 				newStatementLine.setPostedDate(postedDate);
 			
 				StatementLines arrayStatementLines = new StatementLines();
@@ -301,10 +314,10 @@ public class XeroBankFeedTests {
 				
 				Statement newStatement2 = new Statement();
 
-				LocalDate stDate2 = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), now.get(Calendar.DATE));				
+				LocalDate stDate2 = LocalDate.of(year, lastMonth, day);				
 				newStatement2.setStartDate(stDate2);
 
-				LocalDate endDate2 = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), now.get(Calendar.DATE));				
+				LocalDate endDate2 = LocalDate.of(year, lastMonth, day);				
 				newStatement2.endDate(endDate2);
 				StartBalance stBalance2 = new StartBalance();
 				stBalance2.setAmount("100");
@@ -326,7 +339,7 @@ public class XeroBankFeedTests {
 				newStatementLine2.setReference("Foobar" + SampleData.loadRandomNum());
 				newStatementLine2.setPayeeName("StarLord" + SampleData.loadRandomNum());
 				newStatementLine2.setTransactionId("1234" + SampleData.loadRandomNum());
-				LocalDate postedDate2 = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), now.get(Calendar.DATE));
+				LocalDate postedDate2 = LocalDate.of(year, lastMonth, day);
 				newStatementLine2.setPostedDate(postedDate2);
 			
 				StatementLines arrayStatementLines2 = new StatementLines();
@@ -384,10 +397,10 @@ public class XeroBankFeedTests {
 			Statements arrayOfStatements = new Statements();
 			Statement newStatement = new Statement();
 
-			LocalDate stDate = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), now.get(Calendar.DATE));				
+			LocalDate stDate = LocalDate.of(year, lastMonth, day);				
 			newStatement.setStartDate(stDate);			
 
-			LocalDate endDate = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), now.get(Calendar.DATE));				
+			LocalDate endDate = LocalDate.of(year, lastMonth, day);				
 			newStatement.endDate(endDate);
 			StartBalance stBalance = new StartBalance();
 			stBalance.setAmount("100");
@@ -410,7 +423,7 @@ public class XeroBankFeedTests {
 			newStatementLine.setReference("Foobar" + SampleData.loadRandomNum());
 			newStatementLine.setPayeeName("StarLord" + SampleData.loadRandomNum());
 			newStatementLine.setTransactionId("1234" + SampleData.loadRandomNum());
-			LocalDate postedDate = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), now.get(Calendar.DATE));
+			LocalDate postedDate = LocalDate.of(year, lastMonth, day);
 			newStatementLine.setPostedDate(postedDate);
 		
 			StatementLines arrayStatementLines = new StatementLines();
@@ -445,9 +458,9 @@ public class XeroBankFeedTests {
 		try {
 			Statements arrayOfStatements = new Statements();
 			Statement newStatement = new Statement();
-			LocalDate stDate = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), 1);
+			LocalDate stDate = LocalDate.of(year, lastMonth, 1);
 			newStatement.setStartDate(stDate);
-			LocalDate endDate = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), 15);
+			LocalDate endDate = LocalDate.of(year, lastMonth, 15);
 			newStatement.endDate(endDate);
 			StartBalance stBalance = new StartBalance();
 			stBalance.setAmount("100");
@@ -470,7 +483,7 @@ public class XeroBankFeedTests {
 			newStatementLine.setReference("Foobar" + SampleData.loadRandomNum());
 			newStatementLine.setPayeeName("StarLord" + SampleData.loadRandomNum());
 			newStatementLine.setTransactionId("1234" + SampleData.loadRandomNum());
-			LocalDate postedDate = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), now.get(Calendar.DATE));
+			LocalDate postedDate = LocalDate.of(year, lastMonth, day);
 			newStatementLine.setPostedDate(postedDate);
 		
 			StatementLines arrayStatementLines = new StatementLines();
@@ -501,9 +514,9 @@ public class XeroBankFeedTests {
 		try {
 			Statements arrayOfStatements = new Statements();
 			Statement newStatement = new Statement();
-			LocalDate stDate = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), 1);			
+			LocalDate stDate = LocalDate.of(year, lastMonth, 1);			
 			newStatement.setStartDate(stDate);
-			LocalDate endDate = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), 15);			
+			LocalDate endDate = LocalDate.of(year, lastMonth, 15);			
 			newStatement.endDate(endDate);
 			StartBalance stBalance = new StartBalance();
 			stBalance.setAmount("100");
@@ -526,7 +539,7 @@ public class XeroBankFeedTests {
 			newStatementLine.setReference("Foobar" );
 			newStatementLine.setPayeeName("StarLord");
 			newStatementLine.setTransactionId("1234");
-			LocalDate postedDate = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), now.get(Calendar.DATE));
+			LocalDate postedDate = LocalDate.of(year, lastMonth, day);
 			newStatementLine.setPostedDate(postedDate);
 		
 			StatementLines arrayStatementLines = new StatementLines();
@@ -565,10 +578,10 @@ public class XeroBankFeedTests {
 			Statements arrayOfStatements = new Statements();
 			Statement newStatement = new Statement();
 
-			LocalDate stDate = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), now.get(Calendar.DATE));				
+			LocalDate stDate = LocalDate.of(year, lastMonth, day);				
 			newStatement.setStartDate(stDate);
 
-			LocalDate endDate = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), now.get(Calendar.DATE));				
+			LocalDate endDate = LocalDate.of(year, lastMonth, day);				
 			newStatement.endDate(endDate);
 			StartBalance stBalance = new StartBalance();
 			stBalance.setAmount("100");
@@ -591,7 +604,7 @@ public class XeroBankFeedTests {
 			newStatementLine.setReference("Foobar" );
 			newStatementLine.setPayeeName("StarLord");
 			newStatementLine.setTransactionId("1234");
-			LocalDate postedDate = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), now.get(Calendar.DATE));
+			LocalDate postedDate = LocalDate.of(year, lastMonth, day);
 			newStatementLine.setPostedDate(postedDate);
 		
 			StatementLines arrayStatementLines = new StatementLines();
@@ -627,10 +640,10 @@ public class XeroBankFeedTests {
 			Statements arrayOfStatements = new Statements();
 			Statement newStatement = new Statement();
 
-			LocalDate stDate = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), 1);
+			LocalDate stDate = LocalDate.of(year, lastMonth, 1);
 			newStatement.setStartDate(stDate);
 
-			LocalDate endDate = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), 15);
+			LocalDate endDate = LocalDate.of(year, lastMonth, 15);
 			newStatement.endDate(endDate);
 			StartBalance stBalance = new StartBalance();
 			stBalance.setAmount("100");
@@ -653,7 +666,7 @@ public class XeroBankFeedTests {
 			newStatementLine.setReference("Foobar" );
 			newStatementLine.setPayeeName("StarLord");
 			newStatementLine.setTransactionId("1234");
-			LocalDate postedDate = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), now.get(Calendar.DATE));
+			LocalDate postedDate = LocalDate.of(year, lastMonth, day);
 			newStatementLine.setPostedDate(postedDate);
 		
 			StatementLines arrayStatementLines = new StatementLines();

@@ -18,47 +18,36 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.files.Folder;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
- * Folders
+ * FileResponse204
  */
 
-public class Folders {
+public class FileResponse204 {
   
-  @JsonProperty("Folders")
-  private List<Folder> folders = null;
+  @JsonProperty("Status")
+  private String status = null;
 
-  public Folders folders(List<Folder> folders) {
-    this.folders = folders;
-    return this;
-  }
-
-  public Folders addFoldersItem(Folder foldersItem) {
-    if (this.folders == null) {
-      this.folders = new ArrayList<Folder>();
-    }
-    this.folders.add(foldersItem);
+  public FileResponse204 status(String status) {
+    this.status = status;
     return this;
   }
 
    /**
-   * Get folders
-   * @return folders
+   * Status response for 204 no content
+   * @return status
   **/
-  @ApiModelProperty(value = "")
-  public List<Folder> getFolders() {
-    return folders;
+  @ApiModelProperty(value = "Status response for 204 no content")
+  public String getStatus() {
+    return status;
   }
 
-  public void setFolders(List<Folder> folders) {
-    this.folders = folders;
+  public void setStatus(String status) {
+    this.status = status;
   }
 
 
@@ -70,22 +59,22 @@ public class Folders {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Folders folders = (Folders) o;
-    return Objects.equals(this.folders, folders.folders);
+    FileResponse204 fileResponse204 = (FileResponse204) o;
+    return Objects.equals(this.status, fileResponse204.status);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(folders);
+    return Objects.hash(status);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Folders {\n");
+    sb.append("class FileResponse204 {\n");
     
-    sb.append("    folders: ").append(toIndentedString(folders)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("}");
     return sb.toString();
   }

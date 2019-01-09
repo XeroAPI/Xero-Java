@@ -1,5 +1,6 @@
 package com.xero.api;
 
+
 public interface Config {
 
     String getAppType();

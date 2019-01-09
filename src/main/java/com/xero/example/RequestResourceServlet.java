@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -30,7 +31,7 @@ import com.xero.api.JsonConfig;
 import com.xero.api.OAuthAccessToken;
 import com.xero.api.OAuthRequestResource;
 import com.xero.api.XeroApiException;
-
+import com.xero.api.XeroClientException;
 import com.xero.models.accounting.Account;
 import com.xero.models.accounting.Accounts;
 import com.xero.models.accounting.Allocation;
@@ -90,6 +91,7 @@ import com.xero.models.accounting.RequestEmpty;
 import com.xero.models.accounting.Response204;
 import com.xero.models.accounting.TaxComponent;
 import com.xero.models.accounting.TaxRate;
+import com.xero.models.accounting.TaxRate.ReportTaxTypeEnum;
 import com.xero.models.accounting.TaxRates;
 import com.xero.models.accounting.TaxType;
 import com.xero.models.accounting.TrackingCategories;
@@ -104,9 +106,13 @@ import com.xero.models.assets.BookDepreciationSetting.DepreciationCalculationMet
 import com.xero.models.assets.BookDepreciationSetting.DepreciationMethodEnum;
 import com.xero.models.bankfeeds.*;
 import com.xero.models.bankfeeds.Statements;
+import com.xero.models.files.Association;
+import com.xero.models.files.FileObject;
+import com.xero.models.files.FileResponse204;
 import com.xero.models.files.Files;
 import com.xero.models.files.Folder;
 import com.xero.models.files.Folders;
+import com.xero.models.files.ObjectGroup;
 import com.xero.models.bankfeeds.FeedConnection.AccountTypeEnum;
 
 //import java.time.LocalDate;
@@ -129,9 +135,8 @@ public class RequestResourceServlet extends HttpServlet
 			+ "<div class=\"form-group\">" 
 		  	+ "<label for=\"object\">Create, Read, Update & Delete</label>"
 		  	+ "<select name=\"object\" class=\"form-control\" id=\"object\">"
-		  	+ "<option value=\"Files\" >Files</option>"
 		  	+ "<option value=\"Assets\" >Assets</option>"
-			+ "<option value=\"Accounts\" SELECTED>Accounts</option>"
+			+ "<option value=\"Accounts\" >Accounts</option>"
 			+ "<option value=\"CreateAttachments\">Attachments - Create</option>"
 			+ "<option value=\"GetAttachments\">Attachments - Get</option>"
 			+ "<option value=\"BankFeedConnections\">Bank Feed Connections</option>"
@@ -148,13 +153,15 @@ public class RequestResourceServlet extends HttpServlet
 		  	+ "<option value=\"Currencies\">Currencies</option>"
 		  	+ "<option value=\"Employees\" >Employees</option>"
 		  	+ "<option value=\"ExpenseClaims\">ExpenseClaims</option>"
+			+ "<option value=\"Files\" >Files</option>"
+		  	+ "<option value=\"Folders\" >Folders</option>"
 		  	+ "<option value=\"Invoices\" >Invoices</option>"
 		  	+ "<option value=\"InvoiceReminders\">InvoiceReminders</option>"
 		  	+ "<option value=\"Items\">Items</option>"
 		  	+ "<option value=\"Journals\">Journals</option>"
 		  	+ "<option value=\"LinkedTransactions\">LinkedTransactions</option>"
 		  	+ "<option value=\"ManualJournals\">ManualJournals</option>"
-		  	+ "<option value=\"Organisations\">Organisations</option>"
+		  	+ "<option value=\"Organisations\" SELECTED>Organisations</option>"
 		  	+ "<option value=\"Overpayments\">Overpayments</option>"
 		  	+ "<option value=\"Payments\">Payments</option>"
 		  	+ "<option value=\"PaymentServices\">PaymentServices</option>"
@@ -263,22 +270,119 @@ public class RequestResourceServlet extends HttpServlet
 			/* FILES */
 			//JSON 
 			try {
+				List<Folder> myFolders = filesApi.getFolders(null);
+				if (myFolders.size() > 1) {
+					System.out.println("My folder : " +  myFolders.get(1).getName());					
+				}
+				
+				// Upload new File
+				String name = "XeroLogo.png";
+				String fileName = "XeroLogo";
+				String mimeType = URLConnection.guessContentTypeFromName(name);
+				InputStream inputStream = JsonConfig.class.getResourceAsStream("/" + name);
+				byte[] bytes = IOUtils.toByteArray(inputStream);
+				FileObject newFileObj = filesApi.uploadFile(null,bytes, name, fileName ,mimeType);
+				messages.add("Files found: " + newFileObj.getName());
+				inputStream.close();
+				
+				// Get ALL files
+				
 				Files myFiles = filesApi.getFiles(null, null, null);
 				if (myFiles.getItems().size() > 0) {
 					UUID fileId = myFiles.getItems().get(0).getId();
-					String name = myFiles.getItems().get(0).getName();
+					String myFileName = myFiles.getItems().get(0).getName();
 					messages.add("Files found - total: " + myFiles.getItems().size());	
-
+					messages.add("File Name: " + myFileName);	
+					
+					// Get ONE file
+					FileObject oneFile = filesApi.getFile(fileId);
+					messages.add("Get one file - name: " + oneFile.getName());
+					
+					// Update ONE file
+					FileObject newFileObject = new FileObject();
+					newFileObject.setName("HelloWorld.jpg");
+					FileObject updatedFile = filesApi.updateFile(fileId, newFileObject);
+					messages.add("Get one file - name: " + updatedFile.getName());
+					
+					// GET File Content
 					ByteArrayInputStream input= filesApi.getFileContent(fileId);
 					String saveFilePath = saveFile(input,"MyNewFile.jpg");
 					messages.add("Save it here: " + saveFilePath);
+					
+					// Create file Association
+					Association association = new Association();
+					Invoices invoices = accountingApi.getInvoices(null, null, null, null, null, null, "AUTHORISED", null, false, null);
+					UUID invoiceId = invoices.getInvoices().get(0).getInvoiceID();
+					association.setObjectGroup(ObjectGroup.INVOICE);
+					association.setObjectId(invoiceId);
+					Association fileAssociation = filesApi.createFileAssociation(fileId, association);
+					messages.add("file association obj group: " + fileAssociation.getObjectGroup());
+					
+					List<Association> fileAssociations = filesApi.getFileAssociations(fileId);
+					messages.add("Total File associations: " + fileAssociations.size());
+					UUID objectId = fileAssociations.get(0).getObjectId();
+					
+					// GET Object Associations
+					List<Association> objectAssociations = filesApi.getAssociationsByObject(objectId);
+					messages.add("Total OBJECT associations: " + objectAssociations.size());
+					
+					// DELETE file Association
+					FileResponse204 deletedAssociation = filesApi.deleteFileAssociation(fileId, objectId);
+					messages.add("Delete file association status: " + deletedAssociation.getStatus());
+					
+					List<Association> fileAssociationsNew = filesApi.getFileAssociations(fileId);
+					messages.add("Total File associations: " + fileAssociationsNew.size());
+					
+					// DELETE ONE file
+					FileResponse204 deletedFile = filesApi.deleteFile(fileId);
+					messages.add("Delete file status: " + deletedFile.getStatus());	
 				}
 				
-				List<Folder> myFolders = filesApi.getFolders(null);
-				System.out.println(myFolders.get(0).getName());
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
+			
 			}	
+		} else if (object.equals("Folders")) {
+			/* FOLDERS */
+			//JSON 
+			try {
+				// Get ALL Folders
+				List<Folder> myFolders = filesApi.getFolders(null);
+				if (myFolders.size() > 0) {
+					UUID folderId = myFolders.get(0).getId();
+					messages.add("Folders found - total: " + myFolders.size());	
+					
+					// GET one Folder
+					Folder oneFolder = filesApi.getFolder(folderId);
+					messages.add("One Folders found - name: " + oneFolder.getName());	
+					
+					// Create one Folder
+					Folder folder = new Folder();
+					folder.setEmail("foo@bar.com");
+					folder.setName("NewFolder"+ SampleData.loadRandomNum());
+					Folder createdFolder = filesApi.createFolder(folder);
+					UUID newFolderId = createdFolder.getId();
+					messages.add("New Folder - name: " + createdFolder.getName());	
+
+					// Update one Folder
+					Folder folder2 = new Folder();
+					folder2.setName("UpdatedFolder"+ SampleData.loadRandomNum());
+					Folder updatedFolder = filesApi.updateFolder(newFolderId,folder2);
+					messages.add("Updated Folder - name: " + updatedFolder.getName());	
+					
+					// Update one Folder
+					//FileResponse204 deleteFolder = filesApi.deleteFolder(newFolderId);
+					//messages.add("Deleted Folder - status: " + deleteFolder.getStatus());	
+
+					// Update one Folder
+					Folder inboxFolder = filesApi.getInbox();
+					messages.add("Get Inbox Folder - email: " + inboxFolder.getEmail());	
+
+				}
+				
+			} catch (Exception e) {
+				System.out.println(e.toString());
+			}
 		
 		} else if (object.equals("Accounts")) {
 			/* ACCOUNTS */
@@ -291,8 +395,6 @@ public class RequestResourceServlet extends HttpServlet
 				// GET one account
 				Accounts oneAccount = accountingApi.getAccount(accounts.getAccounts().get(0).getAccountID());
 				messages.add("Get a one Account - name : " + oneAccount.getAccounts().get(0).getName());				
-				
-				System.out.println(oneAccount.toString());
 				
 				// CREATE account
 				Account acct = new Account();
@@ -487,17 +589,18 @@ public class RequestResourceServlet extends HttpServlet
 				// JSON
 				InputStream inputStream = JsonConfig.class.getResourceAsStream("/helo-heros.jpg");
 				byte[] bytes = IOUtils.toByteArray(inputStream);
-				String newFileName = "sample2.jpg";
+				String newFileName = "sample5.jpg";
 	
 				// CREATE Accounts attachment
 			    where = "Status==\"ACTIVE\"";
 				Accounts myAccounts = accountingApi.getAccounts(ifModifiedSince, where, order);
 				if ( myAccounts.getAccounts().size() > 0) {
-					UUID accountID = myAccounts.getAccounts().get(0).getAccountID();			
+					UUID accountID = myAccounts.getAccounts().get(0).getAccountID();
+					String accountName = myAccounts.getAccounts().get(0).getName();
 					Attachments createdAttachments = accountingApi.createAccountAttachmentByFileName(accountID, newFileName, bytes);
-					messages.add("Attachment to Account ID: " + accountID + " attachment - ID: " + createdAttachments.getAttachments().get(0).getAttachmentID());
+					messages.add("Attachment to Name: " + accountName + " Account ID: " + accountID + " attachment - ID: " + createdAttachments.getAttachments().get(0).getAttachmentID());
 				}
-				where = null;
+				
 				// CREATE BankTransactions attachment
 				BankTransactions myBanktransactions = accountingApi.getBankTransactions(ifModifiedSince, where, order, null);
 				if ( myBanktransactions.getBankTransactions().size() > 0) {
@@ -507,7 +610,7 @@ public class RequestResourceServlet extends HttpServlet
 				}
 				
 				// CREATE BankTransfer attachment
-		
+				where = null;
 				BankTransfers myBankTransfer = accountingApi.getBankTransfers(ifModifiedSince, where, order);
 				if ( myBankTransfer.getBankTransfers().size() > 0) {
 					UUID bankTransferID = myBankTransfer.getBankTransfers().get(0).getBankTransferID();			
@@ -523,8 +626,8 @@ public class RequestResourceServlet extends HttpServlet
 					Attachments createdContactAttachments = accountingApi.createContactAttachmentByFileName(contactID, newFileName, bytes);
 					messages.add("Attachment to Contact ID: " + contactID + " attachment - ID: " + createdContactAttachments.getAttachments().get(0).getAttachmentID());
 				}
-				where = null;
-		
+				
+				where = "Status==\"ACTIVE\"";
 				// CREATE CreditNotes attachment
 				CreditNotes myCreditNotes = accountingApi.getCreditNotes(ifModifiedSince, where, order, null);
 				if ( myCreditNotes.getCreditNotes().size() > 0) {
@@ -532,6 +635,7 @@ public class RequestResourceServlet extends HttpServlet
 					Attachments createdCreditNoteAttachments = accountingApi.createCreditNoteAttachmentByFileName(creditNoteID, newFileName, bytes);
 					messages.add("Attachment to Credit Notes ID: " + creditNoteID + " attachment - ID: " + createdCreditNoteAttachments.getAttachments().get(0).getAttachmentID());
 				}
+				
 				// CREATE invoice attachment
 				Invoices myInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp);
 				if ( myInvoices.getInvoices().size() > 0) {
@@ -539,6 +643,7 @@ public class RequestResourceServlet extends HttpServlet
 					Attachments createdInvoiceAttachments = accountingApi.createInvoiceAttachmentByFileName(invoiceID, newFileName, bytes);
 					messages.add("Attachment to Invoice ID: " + invoiceID + " attachment - ID: "  + createdInvoiceAttachments.getAttachments().get(0).getAttachmentID());
 				}
+				
 				// CREATE ManualJournals attachment
 				ManualJournals myManualJournals = accountingApi.getManualJournals(ifModifiedSince, where, order, null);
 				if ( myManualJournals.getManualJournals().size() > 0) {
@@ -546,6 +651,7 @@ public class RequestResourceServlet extends HttpServlet
 					Attachments createdManualJournalAttachments = accountingApi.createManualJournalAttachmentByFileName(manualJournalID, newFileName, bytes);
 					messages.add("Attachment to Manual Journal ID: " + manualJournalID + " attachment - ID: " + createdManualJournalAttachments.getAttachments().get(0).getAttachmentID());
 				}
+				
 				// CREATE Receipts attachment
 				Receipts myReceipts = accountingApi.getReceipts(ifModifiedSince, where, order);
 				if ( myReceipts.getReceipts().size() > 0) {
@@ -553,6 +659,7 @@ public class RequestResourceServlet extends HttpServlet
 					Attachments createdReceiptsAttachments = accountingApi.createReceiptAttachmentByFileName(receiptID, newFileName, bytes);
 					messages.add("Attachment to Receipt ID: " + receiptID + " attachment - ID: " + createdReceiptsAttachments.getAttachments().get(0).getAttachmentID());
 				}
+				
 				// CREATE Repeating Invoices attachment
 				RepeatingInvoices myRepeatingInvoices = accountingApi.getRepeatingInvoices(where, order);
 				if ( myRepeatingInvoices.getRepeatingInvoices().size() > 0) {	
@@ -560,9 +667,8 @@ public class RequestResourceServlet extends HttpServlet
 					Attachments createdRepeatingInvoiceAttachments = accountingApi.createRepeatingInvoiceAttachmentByFileName(repeatingInvoiceID, newFileName, bytes);
 					messages.add("Attachment to Repeating Invoices ID: " + repeatingInvoiceID + " attachment - ID: " + createdRepeatingInvoiceAttachments.getAttachments().get(0).getAttachmentID());
 				}
-
+				
 			} catch (Exception e) {
-				System.out.println("BOO");
 				System.out.println(e);
 			}
 		} else if(object.equals("Assets")) {
@@ -660,7 +766,6 @@ public class RequestResourceServlet extends HttpServlet
 			try {
 				FeedConnections fc = bankFeedsApi.getFeedConnections(null,null);
 				messages.add("Total Banks found: " + fc.getItems().size());
-				System.out.println(fc.getItems().get(0).toString());
 			} catch (Exception e) {
 				System.out.println(e.toString());
 			}
@@ -686,7 +791,7 @@ public class RequestResourceServlet extends HttpServlet
 				deleteFeedConnections.addItemsItem(feedConnectionOne);
 				
 				FeedConnections deletedFeedConnection = bankFeedsApi.deleteFeedConnections(deleteFeedConnections);				
-				messages.add("DELETED Bank status: " + deletedFeedConnection.getItems().get(0).getStatus());
+				messages.add("Deleted Bank status: " + deletedFeedConnection.getItems().get(0).getStatus());
 			} catch (Exception e) {
 				System.out.println(e.toString());
 			}
@@ -694,13 +799,30 @@ public class RequestResourceServlet extends HttpServlet
 		} else if(object.equals("BankStatements")) {
 			// BANK STATEMENTS 
 			// Create One Statement
+			int day = now.get(Calendar.DATE);
+			int year = now.get(Calendar.YEAR);
+			int lastMonth = now.get(Calendar.MONTH) - 1;
+			int nextMonth = now.get(Calendar.MONTH) + 1;
+			if (lastMonth == -1) {
+				lastMonth = 12;
+				year = year -1;
+			}
+			
+			if (nextMonth == 13) {
+				nextMonth = 1;
+				year = year + 1;
+			}
+			
+			if (day > 28) {
+				day = 28;
+			}
 			try {
-				
 				Statements arrayOfStatements = new Statements();
 				Statement newStatement = new Statement();
-				LocalDate stDate = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) + 1), now.get(Calendar.DATE));
+				
+				LocalDate stDate = LocalDate.of(year, nextMonth, day);
 				newStatement.setStartDate(stDate);
-				LocalDate endDate = LocalDate.of(2017, 9, 15);
+				LocalDate endDate = LocalDate.of(year, lastMonth, day);
 				newStatement.endDate(endDate);
 				StartBalance stBalance = new StartBalance();
 				stBalance.setAmount("100");
@@ -723,7 +845,7 @@ public class RequestResourceServlet extends HttpServlet
 				newStatementLine.setReference("Foobar" + SampleData.loadRandomNum());
 				newStatementLine.setPayeeName("StarLord" + SampleData.loadRandomNum());
 				newStatementLine.setTransactionId("1234" + SampleData.loadRandomNum());
-				LocalDate postedDate = LocalDate.of(2017, 9, 05);
+				LocalDate postedDate = LocalDate.of(year, lastMonth, day);
 				newStatementLine.setPostedDate(postedDate);
 			
 				StatementLines arrayStatementLines = new StatementLines();
@@ -744,9 +866,9 @@ public class RequestResourceServlet extends HttpServlet
 			try {
 				Statements arrayOfStatements = new Statements();
 				Statement newStatement = new Statement();
-				LocalDate stDate = LocalDate.of(2017, 9, 01);
+				LocalDate stDate = LocalDate.of(year, lastMonth, 01);
 				newStatement.setStartDate(stDate);
-				LocalDate endDate = LocalDate.of(2017, 9, 15);
+				LocalDate endDate = LocalDate.of(year, lastMonth, 15);
 				newStatement.endDate(endDate);
 				StartBalance stBalance = new StartBalance();
 				stBalance.setAmount("100");
@@ -769,7 +891,7 @@ public class RequestResourceServlet extends HttpServlet
 				newStatementLine.setReference("Foobar" + SampleData.loadRandomNum());
 				newStatementLine.setPayeeName("StarLord" + SampleData.loadRandomNum());
 				newStatementLine.setTransactionId("1234" + SampleData.loadRandomNum());
-				LocalDate postedDate = LocalDate.of(2017, 9, 05);
+				LocalDate postedDate = LocalDate.of(year, lastMonth, 05);
 				newStatementLine.setPostedDate(postedDate);
 			
 				StatementLines arrayStatementLines = new StatementLines();
@@ -790,9 +912,9 @@ public class RequestResourceServlet extends HttpServlet
 			try {
 				Statements arrayOfStatements = new Statements();
 				Statement newStatement = new Statement();
-				LocalDate stDate = LocalDate.of(2017, 9, 01);
+				LocalDate stDate = LocalDate.of(year, lastMonth, 01);
 				newStatement.setStartDate(stDate);
-				LocalDate endDate = LocalDate.of(2017, 9, 15);
+				LocalDate endDate = LocalDate.of(year, lastMonth, 15);
 				newStatement.endDate(endDate);
 				StartBalance stBalance = new StartBalance();
 				stBalance.setAmount("100");
@@ -815,7 +937,7 @@ public class RequestResourceServlet extends HttpServlet
 				newStatementLine.setReference("Foobar" );
 				newStatementLine.setPayeeName("StarLord");
 				newStatementLine.setTransactionId("1234");
-				LocalDate postedDate = LocalDate.of(2017, 9, 05);
+				LocalDate postedDate = LocalDate.of(year, lastMonth, 05);
 				newStatementLine.setPostedDate(postedDate);
 			
 				StatementLines arrayStatementLines = new StatementLines();
@@ -829,7 +951,6 @@ public class RequestResourceServlet extends HttpServlet
 				//DUPLICATE
 				Statements rStatements3 = bankFeedsApi.createStatements(arrayOfStatements);
 				
-				System.out.println(rStatements3.toString());
 				messages.add("New Bank Statement Status: " + rStatements3.getItems().get(0).getStatus());
 				
 			} catch (Exception e) { 
@@ -842,7 +963,7 @@ public class RequestResourceServlet extends HttpServlet
 			//Get ALL Statements
 			try {
 				Statements allStatements = bankFeedsApi.getStatements(null, null, null, null, null);
-				System.out.println(allStatements.toString());							
+				messages.add("Statement total: " + allStatements.getItems().size());
 			} catch (Exception e) {
 				TypeReference<Statements> typeRef = new TypeReference<Statements>() {};
 				Statements statementErrors =  apiClientForBankFeeds.getObjectMapper().readValue(e.getMessage(), typeRef);
@@ -852,11 +973,11 @@ public class RequestResourceServlet extends HttpServlet
 			try {
 				Statements arrayOfStatements = new Statements();
 				Statement newStatement = new Statement();
-
-				LocalDate stDate = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), now.get(Calendar.DATE));				
+				
+				LocalDate stDate = LocalDate.of(year, lastMonth, day);				
 				newStatement.setStartDate(stDate);
 
-				LocalDate endDate = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), now.get(Calendar.DATE));							
+				LocalDate endDate = LocalDate.of(year, lastMonth, day);							
 				newStatement.endDate(endDate);
 				StartBalance stBalance = new StartBalance();
 				stBalance.setAmount("100");
@@ -882,7 +1003,7 @@ public class RequestResourceServlet extends HttpServlet
 					newStatementLine.setPayeeName("StarLord" + SampleData.loadRandomNum());
 					newStatementLine.setTransactionId("1234" + SampleData.loadRandomNum());
 					
-					LocalDate postedDate = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), now.get(Calendar.DATE));				
+					LocalDate postedDate = LocalDate.of(year, lastMonth, day);				
 					newStatementLine.setPostedDate(postedDate);
 				
 					StatementLines arrayStatementLines = new StatementLines();
@@ -893,10 +1014,10 @@ public class RequestResourceServlet extends HttpServlet
 					arrayOfStatements.addItemsItem(newStatement);
 					
 					Statement newStatement2 = new Statement();
-					LocalDate stDate2 = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), now.get(Calendar.DATE));				
+					LocalDate stDate2 = LocalDate.of(year, lastMonth, day);				
 					newStatement2.setStartDate(stDate2);
 	
-					LocalDate endDate2 = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), now.get(Calendar.DATE));				
+					LocalDate endDate2 = LocalDate.of(year, lastMonth, day);				
 					newStatement2.endDate(endDate2);
 					StartBalance stBalance2 = new StartBalance();
 					stBalance2.setAmount("100");
@@ -918,7 +1039,7 @@ public class RequestResourceServlet extends HttpServlet
 					newStatementLine2.setReference("Foobar" + SampleData.loadRandomNum());
 					newStatementLine2.setPayeeName("StarLord" + SampleData.loadRandomNum());
 					newStatementLine2.setTransactionId("1234" + SampleData.loadRandomNum());
-					LocalDate postedDate2 = LocalDate.of(now.get(Calendar.YEAR), (now.get(Calendar.MONTH) - 1), now.get(Calendar.DATE));
+					LocalDate postedDate2 = LocalDate.of(year, lastMonth, day);
 					newStatementLine2.setPostedDate(postedDate2);
 				
 					StatementLines arrayStatementLines2 = new StatementLines();
@@ -930,25 +1051,24 @@ public class RequestResourceServlet extends HttpServlet
 					
 					Statements rStatements = bankFeedsApi.createStatements(arrayOfStatements);
 					
-					assert(rStatements.getItems().size() > 0);
-					System.out.println("Statement Status: " + rStatements.getItems().get(0).getStatus());
+					messages.add("Statement Status: " + rStatements.getItems().get(0).getStatus());
+			
 				} else {
-					System.out.println("Need at least 2 feed connections to perform this test");
+					messages.add("Need at least 2 feed connections to perform this test");
 				}
 				
 			} catch (XeroApiException e) {
 				try {
 					TypeReference<com.xero.models.bankfeeds.Error> typeRef = new TypeReference<com.xero.models.bankfeeds.Error>() {};
 					com.xero.models.bankfeeds.Error error =  apiClientForBankFeeds.getObjectMapper().readValue(e.getMessage(), typeRef);
-					assert(error.getStatus().equals(403));
-					System.out.println(error.getDetail());
+					messages.add(error.getDetail());
 				} catch (IOException ioe) {
 					System.out.println("IO:" + ioe.toString());
 				}
 			} catch (Exception e) {
-				System.out.println("Generic Exception " + e.toString());
+				messages.add("Generic Exception " + e.toString());
 			}
-		
+			
 		} else if (object.equals("BankTransactions")) {
 			/* BANK TRANSACTION */
 			try {
@@ -2387,11 +2507,13 @@ public class RequestResourceServlet extends HttpServlet
 			/* TAX RATE   */
 			try {
 				// CREATE Tax Rate
+				
 				TaxRates newTaxRates = new TaxRates();
 				TaxRate newTaxRate = new TaxRate();
 				TaxComponent rate01 = new TaxComponent();
 				rate01.setName("State Tax");
 				rate01.setRate(2.25f);
+				newTaxRate.setReportTaxType(ReportTaxTypeEnum.INPUT);
 				newTaxRate.setName("SDKTax"+SampleData.loadRandomNum());
 				newTaxRate.addTaxComponentsItem(rate01);
 				newTaxRates.addTaxRatesItem(newTaxRate);

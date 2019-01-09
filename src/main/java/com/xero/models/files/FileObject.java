@@ -22,33 +22,44 @@ import com.xero.models.files.User;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import org.threeten.bp.OffsetDateTime;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * FileObject
  */
 
 public class FileObject {
+  
   @JsonProperty("Name")
   private String name = null;
 
+  
   @JsonProperty("MimeType")
   private String mimeType = null;
 
+  
   @JsonProperty("Size")
   private Integer size = null;
 
-  @JsonProperty("CreatedDateUtc")
-  private String createdDateUtc = null;
+  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
+  @JsonProperty("CreatedDateUTC")
+  private OffsetDateTime createdDateUTC = null;
 
-  @JsonProperty("UpdatedDateUtc")
-  private String updatedDateUtc = null;
+  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
+  @JsonProperty("UpdatedDateUTC")
+  private OffsetDateTime updatedDateUTC = null;
 
+  
   @JsonProperty("User")
   private User user = null;
 
+  
   @JsonProperty("Id")
   private UUID id = null;
 
+  
   @JsonProperty("FolderId")
   private UUID folderId = null;
 
@@ -58,10 +69,10 @@ public class FileObject {
   }
 
    /**
-   * Get name
+   * TODO
    * @return name
   **/
-  @ApiModelProperty(example = "File2.jpg", value = "")
+  @ApiModelProperty(example = "File2.jpg", value = "TODO")
   public String getName() {
     return name;
   }
@@ -76,10 +87,10 @@ public class FileObject {
   }
 
    /**
-   * Get mimeType
+   * TODO
    * @return mimeType
   **/
-  @ApiModelProperty(example = "image/jpeg", value = "")
+  @ApiModelProperty(example = "image/jpeg", value = "TODO")
   public String getMimeType() {
     return mimeType;
   }
@@ -94,10 +105,10 @@ public class FileObject {
   }
 
    /**
-   * Get size
+   * TODO
    * @return size
   **/
-  @ApiModelProperty(example = "3615", value = "")
+  @ApiModelProperty(example = "3615", value = "TODO")
   public Integer getSize() {
     return size;
   }
@@ -106,40 +117,40 @@ public class FileObject {
     this.size = size;
   }
 
-  public FileObject createdDateUtc(String createdDateUtc) {
-    this.createdDateUtc = createdDateUtc;
+  public FileObject createdDateUTC(OffsetDateTime createdDateUTC) {
+    this.createdDateUTC = createdDateUTC;
     return this;
   }
 
    /**
-   * Get createdDateUtc
-   * @return createdDateUtc
+   * TODO
+   * @return createdDateUTC
   **/
-  @ApiModelProperty(example = "2014-12-04T23:08:14.0630000", value = "")
-  public String getCreatedDateUtc() {
-    return createdDateUtc;
+  @ApiModelProperty(value = "TODO")
+  public OffsetDateTime getCreatedDateUTC() {
+    return createdDateUTC;
   }
 
-  public void setCreatedDateUtc(String createdDateUtc) {
-    this.createdDateUtc = createdDateUtc;
+  public void setCreatedDateUTC(OffsetDateTime createdDateUTC) {
+    this.createdDateUTC = createdDateUTC;
   }
 
-  public FileObject updatedDateUtc(String updatedDateUtc) {
-    this.updatedDateUtc = updatedDateUtc;
+  public FileObject updatedDateUTC(OffsetDateTime updatedDateUTC) {
+    this.updatedDateUTC = updatedDateUTC;
     return this;
   }
 
    /**
-   * Get updatedDateUtc
-   * @return updatedDateUtc
+   * TODO
+   * @return updatedDateUTC
   **/
-  @ApiModelProperty(example = "2014-12-04T23:08:14.0630000", value = "")
-  public String getUpdatedDateUtc() {
-    return updatedDateUtc;
+  @ApiModelProperty(value = "TODO")
+  public OffsetDateTime getUpdatedDateUTC() {
+    return updatedDateUTC;
   }
 
-  public void setUpdatedDateUtc(String updatedDateUtc) {
-    this.updatedDateUtc = updatedDateUtc;
+  public void setUpdatedDateUTC(OffsetDateTime updatedDateUTC) {
+    this.updatedDateUTC = updatedDateUTC;
   }
 
   public FileObject user(User user) {
@@ -166,10 +177,10 @@ public class FileObject {
   }
 
    /**
-   * Get id
+   * TODO
    * @return id
   **/
-  @ApiModelProperty(example = "d290f1ee-6c54-4b01-90e6-d701748f0851", value = "")
+  @ApiModelProperty(example = "d290f1ee-6c54-4b01-90e6-d701748f0851", value = "TODO")
   public UUID getId() {
     return id;
   }
@@ -184,10 +195,10 @@ public class FileObject {
   }
 
    /**
-   * Get folderId
+   * TODO
    * @return folderId
   **/
-  @ApiModelProperty(example = "0f8ccf21-7267-4268-9167-a1e2c40c84c8", value = "")
+  @ApiModelProperty(example = "0f8ccf21-7267-4268-9167-a1e2c40c84c8", value = "TODO")
   public UUID getFolderId() {
     return folderId;
   }
@@ -209,8 +220,8 @@ public class FileObject {
     return Objects.equals(this.name, fileObject.name) &&
         Objects.equals(this.mimeType, fileObject.mimeType) &&
         Objects.equals(this.size, fileObject.size) &&
-        Objects.equals(this.createdDateUtc, fileObject.createdDateUtc) &&
-        Objects.equals(this.updatedDateUtc, fileObject.updatedDateUtc) &&
+        Objects.equals(this.createdDateUTC, fileObject.createdDateUTC) &&
+        Objects.equals(this.updatedDateUTC, fileObject.updatedDateUTC) &&
         Objects.equals(this.user, fileObject.user) &&
         Objects.equals(this.id, fileObject.id) &&
         Objects.equals(this.folderId, fileObject.folderId);
@@ -218,7 +229,7 @@ public class FileObject {
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, mimeType, size, createdDateUtc, updatedDateUtc, user, id, folderId);
+    return Objects.hash(name, mimeType, size, createdDateUTC, updatedDateUTC, user, id, folderId);
   }
 
 
@@ -230,8 +241,8 @@ public class FileObject {
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    mimeType: ").append(toIndentedString(mimeType)).append("\n");
     sb.append("    size: ").append(toIndentedString(size)).append("\n");
-    sb.append("    createdDateUtc: ").append(toIndentedString(createdDateUtc)).append("\n");
-    sb.append("    updatedDateUtc: ").append(toIndentedString(updatedDateUtc)).append("\n");
+    sb.append("    createdDateUTC: ").append(toIndentedString(createdDateUTC)).append("\n");
+    sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
     sb.append("    user: ").append(toIndentedString(user)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    folderId: ").append(toIndentedString(folderId)).append("\n");

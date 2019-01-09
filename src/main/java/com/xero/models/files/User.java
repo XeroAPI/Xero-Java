@@ -21,43 +21,120 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import org.threeten.bp.OffsetDateTime;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * User
  */
 
 public class User {
-  @JsonProperty("Name")
-  private String name = null;
+  
+  @JsonProperty("UserID")
+  private UUID userID = null;
 
+  
+  @JsonProperty("EmailAddress")
+  private String emailAddress = null;
+
+  
   @JsonProperty("FirstName")
   private String firstName = null;
 
+  
   @JsonProperty("LastName")
   private String lastName = null;
 
-  @JsonProperty("FullName")
-  private String fullName = null;
+  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
+  @JsonProperty("UpdatedDateUTC")
+  private OffsetDateTime updatedDateUTC = null;
 
-  @JsonProperty("Id")
-  private UUID id = null;
+  
+  @JsonProperty("IsSubscriber")
+  private Boolean isSubscriber = null;
 
-  public User name(String name) {
-    this.name = name;
+  /**
+   * Boolean to indicate if user is the subscriber
+   */
+  public enum OrganisationRoleEnum {
+    READONLY("READONLY"),
+    
+    INVOICEONLY("INVOICEONLY"),
+    
+    STANDARD("STANDARD"),
+    
+    FINANCIALADVISER("FINANCIALADVISER"),
+    
+    MANAGEDCLIENT("MANAGEDCLIENT"),
+    
+    CASHBOOKCLIENT("CASHBOOKCLIENT");
+
+    private String value;
+
+    OrganisationRoleEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static OrganisationRoleEnum fromValue(String text) {
+      for (OrganisationRoleEnum b : OrganisationRoleEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+    }
+  }
+
+  
+  @JsonProperty("OrganisationRole")
+  private OrganisationRoleEnum organisationRole = null;
+
+  public User userID(UUID userID) {
+    this.userID = userID;
     return this;
   }
 
    /**
-   * Get name
-   * @return name
+   * Xero identifier
+   * @return userID
   **/
-  @ApiModelProperty(example = "a.user@email.com", value = "")
-  public String getName() {
-    return name;
+  @ApiModelProperty(example = "4ff1e5cc-9835-40d5-bb18-09fdb118db9c", value = "Xero identifier")
+  public UUID getUserID() {
+    return userID;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setUserID(UUID userID) {
+    this.userID = userID;
+  }
+
+  public User emailAddress(String emailAddress) {
+    this.emailAddress = emailAddress;
+    return this;
+  }
+
+   /**
+   * Email address of user
+   * @return emailAddress
+  **/
+  @ApiModelProperty(example = "john.smith@mail.com", value = "Email address of user")
+  public String getEmailAddress() {
+    return emailAddress;
+  }
+
+  public void setEmailAddress(String emailAddress) {
+    this.emailAddress = emailAddress;
   }
 
   public User firstName(String firstName) {
@@ -66,10 +143,10 @@ public class User {
   }
 
    /**
-   * Get firstName
+   * First name of user
    * @return firstName
   **/
-  @ApiModelProperty(example = "A", value = "")
+  @ApiModelProperty(example = "John", required = true, value = "First name of user")
   public String getFirstName() {
     return firstName;
   }
@@ -84,10 +161,10 @@ public class User {
   }
 
    /**
-   * Get lastName
+   * Last name of user
    * @return lastName
   **/
-  @ApiModelProperty(example = "User", value = "")
+  @ApiModelProperty(example = "Smith", required = true, value = "Last name of user")
   public String getLastName() {
     return lastName;
   }
@@ -96,40 +173,58 @@ public class User {
     this.lastName = lastName;
   }
 
-  public User fullName(String fullName) {
-    this.fullName = fullName;
+  public User updatedDateUTC(OffsetDateTime updatedDateUTC) {
+    this.updatedDateUTC = updatedDateUTC;
     return this;
   }
 
    /**
-   * Get fullName
-   * @return fullName
+   * Last name of user
+   * @return updatedDateUTC
   **/
-  @ApiModelProperty(example = "A User", value = "")
-  public String getFullName() {
-    return fullName;
+  @ApiModelProperty(value = "Last name of user")
+  public OffsetDateTime getUpdatedDateUTC() {
+    return updatedDateUTC;
   }
 
-  public void setFullName(String fullName) {
-    this.fullName = fullName;
+  public void setUpdatedDateUTC(OffsetDateTime updatedDateUTC) {
+    this.updatedDateUTC = updatedDateUTC;
   }
 
-  public User id(UUID id) {
-    this.id = id;
+  public User isSubscriber(Boolean isSubscriber) {
+    this.isSubscriber = isSubscriber;
     return this;
   }
 
    /**
-   * Get id
-   * @return id
+   * Boolean to indicate if user is the subscriber
+   * @return isSubscriber
   **/
-  @ApiModelProperty(example = "4ff1e5cc-9835-40d5-bb18-09fdb118db9c", value = "")
-  public UUID getId() {
-    return id;
+  @ApiModelProperty(value = "Boolean to indicate if user is the subscriber")
+  public Boolean getIsSubscriber() {
+    return isSubscriber;
   }
 
-  public void setId(UUID id) {
-    this.id = id;
+  public void setIsSubscriber(Boolean isSubscriber) {
+    this.isSubscriber = isSubscriber;
+  }
+
+  public User organisationRole(OrganisationRoleEnum organisationRole) {
+    this.organisationRole = organisationRole;
+    return this;
+  }
+
+   /**
+   * Boolean to indicate if user is the subscriber
+   * @return organisationRole
+  **/
+  @ApiModelProperty(example = "STANDARD", value = "Boolean to indicate if user is the subscriber")
+  public OrganisationRoleEnum getOrganisationRole() {
+    return organisationRole;
+  }
+
+  public void setOrganisationRole(OrganisationRoleEnum organisationRole) {
+    this.organisationRole = organisationRole;
   }
 
 
@@ -142,16 +237,18 @@ public class User {
       return false;
     }
     User user = (User) o;
-    return Objects.equals(this.name, user.name) &&
+    return Objects.equals(this.userID, user.userID) &&
+        Objects.equals(this.emailAddress, user.emailAddress) &&
         Objects.equals(this.firstName, user.firstName) &&
         Objects.equals(this.lastName, user.lastName) &&
-        Objects.equals(this.fullName, user.fullName) &&
-        Objects.equals(this.id, user.id);
+        Objects.equals(this.updatedDateUTC, user.updatedDateUTC) &&
+        Objects.equals(this.isSubscriber, user.isSubscriber) &&
+        Objects.equals(this.organisationRole, user.organisationRole);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, firstName, lastName, fullName, id);
+    return Objects.hash(userID, emailAddress, firstName, lastName, updatedDateUTC, isSubscriber, organisationRole);
   }
 
 
@@ -160,11 +257,13 @@ public class User {
     StringBuilder sb = new StringBuilder();
     sb.append("class User {\n");
     
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    userID: ").append(toIndentedString(userID)).append("\n");
+    sb.append("    emailAddress: ").append(toIndentedString(emailAddress)).append("\n");
     sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
     sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
-    sb.append("    fullName: ").append(toIndentedString(fullName)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
+    sb.append("    isSubscriber: ").append(toIndentedString(isSubscriber)).append("\n");
+    sb.append("    organisationRole: ").append(toIndentedString(organisationRole)).append("\n");
     sb.append("}");
     return sb.toString();
   }
