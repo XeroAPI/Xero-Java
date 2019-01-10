@@ -74,7 +74,7 @@ Add the dependency to your pom.xml.  Gradle, sbt and other build tools can be fo
     <dependency>
       <groupId>com.github.xeroapi</groupId>
       <artifactId>xero-java</artifactId>
-      <version>2.2.2</version>
+      <version>2.2.3</version>
 	</dependency>
 
 
@@ -155,6 +155,21 @@ Here are examples of the minimum config.json for different Xero App Types.
 You have the option to implement your own Config class and pass it as an argument to the OAuthRequestToken, OAuthAccessToken and Api Clients (AccountingApi, AssetsApi, etc). 
 
 An example of how you might implement Config can be found in the `/src/main/java/com/xero/example` folder named `CustomJsonConfig.java`.
+
+```java
+try {
+	config = new CustomJsonConfig();
+	System.out.println("Your user agent is: " + config.getUserAgent());			
+} catch(Exception e) {
+	System.out.println(e.getMessage());
+}
+
+ApiClient apiClientForAccounting = new ApiClient(config.getApiUrl(),null,null,null);
+
+AccountingApi accountingApi = new AccountingApi(config);
+accountingApi.setApiClient(apiClientForAccounting);
+accountingApi.setOAuthToken(token, tokenSecret);
+```
 
 ### Spring Framework based Configuration
 
