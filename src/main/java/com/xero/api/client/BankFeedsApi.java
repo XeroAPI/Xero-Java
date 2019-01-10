@@ -13,9 +13,11 @@ import com.xero.api.exception.XeroExceptionHandler;
 import com.xero.model.*;
 import com.xero.api.*;
 
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.OffsetDateTime;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.threeten.bp.OffsetDateTime;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -52,7 +54,6 @@ public class BankFeedsApi {
     public BankFeedsApi(Config config) {
         this(config, new ConfigBasedSignerFactory(config));
         this.xeroExceptionHandler = new XeroExceptionHandler();
-        this.apiClient = apiClient;
     }
 
     public BankFeedsApi(Config config, SignerFactory signerFactory) {
@@ -178,13 +179,17 @@ public class BankFeedsApi {
     }
 
     protected String FILE(String url, String body, Map<String, String> params, String method, byte[] byteBody) throws IOException {
+        return this.FILE(url,body,params,method,byteBody,"application/octet-stream");
+    }
+    
+    protected String FILE(String url, String body, Map<String, String> params, String method, byte[] byteBody, String contentType) throws IOException {
         
         OAuthRequestResource req = new OAuthRequestResource(
             config, 
             signerFactory, 
             url, 
             method,
-            "application/octet-stream",
+            contentType,
             byteBody, 
             params,
             "application/json");
@@ -211,7 +216,6 @@ public class BankFeedsApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public FeedConnections createFeedConnections(FeedConnections feedConnections) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -219,13 +223,10 @@ public class BankFeedsApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-
-            ApiClient apiClient = new ApiClient();
-
+            
             strBody = apiClient.getObjectMapper().writeValueAsString(feedConnections);
-                        
+
             String response = this.DATA(url, strBody, params, "POST");
-                        
             TypeReference<FeedConnections> typeRef = new TypeReference<FeedConnections>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
 
@@ -248,7 +249,6 @@ public class BankFeedsApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Statements createStatements(Statements statements) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -256,13 +256,10 @@ public class BankFeedsApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-
-            ApiClient apiClient = new ApiClient();
-
+            
             strBody = apiClient.getObjectMapper().writeValueAsString(statements);
-                        
+
             String response = this.DATA(url, strBody, params, "POST");
-                        
             TypeReference<Statements> typeRef = new TypeReference<Statements>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
 
@@ -282,7 +279,6 @@ public class BankFeedsApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public FeedConnections deleteFeedConnections(FeedConnections feedConnections) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -290,13 +286,10 @@ public class BankFeedsApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-
-            ApiClient apiClient = new ApiClient();
-
+            
             strBody = apiClient.getObjectMapper().writeValueAsString(feedConnections);
-                        
+
             String response = this.DATA(url, strBody, params, "POST");
-                        
             TypeReference<FeedConnections> typeRef = new TypeReference<FeedConnections>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
 
@@ -316,7 +309,6 @@ public class BankFeedsApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public FeedConnection getFeedConnection(String id) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -335,12 +327,8 @@ public class BankFeedsApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
-            ApiClient apiClient = new ApiClient();
-            
             
             String response = this.DATA(url, strBody, params, "GET");
-            
             TypeReference<FeedConnection> typeRef = new TypeReference<FeedConnection>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
 
@@ -361,25 +349,20 @@ public class BankFeedsApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public FeedConnections getFeedConnections(Integer page, Integer pageSize) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/FeedConnections";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (page != null) {
                 addToMapIfNotNull(params, "page", page);
             }if (pageSize != null) {
                 addToMapIfNotNull(params, "pageSize", pageSize);
             }
-            ApiClient apiClient = new ApiClient();
-            
             
             String response = this.DATA(url, strBody, params, "GET");
-            
             TypeReference<FeedConnections> typeRef = new TypeReference<FeedConnections>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
 
@@ -397,7 +380,6 @@ public class BankFeedsApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Statement getStatement(String statementId) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -416,12 +398,8 @@ public class BankFeedsApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
-            ApiClient apiClient = new ApiClient();
-            
             
             String response = this.DATA(url, strBody, params, "GET");
-            
             TypeReference<Statement> typeRef = new TypeReference<Statement>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
 
@@ -443,25 +421,20 @@ public class BankFeedsApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Statements getStatements(Integer page, Integer pageSize, String xeroApplicationId, String xeroTenantId, String xeroUserId) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/Statements";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (page != null) {
                 addToMapIfNotNull(params, "page", page);
             }if (pageSize != null) {
                 addToMapIfNotNull(params, "pageSize", pageSize);
             }
-            ApiClient apiClient = new ApiClient();
-            
             
             String response = this.DATA(url, strBody, params, "GET", xeroApplicationId, xeroTenantId, xeroUserId);
-            
             TypeReference<Statements> typeRef = new TypeReference<Statements>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
 

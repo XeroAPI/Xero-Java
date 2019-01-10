@@ -13,9 +13,11 @@ import com.xero.api.exception.XeroExceptionHandler;
 import com.xero.model.*;
 import com.xero.api.*;
 
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.OffsetDateTime;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.threeten.bp.OffsetDateTime;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -52,7 +54,6 @@ public class AssetApi {
     public AssetApi(Config config) {
         this(config, new ConfigBasedSignerFactory(config));
         this.xeroExceptionHandler = new XeroExceptionHandler();
-        this.apiClient = apiClient;
     }
 
     public AssetApi(Config config, SignerFactory signerFactory) {
@@ -178,13 +179,17 @@ public class AssetApi {
     }
 
     protected String FILE(String url, String body, Map<String, String> params, String method, byte[] byteBody) throws IOException {
+        return this.FILE(url,body,params,method,byteBody,"application/octet-stream");
+    }
+    
+    protected String FILE(String url, String body, Map<String, String> params, String method, byte[] byteBody, String contentType) throws IOException {
         
         OAuthRequestResource req = new OAuthRequestResource(
             config, 
             signerFactory, 
             url, 
             method,
-            "application/octet-stream",
+            contentType,
             byteBody, 
             params,
             "application/json");
@@ -211,7 +216,6 @@ public class AssetApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Asset createAsset(Asset asset) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -219,13 +223,10 @@ public class AssetApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-
-            ApiClient apiClient = new ApiClient();
-
+            
             strBody = apiClient.getObjectMapper().writeValueAsString(asset);
-                        
+
             String response = this.DATA(url, strBody, params, "POST");
-                        
             TypeReference<Asset> typeRef = new TypeReference<Asset>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
 
@@ -246,7 +247,6 @@ public class AssetApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public AssetType createAssetType(AssetType assetType) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -254,13 +254,10 @@ public class AssetApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-
-            ApiClient apiClient = new ApiClient();
-
+            
             strBody = apiClient.getObjectMapper().writeValueAsString(assetType);
-                        
+
             String response = this.DATA(url, strBody, params, "POST");
-                        
             TypeReference<AssetType> typeRef = new TypeReference<AssetType>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
 
@@ -280,7 +277,6 @@ public class AssetApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Asset getAssetById(UUID id) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -299,12 +295,8 @@ public class AssetApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-
-            ApiClient apiClient = new ApiClient();
-            
             
             String response = this.DATA(url, strBody, params, "GET");
-            
             TypeReference<Asset> typeRef = new TypeReference<Asset>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
 
@@ -323,7 +315,6 @@ public class AssetApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Setting getAssetSettings() throws IOException {
-        // Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -331,12 +322,8 @@ public class AssetApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-
-            ApiClient apiClient = new ApiClient();
-            
             
             String response = this.DATA(url, strBody, params, "GET");
-            
             TypeReference<Setting> typeRef = new TypeReference<Setting>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
 
@@ -355,7 +342,6 @@ public class AssetApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public List<AssetType> getAssetTypes() throws IOException {
-        // Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -363,12 +349,8 @@ public class AssetApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-
-            ApiClient apiClient = new ApiClient();
-            
             
             String response = this.DATA(url, strBody, params, "GET");
-            
             TypeReference<List<AssetType>> typeRef = new TypeReference<List<AssetType>>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
 
@@ -393,14 +375,12 @@ public class AssetApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Assets getAssets(String status, Integer page, Integer pageSize, String orderBy, String sortDirection, String filterBy) throws IOException {
-        //, Map<String, String> params
         try {
             String strBody = null;
             Map<String, String> params = null;
             String correctPath = "/Assets";
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
-
             params = new HashMap<>();
             if (status != null) {
                 addToMapIfNotNull(params, "status", status);
@@ -415,11 +395,8 @@ public class AssetApi {
             }if (filterBy != null) {
                 addToMapIfNotNull(params, "filterBy", filterBy);
             }
-            ApiClient apiClient = new ApiClient();
-            
             
             String response = this.DATA(url, strBody, params, "GET");
-            
             TypeReference<Assets> typeRef = new TypeReference<Assets>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
 

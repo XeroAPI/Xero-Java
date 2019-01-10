@@ -96,7 +96,6 @@ public class AccountingApi {
     public AccountingApi(Config config) {
         this(config, new ConfigBasedSignerFactory(config));
         this.xeroExceptionHandler = new XeroExceptionHandler();
-        this.apiClient = apiClient;
     }
 
     public AccountingApi(Config config, SignerFactory signerFactory) {
@@ -264,7 +263,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(account);
 
@@ -307,7 +305,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
 
             String response = this.FILE(url, strBody, params, "PUT", body);
@@ -339,7 +336,6 @@ public class AccountingApi {
             if (summarizeErrors != null) {
                 addToMapIfNotNull(params, "SummarizeErrors", summarizeErrors);
             }
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(bankTransactions);
 
@@ -382,7 +378,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
 
             String response = this.FILE(url, strBody, params, "PUT", body);
@@ -422,7 +417,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
 
@@ -451,7 +445,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(bankTransfers);
 
@@ -494,7 +487,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
 
             String response = this.FILE(url, strBody, params, "PUT", body);
@@ -534,7 +526,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
 
@@ -563,7 +554,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(batchPayments);
 
@@ -604,7 +594,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
 
@@ -645,7 +634,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(paymentServices);
 
@@ -674,7 +662,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(contact);
 
@@ -717,7 +704,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
 
             String response = this.FILE(url, strBody, params, "PUT", body);
@@ -745,7 +731,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(contactGroups);
 
@@ -786,7 +771,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(contacts);
 
@@ -828,7 +812,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
 
@@ -861,7 +844,6 @@ public class AccountingApi {
             if (summarizeErrors != null) {
                 addToMapIfNotNull(params, "SummarizeErrors", summarizeErrors);
             }
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(creditNotes);
 
@@ -902,7 +884,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(allocations);
 
@@ -945,7 +926,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
 
             String response = this.FILE(url, strBody, params, "PUT", body);
@@ -986,7 +966,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
 
@@ -1015,7 +994,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(currencies);
 
@@ -1044,7 +1022,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(employees);
 
@@ -1077,7 +1054,6 @@ public class AccountingApi {
             if (summarizeErrors != null) {
                 addToMapIfNotNull(params, "SummarizeErrors", summarizeErrors);
             }
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(expenseClaims);
 
@@ -1119,7 +1095,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
 
@@ -1152,7 +1127,6 @@ public class AccountingApi {
             if (summarizeErrors != null) {
                 addToMapIfNotNull(params, "SummarizeErrors", summarizeErrors);
             }
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(invoices);
 
@@ -1195,7 +1169,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
 
             String response = this.FILE(url, strBody, params, "PUT", body);
@@ -1236,7 +1209,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
 
@@ -1265,7 +1237,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(items);
 
@@ -1306,7 +1277,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
 
@@ -1335,7 +1305,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(linkedTransactions);
 
@@ -1364,7 +1333,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(manualJournals);
 
@@ -1407,7 +1375,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
 
             String response = this.FILE(url, strBody, params, "PUT", body);
@@ -1447,7 +1414,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(allocations);
 
@@ -1489,7 +1455,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
 
@@ -1518,7 +1483,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(payments);
 
@@ -1560,7 +1524,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
 
@@ -1589,7 +1552,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(paymentServices);
 
@@ -1618,7 +1580,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(prepayments);
 
@@ -1659,7 +1620,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(allocations);
 
@@ -1701,7 +1661,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
 
@@ -1734,7 +1693,6 @@ public class AccountingApi {
             if (summarizeErrors != null) {
                 addToMapIfNotNull(params, "SummarizeErrors", summarizeErrors);
             }
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(purchaseOrders);
 
@@ -1775,7 +1733,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
 
@@ -1804,7 +1761,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(receipts);
 
@@ -1847,7 +1803,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
 
             String response = this.FILE(url, strBody, params, "PUT", body);
@@ -1888,7 +1843,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
 
@@ -1931,7 +1885,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
 
             String response = this.FILE(url, strBody, params, "PUT", body);
@@ -1971,7 +1924,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
 
@@ -2000,7 +1952,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(taxRates);
 
@@ -2029,7 +1980,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(trackingCategory);
 
@@ -2070,7 +2020,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(trackingOption);
 
@@ -2110,7 +2059,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "DELETE");
             TypeReference<Accounts> typeRef = new TypeReference<Accounts>() {};
@@ -2150,7 +2098,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "DELETE");
             TypeReference<Response204> typeRef = new TypeReference<Response204>() {};
@@ -2187,7 +2134,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "DELETE");
             TypeReference<Response204> typeRef = new TypeReference<Response204>() {};
@@ -2225,7 +2171,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "DELETE");
             TypeReference<Response204> typeRef = new TypeReference<Response204>() {};
@@ -2263,7 +2208,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "DELETE");
             TypeReference<Response204> typeRef = new TypeReference<Response204>() {};
@@ -2301,7 +2245,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "DELETE");
             TypeReference<TrackingCategories> typeRef = new TypeReference<TrackingCategories>() {};
@@ -2341,7 +2284,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "DELETE");
             TypeReference<TrackingOptions> typeRef = new TypeReference<TrackingOptions>() {};
@@ -2381,7 +2323,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(requestEmpty);
 
@@ -2421,7 +2362,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<Accounts> typeRef = new TypeReference<Accounts>() {};
@@ -2462,7 +2402,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET", contentType);
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
@@ -2503,7 +2442,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
                         ByteArrayInputStream response = this.FILE(url, strBody, params, "GET", contentType);
             return response;
             
@@ -2539,7 +2477,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
@@ -2573,7 +2510,6 @@ public class AccountingApi {
             }if (order != null) {
                 addToMapIfNotNull(params, "order", order);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
             TypeReference<Accounts> typeRef = new TypeReference<Accounts>() {};
@@ -2611,7 +2547,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<BankTransactions> typeRef = new TypeReference<BankTransactions>() {};
@@ -2652,7 +2587,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET", contentType);
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
@@ -2693,7 +2627,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
                         ByteArrayInputStream response = this.FILE(url, strBody, params, "GET", contentType);
             return response;
             
@@ -2729,7 +2662,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
@@ -2766,7 +2698,6 @@ public class AccountingApi {
             }if (page != null) {
                 addToMapIfNotNull(params, "page", page);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
             TypeReference<BankTransactions> typeRef = new TypeReference<BankTransactions>() {};
@@ -2804,7 +2735,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
@@ -2842,7 +2772,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<BankTransfers> typeRef = new TypeReference<BankTransfers>() {};
@@ -2883,7 +2812,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET", contentType);
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
@@ -2924,7 +2852,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
                         ByteArrayInputStream response = this.FILE(url, strBody, params, "GET", contentType);
             return response;
             
@@ -2960,7 +2887,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
@@ -2998,7 +2924,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
@@ -3032,7 +2957,6 @@ public class AccountingApi {
             }if (order != null) {
                 addToMapIfNotNull(params, "order", order);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
             TypeReference<BankTransfers> typeRef = new TypeReference<BankTransfers>() {};
@@ -3070,7 +2994,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
@@ -3104,7 +3027,6 @@ public class AccountingApi {
             }if (order != null) {
                 addToMapIfNotNull(params, "order", order);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
             TypeReference<BatchPayments> typeRef = new TypeReference<BatchPayments>() {};
@@ -3142,7 +3064,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<BrandingThemes> typeRef = new TypeReference<BrandingThemes>() {};
@@ -3180,7 +3101,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<PaymentServices> typeRef = new TypeReference<PaymentServices>() {};
@@ -3206,7 +3126,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<BrandingThemes> typeRef = new TypeReference<BrandingThemes>() {};
@@ -3244,7 +3163,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<Contacts> typeRef = new TypeReference<Contacts>() {};
@@ -3285,7 +3203,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET", contentType);
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
@@ -3326,7 +3243,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
                         ByteArrayInputStream response = this.FILE(url, strBody, params, "GET", contentType);
             return response;
             
@@ -3362,7 +3278,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
@@ -3400,7 +3315,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<CISSettings> typeRef = new TypeReference<CISSettings>() {};
@@ -3438,7 +3352,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<ContactGroups> typeRef = new TypeReference<ContactGroups>() {};
@@ -3471,7 +3384,6 @@ public class AccountingApi {
             }if (order != null) {
                 addToMapIfNotNull(params, "order", order);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<ContactGroups> typeRef = new TypeReference<ContactGroups>() {};
@@ -3509,7 +3421,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
@@ -3552,7 +3463,6 @@ public class AccountingApi {
             }if (includeArchived != null) {
                 addToMapIfNotNull(params, "includeArchived", includeArchived);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
             TypeReference<Contacts> typeRef = new TypeReference<Contacts>() {};
@@ -3590,7 +3500,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<CreditNotes> typeRef = new TypeReference<CreditNotes>() {};
@@ -3629,7 +3538,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
                         ByteArrayInputStream response = this.FILE(url, strBody, params, "GET", contentType);
             return response;
             
@@ -3668,7 +3576,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET", contentType);
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
@@ -3709,7 +3616,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
                         ByteArrayInputStream response = this.FILE(url, strBody, params, "GET", contentType);
             return response;
             
@@ -3745,7 +3651,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
@@ -3783,7 +3688,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
@@ -3820,7 +3724,6 @@ public class AccountingApi {
             }if (page != null) {
                 addToMapIfNotNull(params, "page", page);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
             TypeReference<CreditNotes> typeRef = new TypeReference<CreditNotes>() {};
@@ -3853,7 +3756,6 @@ public class AccountingApi {
             }if (order != null) {
                 addToMapIfNotNull(params, "order", order);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<Currencies> typeRef = new TypeReference<Currencies>() {};
@@ -3891,7 +3793,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<Employees> typeRef = new TypeReference<Employees>() {};
@@ -3925,7 +3826,6 @@ public class AccountingApi {
             }if (order != null) {
                 addToMapIfNotNull(params, "order", order);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
             TypeReference<Employees> typeRef = new TypeReference<Employees>() {};
@@ -3963,7 +3863,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<ExpenseClaims> typeRef = new TypeReference<ExpenseClaims>() {};
@@ -4001,7 +3900,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
@@ -4035,7 +3933,6 @@ public class AccountingApi {
             }if (order != null) {
                 addToMapIfNotNull(params, "order", order);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
             TypeReference<ExpenseClaims> typeRef = new TypeReference<ExpenseClaims>() {};
@@ -4073,7 +3970,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<Invoices> typeRef = new TypeReference<Invoices>() {};
@@ -4112,7 +4008,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
                         ByteArrayInputStream response = this.FILE(url, strBody, params, "GET", contentType);
             return response;
             
@@ -4151,7 +4046,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET", contentType);
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
@@ -4192,7 +4086,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
                         ByteArrayInputStream response = this.FILE(url, strBody, params, "GET", contentType);
             return response;
             
@@ -4228,7 +4121,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
@@ -4266,7 +4158,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
@@ -4292,7 +4183,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<InvoiceReminders> typeRef = new TypeReference<InvoiceReminders>() {};
@@ -4347,7 +4237,6 @@ public class AccountingApi {
             }if (createdByMyApp != null) {
                 addToMapIfNotNull(params, "createdByMyApp", createdByMyApp);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
             TypeReference<Invoices> typeRef = new TypeReference<Invoices>() {};
@@ -4385,7 +4274,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<Items> typeRef = new TypeReference<Items>() {};
@@ -4423,7 +4311,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
@@ -4457,7 +4344,6 @@ public class AccountingApi {
             }if (order != null) {
                 addToMapIfNotNull(params, "order", order);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
             TypeReference<Items> typeRef = new TypeReference<Items>() {};
@@ -4495,7 +4381,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<Journals> typeRef = new TypeReference<Journals>() {};
@@ -4529,7 +4414,6 @@ public class AccountingApi {
             }if (paymentsOnly != null) {
                 addToMapIfNotNull(params, "paymentsOnly", paymentsOnly);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
             TypeReference<Journals> typeRef = new TypeReference<Journals>() {};
@@ -4567,7 +4451,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<LinkedTransactions> typeRef = new TypeReference<LinkedTransactions>() {};
@@ -4612,7 +4495,6 @@ public class AccountingApi {
             }if (targetTransactionID != null) {
                 addToMapIfNotNull(params, "TargetTransactionID", targetTransactionID);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<LinkedTransactions> typeRef = new TypeReference<LinkedTransactions>() {};
@@ -4650,7 +4532,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<ManualJournals> typeRef = new TypeReference<ManualJournals>() {};
@@ -4691,7 +4572,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET", contentType);
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
@@ -4732,7 +4612,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
                         ByteArrayInputStream response = this.FILE(url, strBody, params, "GET", contentType);
             return response;
             
@@ -4768,7 +4647,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
@@ -4805,7 +4683,6 @@ public class AccountingApi {
             }if (page != null) {
                 addToMapIfNotNull(params, "page", page);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
             TypeReference<ManualJournals> typeRef = new TypeReference<ManualJournals>() {};
@@ -4843,7 +4720,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<OnlineInvoices> typeRef = new TypeReference<OnlineInvoices>() {};
@@ -4881,7 +4757,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<Organisations> typeRef = new TypeReference<Organisations>() {};
@@ -4907,7 +4782,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<Organisations> typeRef = new TypeReference<Organisations>() {};
@@ -4945,7 +4819,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<Overpayments> typeRef = new TypeReference<Overpayments>() {};
@@ -4983,7 +4856,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
@@ -5020,7 +4892,6 @@ public class AccountingApi {
             }if (page != null) {
                 addToMapIfNotNull(params, "page", page);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
             TypeReference<Overpayments> typeRef = new TypeReference<Overpayments>() {};
@@ -5058,7 +4929,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<Payments> typeRef = new TypeReference<Payments>() {};
@@ -5096,7 +4966,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
@@ -5122,7 +4991,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<PaymentServices> typeRef = new TypeReference<PaymentServices>() {};
@@ -5156,7 +5024,6 @@ public class AccountingApi {
             }if (order != null) {
                 addToMapIfNotNull(params, "order", order);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
             TypeReference<Payments> typeRef = new TypeReference<Payments>() {};
@@ -5194,7 +5061,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<Prepayments> typeRef = new TypeReference<Prepayments>() {};
@@ -5232,7 +5098,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
@@ -5269,7 +5134,6 @@ public class AccountingApi {
             }if (page != null) {
                 addToMapIfNotNull(params, "page", page);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
             TypeReference<Prepayments> typeRef = new TypeReference<Prepayments>() {};
@@ -5307,7 +5171,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<PurchaseOrders> typeRef = new TypeReference<PurchaseOrders>() {};
@@ -5345,7 +5208,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
@@ -5388,7 +5250,6 @@ public class AccountingApi {
             }if (page != null) {
                 addToMapIfNotNull(params, "page", page);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
             TypeReference<PurchaseOrders> typeRef = new TypeReference<PurchaseOrders>() {};
@@ -5426,7 +5287,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<Receipts> typeRef = new TypeReference<Receipts>() {};
@@ -5467,7 +5327,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET", contentType);
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
@@ -5508,7 +5367,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
                         ByteArrayInputStream response = this.FILE(url, strBody, params, "GET", contentType);
             return response;
             
@@ -5544,7 +5402,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
@@ -5582,7 +5439,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
@@ -5616,7 +5472,6 @@ public class AccountingApi {
             }if (order != null) {
                 addToMapIfNotNull(params, "order", order);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
             TypeReference<Receipts> typeRef = new TypeReference<Receipts>() {};
@@ -5654,7 +5509,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<RepeatingInvoices> typeRef = new TypeReference<RepeatingInvoices>() {};
@@ -5695,7 +5549,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET", contentType);
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
@@ -5736,7 +5589,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
                         ByteArrayInputStream response = this.FILE(url, strBody, params, "GET", contentType);
             return response;
             
@@ -5772,7 +5624,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
@@ -5810,7 +5661,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
@@ -5843,7 +5693,6 @@ public class AccountingApi {
             }if (order != null) {
                 addToMapIfNotNull(params, "order", order);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<RepeatingInvoices> typeRef = new TypeReference<RepeatingInvoices>() {};
@@ -5882,7 +5731,6 @@ public class AccountingApi {
             }if (toDate != null) {
                 addToMapIfNotNull(params, "toDate", toDate);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<ReportWithRows> typeRef = new TypeReference<ReportWithRows>() {};
@@ -5921,7 +5769,6 @@ public class AccountingApi {
             }if (toDate != null) {
                 addToMapIfNotNull(params, "toDate", toDate);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<ReportWithRows> typeRef = new TypeReference<ReportWithRows>() {};
@@ -5959,7 +5806,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<ReportWithRows> typeRef = new TypeReference<ReportWithRows>() {};
@@ -5985,7 +5831,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<ReportWithRows> typeRef = new TypeReference<ReportWithRows>() {};
@@ -6033,7 +5878,6 @@ public class AccountingApi {
             }if (paymentsOnly != null) {
                 addToMapIfNotNull(params, "paymentsOnly", paymentsOnly);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<ReportWithRows> typeRef = new TypeReference<ReportWithRows>() {};
@@ -6069,7 +5913,6 @@ public class AccountingApi {
             }if (timeframe != null) {
                 addToMapIfNotNull(params, "timeframe", timeframe);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<ReportWithRows> typeRef = new TypeReference<ReportWithRows>() {};
@@ -6099,7 +5942,6 @@ public class AccountingApi {
             if (date != null) {
                 addToMapIfNotNull(params, "date", date);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<ReportWithRows> typeRef = new TypeReference<ReportWithRows>() {};
@@ -6156,7 +5998,6 @@ public class AccountingApi {
             }if (paymentsOnly != null) {
                 addToMapIfNotNull(params, "paymentsOnly", paymentsOnly);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<ReportWithRows> typeRef = new TypeReference<ReportWithRows>() {};
@@ -6186,7 +6027,6 @@ public class AccountingApi {
             if (reportYear != null) {
                 addToMapIfNotNull(params, "reportYear", reportYear);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<Reports> typeRef = new TypeReference<Reports>() {};
@@ -6219,7 +6059,6 @@ public class AccountingApi {
             }if (paymentsOnly != null) {
                 addToMapIfNotNull(params, "paymentsOnly", paymentsOnly);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<ReportWithRows> typeRef = new TypeReference<ReportWithRows>() {};
@@ -6255,7 +6094,6 @@ public class AccountingApi {
             }if (taxType != null) {
                 addToMapIfNotNull(params, "TaxType", taxType);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<TaxRates> typeRef = new TypeReference<TaxRates>() {};
@@ -6291,7 +6129,6 @@ public class AccountingApi {
             }if (includeArchived != null) {
                 addToMapIfNotNull(params, "includeArchived", includeArchived);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<TrackingCategories> typeRef = new TypeReference<TrackingCategories>() {};
@@ -6329,7 +6166,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<TrackingCategories> typeRef = new TypeReference<TrackingCategories>() {};
@@ -6367,7 +6203,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<Users> typeRef = new TypeReference<Users>() {};
@@ -6401,7 +6236,6 @@ public class AccountingApi {
             }if (order != null) {
                 addToMapIfNotNull(params, "order", order);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
             TypeReference<Users> typeRef = new TypeReference<Users>() {};
@@ -6440,7 +6274,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(accounts);
 
@@ -6483,7 +6316,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
 
@@ -6526,7 +6358,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
 
@@ -6567,7 +6398,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(bankTransactions);
 
@@ -6610,7 +6440,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
 
@@ -6653,7 +6482,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
 
@@ -6696,7 +6524,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
 
@@ -6739,7 +6566,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
 
@@ -6780,7 +6606,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(contacts);
 
@@ -6823,7 +6648,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
 
@@ -6866,7 +6690,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
 
@@ -6907,7 +6730,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(contactGroups);
 
@@ -6948,7 +6770,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(creditNotes);
 
@@ -6991,7 +6812,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
 
@@ -7034,7 +6854,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
 
@@ -7075,7 +6894,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(employees);
 
@@ -7116,7 +6934,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(expenseClaims);
 
@@ -7157,7 +6974,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(invoices);
 
@@ -7200,7 +7016,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
 
@@ -7243,7 +7058,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
 
@@ -7284,7 +7098,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(items);
 
@@ -7325,7 +7138,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(linkedTransactions);
 
@@ -7366,7 +7178,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(manualJournals);
 
@@ -7409,7 +7220,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
 
@@ -7452,7 +7262,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
 
@@ -7493,7 +7302,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(payments);
 
@@ -7534,7 +7342,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(purchaseOrders);
 
@@ -7575,7 +7382,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(receipts);
 
@@ -7618,7 +7424,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
 
@@ -7661,7 +7466,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
 
@@ -7704,7 +7508,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
 
@@ -7747,7 +7550,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(body);
 
@@ -7776,7 +7578,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(taxRates);
 
@@ -7817,7 +7618,6 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(trackingCategory);
 

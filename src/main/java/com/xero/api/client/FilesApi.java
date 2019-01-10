@@ -56,7 +56,6 @@ public class FilesApi {
     public FilesApi(Config config) {
         this(config, new ConfigBasedSignerFactory(config));
         this.xeroExceptionHandler = new XeroExceptionHandler();
-        this.apiClient = apiClient;
     }
 
     public FilesApi(Config config, SignerFactory signerFactory) {
@@ -238,7 +237,6 @@ public class FilesApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(association);
 
@@ -269,7 +267,6 @@ public class FilesApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(folder);
 
@@ -310,7 +307,6 @@ public class FilesApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "DELETE");
             TypeReference<FileResponse204> typeRef = new TypeReference<FileResponse204>() {};
@@ -352,7 +348,6 @@ public class FilesApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "DELETE");
             TypeReference<FileResponse204> typeRef = new TypeReference<FileResponse204>() {};
@@ -392,7 +387,6 @@ public class FilesApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "DELETE");
             TypeReference<FileResponse204> typeRef = new TypeReference<FileResponse204>() {};
@@ -431,7 +425,6 @@ public class FilesApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<List<Association>> typeRef = new TypeReference<List<Association>>() {};
@@ -469,7 +462,6 @@ public class FilesApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<FileObject> typeRef = new TypeReference<FileObject>() {};
@@ -508,7 +500,6 @@ public class FilesApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<List<Association>> typeRef = new TypeReference<List<Association>>() {};
@@ -547,7 +538,6 @@ public class FilesApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
                         ByteArrayInputStream response = this.FILE(url, strBody, params, "GET");
             return response;
             
@@ -582,7 +572,6 @@ public class FilesApi {
             }if (sort != null) {
                 addToMapIfNotNull(params, "sort", sort);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<Files> typeRef = new TypeReference<Files>() {};
@@ -622,7 +611,6 @@ public class FilesApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<Folder> typeRef = new TypeReference<Folder>() {};
@@ -654,7 +642,6 @@ public class FilesApi {
             if (sort != null) {
                 addToMapIfNotNull(params, "sort", sort);
             }
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<List<Folder>> typeRef = new TypeReference<List<Folder>>() {};
@@ -682,7 +669,6 @@ public class FilesApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            ApiClient apiClient = new ApiClient();
             
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<Folder> typeRef = new TypeReference<Folder>() {};
@@ -722,7 +708,6 @@ public class FilesApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(fileObject);
 
@@ -765,7 +750,6 @@ public class FilesApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            ApiClient apiClient = new ApiClient();
             
             strBody = apiClient.getObjectMapper().writeValueAsString(folder);
 
@@ -803,7 +787,6 @@ public class FilesApi {
             if (folderId != null) {
                 addToMapIfNotNull(params, "folderId", folderId);
             }
-            ApiClient apiClient = new ApiClient();
             
             UUID uuid = UUID.randomUUID();
             String boundary = uuid.toString();
