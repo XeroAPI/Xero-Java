@@ -180,7 +180,9 @@ public class Account {
     
     CREDITCARD("CREDITCARD"),
     
-    PAYPAL("PAYPAL");
+    PAYPAL("PAYPAL"),
+    
+    EMPTY("");
 
     private String value;
 
@@ -302,7 +304,9 @@ public class Account {
     
     UNREALISEDCURRENCYGAIN("UNREALISEDCURRENCYGAIN"),
     
-    WAGEPAYABLES("WAGEPAYABLES");
+    WAGEPAYABLES("WAGEPAYABLES"),
+    
+    EMPTY("");
 
     private String value;
 
