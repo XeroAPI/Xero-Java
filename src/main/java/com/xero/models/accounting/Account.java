@@ -18,6 +18,7 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.AccountType;
 import com.xero.models.accounting.CurrencyCode;
 import com.xero.models.accounting.TaxType;
 import io.swagger.annotations.ApiModel;
@@ -44,84 +45,9 @@ public class Account {
   @JsonProperty("AccountID")
   private UUID accountID = null;
 
-  /**
-   * See Account Types
-   */
-  public enum TypeEnum {
-    BANK("BANK"),
-    
-    CURRENT("CURRENT"),
-    
-    CURRLIAB("CURRLIAB"),
-    
-    DEPRECIATN("DEPRECIATN"),
-    
-    DIRECTCOSTS("DIRECTCOSTS"),
-    
-    EQUITY("EQUITY"),
-    
-    EXPENSE("EXPENSE"),
-    
-    FIXED("FIXED"),
-    
-    INVENTORY("INVENTORY"),
-    
-    LIABILITY("LIABILITY"),
-    
-    NONCURRENT("NONCURRENT"),
-    
-    OTHERINCOME("OTHERINCOME"),
-    
-    OVERHEADS("OVERHEADS"),
-    
-    PREPAYMENT("PREPAYMENT"),
-    
-    REVENUE("REVENUE"),
-    
-    SALES("SALES"),
-    
-    TERMLIAB("TERMLIAB"),
-    
-    PAYGLIABILITY("PAYGLIABILITY"),
-    
-    PAYG("PAYG"),
-    
-    SUPERANNUATIONEXPENSE("SUPERANNUATIONEXPENSE"),
-    
-    SUPERANNUATIONLIABILITY("SUPERANNUATIONLIABILITY"),
-    
-    WAGESEXPENSE("WAGESEXPENSE");
-
-    private String value;
-
-    TypeEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static TypeEnum fromValue(String text) {
-      for (TypeEnum b : TypeEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
-    }
-  }
-
   
   @JsonProperty("Type")
-  private TypeEnum type = null;
+  private AccountType type = null;
 
   
   @JsonProperty("BankAccountNumber")
@@ -409,21 +335,21 @@ public class Account {
     this.accountID = accountID;
   }
 
-  public Account type(TypeEnum type) {
+  public Account type(AccountType type) {
     this.type = type;
     return this;
   }
 
    /**
-   * See Account Types
+   * Get type
    * @return type
   **/
-  @ApiModelProperty(value = "See Account Types")
-  public TypeEnum getType() {
+  @ApiModelProperty(value = "")
+  public AccountType getType() {
     return type;
   }
 
-  public void setType(TypeEnum type) {
+  public void setType(AccountType type) {
     this.type = type;
   }
 

@@ -18,12 +18,14 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.AccountType;
 import com.xero.models.accounting.TaxType;
 import com.xero.models.accounting.TrackingCategory;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -33,45 +35,87 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 public class JournalLine {
   
-  @JsonProperty("LineAmount")
-  private String lineAmount = null;
+  @JsonProperty("JournalLineID")
+  private UUID journalLineID = null;
+
+  
+  @JsonProperty("AccountID")
+  private UUID accountID = null;
 
   
   @JsonProperty("AccountCode")
   private String accountCode = null;
 
   
+  @JsonProperty("AccountType")
+  private AccountType accountType = null;
+
+  
+  @JsonProperty("AccountName")
+  private String accountName = null;
+
+  
   @JsonProperty("Description")
   private String description = null;
+
+  
+  @JsonProperty("NetAmount")
+  private Float netAmount = null;
+
+  
+  @JsonProperty("GrossAmount")
+  private Float grossAmount = null;
+
+  
+  @JsonProperty("TaxAmount")
+  private Float taxAmount = null;
 
   
   @JsonProperty("TaxType")
   private TaxType taxType = null;
 
   
-  @JsonProperty("Tracking")
-  private List<TrackingCategory> tracking = null;
+  @JsonProperty("TaxName")
+  private String taxName = null;
 
   
-  @JsonProperty("TaxAmount")
-  private Float taxAmount = null;
+  @JsonProperty("TrackingCategories")
+  private List<TrackingCategory> trackingCategories = null;
 
-  public JournalLine lineAmount(String lineAmount) {
-    this.lineAmount = lineAmount;
+  public JournalLine journalLineID(UUID journalLineID) {
+    this.journalLineID = journalLineID;
     return this;
   }
 
    /**
-   * total for line. Debits are positive, credits are negative value
-   * @return lineAmount
+   * Xero identifier for Journal
+   * @return journalLineID
   **/
-  @ApiModelProperty(required = true, value = "total for line. Debits are positive, credits are negative value")
-  public String getLineAmount() {
-    return lineAmount;
+  @ApiModelProperty(example = "7be9db36-3598-4755-ba5c-c2dbc8c4a7a2", value = "Xero identifier for Journal")
+  public UUID getJournalLineID() {
+    return journalLineID;
   }
 
-  public void setLineAmount(String lineAmount) {
-    this.lineAmount = lineAmount;
+  public void setJournalLineID(UUID journalLineID) {
+    this.journalLineID = journalLineID;
+  }
+
+  public JournalLine accountID(UUID accountID) {
+    this.accountID = accountID;
+    return this;
+  }
+
+   /**
+   * See Accounts
+   * @return accountID
+  **/
+  @ApiModelProperty(example = "ceef66a5-a545-413b-9312-78a53caadbc4", value = "See Accounts")
+  public UUID getAccountID() {
+    return accountID;
+  }
+
+  public void setAccountID(UUID accountID) {
+    this.accountID = accountID;
   }
 
   public JournalLine accountCode(String accountCode) {
@@ -83,7 +127,7 @@ public class JournalLine {
    * See Accounts
    * @return accountCode
   **/
-  @ApiModelProperty(required = true, value = "See Accounts")
+  @ApiModelProperty(example = "90.0", value = "See Accounts")
   public String getAccountCode() {
     return accountCode;
   }
@@ -92,22 +136,103 @@ public class JournalLine {
     this.accountCode = accountCode;
   }
 
+  public JournalLine accountType(AccountType accountType) {
+    this.accountType = accountType;
+    return this;
+  }
+
+   /**
+   * Get accountType
+   * @return accountType
+  **/
+  @ApiModelProperty(value = "")
+  public AccountType getAccountType() {
+    return accountType;
+  }
+
+  public void setAccountType(AccountType accountType) {
+    this.accountType = accountType;
+  }
+
+  public JournalLine accountName(String accountName) {
+    this.accountName = accountName;
+    return this;
+  }
+
+   /**
+   * See AccountCodes
+   * @return accountName
+  **/
+  @ApiModelProperty(example = "Checking Account", value = "See AccountCodes")
+  public String getAccountName() {
+    return accountName;
+  }
+
+  public void setAccountName(String accountName) {
+    this.accountName = accountName;
+  }
+
   public JournalLine description(String description) {
     this.description = description;
     return this;
   }
 
    /**
-   * Description for journal line
+   * The description from the source transaction line item. Only returned if populated.
    * @return description
   **/
-  @ApiModelProperty(value = "Description for journal line")
+  @ApiModelProperty(example = "My business checking account", value = "The description from the source transaction line item. Only returned if populated.")
   public String getDescription() {
     return description;
   }
 
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  public JournalLine netAmount(Float netAmount) {
+    this.netAmount = netAmount;
+    return this;
+  }
+
+   /**
+   * Net amount of journal line. This will be a positive value for a debit and negative for a credit
+   * @return netAmount
+  **/
+  @ApiModelProperty(example = "4130.98", value = "Net amount of journal line. This will be a positive value for a debit and negative for a credit")
+  public Float getNetAmount() {
+    return netAmount;
+  }
+
+  public void setNetAmount(Float netAmount) {
+    this.netAmount = netAmount;
+  }
+
+  public JournalLine grossAmount(Float grossAmount) {
+    this.grossAmount = grossAmount;
+    return this;
+  }
+
+   /**
+   * Gross amount of journal line (NetAmount + TaxAmount).
+   * @return grossAmount
+  **/
+  @ApiModelProperty(example = "4130.98", value = "Gross amount of journal line (NetAmount + TaxAmount).")
+  public Float getGrossAmount() {
+    return grossAmount;
+  }
+
+  public void setGrossAmount(Float grossAmount) {
+    this.grossAmount = grossAmount;
+  }
+
+   /**
+   * Total tax on a journal line
+   * @return taxAmount
+  **/
+  @ApiModelProperty(example = "0.0", value = "Total tax on a journal line")
+  public Float getTaxAmount() {
+    return taxAmount;
   }
 
   public JournalLine taxType(TaxType taxType) {
@@ -128,39 +253,48 @@ public class JournalLine {
     this.taxType = taxType;
   }
 
-  public JournalLine tracking(List<TrackingCategory> tracking) {
-    this.tracking = tracking;
+  public JournalLine taxName(String taxName) {
+    this.taxName = taxName;
     return this;
   }
 
-  public JournalLine addTrackingItem(TrackingCategory trackingItem) {
-    if (this.tracking == null) {
-      this.tracking = new ArrayList<TrackingCategory>();
+   /**
+   * see TaxRates
+   * @return taxName
+  **/
+  @ApiModelProperty(example = "Tax Exempt", value = "see TaxRates")
+  public String getTaxName() {
+    return taxName;
+  }
+
+  public void setTaxName(String taxName) {
+    this.taxName = taxName;
+  }
+
+  public JournalLine trackingCategories(List<TrackingCategory> trackingCategories) {
+    this.trackingCategories = trackingCategories;
+    return this;
+  }
+
+  public JournalLine addTrackingCategoriesItem(TrackingCategory trackingCategoriesItem) {
+    if (this.trackingCategories == null) {
+      this.trackingCategories = new ArrayList<TrackingCategory>();
     }
-    this.tracking.add(trackingItem);
+    this.trackingCategories.add(trackingCategoriesItem);
     return this;
   }
 
    /**
    * Optional Tracking Category – see Tracking. Any JournalLine can have a maximum of 2 &lt;TrackingCategory&gt; elements.
-   * @return tracking
+   * @return trackingCategories
   **/
   @ApiModelProperty(value = "Optional Tracking Category – see Tracking. Any JournalLine can have a maximum of 2 <TrackingCategory> elements.")
-  public List<TrackingCategory> getTracking() {
-    return tracking;
+  public List<TrackingCategory> getTrackingCategories() {
+    return trackingCategories;
   }
 
-  public void setTracking(List<TrackingCategory> tracking) {
-    this.tracking = tracking;
-  }
-
-   /**
-   * The calculated tax amount based on the TaxType and LineAmount
-   * @return taxAmount
-  **/
-  @ApiModelProperty(value = "The calculated tax amount based on the TaxType and LineAmount")
-  public Float getTaxAmount() {
-    return taxAmount;
+  public void setTrackingCategories(List<TrackingCategory> trackingCategories) {
+    this.trackingCategories = trackingCategories;
   }
 
 
@@ -173,17 +307,23 @@ public class JournalLine {
       return false;
     }
     JournalLine journalLine = (JournalLine) o;
-    return Objects.equals(this.lineAmount, journalLine.lineAmount) &&
+    return Objects.equals(this.journalLineID, journalLine.journalLineID) &&
+        Objects.equals(this.accountID, journalLine.accountID) &&
         Objects.equals(this.accountCode, journalLine.accountCode) &&
+        Objects.equals(this.accountType, journalLine.accountType) &&
+        Objects.equals(this.accountName, journalLine.accountName) &&
         Objects.equals(this.description, journalLine.description) &&
+        Objects.equals(this.netAmount, journalLine.netAmount) &&
+        Objects.equals(this.grossAmount, journalLine.grossAmount) &&
+        Objects.equals(this.taxAmount, journalLine.taxAmount) &&
         Objects.equals(this.taxType, journalLine.taxType) &&
-        Objects.equals(this.tracking, journalLine.tracking) &&
-        Objects.equals(this.taxAmount, journalLine.taxAmount);
+        Objects.equals(this.taxName, journalLine.taxName) &&
+        Objects.equals(this.trackingCategories, journalLine.trackingCategories);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(lineAmount, accountCode, description, taxType, tracking, taxAmount);
+    return Objects.hash(journalLineID, accountID, accountCode, accountType, accountName, description, netAmount, grossAmount, taxAmount, taxType, taxName, trackingCategories);
   }
 
 
@@ -192,12 +332,18 @@ public class JournalLine {
     StringBuilder sb = new StringBuilder();
     sb.append("class JournalLine {\n");
     
-    sb.append("    lineAmount: ").append(toIndentedString(lineAmount)).append("\n");
+    sb.append("    journalLineID: ").append(toIndentedString(journalLineID)).append("\n");
+    sb.append("    accountID: ").append(toIndentedString(accountID)).append("\n");
     sb.append("    accountCode: ").append(toIndentedString(accountCode)).append("\n");
+    sb.append("    accountType: ").append(toIndentedString(accountType)).append("\n");
+    sb.append("    accountName: ").append(toIndentedString(accountName)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    taxType: ").append(toIndentedString(taxType)).append("\n");
-    sb.append("    tracking: ").append(toIndentedString(tracking)).append("\n");
+    sb.append("    netAmount: ").append(toIndentedString(netAmount)).append("\n");
+    sb.append("    grossAmount: ").append(toIndentedString(grossAmount)).append("\n");
     sb.append("    taxAmount: ").append(toIndentedString(taxAmount)).append("\n");
+    sb.append("    taxType: ").append(toIndentedString(taxType)).append("\n");
+    sb.append("    taxName: ").append(toIndentedString(taxName)).append("\n");
+    sb.append("    trackingCategories: ").append(toIndentedString(trackingCategories)).append("\n");
     sb.append("}");
     return sb.toString();
   }
