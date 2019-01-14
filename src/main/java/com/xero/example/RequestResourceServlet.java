@@ -74,6 +74,7 @@ import com.xero.models.accounting.LineItem;
 import com.xero.models.accounting.LinkedTransaction;
 import com.xero.models.accounting.LinkedTransactions;
 import com.xero.models.accounting.ManualJournal;
+import com.xero.models.accounting.ManualJournalLine;
 import com.xero.models.accounting.ManualJournals;
 import com.xero.models.accounting.OnlineInvoices;
 import com.xero.models.accounting.Organisations;
@@ -2015,30 +2016,30 @@ public class RequestResourceServlet extends HttpServlet
 			/* MANUAL JOURNAL */ 
 			try {
 				// Create Manual Journal
-			    where = "Type==\"EXPENSE\"";
+			    where = "Type==\"EXPENSE\" && Status ==\"ACTIVE\"";
 				Accounts accounts = accountingApi.getAccounts(ifModifiedSince, where, order);
 				String accountCode = accounts.getAccounts().get(0).getCode();
 				where = null;
-				
 				ManualJournals manualJournals = new ManualJournals();
 				ManualJournal manualJournal = new ManualJournal();
 				LocalDate currDate = LocalDate.now();
 				manualJournal.setDate(currDate);
 				manualJournal.setNarration("Foo bar");
 				
-				JournalLine credit = new JournalLine();
-				credit.description("Hello there");
+				ManualJournalLine credit = new ManualJournalLine();
+				credit.setDescription("Hello there");
 				credit.setAccountCode(accountCode);
-				credit.setNetAmount(100.00f);
+				credit.setLineAmount(100.00f);
 				manualJournal.addJournalLinesItem(credit);
 				
-				JournalLine debit = new JournalLine();
-				debit.description("Goodbye");
+				ManualJournalLine debit = new ManualJournalLine();
+				debit.setDescription("Goodbye");
 				debit.setAccountCode(accountCode);
-				debit.setNetAmount(-100.00f);
+				debit.setLineAmount(-100.00f);
 				manualJournal.addJournalLinesItem(debit);
 				manualJournals.addManualJournalsItem(manualJournal);
 				ManualJournals createdManualJournals = accountingApi.createManualJournal(manualJournals);
+				UUID newManualJournalId = createdManualJournals.getManualJournals().get(0).getManualJournalID();
 				messages.add("Create Manual Journal - Narration : " + createdManualJournals.getManualJournals().get(0).getNarration());
 				
 				// GET all Manual Journal
@@ -2051,13 +2052,15 @@ public class RequestResourceServlet extends HttpServlet
 				messages.add("Get one Manual Journal - Narration : " + oneManualJournal.getManualJournals().get(0).getNarration());
 				
 				// Update Manual Journal
+				
 				ManualJournals updateManualJournals = new ManualJournals();
 				ManualJournal updateManualJournal = new ManualJournal();
-				updateManualJournal.setManualJournalID(manualJournalId);
+				updateManualJournal.setManualJournalID(newManualJournalId);
 				updateManualJournal.setNarration("Hello Xero");
 				updateManualJournals.addManualJournalsItem(updateManualJournal);
-				ManualJournals updatedManualJournal = accountingApi.updateManualJournal(manualJournalId,updateManualJournals);
+				ManualJournals updatedManualJournal = accountingApi.updateManualJournal(newManualJournalId,updateManualJournals);
 				messages.add("Update Manual Journal - Narration : " + updatedManualJournal.getManualJournals().get(0).getNarration());
+				
 			} catch (XeroApiException e) {
 				System.out.println(e.getMessage());	
 			}

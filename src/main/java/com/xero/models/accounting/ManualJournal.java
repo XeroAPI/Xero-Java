@@ -18,8 +18,8 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.accounting.JournalLine;
 import com.xero.models.accounting.LineAmountTypes;
+import com.xero.models.accounting.ManualJournalLine;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ public class ManualJournal {
 
   
   @JsonProperty("JournalLines")
-  private List<JournalLine> journalLines = new ArrayList<JournalLine>();
+  private List<ManualJournalLine> journalLines = new ArrayList<ManualJournalLine>();
 
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("Date")
@@ -132,12 +132,12 @@ public class ManualJournal {
     this.narration = narration;
   }
 
-  public ManualJournal journalLines(List<JournalLine> journalLines) {
+  public ManualJournal journalLines(List<ManualJournalLine> journalLines) {
     this.journalLines = journalLines;
     return this;
   }
 
-  public ManualJournal addJournalLinesItem(JournalLine journalLinesItem) {
+  public ManualJournal addJournalLinesItem(ManualJournalLine journalLinesItem) {
     this.journalLines.add(journalLinesItem);
     return this;
   }
@@ -147,11 +147,11 @@ public class ManualJournal {
    * @return journalLines
   **/
   @ApiModelProperty(required = true, value = "See JournalLines")
-  public List<JournalLine> getJournalLines() {
+  public List<ManualJournalLine> getJournalLines() {
     return journalLines;
   }
 
-  public void setJournalLines(List<JournalLine> journalLines) {
+  public void setJournalLines(List<ManualJournalLine> journalLines) {
     this.journalLines = journalLines;
   }
 
