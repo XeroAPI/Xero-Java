@@ -33,6 +33,7 @@ import com.xero.api.OAuthRequestResource;
 import com.xero.api.XeroApiException;
 import com.xero.api.XeroClientException;
 import com.xero.models.accounting.Account;
+import com.xero.models.accounting.Account.SystemAccountEnum;
 import com.xero.models.accounting.Accounts;
 import com.xero.models.accounting.Allocation;
 import com.xero.models.accounting.Allocations;
@@ -65,6 +66,7 @@ import com.xero.models.accounting.InvoiceReminders;
 import com.xero.models.accounting.Invoices;
 import com.xero.models.accounting.Item;
 import com.xero.models.accounting.Items;
+import com.xero.models.accounting.Journal;
 import com.xero.models.accounting.JournalLine;
 import com.xero.models.accounting.Journals;
 import com.xero.models.accounting.LineAmountTypes;
@@ -80,6 +82,8 @@ import com.xero.models.accounting.Payment;
 import com.xero.models.accounting.PaymentService;
 import com.xero.models.accounting.PaymentServices;
 import com.xero.models.accounting.Payments;
+import com.xero.models.accounting.Phone;
+import com.xero.models.accounting.Phone.PhoneTypeEnum;
 import com.xero.models.accounting.Prepayments;
 import com.xero.models.accounting.PurchaseOrder;
 import com.xero.models.accounting.PurchaseOrders;
@@ -121,7 +125,7 @@ import org.threeten.bp.*;
 public class RequestResourceServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L; 
-	private Config config = JsonConfig.getInstance();
+	private Config config = null;
 	final static Logger logger = LogManager.getLogger(OAuthRequestResource.class);
 	   
 	private String htmlString =  "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css\" integrity=\"sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7\" crossorigin=\"anonymous\">"
@@ -213,6 +217,15 @@ public class RequestResourceServlet extends HttpServlet
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
 		
+		try {
+			//config = new CustomJsonConfig();
+			config = JsonConfig.getInstance();		
+			System.out.println("Your user agent is: " + config.getUserAgent());			
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		
 		OAuthAccessToken refreshToken = new OAuthAccessToken(config);
 		String tokenTimestamp = storage.get(request, "tokenTimestamp");
 		if(config.getAppType().equals("PARTNER") && refreshToken.isStale(tokenTimestamp)) {
@@ -240,19 +253,23 @@ public class RequestResourceServlet extends HttpServlet
 		System.out.println(tokenSecret);
 		
 		ApiClient apiClientForBankFeeds = new ApiClient(config.getBankFeedsUrl(),null,null,null);
-		BankFeedsApi bankFeedsApi = new BankFeedsApi(apiClientForBankFeeds);
+		BankFeedsApi bankFeedsApi = new BankFeedsApi(config);
+		bankFeedsApi.setApiClient(apiClientForBankFeeds);		
 		bankFeedsApi.setOAuthToken(token, tokenSecret);
 		
 		ApiClient apiClientForAssets = new ApiClient(config.getAssetsUrl(),null,null,null);
-		AssetApi assetApi = new AssetApi(apiClientForAssets);
+		AssetApi assetApi = new AssetApi(config);
+		assetApi.setApiClient(apiClientForAssets);		
 		assetApi.setOAuthToken(token, tokenSecret);
 		
 		ApiClient apiClientForAccounting = new ApiClient(config.getApiUrl(),null,null,null);
-		AccountingApi accountingApi = new AccountingApi(apiClientForAccounting);
+		AccountingApi accountingApi = new AccountingApi(config);
+		accountingApi.setApiClient(apiClientForAccounting);
 		accountingApi.setOAuthToken(token, tokenSecret);
 		
 		ApiClient apiClientForFiles = new ApiClient(config.getFilesUrl(),null,null,null);
-		FilesApi filesApi = new FilesApi(apiClientForFiles);
+		FilesApi filesApi = new FilesApi(config);
+		filesApi.setApiClient(apiClientForFiles);
 		filesApi.setOAuthToken(token, tokenSecret);
 		
 		OffsetDateTime ifModifiedSince = null;
@@ -390,7 +407,7 @@ public class RequestResourceServlet extends HttpServlet
 			try {
 				// GET all accounts
 				Accounts accounts = accountingApi.getAccounts(null, null, null);
-				messages.add("Get a all Accounts - total : " + accounts.getAccounts().size());				
+				messages.add("Get a all Accounts - total : " + accounts.getAccounts().size());
 				
 				// GET one account
 				Accounts oneAccount = accountingApi.getAccount(accounts.getAccounts().get(0).getAccountID());
@@ -401,25 +418,31 @@ public class RequestResourceServlet extends HttpServlet
 				acct.setName("Bye" + SampleData.loadRandomNum());
 				acct.setCode("Hello" + SampleData.loadRandomNum());
 				acct.setDescription("Foo boo");
-				acct.setType(Account.TypeEnum.EXPENSE);
+				acct.setType(com.xero.models.accounting.AccountType.EXPENSE);
 				Accounts newAccount = accountingApi.createAccount(acct);
-				messages.add("Create a new Account - Name : " + newAccount.getAccounts().get(0).getName() + " Description : " + newAccount.getAccounts().get(0).getDescription() + "");
+				System.out.println("Create a new Account - Name : " + newAccount.getAccounts().get(0).getName() + " Description : " + newAccount.getAccounts().get(0).getDescription() + "");
 				UUID accountID = newAccount.getAccounts().get(0).getAccountID();
+				
+				System.out.println(newAccount.getAccounts().get(0).toString());
+				System.out.println("Bank Account type: " + newAccount.getAccounts().get(0).getBankAccountType());
 				
 				// CREATE Bank account
 				Account bankAcct = new Account();
 				bankAcct.setName("Checking " + SampleData.loadRandomNum());
 				bankAcct.setCode("12" + SampleData.loadRandomNum());
-				bankAcct.setType(Account.TypeEnum.BANK);
+				bankAcct.setType(com.xero.models.accounting.AccountType.BANK);
 				bankAcct.setBankAccountNumber("1234" + SampleData.loadRandomNum());
 				Accounts newBankAccount = accountingApi.createAccount(bankAcct);
 				messages.add("Create Bank Account - Name : " + newBankAccount.getAccounts().get(0).getName());				
-				
+				System.out.println(newBankAccount.getAccounts().get(0).toString());
+				System.out.println("Bank Account type: " + newBankAccount.getAccounts().get(0).getBankAccountType());
+
 				// GET BANK account
 			    where = "Status==\"ACTIVE\"&&Type==\"BANK\"";
 				Accounts accountsWhere = accountingApi.getAccounts(ifModifiedSince, where, order);
 				messages.add("Get a all Accounts - total : " + accountsWhere.getAccounts().size());				
-			
+				
+				
 				// UDPATE Account
 				newAccount.getAccounts().get(0).setDescription("Monsters Inc.");
 				newAccount.getAccounts().get(0).setStatus(null);
@@ -439,7 +462,7 @@ public class RequestResourceServlet extends HttpServlet
 				UUID deleteAccountID = newAccount.getAccounts().get(0).getAccountID();
 				Accounts deleteAccount = accountingApi.deleteAccount(deleteAccountID);
 				messages.add("Delete account - Status? : " + deleteAccount.getAccounts().get(0).getStatus());	
-							
+				
 			} catch (Exception e) {
 				System.out.println(e.toString());
 				e.printStackTrace();
@@ -1290,6 +1313,13 @@ public class RequestResourceServlet extends HttpServlet
 				Contact contact = new Contact();
 				contact.setName("Foo" + SampleData.loadRandomNum());
 				contact.setEmailAddress("sid" + SampleData.loadRandomNum() + "@blah.com");
+				List<Phone> phones = new ArrayList<Phone>();
+				Phone phone = new Phone();
+				phone.setPhoneType(PhoneTypeEnum.MOBILE);
+				phone.setPhoneNumber("555-1212");
+				phone.setPhoneAreaCode("415");
+				phones.add(phone);
+				contact.setPhones(phones);
 				Contacts newContact = accountingApi.createContact(contact);
 				messages.add("Create new Contact - Name : " + newContact.getContacts().get(0).getName());
 				
@@ -1835,6 +1865,7 @@ public class RequestResourceServlet extends HttpServlet
 		} else if (object.equals("Journals")) {
 			/* JOURNAL */
 			try {
+					
 				boolean paymentsOnly = false;
 				// GET all Journals
 				Journals journals = accountingApi.getJournals(ifModifiedSince, null, paymentsOnly);
@@ -1848,6 +1879,7 @@ public class RequestResourceServlet extends HttpServlet
 				UUID journalId = journals.getJournals().get(0).getJournalID();
 				Journals oneJournal = accountingApi.getJournal(journalId);
 				messages.add("Get one Journal - number : " + oneJournal.getJournals().get(0).getJournalNumber());
+
 			} catch (XeroApiException e) {
 				System.out.println(e.getMessage());	
 			}
@@ -1997,13 +2029,13 @@ public class RequestResourceServlet extends HttpServlet
 				JournalLine credit = new JournalLine();
 				credit.description("Hello there");
 				credit.setAccountCode(accountCode);
-				credit.setLineAmount("100");
+				credit.setNetAmount(100.00f);
 				manualJournal.addJournalLinesItem(credit);
 				
 				JournalLine debit = new JournalLine();
 				debit.description("Goodbye");
 				debit.setAccountCode(accountCode);
-				debit.setLineAmount("-100");
+				debit.setNetAmount(-100.00f);
 				manualJournal.addJournalLinesItem(debit);
 				manualJournals.addManualJournalsItem(manualJournal);
 				ManualJournals createdManualJournals = accountingApi.createManualJournal(manualJournals);
