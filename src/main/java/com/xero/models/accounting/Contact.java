@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.accounting.Address;
 import com.xero.models.accounting.Balances;
+import com.xero.models.accounting.BatchPaymentDetails;
 import com.xero.models.accounting.BrandingTheme;
 import com.xero.models.accounting.ContactGroup;
 import com.xero.models.accounting.ContactPerson;
@@ -206,7 +207,7 @@ public class Contact {
 
   
   @JsonProperty("BatchPayments")
-  private String batchPayments = null;
+  private BatchPaymentDetails batchPayments = null;
 
   
   @JsonProperty("Discount")
@@ -812,13 +813,22 @@ public class Contact {
     this.brandingTheme = brandingTheme;
   }
 
+  public Contact batchPayments(BatchPaymentDetails batchPayments) {
+    this.batchPayments = batchPayments;
+    return this;
+  }
+
    /**
-   * batch payment details for contact (read only)
+   * Get batchPayments
    * @return batchPayments
   **/
-  @ApiModelProperty(value = "batch payment details for contact (read only)")
-  public String getBatchPayments() {
+  @ApiModelProperty(value = "")
+  public BatchPaymentDetails getBatchPayments() {
     return batchPayments;
+  }
+
+  public void setBatchPayments(BatchPaymentDetails batchPayments) {
+    this.batchPayments = batchPayments;
   }
 
    /**
