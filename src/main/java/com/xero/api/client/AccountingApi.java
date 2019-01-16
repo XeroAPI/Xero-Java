@@ -2379,10 +2379,10 @@ public class AccountingApi {
     * @param accountID The accountID parameter
     * @param fileName The fileName parameter
     * @param contentType The contentType parameter
-    * @return Attachments
+    * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Attachments getAccountAttachmentByFileName(UUID accountID, String fileName, String contentType) throws IOException {
+    public ByteArrayInputStream getAccountAttachmentByFileName(UUID accountID, String fileName, String contentType) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -2402,11 +2402,9 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
+                        ByteArrayInputStream response = this.FILE(url, strBody, params, "GET", contentType);
+            return response;
             
-            String response = this.DATA(url, strBody, params, "GET", contentType);
-            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
-
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
         } catch (XeroApiException e) {
@@ -2564,10 +2562,10 @@ public class AccountingApi {
     * @param bankTransactionID The bankTransactionID parameter
     * @param fileName The fileName parameter
     * @param contentType The contentType parameter
-    * @return Attachments
+    * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Attachments getBankTransactionAttachmentByFileName(UUID bankTransactionID, String fileName, String contentType) throws IOException {
+    public ByteArrayInputStream getBankTransactionAttachmentByFileName(UUID bankTransactionID, String fileName, String contentType) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -2587,11 +2585,9 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
+                        ByteArrayInputStream response = this.FILE(url, strBody, params, "GET", contentType);
+            return response;
             
-            String response = this.DATA(url, strBody, params, "GET", contentType);
-            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
-
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
         } catch (XeroApiException e) {
@@ -2789,10 +2785,10 @@ public class AccountingApi {
     * @param bankTransferID The bankTransferID parameter
     * @param fileName The fileName parameter
     * @param contentType The contentType parameter
-    * @return Attachments
+    * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Attachments getBankTransferAttachmentByFileName(UUID bankTransferID, String fileName, String contentType) throws IOException {
+    public ByteArrayInputStream getBankTransferAttachmentByFileName(UUID bankTransferID, String fileName, String contentType) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -2812,11 +2808,9 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
+                        ByteArrayInputStream response = this.FILE(url, strBody, params, "GET", contentType);
+            return response;
             
-            String response = this.DATA(url, strBody, params, "GET", contentType);
-            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
-
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
         } catch (XeroApiException e) {
@@ -3180,10 +3174,10 @@ public class AccountingApi {
     * @param contactID The contactID parameter
     * @param fileName The fileName parameter
     * @param contentType The contentType parameter
-    * @return Attachments
+    * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Attachments getContactAttachmentByFileName(UUID contactID, String fileName, String contentType) throws IOException {
+    public ByteArrayInputStream getContactAttachmentByFileName(UUID contactID, String fileName, String contentType) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -3203,11 +3197,9 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
+                        ByteArrayInputStream response = this.FILE(url, strBody, params, "GET", contentType);
+            return response;
             
-            String response = this.DATA(url, strBody, params, "GET", contentType);
-            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
-
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
         } catch (XeroApiException e) {
@@ -3553,10 +3545,10 @@ public class AccountingApi {
     * @param creditNoteID The creditNoteID parameter
     * @param fileName The fileName parameter
     * @param contentType The contentType parameter
-    * @return Attachments
+    * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Attachments getCreditNoteAttachmentByFileName(UUID creditNoteID, String fileName, String contentType) throws IOException {
+    public ByteArrayInputStream getCreditNoteAttachmentByFileName(UUID creditNoteID, String fileName, String contentType) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -3576,11 +3568,9 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
+                        ByteArrayInputStream response = this.FILE(url, strBody, params, "GET", contentType);
+            return response;
             
-            String response = this.DATA(url, strBody, params, "GET", contentType);
-            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
-
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
         } catch (XeroApiException e) {
@@ -4023,10 +4013,10 @@ public class AccountingApi {
     * @param invoiceID The invoiceID parameter
     * @param fileName The fileName parameter
     * @param contentType The contentType parameter
-    * @return Attachments
+    * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Attachments getInvoiceAttachmentByFileName(UUID invoiceID, String fileName, String contentType) throws IOException {
+    public ByteArrayInputStream getInvoiceAttachmentByFileName(UUID invoiceID, String fileName, String contentType) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -4046,11 +4036,9 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
+                        ByteArrayInputStream response = this.FILE(url, strBody, params, "GET", contentType);
+            return response;
             
-            String response = this.DATA(url, strBody, params, "GET", contentType);
-            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
-
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
         } catch (XeroApiException e) {
@@ -4549,10 +4537,10 @@ public class AccountingApi {
     * @param manualJournalID The manualJournalID parameter
     * @param fileName The fileName parameter
     * @param contentType The contentType parameter
-    * @return Attachments
+    * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Attachments getManualJournalAttachmentByFileName(UUID manualJournalID, String fileName, String contentType) throws IOException {
+    public ByteArrayInputStream getManualJournalAttachmentByFileName(UUID manualJournalID, String fileName, String contentType) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -4572,11 +4560,9 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
+                        ByteArrayInputStream response = this.FILE(url, strBody, params, "GET", contentType);
+            return response;
             
-            String response = this.DATA(url, strBody, params, "GET", contentType);
-            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
-
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
         } catch (XeroApiException e) {
@@ -5304,10 +5290,10 @@ public class AccountingApi {
     * @param receiptID The receiptID parameter
     * @param fileName The fileName parameter
     * @param contentType The contentType parameter
-    * @return Attachments
+    * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Attachments getReceiptAttachmentByFileName(UUID receiptID, String fileName, String contentType) throws IOException {
+    public ByteArrayInputStream getReceiptAttachmentByFileName(UUID receiptID, String fileName, String contentType) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -5327,11 +5313,9 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
+                        ByteArrayInputStream response = this.FILE(url, strBody, params, "GET", contentType);
+            return response;
             
-            String response = this.DATA(url, strBody, params, "GET", contentType);
-            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
-
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
         } catch (XeroApiException e) {
@@ -5526,10 +5510,10 @@ public class AccountingApi {
     * @param repeatingInvoiceID The repeatingInvoiceID parameter
     * @param fileName The fileName parameter
     * @param contentType The contentType parameter
-    * @return Attachments
+    * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Attachments getRepeatingInvoiceAttachmentByFileName(UUID repeatingInvoiceID, String fileName, String contentType) throws IOException {
+    public ByteArrayInputStream getRepeatingInvoiceAttachmentByFileName(UUID repeatingInvoiceID, String fileName, String contentType) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -5549,11 +5533,9 @@ public class AccountingApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
+                        ByteArrayInputStream response = this.FILE(url, strBody, params, "GET", contentType);
+            return response;
             
-            String response = this.DATA(url, strBody, params, "GET", contentType);
-            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
-
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
         } catch (XeroApiException e) {
