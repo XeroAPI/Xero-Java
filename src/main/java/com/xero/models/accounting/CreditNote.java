@@ -81,9 +81,9 @@ public class CreditNote {
   @JsonProperty("Contact")
   private Contact contact = null;
 
-  
+  @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("Date")
-  private String date = null;
+  private LocalDate date = null;
 
   /**
    * See Credit Note Status Codes
@@ -236,7 +236,7 @@ public class CreditNote {
     this.contact = contact;
   }
 
-  public CreditNote date(String date) {
+  public CreditNote date(LocalDate date) {
     this.date = date;
     return this;
   }
@@ -246,11 +246,11 @@ public class CreditNote {
    * @return date
   **/
   @ApiModelProperty(value = "The date the credit note is issued YYYY-MM-DD. If the Date element is not specified then it will default to the current date based on the timezone setting of the organisation")
-  public String getDate() {
+  public LocalDate getDate() {
     return date;
   }
 
-  public void setDate(String date) {
+  public void setDate(LocalDate date) {
     this.date = date;
   }
 
