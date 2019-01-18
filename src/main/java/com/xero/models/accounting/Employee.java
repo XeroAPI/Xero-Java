@@ -22,6 +22,7 @@ import com.xero.models.accounting.ExternalLink;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import org.threeten.bp.OffsetDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -34,9 +35,46 @@ public class Employee {
   @JsonProperty("EmployeeID")
   private UUID employeeID = null;
 
+  /**
+   * Current status of an employee – see contact status types
+   */
+  public enum StatusEnum {
+    ACTIVE("ACTIVE"),
+    
+    ARCHIVED("ARCHIVED"),
+    
+    GDPRREQUEST("GDPRREQUEST");
+
+    private String value;
+
+    StatusEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static StatusEnum fromValue(String text) {
+      for (StatusEnum b : StatusEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+    }
+  }
+
   
   @JsonProperty("Status")
-  private String status = null;
+  private StatusEnum status = null;
 
   
   @JsonProperty("FirstName")
@@ -49,6 +87,10 @@ public class Employee {
   
   @JsonProperty("ExternalLink")
   private ExternalLink externalLink = null;
+
+  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
+  @JsonProperty("UpdatedDateUTC")
+  private OffsetDateTime updatedDateUTC = null;
 
   public Employee employeeID(UUID employeeID) {
     this.employeeID = employeeID;
@@ -68,7 +110,7 @@ public class Employee {
     this.employeeID = employeeID;
   }
 
-  public Employee status(String status) {
+  public Employee status(StatusEnum status) {
     this.status = status;
     return this;
   }
@@ -78,11 +120,11 @@ public class Employee {
    * @return status
   **/
   @ApiModelProperty(value = "Current status of an employee – see contact status types")
-  public String getStatus() {
+  public StatusEnum getStatus() {
     return status;
   }
 
-  public void setStatus(String status) {
+  public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
@@ -140,6 +182,24 @@ public class Employee {
     this.externalLink = externalLink;
   }
 
+  public Employee updatedDateUTC(OffsetDateTime updatedDateUTC) {
+    this.updatedDateUTC = updatedDateUTC;
+    return this;
+  }
+
+   /**
+   * Get updatedDateUTC
+   * @return updatedDateUTC
+  **/
+  @ApiModelProperty(value = "")
+  public OffsetDateTime getUpdatedDateUTC() {
+    return updatedDateUTC;
+  }
+
+  public void setUpdatedDateUTC(OffsetDateTime updatedDateUTC) {
+    this.updatedDateUTC = updatedDateUTC;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -154,12 +214,13 @@ public class Employee {
         Objects.equals(this.status, employee.status) &&
         Objects.equals(this.firstName, employee.firstName) &&
         Objects.equals(this.lastName, employee.lastName) &&
-        Objects.equals(this.externalLink, employee.externalLink);
+        Objects.equals(this.externalLink, employee.externalLink) &&
+        Objects.equals(this.updatedDateUTC, employee.updatedDateUTC);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(employeeID, status, firstName, lastName, externalLink);
+    return Objects.hash(employeeID, status, firstName, lastName, externalLink, updatedDateUTC);
   }
 
 
@@ -173,6 +234,7 @@ public class Employee {
     sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
     sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
     sb.append("    externalLink: ").append(toIndentedString(externalLink)).append("\n");
+    sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
     sb.append("}");
     return sb.toString();
   }

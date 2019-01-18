@@ -5829,7 +5829,7 @@ public class AccountingApi {
     * <p><b>200</b> - A successful request
     * @param date The date parameter
     * @param periods The periods parameter
-    * @param timeframe The period size to compare to (1&#x3D;month, 3&#x3D;quarter, 12&#x3D;year)
+    * @param timeframe The period size to compare to (MONTH, QUARTER, YEAR)
     * @param trackingOptionID1 The trackingOptionID1 parameter
     * @param trackingOptionID2 The trackingOptionID2 parameter
     * @param standardLayout The standardLayout parameter
@@ -5837,7 +5837,7 @@ public class AccountingApi {
     * @return ReportWithRows
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public ReportWithRows getReportBalanceSheet(String date, Integer periods, Integer timeframe, String trackingOptionID1, String trackingOptionID2, Boolean standardLayout, Boolean paymentsOnly) throws IOException {
+    public ReportWithRows getReportBalanceSheet(String date, Integer periods, String timeframe, String trackingOptionID1, String trackingOptionID2, Boolean standardLayout, Boolean paymentsOnly) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -5941,7 +5941,7 @@ public class AccountingApi {
     * @param fromDate The fromDate parameter
     * @param toDate The toDate parameter
     * @param periods The number of periods to compare (integer between 1 and 12)
-    * @param timeframe The period size to compare to (1&#x3D;month, 3&#x3D;quarter, 12&#x3D;year)
+    * @param timeframe The period size to compare to (MONTH, QUARTER, YEAR)
     * @param trackingCategoryID The trackingCategoryID parameter
     * @param trackingCategoryID2 The trackingCategoryID2 parameter
     * @param trackingOptionID The trackingOptionID parameter
