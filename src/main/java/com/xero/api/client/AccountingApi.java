@@ -5907,6 +5907,41 @@ public class AccountingApi {
         }
     }
   /**
+    * Allows you to retrieve report for Budget Summary
+    * <p><b>200</b> - success- return a Report with Rows object
+    * @param date e.g. 2018-03-31
+    * @param period The number of periods to compare (integer between 1 and 12)
+    * @param timeframe The period size to compare to (1&#x3D;month, 3&#x3D;quarter, 12&#x3D;year)
+    * @return ReportWithRows
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public ReportWithRows getReportBudgetSummary(String date, Integer period, Integer timeframe) throws IOException {
+        try {
+            String strBody = null;
+            Map<String, String> params = null;
+            String correctPath = "/Reports/BudgetSummary";
+            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+            String url = uriBuilder.build().toString();
+            params = new HashMap<>();
+            if (date != null) {
+                addToMapIfNotNull(params, "date", date);
+            }if (period != null) {
+                addToMapIfNotNull(params, "period", period);
+            }if (timeframe != null) {
+                addToMapIfNotNull(params, "timeframe", timeframe);
+            }
+            
+            String response = this.DATA(url, strBody, params, "GET");
+            TypeReference<ReportWithRows> typeRef = new TypeReference<ReportWithRows>() {};
+            return apiClient.getObjectMapper().readValue(response, typeRef);
+
+        } catch (IOException e) {
+            throw xeroExceptionHandler.handleBadRequest(e.getMessage());
+        } catch (XeroApiException e) {
+            throw xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode(),JSONUtils.isJSONValid(e.getMessage()));
+        }
+    }
+  /**
     * Allows you to retrieve report for ExecutiveSummary
     * <p><b>200</b> - A successful request
     * @param date e.g. 2018-03-31
