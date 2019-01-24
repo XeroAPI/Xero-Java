@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.accounting.ReportCell;
 import com.xero.models.accounting.ReportRow;
+import com.xero.models.accounting.RowType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class ReportRows {
   
   @JsonProperty("RowType")
-  private String rowType = null;
+  private RowType rowType = null;
 
   
   @JsonProperty("Title")
@@ -48,7 +49,7 @@ public class ReportRows {
   @JsonProperty("Rows")
   private List<ReportRow> rows = null;
 
-  public ReportRows rowType(String rowType) {
+  public ReportRows rowType(RowType rowType) {
     this.rowType = rowType;
     return this;
   }
@@ -58,11 +59,11 @@ public class ReportRows {
    * @return rowType
   **/
   @ApiModelProperty(value = "")
-  public String getRowType() {
+  public RowType getRowType() {
     return rowType;
   }
 
-  public void setRowType(String rowType) {
+  public void setRowType(RowType rowType) {
     this.rowType = rowType;
   }
 

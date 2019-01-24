@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.accounting.ReportCell;
+import com.xero.models.accounting.RowType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -31,48 +32,9 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class ReportRow {
-  /**
-   * Gets or Sets rowType
-   */
-  public enum RowTypeEnum {
-    HEADER("HEADER"),
-    
-    SECTION("SECTION"),
-    
-    ROW("ROW"),
-    
-    EMPTY("");
-
-    private String value;
-
-    RowTypeEnum(String value) {
-      this.value = value;
-    }
-
-    @JsonValue
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static RowTypeEnum fromValue(String text) {
-      for (RowTypeEnum b : RowTypeEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
-    }
-  }
-
   
   @JsonProperty("RowType")
-  private RowTypeEnum rowType = null;
+  private RowType rowType = null;
 
   
   @JsonProperty("Title")
@@ -82,7 +44,7 @@ public class ReportRow {
   @JsonProperty("Cells")
   private List<ReportCell> cells = null;
 
-  public ReportRow rowType(RowTypeEnum rowType) {
+  public ReportRow rowType(RowType rowType) {
     this.rowType = rowType;
     return this;
   }
@@ -92,11 +54,11 @@ public class ReportRow {
    * @return rowType
   **/
   @ApiModelProperty(value = "")
-  public RowTypeEnum getRowType() {
+  public RowType getRowType() {
     return rowType;
   }
 
-  public void setRowType(RowTypeEnum rowType) {
+  public void setRowType(RowType rowType) {
     this.rowType = rowType;
   }
 

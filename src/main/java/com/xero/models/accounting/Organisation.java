@@ -29,6 +29,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.OffsetDateTime;
 
@@ -39,6 +40,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class Organisation {
+  
+  @JsonProperty("OrganisationID")
+  private UUID organisationID = null;
+
   
   @JsonProperty("APIKey")
   private String apIKey = null;
@@ -462,6 +467,24 @@ public class Organisation {
   
   @JsonProperty("PaymentTerms")
   private PaymentTerm paymentTerms = null;
+
+  public Organisation organisationID(UUID organisationID) {
+    this.organisationID = organisationID;
+    return this;
+  }
+
+   /**
+   * Unique Xero identifier
+   * @return organisationID
+  **/
+  @ApiModelProperty(example = "8be9db36-3598-4755-ba5c-c2dbc8c4a7a2", value = "Unique Xero identifier")
+  public UUID getOrganisationID() {
+    return organisationID;
+  }
+
+  public void setOrganisationID(UUID organisationID) {
+    this.organisationID = organisationID;
+  }
 
   public Organisation apIKey(String apIKey) {
     this.apIKey = apIKey;
@@ -1037,7 +1060,8 @@ public class Organisation {
       return false;
     }
     Organisation organisation = (Organisation) o;
-    return Objects.equals(this.apIKey, organisation.apIKey) &&
+    return Objects.equals(this.organisationID, organisation.organisationID) &&
+        Objects.equals(this.apIKey, organisation.apIKey) &&
         Objects.equals(this.name, organisation.name) &&
         Objects.equals(this.legalName, organisation.legalName) &&
         Objects.equals(this.paysTax, organisation.paysTax) &&
@@ -1071,7 +1095,7 @@ public class Organisation {
 
   @Override
   public int hashCode() {
-    return Objects.hash(apIKey, name, legalName, paysTax, version, organisationType, baseCurrency, countryCode, isDemoCompany, organisationStatus, registrationNumber, taxNumber, financialYearEndDay, financialYearEndMonth, salesTaxBasis, salesTaxPeriod, defaultSalesTax, defaultPurchasesTax, periodLockDate, endOfYearLockDate, createdDateUTC, timezone, organisationEntityType, shortCode, propertyClass, lineOfBusiness, addresses, phones, externalLinks, paymentTerms);
+    return Objects.hash(organisationID, apIKey, name, legalName, paysTax, version, organisationType, baseCurrency, countryCode, isDemoCompany, organisationStatus, registrationNumber, taxNumber, financialYearEndDay, financialYearEndMonth, salesTaxBasis, salesTaxPeriod, defaultSalesTax, defaultPurchasesTax, periodLockDate, endOfYearLockDate, createdDateUTC, timezone, organisationEntityType, shortCode, propertyClass, lineOfBusiness, addresses, phones, externalLinks, paymentTerms);
   }
 
 
@@ -1080,6 +1104,7 @@ public class Organisation {
     StringBuilder sb = new StringBuilder();
     sb.append("class Organisation {\n");
     
+    sb.append("    organisationID: ").append(toIndentedString(organisationID)).append("\n");
     sb.append("    apIKey: ").append(toIndentedString(apIKey)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    legalName: ").append(toIndentedString(legalName)).append("\n");

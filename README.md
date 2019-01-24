@@ -29,15 +29,20 @@ ApiClient apiClientForAccounting = new ApiClient(config.getApiUrl(),null,null,nu
 AccountingApi accountingApi = new AccountingApi(apiClientForAccounting);
 accountingApi.setOAuthToken(token, tokenSecret);
 
-// Fixed Assets API endpoints
-ApiClient apiClientForAssets = new ApiClient(config.getAssetsUrl(),null,null,null);
-AssetApi assetApi = new AssetApi(apiClientForAssets);
-assetApi.setOAuthToken(token, tokenSecret);
-
 // BankFeeds API endpoints (for approved Partners)
 ApiClient apiClientForBankFeeds = new ApiClient(config.getBankFeedsUrl(),null,null,null);
 BankFeedsApi bankFeedsApi = new BankFeedsApi(apiClientForBankFeeds);
 bankFeedsApi.setOAuthToken(token, tokenSecret);
+
+// Files API endpoints
+ApiClient apiClientForFiles = new ApiClient(config.getFilesUrl(),null,null,null);
+FilesApi filesApi = new FilesApi(apiClientForFiles);
+filesApi.setOAuthToken(token, tokenSecret);
+
+// Fixed Assets API endpoints
+ApiClient apiClientForAssets = new ApiClient(config.getAssetsUrl(),null,null,null);
+AssetApi assetApi = new AssetApi(apiClientForAssets);
+assetApi.setOAuthToken(token, tokenSecret);
 ```
 
 ### Making API calls will change as well.
@@ -74,7 +79,7 @@ Add the dependency to your pom.xml.  Gradle, sbt and other build tools can be fo
     <dependency>
       <groupId>com.github.xeroapi</groupId>
       <artifactId>xero-java</artifactId>
-      <version>2.2.11</version>
+      <version>2.2.12</version>
 	</dependency>
 
 
@@ -205,6 +210,20 @@ You can provide your own signing mechanism by using the `public AccountingApi(Co
 
 You can also provide a `RsaSignerFactory` using the `public RsaSignerFactory(InputStream privateKeyInputStream, String privateKeyPassword)` constructor to fetch keys from any InputStream.
 
+```java
+config = new JsonConfig("xero/config.json");
+
+try (FileInputStream privateKeyStream = new FileInputStream(config.getPathToPrivateKey()))
+{
+	RsaSignerFactory signerFactory = new RsaSignerFactory(privateKeyStream, config.getPrivateKeyPassword());
+
+		// v2
+	ApiClient apiClientForAccounting = new ApiClient(config.getApiUrl(), null, null, null);
+	accountingApi = new AccountingApi(config, signerFactory);
+	accountingApi.setApiClient(apiClientForAccounting);
+	accountingApi.setOAuthToken(config.getConsumerKey(), config.getConsumerSecret());
+}
+```
 
 ## Logging
 The SDK uses log4j2.  To configure, add a log4j.properties file to the Resources directory.
