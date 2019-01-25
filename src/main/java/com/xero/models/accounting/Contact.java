@@ -46,15 +46,15 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class Contact {
   
   @JsonProperty("ContactID")
-  private UUID contactID = null;
+  private UUID contactID;
 
   
   @JsonProperty("ContactNumber")
-  private String contactNumber = null;
+  private String contactNumber;
 
   
   @JsonProperty("AccountNumber")
-  private String accountNumber = null;
+  private String accountNumber;
 
   /**
    * Current status of a contact – see contact status types
@@ -95,27 +95,27 @@ public class Contact {
 
   
   @JsonProperty("ContactStatus")
-  private ContactStatusEnum contactStatus = null;
+  private ContactStatusEnum contactStatus;
 
   
   @JsonProperty("Name")
-  private String name = null;
+  private String name;
 
   
   @JsonProperty("FirstName")
-  private String firstName = null;
+  private String firstName;
 
   
   @JsonProperty("LastName")
-  private String lastName = null;
+  private String lastName;
 
   
   @JsonProperty("EmailAddress")
-  private String emailAddress = null;
+  private String emailAddress;
 
   
   @JsonProperty("SkypeUserName")
-  private String skypeUserName = null;
+  private String skypeUserName;
 
   
   @JsonProperty("ContactPersons")
@@ -123,11 +123,11 @@ public class Contact {
 
   
   @JsonProperty("BankAccountDetails")
-  private String bankAccountDetails = null;
+  private String bankAccountDetails;
 
   
   @JsonProperty("TaxNumber")
-  private String taxNumber = null;
+  private String taxNumber;
 
   
   @JsonProperty("AccountsReceivableTaxType")
@@ -147,11 +147,11 @@ public class Contact {
 
   
   @JsonProperty("IsSupplier")
-  private Boolean isSupplier = null;
+  private Boolean isSupplier;
 
   
   @JsonProperty("IsCustomer")
-  private Boolean isCustomer = null;
+  private Boolean isCustomer;
 
   
   @JsonProperty("DefaultCurrency")
@@ -159,15 +159,15 @@ public class Contact {
 
   
   @JsonProperty("XeroNetworkKey")
-  private String xeroNetworkKey = null;
+  private String xeroNetworkKey;
 
   
   @JsonProperty("SalesDefaultAccountCode")
-  private String salesDefaultAccountCode = null;
+  private String salesDefaultAccountCode;
 
   
   @JsonProperty("PurchasesDefaultAccountCode")
-  private String purchasesDefaultAccountCode = null;
+  private String purchasesDefaultAccountCode;
 
   
   @JsonProperty("SalesTrackingCategories")
@@ -179,11 +179,11 @@ public class Contact {
 
   
   @JsonProperty("TrackingCategoryName")
-  private String trackingCategoryName = null;
+  private String trackingCategoryName;
 
   
   @JsonProperty("TrackingCategoryOption")
-  private String trackingCategoryOption = null;
+  private String trackingCategoryOption;
 
   
   @JsonProperty("PaymentTerms")
@@ -191,7 +191,7 @@ public class Contact {
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private OffsetDateTime updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC;
 
   
   @JsonProperty("ContactGroups")
@@ -199,7 +199,7 @@ public class Contact {
 
   
   @JsonProperty("Website")
-  private String website = null;
+  private String website;
 
   
   @JsonProperty("BrandingTheme")
@@ -211,7 +211,7 @@ public class Contact {
 
   
   @JsonProperty("Discount")
-  private Float discount = null;
+  private Float discount;
 
   
   @JsonProperty("Balances")
@@ -219,7 +219,7 @@ public class Contact {
 
   
   @JsonProperty("HasAttachments")
-  private Boolean hasAttachments = null;
+  private Boolean hasAttachments;
 
   
   @JsonProperty("ValidationErrors")

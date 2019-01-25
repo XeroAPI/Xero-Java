@@ -87,7 +87,7 @@ public class BankTransaction {
 
   
   @JsonProperty("Type")
-  private TypeEnum type = null;
+  private TypeEnum type;
 
   
   @JsonProperty("Contact")
@@ -103,15 +103,15 @@ public class BankTransaction {
 
   
   @JsonProperty("IsReconciled")
-  private Boolean isReconciled = null;
+  private Boolean isReconciled;
 
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("Date")
-  private LocalDate date = null;
+  private LocalDate date;
 
   
   @JsonProperty("Reference")
-  private String reference = null;
+  private String reference;
 
   
   @JsonProperty("CurrencyCode")
@@ -119,11 +119,11 @@ public class BankTransaction {
 
   
   @JsonProperty("CurrencyRate")
-  private Float currencyRate = null;
+  private Float currencyRate;
 
   
   @JsonProperty("Url")
-  private String url = null;
+  private String url;
 
   /**
    * See Bank Transaction Status Codes
@@ -162,7 +162,7 @@ public class BankTransaction {
 
   
   @JsonProperty("Status")
-  private StatusEnum status = null;
+  private StatusEnum status;
 
   
   @JsonProperty("LineAmountTypes")
@@ -170,35 +170,35 @@ public class BankTransaction {
 
   
   @JsonProperty("SubTotal")
-  private Float subTotal = null;
+  private Float subTotal;
 
   
   @JsonProperty("TotalTax")
-  private Float totalTax = null;
+  private Float totalTax;
 
   
   @JsonProperty("Total")
-  private Float total = null;
+  private Float total;
 
   
   @JsonProperty("BankTransactionID")
-  private UUID bankTransactionID = null;
+  private UUID bankTransactionID;
 
   
   @JsonProperty("PrepaymentID")
-  private UUID prepaymentID = null;
+  private UUID prepaymentID;
 
   
   @JsonProperty("OverpaymentID")
-  private UUID overpaymentID = null;
+  private UUID overpaymentID;
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private OffsetDateTime updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC;
 
   
   @JsonProperty("HasAttachments")
-  private Boolean hasAttachments = null;
+  private Boolean hasAttachments;
 
   public BankTransaction type(TypeEnum type) {
     this.type = type;

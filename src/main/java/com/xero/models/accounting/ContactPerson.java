@@ -30,19 +30,19 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class ContactPerson {
   
   @JsonProperty("FirstName")
-  private String firstName = null;
+  private String firstName;
 
   
   @JsonProperty("LastName")
-  private String lastName = null;
+  private String lastName;
 
   
   @JsonProperty("EmailAddress")
-  private String emailAddress = null;
+  private String emailAddress;
 
   
   @JsonProperty("IncludeInEmails")
-  private Boolean includeInEmails = null;
+  private Boolean includeInEmails;
 
   public ContactPerson firstName(String firstName) {
     this.firstName = firstName;

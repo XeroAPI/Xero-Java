@@ -38,7 +38,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class ExpenseClaim {
   
   @JsonProperty("ExpenseClaimID")
-  private UUID expenseClaimID = null;
+  private UUID expenseClaimID;
 
   /**
    * Current status of an expense claim – see status types
@@ -81,7 +81,7 @@ public class ExpenseClaim {
 
   
   @JsonProperty("Status")
-  private StatusEnum status = null;
+  private StatusEnum status;
 
   
   @JsonProperty("Payments")
@@ -97,31 +97,31 @@ public class ExpenseClaim {
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private OffsetDateTime updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC;
 
   
   @JsonProperty("Total")
-  private Float total = null;
+  private Float total;
 
   
   @JsonProperty("AmountDue")
-  private Float amountDue = null;
+  private Float amountDue;
 
   
   @JsonProperty("AmountPaid")
-  private Float amountPaid = null;
+  private Float amountPaid;
 
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("PaymentDueDate")
-  private LocalDate paymentDueDate = null;
+  private LocalDate paymentDueDate;
 
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("ReportingDate")
-  private LocalDate reportingDate = null;
+  private LocalDate reportingDate;
 
   
   @JsonProperty("ReceiptID")
-  private UUID receiptID = null;
+  private UUID receiptID;
 
   public ExpenseClaim expenseClaimID(UUID expenseClaimID) {
     this.expenseClaimID = expenseClaimID;

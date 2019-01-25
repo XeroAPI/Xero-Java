@@ -35,7 +35,7 @@ public class Currency {
 
   
   @JsonProperty("Description")
-  private String description = null;
+  private String description;
 
   public Currency code(CurrencyCode code) {
     this.code = code;

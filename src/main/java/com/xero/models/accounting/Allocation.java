@@ -36,11 +36,11 @@ public class Allocation {
 
   
   @JsonProperty("Amount")
-  private Float amount = null;
+  private Float amount;
 
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("Date")
-  private LocalDate date = null;
+  private LocalDate date;
 
   public Allocation invoice(Invoice invoice) {
     this.invoice = invoice;

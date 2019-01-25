@@ -35,15 +35,15 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class Account {
   
   @JsonProperty("Code")
-  private String code = null;
+  private String code;
 
   
   @JsonProperty("Name")
-  private String name = null;
+  private String name;
 
   
   @JsonProperty("AccountID")
-  private UUID accountID = null;
+  private UUID accountID;
 
   
   @JsonProperty("Type")
@@ -51,7 +51,7 @@ public class Account {
 
   
   @JsonProperty("BankAccountNumber")
-  private String bankAccountNumber = null;
+  private String bankAccountNumber;
 
   /**
    * Accounts with a status of ACTIVE can be updated to ARCHIVED. See Account Status Codes
@@ -92,11 +92,11 @@ public class Account {
 
   
   @JsonProperty("Status")
-  private StatusEnum status = null;
+  private StatusEnum status;
 
   
   @JsonProperty("Description")
-  private String description = null;
+  private String description;
 
   /**
    * For bank accounts only. See Bank Account types
@@ -139,7 +139,7 @@ public class Account {
 
   
   @JsonProperty("BankAccountType")
-  private BankAccountTypeEnum bankAccountType = null;
+  private BankAccountTypeEnum bankAccountType;
 
   
   @JsonProperty("CurrencyCode")
@@ -151,11 +151,11 @@ public class Account {
 
   
   @JsonProperty("EnablePaymentsToAccount")
-  private Boolean enablePaymentsToAccount = null;
+  private Boolean enablePaymentsToAccount;
 
   
   @JsonProperty("ShowInExpenseClaims")
-  private Boolean showInExpenseClaims = null;
+  private Boolean showInExpenseClaims;
 
   /**
    * See Account Class Types
@@ -200,7 +200,7 @@ public class Account {
 
   
   @JsonProperty("Class")
-  private PropertyClassEnum propertyClass = null;
+  private PropertyClassEnum propertyClass;
 
   /**
    * If this is a system account then this element is returned. See System Account types. Note that non-system accounts may have this element set as either “” or null.
@@ -263,23 +263,23 @@ public class Account {
 
   
   @JsonProperty("SystemAccount")
-  private SystemAccountEnum systemAccount = null;
+  private SystemAccountEnum systemAccount;
 
   
   @JsonProperty("ReportingCode")
-  private String reportingCode = null;
+  private String reportingCode;
 
   
   @JsonProperty("ReportingCodeName")
-  private String reportingCodeName = null;
+  private String reportingCodeName;
 
   
   @JsonProperty("HasAttachments")
-  private Boolean hasAttachments = null;
+  private Boolean hasAttachments;
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private OffsetDateTime updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC;
 
   public Account code(String code) {
     this.code = code;

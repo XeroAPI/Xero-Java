@@ -76,7 +76,7 @@ public class Overpayment {
 
   
   @JsonProperty("Type")
-  private TypeEnum type = null;
+  private TypeEnum type;
 
   
   @JsonProperty("Contact")
@@ -84,7 +84,7 @@ public class Overpayment {
 
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("Date")
-  private LocalDate date = null;
+  private LocalDate date;
 
   /**
    * See Overpayment Status Codes
@@ -125,7 +125,7 @@ public class Overpayment {
 
   
   @JsonProperty("Status")
-  private StatusEnum status = null;
+  private StatusEnum status;
 
   
   @JsonProperty("LineAmountTypes")
@@ -137,19 +137,19 @@ public class Overpayment {
 
   
   @JsonProperty("SubTotal")
-  private Float subTotal = null;
+  private Float subTotal;
 
   
   @JsonProperty("TotalTax")
-  private Float totalTax = null;
+  private Float totalTax;
 
   
   @JsonProperty("Total")
-  private Float total = null;
+  private Float total;
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private OffsetDateTime updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC;
 
   
   @JsonProperty("CurrencyCode")
@@ -157,15 +157,15 @@ public class Overpayment {
 
   
   @JsonProperty("OverpaymentID")
-  private UUID overpaymentID = null;
+  private UUID overpaymentID;
 
   
   @JsonProperty("CurrencyRate")
-  private Float currencyRate = null;
+  private Float currencyRate;
 
   
   @JsonProperty("RemainingCredit")
-  private String remainingCredit = null;
+  private String remainingCredit;
 
   
   @JsonProperty("Allocations")
@@ -177,7 +177,7 @@ public class Overpayment {
 
   
   @JsonProperty("HasAttachments")
-  private Boolean hasAttachments = null;
+  private Boolean hasAttachments;
 
   public Overpayment type(TypeEnum type) {
     this.type = type;

@@ -73,7 +73,7 @@ public class RepeatingInvoice {
 
   
   @JsonProperty("Type")
-  private TypeEnum type = null;
+  private TypeEnum type;
 
   
   @JsonProperty("Contact")
@@ -93,11 +93,11 @@ public class RepeatingInvoice {
 
   
   @JsonProperty("Reference")
-  private String reference = null;
+  private String reference;
 
   
   @JsonProperty("BrandingThemeID")
-  private UUID brandingThemeID = null;
+  private UUID brandingThemeID;
 
   
   @JsonProperty("CurrencyCode")
@@ -140,31 +140,31 @@ public class RepeatingInvoice {
 
   
   @JsonProperty("Status")
-  private StatusEnum status = null;
+  private StatusEnum status;
 
   
   @JsonProperty("SubTotal")
-  private Float subTotal = null;
+  private Float subTotal;
 
   
   @JsonProperty("TotalTax")
-  private Float totalTax = null;
+  private Float totalTax;
 
   
   @JsonProperty("Total")
-  private Float total = null;
+  private Float total;
 
   
   @JsonProperty("RepeatingInvoiceID")
-  private UUID repeatingInvoiceID = null;
+  private UUID repeatingInvoiceID;
 
   
   @JsonProperty("ID")
-  private UUID ID = null;
+  private UUID ID;
 
   
   @JsonProperty("HasAttachments")
-  private Boolean hasAttachments = null;
+  private Boolean hasAttachments;
 
   public RepeatingInvoice type(TypeEnum type) {
     this.type = type;

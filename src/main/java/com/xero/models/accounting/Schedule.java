@@ -31,7 +31,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class Schedule {
   
   @JsonProperty("Period")
-  private Integer period = null;
+  private Integer period;
 
   /**
    * One of the following - WEEKLY or MONTHLY
@@ -70,11 +70,11 @@ public class Schedule {
 
   
   @JsonProperty("Unit")
-  private UnitEnum unit = null;
+  private UnitEnum unit;
 
   
   @JsonProperty("DueDate")
-  private Integer dueDate = null;
+  private Integer dueDate;
 
   /**
    * the payment terms
@@ -117,19 +117,19 @@ public class Schedule {
 
   
   @JsonProperty("DueDateType")
-  private DueDateTypeEnum dueDateType = null;
+  private DueDateTypeEnum dueDateType;
 
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("StartDate")
-  private LocalDate startDate = null;
+  private LocalDate startDate;
 
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("NextScheduledDate")
-  private LocalDate nextScheduledDate = null;
+  private LocalDate nextScheduledDate;
 
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("EndDate")
-  private LocalDate endDate = null;
+  private LocalDate endDate;
 
   public Schedule period(Integer period) {
     this.period = period;

@@ -71,15 +71,15 @@ public class ExternalLink {
 
   
   @JsonProperty("LinkType")
-  private LinkTypeEnum linkType = null;
+  private LinkTypeEnum linkType;
 
   
   @JsonProperty("Url")
-  private String url = null;
+  private String url;
 
   
   @JsonProperty("Description")
-  private String description = null;
+  private String description;
 
   public ExternalLink linkType(LinkTypeEnum linkType) {
     this.linkType = linkType;

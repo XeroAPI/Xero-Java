@@ -42,23 +42,23 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class Organisation {
   
   @JsonProperty("OrganisationID")
-  private UUID organisationID = null;
+  private UUID organisationID;
 
   
   @JsonProperty("APIKey")
-  private String apIKey = null;
+  private String apIKey;
 
   
   @JsonProperty("Name")
-  private String name = null;
+  private String name;
 
   
   @JsonProperty("LegalName")
-  private String legalName = null;
+  private String legalName;
 
   
   @JsonProperty("PaysTax")
-  private Boolean paysTax = null;
+  private Boolean paysTax;
 
   /**
    * See Version Types
@@ -113,7 +113,7 @@ public class Organisation {
 
   
   @JsonProperty("Version")
-  private VersionEnum version = null;
+  private VersionEnum version;
 
   /**
    * Organisation Type
@@ -164,7 +164,7 @@ public class Organisation {
 
   
   @JsonProperty("OrganisationType")
-  private OrganisationTypeEnum organisationType = null;
+  private OrganisationTypeEnum organisationType;
 
   
   @JsonProperty("BaseCurrency")
@@ -176,27 +176,27 @@ public class Organisation {
 
   
   @JsonProperty("IsDemoCompany")
-  private Boolean isDemoCompany = null;
+  private Boolean isDemoCompany;
 
   
   @JsonProperty("OrganisationStatus")
-  private String organisationStatus = null;
+  private String organisationStatus;
 
   
   @JsonProperty("RegistrationNumber")
-  private String registrationNumber = null;
+  private String registrationNumber;
 
   
   @JsonProperty("TaxNumber")
-  private String taxNumber = null;
+  private String taxNumber;
 
   
   @JsonProperty("FinancialYearEndDay")
-  private Integer financialYearEndDay = null;
+  private Integer financialYearEndDay;
 
   
   @JsonProperty("FinancialYearEndMonth")
-  private Integer financialYearEndMonth = null;
+  private Integer financialYearEndMonth;
 
   /**
    * The accounting basis used for tax returns. See Sales Tax Basis
@@ -247,7 +247,7 @@ public class Organisation {
 
   
   @JsonProperty("SalesTaxBasis")
-  private SalesTaxBasisEnum salesTaxBasis = null;
+  private SalesTaxBasisEnum salesTaxBasis;
 
   /**
    * The frequency with which tax returns are processed. See Sales Tax Period
@@ -310,27 +310,27 @@ public class Organisation {
 
   
   @JsonProperty("SalesTaxPeriod")
-  private SalesTaxPeriodEnum salesTaxPeriod = null;
+  private SalesTaxPeriodEnum salesTaxPeriod;
 
   
   @JsonProperty("DefaultSalesTax")
-  private String defaultSalesTax = null;
+  private String defaultSalesTax;
 
   
   @JsonProperty("DefaultPurchasesTax")
-  private String defaultPurchasesTax = null;
+  private String defaultPurchasesTax;
 
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("PeriodLockDate")
-  private LocalDate periodLockDate = null;
+  private LocalDate periodLockDate;
 
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("EndOfYearLockDate")
-  private LocalDate endOfYearLockDate = null;
+  private LocalDate endOfYearLockDate;
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("CreatedDateUTC")
-  private OffsetDateTime createdDateUTC = null;
+  private OffsetDateTime createdDateUTC;
 
   
   @JsonProperty("Timezone")
@@ -385,11 +385,11 @@ public class Organisation {
 
   
   @JsonProperty("OrganisationEntityType")
-  private OrganisationEntityTypeEnum organisationEntityType = null;
+  private OrganisationEntityTypeEnum organisationEntityType;
 
   
   @JsonProperty("ShortCode")
-  private String shortCode = null;
+  private String shortCode;
 
   /**
    * Organisation Classes describe which plan the Xero organisation is on (e.g. DEMO, TRIAL, PREMIUM)
@@ -446,11 +446,11 @@ public class Organisation {
 
   
   @JsonProperty("Class")
-  private PropertyClassEnum propertyClass = null;
+  private PropertyClassEnum propertyClass;
 
   
   @JsonProperty("LineOfBusiness")
-  private String lineOfBusiness = null;
+  private String lineOfBusiness;
 
   
   @JsonProperty("Addresses")

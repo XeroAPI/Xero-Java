@@ -71,19 +71,19 @@ public class Phone {
 
   
   @JsonProperty("PhoneType")
-  private PhoneTypeEnum phoneType = null;
+  private PhoneTypeEnum phoneType;
 
   
   @JsonProperty("PhoneNumber")
-  private String phoneNumber = null;
+  private String phoneNumber;
 
   
   @JsonProperty("PhoneAreaCode")
-  private String phoneAreaCode = null;
+  private String phoneAreaCode;
 
   
   @JsonProperty("PhoneCountryCode")
-  private String phoneCountryCode = null;
+  private String phoneCountryCode;
 
   public Phone phoneType(PhoneTypeEnum phoneType) {
     this.phoneType = phoneType;

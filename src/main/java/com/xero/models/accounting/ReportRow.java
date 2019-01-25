@@ -38,7 +38,7 @@ public class ReportRow {
 
   
   @JsonProperty("Title")
-  private String title = null;
+  private String title;
 
   
   @JsonProperty("Cells")

@@ -30,91 +30,91 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class TenNinteyNineContact {
   
   @JsonProperty("Box1")
-  private String box1 = null;
+  private String box1;
 
   
   @JsonProperty("Box2")
-  private String box2 = null;
+  private String box2;
 
   
   @JsonProperty("Box3")
-  private String box3 = null;
+  private String box3;
 
   
   @JsonProperty("Box4")
-  private String box4 = null;
+  private String box4;
 
   
   @JsonProperty("Box5")
-  private String box5 = null;
+  private String box5;
 
   
   @JsonProperty("Box6")
-  private String box6 = null;
+  private String box6;
 
   
   @JsonProperty("Box7")
-  private String box7 = null;
+  private String box7;
 
   
   @JsonProperty("Box8")
-  private String box8 = null;
+  private String box8;
 
   
   @JsonProperty("Box9")
-  private String box9 = null;
+  private String box9;
 
   
   @JsonProperty("Box10")
-  private String box10 = null;
+  private String box10;
 
   
   @JsonProperty("Box11")
-  private String box11 = null;
+  private String box11;
 
   
   @JsonProperty("Box13")
-  private String box13 = null;
+  private String box13;
 
   
   @JsonProperty("Box14")
-  private String box14 = null;
+  private String box14;
 
   
   @JsonProperty("Name")
-  private String name = null;
+  private String name;
 
   
   @JsonProperty("FederalTaxIDType")
-  private String federalTaxIDType = null;
+  private String federalTaxIDType;
 
   
   @JsonProperty("City")
-  private String city = null;
+  private String city;
 
   
   @JsonProperty("Zip")
-  private String zip = null;
+  private String zip;
 
   
   @JsonProperty("State")
-  private String state = null;
+  private String state;
 
   
   @JsonProperty("Email")
-  private String email = null;
+  private String email;
 
   
   @JsonProperty("StreetAddress")
-  private String streetAddress = null;
+  private String streetAddress;
 
   
   @JsonProperty("TaxID")
-  private String taxID = null;
+  private String taxID;
 
   
   @JsonProperty("ContactId")
-  private String contactId = null;
+  private String contactId;
 
   public TenNinteyNineContact box1(String box1) {
     this.box1 = box1;

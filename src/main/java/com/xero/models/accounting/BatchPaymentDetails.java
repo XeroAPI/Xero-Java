@@ -31,23 +31,23 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class BatchPaymentDetails {
   
   @JsonProperty("BankAccountNumber")
-  private String bankAccountNumber = null;
+  private String bankAccountNumber;
 
   
   @JsonProperty("BankAccountName")
-  private String bankAccountName = null;
+  private String bankAccountName;
 
   
   @JsonProperty("Details")
-  private String details = null;
+  private String details;
 
   
   @JsonProperty("Code")
-  private String code = null;
+  private String code;
 
   
   @JsonProperty("Reference")
-  private String reference = null;
+  private String reference;
 
   public BatchPaymentDetails bankAccountNumber(String bankAccountNumber) {
     this.bankAccountNumber = bankAccountNumber;

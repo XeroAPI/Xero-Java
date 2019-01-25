@@ -30,7 +30,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class Response204 {
   
   @JsonProperty("Status")
-  private String status = null;
+  private String status;
 
   public Response204 status(String status) {
     this.status = status;

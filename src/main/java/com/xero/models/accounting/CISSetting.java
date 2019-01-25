@@ -30,11 +30,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class CISSetting {
   
   @JsonProperty("CISEnabled")
-  private Boolean ciSEnabled = null;
+  private Boolean ciSEnabled;
 
   
   @JsonProperty("Rate")
-  private Integer rate = null;
+  private Integer rate;
 
   public CISSetting ciSEnabled(Boolean ciSEnabled) {
     this.ciSEnabled = ciSEnabled;

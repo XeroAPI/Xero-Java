@@ -30,7 +30,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class InvoiceReminder {
   
   @JsonProperty("Enabled")
-  private Boolean enabled = null;
+  private Boolean enabled;
 
   public InvoiceReminder enabled(Boolean enabled) {
     this.enabled = enabled;

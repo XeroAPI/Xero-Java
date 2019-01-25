@@ -47,11 +47,11 @@ public class PurchaseOrder {
 
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("Date")
-  private LocalDate date = null;
+  private LocalDate date;
 
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("DeliveryDate")
-  private LocalDate deliveryDate = null;
+  private LocalDate deliveryDate;
 
   
   @JsonProperty("LineAmountTypes")
@@ -59,15 +59,15 @@ public class PurchaseOrder {
 
   
   @JsonProperty("PurchaseOrderNumber")
-  private String purchaseOrderNumber = null;
+  private String purchaseOrderNumber;
 
   
   @JsonProperty("Reference")
-  private String reference = null;
+  private String reference;
 
   
   @JsonProperty("BrandingThemeID")
-  private UUID brandingThemeID = null;
+  private UUID brandingThemeID;
 
   
   @JsonProperty("CurrencyCode")
@@ -116,63 +116,63 @@ public class PurchaseOrder {
 
   
   @JsonProperty("Status")
-  private StatusEnum status = null;
+  private StatusEnum status;
 
   
   @JsonProperty("SentToContact")
-  private Boolean sentToContact = null;
+  private Boolean sentToContact;
 
   
   @JsonProperty("DeliveryAddress")
-  private String deliveryAddress = null;
+  private String deliveryAddress;
 
   
   @JsonProperty("AttentionTo")
-  private String attentionTo = null;
+  private String attentionTo;
 
   
   @JsonProperty("Telephone")
-  private String telephone = null;
+  private String telephone;
 
   
   @JsonProperty("DeliveryInstructions")
-  private String deliveryInstructions = null;
+  private String deliveryInstructions;
 
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("ExpectedArrivalDate")
-  private LocalDate expectedArrivalDate = null;
+  private LocalDate expectedArrivalDate;
 
   
   @JsonProperty("PurchaseOrderID")
-  private UUID purchaseOrderID = null;
+  private UUID purchaseOrderID;
 
   
   @JsonProperty("CurrencyRate")
-  private Float currencyRate = null;
+  private Float currencyRate;
 
   
   @JsonProperty("SubTotal")
-  private Float subTotal = null;
+  private Float subTotal;
 
   
   @JsonProperty("TotalTax")
-  private Float totalTax = null;
+  private Float totalTax;
 
   
   @JsonProperty("Total")
-  private Float total = null;
+  private Float total;
 
   
   @JsonProperty("TotalDiscount")
-  private Float totalDiscount = null;
+  private Float totalDiscount;
 
   
   @JsonProperty("HasAttachments")
-  private Boolean hasAttachments = null;
+  private Boolean hasAttachments;
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private OffsetDateTime updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC;
 
   public PurchaseOrder contact(Contact contact) {
     this.contact = contact;

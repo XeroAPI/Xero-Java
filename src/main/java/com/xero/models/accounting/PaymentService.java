@@ -31,23 +31,23 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class PaymentService {
   
   @JsonProperty("PaymentServiceID")
-  private UUID paymentServiceID = null;
+  private UUID paymentServiceID;
 
   
   @JsonProperty("PaymentServiceName")
-  private String paymentServiceName = null;
+  private String paymentServiceName;
 
   
   @JsonProperty("PaymentServiceUrl")
-  private String paymentServiceUrl = null;
+  private String paymentServiceUrl;
 
   
   @JsonProperty("PayNowText")
-  private String payNowText = null;
+  private String payNowText;
 
   
   @JsonProperty("PaymentServiceType")
-  private String paymentServiceType = null;
+  private String paymentServiceType;
 
   public PaymentService paymentServiceID(UUID paymentServiceID) {
     this.paymentServiceID = paymentServiceID;

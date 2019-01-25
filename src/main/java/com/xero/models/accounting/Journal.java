@@ -36,27 +36,27 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class Journal {
   
   @JsonProperty("JournalID")
-  private UUID journalID = null;
+  private UUID journalID;
 
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("JournalDate")
-  private LocalDate journalDate = null;
+  private LocalDate journalDate;
 
   
   @JsonProperty("JournalNumber")
-  private String journalNumber = null;
+  private String journalNumber;
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("CreatedDateUTC")
-  private OffsetDateTime createdDateUTC = null;
+  private OffsetDateTime createdDateUTC;
 
   
   @JsonProperty("Reference")
-  private String reference = null;
+  private String reference;
 
   
   @JsonProperty("SourceID")
-  private UUID sourceID = null;
+  private UUID sourceID;
 
   /**
    * The journal source type. The type of transaction that created the journal
@@ -141,7 +141,7 @@ public class Journal {
 
   
   @JsonProperty("SourceType")
-  private SourceTypeEnum sourceType = null;
+  private SourceTypeEnum sourceType;
 
   
   @JsonProperty("JournalLines")

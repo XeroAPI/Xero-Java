@@ -30,11 +30,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class ReportAttribute {
   
   @JsonProperty("Id")
-  private String id = null;
+  private String id;
 
   
   @JsonProperty("Value")
-  private String value = null;
+  private String value;
 
   public ReportAttribute id(String id) {
     this.id = id;

@@ -67,43 +67,43 @@ public class Address {
 
   
   @JsonProperty("AddressType")
-  private AddressTypeEnum addressType = null;
+  private AddressTypeEnum addressType;
 
   
   @JsonProperty("AddressLine1")
-  private String addressLine1 = null;
+  private String addressLine1;
 
   
   @JsonProperty("AddressLine2")
-  private String addressLine2 = null;
+  private String addressLine2;
 
   
   @JsonProperty("AddressLine3")
-  private String addressLine3 = null;
+  private String addressLine3;
 
   
   @JsonProperty("AddressLine4")
-  private String addressLine4 = null;
+  private String addressLine4;
 
   
   @JsonProperty("City")
-  private String city = null;
+  private String city;
 
   
   @JsonProperty("Region")
-  private String region = null;
+  private String region;
 
   
   @JsonProperty("PostalCode")
-  private String postalCode = null;
+  private String postalCode;
 
   
   @JsonProperty("Country")
-  private String country = null;
+  private String country;
 
   
   @JsonProperty("AttentionTo")
-  private String attentionTo = null;
+  private String attentionTo;
 
   public Address addressType(AddressTypeEnum addressType) {
     this.addressType = addressType;

@@ -54,11 +54,11 @@ public class Payment {
 
   
   @JsonProperty("InvoiceNumber")
-  private String invoiceNumber = null;
+  private String invoiceNumber;
 
   
   @JsonProperty("CreditNoteNumber")
-  private String creditNoteNumber = null;
+  private String creditNoteNumber;
 
   
   @JsonProperty("Account")
@@ -66,27 +66,27 @@ public class Payment {
 
   
   @JsonProperty("Code")
-  private String code = null;
+  private String code;
 
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("Date")
-  private LocalDate date = null;
+  private LocalDate date;
 
   
   @JsonProperty("CurrencyRate")
-  private Float currencyRate = null;
+  private Float currencyRate;
 
   
   @JsonProperty("Amount")
-  private Float amount = null;
+  private Float amount;
 
   
   @JsonProperty("Reference")
-  private String reference = null;
+  private String reference;
 
   
   @JsonProperty("IsReconciled")
-  private String isReconciled = null;
+  private String isReconciled;
 
   /**
    * The status of the payment.
@@ -125,7 +125,7 @@ public class Payment {
 
   
   @JsonProperty("Status")
-  private StatusEnum status = null;
+  private StatusEnum status;
 
   /**
    * See Payment Types.
@@ -176,27 +176,27 @@ public class Payment {
 
   
   @JsonProperty("PaymentType")
-  private PaymentTypeEnum paymentType = null;
+  private PaymentTypeEnum paymentType;
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private OffsetDateTime updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC;
 
   
   @JsonProperty("PaymentID")
-  private UUID paymentID = null;
+  private UUID paymentID;
 
   
   @JsonProperty("BankAccountNumber")
-  private String bankAccountNumber = null;
+  private String bankAccountNumber;
 
   
   @JsonProperty("Particulars")
-  private String particulars = null;
+  private String particulars;
 
   
   @JsonProperty("Details")
-  private String details = null;
+  private String details;
 
   public Payment invoice(Invoice invoice) {
     this.invoice = invoice;

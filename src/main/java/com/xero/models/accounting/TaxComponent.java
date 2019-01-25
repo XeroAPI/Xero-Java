@@ -30,19 +30,19 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class TaxComponent {
   
   @JsonProperty("Name")
-  private String name = null;
+  private String name;
 
   
   @JsonProperty("Rate")
-  private Float rate = null;
+  private Float rate;
 
   
   @JsonProperty("IsCompound")
-  private Boolean isCompound = null;
+  private Boolean isCompound;
 
   
   @JsonProperty("IsNonRecoverable")
-  private Boolean isNonRecoverable = null;
+  private Boolean isNonRecoverable;
 
   public TaxComponent name(String name) {
     this.name = name;

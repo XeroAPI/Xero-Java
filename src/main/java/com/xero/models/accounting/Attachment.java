@@ -32,27 +32,27 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class Attachment {
   
   @JsonProperty("AttachmentID")
-  private UUID attachmentID = null;
+  private UUID attachmentID;
 
   
   @JsonProperty("FileName")
-  private String fileName = null;
+  private String fileName;
 
   
   @JsonProperty("Url")
-  private String url = null;
+  private String url;
 
   
   @JsonProperty("MimeType")
-  private String mimeType = null;
+  private String mimeType;
 
   
   @JsonProperty("ContentLength")
-  private BigDecimal contentLength = null;
+  private BigDecimal contentLength;
 
   
   @JsonProperty("IncludeOnline")
-  private Boolean includeOnline = null;
+  private Boolean includeOnline;
 
   public Attachment attachmentID(UUID attachmentID) {
     this.attachmentID = attachmentID;

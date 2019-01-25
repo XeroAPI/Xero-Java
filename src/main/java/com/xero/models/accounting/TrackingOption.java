@@ -31,11 +31,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class TrackingOption {
   
   @JsonProperty("TrackingOptionID")
-  private UUID trackingOptionID = null;
+  private UUID trackingOptionID;
 
   
   @JsonProperty("Name")
-  private String name = null;
+  private String name;
 
   /**
    * The status of a tracking option
@@ -74,11 +74,11 @@ public class TrackingOption {
 
   
   @JsonProperty("Status")
-  private StatusEnum status = null;
+  private StatusEnum status;
 
   
   @JsonProperty("TrackingCategoryID")
-  private UUID trackingCategoryID = null;
+  private UUID trackingCategoryID;
 
   public TrackingOption trackingOptionID(UUID trackingOptionID) {
     this.trackingOptionID = trackingOptionID;

@@ -31,15 +31,15 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class Purchase {
   
   @JsonProperty("UnitPrice")
-  private Float unitPrice = null;
+  private Float unitPrice;
 
   
   @JsonProperty("AccountCode")
-  private String accountCode = null;
+  private String accountCode;
 
   
   @JsonProperty("COGSAccountCode")
-  private String coGSAccountCode = null;
+  private String coGSAccountCode;
 
   
   @JsonProperty("TaxType")

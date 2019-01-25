@@ -33,31 +33,31 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class Item {
   
   @JsonProperty("Code")
-  private String code = null;
+  private String code;
 
   
   @JsonProperty("InventoryAssetAccountCode")
-  private String inventoryAssetAccountCode = null;
+  private String inventoryAssetAccountCode;
 
   
   @JsonProperty("Name")
-  private String name = null;
+  private String name;
 
   
   @JsonProperty("IsSold")
-  private Boolean isSold = null;
+  private Boolean isSold;
 
   
   @JsonProperty("IsPurchased")
-  private Boolean isPurchased = null;
+  private Boolean isPurchased;
 
   
   @JsonProperty("Description")
-  private String description = null;
+  private String description;
 
   
   @JsonProperty("PurchaseDescription")
-  private String purchaseDescription = null;
+  private String purchaseDescription;
 
   
   @JsonProperty("PurchaseDetails")
@@ -69,23 +69,23 @@ public class Item {
 
   
   @JsonProperty("IsTrackedAsInventory")
-  private Boolean isTrackedAsInventory = null;
+  private Boolean isTrackedAsInventory;
 
   
   @JsonProperty("TotalCostPool")
-  private Float totalCostPool = null;
+  private Float totalCostPool;
 
   
   @JsonProperty("QuantityOnHand")
-  private Float quantityOnHand = null;
+  private Float quantityOnHand;
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private OffsetDateTime updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC;
 
   
   @JsonProperty("ItemID")
-  private UUID itemID = null;
+  private UUID itemID;
 
   public Item code(String code) {
     this.code = code;

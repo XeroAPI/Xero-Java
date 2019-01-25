@@ -75,7 +75,7 @@ public class CreditNote {
 
   
   @JsonProperty("Type")
-  private TypeEnum type = null;
+  private TypeEnum type;
 
   
   @JsonProperty("Contact")
@@ -83,7 +83,7 @@ public class CreditNote {
 
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("Date")
-  private LocalDate date = null;
+  private LocalDate date;
 
   /**
    * See Credit Note Status Codes
@@ -130,7 +130,7 @@ public class CreditNote {
 
   
   @JsonProperty("Status")
-  private StatusEnum status = null;
+  private StatusEnum status;
 
   
   @JsonProperty("LineAmountTypes")
@@ -142,19 +142,19 @@ public class CreditNote {
 
   
   @JsonProperty("SubTotal")
-  private Float subTotal = null;
+  private Float subTotal;
 
   
   @JsonProperty("TotalTax")
-  private Float totalTax = null;
+  private Float totalTax;
 
   
   @JsonProperty("Total")
-  private Float total = null;
+  private Float total;
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private OffsetDateTime updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC;
 
   
   @JsonProperty("CurrencyCode")
@@ -162,31 +162,31 @@ public class CreditNote {
 
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("FullyPaidOnDate")
-  private LocalDate fullyPaidOnDate = null;
+  private LocalDate fullyPaidOnDate;
 
   
   @JsonProperty("CreditNoteID")
-  private UUID creditNoteID = null;
+  private UUID creditNoteID;
 
   
   @JsonProperty("CreditNoteNumber")
-  private String creditNoteNumber = null;
+  private String creditNoteNumber;
 
   
   @JsonProperty("Reference")
-  private String reference = null;
+  private String reference;
 
   
   @JsonProperty("SentToContact")
-  private Boolean sentToContact = null;
+  private Boolean sentToContact;
 
   
   @JsonProperty("CurrencyRate")
-  private Float currencyRate = null;
+  private Float currencyRate;
 
   
   @JsonProperty("RemainingCredit")
-  private Float remainingCredit = null;
+  private Float remainingCredit;
 
   
   @JsonProperty("Allocations")
@@ -194,11 +194,11 @@ public class CreditNote {
 
   
   @JsonProperty("BrandingThemeID")
-  private UUID brandingThemeID = null;
+  private UUID brandingThemeID;
 
   
   @JsonProperty("HasAttachments")
-  private Boolean hasAttachments = null;
+  private Boolean hasAttachments;
 
   public CreditNote type(TypeEnum type) {
     this.type = type;

@@ -41,39 +41,39 @@ public class BatchPayment {
 
   
   @JsonProperty("Reference")
-  private String reference = null;
+  private String reference;
 
   
   @JsonProperty("Particulars")
-  private String particulars = null;
+  private String particulars;
 
   
   @JsonProperty("Code")
-  private String code = null;
+  private String code;
 
   
   @JsonProperty("Details")
-  private String details = null;
+  private String details;
 
   
   @JsonProperty("Narrative")
-  private String narrative = null;
+  private String narrative;
 
   
   @JsonProperty("BatchPaymentID")
-  private UUID batchPaymentID = null;
+  private UUID batchPaymentID;
 
   
   @JsonProperty("DateString")
-  private String dateString = null;
+  private String dateString;
 
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("Date")
-  private LocalDate date = null;
+  private LocalDate date;
 
   
   @JsonProperty("Amount")
-  private Float amount = null;
+  private Float amount;
 
   
   @JsonProperty("Payments")
@@ -81,23 +81,23 @@ public class BatchPayment {
 
   
   @JsonProperty("Type")
-  private String type = null;
+  private String type;
 
   
   @JsonProperty("Status")
-  private String status = null;
+  private String status;
 
   
   @JsonProperty("TotalAmount")
-  private String totalAmount = null;
+  private String totalAmount;
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private OffsetDateTime updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC;
 
   
   @JsonProperty("IsReconciled")
-  private String isReconciled = null;
+  private String isReconciled;
 
   public BatchPayment account(Account account) {
     this.account = account;

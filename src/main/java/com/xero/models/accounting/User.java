@@ -32,27 +32,27 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class User {
   
   @JsonProperty("UserID")
-  private UUID userID = null;
+  private UUID userID;
 
   
   @JsonProperty("EmailAddress")
-  private String emailAddress = null;
+  private String emailAddress;
 
   
   @JsonProperty("FirstName")
-  private String firstName = null;
+  private String firstName;
 
   
   @JsonProperty("LastName")
-  private String lastName = null;
+  private String lastName;
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private OffsetDateTime updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC;
 
   
   @JsonProperty("IsSubscriber")
-  private Boolean isSubscriber = null;
+  private Boolean isSubscriber;
 
   /**
    * User role (see Types)
@@ -99,7 +99,7 @@ public class User {
 
   
   @JsonProperty("OrganisationRole")
-  private OrganisationRoleEnum organisationRole = null;
+  private OrganisationRoleEnum organisationRole;
 
   public User userID(UUID userID) {
     this.userID = userID;

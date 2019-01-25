@@ -35,31 +35,31 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class ReportWithRow {
   
   @JsonProperty("ReportID")
-  private String reportID = null;
+  private String reportID;
 
   
   @JsonProperty("ReportName")
-  private String reportName = null;
-
-  
-  @JsonProperty("ReportType")
-  private String reportType = null;
+  private String reportName;
 
   
   @JsonProperty("ReportTitle")
-  private String reportTitle = null;
+  private String reportTitle;
+
+  
+  @JsonProperty("ReportType")
+  private String reportType;
 
   
   @JsonProperty("ReportTitles")
-  private List reportTitles = null;
+  private List<String> reportTitles = null;
 
   
   @JsonProperty("ReportDate")
-  private String reportDate = null;
+  private String reportDate;
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private OffsetDateTime updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC;
 
   
   @JsonProperty("Rows")
@@ -105,34 +105,16 @@ public class ReportWithRow {
     this.reportName = reportName;
   }
 
-  public ReportWithRow reportType(String reportType) {
-    this.reportType = reportType;
-    return this;
-  }
-
-   /**
-   * See Prepayment Types
-   * @return reportType
-  **/
-  @ApiModelProperty(value = "See Prepayment Types")
-  public String getReportType() {
-    return reportType;
-  }
-
-  public void setReportType(String reportType) {
-    this.reportType = reportType;
-  }
-
   public ReportWithRow reportTitle(String reportTitle) {
     this.reportTitle = reportTitle;
     return this;
   }
 
    /**
-   * See Prepayment Types
+   * Title of the report
    * @return reportTitle
   **/
-  @ApiModelProperty(value = "See Prepayment Types")
+  @ApiModelProperty(value = "Title of the report")
   public String getReportTitle() {
     return reportTitle;
   }
@@ -141,21 +123,47 @@ public class ReportWithRow {
     this.reportTitle = reportTitle;
   }
 
-  public ReportWithRow reportTitles(List reportTitles) {
-    this.reportTitles = reportTitles;
+  public ReportWithRow reportType(String reportType) {
+    this.reportType = reportType;
     return this;
   }
 
    /**
-   * Report titles array
+   * The type of report (BalanceSheet,ProfitLoss, etc)
+   * @return reportType
+  **/
+  @ApiModelProperty(value = "The type of report (BalanceSheet,ProfitLoss, etc)")
+  public String getReportType() {
+    return reportType;
+  }
+
+  public void setReportType(String reportType) {
+    this.reportType = reportType;
+  }
+
+  public ReportWithRow reportTitles(List<String> reportTitles) {
+    this.reportTitles = reportTitles;
+    return this;
+  }
+
+  public ReportWithRow addReportTitlesItem(String reportTitlesItem) {
+    if (this.reportTitles == null) {
+      this.reportTitles = new ArrayList<String>();
+    }
+    this.reportTitles.add(reportTitlesItem);
+    return this;
+  }
+
+   /**
+   * Report titles array (3 to 4 strings with the report name, orgnisation name and time frame of report)
    * @return reportTitles
   **/
-  @ApiModelProperty(value = "Report titles array")
-  public List getReportTitles() {
+  @ApiModelProperty(value = "Report titles array (3 to 4 strings with the report name, orgnisation name and time frame of report)")
+  public List<String> getReportTitles() {
     return reportTitles;
   }
 
-  public void setReportTitles(List reportTitles) {
+  public void setReportTitles(List<String> reportTitles) {
     this.reportTitles = reportTitles;
   }
 
@@ -259,8 +267,8 @@ public class ReportWithRow {
     ReportWithRow reportWithRow = (ReportWithRow) o;
     return Objects.equals(this.reportID, reportWithRow.reportID) &&
         Objects.equals(this.reportName, reportWithRow.reportName) &&
-        Objects.equals(this.reportType, reportWithRow.reportType) &&
         Objects.equals(this.reportTitle, reportWithRow.reportTitle) &&
+        Objects.equals(this.reportType, reportWithRow.reportType) &&
         Objects.equals(this.reportTitles, reportWithRow.reportTitles) &&
         Objects.equals(this.reportDate, reportWithRow.reportDate) &&
         Objects.equals(this.updatedDateUTC, reportWithRow.updatedDateUTC) &&
@@ -270,7 +278,7 @@ public class ReportWithRow {
 
   @Override
   public int hashCode() {
-    return Objects.hash(reportID, reportName, reportType, reportTitle, reportTitles, reportDate, updatedDateUTC, rows, fields);
+    return Objects.hash(reportID, reportName, reportTitle, reportType, reportTitles, reportDate, updatedDateUTC, rows, fields);
   }
 
 
@@ -281,8 +289,8 @@ public class ReportWithRow {
     
     sb.append("    reportID: ").append(toIndentedString(reportID)).append("\n");
     sb.append("    reportName: ").append(toIndentedString(reportName)).append("\n");
-    sb.append("    reportType: ").append(toIndentedString(reportType)).append("\n");
     sb.append("    reportTitle: ").append(toIndentedString(reportTitle)).append("\n");
+    sb.append("    reportType: ").append(toIndentedString(reportType)).append("\n");
     sb.append("    reportTitles: ").append(toIndentedString(reportTitles)).append("\n");
     sb.append("    reportDate: ").append(toIndentedString(reportDate)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");

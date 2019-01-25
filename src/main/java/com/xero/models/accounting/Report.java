@@ -34,11 +34,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class Report {
   
   @JsonProperty("ReportID")
-  private String reportID = null;
+  private String reportID;
 
   
   @JsonProperty("ReportName")
-  private String reportName = null;
+  private String reportName;
 
   /**
    * See Prepayment Types
@@ -75,19 +75,19 @@ public class Report {
 
   
   @JsonProperty("ReportType")
-  private ReportTypeEnum reportType = null;
+  private ReportTypeEnum reportType;
 
   
   @JsonProperty("ReportTitle")
-  private String reportTitle = null;
+  private String reportTitle;
 
   
   @JsonProperty("ReportDate")
-  private String reportDate = null;
+  private String reportDate;
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private OffsetDateTime updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC;
 
   
   @JsonProperty("Contacts")

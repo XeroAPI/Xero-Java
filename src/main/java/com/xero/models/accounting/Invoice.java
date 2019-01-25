@@ -78,7 +78,7 @@ public class Invoice {
 
   
   @JsonProperty("Type")
-  private TypeEnum type = null;
+  private TypeEnum type;
 
   
   @JsonProperty("Contact")
@@ -90,11 +90,11 @@ public class Invoice {
 
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("Date")
-  private LocalDate date = null;
+  private LocalDate date;
 
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("DueDate")
-  private LocalDate dueDate = null;
+  private LocalDate dueDate;
 
   
   @JsonProperty("LineAmountTypes")
@@ -102,19 +102,19 @@ public class Invoice {
 
   
   @JsonProperty("InvoiceNumber")
-  private String invoiceNumber = null;
+  private String invoiceNumber;
 
   
   @JsonProperty("Reference")
-  private String reference = null;
+  private String reference;
 
   
   @JsonProperty("BrandingThemeID")
-  private UUID brandingThemeID = null;
+  private UUID brandingThemeID;
 
   
   @JsonProperty("Url")
-  private String url = null;
+  private String url;
 
   
   @JsonProperty("CurrencyCode")
@@ -122,7 +122,7 @@ public class Invoice {
 
   
   @JsonProperty("CurrencyRate")
-  private Float currencyRate = null;
+  private Float currencyRate;
 
   /**
    * See Invoice Status Codes
@@ -169,43 +169,43 @@ public class Invoice {
 
   
   @JsonProperty("Status")
-  private StatusEnum status = null;
+  private StatusEnum status;
 
   
   @JsonProperty("SentToContact")
-  private Boolean sentToContact = null;
+  private Boolean sentToContact;
 
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("ExpectedPaymentDate")
-  private LocalDate expectedPaymentDate = null;
+  private LocalDate expectedPaymentDate;
 
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("PlannedPaymentDate")
-  private LocalDate plannedPaymentDate = null;
+  private LocalDate plannedPaymentDate;
 
   
   @JsonProperty("SubTotal")
-  private Float subTotal = null;
+  private Float subTotal;
 
   
   @JsonProperty("TotalTax")
-  private Float totalTax = null;
+  private Float totalTax;
 
   
   @JsonProperty("Total")
-  private Float total = null;
+  private Float total;
 
   
   @JsonProperty("TotalDiscount")
-  private Float totalDiscount = null;
+  private Float totalDiscount;
 
   
   @JsonProperty("InvoiceID")
-  private UUID invoiceID = null;
+  private UUID invoiceID;
 
   
   @JsonProperty("HasAttachments")
-  private Boolean hasAttachments = null;
+  private Boolean hasAttachments;
 
   
   @JsonProperty("Payments")
@@ -221,23 +221,23 @@ public class Invoice {
 
   
   @JsonProperty("AmountDue")
-  private Float amountDue = null;
+  private Float amountDue;
 
   
   @JsonProperty("AmountPaid")
-  private Float amountPaid = null;
+  private Float amountPaid;
 
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("FullyPaidOnDate")
-  private LocalDate fullyPaidOnDate = null;
+  private LocalDate fullyPaidOnDate;
 
   
   @JsonProperty("AmountCredited")
-  private Float amountCredited = null;
+  private Float amountCredited;
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private OffsetDateTime updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC;
 
   
   @JsonProperty("CreditNotes")

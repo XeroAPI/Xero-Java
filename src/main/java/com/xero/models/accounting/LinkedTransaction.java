@@ -32,27 +32,27 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class LinkedTransaction {
   
   @JsonProperty("SourceTransactionID")
-  private UUID sourceTransactionID = null;
+  private UUID sourceTransactionID;
 
   
   @JsonProperty("SourceLineItemID")
-  private UUID sourceLineItemID = null;
+  private UUID sourceLineItemID;
 
   
   @JsonProperty("ContactID")
-  private UUID contactID = null;
+  private UUID contactID;
 
   
   @JsonProperty("TargetTransactionID")
-  private UUID targetTransactionID = null;
+  private UUID targetTransactionID;
 
   
   @JsonProperty("TargetLineItemID")
-  private UUID targetLineItemID = null;
+  private UUID targetLineItemID;
 
   
   @JsonProperty("LinkedTransactionID")
-  private UUID linkedTransactionID = null;
+  private UUID linkedTransactionID;
 
   /**
    * Filter by the combination of ContactID and Status. Get all the linked transactions that have been assigned to a particular customer and have a particular status e.g. GET /LinkedTransactions?ContactID&#x3D;4bb34b03-3378-4bb2-a0ed-6345abf3224e&amp;Status&#x3D;APPROVED.
@@ -97,7 +97,7 @@ public class LinkedTransaction {
 
   
   @JsonProperty("Status")
-  private StatusEnum status = null;
+  private StatusEnum status;
 
   /**
    * This will always be BILLABLEEXPENSE. More types may be added in future.
@@ -134,11 +134,11 @@ public class LinkedTransaction {
 
   
   @JsonProperty("Type")
-  private TypeEnum type = null;
+  private TypeEnum type;
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private OffsetDateTime updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC;
 
   /**
    * The Type of the source tranasction. This will be ACCPAY if the linked transaction was created from an invoice and SPEND if it was created from a bank transaction.
@@ -177,7 +177,7 @@ public class LinkedTransaction {
 
   
   @JsonProperty("SourceTransactionTypeCode")
-  private SourceTransactionTypeCodeEnum sourceTransactionTypeCode = null;
+  private SourceTransactionTypeCodeEnum sourceTransactionTypeCode;
 
   public LinkedTransaction sourceTransactionID(UUID sourceTransactionID) {
     this.sourceTransactionID = sourceTransactionID;

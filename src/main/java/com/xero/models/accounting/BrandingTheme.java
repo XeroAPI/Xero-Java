@@ -32,19 +32,19 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class BrandingTheme {
   
   @JsonProperty("BrandingThemeID")
-  private UUID brandingThemeID = null;
+  private UUID brandingThemeID;
 
   
   @JsonProperty("Name")
-  private String name = null;
+  private String name;
 
   
   @JsonProperty("SortOrder")
-  private Integer sortOrder = null;
+  private Integer sortOrder;
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("CreatedDateUTC")
-  private OffsetDateTime createdDateUTC = null;
+  private OffsetDateTime createdDateUTC;
 
   public BrandingTheme brandingThemeID(UUID brandingThemeID) {
     this.brandingThemeID = brandingThemeID;

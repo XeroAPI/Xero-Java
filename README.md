@@ -79,7 +79,7 @@ Add the dependency to your pom.xml.  Gradle, sbt and other build tools can be fo
     <dependency>
       <groupId>com.github.xeroapi</groupId>
       <artifactId>xero-java</artifactId>
-      <version>2.2.12</version>
+      <version>2.2.13</version>
 	</dependency>
 
 
@@ -217,7 +217,7 @@ try (FileInputStream privateKeyStream = new FileInputStream(config.getPathToPriv
 {
 	RsaSignerFactory signerFactory = new RsaSignerFactory(privateKeyStream, config.getPrivateKeyPassword());
 
-		// v2
+	// v2
 	ApiClient apiClientForAccounting = new ApiClient(config.getApiUrl(), null, null, null);
 	accountingApi = new AccountingApi(config, signerFactory);
 	accountingApi.setApiClient(apiClientForAccounting);

@@ -30,15 +30,15 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class ReportFields {
   
   @JsonProperty("FieldID")
-  private String fieldID = null;
+  private String fieldID;
 
   
   @JsonProperty("Description")
-  private String description = null;
+  private String description;
 
   
   @JsonProperty("Value")
-  private String value = null;
+  private String value;
 
   public ReportFields fieldID(String fieldID) {
     this.fieldID = fieldID;

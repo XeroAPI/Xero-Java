@@ -39,7 +39,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class Receipt {
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("Date")
-  private LocalDate date = null;
+  private LocalDate date;
 
   
   @JsonProperty("Contact")
@@ -55,7 +55,7 @@ public class Receipt {
 
   
   @JsonProperty("Reference")
-  private String reference = null;
+  private String reference;
 
   
   @JsonProperty("LineAmountTypes")
@@ -63,19 +63,19 @@ public class Receipt {
 
   
   @JsonProperty("SubTotal")
-  private Float subTotal = null;
+  private Float subTotal;
 
   
   @JsonProperty("TotalTax")
-  private Float totalTax = null;
+  private Float totalTax;
 
   
   @JsonProperty("Total")
-  private Float total = null;
+  private Float total;
 
   
   @JsonProperty("ReceiptID")
-  private UUID receiptID = null;
+  private UUID receiptID;
 
   /**
    * Current status of receipt – see status types
@@ -118,23 +118,23 @@ public class Receipt {
 
   
   @JsonProperty("Status")
-  private StatusEnum status = null;
+  private StatusEnum status;
 
   
   @JsonProperty("ReceiptNumber")
-  private String receiptNumber = null;
+  private String receiptNumber;
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private OffsetDateTime updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC;
 
   
   @JsonProperty("HasAttachments")
-  private Boolean hasAttachments = null;
+  private Boolean hasAttachments;
 
   
   @JsonProperty("Url")
-  private String url = null;
+  private String url;
 
   public Receipt date(LocalDate date) {
     this.date = date;

@@ -33,11 +33,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class TaxRate {
   
   @JsonProperty("Name")
-  private String name = null;
+  private String name;
 
   
   @JsonProperty("TaxType")
-  private String taxType = null;
+  private String taxType;
 
   
   @JsonProperty("TaxComponents")
@@ -82,7 +82,7 @@ public class TaxRate {
 
   
   @JsonProperty("Status")
-  private StatusEnum status = null;
+  private StatusEnum status;
 
   /**
    * See ReportTaxTypes
@@ -149,35 +149,35 @@ public class TaxRate {
 
   
   @JsonProperty("ReportTaxType")
-  private ReportTaxTypeEnum reportTaxType = null;
+  private ReportTaxTypeEnum reportTaxType;
 
   
   @JsonProperty("CanApplyToAssets")
-  private Boolean canApplyToAssets = null;
+  private Boolean canApplyToAssets;
 
   
   @JsonProperty("CanApplyToEquity")
-  private Boolean canApplyToEquity = null;
+  private Boolean canApplyToEquity;
 
   
   @JsonProperty("CanApplyToExpenses")
-  private Boolean canApplyToExpenses = null;
+  private Boolean canApplyToExpenses;
 
   
   @JsonProperty("CanApplyToLiabilities")
-  private Boolean canApplyToLiabilities = null;
+  private Boolean canApplyToLiabilities;
 
   
   @JsonProperty("CanApplyToRevenue")
-  private Boolean canApplyToRevenue = null;
+  private Boolean canApplyToRevenue;
 
   
   @JsonProperty("DisplayTaxRate")
-  private Float displayTaxRate = null;
+  private Float displayTaxRate;
 
   
   @JsonProperty("EffectiveRate")
-  private Float effectiveRate = null;
+  private Float effectiveRate;
 
   public TaxRate name(String name) {
     this.name = name;

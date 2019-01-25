@@ -36,15 +36,15 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class JournalLine {
   
   @JsonProperty("JournalLineID")
-  private UUID journalLineID = null;
+  private UUID journalLineID;
 
   
   @JsonProperty("AccountID")
-  private UUID accountID = null;
+  private UUID accountID;
 
   
   @JsonProperty("AccountCode")
-  private String accountCode = null;
+  private String accountCode;
 
   
   @JsonProperty("AccountType")
@@ -52,23 +52,23 @@ public class JournalLine {
 
   
   @JsonProperty("AccountName")
-  private String accountName = null;
+  private String accountName;
 
   
   @JsonProperty("Description")
-  private String description = null;
+  private String description;
 
   
   @JsonProperty("NetAmount")
-  private Float netAmount = null;
+  private Float netAmount;
 
   
   @JsonProperty("GrossAmount")
-  private Float grossAmount = null;
+  private Float grossAmount;
 
   
   @JsonProperty("TaxAmount")
-  private Float taxAmount = null;
+  private Float taxAmount;
 
   
   @JsonProperty("TaxType")
@@ -76,7 +76,7 @@ public class JournalLine {
 
   
   @JsonProperty("TaxName")
-  private String taxName = null;
+  private String taxName;
 
   
   @JsonProperty("TrackingCategories")

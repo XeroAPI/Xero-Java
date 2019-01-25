@@ -31,19 +31,19 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class HistoryRecord {
   
   @JsonProperty("Details")
-  private String details = null;
+  private String details;
 
   
   @JsonProperty("Changes")
-  private String changes = null;
+  private String changes;
 
   
   @JsonProperty("User")
-  private String user = null;
+  private String user;
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("DateUTC")
-  private OffsetDateTime dateUTC = null;
+  private OffsetDateTime dateUTC;
 
   public HistoryRecord details(String details) {
     this.details = details;

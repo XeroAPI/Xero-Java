@@ -34,7 +34,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class ContactGroup {
   
   @JsonProperty("Name")
-  private String name = null;
+  private String name;
 
   /**
    * The Status of a contact group. To delete a contact group update the status to DELETED. Only contact groups with a status of ACTIVE are returned on GETs.
@@ -73,11 +73,11 @@ public class ContactGroup {
 
   
   @JsonProperty("Status")
-  private StatusEnum status = null;
+  private StatusEnum status;
 
   
   @JsonProperty("ContactGroupID")
-  private UUID contactGroupID = null;
+  private UUID contactGroupID;
 
   
   @JsonProperty("Contacts")

@@ -30,11 +30,11 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class AccountsPayable {
   
   @JsonProperty("Outstanding")
-  private String outstanding = null;
+  private String outstanding;
 
   
   @JsonProperty("Overdue")
-  private String overdue = null;
+  private String overdue;
 
   public AccountsPayable outstanding(String outstanding) {
     this.outstanding = outstanding;

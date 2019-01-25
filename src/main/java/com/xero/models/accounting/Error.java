@@ -33,15 +33,15 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class Error {
   
   @JsonProperty("ErrorNumber")
-  private Integer errorNumber = null;
+  private Integer errorNumber;
 
   
   @JsonProperty("Type")
-  private String type = null;
+  private String type;
 
   
   @JsonProperty("Message")
-  private String message = null;
+  private String message;
 
   
   @JsonProperty("Elements")

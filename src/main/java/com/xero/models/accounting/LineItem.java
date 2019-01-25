@@ -35,27 +35,27 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class LineItem {
   
   @JsonProperty("LineItemID")
-  private UUID lineItemID = null;
+  private UUID lineItemID;
 
   
   @JsonProperty("Description")
-  private String description = null;
+  private String description;
 
   
   @JsonProperty("Quantity")
-  private Float quantity = null;
+  private Float quantity;
 
   
   @JsonProperty("UnitAmount")
-  private Float unitAmount = null;
+  private Float unitAmount;
 
   
   @JsonProperty("ItemCode")
-  private String itemCode = null;
+  private String itemCode;
 
   
   @JsonProperty("AccountCode")
-  private String accountCode = null;
+  private String accountCode;
 
   
   @JsonProperty("TaxType")
@@ -63,11 +63,11 @@ public class LineItem {
 
   
   @JsonProperty("TaxAmount")
-  private Float taxAmount = null;
+  private Float taxAmount;
 
   
   @JsonProperty("LineAmount")
-  private Float lineAmount = null;
+  private Float lineAmount;
 
   
   @JsonProperty("Tracking")
@@ -75,11 +75,11 @@ public class LineItem {
 
   
   @JsonProperty("DiscountRate")
-  private String discountRate = null;
+  private String discountRate;
 
   
   @JsonProperty("RepeatingInvoiceID")
-  private UUID repeatingInvoiceID = null;
+  private UUID repeatingInvoiceID;
 
   public LineItem lineItemID(UUID lineItemID) {
     this.lineItemID = lineItemID;

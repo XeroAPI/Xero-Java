@@ -34,15 +34,15 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class ManualJournalLine {
   
   @JsonProperty("LineAmount")
-  private Float lineAmount = null;
+  private Float lineAmount;
 
   
   @JsonProperty("AccountCode")
-  private String accountCode = null;
+  private String accountCode;
 
   
   @JsonProperty("Description")
-  private String description = null;
+  private String description;
 
   
   @JsonProperty("TaxType")
@@ -54,11 +54,11 @@ public class ManualJournalLine {
 
   
   @JsonProperty("TaxAmount")
-  private Float taxAmount = null;
+  private Float taxAmount;
 
   
   @JsonProperty("IsBlank")
-  private Boolean isBlank = null;
+  private Boolean isBlank;
 
   public ManualJournalLine lineAmount(Float lineAmount) {
     this.lineAmount = lineAmount;

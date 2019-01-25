@@ -42,35 +42,35 @@ public class BankTransfer {
 
   
   @JsonProperty("Amount")
-  private String amount = null;
+  private String amount;
 
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("Date")
-  private LocalDate date = null;
+  private LocalDate date;
 
   
   @JsonProperty("BankTransferID")
-  private UUID bankTransferID = null;
+  private UUID bankTransferID;
 
   
   @JsonProperty("CurrencyRate")
-  private Float currencyRate = null;
+  private Float currencyRate;
 
   
   @JsonProperty("FromBankTransactionID")
-  private UUID fromBankTransactionID = null;
+  private UUID fromBankTransactionID;
 
   
   @JsonProperty("ToBankTransactionID")
-  private UUID toBankTransactionID = null;
+  private UUID toBankTransactionID;
 
   
   @JsonProperty("HasAttachments")
-  private Boolean hasAttachments = null;
+  private Boolean hasAttachments;
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("CreatedDateUTC")
-  private OffsetDateTime createdDateUTC = null;
+  private OffsetDateTime createdDateUTC;
 
   public BankTransfer fromBankAccount(Account fromBankAccount) {
     this.fromBankAccount = fromBankAccount;

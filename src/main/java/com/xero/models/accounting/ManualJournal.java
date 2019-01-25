@@ -37,7 +37,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class ManualJournal {
   
   @JsonProperty("Narration")
-  private String narration = null;
+  private String narration;
 
   
   @JsonProperty("JournalLines")
@@ -45,7 +45,7 @@ public class ManualJournal {
 
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("Date")
-  private LocalDate date = null;
+  private LocalDate date;
 
   
   @JsonProperty("LineAmountTypes")
@@ -92,27 +92,27 @@ public class ManualJournal {
 
   
   @JsonProperty("Status")
-  private StatusEnum status = null;
+  private StatusEnum status;
 
   
   @JsonProperty("Url")
-  private String url = null;
+  private String url;
 
   
   @JsonProperty("ShowOnCashBasisReports")
-  private Boolean showOnCashBasisReports = null;
+  private Boolean showOnCashBasisReports;
 
   
   @JsonProperty("HasAttachments")
-  private Boolean hasAttachments = null;
+  private Boolean hasAttachments;
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private OffsetDateTime updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC;
 
   
   @JsonProperty("ManualJournalID")
-  private UUID manualJournalID = null;
+  private UUID manualJournalID;
 
   public ManualJournal narration(String narration) {
     this.narration = narration;

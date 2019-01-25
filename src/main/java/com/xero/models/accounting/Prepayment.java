@@ -75,7 +75,7 @@ public class Prepayment {
 
   
   @JsonProperty("Type")
-  private TypeEnum type = null;
+  private TypeEnum type;
 
   
   @JsonProperty("Contact")
@@ -83,7 +83,7 @@ public class Prepayment {
 
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("Date")
-  private LocalDate date = null;
+  private LocalDate date;
 
   /**
    * See Prepayment Status Codes
@@ -124,7 +124,7 @@ public class Prepayment {
 
   
   @JsonProperty("Status")
-  private StatusEnum status = null;
+  private StatusEnum status;
 
   
   @JsonProperty("LineAmountTypes")
@@ -136,19 +136,19 @@ public class Prepayment {
 
   
   @JsonProperty("SubTotal")
-  private Float subTotal = null;
+  private Float subTotal;
 
   
   @JsonProperty("TotalTax")
-  private Float totalTax = null;
+  private Float totalTax;
 
   
   @JsonProperty("Total")
-  private Float total = null;
+  private Float total;
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
-  private OffsetDateTime updatedDateUTC = null;
+  private OffsetDateTime updatedDateUTC;
 
   
   @JsonProperty("CurrencyCode")
@@ -156,15 +156,15 @@ public class Prepayment {
 
   
   @JsonProperty("PrepaymentID")
-  private UUID prepaymentID = null;
+  private UUID prepaymentID;
 
   
   @JsonProperty("CurrencyRate")
-  private Float currencyRate = null;
+  private Float currencyRate;
 
   
   @JsonProperty("RemainingCredit")
-  private Float remainingCredit = null;
+  private Float remainingCredit;
 
   
   @JsonProperty("Allocations")
@@ -172,7 +172,7 @@ public class Prepayment {
 
   
   @JsonProperty("HasAttachments")
-  private Boolean hasAttachments = null;
+  private Boolean hasAttachments;
 
   public Prepayment type(TypeEnum type) {
     this.type = type;
