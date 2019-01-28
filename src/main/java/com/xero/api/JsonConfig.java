@@ -15,7 +15,7 @@ import org.json.simple.parser.ParseException;
 
 public class JsonConfig implements Config {
 
-	private String SDK_VERSION = "2.2.14"
+	private String SDK_VERSION = "2.2.14";
   private String APP_TYPE = "Public";
   private String USER_AGENT = "Xero-Java-SDK";
   private String ACCEPT = "application/xml";
