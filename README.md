@@ -79,7 +79,7 @@ Add the dependency to your pom.xml.  Gradle, sbt and other build tools can be fo
     <dependency>
       <groupId>com.github.xeroapi</groupId>
       <artifactId>xero-java</artifactId>
-      <version>2.2.13</version>
+      <version>2.2.14</version>
 	</dependency>
 
 

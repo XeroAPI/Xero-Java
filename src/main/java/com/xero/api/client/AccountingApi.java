@@ -2413,10 +2413,10 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve Attachments on Account
-    * <p><b>200</b> - A successful request
+    * <p><b>200</b> - Returns a binary string (ByteArray)
     * @param accountID The accountID parameter
     * @param attachmentID The attachmentID parameter
-    * @param contentType The contentType parameter
+    * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
     **/

@@ -18,8 +18,8 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.LineItemTracking;
 import com.xero.models.accounting.TaxType;
-import com.xero.models.accounting.TrackingCategory;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -71,7 +71,7 @@ public class LineItem {
 
   
   @JsonProperty("Tracking")
-  private List<TrackingCategory> tracking = null;
+  private List<LineItemTracking> tracking = null;
 
   
   @JsonProperty("DiscountRate")
@@ -243,14 +243,14 @@ public class LineItem {
     this.lineAmount = lineAmount;
   }
 
-  public LineItem tracking(List<TrackingCategory> tracking) {
+  public LineItem tracking(List<LineItemTracking> tracking) {
     this.tracking = tracking;
     return this;
   }
 
-  public LineItem addTrackingItem(TrackingCategory trackingItem) {
+  public LineItem addTrackingItem(LineItemTracking trackingItem) {
     if (this.tracking == null) {
-      this.tracking = new ArrayList<TrackingCategory>();
+      this.tracking = new ArrayList<LineItemTracking>();
     }
     this.tracking.add(trackingItem);
     return this;
@@ -261,11 +261,11 @@ public class LineItem {
    * @return tracking
   **/
   @ApiModelProperty(value = "Optional Tracking Category – see Tracking.  Any LineItem can have a  maximum of 2 <TrackingCategory> elements.")
-  public List<TrackingCategory> getTracking() {
+  public List<LineItemTracking> getTracking() {
     return tracking;
   }
 
-  public void setTracking(List<TrackingCategory> tracking) {
+  public void setTracking(List<LineItemTracking> tracking) {
     this.tracking = tracking;
   }
 
