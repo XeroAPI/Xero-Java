@@ -25,7 +25,7 @@ import com.xero.models.accounting.BrandingTheme;
 import com.xero.models.accounting.ContactGroup;
 import com.xero.models.accounting.ContactPerson;
 import com.xero.models.accounting.CurrencyCode;
-import com.xero.models.accounting.PaymentTermType;
+import com.xero.models.accounting.PaymentTerm;
 import com.xero.models.accounting.Phone;
 import com.xero.models.accounting.TaxType;
 import com.xero.models.accounting.TrackingCategory;
@@ -187,7 +187,7 @@ public class Contact {
 
   
   @JsonProperty("PaymentTerms")
-  private PaymentTermType paymentTerms = null;
+  private PaymentTerm paymentTerms = null;
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
@@ -724,7 +724,7 @@ public class Contact {
     this.trackingCategoryOption = trackingCategoryOption;
   }
 
-  public Contact paymentTerms(PaymentTermType paymentTerms) {
+  public Contact paymentTerms(PaymentTerm paymentTerms) {
     this.paymentTerms = paymentTerms;
     return this;
   }
@@ -734,11 +734,11 @@ public class Contact {
    * @return paymentTerms
   **/
   @ApiModelProperty(value = "")
-  public PaymentTermType getPaymentTerms() {
+  public PaymentTerm getPaymentTerms() {
     return paymentTerms;
   }
 
-  public void setPaymentTerms(PaymentTermType paymentTerms) {
+  public void setPaymentTerms(PaymentTerm paymentTerms) {
     this.paymentTerms = paymentTerms;
   }
 
