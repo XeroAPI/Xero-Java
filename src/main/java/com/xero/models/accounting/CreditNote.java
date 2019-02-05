@@ -23,6 +23,7 @@ import com.xero.models.accounting.Contact;
 import com.xero.models.accounting.CurrencyCode;
 import com.xero.models.accounting.LineAmountTypes;
 import com.xero.models.accounting.LineItem;
+import com.xero.models.accounting.Payment;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -191,6 +192,10 @@ public class CreditNote {
   
   @JsonProperty("Allocations")
   private List<Allocation> allocations = null;
+
+  
+  @JsonProperty("Payments")
+  private List<Payment> payments = null;
 
   
   @JsonProperty("BrandingThemeID")
@@ -549,6 +554,32 @@ public class CreditNote {
     this.allocations = allocations;
   }
 
+  public CreditNote payments(List<Payment> payments) {
+    this.payments = payments;
+    return this;
+  }
+
+  public CreditNote addPaymentsItem(Payment paymentsItem) {
+    if (this.payments == null) {
+      this.payments = new ArrayList<Payment>();
+    }
+    this.payments.add(paymentsItem);
+    return this;
+  }
+
+   /**
+   * See Payments
+   * @return payments
+  **/
+  @ApiModelProperty(value = "See Payments")
+  public List<Payment> getPayments() {
+    return payments;
+  }
+
+  public void setPayments(List<Payment> payments) {
+    this.payments = payments;
+  }
+
   public CreditNote brandingThemeID(UUID brandingThemeID) {
     this.brandingThemeID = brandingThemeID;
     return this;
@@ -614,13 +645,14 @@ public class CreditNote {
         Objects.equals(this.currencyRate, creditNote.currencyRate) &&
         Objects.equals(this.remainingCredit, creditNote.remainingCredit) &&
         Objects.equals(this.allocations, creditNote.allocations) &&
+        Objects.equals(this.payments, creditNote.payments) &&
         Objects.equals(this.brandingThemeID, creditNote.brandingThemeID) &&
         Objects.equals(this.hasAttachments, creditNote.hasAttachments);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, contact, date, status, lineAmountTypes, lineItems, subTotal, totalTax, total, updatedDateUTC, currencyCode, fullyPaidOnDate, creditNoteID, creditNoteNumber, reference, sentToContact, currencyRate, remainingCredit, allocations, brandingThemeID, hasAttachments);
+    return Objects.hash(type, contact, date, status, lineAmountTypes, lineItems, subTotal, totalTax, total, updatedDateUTC, currencyCode, fullyPaidOnDate, creditNoteID, creditNoteNumber, reference, sentToContact, currencyRate, remainingCredit, allocations, payments, brandingThemeID, hasAttachments);
   }
 
 
@@ -648,6 +680,7 @@ public class CreditNote {
     sb.append("    currencyRate: ").append(toIndentedString(currencyRate)).append("\n");
     sb.append("    remainingCredit: ").append(toIndentedString(remainingCredit)).append("\n");
     sb.append("    allocations: ").append(toIndentedString(allocations)).append("\n");
+    sb.append("    payments: ").append(toIndentedString(payments)).append("\n");
     sb.append("    brandingThemeID: ").append(toIndentedString(brandingThemeID)).append("\n");
     sb.append("    hasAttachments: ").append(toIndentedString(hasAttachments)).append("\n");
     sb.append("}");
