@@ -1,4 +1,4 @@
-package com.xero.api.tests;
+package com.xero.api.client;
 
 import static org.junit.Assert.assertTrue;
 
@@ -33,7 +33,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import java.util.Calendar;
 import java.util.Map;
 
-public class XeroBankFeedTests {
+public class BankFeedsApiTest {
 
 	Config config;
 	ApiClient apiClientForBankFeeds;
@@ -48,17 +48,18 @@ public class XeroBankFeedTests {
 	int day;
 	int year;
 	int lastMonth;
+	int nextMonth;
 
 	@Before
 	public void setUp() {
 		config = JsonConfig.getInstance();
 		// 30min OAUTH TOKEN/SECRET from org in approved region(UK)
-		token = "ZG6ZYF2HHGHSWXE1CYCYF3IROFBLHA";
-		tokenSecret = "7JMQOGZAMOH6NPRVSTGPUI0PUURTIB";
+		token = "ZVY6EPWBT4XPMTPLLBPHIV6S8IRZTB";
+		tokenSecret = "BQPQWHWTTJLMT1LTCXRIYTGY1NSRAY";
 
 		//30min OAUTH TOKEN/SECRET from org in NON-approved region(US)
-		badToken = "LZOMQZTXGFYPZ9BGSP2DTDDERHMDIG";
-		badTokenSecret = "UXBHLD6BXPRDMSVNUHKVDNZ5KE7D1P";
+		badToken = "87IFNPTIH88ALQYQGMCMYARNWDZ5O4";
+		badTokenSecret = "CRTVOVPAVNW9SXMXBMPGBYSCUBXVLF";
 
 		apiClientForBankFeeds = new ApiClient(config.getBankFeedsUrl(),null,null,null);
 		bankFeedsApi = new BankFeedsApi(apiClientForBankFeeds);
@@ -69,14 +70,21 @@ public class XeroBankFeedTests {
 		day = now.get(Calendar.DATE);
 		year = now.get(Calendar.YEAR);
 		lastMonth = now.get(Calendar.MONTH) - 1;
+		nextMonth = now.get(Calendar.MONTH) + 1;
+		if (lastMonth == 0) {
+			lastMonth = 1;
+		}
 		if (lastMonth == -1) {
 			lastMonth = 12;
 			year = year -1;
 		}
-		
+		if (nextMonth == 13) {
+			nextMonth = 1;
+			year = year + 1;
+		}
 		if (day > 28) {
 			day = 28;
-		}	
+		}
 	}
    
 
@@ -133,14 +141,13 @@ public class XeroBankFeedTests {
 		
 		
 		} catch (XeroApiException e) {
-			
 			int actualCode = e.getResponseCode();
-			assertThat(actualCode, is(equalTo(403)));
-
+			assertThat(actualCode, is(equalTo(400)));
+			
 			try {
 				TypeReference<Error> typeRef = new TypeReference<Error>() {};
 				Error error =  apiClientForBankFeeds.getObjectMapper().readValue(e.getMessage(), typeRef);
-				assert(error.getStatus().equals(403));
+				//assert(error.getStatus().equals(403));
 				System.out.println(error.getDetail());
 			} catch (IOException ioe) {
 				System.out.println("IO:" + ioe.toString());
@@ -442,7 +449,7 @@ public class XeroBankFeedTests {
 	
 			// ASSERT
 			assert(oneStatement.getStatementLineCount() > 0);
-			assertThat(actualStatus, is(equalTo("PENDING")));
+			assertThat(actualStatus, is(equalTo("DELIVERED")));
 
 			System.out.println("Statement status: " + actualStatus);			
 		} catch (Exception e) {
@@ -498,7 +505,7 @@ public class XeroBankFeedTests {
 	
 			// ASSERT
 			assert(oneStatement.getStatementLineCount() > 0);
-			assertThat(actualStatus, is(equalTo("PENDING")));
+			assertThat(actualStatus, is(equalTo("DELIVERED")));
 
 			System.out.println("Statement status: " + actualStatus);			
 		} catch (Exception e) {

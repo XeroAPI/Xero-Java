@@ -243,6 +243,11 @@ public class Contact {
     this.contactID = contactID;
   }
 
+  public Contact contactNumber(String contactNumber) {
+    this.contactNumber = contactNumber;
+    return this;
+  }
+
    /**
    * This can be updated via the API only i.e. This field is read only on the Xero contact screen, used to identify contacts in external systems (max length &#x3D; 50). If the Contact Number is used, this is displayed as Contact Code in the Contacts UI in Xero.
    * @return contactNumber
@@ -250,6 +255,10 @@ public class Contact {
   @ApiModelProperty(value = "This can be updated via the API only i.e. This field is read only on the Xero contact screen, used to identify contacts in external systems (max length = 50). If the Contact Number is used, this is displayed as Contact Code in the Contacts UI in Xero.")
   public String getContactNumber() {
     return contactNumber;
+  }
+
+  public void setContactNumber(String contactNumber) {
+    this.contactNumber = contactNumber;
   }
 
   public Contact accountNumber(String accountNumber) {

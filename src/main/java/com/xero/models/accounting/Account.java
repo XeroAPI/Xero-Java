@@ -290,7 +290,7 @@ public class Account {
    * Customer defined alpha numeric account code e.g 200 or SALES (max length &#x3D; 10)
    * @return code
   **/
-  @ApiModelProperty(value = "Customer defined alpha numeric account code e.g 200 or SALES (max length = 10)")
+  @ApiModelProperty(example = "4400", value = "Customer defined alpha numeric account code e.g 200 or SALES (max length = 10)")
   public String getCode() {
     return code;
   }
@@ -308,7 +308,7 @@ public class Account {
    * Name of account (max length &#x3D; 150)
    * @return name
   **/
-  @ApiModelProperty(value = "Name of account (max length = 150)")
+  @ApiModelProperty(example = "Food Sales", value = "Name of account (max length = 150)")
   public String getName() {
     return name;
   }
