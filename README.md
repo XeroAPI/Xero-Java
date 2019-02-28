@@ -76,13 +76,6 @@ Start by deciding which type of Xero app you'll be building [Private](http://dev
 
 Add the dependency to your pom.xml.  Gradle, sbt and other build tools can be found on [maven central](https://search.maven.org/search?q=g:com.github.xeroapi).
 
-    <dependency>
-      <groupId>com.github.xeroapi</groupId>
-      <artifactId>xero-java</artifactId>
-      <version>2.2.17</version>
-	</dependency>
-
-
 ### Default Configuration
 The SDK uses a config.json file to manage API keys along with other configuration values.  The SDK will look for a file *config.json* in a source folder called *resources*.
 
