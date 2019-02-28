@@ -17,12 +17,11 @@ import static org.hamcrest.core.Every.everyItem;
 
 import com.xero.api.XeroApiException;
 import com.xero.api.ApiClient;
-import com.xero.api.Config;
-import com.xero.api.JsonConfig;
 import com.xero.api.client.*;
 import com.xero.models.accounting.*;
 
 import com.xero.example.SampleData;
+import com.xero.example.CustomJsonConfig;
 
 import org.threeten.bp.*;
 import java.io.IOException;
@@ -42,7 +41,7 @@ import org.apache.commons.io.IOUtils;
 
 public class AccountingApiBrandingThemeTest {
 
-	Config config;
+	CustomJsonConfig config;
 	
 	ApiClient apiClientForAccounting; 
 	AccountingApi accountingApi; 
@@ -62,7 +61,7 @@ public class AccountingApiBrandingThemeTest {
 	UUID paymentServiceId;
 	@Before
 	public void setUp() {
-		config = JsonConfig.getInstance();
+		config = new CustomJsonConfig();
 		apiClientForAccounting = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null);
 		accountingApi = new AccountingApi(config);
 		accountingApi.setApiClient(apiClientForAccounting);

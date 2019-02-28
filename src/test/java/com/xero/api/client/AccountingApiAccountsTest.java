@@ -17,11 +17,10 @@ import static org.hamcrest.core.Every.everyItem;
 
 import com.xero.api.XeroApiException;
 import com.xero.api.ApiClient;
-import com.xero.api.Config;
-import com.xero.api.JsonConfig;
 import com.xero.api.client.*;
 import com.xero.models.accounting.*;
 
+import com.xero.example.CustomJsonConfig;
 import com.xero.example.SampleData;
 
 import org.threeten.bp.*;
@@ -42,7 +41,7 @@ import org.apache.commons.io.IOUtils;
 
 public class AccountingApiAccountsTest {
 
-	Config config;
+	CustomJsonConfig config;
 	
 	ApiClient apiClientForAccounting; 
 	AccountingApi accountingApi; 
@@ -61,7 +60,7 @@ public class AccountingApiAccountsTest {
 	UUID accountID;
 	@Before
 	public void setUp() {
-		config = JsonConfig.getInstance();
+		config = new CustomJsonConfig();
 		apiClientForAccounting = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null);
 		accountingApi = new AccountingApi(config);
 		accountingApi.setApiClient(apiClientForAccounting);
@@ -157,7 +156,7 @@ public class AccountingApiAccountsTest {
 	public void testCreateAccountAttachmentByFileName() throws Exception {		
 		System.out.println("@Test - createAccountAttachmentByFileName");
 
-		InputStream inputStream = JsonConfig.class.getResourceAsStream("/helo-heros.jpg");
+		InputStream inputStream = CustomJsonConfig.class.getResourceAsStream("/helo-heros.jpg");
 		byte[] bytes = IOUtils.toByteArray(inputStream);
 		String newFileName = "sample5.jpg";
 		Attachments createAccountsAttachments = accountingApi.createAccountAttachmentByFileName(accountID, newFileName, bytes);					
@@ -172,7 +171,7 @@ public class AccountingApiAccountsTest {
 	public void testUpdateAccountAttachmentByFileName() throws Exception {		
 		System.out.println("@Test - updateAccountAttachmentByFileName");
 
-		InputStream inputStream = JsonConfig.class.getResourceAsStream("/helo-heros.jpg");
+		InputStream inputStream = CustomJsonConfig.class.getResourceAsStream("/helo-heros.jpg");
 		byte[] bytes = IOUtils.toByteArray(inputStream);
 		String newFileName = "sample5.jpg";
 		Attachments createAccountsAttachments = accountingApi.updateAccountAttachmentByFileName(accountID, newFileName, bytes);					

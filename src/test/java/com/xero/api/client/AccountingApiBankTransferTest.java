@@ -18,8 +18,8 @@ import static org.hamcrest.core.Every.everyItem;
 
 import com.xero.api.XeroApiException;
 import com.xero.api.ApiClient;
-import com.xero.api.Config;
-import com.xero.api.JsonConfig;
+import com.xero.example.CustomJsonConfig;
+
 import com.xero.api.client.*;
 import com.xero.models.accounting.*;
 
@@ -46,7 +46,7 @@ import org.apache.commons.io.IOUtils;
 
 public class AccountingApiBankTransferTest {
 
-	Config config;
+	CustomJsonConfig config;
 	
 	ApiClient apiClientForAccounting; 
 	AccountingApi api; 
@@ -65,7 +65,7 @@ public class AccountingApiBankTransferTest {
 	UUID bankTransferID;
 	@Before
 	public void setUp() {
-		config = JsonConfig.getInstance();
+		config = new CustomJsonConfig();
 		apiClientForAccounting = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null);
 		api = new AccountingApi(config);
 		api.setApiClient(apiClientForAccounting);

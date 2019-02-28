@@ -18,11 +18,9 @@ import static org.hamcrest.core.Every.everyItem;
 
 import com.xero.api.XeroApiException;
 import com.xero.api.ApiClient;
-import com.xero.api.Config;
-import com.xero.api.JsonConfig;
 import com.xero.api.client.*;
 import com.xero.models.accounting.*;
-
+import com.xero.example.CustomJsonConfig;
 import com.xero.example.SampleData;
 
 import org.threeten.bp.*;
@@ -46,7 +44,7 @@ import org.apache.commons.io.IOUtils;
 
 public class AccountingApiBankTransactionTest {
 
-	Config config;
+	CustomJsonConfig config;
 	
 	ApiClient apiClientForAccounting; 
 	AccountingApi api; 
@@ -65,7 +63,7 @@ public class AccountingApiBankTransactionTest {
 	UUID bankTransactionID;
 	@Before
 	public void setUp() {
-		config = JsonConfig.getInstance();
+		config = new CustomJsonConfig();
 		apiClientForAccounting = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null);
 		api = new AccountingApi(config);
 		api.setApiClient(apiClientForAccounting);
@@ -180,7 +178,7 @@ public class AccountingApiBankTransactionTest {
 
     @Test
     public void createBankTransactionAttachmentByFileNameTest() throws IOException {
-        InputStream inputStream = JsonConfig.class.getResourceAsStream("/helo-heros.jpg");
+        InputStream inputStream = CustomJsonConfig.class.getResourceAsStream("/helo-heros.jpg");
 		byte[] body = IOUtils.toByteArray(inputStream);
 		String fileName = "sample5.jpg";
 		
@@ -208,7 +206,7 @@ public class AccountingApiBankTransactionTest {
 
     @Test
     public void updateBankTransactionAttachmentByFileNameTest() throws IOException {
-        InputStream inputStream = JsonConfig.class.getResourceAsStream("/helo-heros.jpg");
+        InputStream inputStream = CustomJsonConfig.class.getResourceAsStream("/helo-heros.jpg");
 		byte[] body = IOUtils.toByteArray(inputStream);
 		String fileName = "sample5.jpg";
 		

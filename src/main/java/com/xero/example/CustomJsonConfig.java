@@ -7,7 +7,7 @@ import com.xero.api.Config;
 
 public class CustomJsonConfig implements Config {
 	
-  private String APP_TYPE = "PARTNER";
+  private String APP_TYPE = "PUBLIC";
   private String USER_AGENT = "Xero-Java-SDK";
   private String ACCEPT = "application/xml";
   private String CONSUMER_KEY = "YOUR_CONSUMER_KEY";
