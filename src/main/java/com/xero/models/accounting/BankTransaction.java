@@ -475,6 +475,11 @@ public class BankTransaction {
     this.total = total;
   }
 
+  public BankTransaction bankTransactionID(UUID bankTransactionID) {
+    this.bankTransactionID = bankTransactionID;
+    return this;
+  }
+
    /**
    * Xero generated unique identifier for bank transaction
    * @return bankTransactionID
@@ -482,6 +487,10 @@ public class BankTransaction {
   @ApiModelProperty(value = "Xero generated unique identifier for bank transaction")
   public UUID getBankTransactionID() {
     return bankTransactionID;
+  }
+
+  public void setBankTransactionID(UUID bankTransactionID) {
+    this.bankTransactionID = bankTransactionID;
   }
 
    /**

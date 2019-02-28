@@ -32,6 +32,7 @@ import org.threeten.bp.OffsetDateTime;
 import com.xero.models.accounting.OnlineInvoices;
 import com.xero.models.accounting.Organisations;
 import com.xero.models.accounting.Overpayments;
+import com.xero.models.accounting.PaymentService;
 import com.xero.models.accounting.PaymentServices;
 import com.xero.models.accounting.Payments;
 import com.xero.models.accounting.Prepayments;
@@ -249,9 +250,10 @@ public class AccountingApi {
     }
 
   /**
-    * <p><b>200</b> - A successful request
-    * <p><b>400</b> - A failed request due to validation error
-    * @param account The account parameter
+    * Allows you to create a new chart of accounts
+    * <p><b>200</b> - Success - created new Account and return response of type Accounts array with new Account
+    * <p><b>400</b> - Validation Error - some data was incorrect returns response of type Error
+    * @param account Request of type Account
     * @return Accounts
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -277,11 +279,12 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to create Attachment on Account
+    * <p><b>200</b> - Success - return response of type Attachments array of Attachment
     * <p><b>400</b> - A failed request due to validation error
-    * @param accountID The accountID parameter
-    * @param fileName The fileName parameter
-    * @param body The body parameter
+    * @param accountID Unique identifier for Account object
+    * @param fileName Name of the attachment
+    * @param body Request of type ByteArray
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -318,7 +321,8 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to create a spend or receive money transaction
+    * <p><b>200</b> - Success - return response of type BankTransactions array with new BankTransaction
     * <p><b>400</b> - A failed request due to validation error
     * @param bankTransactions The bankTransactions parameter
     * @param summarizeErrors response format that shows validation errors for each bank transaction
@@ -350,10 +354,11 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to createa an Attachment on BankTransaction by Filename
+    * <p><b>200</b> - Success - return response of Attachments array of Attachment
     * <p><b>400</b> - A failed request due to validation error
-    * @param bankTransactionID The bankTransactionID parameter
-    * @param fileName The fileName parameter
+    * @param bankTransactionID Xero generated unique identifier for a bank transaction
+    * @param fileName The name of the file being attached
     * @param body The body parameter
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -391,9 +396,10 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to create history record for a bank transactions
+    * <p><b>200</b> - Success - return response of HistoryRecords array of 0 to N HistoryRecord
     * <p><b>400</b> - A failed request due to validation error
-    * @param bankTransactionID The bankTransactionID parameter
+    * @param bankTransactionID Xero generated unique identifier for a bank transaction
     * @param historyRecords The historyRecords parameter
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -431,7 +437,8 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to create a bank transfers
+    * <p><b>200</b> - Success - return response of BankTransfers array of one BankTransfer
     * <p><b>400</b> - A failed request due to validation error
     * @param bankTransfers The bankTransfers parameter
     * @return BankTransfers
@@ -459,10 +466,10 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * <p><b>200</b> - Success - return response of Attachments array of 0 to N Attachment for a Bank Transfer
     * <p><b>400</b> - A failed request due to validation error
-    * @param bankTransferID The bankTransferID parameter
-    * @param fileName The fileName parameter
+    * @param bankTransferID Xero generated unique identifier for a bank transfer
+    * @param fileName The name of the file being attached to a Bank Transfer
     * @param body The body parameter
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -500,9 +507,9 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * <p><b>200</b> - Success - return response HistoryRecords array with the newly created HistoryRecord for a Bank Transfer
     * <p><b>400</b> - A failed request due to validation error
-    * @param bankTransferID The bankTransferID parameter
+    * @param bankTransferID Xero generated unique identifier for a bank transfer
     * @param historyRecords The historyRecords parameter
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -540,9 +547,10 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Create one or many BatchPayments for invoices
+    * <p><b>200</b> - Success - return response of type BatchPayments array of BatchPayment objects
     * <p><b>400</b> - A failed request due to validation error
-    * @param batchPayments The batchPayments parameter
+    * @param batchPayments Request of type BatchPayments containing a Payments array with one or more Payment objects
     * @return BatchPayments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -568,9 +576,10 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to create a history record for a Batch Payment
+    * <p><b>200</b> - Success - return response of type HistoryRecords array of HistoryRecord objects
     * <p><b>400</b> - A failed request due to validation error
-    * @param batchPaymentID The batchPaymentID parameter
+    * @param batchPaymentID Unique identifier for BatchPayment
     * @param historyRecords The historyRecords parameter
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -608,14 +617,15 @@ public class AccountingApi {
         }
     }
   /**
+    * Allow for the creation of new custom payment service for specified Branding Theme
     * <p><b>200</b> - A successful request
     * <p><b>400</b> - A failed request due to validation error
-    * @param brandingThemeID The brandingThemeID parameter
-    * @param paymentServices The paymentServices parameter
+    * @param brandingThemeID Unique identifier for a Branding Theme
+    * @param paymentService The paymentService parameter
     * @return PaymentServices
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public PaymentServices createBrandingThemePaymentServices(UUID brandingThemeID, PaymentServices paymentServices) throws IOException {
+    public PaymentServices createBrandingThemePaymentServices(UUID brandingThemeID, PaymentService paymentService) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -635,7 +645,7 @@ public class AccountingApi {
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
             
-            strBody = apiClient.getObjectMapper().writeValueAsString(paymentServices);
+            strBody = apiClient.getObjectMapper().writeValueAsString(paymentService);
 
             String response = this.DATA(url, strBody, params, "POST");
             TypeReference<PaymentServices> typeRef = new TypeReference<PaymentServices>() {};
@@ -2034,9 +2044,10 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
-    * <p><b>400</b> - A failed request due to validation error
-    * @param accountID The accountID parameter
+    * Allows you to delete a chart of accounts
+    * <p><b>200</b> - Success - delete existing Account and return response of type Accounts array with deleted Account
+    * <p><b>400</b> - Validation Error - some data was incorrect returns response of type Error
+    * @param accountID Unique identifier for retrieving single object
     * @return Accounts
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -2337,9 +2348,9 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve the full chart of accounts
-    * <p><b>200</b> - A successful request
-    * @param accountID The accountID parameter
+    * Allows you to retrieve a single chart of accounts
+    * <p><b>200</b> - Success - return response of type Accounts array with one Account
+    * @param accountID Unique identifier for retrieving single object
     * @return Accounts
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -2374,11 +2385,11 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve Attachments on Account by Filename
-    * <p><b>200</b> - A successful request
-    * @param accountID The accountID parameter
-    * @param fileName The fileName parameter
-    * @param contentType The contentType parameter
+    * Allows you to retrieve Attachment on Account by Filename
+    * <p><b>200</b> - Success - return response of type binary
+    * @param accountID Unique identifier for Account object
+    * @param fileName Name of the attachment
+    * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -2412,10 +2423,10 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve Attachments on Account
+    * Allows you to retrieve specific Attachment on Account
     * <p><b>200</b> - Returns a binary string (ByteArray)
-    * @param accountID The accountID parameter
-    * @param attachmentID The attachmentID parameter
+    * @param accountID Unique identifier for Account object
+    * @param attachmentID Unique identifier for Attachment object
     * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -2451,8 +2462,8 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve Attachments for accounts
-    * <p><b>200</b> - A successful request
-    * @param accountID The accountID parameter
+    * <p><b>200</b> - Success - return response of type Attachments array of Attachment
+    * @param accountID Unique identifier for Account object
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -2488,7 +2499,7 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve the full chart of accounts
-    * <p><b>200</b> - A successful response
+    * <p><b>200</b> - Success - return response of type Accounts array with 0 to n Account
     * @param ifModifiedSince Only records created or modified since this timestamp will be returned
     * @param where Filter by an any element
     * @param order Order by an any element
@@ -2520,9 +2531,9 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve any spend or receive money transactions
-    * <p><b>200</b> - A successful request
-    * @param bankTransactionID The bankTransactionID parameter
+    * Allows you to retrieve a single spend or receive money transaction
+    * <p><b>200</b> - Success - return response of type BankTransactions array with a specific BankTransaction
+    * @param bankTransactionID Xero generated unique identifier for a bank transaction
     * @return BankTransactions
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -2558,10 +2569,10 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve Attachments on BankTransaction by Filename
-    * <p><b>200</b> - A successful request
-    * @param bankTransactionID The bankTransactionID parameter
-    * @param fileName The fileName parameter
-    * @param contentType The contentType parameter
+    * <p><b>200</b> - Success - return response of attachment as binary data
+    * @param bankTransactionID Xero generated unique identifier for a bank transaction
+    * @param fileName The name of the file being attached
+    * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -2595,11 +2606,11 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve Attachments on BankTransaction
-    * <p><b>200</b> - A successful request
-    * @param bankTransactionID The bankTransactionID parameter
-    * @param attachmentID The attachmentID parameter
-    * @param contentType The contentType parameter
+    * Allows you to retrieve Attachments on a specific BankTransaction
+    * <p><b>200</b> - Success - return response of attachment as binary data
+    * @param bankTransactionID Xero generated unique identifier for a bank transaction
+    * @param attachmentID Xero generated unique identifier for an attachment
+    * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -2634,8 +2645,8 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve any attachments to bank transactions
-    * <p><b>200</b> - A successful request
-    * @param bankTransactionID The bankTransactionID parameter
+    * <p><b>200</b> - Success - return response of type Attachments array with 0 to n Attachment
+    * @param bankTransactionID Xero generated unique identifier for a bank transaction
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -2671,7 +2682,7 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve any spend or receive money transactions
-    * <p><b>200</b> - A successful response
+    * <p><b>200</b> - Success - return response of type BankTransactions array with 0 to n BankTransaction
     * @param ifModifiedSince Only records created or modified since this timestamp will be returned
     * @param where Filter by an any element
     * @param order Order by an any element
@@ -2706,9 +2717,9 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve history from a bank transfers
-    * <p><b>200</b> - A successful request
-    * @param bankTransactionID The bankTransactionID parameter
+    * Allows you to retrieve history from a bank transactions
+    * <p><b>200</b> - Success - return response of HistoryRecords array of 0 to N HistoryRecord
+    * @param bankTransactionID Xero generated unique identifier for a bank transaction
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -2744,8 +2755,8 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve any bank transfers
-    * <p><b>200</b> - A successful request
-    * @param bankTransferID The bankTransferID parameter
+    * <p><b>200</b> - Success - return response of BankTransfers array with one BankTransfer
+    * @param bankTransferID Xero generated unique identifier for a bank transfer
     * @return BankTransfers
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -2781,10 +2792,10 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve Attachments on BankTransfer by file name
-    * <p><b>200</b> - A successful request
-    * @param bankTransferID The bankTransferID parameter
-    * @param fileName The fileName parameter
-    * @param contentType The contentType parameter
+    * <p><b>200</b> - Success - return response of binary data from the Attachment to a Bank Transfer
+    * @param bankTransferID Xero generated unique identifier for a bank transfer
+    * @param fileName The name of the file being attached to a Bank Transfer
+    * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -2819,10 +2830,10 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve Attachments on BankTransfer
-    * <p><b>200</b> - A successful request
-    * @param bankTransferID The bankTransferID parameter
-    * @param attachmentID The attachmentID parameter
-    * @param contentType The contentType parameter
+    * <p><b>200</b> - Success - return response of binary data from the Attachment to a Bank Transfer
+    * @param bankTransferID Xero generated unique identifier for a bank transfer
+    * @param attachmentID Xero generated unique identifier for an Attachment to a bank transfer
+    * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -2857,8 +2868,8 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve Attachments from  bank transfers
-    * <p><b>200</b> - A successful request
-    * @param bankTransferID The bankTransferID parameter
+    * <p><b>200</b> - Success - return response of Attachments array of 0 to N Attachment for a Bank Transfer
+    * @param bankTransferID Xero generated unique identifier for a bank transfer
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -2894,8 +2905,8 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve history from a bank transfers
-    * <p><b>200</b> - A successful request
-    * @param bankTransferID The bankTransferID parameter
+    * <p><b>200</b> - Success - return response of HistoryRecords array of 0 to N HistoryRecord for a Bank Transfer
+    * @param bankTransferID Xero generated unique identifier for a bank transfer
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -2930,8 +2941,8 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve any bank transfers
-    * <p><b>200</b> - A successful response
+    * Allows you to retrieve all bank transfers
+    * <p><b>200</b> - Success - return response of BankTransfers array of 0 to N BankTransfer
     * @param ifModifiedSince Only records created or modified since this timestamp will be returned
     * @param where Filter by an any element
     * @param order Order by an any element
@@ -2964,8 +2975,8 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve history from a Batch Payment
-    * <p><b>200</b> - A successful request
-    * @param batchPaymentID The batchPaymentID parameter
+    * <p><b>200</b> - Success - return response of type HistoryRecords array of HistoryRecord objects
+    * @param batchPaymentID Unique identifier for BatchPayment
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -3001,7 +3012,7 @@ public class AccountingApi {
     }
   /**
     * Retrieve either one or many BatchPayments for invoices
-    * <p><b>200</b> - A successful response
+    * <p><b>200</b> - Success - return response of type BatchPayments array of BatchPayment objects
     * @param ifModifiedSince Only records created or modified since this timestamp will be returned
     * @param where Filter by an any element
     * @param order Order by an any element
@@ -3033,9 +3044,9 @@ public class AccountingApi {
         }
     }
   /**
-    * GET a BrandingTheme
-    * <p><b>200</b> - A successful request
-    * @param brandingThemeID The brandingThemeID parameter
+    * Allows you to retrieve a specific BrandingThemes
+    * <p><b>200</b> - Success - return response of type BrandingThemes with one BrandingTheme
+    * @param brandingThemeID Unique identifier for a Branding Theme
     * @return BrandingThemes
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -3070,9 +3081,9 @@ public class AccountingApi {
         }
     }
   /**
-    * GET a BrandingTheme Payment services
+    * Allows you to retrieve the Payment services for a Branding Theme
     * <p><b>200</b> - A successful request
-    * @param brandingThemeID The brandingThemeID parameter
+    * @param brandingThemeID Unique identifier for a Branding Theme
     * @return PaymentServices
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -3107,8 +3118,8 @@ public class AccountingApi {
         }
     }
   /**
-    * GET a BrandingTheme
-    * <p><b>200</b> - A successful response
+    * Allows you to retrieve all the BrandingThemes
+    * <p><b>200</b> - Success - return response of type BrandingThemes
     * @return BrandingThemes
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -3173,7 +3184,7 @@ public class AccountingApi {
     * <p><b>200</b> - A successful request
     * @param contactID The contactID parameter
     * @param fileName The fileName parameter
-    * @param contentType The contentType parameter
+    * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -3211,7 +3222,7 @@ public class AccountingApi {
     * <p><b>200</b> - A successful request
     * @param contactID The contactID parameter
     * @param attachmentID The attachmentID parameter
-    * @param contentType The contentType parameter
+    * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -3507,7 +3518,7 @@ public class AccountingApi {
     * Allows you to retrieve Credit Note as PDF files
     * <p><b>200</b> - A successful request
     * @param creditNoteID The creditNoteID parameter
-    * @param contentType The contentType parameter
+    * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -3544,7 +3555,7 @@ public class AccountingApi {
     * <p><b>200</b> - A successful request
     * @param creditNoteID The creditNoteID parameter
     * @param fileName The fileName parameter
-    * @param contentType The contentType parameter
+    * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -3582,7 +3593,7 @@ public class AccountingApi {
     * <p><b>200</b> - A successful request
     * @param creditNoteID The creditNoteID parameter
     * @param attachmentID The attachmentID parameter
-    * @param contentType The contentType parameter
+    * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -3975,7 +3986,7 @@ public class AccountingApi {
     * Allows you to retrieve invoices or purchase bills as PDF files
     * <p><b>200</b> - A successful request
     * @param invoiceID The invoiceID parameter
-    * @param contentType The contentType parameter
+    * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -4012,7 +4023,7 @@ public class AccountingApi {
     * <p><b>200</b> - A successful request
     * @param invoiceID The invoiceID parameter
     * @param fileName The fileName parameter
-    * @param contentType The contentType parameter
+    * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -4050,7 +4061,7 @@ public class AccountingApi {
     * <p><b>200</b> - A successful request
     * @param invoiceID The invoiceID parameter
     * @param attachmentID The attachmentID parameter
-    * @param contentType The contentType parameter
+    * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -4536,7 +4547,7 @@ public class AccountingApi {
     * <p><b>200</b> - A successful request
     * @param manualJournalID The manualJournalID parameter
     * @param fileName The fileName parameter
-    * @param contentType The contentType parameter
+    * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -4574,7 +4585,7 @@ public class AccountingApi {
     * <p><b>200</b> - A successful request
     * @param manualJournalID The manualJournalID parameter
     * @param attachmentID The attachmentID parameter
-    * @param contentType The contentType parameter
+    * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -5289,7 +5300,7 @@ public class AccountingApi {
     * <p><b>200</b> - A successful request
     * @param receiptID The receiptID parameter
     * @param fileName The fileName parameter
-    * @param contentType The contentType parameter
+    * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -5327,7 +5338,7 @@ public class AccountingApi {
     * <p><b>200</b> - A successful request
     * @param receiptID The receiptID parameter
     * @param attachmentID The attachmentID parameter
-    * @param contentType The contentType parameter
+    * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -5509,7 +5520,7 @@ public class AccountingApi {
     * <p><b>200</b> - A successful request
     * @param repeatingInvoiceID The repeatingInvoiceID parameter
     * @param fileName The fileName parameter
-    * @param contentType The contentType parameter
+    * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -5547,7 +5558,7 @@ public class AccountingApi {
     * <p><b>200</b> - A successful request
     * @param repeatingInvoiceID The repeatingInvoiceID parameter
     * @param attachmentID The attachmentID parameter
-    * @param contentType The contentType parameter
+    * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -6265,10 +6276,11 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
-    * <p><b>400</b> - A failed request due to validation error
-    * @param accountID The accountID parameter
-    * @param accounts The accounts parameter
+    * Allows you to update a chart of accounts
+    * <p><b>200</b> - Success - update existing Account and return response of type Accounts array with updated Account
+    * <p><b>400</b> - Validation Error - some data was incorrect returns response of type Error
+    * @param accountID Unique identifier for retrieving single object
+    * @param accounts Request of type Accounts array with one Account
     * @return Accounts
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -6305,15 +6317,16 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
-    * <p><b>400</b> - A failed request due to validation error
-    * @param accountID The accountID parameter
-    * @param fileName The fileName parameter
-    * @param body The body parameter
+    * Allows you to update Attachment on Account by Filename
+    * <p><b>200</b> - Success - return response of type Attachments array of Attachment
+    * <p><b>400</b> - Validation Error - some data was incorrect returns response of type Error
+    * @param accountID Unique identifier for Account object
+    * @param fileName Name of the attachment
+    * @param body Request of type ByteArray
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Attachments updateAccountAttachmentByFileName(UUID accountID, UUID fileName, File body) throws IOException {
+    public Attachments updateAccountAttachmentByFileName(UUID accountID, String fileName, byte[] body) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -6334,9 +6347,8 @@ public class AccountingApi {
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
             
-            strBody = apiClient.getObjectMapper().writeValueAsString(body);
 
-            String response = this.DATA(url, strBody, params, "POST");
+            String response = this.FILE(url, strBody, params, "POST", body);
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
 
@@ -6347,51 +6359,10 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to update a single spend or receive money transaction
+    * <p><b>200</b> - Success - return response of type BankTransactions array with updated BankTransaction
     * <p><b>400</b> - A failed request due to validation error
-    * @param accountID The accountID parameter
-    * @param attachmentID The attachmentID parameter
-    * @param body The body parameter
-    * @return Attachments
-    * @throws IOException if an error occurs while attempting to invoke the API
-    **/
-    public Attachments updateAccountAttachmentById(UUID accountID, UUID attachmentID, File body) throws IOException {
-        try {
-            String strBody = null;
-            Map<String, String> params = null;
-            String correctPath = "/Accounts/{AccountID}/Attachments/{AttachmentID}";
-            // Hacky path manipulation to support different return types from same endpoint
-            String path = "/Accounts/{AccountID}/Attachments/{AttachmentID}";
-            String type = "/pdf";
-            if(path.toLowerCase().contains(type.toLowerCase()))
-            {
-                correctPath = path.replace("/pdf","");
-            } 
-
-            // create a map of path variables
-            final Map<String, String> uriVariables = new HashMap<String, String>();
-            uriVariables.put("AccountID", accountID.toString());
-            uriVariables.put("AttachmentID", attachmentID.toString());
-            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-            String url = uriBuilder.buildFromMap(uriVariables).toString();
-
-            
-            strBody = apiClient.getObjectMapper().writeValueAsString(body);
-
-            String response = this.DATA(url, strBody, params, "POST");
-            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
-
-        } catch (IOException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage());
-        } catch (XeroApiException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode(),JSONUtils.isJSONValid(e.getMessage()));
-        }
-    }
-  /**
-    * <p><b>200</b> - A successful request
-    * <p><b>400</b> - A failed request due to validation error
-    * @param bankTransactionID The bankTransactionID parameter
+    * @param bankTransactionID Xero generated unique identifier for a bank transaction
     * @param bankTransactions The bankTransactions parameter
     * @return BankTransactions
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -6429,15 +6400,16 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to update an Attachment on BankTransaction by Filename
+    * <p><b>200</b> - Success - return response of Attachments array of Attachment
     * <p><b>400</b> - A failed request due to validation error
-    * @param bankTransactionID The bankTransactionID parameter
-    * @param fileName The fileName parameter
+    * @param bankTransactionID Xero generated unique identifier for a bank transaction
+    * @param fileName The name of the file being attached
     * @param body The body parameter
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Attachments updateBankTransactionAttachmentByFileName(UUID bankTransactionID, UUID fileName, File body) throws IOException {
+    public Attachments updateBankTransactionAttachmentByFileName(UUID bankTransactionID, String fileName, byte[] body) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -6458,9 +6430,8 @@ public class AccountingApi {
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
             
-            strBody = apiClient.getObjectMapper().writeValueAsString(body);
 
-            String response = this.DATA(url, strBody, params, "POST");
+            String response = this.FILE(url, strBody, params, "POST", body);
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
 
@@ -6471,57 +6442,15 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * <p><b>200</b> - Success - return response of Attachments array of 0 to N Attachment for a Bank Transfer
     * <p><b>400</b> - A failed request due to validation error
-    * @param bankTransactionID The bankTransactionID parameter
-    * @param attachmentID The attachmentID parameter
+    * @param bankTransferID Xero generated unique identifier for a bank transfer
+    * @param fileName The name of the file being attached to a Bank Transfer
     * @param body The body parameter
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Attachments updateBankTransactionAttachmentById(UUID bankTransactionID, UUID attachmentID, File body) throws IOException {
-        try {
-            String strBody = null;
-            Map<String, String> params = null;
-            String correctPath = "/BankTransactions/{BankTransactionID}/Attachments/{AttachmentID}";
-            // Hacky path manipulation to support different return types from same endpoint
-            String path = "/BankTransactions/{BankTransactionID}/Attachments/{AttachmentID}";
-            String type = "/pdf";
-            if(path.toLowerCase().contains(type.toLowerCase()))
-            {
-                correctPath = path.replace("/pdf","");
-            } 
-
-            // create a map of path variables
-            final Map<String, String> uriVariables = new HashMap<String, String>();
-            uriVariables.put("BankTransactionID", bankTransactionID.toString());
-            uriVariables.put("AttachmentID", attachmentID.toString());
-            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-            String url = uriBuilder.buildFromMap(uriVariables).toString();
-
-            
-            strBody = apiClient.getObjectMapper().writeValueAsString(body);
-
-            String response = this.DATA(url, strBody, params, "POST");
-            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
-
-        } catch (IOException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage());
-        } catch (XeroApiException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode(),JSONUtils.isJSONValid(e.getMessage()));
-        }
-    }
-  /**
-    * <p><b>200</b> - A successful request
-    * <p><b>400</b> - A failed request due to validation error
-    * @param bankTransferID The bankTransferID parameter
-    * @param fileName The fileName parameter
-    * @param body The body parameter
-    * @return Attachments
-    * @throws IOException if an error occurs while attempting to invoke the API
-    **/
-    public Attachments updateBankTransferAttachmentByFileName(UUID bankTransferID, UUID fileName, File body) throws IOException {
+    public Attachments updateBankTransferAttachmentByFileName(UUID bankTransferID, String fileName, byte[] body) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -6542,51 +6471,8 @@ public class AccountingApi {
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
             
-            strBody = apiClient.getObjectMapper().writeValueAsString(body);
 
-            String response = this.DATA(url, strBody, params, "POST");
-            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
-
-        } catch (IOException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage());
-        } catch (XeroApiException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode(),JSONUtils.isJSONValid(e.getMessage()));
-        }
-    }
-  /**
-    * <p><b>200</b> - A successful request
-    * <p><b>400</b> - A failed request due to validation error
-    * @param bankTransferID The bankTransferID parameter
-    * @param attachmentID The attachmentID parameter
-    * @param body The body parameter
-    * @return Attachments
-    * @throws IOException if an error occurs while attempting to invoke the API
-    **/
-    public Attachments updateBankTransferAttachmentById(UUID bankTransferID, UUID attachmentID, File body) throws IOException {
-        try {
-            String strBody = null;
-            Map<String, String> params = null;
-            String correctPath = "/BankTransfers/{BankTransferID}/Attachments/{AttachmentID}";
-            // Hacky path manipulation to support different return types from same endpoint
-            String path = "/BankTransfers/{BankTransferID}/Attachments/{AttachmentID}";
-            String type = "/pdf";
-            if(path.toLowerCase().contains(type.toLowerCase()))
-            {
-                correctPath = path.replace("/pdf","");
-            } 
-
-            // create a map of path variables
-            final Map<String, String> uriVariables = new HashMap<String, String>();
-            uriVariables.put("BankTransferID", bankTransferID.toString());
-            uriVariables.put("AttachmentID", attachmentID.toString());
-            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-            String url = uriBuilder.buildFromMap(uriVariables).toString();
-
-            
-            strBody = apiClient.getObjectMapper().writeValueAsString(body);
-
-            String response = this.DATA(url, strBody, params, "POST");
+            String response = this.FILE(url, strBody, params, "POST", body);
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
 

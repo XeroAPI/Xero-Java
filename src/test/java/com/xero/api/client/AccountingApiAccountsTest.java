@@ -32,6 +32,14 @@ import java.util.Calendar;
 import java.util.Map;
 import java.util.UUID;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import org.apache.commons.io.IOUtils;
+
 public class AccountingApiAccountsTest {
 
 	Config config;
@@ -50,16 +58,11 @@ public class AccountingApiAccountsTest {
 	String contactIDs;
 	String statuses;
 	boolean createdByMyApp;
-	String accountName;
 	UUID accountID;
-	UUID accountUpdateID;
-	String accountUpdateName;
-	String  accountResetName;
-
 	@Before
 	public void setUp() {
 		config = JsonConfig.getInstance();
-		apiClientForAccounting = new ApiClient(config.getApiUrl(),null,null,null);
+		apiClientForAccounting = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null);
 		accountingApi = new AccountingApi(config);
 		accountingApi.setApiClient(apiClientForAccounting);
 		accountingApi.setOAuthToken(config.getConsumerKey(), config.getConsumerSecret());
@@ -74,10 +77,7 @@ public class AccountingApiAccountsTest {
 		contactIDs = null;
 		statuses = null;
 		createdByMyApp = false;
-		accountID = UUID.fromString("310add3b-c278-4592-8c60-c6ed3edd2ac0");				
-		accountUpdateID = UUID.fromString("1c1dba87-cd66-41d4-8f6a-dad98cf3feb2");				
-		accountUpdateName = "HelloWorld";
-		accountResetName = "MyAccountNameToUpdate";
+		accountID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");	
 	}
 
 
@@ -88,101 +88,98 @@ public class AccountingApiAccountsTest {
 
 	@Test
 	public void testGetAccounts() throws Exception {
-		// GET all accounts
+		System.out.println("@Test - getAccounts");
 		Accounts accounts = accountingApi.getAccounts(null, null, null);
-
-		if (accounts.getAccounts().size() > 0)
-		{
-			assert(accounts.getAccounts().size() > 0);
-			System.out.println("Get a all Accounts - total : " + accounts.getAccounts().size());
-		}
+		assert(accounts.getAccounts().size() == 2);
+		assertThat(accounts.getAccounts().get(0).getCode(), is(equalTo("091")));
+		assertThat(accounts.getAccounts().get(0).getName(), is(equalTo("Business Savings Account")));
+		assertThat(accounts.getAccounts().get(0).getAccountID().toString(), is(equalTo("ebd06280-af70-4bed-97c6-7451a454ad85")));
+		assertThat(accounts.getAccounts().get(0).getType(), is(equalTo(com.xero.models.accounting.AccountType.BANK)));
+		assertThat(accounts.getAccounts().get(0).getBankAccountNumber(), is(equalTo("0209087654321050")));
+		assertThat(accounts.getAccounts().get(0).getBankAccountType(), is(equalTo(com.xero.models.accounting.Account.BankAccountTypeEnum.BANK)));
+		assertThat(accounts.getAccounts().get(0).getCurrencyCode(), is(equalTo(com.xero.models.accounting.CurrencyCode.NZD)));
+		assertThat(accounts.getAccounts().get(0).getTaxType(), is(equalTo(com.xero.models.accounting.TaxType.NONE)));
 	}
 
 	@Test
-	public void testGetSingleAccount() throws Exception {
-		// GET all accounts
-		Accounts accounts = accountingApi.getAccounts(null, null, null);
-
-		if (accounts.getAccounts().size() > 0)
-		{
-			// GET one account
-			//UUID contactID = UUID.fromString("2bdb8d04-2e4d-4f1c-a3aa-a7cd7703b311");
-			Accounts oneAccount = accountingApi.getAccount(accountID);
-			assertThat(oneAccount.getAccounts().get(0).getName(), is(equalTo("JavaUnitTest")));
-			System.out.println("Get a one Account - name : " + oneAccount.getAccounts().get(0).getName());				
-		}		
+	public void testGetAccount() throws Exception {
+		System.out.println("@Test - getAccount");
+		Accounts oneAccount = accountingApi.getAccount(accountID);
+		assertThat(oneAccount.getAccounts().get(0).getName(), is(equalTo("FooBar")));
+		assertThat(oneAccount.getAccounts().get(0).getCode(), is(equalTo("123456")));
 	}
 
 	@Test
 	public void testCreateAccount() throws Exception {
-		// CREATE account
+		System.out.println("@Test - createAccount");
 		Account acct = new Account();
-		accountName = "Bye" + SampleData.loadRandomNum();
-		acct.setName(accountName);
-		acct.setCode("S" + SampleData.loadRandomNum());
+		acct.setName("Foobar");
+		acct.setCode("123456");
 		acct.setType(com.xero.models.accounting.AccountType.EXPENSE);
 		Accounts newAccount = accountingApi.createAccount(acct);
-		
-		assertThat(newAccount.getAccounts().get(0).getName(), is(equalTo(accountName)));
-		System.out.println("Create a new Account - Name : " + newAccount.getAccounts().get(0).getName());
-		
+		assertThat(newAccount.getAccounts().get(0).getName(), is(equalTo("Foobar")));		
 	}
 
 	@Test
 	public void testUpdateAccount() throws Exception {
-		// Update account
-		Account updateAccount = new Account();
+		System.out.println("@Test - updateAccount");
+		
+		Account acct = new Account();
 		Accounts accts = new Accounts();
-		updateAccount.setName(accountUpdateName);
-		accts.addAccountsItem(updateAccount);
-		Accounts updatedAccount = accountingApi.updateAccount(accountUpdateID, accts);
-		
-		assertThat(updatedAccount.getAccounts().get(0).getName(), is(equalTo(accountUpdateName)));
-		System.out.println("Update Account - Name : " + updatedAccount.getAccounts().get(0).getName());
-
-		// RESET account
-		Account resetAccount = new Account();
-		Accounts resetAccts = new Accounts();
-		resetAccount.setName(accountResetName);
-		resetAccts.addAccountsItem(resetAccount);
-		Accounts resetedAccount = accountingApi.updateAccount(accountUpdateID, resetAccts);
+		acct.setName("BarFoo");
+		accts.addAccountsItem(acct);
+		Accounts updatedAccount = accountingApi.updateAccount(accountID, accts);
+		assertThat(updatedAccount.getAccounts().get(0).getName(), is(equalTo("BarFoo")));
 	}
 
 	@Test
-	public void testArchiveAccount() throws Exception {
-		// CREATE account
-		Account acct2 = new Account();
-		acct2.setName("Bye" + SampleData.loadRandomNum());
-		acct2.setCode("S" + SampleData.loadRandomNum());
-		acct2.setType(com.xero.models.accounting.AccountType.EXPENSE);
-		Accounts newAccountToArchive = accountingApi.createAccount(acct2);
-		
-		// ARCHIVE account
-		Accounts archiveAccounts = new Accounts();
-		Account archiveAccount = new Account();
-		archiveAccount.setStatus(com.xero.models.accounting.Account.StatusEnum.ARCHIVED);
-		archiveAccount.setAccountID(newAccountToArchive.getAccounts().get(0).getAccountID());
-		archiveAccounts.addAccountsItem(archiveAccount);
-		Accounts achivedAccount = accountingApi.updateAccount(newAccountToArchive.getAccounts().get(0).getAccountID(), archiveAccounts);
-		
-		assertThat(achivedAccount.getAccounts().get(0).getStatus().toString(), is(equalTo("ARCHIVED")));
-		System.out.println("Archived Account - Name : " + achivedAccount.getAccounts().get(0).getName() + " Status: " + achivedAccount.getAccounts().get(0).getStatus());
-	}
+	public void testDeleteAccount() throws Exception {		
+		System.out.println("@Test - deleteAccount");
 
-	@Test
-	public void testDeleteAccount() throws Exception {
-		// CREATE account
-		Account acct3 = new Account();
-		acct3.setName("Bye" + SampleData.loadRandomNum());
-		acct3.setCode("S" + SampleData.loadRandomNum());
-		acct3.setType(com.xero.models.accounting.AccountType.EXPENSE);
-		Accounts newAccountToDelete = accountingApi.createAccount(acct3);
-		
-		// DELETE Account
-		UUID deleteAccountID = newAccountToDelete.getAccounts().get(0).getAccountID();
-		Accounts deleteAccount = accountingApi.deleteAccount(deleteAccountID);
-
+		Accounts deleteAccount = accountingApi.deleteAccount(accountID);
 		assertThat(deleteAccount.getAccounts().get(0).getStatus().toString(), is(equalTo("DELETED")));
-		System.out.println("Delete account - Status? : " + deleteAccount.getAccounts().get(0).getStatus());	
+	}
+
+	@Test
+	public void testGetAccountAttachments() throws Exception {		
+		System.out.println("@Test - getAccountAttachments");
+
+		Attachments accountsAttachments = accountingApi.getAccountAttachments(accountID);					
+		assertThat(accountsAttachments.getAttachments().get(0).getAttachmentID().toString(), is(equalTo("52a643be-cd5c-489f-9778-53a9fd337756")));
+		assertThat(accountsAttachments.getAttachments().get(0).getFileName().toString(), is(equalTo("sample5.jpg")));
+		assertThat(accountsAttachments.getAttachments().get(0).getMimeType().toString(), is(equalTo("image/jpg")));
+		assertThat(accountsAttachments.getAttachments().get(0).getUrl().toString(), is(equalTo("https://api.xero.com/api.xro/2.0/Accounts/da962997-a8bd-4dff-9616-01cdc199283f/Attachments/sample5.jpg")));
+		
+	
+	}	
+
+	@Test
+	public void testCreateAccountAttachmentByFileName() throws Exception {		
+		System.out.println("@Test - createAccountAttachmentByFileName");
+
+		InputStream inputStream = JsonConfig.class.getResourceAsStream("/helo-heros.jpg");
+		byte[] bytes = IOUtils.toByteArray(inputStream);
+		String newFileName = "sample5.jpg";
+		Attachments createAccountsAttachments = accountingApi.createAccountAttachmentByFileName(accountID, newFileName, bytes);					
+
+		assertThat(createAccountsAttachments.getAttachments().get(0).getAttachmentID().toString(), is(equalTo("ab95b276-9dce-4925-9077-439818ba270f")));
+		assertThat(createAccountsAttachments.getAttachments().get(0).getFileName().toString(), is(equalTo("sample5.jpg")));
+		assertThat(createAccountsAttachments.getAttachments().get(0).getMimeType().toString(), is(equalTo("image/jpg")));
+		assertThat(createAccountsAttachments.getAttachments().get(0).getUrl().toString(), is(equalTo("https://api.xero.com/api.xro/2.0/Accounts/da962997-a8bd-4dff-9616-01cdc199283f/Attachments/sample5.jpg")));
+	}
+
+	@Test
+	public void testUpdateAccountAttachmentByFileName() throws Exception {		
+		System.out.println("@Test - updateAccountAttachmentByFileName");
+
+		InputStream inputStream = JsonConfig.class.getResourceAsStream("/helo-heros.jpg");
+		byte[] bytes = IOUtils.toByteArray(inputStream);
+		String newFileName = "sample5.jpg";
+		Attachments createAccountsAttachments = accountingApi.updateAccountAttachmentByFileName(accountID, newFileName, bytes);					
+
+		assertThat(createAccountsAttachments.getAttachments().get(0).getAttachmentID().toString(), is(equalTo("3fa85f64-5717-4562-b3fc-2c963f66afa6")));
+		assertThat(createAccountsAttachments.getAttachments().get(0).getFileName().toString(), is(equalTo("sample5.jpg")));
+		assertThat(createAccountsAttachments.getAttachments().get(0).getMimeType().toString(), is(equalTo("image/jpg")));
+		assertThat(createAccountsAttachments.getAttachments().get(0).getUrl().toString(), is(equalTo("https://api.xero.com/api.xro/2.0/Accounts/da962997-a8bd-4dff-9616-01cdc199283f/Attachments/sample5.jpg")));
 	}
 }

@@ -1291,11 +1291,9 @@ public class RequestResourceServlet extends HttpServlet
 				// Create PaymentService for a Branding Theme  
 				PaymentServices paymentServices = accountingApi.getPaymentServices();
 				UUID paymentServiceID = paymentServices.getPaymentServices().get(0).getPaymentServiceID();
-				PaymentServices btPaymentServices = new PaymentServices();
 				PaymentService btPaymentService = new PaymentService();
 				btPaymentService.setPaymentServiceID(paymentServiceID);
-				btPaymentServices.addPaymentServicesItem(btPaymentService);
-				PaymentServices createdPaymentService = accountingApi.createBrandingThemePaymentServices(btID, btPaymentServices);
+				PaymentServices createdPaymentService = accountingApi.createBrandingThemePaymentServices(btID, btPaymentService);
 				messages.add("Created payment services for Branding Themes - name : " + createdPaymentService.getPaymentServices().get(0).getPaymentServiceName());				
 
 				// GET Payment Services for a single Branding Theme

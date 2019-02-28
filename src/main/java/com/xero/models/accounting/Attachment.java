@@ -63,7 +63,7 @@ public class Attachment {
    * Unique ID for the file
    * @return attachmentID
   **/
-  @ApiModelProperty(value = "Unique ID for the file")
+  @ApiModelProperty(example = "3fa85f64-5717-4562-b3fc-2c963f66afa6", value = "Unique ID for the file")
   public UUID getAttachmentID() {
     return attachmentID;
   }
@@ -81,7 +81,7 @@ public class Attachment {
    * Name of the file
    * @return fileName
   **/
-  @ApiModelProperty(value = "Name of the file")
+  @ApiModelProperty(example = "sample5.jpg", value = "Name of the file")
   public String getFileName() {
     return fileName;
   }
@@ -99,7 +99,7 @@ public class Attachment {
    * URL to the file on xero.com
    * @return url
   **/
-  @ApiModelProperty(value = "URL to the file on xero.com")
+  @ApiModelProperty(example = "https://api.xero.com/api.xro/2.0/Accounts/da962997-a8bd-4dff-9616-01cdc199283f/Attachments/sample5.jpg", value = "URL to the file on xero.com")
   public String getUrl() {
     return url;
   }
@@ -117,7 +117,7 @@ public class Attachment {
    * Type of file
    * @return mimeType
   **/
-  @ApiModelProperty(value = "Type of file")
+  @ApiModelProperty(example = "image/jpg", value = "Type of file")
   public String getMimeType() {
     return mimeType;
   }
