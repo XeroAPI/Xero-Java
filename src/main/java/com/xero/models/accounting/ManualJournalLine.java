@@ -18,7 +18,6 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.accounting.TaxType;
 import com.xero.models.accounting.TrackingCategory;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -46,7 +45,7 @@ public class ManualJournalLine {
 
   
   @JsonProperty("TaxType")
-  private TaxType taxType = null;
+  private String taxType;
 
   
   @JsonProperty("Tracking")
@@ -114,21 +113,21 @@ public class ManualJournalLine {
     this.description = description;
   }
 
-  public ManualJournalLine taxType(TaxType taxType) {
+  public ManualJournalLine taxType(String taxType) {
     this.taxType = taxType;
     return this;
   }
 
    /**
-   * Get taxType
+   * The tax type from TaxRates
    * @return taxType
   **/
-  @ApiModelProperty(value = "")
-  public TaxType getTaxType() {
+  @ApiModelProperty(value = "The tax type from TaxRates")
+  public String getTaxType() {
     return taxType;
   }
 
-  public void setTaxType(TaxType taxType) {
+  public void setTaxType(String taxType) {
     this.taxType = taxType;
   }
 

@@ -97,7 +97,7 @@ public class AccountingApiAccountsTest {
 		assertThat(accounts.getAccounts().get(0).getBankAccountNumber(), is(equalTo("0209087654321050")));
 		assertThat(accounts.getAccounts().get(0).getBankAccountType(), is(equalTo(com.xero.models.accounting.Account.BankAccountTypeEnum.BANK)));
 		assertThat(accounts.getAccounts().get(0).getCurrencyCode(), is(equalTo(com.xero.models.accounting.CurrencyCode.NZD)));
-		assertThat(accounts.getAccounts().get(0).getTaxType(), is(equalTo(com.xero.models.accounting.TaxType.NONE)));
+		assertThat(accounts.getAccounts().get(0).getTaxType(), is(equalTo("NONE")));
 	}
 
 	@Test

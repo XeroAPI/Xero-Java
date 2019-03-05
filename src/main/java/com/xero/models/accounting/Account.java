@@ -20,7 +20,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.accounting.AccountType;
 import com.xero.models.accounting.CurrencyCode;
-import com.xero.models.accounting.TaxType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
@@ -147,7 +146,7 @@ public class Account {
 
   
   @JsonProperty("TaxType")
-  private TaxType taxType = null;
+  private String taxType;
 
   
   @JsonProperty("EnablePaymentsToAccount")
@@ -443,21 +442,21 @@ public class Account {
     this.currencyCode = currencyCode;
   }
 
-  public Account taxType(TaxType taxType) {
+  public Account taxType(String taxType) {
     this.taxType = taxType;
     return this;
   }
 
    /**
-   * Get taxType
+   * The tax type from TaxRates
    * @return taxType
   **/
-  @ApiModelProperty(value = "")
-  public TaxType getTaxType() {
+  @ApiModelProperty(value = "The tax type from TaxRates")
+  public String getTaxType() {
     return taxType;
   }
 
-  public void setTaxType(TaxType taxType) {
+  public void setTaxType(String taxType) {
     this.taxType = taxType;
   }
 

@@ -618,7 +618,7 @@ public class AccountingApi {
     }
   /**
     * Allow for the creation of new custom payment service for specified Branding Theme
-    * <p><b>200</b> - A successful request
+    * <p><b>200</b> - Success - return response of type PaymentServices array with newly created PaymentService
     * <p><b>400</b> - A failed request due to validation error
     * @param brandingThemeID Unique identifier for a Branding Theme
     * @param paymentService The paymentService parameter
@@ -658,8 +658,8 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
-    * <p><b>400</b> - A failed request due to validation error
+    * <p><b>200</b> - Success - return response of type Contacts array with newly created Contact
+    * <p><b>400</b> - Validation Error - some data was incorrect returns response of type Error
     * @param contact The contact parameter
     * @return Contacts
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -686,10 +686,10 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * <p><b>200</b> - Success - return response of type Attachments array with an newly created Attachment
     * <p><b>400</b> - A failed request due to validation error
-    * @param contactID The contactID parameter
-    * @param fileName The fileName parameter
+    * @param contactID Unique identifier for a Contact
+    * @param fileName Name for the file you are attaching
     * @param body The body parameter
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -727,8 +727,9 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
-    * <p><b>400</b> - A failed request due to validation error
+    * Allows you to create a contact group
+    * <p><b>200</b> - Success - return response of type Contact Groups array of newly created Contact Group
+    * <p><b>400</b> - Validation Error - some data was incorrect returns response of type Error
     * @param contactGroups The contactGroups parameter
     * @return ContactGroups
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -755,9 +756,10 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to add Contacts to a Contract Group
+    * <p><b>200</b> - Success - return response of type Contacts array of added Contacts
     * <p><b>400</b> - A failed request due to validation error
-    * @param contactGroupID The contactGroupID parameter
+    * @param contactGroupID Unique identifier for a Contact Group
     * @param contacts The contacts parameter
     * @return Contacts
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -796,9 +798,9 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve a history records of an Contact
-    * <p><b>200</b> - A successful request
+    * <p><b>200</b> - Success - return response of type History Records array of newly created History Record for a specific Contact
     * <p><b>400</b> - A failed request due to validation error
-    * @param contactID The contactID parameter
+    * @param contactID Unique identifier for a Contact
     * @param historyRecords The historyRecords parameter
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -836,7 +838,8 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to create a credit note
+    * <p><b>200</b> - Success - return response of type Credit Notes array of newly created CreditNote
     * <p><b>400</b> - A failed request due to validation error
     * @param summarizeErrors shows validation errors for each credit note
     * @param creditNotes The creditNotes parameter
@@ -868,9 +871,10 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to create Allocation on CreditNote
+    * <p><b>200</b> - Success - return response of type Allocations array with newly created Allocation for specific Credit Note
     * <p><b>400</b> - A failed request due to validation error
-    * @param creditNoteID The creditNoteID parameter
+    * @param creditNoteID Unique identifier for a Credit Note
     * @param allocations The allocations parameter
     * @return Allocations
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -908,10 +912,11 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to create Attachments on CreditNote by file name
+    * <p><b>200</b> - Success - return response of type Attachments array with newly created Attachment for specific Credit Note
     * <p><b>400</b> - A failed request due to validation error
-    * @param creditNoteID The creditNoteID parameter
-    * @param fileName The fileName parameter
+    * @param creditNoteID Unique identifier for a Credit Note
+    * @param fileName Name of the file you are attaching to Credit Note
     * @param body The body parameter
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -950,9 +955,9 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve a history records of an CreditNote
-    * <p><b>200</b> - A successful request
+    * <p><b>200</b> - Success - return response of type HistoryRecords array with newly created HistoryRecord for specific Credit Note
     * <p><b>400</b> - A failed request due to validation error
-    * @param creditNoteID The creditNoteID parameter
+    * @param creditNoteID Unique identifier for a Credit Note
     * @param historyRecords The historyRecords parameter
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -2082,10 +2087,11 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to delete a specific Contact from a Contract Group
+    * <p><b>200</b> - Success - return response empty with 204 response code
     * <p><b>400</b> - A failed request due to validation error
-    * @param contactGroupID The contactGroupID parameter
-    * @param contactID The contactID parameter
+    * @param contactGroupID Unique identifier for a Contact Group
+    * @param contactID Unique identifier for a Contact
     * @return Response204
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -2121,8 +2127,9 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
-    * @param contactGroupID The contactGroupID parameter
+    * Allows you to delete  all Contacts from a Contract Group
+    * <p><b>200</b> - Success - return response empty with 204 response code
+    * @param contactGroupID Unique identifier for a Contact Group
     * @return Response204
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -3082,7 +3089,7 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve the Payment services for a Branding Theme
-    * <p><b>200</b> - A successful request
+    * <p><b>200</b> - Success - return response of type PaymentServices array with 0 to N PaymentService
     * @param brandingThemeID Unique identifier for a Branding Theme
     * @return PaymentServices
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -3144,8 +3151,8 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve, add and update contacts in a Xero organisation
-    * <p><b>200</b> - A successful request
-    * @param contactID The contactID parameter
+    * <p><b>200</b> - Success - return response of type Contacts array with a unique Contact
+    * @param contactID Unique identifier for a Contact
     * @return Contacts
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -3181,9 +3188,9 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve Attachments on Contacts by file name
-    * <p><b>200</b> - A successful request
-    * @param contactID The contactID parameter
-    * @param fileName The fileName parameter
+    * <p><b>200</b> - Success - return response of type Attachments array with a specific Attachment
+    * @param contactID Unique identifier for a Contact
+    * @param fileName Name for the file you are attaching
     * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -3219,9 +3226,9 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve Attachments on Contacts
-    * <p><b>200</b> - A successful request
-    * @param contactID The contactID parameter
-    * @param attachmentID The attachmentID parameter
+    * <p><b>200</b> - Success - return response of type Attachments array with a specific Attachment
+    * @param contactID Unique identifier for a Contact
+    * @param attachmentID Unique identifier for a Attachment
     * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -3257,8 +3264,8 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve, add and update contacts in a Xero organisation
-    * <p><b>200</b> - A successful request
-    * @param contactID The contactID parameter
+    * <p><b>200</b> - Success - return response of type Attachments array with 0 to N Attachment
+    * @param contactID Unique identifier for a Contact
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -3294,8 +3301,8 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve CISSettings for a contact in a Xero organisation
-    * <p><b>200</b> - A successful request
-    * @param contactID The contactID parameter
+    * <p><b>200</b> - Success - return response of type CISSettings for a specific Contact
+    * @param contactID Unique identifier for a Contact
     * @return CISSettings
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -3330,9 +3337,9 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve the ContactID and Name of all the contacts in a contact group
-    * <p><b>200</b> - A successful request
-    * @param contactGroupID The contactGroupID parameter
+    * Allows you to retrieve a unique Contract Group by ID
+    * <p><b>200</b> - Success - return response of type Contact Groups array with a specific Contact Group
+    * @param contactGroupID Unique identifier for a Contact Group
     * @return ContactGroups
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -3368,7 +3375,7 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve the ContactID and Name of all the contacts in a contact group
-    * <p><b>200</b> - A successful response
+    * <p><b>200</b> - Success - return response of type Contact Groups array of Contact Group
     * @param where Filter by an any element
     * @param order Order by an any element
     * @return ContactGroups
@@ -3400,8 +3407,8 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve a history records of an Contact
-    * <p><b>200</b> - A successful request
-    * @param contactID The contactID parameter
+    * <p><b>200</b> - Success - return response of type History Records array of 0 to N History Record for a specific Contact
+    * @param contactID Unique identifier for a Contact
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -3437,7 +3444,7 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve, add and update contacts in a Xero organisation
-    * <p><b>200</b> - A successful response
+    * <p><b>200</b> - Success - return response of type Contacts array with 0 to N Contact
     * @param ifModifiedSince Only records created or modified since this timestamp will be returned
     * @param where Filter by an any element
     * @param order Order by an any element
@@ -3478,9 +3485,9 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve any credit notes
-    * <p><b>200</b> - A successful request
-    * @param creditNoteID The creditNoteID parameter
+    * Allows you to retrieve a specific credit note
+    * <p><b>200</b> - Success - return response of type Credit Notes array with a unique CreditNote
+    * @param creditNoteID Unique identifier for a Credit Note
     * @return CreditNotes
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -3516,8 +3523,8 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve Credit Note as PDF files
-    * <p><b>200</b> - A successful request
-    * @param creditNoteID The creditNoteID parameter
+    * <p><b>200</b> - Success - return response of binary data from the Attachment to a Credit Note
+    * @param creditNoteID Unique identifier for a Credit Note
     * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -3552,9 +3559,9 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve Attachments on CreditNote by file name
-    * <p><b>200</b> - A successful request
-    * @param creditNoteID The creditNoteID parameter
-    * @param fileName The fileName parameter
+    * <p><b>200</b> - Success - return response of binary data from the Attachment to a Credit Note
+    * @param creditNoteID Unique identifier for a Credit Note
+    * @param fileName Name of the file you are attaching to Credit Note
     * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -3590,9 +3597,9 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve Attachments on CreditNote
-    * <p><b>200</b> - A successful request
-    * @param creditNoteID The creditNoteID parameter
-    * @param attachmentID The attachmentID parameter
+    * <p><b>200</b> - Success - return response of type Attachments array with specific Attachment for specific Credit Note
+    * @param creditNoteID Unique identifier for a Credit Note
+    * @param attachmentID Unique identifier for a Attachment
     * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -3628,8 +3635,8 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve Attachments for credit notes
-    * <p><b>200</b> - A successful request
-    * @param creditNoteID The creditNoteID parameter
+    * <p><b>200</b> - Success - return response of type Attachments array with all Attachment for specific Credit Note
+    * @param creditNoteID Unique identifier for a Credit Note
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -3665,8 +3672,8 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve a history records of an CreditNote
-    * <p><b>200</b> - A successful request
-    * @param creditNoteID The creditNoteID parameter
+    * <p><b>200</b> - Success - return response of type HistoryRecords array with all HistoryRecord for specific Credit Note
+    * @param creditNoteID Unique identifier for a Credit Note
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -3702,7 +3709,7 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve any credit notes
-    * <p><b>200</b> - A successful response
+    * <p><b>200</b> - Success - return response of type Credit Notes array of CreditNote
     * @param ifModifiedSince Only records created or modified since this timestamp will be returned
     * @param where Filter by an any element
     * @param order Order by an any element
@@ -6483,9 +6490,9 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * <p><b>200</b> - Success - return response of type Contacts array with an updated Contact
     * <p><b>400</b> - A failed request due to validation error
-    * @param contactID The contactID parameter
+    * @param contactID Unique identifier for a Contact
     * @param contacts The contacts parameter
     * @return Contacts
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -6523,15 +6530,15 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * <p><b>200</b> - Success - return response of type Attachments array with an updated Attachment
     * <p><b>400</b> - A failed request due to validation error
-    * @param contactID The contactID parameter
-    * @param fileName The fileName parameter
+    * @param contactID Unique identifier for a Contact
+    * @param fileName Name for the file you are attaching
     * @param body The body parameter
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Attachments updateContactAttachmentByFileName(UUID contactID, UUID fileName, File body) throws IOException {
+    public Attachments updateContactAttachmentByFileName(UUID contactID, String fileName, byte[] body) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -6552,9 +6559,8 @@ public class AccountingApi {
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
             
-            strBody = apiClient.getObjectMapper().writeValueAsString(body);
 
-            String response = this.DATA(url, strBody, params, "POST");
+            String response = this.FILE(url, strBody, params, "POST", body);
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
 
@@ -6565,51 +6571,10 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to update a Contract Group
+    * <p><b>200</b> - Success - return response of type Contact Groups array of updated Contact Group
     * <p><b>400</b> - A failed request due to validation error
-    * @param contactID The contactID parameter
-    * @param attachmentID The attachmentID parameter
-    * @param body The body parameter
-    * @return Attachments
-    * @throws IOException if an error occurs while attempting to invoke the API
-    **/
-    public Attachments updateContactAttachmentById(UUID contactID, UUID attachmentID, File body) throws IOException {
-        try {
-            String strBody = null;
-            Map<String, String> params = null;
-            String correctPath = "/Contacts/{ContactID}/Attachments/{AttachmentID}";
-            // Hacky path manipulation to support different return types from same endpoint
-            String path = "/Contacts/{ContactID}/Attachments/{AttachmentID}";
-            String type = "/pdf";
-            if(path.toLowerCase().contains(type.toLowerCase()))
-            {
-                correctPath = path.replace("/pdf","");
-            } 
-
-            // create a map of path variables
-            final Map<String, String> uriVariables = new HashMap<String, String>();
-            uriVariables.put("ContactID", contactID.toString());
-            uriVariables.put("AttachmentID", attachmentID.toString());
-            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-            String url = uriBuilder.buildFromMap(uriVariables).toString();
-
-            
-            strBody = apiClient.getObjectMapper().writeValueAsString(body);
-
-            String response = this.DATA(url, strBody, params, "POST");
-            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
-
-        } catch (IOException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage());
-        } catch (XeroApiException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode(),JSONUtils.isJSONValid(e.getMessage()));
-        }
-    }
-  /**
-    * <p><b>200</b> - A successful request
-    * <p><b>400</b> - A failed request due to validation error
-    * @param contactGroupID The contactGroupID parameter
+    * @param contactGroupID Unique identifier for a Contact Group
     * @param contactGroups The contactGroups parameter
     * @return ContactGroups
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -6647,9 +6612,10 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to update a specific credit note
+    * <p><b>200</b> - Success - return response of type Credit Notes array with updated CreditNote
     * <p><b>400</b> - A failed request due to validation error
-    * @param creditNoteID The creditNoteID parameter
+    * @param creditNoteID Unique identifier for a Credit Note
     * @param creditNotes The creditNotes parameter
     * @return CreditNotes
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -6687,15 +6653,16 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to update Attachments on CreditNote by file name
+    * <p><b>200</b> - Success - return response of type Attachments array with updated Attachment for specific Credit Note
     * <p><b>400</b> - A failed request due to validation error
-    * @param creditNoteID The creditNoteID parameter
-    * @param fileName The fileName parameter
+    * @param creditNoteID Unique identifier for a Credit Note
+    * @param fileName Name of the file you are attaching to Credit Note
     * @param body The body parameter
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Attachments updateCreditNoteAttachmentByFileName(UUID creditNoteID, UUID fileName, File body) throws IOException {
+    public Attachments updateCreditNoteAttachmentByFileName(UUID creditNoteID, String fileName, byte[] body) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -6716,51 +6683,8 @@ public class AccountingApi {
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
             
-            strBody = apiClient.getObjectMapper().writeValueAsString(body);
 
-            String response = this.DATA(url, strBody, params, "POST");
-            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
-
-        } catch (IOException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage());
-        } catch (XeroApiException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode(),JSONUtils.isJSONValid(e.getMessage()));
-        }
-    }
-  /**
-    * <p><b>200</b> - A successful request
-    * <p><b>400</b> - A failed request due to validation error
-    * @param creditNoteID The creditNoteID parameter
-    * @param attachmentID The attachmentID parameter
-    * @param body The body parameter
-    * @return Attachments
-    * @throws IOException if an error occurs while attempting to invoke the API
-    **/
-    public Attachments updateCreditNoteAttachmentById(UUID creditNoteID, UUID attachmentID, File body) throws IOException {
-        try {
-            String strBody = null;
-            Map<String, String> params = null;
-            String correctPath = "/CreditNotes/{CreditNoteID}/Attachments/{AttachmentID}";
-            // Hacky path manipulation to support different return types from same endpoint
-            String path = "/CreditNotes/{CreditNoteID}/Attachments/{AttachmentID}";
-            String type = "/pdf";
-            if(path.toLowerCase().contains(type.toLowerCase()))
-            {
-                correctPath = path.replace("/pdf","");
-            } 
-
-            // create a map of path variables
-            final Map<String, String> uriVariables = new HashMap<String, String>();
-            uriVariables.put("CreditNoteID", creditNoteID.toString());
-            uriVariables.put("AttachmentID", attachmentID.toString());
-            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-            String url = uriBuilder.buildFromMap(uriVariables).toString();
-
-            
-            strBody = apiClient.getObjectMapper().writeValueAsString(body);
-
-            String response = this.DATA(url, strBody, params, "POST");
+            String response = this.FILE(url, strBody, params, "POST", body);
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
 
@@ -6899,7 +6823,7 @@ public class AccountingApi {
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Attachments updateInvoiceAttachmentByFileName(UUID invoiceID, UUID fileName, File body) throws IOException {
+    public Attachments updateInvoiceAttachmentByFileName(UUID invoiceID, UUID fileName, byte[] body) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -6920,9 +6844,8 @@ public class AccountingApi {
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
             
-            strBody = apiClient.getObjectMapper().writeValueAsString(body);
 
-            String response = this.DATA(url, strBody, params, "POST");
+            String response = this.FILE(url, strBody, params, "POST", body);
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
 
@@ -7103,7 +7026,7 @@ public class AccountingApi {
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Attachments updateManualJournalAttachmentByFileName(UUID manualJournalID, UUID fileName, File body) throws IOException {
+    public Attachments updateManualJournalAttachmentByFileName(UUID manualJournalID, UUID fileName, byte[] body) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -7124,9 +7047,8 @@ public class AccountingApi {
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
             
-            strBody = apiClient.getObjectMapper().writeValueAsString(body);
 
-            String response = this.DATA(url, strBody, params, "POST");
+            String response = this.FILE(url, strBody, params, "POST", body);
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
 
@@ -7307,7 +7229,7 @@ public class AccountingApi {
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Attachments updateReceiptAttachmentByFileName(UUID receiptID, UUID fileName, File body) throws IOException {
+    public Attachments updateReceiptAttachmentByFileName(UUID receiptID, UUID fileName, byte[] body) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -7328,9 +7250,8 @@ public class AccountingApi {
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
             
-            strBody = apiClient.getObjectMapper().writeValueAsString(body);
 
-            String response = this.DATA(url, strBody, params, "POST");
+            String response = this.FILE(url, strBody, params, "POST", body);
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
 
@@ -7391,7 +7312,7 @@ public class AccountingApi {
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Attachments updateRepeatingInvoiceAttachmentByFileName(UUID repeatingInvoiceID, UUID fileName, File body) throws IOException {
+    public Attachments updateRepeatingInvoiceAttachmentByFileName(UUID repeatingInvoiceID, UUID fileName, byte[] body) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -7412,9 +7333,8 @@ public class AccountingApi {
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
             
-            strBody = apiClient.getObjectMapper().writeValueAsString(body);
 
-            String response = this.DATA(url, strBody, params, "POST");
+            String response = this.FILE(url, strBody, params, "POST", body);
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
 

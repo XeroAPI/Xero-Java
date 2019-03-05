@@ -1624,7 +1624,7 @@ public class RequestResourceServlet extends HttpServlet
 				li.setQuantity(2.0f);
 				li.setUnitAmount(20.00f);
 				li.setLineAmount(40.00f);
-				li.setTaxType(TaxType.NONE);
+				li.setTaxType("NONE");
 				
 				receipt.addLineitemsItem(li);
 				receipt.setUser(user);
@@ -1717,7 +1717,7 @@ public class RequestResourceServlet extends HttpServlet
 			li.setQuantity(2f);
 			li.setUnitAmount(20.00f);
 			li.setLineAmount(40.00f);
-			li.setTaxType(TaxType.NONE);
+			li.setTaxType("NONE");
 			
 			myInvoice.addLineItemsItem(li);
 			myInvoice.setContact(useContact);
@@ -1904,7 +1904,7 @@ public class RequestResourceServlet extends HttpServlet
 				li.setQuantity(2f);
 				li.setUnitAmount(20.00f);
 				li.setLineAmount(40.00f);
-				li.setTaxType(TaxType.NONE);
+				li.setTaxType("NONE");
 				
 				myInvoice.addLineItemsItem(li);
 				myInvoice.setContact(useContact);
@@ -2243,7 +2243,7 @@ public class RequestResourceServlet extends HttpServlet
 				li.setAccountCode(arAccount.getCode());
 				li.setDescription("Foobar");
 				li.setQuantity(1f);
-				li.setTaxType(TaxType.NONE);
+				li.setTaxType("NONE");
 				li.setUnitAmount(20.00f);
 				lineItems.add(li);
 				
@@ -2393,7 +2393,7 @@ public class RequestResourceServlet extends HttpServlet
 				li.setQuantity(2f);
 				li.setUnitAmount(20.00f);
 				li.setLineAmount(40.00f);
-				li.setTaxType(TaxType.NONE);
+				li.setTaxType("NONE");
 				
 				receipt.addLineitemsItem(li);
 				receipt.setUser(useUser);
@@ -2665,7 +2665,7 @@ public class RequestResourceServlet extends HttpServlet
 				li.setQuantity(2f);
 				li.setUnitAmount(20.00f);
 				li.setLineAmount(40.00f);
-				li.setTaxType(TaxType.NONE);
+				li.setTaxType("NONE");
 				
 				myInvoice.addLineItemsItem(li);
 				myInvoice.setContact(useContact);

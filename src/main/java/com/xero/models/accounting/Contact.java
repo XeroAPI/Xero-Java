@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.accounting.Address;
+import com.xero.models.accounting.Attachment;
 import com.xero.models.accounting.Balances;
 import com.xero.models.accounting.BatchPaymentDetails;
 import com.xero.models.accounting.BrandingTheme;
@@ -27,7 +28,6 @@ import com.xero.models.accounting.ContactPerson;
 import com.xero.models.accounting.CurrencyCode;
 import com.xero.models.accounting.PaymentTerm;
 import com.xero.models.accounting.Phone;
-import com.xero.models.accounting.TaxType;
 import com.xero.models.accounting.TrackingCategory;
 import com.xero.models.accounting.ValidationError;
 import io.swagger.annotations.ApiModel;
@@ -131,11 +131,11 @@ public class Contact {
 
   
   @JsonProperty("AccountsReceivableTaxType")
-  private TaxType accountsReceivableTaxType = null;
+  private String accountsReceivableTaxType;
 
   
   @JsonProperty("AccountsPayableTaxType")
-  private TaxType accountsPayableTaxType = null;
+  private String accountsPayableTaxType;
 
   
   @JsonProperty("Addresses")
@@ -218,12 +218,20 @@ public class Contact {
   private Balances balances = null;
 
   
+  @JsonProperty("Attachments")
+  private List<Attachment> attachments = null;
+
+  
   @JsonProperty("HasAttachments")
   private Boolean hasAttachments;
 
   
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = null;
+
+  
+  @JsonProperty("HasValidationErrors")
+  private Boolean hasValidationErrors;
 
   public Contact contactID(UUID contactID) {
     this.contactID = contactID;
@@ -449,39 +457,39 @@ public class Contact {
     this.taxNumber = taxNumber;
   }
 
-  public Contact accountsReceivableTaxType(TaxType accountsReceivableTaxType) {
+  public Contact accountsReceivableTaxType(String accountsReceivableTaxType) {
     this.accountsReceivableTaxType = accountsReceivableTaxType;
     return this;
   }
 
    /**
-   * Get accountsReceivableTaxType
+   * The tax type from TaxRates
    * @return accountsReceivableTaxType
   **/
-  @ApiModelProperty(value = "")
-  public TaxType getAccountsReceivableTaxType() {
+  @ApiModelProperty(value = "The tax type from TaxRates")
+  public String getAccountsReceivableTaxType() {
     return accountsReceivableTaxType;
   }
 
-  public void setAccountsReceivableTaxType(TaxType accountsReceivableTaxType) {
+  public void setAccountsReceivableTaxType(String accountsReceivableTaxType) {
     this.accountsReceivableTaxType = accountsReceivableTaxType;
   }
 
-  public Contact accountsPayableTaxType(TaxType accountsPayableTaxType) {
+  public Contact accountsPayableTaxType(String accountsPayableTaxType) {
     this.accountsPayableTaxType = accountsPayableTaxType;
     return this;
   }
 
    /**
-   * Get accountsPayableTaxType
+   * The tax type from TaxRates
    * @return accountsPayableTaxType
   **/
-  @ApiModelProperty(value = "")
-  public TaxType getAccountsPayableTaxType() {
+  @ApiModelProperty(value = "The tax type from TaxRates")
+  public String getAccountsPayableTaxType() {
     return accountsPayableTaxType;
   }
 
-  public void setAccountsPayableTaxType(TaxType accountsPayableTaxType) {
+  public void setAccountsPayableTaxType(String accountsPayableTaxType) {
     this.accountsPayableTaxType = accountsPayableTaxType;
   }
 
@@ -867,6 +875,32 @@ public class Contact {
     this.balances = balances;
   }
 
+  public Contact attachments(List<Attachment> attachments) {
+    this.attachments = attachments;
+    return this;
+  }
+
+  public Contact addAttachmentsItem(Attachment attachmentsItem) {
+    if (this.attachments == null) {
+      this.attachments = new ArrayList<Attachment>();
+    }
+    this.attachments.add(attachmentsItem);
+    return this;
+  }
+
+   /**
+   * Displays array of attachments from the API
+   * @return attachments
+  **/
+  @ApiModelProperty(value = "Displays array of attachments from the API")
+  public List<Attachment> getAttachments() {
+    return attachments;
+  }
+
+  public void setAttachments(List<Attachment> attachments) {
+    this.attachments = attachments;
+  }
+
   public Contact hasAttachments(Boolean hasAttachments) {
     this.hasAttachments = hasAttachments;
     return this;
@@ -909,6 +943,24 @@ public class Contact {
 
   public void setValidationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
+  }
+
+  public Contact hasValidationErrors(Boolean hasValidationErrors) {
+    this.hasValidationErrors = hasValidationErrors;
+    return this;
+  }
+
+   /**
+   * A boolean to indicate if a contact has an validation errors
+   * @return hasValidationErrors
+  **/
+  @ApiModelProperty(value = "A boolean to indicate if a contact has an validation errors")
+  public Boolean getHasValidationErrors() {
+    return hasValidationErrors;
+  }
+
+  public void setHasValidationErrors(Boolean hasValidationErrors) {
+    this.hasValidationErrors = hasValidationErrors;
   }
 
 
@@ -955,13 +1007,15 @@ public class Contact {
         Objects.equals(this.batchPayments, contact.batchPayments) &&
         Objects.equals(this.discount, contact.discount) &&
         Objects.equals(this.balances, contact.balances) &&
+        Objects.equals(this.attachments, contact.attachments) &&
         Objects.equals(this.hasAttachments, contact.hasAttachments) &&
-        Objects.equals(this.validationErrors, contact.validationErrors);
+        Objects.equals(this.validationErrors, contact.validationErrors) &&
+        Objects.equals(this.hasValidationErrors, contact.hasValidationErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(contactID, contactNumber, accountNumber, contactStatus, name, firstName, lastName, emailAddress, skypeUserName, contactPersons, bankAccountDetails, taxNumber, accountsReceivableTaxType, accountsPayableTaxType, addresses, phones, isSupplier, isCustomer, defaultCurrency, xeroNetworkKey, salesDefaultAccountCode, purchasesDefaultAccountCode, salesTrackingCategories, purchasesTrackingCategories, trackingCategoryName, trackingCategoryOption, paymentTerms, updatedDateUTC, contactGroups, website, brandingTheme, batchPayments, discount, balances, hasAttachments, validationErrors);
+    return Objects.hash(contactID, contactNumber, accountNumber, contactStatus, name, firstName, lastName, emailAddress, skypeUserName, contactPersons, bankAccountDetails, taxNumber, accountsReceivableTaxType, accountsPayableTaxType, addresses, phones, isSupplier, isCustomer, defaultCurrency, xeroNetworkKey, salesDefaultAccountCode, purchasesDefaultAccountCode, salesTrackingCategories, purchasesTrackingCategories, trackingCategoryName, trackingCategoryOption, paymentTerms, updatedDateUTC, contactGroups, website, brandingTheme, batchPayments, discount, balances, attachments, hasAttachments, validationErrors, hasValidationErrors);
   }
 
 
@@ -1004,8 +1058,10 @@ public class Contact {
     sb.append("    batchPayments: ").append(toIndentedString(batchPayments)).append("\n");
     sb.append("    discount: ").append(toIndentedString(discount)).append("\n");
     sb.append("    balances: ").append(toIndentedString(balances)).append("\n");
+    sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
     sb.append("    hasAttachments: ").append(toIndentedString(hasAttachments)).append("\n");
     sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
+    sb.append("    hasValidationErrors: ").append(toIndentedString(hasValidationErrors)).append("\n");
     sb.append("}");
     return sb.toString();
   }
