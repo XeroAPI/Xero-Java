@@ -173,11 +173,11 @@ public class TaxRate {
 
   
   @JsonProperty("DisplayTaxRate")
-  private Float displayTaxRate;
+  private Double displayTaxRate;
 
   
   @JsonProperty("EffectiveRate")
-  private Float effectiveRate;
+  private Double effectiveRate;
 
   public TaxRate name(String name) {
     this.name = name;
@@ -327,7 +327,7 @@ public class TaxRate {
    * @return displayTaxRate
   **/
   @ApiModelProperty(value = "Tax Rate (decimal to 4dp) e.g 12.5000")
-  public Float getDisplayTaxRate() {
+  public Double getDisplayTaxRate() {
     return displayTaxRate;
   }
 
@@ -336,7 +336,7 @@ public class TaxRate {
    * @return effectiveRate
   **/
   @ApiModelProperty(value = "Effective Tax Rate (decimal to 4dp) e.g 12.5000")
-  public Float getEffectiveRate() {
+  public Double getEffectiveRate() {
     return effectiveRate;
   }
 

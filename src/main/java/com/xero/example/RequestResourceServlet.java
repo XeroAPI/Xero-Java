@@ -22,7 +22,6 @@ import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-//import com.xero.api.XeroClient;
 import com.xero.api.client.*;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.xero.api.ApiClient;
@@ -93,7 +92,6 @@ import com.xero.models.accounting.Receipts;
 import com.xero.models.accounting.RepeatingInvoices;
 import com.xero.models.accounting.ReportWithRows;
 import com.xero.models.accounting.RequestEmpty;
-import com.xero.models.accounting.Response204;
 import com.xero.models.accounting.TaxComponent;
 import com.xero.models.accounting.TaxRate;
 import com.xero.models.accounting.TaxRate.ReportTaxTypeEnum;
@@ -1114,8 +1112,8 @@ public class RequestResourceServlet extends HttpServlet
 					LineItem li = new LineItem();
 					li.setAccountCode("400");
 					li.setDescription("Foobar");
-					li.setQuantity(1.0f);
-					li.setUnitAmount(20.0f);
+					li.setQuantity(1.0);
+					li.setUnitAmount(20.0);
 					lineItems.add(li);
 					BankTransaction bt = new BankTransaction();
 					bt.setBankAccount(bankAcct);
@@ -1236,7 +1234,7 @@ public class RequestResourceServlet extends HttpServlet
 				BatchPayments createBatchPayments = new BatchPayments();
 				BatchPayment createBatchPayment = new BatchPayment();
 				createBatchPayment.setAccount(paymentAccount);
-				createBatchPayment.setAmount(3.0f);
+				createBatchPayment.setAmount(3.0);
 				LocalDate currDate = LocalDate.now();
 				createBatchPayment.setDate(currDate);
 				createBatchPayment.setReference("Foobar" + SampleData.loadRandomNum());
@@ -1244,19 +1242,19 @@ public class RequestResourceServlet extends HttpServlet
 				Payment payment01 = new Payment();
 				payment01.setAccount(paymentAccount);
 				payment01.setInvoice(inv);
-				payment01.setAmount(1.0f);
+				payment01.setAmount(1.0);
 				payment01.setDate(currDate);
 				
 				Payment payment02 = new Payment();
 				payment02.setAccount(paymentAccount);
 				payment02.setInvoice(inv2);
-				payment02.setAmount(1.0f);
+				payment02.setAmount(1.0);
 				payment02.setDate(currDate);
 				
 				Payment payment03 = new Payment();
 				payment03.setAccount(paymentAccount);
 				payment03.setInvoice(inv3);
-				payment03.setAmount(1.0f);
+				payment03.setAmount(1.0);
 				payment03.setDate(currDate);
 				
 				createBatchPayment.addPaymentsItem(payment01);
@@ -1428,8 +1426,8 @@ public class RequestResourceServlet extends HttpServlet
 				messages.add("Add 2 Contacts to Contact Group - Total : " + addContacts.getContacts().size());	
 			
 				// DELETE all Contacts in Group
-				Response204 deleteContacts = accountingApi.deleteContactGroupContacts(newContactGroup.getContactGroups().get(0).getContactGroupID());
-				messages.add("Delete All Contacts  to Contact Group - Status? : " + deleteContacts.getStatus());	
+				accountingApi.deleteContactGroupContacts(newContactGroup.getContactGroups().get(0).getContactGroupID());
+				messages.add("Delete All Contacts  to Contact Group - no content in response ");	
 				ContactGroups oneCg = accountingApi.getContactGroup(newContactGroup.getContactGroups().get(0).getContactGroupID());
 				messages.add("Get ContactGroups - Total Contacts : " + oneCg.getContactGroups().get(0).getContacts().size());
 				
@@ -1443,8 +1441,8 @@ public class RequestResourceServlet extends HttpServlet
 				messages.add("Add 2 Contacts to Contact Group - Total : " + addContacts2.getContacts().size());	
 			
 				// DELETE Single CONACTS
-				Response204 deleteContacts2 = accountingApi.deleteContactGroupContact(newContactGroup.getContactGroups().get(0).getContactGroupID(),allContacts.getContacts().get(3).getContactID());
-				messages.add("Delete 1 contact from Contact Group - Status? : " + deleteContacts2.getStatus());	
+				accountingApi.deleteContactGroupContact(newContactGroup.getContactGroups().get(0).getContactGroupID(),allContacts.getContacts().get(3).getContactID());
+				messages.add("Delete 1 contact from Contact Group - no content in response");	
 				ContactGroups oneCg2 = accountingApi.getContactGroup(newContactGroup.getContactGroups().get(0).getContactGroupID());
 				messages.add("Get ContactGroups - Total Contacts : " + oneCg2.getContactGroups().get(0).getContacts().size());
 				
@@ -1473,8 +1471,8 @@ public class RequestResourceServlet extends HttpServlet
 				LineItem li = new LineItem();
 				li.setAccountCode("400");
 				li.setDescription("Foobar");
-				li.setQuantity(2.0f);
-				li.setUnitAmount(20.0f);
+				li.setQuantity(2.0);
+				li.setUnitAmount(20.0);
 				lineItems.add(li);
 				
 				CreditNotes newCNs = new CreditNotes();
@@ -1510,7 +1508,7 @@ public class RequestResourceServlet extends HttpServlet
 				Invoice inv = new Invoice();
 				inv.setInvoiceID(allInvoices.getInvoices().get(0).getInvoiceID());
 				allocation.setInvoice(inv);
-				allocation.setAmount(1.0f);
+				allocation.setAmount(1.0);
 				LocalDate currDate = LocalDate.now();
 				allocation.setDate(currDate);
 				allocations.addAllocationsItem(allocation);
@@ -1621,9 +1619,9 @@ public class RequestResourceServlet extends HttpServlet
 				LineItem li = new LineItem();
 				li.setAccountCode(accounts.getAccounts().get(0).getCode());
 				li.setDescription("Foobar");
-				li.setQuantity(2.0f);
-				li.setUnitAmount(20.00f);
-				li.setLineAmount(40.00f);
+				li.setQuantity(2.0);
+				li.setUnitAmount(20.00);
+				li.setLineAmount(40.00);
 				li.setTaxType("NONE");
 				
 				receipt.addLineitemsItem(li);
@@ -1714,9 +1712,9 @@ public class RequestResourceServlet extends HttpServlet
 			LineItem li = new LineItem();
 			li.setAccountCode(accountCodeForInvoice);
 			li.setDescription("Acme Tires");
-			li.setQuantity(2f);
-			li.setUnitAmount(20.00f);
-			li.setLineAmount(40.00f);
+			li.setQuantity(2.0);
+			li.setUnitAmount(20.00);
+			li.setLineAmount(40.00);
 			li.setTaxType("NONE");
 			
 			myInvoice.addLineItemsItem(li);
@@ -1767,8 +1765,8 @@ public class RequestResourceServlet extends HttpServlet
 		
 			// Email Invoice
 			RequestEmpty empty = new RequestEmpty();
-			Response204 emailInvoice = accountingApi.emailInvoice(newInvoiceID,empty);
-			messages.add("Email invoice - response : " + emailInvoice.toString() );
+			accountingApi.emailInvoice(newInvoiceID,empty);
+			messages.add("Email invoice - no content in response");
 		
 			// Get Invoice History
 			HistoryRecords history = accountingApi.getInvoiceHistory(newInvoiceID);
@@ -1855,8 +1853,8 @@ public class RequestResourceServlet extends HttpServlet
 				*/
 				
 				//Delete
-				Response204 deleteItem = accountingApi.deleteItem(newItemId);
-				messages.add("Delete one item - status : " + deleteItem.getStatus());
+				accountingApi.deleteItem(newItemId);
+				messages.add("Delete one item - no content in response");
 			} catch (XeroApiException e) {
 				System.out.println(e.getMessage());	
 			}
@@ -1901,9 +1899,9 @@ public class RequestResourceServlet extends HttpServlet
 				LineItem li = new LineItem();
 				li.setAccountCode(accounts.getAccounts().get(0).getCode());
 				li.setDescription("Acme Tires");
-				li.setQuantity(2f);
-				li.setUnitAmount(20.00f);
-				li.setLineAmount(40.00f);
+				li.setQuantity(2.0);
+				li.setUnitAmount(20.00);
+				li.setLineAmount(40.00);
 				li.setTaxType("NONE");
 				
 				myInvoice.addLineItemsItem(li);
@@ -2003,8 +2001,8 @@ public class RequestResourceServlet extends HttpServlet
 				
 				// DELETE LINKEDTRANSACTION
 				UUID newLinkedTransactionID = createdLinkedTransaction.getLinkedTransactions().get(0).getLinkedTransactionID();
-				Response204 deleteLinkedTransaction = accountingApi.deleteLinkedTransaction(newLinkedTransactionID);
-				messages.add("Delete LinkedTransaction - Status : " + deleteLinkedTransaction.getStatus());
+				accountingApi.deleteLinkedTransaction(newLinkedTransactionID);
+				messages.add("Delete LinkedTransaction - no content in response");
 				
 			} catch (XeroApiException e) {
 				System.out.println(e.getMessage());	
@@ -2027,13 +2025,13 @@ public class RequestResourceServlet extends HttpServlet
 				ManualJournalLine credit = new ManualJournalLine();
 				credit.setDescription("Hello there");
 				credit.setAccountCode(accountCode);
-				credit.setLineAmount(100.00f);
+				credit.setLineAmount(100.00);
 				manualJournal.addJournalLinesItem(credit);
 				
 				ManualJournalLine debit = new ManualJournalLine();
 				debit.setDescription("Goodbye");
 				debit.setAccountCode(accountCode);
-				debit.setLineAmount(-100.00f);
+				debit.setLineAmount(-100.00);
 				manualJournal.addJournalLinesItem(debit);
 				manualJournals.addManualJournalsItem(manualJournal);
 				ManualJournals createdManualJournals = accountingApi.createManualJournal(manualJournals);
@@ -2094,8 +2092,8 @@ public class RequestResourceServlet extends HttpServlet
 				LineItem li = new LineItem();
 				li.setAccountCode(arAccount.getCode());
 				li.setDescription("Foobar");
-				li.setQuantity(1f);
-				li.setUnitAmount(20.00f);
+				li.setQuantity(1.0);
+				li.setUnitAmount(20.00);
 				lineItems.add(li);
 				
 				BankTransaction bt = new BankTransaction();
@@ -2123,7 +2121,7 @@ public class RequestResourceServlet extends HttpServlet
 					
 					Allocations allocations = new Allocations();
 					Allocation allocation = new Allocation();
-					allocation.setAmount(1.0f);
+					allocation.setAmount(1.0);
 					LocalDate currDate = LocalDate.now();
 					allocation.setDate(currDate);
 					allocation.setInvoice(inv);
@@ -2168,7 +2166,7 @@ public class RequestResourceServlet extends HttpServlet
 			Payment createPayment = new Payment();
 			createPayment.setAccount(paymentAccount);
 			createPayment.setInvoice(inv);
-			createPayment.setAmount(1.00f);
+			createPayment.setAmount(1.00);
 
 			LocalDate currDate = LocalDate.now();
 			createPayment.setDate(currDate);
@@ -2242,9 +2240,9 @@ public class RequestResourceServlet extends HttpServlet
 				LineItem li = new LineItem();
 				li.setAccountCode(arAccount.getCode());
 				li.setDescription("Foobar");
-				li.setQuantity(1f);
+				li.setQuantity(1.0);
 				li.setTaxType("NONE");
-				li.setUnitAmount(20.00f);
+				li.setUnitAmount(20.00);
 				lineItems.add(li);
 				
 				BankTransaction bt = new BankTransaction();
@@ -2271,7 +2269,7 @@ public class RequestResourceServlet extends HttpServlet
 					
 					Allocations allocations = new Allocations();
 					Allocation allocation = new Allocation();
-					allocation.setAmount(1.0f);
+					allocation.setAmount(1.0);
 					LocalDate currDate = LocalDate.now();
 					allocation.setDate(currDate);
 					allocation.setInvoice(inv);
@@ -2318,8 +2316,8 @@ public class RequestResourceServlet extends HttpServlet
 				LineItem li = new LineItem();
 				li.setAccountCode(arAccount.getCode());
 				li.setDescription("Foobar");
-				li.setQuantity(1f);
-				li.setUnitAmount(20.00f);
+				li.setQuantity(1.0);
+				li.setUnitAmount(20.00);
 				lineItems.add(li);
 				purchaseOrder.setLineItems(lineItems);
 				purchaseOrders.addPurchaseOrdersItem(purchaseOrder);
@@ -2390,9 +2388,9 @@ public class RequestResourceServlet extends HttpServlet
 				LineItem li = new LineItem();
 				li.setAccountCode(accounts.getAccounts().get(0).getCode());
 				li.setDescription("Foobar");
-				li.setQuantity(2f);
-				li.setUnitAmount(20.00f);
-				li.setLineAmount(40.00f);
+				li.setQuantity(2.0);
+				li.setUnitAmount(20.00);
+				li.setLineAmount(40.00);
 				li.setTaxType("NONE");
 				
 				receipt.addLineitemsItem(li);
@@ -2506,9 +2504,9 @@ public class RequestResourceServlet extends HttpServlet
 			messages.add("Get a Reports - Name:" + reportAgedReceivablesByContact.getReports().get(0).getReportName());
 			
 			// reportBalanceSheet
-			ReportWithRows reportBalanceSheet = accountingApi.getReportBalanceSheet(toDate, null, null, trackingOptionID1, trackingOptionID2, standardLayout, paymentsOnly);
+			ReportWithRows reportBalanceSheet = accountingApi.getReportBalanceSheet(toDate, 3, "MONTH", trackingOptionID1, trackingOptionID2, standardLayout, paymentsOnly);
 			messages.add("Get a Reports - Name:" + reportBalanceSheet.getReports().get(0).getReportName());
-			
+			System.out.println(reportBalanceSheet.getReports().get(0).getReportTitles().get(1).toString()  );
 			// reportBankSummary
 			ReportWithRows reportBankSummary = accountingApi.getReportBankSummary(toDate, null, null);
 			messages.add("Get a Reports - Name:" + reportBankSummary.getReports().get(0).getReportName());
@@ -2516,6 +2514,12 @@ public class RequestResourceServlet extends HttpServlet
 			// reportBASorGSTlist - AU and NZ only
 			ReportWithRows reportTax = accountingApi.getReportBASorGSTList();
 			System.out.println(reportTax.toString());
+			
+			// reportBudgetSummary
+			int budgetPeriod = 1;
+			int budgetTimeframe = 3;
+			ReportWithRows reportBudgetSummary = accountingApi.getReportBudgetSummary(toDate, budgetPeriod, budgetTimeframe);
+			messages.add("Get a Reports - Name:" + reportBudgetSummary.getReports().get(0).getReportName());
 			
 			// reportExecutiveSummary
 			ReportWithRows reportExecutiveSummary = accountingApi.getReportExecutiveSummary(toDate);
@@ -2545,7 +2549,7 @@ public class RequestResourceServlet extends HttpServlet
 				TaxRate newTaxRate = new TaxRate();
 				TaxComponent rate01 = new TaxComponent();
 				rate01.setName("State Tax");
-				rate01.setRate(2.25f);
+				rate01.setRate(2.25);
 				newTaxRate.setReportTaxType(ReportTaxTypeEnum.INPUT);
 				newTaxRate.setName("SDKTax"+SampleData.loadRandomNum());
 				newTaxRate.addTaxComponentsItem(rate01);
@@ -2601,20 +2605,24 @@ public class RequestResourceServlet extends HttpServlet
 				messages.add("UPDATED tracking categories - name : " + updatedTrackingCategories.getTrackingCategories().get(0).getName());					
 				
 				// GET one Tracking Categories
-				UUID oneTrackingCategoryID = trackingCategories.getTrackingCategories().get(0).getTrackingCategoryID();
-				TrackingCategories oneTrackingCategories = accountingApi.getTrackingCategory(oneTrackingCategoryID);
-				messages.add("GET ONE tracking categories - name : " + oneTrackingCategories.getTrackingCategories().get(0).getName());
 				
-				// Create one Option
-				TrackingOption option = new TrackingOption();
-				option.setName("Bar"+SampleData.loadRandomNum());
-				TrackingOptions newTrackingOptions = accountingApi.createTrackingOptions(oneTrackingCategoryID,option);
-				messages.add("CREATE option - name : " + newTrackingOptions.getOptions().get(0).getName());
-				
-				// DELETE All options
-				UUID newOptionId = newTrackingOptions.getOptions().get(0).getTrackingOptionID();                                 
-				TrackingOptions deleteOptions = accountingApi.deleteTrackingOptions(oneTrackingCategoryID, newOptionId);
-				messages.add("DELETE one option - Status : " + deleteOptions.getOptions().get(0).getStatus());
+				if (count > 0) 
+				{
+					UUID oneTrackingCategoryID = trackingCategories.getTrackingCategories().get(0).getTrackingCategoryID();
+					TrackingCategories oneTrackingCategories = accountingApi.getTrackingCategory(oneTrackingCategoryID);
+					messages.add("GET ONE tracking categories - name : " + oneTrackingCategories.getTrackingCategories().get(0).getName());
+					
+					// Create one Option
+					TrackingOption option = new TrackingOption();
+					option.setName("Bar"+SampleData.loadRandomNum());
+					TrackingOptions newTrackingOptions = accountingApi.createTrackingOptions(oneTrackingCategoryID,option);
+					messages.add("CREATE option - name : " + newTrackingOptions.getOptions().get(0).getName());
+					
+					// DELETE All options
+					//UUID newOptionId = newTrackingOptions.getOptions().get(0).getTrackingOptionID();                                 
+					//TrackingOptions deleteOptions = accountingApi.deleteTrackingOptions(oneTrackingCategoryID, newOptionId);
+					//messages.add("DELETE one option - Status : " + deleteOptions.getOptions().get(0).getStatus());
+				}
 				
 			} catch (XeroApiException e) {
 				System.out.println(e.getMessage());
@@ -2662,9 +2670,9 @@ public class RequestResourceServlet extends HttpServlet
 				LineItem li = new LineItem();
 				li.setAccountCode("123456789");
 				li.setDescription("Acme Tires");
-				li.setQuantity(2f);
-				li.setUnitAmount(20.00f);
-				li.setLineAmount(40.00f);
+				li.setQuantity(2.0);
+				li.setUnitAmount(20.00);
+				li.setLineAmount(40.00);
 				li.setTaxType("NONE");
 				
 				myInvoice.addLineItemsItem(li);

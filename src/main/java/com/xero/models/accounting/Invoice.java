@@ -18,6 +18,7 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.Attachment;
 import com.xero.models.accounting.Contact;
 import com.xero.models.accounting.CreditNote;
 import com.xero.models.accounting.CurrencyCode;
@@ -122,7 +123,7 @@ public class Invoice {
 
   
   @JsonProperty("CurrencyRate")
-  private Float currencyRate;
+  private Double currencyRate;
 
   /**
    * See Invoice Status Codes
@@ -185,19 +186,19 @@ public class Invoice {
 
   
   @JsonProperty("SubTotal")
-  private Float subTotal;
+  private Double subTotal;
 
   
   @JsonProperty("TotalTax")
-  private Float totalTax;
+  private Double totalTax;
 
   
   @JsonProperty("Total")
-  private Float total;
+  private Double total;
 
   
   @JsonProperty("TotalDiscount")
-  private Float totalDiscount;
+  private Double totalDiscount;
 
   
   @JsonProperty("InvoiceID")
@@ -206,6 +207,10 @@ public class Invoice {
   
   @JsonProperty("HasAttachments")
   private Boolean hasAttachments;
+
+  
+  @JsonProperty("IsDiscounted")
+  private Boolean isDiscounted;
 
   
   @JsonProperty("Payments")
@@ -221,11 +226,11 @@ public class Invoice {
 
   
   @JsonProperty("AmountDue")
-  private Float amountDue;
+  private Double amountDue;
 
   
   @JsonProperty("AmountPaid")
-  private Float amountPaid;
+  private Double amountPaid;
 
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("FullyPaidOnDate")
@@ -233,7 +238,7 @@ public class Invoice {
 
   
   @JsonProperty("AmountCredited")
-  private Float amountCredited;
+  private Double amountCredited;
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
@@ -242,6 +247,14 @@ public class Invoice {
   
   @JsonProperty("CreditNotes")
   private List<CreditNote> creditNotes = null;
+
+  
+  @JsonProperty("Attachments")
+  private List<Attachment> attachments = null;
+
+  
+  @JsonProperty("HasErrors")
+  private Boolean hasErrors;
 
   public Invoice type(TypeEnum type) {
     this.type = type;
@@ -446,7 +459,7 @@ public class Invoice {
     this.currencyCode = currencyCode;
   }
 
-  public Invoice currencyRate(Float currencyRate) {
+  public Invoice currencyRate(Double currencyRate) {
     this.currencyRate = currencyRate;
     return this;
   }
@@ -456,11 +469,11 @@ public class Invoice {
    * @return currencyRate
   **/
   @ApiModelProperty(value = "The currency rate for a multicurrency invoice. If no rate is specified, the XE.com day rate is used. (max length = [18].[6])")
-  public Float getCurrencyRate() {
+  public Double getCurrencyRate() {
     return currencyRate;
   }
 
-  public void setCurrencyRate(Float currencyRate) {
+  public void setCurrencyRate(Double currencyRate) {
     this.currencyRate = currencyRate;
   }
 
@@ -541,7 +554,7 @@ public class Invoice {
    * @return subTotal
   **/
   @ApiModelProperty(value = "Total of invoice excluding taxes")
-  public Float getSubTotal() {
+  public Double getSubTotal() {
     return subTotal;
   }
 
@@ -550,7 +563,7 @@ public class Invoice {
    * @return totalTax
   **/
   @ApiModelProperty(value = "Total tax on invoice")
-  public Float getTotalTax() {
+  public Double getTotalTax() {
     return totalTax;
   }
 
@@ -559,7 +572,7 @@ public class Invoice {
    * @return total
   **/
   @ApiModelProperty(value = "Total of Invoice tax inclusive (i.e. SubTotal + TotalTax). This will be ignored if it doesn’t equal the sum of the LineAmounts")
-  public Float getTotal() {
+  public Double getTotal() {
     return total;
   }
 
@@ -568,7 +581,7 @@ public class Invoice {
    * @return totalDiscount
   **/
   @ApiModelProperty(value = "Total of discounts applied on the invoice line items")
-  public Float getTotalDiscount() {
+  public Double getTotalDiscount() {
     return totalDiscount;
   }
 
@@ -597,6 +610,15 @@ public class Invoice {
   @ApiModelProperty(value = "boolean to indicate if an invoice has an attachment")
   public Boolean getHasAttachments() {
     return hasAttachments;
+  }
+
+   /**
+   * boolean to indicate if an invoice has a discount
+   * @return isDiscounted
+  **/
+  @ApiModelProperty(value = "boolean to indicate if an invoice has a discount")
+  public Boolean getIsDiscounted() {
+    return isDiscounted;
   }
 
    /**
@@ -631,7 +653,7 @@ public class Invoice {
    * @return amountDue
   **/
   @ApiModelProperty(value = "Amount remaining to be paid on invoice")
-  public Float getAmountDue() {
+  public Double getAmountDue() {
     return amountDue;
   }
 
@@ -640,7 +662,7 @@ public class Invoice {
    * @return amountPaid
   **/
   @ApiModelProperty(value = "Sum of payments received for invoice")
-  public Float getAmountPaid() {
+  public Double getAmountPaid() {
     return amountPaid;
   }
 
@@ -658,7 +680,7 @@ public class Invoice {
    * @return amountCredited
   **/
   @ApiModelProperty(value = "Sum of all credit notes, over-payments and pre-payments applied to invoice")
-  public Float getAmountCredited() {
+  public Double getAmountCredited() {
     return amountCredited;
   }
 
@@ -678,6 +700,50 @@ public class Invoice {
   @ApiModelProperty(value = "Details of credit notes that have been applied to an invoice")
   public List<CreditNote> getCreditNotes() {
     return creditNotes;
+  }
+
+  public Invoice attachments(List<Attachment> attachments) {
+    this.attachments = attachments;
+    return this;
+  }
+
+  public Invoice addAttachmentsItem(Attachment attachmentsItem) {
+    if (this.attachments == null) {
+      this.attachments = new ArrayList<Attachment>();
+    }
+    this.attachments.add(attachmentsItem);
+    return this;
+  }
+
+   /**
+   * Displays array of attachments from the API
+   * @return attachments
+  **/
+  @ApiModelProperty(value = "Displays array of attachments from the API")
+  public List<Attachment> getAttachments() {
+    return attachments;
+  }
+
+  public void setAttachments(List<Attachment> attachments) {
+    this.attachments = attachments;
+  }
+
+  public Invoice hasErrors(Boolean hasErrors) {
+    this.hasErrors = hasErrors;
+    return this;
+  }
+
+   /**
+   * A boolean to indicate if a contact has an validation errors
+   * @return hasErrors
+  **/
+  @ApiModelProperty(value = "A boolean to indicate if a contact has an validation errors")
+  public Boolean getHasErrors() {
+    return hasErrors;
+  }
+
+  public void setHasErrors(Boolean hasErrors) {
+    this.hasErrors = hasErrors;
   }
 
 
@@ -712,6 +778,7 @@ public class Invoice {
         Objects.equals(this.totalDiscount, invoice.totalDiscount) &&
         Objects.equals(this.invoiceID, invoice.invoiceID) &&
         Objects.equals(this.hasAttachments, invoice.hasAttachments) &&
+        Objects.equals(this.isDiscounted, invoice.isDiscounted) &&
         Objects.equals(this.payments, invoice.payments) &&
         Objects.equals(this.prepayments, invoice.prepayments) &&
         Objects.equals(this.overpayments, invoice.overpayments) &&
@@ -720,12 +787,14 @@ public class Invoice {
         Objects.equals(this.fullyPaidOnDate, invoice.fullyPaidOnDate) &&
         Objects.equals(this.amountCredited, invoice.amountCredited) &&
         Objects.equals(this.updatedDateUTC, invoice.updatedDateUTC) &&
-        Objects.equals(this.creditNotes, invoice.creditNotes);
+        Objects.equals(this.creditNotes, invoice.creditNotes) &&
+        Objects.equals(this.attachments, invoice.attachments) &&
+        Objects.equals(this.hasErrors, invoice.hasErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, contact, lineItems, date, dueDate, lineAmountTypes, invoiceNumber, reference, brandingThemeID, url, currencyCode, currencyRate, status, sentToContact, expectedPaymentDate, plannedPaymentDate, subTotal, totalTax, total, totalDiscount, invoiceID, hasAttachments, payments, prepayments, overpayments, amountDue, amountPaid, fullyPaidOnDate, amountCredited, updatedDateUTC, creditNotes);
+    return Objects.hash(type, contact, lineItems, date, dueDate, lineAmountTypes, invoiceNumber, reference, brandingThemeID, url, currencyCode, currencyRate, status, sentToContact, expectedPaymentDate, plannedPaymentDate, subTotal, totalTax, total, totalDiscount, invoiceID, hasAttachments, isDiscounted, payments, prepayments, overpayments, amountDue, amountPaid, fullyPaidOnDate, amountCredited, updatedDateUTC, creditNotes, attachments, hasErrors);
   }
 
 
@@ -756,6 +825,7 @@ public class Invoice {
     sb.append("    totalDiscount: ").append(toIndentedString(totalDiscount)).append("\n");
     sb.append("    invoiceID: ").append(toIndentedString(invoiceID)).append("\n");
     sb.append("    hasAttachments: ").append(toIndentedString(hasAttachments)).append("\n");
+    sb.append("    isDiscounted: ").append(toIndentedString(isDiscounted)).append("\n");
     sb.append("    payments: ").append(toIndentedString(payments)).append("\n");
     sb.append("    prepayments: ").append(toIndentedString(prepayments)).append("\n");
     sb.append("    overpayments: ").append(toIndentedString(overpayments)).append("\n");
@@ -765,6 +835,8 @@ public class Invoice {
     sb.append("    amountCredited: ").append(toIndentedString(amountCredited)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
     sb.append("    creditNotes: ").append(toIndentedString(creditNotes)).append("\n");
+    sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
+    sb.append("    hasErrors: ").append(toIndentedString(hasErrors)).append("\n");
     sb.append("}");
     return sb.toString();
   }

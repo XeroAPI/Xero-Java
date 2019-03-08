@@ -42,11 +42,11 @@ public class LineItem {
 
   
   @JsonProperty("Quantity")
-  private Float quantity;
+  private Double quantity;
 
   
   @JsonProperty("UnitAmount")
-  private Float unitAmount;
+  private Double unitAmount;
 
   
   @JsonProperty("ItemCode")
@@ -62,11 +62,11 @@ public class LineItem {
 
   
   @JsonProperty("TaxAmount")
-  private Float taxAmount;
+  private Double taxAmount;
 
   
   @JsonProperty("LineAmount")
-  private Float lineAmount;
+  private Double lineAmount;
 
   
   @JsonProperty("Tracking")
@@ -116,7 +116,7 @@ public class LineItem {
     this.description = description;
   }
 
-  public LineItem quantity(Float quantity) {
+  public LineItem quantity(Double quantity) {
     this.quantity = quantity;
     return this;
   }
@@ -126,15 +126,15 @@ public class LineItem {
    * @return quantity
   **/
   @ApiModelProperty(value = "LineItem Quantity")
-  public Float getQuantity() {
+  public Double getQuantity() {
     return quantity;
   }
 
-  public void setQuantity(Float quantity) {
+  public void setQuantity(Double quantity) {
     this.quantity = quantity;
   }
 
-  public LineItem unitAmount(Float unitAmount) {
+  public LineItem unitAmount(Double unitAmount) {
     this.unitAmount = unitAmount;
     return this;
   }
@@ -144,11 +144,11 @@ public class LineItem {
    * @return unitAmount
   **/
   @ApiModelProperty(value = "LineItem Unit Amount")
-  public Float getUnitAmount() {
+  public Double getUnitAmount() {
     return unitAmount;
   }
 
-  public void setUnitAmount(Float unitAmount) {
+  public void setUnitAmount(Double unitAmount) {
     this.unitAmount = unitAmount;
   }
 
@@ -206,7 +206,7 @@ public class LineItem {
     this.taxType = taxType;
   }
 
-  public LineItem taxAmount(Float taxAmount) {
+  public LineItem taxAmount(Double taxAmount) {
     this.taxAmount = taxAmount;
     return this;
   }
@@ -216,15 +216,15 @@ public class LineItem {
    * @return taxAmount
   **/
   @ApiModelProperty(value = "The tax amount is auto calculated as a percentage of the line amount (see below) based on the tax rate. This value can be overriden if the calculated <TaxAmount> is not correct.")
-  public Float getTaxAmount() {
+  public Double getTaxAmount() {
     return taxAmount;
   }
 
-  public void setTaxAmount(Float taxAmount) {
+  public void setTaxAmount(Double taxAmount) {
     this.taxAmount = taxAmount;
   }
 
-  public LineItem lineAmount(Float lineAmount) {
+  public LineItem lineAmount(Double lineAmount) {
     this.lineAmount = lineAmount;
     return this;
   }
@@ -234,11 +234,11 @@ public class LineItem {
    * @return lineAmount
   **/
   @ApiModelProperty(value = "If you wish to omit either of the <Quantity> or <UnitAmount> you can provide a LineAmount and Xero will calculate the missing amount for you. The line amount reflects the discounted price if a DiscountRate has been used . i.e LineAmount = Quantity * Unit Amount * ((100 – DiscountRate)/100)")
-  public Float getLineAmount() {
+  public Double getLineAmount() {
     return lineAmount;
   }
 
-  public void setLineAmount(Float lineAmount) {
+  public void setLineAmount(Double lineAmount) {
     this.lineAmount = lineAmount;
   }
 

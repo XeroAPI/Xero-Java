@@ -119,7 +119,7 @@ public class BankTransaction {
 
   
   @JsonProperty("CurrencyRate")
-  private Float currencyRate;
+  private Double currencyRate;
 
   
   @JsonProperty("Url")
@@ -170,15 +170,15 @@ public class BankTransaction {
 
   
   @JsonProperty("SubTotal")
-  private Float subTotal;
+  private Double subTotal;
 
   
   @JsonProperty("TotalTax")
-  private Float totalTax;
+  private Double totalTax;
 
   
   @JsonProperty("Total")
-  private Float total;
+  private Double total;
 
   
   @JsonProperty("BankTransactionID")
@@ -349,7 +349,7 @@ public class BankTransaction {
     this.currencyCode = currencyCode;
   }
 
-  public BankTransaction currencyRate(Float currencyRate) {
+  public BankTransaction currencyRate(Double currencyRate) {
     this.currencyRate = currencyRate;
     return this;
   }
@@ -359,11 +359,11 @@ public class BankTransaction {
    * @return currencyRate
   **/
   @ApiModelProperty(value = "Exchange rate to base currency when money is spent or received. e.g.0.7500 Only used for bank transactions in non base currency. If this isn’t specified for non base currency accounts then either the user-defined rate (preference) or the XE.com day rate will be used. Setting currency is only supported on overpayments.")
-  public Float getCurrencyRate() {
+  public Double getCurrencyRate() {
     return currencyRate;
   }
 
-  public void setCurrencyRate(Float currencyRate) {
+  public void setCurrencyRate(Double currencyRate) {
     this.currencyRate = currencyRate;
   }
 
@@ -421,7 +421,7 @@ public class BankTransaction {
     this.lineAmountTypes = lineAmountTypes;
   }
 
-  public BankTransaction subTotal(Float subTotal) {
+  public BankTransaction subTotal(Double subTotal) {
     this.subTotal = subTotal;
     return this;
   }
@@ -431,15 +431,15 @@ public class BankTransaction {
    * @return subTotal
   **/
   @ApiModelProperty(value = "Total of bank transaction excluding taxes")
-  public Float getSubTotal() {
+  public Double getSubTotal() {
     return subTotal;
   }
 
-  public void setSubTotal(Float subTotal) {
+  public void setSubTotal(Double subTotal) {
     this.subTotal = subTotal;
   }
 
-  public BankTransaction totalTax(Float totalTax) {
+  public BankTransaction totalTax(Double totalTax) {
     this.totalTax = totalTax;
     return this;
   }
@@ -449,15 +449,15 @@ public class BankTransaction {
    * @return totalTax
   **/
   @ApiModelProperty(value = "Total tax on bank transaction")
-  public Float getTotalTax() {
+  public Double getTotalTax() {
     return totalTax;
   }
 
-  public void setTotalTax(Float totalTax) {
+  public void setTotalTax(Double totalTax) {
     this.totalTax = totalTax;
   }
 
-  public BankTransaction total(Float total) {
+  public BankTransaction total(Double total) {
     this.total = total;
     return this;
   }
@@ -467,11 +467,11 @@ public class BankTransaction {
    * @return total
   **/
   @ApiModelProperty(value = "Total of bank transaction tax inclusive")
-  public Float getTotal() {
+  public Double getTotal() {
     return total;
   }
 
-  public void setTotal(Float total) {
+  public void setTotal(Double total) {
     this.total = total;
   }
 

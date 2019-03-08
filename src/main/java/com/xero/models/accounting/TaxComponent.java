@@ -34,7 +34,7 @@ public class TaxComponent {
 
   
   @JsonProperty("Rate")
-  private Float rate;
+  private Double rate;
 
   
   @JsonProperty("IsCompound")
@@ -62,7 +62,7 @@ public class TaxComponent {
     this.name = name;
   }
 
-  public TaxComponent rate(Float rate) {
+  public TaxComponent rate(Double rate) {
     this.rate = rate;
     return this;
   }
@@ -72,11 +72,11 @@ public class TaxComponent {
    * @return rate
   **/
   @ApiModelProperty(value = "Tax Rate (up to 4dp)")
-  public Float getRate() {
+  public Double getRate() {
     return rate;
   }
 
-  public void setRate(Float rate) {
+  public void setRate(Double rate) {
     this.rate = rate;
   }
 

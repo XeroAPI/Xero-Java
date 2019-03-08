@@ -144,15 +144,15 @@ public class RepeatingInvoice {
 
   
   @JsonProperty("SubTotal")
-  private Float subTotal;
+  private Double subTotal;
 
   
   @JsonProperty("TotalTax")
-  private Float totalTax;
+  private Double totalTax;
 
   
   @JsonProperty("Total")
-  private Float total;
+  private Double total;
 
   
   @JsonProperty("RepeatingInvoiceID")
@@ -336,7 +336,7 @@ public class RepeatingInvoice {
     this.status = status;
   }
 
-  public RepeatingInvoice subTotal(Float subTotal) {
+  public RepeatingInvoice subTotal(Double subTotal) {
     this.subTotal = subTotal;
     return this;
   }
@@ -346,15 +346,15 @@ public class RepeatingInvoice {
    * @return subTotal
   **/
   @ApiModelProperty(value = "Total of invoice excluding taxes")
-  public Float getSubTotal() {
+  public Double getSubTotal() {
     return subTotal;
   }
 
-  public void setSubTotal(Float subTotal) {
+  public void setSubTotal(Double subTotal) {
     this.subTotal = subTotal;
   }
 
-  public RepeatingInvoice totalTax(Float totalTax) {
+  public RepeatingInvoice totalTax(Double totalTax) {
     this.totalTax = totalTax;
     return this;
   }
@@ -364,15 +364,15 @@ public class RepeatingInvoice {
    * @return totalTax
   **/
   @ApiModelProperty(value = "Total tax on invoice")
-  public Float getTotalTax() {
+  public Double getTotalTax() {
     return totalTax;
   }
 
-  public void setTotalTax(Float totalTax) {
+  public void setTotalTax(Double totalTax) {
     this.totalTax = totalTax;
   }
 
-  public RepeatingInvoice total(Float total) {
+  public RepeatingInvoice total(Double total) {
     this.total = total;
     return this;
   }
@@ -382,11 +382,11 @@ public class RepeatingInvoice {
    * @return total
   **/
   @ApiModelProperty(value = "Total of Invoice tax inclusive (i.e. SubTotal + TotalTax)")
-  public Float getTotal() {
+  public Double getTotal() {
     return total;
   }
 
-  public void setTotal(Float total) {
+  public void setTotal(Double total) {
     this.total = total;
   }
 

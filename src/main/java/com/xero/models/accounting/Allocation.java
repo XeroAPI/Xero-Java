@@ -36,7 +36,7 @@ public class Allocation {
 
   
   @JsonProperty("Amount")
-  private Float amount;
+  private Double amount;
 
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("Date")
@@ -60,7 +60,7 @@ public class Allocation {
     this.invoice = invoice;
   }
 
-  public Allocation amount(Float amount) {
+  public Allocation amount(Double amount) {
     this.amount = amount;
     return this;
   }
@@ -70,11 +70,11 @@ public class Allocation {
    * @return amount
   **/
   @ApiModelProperty(required = true, value = "the amount being applied to the invoice")
-  public Float getAmount() {
+  public Double getAmount() {
     return amount;
   }
 
-  public void setAmount(Float amount) {
+  public void setAmount(Double amount) {
     this.amount = amount;
   }
 

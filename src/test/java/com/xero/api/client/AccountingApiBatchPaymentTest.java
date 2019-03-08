@@ -57,6 +57,8 @@ public class AccountingApiBatchPaymentTest {
 	String statuses;
 	boolean createdByMyApp;
 	UUID batchPaymentID;
+	private static boolean setUpIsDone = false;
+
 	@Before
 	public void setUp() {
 		config = new CustomJsonConfig();
@@ -76,6 +78,20 @@ public class AccountingApiBatchPaymentTest {
 		statuses = null;
 		createdByMyApp = false;
 		batchPaymentID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");	
+
+		// ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
+		if (setUpIsDone) {
+        	return;
+    	}
+
+    	try {
+    		System.out.println("Sleep for 30 seconds");
+	    	Thread.sleep(60000);
+    	} catch(InterruptedException e) {
+    		System.out.println(e);
+    	}
+    	// do the setup
+    	setUpIsDone = true;
 	}
 
 	public void tearDown() {

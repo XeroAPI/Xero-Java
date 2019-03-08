@@ -136,15 +136,15 @@ public class Prepayment {
 
   
   @JsonProperty("SubTotal")
-  private Float subTotal;
+  private Double subTotal;
 
   
   @JsonProperty("TotalTax")
-  private Float totalTax;
+  private Double totalTax;
 
   
   @JsonProperty("Total")
-  private Float total;
+  private Double total;
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
@@ -160,11 +160,11 @@ public class Prepayment {
 
   
   @JsonProperty("CurrencyRate")
-  private Float currencyRate;
+  private Double currencyRate;
 
   
   @JsonProperty("RemainingCredit")
-  private Float remainingCredit;
+  private Double remainingCredit;
 
   
   @JsonProperty("Allocations")
@@ -290,7 +290,7 @@ public class Prepayment {
     this.lineItems = lineItems;
   }
 
-  public Prepayment subTotal(Float subTotal) {
+  public Prepayment subTotal(Double subTotal) {
     this.subTotal = subTotal;
     return this;
   }
@@ -300,15 +300,15 @@ public class Prepayment {
    * @return subTotal
   **/
   @ApiModelProperty(value = "The subtotal of the prepayment excluding taxes")
-  public Float getSubTotal() {
+  public Double getSubTotal() {
     return subTotal;
   }
 
-  public void setSubTotal(Float subTotal) {
+  public void setSubTotal(Double subTotal) {
     this.subTotal = subTotal;
   }
 
-  public Prepayment totalTax(Float totalTax) {
+  public Prepayment totalTax(Double totalTax) {
     this.totalTax = totalTax;
     return this;
   }
@@ -318,15 +318,15 @@ public class Prepayment {
    * @return totalTax
   **/
   @ApiModelProperty(value = "The total tax on the prepayment")
-  public Float getTotalTax() {
+  public Double getTotalTax() {
     return totalTax;
   }
 
-  public void setTotalTax(Float totalTax) {
+  public void setTotalTax(Double totalTax) {
     this.totalTax = totalTax;
   }
 
-  public Prepayment total(Float total) {
+  public Prepayment total(Double total) {
     this.total = total;
     return this;
   }
@@ -336,11 +336,11 @@ public class Prepayment {
    * @return total
   **/
   @ApiModelProperty(value = "The total of the prepayment(subtotal + total tax)")
-  public Float getTotal() {
+  public Double getTotal() {
     return total;
   }
 
-  public void setTotal(Float total) {
+  public void setTotal(Double total) {
     this.total = total;
   }
 
@@ -398,7 +398,7 @@ public class Prepayment {
     this.prepaymentID = prepaymentID;
   }
 
-  public Prepayment currencyRate(Float currencyRate) {
+  public Prepayment currencyRate(Double currencyRate) {
     this.currencyRate = currencyRate;
     return this;
   }
@@ -408,15 +408,15 @@ public class Prepayment {
    * @return currencyRate
   **/
   @ApiModelProperty(value = "The currency rate for a multicurrency prepayment. If no rate is specified, the XE.com day rate is used")
-  public Float getCurrencyRate() {
+  public Double getCurrencyRate() {
     return currencyRate;
   }
 
-  public void setCurrencyRate(Float currencyRate) {
+  public void setCurrencyRate(Double currencyRate) {
     this.currencyRate = currencyRate;
   }
 
-  public Prepayment remainingCredit(Float remainingCredit) {
+  public Prepayment remainingCredit(Double remainingCredit) {
     this.remainingCredit = remainingCredit;
     return this;
   }
@@ -426,11 +426,11 @@ public class Prepayment {
    * @return remainingCredit
   **/
   @ApiModelProperty(value = "The remaining credit balance on the prepayment")
-  public Float getRemainingCredit() {
+  public Double getRemainingCredit() {
     return remainingCredit;
   }
 
-  public void setRemainingCredit(Float remainingCredit) {
+  public void setRemainingCredit(Double remainingCredit) {
     this.remainingCredit = remainingCredit;
   }
 

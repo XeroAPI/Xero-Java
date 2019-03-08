@@ -148,23 +148,23 @@ public class PurchaseOrder {
 
   
   @JsonProperty("CurrencyRate")
-  private Float currencyRate;
+  private Double currencyRate;
 
   
   @JsonProperty("SubTotal")
-  private Float subTotal;
+  private Double subTotal;
 
   
   @JsonProperty("TotalTax")
-  private Float totalTax;
+  private Double totalTax;
 
   
   @JsonProperty("Total")
-  private Float total;
+  private Double total;
 
   
   @JsonProperty("TotalDiscount")
-  private Float totalDiscount;
+  private Double totalDiscount;
 
   
   @JsonProperty("HasAttachments")
@@ -490,7 +490,7 @@ public class PurchaseOrder {
    * @return currencyRate
   **/
   @ApiModelProperty(value = "The currency rate for a multicurrency purchase order. As no rate can  be specified, the XE.com day rate is used.")
-  public Float getCurrencyRate() {
+  public Double getCurrencyRate() {
     return currencyRate;
   }
 
@@ -499,7 +499,7 @@ public class PurchaseOrder {
    * @return subTotal
   **/
   @ApiModelProperty(value = "Total of purchase order excluding taxes")
-  public Float getSubTotal() {
+  public Double getSubTotal() {
     return subTotal;
   }
 
@@ -508,7 +508,7 @@ public class PurchaseOrder {
    * @return totalTax
   **/
   @ApiModelProperty(value = "Total tax on purchase order")
-  public Float getTotalTax() {
+  public Double getTotalTax() {
     return totalTax;
   }
 
@@ -517,7 +517,7 @@ public class PurchaseOrder {
    * @return total
   **/
   @ApiModelProperty(value = "Total of Purchase Order tax inclusive (i.e. SubTotal + TotalTax)")
-  public Float getTotal() {
+  public Double getTotal() {
     return total;
   }
 
@@ -526,7 +526,7 @@ public class PurchaseOrder {
    * @return totalDiscount
   **/
   @ApiModelProperty(value = "Total of discounts applied on the purchase order line items")
-  public Float getTotalDiscount() {
+  public Double getTotalDiscount() {
     return totalDiscount;
   }
 

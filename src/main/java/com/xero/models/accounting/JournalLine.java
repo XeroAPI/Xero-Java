@@ -59,15 +59,15 @@ public class JournalLine {
 
   
   @JsonProperty("NetAmount")
-  private Float netAmount;
+  private Double netAmount;
 
   
   @JsonProperty("GrossAmount")
-  private Float grossAmount;
+  private Double grossAmount;
 
   
   @JsonProperty("TaxAmount")
-  private Float taxAmount;
+  private Double taxAmount;
 
   
   @JsonProperty("TaxType")
@@ -189,7 +189,7 @@ public class JournalLine {
     this.description = description;
   }
 
-  public JournalLine netAmount(Float netAmount) {
+  public JournalLine netAmount(Double netAmount) {
     this.netAmount = netAmount;
     return this;
   }
@@ -199,15 +199,15 @@ public class JournalLine {
    * @return netAmount
   **/
   @ApiModelProperty(example = "4130.98", value = "Net amount of journal line. This will be a positive value for a debit and negative for a credit")
-  public Float getNetAmount() {
+  public Double getNetAmount() {
     return netAmount;
   }
 
-  public void setNetAmount(Float netAmount) {
+  public void setNetAmount(Double netAmount) {
     this.netAmount = netAmount;
   }
 
-  public JournalLine grossAmount(Float grossAmount) {
+  public JournalLine grossAmount(Double grossAmount) {
     this.grossAmount = grossAmount;
     return this;
   }
@@ -217,11 +217,11 @@ public class JournalLine {
    * @return grossAmount
   **/
   @ApiModelProperty(example = "4130.98", value = "Gross amount of journal line (NetAmount + TaxAmount).")
-  public Float getGrossAmount() {
+  public Double getGrossAmount() {
     return grossAmount;
   }
 
-  public void setGrossAmount(Float grossAmount) {
+  public void setGrossAmount(Double grossAmount) {
     this.grossAmount = grossAmount;
   }
 
@@ -230,7 +230,7 @@ public class JournalLine {
    * @return taxAmount
   **/
   @ApiModelProperty(example = "0.0", value = "Total tax on a journal line")
-  public Float getTaxAmount() {
+  public Double getTaxAmount() {
     return taxAmount;
   }
 

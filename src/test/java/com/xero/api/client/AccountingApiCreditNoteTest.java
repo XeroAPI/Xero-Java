@@ -44,7 +44,7 @@ import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
 
-public class AccountingApiContactsTest {
+public class AccountingApiCreditNoteTest {
 
 	CustomJsonConfig config;
 	ApiClient apiClientForAccounting; 
@@ -80,6 +80,150 @@ public class AccountingApiContactsTest {
 		apiClientForAccounting = null;
 	}
 
+     @Test
+    public void createCreditNoteTest() throws IOException {
+        Boolean summarizeErrors = null;
+        CreditNotes creditNotes = null;
+        CreditNotes response = api.createCreditNote(summarizeErrors, creditNotes);
+
+        // TODO: test validations
+    }
+    
+    /*
+
+    @Test
+    public void createCreditNoteAllocationTest() throws IOException {
+        UUID creditNoteID = null;
+        Allocations allocations = null;
+        Allocations response = api.createCreditNoteAllocation(creditNoteID, allocations);
+
+        // TODO: test validations
+    }
+    
+    
+    @Test
+    public void createCreditNoteAttachmentByFileNameTest() throws IOException {
+        UUID creditNoteID = null;
+        String fileName = null;
+        byte[] body = null;
+        Attachments response = api.createCreditNoteAttachmentByFileName(creditNoteID, fileName, body);
+
+        // TODO: test validations
+    }
+    
+    
+    @Test
+    public void createCreditNoteHistoryTest() throws IOException {
+        UUID creditNoteID = null;
+        HistoryRecords historyRecords = null;
+        HistoryRecords response = api.createCreditNoteHistory(creditNoteID, historyRecords);
+
+        // TODO: test validations
+    }
+
+     @Test
+    public void getCreditNoteTest() throws IOException {
+        UUID creditNoteID = null;
+        CreditNotes response = api.getCreditNote(creditNoteID);
+
+        // TODO: test validations
+    }
+    
+    
+    @Test
+    public void getCreditNoteAsPdfTest() throws IOException {
+        UUID creditNoteID = null;
+        String contentType = null;
+        File response = api.getCreditNoteAsPdf(creditNoteID, contentType);
+
+        // TODO: test validations
+    }
+    
+    
+    @Test
+    public void getCreditNoteAttachmentByFileNameTest() throws IOException {
+        UUID creditNoteID = null;
+        String fileName = null;
+        String contentType = null;
+        Attachments response = api.getCreditNoteAttachmentByFileName(creditNoteID, fileName, contentType);
+
+        // TODO: test validations
+    }
+    
+    
+    @Test
+    public void getCreditNoteAttachmentByIdTest() throws IOException {
+        UUID creditNoteID = null;
+        UUID attachmentID = null;
+        String contentType = null;
+        File response = api.getCreditNoteAttachmentById(creditNoteID, attachmentID, contentType);
+
+        // TODO: test validations
+    }
+    
+    
+    @Test
+    public void getCreditNoteAttachmentsTest() throws IOException {
+        UUID creditNoteID = null;
+        Attachments response = api.getCreditNoteAttachments(creditNoteID);
+
+        // TODO: test validations
+    }
+    
+    
+    @Test
+    public void getCreditNoteHistoryTest() throws IOException {
+        UUID creditNoteID = null;
+        HistoryRecords response = api.getCreditNoteHistory(creditNoteID);
+
+        // TODO: test validations
+    }
+    
+    
+    @Test
+    public void getCreditNotesTest() throws IOException {
+        OffsetDateTime ifModifiedSince = null;
+        String where = null;
+        String order = null;
+        BigDecimal page = null;
+        CreditNotes response = api.getCreditNotes(ifModifiedSince, where, order, page);
+
+        // TODO: test validations
+    }
+
+     @Test
+    public void updateCreditNoteTest() throws IOException {
+        UUID creditNoteID = null;
+        CreditNotes creditNotes = null;
+        CreditNotes response = api.updateCreditNote(creditNoteID, creditNotes);
+
+        // TODO: test validations
+    }
+    
+    
+    @Test
+    public void updateCreditNoteAttachmentByFileNameTest() throws IOException {
+        UUID creditNoteID = null;
+        UUID fileName = null;
+        File body = null;
+        Attachments response = api.updateCreditNoteAttachmentByFileName(creditNoteID, fileName, body);
+
+        // TODO: test validations
+    }
+    
+    
+    @Test
+    public void updateCreditNoteAttachmentByIdTest() throws IOException {
+        UUID creditNoteID = null;
+        UUID attachmentID = null;
+        File body = null;
+        Attachments response = api.updateCreditNoteAttachmentById(creditNoteID, attachmentID, body);
+
+        // TODO: test validations
+    }
+    */
+
+/*
 	@Test
 	public void getContactsTest() throws IOException {
         System.out.println("@Test - getContactsTest");
@@ -108,10 +252,10 @@ public class AccountingApiContactsTest {
         assertThat(response.getContacts().get(0).getIsSupplier(), is(equalTo(true)));
         assertThat(response.getContacts().get(0).getIsCustomer(), is(equalTo(true)));
         assertThat(response.getContacts().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2017-08-21T13:49:04.227-07:00"))));
-        assertThat(response.getContacts().get(0).getBalances().getAccountsReceivable().getOutstanding(), is(equalTo(760.0)));
-        assertThat(response.getContacts().get(0).getBalances().getAccountsReceivable().getOverdue(), is(equalTo(920.0)));
-        assertThat(response.getContacts().get(0).getBalances().getAccountsPayable().getOutstanding(), is(equalTo(231.6)));
-        assertThat(response.getContacts().get(0).getBalances().getAccountsPayable().getOverdue(), is(equalTo(360.0)));    
+        assertThat(response.getContacts().get(0).getBalances().getAccountsReceivable().getOutstanding(), is(equalTo(760.0f)));
+        assertThat(response.getContacts().get(0).getBalances().getAccountsReceivable().getOverdue(), is(equalTo(920.0f)));
+        assertThat(response.getContacts().get(0).getBalances().getAccountsPayable().getOutstanding(), is(equalTo(231.6f)));
+        assertThat(response.getContacts().get(0).getBalances().getAccountsPayable().getOverdue(), is(equalTo(360.0f)));    
         assertThat(response.getContacts().get(0).getHasAttachments(), is(equalTo(false)));
         //System.out.println(response.getContacts().get(0).toString());
 	}
@@ -160,11 +304,11 @@ public class AccountingApiContactsTest {
         assertThat(response.getContacts().get(0).getBatchPayments().getDetails(), is(equalTo("biz checking")));
         assertThat(response.getContacts().get(0).getBatchPayments().getBankAccountNumber(), is(equalTo("12334567")));
         assertThat(response.getContacts().get(0).getBatchPayments().getBankAccountName(), is(equalTo("Citi Bank")));
-        assertThat(response.getContacts().get(0).getDiscount(), is(equalTo(13.0)));
-        assertThat(response.getContacts().get(0).getBalances().getAccountsReceivable().getOutstanding(), is(equalTo(118.90)));
-        assertThat(response.getContacts().get(0).getBalances().getAccountsReceivable().getOverdue(), is(equalTo(136.90)));
-        assertThat(response.getContacts().get(0).getBalances().getAccountsPayable().getOutstanding(), is(equalTo(-43.60)));
-        assertThat(response.getContacts().get(0).getBalances().getAccountsPayable().getOverdue(), is(equalTo(40.00)));    
+        assertThat(response.getContacts().get(0).getDiscount(), is(equalTo(13.0f)));
+        assertThat(response.getContacts().get(0).getBalances().getAccountsReceivable().getOutstanding(), is(equalTo(118.90f)));
+        assertThat(response.getContacts().get(0).getBalances().getAccountsReceivable().getOverdue(), is(equalTo(136.90f)));
+        assertThat(response.getContacts().get(0).getBalances().getAccountsPayable().getOutstanding(), is(equalTo(-43.60f)));
+        assertThat(response.getContacts().get(0).getBalances().getAccountsPayable().getOverdue(), is(equalTo(40.00f)));    
         assertThat(response.getContacts().get(0).getPaymentTerms().getBills().getDay(), is(equalTo(Integer.parseInt("12"))));
         assertThat(response.getContacts().get(0).getPaymentTerms().getBills().getType(), is(equalTo(com.xero.models.accounting.PaymentTermType.OFFOLLOWINGMONTH)));
         assertThat(response.getContacts().get(0).getPaymentTerms().getSales().getDay(), is(equalTo(Integer.parseInt("14"))));
@@ -289,5 +433,5 @@ public class AccountingApiContactsTest {
 
         // TODO: test validations
     }
-	
+	*/
 }

@@ -33,7 +33,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class ManualJournalLine {
   
   @JsonProperty("LineAmount")
-  private Float lineAmount;
+  private Double lineAmount;
 
   
   @JsonProperty("AccountCode")
@@ -53,13 +53,13 @@ public class ManualJournalLine {
 
   
   @JsonProperty("TaxAmount")
-  private Float taxAmount;
+  private Double taxAmount;
 
   
   @JsonProperty("IsBlank")
   private Boolean isBlank;
 
-  public ManualJournalLine lineAmount(Float lineAmount) {
+  public ManualJournalLine lineAmount(Double lineAmount) {
     this.lineAmount = lineAmount;
     return this;
   }
@@ -69,11 +69,11 @@ public class ManualJournalLine {
    * @return lineAmount
   **/
   @ApiModelProperty(example = "-2569.0", value = "total for line. Debits are positive, credits are negative value")
-  public Float getLineAmount() {
+  public Double getLineAmount() {
     return lineAmount;
   }
 
-  public void setLineAmount(Float lineAmount) {
+  public void setLineAmount(Double lineAmount) {
     this.lineAmount = lineAmount;
   }
 
@@ -162,7 +162,7 @@ public class ManualJournalLine {
    * @return taxAmount
   **/
   @ApiModelProperty(example = "0.0", value = "The calculated tax amount based on the TaxType and LineAmount")
-  public Float getTaxAmount() {
+  public Double getTaxAmount() {
     return taxAmount;
   }
 

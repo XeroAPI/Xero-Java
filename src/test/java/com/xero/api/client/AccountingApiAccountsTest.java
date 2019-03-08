@@ -45,19 +45,9 @@ public class AccountingApiAccountsTest {
 	
 	ApiClient apiClientForAccounting; 
 	AccountingApi accountingApi; 
-	Map<String, String> params;
+	
+	private static boolean setUpIsDone = false;
 
-	OffsetDateTime ifModifiedSince;
-	String where;
-	String order;
-	boolean summarizeErrors;
-	String ids;
-	boolean includeArchived;
-	String invoiceNumbers;
-	String contactIDs;
-	String statuses;
-	boolean createdByMyApp;
-	UUID accountID;
 	@Before
 	public void setUp() {
 		config = new CustomJsonConfig();
@@ -66,17 +56,20 @@ public class AccountingApiAccountsTest {
 		accountingApi.setApiClient(apiClientForAccounting);
 		accountingApi.setOAuthToken(config.getConsumerKey(), config.getConsumerSecret());
 
-		ifModifiedSince = null;
-		where = null;
-		order = null;
-		summarizeErrors = false;
-		ids= null;
-		includeArchived = false;
-		invoiceNumbers = null;
-		contactIDs = null;
-		statuses = null;
-		createdByMyApp = false;
-		accountID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");	
+		
+		// ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
+		if (setUpIsDone) {
+        	return;
+    	}
+
+    	try {
+    		System.out.println("Sleep for 60 seconds");
+	    	Thread.sleep(60000);
+    	} catch(InterruptedException e) {
+    		System.out.println(e);
+    	}
+    	// do the setup
+    	setUpIsDone = true;
 	}
 
 
@@ -88,7 +81,13 @@ public class AccountingApiAccountsTest {
 	@Test
 	public void testGetAccounts() throws Exception {
 		System.out.println("@Test - getAccounts");
-		Accounts accounts = accountingApi.getAccounts(null, null, null);
+
+		
+		OffsetDateTime ifModifiedSince = null;
+		String where = null;
+		String order = null;
+	
+		Accounts accounts = accountingApi.getAccounts(ifModifiedSince, where, order);
 		assert(accounts.getAccounts().size() == 2);
 		assertThat(accounts.getAccounts().get(0).getCode(), is(equalTo("091")));
 		assertThat(accounts.getAccounts().get(0).getName(), is(equalTo("Business Savings Account")));
@@ -103,6 +102,8 @@ public class AccountingApiAccountsTest {
 	@Test
 	public void testGetAccount() throws Exception {
 		System.out.println("@Test - getAccount");
+		UUID accountID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");	
+		
 		Accounts oneAccount = accountingApi.getAccount(accountID);
 		assertThat(oneAccount.getAccounts().get(0).getName(), is(equalTo("FooBar")));
 		assertThat(oneAccount.getAccounts().get(0).getCode(), is(equalTo("123456")));
@@ -111,10 +112,8 @@ public class AccountingApiAccountsTest {
 	@Test
 	public void testCreateAccount() throws Exception {
 		System.out.println("@Test - createAccount");
-		Account acct = new Account();
-		acct.setName("Foobar");
-		acct.setCode("123456");
-		acct.setType(com.xero.models.accounting.AccountType.EXPENSE);
+
+		Account acct = null;
 		Accounts newAccount = accountingApi.createAccount(acct);
 		assertThat(newAccount.getAccounts().get(0).getName(), is(equalTo("Foobar")));		
 	}
@@ -123,10 +122,8 @@ public class AccountingApiAccountsTest {
 	public void testUpdateAccount() throws Exception {
 		System.out.println("@Test - updateAccount");
 		
-		Account acct = new Account();
-		Accounts accts = new Accounts();
-		acct.setName("BarFoo");
-		accts.addAccountsItem(acct);
+		UUID accountID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");	
+		Accounts accts = null;
 		Accounts updatedAccount = accountingApi.updateAccount(accountID, accts);
 		assertThat(updatedAccount.getAccounts().get(0).getName(), is(equalTo("BarFoo")));
 	}
@@ -135,6 +132,7 @@ public class AccountingApiAccountsTest {
 	public void testDeleteAccount() throws Exception {		
 		System.out.println("@Test - deleteAccount");
 
+		UUID accountID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");
 		Accounts deleteAccount = accountingApi.deleteAccount(accountID);
 		assertThat(deleteAccount.getAccounts().get(0).getStatus().toString(), is(equalTo("DELETED")));
 	}
@@ -143,6 +141,7 @@ public class AccountingApiAccountsTest {
 	public void testGetAccountAttachments() throws Exception {		
 		System.out.println("@Test - getAccountAttachments");
 
+		UUID accountID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");
 		Attachments accountsAttachments = accountingApi.getAccountAttachments(accountID);					
 		assertThat(accountsAttachments.getAttachments().get(0).getAttachmentID().toString(), is(equalTo("52a643be-cd5c-489f-9778-53a9fd337756")));
 		assertThat(accountsAttachments.getAttachments().get(0).getFileName().toString(), is(equalTo("sample5.jpg")));
@@ -156,6 +155,7 @@ public class AccountingApiAccountsTest {
 	public void testCreateAccountAttachmentByFileName() throws Exception {		
 		System.out.println("@Test - createAccountAttachmentByFileName");
 
+		UUID accountID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");
 		InputStream inputStream = CustomJsonConfig.class.getResourceAsStream("/helo-heros.jpg");
 		byte[] bytes = IOUtils.toByteArray(inputStream);
 		String newFileName = "sample5.jpg";
@@ -171,6 +171,7 @@ public class AccountingApiAccountsTest {
 	public void testUpdateAccountAttachmentByFileName() throws Exception {		
 		System.out.println("@Test - updateAccountAttachmentByFileName");
 
+		UUID accountID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");
 		InputStream inputStream = CustomJsonConfig.class.getResourceAsStream("/helo-heros.jpg");
 		byte[] bytes = IOUtils.toByteArray(inputStream);
 		String newFileName = "sample5.jpg";

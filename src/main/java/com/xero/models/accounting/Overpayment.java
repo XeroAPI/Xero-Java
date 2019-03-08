@@ -137,15 +137,15 @@ public class Overpayment {
 
   
   @JsonProperty("SubTotal")
-  private Float subTotal;
+  private Double subTotal;
 
   
   @JsonProperty("TotalTax")
-  private Float totalTax;
+  private Double totalTax;
 
   
   @JsonProperty("Total")
-  private Float total;
+  private Double total;
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
@@ -161,7 +161,7 @@ public class Overpayment {
 
   
   @JsonProperty("CurrencyRate")
-  private Float currencyRate;
+  private Double currencyRate;
 
   
   @JsonProperty("RemainingCredit")
@@ -295,7 +295,7 @@ public class Overpayment {
     this.lineItems = lineItems;
   }
 
-  public Overpayment subTotal(Float subTotal) {
+  public Overpayment subTotal(Double subTotal) {
     this.subTotal = subTotal;
     return this;
   }
@@ -305,15 +305,15 @@ public class Overpayment {
    * @return subTotal
   **/
   @ApiModelProperty(value = "The subtotal of the overpayment excluding taxes")
-  public Float getSubTotal() {
+  public Double getSubTotal() {
     return subTotal;
   }
 
-  public void setSubTotal(Float subTotal) {
+  public void setSubTotal(Double subTotal) {
     this.subTotal = subTotal;
   }
 
-  public Overpayment totalTax(Float totalTax) {
+  public Overpayment totalTax(Double totalTax) {
     this.totalTax = totalTax;
     return this;
   }
@@ -323,15 +323,15 @@ public class Overpayment {
    * @return totalTax
   **/
   @ApiModelProperty(value = "The total tax on the overpayment")
-  public Float getTotalTax() {
+  public Double getTotalTax() {
     return totalTax;
   }
 
-  public void setTotalTax(Float totalTax) {
+  public void setTotalTax(Double totalTax) {
     this.totalTax = totalTax;
   }
 
-  public Overpayment total(Float total) {
+  public Overpayment total(Double total) {
     this.total = total;
     return this;
   }
@@ -341,11 +341,11 @@ public class Overpayment {
    * @return total
   **/
   @ApiModelProperty(value = "The total of the overpayment (subtotal + total tax)")
-  public Float getTotal() {
+  public Double getTotal() {
     return total;
   }
 
-  public void setTotal(Float total) {
+  public void setTotal(Double total) {
     this.total = total;
   }
 
@@ -403,7 +403,7 @@ public class Overpayment {
     this.overpaymentID = overpaymentID;
   }
 
-  public Overpayment currencyRate(Float currencyRate) {
+  public Overpayment currencyRate(Double currencyRate) {
     this.currencyRate = currencyRate;
     return this;
   }
@@ -413,11 +413,11 @@ public class Overpayment {
    * @return currencyRate
   **/
   @ApiModelProperty(value = "The currency rate for a multicurrency overpayment. If no rate is specified, the XE.com day rate is used")
-  public Float getCurrencyRate() {
+  public Double getCurrencyRate() {
     return currencyRate;
   }
 
-  public void setCurrencyRate(Float currencyRate) {
+  public void setCurrencyRate(Double currencyRate) {
     this.currencyRate = currencyRate;
   }
 

@@ -47,9 +47,9 @@ import org.apache.commons.io.IOUtils;
 public class AccountingApiBankTransferTest {
 
 	CustomJsonConfig config;
-	
 	ApiClient apiClientForAccounting; 
 	AccountingApi api; 
+    private static boolean setUpIsDone = false;
 	
 	@Before
 	public void setUp() {
@@ -58,6 +58,20 @@ public class AccountingApiBankTransferTest {
 		api = new AccountingApi(config);
 		api.setApiClient(apiClientForAccounting);
 		api.setOAuthToken(config.getConsumerKey(), config.getConsumerSecret());
+
+        // ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
+        if (setUpIsDone) {
+            return;
+        }
+
+        try {
+            System.out.println("Sleep for 60 seconds");
+            Thread.sleep(60000);
+        } catch(InterruptedException e) {
+            System.out.println(e);
+        }
+        // do the setup
+        setUpIsDone = true;
 	}
 
 	public void tearDown() {
@@ -122,7 +136,7 @@ public class AccountingApiBankTransferTest {
         HistoryRecords response = api.getBankTransferHistory(bankTransferID);
         assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("System Generated")));       
         assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Attached a file")));     
-        assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Attached the file sample2.jpg through the Xero API using Java Partner Example")));     
+        assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Attached the file sample2.jpg through the Xero API using Xero API Partner")));     
         //System.out.println(response.getHistoryRecords().get(0).toString());
     }
 

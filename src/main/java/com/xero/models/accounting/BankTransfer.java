@@ -54,7 +54,7 @@ public class BankTransfer {
 
   
   @JsonProperty("CurrencyRate")
-  private Float currencyRate;
+  private Double currencyRate;
 
   
   @JsonProperty("FromBankTransactionID")
@@ -158,7 +158,7 @@ public class BankTransfer {
    * @return currencyRate
   **/
   @ApiModelProperty(value = "The currency rate")
-  public Float getCurrencyRate() {
+  public Double getCurrencyRate() {
     return currencyRate;
   }
 

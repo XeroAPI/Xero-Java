@@ -30,13 +30,13 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class AccountsReceivable {
   
   @JsonProperty("Outstanding")
-  private Float outstanding;
+  private Double outstanding;
 
   
   @JsonProperty("Overdue")
-  private Float overdue;
+  private Double overdue;
 
-  public AccountsReceivable outstanding(Float outstanding) {
+  public AccountsReceivable outstanding(Double outstanding) {
     this.outstanding = outstanding;
     return this;
   }
@@ -46,15 +46,15 @@ public class AccountsReceivable {
    * @return outstanding
   **/
   @ApiModelProperty(value = "")
-  public Float getOutstanding() {
+  public Double getOutstanding() {
     return outstanding;
   }
 
-  public void setOutstanding(Float outstanding) {
+  public void setOutstanding(Double outstanding) {
     this.outstanding = outstanding;
   }
 
-  public AccountsReceivable overdue(Float overdue) {
+  public AccountsReceivable overdue(Double overdue) {
     this.overdue = overdue;
     return this;
   }
@@ -64,11 +64,11 @@ public class AccountsReceivable {
    * @return overdue
   **/
   @ApiModelProperty(value = "")
-  public Float getOverdue() {
+  public Double getOverdue() {
     return overdue;
   }
 
-  public void setOverdue(Float overdue) {
+  public void setOverdue(Double overdue) {
     this.overdue = overdue;
   }
 

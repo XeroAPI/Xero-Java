@@ -63,15 +63,15 @@ public class Receipt {
 
   
   @JsonProperty("SubTotal")
-  private Float subTotal;
+  private Double subTotal;
 
   
   @JsonProperty("TotalTax")
-  private Float totalTax;
+  private Double totalTax;
 
   
   @JsonProperty("Total")
-  private Float total;
+  private Double total;
 
   
   @JsonProperty("ReceiptID")
@@ -249,7 +249,7 @@ public class Receipt {
     this.lineAmountTypes = lineAmountTypes;
   }
 
-  public Receipt subTotal(Float subTotal) {
+  public Receipt subTotal(Double subTotal) {
     this.subTotal = subTotal;
     return this;
   }
@@ -259,15 +259,15 @@ public class Receipt {
    * @return subTotal
   **/
   @ApiModelProperty(value = "Total of receipt excluding taxes")
-  public Float getSubTotal() {
+  public Double getSubTotal() {
     return subTotal;
   }
 
-  public void setSubTotal(Float subTotal) {
+  public void setSubTotal(Double subTotal) {
     this.subTotal = subTotal;
   }
 
-  public Receipt totalTax(Float totalTax) {
+  public Receipt totalTax(Double totalTax) {
     this.totalTax = totalTax;
     return this;
   }
@@ -277,15 +277,15 @@ public class Receipt {
    * @return totalTax
   **/
   @ApiModelProperty(value = "Total tax on receipt")
-  public Float getTotalTax() {
+  public Double getTotalTax() {
     return totalTax;
   }
 
-  public void setTotalTax(Float totalTax) {
+  public void setTotalTax(Double totalTax) {
     this.totalTax = totalTax;
   }
 
-  public Receipt total(Float total) {
+  public Receipt total(Double total) {
     this.total = total;
     return this;
   }
@@ -295,11 +295,11 @@ public class Receipt {
    * @return total
   **/
   @ApiModelProperty(value = "Total of receipt tax inclusive (i.e. SubTotal + TotalTax)")
-  public Float getTotal() {
+  public Double getTotal() {
     return total;
   }
 
-  public void setTotal(Float total) {
+  public void setTotal(Double total) {
     this.total = total;
   }
 

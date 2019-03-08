@@ -274,17 +274,17 @@ public class OAuthRequestResource {
 		if (httpMethod == "GET") {
 			this.createParameters().intercept(httpget,url);
 			httpget.setConfig(requestConfig.build());
-			if(logger.isInfoEnabled()){
-				logger.info("------------------ GET : URL -------------------");
-				logger.info(url.toString());
+			if(logger.isDebugEnabled()){
+				logger.debug("------------------ GET : URL -------------------");
+				logger.debug(url.toString());
 			}
 		}
 		
 		HttpPost httppost = new HttpPost(url.toString());
 		if (httpMethod == "POST") {
-			if(logger.isInfoEnabled()){
-				logger.info("------------------ POST: BODY  -------------------");
-				logger.info(this.body);	
+			if(logger.isDebugEnabled()){
+				logger.debug("------------------ POST : BODY  -------------------");
+				logger.debug(this.body);
 			}
 			if(this.requestBody != null) {
 				httppost.setEntity(new ByteArrayEntity(this.requestBody));				
@@ -299,9 +299,9 @@ public class OAuthRequestResource {
 		
 		HttpPut httpput = new HttpPut(url.toString());
 		if (httpMethod == "PUT") {
-			if(logger.isInfoEnabled()){
-				logger.info("------------------ PUT : BODY  -------------------");
-				logger.info(this.body);
+			if(logger.isDebugEnabled()){
+				logger.debug("------------------ PUT : BODY  -------------------");
+				logger.debug(this.body);
 			}
 			if(this.requestBody != null) {
 				httpput.setEntity(new ByteArrayEntity(this.requestBody));				
@@ -317,9 +317,9 @@ public class OAuthRequestResource {
 		if (httpMethod == "DELETE") {
 			this.createParameters().intercept(httpdelete,url);
 			httpdelete.setConfig(requestConfig.build());
-			if(logger.isInfoEnabled()){
-				logger.info("------------------ DELTE : URL -------------------");
-				logger.info(url.toString());
+			if(logger.isDebugEnabled()){
+				logger.debug("------------------ DELETE : URL -------------------");
+				logger.debug(url.toString());
 			}
 		}
 	
@@ -346,12 +346,19 @@ public class OAuthRequestResource {
 		    try {	
 				String content = "";
 		        entity = response.getEntity();
+		        int code = response.getStatusLine().getStatusCode();
+		        if(logger.isDebugEnabled()){
+					logger.debug("------------------ RESPONSE : CODE -------------------");
+					logger.debug(code);
+				}
 		        if(entity != null) {
 		        	content = EntityUtils.toString(entity);
+		        	if(logger.isDebugEnabled()){
+						logger.debug("------------------ RESPONSE : CONTENT -------------------");
+						logger.debug(content);
+					}
 			    }
 	        	
-		        int code = response.getStatusLine().getStatusCode();
-		        
 		        if (code == 204) {
 		        	if (this.contentType == "application/json") {
 						content = "{\"Status\": \"DELETED\" }";

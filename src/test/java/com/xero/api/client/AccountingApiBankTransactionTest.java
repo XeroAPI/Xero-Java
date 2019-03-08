@@ -61,6 +61,8 @@ public class AccountingApiBankTransactionTest {
 	String statuses;
 	boolean createdByMyApp;
 	UUID bankTransactionID;
+	private static boolean setUpIsDone = false;
+
 	@Before
 	public void setUp() {
 		config = new CustomJsonConfig();
@@ -79,7 +81,21 @@ public class AccountingApiBankTransactionTest {
 		contactIDs = null;
 		statuses = null;
 		createdByMyApp = false;
-		bankTransactionID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");	
+		bankTransactionID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");
+
+				// ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
+		if (setUpIsDone) {
+        	return;
+    	}
+
+    	try {
+    		System.out.println("Sleep for 60 seconds");
+	    	Thread.sleep(60000);
+    	} catch(InterruptedException e) {
+    		System.out.println(e);
+    	}
+    	// do the setup
+    	setUpIsDone = true;	
 	}
 
 
@@ -99,8 +115,8 @@ public class AccountingApiBankTransactionTest {
 		assertThat(response.getBankTransactions().get(0).getCurrencyCode(), is(equalTo(com.xero.models.accounting.CurrencyCode.USD)));
 		assertThat(response.getBankTransactions().get(0).getIsReconciled(), is(equalTo(false)));
 		assertThat(response.getBankTransactions().get(0).getIsReconciled(), is(equalTo(false)));
-		assertThat(response.getBankTransactions().get(0).getSubTotal(), is(equalTo(10.0f)));
-		assertThat(response.getBankTransactions().get(0).getTotal(), is(equalTo(10.0f)));
+		assertThat(response.getBankTransactions().get(0).getSubTotal(), is(equalTo(10.0)));
+		assertThat(response.getBankTransactions().get(0).getTotal(), is(equalTo(10.0)));
 		
 		//System.out.println(response.getBankTransactions().get(0).toString());
 	}
@@ -116,8 +132,8 @@ public class AccountingApiBankTransactionTest {
 		assertThat(response.getBankTransactions().get(0).getType(), is(equalTo(com.xero.models.accounting.BankTransaction.TypeEnum.RECEIVE)));
 		assertThat(response.getBankTransactions().get(0).getCurrencyCode(), is(equalTo(com.xero.models.accounting.CurrencyCode.USD)));
 		assertThat(response.getBankTransactions().get(0).getIsReconciled(), is(equalTo(false)));
-		assertThat(response.getBankTransactions().get(0).getSubTotal(), is(equalTo(10.0f)));
-		assertThat(response.getBankTransactions().get(0).getTotal(), is(equalTo(10.0f)));
+		assertThat(response.getBankTransactions().get(0).getSubTotal(), is(equalTo(10.0)));
+		assertThat(response.getBankTransactions().get(0).getTotal(), is(equalTo(10.0)));
 		
 		//System.out.println(response.getBankTransactions().get(0).toString());
 	}
@@ -139,8 +155,8 @@ public class AccountingApiBankTransactionTest {
 		assertThat(response.getBankTransactions().get(0).getType(), is(equalTo(com.xero.models.accounting.BankTransaction.TypeEnum.SPEND)));
 		assertThat(response.getBankTransactions().get(0).getCurrencyCode(), is(equalTo(com.xero.models.accounting.CurrencyCode.USD)));
 		assertThat(response.getBankTransactions().get(0).getIsReconciled(), is(equalTo(false)));
-		assertThat(response.getBankTransactions().get(0).getSubTotal(), is(equalTo(18.26f)));
-		assertThat(response.getBankTransactions().get(0).getTotal(), is(equalTo(20.00f)));
+		assertThat(response.getBankTransactions().get(0).getSubTotal(), is(equalTo(18.26)));
+		assertThat(response.getBankTransactions().get(0).getTotal(), is(equalTo(20.00)));
 		
 		//System.out.println(response.getBankTransactions().get(0).toString());
 	}
@@ -156,8 +172,8 @@ public class AccountingApiBankTransactionTest {
 		LineItem li = new LineItem();
 		li.setAccountCode("400");
 		li.setDescription("Foobar");
-		li.setQuantity(1.0f);
-		li.setUnitAmount(20.0f);
+		li.setQuantity(1.0);
+		li.setUnitAmount(20.0);
 		lineItems.add(li);
 		newBankTransaction.setLineitems(lineItems);
 		newBankTransaction.setType(com.xero.models.accounting.BankTransaction.TypeEnum.SPEND);
@@ -169,8 +185,8 @@ public class AccountingApiBankTransactionTest {
 		assertThat(response.getBankTransactions().get(0).getType(), is(equalTo(com.xero.models.accounting.BankTransaction.TypeEnum.SPEND)));
 		assertThat(response.getBankTransactions().get(0).getCurrencyCode(), is(equalTo(com.xero.models.accounting.CurrencyCode.USD)));
 		assertThat(response.getBankTransactions().get(0).getIsReconciled(), is(equalTo(false)));
-		assertThat(response.getBankTransactions().get(0).getSubTotal(), is(equalTo(18.26f)));
-		assertThat(response.getBankTransactions().get(0).getTotal(), is(equalTo(20.00f)));
+		assertThat(response.getBankTransactions().get(0).getSubTotal(), is(equalTo(18.26)));
+		assertThat(response.getBankTransactions().get(0).getTotal(), is(equalTo(20.00)));
 		
 		//System.out.println(response.getBankTransactions().get(0).toString());
 	}

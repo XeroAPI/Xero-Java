@@ -53,21 +53,32 @@ public class XeroHttpContext {
 		headers.add(acceptHeader);
 		headers.add(userAgentHeader);
 		
+		if(logger.isDebugEnabled()){
+			logger.debug("------------------ HEADER : USER AGENT -------------------");
+			logger.debug(userAgentHeader);
+			logger.debug("------------------ HEADER : ACCEPT -------------------");
+			logger.debug(acceptHeader);
+		}
+		
 		if(this.ifModifiedSince != null) {
 			Header modifiedHeader = new BasicHeader( HttpHeaders.IF_MODIFIED_SINCE, this.ifModifiedSince);
 			headers.add(modifiedHeader);
+			if(logger.isDebugEnabled()){
+				logger.debug("------------------ HEADER : IF MODIFIED SINCE -------------------");
+				logger.debug(modifiedHeader);
+			}
 		}
 		
 		if ((config.getKeyStorePath() == null || config.getKeyStorePath().length() == 0) && (config.getKeyStorePassword() == null || config.getKeyStorePassword().length() == 0))
 		{
-			if(logger.isInfoEnabled()){
-				logger.info("You must use Java 1.8 to skip setting the Key Store Path & Key Store Password in config.json");
+			if(logger.isTraceEnabled()){
+				logger.trace("You must use Java 1.8 to skip setting the Key Store Path & Key Store Password in config.json");
 			}
 			httpclient = HttpClients.custom().setDefaultHeaders(headers).build();
 			
 		} else {
-			if(logger.isInfoEnabled()){
-				logger.info("Key Store Path & Key Store Password in config.json will be used to set the SSLContext and force TLS 1.2");
+			if(logger.isTraceEnabled()){
+				logger.trace("Key Store Path & Key Store Password in config.json will be used to set the SSLContext and force TLS 1.2");
 			}
 			   
 			KeyStore keyStore = null;

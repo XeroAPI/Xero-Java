@@ -44,7 +44,7 @@ import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
 
-public class AccountingApiContactsTest {
+public class AccountingApiInvoicesTest {
 
 	CustomJsonConfig config;
 	ApiClient apiClientForAccounting; 
@@ -66,8 +66,9 @@ public class AccountingApiContactsTest {
         }
 
         try {
-            System.out.println("Sleep for 30 seconds");
-            Thread.sleep(60000);
+            System.out.println("Sleep for 60 seconds");
+            //Thread.sleep(60000);
+            Thread.sleep(100);
         } catch(InterruptedException e) {
             System.out.println(e);
         }
@@ -80,6 +81,184 @@ public class AccountingApiContactsTest {
 		apiClientForAccounting = null;
 	}
 
+    @Test
+    public void getInvoiceTest() throws IOException {
+        System.out.println("@Test - getInvoiceTest");
+
+        UUID invoiceID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
+        Invoices response = api.getInvoice(invoiceID);
+
+        assertThat(response.getInvoices().get(0).getInvoiceID(), is(equalTo(UUID.fromString("a03ffcd2-5d91-4c7e-b483-318584e9e439"))));
+        assertThat(response.getInvoices().get(0).getType(), is(equalTo(com.xero.models.accounting.Invoice.TypeEnum.ACCREC)));
+        assertThat(response.getInvoices().get(0).getStatus(), is(equalTo(com.xero.models.accounting.Invoice.StatusEnum.PAID)));
+        assertThat(response.getInvoices().get(0).getInvoiceNumber(), is(equalTo("INV-0006")));
+        assertThat(response.getInvoices().get(0).getReference(), is(equalTo("Tour")));
+        assertThat(response.getInvoices().get(0).getAmountPaid().toString(), is(equalTo("148062.76")));
+        assertThat(response.getInvoices().get(0).getAmountPaid(), is(equalTo(148062.76)));
+        assertThat(response.getInvoices().get(0).getAmountDue().toString(), is(equalTo("0.0")));
+        assertThat(response.getInvoices().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-07T09:59:28.133-08:00"))));
+        
+        //assertThat(response.getInvoices().get(0).getFullyPaidOnDate(), is(equalTo(OffsetDate.parse("2019-03-18"))));
+        
+
+
+/*
+class Invoice {
+    contact: class Contact {
+        contactID: 430fa14a-f945-44d3-9f97-5df5e28441b8
+        contactNumber: null
+        accountNumber: null
+        contactStatus: ACTIVE
+        name: Liam Gallagher
+        firstName: Liam
+        lastName: Gallagher
+        emailAddress: liam@rockstar.com
+        skypeUserName: null
+        contactPersons: [class ContactPerson {
+            firstName: Debbie
+            lastName: Gwyther
+            emailAddress: debbie@rockstar.com
+            includeInEmails: false
+        }]
+        bankAccountDetails: 
+        taxNumber: null
+        accountsReceivableTaxType: null
+        accountsPayableTaxType: null
+        addresses: [class Address {
+            addressType: STREET
+            addressLine1: null
+            addressLine2: null
+            addressLine3: null
+            addressLine4: null
+            city: 
+            region: 
+            postalCode: 
+            country: 
+            attentionTo: 
+        }, class Address {
+            addressType: POBOX
+            addressLine1: null
+            addressLine2: null
+            addressLine3: null
+            addressLine4: null
+            city: Anytown
+            region: NY
+            postalCode: 10101
+            country: USA
+            attentionTo: 
+        }]
+        phones: [class Phone {
+            phoneType: DEFAULT
+            phoneNumber: 222-2222
+            phoneAreaCode: 212
+            phoneCountryCode: 
+        }, class Phone {
+            phoneType: DDI
+            phoneNumber: 
+            phoneAreaCode: 
+            phoneCountryCode: 
+        }, class Phone {
+            phoneType: FAX
+            phoneNumber: 333-2233
+            phoneAreaCode: 212
+            phoneCountryCode: 
+        }, class Phone {
+            phoneType: MOBILE
+            phoneNumber: 444-3433
+            phoneAreaCode: 212
+            phoneCountryCode: 
+        }]
+        isSupplier: true
+        isCustomer: true
+        defaultCurrency: null
+        xeroNetworkKey: null
+        salesDefaultAccountCode: null
+        purchasesDefaultAccountCode: null
+        salesTrackingCategories: []
+        purchasesTrackingCategories: []
+        trackingCategoryName: null
+        trackingCategoryOption: null
+        paymentTerms: null
+        updatedDateUTC: 2019-03-04T16:54:41.053-08:00
+        contactGroups: [class ContactGroup {
+            name: Oasis
+            status: ACTIVE
+            contactGroupID: 17b44ed7-4389-4162-91cb-3dd5766e4e22
+            contacts: []
+        }]
+        website: null
+        brandingTheme: null
+        batchPayments: null
+        discount: null
+        balances: null
+        attachments: null
+        hasAttachments: null
+        validationErrors: null
+        hasValidationErrors: false
+    }
+    lineItems: [class LineItem {
+        lineItemID: b18f39d9-7739-4246-9288-72afe939d2d5
+        description: Guitars Fender Strat
+        quantity: 1.0
+        unitAmount: 148062.77
+        itemCode: 123
+        accountCode: 200
+        taxType: NONE
+        taxAmount: 0.0
+        lineAmount: 148062.77
+        tracking: []
+        discountRate: null
+        repeatingInvoiceID: null
+    }]
+    date: 2019-03-06
+    dueDate: 2019-03-12
+    lineAmountTypes: Exclusive
+    
+    brandingThemeID: null
+    url: null
+    currencyCode: NZD
+    currencyRate: 1.0
+ 
+    sentToContact: false
+    expectedPaymentDate: null
+    plannedPaymentDate: null
+    subTotal: 148062.77
+    totalTax: 0.0
+    total: 148062.77
+    totalDiscount: null
+    invoiceID: a03ffcd2-5d91-4c7e-b483-318584e9e439
+    hasAttachments: true
+    payments: [class Payment {
+        invoice: null
+        creditNote: null
+        prepayment: null
+        overpayment: null
+        invoiceNumber: null
+        creditNoteNumber: null
+        account: null
+        code: null
+        date: 2019-03-18
+        currencyRate: 1.0
+        amount: 148062.77
+        reference: Yahoo
+        isReconciled: null
+        status: null
+        paymentType: null
+        updatedDateUTC: null
+        paymentID: 38928000-e9a0-420c-8884-f624bab2a351
+        bankAccountNumber: null
+        particulars: null
+        details: null
+    }]
+    prepayments: []
+    overpayments: []
+    creditNotes: null
+}
+*/
+        System.out.println(response.getInvoices().get(0).toString());
+    }
+
+/*
 	@Test
 	public void getContactsTest() throws IOException {
         System.out.println("@Test - getContactsTest");
@@ -108,10 +287,10 @@ public class AccountingApiContactsTest {
         assertThat(response.getContacts().get(0).getIsSupplier(), is(equalTo(true)));
         assertThat(response.getContacts().get(0).getIsCustomer(), is(equalTo(true)));
         assertThat(response.getContacts().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2017-08-21T13:49:04.227-07:00"))));
-        assertThat(response.getContacts().get(0).getBalances().getAccountsReceivable().getOutstanding(), is(equalTo(760.0)));
-        assertThat(response.getContacts().get(0).getBalances().getAccountsReceivable().getOverdue(), is(equalTo(920.0)));
-        assertThat(response.getContacts().get(0).getBalances().getAccountsPayable().getOutstanding(), is(equalTo(231.6)));
-        assertThat(response.getContacts().get(0).getBalances().getAccountsPayable().getOverdue(), is(equalTo(360.0)));    
+        assertThat(response.getContacts().get(0).getBalances().getAccountsReceivable().getOutstanding(), is(equalTo(760.0f)));
+        assertThat(response.getContacts().get(0).getBalances().getAccountsReceivable().getOverdue(), is(equalTo(920.0f)));
+        assertThat(response.getContacts().get(0).getBalances().getAccountsPayable().getOutstanding(), is(equalTo(231.6f)));
+        assertThat(response.getContacts().get(0).getBalances().getAccountsPayable().getOverdue(), is(equalTo(360.0f)));    
         assertThat(response.getContacts().get(0).getHasAttachments(), is(equalTo(false)));
         //System.out.println(response.getContacts().get(0).toString());
 	}
@@ -160,11 +339,11 @@ public class AccountingApiContactsTest {
         assertThat(response.getContacts().get(0).getBatchPayments().getDetails(), is(equalTo("biz checking")));
         assertThat(response.getContacts().get(0).getBatchPayments().getBankAccountNumber(), is(equalTo("12334567")));
         assertThat(response.getContacts().get(0).getBatchPayments().getBankAccountName(), is(equalTo("Citi Bank")));
-        assertThat(response.getContacts().get(0).getDiscount(), is(equalTo(13.0)));
-        assertThat(response.getContacts().get(0).getBalances().getAccountsReceivable().getOutstanding(), is(equalTo(118.90)));
-        assertThat(response.getContacts().get(0).getBalances().getAccountsReceivable().getOverdue(), is(equalTo(136.90)));
-        assertThat(response.getContacts().get(0).getBalances().getAccountsPayable().getOutstanding(), is(equalTo(-43.60)));
-        assertThat(response.getContacts().get(0).getBalances().getAccountsPayable().getOverdue(), is(equalTo(40.00)));    
+        assertThat(response.getContacts().get(0).getDiscount(), is(equalTo(13.0f)));
+        assertThat(response.getContacts().get(0).getBalances().getAccountsReceivable().getOutstanding(), is(equalTo(118.90f)));
+        assertThat(response.getContacts().get(0).getBalances().getAccountsReceivable().getOverdue(), is(equalTo(136.90f)));
+        assertThat(response.getContacts().get(0).getBalances().getAccountsPayable().getOutstanding(), is(equalTo(-43.60f)));
+        assertThat(response.getContacts().get(0).getBalances().getAccountsPayable().getOverdue(), is(equalTo(40.00f)));    
         assertThat(response.getContacts().get(0).getPaymentTerms().getBills().getDay(), is(equalTo(Integer.parseInt("12"))));
         assertThat(response.getContacts().get(0).getPaymentTerms().getBills().getType(), is(equalTo(com.xero.models.accounting.PaymentTermType.OFFOLLOWINGMONTH)));
         assertThat(response.getContacts().get(0).getPaymentTerms().getSales().getDay(), is(equalTo(Integer.parseInt("14"))));
@@ -289,5 +468,5 @@ public class AccountingApiContactsTest {
 
         // TODO: test validations
     }
-	
+	*/
 }

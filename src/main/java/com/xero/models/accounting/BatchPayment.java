@@ -73,7 +73,7 @@ public class BatchPayment {
 
   
   @JsonProperty("Amount")
-  private Float amount;
+  private Double amount;
 
   
   @JsonProperty("Payments")
@@ -252,7 +252,7 @@ public class BatchPayment {
     this.date = date;
   }
 
-  public BatchPayment amount(Float amount) {
+  public BatchPayment amount(Double amount) {
     this.amount = amount;
     return this;
   }
@@ -262,11 +262,11 @@ public class BatchPayment {
    * @return amount
   **/
   @ApiModelProperty(value = "The amount of the payment. Must be less than or equal to the outstanding amount owing on the invoice e.g. 200.00")
-  public Float getAmount() {
+  public Double getAmount() {
     return amount;
   }
 
-  public void setAmount(Float amount) {
+  public void setAmount(Double amount) {
     this.amount = amount;
   }
 

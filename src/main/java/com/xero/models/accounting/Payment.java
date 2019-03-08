@@ -74,11 +74,11 @@ public class Payment {
 
   
   @JsonProperty("CurrencyRate")
-  private Float currencyRate;
+  private Double currencyRate;
 
   
   @JsonProperty("Amount")
-  private Float amount;
+  private Double amount;
 
   
   @JsonProperty("Reference")
@@ -197,6 +197,14 @@ public class Payment {
   
   @JsonProperty("Details")
   private String details;
+
+  
+  @JsonProperty("HasAccount")
+  private Boolean hasAccount;
+
+  
+  @JsonProperty("HasValidationErrors")
+  private Boolean hasValidationErrors;
 
   public Payment invoice(Invoice invoice) {
     this.invoice = invoice;
@@ -360,7 +368,7 @@ public class Payment {
     this.date = date;
   }
 
-  public Payment currencyRate(Float currencyRate) {
+  public Payment currencyRate(Double currencyRate) {
     this.currencyRate = currencyRate;
     return this;
   }
@@ -370,15 +378,15 @@ public class Payment {
    * @return currencyRate
   **/
   @ApiModelProperty(value = "Exchange rate when payment is received. Only used for non base currency invoices and credit notes e.g. 0.7500")
-  public Float getCurrencyRate() {
+  public Double getCurrencyRate() {
     return currencyRate;
   }
 
-  public void setCurrencyRate(Float currencyRate) {
+  public void setCurrencyRate(Double currencyRate) {
     this.currencyRate = currencyRate;
   }
 
-  public Payment amount(Float amount) {
+  public Payment amount(Double amount) {
     this.amount = amount;
     return this;
   }
@@ -388,11 +396,11 @@ public class Payment {
    * @return amount
   **/
   @ApiModelProperty(value = "The amount of the payment. Must be less than or equal to the outstanding amount owing on the invoice e.g. 200.00")
-  public Float getAmount() {
+  public Double getAmount() {
     return amount;
   }
 
-  public void setAmount(Float amount) {
+  public void setAmount(Double amount) {
     this.amount = amount;
   }
 
@@ -540,6 +548,42 @@ public class Payment {
     this.details = details;
   }
 
+  public Payment hasAccount(Boolean hasAccount) {
+    this.hasAccount = hasAccount;
+    return this;
+  }
+
+   /**
+   * A boolean to indicate if a contact has an validation errors
+   * @return hasAccount
+  **/
+  @ApiModelProperty(value = "A boolean to indicate if a contact has an validation errors")
+  public Boolean getHasAccount() {
+    return hasAccount;
+  }
+
+  public void setHasAccount(Boolean hasAccount) {
+    this.hasAccount = hasAccount;
+  }
+
+  public Payment hasValidationErrors(Boolean hasValidationErrors) {
+    this.hasValidationErrors = hasValidationErrors;
+    return this;
+  }
+
+   /**
+   * A boolean to indicate if a contact has an validation errors
+   * @return hasValidationErrors
+  **/
+  @ApiModelProperty(value = "A boolean to indicate if a contact has an validation errors")
+  public Boolean getHasValidationErrors() {
+    return hasValidationErrors;
+  }
+
+  public void setHasValidationErrors(Boolean hasValidationErrors) {
+    this.hasValidationErrors = hasValidationErrors;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -569,12 +613,14 @@ public class Payment {
         Objects.equals(this.paymentID, payment.paymentID) &&
         Objects.equals(this.bankAccountNumber, payment.bankAccountNumber) &&
         Objects.equals(this.particulars, payment.particulars) &&
-        Objects.equals(this.details, payment.details);
+        Objects.equals(this.details, payment.details) &&
+        Objects.equals(this.hasAccount, payment.hasAccount) &&
+        Objects.equals(this.hasValidationErrors, payment.hasValidationErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(invoice, creditNote, prepayment, overpayment, invoiceNumber, creditNoteNumber, account, code, date, currencyRate, amount, reference, isReconciled, status, paymentType, updatedDateUTC, paymentID, bankAccountNumber, particulars, details);
+    return Objects.hash(invoice, creditNote, prepayment, overpayment, invoiceNumber, creditNoteNumber, account, code, date, currencyRate, amount, reference, isReconciled, status, paymentType, updatedDateUTC, paymentID, bankAccountNumber, particulars, details, hasAccount, hasValidationErrors);
   }
 
 
@@ -603,6 +649,8 @@ public class Payment {
     sb.append("    bankAccountNumber: ").append(toIndentedString(bankAccountNumber)).append("\n");
     sb.append("    particulars: ").append(toIndentedString(particulars)).append("\n");
     sb.append("    details: ").append(toIndentedString(details)).append("\n");
+    sb.append("    hasAccount: ").append(toIndentedString(hasAccount)).append("\n");
+    sb.append("    hasValidationErrors: ").append(toIndentedString(hasValidationErrors)).append("\n");
     sb.append("}");
     return sb.toString();
   }

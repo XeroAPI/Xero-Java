@@ -42,7 +42,6 @@ import com.xero.models.accounting.RepeatingInvoices;
 import com.xero.models.accounting.ReportWithRows;
 import com.xero.models.accounting.Reports;
 import com.xero.models.accounting.RequestEmpty;
-import com.xero.models.accounting.Response204;
 import com.xero.models.accounting.TaxRates;
 import com.xero.models.accounting.TrackingCategories;
 import com.xero.models.accounting.TrackingCategory;
@@ -269,8 +268,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(account);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<Accounts> typeRef = new TypeReference<Accounts>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -311,8 +311,9 @@ public class AccountingApi {
             
 
             String response = this.FILE(url, strBody, params, "PUT", body);
+
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -344,8 +345,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(bankTransactions);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<BankTransactions> typeRef = new TypeReference<BankTransactions>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -386,8 +388,9 @@ public class AccountingApi {
             
 
             String response = this.FILE(url, strBody, params, "PUT", body);
+
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -427,8 +430,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -456,8 +460,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(bankTransfers);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<BankTransfers> typeRef = new TypeReference<BankTransfers>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -497,8 +502,9 @@ public class AccountingApi {
             
 
             String response = this.FILE(url, strBody, params, "PUT", body);
+
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -537,8 +543,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -566,8 +573,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(batchPayments);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<BatchPayments> typeRef = new TypeReference<BatchPayments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -607,8 +615,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -648,8 +657,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(paymentService);
 
             String response = this.DATA(url, strBody, params, "POST");
+
             TypeReference<PaymentServices> typeRef = new TypeReference<PaymentServices>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -676,8 +686,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(contact);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<Contacts> typeRef = new TypeReference<Contacts>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -717,8 +728,9 @@ public class AccountingApi {
             
 
             String response = this.FILE(url, strBody, params, "PUT", body);
+
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -746,8 +758,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(contactGroups);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<ContactGroups> typeRef = new TypeReference<ContactGroups>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -787,8 +800,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(contacts);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<Contacts> typeRef = new TypeReference<Contacts>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -828,8 +842,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -861,8 +876,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(creditNotes);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<CreditNotes> typeRef = new TypeReference<CreditNotes>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -902,8 +918,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(allocations);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<Allocations> typeRef = new TypeReference<Allocations>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -917,7 +934,7 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param creditNoteID Unique identifier for a Credit Note
     * @param fileName Name of the file you are attaching to Credit Note
-    * @param body The body parameter
+    * @param body Byte array of Attachment file in body of request
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -944,8 +961,9 @@ public class AccountingApi {
             
 
             String response = this.FILE(url, strBody, params, "PUT", body);
+
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -985,8 +1003,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -1013,8 +1032,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(currencies);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<Currencies> typeRef = new TypeReference<Currencies>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -1041,8 +1061,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(employees);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<Employees> typeRef = new TypeReference<Employees>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -1073,8 +1094,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(expenseClaims);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<ExpenseClaims> typeRef = new TypeReference<ExpenseClaims>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -1114,8 +1136,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -1146,8 +1169,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(invoices);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<Invoices> typeRef = new TypeReference<Invoices>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -1187,8 +1211,9 @@ public class AccountingApi {
             
 
             String response = this.FILE(url, strBody, params, "PUT", body);
+
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -1228,8 +1253,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -1256,8 +1282,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(items);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<Items> typeRef = new TypeReference<Items>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -1296,8 +1323,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -1324,8 +1352,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(linkedTransactions);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<LinkedTransactions> typeRef = new TypeReference<LinkedTransactions>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -1352,8 +1381,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(manualJournals);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<ManualJournals> typeRef = new TypeReference<ManualJournals>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -1393,8 +1423,9 @@ public class AccountingApi {
             
 
             String response = this.FILE(url, strBody, params, "PUT", body);
+
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -1433,8 +1464,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(allocations);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<Allocations> typeRef = new TypeReference<Allocations>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -1474,8 +1506,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -1502,8 +1535,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(payments);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<Payments> typeRef = new TypeReference<Payments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -1543,8 +1577,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -1571,8 +1606,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(paymentServices);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<PaymentServices> typeRef = new TypeReference<PaymentServices>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -1599,8 +1635,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(prepayments);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<Prepayments> typeRef = new TypeReference<Prepayments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -1639,8 +1676,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(allocations);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<Allocations> typeRef = new TypeReference<Allocations>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -1680,8 +1718,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -1712,8 +1751,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(purchaseOrders);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<PurchaseOrders> typeRef = new TypeReference<PurchaseOrders>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -1752,8 +1792,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -1780,8 +1821,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(receipts);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<Receipts> typeRef = new TypeReference<Receipts>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -1821,8 +1863,9 @@ public class AccountingApi {
             
 
             String response = this.FILE(url, strBody, params, "PUT", body);
+
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -1862,8 +1905,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -1903,8 +1947,9 @@ public class AccountingApi {
             
 
             String response = this.FILE(url, strBody, params, "PUT", body);
+
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -1943,8 +1988,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(historyRecords);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -1971,8 +2017,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(taxRates);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<TaxRates> typeRef = new TypeReference<TaxRates>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -1999,8 +2046,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(trackingCategory);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<TrackingCategories> typeRef = new TypeReference<TrackingCategories>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -2039,8 +2087,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(trackingOption);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<TrackingOptions> typeRef = new TypeReference<TrackingOptions>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -2077,8 +2126,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "DELETE");
+
             TypeReference<Accounts> typeRef = new TypeReference<Accounts>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -2088,14 +2138,13 @@ public class AccountingApi {
     }
   /**
     * Allows you to delete a specific Contact from a Contract Group
-    * <p><b>200</b> - Success - return response empty with 204 response code
+    * <p><b>204</b> - Success - return response 204 no content
     * <p><b>400</b> - A failed request due to validation error
     * @param contactGroupID Unique identifier for a Contact Group
     * @param contactID Unique identifier for a Contact
-    * @return Response204
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Response204 deleteContactGroupContact(UUID contactGroupID, UUID contactID) throws IOException {
+    public void deleteContactGroupContact(UUID contactGroupID, UUID contactID) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -2117,8 +2166,8 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "DELETE");
-            TypeReference<Response204> typeRef = new TypeReference<Response204>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+
+                       
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -2128,12 +2177,11 @@ public class AccountingApi {
     }
   /**
     * Allows you to delete  all Contacts from a Contract Group
-    * <p><b>200</b> - Success - return response empty with 204 response code
+    * <p><b>200</b> - Success - return response 204 no content
     * @param contactGroupID Unique identifier for a Contact Group
-    * @return Response204
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Response204 deleteContactGroupContacts(UUID contactGroupID) throws IOException {
+    public void deleteContactGroupContacts(UUID contactGroupID) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -2154,8 +2202,8 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "DELETE");
-            TypeReference<Response204> typeRef = new TypeReference<Response204>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+
+                       
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -2164,13 +2212,12 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * <p><b>204</b> - Success - return response 204 no content
     * <p><b>400</b> - A failed request due to validation error
     * @param itemID The itemID parameter
-    * @return Response204
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Response204 deleteItem(UUID itemID) throws IOException {
+    public void deleteItem(UUID itemID) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -2191,8 +2238,8 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "DELETE");
-            TypeReference<Response204> typeRef = new TypeReference<Response204>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+
+                       
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -2201,13 +2248,12 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>204</b> - A successful request
+    * <p><b>204</b> - Success - return response 204 no content
     * <p><b>400</b> - A failed request due to validation error
     * @param linkedTransactionID The linkedTransactionID parameter
-    * @return Response204
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Response204 deleteLinkedTransaction(UUID linkedTransactionID) throws IOException {
+    public void deleteLinkedTransaction(UUID linkedTransactionID) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -2228,8 +2274,8 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "DELETE");
-            TypeReference<Response204> typeRef = new TypeReference<Response204>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+
+                       
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -2265,8 +2311,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "DELETE");
+
             TypeReference<TrackingCategories> typeRef = new TypeReference<TrackingCategories>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -2304,8 +2351,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "DELETE");
+
             TypeReference<TrackingOptions> typeRef = new TypeReference<TrackingOptions>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -2315,14 +2363,13 @@ public class AccountingApi {
     }
   /**
     * Allows you to email a copy of invoice to related Contact
-    * <p><b>204</b> - A successful request
+    * <p><b>204</b> - Success - return response 204 no content
     * <p><b>400</b> - A failed request due to validation error
     * @param invoiceID The invoiceID parameter
     * @param requestEmpty The requestEmpty parameter
-    * @return Response204
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Response204 emailInvoice(UUID invoiceID, RequestEmpty requestEmpty) throws IOException {
+    public void emailInvoice(UUID invoiceID, RequestEmpty requestEmpty) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -2345,8 +2392,8 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(requestEmpty);
 
             String response = this.DATA(url, strBody, params, "POST");
-            TypeReference<Response204> typeRef = new TypeReference<Response204>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+
+                       
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -2382,8 +2429,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<Accounts> typeRef = new TypeReference<Accounts>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -2495,8 +2543,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -2528,8 +2577,9 @@ public class AccountingApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
+
             TypeReference<Accounts> typeRef = new TypeReference<Accounts>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -2565,8 +2615,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<BankTransactions> typeRef = new TypeReference<BankTransactions>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -2678,8 +2729,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -2714,8 +2766,9 @@ public class AccountingApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
+
             TypeReference<BankTransactions> typeRef = new TypeReference<BankTransactions>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -2751,8 +2804,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -2788,8 +2842,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<BankTransfers> typeRef = new TypeReference<BankTransfers>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -2901,8 +2956,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -2938,8 +2994,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -2971,8 +3028,9 @@ public class AccountingApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
+
             TypeReference<BankTransfers> typeRef = new TypeReference<BankTransfers>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -3008,8 +3066,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -3041,8 +3100,9 @@ public class AccountingApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
+
             TypeReference<BatchPayments> typeRef = new TypeReference<BatchPayments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -3078,8 +3138,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<BrandingThemes> typeRef = new TypeReference<BrandingThemes>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -3115,8 +3176,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<PaymentServices> typeRef = new TypeReference<PaymentServices>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -3140,8 +3202,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<BrandingThemes> typeRef = new TypeReference<BrandingThemes>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -3177,8 +3240,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<Contacts> typeRef = new TypeReference<Contacts>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -3290,8 +3354,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -3327,8 +3392,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<CISSettings> typeRef = new TypeReference<CISSettings>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -3364,8 +3430,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<ContactGroups> typeRef = new TypeReference<ContactGroups>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -3396,8 +3463,9 @@ public class AccountingApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<ContactGroups> typeRef = new TypeReference<ContactGroups>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -3433,8 +3501,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -3475,8 +3544,9 @@ public class AccountingApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
+
             TypeReference<Contacts> typeRef = new TypeReference<Contacts>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -3512,8 +3582,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<CreditNotes> typeRef = new TypeReference<CreditNotes>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -3661,8 +3732,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -3698,8 +3770,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -3734,8 +3807,9 @@ public class AccountingApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
+
             TypeReference<CreditNotes> typeRef = new TypeReference<CreditNotes>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -3766,8 +3840,9 @@ public class AccountingApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<Currencies> typeRef = new TypeReference<Currencies>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -3803,8 +3878,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<Employees> typeRef = new TypeReference<Employees>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -3836,8 +3912,9 @@ public class AccountingApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
+
             TypeReference<Employees> typeRef = new TypeReference<Employees>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -3873,8 +3950,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<ExpenseClaims> typeRef = new TypeReference<ExpenseClaims>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -3910,8 +3988,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -3943,8 +4022,9 @@ public class AccountingApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
+
             TypeReference<ExpenseClaims> typeRef = new TypeReference<ExpenseClaims>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -3980,8 +4060,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<Invoices> typeRef = new TypeReference<Invoices>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -4129,8 +4210,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -4166,8 +4248,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -4191,8 +4274,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<InvoiceReminders> typeRef = new TypeReference<InvoiceReminders>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -4245,8 +4329,9 @@ public class AccountingApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
+
             TypeReference<Invoices> typeRef = new TypeReference<Invoices>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -4282,8 +4367,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<Items> typeRef = new TypeReference<Items>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -4319,8 +4405,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -4352,8 +4439,9 @@ public class AccountingApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
+
             TypeReference<Items> typeRef = new TypeReference<Items>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -4389,8 +4477,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<Journals> typeRef = new TypeReference<Journals>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -4422,8 +4511,9 @@ public class AccountingApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
+
             TypeReference<Journals> typeRef = new TypeReference<Journals>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -4459,8 +4549,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<LinkedTransactions> typeRef = new TypeReference<LinkedTransactions>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -4503,8 +4594,9 @@ public class AccountingApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<LinkedTransactions> typeRef = new TypeReference<LinkedTransactions>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -4540,8 +4632,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<ManualJournals> typeRef = new TypeReference<ManualJournals>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -4653,8 +4746,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -4689,8 +4783,9 @@ public class AccountingApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
+
             TypeReference<ManualJournals> typeRef = new TypeReference<ManualJournals>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -4726,8 +4821,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<OnlineInvoices> typeRef = new TypeReference<OnlineInvoices>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -4763,8 +4859,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<Organisations> typeRef = new TypeReference<Organisations>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -4788,8 +4885,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<Organisations> typeRef = new TypeReference<Organisations>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -4825,8 +4923,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<Overpayments> typeRef = new TypeReference<Overpayments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -4862,8 +4961,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -4898,8 +4998,9 @@ public class AccountingApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
+
             TypeReference<Overpayments> typeRef = new TypeReference<Overpayments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -4935,8 +5036,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<Payments> typeRef = new TypeReference<Payments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -4972,8 +5074,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -4997,8 +5100,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<PaymentServices> typeRef = new TypeReference<PaymentServices>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -5030,8 +5134,9 @@ public class AccountingApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
+
             TypeReference<Payments> typeRef = new TypeReference<Payments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -5067,8 +5172,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<Prepayments> typeRef = new TypeReference<Prepayments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -5104,8 +5210,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -5140,8 +5247,9 @@ public class AccountingApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
+
             TypeReference<Prepayments> typeRef = new TypeReference<Prepayments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -5177,8 +5285,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<PurchaseOrders> typeRef = new TypeReference<PurchaseOrders>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -5214,8 +5323,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -5256,8 +5366,9 @@ public class AccountingApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
+
             TypeReference<PurchaseOrders> typeRef = new TypeReference<PurchaseOrders>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -5293,8 +5404,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<Receipts> typeRef = new TypeReference<Receipts>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -5406,8 +5518,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -5443,8 +5556,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -5476,8 +5590,9 @@ public class AccountingApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
+
             TypeReference<Receipts> typeRef = new TypeReference<Receipts>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -5513,8 +5628,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<RepeatingInvoices> typeRef = new TypeReference<RepeatingInvoices>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -5626,8 +5742,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -5663,8 +5780,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -5695,8 +5813,9 @@ public class AccountingApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<RepeatingInvoices> typeRef = new TypeReference<RepeatingInvoices>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -5733,8 +5852,9 @@ public class AccountingApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<ReportWithRows> typeRef = new TypeReference<ReportWithRows>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -5771,8 +5891,9 @@ public class AccountingApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<ReportWithRows> typeRef = new TypeReference<ReportWithRows>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -5808,8 +5929,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<ReportWithRows> typeRef = new TypeReference<ReportWithRows>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -5833,8 +5955,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<ReportWithRows> typeRef = new TypeReference<ReportWithRows>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -5880,8 +6003,9 @@ public class AccountingApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<ReportWithRows> typeRef = new TypeReference<ReportWithRows>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -5915,8 +6039,9 @@ public class AccountingApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<ReportWithRows> typeRef = new TypeReference<ReportWithRows>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -5950,8 +6075,9 @@ public class AccountingApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<ReportWithRows> typeRef = new TypeReference<ReportWithRows>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -5979,8 +6105,9 @@ public class AccountingApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<ReportWithRows> typeRef = new TypeReference<ReportWithRows>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -6035,8 +6162,9 @@ public class AccountingApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<ReportWithRows> typeRef = new TypeReference<ReportWithRows>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -6064,8 +6192,9 @@ public class AccountingApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<Reports> typeRef = new TypeReference<Reports>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -6096,8 +6225,9 @@ public class AccountingApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<ReportWithRows> typeRef = new TypeReference<ReportWithRows>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -6131,8 +6261,9 @@ public class AccountingApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<TaxRates> typeRef = new TypeReference<TaxRates>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -6166,8 +6297,9 @@ public class AccountingApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<TrackingCategories> typeRef = new TypeReference<TrackingCategories>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -6203,8 +6335,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<TrackingCategories> typeRef = new TypeReference<TrackingCategories>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -6240,8 +6373,9 @@ public class AccountingApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<Users> typeRef = new TypeReference<Users>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -6273,8 +6407,9 @@ public class AccountingApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
+
             TypeReference<Users> typeRef = new TypeReference<Users>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -6314,8 +6449,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(accounts);
 
             String response = this.DATA(url, strBody, params, "POST");
+
             TypeReference<Accounts> typeRef = new TypeReference<Accounts>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -6356,8 +6492,9 @@ public class AccountingApi {
             
 
             String response = this.FILE(url, strBody, params, "POST", body);
+
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -6397,8 +6534,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(bankTransactions);
 
             String response = this.DATA(url, strBody, params, "POST");
+
             TypeReference<BankTransactions> typeRef = new TypeReference<BankTransactions>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -6439,8 +6577,9 @@ public class AccountingApi {
             
 
             String response = this.FILE(url, strBody, params, "POST", body);
+
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -6480,8 +6619,9 @@ public class AccountingApi {
             
 
             String response = this.FILE(url, strBody, params, "POST", body);
+
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -6520,8 +6660,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(contacts);
 
             String response = this.DATA(url, strBody, params, "POST");
+
             TypeReference<Contacts> typeRef = new TypeReference<Contacts>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -6561,8 +6702,9 @@ public class AccountingApi {
             
 
             String response = this.FILE(url, strBody, params, "POST", body);
+
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -6602,8 +6744,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(contactGroups);
 
             String response = this.DATA(url, strBody, params, "POST");
+
             TypeReference<ContactGroups> typeRef = new TypeReference<ContactGroups>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -6643,8 +6786,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(creditNotes);
 
             String response = this.DATA(url, strBody, params, "POST");
+
             TypeReference<CreditNotes> typeRef = new TypeReference<CreditNotes>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -6658,7 +6802,7 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param creditNoteID Unique identifier for a Credit Note
     * @param fileName Name of the file you are attaching to Credit Note
-    * @param body The body parameter
+    * @param body Byte array of Attachment file in body of request
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -6685,8 +6829,9 @@ public class AccountingApi {
             
 
             String response = this.FILE(url, strBody, params, "POST", body);
+
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -6725,8 +6870,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(employees);
 
             String response = this.DATA(url, strBody, params, "POST");
+
             TypeReference<Employees> typeRef = new TypeReference<Employees>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -6765,8 +6911,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(expenseClaims);
 
             String response = this.DATA(url, strBody, params, "POST");
+
             TypeReference<ExpenseClaims> typeRef = new TypeReference<ExpenseClaims>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -6805,8 +6952,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(invoices);
 
             String response = this.DATA(url, strBody, params, "POST");
+
             TypeReference<Invoices> typeRef = new TypeReference<Invoices>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -6823,7 +6971,7 @@ public class AccountingApi {
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Attachments updateInvoiceAttachmentByFileName(UUID invoiceID, UUID fileName, byte[] body) throws IOException {
+    public Attachments updateInvoiceAttachmentByFileName(UUID invoiceID, String fileName, byte[] body) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -6846,50 +6994,9 @@ public class AccountingApi {
             
 
             String response = this.FILE(url, strBody, params, "POST", body);
+
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
-
-        } catch (IOException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage());
-        } catch (XeroApiException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode(),JSONUtils.isJSONValid(e.getMessage()));
-        }
-    }
-  /**
-    * <p><b>200</b> - A successful request
-    * <p><b>400</b> - A failed request due to validation error
-    * @param invoiceID The invoiceID parameter
-    * @param attachmentID The attachmentID parameter
-    * @param body The body parameter
-    * @return Attachments
-    * @throws IOException if an error occurs while attempting to invoke the API
-    **/
-    public Attachments updateInvoiceAttachmentById(UUID invoiceID, UUID attachmentID, File body) throws IOException {
-        try {
-            String strBody = null;
-            Map<String, String> params = null;
-            String correctPath = "/Invoices/{InvoiceID}/Attachments/{AttachmentID}";
-            // Hacky path manipulation to support different return types from same endpoint
-            String path = "/Invoices/{InvoiceID}/Attachments/{AttachmentID}";
-            String type = "/pdf";
-            if(path.toLowerCase().contains(type.toLowerCase()))
-            {
-                correctPath = path.replace("/pdf","");
-            } 
-
-            // create a map of path variables
-            final Map<String, String> uriVariables = new HashMap<String, String>();
-            uriVariables.put("InvoiceID", invoiceID.toString());
-            uriVariables.put("AttachmentID", attachmentID.toString());
-            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-            String url = uriBuilder.buildFromMap(uriVariables).toString();
-
-            
-            strBody = apiClient.getObjectMapper().writeValueAsString(body);
-
-            String response = this.DATA(url, strBody, params, "POST");
-            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -6928,8 +7035,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(items);
 
             String response = this.DATA(url, strBody, params, "POST");
+
             TypeReference<Items> typeRef = new TypeReference<Items>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -6968,8 +7076,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(linkedTransactions);
 
             String response = this.DATA(url, strBody, params, "POST");
+
             TypeReference<LinkedTransactions> typeRef = new TypeReference<LinkedTransactions>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -7008,8 +7117,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(manualJournals);
 
             String response = this.DATA(url, strBody, params, "POST");
+
             TypeReference<ManualJournals> typeRef = new TypeReference<ManualJournals>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -7026,7 +7136,7 @@ public class AccountingApi {
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Attachments updateManualJournalAttachmentByFileName(UUID manualJournalID, UUID fileName, byte[] body) throws IOException {
+    public Attachments updateManualJournalAttachmentByFileName(UUID manualJournalID, String fileName, byte[] body) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -7049,50 +7159,9 @@ public class AccountingApi {
             
 
             String response = this.FILE(url, strBody, params, "POST", body);
+
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
-
-        } catch (IOException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage());
-        } catch (XeroApiException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode(),JSONUtils.isJSONValid(e.getMessage()));
-        }
-    }
-  /**
-    * <p><b>200</b> - A successful request
-    * <p><b>400</b> - A failed request due to validation error
-    * @param manualJournalID The manualJournalID parameter
-    * @param attachmentID The attachmentID parameter
-    * @param body The body parameter
-    * @return Attachments
-    * @throws IOException if an error occurs while attempting to invoke the API
-    **/
-    public Attachments updateManualJournalAttachmentById(UUID manualJournalID, UUID attachmentID, File body) throws IOException {
-        try {
-            String strBody = null;
-            Map<String, String> params = null;
-            String correctPath = "/ManualJournals/{ManualJournalID}/Attachments/{AttachmentID}";
-            // Hacky path manipulation to support different return types from same endpoint
-            String path = "/ManualJournals/{ManualJournalID}/Attachments/{AttachmentID}";
-            String type = "/pdf";
-            if(path.toLowerCase().contains(type.toLowerCase()))
-            {
-                correctPath = path.replace("/pdf","");
-            } 
-
-            // create a map of path variables
-            final Map<String, String> uriVariables = new HashMap<String, String>();
-            uriVariables.put("ManualJournalID", manualJournalID.toString());
-            uriVariables.put("AttachmentID", attachmentID.toString());
-            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-            String url = uriBuilder.buildFromMap(uriVariables).toString();
-
-            
-            strBody = apiClient.getObjectMapper().writeValueAsString(body);
-
-            String response = this.DATA(url, strBody, params, "POST");
-            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -7131,8 +7200,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(payments);
 
             String response = this.DATA(url, strBody, params, "POST");
+
             TypeReference<Payments> typeRef = new TypeReference<Payments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -7171,8 +7241,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(purchaseOrders);
 
             String response = this.DATA(url, strBody, params, "POST");
+
             TypeReference<PurchaseOrders> typeRef = new TypeReference<PurchaseOrders>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -7211,8 +7282,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(receipts);
 
             String response = this.DATA(url, strBody, params, "POST");
+
             TypeReference<Receipts> typeRef = new TypeReference<Receipts>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -7229,7 +7301,7 @@ public class AccountingApi {
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Attachments updateReceiptAttachmentByFileName(UUID receiptID, UUID fileName, byte[] body) throws IOException {
+    public Attachments updateReceiptAttachmentByFileName(UUID receiptID, String fileName, byte[] body) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -7252,50 +7324,9 @@ public class AccountingApi {
             
 
             String response = this.FILE(url, strBody, params, "POST", body);
+
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
-
-        } catch (IOException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage());
-        } catch (XeroApiException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode(),JSONUtils.isJSONValid(e.getMessage()));
-        }
-    }
-  /**
-    * <p><b>200</b> - A successful request
-    * <p><b>400</b> - A failed request due to validation error
-    * @param receiptID The receiptID parameter
-    * @param attachmentID The attachmentID parameter
-    * @param body The body parameter
-    * @return Attachments
-    * @throws IOException if an error occurs while attempting to invoke the API
-    **/
-    public Attachments updateReceiptAttachmentById(UUID receiptID, UUID attachmentID, File body) throws IOException {
-        try {
-            String strBody = null;
-            Map<String, String> params = null;
-            String correctPath = "/Receipts/{ReceiptID}/Attachments/{AttachmentID}";
-            // Hacky path manipulation to support different return types from same endpoint
-            String path = "/Receipts/{ReceiptID}/Attachments/{AttachmentID}";
-            String type = "/pdf";
-            if(path.toLowerCase().contains(type.toLowerCase()))
-            {
-                correctPath = path.replace("/pdf","");
-            } 
-
-            // create a map of path variables
-            final Map<String, String> uriVariables = new HashMap<String, String>();
-            uriVariables.put("ReceiptID", receiptID.toString());
-            uriVariables.put("AttachmentID", attachmentID.toString());
-            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-            String url = uriBuilder.buildFromMap(uriVariables).toString();
-
-            
-            strBody = apiClient.getObjectMapper().writeValueAsString(body);
-
-            String response = this.DATA(url, strBody, params, "POST");
-            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -7312,7 +7343,7 @@ public class AccountingApi {
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Attachments updateRepeatingInvoiceAttachmentByFileName(UUID repeatingInvoiceID, UUID fileName, byte[] body) throws IOException {
+    public Attachments updateRepeatingInvoiceAttachmentByFileName(UUID repeatingInvoiceID, String fileName, byte[] body) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -7335,50 +7366,9 @@ public class AccountingApi {
             
 
             String response = this.FILE(url, strBody, params, "POST", body);
+
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
-
-        } catch (IOException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage());
-        } catch (XeroApiException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode(),JSONUtils.isJSONValid(e.getMessage()));
-        }
-    }
-  /**
-    * <p><b>200</b> - A successful request
-    * <p><b>400</b> - A failed request due to validation error
-    * @param repeatingInvoiceID The repeatingInvoiceID parameter
-    * @param attachmentID The attachmentID parameter
-    * @param body The body parameter
-    * @return Attachments
-    * @throws IOException if an error occurs while attempting to invoke the API
-    **/
-    public Attachments updateRepeatingInvoiceAttachmentById(UUID repeatingInvoiceID, UUID attachmentID, File body) throws IOException {
-        try {
-            String strBody = null;
-            Map<String, String> params = null;
-            String correctPath = "/RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{AttachmentID}";
-            // Hacky path manipulation to support different return types from same endpoint
-            String path = "/RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{AttachmentID}";
-            String type = "/pdf";
-            if(path.toLowerCase().contains(type.toLowerCase()))
-            {
-                correctPath = path.replace("/pdf","");
-            } 
-
-            // create a map of path variables
-            final Map<String, String> uriVariables = new HashMap<String, String>();
-            uriVariables.put("RepeatingInvoiceID", repeatingInvoiceID.toString());
-            uriVariables.put("AttachmentID", attachmentID.toString());
-            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-            String url = uriBuilder.buildFromMap(uriVariables).toString();
-
-            
-            strBody = apiClient.getObjectMapper().writeValueAsString(body);
-
-            String response = this.DATA(url, strBody, params, "POST");
-            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -7405,8 +7395,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(taxRates);
 
             String response = this.DATA(url, strBody, params, "POST");
+
             TypeReference<TaxRates> typeRef = new TypeReference<TaxRates>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -7445,8 +7436,9 @@ public class AccountingApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(trackingCategory);
 
             String response = this.DATA(url, strBody, params, "POST");
+
             TypeReference<TrackingCategories> typeRef = new TypeReference<TrackingCategories>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());

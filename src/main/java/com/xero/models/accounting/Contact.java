@@ -211,7 +211,7 @@ public class Contact {
 
   
   @JsonProperty("Discount")
-  private Float discount;
+  private Double discount;
 
   
   @JsonProperty("Balances")
@@ -853,7 +853,7 @@ public class Contact {
    * @return discount
   **/
   @ApiModelProperty(value = "The default discount rate for the contact (read only)")
-  public Float getDiscount() {
+  public Double getDiscount() {
     return discount;
   }
 

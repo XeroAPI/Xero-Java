@@ -143,15 +143,15 @@ public class CreditNote {
 
   
   @JsonProperty("SubTotal")
-  private Float subTotal;
+  private Double subTotal;
 
   
   @JsonProperty("TotalTax")
-  private Float totalTax;
+  private Double totalTax;
 
   
   @JsonProperty("Total")
-  private Float total;
+  private Double total;
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
@@ -183,11 +183,11 @@ public class CreditNote {
 
   
   @JsonProperty("CurrencyRate")
-  private Float currencyRate;
+  private Double currencyRate;
 
   
   @JsonProperty("RemainingCredit")
-  private Float remainingCredit;
+  private Double remainingCredit;
 
   
   @JsonProperty("Allocations")
@@ -321,7 +321,7 @@ public class CreditNote {
     this.lineItems = lineItems;
   }
 
-  public CreditNote subTotal(Float subTotal) {
+  public CreditNote subTotal(Double subTotal) {
     this.subTotal = subTotal;
     return this;
   }
@@ -331,15 +331,15 @@ public class CreditNote {
    * @return subTotal
   **/
   @ApiModelProperty(value = "The subtotal of the credit note excluding taxes")
-  public Float getSubTotal() {
+  public Double getSubTotal() {
     return subTotal;
   }
 
-  public void setSubTotal(Float subTotal) {
+  public void setSubTotal(Double subTotal) {
     this.subTotal = subTotal;
   }
 
-  public CreditNote totalTax(Float totalTax) {
+  public CreditNote totalTax(Double totalTax) {
     this.totalTax = totalTax;
     return this;
   }
@@ -349,15 +349,15 @@ public class CreditNote {
    * @return totalTax
   **/
   @ApiModelProperty(value = "The total tax on the credit note")
-  public Float getTotalTax() {
+  public Double getTotalTax() {
     return totalTax;
   }
 
-  public void setTotalTax(Float totalTax) {
+  public void setTotalTax(Double totalTax) {
     this.totalTax = totalTax;
   }
 
-  public CreditNote total(Float total) {
+  public CreditNote total(Double total) {
     this.total = total;
     return this;
   }
@@ -367,11 +367,11 @@ public class CreditNote {
    * @return total
   **/
   @ApiModelProperty(value = "The total of the Credit Note(subtotal + total tax)")
-  public Float getTotal() {
+  public Double getTotal() {
     return total;
   }
 
-  public void setTotal(Float total) {
+  public void setTotal(Double total) {
     this.total = total;
   }
 
@@ -492,7 +492,7 @@ public class CreditNote {
     return sentToContact;
   }
 
-  public CreditNote currencyRate(Float currencyRate) {
+  public CreditNote currencyRate(Double currencyRate) {
     this.currencyRate = currencyRate;
     return this;
   }
@@ -502,15 +502,15 @@ public class CreditNote {
    * @return currencyRate
   **/
   @ApiModelProperty(value = "The currency rate for a multicurrency invoice. If no rate is specified, the XE.com day rate is used")
-  public Float getCurrencyRate() {
+  public Double getCurrencyRate() {
     return currencyRate;
   }
 
-  public void setCurrencyRate(Float currencyRate) {
+  public void setCurrencyRate(Double currencyRate) {
     this.currencyRate = currencyRate;
   }
 
-  public CreditNote remainingCredit(Float remainingCredit) {
+  public CreditNote remainingCredit(Double remainingCredit) {
     this.remainingCredit = remainingCredit;
     return this;
   }
@@ -520,11 +520,11 @@ public class CreditNote {
    * @return remainingCredit
   **/
   @ApiModelProperty(value = "The remaining credit balance on the Credit Note")
-  public Float getRemainingCredit() {
+  public Double getRemainingCredit() {
     return remainingCredit;
   }
 
-  public void setRemainingCredit(Float remainingCredit) {
+  public void setRemainingCredit(Double remainingCredit) {
     this.remainingCredit = remainingCredit;
   }
 

@@ -101,15 +101,15 @@ public class ExpenseClaim {
 
   
   @JsonProperty("Total")
-  private Float total;
+  private Double total;
 
   
   @JsonProperty("AmountDue")
-  private Float amountDue;
+  private Double amountDue;
 
   
   @JsonProperty("AmountPaid")
-  private Float amountPaid;
+  private Double amountPaid;
 
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("PaymentDueDate")
@@ -243,7 +243,7 @@ public class ExpenseClaim {
    * @return total
   **/
   @ApiModelProperty(value = "The total of an expense claim being paid")
-  public Float getTotal() {
+  public Double getTotal() {
     return total;
   }
 
@@ -252,7 +252,7 @@ public class ExpenseClaim {
    * @return amountDue
   **/
   @ApiModelProperty(value = "The amount due to be paid for an expense claim")
-  public Float getAmountDue() {
+  public Double getAmountDue() {
     return amountDue;
   }
 
@@ -261,7 +261,7 @@ public class ExpenseClaim {
    * @return amountPaid
   **/
   @ApiModelProperty(value = "The amount still to pay for an expense claim")
-  public Float getAmountPaid() {
+  public Double getAmountPaid() {
     return amountPaid;
   }
 
