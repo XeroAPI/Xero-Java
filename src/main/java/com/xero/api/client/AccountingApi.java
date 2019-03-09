@@ -284,7 +284,7 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param accountID Unique identifier for Account object
     * @param fileName Name of the attachment
-    * @param body Request of type ByteArray
+    * @param body Byte array of file in body of request
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -361,7 +361,7 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param bankTransactionID Xero generated unique identifier for a bank transaction
     * @param fileName The name of the file being attached
-    * @param body The body parameter
+    * @param body Byte array of file in body of request
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -475,7 +475,7 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param bankTransferID Xero generated unique identifier for a bank transfer
     * @param fileName The name of the file being attached to a Bank Transfer
-    * @param body The body parameter
+    * @param body Byte array of file in body of request
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -701,7 +701,7 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param contactID Unique identifier for a Contact
     * @param fileName Name for the file you are attaching
-    * @param body The body parameter
+    * @param body Byte array of file in body of request
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -934,7 +934,7 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param creditNoteID Unique identifier for a Credit Note
     * @param fileName Name of the file you are attaching to Credit Note
-    * @param body Byte array of Attachment file in body of request
+    * @param body Byte array of file in body of request
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -1014,7 +1014,7 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * <p><b>200</b> - Success - return response of type Currencies array with new Currency
     * <p><b>400</b> - A failed request due to validation error
     * @param currencies The currencies parameter
     * @return Currencies
@@ -1043,7 +1043,8 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to create new employees used in Xero payrun
+    * <p><b>200</b> - Success - return response of type Employees array with new Employee
     * <p><b>400</b> - A failed request due to validation error
     * @param employees The employees parameter
     * @return Employees
@@ -1072,7 +1073,8 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to retrieve expense claims
+    * <p><b>200</b> - Success - return response of type ExpenseClaims array with newly created ExpenseClaim
     * <p><b>400</b> - A failed request due to validation error
     * @param expenseClaims The expenseClaims parameter
     * @param summarizeErrors shows validation errors for each expense claim
@@ -1105,10 +1107,10 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve a history records of an ExpenseClaim
-    * <p><b>200</b> - A successful request
+    * Allows you to create a history records of an ExpenseClaim
+    * <p><b>200</b> - Success - return response of type HistoryRecords array for newly created HistoryRecord for specific ExpenseClaim
     * <p><b>400</b> - A failed request due to validation error
-    * @param expenseClaimID The expenseClaimID parameter
+    * @param expenseClaimID Unique identifier for a ExpenseClaim
     * @param historyRecords The historyRecords parameter
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -1147,7 +1149,8 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to create any sales invoices or purchase bills
+    * <p><b>200</b> - Success - return response of type Invoices array with newly created Invoice
     * <p><b>400</b> - A failed request due to validation error
     * @param invoices The invoices parameter
     * @param summarizeErrors shows validation errors for each invoice
@@ -1180,11 +1183,12 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to create an Attachment on invoices or purchase bills by it&#39;s filename
+    * <p><b>200</b> - Success - return response of type Attachments array with newly created Attachment
     * <p><b>400</b> - A failed request due to validation error
-    * @param invoiceID The invoiceID parameter
-    * @param fileName The fileName parameter
-    * @param body The body parameter
+    * @param invoiceID Unique identifier for an Invoice
+    * @param fileName Name of the file you are attaching
+    * @param body Byte array of file in body of request
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -1223,9 +1227,9 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve a history records of an invoice
-    * <p><b>200</b> - A successful request
+    * <p><b>200</b> - Success - return response of type HistoryRecords array with newly created HistoryRecord for specific Invoice
     * <p><b>400</b> - A failed request due to validation error
-    * @param invoiceID The invoiceID parameter
+    * @param invoiceID Unique identifier for an Invoice
     * @param historyRecords The historyRecords parameter
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -1264,7 +1268,8 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to create an item
+    * <p><b>200</b> - Success - return response of type Items array with newly created Item
     * <p><b>400</b> - A failed request due to validation error
     * @param items The items parameter
     * @return Items
@@ -1293,9 +1298,10 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to create a history record for items
+    * <p><b>200</b> - Success - return response of type HistoryRecords array with newly created HistoryRecord for specific Item
     * <p><b>400</b> - A failed request due to validation error
-    * @param itemID The itemID parameter
+    * @param itemID Unique identifier for an Item
     * @param historyRecords The historyRecords parameter
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -1334,7 +1340,8 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to create linked transactions (billable expenses)
+    * <p><b>200</b> - Success - return response of type LinkedTransactions array with newly created LinkedTransaction
     * <p><b>400</b> - A failed request due to validation error
     * @param linkedTransactions The linkedTransactions parameter
     * @return LinkedTransactions
@@ -1363,7 +1370,8 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to create a manual journal
+    * <p><b>200</b> - Success - return response of type ManualJournals array with newly created ManualJournal
     * <p><b>400</b> - A failed request due to validation error
     * @param manualJournals The manualJournals parameter
     * @return ManualJournals
@@ -1392,11 +1400,12 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to create a specified Attachment on ManualJournal by file name
+    * <p><b>200</b> - Success - return response of type Attachments array with a newly created Attachment for a ManualJournals
     * <p><b>400</b> - A failed request due to validation error
-    * @param manualJournalID The manualJournalID parameter
-    * @param fileName The fileName parameter
-    * @param body The body parameter
+    * @param manualJournalID Unique identifier for a ManualJournal
+    * @param fileName The name of the file being attached to a ManualJournal
+    * @param body Byte array of file in body of request
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -1434,9 +1443,10 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to retrieve Allocations for overpayments
+    * <p><b>200</b> - Success - return response of type Allocations array with all Allocation for Overpayments
     * <p><b>400</b> - A failed request due to validation error
-    * @param overpaymentID The overpaymentID parameter
+    * @param overpaymentID Unique identifier for a Overpayment
     * @param allocations The allocations parameter
     * @return Allocations
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -1475,10 +1485,10 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve a history records of an Overpayment
-    * <p><b>200</b> - A successful request
+    * Allows you to create history records of an Overpayment
+    * <p><b>200</b> - Success - return response of type HistoryRecords array with newly created HistoryRecord for Overpayments
     * <p><b>400</b> - A failed request due to validation error
-    * @param overpaymentID The overpaymentID parameter
+    * @param overpaymentID Unique identifier for a Overpayment
     * @param historyRecords The historyRecords parameter
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -1517,7 +1527,8 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to create payments for invoices and credit notes
+    * <p><b>200</b> - Success - return response of type Payments array for newly created Payment
     * <p><b>400</b> - A failed request due to validation error
     * @param payments The payments parameter
     * @return Payments
@@ -1546,10 +1557,10 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve a history records of an invoice
-    * <p><b>200</b> - A successful request
+    * Allows you to create a history record for a payment
+    * <p><b>200</b> - Success - return response of type HistoryRecords array with newly created HistoryRecord for Payments
     * <p><b>400</b> - A failed request due to validation error
-    * @param paymentID The paymentID parameter
+    * @param paymentID Unique identifier for a Payment
     * @param historyRecords The historyRecords parameter
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -1588,7 +1599,8 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to create payment services
+    * <p><b>200</b> - Success - return response of type PaymentServices array for newly created PaymentService
     * <p><b>400</b> - A failed request due to validation error
     * @param paymentServices The paymentServices parameter
     * @return PaymentServices
@@ -1617,7 +1629,8 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to create prepayments
+    * <p><b>200</b> - Success - return response of type Prepayments array for newly created Prepayment
     * <p><b>400</b> - A failed request due to validation error
     * @param prepayments The prepayments parameter
     * @return Prepayments
@@ -1646,7 +1659,8 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to create an Allocation for prepayments
+    * <p><b>200</b> - Success - return response of type Allocations array of Allocation for all Prepayment
     * <p><b>400</b> - A failed request due to validation error
     * @param prepaymentID The prepaymentID parameter
     * @param allocations The allocations parameter
@@ -1687,10 +1701,10 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve a history records of an Overpayment
-    * <p><b>200</b> - A successful request
+    * Allows you to create a history record for an Prepayment
+    * <p><b>200</b> - Success - return response of type HistoryRecords array for newly created HistoryRecord for PrePayment
     * <p><b>400</b> - A failed request due to validation error
-    * @param prepaymentID The prepaymentID parameter
+    * @param prepaymentID Unique identifier for a PrePayment
     * @param historyRecords The historyRecords parameter
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -1729,7 +1743,8 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to create purchase orders
+    * <p><b>200</b> - Success - return response of type PurchaseOrder array for specified PurchaseOrder
     * <p><b>400</b> - A failed request due to validation error
     * @param purchaseOrders The purchaseOrders parameter
     * @param summarizeErrors shows validation errors for each purchase order.
@@ -1762,9 +1777,10 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to create HistoryRecord for purchase orders
+    * <p><b>200</b> - Success - return response of type HistoryRecords array for newly created HistoryRecord for PurchaseOrder
     * <p><b>400</b> - A failed request due to validation error
-    * @param purchaseOrderID The purchaseOrderID parameter
+    * @param purchaseOrderID Unique identifier for a PurchaseOrder
     * @param historyRecords The historyRecords parameter
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -1803,7 +1819,8 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to create draft expense claim receipts for any user
+    * <p><b>200</b> - Success - return response of type Receipts array for newly created Receipt
     * <p><b>400</b> - A failed request due to validation error
     * @param receipts The receipts parameter
     * @return Receipts
@@ -1832,11 +1849,12 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to create Attachment on expense claim receipts by file name
+    * <p><b>200</b> - Success - return response of type Attachments array with newly created Attachment for a specified Receipt
     * <p><b>400</b> - A failed request due to validation error
-    * @param receiptID The receiptID parameter
-    * @param fileName The fileName parameter
-    * @param body The body parameter
+    * @param receiptID Unique identifier for a Receipt
+    * @param fileName The name of the file being attached to the Receipt
+    * @param body Byte array of file in body of request
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -1875,9 +1893,9 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve a history records of an Receipt
-    * <p><b>200</b> - A successful request
+    * <p><b>200</b> - Success - return response of type HistoryRecords array for newly created HistoryRecord for Receipt
     * <p><b>400</b> - A failed request due to validation error
-    * @param receiptID The receiptID parameter
+    * @param receiptID Unique identifier for a Receipt
     * @param historyRecords The historyRecords parameter
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -1916,11 +1934,12 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to create attachment on repeating invoices by file name
+    * <p><b>200</b> - Success - return response of type Attachments array with updated Attachment for a specified Repeating Invoice
     * <p><b>400</b> - A failed request due to validation error
-    * @param repeatingInvoiceID The repeatingInvoiceID parameter
-    * @param fileName The fileName parameter
-    * @param body The body parameter
+    * @param repeatingInvoiceID Unique identifier for a Repeating Invoice
+    * @param fileName The name of the file being attached to a Repeating Invoice
+    * @param body Byte array of file in body of request
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -1958,9 +1977,10 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to create history for a repeating invoice
+    * <p><b>200</b> - Success - return response of type HistoryRecords array with newly created HistoryRecord for Repeating Invoice
     * <p><b>400</b> - A failed request due to validation error
-    * @param repeatingInvoiceID The repeatingInvoiceID parameter
+    * @param repeatingInvoiceID Unique identifier for a Repeating Invoice
     * @param historyRecords The historyRecords parameter
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -1999,7 +2019,8 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to create Tax Rates
+    * <p><b>200</b> - Success - return response of type TaxRates array newly created TaxRate
     * <p><b>400</b> - A failed request due to validation error
     * @param taxRates The taxRates parameter
     * @return TaxRates
@@ -2028,7 +2049,8 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to create tracking categories
+    * <p><b>200</b> - Success - return response of type TrackingCategories array of newly created TrackingCategory
     * <p><b>400</b> - A failed request due to validation error
     * @param trackingCategory The trackingCategory parameter
     * @return TrackingCategories
@@ -2057,9 +2079,10 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to create options for a specified tracking category
+    * <p><b>200</b> - Success - return response of type TrackingOptions array of options for a specified category
     * <p><b>400</b> - A failed request due to validation error
-    * @param trackingCategoryID The trackingCategoryID parameter
+    * @param trackingCategoryID Unique identifier for a TrackingCategory
     * @param trackingOption The trackingOption parameter
     * @return TrackingOptions
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -2212,9 +2235,10 @@ public class AccountingApi {
         }
     }
   /**
+    * Allows you to delete a specified item
     * <p><b>204</b> - Success - return response 204 no content
     * <p><b>400</b> - A failed request due to validation error
-    * @param itemID The itemID parameter
+    * @param itemID Unique identifier for an Item
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public void deleteItem(UUID itemID) throws IOException {
@@ -2248,9 +2272,10 @@ public class AccountingApi {
         }
     }
   /**
+    * Allows you to delete a specified linked transactions (billable expenses)
     * <p><b>204</b> - Success - return response 204 no content
     * <p><b>400</b> - A failed request due to validation error
-    * @param linkedTransactionID The linkedTransactionID parameter
+    * @param linkedTransactionID Unique identifier for a LinkedTransaction
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public void deleteLinkedTransaction(UUID linkedTransactionID) throws IOException {
@@ -2284,9 +2309,10 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to delete tracking categories
+    * <p><b>200</b> - Success - return response of type TrackingCategories array of deleted TrackingCategory
     * <p><b>400</b> - A failed request due to validation error
-    * @param trackingCategoryID The trackingCategoryID parameter
+    * @param trackingCategoryID Unique identifier for a TrackingCategory
     * @return TrackingCategories
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -2322,10 +2348,11 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to delete a specified option for a specified tracking category
+    * <p><b>200</b> - Success - return response of type TrackingOptions array of remaining options for a specified category
     * <p><b>400</b> - A failed request due to validation error
-    * @param trackingCategoryID The trackingCategoryID parameter
-    * @param trackingOptionID The trackingOptionID parameter
+    * @param trackingCategoryID Unique identifier for a TrackingCategory
+    * @param trackingOptionID Unique identifier for a Tracking Option
     * @return TrackingOptions
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -2365,7 +2392,7 @@ public class AccountingApi {
     * Allows you to email a copy of invoice to related Contact
     * <p><b>204</b> - Success - return response 204 no content
     * <p><b>400</b> - A failed request due to validation error
-    * @param invoiceID The invoiceID parameter
+    * @param invoiceID Unique identifier for an Invoice
     * @param requestEmpty The requestEmpty parameter
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -2441,7 +2468,7 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve Attachment on Account by Filename
-    * <p><b>200</b> - Success - return response of type binary
+    * <p><b>200</b> - Success - return response of attachment for Account as binary data
     * @param accountID Unique identifier for Account object
     * @param fileName Name of the attachment
     * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
@@ -2479,7 +2506,7 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve specific Attachment on Account
-    * <p><b>200</b> - Returns a binary string (ByteArray)
+    * <p><b>200</b> - Success - return response of attachment for Account as binary data
     * @param accountID Unique identifier for Account object
     * @param attachmentID Unique identifier for Attachment object
     * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
@@ -2627,7 +2654,7 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve Attachments on BankTransaction by Filename
-    * <p><b>200</b> - Success - return response of attachment as binary data
+    * <p><b>200</b> - Success - return response of attachment for BankTransaction as binary data
     * @param bankTransactionID Xero generated unique identifier for a bank transaction
     * @param fileName The name of the file being attached
     * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
@@ -2665,7 +2692,7 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve Attachments on a specific BankTransaction
-    * <p><b>200</b> - Success - return response of attachment as binary data
+    * <p><b>200</b> - Success - return response of attachment for BankTransaction as binary data
     * @param bankTransactionID Xero generated unique identifier for a bank transaction
     * @param attachmentID Xero generated unique identifier for an attachment
     * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
@@ -3252,7 +3279,7 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve Attachments on Contacts by file name
-    * <p><b>200</b> - Success - return response of type Attachments array with a specific Attachment
+    * <p><b>200</b> - Success - return response of attachment for Contact as binary data
     * @param contactID Unique identifier for a Contact
     * @param fileName Name for the file you are attaching
     * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
@@ -3290,7 +3317,7 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve Attachments on Contacts
-    * <p><b>200</b> - Success - return response of type Attachments array with a specific Attachment
+    * <p><b>200</b> - Success - return response of attachment for Contact as binary data
     * @param contactID Unique identifier for a Contact
     * @param attachmentID Unique identifier for a Attachment
     * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
@@ -3630,7 +3657,7 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve Attachments on CreditNote by file name
-    * <p><b>200</b> - Success - return response of binary data from the Attachment to a Credit Note
+    * <p><b>200</b> - Success - return response of attachment for Credit Note as binary data
     * @param creditNoteID Unique identifier for a Credit Note
     * @param fileName Name of the file you are attaching to Credit Note
     * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
@@ -3668,7 +3695,7 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve Attachments on CreditNote
-    * <p><b>200</b> - Success - return response of type Attachments array with specific Attachment for specific Credit Note
+    * <p><b>200</b> - Success - return response of attachment for Credit Note as binary data
     * @param creditNoteID Unique identifier for a Credit Note
     * @param attachmentID Unique identifier for a Attachment
     * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
@@ -3819,7 +3846,7 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve currencies for your organisation
-    * <p><b>200</b> - A successful response
+    * <p><b>200</b> - Success - return response of type Currencies array with all Currencies
     * @param where Filter by an any element
     * @param order Order by an any element
     * @return Currencies
@@ -3851,9 +3878,9 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve employees to see their status
-    * <p><b>200</b> - A successful request
-    * @param employeeID The employeeID parameter
+    * Allows you to retrieve a specific employee used in Xero payrun
+    * <p><b>200</b> - Success - return response of type Employees array with specified Employee
+    * @param employeeID Unique identifier for a Employee
     * @return Employees
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -3889,8 +3916,8 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve, add and update employees used in Xero payrun functionality
-    * <p><b>200</b> - A successful response
+    * Allows you to retrieve employees used in Xero payrun
+    * <p><b>200</b> - Success - return response of type Employees array with all Employee
     * @param ifModifiedSince Only records created or modified since this timestamp will be returned
     * @param where Filter by an any element
     * @param order Order by an any element
@@ -3923,9 +3950,9 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve expense claims to see their status
-    * <p><b>200</b> - A successful request
-    * @param expenseClaimID The expenseClaimID parameter
+    * Allows you to retrieve a specified expense claim
+    * <p><b>200</b> - Success - return response of type ExpenseClaims array with specified ExpenseClaim
+    * @param expenseClaimID Unique identifier for a ExpenseClaim
     * @return ExpenseClaims
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -3962,8 +3989,8 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve a history records of an ExpenseClaim
-    * <p><b>200</b> - A successful request
-    * @param expenseClaimID The expenseClaimID parameter
+    * <p><b>200</b> - Success - return response of type HistoryRecords array with all HistoryRecord for specific ExpenseClaim
+    * @param expenseClaimID Unique identifier for a ExpenseClaim
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -3999,8 +4026,8 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve expense claims to see their status
-    * <p><b>200</b> - A successful response
+    * Allows you to retrieve expense claims
+    * <p><b>200</b> - Success - return response of type ExpenseClaims array with all ExpenseClaims
     * @param ifModifiedSince Only records created or modified since this timestamp will be returned
     * @param where Filter by an any element
     * @param order Order by an any element
@@ -4033,9 +4060,9 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve any sales invoices or purchase bills
-    * <p><b>200</b> - A successful request
-    * @param invoiceID The invoiceID parameter
+    * Allows you to retrieve a specified sales invoice or purchase bill
+    * <p><b>200</b> - Success - return response of type Invoices array with specified Invoices
+    * @param invoiceID Unique identifier for an Invoice
     * @return Invoices
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -4072,8 +4099,8 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve invoices or purchase bills as PDF files
-    * <p><b>200</b> - A successful request
-    * @param invoiceID The invoiceID parameter
+    * <p><b>200</b> - Success - return response of byte array pdf version of specified Invoices
+    * @param invoiceID Unique identifier for an Invoice
     * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -4107,10 +4134,10 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve Attachments on invoices or purchase bills
-    * <p><b>200</b> - A successful request
-    * @param invoiceID The invoiceID parameter
-    * @param fileName The fileName parameter
+    * Allows you to retrieve Attachment on invoices or purchase bills by it&#39;s filename
+    * <p><b>200</b> - Success - return response of attachment for Invoice as binary data
+    * @param invoiceID Unique identifier for an Invoice
+    * @param fileName Name of the file you are attaching
     * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -4145,10 +4172,10 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve Attachments on invoices or purchase bills
-    * <p><b>200</b> - A successful request
-    * @param invoiceID The invoiceID parameter
-    * @param attachmentID The attachmentID parameter
+    * Allows you to retrieve a specified Attachment on invoices or purchase bills by it&#39;s ID
+    * <p><b>200</b> - Success - return response of attachment for Invoice as binary data
+    * @param invoiceID Unique identifier for an Invoice
+    * @param attachmentID Unique identifier for an Attachment
     * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -4184,8 +4211,8 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve Attachments on invoices or purchase bills
-    * <p><b>200</b> - A successful request
-    * @param invoiceID The invoiceID parameter
+    * <p><b>200</b> - Success - return response of type Attachments array of Attachments for specified Invoices
+    * @param invoiceID Unique identifier for an Invoice
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -4222,8 +4249,8 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve a history records of an invoice
-    * <p><b>200</b> - A successful request
-    * @param invoiceID The invoiceID parameter
+    * <p><b>200</b> - Success - return response of type HistoryRecords array with all HistoryRecord for specific Invoice
+    * @param invoiceID Unique identifier for an Invoice
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -4260,7 +4287,7 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve invoice reminder settings
-    * <p><b>200</b> - A successful request
+    * <p><b>200</b> - Success - return response of Invoice Reminders
     * @return InvoiceReminders
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -4286,7 +4313,7 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve any sales invoices or purchase bills
-    * <p><b>200</b> - A successful response
+    * <p><b>200</b> - Success - return response of type Invoices array with all Invoices
     * @param ifModifiedSince Only records created or modified since this timestamp will be returned
     * @param where Filter by an any element
     * @param order Order by an any element
@@ -4340,9 +4367,9 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve any items
-    * <p><b>200</b> - A successful request
-    * @param itemID The itemID parameter
+    * Allows you to retrieve a specified item
+    * <p><b>200</b> - Success - return response of type Items array with specified Item
+    * @param itemID Unique identifier for an Item
     * @return Items
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -4379,8 +4406,8 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve history for items
-    * <p><b>200</b> - A successful request
-    * @param itemID The itemID parameter
+    * <p><b>200</b> - Success - return response of type HistoryRecords array with all HistoryRecord for specific Item
+    * @param itemID Unique identifier for an Item
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -4417,7 +4444,7 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve any items
-    * <p><b>200</b> - A successful response
+    * <p><b>200</b> - Success - return response of type Items array with all Item
     * @param ifModifiedSince Only records created or modified since this timestamp will be returned
     * @param where Filter by an any element
     * @param order Order by an any element
@@ -4450,9 +4477,9 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve any journals.
-    * <p><b>200</b> - A successful request
-    * @param journalID The journalID parameter
+    * Allows you to retrieve a specified journals.
+    * <p><b>200</b> - Success - return response of type Journals array with specified Journal
+    * @param journalID Unique identifier for a Journal
     * @return Journals
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -4489,10 +4516,10 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve any journals.
-    * <p><b>200</b> - A successful response
+    * <p><b>200</b> - Success - return response of type Journals array with all Journals
     * @param ifModifiedSince Only records created or modified since this timestamp will be returned
-    * @param offset The offset parameter
-    * @param paymentsOnly The paymentsOnly parameter
+    * @param offset Offset by a specified journal number. e.g. journals with a JournalNumber greater than the offset will be returned
+    * @param paymentsOnly Filter to retrieve journals on a cash basis. Journals are returned on an accrual basis by default.
     * @return Journals
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -4522,9 +4549,9 @@ public class AccountingApi {
         }
     }
   /**
-    * Retrieve linked transactions (billable expenses)
-    * <p><b>200</b> - A successful request
-    * @param linkedTransactionID The linkedTransactionID parameter
+    * Allows you to retrieve a specified linked transactions (billable expenses)
+    * <p><b>200</b> - Success - return response of type LinkedTransactions array with a specified LinkedTransaction
+    * @param linkedTransactionID Unique identifier for a LinkedTransaction
     * @return LinkedTransactions
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -4561,7 +4588,7 @@ public class AccountingApi {
     }
   /**
     * Retrieve linked transactions (billable expenses)
-    * <p><b>200</b> - A successful response
+    * <p><b>200</b> - Success - return response of type LinkedTransactions array with all LinkedTransaction
     * @param page Up to 100 linked transactions will be returned in a single API call. Use the page parameter to specify the page to be returned e.g. page&#x3D;1.
     * @param linkedTransactionID The Xero identifier for an Linked Transaction
     * @param sourceTransactionID Filter by the SourceTransactionID. Get all the linked transactions created from a particular ACCPAY invoice
@@ -4605,9 +4632,9 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve any manual journals
-    * <p><b>200</b> - A successful request
-    * @param manualJournalID The manualJournalID parameter
+    * Allows you to retrieve a specified manual journals
+    * <p><b>200</b> - Success - return response of type ManualJournals array with a specified ManualJournals
+    * @param manualJournalID Unique identifier for a ManualJournal
     * @return ManualJournals
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -4643,10 +4670,10 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve Attachments on ManualJournal on file name
-    * <p><b>200</b> - A successful request
-    * @param manualJournalID The manualJournalID parameter
-    * @param fileName The fileName parameter
+    * Allows you to retrieve specified Attachment on ManualJournal by file name
+    * <p><b>200</b> - Success - return response of attachment for Manual Journal as binary data
+    * @param manualJournalID Unique identifier for a ManualJournal
+    * @param fileName The name of the file being attached to a ManualJournal
     * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -4681,10 +4708,10 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve Attachments on ManualJournals
-    * <p><b>200</b> - A successful request
-    * @param manualJournalID The manualJournalID parameter
-    * @param attachmentID The attachmentID parameter
+    * Allows you to retrieve specified Attachment on ManualJournals
+    * <p><b>200</b> - Success - return response of attachment for Manual Journal as binary data
+    * @param manualJournalID Unique identifier for a ManualJournal
+    * @param attachmentID Unique identifier for a Attachment
     * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -4720,8 +4747,8 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve Attachment for manual journals
-    * <p><b>200</b> - A successful request
-    * @param manualJournalID The manualJournalID parameter
+    * <p><b>200</b> - Success - return response of type Attachments array with all Attachments for a ManualJournals
+    * @param manualJournalID Unique identifier for a ManualJournal
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -4758,7 +4785,7 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve any manual journals
-    * <p><b>200</b> - A successful response
+    * <p><b>200</b> - Success - return response of type ManualJournals array with a all ManualJournals
     * @param ifModifiedSince Only records created or modified since this timestamp will be returned
     * @param where Filter by an any element
     * @param order Order by an any element
@@ -4795,8 +4822,8 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve a URL to an online invoice
-    * <p><b>200</b> - A successful request
-    * @param invoiceID The invoiceID parameter
+    * <p><b>200</b> - Success - return response of type OnlineInvoice array with one OnlineInvoice
+    * @param invoiceID Unique identifier for an Invoice
     * @return OnlineInvoices
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -4832,8 +4859,8 @@ public class AccountingApi {
         }
     }
   /**
-    * GET a Organisation
-    * <p><b>200</b> - A successful request
+    * Allows you to retrieve Organisation details by short code
+    * <p><b>200</b> - Success - return response of type Organisation array with specified Organisation
     * @param shortCode The shortCode parameter
     * @return Organisations
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -4870,8 +4897,8 @@ public class AccountingApi {
         }
     }
   /**
-    * GET a Organisation
-    * <p><b>200</b> - A successful response
+    * Allows you to retrieve Organisation details
+    * <p><b>200</b> - Success - return response of type Organisation array with all Organisation
     * @return Organisations
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -4896,9 +4923,9 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve overpayments
-    * <p><b>200</b> - A successful request
-    * @param overpaymentID The overpaymentID parameter
+    * Allows you to retrieve a specified overpayments
+    * <p><b>200</b> - Success - return response of type Overpayments array with specified Overpayments
+    * @param overpaymentID Unique identifier for a Overpayment
     * @return Overpayments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -4935,8 +4962,8 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve a history records of an Overpayment
-    * <p><b>200</b> - A successful request
-    * @param overpaymentID The overpaymentID parameter
+    * <p><b>200</b> - Success - return response of type HistoryRecords array with all HistoryRecord for Overpayments
+    * @param overpaymentID Unique identifier for a Overpayment
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -4973,7 +5000,7 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve overpayments
-    * <p><b>200</b> - A successful response
+    * <p><b>200</b> - Success - return response of type Overpayments array with all Overpayments
     * @param ifModifiedSince Only records created or modified since this timestamp will be returned
     * @param where Filter by an any element
     * @param order Order by an any element
@@ -5009,9 +5036,9 @@ public class AccountingApi {
         }
     }
   /**
-    * Retrieve either one or many payments for invoices and credit notes
-    * <p><b>200</b> - A successful request
-    * @param paymentID The paymentID parameter
+    * Allows you to retrieve a specified payment for invoices and credit notes
+    * <p><b>200</b> - Success - return response of type Payments array for specified Payment
+    * @param paymentID Unique identifier for a Payment
     * @return Payments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -5047,9 +5074,9 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve a history records of an invoice
-    * <p><b>200</b> - A successful request
-    * @param paymentID The paymentID parameter
+    * Allows you to retrieve history records of a payment
+    * <p><b>200</b> - Success - return response of type HistoryRecords array with all HistoryRecord for Payments
+    * @param paymentID Unique identifier for a Payment
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -5085,8 +5112,8 @@ public class AccountingApi {
         }
     }
   /**
-    * Retrieve either one or many payment services
-    * <p><b>200</b> - A successful response
+    * Allows you to retrieve payment services
+    * <p><b>200</b> - Success - return response of type PaymentServices array for all PaymentService
     * @return PaymentServices
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -5111,8 +5138,8 @@ public class AccountingApi {
         }
     }
   /**
-    * Retrieve either one or many payments for invoices and credit notes
-    * <p><b>200</b> - A successful response
+    * Allows you to retrieve payments for invoices and credit notes
+    * <p><b>200</b> - Success - return response of type Payments array for all Payments
     * @param ifModifiedSince Only records created or modified since this timestamp will be returned
     * @param where Filter by an any element
     * @param order Order by an any element
@@ -5145,9 +5172,9 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve prepayments
-    * <p><b>200</b> - A successful request
-    * @param prepaymentID The prepaymentID parameter
+    * Allows you to retrieve a specified prepayments
+    * <p><b>200</b> - Success - return response of type Prepayments array for a specified Prepayment
+    * @param prepaymentID Unique identifier for a PrePayment
     * @return Prepayments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -5184,8 +5211,8 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve a history records of an Prepayment
-    * <p><b>200</b> - A successful request
-    * @param prepaymentID The prepaymentID parameter
+    * <p><b>200</b> - Success - return response of type HistoryRecords array with all HistoryRecord for PrePayment
+    * @param prepaymentID Unique identifier for a PrePayment
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -5222,7 +5249,7 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve prepayments
-    * <p><b>200</b> - A successful response
+    * <p><b>200</b> - Success - return response of type Prepayments array for all Prepayment
     * @param ifModifiedSince Only records created or modified since this timestamp will be returned
     * @param where Filter by an any element
     * @param order Order by an any element
@@ -5258,9 +5285,9 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve purchase orders
-    * <p><b>200</b> - A successful request
-    * @param purchaseOrderID The purchaseOrderID parameter
+    * Allows you to retrieve a specified purchase orders
+    * <p><b>200</b> - Success - return response of type PurchaseOrder array for specified PurchaseOrder
+    * @param purchaseOrderID Unique identifier for a PurchaseOrder
     * @return PurchaseOrders
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -5297,8 +5324,8 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve history for PurchaseOrder
-    * <p><b>200</b> - A successful request
-    * @param purchaseOrderID The purchaseOrderID parameter
+    * <p><b>200</b> - Success - return response of type HistoryRecords array for all HistoryRecord for PurchaseOrder
+    * @param purchaseOrderID Unique identifier for a PurchaseOrder
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -5335,7 +5362,7 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve purchase orders
-    * <p><b>200</b> - A successful response
+    * <p><b>200</b> - Success - return response of type PurchaseOrder array of all PurchaseOrder
     * @param ifModifiedSince Only records created or modified since this timestamp will be returned
     * @param status Filter by purchase order status
     * @param dateFrom Filter by purchase order date (e.g. GET https://.../PurchaseOrders?DateFrom&#x3D;2015-12-01&amp;DateTo&#x3D;2015-12-31
@@ -5377,9 +5404,9 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve draft expense claim receipts for any user
-    * <p><b>200</b> - A successful request
-    * @param receiptID The receiptID parameter
+    * Allows you to retrieve a specified draft expense claim receipts
+    * <p><b>200</b> - Success - return response of type Receipts array for a specified Receipt
+    * @param receiptID Unique identifier for a Receipt
     * @return Receipts
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -5415,10 +5442,10 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve Attachments on invoices or purchase bills
-    * <p><b>200</b> - A successful request
-    * @param receiptID The receiptID parameter
-    * @param fileName The fileName parameter
+    * Allows you to retrieve Attachments on expense claim receipts by file name
+    * <p><b>200</b> - Success - return response of attachment for Receipt as binary data
+    * @param receiptID Unique identifier for a Receipt
+    * @param fileName The name of the file being attached to the Receipt
     * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -5453,10 +5480,10 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve Attachments on Receipts
-    * <p><b>200</b> - A successful request
-    * @param receiptID The receiptID parameter
-    * @param attachmentID The attachmentID parameter
+    * Allows you to retrieve Attachments on expense claim receipts by ID
+    * <p><b>200</b> - Success - return response of attachment for Receipt as binary data
+    * @param receiptID Unique identifier for a Receipt
+    * @param attachmentID Unique identifier for a Attachment
     * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -5491,9 +5518,9 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve Attachments for expense claim receipts for any user
-    * <p><b>200</b> - A successful request
-    * @param receiptID The receiptID parameter
+    * Allows you to retrieve Attachments for expense claim receipts
+    * <p><b>200</b> - Success - return response of type Attachments array of Attachments for a specified Receipt
+    * @param receiptID Unique identifier for a Receipt
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -5530,8 +5557,8 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve a history records of an Receipt
-    * <p><b>200</b> - A successful request
-    * @param receiptID The receiptID parameter
+    * <p><b>200</b> - Success - return response of type HistoryRecords array of all HistoryRecord for Receipt
+    * @param receiptID Unique identifier for a Receipt
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -5568,7 +5595,7 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve draft expense claim receipts for any user
-    * <p><b>200</b> - A successful response
+    * <p><b>200</b> - Success - return response of type Receipts array for all Receipt
     * @param ifModifiedSince Only records created or modified since this timestamp will be returned
     * @param where Filter by an any element
     * @param order Order by an any element
@@ -5601,9 +5628,9 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve any repeating invoice templates
-    * <p><b>200</b> - A successful request
-    * @param repeatingInvoiceID The repeatingInvoiceID parameter
+    * Allows you to retrieve a specified repeating invoice
+    * <p><b>200</b> - Success - return response of type Repeating Invoices array with a specified Repeating Invoice
+    * @param repeatingInvoiceID Unique identifier for a Repeating Invoice
     * @return RepeatingInvoices
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -5639,10 +5666,10 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve Attachments on invoices or purchase bills
-    * <p><b>200</b> - A successful request
-    * @param repeatingInvoiceID The repeatingInvoiceID parameter
-    * @param fileName The fileName parameter
+    * Allows you to retrieve specified attachment on repeating invoices by file name
+    * <p><b>200</b> - Success - return response of attachment for Repeating Invoice as binary data
+    * @param repeatingInvoiceID Unique identifier for a Repeating Invoice
+    * @param fileName The name of the file being attached to a Repeating Invoice
     * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -5677,10 +5704,10 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve Attachments on RepeatingInvoices
-    * <p><b>200</b> - A successful request
-    * @param repeatingInvoiceID The repeatingInvoiceID parameter
-    * @param attachmentID The attachmentID parameter
+    * Allows you to retrieve a specified Attachments on repeating invoices
+    * <p><b>200</b> - Success - return response of attachment for Repeating Invoice as binary data
+    * @param repeatingInvoiceID Unique identifier for a Repeating Invoice
+    * @param attachmentID Unique identifier for a Attachment
     * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -5715,9 +5742,9 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve Attachments on repeating invoice templates
-    * <p><b>200</b> - A successful request
-    * @param repeatingInvoiceID The repeatingInvoiceID parameter
+    * Allows you to retrieve Attachments on repeating invoice
+    * <p><b>200</b> - Success - return response of type Attachments array with all Attachments for a specified Repeating Invoice
+    * @param repeatingInvoiceID Unique identifier for a Repeating Invoice
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -5753,9 +5780,9 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve history for RepeatingInvoice
-    * <p><b>200</b> - A successful request
-    * @param repeatingInvoiceID The repeatingInvoiceID parameter
+    * Allows you to retrieve history for a repeating invoice
+    * <p><b>200</b> - Success - return response of type HistoryRecords array of all HistoryRecord for Repeating Invoice
+    * @param repeatingInvoiceID Unique identifier for a Repeating Invoice
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -5791,8 +5818,8 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve any repeating invoice templates
-    * <p><b>200</b> - A successful response
+    * Allows you to retrieve any repeating invoices
+    * <p><b>200</b> - Success - return response of type Repeating Invoices array for all Repeating Invoice
     * @param where Filter by an any element
     * @param order Order by an any element
     * @return RepeatingInvoices
@@ -5825,11 +5852,11 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve report for AgedPayablesByContact
-    * <p><b>200</b> - A successful request
-    * @param contactId The contactId parameter
-    * @param date The date parameter
-    * @param fromDate The fromDate parameter
-    * @param toDate The toDate parameter
+    * <p><b>200</b> - Success - return response of type ReportWithRows
+    * @param contactId Unique identifier for a Contact
+    * @param date The date of the Aged Payables By Contact report
+    * @param fromDate The from date of the Aged Payables By Contact report
+    * @param toDate The to date of the Aged Payables By Contact report
     * @return ReportWithRows
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -5864,11 +5891,11 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve report for AgedReceivablesByContact
-    * <p><b>200</b> - A successful request
-    * @param contactId The contactId parameter
-    * @param date The date parameter
-    * @param fromDate The fromDate parameter
-    * @param toDate The toDate parameter
+    * <p><b>200</b> - Success - return response of type ReportWithRows
+    * @param contactId Unique identifier for a Contact
+    * @param date The date of the Aged Receivables By Contact report
+    * @param fromDate The from date of the Aged Receivables By Contact report
+    * @param toDate The to date of the Aged Receivables By Contact report
     * @return ReportWithRows
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -5903,8 +5930,8 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve report for BAS only valid for AU orgs
-    * <p><b>200</b> - A successful request
-    * @param reportID The reportID parameter
+    * <p><b>200</b> - Success - return response of type ReportWithRows
+    * @param reportID Unique identifier for a Report
     * @return ReportWithRows
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -5941,7 +5968,7 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve report for BAS only valid for AU orgs
-    * <p><b>200</b> - A successful request
+    * <p><b>200</b> - Success - return response of type ReportWithRows
     * @return ReportWithRows
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -5967,14 +5994,14 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve report for BalanceSheet
-    * <p><b>200</b> - A successful request
-    * @param date The date parameter
-    * @param periods The periods parameter
+    * <p><b>200</b> - Success - return response of type ReportWithRows
+    * @param date The date of the Balance Sheet report
+    * @param periods The number of periods for the Balance Sheet report
     * @param timeframe The period size to compare to (MONTH, QUARTER, YEAR)
-    * @param trackingOptionID1 The trackingOptionID1 parameter
-    * @param trackingOptionID2 The trackingOptionID2 parameter
-    * @param standardLayout The standardLayout parameter
-    * @param paymentsOnly The paymentsOnly parameter
+    * @param trackingOptionID1 The tracking option 1 for the Balance Sheet report
+    * @param trackingOptionID2 The tracking option 2 for the Balance Sheet report
+    * @param standardLayout The standard layout boolean for the Balance Sheet report
+    * @param paymentsOnly return a cash basis for the Balance Sheet report
     * @return ReportWithRows
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -6015,8 +6042,8 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve report for BankSummary
-    * <p><b>200</b> - A successful request
-    * @param date e.g. 2018-03-31
+    * <p><b>200</b> - Success - return response of type ReportWithRows
+    * @param date The date for the Bank Summary report e.g. 2018-03-31
     * @param period The number of periods to compare (integer between 1 and 12)
     * @param timeframe The period size to compare to (1&#x3D;month, 3&#x3D;quarter, 12&#x3D;year)
     * @return ReportWithRows
@@ -6052,7 +6079,7 @@ public class AccountingApi {
   /**
     * Allows you to retrieve report for Budget Summary
     * <p><b>200</b> - success- return a Report with Rows object
-    * @param date e.g. 2018-03-31
+    * @param date The date for the Bank Summary report e.g. 2018-03-31
     * @param period The number of periods to compare (integer between 1 and 12)
     * @param timeframe The period size to compare to (1&#x3D;month, 3&#x3D;quarter, 12&#x3D;year)
     * @return ReportWithRows
@@ -6087,8 +6114,8 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve report for ExecutiveSummary
-    * <p><b>200</b> - A successful request
-    * @param date e.g. 2018-03-31
+    * <p><b>200</b> - Success - return response of type ReportWithRows
+    * @param date The date for the Bank Summary report e.g. 2018-03-31
     * @return ReportWithRows
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -6117,17 +6144,17 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve report for ProfitAndLoss
-    * <p><b>200</b> - A successful request
-    * @param fromDate The fromDate parameter
-    * @param toDate The toDate parameter
+    * <p><b>200</b> - Success - return response of type ReportWithRows
+    * @param fromDate The from date for the ProfitAndLoss report e.g. 2018-03-31
+    * @param toDate The to date for the ProfitAndLoss report e.g. 2018-03-31
     * @param periods The number of periods to compare (integer between 1 and 12)
     * @param timeframe The period size to compare to (MONTH, QUARTER, YEAR)
-    * @param trackingCategoryID The trackingCategoryID parameter
-    * @param trackingCategoryID2 The trackingCategoryID2 parameter
-    * @param trackingOptionID The trackingOptionID parameter
-    * @param trackingOptionID2 The trackingOptionID2 parameter
-    * @param standardLayout The standardLayout parameter
-    * @param paymentsOnly The paymentsOnly parameter
+    * @param trackingCategoryID The trackingCategory 1 for the ProfitAndLoss report
+    * @param trackingCategoryID2 The trackingCategory 2 for the ProfitAndLoss report
+    * @param trackingOptionID The tracking option 1 for the ProfitAndLoss report
+    * @param trackingOptionID2 The tracking option 2 for the ProfitAndLoss report
+    * @param standardLayout Return the standard layout for the ProfitAndLoss report
+    * @param paymentsOnly Return cash only basis for the ProfitAndLoss report
     * @return ReportWithRows
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -6174,8 +6201,8 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve report for TenNinetyNine
-    * <p><b>200</b> - A successful request
-    * @param reportYear The reportYear parameter
+    * <p><b>200</b> - Success - return response of type Reports
+    * @param reportYear The year of the 1099 report
     * @return Reports
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -6204,9 +6231,9 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve report for TrialBalance
-    * <p><b>200</b> - A successful request
-    * @param date The date parameter
-    * @param paymentsOnly The paymentsOnly parameter
+    * <p><b>200</b> - Success - return response of type ReportWithRows
+    * @param date The date for the Trial Balance report e.g. 2018-03-31
+    * @param paymentsOnly Return cash only basis for the Trial Balance report
     * @return ReportWithRows
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -6236,8 +6263,8 @@ public class AccountingApi {
         }
     }
   /**
-    * GET a TaxRate
-    * <p><b>200</b> - A successful response
+    * Allows you to retrieve Tax Rates
+    * <p><b>200</b> - Success - return response of type TaxRates array with TaxRates
     * @param where Filter by an any element
     * @param order Order by an any element
     * @param taxType Filter by tax type
@@ -6272,8 +6299,8 @@ public class AccountingApi {
         }
     }
   /**
-    * Retrieve tracking categories and options for a Xero organisation
-    * <p><b>200</b> - A successful response
+    * Allows you to retrieve tracking categories and options
+    * <p><b>200</b> - Success - return response of type TrackingCategories array of TrackingCategory
     * @param where Filter by an any element
     * @param order Order by an any element
     * @param includeArchived e.g. includeArchived&#x3D;true - Categories and options with a status of ARCHIVED will be included in the response
@@ -6308,9 +6335,9 @@ public class AccountingApi {
         }
     }
   /**
-    * Retrieve tracking categories and options for a Xero organisation
-    * <p><b>200</b> - A successful request
-    * @param trackingCategoryID The trackingCategoryID parameter
+    * Allows you to retrieve tracking categories and options for specified category
+    * <p><b>200</b> - Success - return response of type TrackingCategories array of specified TrackingCategory
+    * @param trackingCategoryID Unique identifier for a TrackingCategory
     * @return TrackingCategories
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -6346,9 +6373,9 @@ public class AccountingApi {
         }
     }
   /**
-    * GET a User
-    * <p><b>200</b> - A successful request
-    * @param userID The userID parameter
+    * Allows you to retrieve a specified user
+    * <p><b>200</b> - Success - return response of type Users array of specified User
+    * @param userID Unique identifier for a User
     * @return Users
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -6384,15 +6411,15 @@ public class AccountingApi {
         }
     }
   /**
-    * GET a User
-    * <p><b>200</b> - A successful response
+    * Allows you to retrieve users
+    * <p><b>200</b> - Success - return response of type Users array of all User
     * @param ifModifiedSince Only records created or modified since this timestamp will be returned
     * @param where Filter by an any element
     * @param order Order by an any element
-    * @return Users
+    * @return List&lt;Users&gt;
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Users getUsers(OffsetDateTime ifModifiedSince, String where, String order) throws IOException {
+    public List<Users> getUsers(OffsetDateTime ifModifiedSince, String where, String order) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -6408,7 +6435,7 @@ public class AccountingApi {
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
 
-            TypeReference<Users> typeRef = new TypeReference<Users>() {};
+            TypeReference<List<Users>> typeRef = new TypeReference<List<Users>>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
@@ -6465,7 +6492,7 @@ public class AccountingApi {
     * <p><b>400</b> - Validation Error - some data was incorrect returns response of type Error
     * @param accountID Unique identifier for Account object
     * @param fileName Name of the attachment
-    * @param body Request of type ByteArray
+    * @param body Byte array of file in body of request
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -6550,7 +6577,7 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param bankTransactionID Xero generated unique identifier for a bank transaction
     * @param fileName The name of the file being attached
-    * @param body The body parameter
+    * @param body Byte array of file in body of request
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -6592,7 +6619,7 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param bankTransferID Xero generated unique identifier for a bank transfer
     * @param fileName The name of the file being attached to a Bank Transfer
-    * @param body The body parameter
+    * @param body Byte array of file in body of request
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -6675,7 +6702,7 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param contactID Unique identifier for a Contact
     * @param fileName Name for the file you are attaching
-    * @param body The body parameter
+    * @param body Byte array of file in body of request
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -6802,7 +6829,7 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param creditNoteID Unique identifier for a Credit Note
     * @param fileName Name of the file you are attaching to Credit Note
-    * @param body Byte array of Attachment file in body of request
+    * @param body Byte array of file in body of request
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -6840,9 +6867,10 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to update a specific employee used in Xero payrun
+    * <p><b>200</b> - Success - return response of type Employees array with updated Employee
     * <p><b>400</b> - A failed request due to validation error
-    * @param employeeID The employeeID parameter
+    * @param employeeID Unique identifier for a Employee
     * @param employees The employees parameter
     * @return Employees
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -6881,9 +6909,10 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to update specified expense claims
+    * <p><b>200</b> - Success - return response of type ExpenseClaims array with updated ExpenseClaim
     * <p><b>400</b> - A failed request due to validation error
-    * @param expenseClaimID The expenseClaimID parameter
+    * @param expenseClaimID Unique identifier for a ExpenseClaim
     * @param expenseClaims The expenseClaims parameter
     * @return ExpenseClaims
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -6922,9 +6951,10 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to update a specified sales invoices or purchase bills
+    * <p><b>200</b> - Success - return response of type Invoices array with updated Invoice
     * <p><b>400</b> - A failed request due to validation error
-    * @param invoiceID The invoiceID parameter
+    * @param invoiceID Unique identifier for an Invoice
     * @param invoices The invoices parameter
     * @return Invoices
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -6963,11 +6993,12 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to update Attachment on invoices or purchase bills by it&#39;s filename
+    * <p><b>200</b> - Success - return response of type Attachments array with updated Attachment
     * <p><b>400</b> - A failed request due to validation error
-    * @param invoiceID The invoiceID parameter
-    * @param fileName The fileName parameter
-    * @param body The body parameter
+    * @param invoiceID Unique identifier for an Invoice
+    * @param fileName Name of the file you are attaching
+    * @param body Byte array of file in body of request
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -7005,9 +7036,10 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to udpate a specified item
+    * <p><b>200</b> - Success - return response of type Items array with updated Item
     * <p><b>400</b> - A failed request due to validation error
-    * @param itemID The itemID parameter
+    * @param itemID Unique identifier for an Item
     * @param items The items parameter
     * @return Items
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -7046,9 +7078,10 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to update a specified linked transactions (billable expenses)
+    * <p><b>200</b> - Success - return response of type LinkedTransactions array with updated LinkedTransaction
     * <p><b>400</b> - A failed request due to validation error
-    * @param linkedTransactionID The linkedTransactionID parameter
+    * @param linkedTransactionID Unique identifier for a LinkedTransaction
     * @param linkedTransactions The linkedTransactions parameter
     * @return LinkedTransactions
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -7087,9 +7120,10 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to update a specified manual journal
+    * <p><b>200</b> - Success - return response of type ManualJournals array with an updated ManualJournal
     * <p><b>400</b> - A failed request due to validation error
-    * @param manualJournalID The manualJournalID parameter
+    * @param manualJournalID Unique identifier for a ManualJournal
     * @param manualJournals The manualJournals parameter
     * @return ManualJournals
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -7128,11 +7162,12 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to update a specified Attachment on ManualJournal by file name
+    * <p><b>200</b> - Success - return response of type Attachments array with an update Attachment for a ManualJournals
     * <p><b>400</b> - A failed request due to validation error
-    * @param manualJournalID The manualJournalID parameter
-    * @param fileName The fileName parameter
-    * @param body The body parameter
+    * @param manualJournalID Unique identifier for a ManualJournal
+    * @param fileName The name of the file being attached to a ManualJournal
+    * @param body Byte array of file in body of request
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -7170,9 +7205,10 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to update a specified payment for invoices and credit notes
+    * <p><b>200</b> - Success - return response of type Payments array for updated Payment
     * <p><b>400</b> - A failed request due to validation error
-    * @param paymentID The paymentID parameter
+    * @param paymentID Unique identifier for a Payment
     * @param payments The payments parameter
     * @return Payments
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -7211,9 +7247,10 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to update a specified purchase order
+    * <p><b>200</b> - Success - return response of type PurchaseOrder array for updated PurchaseOrder
     * <p><b>400</b> - A failed request due to validation error
-    * @param purchaseOrderID The purchaseOrderID parameter
+    * @param purchaseOrderID Unique identifier for a PurchaseOrder
     * @param purchaseOrders The purchaseOrders parameter
     * @return PurchaseOrders
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -7252,9 +7289,10 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to retrieve a specified draft expense claim receipts
+    * <p><b>200</b> - Success - return response of type Receipts array for updated Receipt
     * <p><b>400</b> - A failed request due to validation error
-    * @param receiptID The receiptID parameter
+    * @param receiptID Unique identifier for a Receipt
     * @param receipts The receipts parameter
     * @return Receipts
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -7293,11 +7331,12 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to update Attachment on expense claim receipts by file name
+    * <p><b>200</b> - Success - return response of type Attachments array with updated Attachment for a specified Receipt
     * <p><b>400</b> - A failed request due to validation error
-    * @param receiptID The receiptID parameter
-    * @param fileName The fileName parameter
-    * @param body The body parameter
+    * @param receiptID Unique identifier for a Receipt
+    * @param fileName The name of the file being attached to the Receipt
+    * @param body Byte array of file in body of request
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -7335,11 +7374,12 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to update specified attachment on repeating invoices by file name
+    * <p><b>200</b> - Success - return response of type Attachments array with specified Attachment for a specified Repeating Invoice
     * <p><b>400</b> - A failed request due to validation error
-    * @param repeatingInvoiceID The repeatingInvoiceID parameter
-    * @param fileName The fileName parameter
-    * @param body The body parameter
+    * @param repeatingInvoiceID Unique identifier for a Repeating Invoice
+    * @param fileName The name of the file being attached to a Repeating Invoice
+    * @param body Byte array of file in body of request
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
@@ -7377,7 +7417,8 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to update Tax Rates
+    * <p><b>200</b> - Success - return response of type TaxRates array updated TaxRate
     * <p><b>400</b> - A failed request due to validation error
     * @param taxRates The taxRates parameter
     * @return TaxRates
@@ -7406,9 +7447,10 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - A successful request
+    * Allows you to update tracking categories
+    * <p><b>200</b> - Success - return response of type TrackingCategories array of updated TrackingCategory
     * <p><b>400</b> - A failed request due to validation error
-    * @param trackingCategoryID The trackingCategoryID parameter
+    * @param trackingCategoryID Unique identifier for a TrackingCategory
     * @param trackingCategory The trackingCategory parameter
     * @return TrackingCategories
     * @throws IOException if an error occurs while attempting to invoke the API
