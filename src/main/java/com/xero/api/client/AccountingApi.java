@@ -6416,10 +6416,10 @@ public class AccountingApi {
     * @param ifModifiedSince Only records created or modified since this timestamp will be returned
     * @param where Filter by an any element
     * @param order Order by an any element
-    * @return List&lt;Users&gt;
+    * @return Users
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public List<Users> getUsers(OffsetDateTime ifModifiedSince, String where, String order) throws IOException {
+    public Users getUsers(OffsetDateTime ifModifiedSince, String where, String order) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -6435,7 +6435,7 @@ public class AccountingApi {
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
 
-            TypeReference<List<Users>> typeRef = new TypeReference<List<Users>>() {};
+            TypeReference<Users> typeRef = new TypeReference<Users>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
