@@ -115,10 +115,10 @@ public class Error {
   }
 
    /**
-   * Arry of Elements of validation Errors
+   * Array of Elements of validation Errors
    * @return elements
   **/
-  @ApiModelProperty(value = "Arry of Elements of validation Errors")
+  @ApiModelProperty(value = "Array of Elements of validation Errors")
   public List<Element> getElements() {
     return elements;
   }

@@ -37,8 +37,16 @@ public class TrackingCategory {
   private UUID trackingCategoryID;
 
   
+  @JsonProperty("TrackingOptionID")
+  private UUID trackingOptionID;
+
+  
   @JsonProperty("Name")
   private String name;
+
+  
+  @JsonProperty("Option")
+  private String option;
 
   /**
    * The status of a tracking category
@@ -89,16 +97,34 @@ public class TrackingCategory {
   }
 
    /**
-   * The Xero identifier for a tracking categorye.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9
+   * The Xero identifier for a tracking category e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9
    * @return trackingCategoryID
   **/
-  @ApiModelProperty(value = "The Xero identifier for a tracking categorye.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9")
+  @ApiModelProperty(value = "The Xero identifier for a tracking category e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9")
   public UUID getTrackingCategoryID() {
     return trackingCategoryID;
   }
 
   public void setTrackingCategoryID(UUID trackingCategoryID) {
     this.trackingCategoryID = trackingCategoryID;
+  }
+
+  public TrackingCategory trackingOptionID(UUID trackingOptionID) {
+    this.trackingOptionID = trackingOptionID;
+    return this;
+  }
+
+   /**
+   * The Xero identifier for a tracking option e.g. dc54c220-0140-495a-b925-3246adc0075f
+   * @return trackingOptionID
+  **/
+  @ApiModelProperty(value = "The Xero identifier for a tracking option e.g. dc54c220-0140-495a-b925-3246adc0075f")
+  public UUID getTrackingOptionID() {
+    return trackingOptionID;
+  }
+
+  public void setTrackingOptionID(UUID trackingOptionID) {
+    this.trackingOptionID = trackingOptionID;
   }
 
   public TrackingCategory name(String name) {
@@ -117,6 +143,24 @@ public class TrackingCategory {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public TrackingCategory option(String option) {
+    this.option = option;
+    return this;
+  }
+
+   /**
+   * The option name of the tracking option e.g. East, West (max length &#x3D; 100)
+   * @return option
+  **/
+  @ApiModelProperty(value = "The option name of the tracking option e.g. East, West (max length = 100)")
+  public String getOption() {
+    return option;
+  }
+
+  public void setOption(String option) {
+    this.option = option;
   }
 
   public TrackingCategory status(StatusEnum status) {
@@ -174,14 +218,16 @@ public class TrackingCategory {
     }
     TrackingCategory trackingCategory = (TrackingCategory) o;
     return Objects.equals(this.trackingCategoryID, trackingCategory.trackingCategoryID) &&
+        Objects.equals(this.trackingOptionID, trackingCategory.trackingOptionID) &&
         Objects.equals(this.name, trackingCategory.name) &&
+        Objects.equals(this.option, trackingCategory.option) &&
         Objects.equals(this.status, trackingCategory.status) &&
         Objects.equals(this.options, trackingCategory.options);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(trackingCategoryID, name, status, options);
+    return Objects.hash(trackingCategoryID, trackingOptionID, name, option, status, options);
   }
 
 
@@ -191,7 +237,9 @@ public class TrackingCategory {
     sb.append("class TrackingCategory {\n");
     
     sb.append("    trackingCategoryID: ").append(toIndentedString(trackingCategoryID)).append("\n");
+    sb.append("    trackingOptionID: ").append(toIndentedString(trackingOptionID)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    option: ").append(toIndentedString(option)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    options: ").append(toIndentedString(options)).append("\n");
     sb.append("}");
