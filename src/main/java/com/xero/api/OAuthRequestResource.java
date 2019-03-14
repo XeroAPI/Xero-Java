@@ -283,6 +283,8 @@ public class OAuthRequestResource {
 		HttpPost httppost = new HttpPost(url.toString());
 		if (httpMethod == "POST") {
 			if(logger.isDebugEnabled()){
+				logger.debug("------------------ POST : URL -------------------");
+				logger.debug(url.toString());
 				logger.debug("------------------ POST : BODY  -------------------");
 				logger.debug(this.body);
 			}
@@ -300,6 +302,8 @@ public class OAuthRequestResource {
 		HttpPut httpput = new HttpPut(url.toString());
 		if (httpMethod == "PUT") {
 			if(logger.isDebugEnabled()){
+				logger.debug("------------------ PUT : URL -------------------");
+				logger.debug(url.toString());
 				logger.debug("------------------ PUT : BODY  -------------------");
 				logger.debug(this.body);
 			}

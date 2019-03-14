@@ -27,6 +27,7 @@ import com.xero.models.accounting.LineItem;
 import com.xero.models.accounting.Overpayment;
 import com.xero.models.accounting.Payment;
 import com.xero.models.accounting.Prepayment;
+import com.xero.models.accounting.ValidationError;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -255,6 +256,14 @@ public class Invoice {
   
   @JsonProperty("HasErrors")
   private Boolean hasErrors;
+
+  
+  @JsonProperty("StatusAttributeString")
+  private String statusAttributeString;
+
+  
+  @JsonProperty("ValidationErrors")
+  private List<ValidationError> validationErrors = null;
 
   public Invoice type(TypeEnum type) {
     this.type = type;
@@ -734,16 +743,60 @@ public class Invoice {
   }
 
    /**
-   * A boolean to indicate if a contact has an validation errors
+   * A boolean to indicate if a invoice has an validation errors
    * @return hasErrors
   **/
-  @ApiModelProperty(value = "A boolean to indicate if a contact has an validation errors")
+  @ApiModelProperty(value = "A boolean to indicate if a invoice has an validation errors")
   public Boolean getHasErrors() {
     return hasErrors;
   }
 
   public void setHasErrors(Boolean hasErrors) {
     this.hasErrors = hasErrors;
+  }
+
+  public Invoice statusAttributeString(String statusAttributeString) {
+    this.statusAttributeString = statusAttributeString;
+    return this;
+  }
+
+   /**
+   * A string to indicate if a invoice status
+   * @return statusAttributeString
+  **/
+  @ApiModelProperty(value = "A string to indicate if a invoice status")
+  public String getStatusAttributeString() {
+    return statusAttributeString;
+  }
+
+  public void setStatusAttributeString(String statusAttributeString) {
+    this.statusAttributeString = statusAttributeString;
+  }
+
+  public Invoice validationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+    return this;
+  }
+
+  public Invoice addValidationErrorsItem(ValidationError validationErrorsItem) {
+    if (this.validationErrors == null) {
+      this.validationErrors = new ArrayList<ValidationError>();
+    }
+    this.validationErrors.add(validationErrorsItem);
+    return this;
+  }
+
+   /**
+   * Displays array of validation error messages from the API
+   * @return validationErrors
+  **/
+  @ApiModelProperty(value = "Displays array of validation error messages from the API")
+  public List<ValidationError> getValidationErrors() {
+    return validationErrors;
+  }
+
+  public void setValidationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
   }
 
 
@@ -789,12 +842,14 @@ public class Invoice {
         Objects.equals(this.updatedDateUTC, invoice.updatedDateUTC) &&
         Objects.equals(this.creditNotes, invoice.creditNotes) &&
         Objects.equals(this.attachments, invoice.attachments) &&
-        Objects.equals(this.hasErrors, invoice.hasErrors);
+        Objects.equals(this.hasErrors, invoice.hasErrors) &&
+        Objects.equals(this.statusAttributeString, invoice.statusAttributeString) &&
+        Objects.equals(this.validationErrors, invoice.validationErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, contact, lineItems, date, dueDate, lineAmountTypes, invoiceNumber, reference, brandingThemeID, url, currencyCode, currencyRate, status, sentToContact, expectedPaymentDate, plannedPaymentDate, subTotal, totalTax, total, totalDiscount, invoiceID, hasAttachments, isDiscounted, payments, prepayments, overpayments, amountDue, amountPaid, fullyPaidOnDate, amountCredited, updatedDateUTC, creditNotes, attachments, hasErrors);
+    return Objects.hash(type, contact, lineItems, date, dueDate, lineAmountTypes, invoiceNumber, reference, brandingThemeID, url, currencyCode, currencyRate, status, sentToContact, expectedPaymentDate, plannedPaymentDate, subTotal, totalTax, total, totalDiscount, invoiceID, hasAttachments, isDiscounted, payments, prepayments, overpayments, amountDue, amountPaid, fullyPaidOnDate, amountCredited, updatedDateUTC, creditNotes, attachments, hasErrors, statusAttributeString, validationErrors);
   }
 
 
@@ -837,6 +892,8 @@ public class Invoice {
     sb.append("    creditNotes: ").append(toIndentedString(creditNotes)).append("\n");
     sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
     sb.append("    hasErrors: ").append(toIndentedString(hasErrors)).append("\n");
+    sb.append("    statusAttributeString: ").append(toIndentedString(statusAttributeString)).append("\n");
+    sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("}");
     return sb.toString();
   }

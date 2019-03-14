@@ -10,6 +10,7 @@ import com.xero.models.accounting.BankTransactions;
 import com.xero.models.accounting.BankTransfers;
 import com.xero.models.accounting.BatchPayments;
 import com.xero.models.accounting.BrandingThemes;
+import com.xero.models.accounting.CISOrgSetting;
 import com.xero.models.accounting.CISSettings;
 import com.xero.models.accounting.Contact;
 import com.xero.models.accounting.ContactGroups;
@@ -1014,8 +1015,7 @@ public class AccountingApi {
         }
     }
   /**
-    * <p><b>200</b> - Success - return response of type Currencies array with new Currency
-    * <p><b>400</b> - A failed request due to validation error
+    * <p><b>200</b> - Unsupported - return response incorrect exception, API is not able to create new Currency
     * @param currencies The currencies parameter
     * @return Currencies
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -1108,8 +1108,7 @@ public class AccountingApi {
     }
   /**
     * Allows you to create a history records of an ExpenseClaim
-    * <p><b>200</b> - Success - return response of type HistoryRecords array for newly created HistoryRecord for specific ExpenseClaim
-    * <p><b>400</b> - A failed request due to validation error
+    * <p><b>200</b> - Unsupported - return response incorrect exception, API is not able to create HistoryRecord for Expense Claims
     * @param expenseClaimID Unique identifier for a ExpenseClaim
     * @param historyRecords The historyRecords parameter
     * @return HistoryRecords
@@ -1299,8 +1298,7 @@ public class AccountingApi {
     }
   /**
     * Allows you to create a history record for items
-    * <p><b>200</b> - Success - return response of type HistoryRecords array with newly created HistoryRecord for specific Item
-    * <p><b>400</b> - A failed request due to validation error
+    * <p><b>200</b> - Unsupported - return response incorrect exception, API is not able to create HistoryRecord for Items
     * @param itemID Unique identifier for an Item
     * @param historyRecords The historyRecords parameter
     * @return HistoryRecords
@@ -1486,8 +1484,8 @@ public class AccountingApi {
     }
   /**
     * Allows you to create history records of an Overpayment
-    * <p><b>200</b> - Success - return response of type HistoryRecords array with newly created HistoryRecord for Overpayments
-    * <p><b>400</b> - A failed request due to validation error
+    * <p><b>200</b> - Unsupported - return response incorrect exception, API is not able to create HistoryRecord for Overpayments
+    * <p><b>400</b> - A failed request due to validation error - API is not able to create HistoryRecord for Overpayments
     * @param overpaymentID Unique identifier for a Overpayment
     * @param historyRecords The historyRecords parameter
     * @return HistoryRecords
@@ -1558,8 +1556,8 @@ public class AccountingApi {
     }
   /**
     * Allows you to create a history record for a payment
-    * <p><b>200</b> - Success - return response of type HistoryRecords array with newly created HistoryRecord for Payments
-    * <p><b>400</b> - A failed request due to validation error
+    * <p><b>200</b> - Unsupported - return response incorrect exception, API is not able to create HistoryRecord for Payments
+    * <p><b>400</b> - A failed request due to validation error - API is not able to create HistoryRecord for Payments
     * @param paymentID Unique identifier for a Payment
     * @param historyRecords The historyRecords parameter
     * @return HistoryRecords
@@ -1703,7 +1701,7 @@ public class AccountingApi {
   /**
     * Allows you to create a history record for an Prepayment
     * <p><b>200</b> - Success - return response of type HistoryRecords array for newly created HistoryRecord for PrePayment
-    * <p><b>400</b> - A failed request due to validation error
+    * <p><b>400</b> - Unsupported - return response incorrect exception, API is not able to create HistoryRecord for Expense Claims
     * @param prepaymentID Unique identifier for a PrePayment
     * @param historyRecords The historyRecords parameter
     * @return HistoryRecords
@@ -2301,6 +2299,48 @@ public class AccountingApi {
             String response = this.DATA(url, strBody, params, "DELETE");
 
                        
+
+        } catch (IOException e) {
+            throw xeroExceptionHandler.handleBadRequest(e.getMessage());
+        } catch (XeroApiException e) {
+            throw xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode(),JSONUtils.isJSONValid(e.getMessage()));
+        }
+    }
+  /**
+    * Allows you to update a specified payment for invoices and credit notes
+    * <p><b>200</b> - Success - return response of type Payments array for updated Payment
+    * <p><b>400</b> - A failed request due to validation error
+    * @param paymentID Unique identifier for a Payment
+    * @param payments The payments parameter
+    * @return Payments
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public Payments deletePayment(UUID paymentID, Payments payments) throws IOException {
+        try {
+            String strBody = null;
+            Map<String, String> params = null;
+            String correctPath = "/Payments/{PaymentID}";
+            // Hacky path manipulation to support different return types from same endpoint
+            String path = "/Payments/{PaymentID}";
+            String type = "/pdf";
+            if(path.toLowerCase().contains(type.toLowerCase()))
+            {
+                correctPath = path.replace("/pdf","");
+            } 
+
+            // create a map of path variables
+            final Map<String, String> uriVariables = new HashMap<String, String>();
+            uriVariables.put("PaymentID", paymentID.toString());
+            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+            String url = uriBuilder.buildFromMap(uriVariables).toString();
+
+            
+            strBody = apiClient.getObjectMapper().writeValueAsString(payments);
+
+            String response = this.DATA(url, strBody, params, "POST");
+
+            TypeReference<Payments> typeRef = new TypeReference<Payments>() {};
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -4859,19 +4899,19 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to retrieve Organisation details by short code
+    * Allows you To verify if an organisation is using contruction industry scheme, you can retrieve the CIS settings for the organistaion.
     * <p><b>200</b> - Success - return response of type Organisation array with specified Organisation
-    * @param shortCode The shortCode parameter
-    * @return Organisations
+    * @param organisationID The organisationID parameter
+    * @return CISOrgSetting
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Organisations getOrganisationByShortCode(UUID shortCode) throws IOException {
+    public CISOrgSetting getOrganisationCISSettings(UUID organisationID) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
-            String correctPath = "/Organisation/{ShortCode}";
+            String correctPath = "/Organisation/{OrganisationID}/CISSettings";
             // Hacky path manipulation to support different return types from same endpoint
-            String path = "/Organisation/{ShortCode}";
+            String path = "/Organisation/{OrganisationID}/CISSettings";
             String type = "/pdf";
             if(path.toLowerCase().contains(type.toLowerCase()))
             {
@@ -4880,14 +4920,14 @@ public class AccountingApi {
 
             // create a map of path variables
             final Map<String, String> uriVariables = new HashMap<String, String>();
-            uriVariables.put("ShortCode", shortCode.toString());
+            uriVariables.put("OrganisationID", organisationID.toString());
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
             
             String response = this.DATA(url, strBody, params, "GET");
 
-            TypeReference<Organisations> typeRef = new TypeReference<Organisations>() {};
+            TypeReference<CISOrgSetting> typeRef = new TypeReference<CISOrgSetting>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
@@ -7080,7 +7120,7 @@ public class AccountingApi {
   /**
     * Allows you to update a specified linked transactions (billable expenses)
     * <p><b>200</b> - Success - return response of type LinkedTransactions array with updated LinkedTransaction
-    * <p><b>400</b> - A failed request due to validation error
+    * <p><b>400</b> - Success - return response of type LinkedTransactions array with updated LinkedTransaction
     * @param linkedTransactionID Unique identifier for a LinkedTransaction
     * @param linkedTransactions The linkedTransactions parameter
     * @return LinkedTransactions
@@ -7196,48 +7236,6 @@ public class AccountingApi {
             String response = this.FILE(url, strBody, params, "POST", body);
 
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);           
-
-        } catch (IOException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage());
-        } catch (XeroApiException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode(),JSONUtils.isJSONValid(e.getMessage()));
-        }
-    }
-  /**
-    * Allows you to update a specified payment for invoices and credit notes
-    * <p><b>200</b> - Success - return response of type Payments array for updated Payment
-    * <p><b>400</b> - A failed request due to validation error
-    * @param paymentID Unique identifier for a Payment
-    * @param payments The payments parameter
-    * @return Payments
-    * @throws IOException if an error occurs while attempting to invoke the API
-    **/
-    public Payments updatePayment(UUID paymentID, Payments payments) throws IOException {
-        try {
-            String strBody = null;
-            Map<String, String> params = null;
-            String correctPath = "/Payments/{PaymentID}";
-            // Hacky path manipulation to support different return types from same endpoint
-            String path = "/Payments/{PaymentID}";
-            String type = "/pdf";
-            if(path.toLowerCase().contains(type.toLowerCase()))
-            {
-                correctPath = path.replace("/pdf","");
-            } 
-
-            // create a map of path variables
-            final Map<String, String> uriVariables = new HashMap<String, String>();
-            uriVariables.put("PaymentID", paymentID.toString());
-            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-            String url = uriBuilder.buildFromMap(uriVariables).toString();
-
-            
-            strBody = apiClient.getObjectMapper().writeValueAsString(payments);
-
-            String response = this.DATA(url, strBody, params, "POST");
-
-            TypeReference<Payments> typeRef = new TypeReference<Payments>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
