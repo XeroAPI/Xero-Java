@@ -19,8 +19,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.accounting.Account;
+import com.xero.models.accounting.ValidationError;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.OffsetDateTime;
@@ -71,6 +74,10 @@ public class BankTransfer {
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("CreatedDateUTC")
   private OffsetDateTime createdDateUTC;
+
+  
+  @JsonProperty("ValidationErrors")
+  private List<ValidationError> validationErrors = null;
 
   public BankTransfer fromBankAccount(Account fromBankAccount) {
     this.fromBankAccount = fromBankAccount;
@@ -198,6 +205,32 @@ public class BankTransfer {
     return createdDateUTC;
   }
 
+  public BankTransfer validationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+    return this;
+  }
+
+  public BankTransfer addValidationErrorsItem(ValidationError validationErrorsItem) {
+    if (this.validationErrors == null) {
+      this.validationErrors = new ArrayList<ValidationError>();
+    }
+    this.validationErrors.add(validationErrorsItem);
+    return this;
+  }
+
+   /**
+   * Displays array of validation error messages from the API
+   * @return validationErrors
+  **/
+  @ApiModelProperty(value = "Displays array of validation error messages from the API")
+  public List<ValidationError> getValidationErrors() {
+    return validationErrors;
+  }
+
+  public void setValidationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -217,12 +250,13 @@ public class BankTransfer {
         Objects.equals(this.fromBankTransactionID, bankTransfer.fromBankTransactionID) &&
         Objects.equals(this.toBankTransactionID, bankTransfer.toBankTransactionID) &&
         Objects.equals(this.hasAttachments, bankTransfer.hasAttachments) &&
-        Objects.equals(this.createdDateUTC, bankTransfer.createdDateUTC);
+        Objects.equals(this.createdDateUTC, bankTransfer.createdDateUTC) &&
+        Objects.equals(this.validationErrors, bankTransfer.validationErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(fromBankAccount, toBankAccount, amount, date, bankTransferID, currencyRate, fromBankTransactionID, toBankTransactionID, hasAttachments, createdDateUTC);
+    return Objects.hash(fromBankAccount, toBankAccount, amount, date, bankTransferID, currencyRate, fromBankTransactionID, toBankTransactionID, hasAttachments, createdDateUTC, validationErrors);
   }
 
 
@@ -241,6 +275,7 @@ public class BankTransfer {
     sb.append("    toBankTransactionID: ").append(toIndentedString(toBankTransactionID)).append("\n");
     sb.append("    hasAttachments: ").append(toIndentedString(hasAttachments)).append("\n");
     sb.append("    createdDateUTC: ").append(toIndentedString(createdDateUTC)).append("\n");
+    sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("}");
     return sb.toString();
   }

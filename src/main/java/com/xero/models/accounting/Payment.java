@@ -23,8 +23,11 @@ import com.xero.models.accounting.CreditNote;
 import com.xero.models.accounting.Invoice;
 import com.xero.models.accounting.Overpayment;
 import com.xero.models.accounting.Prepayment;
+import com.xero.models.accounting.ValidationError;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.OffsetDateTime;
@@ -205,6 +208,10 @@ public class Payment {
   
   @JsonProperty("HasValidationErrors")
   private Boolean hasValidationErrors;
+
+  
+  @JsonProperty("ValidationErrors")
+  private List<ValidationError> validationErrors = null;
 
   public Payment invoice(Invoice invoice) {
     this.invoice = invoice;
@@ -584,6 +591,32 @@ public class Payment {
     this.hasValidationErrors = hasValidationErrors;
   }
 
+  public Payment validationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+    return this;
+  }
+
+  public Payment addValidationErrorsItem(ValidationError validationErrorsItem) {
+    if (this.validationErrors == null) {
+      this.validationErrors = new ArrayList<ValidationError>();
+    }
+    this.validationErrors.add(validationErrorsItem);
+    return this;
+  }
+
+   /**
+   * Displays array of validation error messages from the API
+   * @return validationErrors
+  **/
+  @ApiModelProperty(value = "Displays array of validation error messages from the API")
+  public List<ValidationError> getValidationErrors() {
+    return validationErrors;
+  }
+
+  public void setValidationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -615,12 +648,13 @@ public class Payment {
         Objects.equals(this.particulars, payment.particulars) &&
         Objects.equals(this.details, payment.details) &&
         Objects.equals(this.hasAccount, payment.hasAccount) &&
-        Objects.equals(this.hasValidationErrors, payment.hasValidationErrors);
+        Objects.equals(this.hasValidationErrors, payment.hasValidationErrors) &&
+        Objects.equals(this.validationErrors, payment.validationErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(invoice, creditNote, prepayment, overpayment, invoiceNumber, creditNoteNumber, account, code, date, currencyRate, amount, reference, isReconciled, status, paymentType, updatedDateUTC, paymentID, bankAccountNumber, particulars, details, hasAccount, hasValidationErrors);
+    return Objects.hash(invoice, creditNote, prepayment, overpayment, invoiceNumber, creditNoteNumber, account, code, date, currencyRate, amount, reference, isReconciled, status, paymentType, updatedDateUTC, paymentID, bankAccountNumber, particulars, details, hasAccount, hasValidationErrors, validationErrors);
   }
 
 
@@ -651,6 +685,7 @@ public class Payment {
     sb.append("    details: ").append(toIndentedString(details)).append("\n");
     sb.append("    hasAccount: ").append(toIndentedString(hasAccount)).append("\n");
     sb.append("    hasValidationErrors: ").append(toIndentedString(hasValidationErrors)).append("\n");
+    sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("}");
     return sb.toString();
   }

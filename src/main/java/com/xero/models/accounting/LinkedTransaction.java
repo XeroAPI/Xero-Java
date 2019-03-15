@@ -18,8 +18,11 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.ValidationError;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import org.threeten.bp.OffsetDateTime;
 
@@ -178,6 +181,10 @@ public class LinkedTransaction {
   
   @JsonProperty("SourceTransactionTypeCode")
   private SourceTransactionTypeCodeEnum sourceTransactionTypeCode;
+
+  
+  @JsonProperty("ValidationErrors")
+  private List<ValidationError> validationErrors = null;
 
   public LinkedTransaction sourceTransactionID(UUID sourceTransactionID) {
     this.sourceTransactionID = sourceTransactionID;
@@ -359,6 +366,32 @@ public class LinkedTransaction {
     this.sourceTransactionTypeCode = sourceTransactionTypeCode;
   }
 
+  public LinkedTransaction validationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+    return this;
+  }
+
+  public LinkedTransaction addValidationErrorsItem(ValidationError validationErrorsItem) {
+    if (this.validationErrors == null) {
+      this.validationErrors = new ArrayList<ValidationError>();
+    }
+    this.validationErrors.add(validationErrorsItem);
+    return this;
+  }
+
+   /**
+   * Displays array of validation error messages from the API
+   * @return validationErrors
+  **/
+  @ApiModelProperty(value = "Displays array of validation error messages from the API")
+  public List<ValidationError> getValidationErrors() {
+    return validationErrors;
+  }
+
+  public void setValidationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -378,12 +411,13 @@ public class LinkedTransaction {
         Objects.equals(this.status, linkedTransaction.status) &&
         Objects.equals(this.type, linkedTransaction.type) &&
         Objects.equals(this.updatedDateUTC, linkedTransaction.updatedDateUTC) &&
-        Objects.equals(this.sourceTransactionTypeCode, linkedTransaction.sourceTransactionTypeCode);
+        Objects.equals(this.sourceTransactionTypeCode, linkedTransaction.sourceTransactionTypeCode) &&
+        Objects.equals(this.validationErrors, linkedTransaction.validationErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(sourceTransactionID, sourceLineItemID, contactID, targetTransactionID, targetLineItemID, linkedTransactionID, status, type, updatedDateUTC, sourceTransactionTypeCode);
+    return Objects.hash(sourceTransactionID, sourceLineItemID, contactID, targetTransactionID, targetLineItemID, linkedTransactionID, status, type, updatedDateUTC, sourceTransactionTypeCode, validationErrors);
   }
 
 
@@ -402,6 +436,7 @@ public class LinkedTransaction {
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
     sb.append("    sourceTransactionTypeCode: ").append(toIndentedString(sourceTransactionTypeCode)).append("\n");
+    sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("}");
     return sb.toString();
   }

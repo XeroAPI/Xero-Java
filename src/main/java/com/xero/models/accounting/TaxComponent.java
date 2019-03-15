@@ -86,10 +86,10 @@ public class TaxComponent {
   }
 
    /**
-   * Boolean to describe if Tax rate is compounded
+   * Boolean to describe if Tax rate is compounded.
    * @return isCompound
   **/
-  @ApiModelProperty(value = "Boolean to describe if Tax rate is compounded")
+  @ApiModelProperty(value = "Boolean to describe if Tax rate is compounded.")
   public Boolean getIsCompound() {
     return isCompound;
   }

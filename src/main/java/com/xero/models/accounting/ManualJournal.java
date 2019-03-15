@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.accounting.LineAmountTypes;
 import com.xero.models.accounting.ManualJournalLine;
+import com.xero.models.accounting.ValidationError;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -113,6 +114,14 @@ public class ManualJournal {
   
   @JsonProperty("ManualJournalID")
   private UUID manualJournalID;
+
+  
+  @JsonProperty("Warnings")
+  private List<ValidationError> warnings = null;
+
+  
+  @JsonProperty("ValidationErrors")
+  private List<ValidationError> validationErrors = null;
 
   public ManualJournal narration(String narration) {
     this.narration = narration;
@@ -281,6 +290,58 @@ public class ManualJournal {
     this.manualJournalID = manualJournalID;
   }
 
+  public ManualJournal warnings(List<ValidationError> warnings) {
+    this.warnings = warnings;
+    return this;
+  }
+
+  public ManualJournal addWarningsItem(ValidationError warningsItem) {
+    if (this.warnings == null) {
+      this.warnings = new ArrayList<ValidationError>();
+    }
+    this.warnings.add(warningsItem);
+    return this;
+  }
+
+   /**
+   * Displays array of warning messages from the API
+   * @return warnings
+  **/
+  @ApiModelProperty(value = "Displays array of warning messages from the API")
+  public List<ValidationError> getWarnings() {
+    return warnings;
+  }
+
+  public void setWarnings(List<ValidationError> warnings) {
+    this.warnings = warnings;
+  }
+
+  public ManualJournal validationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+    return this;
+  }
+
+  public ManualJournal addValidationErrorsItem(ValidationError validationErrorsItem) {
+    if (this.validationErrors == null) {
+      this.validationErrors = new ArrayList<ValidationError>();
+    }
+    this.validationErrors.add(validationErrorsItem);
+    return this;
+  }
+
+   /**
+   * Displays array of validation error messages from the API
+   * @return validationErrors
+  **/
+  @ApiModelProperty(value = "Displays array of validation error messages from the API")
+  public List<ValidationError> getValidationErrors() {
+    return validationErrors;
+  }
+
+  public void setValidationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -300,12 +361,14 @@ public class ManualJournal {
         Objects.equals(this.showOnCashBasisReports, manualJournal.showOnCashBasisReports) &&
         Objects.equals(this.hasAttachments, manualJournal.hasAttachments) &&
         Objects.equals(this.updatedDateUTC, manualJournal.updatedDateUTC) &&
-        Objects.equals(this.manualJournalID, manualJournal.manualJournalID);
+        Objects.equals(this.manualJournalID, manualJournal.manualJournalID) &&
+        Objects.equals(this.warnings, manualJournal.warnings) &&
+        Objects.equals(this.validationErrors, manualJournal.validationErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(narration, journalLines, date, lineAmountTypes, status, url, showOnCashBasisReports, hasAttachments, updatedDateUTC, manualJournalID);
+    return Objects.hash(narration, journalLines, date, lineAmountTypes, status, url, showOnCashBasisReports, hasAttachments, updatedDateUTC, manualJournalID, warnings, validationErrors);
   }
 
 
@@ -324,6 +387,8 @@ public class ManualJournal {
     sb.append("    hasAttachments: ").append(toIndentedString(hasAttachments)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
     sb.append("    manualJournalID: ").append(toIndentedString(manualJournalID)).append("\n");
+    sb.append("    warnings: ").append(toIndentedString(warnings)).append("\n");
+    sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("}");
     return sb.toString();
   }

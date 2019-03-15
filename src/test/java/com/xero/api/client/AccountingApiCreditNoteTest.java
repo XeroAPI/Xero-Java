@@ -82,9 +82,9 @@ public class AccountingApiCreditNoteTest {
 
      @Test
     public void createCreditNoteTest() throws IOException {
-        Boolean summarizeErrors = null;
-        CreditNotes creditNotes = null;
-        CreditNotes response = api.createCreditNote(summarizeErrors, creditNotes);
+        //Boolean summarizeErrors = null;
+        //CreditNotes creditNotes = null;
+        //CreditNotes response = api.createCreditNote(summarizeErrors, creditNotes);
 
         // TODO: test validations
     }

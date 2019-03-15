@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * See Tax Types – can only be used on update calls
+ * See Tax Types – can only be used on update call
  */
 public enum TaxType {
   

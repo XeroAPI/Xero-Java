@@ -22,6 +22,7 @@ import com.xero.models.accounting.Contact;
 import com.xero.models.accounting.CurrencyCode;
 import com.xero.models.accounting.LineAmountTypes;
 import com.xero.models.accounting.LineItem;
+import com.xero.models.accounting.ValidationError;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -173,6 +174,18 @@ public class PurchaseOrder {
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
   private OffsetDateTime updatedDateUTC;
+
+  
+  @JsonProperty("StatusAttributeString")
+  private String statusAttributeString;
+
+  
+  @JsonProperty("ValidationErrors")
+  private List<ValidationError> validationErrors = null;
+
+  
+  @JsonProperty("Warnings")
+  private List<ValidationError> warnings = null;
 
   public PurchaseOrder contact(Contact contact) {
     this.contact = contact;
@@ -548,6 +561,76 @@ public class PurchaseOrder {
     return updatedDateUTC;
   }
 
+  public PurchaseOrder statusAttributeString(String statusAttributeString) {
+    this.statusAttributeString = statusAttributeString;
+    return this;
+  }
+
+   /**
+   * A string to indicate if a invoice status
+   * @return statusAttributeString
+  **/
+  @ApiModelProperty(value = "A string to indicate if a invoice status")
+  public String getStatusAttributeString() {
+    return statusAttributeString;
+  }
+
+  public void setStatusAttributeString(String statusAttributeString) {
+    this.statusAttributeString = statusAttributeString;
+  }
+
+  public PurchaseOrder validationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+    return this;
+  }
+
+  public PurchaseOrder addValidationErrorsItem(ValidationError validationErrorsItem) {
+    if (this.validationErrors == null) {
+      this.validationErrors = new ArrayList<ValidationError>();
+    }
+    this.validationErrors.add(validationErrorsItem);
+    return this;
+  }
+
+   /**
+   * Displays array of validation error messages from the API
+   * @return validationErrors
+  **/
+  @ApiModelProperty(value = "Displays array of validation error messages from the API")
+  public List<ValidationError> getValidationErrors() {
+    return validationErrors;
+  }
+
+  public void setValidationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+  }
+
+  public PurchaseOrder warnings(List<ValidationError> warnings) {
+    this.warnings = warnings;
+    return this;
+  }
+
+  public PurchaseOrder addWarningsItem(ValidationError warningsItem) {
+    if (this.warnings == null) {
+      this.warnings = new ArrayList<ValidationError>();
+    }
+    this.warnings.add(warningsItem);
+    return this;
+  }
+
+   /**
+   * Displays array of warning messages from the API
+   * @return warnings
+  **/
+  @ApiModelProperty(value = "Displays array of warning messages from the API")
+  public List<ValidationError> getWarnings() {
+    return warnings;
+  }
+
+  public void setWarnings(List<ValidationError> warnings) {
+    this.warnings = warnings;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -581,12 +664,15 @@ public class PurchaseOrder {
         Objects.equals(this.total, purchaseOrder.total) &&
         Objects.equals(this.totalDiscount, purchaseOrder.totalDiscount) &&
         Objects.equals(this.hasAttachments, purchaseOrder.hasAttachments) &&
-        Objects.equals(this.updatedDateUTC, purchaseOrder.updatedDateUTC);
+        Objects.equals(this.updatedDateUTC, purchaseOrder.updatedDateUTC) &&
+        Objects.equals(this.statusAttributeString, purchaseOrder.statusAttributeString) &&
+        Objects.equals(this.validationErrors, purchaseOrder.validationErrors) &&
+        Objects.equals(this.warnings, purchaseOrder.warnings);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(contact, lineItems, date, deliveryDate, lineAmountTypes, purchaseOrderNumber, reference, brandingThemeID, currencyCode, status, sentToContact, deliveryAddress, attentionTo, telephone, deliveryInstructions, expectedArrivalDate, purchaseOrderID, currencyRate, subTotal, totalTax, total, totalDiscount, hasAttachments, updatedDateUTC);
+    return Objects.hash(contact, lineItems, date, deliveryDate, lineAmountTypes, purchaseOrderNumber, reference, brandingThemeID, currencyCode, status, sentToContact, deliveryAddress, attentionTo, telephone, deliveryInstructions, expectedArrivalDate, purchaseOrderID, currencyRate, subTotal, totalTax, total, totalDiscount, hasAttachments, updatedDateUTC, statusAttributeString, validationErrors, warnings);
   }
 
 
@@ -619,6 +705,9 @@ public class PurchaseOrder {
     sb.append("    totalDiscount: ").append(toIndentedString(totalDiscount)).append("\n");
     sb.append("    hasAttachments: ").append(toIndentedString(hasAttachments)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
+    sb.append("    statusAttributeString: ").append(toIndentedString(statusAttributeString)).append("\n");
+    sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
+    sb.append("    warnings: ").append(toIndentedString(warnings)).append("\n");
     sb.append("}");
     return sb.toString();
   }

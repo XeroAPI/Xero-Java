@@ -20,8 +20,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.accounting.AccountType;
 import com.xero.models.accounting.CurrencyCode;
+import com.xero.models.accounting.ValidationError;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import org.threeten.bp.OffsetDateTime;
 
@@ -279,6 +282,10 @@ public class Account {
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
   private OffsetDateTime updatedDateUTC;
+
+  
+  @JsonProperty("ValidationErrors")
+  private List<ValidationError> validationErrors = null;
 
   public Account code(String code) {
     this.code = code;
@@ -550,6 +557,32 @@ public class Account {
     return updatedDateUTC;
   }
 
+  public Account validationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+    return this;
+  }
+
+  public Account addValidationErrorsItem(ValidationError validationErrorsItem) {
+    if (this.validationErrors == null) {
+      this.validationErrors = new ArrayList<ValidationError>();
+    }
+    this.validationErrors.add(validationErrorsItem);
+    return this;
+  }
+
+   /**
+   * Displays array of validation error messages from the API
+   * @return validationErrors
+  **/
+  @ApiModelProperty(value = "Displays array of validation error messages from the API")
+  public List<ValidationError> getValidationErrors() {
+    return validationErrors;
+  }
+
+  public void setValidationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -577,12 +610,13 @@ public class Account {
         Objects.equals(this.reportingCode, account.reportingCode) &&
         Objects.equals(this.reportingCodeName, account.reportingCodeName) &&
         Objects.equals(this.hasAttachments, account.hasAttachments) &&
-        Objects.equals(this.updatedDateUTC, account.updatedDateUTC);
+        Objects.equals(this.updatedDateUTC, account.updatedDateUTC) &&
+        Objects.equals(this.validationErrors, account.validationErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, name, accountID, type, bankAccountNumber, status, description, bankAccountType, currencyCode, taxType, enablePaymentsToAccount, showInExpenseClaims, propertyClass, systemAccount, reportingCode, reportingCodeName, hasAttachments, updatedDateUTC);
+    return Objects.hash(code, name, accountID, type, bankAccountNumber, status, description, bankAccountType, currencyCode, taxType, enablePaymentsToAccount, showInExpenseClaims, propertyClass, systemAccount, reportingCode, reportingCodeName, hasAttachments, updatedDateUTC, validationErrors);
   }
 
 
@@ -609,6 +643,7 @@ public class Account {
     sb.append("    reportingCodeName: ").append(toIndentedString(reportingCodeName)).append("\n");
     sb.append("    hasAttachments: ").append(toIndentedString(hasAttachments)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
+    sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("}");
     return sb.toString();
   }

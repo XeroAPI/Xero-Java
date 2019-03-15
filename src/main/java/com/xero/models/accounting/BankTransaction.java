@@ -23,6 +23,7 @@ import com.xero.models.accounting.Contact;
 import com.xero.models.accounting.CurrencyCode;
 import com.xero.models.accounting.LineAmountTypes;
 import com.xero.models.accounting.LineItem;
+import com.xero.models.accounting.ValidationError;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -199,6 +200,14 @@ public class BankTransaction {
   
   @JsonProperty("HasAttachments")
   private Boolean hasAttachments;
+
+  
+  @JsonProperty("StatusAttributeString")
+  private String statusAttributeString;
+
+  
+  @JsonProperty("ValidationErrors")
+  private List<ValidationError> validationErrors = null;
 
   public BankTransaction type(TypeEnum type) {
     this.type = type;
@@ -529,6 +538,50 @@ public class BankTransaction {
     return hasAttachments;
   }
 
+  public BankTransaction statusAttributeString(String statusAttributeString) {
+    this.statusAttributeString = statusAttributeString;
+    return this;
+  }
+
+   /**
+   * A string to indicate if a invoice status
+   * @return statusAttributeString
+  **/
+  @ApiModelProperty(value = "A string to indicate if a invoice status")
+  public String getStatusAttributeString() {
+    return statusAttributeString;
+  }
+
+  public void setStatusAttributeString(String statusAttributeString) {
+    this.statusAttributeString = statusAttributeString;
+  }
+
+  public BankTransaction validationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+    return this;
+  }
+
+  public BankTransaction addValidationErrorsItem(ValidationError validationErrorsItem) {
+    if (this.validationErrors == null) {
+      this.validationErrors = new ArrayList<ValidationError>();
+    }
+    this.validationErrors.add(validationErrorsItem);
+    return this;
+  }
+
+   /**
+   * Displays array of validation error messages from the API
+   * @return validationErrors
+  **/
+  @ApiModelProperty(value = "Displays array of validation error messages from the API")
+  public List<ValidationError> getValidationErrors() {
+    return validationErrors;
+  }
+
+  public void setValidationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -558,12 +611,14 @@ public class BankTransaction {
         Objects.equals(this.prepaymentID, bankTransaction.prepaymentID) &&
         Objects.equals(this.overpaymentID, bankTransaction.overpaymentID) &&
         Objects.equals(this.updatedDateUTC, bankTransaction.updatedDateUTC) &&
-        Objects.equals(this.hasAttachments, bankTransaction.hasAttachments);
+        Objects.equals(this.hasAttachments, bankTransaction.hasAttachments) &&
+        Objects.equals(this.statusAttributeString, bankTransaction.statusAttributeString) &&
+        Objects.equals(this.validationErrors, bankTransaction.validationErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, contact, lineitems, bankAccount, isReconciled, date, reference, currencyCode, currencyRate, url, status, lineAmountTypes, subTotal, totalTax, total, bankTransactionID, prepaymentID, overpaymentID, updatedDateUTC, hasAttachments);
+    return Objects.hash(type, contact, lineitems, bankAccount, isReconciled, date, reference, currencyCode, currencyRate, url, status, lineAmountTypes, subTotal, totalTax, total, bankTransactionID, prepaymentID, overpaymentID, updatedDateUTC, hasAttachments, statusAttributeString, validationErrors);
   }
 
 
@@ -592,6 +647,8 @@ public class BankTransaction {
     sb.append("    overpaymentID: ").append(toIndentedString(overpaymentID)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
     sb.append("    hasAttachments: ").append(toIndentedString(hasAttachments)).append("\n");
+    sb.append("    statusAttributeString: ").append(toIndentedString(statusAttributeString)).append("\n");
+    sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("}");
     return sb.toString();
   }

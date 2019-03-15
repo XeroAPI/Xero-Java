@@ -18,8 +18,11 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.ValidationError;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -48,6 +51,10 @@ public class PaymentService {
   
   @JsonProperty("PaymentServiceType")
   private String paymentServiceType;
+
+  
+  @JsonProperty("ValidationErrors")
+  private List<ValidationError> validationErrors = null;
 
   public PaymentService paymentServiceID(UUID paymentServiceID) {
     this.paymentServiceID = paymentServiceID;
@@ -139,6 +146,32 @@ public class PaymentService {
     this.paymentServiceType = paymentServiceType;
   }
 
+  public PaymentService validationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+    return this;
+  }
+
+  public PaymentService addValidationErrorsItem(ValidationError validationErrorsItem) {
+    if (this.validationErrors == null) {
+      this.validationErrors = new ArrayList<ValidationError>();
+    }
+    this.validationErrors.add(validationErrorsItem);
+    return this;
+  }
+
+   /**
+   * Displays array of validation error messages from the API
+   * @return validationErrors
+  **/
+  @ApiModelProperty(value = "Displays array of validation error messages from the API")
+  public List<ValidationError> getValidationErrors() {
+    return validationErrors;
+  }
+
+  public void setValidationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -153,12 +186,13 @@ public class PaymentService {
         Objects.equals(this.paymentServiceName, paymentService.paymentServiceName) &&
         Objects.equals(this.paymentServiceUrl, paymentService.paymentServiceUrl) &&
         Objects.equals(this.payNowText, paymentService.payNowText) &&
-        Objects.equals(this.paymentServiceType, paymentService.paymentServiceType);
+        Objects.equals(this.paymentServiceType, paymentService.paymentServiceType) &&
+        Objects.equals(this.validationErrors, paymentService.validationErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(paymentServiceID, paymentServiceName, paymentServiceUrl, payNowText, paymentServiceType);
+    return Objects.hash(paymentServiceID, paymentServiceName, paymentServiceUrl, payNowText, paymentServiceType, validationErrors);
   }
 
 
@@ -172,6 +206,7 @@ public class PaymentService {
     sb.append("    paymentServiceUrl: ").append(toIndentedString(paymentServiceUrl)).append("\n");
     sb.append("    payNowText: ").append(toIndentedString(payNowText)).append("\n");
     sb.append("    paymentServiceType: ").append(toIndentedString(paymentServiceType)).append("\n");
+    sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("}");
     return sb.toString();
   }

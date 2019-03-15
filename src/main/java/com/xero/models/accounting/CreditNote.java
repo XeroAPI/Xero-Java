@@ -24,6 +24,7 @@ import com.xero.models.accounting.CurrencyCode;
 import com.xero.models.accounting.LineAmountTypes;
 import com.xero.models.accounting.LineItem;
 import com.xero.models.accounting.Payment;
+import com.xero.models.accounting.ValidationError;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -204,6 +205,10 @@ public class CreditNote {
   
   @JsonProperty("HasAttachments")
   private Boolean hasAttachments;
+
+  
+  @JsonProperty("ValidationErrors")
+  private List<ValidationError> validationErrors = null;
 
   public CreditNote type(TypeEnum type) {
     this.type = type;
@@ -616,6 +621,32 @@ public class CreditNote {
     this.hasAttachments = hasAttachments;
   }
 
+  public CreditNote validationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+    return this;
+  }
+
+  public CreditNote addValidationErrorsItem(ValidationError validationErrorsItem) {
+    if (this.validationErrors == null) {
+      this.validationErrors = new ArrayList<ValidationError>();
+    }
+    this.validationErrors.add(validationErrorsItem);
+    return this;
+  }
+
+   /**
+   * Displays array of validation error messages from the API
+   * @return validationErrors
+  **/
+  @ApiModelProperty(value = "Displays array of validation error messages from the API")
+  public List<ValidationError> getValidationErrors() {
+    return validationErrors;
+  }
+
+  public void setValidationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -647,12 +678,13 @@ public class CreditNote {
         Objects.equals(this.allocations, creditNote.allocations) &&
         Objects.equals(this.payments, creditNote.payments) &&
         Objects.equals(this.brandingThemeID, creditNote.brandingThemeID) &&
-        Objects.equals(this.hasAttachments, creditNote.hasAttachments);
+        Objects.equals(this.hasAttachments, creditNote.hasAttachments) &&
+        Objects.equals(this.validationErrors, creditNote.validationErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, contact, date, status, lineAmountTypes, lineItems, subTotal, totalTax, total, updatedDateUTC, currencyCode, fullyPaidOnDate, creditNoteID, creditNoteNumber, reference, sentToContact, currencyRate, remainingCredit, allocations, payments, brandingThemeID, hasAttachments);
+    return Objects.hash(type, contact, date, status, lineAmountTypes, lineItems, subTotal, totalTax, total, updatedDateUTC, currencyCode, fullyPaidOnDate, creditNoteID, creditNoteNumber, reference, sentToContact, currencyRate, remainingCredit, allocations, payments, brandingThemeID, hasAttachments, validationErrors);
   }
 
 
@@ -683,6 +715,7 @@ public class CreditNote {
     sb.append("    payments: ").append(toIndentedString(payments)).append("\n");
     sb.append("    brandingThemeID: ").append(toIndentedString(brandingThemeID)).append("\n");
     sb.append("    hasAttachments: ").append(toIndentedString(hasAttachments)).append("\n");
+    sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("}");
     return sb.toString();
   }

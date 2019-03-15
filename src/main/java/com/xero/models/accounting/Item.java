@@ -19,8 +19,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.accounting.Purchase;
+import com.xero.models.accounting.ValidationError;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import org.threeten.bp.OffsetDateTime;
 
@@ -86,6 +89,10 @@ public class Item {
   
   @JsonProperty("ItemID")
   private UUID itemID;
+
+  
+  @JsonProperty("ValidationErrors")
+  private List<ValidationError> validationErrors = null;
 
   public Item code(String code) {
     this.code = code;
@@ -339,6 +346,32 @@ public class Item {
     this.itemID = itemID;
   }
 
+  public Item validationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+    return this;
+  }
+
+  public Item addValidationErrorsItem(ValidationError validationErrorsItem) {
+    if (this.validationErrors == null) {
+      this.validationErrors = new ArrayList<ValidationError>();
+    }
+    this.validationErrors.add(validationErrorsItem);
+    return this;
+  }
+
+   /**
+   * Displays array of validation error messages from the API
+   * @return validationErrors
+  **/
+  @ApiModelProperty(value = "Displays array of validation error messages from the API")
+  public List<ValidationError> getValidationErrors() {
+    return validationErrors;
+  }
+
+  public void setValidationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -362,12 +395,13 @@ public class Item {
         Objects.equals(this.totalCostPool, item.totalCostPool) &&
         Objects.equals(this.quantityOnHand, item.quantityOnHand) &&
         Objects.equals(this.updatedDateUTC, item.updatedDateUTC) &&
-        Objects.equals(this.itemID, item.itemID);
+        Objects.equals(this.itemID, item.itemID) &&
+        Objects.equals(this.validationErrors, item.validationErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, inventoryAssetAccountCode, name, isSold, isPurchased, description, purchaseDescription, purchaseDetails, salesDetails, isTrackedAsInventory, totalCostPool, quantityOnHand, updatedDateUTC, itemID);
+    return Objects.hash(code, inventoryAssetAccountCode, name, isSold, isPurchased, description, purchaseDescription, purchaseDetails, salesDetails, isTrackedAsInventory, totalCostPool, quantityOnHand, updatedDateUTC, itemID, validationErrors);
   }
 
 
@@ -390,6 +424,7 @@ public class Item {
     sb.append("    quantityOnHand: ").append(toIndentedString(quantityOnHand)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
     sb.append("    itemID: ").append(toIndentedString(itemID)).append("\n");
+    sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("}");
     return sb.toString();
   }
