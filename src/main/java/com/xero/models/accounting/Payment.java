@@ -89,7 +89,7 @@ public class Payment {
 
   
   @JsonProperty("IsReconciled")
-  private String isReconciled;
+  private Boolean isReconciled;
 
   /**
    * The status of the payment.
@@ -429,7 +429,7 @@ public class Payment {
     this.reference = reference;
   }
 
-  public Payment isReconciled(String isReconciled) {
+  public Payment isReconciled(Boolean isReconciled) {
     this.isReconciled = isReconciled;
     return this;
   }
@@ -439,11 +439,11 @@ public class Payment {
    * @return isReconciled
   **/
   @ApiModelProperty(value = "An optional parameter for the payment. A boolean indicating whether you would like the payment to be created as reconciled when using PUT, or whether a payment has been reconciled when using GET")
-  public String getIsReconciled() {
+  public Boolean getIsReconciled() {
     return isReconciled;
   }
 
-  public void setIsReconciled(String isReconciled) {
+  public void setIsReconciled(Boolean isReconciled) {
     this.isReconciled = isReconciled;
   }
 

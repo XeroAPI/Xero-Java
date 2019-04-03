@@ -18,10 +18,12 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.Attachment;
 import com.xero.models.accounting.Contact;
 import com.xero.models.accounting.LineAmountTypes;
 import com.xero.models.accounting.LineItem;
 import com.xero.models.accounting.User;
+import com.xero.models.accounting.ValidationError;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -135,6 +137,14 @@ public class Receipt {
   
   @JsonProperty("Url")
   private String url;
+
+  
+  @JsonProperty("ValidationErrors")
+  private List<ValidationError> validationErrors = null;
+
+  
+  @JsonProperty("Attachments")
+  private List<Attachment> attachments = null;
 
   public Receipt date(LocalDate date) {
     this.date = date;
@@ -375,6 +385,58 @@ public class Receipt {
     return url;
   }
 
+  public Receipt validationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+    return this;
+  }
+
+  public Receipt addValidationErrorsItem(ValidationError validationErrorsItem) {
+    if (this.validationErrors == null) {
+      this.validationErrors = new ArrayList<ValidationError>();
+    }
+    this.validationErrors.add(validationErrorsItem);
+    return this;
+  }
+
+   /**
+   * Displays array of validation error messages from the API
+   * @return validationErrors
+  **/
+  @ApiModelProperty(value = "Displays array of validation error messages from the API")
+  public List<ValidationError> getValidationErrors() {
+    return validationErrors;
+  }
+
+  public void setValidationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+  }
+
+  public Receipt attachments(List<Attachment> attachments) {
+    this.attachments = attachments;
+    return this;
+  }
+
+  public Receipt addAttachmentsItem(Attachment attachmentsItem) {
+    if (this.attachments == null) {
+      this.attachments = new ArrayList<Attachment>();
+    }
+    this.attachments.add(attachmentsItem);
+    return this;
+  }
+
+   /**
+   * Displays array of attachments from the API
+   * @return attachments
+  **/
+  @ApiModelProperty(value = "Displays array of attachments from the API")
+  public List<Attachment> getAttachments() {
+    return attachments;
+  }
+
+  public void setAttachments(List<Attachment> attachments) {
+    this.attachments = attachments;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -399,12 +461,14 @@ public class Receipt {
         Objects.equals(this.receiptNumber, receipt.receiptNumber) &&
         Objects.equals(this.updatedDateUTC, receipt.updatedDateUTC) &&
         Objects.equals(this.hasAttachments, receipt.hasAttachments) &&
-        Objects.equals(this.url, receipt.url);
+        Objects.equals(this.url, receipt.url) &&
+        Objects.equals(this.validationErrors, receipt.validationErrors) &&
+        Objects.equals(this.attachments, receipt.attachments);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(date, contact, lineitems, user, reference, lineAmountTypes, subTotal, totalTax, total, receiptID, status, receiptNumber, updatedDateUTC, hasAttachments, url);
+    return Objects.hash(date, contact, lineitems, user, reference, lineAmountTypes, subTotal, totalTax, total, receiptID, status, receiptNumber, updatedDateUTC, hasAttachments, url, validationErrors, attachments);
   }
 
 
@@ -428,6 +492,8 @@ public class Receipt {
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
     sb.append("    hasAttachments: ").append(toIndentedString(hasAttachments)).append("\n");
     sb.append("    url: ").append(toIndentedString(url)).append("\n");
+    sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
+    sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -18,6 +18,7 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.Attachment;
 import com.xero.models.accounting.Contact;
 import com.xero.models.accounting.CurrencyCode;
 import com.xero.models.accounting.LineAmountTypes;
@@ -165,6 +166,10 @@ public class RepeatingInvoice {
   
   @JsonProperty("HasAttachments")
   private Boolean hasAttachments;
+
+  
+  @JsonProperty("Attachments")
+  private List<Attachment> attachments = null;
 
   public RepeatingInvoice type(TypeEnum type) {
     this.type = type;
@@ -444,6 +449,32 @@ public class RepeatingInvoice {
     this.hasAttachments = hasAttachments;
   }
 
+  public RepeatingInvoice attachments(List<Attachment> attachments) {
+    this.attachments = attachments;
+    return this;
+  }
+
+  public RepeatingInvoice addAttachmentsItem(Attachment attachmentsItem) {
+    if (this.attachments == null) {
+      this.attachments = new ArrayList<Attachment>();
+    }
+    this.attachments.add(attachmentsItem);
+    return this;
+  }
+
+   /**
+   * Displays array of attachments from the API
+   * @return attachments
+  **/
+  @ApiModelProperty(value = "Displays array of attachments from the API")
+  public List<Attachment> getAttachments() {
+    return attachments;
+  }
+
+  public void setAttachments(List<Attachment> attachments) {
+    this.attachments = attachments;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -468,12 +499,13 @@ public class RepeatingInvoice {
         Objects.equals(this.total, repeatingInvoice.total) &&
         Objects.equals(this.repeatingInvoiceID, repeatingInvoice.repeatingInvoiceID) &&
         Objects.equals(this.ID, repeatingInvoice.ID) &&
-        Objects.equals(this.hasAttachments, repeatingInvoice.hasAttachments);
+        Objects.equals(this.hasAttachments, repeatingInvoice.hasAttachments) &&
+        Objects.equals(this.attachments, repeatingInvoice.attachments);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, contact, schedule, lineItems, lineAmountTypes, reference, brandingThemeID, currencyCode, status, subTotal, totalTax, total, repeatingInvoiceID, ID, hasAttachments);
+    return Objects.hash(type, contact, schedule, lineItems, lineAmountTypes, reference, brandingThemeID, currencyCode, status, subTotal, totalTax, total, repeatingInvoiceID, ID, hasAttachments, attachments);
   }
 
 
@@ -497,6 +529,7 @@ public class RepeatingInvoice {
     sb.append("    repeatingInvoiceID: ").append(toIndentedString(repeatingInvoiceID)).append("\n");
     sb.append("    ID: ").append(toIndentedString(ID)).append("\n");
     sb.append("    hasAttachments: ").append(toIndentedString(hasAttachments)).append("\n");
+    sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.accounting.Allocation;
+import com.xero.models.accounting.Attachment;
 import com.xero.models.accounting.Contact;
 import com.xero.models.accounting.CurrencyCode;
 import com.xero.models.accounting.LineAmountTypes;
@@ -165,7 +166,7 @@ public class Overpayment {
 
   
   @JsonProperty("RemainingCredit")
-  private String remainingCredit;
+  private Double remainingCredit;
 
   
   @JsonProperty("Allocations")
@@ -178,6 +179,10 @@ public class Overpayment {
   
   @JsonProperty("HasAttachments")
   private Boolean hasAttachments;
+
+  
+  @JsonProperty("Attachments")
+  private List<Attachment> attachments = null;
 
   public Overpayment type(TypeEnum type) {
     this.type = type;
@@ -421,7 +426,7 @@ public class Overpayment {
     this.currencyRate = currencyRate;
   }
 
-  public Overpayment remainingCredit(String remainingCredit) {
+  public Overpayment remainingCredit(Double remainingCredit) {
     this.remainingCredit = remainingCredit;
     return this;
   }
@@ -431,11 +436,11 @@ public class Overpayment {
    * @return remainingCredit
   **/
   @ApiModelProperty(value = "The remaining credit balance on the overpayment")
-  public String getRemainingCredit() {
+  public Double getRemainingCredit() {
     return remainingCredit;
   }
 
-  public void setRemainingCredit(String remainingCredit) {
+  public void setRemainingCredit(Double remainingCredit) {
     this.remainingCredit = remainingCredit;
   }
 
@@ -509,6 +514,32 @@ public class Overpayment {
     this.hasAttachments = hasAttachments;
   }
 
+  public Overpayment attachments(List<Attachment> attachments) {
+    this.attachments = attachments;
+    return this;
+  }
+
+  public Overpayment addAttachmentsItem(Attachment attachmentsItem) {
+    if (this.attachments == null) {
+      this.attachments = new ArrayList<Attachment>();
+    }
+    this.attachments.add(attachmentsItem);
+    return this;
+  }
+
+   /**
+   * See Attachments
+   * @return attachments
+  **/
+  @ApiModelProperty(value = "See Attachments")
+  public List<Attachment> getAttachments() {
+    return attachments;
+  }
+
+  public void setAttachments(List<Attachment> attachments) {
+    this.attachments = attachments;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -535,12 +566,13 @@ public class Overpayment {
         Objects.equals(this.remainingCredit, overpayment.remainingCredit) &&
         Objects.equals(this.allocations, overpayment.allocations) &&
         Objects.equals(this.payments, overpayment.payments) &&
-        Objects.equals(this.hasAttachments, overpayment.hasAttachments);
+        Objects.equals(this.hasAttachments, overpayment.hasAttachments) &&
+        Objects.equals(this.attachments, overpayment.attachments);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, contact, date, status, lineAmountTypes, lineItems, subTotal, totalTax, total, updatedDateUTC, currencyCode, overpaymentID, currencyRate, remainingCredit, allocations, payments, hasAttachments);
+    return Objects.hash(type, contact, date, status, lineAmountTypes, lineItems, subTotal, totalTax, total, updatedDateUTC, currencyCode, overpaymentID, currencyRate, remainingCredit, allocations, payments, hasAttachments, attachments);
   }
 
 
@@ -566,6 +598,7 @@ public class Overpayment {
     sb.append("    allocations: ").append(toIndentedString(allocations)).append("\n");
     sb.append("    payments: ").append(toIndentedString(payments)).append("\n");
     sb.append("    hasAttachments: ").append(toIndentedString(hasAttachments)).append("\n");
+    sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
     sb.append("}");
     return sb.toString();
   }

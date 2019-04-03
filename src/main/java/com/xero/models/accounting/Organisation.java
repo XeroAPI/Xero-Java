@@ -448,6 +448,45 @@ public class Organisation {
   @JsonProperty("Class")
   private PropertyClassEnum propertyClass;
 
+  /**
+   * BUSINESS or PARTNER. Partner edition organisations are sold exclusively through accounting partners and have restricted functionality (e.g. no access to invoicing)
+   */
+  public enum EditionEnum {
+    BUSINESS("BUSINESS"),
+    
+    PARTNER("PARTNER");
+
+    private String value;
+
+    EditionEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static EditionEnum fromValue(String text) {
+      for (EditionEnum b : EditionEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+    }
+  }
+
+  
+  @JsonProperty("Edition")
+  private EditionEnum edition;
+
   
   @JsonProperty("LineOfBusiness")
   private String lineOfBusiness;
@@ -936,6 +975,24 @@ public class Organisation {
     this.propertyClass = propertyClass;
   }
 
+  public Organisation edition(EditionEnum edition) {
+    this.edition = edition;
+    return this;
+  }
+
+   /**
+   * BUSINESS or PARTNER. Partner edition organisations are sold exclusively through accounting partners and have restricted functionality (e.g. no access to invoicing)
+   * @return edition
+  **/
+  @ApiModelProperty(value = "BUSINESS or PARTNER. Partner edition organisations are sold exclusively through accounting partners and have restricted functionality (e.g. no access to invoicing)")
+  public EditionEnum getEdition() {
+    return edition;
+  }
+
+  public void setEdition(EditionEnum edition) {
+    this.edition = edition;
+  }
+
   public Organisation lineOfBusiness(String lineOfBusiness) {
     this.lineOfBusiness = lineOfBusiness;
     return this;
@@ -1086,6 +1143,7 @@ public class Organisation {
         Objects.equals(this.organisationEntityType, organisation.organisationEntityType) &&
         Objects.equals(this.shortCode, organisation.shortCode) &&
         Objects.equals(this.propertyClass, organisation.propertyClass) &&
+        Objects.equals(this.edition, organisation.edition) &&
         Objects.equals(this.lineOfBusiness, organisation.lineOfBusiness) &&
         Objects.equals(this.addresses, organisation.addresses) &&
         Objects.equals(this.phones, organisation.phones) &&
@@ -1095,7 +1153,7 @@ public class Organisation {
 
   @Override
   public int hashCode() {
-    return Objects.hash(organisationID, apIKey, name, legalName, paysTax, version, organisationType, baseCurrency, countryCode, isDemoCompany, organisationStatus, registrationNumber, taxNumber, financialYearEndDay, financialYearEndMonth, salesTaxBasis, salesTaxPeriod, defaultSalesTax, defaultPurchasesTax, periodLockDate, endOfYearLockDate, createdDateUTC, timezone, organisationEntityType, shortCode, propertyClass, lineOfBusiness, addresses, phones, externalLinks, paymentTerms);
+    return Objects.hash(organisationID, apIKey, name, legalName, paysTax, version, organisationType, baseCurrency, countryCode, isDemoCompany, organisationStatus, registrationNumber, taxNumber, financialYearEndDay, financialYearEndMonth, salesTaxBasis, salesTaxPeriod, defaultSalesTax, defaultPurchasesTax, periodLockDate, endOfYearLockDate, createdDateUTC, timezone, organisationEntityType, shortCode, propertyClass, edition, lineOfBusiness, addresses, phones, externalLinks, paymentTerms);
   }
 
 
@@ -1130,6 +1188,7 @@ public class Organisation {
     sb.append("    organisationEntityType: ").append(toIndentedString(organisationEntityType)).append("\n");
     sb.append("    shortCode: ").append(toIndentedString(shortCode)).append("\n");
     sb.append("    propertyClass: ").append(toIndentedString(propertyClass)).append("\n");
+    sb.append("    edition: ").append(toIndentedString(edition)).append("\n");
     sb.append("    lineOfBusiness: ").append(toIndentedString(lineOfBusiness)).append("\n");
     sb.append("    addresses: ").append(toIndentedString(addresses)).append("\n");
     sb.append("    phones: ").append(toIndentedString(phones)).append("\n");

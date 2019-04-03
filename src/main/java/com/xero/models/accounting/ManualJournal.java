@@ -18,6 +18,7 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.Attachment;
 import com.xero.models.accounting.LineAmountTypes;
 import com.xero.models.accounting.ManualJournalLine;
 import com.xero.models.accounting.ValidationError;
@@ -122,6 +123,10 @@ public class ManualJournal {
   
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = null;
+
+  
+  @JsonProperty("Attachments")
+  private List<Attachment> attachments = null;
 
   public ManualJournal narration(String narration) {
     this.narration = narration;
@@ -342,6 +347,32 @@ public class ManualJournal {
     this.validationErrors = validationErrors;
   }
 
+  public ManualJournal attachments(List<Attachment> attachments) {
+    this.attachments = attachments;
+    return this;
+  }
+
+  public ManualJournal addAttachmentsItem(Attachment attachmentsItem) {
+    if (this.attachments == null) {
+      this.attachments = new ArrayList<Attachment>();
+    }
+    this.attachments.add(attachmentsItem);
+    return this;
+  }
+
+   /**
+   * Displays array of attachments from the API
+   * @return attachments
+  **/
+  @ApiModelProperty(value = "Displays array of attachments from the API")
+  public List<Attachment> getAttachments() {
+    return attachments;
+  }
+
+  public void setAttachments(List<Attachment> attachments) {
+    this.attachments = attachments;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -363,12 +394,13 @@ public class ManualJournal {
         Objects.equals(this.updatedDateUTC, manualJournal.updatedDateUTC) &&
         Objects.equals(this.manualJournalID, manualJournal.manualJournalID) &&
         Objects.equals(this.warnings, manualJournal.warnings) &&
-        Objects.equals(this.validationErrors, manualJournal.validationErrors);
+        Objects.equals(this.validationErrors, manualJournal.validationErrors) &&
+        Objects.equals(this.attachments, manualJournal.attachments);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(narration, journalLines, date, lineAmountTypes, status, url, showOnCashBasisReports, hasAttachments, updatedDateUTC, manualJournalID, warnings, validationErrors);
+    return Objects.hash(narration, journalLines, date, lineAmountTypes, status, url, showOnCashBasisReports, hasAttachments, updatedDateUTC, manualJournalID, warnings, validationErrors, attachments);
   }
 
 
@@ -389,6 +421,7 @@ public class ManualJournal {
     sb.append("    manualJournalID: ").append(toIndentedString(manualJournalID)).append("\n");
     sb.append("    warnings: ").append(toIndentedString(warnings)).append("\n");
     sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
+    sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
     sb.append("}");
     return sb.toString();
   }

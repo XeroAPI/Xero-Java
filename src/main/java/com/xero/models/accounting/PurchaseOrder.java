@@ -18,6 +18,7 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.Attachment;
 import com.xero.models.accounting.Contact;
 import com.xero.models.accounting.CurrencyCode;
 import com.xero.models.accounting.LineAmountTypes;
@@ -186,6 +187,10 @@ public class PurchaseOrder {
   
   @JsonProperty("Warnings")
   private List<ValidationError> warnings = null;
+
+  
+  @JsonProperty("Attachments")
+  private List<Attachment> attachments = null;
 
   public PurchaseOrder contact(Contact contact) {
     this.contact = contact;
@@ -631,6 +636,32 @@ public class PurchaseOrder {
     this.warnings = warnings;
   }
 
+  public PurchaseOrder attachments(List<Attachment> attachments) {
+    this.attachments = attachments;
+    return this;
+  }
+
+  public PurchaseOrder addAttachmentsItem(Attachment attachmentsItem) {
+    if (this.attachments == null) {
+      this.attachments = new ArrayList<Attachment>();
+    }
+    this.attachments.add(attachmentsItem);
+    return this;
+  }
+
+   /**
+   * Displays array of attachments from the API
+   * @return attachments
+  **/
+  @ApiModelProperty(value = "Displays array of attachments from the API")
+  public List<Attachment> getAttachments() {
+    return attachments;
+  }
+
+  public void setAttachments(List<Attachment> attachments) {
+    this.attachments = attachments;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -667,12 +698,13 @@ public class PurchaseOrder {
         Objects.equals(this.updatedDateUTC, purchaseOrder.updatedDateUTC) &&
         Objects.equals(this.statusAttributeString, purchaseOrder.statusAttributeString) &&
         Objects.equals(this.validationErrors, purchaseOrder.validationErrors) &&
-        Objects.equals(this.warnings, purchaseOrder.warnings);
+        Objects.equals(this.warnings, purchaseOrder.warnings) &&
+        Objects.equals(this.attachments, purchaseOrder.attachments);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(contact, lineItems, date, deliveryDate, lineAmountTypes, purchaseOrderNumber, reference, brandingThemeID, currencyCode, status, sentToContact, deliveryAddress, attentionTo, telephone, deliveryInstructions, expectedArrivalDate, purchaseOrderID, currencyRate, subTotal, totalTax, total, totalDiscount, hasAttachments, updatedDateUTC, statusAttributeString, validationErrors, warnings);
+    return Objects.hash(contact, lineItems, date, deliveryDate, lineAmountTypes, purchaseOrderNumber, reference, brandingThemeID, currencyCode, status, sentToContact, deliveryAddress, attentionTo, telephone, deliveryInstructions, expectedArrivalDate, purchaseOrderID, currencyRate, subTotal, totalTax, total, totalDiscount, hasAttachments, updatedDateUTC, statusAttributeString, validationErrors, warnings, attachments);
   }
 
 
@@ -708,6 +740,7 @@ public class PurchaseOrder {
     sb.append("    statusAttributeString: ").append(toIndentedString(statusAttributeString)).append("\n");
     sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("    warnings: ").append(toIndentedString(warnings)).append("\n");
+    sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
     sb.append("}");
     return sb.toString();
   }

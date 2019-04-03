@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.accounting.Allocation;
+import com.xero.models.accounting.Attachment;
 import com.xero.models.accounting.Contact;
 import com.xero.models.accounting.CurrencyCode;
 import com.xero.models.accounting.LineAmountTypes;
@@ -173,6 +174,10 @@ public class Prepayment {
   
   @JsonProperty("HasAttachments")
   private Boolean hasAttachments;
+
+  
+  @JsonProperty("Attachments")
+  private List<Attachment> attachments = null;
 
   public Prepayment type(TypeEnum type) {
     this.type = type;
@@ -478,6 +483,32 @@ public class Prepayment {
     this.hasAttachments = hasAttachments;
   }
 
+  public Prepayment attachments(List<Attachment> attachments) {
+    this.attachments = attachments;
+    return this;
+  }
+
+  public Prepayment addAttachmentsItem(Attachment attachmentsItem) {
+    if (this.attachments == null) {
+      this.attachments = new ArrayList<Attachment>();
+    }
+    this.attachments.add(attachmentsItem);
+    return this;
+  }
+
+   /**
+   * See Attachments
+   * @return attachments
+  **/
+  @ApiModelProperty(value = "See Attachments")
+  public List<Attachment> getAttachments() {
+    return attachments;
+  }
+
+  public void setAttachments(List<Attachment> attachments) {
+    this.attachments = attachments;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -503,12 +534,13 @@ public class Prepayment {
         Objects.equals(this.currencyRate, prepayment.currencyRate) &&
         Objects.equals(this.remainingCredit, prepayment.remainingCredit) &&
         Objects.equals(this.allocations, prepayment.allocations) &&
-        Objects.equals(this.hasAttachments, prepayment.hasAttachments);
+        Objects.equals(this.hasAttachments, prepayment.hasAttachments) &&
+        Objects.equals(this.attachments, prepayment.attachments);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, contact, date, status, lineAmountTypes, lineItems, subTotal, totalTax, total, updatedDateUTC, currencyCode, prepaymentID, currencyRate, remainingCredit, allocations, hasAttachments);
+    return Objects.hash(type, contact, date, status, lineAmountTypes, lineItems, subTotal, totalTax, total, updatedDateUTC, currencyCode, prepaymentID, currencyRate, remainingCredit, allocations, hasAttachments, attachments);
   }
 
 
@@ -533,6 +565,7 @@ public class Prepayment {
     sb.append("    remainingCredit: ").append(toIndentedString(remainingCredit)).append("\n");
     sb.append("    allocations: ").append(toIndentedString(allocations)).append("\n");
     sb.append("    hasAttachments: ").append(toIndentedString(hasAttachments)).append("\n");
+    sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
     sb.append("}");
     return sb.toString();
   }

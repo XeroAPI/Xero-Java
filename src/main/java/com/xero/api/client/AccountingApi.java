@@ -1627,36 +1627,6 @@ public class AccountingApi {
         }
     }
   /**
-    * Allows you to create prepayments
-    * <p><b>200</b> - Success - return response of type Prepayments array for newly created Prepayment
-    * <p><b>400</b> - A failed request due to validation error
-    * @param prepayments The prepayments parameter
-    * @return Prepayments
-    * @throws IOException if an error occurs while attempting to invoke the API
-    **/
-    public Prepayments createPrepayment(Prepayments prepayments) throws IOException {
-        try {
-            String strBody = null;
-            Map<String, String> params = null;
-            String correctPath = "/Prepayments";
-            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-            String url = uriBuilder.build().toString();
-
-            
-            strBody = apiClient.getObjectMapper().writeValueAsString(prepayments);
-
-            String response = this.DATA(url, strBody, params, "PUT");
-
-            TypeReference<Prepayments> typeRef = new TypeReference<Prepayments>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);           
-
-        } catch (IOException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage());
-        } catch (XeroApiException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode(),JSONUtils.isJSONValid(e.getMessage()));
-        }
-    }
-  /**
     * Allows you to create an Allocation for prepayments
     * <p><b>200</b> - Success - return response of type Allocations array of Allocation for all Prepayment
     * <p><b>400</b> - A failed request due to validation error
@@ -1891,8 +1861,8 @@ public class AccountingApi {
     }
   /**
     * Allows you to retrieve a history records of an Receipt
-    * <p><b>200</b> - Success - return response of type HistoryRecords array for newly created HistoryRecord for Receipt
-    * <p><b>400</b> - A failed request due to validation error
+    * <p><b>200</b> - Unsupported - return response incorrect exception, API is not able to create HistoryRecord for Receipts
+    * <p><b>400</b> - Unsupported - return response incorrect exception, API is not able to create HistoryRecord for Receipts
     * @param receiptID Unique identifier for a Receipt
     * @param historyRecords The historyRecords parameter
     * @return HistoryRecords
