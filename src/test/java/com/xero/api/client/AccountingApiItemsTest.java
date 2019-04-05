@@ -67,7 +67,7 @@ public class AccountingApiItemsTest {
 
         try {
             System.out.println("Sleep for 30 seconds");
-            Thread.sleep(60000);
+            Thread.sleep(30000);
         } catch(InterruptedException e) {
             System.out.println(e);
         }
@@ -156,7 +156,8 @@ public class AccountingApiItemsTest {
         OffsetDateTime ifModifiedSince = null;
         String where = null;
         String order = null;
-        Items response = api.getItems(ifModifiedSince, where, order);
+        Integer unitdp = null;
+        Items response = api.getItems(ifModifiedSince, where, order, unitdp);
 
         assertThat(response.getItems().get(0).getCode(), is(equalTo("123")));
         assertThat(response.getItems().get(0).getName(), is(equalTo("Guitars")));

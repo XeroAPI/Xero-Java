@@ -166,10 +166,9 @@ public class AccountingApiPrepaymentsTest {
         String where = null;
         String order = null;
         Integer page = null;
-        Prepayments response = api.getPrepayments(ifModifiedSince, where, order, page);
+        Integer unitdp = null;
+        Prepayments response = api.getPrepayments(ifModifiedSince, where, order, page, unitdp);
 
-        // TODO: test validations
-    
         assertThat(response.getPrepayments().get(0).getType().toString(), is(equalTo("RECEIVE-PREPAYMENT")));
         assertThat(response.getPrepayments().get(0).getContact().getName(), is(equalTo("Luke Skywalker")));
         assertThat(response.getPrepayments().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,12))));  

@@ -1946,7 +1946,7 @@ public class AccountingApi {
     }
   /**
     * Allows you to create history for a repeating invoice
-    * <p><b>200</b> - Success - return response of type HistoryRecords array with newly created HistoryRecord for Repeating Invoice
+    * <p><b>200</b> - Unsupported - return response incorrect exception, API is not able to create HistoryRecord for Repeating Invoice
     * <p><b>400</b> - A failed request due to validation error
     * @param repeatingInvoiceID Unique identifier for a Repeating Invoice
     * @param historyRecords The historyRecords parameter
@@ -2783,10 +2783,11 @@ public class AccountingApi {
     * @param where Filter by an any element
     * @param order Order by an any element
     * @param page e.g. page&#x3D;1 – Up to 100 bank transactions will be returned in a single API call with line items shown for each bank transaction
+    * @param unitdp e.g. unitdp&#x3D;4 – You can opt in to use four decimal places for unit amounts
     * @return BankTransactions
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public BankTransactions getBankTransactions(OffsetDateTime ifModifiedSince, String where, String order, Integer page) throws IOException {
+    public BankTransactions getBankTransactions(OffsetDateTime ifModifiedSince, String where, String order, Integer page, Integer unitdp) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -2800,6 +2801,8 @@ public class AccountingApi {
                 addToMapIfNotNull(params, "order", order);
             }if (page != null) {
                 addToMapIfNotNull(params, "page", page);
+            }if (unitdp != null) {
+                addToMapIfNotNull(params, "unitdp", unitdp);
             }
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
@@ -4334,10 +4337,11 @@ public class AccountingApi {
     * @param page e.g. page&#x3D;1 – Up to 100 invoices will be returned in a single API call with line items shown for each invoice
     * @param includeArchived e.g. includeArchived&#x3D;true - Contacts with a status of ARCHIVED will be included in the response
     * @param createdByMyApp When set to true you&#39;ll only retrieve Invoices created by your app
+    * @param unitdp e.g. unitdp&#x3D;4 – You can opt in to use four decimal places for unit amounts
     * @return Invoices
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Invoices getInvoices(OffsetDateTime ifModifiedSince, String where, String order, String ids, String invoiceNumbers, String contactIDs, String statuses, Integer page, Boolean includeArchived, Boolean createdByMyApp) throws IOException {
+    public Invoices getInvoices(OffsetDateTime ifModifiedSince, String where, String order, String ids, String invoiceNumbers, String contactIDs, String statuses, Integer page, Boolean includeArchived, Boolean createdByMyApp, Integer unitdp) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -4363,6 +4367,8 @@ public class AccountingApi {
                 addToMapIfNotNull(params, "includeArchived", includeArchived);
             }if (createdByMyApp != null) {
                 addToMapIfNotNull(params, "createdByMyApp", createdByMyApp);
+            }if (unitdp != null) {
+                addToMapIfNotNull(params, "unitdp", unitdp);
             }
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
@@ -4458,10 +4464,11 @@ public class AccountingApi {
     * @param ifModifiedSince Only records created or modified since this timestamp will be returned
     * @param where Filter by an any element
     * @param order Order by an any element
+    * @param unitdp e.g. unitdp&#x3D;4 – You can opt in to use four decimal places for unit amounts
     * @return Items
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Items getItems(OffsetDateTime ifModifiedSince, String where, String order) throws IOException {
+    public Items getItems(OffsetDateTime ifModifiedSince, String where, String order, Integer unitdp) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -4473,6 +4480,8 @@ public class AccountingApi {
                 addToMapIfNotNull(params, "where", where);
             }if (order != null) {
                 addToMapIfNotNull(params, "order", order);
+            }if (unitdp != null) {
+                addToMapIfNotNull(params, "unitdp", unitdp);
             }
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
@@ -5015,10 +5024,11 @@ public class AccountingApi {
     * @param where Filter by an any element
     * @param order Order by an any element
     * @param page e.g. page&#x3D;1 – Up to 100 overpayments will be returned in a single API call with line items shown for each overpayment
+    * @param unitdp e.g. unitdp&#x3D;4 – You can opt in to use four decimal places for unit amounts
     * @return Overpayments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Overpayments getOverpayments(OffsetDateTime ifModifiedSince, String where, String order, Integer page) throws IOException {
+    public Overpayments getOverpayments(OffsetDateTime ifModifiedSince, String where, String order, Integer page, Integer unitdp) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -5032,6 +5042,8 @@ public class AccountingApi {
                 addToMapIfNotNull(params, "order", order);
             }if (page != null) {
                 addToMapIfNotNull(params, "page", page);
+            }if (unitdp != null) {
+                addToMapIfNotNull(params, "unitdp", unitdp);
             }
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
@@ -5264,10 +5276,11 @@ public class AccountingApi {
     * @param where Filter by an any element
     * @param order Order by an any element
     * @param page e.g. page&#x3D;1 – Up to 100 prepayments will be returned in a single API call with line items shown for each overpayment
+    * @param unitdp e.g. unitdp&#x3D;4 – You can opt in to use four decimal places for unit amounts
     * @return Prepayments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Prepayments getPrepayments(OffsetDateTime ifModifiedSince, String where, String order, Integer page) throws IOException {
+    public Prepayments getPrepayments(OffsetDateTime ifModifiedSince, String where, String order, Integer page, Integer unitdp) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -5281,6 +5294,8 @@ public class AccountingApi {
                 addToMapIfNotNull(params, "order", order);
             }if (page != null) {
                 addToMapIfNotNull(params, "page", page);
+            }if (unitdp != null) {
+                addToMapIfNotNull(params, "unitdp", unitdp);
             }
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);
@@ -5609,10 +5624,11 @@ public class AccountingApi {
     * @param ifModifiedSince Only records created or modified since this timestamp will be returned
     * @param where Filter by an any element
     * @param order Order by an any element
+    * @param unitdp e.g. unitdp&#x3D;4 – You can opt in to use four decimal places for unit amounts
     * @return Receipts
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Receipts getReceipts(OffsetDateTime ifModifiedSince, String where, String order) throws IOException {
+    public Receipts getReceipts(OffsetDateTime ifModifiedSince, String where, String order, Integer unitdp) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -5624,6 +5640,8 @@ public class AccountingApi {
                 addToMapIfNotNull(params, "where", where);
             }if (order != null) {
                 addToMapIfNotNull(params, "order", order);
+            }if (unitdp != null) {
+                addToMapIfNotNull(params, "unitdp", unitdp);
             }
             
             String response = this.DATA(url, strBody, params, "GET", ifModifiedSince);

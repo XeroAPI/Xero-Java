@@ -327,7 +327,7 @@ public class RequestResourceServlet extends HttpServlet
 					
 					// Create file Association
 					Association association = new Association();
-					Invoices invoices = accountingApi.getInvoices(null, null, null, null, null, null, "AUTHORISED", null, false, null);
+					Invoices invoices = accountingApi.getInvoices(null, null, null, null, null, null, "AUTHORISED", null, false, null, null);
 					UUID invoiceId = invoices.getInvoices().get(0).getInvoiceID();
 					association.setObjectGroup(ObjectGroup.INVOICE);
 					association.setObjectId(invoiceId);
@@ -486,7 +486,7 @@ public class RequestResourceServlet extends HttpServlet
 				}
 				
 				// GET BankTransactions Attachment 
-				BankTransactions bankTransactions = accountingApi.getBankTransactions(ifModifiedSince, where, order, null);
+				BankTransactions bankTransactions = accountingApi.getBankTransactions(ifModifiedSince, where, order, null, null);
 				if (bankTransactions.getBankTransactions().size() > 0) {
 					UUID BankTransactionID = bankTransactions.getBankTransactions().get(0).getBankTransactionID();				
 					Attachments bankTransactionsAttachments = accountingApi.getBankTransactionAttachments(BankTransactionID);
@@ -544,7 +544,7 @@ public class RequestResourceServlet extends HttpServlet
 				}
 				
 				// GET Invoices Attachment 
-				Invoices invoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp);
+				Invoices invoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
 				if (invoices.getInvoices().size() > 0) {	
 					UUID InvoiceID = invoices.getInvoices().get(0).getInvoiceID();				
 					Attachments invoicesAttachments = accountingApi.getInvoiceAttachments(InvoiceID);
@@ -574,7 +574,7 @@ public class RequestResourceServlet extends HttpServlet
 				}
 				
 				// GET Receipts Attachment 
-				Receipts receipts = accountingApi.getReceipts(ifModifiedSince, where, order);
+				Receipts receipts = accountingApi.getReceipts(ifModifiedSince, where, order, null);
 				if (receipts.getReceipts().size() > 0) {			
 					UUID ReceiptID = receipts.getReceipts().get(0).getReceiptID();				
 					Attachments receiptsAttachments = accountingApi.getReceiptAttachments(ReceiptID);
@@ -624,7 +624,7 @@ public class RequestResourceServlet extends HttpServlet
 				}
 				
 				// CREATE BankTransactions attachment
-				BankTransactions myBanktransactions = accountingApi.getBankTransactions(ifModifiedSince, where, order, null);
+				BankTransactions myBanktransactions = accountingApi.getBankTransactions(ifModifiedSince, where, order, null, null);
 				if ( myBanktransactions.getBankTransactions().size() > 0) {
 					UUID banktransactionID = myBanktransactions.getBankTransactions().get(0).getBankTransactionID();			
 					Attachments createdBanktransationAttachments = accountingApi.createBankTransactionAttachmentByFileName(banktransactionID, newFileName, bytes);
@@ -659,7 +659,7 @@ public class RequestResourceServlet extends HttpServlet
 				}
 				
 				// CREATE invoice attachment
-				Invoices myInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp);
+				Invoices myInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
 				if ( myInvoices.getInvoices().size() > 0) {
 					UUID invoiceID = myInvoices.getInvoices().get(0).getInvoiceID();
 					Attachments createdInvoiceAttachments = accountingApi.createInvoiceAttachmentByFileName(invoiceID, newFileName, bytes);
@@ -675,7 +675,7 @@ public class RequestResourceServlet extends HttpServlet
 				}
 				
 				// CREATE Receipts attachment
-				Receipts myReceipts = accountingApi.getReceipts(ifModifiedSince, where, order);
+				Receipts myReceipts = accountingApi.getReceipts(ifModifiedSince, where, order, null);
 				if ( myReceipts.getReceipts().size() > 0) {
 					UUID receiptID = myReceipts.getReceipts().get(0).getReceiptID();
 					Attachments createdReceiptsAttachments = accountingApi.createReceiptAttachmentByFileName(receiptID, newFileName, bytes);
@@ -1126,7 +1126,7 @@ public class RequestResourceServlet extends HttpServlet
 					messages.add("Create new BankTransaction : amount:" + newBankTransaction.getBankTransactions().get(0).getTotal());				
 					
 					// GET all Bank Transaction
-					BankTransactions bankTransactions = accountingApi.getBankTransactions(ifModifiedSince, where, order, null);
+					BankTransactions bankTransactions = accountingApi.getBankTransactions(ifModifiedSince, where, order, null, null);
 					messages.add("Get a all Bank Transactions - total : " + bankTransactions.getBankTransactions().size());				
 
 					// GET one Bank Transaction
@@ -1216,7 +1216,7 @@ public class RequestResourceServlet extends HttpServlet
 				/* BATCH PAYMENTS */
 				// CREATE payment
 				where =  "Status==\"AUTHORISED\"&&Type==\"ACCREC\"";			
-				Invoices allInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp);
+				Invoices allInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
 				Invoice inv = new Invoice();
 				inv.setInvoiceID(allInvoices.getInvoices().get(0).getInvoiceID());
 				Invoice inv2 = new Invoice();
@@ -1504,7 +1504,7 @@ public class RequestResourceServlet extends HttpServlet
 				Allocation allocation = new Allocation();
 				
 			    where =  "Status==\"AUTHORISED\"&&Type==\"ACCPAY\"";
-			    Invoices allInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp);
+			    Invoices allInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
 				Invoice inv = new Invoice();
 				inv.setInvoiceID(allInvoices.getInvoices().get(0).getInvoiceID());
 				allocation.setInvoice(inv);
@@ -1687,7 +1687,7 @@ public class RequestResourceServlet extends HttpServlet
 		} else if (object.equals("Invoices")) {
 			/*  INVOICE */	
 			// GET Invoice As a PDF
-			Invoices myInvoicesForPDF = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp);
+			Invoices myInvoicesForPDF = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
 			UUID invoiceIDForPDF = myInvoicesForPDF.getInvoices().get(0).getInvoiceID();
 			ByteArrayInputStream InvoiceNoteInput	 = accountingApi.getInvoiceAsPdf(invoiceIDForPDF, "application/pdf");
 			String InvoiceFileName = "InvoiceAsPDF.pdf";			
@@ -1742,7 +1742,7 @@ public class RequestResourceServlet extends HttpServlet
 			messages.add("Update invoice - Reference : " + updatedInvoice.getInvoices().get(0).getReference());
 			
 			//Get All
-			Invoices invoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp);
+			Invoices invoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
 			messages.add("Get all invoices - Total : " + invoices.getInvoices().size());
 			
 			//Get Invoice If-Modified-Since
@@ -1750,7 +1750,7 @@ public class RequestResourceServlet extends HttpServlet
 			
 			System.out.println(invModified.toString());
 
-			Invoices invoicesSince = accountingApi.getInvoices(invModified, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp);
+			Invoices invoicesSince = accountingApi.getInvoices(invModified, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
 			messages.add("Get all invoices - Since Modfied Date - Total : " + invoicesSince.getInvoices().size());
 		
 			// Get One
@@ -1781,7 +1781,7 @@ public class RequestResourceServlet extends HttpServlet
 			messages.add("History - note added to  : " + newHistory);
 			
 			// CREATE invoice attachment
-			Invoices myInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp);
+			Invoices myInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
 			UUID invoiceID = myInvoices.getInvoices().get(0).getInvoiceID();
 			InputStream inputStream = JsonConfig.class.getResourceAsStream("/helo-heros.jpg");
 			byte[] bytes = IOUtils.toByteArray(inputStream);
@@ -1829,7 +1829,7 @@ public class RequestResourceServlet extends HttpServlet
 				messages.add("Update item - Description : " + updateItem.getItems().get(0).getDescription());
 				
 				//Get All Items
-				Items items = accountingApi.getItems(ifModifiedSince, where, order);
+				Items items = accountingApi.getItems(ifModifiedSince, where, order, null);
 				messages.add("Get all items - Total : " + items.getItems().size());
 				
 				// Get One Item
@@ -2105,7 +2105,7 @@ public class RequestResourceServlet extends HttpServlet
 				bts.addBankTransactionsItem(bt);					
 				BankTransactions newBankTransaction = accountingApi.createBankTransaction(bts, summarizeErrors);
 				
-				Overpayments overpayments = accountingApi.getOverpayments(ifModifiedSince, where, order, null);
+				Overpayments overpayments = accountingApi.getOverpayments(ifModifiedSince, where, order, null, null);
 				messages.add("Get a Overpayments - Count : " + overpayments.getOverpayments().size());
 				
 				if(overpayments.getOverpayments().size() > 0) {	
@@ -2114,7 +2114,7 @@ public class RequestResourceServlet extends HttpServlet
 					messages.add("Get one Overpayment - Total : " + oneOverpayment.getOverpayments().get(0).getTotal());					
 					
 				    where = "Status==\"AUTHORISED\"&&Type==\"ACCREC\"";					
-					Invoices allInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp);
+					Invoices allInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
 					Invoice inv = new Invoice();
 					inv.setInvoiceID(allInvoices.getInvoices().get(0).getInvoiceID());
 					where = null;
@@ -2151,7 +2151,7 @@ public class RequestResourceServlet extends HttpServlet
 			/* Payment 	*/
 			// CREATE payment
 			where =  "Status==\"AUTHORISED\"&&Type==\"ACCREC\"";			
-			Invoices allInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp);
+			Invoices allInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
 			Invoice inv = new Invoice();
 			inv.setInvoiceID(allInvoices.getInvoices().get(0).getInvoiceID());
 			where = null;
@@ -2254,7 +2254,7 @@ public class RequestResourceServlet extends HttpServlet
 				bts.addBankTransactionsItem(bt);					
 				BankTransactions newBankTransaction = accountingApi.createBankTransaction(bts, summarizeErrors);
 				where =  "Status==\"AUTHORISED\" && TYPE==\"RECEIVE-PREPAYMENT\"";
-				Prepayments prepayments = accountingApi.getPrepayments(ifModifiedSince, where, order, null);
+				Prepayments prepayments = accountingApi.getPrepayments(ifModifiedSince, where, order, null, null);
 				messages.add("Get a Prepayments - Count : " + prepayments.getPrepayments().size());
 				where = null;
 				if(prepayments.getPrepayments().size() > 0) {	
@@ -2262,7 +2262,7 @@ public class RequestResourceServlet extends HttpServlet
 					Prepayments onePrepayment = accountingApi.getPrepayment(prepaymentId);
 					messages.add("Get one Prepayment - Total : " + onePrepayment.getPrepayments().get(0).getTotal());
 				    where = "Status==\"AUTHORISED\"&&Type==\"ACCREC\"";					
-					Invoices allInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp);
+					Invoices allInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
 					Invoice inv = new Invoice();
 					inv.setInvoiceID(allInvoices.getInvoices().get(0).getInvoiceID());
 					where = null;
@@ -2409,7 +2409,7 @@ public class RequestResourceServlet extends HttpServlet
 				messages.add("Create Receipts - Ref : " + updateReceipts.getReceipts().get(0).getReference());								
 				
 				// GET all Receipts
-				Receipts allReceipts = accountingApi.getReceipts(ifModifiedSince, where, order);
+				Receipts allReceipts = accountingApi.getReceipts(ifModifiedSince, where, order, null);
 				messages.add("Create Receipts - Count : " + allReceipts.getReceipts().size());								
 				
 				// GET one Receipts

@@ -55,7 +55,7 @@ public class User {
   private Boolean isSubscriber;
 
   /**
-   * User role (see Types)
+   * User role that defines permissions in Xero and via API (READONLY, INVOICEONLY, STANDARD, FINANCIALADVISER, etc)
    */
   public enum OrganisationRoleEnum {
     READONLY("READONLY"),
@@ -215,10 +215,10 @@ public class User {
   }
 
    /**
-   * User role (see Types)
+   * User role that defines permissions in Xero and via API (READONLY, INVOICEONLY, STANDARD, FINANCIALADVISER, etc)
    * @return organisationRole
   **/
-  @ApiModelProperty(value = "User role (see Types)")
+  @ApiModelProperty(value = "User role that defines permissions in Xero and via API (READONLY, INVOICEONLY, STANDARD, FINANCIALADVISER, etc)")
   public OrganisationRoleEnum getOrganisationRole() {
     return organisationRole;
   }

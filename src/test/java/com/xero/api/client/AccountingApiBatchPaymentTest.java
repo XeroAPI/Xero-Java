@@ -86,7 +86,7 @@ public class AccountingApiBatchPaymentTest {
 
     	try {
     		System.out.println("Sleep for 30 seconds");
-	    	Thread.sleep(60000);
+	    	Thread.sleep(30000);
     	} catch(InterruptedException e) {
     		System.out.println(e);
     	}

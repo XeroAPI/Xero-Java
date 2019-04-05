@@ -64,7 +64,7 @@ public class AccountingApiInvoicesTest {
 
         try {
             System.out.println("Sleep for 60 seconds");
-            Thread.sleep(60000);
+            Thread.sleep(30000);
         } catch(InterruptedException e) {
             System.out.println(e);
         }
@@ -248,7 +248,8 @@ public class AccountingApiInvoicesTest {
         Integer page = null;
         Boolean includeArchived = null;
         Boolean createdByMyApp = null;
-        Invoices response = api.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp);
+        Integer unitdp = null;
+        Invoices response = api.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp, unitdp);
 
         assertThat(response.getInvoices().get(0).getType(), is(equalTo(com.xero.models.accounting.Invoice.TypeEnum.ACCREC)));
         assertThat(response.getInvoices().get(0).getDate(), is(equalTo(LocalDate.of(2018,10,19))));  

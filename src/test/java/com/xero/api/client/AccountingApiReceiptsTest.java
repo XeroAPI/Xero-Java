@@ -67,7 +67,7 @@ public class AccountingApiReceiptsTest {
 
         try {
             System.out.println("Sleep for 30 seconds");
-            Thread.sleep(60000);
+            Thread.sleep(30000);
         } catch(InterruptedException e) {
             System.out.println(e);
         }
@@ -197,7 +197,8 @@ public class AccountingApiReceiptsTest {
         OffsetDateTime ifModifiedSince = null;
         String where = null;
         String order = null;
-        Receipts response = api.getReceipts(ifModifiedSince, where, order);
+        Integer unitdp = null;
+        Receipts response = api.getReceipts(ifModifiedSince, where, order,unitdp);
 
         assertThat(response.getReceipts().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,12))));  
         assertThat(response.getReceipts().get(0).getContact().getContactID(), is(equalTo(UUID.fromString("430fa14a-f945-44d3-9f97-5df5e28441b8"))));

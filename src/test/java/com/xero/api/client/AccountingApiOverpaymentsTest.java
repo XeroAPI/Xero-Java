@@ -67,7 +67,7 @@ public class AccountingApiOverpaymentsTest {
 
         try {
             System.out.println("Sleep for 30 seconds");
-            Thread.sleep(60000);
+            Thread.sleep(30000);
         } catch(InterruptedException e) {
             System.out.println(e);
         }
@@ -167,7 +167,8 @@ public class AccountingApiOverpaymentsTest {
         String where = null;
         String order = null;
         Integer page = null;
-        Overpayments response = api.getOverpayments(ifModifiedSince, where, order, page);
+        Integer unitdp = null;
+        Overpayments response = api.getOverpayments(ifModifiedSince, where, order, page,unitdp);
 
         //assertThat(response.getOverpayments().get(0).getType(), is(equalTo(com.xero.models.accounting.Overpayment.TypeEnum.SPEND-OVERPAYMENT)));
         assertThat(response.getOverpayments().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,11))));  
