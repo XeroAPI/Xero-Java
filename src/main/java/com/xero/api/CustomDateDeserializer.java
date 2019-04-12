@@ -30,7 +30,6 @@ public class CustomDateDeserializer extends StdDeserializer<LocalDate> {
     public LocalDate deserialize(JsonParser jsonparser, DeserializationContext context)
       throws IOException, JsonProcessingException {
         String date = jsonparser.getText();
-        System.out.println(date);
         LocalDate formattedDate;
         Pattern datePatt = Pattern.compile("^/Date\\((\\d+)([+-]\\d+)?\\)/$");
         Pattern datePattNeg = Pattern.compile("^/Date\\(-(\\d+)([+-]\\d+)?\\)/$");
