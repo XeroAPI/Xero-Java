@@ -33,9 +33,14 @@ public class CustomOffsetDateTimeDeserializer extends StdDeserializer<OffsetDate
         OffsetDateTime formattedDate;
         Pattern datePatt = Pattern.compile("^/Date\\((\\d+)([+-]\\d+)?\\)/$");
 		Matcher m = datePatt.matcher(date);
-		if (m.matches()) {
+		Pattern datePattNeg = Pattern.compile("^/Date\\(-(\\d+)([+-]\\d+)?\\)/$");
+		Matcher mNeg = datePattNeg.matcher(date);
+		if (m != null && m.matches()) {
 			Long l = Long.parseLong(m.group(1));
 			formattedDate = Instant.ofEpochMilli(l).atZone(ZoneId.systemDefault()).toOffsetDateTime();
+		} else if (mNeg != null && mNeg.matches()) {
+			Long l = Long.parseLong(mNeg.group(1));
+			formattedDate = Instant.ofEpochMilli(-l).atZone(ZoneId.systemDefault()).toOffsetDateTime();
 		} else {
 			throw new IllegalArgumentException("Wrong date format");
 		}
