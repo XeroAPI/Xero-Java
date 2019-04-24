@@ -96,7 +96,6 @@ import com.xero.models.accounting.TaxComponent;
 import com.xero.models.accounting.TaxRate;
 import com.xero.models.accounting.TaxRate.ReportTaxTypeEnum;
 import com.xero.models.accounting.TaxRates;
-import com.xero.models.accounting.TaxType;
 import com.xero.models.accounting.TrackingCategories;
 import com.xero.models.accounting.TrackingCategory;
 import com.xero.models.accounting.TrackingOption;
@@ -2500,7 +2499,7 @@ public class RequestResourceServlet extends HttpServlet
 			messages.add("Get a Reports - Name:" + reportAgedPayablesByContact.getReports().get(0).getReportName());
 			
 			// AgedReceivablesByContact
-			ReportWithRows reportAgedReceivablesByContact = accountingApi.getReportAgedReceivablesByContact(contactId, date, fromDate, toDate);
+			ReportWithRows reportAgedReceivablesByContact = accountingApi.getReportAgedReceivablesByContact(contactId, xDate, xFromDate, xToDate);
 			messages.add("Get a Reports - Name:" + reportAgedReceivablesByContact.getReports().get(0).getReportName());
 			
 			// reportBalanceSheet
@@ -2508,7 +2507,7 @@ public class RequestResourceServlet extends HttpServlet
 			messages.add("Get a Reports - Name:" + reportBalanceSheet.getReports().get(0).getReportName());
 			System.out.println(reportBalanceSheet.getReports().get(0).getReportTitles().get(1).toString()  );
 			// reportBankSummary
-			ReportWithRows reportBankSummary = accountingApi.getReportBankSummary(toDate, null, null);
+			ReportWithRows reportBankSummary = accountingApi.getReportBankSummary(xToDate, null, null);
 			messages.add("Get a Reports - Name:" + reportBankSummary.getReports().get(0).getReportName());
 			
 			// reportBASorGSTlist - AU and NZ only
@@ -2518,11 +2517,11 @@ public class RequestResourceServlet extends HttpServlet
 			// reportBudgetSummary
 			int budgetPeriod = 1;
 			int budgetTimeframe = 3;
-			ReportWithRows reportBudgetSummary = accountingApi.getReportBudgetSummary(toDate, budgetPeriod, budgetTimeframe);
+			ReportWithRows reportBudgetSummary = accountingApi.getReportBudgetSummary(xToDate, budgetPeriod, budgetTimeframe);
 			messages.add("Get a Reports - Name:" + reportBudgetSummary.getReports().get(0).getReportName());
 			
 			// reportExecutiveSummary
-			ReportWithRows reportExecutiveSummary = accountingApi.getReportExecutiveSummary(toDate);
+			ReportWithRows reportExecutiveSummary = accountingApi.getReportExecutiveSummary(xToDate);
 			messages.add("Get a Reports - Name:" + reportExecutiveSummary.getReports().get(0).getReportName());
 			
 			// reportProfitandLoss
@@ -2531,13 +2530,13 @@ public class RequestResourceServlet extends HttpServlet
 		    profitLossTimeframe = "MONTH";
 		    standardLayout = true;
 		    paymentsOnly = false;
-			ReportWithRows reportProfitLoss = accountingApi.getReportProfitAndLoss(fromDate, toDate, null, profitLossTimeframe, trackingCategoryID, trackingCategoryID2, trackingOptionID, trackingOptionID2, standardLayout, paymentsOnly);
+			ReportWithRows reportProfitLoss = accountingApi.getReportProfitAndLoss(xFromDate, xToDate, null, profitLossTimeframe, trackingCategoryID, trackingCategoryID2, trackingOptionID, trackingOptionID2, standardLayout, paymentsOnly);
 			messages.add("Get a Reports - Name:" + reportProfitLoss.getReports().get(0).getReportName());
 			fromDate = null;
 		    toDate = null;
 						
 			// reportTrialBalance
-			ReportWithRows reportTrialBalance = accountingApi.getReportTrialBalance(toDate, paymentsOnly);
+			ReportWithRows reportTrialBalance = accountingApi.getReportTrialBalance(xToDate, paymentsOnly);
 			messages.add("Get a Reports - Name:" + reportTrialBalance.getReports().get(0).getReportName());
 			
 		} else if (object.equals("TaxRates")) {

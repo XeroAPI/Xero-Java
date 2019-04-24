@@ -54,7 +54,9 @@ public class TrackingCategory {
   public enum StatusEnum {
     ACTIVE("ACTIVE"),
     
-    ARCHIVED("ARCHIVED");
+    ARCHIVED("ARCHIVED"),
+    
+    DELETED("DELETED");
 
     private String value;
 

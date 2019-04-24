@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
@@ -15,15 +14,11 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Every.everyItem;
 
-
 import com.xero.api.XeroApiException;
 import com.xero.api.ApiClient;
-import com.xero.example.CustomJsonConfig;
-
 import com.xero.api.client.*;
 import com.xero.models.accounting.*;
-
-import com.xero.example.SampleData;
+import com.xero.example.CustomJsonConfig;
 
 import org.threeten.bp.*;
 import java.io.IOException;
@@ -67,7 +62,7 @@ public class AccountingApiTrackingCategoriesTest {
 
         try {
             System.out.println("Sleep for 30 seconds");
-            Thread.sleep(60);
+            Thread.sleep(60000);
         } catch(InterruptedException e) {
             System.out.println(e);
         }
@@ -86,9 +81,10 @@ public class AccountingApiTrackingCategoriesTest {
         TrackingCategory trackingCategory = null;
         TrackingCategories response = api.createTrackingCategory(trackingCategory);
 
-        // TODO: test validations
-
-        System.out.println(response.getTrackingCategories().get(0).toString());
+        assertThat(response.getTrackingCategories().get(0).getTrackingCategoryID(), is(equalTo(UUID.fromString("b1df776b-b093-4730-b6ea-590cca40e723"))));
+        assertThat(response.getTrackingCategories().get(0).getName(), is(equalTo("FooBar")));
+        assertThat(response.getTrackingCategories().get(0).getStatus(), is(equalTo(com.xero.models.accounting.TrackingCategory.StatusEnum.ACTIVE)));
+        //System.out.println(response.getTrackingCategories().get(0).toString());
     }
 
     @Test
@@ -98,9 +94,10 @@ public class AccountingApiTrackingCategoriesTest {
         TrackingOption trackingOption = null;
         TrackingOptions response = api.createTrackingOptions(trackingCategoryID, trackingOption);
 
-        // TODO: test validations
-
-        //System.out.println(response.getTrackingOptions().get(0).toString());
+        assertThat(response.getOptions().get(0).getTrackingOptionID(), is(equalTo(UUID.fromString("34669548-b989-487a-979f-0787d04568a2"))));
+        assertThat(response.getOptions().get(0).getName(), is(equalTo("Bar40423")));
+        assertThat(response.getOptions().get(0).getStatus(), is(equalTo(com.xero.models.accounting.TrackingOption.StatusEnum.ACTIVE)));
+        //System.out.println(response.getOptions().get(0).toString());
     }
 
     @Test
@@ -109,9 +106,10 @@ public class AccountingApiTrackingCategoriesTest {
         UUID trackingCategoryID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         TrackingCategories response = api.deleteTrackingCategory(trackingCategoryID);
 
-        // TODO: test validations
-
-        System.out.println(response.getTrackingCategories().get(0).toString());
+        assertThat(response.getTrackingCategories().get(0).getTrackingCategoryID(), is(equalTo(UUID.fromString("0390bdfd-94f2-49d6-b7a0-4a38c46ebf03"))));
+        assertThat(response.getTrackingCategories().get(0).getName(), is(equalTo("Foo46189")));
+        assertThat(response.getTrackingCategories().get(0).getStatus(), is(equalTo(com.xero.models.accounting.TrackingCategory.StatusEnum.DELETED)));
+        //System.out.println(response.getTrackingCategories().get(0).toString());
     }
     
     @Test
@@ -121,9 +119,10 @@ public class AccountingApiTrackingCategoriesTest {
         UUID trackingOptionID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         TrackingOptions response = api.deleteTrackingOptions(trackingCategoryID, trackingOptionID);
 
-        // TODO: test validations
-
-        //System.out.println(response.getTrackingOptions().get(0).toString());
+        assertThat(response.getOptions().get(0).getTrackingOptionID(), is(equalTo(UUID.fromString("34669548-b989-487a-979f-0787d04568a2"))));
+        assertThat(response.getOptions().get(0).getName(), is(equalTo("Bar40423")));
+        assertThat(response.getOptions().get(0).getStatus(), is(equalTo(com.xero.models.accounting.TrackingOption.StatusEnum.DELETED)));
+        //System.out.println(response.getOptions().toString());
     }
 
     @Test
@@ -134,9 +133,10 @@ public class AccountingApiTrackingCategoriesTest {
         Boolean includeArchived = null;
         TrackingCategories response = api.getTrackingCategories(where, order, includeArchived);
 
-        // TODO: test validations
-
-        System.out.println(response.getTrackingCategories().get(0).toString());
+        assertThat(response.getTrackingCategories().get(0).getTrackingCategoryID(), is(equalTo(UUID.fromString("22f10184-0deb-44ae-a312-b1f6ea70e51f"))));
+        assertThat(response.getTrackingCategories().get(0).getName(), is(equalTo("BarFoo")));
+        assertThat(response.getTrackingCategories().get(0).getStatus(), is(equalTo(com.xero.models.accounting.TrackingCategory.StatusEnum.ACTIVE)));
+        //System.out.println(response.getTrackingCategories().get(0).toString());
     }
     
     @Test
@@ -145,13 +145,9 @@ public class AccountingApiTrackingCategoriesTest {
         UUID trackingCategoryID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         TrackingCategories response = api.getTrackingCategory(trackingCategoryID);
 
-        //assertThat(response.getTrackingCategorys().get(0).getTrackingCategoryID(), is(equalTo(UUID.fromString("3fa85f64-5717-4562-b3fc-2c963f66afa6"))));
-        //assertThat(response.getTrackingCategorys().get(0).getTrackingOptionID(), is(equalTo(UUID.fromString("3fa85f64-5717-4562-b3fc-2c963f66afa6"))));
-        //assertThat(response.getTrackingCategorys().get(0).getName(), is(equalTo("STRING_ONLY_PLACEHOLDER")));
-        //assertThat(response.getTrackingCategorys().get(0).getOption(), is(equalTo("STRING_ONLY_PLACEHOLDER")));
-        //assertThat(response.getTrackingCategorys().get(0).getStatus(), is(equalTo(ENUM_PLACEHOLDER)));
-        //assertThat(response.getTrackingCategorys().get(0).getOptions(), is(equalTo("CONTAINER_PLACEHOLDER")));
-
+        assertThat(response.getTrackingCategories().get(0).getTrackingCategoryID(), is(equalTo(UUID.fromString("22f10184-0deb-44ae-a312-b1f6ea70e51f"))));
+        assertThat(response.getTrackingCategories().get(0).getName(), is(equalTo("Foo41157")));
+        assertThat(response.getTrackingCategories().get(0).getStatus(), is(equalTo(com.xero.models.accounting.TrackingCategory.StatusEnum.DELETED)));
         //System.out.println(response.getTrackingCategories().get(0).toString());
     }
 
@@ -162,44 +158,9 @@ public class AccountingApiTrackingCategoriesTest {
         TrackingCategory trackingCategory = null;
         TrackingCategories response = api.updateTrackingCategory(trackingCategoryID, trackingCategory);
 
-        // TODO: test validations
-
-        System.out.println(response.getTrackingCategories().get(0).toString());
+        assertThat(response.getTrackingCategories().get(0).getTrackingCategoryID(), is(equalTo(UUID.fromString("b1df776b-b093-4730-b6ea-590cca40e723"))));
+        assertThat(response.getTrackingCategories().get(0).getName(), is(equalTo("BarFoo")));
+        assertThat(response.getTrackingCategories().get(0).getStatus(), is(equalTo(com.xero.models.accounting.TrackingCategory.StatusEnum.ACTIVE)));
+        //System.out.println(response.getTrackingCategories().get(0).toString());
     }
-
-/*
-    @Test
-    public void getUserTest() throws IOException {
-        System.out.println("@Test - getUser");
-        UUID userID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Users response = api.getUser(userID);
-
-        assertThat(response.getUsers().get(0).getUserID(), is(equalTo(UUID.fromString("3c37ef1d-cd49-4589-9787-3c418ed8b6ac"))));
-        assertThat(response.getUsers().get(0).getEmailAddress(), is(equalTo("sid.maestre@xero.com")));
-        assertThat(response.getUsers().get(0).getFirstName(), is(equalTo("Sidney")));
-        assertThat(response.getUsers().get(0).getLastName(), is(equalTo("Maestre")));
-        assertThat(response.getUsers().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2017-10-20T11:14:21.613-07:00"))));  
-        assertThat(response.getUsers().get(0).getIsSubscriber(), is(equalTo(false)));
-        assertThat(response.getUsers().get(0).getOrganisationRole(), is(equalTo(com.xero.models.accounting.User.OrganisationRoleEnum.FINANCIALADVISER)));
-        //System.out.println(response.getUsers().get(0).toString());
-    }
-    
-    @Test
-    public void getUsersTest() throws IOException {
-        System.out.println("@Test - getUsers");
-        OffsetDateTime ifModifiedSince = null;
-        String where = null;
-        String order = null;
-        Users response = api.getUsers(ifModifiedSince, where, order);
-
-        assertThat(response.getUsers().get(0).getUserID(), is(equalTo(UUID.fromString("3c37ef1d-cd49-4589-9787-3c418ed8b6ac"))));
-        assertThat(response.getUsers().get(0).getEmailAddress(), is(equalTo("sid.maestre@xero.com")));
-        assertThat(response.getUsers().get(0).getFirstName(), is(equalTo("Sidney")));
-        assertThat(response.getUsers().get(0).getLastName(), is(equalTo("Maestre")));
-        assertThat(response.getUsers().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2017-10-20T11:14:21.613-07:00"))));  
-        assertThat(response.getUsers().get(0).getIsSubscriber(), is(equalTo(false)));
-        assertThat(response.getUsers().get(0).getOrganisationRole(), is(equalTo(com.xero.models.accounting.User.OrganisationRoleEnum.FINANCIALADVISER)));
-        //System.out.println(response.getUsers().toString());
-    }
-    */
 }

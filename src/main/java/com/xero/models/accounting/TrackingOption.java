@@ -43,7 +43,9 @@ public class TrackingOption {
   public enum StatusEnum {
     ACTIVE("ACTIVE"),
     
-    ARCHIVED("ARCHIVED");
+    ARCHIVED("ARCHIVED"),
+    
+    DELETED("DELETED");
 
     private String value;
 

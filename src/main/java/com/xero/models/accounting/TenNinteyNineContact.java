@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.UUID;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -30,55 +31,55 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class TenNinteyNineContact {
   
   @JsonProperty("Box1")
-  private String box1;
+  private Double box1;
 
   
   @JsonProperty("Box2")
-  private String box2;
+  private Double box2;
 
   
   @JsonProperty("Box3")
-  private String box3;
+  private Double box3;
 
   
   @JsonProperty("Box4")
-  private String box4;
+  private Double box4;
 
   
   @JsonProperty("Box5")
-  private String box5;
+  private Double box5;
 
   
   @JsonProperty("Box6")
-  private String box6;
+  private Double box6;
 
   
   @JsonProperty("Box7")
-  private String box7;
+  private Double box7;
 
   
   @JsonProperty("Box8")
-  private String box8;
+  private Double box8;
 
   
   @JsonProperty("Box9")
-  private String box9;
+  private Double box9;
 
   
   @JsonProperty("Box10")
-  private String box10;
+  private Double box10;
 
   
   @JsonProperty("Box11")
-  private String box11;
+  private Double box11;
 
   
   @JsonProperty("Box13")
-  private String box13;
+  private Double box13;
 
   
   @JsonProperty("Box14")
-  private String box14;
+  private Double box14;
 
   
   @JsonProperty("Name")
@@ -114,9 +115,9 @@ public class TenNinteyNineContact {
 
   
   @JsonProperty("ContactId")
-  private String contactId;
+  private UUID contactId;
 
-  public TenNinteyNineContact box1(String box1) {
+  public TenNinteyNineContact box1(Double box1) {
     this.box1 = box1;
     return this;
   }
@@ -126,15 +127,15 @@ public class TenNinteyNineContact {
    * @return box1
   **/
   @ApiModelProperty(value = "Box 1 on 1099 Form")
-  public String getBox1() {
+  public Double getBox1() {
     return box1;
   }
 
-  public void setBox1(String box1) {
+  public void setBox1(Double box1) {
     this.box1 = box1;
   }
 
-  public TenNinteyNineContact box2(String box2) {
+  public TenNinteyNineContact box2(Double box2) {
     this.box2 = box2;
     return this;
   }
@@ -144,15 +145,15 @@ public class TenNinteyNineContact {
    * @return box2
   **/
   @ApiModelProperty(value = "Box 2 on 1099 Form")
-  public String getBox2() {
+  public Double getBox2() {
     return box2;
   }
 
-  public void setBox2(String box2) {
+  public void setBox2(Double box2) {
     this.box2 = box2;
   }
 
-  public TenNinteyNineContact box3(String box3) {
+  public TenNinteyNineContact box3(Double box3) {
     this.box3 = box3;
     return this;
   }
@@ -162,15 +163,15 @@ public class TenNinteyNineContact {
    * @return box3
   **/
   @ApiModelProperty(value = "Box 3 on 1099 Form")
-  public String getBox3() {
+  public Double getBox3() {
     return box3;
   }
 
-  public void setBox3(String box3) {
+  public void setBox3(Double box3) {
     this.box3 = box3;
   }
 
-  public TenNinteyNineContact box4(String box4) {
+  public TenNinteyNineContact box4(Double box4) {
     this.box4 = box4;
     return this;
   }
@@ -180,15 +181,15 @@ public class TenNinteyNineContact {
    * @return box4
   **/
   @ApiModelProperty(value = "Box 4 on 1099 Form")
-  public String getBox4() {
+  public Double getBox4() {
     return box4;
   }
 
-  public void setBox4(String box4) {
+  public void setBox4(Double box4) {
     this.box4 = box4;
   }
 
-  public TenNinteyNineContact box5(String box5) {
+  public TenNinteyNineContact box5(Double box5) {
     this.box5 = box5;
     return this;
   }
@@ -198,15 +199,15 @@ public class TenNinteyNineContact {
    * @return box5
   **/
   @ApiModelProperty(value = "Box 5 on 1099 Form")
-  public String getBox5() {
+  public Double getBox5() {
     return box5;
   }
 
-  public void setBox5(String box5) {
+  public void setBox5(Double box5) {
     this.box5 = box5;
   }
 
-  public TenNinteyNineContact box6(String box6) {
+  public TenNinteyNineContact box6(Double box6) {
     this.box6 = box6;
     return this;
   }
@@ -216,15 +217,15 @@ public class TenNinteyNineContact {
    * @return box6
   **/
   @ApiModelProperty(value = "Box 6 on 1099 Form")
-  public String getBox6() {
+  public Double getBox6() {
     return box6;
   }
 
-  public void setBox6(String box6) {
+  public void setBox6(Double box6) {
     this.box6 = box6;
   }
 
-  public TenNinteyNineContact box7(String box7) {
+  public TenNinteyNineContact box7(Double box7) {
     this.box7 = box7;
     return this;
   }
@@ -234,15 +235,15 @@ public class TenNinteyNineContact {
    * @return box7
   **/
   @ApiModelProperty(value = "Box 7 on 1099 Form")
-  public String getBox7() {
+  public Double getBox7() {
     return box7;
   }
 
-  public void setBox7(String box7) {
+  public void setBox7(Double box7) {
     this.box7 = box7;
   }
 
-  public TenNinteyNineContact box8(String box8) {
+  public TenNinteyNineContact box8(Double box8) {
     this.box8 = box8;
     return this;
   }
@@ -252,15 +253,15 @@ public class TenNinteyNineContact {
    * @return box8
   **/
   @ApiModelProperty(value = "Box 8 on 1099 Form")
-  public String getBox8() {
+  public Double getBox8() {
     return box8;
   }
 
-  public void setBox8(String box8) {
+  public void setBox8(Double box8) {
     this.box8 = box8;
   }
 
-  public TenNinteyNineContact box9(String box9) {
+  public TenNinteyNineContact box9(Double box9) {
     this.box9 = box9;
     return this;
   }
@@ -270,15 +271,15 @@ public class TenNinteyNineContact {
    * @return box9
   **/
   @ApiModelProperty(value = "Box 9 on 1099 Form")
-  public String getBox9() {
+  public Double getBox9() {
     return box9;
   }
 
-  public void setBox9(String box9) {
+  public void setBox9(Double box9) {
     this.box9 = box9;
   }
 
-  public TenNinteyNineContact box10(String box10) {
+  public TenNinteyNineContact box10(Double box10) {
     this.box10 = box10;
     return this;
   }
@@ -288,15 +289,15 @@ public class TenNinteyNineContact {
    * @return box10
   **/
   @ApiModelProperty(value = "Box 10 on 1099 Form")
-  public String getBox10() {
+  public Double getBox10() {
     return box10;
   }
 
-  public void setBox10(String box10) {
+  public void setBox10(Double box10) {
     this.box10 = box10;
   }
 
-  public TenNinteyNineContact box11(String box11) {
+  public TenNinteyNineContact box11(Double box11) {
     this.box11 = box11;
     return this;
   }
@@ -306,15 +307,15 @@ public class TenNinteyNineContact {
    * @return box11
   **/
   @ApiModelProperty(value = "Box 11 on 1099 Form")
-  public String getBox11() {
+  public Double getBox11() {
     return box11;
   }
 
-  public void setBox11(String box11) {
+  public void setBox11(Double box11) {
     this.box11 = box11;
   }
 
-  public TenNinteyNineContact box13(String box13) {
+  public TenNinteyNineContact box13(Double box13) {
     this.box13 = box13;
     return this;
   }
@@ -324,15 +325,15 @@ public class TenNinteyNineContact {
    * @return box13
   **/
   @ApiModelProperty(value = "Box 13 on 1099 Form")
-  public String getBox13() {
+  public Double getBox13() {
     return box13;
   }
 
-  public void setBox13(String box13) {
+  public void setBox13(Double box13) {
     this.box13 = box13;
   }
 
-  public TenNinteyNineContact box14(String box14) {
+  public TenNinteyNineContact box14(Double box14) {
     this.box14 = box14;
     return this;
   }
@@ -342,11 +343,11 @@ public class TenNinteyNineContact {
    * @return box14
   **/
   @ApiModelProperty(value = "Box 14 on 1099 Form")
-  public String getBox14() {
+  public Double getBox14() {
     return box14;
   }
 
-  public void setBox14(String box14) {
+  public void setBox14(Double box14) {
     this.box14 = box14;
   }
 
@@ -494,7 +495,7 @@ public class TenNinteyNineContact {
     this.taxID = taxID;
   }
 
-  public TenNinteyNineContact contactId(String contactId) {
+  public TenNinteyNineContact contactId(UUID contactId) {
     this.contactId = contactId;
     return this;
   }
@@ -504,11 +505,11 @@ public class TenNinteyNineContact {
    * @return contactId
   **/
   @ApiModelProperty(value = "Contact contact id")
-  public String getContactId() {
+  public UUID getContactId() {
     return contactId;
   }
 
-  public void setContactId(String contactId) {
+  public void setContactId(UUID contactId) {
     this.contactId = contactId;
   }
 

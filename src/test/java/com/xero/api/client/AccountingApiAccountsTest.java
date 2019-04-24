@@ -64,7 +64,7 @@ public class AccountingApiAccountsTest {
 
     	try {
     		System.out.println("Sleep for 60 seconds");
-	    	Thread.sleep(30000);
+	    	Thread.sleep(60000);
     	} catch(InterruptedException e) {
     		System.out.println(e);
     	}

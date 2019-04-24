@@ -5927,7 +5927,7 @@ public class AccountingApi {
     * @return ReportWithRows
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public ReportWithRows getReportAgedReceivablesByContact(UUID contactId, String date, String fromDate, String toDate) throws IOException {
+    public ReportWithRows getReportAgedReceivablesByContact(UUID contactId, LocalDate date, LocalDate fromDate, LocalDate toDate) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -6077,7 +6077,7 @@ public class AccountingApi {
     * @return ReportWithRows
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public ReportWithRows getReportBankSummary(String date, Integer period, Integer timeframe) throws IOException {
+    public ReportWithRows getReportBankSummary(LocalDate date, Integer period, Integer timeframe) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -6113,7 +6113,7 @@ public class AccountingApi {
     * @return ReportWithRows
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public ReportWithRows getReportBudgetSummary(String date, Integer period, Integer timeframe) throws IOException {
+    public ReportWithRows getReportBudgetSummary(LocalDate date, Integer period, Integer timeframe) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -6147,7 +6147,7 @@ public class AccountingApi {
     * @return ReportWithRows
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public ReportWithRows getReportExecutiveSummary(String date) throws IOException {
+    public ReportWithRows getReportExecutiveSummary(LocalDate date) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -6186,7 +6186,7 @@ public class AccountingApi {
     * @return ReportWithRows
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public ReportWithRows getReportProfitAndLoss(String fromDate, String toDate, Integer periods, String timeframe, String trackingCategoryID, String trackingCategoryID2, String trackingOptionID, String trackingOptionID2, Boolean standardLayout, Boolean paymentsOnly) throws IOException {
+    public ReportWithRows getReportProfitAndLoss(LocalDate fromDate, LocalDate toDate, Integer periods, String timeframe, String trackingCategoryID, String trackingCategoryID2, String trackingOptionID, String trackingOptionID2, Boolean standardLayout, Boolean paymentsOnly) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -6265,7 +6265,7 @@ public class AccountingApi {
     * @return ReportWithRows
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public ReportWithRows getReportTrialBalance(String date, Boolean paymentsOnly) throws IOException {
+    public ReportWithRows getReportTrialBalance(LocalDate date, Boolean paymentsOnly) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
