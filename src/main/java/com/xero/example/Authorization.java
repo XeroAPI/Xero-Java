@@ -13,24 +13,32 @@ import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.oauth.OAuth20Service;
 import com.xero.api.XeroApi20;
 
-public class RequestTokenServlet extends HttpServlet {
+/**
+ * Servlet implementation class Authorization
+ */
+@WebServlet("/Authorization")
+public class Authorization extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	//private Config config = null;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public Authorization() {
+        super();
+    }
 
-	public RequestTokenServlet() {
-		super();
-	}
-	
-	@Override
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			
-		final String clientId = "--your-client-id--";
-        final String clientSecret = "--your-client-secret--";
+		// Replace these with your client id and secret
+        final String clientId = "--your-clientid--";
+        final String clientSecret = "--your-clientsecret--";
         final String secretState = "secret" + new Random().nextInt(999_999);
         final OAuth20Service service = new ServiceBuilder(clientId)
                 .apiSecret(clientSecret)
                 .defaultScope("openid email profile offline_access accounting.settings accounting.transactions") // replace with desired scope
-                .callback("http://localhost/Callback")
+                .callback("http://localhost:8080/Callback")
                 .build(XeroApi20.instance());
         
         // Obtain the Authorization URL
@@ -40,4 +48,13 @@ public class RequestTokenServlet extends HttpServlet {
 
 		response.sendRedirect(authorizationUrl);	
 	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
 }

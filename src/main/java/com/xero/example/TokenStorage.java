@@ -15,7 +15,7 @@ public class TokenStorage
 	
 	public  TokenStorage() 
 	{
-		
+		super();
 	}
 
 	public String get(HttpServletRequest request,String key)
@@ -45,7 +45,6 @@ public class TokenStorage
 	public void clear(HttpServletResponse response)
 	{
 		HashMap<String,String> map = new HashMap<String,String>();
-
 		map.put("tempToken","");
 		map.put("tempTokenSecret","");
 		map.put("sessionHandle","");
@@ -53,12 +52,18 @@ public class TokenStorage
 
 		save(response,map);
 	}
+	
+	public void saveItem(HttpServletResponse response,String key, String value)
+	{
+		Cookie t = new Cookie(key,value);
+		response.addCookie(t);
+	}
 
-	public void save(HttpServletResponse response, HashMap<String,String> map)
+	public void save(HttpServletResponse response,HashMap<String,String> map)
 	{
 		Set<Entry<String, String>> set = map.entrySet();
 		Iterator<Entry<String, String>> iterator = set.iterator();
-		
+	
 		while(iterator.hasNext()) {
 			Map.Entry<?, ?> mentry = iterator.next();
 			String key = (String)mentry.getKey();
