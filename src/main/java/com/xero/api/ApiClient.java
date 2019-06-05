@@ -1,5 +1,6 @@
 package com.xero.api;
 
+import com.xero.api.client.*;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,26 +13,26 @@ import com.google.api.client.http.HttpRequestFactory;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.Json;
-
 import java.io.IOException;
 import java.io.OutputStream;
+
 
 public class ApiClient {
     private final String basePath;
     private final HttpRequestFactory httpRequestFactory;
     private final ObjectMapper objectMapper;
 
-    private static final String defaultBasePath = "https://virtserver.swaggerhub.com/SidneyAllen/assets-api/1.0.0";
+    private static final String defaultBasePath = "https://api.xero.com/api.xro/2.0";
 
     // A reasonable default object mapper. Client can pass in a chosen ObjectMapper anyway, this is just for reasonable defaults.
     private static ObjectMapper createDefaultObjectMapper() {
-    	ObjectMapper objectMapper = new ObjectMapper()
-                .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
-                .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-                .setDateFormat(new RFC3339DateFormat())
-                .setSerializationInclusion(Include.NON_NULL);
-    	objectMapper.configure(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL, true);
-
+        ObjectMapper objectMapper = new ObjectMapper()
+            .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+            .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+            .setDateFormat(new RFC3339DateFormat())
+            .setSerializationInclusion(Include.NON_NULL);
+        objectMapper.configure(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL, true);
+        
         ThreeTenModule module = new ThreeTenModule();
         module.addDeserializer(Instant.class, CustomInstantDeserializer.INSTANT);
         module.addDeserializer(OffsetDateTime.class, CustomInstantDeserializer.OFFSET_DATE_TIME);
@@ -85,10 +86,9 @@ public class ApiClient {
     }
 
     // Builder pattern to get API instances for this client.
-    /*
-    public ClientApi clientApi() {
-        return new ClientApi(this);
+    
+    public AccountingApi accountingApi() {
+        return new AccountingApi(this);
     }
-    */
     
 }

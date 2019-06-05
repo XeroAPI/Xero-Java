@@ -4,7 +4,7 @@
 	<groupId>com.github.xeroapi</groupId>
 	<artifactId>xero-java</artifactId>
 	<packaging>jar</packaging>
-	<version>2.3.8</version>
+	<version>3.0.0-beta-1</version>
 	<name>Xero-Java SDK</name>
 	<description>This is the official Java SDK for Xero API</description>
 	<url>https://github.com/XeroAPI/Xero-Java</url>
@@ -39,15 +39,15 @@
 	</scm>
 	<dependencies>
 		<dependency>
-			<groupId>com.github.xeroapi</groupId>
-			<artifactId>xeroapi-schemas</artifactId>
-			<version>1.0.0</version>
-		</dependency>
-		<dependency>
             <groupId>com.google.api-client</groupId>
             <artifactId>google-api-client</artifactId>
             <version>${google-api-client-version}</version>
         </dependency>
+        <dependency>
+		    <groupId>com.github.scribejava</groupId>
+		    <artifactId>scribejava-apis</artifactId>
+		    <version>6.6.2</version>
+		</dependency>
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
 			<artifactId>json-simple</artifactId>
@@ -224,6 +224,7 @@
 					</execution>
 				</executions>
 			</plugin>
+		
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
