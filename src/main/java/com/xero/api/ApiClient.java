@@ -49,7 +49,8 @@ public class ApiClient {
         String basePath,
         HttpTransport httpTransport,
         HttpRequestInitializer initializer,
-        ObjectMapper objectMapper
+        ObjectMapper objectMapper,
+        HttpRequestFactory reqFactory
     ) {
         this.basePath = basePath == null ? defaultBasePath : (
             basePath.endsWith("/") ? basePath.substring(0, basePath.length() - 1) : basePath

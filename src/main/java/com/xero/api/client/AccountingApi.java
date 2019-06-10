@@ -57,6 +57,7 @@ import com.google.api.client.http.HttpContent;
 import com.google.api.client.http.InputStreamContent;
 import com.google.api.client.http.HttpMethods;
 import com.google.api.client.http.HttpResponse;
+import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.json.Json;
 
 import javax.ws.rs.core.UriBuilder;
