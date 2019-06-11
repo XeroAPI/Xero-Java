@@ -153,7 +153,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createAccountForHttpResponse(String xeroTenantId, java.io.InputStream account, String mediaType) throws IOException {
@@ -172,7 +172,12 @@ public class AccountingApi {
               HttpContent content = account == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, account);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createAccountForHttpResponse(String xeroTenantId, Account account, Map<String, Object> params) throws IOException {
@@ -275,7 +280,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createAccountAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID accountID, String fileName, java.io.InputStream body, String mediaType) throws IOException {
@@ -304,7 +309,12 @@ public class AccountingApi {
               HttpContent content = body == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, body);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createAccountAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID accountID, String fileName, byte[] body, Map<String, Object> params) throws IOException {
@@ -415,7 +425,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createBankTransactionForHttpResponse(String xeroTenantId, java.io.InputStream bankTransactions, Boolean summarizeErrors, String mediaType) throws IOException {
@@ -445,7 +455,12 @@ public class AccountingApi {
               HttpContent content = bankTransactions == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, bankTransactions);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createBankTransactionForHttpResponse(String xeroTenantId, BankTransactions bankTransactions, Map<String, Object> params) throws IOException {
@@ -548,7 +563,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createBankTransactionAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID bankTransactionID, String fileName, java.io.InputStream body, String mediaType) throws IOException {
@@ -577,7 +592,12 @@ public class AccountingApi {
               HttpContent content = body == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, body);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createBankTransactionAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID bankTransactionID, String fileName, byte[] body, Map<String, Object> params) throws IOException {
@@ -684,7 +704,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createBankTransactionHistoryRecordForHttpResponse(String xeroTenantId, UUID bankTransactionID, java.io.InputStream historyRecords, String mediaType) throws IOException {
@@ -709,7 +729,12 @@ public class AccountingApi {
               HttpContent content = historyRecords == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, historyRecords);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createBankTransactionHistoryRecordForHttpResponse(String xeroTenantId, UUID bankTransactionID, HistoryRecords historyRecords, Map<String, Object> params) throws IOException {
@@ -804,7 +829,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createBankTransferForHttpResponse(String xeroTenantId, java.io.InputStream bankTransfers, String mediaType) throws IOException {
@@ -823,7 +848,12 @@ public class AccountingApi {
               HttpContent content = bankTransfers == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, bankTransfers);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createBankTransferForHttpResponse(String xeroTenantId, BankTransfers bankTransfers, Map<String, Object> params) throws IOException {
@@ -924,7 +954,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createBankTransferAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID bankTransferID, String fileName, java.io.InputStream body, String mediaType) throws IOException {
@@ -953,7 +983,12 @@ public class AccountingApi {
               HttpContent content = body == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, body);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createBankTransferAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID bankTransferID, String fileName, byte[] body, Map<String, Object> params) throws IOException {
@@ -1058,7 +1093,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createBankTransferHistoryRecordForHttpResponse(String xeroTenantId, UUID bankTransferID, java.io.InputStream historyRecords, String mediaType) throws IOException {
@@ -1083,7 +1118,12 @@ public class AccountingApi {
               HttpContent content = historyRecords == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, historyRecords);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createBankTransferHistoryRecordForHttpResponse(String xeroTenantId, UUID bankTransferID, HistoryRecords historyRecords, Map<String, Object> params) throws IOException {
@@ -1178,7 +1218,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createBatchPaymentForHttpResponse(String xeroTenantId, java.io.InputStream batchPayments, String mediaType) throws IOException {
@@ -1197,7 +1237,12 @@ public class AccountingApi {
               HttpContent content = batchPayments == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, batchPayments);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createBatchPaymentForHttpResponse(String xeroTenantId, BatchPayments batchPayments, Map<String, Object> params) throws IOException {
@@ -1294,7 +1339,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createBatchPaymentHistoryRecordForHttpResponse(String xeroTenantId, UUID batchPaymentID, java.io.InputStream historyRecords, String mediaType) throws IOException {
@@ -1319,7 +1364,12 @@ public class AccountingApi {
               HttpContent content = historyRecords == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, historyRecords);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createBatchPaymentHistoryRecordForHttpResponse(String xeroTenantId, UUID batchPaymentID, HistoryRecords historyRecords, Map<String, Object> params) throws IOException {
@@ -1422,7 +1472,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createBrandingThemePaymentServicesForHttpResponse(String xeroTenantId, UUID brandingThemeID, java.io.InputStream paymentService, String mediaType) throws IOException {
@@ -1447,7 +1497,12 @@ public class AccountingApi {
               HttpContent content = paymentService == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, paymentService);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createBrandingThemePaymentServicesForHttpResponse(String xeroTenantId, UUID brandingThemeID, PaymentService paymentService, Map<String, Object> params) throws IOException {
@@ -1540,7 +1595,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createContactForHttpResponse(String xeroTenantId, java.io.InputStream contact, String mediaType) throws IOException {
@@ -1559,7 +1614,12 @@ public class AccountingApi {
               HttpContent content = contact == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, contact);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createContactForHttpResponse(String xeroTenantId, Contact contact, Map<String, Object> params) throws IOException {
@@ -1660,7 +1720,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createContactAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID contactID, String fileName, java.io.InputStream body, String mediaType) throws IOException {
@@ -1689,7 +1749,12 @@ public class AccountingApi {
               HttpContent content = body == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, body);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createContactAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID contactID, String fileName, byte[] body, Map<String, Object> params) throws IOException {
@@ -1788,7 +1853,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createContactGroupForHttpResponse(String xeroTenantId, java.io.InputStream contactGroups, String mediaType) throws IOException {
@@ -1807,7 +1872,12 @@ public class AccountingApi {
               HttpContent content = contactGroups == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, contactGroups);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createContactGroupForHttpResponse(String xeroTenantId, ContactGroups contactGroups, Map<String, Object> params) throws IOException {
@@ -1904,7 +1974,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createContactGroupContactsForHttpResponse(String xeroTenantId, UUID contactGroupID, java.io.InputStream contacts, String mediaType) throws IOException {
@@ -1929,7 +1999,12 @@ public class AccountingApi {
               HttpContent content = contacts == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, contacts);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createContactGroupContactsForHttpResponse(String xeroTenantId, UUID contactGroupID, Contacts contacts, Map<String, Object> params) throws IOException {
@@ -2032,7 +2107,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createContactHistoryForHttpResponse(String xeroTenantId, UUID contactID, java.io.InputStream historyRecords, String mediaType) throws IOException {
@@ -2057,7 +2132,12 @@ public class AccountingApi {
               HttpContent content = historyRecords == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, historyRecords);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createContactHistoryForHttpResponse(String xeroTenantId, UUID contactID, HistoryRecords historyRecords, Map<String, Object> params) throws IOException {
@@ -2164,7 +2244,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createCreditNoteForHttpResponse(String xeroTenantId, java.io.InputStream creditNotes, Boolean summarizeErrors, String mediaType) throws IOException {
@@ -2194,7 +2274,12 @@ public class AccountingApi {
               HttpContent content = creditNotes == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, creditNotes);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createCreditNoteForHttpResponse(String xeroTenantId, CreditNotes creditNotes, Map<String, Object> params) throws IOException {
@@ -2291,7 +2376,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createCreditNoteAllocationForHttpResponse(String xeroTenantId, UUID creditNoteID, java.io.InputStream allocations, String mediaType) throws IOException {
@@ -2316,7 +2401,12 @@ public class AccountingApi {
               HttpContent content = allocations == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, allocations);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createCreditNoteAllocationForHttpResponse(String xeroTenantId, UUID creditNoteID, Allocations allocations, Map<String, Object> params) throws IOException {
@@ -2425,7 +2515,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createCreditNoteAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID creditNoteID, String fileName, java.io.InputStream body, String mediaType) throws IOException {
@@ -2454,7 +2544,12 @@ public class AccountingApi {
               HttpContent content = body == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, body);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createCreditNoteAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID creditNoteID, String fileName, byte[] body, Map<String, Object> params) throws IOException {
@@ -2561,7 +2656,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createCreditNoteHistoryForHttpResponse(String xeroTenantId, UUID creditNoteID, java.io.InputStream historyRecords, String mediaType) throws IOException {
@@ -2586,7 +2681,12 @@ public class AccountingApi {
               HttpContent content = historyRecords == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, historyRecords);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createCreditNoteHistoryForHttpResponse(String xeroTenantId, UUID creditNoteID, HistoryRecords historyRecords, Map<String, Object> params) throws IOException {
@@ -2677,7 +2777,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createCurrencyForHttpResponse(String xeroTenantId, java.io.InputStream currencies, String mediaType) throws IOException {
@@ -2696,7 +2796,12 @@ public class AccountingApi {
               HttpContent content = currencies == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, currencies);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createCurrencyForHttpResponse(String xeroTenantId, Currencies currencies, Map<String, Object> params) throws IOException {
@@ -2785,7 +2890,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createEmployeeForHttpResponse(String xeroTenantId, java.io.InputStream employees, String mediaType) throws IOException {
@@ -2804,7 +2909,12 @@ public class AccountingApi {
               HttpContent content = employees == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, employees);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createEmployeeForHttpResponse(String xeroTenantId, Employees employees, Map<String, Object> params) throws IOException {
@@ -2905,7 +3015,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createExpenseClaimForHttpResponse(String xeroTenantId, java.io.InputStream expenseClaims, Boolean summarizeErrors, String mediaType) throws IOException {
@@ -2935,7 +3045,12 @@ public class AccountingApi {
               HttpContent content = expenseClaims == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, expenseClaims);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createExpenseClaimForHttpResponse(String xeroTenantId, ExpenseClaims expenseClaims, Map<String, Object> params) throws IOException {
@@ -3030,7 +3145,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createExpenseClaimHistoryForHttpResponse(String xeroTenantId, UUID expenseClaimID, java.io.InputStream historyRecords, String mediaType) throws IOException {
@@ -3055,7 +3170,12 @@ public class AccountingApi {
               HttpContent content = historyRecords == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, historyRecords);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createExpenseClaimHistoryForHttpResponse(String xeroTenantId, UUID expenseClaimID, HistoryRecords historyRecords, Map<String, Object> params) throws IOException {
@@ -3162,7 +3282,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createInvoiceForHttpResponse(String xeroTenantId, java.io.InputStream invoices, Boolean summarizeErrors, String mediaType) throws IOException {
@@ -3192,7 +3312,12 @@ public class AccountingApi {
               HttpContent content = invoices == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, invoices);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createInvoiceForHttpResponse(String xeroTenantId, Invoices invoices, Map<String, Object> params) throws IOException {
@@ -3295,7 +3420,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createInvoiceAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID invoiceID, String fileName, java.io.InputStream body, String mediaType) throws IOException {
@@ -3324,7 +3449,12 @@ public class AccountingApi {
               HttpContent content = body == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, body);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createInvoiceAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID invoiceID, String fileName, byte[] body, Map<String, Object> params) throws IOException {
@@ -3431,7 +3561,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createInvoiceHistoryForHttpResponse(String xeroTenantId, UUID invoiceID, java.io.InputStream historyRecords, String mediaType) throws IOException {
@@ -3456,7 +3586,12 @@ public class AccountingApi {
               HttpContent content = historyRecords == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, historyRecords);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createInvoiceHistoryForHttpResponse(String xeroTenantId, UUID invoiceID, HistoryRecords historyRecords, Map<String, Object> params) throws IOException {
@@ -3551,7 +3686,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createItemForHttpResponse(String xeroTenantId, java.io.InputStream items, String mediaType) throws IOException {
@@ -3570,7 +3705,12 @@ public class AccountingApi {
               HttpContent content = items == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, items);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createItemForHttpResponse(String xeroTenantId, Items items, Map<String, Object> params) throws IOException {
@@ -3665,7 +3805,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createItemHistoryForHttpResponse(String xeroTenantId, UUID itemID, java.io.InputStream historyRecords, String mediaType) throws IOException {
@@ -3690,7 +3830,12 @@ public class AccountingApi {
               HttpContent content = historyRecords == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, historyRecords);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createItemHistoryForHttpResponse(String xeroTenantId, UUID itemID, HistoryRecords historyRecords, Map<String, Object> params) throws IOException {
@@ -3785,7 +3930,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createLinkedTransactionForHttpResponse(String xeroTenantId, java.io.InputStream linkedTransactions, String mediaType) throws IOException {
@@ -3804,7 +3949,12 @@ public class AccountingApi {
               HttpContent content = linkedTransactions == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, linkedTransactions);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createLinkedTransactionForHttpResponse(String xeroTenantId, LinkedTransactions linkedTransactions, Map<String, Object> params) throws IOException {
@@ -3893,7 +4043,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createManualJournalForHttpResponse(String xeroTenantId, java.io.InputStream manualJournals, String mediaType) throws IOException {
@@ -3912,7 +4062,12 @@ public class AccountingApi {
               HttpContent content = manualJournals == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, manualJournals);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createManualJournalForHttpResponse(String xeroTenantId, ManualJournals manualJournals, Map<String, Object> params) throws IOException {
@@ -4015,7 +4170,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createManualJournalAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID manualJournalID, String fileName, java.io.InputStream body, String mediaType) throws IOException {
@@ -4044,7 +4199,12 @@ public class AccountingApi {
               HttpContent content = body == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, body);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createManualJournalAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID manualJournalID, String fileName, byte[] body, Map<String, Object> params) throws IOException {
@@ -4151,7 +4311,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createOverpaymentAllocationForHttpResponse(String xeroTenantId, UUID overpaymentID, java.io.InputStream allocations, String mediaType) throws IOException {
@@ -4176,7 +4336,12 @@ public class AccountingApi {
               HttpContent content = allocations == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, allocations);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createOverpaymentAllocationForHttpResponse(String xeroTenantId, UUID overpaymentID, Allocations allocations, Map<String, Object> params) throws IOException {
@@ -4279,7 +4444,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createOverpaymentHistoryForHttpResponse(String xeroTenantId, UUID overpaymentID, java.io.InputStream historyRecords, String mediaType) throws IOException {
@@ -4304,7 +4469,12 @@ public class AccountingApi {
               HttpContent content = historyRecords == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, historyRecords);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createOverpaymentHistoryForHttpResponse(String xeroTenantId, UUID overpaymentID, HistoryRecords historyRecords, Map<String, Object> params) throws IOException {
@@ -4399,7 +4569,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createPaymentForHttpResponse(String xeroTenantId, java.io.InputStream payments, String mediaType) throws IOException {
@@ -4418,7 +4588,12 @@ public class AccountingApi {
               HttpContent content = payments == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, payments);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createPaymentForHttpResponse(String xeroTenantId, Payments payments, Map<String, Object> params) throws IOException {
@@ -4515,7 +4690,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createPaymentHistoryForHttpResponse(String xeroTenantId, UUID paymentID, java.io.InputStream historyRecords, String mediaType) throws IOException {
@@ -4540,7 +4715,12 @@ public class AccountingApi {
               HttpContent content = historyRecords == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, historyRecords);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createPaymentHistoryForHttpResponse(String xeroTenantId, UUID paymentID, HistoryRecords historyRecords, Map<String, Object> params) throws IOException {
@@ -4635,7 +4815,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createPaymentServiceForHttpResponse(String xeroTenantId, java.io.InputStream paymentServices, String mediaType) throws IOException {
@@ -4654,7 +4834,12 @@ public class AccountingApi {
               HttpContent content = paymentServices == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, paymentServices);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createPaymentServiceForHttpResponse(String xeroTenantId, PaymentServices paymentServices, Map<String, Object> params) throws IOException {
@@ -4751,7 +4936,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createPrepaymentAllocationForHttpResponse(String xeroTenantId, UUID prepaymentID, java.io.InputStream allocations, String mediaType) throws IOException {
@@ -4776,7 +4961,12 @@ public class AccountingApi {
               HttpContent content = allocations == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, allocations);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createPrepaymentAllocationForHttpResponse(String xeroTenantId, UUID prepaymentID, Allocations allocations, Map<String, Object> params) throws IOException {
@@ -4879,7 +5069,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createPrepaymentHistoryForHttpResponse(String xeroTenantId, UUID prepaymentID, java.io.InputStream historyRecords, String mediaType) throws IOException {
@@ -4904,7 +5094,12 @@ public class AccountingApi {
               HttpContent content = historyRecords == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, historyRecords);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createPrepaymentHistoryForHttpResponse(String xeroTenantId, UUID prepaymentID, HistoryRecords historyRecords, Map<String, Object> params) throws IOException {
@@ -5011,7 +5206,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createPurchaseOrderForHttpResponse(String xeroTenantId, java.io.InputStream purchaseOrders, Boolean summarizeErrors, String mediaType) throws IOException {
@@ -5041,7 +5236,12 @@ public class AccountingApi {
               HttpContent content = purchaseOrders == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, purchaseOrders);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createPurchaseOrderForHttpResponse(String xeroTenantId, PurchaseOrders purchaseOrders, Map<String, Object> params) throws IOException {
@@ -5138,7 +5338,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createPurchaseOrderHistoryForHttpResponse(String xeroTenantId, UUID purchaseOrderID, java.io.InputStream historyRecords, String mediaType) throws IOException {
@@ -5163,7 +5363,12 @@ public class AccountingApi {
               HttpContent content = historyRecords == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, historyRecords);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createPurchaseOrderHistoryForHttpResponse(String xeroTenantId, UUID purchaseOrderID, HistoryRecords historyRecords, Map<String, Object> params) throws IOException {
@@ -5258,7 +5463,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createReceiptForHttpResponse(String xeroTenantId, java.io.InputStream receipts, String mediaType) throws IOException {
@@ -5277,7 +5482,12 @@ public class AccountingApi {
               HttpContent content = receipts == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, receipts);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createReceiptForHttpResponse(String xeroTenantId, Receipts receipts, Map<String, Object> params) throws IOException {
@@ -5380,7 +5590,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createReceiptAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID receiptID, String fileName, java.io.InputStream body, String mediaType) throws IOException {
@@ -5409,7 +5619,12 @@ public class AccountingApi {
               HttpContent content = body == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, body);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createReceiptAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID receiptID, String fileName, byte[] body, Map<String, Object> params) throws IOException {
@@ -5516,7 +5731,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createReceiptHistoryForHttpResponse(String xeroTenantId, UUID receiptID, java.io.InputStream historyRecords, String mediaType) throws IOException {
@@ -5541,7 +5756,12 @@ public class AccountingApi {
               HttpContent content = historyRecords == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, historyRecords);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createReceiptHistoryForHttpResponse(String xeroTenantId, UUID receiptID, HistoryRecords historyRecords, Map<String, Object> params) throws IOException {
@@ -5650,7 +5870,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createRepeatingInvoiceAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID repeatingInvoiceID, String fileName, java.io.InputStream body, String mediaType) throws IOException {
@@ -5679,7 +5899,12 @@ public class AccountingApi {
               HttpContent content = body == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, body);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createRepeatingInvoiceAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID repeatingInvoiceID, String fileName, byte[] body, Map<String, Object> params) throws IOException {
@@ -5786,7 +6011,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createRepeatingInvoiceHistoryForHttpResponse(String xeroTenantId, UUID repeatingInvoiceID, java.io.InputStream historyRecords, String mediaType) throws IOException {
@@ -5811,7 +6036,12 @@ public class AccountingApi {
               HttpContent content = historyRecords == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, historyRecords);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createRepeatingInvoiceHistoryForHttpResponse(String xeroTenantId, UUID repeatingInvoiceID, HistoryRecords historyRecords, Map<String, Object> params) throws IOException {
@@ -5906,7 +6136,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createTaxRateForHttpResponse(String xeroTenantId, java.io.InputStream taxRates, String mediaType) throws IOException {
@@ -5925,7 +6155,12 @@ public class AccountingApi {
               HttpContent content = taxRates == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, taxRates);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createTaxRateForHttpResponse(String xeroTenantId, TaxRates taxRates, Map<String, Object> params) throws IOException {
@@ -6014,7 +6249,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createTrackingCategoryForHttpResponse(String xeroTenantId, java.io.InputStream trackingCategory, String mediaType) throws IOException {
@@ -6033,7 +6268,12 @@ public class AccountingApi {
               HttpContent content = trackingCategory == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, trackingCategory);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createTrackingCategoryForHttpResponse(String xeroTenantId, TrackingCategory trackingCategory, Map<String, Object> params) throws IOException {
@@ -6130,7 +6370,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse createTrackingOptionsForHttpResponse(String xeroTenantId, UUID trackingCategoryID, java.io.InputStream trackingOption, String mediaType) throws IOException {
@@ -6155,7 +6395,12 @@ public class AccountingApi {
               HttpContent content = trackingOption == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, trackingOption);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse createTrackingOptionsForHttpResponse(String xeroTenantId, UUID trackingCategoryID, TrackingOption trackingOption, Map<String, Object> params) throws IOException {
@@ -6253,7 +6498,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.DELETE, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.DELETE, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse deleteAccountForHttpResponse(String xeroTenantId, UUID accountID, Map<String, Object> params) throws IOException {
@@ -6348,7 +6593,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.DELETE, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.DELETE, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse deleteContactGroupContactForHttpResponse(String xeroTenantId, UUID contactGroupID, UUID contactID, Map<String, Object> params) throws IOException {
@@ -6439,7 +6684,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.DELETE, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.DELETE, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse deleteContactGroupContactsForHttpResponse(String xeroTenantId, UUID contactGroupID, Map<String, Object> params) throws IOException {
@@ -6528,7 +6773,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.DELETE, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.DELETE, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse deleteItemForHttpResponse(String xeroTenantId, UUID itemID, Map<String, Object> params) throws IOException {
@@ -6617,7 +6862,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.DELETE, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.DELETE, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse deleteLinkedTransactionForHttpResponse(String xeroTenantId, UUID linkedTransactionID, Map<String, Object> params) throws IOException {
@@ -6717,7 +6962,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse deletePaymentForHttpResponse(String xeroTenantId, UUID paymentID, java.io.InputStream payments, String mediaType) throws IOException {
@@ -6742,7 +6987,12 @@ public class AccountingApi {
               HttpContent content = payments == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, payments);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse deletePaymentForHttpResponse(String xeroTenantId, UUID paymentID, Payments payments, Map<String, Object> params) throws IOException {
@@ -6840,7 +7090,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.DELETE, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.DELETE, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse deleteTrackingCategoryForHttpResponse(String xeroTenantId, UUID trackingCategoryID, Map<String, Object> params) throws IOException {
@@ -6941,7 +7191,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.DELETE, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.DELETE, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse deleteTrackingOptionsForHttpResponse(String xeroTenantId, UUID trackingCategoryID, UUID trackingOptionID, Map<String, Object> params) throws IOException {
@@ -7039,7 +7289,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse emailInvoiceForHttpResponse(String xeroTenantId, UUID invoiceID, java.io.InputStream requestEmpty, String mediaType) throws IOException {
@@ -7064,7 +7314,12 @@ public class AccountingApi {
               HttpContent content = requestEmpty == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, requestEmpty);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse emailInvoiceForHttpResponse(String xeroTenantId, UUID invoiceID, RequestEmpty requestEmpty, Map<String, Object> params) throws IOException {
@@ -7160,7 +7415,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getAccountForHttpResponse(String xeroTenantId, UUID accountID, Map<String, Object> params) throws IOException {
@@ -7264,7 +7519,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getAccountAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID accountID, String fileName, String contentType, Map<String, Object> params) throws IOException {
@@ -7375,7 +7630,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getAccountAttachmentByIdForHttpResponse(String xeroTenantId, UUID accountID, UUID attachmentID, String contentType, Map<String, Object> params) throws IOException {
@@ -7475,7 +7730,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getAccountAttachmentsForHttpResponse(String xeroTenantId, UUID accountID, Map<String, Object> params) throws IOException {
@@ -7584,7 +7839,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getAccountsForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -7671,7 +7926,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getBankTransactionForHttpResponse(String xeroTenantId, UUID bankTransactionID, Map<String, Object> params) throws IOException {
@@ -7775,7 +8030,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getBankTransactionAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID bankTransactionID, String fileName, String contentType, Map<String, Object> params) throws IOException {
@@ -7886,7 +8141,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getBankTransactionAttachmentByIdForHttpResponse(String xeroTenantId, UUID bankTransactionID, UUID attachmentID, String contentType, Map<String, Object> params) throws IOException {
@@ -7986,7 +8241,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getBankTransactionAttachmentsForHttpResponse(String xeroTenantId, UUID bankTransactionID, Map<String, Object> params) throws IOException {
@@ -8117,7 +8372,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getBankTransactionsForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -8204,7 +8459,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getBankTransactionsHistoryForHttpResponse(String xeroTenantId, UUID bankTransactionID, Map<String, Object> params) throws IOException {
@@ -8297,7 +8552,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getBankTransferForHttpResponse(String xeroTenantId, UUID bankTransferID, Map<String, Object> params) throws IOException {
@@ -8401,7 +8656,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getBankTransferAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID bankTransferID, String fileName, String contentType, Map<String, Object> params) throws IOException {
@@ -8512,7 +8767,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getBankTransferAttachmentByIdForHttpResponse(String xeroTenantId, UUID bankTransferID, UUID attachmentID, String contentType, Map<String, Object> params) throws IOException {
@@ -8612,7 +8867,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getBankTransferAttachmentsForHttpResponse(String xeroTenantId, UUID bankTransferID, Map<String, Object> params) throws IOException {
@@ -8705,7 +8960,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getBankTransferHistoryForHttpResponse(String xeroTenantId, UUID bankTransferID, Map<String, Object> params) throws IOException {
@@ -8814,7 +9069,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getBankTransfersForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -8901,7 +9156,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getBatchPaymentHistoryForHttpResponse(String xeroTenantId, UUID batchPaymentID, Map<String, Object> params) throws IOException {
@@ -9010,7 +9265,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getBatchPaymentsForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -9097,7 +9352,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getBrandingThemeForHttpResponse(String xeroTenantId, UUID brandingThemeID, Map<String, Object> params) throws IOException {
@@ -9190,7 +9445,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getBrandingThemePaymentServicesForHttpResponse(String xeroTenantId, UUID brandingThemeID, Map<String, Object> params) throws IOException {
@@ -9275,7 +9530,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getBrandingThemesForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -9362,7 +9617,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getContactForHttpResponse(String xeroTenantId, UUID contactID, Map<String, Object> params) throws IOException {
@@ -9466,7 +9721,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getContactAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID contactID, String fileName, String contentType, Map<String, Object> params) throws IOException {
@@ -9577,7 +9832,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getContactAttachmentByIdForHttpResponse(String xeroTenantId, UUID contactID, UUID attachmentID, String contentType, Map<String, Object> params) throws IOException {
@@ -9677,7 +9932,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getContactAttachmentsForHttpResponse(String xeroTenantId, UUID contactID, Map<String, Object> params) throws IOException {
@@ -9770,7 +10025,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getContactCISSettingsForHttpResponse(String xeroTenantId, UUID contactID, Map<String, Object> params) throws IOException {
@@ -9863,7 +10118,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getContactGroupForHttpResponse(String xeroTenantId, UUID contactGroupID, Map<String, Object> params) throws IOException {
@@ -9971,7 +10226,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getContactGroupsForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -10058,7 +10313,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getContactHistoryForHttpResponse(String xeroTenantId, UUID contactID, Map<String, Object> params) throws IOException {
@@ -10200,7 +10455,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getContactsForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -10287,7 +10542,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getCreditNoteForHttpResponse(String xeroTenantId, UUID creditNoteID, Map<String, Object> params) throws IOException {
@@ -10385,7 +10640,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getCreditNoteAsPdfForHttpResponse(String xeroTenantId, UUID creditNoteID, String contentType, Map<String, Object> params) throws IOException {
@@ -10492,7 +10747,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getCreditNoteAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID creditNoteID, String fileName, String contentType, Map<String, Object> params) throws IOException {
@@ -10603,7 +10858,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getCreditNoteAttachmentByIdForHttpResponse(String xeroTenantId, UUID creditNoteID, UUID attachmentID, String contentType, Map<String, Object> params) throws IOException {
@@ -10703,7 +10958,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getCreditNoteAttachmentsForHttpResponse(String xeroTenantId, UUID creditNoteID, Map<String, Object> params) throws IOException {
@@ -10796,7 +11051,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getCreditNoteHistoryForHttpResponse(String xeroTenantId, UUID creditNoteID, Map<String, Object> params) throws IOException {
@@ -10916,7 +11171,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getCreditNotesForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -11018,7 +11273,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getCurrenciesForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -11105,7 +11360,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getEmployeeForHttpResponse(String xeroTenantId, UUID employeeID, Map<String, Object> params) throws IOException {
@@ -11214,7 +11469,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getEmployeesForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -11301,7 +11556,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getExpenseClaimForHttpResponse(String xeroTenantId, UUID expenseClaimID, Map<String, Object> params) throws IOException {
@@ -11394,7 +11649,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getExpenseClaimHistoryForHttpResponse(String xeroTenantId, UUID expenseClaimID, Map<String, Object> params) throws IOException {
@@ -11503,7 +11758,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getExpenseClaimsForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -11590,7 +11845,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getInvoiceForHttpResponse(String xeroTenantId, UUID invoiceID, Map<String, Object> params) throws IOException {
@@ -11688,7 +11943,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getInvoiceAsPdfForHttpResponse(String xeroTenantId, UUID invoiceID, String contentType, Map<String, Object> params) throws IOException {
@@ -11795,7 +12050,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getInvoiceAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID invoiceID, String fileName, String contentType, Map<String, Object> params) throws IOException {
@@ -11906,7 +12161,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getInvoiceAttachmentByIdForHttpResponse(String xeroTenantId, UUID invoiceID, UUID attachmentID, String contentType, Map<String, Object> params) throws IOException {
@@ -12006,7 +12261,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getInvoiceAttachmentsForHttpResponse(String xeroTenantId, UUID invoiceID, Map<String, Object> params) throws IOException {
@@ -12099,7 +12354,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getInvoiceHistoryForHttpResponse(String xeroTenantId, UUID invoiceID, Map<String, Object> params) throws IOException {
@@ -12184,7 +12439,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getInvoiceRemindersForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -12375,7 +12630,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getInvoicesForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -12462,7 +12717,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getItemForHttpResponse(String xeroTenantId, UUID itemID, Map<String, Object> params) throws IOException {
@@ -12555,7 +12810,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getItemHistoryForHttpResponse(String xeroTenantId, UUID itemID, Map<String, Object> params) throws IOException {
@@ -12675,7 +12930,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getItemsForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -12762,7 +13017,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getJournalForHttpResponse(String xeroTenantId, UUID journalID, Map<String, Object> params) throws IOException {
@@ -12871,7 +13126,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getJournalsForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -12958,7 +13213,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getLinkedTransactionForHttpResponse(String xeroTenantId, UUID linkedTransactionID, Map<String, Object> params) throws IOException {
@@ -13110,7 +13365,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getLinkedTransactionsForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -13197,7 +13452,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getManualJournalForHttpResponse(String xeroTenantId, UUID manualJournalID, Map<String, Object> params) throws IOException {
@@ -13301,7 +13556,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getManualJournalAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID manualJournalID, String fileName, String contentType, Map<String, Object> params) throws IOException {
@@ -13412,7 +13667,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getManualJournalAttachmentByIdForHttpResponse(String xeroTenantId, UUID manualJournalID, UUID attachmentID, String contentType, Map<String, Object> params) throws IOException {
@@ -13512,7 +13767,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getManualJournalAttachmentsForHttpResponse(String xeroTenantId, UUID manualJournalID, Map<String, Object> params) throws IOException {
@@ -13632,7 +13887,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getManualJournalsForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -13719,7 +13974,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getOnlineInvoiceForHttpResponse(String xeroTenantId, UUID invoiceID, Map<String, Object> params) throws IOException {
@@ -13812,7 +14067,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getOrganisationCISSettingsForHttpResponse(String xeroTenantId, UUID organisationID, Map<String, Object> params) throws IOException {
@@ -13897,7 +14152,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getOrganisationsForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -13984,7 +14239,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getOverpaymentForHttpResponse(String xeroTenantId, UUID overpaymentID, Map<String, Object> params) throws IOException {
@@ -14077,7 +14332,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getOverpaymentHistoryForHttpResponse(String xeroTenantId, UUID overpaymentID, Map<String, Object> params) throws IOException {
@@ -14208,7 +14463,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getOverpaymentsForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -14295,7 +14550,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getPaymentForHttpResponse(String xeroTenantId, UUID paymentID, Map<String, Object> params) throws IOException {
@@ -14388,7 +14643,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getPaymentHistoryForHttpResponse(String xeroTenantId, UUID paymentID, Map<String, Object> params) throws IOException {
@@ -14473,7 +14728,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getPaymentServicesForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -14576,7 +14831,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getPaymentsForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -14663,7 +14918,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getPrepaymentForHttpResponse(String xeroTenantId, UUID prepaymentID, Map<String, Object> params) throws IOException {
@@ -14756,7 +15011,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getPrepaymentHistoryForHttpResponse(String xeroTenantId, UUID prepaymentID, Map<String, Object> params) throws IOException {
@@ -14887,7 +15142,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getPrepaymentsForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -14974,7 +15229,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getPurchaseOrderForHttpResponse(String xeroTenantId, UUID purchaseOrderID, Map<String, Object> params) throws IOException {
@@ -15067,7 +15322,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getPurchaseOrderHistoryForHttpResponse(String xeroTenantId, UUID purchaseOrderID, Map<String, Object> params) throws IOException {
@@ -15209,7 +15464,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getPurchaseOrdersForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -15296,7 +15551,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getReceiptForHttpResponse(String xeroTenantId, UUID receiptID, Map<String, Object> params) throws IOException {
@@ -15400,7 +15655,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getReceiptAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID receiptID, String fileName, String contentType, Map<String, Object> params) throws IOException {
@@ -15511,7 +15766,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getReceiptAttachmentByIdForHttpResponse(String xeroTenantId, UUID receiptID, UUID attachmentID, String contentType, Map<String, Object> params) throws IOException {
@@ -15611,7 +15866,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getReceiptAttachmentsForHttpResponse(String xeroTenantId, UUID receiptID, Map<String, Object> params) throws IOException {
@@ -15704,7 +15959,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getReceiptHistoryForHttpResponse(String xeroTenantId, UUID receiptID, Map<String, Object> params) throws IOException {
@@ -15824,7 +16079,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getReceiptsForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -15911,7 +16166,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getRepeatingInvoiceForHttpResponse(String xeroTenantId, UUID repeatingInvoiceID, Map<String, Object> params) throws IOException {
@@ -16015,7 +16270,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getRepeatingInvoiceAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID repeatingInvoiceID, String fileName, String contentType, Map<String, Object> params) throws IOException {
@@ -16126,7 +16381,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getRepeatingInvoiceAttachmentByIdForHttpResponse(String xeroTenantId, UUID repeatingInvoiceID, UUID attachmentID, String contentType, Map<String, Object> params) throws IOException {
@@ -16226,7 +16481,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getRepeatingInvoiceAttachmentsForHttpResponse(String xeroTenantId, UUID repeatingInvoiceID, Map<String, Object> params) throws IOException {
@@ -16319,7 +16574,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getRepeatingInvoiceHistoryForHttpResponse(String xeroTenantId, UUID repeatingInvoiceID, Map<String, Object> params) throws IOException {
@@ -16427,7 +16682,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getRepeatingInvoicesForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -16555,7 +16810,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getReportAgedPayablesByContactForHttpResponse(String xeroTenantId, UUID contactId, Map<String, Object> params) throws IOException {
@@ -16688,7 +16943,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getReportAgedReceivablesByContactForHttpResponse(String xeroTenantId, UUID contactId, Map<String, Object> params) throws IOException {
@@ -16780,7 +17035,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getReportBASorGSTForHttpResponse(String xeroTenantId, String reportID, Map<String, Object> params) throws IOException {
@@ -16865,7 +17120,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getReportBASorGSTListForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -17022,7 +17277,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getReportBalanceSheetForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -17135,7 +17390,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getReportBankSummaryForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -17248,7 +17503,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getReportBudgetSummaryForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -17339,7 +17594,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getReportExecutiveSummaryForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -17529,7 +17784,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getReportProfitAndLossForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -17620,7 +17875,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getReportTenNinetyNineForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -17722,7 +17977,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getReportTrialBalanceForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -17835,7 +18090,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getTaxRatesForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -17948,7 +18203,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getTrackingCategoriesForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -18035,7 +18290,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getTrackingCategoryForHttpResponse(String xeroTenantId, UUID trackingCategoryID, Map<String, Object> params) throws IOException {
@@ -18128,7 +18383,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getUserForHttpResponse(String xeroTenantId, UUID userID, Map<String, Object> params) throws IOException {
@@ -18237,7 +18492,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
     public HttpResponse getUsersForHttpResponse(String xeroTenantId, Map<String, Object> params) throws IOException {
@@ -18331,7 +18586,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse updateAccountForHttpResponse(String xeroTenantId, UUID accountID, java.io.InputStream accounts, String mediaType) throws IOException {
@@ -18356,7 +18611,12 @@ public class AccountingApi {
               HttpContent content = accounts == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, accounts);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse updateAccountForHttpResponse(String xeroTenantId, UUID accountID, Accounts accounts, Map<String, Object> params) throws IOException {
@@ -18465,7 +18725,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse updateAccountAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID accountID, String fileName, java.io.InputStream body, String mediaType) throws IOException {
@@ -18494,7 +18754,12 @@ public class AccountingApi {
               HttpContent content = body == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, body);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse updateAccountAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID accountID, String fileName, byte[] body, Map<String, Object> params) throws IOException {
@@ -18601,7 +18866,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse updateBankTransactionForHttpResponse(String xeroTenantId, UUID bankTransactionID, java.io.InputStream bankTransactions, String mediaType) throws IOException {
@@ -18626,7 +18891,12 @@ public class AccountingApi {
               HttpContent content = bankTransactions == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, bankTransactions);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse updateBankTransactionForHttpResponse(String xeroTenantId, UUID bankTransactionID, BankTransactions bankTransactions, Map<String, Object> params) throws IOException {
@@ -18735,7 +19005,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse updateBankTransactionAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID bankTransactionID, String fileName, java.io.InputStream body, String mediaType) throws IOException {
@@ -18764,7 +19034,12 @@ public class AccountingApi {
               HttpContent content = body == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, body);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse updateBankTransactionAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID bankTransactionID, String fileName, byte[] body, Map<String, Object> params) throws IOException {
@@ -18875,7 +19150,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse updateBankTransferAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID bankTransferID, String fileName, java.io.InputStream body, String mediaType) throws IOException {
@@ -18904,7 +19179,12 @@ public class AccountingApi {
               HttpContent content = body == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, body);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse updateBankTransferAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID bankTransferID, String fileName, byte[] body, Map<String, Object> params) throws IOException {
@@ -19009,7 +19289,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse updateContactForHttpResponse(String xeroTenantId, UUID contactID, java.io.InputStream contacts, String mediaType) throws IOException {
@@ -19034,7 +19314,12 @@ public class AccountingApi {
               HttpContent content = contacts == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, contacts);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse updateContactForHttpResponse(String xeroTenantId, UUID contactID, Contacts contacts, Map<String, Object> params) throws IOException {
@@ -19141,7 +19426,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse updateContactAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID contactID, String fileName, java.io.InputStream body, String mediaType) throws IOException {
@@ -19170,7 +19455,12 @@ public class AccountingApi {
               HttpContent content = body == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, body);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse updateContactAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID contactID, String fileName, byte[] body, Map<String, Object> params) throws IOException {
@@ -19277,7 +19567,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse updateContactGroupForHttpResponse(String xeroTenantId, UUID contactGroupID, java.io.InputStream contactGroups, String mediaType) throws IOException {
@@ -19302,7 +19592,12 @@ public class AccountingApi {
               HttpContent content = contactGroups == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, contactGroups);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse updateContactGroupForHttpResponse(String xeroTenantId, UUID contactGroupID, ContactGroups contactGroups, Map<String, Object> params) throws IOException {
@@ -19405,7 +19700,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse updateCreditNoteForHttpResponse(String xeroTenantId, UUID creditNoteID, java.io.InputStream creditNotes, String mediaType) throws IOException {
@@ -19430,7 +19725,12 @@ public class AccountingApi {
               HttpContent content = creditNotes == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, creditNotes);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse updateCreditNoteForHttpResponse(String xeroTenantId, UUID creditNoteID, CreditNotes creditNotes, Map<String, Object> params) throws IOException {
@@ -19539,7 +19839,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse updateCreditNoteAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID creditNoteID, String fileName, java.io.InputStream body, String mediaType) throws IOException {
@@ -19568,7 +19868,12 @@ public class AccountingApi {
               HttpContent content = body == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, body);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse updateCreditNoteAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID creditNoteID, String fileName, byte[] body, Map<String, Object> params) throws IOException {
@@ -19675,7 +19980,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse updateEmployeeForHttpResponse(String xeroTenantId, UUID employeeID, java.io.InputStream employees, String mediaType) throws IOException {
@@ -19700,7 +20005,12 @@ public class AccountingApi {
               HttpContent content = employees == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, employees);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse updateEmployeeForHttpResponse(String xeroTenantId, UUID employeeID, Employees employees, Map<String, Object> params) throws IOException {
@@ -19803,7 +20113,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse updateExpenseClaimForHttpResponse(String xeroTenantId, UUID expenseClaimID, java.io.InputStream expenseClaims, String mediaType) throws IOException {
@@ -19828,7 +20138,12 @@ public class AccountingApi {
               HttpContent content = expenseClaims == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, expenseClaims);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse updateExpenseClaimForHttpResponse(String xeroTenantId, UUID expenseClaimID, ExpenseClaims expenseClaims, Map<String, Object> params) throws IOException {
@@ -19931,7 +20246,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse updateInvoiceForHttpResponse(String xeroTenantId, UUID invoiceID, java.io.InputStream invoices, String mediaType) throws IOException {
@@ -19956,7 +20271,12 @@ public class AccountingApi {
               HttpContent content = invoices == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, invoices);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse updateInvoiceForHttpResponse(String xeroTenantId, UUID invoiceID, Invoices invoices, Map<String, Object> params) throws IOException {
@@ -20065,7 +20385,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse updateInvoiceAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID invoiceID, String fileName, java.io.InputStream body, String mediaType) throws IOException {
@@ -20094,7 +20414,12 @@ public class AccountingApi {
               HttpContent content = body == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, body);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse updateInvoiceAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID invoiceID, String fileName, byte[] body, Map<String, Object> params) throws IOException {
@@ -20201,7 +20526,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse updateItemForHttpResponse(String xeroTenantId, UUID itemID, java.io.InputStream items, String mediaType) throws IOException {
@@ -20226,7 +20551,12 @@ public class AccountingApi {
               HttpContent content = items == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, items);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse updateItemForHttpResponse(String xeroTenantId, UUID itemID, Items items, Map<String, Object> params) throws IOException {
@@ -20329,7 +20659,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse updateLinkedTransactionForHttpResponse(String xeroTenantId, UUID linkedTransactionID, java.io.InputStream linkedTransactions, String mediaType) throws IOException {
@@ -20354,7 +20684,12 @@ public class AccountingApi {
               HttpContent content = linkedTransactions == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, linkedTransactions);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse updateLinkedTransactionForHttpResponse(String xeroTenantId, UUID linkedTransactionID, LinkedTransactions linkedTransactions, Map<String, Object> params) throws IOException {
@@ -20457,7 +20792,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse updateManualJournalForHttpResponse(String xeroTenantId, UUID manualJournalID, java.io.InputStream manualJournals, String mediaType) throws IOException {
@@ -20482,7 +20817,12 @@ public class AccountingApi {
               HttpContent content = manualJournals == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, manualJournals);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse updateManualJournalForHttpResponse(String xeroTenantId, UUID manualJournalID, ManualJournals manualJournals, Map<String, Object> params) throws IOException {
@@ -20591,7 +20931,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse updateManualJournalAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID manualJournalID, String fileName, java.io.InputStream body, String mediaType) throws IOException {
@@ -20620,7 +20960,12 @@ public class AccountingApi {
               HttpContent content = body == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, body);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse updateManualJournalAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID manualJournalID, String fileName, byte[] body, Map<String, Object> params) throws IOException {
@@ -20727,7 +21072,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse updatePurchaseOrderForHttpResponse(String xeroTenantId, UUID purchaseOrderID, java.io.InputStream purchaseOrders, String mediaType) throws IOException {
@@ -20752,7 +21097,12 @@ public class AccountingApi {
               HttpContent content = purchaseOrders == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, purchaseOrders);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse updatePurchaseOrderForHttpResponse(String xeroTenantId, UUID purchaseOrderID, PurchaseOrders purchaseOrders, Map<String, Object> params) throws IOException {
@@ -20855,7 +21205,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse updateReceiptForHttpResponse(String xeroTenantId, UUID receiptID, java.io.InputStream receipts, String mediaType) throws IOException {
@@ -20880,7 +21230,12 @@ public class AccountingApi {
               HttpContent content = receipts == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, receipts);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse updateReceiptForHttpResponse(String xeroTenantId, UUID receiptID, Receipts receipts, Map<String, Object> params) throws IOException {
@@ -20989,7 +21344,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse updateReceiptAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID receiptID, String fileName, java.io.InputStream body, String mediaType) throws IOException {
@@ -21018,7 +21373,12 @@ public class AccountingApi {
               HttpContent content = body == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, body);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse updateReceiptAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID receiptID, String fileName, byte[] body, Map<String, Object> params) throws IOException {
@@ -21131,7 +21491,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse updateRepeatingInvoiceAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID repeatingInvoiceID, String fileName, java.io.InputStream body, String mediaType) throws IOException {
@@ -21160,7 +21520,12 @@ public class AccountingApi {
               HttpContent content = body == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, body);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse updateRepeatingInvoiceAttachmentByFileNameForHttpResponse(String xeroTenantId, UUID repeatingInvoiceID, String fileName, byte[] body, Map<String, Object> params) throws IOException {
@@ -21259,7 +21624,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse updateTaxRateForHttpResponse(String xeroTenantId, java.io.InputStream taxRates, String mediaType) throws IOException {
@@ -21278,7 +21643,12 @@ public class AccountingApi {
               HttpContent content = taxRates == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, taxRates);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse updateTaxRateForHttpResponse(String xeroTenantId, TaxRates taxRates, Map<String, Object> params) throws IOException {
@@ -21375,7 +21745,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
 
-        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+        return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
       public HttpResponse updateTrackingCategoryForHttpResponse(String xeroTenantId, UUID trackingCategoryID, java.io.InputStream trackingCategory, String mediaType) throws IOException {
@@ -21400,7 +21770,12 @@ public class AccountingApi {
               HttpContent content = trackingCategory == null ?
                 apiClient.new JacksonJsonHttpContent(null) :
                 new InputStreamContent(mediaType == null ? Json.MEDIA_TYPE : mediaType, trackingCategory);
-              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).execute();
+              
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("xero-tenant-id", xeroTenantId);
+                headers.setAccept("application/json"); 
+
+              return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
       }
 
     public HttpResponse updateTrackingCategoryForHttpResponse(String xeroTenantId, UUID trackingCategoryID, TrackingCategory trackingCategory, Map<String, Object> params) throws IOException {
