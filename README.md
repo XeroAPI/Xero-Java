@@ -1,7 +1,5 @@
 # Xero-Java
 
-[![Maven Central](https://img.shields.io/badge/Maven%20Central-2.3.8-green.svg)](https://search.maven.org/artifact/com.github.xeroapi/xero-java/2.3.8/jar)
-
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.xeroapi/xero-java.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.github.xeroapi%22%20AND%20a:%22xero-java%22)
 
