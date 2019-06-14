@@ -54,15 +54,15 @@ import com.xero.models.accounting.Users;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpContent;
-import com.google.api.client.http.InputStreamContent;
 import com.google.api.client.http.HttpMethods;
 import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpResponse;
-import com.google.api.client.json.Json;
+import com.google.api.client.http.FileContent;
 
 import javax.ws.rs.core.UriBuilder;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.io.ByteArrayInputStream;
 
 import java.util.Collection;
@@ -119,17 +119,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Accounts";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(account);
+        
+        content = apiClient.new JacksonJsonHttpContent(account);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -168,18 +170,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Accounts/{AccountID}/Attachments/{FileName}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Accounts/{AccountID}/Attachments/{FileName}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
-        
-        // Set ContentType for Binary data
-        //headers.setContentType("application/octet-stream");
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -187,14 +178,18 @@ public class AccountingApi {
         uriVariables.put("FileName", fileName);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
-        
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        HttpContent content = new FileContent(mimeType, body);
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
+        
+        content = new FileContent(mimeType, body);
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
@@ -227,9 +222,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/BankTransactions";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (summarizeErrors != null) {
             String key = "SummarizeErrors";
@@ -242,13 +235,17 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(bankTransactions);
+        
+        content = apiClient.new JacksonJsonHttpContent(bankTransactions);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -287,18 +284,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/BankTransactions/{BankTransactionID}/Attachments/{FileName}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/BankTransactions/{BankTransactionID}/Attachments/{FileName}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
-        
-        // Set ContentType for Binary data
-        //headers.setContentType("application/octet-stream");
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -306,14 +292,18 @@ public class AccountingApi {
         uriVariables.put("FileName", fileName);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
-        
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        HttpContent content = new FileContent(mimeType, body);
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
+        
+        content = new FileContent(mimeType, body);
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
@@ -349,28 +339,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/BankTransactions/{BankTransactionID}/History";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/BankTransactions/{BankTransactionID}/History";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BankTransactionID", bankTransactionID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(historyRecords);
+        
+        content = apiClient.new JacksonJsonHttpContent(historyRecords);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -401,17 +387,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/BankTransfers";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(bankTransfers);
+        
+        content = apiClient.new JacksonJsonHttpContent(bankTransfers);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -449,18 +437,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/BankTransfers/{BankTransferID}/Attachments/{FileName}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/BankTransfers/{BankTransferID}/Attachments/{FileName}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
-        
-        // Set ContentType for Binary data
-        //headers.setContentType("application/octet-stream");
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -468,14 +445,18 @@ public class AccountingApi {
         uriVariables.put("FileName", fileName);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
-        
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        HttpContent content = new FileContent(mimeType, body);
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
+        
+        content = new FileContent(mimeType, body);
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
@@ -510,28 +491,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/BankTransfers/{BankTransferID}/History";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/BankTransfers/{BankTransferID}/History";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BankTransferID", bankTransferID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(historyRecords);
+        
+        content = apiClient.new JacksonJsonHttpContent(historyRecords);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -562,17 +539,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/BatchPayments";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(batchPayments);
+        
+        content = apiClient.new JacksonJsonHttpContent(batchPayments);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -607,28 +586,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/BatchPayments/{BatchPaymentID}/History";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/BatchPayments/{BatchPaymentID}/History";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BatchPaymentID", batchPaymentID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(historyRecords);
+        
+        content = apiClient.new JacksonJsonHttpContent(historyRecords);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -663,28 +638,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/BrandingThemes/{BrandingThemeID}/PaymentServices";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/BrandingThemes/{BrandingThemeID}/PaymentServices";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BrandingThemeID", brandingThemeID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(paymentService);
+        
+        content = apiClient.new JacksonJsonHttpContent(paymentService);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
@@ -714,17 +685,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Contacts";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(contact);
+        
+        content = apiClient.new JacksonJsonHttpContent(contact);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -762,18 +735,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Contacts/{ContactID}/Attachments/{FileName}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Contacts/{ContactID}/Attachments/{FileName}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
-        
-        // Set ContentType for Binary data
-        //headers.setContentType("application/octet-stream");
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -781,14 +743,18 @@ public class AccountingApi {
         uriVariables.put("FileName", fileName);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
-        
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        HttpContent content = new FileContent(mimeType, body);
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
+        
+        content = new FileContent(mimeType, body);
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
@@ -820,17 +786,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/ContactGroups";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(contactGroups);
+        
+        content = apiClient.new JacksonJsonHttpContent(contactGroups);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -865,28 +833,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/ContactGroups/{ContactGroupID}/Contacts";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/ContactGroups/{ContactGroupID}/Contacts";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ContactGroupID", contactGroupID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(contacts);
+        
+        content = apiClient.new JacksonJsonHttpContent(contacts);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -921,28 +885,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Contacts/{ContactID}/History";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Contacts/{ContactID}/History";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ContactID", contactID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(historyRecords);
+        
+        content = apiClient.new JacksonJsonHttpContent(historyRecords);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -974,9 +934,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/CreditNotes";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (summarizeErrors != null) {
             String key = "SummarizeErrors";
@@ -989,13 +947,17 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(creditNotes);
+        
+        content = apiClient.new JacksonJsonHttpContent(creditNotes);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -1030,28 +992,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/CreditNotes/{CreditNoteID}/Allocations";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/CreditNotes/{CreditNoteID}/Allocations";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("CreditNoteID", creditNoteID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(allocations);
+        
+        content = apiClient.new JacksonJsonHttpContent(allocations);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -1090,18 +1048,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/CreditNotes/{CreditNoteID}/Attachments/{FileName}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/CreditNotes/{CreditNoteID}/Attachments/{FileName}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
-        
-        // Set ContentType for Binary data
-        //headers.setContentType("application/octet-stream");
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -1109,14 +1056,18 @@ public class AccountingApi {
         uriVariables.put("FileName", fileName);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
-        
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        HttpContent content = new FileContent(mimeType, body);
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
+        
+        content = new FileContent(mimeType, body);
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
@@ -1152,28 +1103,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/CreditNotes/{CreditNoteID}/History";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/CreditNotes/{CreditNoteID}/History";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("CreditNoteID", creditNoteID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(historyRecords);
+        
+        content = apiClient.new JacksonJsonHttpContent(historyRecords);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -1202,17 +1149,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Currencies";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(currencies);
+        
+        content = apiClient.new JacksonJsonHttpContent(currencies);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -1243,17 +1192,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Employees";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(employees);
+        
+        content = apiClient.new JacksonJsonHttpContent(employees);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -1285,9 +1236,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/ExpenseClaims";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (summarizeErrors != null) {
             String key = "SummarizeErrors";
@@ -1300,13 +1249,17 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(expenseClaims);
+        
+        content = apiClient.new JacksonJsonHttpContent(expenseClaims);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -1340,28 +1293,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/ExpenseClaims/{ExpenseClaimID}/History";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/ExpenseClaims/{ExpenseClaimID}/History";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ExpenseClaimID", expenseClaimID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(historyRecords);
+        
+        content = apiClient.new JacksonJsonHttpContent(historyRecords);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -1393,9 +1342,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Invoices";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (summarizeErrors != null) {
             String key = "SummarizeErrors";
@@ -1408,13 +1355,17 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(invoices);
+        
+        content = apiClient.new JacksonJsonHttpContent(invoices);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -1453,18 +1404,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Invoices/{InvoiceID}/Attachments/{FileName}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Invoices/{InvoiceID}/Attachments/{FileName}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
-        
-        // Set ContentType for Binary data
-        //headers.setContentType("application/octet-stream");
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -1472,14 +1412,18 @@ public class AccountingApi {
         uriVariables.put("FileName", fileName);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
-        
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        HttpContent content = new FileContent(mimeType, body);
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
+        
+        content = new FileContent(mimeType, body);
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
@@ -1515,28 +1459,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Invoices/{InvoiceID}/History";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Invoices/{InvoiceID}/History";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("InvoiceID", invoiceID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(historyRecords);
+        
+        content = apiClient.new JacksonJsonHttpContent(historyRecords);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -1567,17 +1507,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Items";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(items);
+        
+        content = apiClient.new JacksonJsonHttpContent(items);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -1611,28 +1553,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Items/{ItemID}/History";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Items/{ItemID}/History";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ItemID", itemID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(historyRecords);
+        
+        content = apiClient.new JacksonJsonHttpContent(historyRecords);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -1663,17 +1601,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/LinkedTransactions";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(linkedTransactions);
+        
+        content = apiClient.new JacksonJsonHttpContent(linkedTransactions);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -1704,17 +1644,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/ManualJournals";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(manualJournals);
+        
+        content = apiClient.new JacksonJsonHttpContent(manualJournals);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -1753,18 +1695,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/ManualJournals/{ManualJournalID}/Attachments/{FileName}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/ManualJournals/{ManualJournalID}/Attachments/{FileName}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
-        
-        // Set ContentType for Binary data
-        //headers.setContentType("application/octet-stream");
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -1772,14 +1703,18 @@ public class AccountingApi {
         uriVariables.put("FileName", fileName);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
-        
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        HttpContent content = new FileContent(mimeType, body);
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
+        
+        content = new FileContent(mimeType, body);
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
@@ -1815,28 +1750,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Overpayments/{OverpaymentID}/Allocations";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Overpayments/{OverpaymentID}/Allocations";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("OverpaymentID", overpaymentID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(allocations);
+        
+        content = apiClient.new JacksonJsonHttpContent(allocations);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -1871,28 +1802,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Overpayments/{OverpaymentID}/History";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Overpayments/{OverpaymentID}/History";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("OverpaymentID", overpaymentID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(historyRecords);
+        
+        content = apiClient.new JacksonJsonHttpContent(historyRecords);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -1923,17 +1850,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Payments";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(payments);
+        
+        content = apiClient.new JacksonJsonHttpContent(payments);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -1968,28 +1897,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Payments/{PaymentID}/History";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Payments/{PaymentID}/History";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("PaymentID", paymentID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(historyRecords);
+        
+        content = apiClient.new JacksonJsonHttpContent(historyRecords);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -2020,17 +1945,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/PaymentServices";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(paymentServices);
+        
+        content = apiClient.new JacksonJsonHttpContent(paymentServices);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -2065,28 +1992,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Prepayments/{PrepaymentID}/Allocations";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Prepayments/{PrepaymentID}/Allocations";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("PrepaymentID", prepaymentID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(allocations);
+        
+        content = apiClient.new JacksonJsonHttpContent(allocations);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -2121,28 +2044,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Prepayments/{PrepaymentID}/History";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Prepayments/{PrepaymentID}/History";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("PrepaymentID", prepaymentID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(historyRecords);
+        
+        content = apiClient.new JacksonJsonHttpContent(historyRecords);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -2174,9 +2093,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/PurchaseOrders";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (summarizeErrors != null) {
             String key = "SummarizeErrors";
@@ -2189,13 +2106,17 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(purchaseOrders);
+        
+        content = apiClient.new JacksonJsonHttpContent(purchaseOrders);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -2230,28 +2151,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/PurchaseOrders/{PurchaseOrderID}/History";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/PurchaseOrders/{PurchaseOrderID}/History";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("PurchaseOrderID", purchaseOrderID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(historyRecords);
+        
+        content = apiClient.new JacksonJsonHttpContent(historyRecords);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -2282,17 +2199,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Receipts";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(receipts);
+        
+        content = apiClient.new JacksonJsonHttpContent(receipts);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -2331,18 +2250,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Receipts/{ReceiptID}/Attachments/{FileName}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Receipts/{ReceiptID}/Attachments/{FileName}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
-        
-        // Set ContentType for Binary data
-        //headers.setContentType("application/octet-stream");
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -2350,14 +2258,18 @@ public class AccountingApi {
         uriVariables.put("FileName", fileName);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
-        
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        HttpContent content = new FileContent(mimeType, body);
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
+        
+        content = new FileContent(mimeType, body);
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
@@ -2393,28 +2305,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Receipts/{ReceiptID}/History";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Receipts/{ReceiptID}/History";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ReceiptID", receiptID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(historyRecords);
+        
+        content = apiClient.new JacksonJsonHttpContent(historyRecords);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -2453,18 +2361,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{FileName}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{FileName}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
-        
-        // Set ContentType for Binary data
-        //headers.setContentType("application/octet-stream");
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -2472,14 +2369,18 @@ public class AccountingApi {
         uriVariables.put("FileName", fileName);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
-        
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        HttpContent content = new FileContent(mimeType, body);
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
+        
+        content = new FileContent(mimeType, body);
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
@@ -2515,28 +2416,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/RepeatingInvoices/{RepeatingInvoiceID}/History";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/RepeatingInvoices/{RepeatingInvoiceID}/History";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("RepeatingInvoiceID", repeatingInvoiceID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(historyRecords);
+        
+        content = apiClient.new JacksonJsonHttpContent(historyRecords);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -2567,17 +2464,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/TaxRates";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(taxRates);
+        
+        content = apiClient.new JacksonJsonHttpContent(taxRates);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -2608,17 +2507,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/TrackingCategories";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(trackingCategory);
+        
+        content = apiClient.new JacksonJsonHttpContent(trackingCategory);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -2653,28 +2554,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/TrackingCategories/{TrackingCategoryID}/Options";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/TrackingCategories/{TrackingCategoryID}/Options";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("TrackingCategoryID", trackingCategoryID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(trackingOption);
+        
+        content = apiClient.new JacksonJsonHttpContent(trackingOption);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
@@ -2705,25 +2602,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Accounts/{AccountID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Accounts/{AccountID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("AccountID", accountID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.DELETE, genericUrl, content).setHeaders(headers).execute();
@@ -2756,15 +2649,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/ContactGroups/{ContactGroupID}/Contacts/{ContactID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/ContactGroups/{ContactGroupID}/Contacts/{ContactID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -2772,10 +2657,14 @@ public class AccountingApi {
         uriVariables.put("ContactID", contactID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.DELETE, genericUrl, content).setHeaders(headers).execute();
@@ -2803,25 +2692,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/ContactGroups/{ContactGroupID}/Contacts";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/ContactGroups/{ContactGroupID}/Contacts";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ContactGroupID", contactGroupID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.DELETE, genericUrl, content).setHeaders(headers).execute();
@@ -2850,25 +2735,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Items/{ItemID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Items/{ItemID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ItemID", itemID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.DELETE, genericUrl, content).setHeaders(headers).execute();
@@ -2897,25 +2778,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/LinkedTransactions/{LinkedTransactionID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/LinkedTransactions/{LinkedTransactionID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("LinkedTransactionID", linkedTransactionID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.DELETE, genericUrl, content).setHeaders(headers).execute();
@@ -2951,28 +2828,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Payments/{PaymentID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Payments/{PaymentID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("PaymentID", paymentID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(payments);
+        
+        content = apiClient.new JacksonJsonHttpContent(payments);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
@@ -3003,25 +2876,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/TrackingCategories/{TrackingCategoryID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/TrackingCategories/{TrackingCategoryID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("TrackingCategoryID", trackingCategoryID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.DELETE, genericUrl, content).setHeaders(headers).execute();
@@ -3057,15 +2926,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/TrackingCategories/{TrackingCategoryID}/Options/{TrackingOptionID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/TrackingCategories/{TrackingCategoryID}/Options/{TrackingOptionID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -3073,10 +2934,14 @@ public class AccountingApi {
         uriVariables.put("TrackingOptionID", trackingOptionID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.DELETE, genericUrl, content).setHeaders(headers).execute();
@@ -3109,28 +2974,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Invoices/{InvoiceID}/Email";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Invoices/{InvoiceID}/Email";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("InvoiceID", invoiceID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(requestEmpty);
+        
+        content = apiClient.new JacksonJsonHttpContent(requestEmpty);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
@@ -3160,25 +3021,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Accounts/{AccountID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Accounts/{AccountID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("AccountID", accountID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -3218,26 +3075,29 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Accounts/{AccountID}/Attachments/{FileName}";
+        
         // Hacky path manipulation to support different return types from same endpoint
         String path = "/Accounts/{AccountID}/Attachments/{FileName}";
         String type = "/pdf";
         if(path.toLowerCase().contains(type.toLowerCase())) {
             correctPath = path.replace("/pdf","");
             headers.setAccept("application/pdf"); 
-        } 
-        
+        }
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("AccountID", accountID);
         uriVariables.put("FileName", fileName);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -3277,26 +3137,29 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Accounts/{AccountID}/Attachments/{AttachmentID}";
+        
         // Hacky path manipulation to support different return types from same endpoint
         String path = "/Accounts/{AccountID}/Attachments/{AttachmentID}";
         String type = "/pdf";
         if(path.toLowerCase().contains(type.toLowerCase())) {
             correctPath = path.replace("/pdf","");
             headers.setAccept("application/pdf"); 
-        } 
-        
+        }
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("AccountID", accountID);
         uriVariables.put("AttachmentID", attachmentID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -3327,25 +3190,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Accounts/{AccountID}/Attachments";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Accounts/{AccountID}/Attachments";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("AccountID", accountID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -3375,9 +3234,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Accounts";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
             String key = "where";
@@ -3400,10 +3257,14 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -3434,25 +3295,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/BankTransactions/{BankTransactionID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/BankTransactions/{BankTransactionID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BankTransactionID", bankTransactionID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -3492,26 +3349,29 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/BankTransactions/{BankTransactionID}/Attachments/{FileName}";
+        
         // Hacky path manipulation to support different return types from same endpoint
         String path = "/BankTransactions/{BankTransactionID}/Attachments/{FileName}";
         String type = "/pdf";
         if(path.toLowerCase().contains(type.toLowerCase())) {
             correctPath = path.replace("/pdf","");
             headers.setAccept("application/pdf"); 
-        } 
-        
+        }
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BankTransactionID", bankTransactionID);
         uriVariables.put("FileName", fileName);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -3551,26 +3411,29 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/BankTransactions/{BankTransactionID}/Attachments/{AttachmentID}";
+        
         // Hacky path manipulation to support different return types from same endpoint
         String path = "/BankTransactions/{BankTransactionID}/Attachments/{AttachmentID}";
         String type = "/pdf";
         if(path.toLowerCase().contains(type.toLowerCase())) {
             correctPath = path.replace("/pdf","");
             headers.setAccept("application/pdf"); 
-        } 
-        
+        }
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BankTransactionID", bankTransactionID);
         uriVariables.put("AttachmentID", attachmentID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -3601,25 +3464,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/BankTransactions/{BankTransactionID}/Attachments";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/BankTransactions/{BankTransactionID}/Attachments";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BankTransactionID", bankTransactionID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -3651,9 +3510,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/BankTransactions";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
             String key = "where";
@@ -3696,10 +3553,14 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -3730,25 +3591,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/BankTransactions/{BankTransactionID}/History";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/BankTransactions/{BankTransactionID}/History";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BankTransactionID", bankTransactionID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -3779,25 +3636,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/BankTransfers/{BankTransferID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/BankTransfers/{BankTransferID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BankTransferID", bankTransferID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -3837,26 +3690,29 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/BankTransfers/{BankTransferID}/Attachments/{FileName}";
+        
         // Hacky path manipulation to support different return types from same endpoint
         String path = "/BankTransfers/{BankTransferID}/Attachments/{FileName}";
         String type = "/pdf";
         if(path.toLowerCase().contains(type.toLowerCase())) {
             correctPath = path.replace("/pdf","");
             headers.setAccept("application/pdf"); 
-        } 
-        
+        }
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BankTransferID", bankTransferID);
         uriVariables.put("FileName", fileName);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -3896,26 +3752,29 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/BankTransfers/{BankTransferID}/Attachments/{AttachmentID}";
+        
         // Hacky path manipulation to support different return types from same endpoint
         String path = "/BankTransfers/{BankTransferID}/Attachments/{AttachmentID}";
         String type = "/pdf";
         if(path.toLowerCase().contains(type.toLowerCase())) {
             correctPath = path.replace("/pdf","");
             headers.setAccept("application/pdf"); 
-        } 
-        
+        }
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BankTransferID", bankTransferID);
         uriVariables.put("AttachmentID", attachmentID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -3946,25 +3805,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/BankTransfers/{BankTransferID}/Attachments";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/BankTransfers/{BankTransferID}/Attachments";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BankTransferID", bankTransferID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -3995,25 +3850,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/BankTransfers/{BankTransferID}/History";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/BankTransfers/{BankTransferID}/History";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BankTransferID", bankTransferID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -4043,9 +3894,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/BankTransfers";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
             String key = "where";
@@ -4068,10 +3917,14 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -4102,25 +3955,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/BatchPayments/{BatchPaymentID}/History";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/BatchPayments/{BatchPaymentID}/History";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BatchPaymentID", batchPaymentID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -4150,9 +3999,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/BatchPayments";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
             String key = "where";
@@ -4175,10 +4022,14 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -4209,25 +4060,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/BrandingThemes/{BrandingThemeID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/BrandingThemes/{BrandingThemeID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BrandingThemeID", brandingThemeID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -4258,25 +4105,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/BrandingThemes/{BrandingThemeID}/PaymentServices";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/BrandingThemes/{BrandingThemeID}/PaymentServices";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BrandingThemeID", brandingThemeID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -4303,14 +4146,16 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/BrandingThemes";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -4341,25 +4186,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Contacts/{ContactID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Contacts/{ContactID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ContactID", contactID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -4399,26 +4240,29 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Contacts/{ContactID}/Attachments/{FileName}";
+        
         // Hacky path manipulation to support different return types from same endpoint
         String path = "/Contacts/{ContactID}/Attachments/{FileName}";
         String type = "/pdf";
         if(path.toLowerCase().contains(type.toLowerCase())) {
             correctPath = path.replace("/pdf","");
             headers.setAccept("application/pdf"); 
-        } 
-        
+        }
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ContactID", contactID);
         uriVariables.put("FileName", fileName);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -4458,26 +4302,29 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Contacts/{ContactID}/Attachments/{AttachmentID}";
+        
         // Hacky path manipulation to support different return types from same endpoint
         String path = "/Contacts/{ContactID}/Attachments/{AttachmentID}";
         String type = "/pdf";
         if(path.toLowerCase().contains(type.toLowerCase())) {
             correctPath = path.replace("/pdf","");
             headers.setAccept("application/pdf"); 
-        } 
-        
+        }
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ContactID", contactID);
         uriVariables.put("AttachmentID", attachmentID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -4508,25 +4355,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Contacts/{ContactID}/Attachments";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Contacts/{ContactID}/Attachments";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ContactID", contactID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -4557,25 +4400,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Contacts/{ContactID}/CISSettings";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Contacts/{ContactID}/CISSettings";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ContactID", contactID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -4606,25 +4445,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/ContactGroups/{ContactGroupID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/ContactGroups/{ContactGroupID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ContactGroupID", contactGroupID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -4653,9 +4488,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/ContactGroups";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
             String key = "where";
@@ -4678,10 +4511,14 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -4712,25 +4549,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Contacts/{ContactID}/History";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Contacts/{ContactID}/History";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ContactID", contactID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -4763,9 +4596,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Contacts";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
             String key = "where";
@@ -4818,10 +4649,14 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -4852,25 +4687,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/CreditNotes/{CreditNoteID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/CreditNotes/{CreditNoteID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("CreditNoteID", creditNoteID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -4906,25 +4737,28 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/CreditNotes/{CreditNoteID}/pdf";
+        
         // Hacky path manipulation to support different return types from same endpoint
         String path = "/CreditNotes/{CreditNoteID}/pdf";
         String type = "/pdf";
         if(path.toLowerCase().contains(type.toLowerCase())) {
             correctPath = path.replace("/pdf","");
             headers.setAccept("application/pdf"); 
-        } 
-        
+        }
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("CreditNoteID", creditNoteID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -4964,26 +4798,29 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/CreditNotes/{CreditNoteID}/Attachments/{FileName}";
+        
         // Hacky path manipulation to support different return types from same endpoint
         String path = "/CreditNotes/{CreditNoteID}/Attachments/{FileName}";
         String type = "/pdf";
         if(path.toLowerCase().contains(type.toLowerCase())) {
             correctPath = path.replace("/pdf","");
             headers.setAccept("application/pdf"); 
-        } 
-        
+        }
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("CreditNoteID", creditNoteID);
         uriVariables.put("FileName", fileName);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -5023,26 +4860,29 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/CreditNotes/{CreditNoteID}/Attachments/{AttachmentID}";
+        
         // Hacky path manipulation to support different return types from same endpoint
         String path = "/CreditNotes/{CreditNoteID}/Attachments/{AttachmentID}";
         String type = "/pdf";
         if(path.toLowerCase().contains(type.toLowerCase())) {
             correctPath = path.replace("/pdf","");
             headers.setAccept("application/pdf"); 
-        } 
-        
+        }
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("CreditNoteID", creditNoteID);
         uriVariables.put("AttachmentID", attachmentID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -5073,25 +4913,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/CreditNotes/{CreditNoteID}/Attachments";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/CreditNotes/{CreditNoteID}/Attachments";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("CreditNoteID", creditNoteID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -5122,25 +4958,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/CreditNotes/{CreditNoteID}/History";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/CreditNotes/{CreditNoteID}/History";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("CreditNoteID", creditNoteID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -5171,9 +5003,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/CreditNotes";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
             String key = "where";
@@ -5206,10 +5036,14 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -5238,9 +5072,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Currencies";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
             String key = "where";
@@ -5263,10 +5095,14 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -5297,25 +5133,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Employees/{EmployeeID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Employees/{EmployeeID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EmployeeID", employeeID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -5345,9 +5177,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Employees";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
             String key = "where";
@@ -5370,10 +5200,14 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -5404,25 +5238,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/ExpenseClaims/{ExpenseClaimID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/ExpenseClaims/{ExpenseClaimID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ExpenseClaimID", expenseClaimID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -5453,25 +5283,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/ExpenseClaims/{ExpenseClaimID}/History";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/ExpenseClaims/{ExpenseClaimID}/History";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ExpenseClaimID", expenseClaimID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -5501,9 +5327,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/ExpenseClaims";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
             String key = "where";
@@ -5526,10 +5350,14 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -5560,25 +5388,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Invoices/{InvoiceID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Invoices/{InvoiceID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("InvoiceID", invoiceID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -5614,25 +5438,28 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Invoices/{InvoiceID}/pdf";
+        
         // Hacky path manipulation to support different return types from same endpoint
         String path = "/Invoices/{InvoiceID}/pdf";
         String type = "/pdf";
         if(path.toLowerCase().contains(type.toLowerCase())) {
             correctPath = path.replace("/pdf","");
             headers.setAccept("application/pdf"); 
-        } 
-        
+        }
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("InvoiceID", invoiceID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -5672,26 +5499,29 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Invoices/{InvoiceID}/Attachments/{FileName}";
+        
         // Hacky path manipulation to support different return types from same endpoint
         String path = "/Invoices/{InvoiceID}/Attachments/{FileName}";
         String type = "/pdf";
         if(path.toLowerCase().contains(type.toLowerCase())) {
             correctPath = path.replace("/pdf","");
             headers.setAccept("application/pdf"); 
-        } 
-        
+        }
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("InvoiceID", invoiceID);
         uriVariables.put("FileName", fileName);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -5731,26 +5561,29 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Invoices/{InvoiceID}/Attachments/{AttachmentID}";
+        
         // Hacky path manipulation to support different return types from same endpoint
         String path = "/Invoices/{InvoiceID}/Attachments/{AttachmentID}";
         String type = "/pdf";
         if(path.toLowerCase().contains(type.toLowerCase())) {
             correctPath = path.replace("/pdf","");
             headers.setAccept("application/pdf"); 
-        } 
-        
+        }
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("InvoiceID", invoiceID);
         uriVariables.put("AttachmentID", attachmentID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -5781,25 +5614,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Invoices/{InvoiceID}/Attachments";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Invoices/{InvoiceID}/Attachments";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("InvoiceID", invoiceID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -5830,25 +5659,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Invoices/{InvoiceID}/History";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Invoices/{InvoiceID}/History";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("InvoiceID", invoiceID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -5875,14 +5700,16 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/InvoiceReminders/Settings";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -5920,9 +5747,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Invoices";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
             String key = "where";
@@ -6025,10 +5850,14 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -6059,25 +5888,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Items/{ItemID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Items/{ItemID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ItemID", itemID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -6108,25 +5933,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Items/{ItemID}/History";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Items/{ItemID}/History";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ItemID", itemID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -6157,9 +5978,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Items";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
             String key = "where";
@@ -6192,10 +6011,14 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -6226,25 +6049,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Journals/{JournalID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Journals/{JournalID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("JournalID", journalID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -6274,9 +6093,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Journals";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (offset != null) {
             String key = "offset";
@@ -6299,10 +6116,14 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -6333,25 +6154,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/LinkedTransactions/{LinkedTransactionID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/LinkedTransactions/{LinkedTransactionID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("LinkedTransactionID", linkedTransactionID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -6384,9 +6201,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/LinkedTransactions";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (page != null) {
             String key = "page";
@@ -6449,10 +6264,14 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -6483,25 +6302,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/ManualJournals/{ManualJournalID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/ManualJournals/{ManualJournalID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ManualJournalID", manualJournalID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -6541,26 +6356,29 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/ManualJournals/{ManualJournalID}/Attachments/{FileName}";
+        
         // Hacky path manipulation to support different return types from same endpoint
         String path = "/ManualJournals/{ManualJournalID}/Attachments/{FileName}";
         String type = "/pdf";
         if(path.toLowerCase().contains(type.toLowerCase())) {
             correctPath = path.replace("/pdf","");
             headers.setAccept("application/pdf"); 
-        } 
-        
+        }
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ManualJournalID", manualJournalID);
         uriVariables.put("FileName", fileName);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -6600,26 +6418,29 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/ManualJournals/{ManualJournalID}/Attachments/{AttachmentID}";
+        
         // Hacky path manipulation to support different return types from same endpoint
         String path = "/ManualJournals/{ManualJournalID}/Attachments/{AttachmentID}";
         String type = "/pdf";
         if(path.toLowerCase().contains(type.toLowerCase())) {
             correctPath = path.replace("/pdf","");
             headers.setAccept("application/pdf"); 
-        } 
-        
+        }
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ManualJournalID", manualJournalID);
         uriVariables.put("AttachmentID", attachmentID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -6650,25 +6471,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/ManualJournals/{ManualJournalID}/Attachments";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/ManualJournals/{ManualJournalID}/Attachments";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ManualJournalID", manualJournalID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -6699,9 +6516,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/ManualJournals";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
             String key = "where";
@@ -6734,10 +6549,14 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -6768,25 +6587,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Invoices/{InvoiceID}/OnlineInvoice";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Invoices/{InvoiceID}/OnlineInvoice";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("InvoiceID", invoiceID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -6817,25 +6632,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Organisation/{OrganisationID}/CISSettings";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Organisation/{OrganisationID}/CISSettings";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("OrganisationID", organisationID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -6862,14 +6673,16 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Organisation";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -6900,25 +6713,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Overpayments/{OverpaymentID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Overpayments/{OverpaymentID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("OverpaymentID", overpaymentID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -6949,25 +6758,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Overpayments/{OverpaymentID}/History";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Overpayments/{OverpaymentID}/History";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("OverpaymentID", overpaymentID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -6999,9 +6804,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Overpayments";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
             String key = "where";
@@ -7044,10 +6847,14 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -7078,25 +6885,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Payments/{PaymentID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Payments/{PaymentID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("PaymentID", paymentID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -7127,25 +6930,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Payments/{PaymentID}/History";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Payments/{PaymentID}/History";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("PaymentID", paymentID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -7172,14 +6971,16 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/PaymentServices";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -7209,9 +7010,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Payments";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
             String key = "where";
@@ -7234,10 +7033,14 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -7268,25 +7071,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Prepayments/{PrepaymentID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Prepayments/{PrepaymentID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("PrepaymentID", prepaymentID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -7317,25 +7116,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Prepayments/{PrepaymentID}/History";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Prepayments/{PrepaymentID}/History";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("PrepaymentID", prepaymentID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -7367,9 +7162,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Prepayments";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
             String key = "where";
@@ -7412,10 +7205,14 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -7446,25 +7243,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/PurchaseOrders/{PurchaseOrderID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/PurchaseOrders/{PurchaseOrderID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("PurchaseOrderID", purchaseOrderID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -7495,25 +7288,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/PurchaseOrders/{PurchaseOrderID}/History";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/PurchaseOrders/{PurchaseOrderID}/History";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("PurchaseOrderID", purchaseOrderID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -7546,9 +7335,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/PurchaseOrders";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (status != null) {
             String key = "Status";
@@ -7601,10 +7388,14 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -7635,25 +7426,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Receipts/{ReceiptID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Receipts/{ReceiptID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ReceiptID", receiptID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -7693,26 +7480,29 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Receipts/{ReceiptID}/Attachments/{FileName}";
+        
         // Hacky path manipulation to support different return types from same endpoint
         String path = "/Receipts/{ReceiptID}/Attachments/{FileName}";
         String type = "/pdf";
         if(path.toLowerCase().contains(type.toLowerCase())) {
             correctPath = path.replace("/pdf","");
             headers.setAccept("application/pdf"); 
-        } 
-        
+        }
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ReceiptID", receiptID);
         uriVariables.put("FileName", fileName);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -7752,26 +7542,29 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Receipts/{ReceiptID}/Attachments/{AttachmentID}";
+        
         // Hacky path manipulation to support different return types from same endpoint
         String path = "/Receipts/{ReceiptID}/Attachments/{AttachmentID}";
         String type = "/pdf";
         if(path.toLowerCase().contains(type.toLowerCase())) {
             correctPath = path.replace("/pdf","");
             headers.setAccept("application/pdf"); 
-        } 
-        
+        }
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ReceiptID", receiptID);
         uriVariables.put("AttachmentID", attachmentID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -7802,25 +7595,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Receipts/{ReceiptID}/Attachments";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Receipts/{ReceiptID}/Attachments";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ReceiptID", receiptID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -7851,25 +7640,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Receipts/{ReceiptID}/History";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Receipts/{ReceiptID}/History";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ReceiptID", receiptID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -7900,9 +7685,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Receipts";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
             String key = "where";
@@ -7935,10 +7718,14 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -7969,25 +7756,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/RepeatingInvoices/{RepeatingInvoiceID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/RepeatingInvoices/{RepeatingInvoiceID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("RepeatingInvoiceID", repeatingInvoiceID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -8027,26 +7810,29 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{FileName}";
+        
         // Hacky path manipulation to support different return types from same endpoint
         String path = "/RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{FileName}";
         String type = "/pdf";
         if(path.toLowerCase().contains(type.toLowerCase())) {
             correctPath = path.replace("/pdf","");
             headers.setAccept("application/pdf"); 
-        } 
-        
+        }
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("RepeatingInvoiceID", repeatingInvoiceID);
         uriVariables.put("FileName", fileName);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -8086,26 +7872,29 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{AttachmentID}";
+        
         // Hacky path manipulation to support different return types from same endpoint
         String path = "/RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{AttachmentID}";
         String type = "/pdf";
         if(path.toLowerCase().contains(type.toLowerCase())) {
             correctPath = path.replace("/pdf","");
             headers.setAccept("application/pdf"); 
-        } 
-        
+        }
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("RepeatingInvoiceID", repeatingInvoiceID);
         uriVariables.put("AttachmentID", attachmentID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -8136,25 +7925,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/RepeatingInvoices/{RepeatingInvoiceID}/Attachments";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/RepeatingInvoices/{RepeatingInvoiceID}/Attachments";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("RepeatingInvoiceID", repeatingInvoiceID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -8185,25 +7970,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/RepeatingInvoices/{RepeatingInvoiceID}/History";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/RepeatingInvoices/{RepeatingInvoiceID}/History";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("RepeatingInvoiceID", repeatingInvoiceID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -8232,9 +8013,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/RepeatingInvoices";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
             String key = "where";
@@ -8257,10 +8036,14 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -8294,9 +8077,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Reports/AgedPayablesByContact";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (contactId != null) {
             String key = "contactId";
@@ -8339,10 +8120,14 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -8376,9 +8161,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Reports/AgedReceivablesByContact";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (contactId != null) {
             String key = "contactId";
@@ -8421,10 +8204,14 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -8455,25 +8242,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Reports/{ReportID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Reports/{ReportID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ReportID", reportID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -8500,14 +8283,16 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Reports";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -8541,9 +8326,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Reports/BalanceSheet";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (date != null) {
             String key = "date";
@@ -8616,10 +8399,14 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -8649,9 +8436,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Reports/BankSummary";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (date != null) {
             String key = "date";
@@ -8684,10 +8469,14 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -8717,9 +8506,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Reports/BudgetSummary";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (date != null) {
             String key = "date";
@@ -8752,10 +8539,14 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -8783,9 +8574,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Reports/ExecutiveSummary";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (date != null) {
             String key = "date";
@@ -8798,10 +8587,14 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -8838,9 +8631,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Reports/ProfitAndLoss";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (fromDate != null) {
             String key = "fromDate";
@@ -8943,10 +8734,14 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -8974,9 +8769,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Reports/TenNinetyNine";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (reportYear != null) {
             String key = "reportYear";
@@ -8989,10 +8782,14 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -9021,9 +8818,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Reports/TrialBalance";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (date != null) {
             String key = "date";
@@ -9046,10 +8841,14 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -9079,9 +8878,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/TaxRates";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
             String key = "where";
@@ -9114,10 +8911,14 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -9147,9 +8948,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/TrackingCategories";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
             String key = "where";
@@ -9182,10 +8981,14 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -9216,25 +9019,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/TrackingCategories/{TrackingCategoryID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/TrackingCategories/{TrackingCategoryID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("TrackingCategoryID", trackingCategoryID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -9265,25 +9064,21 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Users/{UserID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Users/{UserID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("UserID", userID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -9313,9 +9108,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Users";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
             String key = "where";
@@ -9338,10 +9131,14 @@ public class AccountingApi {
                 uriBuilder = uriBuilder.queryParam(key, value);
             }
         }
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
@@ -9377,28 +9174,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Accounts/{AccountID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Accounts/{AccountID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("AccountID", accountID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(accounts);
+        
+        content = apiClient.new JacksonJsonHttpContent(accounts);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
@@ -9437,18 +9230,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Accounts/{AccountID}/Attachments/{FileName}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Accounts/{AccountID}/Attachments/{FileName}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
-        
-        // Set ContentType for Binary data
-        //headers.setContentType("application/octet-stream");
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -9456,14 +9238,18 @@ public class AccountingApi {
         uriVariables.put("FileName", fileName);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
-        
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        HttpContent content = new FileContent(mimeType, body);
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
+        
+        content = new FileContent(mimeType, body);
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
@@ -9499,28 +9285,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/BankTransactions/{BankTransactionID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/BankTransactions/{BankTransactionID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BankTransactionID", bankTransactionID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(bankTransactions);
+        
+        content = apiClient.new JacksonJsonHttpContent(bankTransactions);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
@@ -9559,18 +9341,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/BankTransactions/{BankTransactionID}/Attachments/{FileName}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/BankTransactions/{BankTransactionID}/Attachments/{FileName}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
-        
-        // Set ContentType for Binary data
-        //headers.setContentType("application/octet-stream");
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -9578,14 +9349,18 @@ public class AccountingApi {
         uriVariables.put("FileName", fileName);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
-        
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        HttpContent content = new FileContent(mimeType, body);
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
+        
+        content = new FileContent(mimeType, body);
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
@@ -9624,18 +9399,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/BankTransfers/{BankTransferID}/Attachments/{FileName}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/BankTransfers/{BankTransferID}/Attachments/{FileName}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
-        
-        // Set ContentType for Binary data
-        //headers.setContentType("application/octet-stream");
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -9643,14 +9407,18 @@ public class AccountingApi {
         uriVariables.put("FileName", fileName);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
-        
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        HttpContent content = new FileContent(mimeType, body);
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
+        
+        content = new FileContent(mimeType, body);
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
@@ -9685,28 +9453,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Contacts/{ContactID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Contacts/{ContactID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ContactID", contactID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(contacts);
+        
+        content = apiClient.new JacksonJsonHttpContent(contacts);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
@@ -9744,18 +9508,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Contacts/{ContactID}/Attachments/{FileName}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Contacts/{ContactID}/Attachments/{FileName}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
-        
-        // Set ContentType for Binary data
-        //headers.setContentType("application/octet-stream");
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -9763,14 +9516,18 @@ public class AccountingApi {
         uriVariables.put("FileName", fileName);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
-        
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        HttpContent content = new FileContent(mimeType, body);
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
+        
+        content = new FileContent(mimeType, body);
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
@@ -9806,28 +9563,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/ContactGroups/{ContactGroupID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/ContactGroups/{ContactGroupID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ContactGroupID", contactGroupID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(contactGroups);
+        
+        content = apiClient.new JacksonJsonHttpContent(contactGroups);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
@@ -9862,28 +9615,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/CreditNotes/{CreditNoteID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/CreditNotes/{CreditNoteID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("CreditNoteID", creditNoteID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(creditNotes);
+        
+        content = apiClient.new JacksonJsonHttpContent(creditNotes);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
@@ -9922,18 +9671,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/CreditNotes/{CreditNoteID}/Attachments/{FileName}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/CreditNotes/{CreditNoteID}/Attachments/{FileName}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
-        
-        // Set ContentType for Binary data
-        //headers.setContentType("application/octet-stream");
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -9941,14 +9679,18 @@ public class AccountingApi {
         uriVariables.put("FileName", fileName);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
-        
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        HttpContent content = new FileContent(mimeType, body);
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
+        
+        content = new FileContent(mimeType, body);
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
@@ -9984,28 +9726,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Employees/{EmployeeID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Employees/{EmployeeID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EmployeeID", employeeID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(employees);
+        
+        content = apiClient.new JacksonJsonHttpContent(employees);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
@@ -10040,28 +9778,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/ExpenseClaims/{ExpenseClaimID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/ExpenseClaims/{ExpenseClaimID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ExpenseClaimID", expenseClaimID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(expenseClaims);
+        
+        content = apiClient.new JacksonJsonHttpContent(expenseClaims);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
@@ -10096,28 +9830,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Invoices/{InvoiceID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Invoices/{InvoiceID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("InvoiceID", invoiceID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(invoices);
+        
+        content = apiClient.new JacksonJsonHttpContent(invoices);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
@@ -10156,18 +9886,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Invoices/{InvoiceID}/Attachments/{FileName}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Invoices/{InvoiceID}/Attachments/{FileName}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
-        
-        // Set ContentType for Binary data
-        //headers.setContentType("application/octet-stream");
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -10175,14 +9894,18 @@ public class AccountingApi {
         uriVariables.put("FileName", fileName);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
-        
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        HttpContent content = new FileContent(mimeType, body);
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
+        
+        content = new FileContent(mimeType, body);
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
@@ -10218,28 +9941,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Items/{ItemID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Items/{ItemID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ItemID", itemID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(items);
+        
+        content = apiClient.new JacksonJsonHttpContent(items);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
@@ -10274,28 +9993,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/LinkedTransactions/{LinkedTransactionID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/LinkedTransactions/{LinkedTransactionID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("LinkedTransactionID", linkedTransactionID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(linkedTransactions);
+        
+        content = apiClient.new JacksonJsonHttpContent(linkedTransactions);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
@@ -10330,28 +10045,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/ManualJournals/{ManualJournalID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/ManualJournals/{ManualJournalID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ManualJournalID", manualJournalID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(manualJournals);
+        
+        content = apiClient.new JacksonJsonHttpContent(manualJournals);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
@@ -10390,18 +10101,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/ManualJournals/{ManualJournalID}/Attachments/{FileName}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/ManualJournals/{ManualJournalID}/Attachments/{FileName}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
-        
-        // Set ContentType for Binary data
-        //headers.setContentType("application/octet-stream");
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -10409,14 +10109,18 @@ public class AccountingApi {
         uriVariables.put("FileName", fileName);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
-        
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        HttpContent content = new FileContent(mimeType, body);
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
+        
+        content = new FileContent(mimeType, body);
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
@@ -10452,28 +10156,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/PurchaseOrders/{PurchaseOrderID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/PurchaseOrders/{PurchaseOrderID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("PurchaseOrderID", purchaseOrderID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(purchaseOrders);
+        
+        content = apiClient.new JacksonJsonHttpContent(purchaseOrders);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
@@ -10508,28 +10208,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Receipts/{ReceiptID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Receipts/{ReceiptID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ReceiptID", receiptID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(receipts);
+        
+        content = apiClient.new JacksonJsonHttpContent(receipts);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
@@ -10568,18 +10264,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/Receipts/{ReceiptID}/Attachments/{FileName}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Receipts/{ReceiptID}/Attachments/{FileName}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
-        
-        // Set ContentType for Binary data
-        //headers.setContentType("application/octet-stream");
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -10587,14 +10272,18 @@ public class AccountingApi {
         uriVariables.put("FileName", fileName);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
-        
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        HttpContent content = new FileContent(mimeType, body);
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
+        
+        content = new FileContent(mimeType, body);
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
@@ -10634,18 +10323,7 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{FileName}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{FileName}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
-        
-        // Set ContentType for Binary data
-        //headers.setContentType("application/octet-stream");
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -10653,14 +10331,18 @@ public class AccountingApi {
         uriVariables.put("FileName", fileName);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
-        
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        HttpContent content = new FileContent(mimeType, body);
+        
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
+        
+        
+        
+        content = new FileContent(mimeType, body);
         
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
@@ -10692,17 +10374,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/TaxRates";
-
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(taxRates);
+        
+        content = apiClient.new JacksonJsonHttpContent(taxRates);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
@@ -10737,28 +10421,24 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-
         String correctPath = "/TrackingCategories/{TrackingCategoryID}";
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/TrackingCategories/{TrackingCategoryID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        } 
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("TrackingCategoryID", trackingCategoryID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
+        //HttpContent content = new FileContent(mimeType, body);
+        HttpContent content = null;
         
-        HttpContent content = apiClient.new JacksonJsonHttpContent(trackingCategory);
+        
+        content = apiClient.new JacksonJsonHttpContent(trackingCategory);
+        
+        
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }

@@ -1,6 +1,7 @@
 package com.xero.example;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
@@ -43,30 +44,38 @@ public class Callback extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		final String clientId = "--your-clientid--";
-        final String clientSecret = "--your-clientsecret--";
-        final String secretState = "secret" + new Random().nextInt(999_999);
+		
+		final String clientId = "-your-clientid-";
+        final String clientSecret = "-your-clientsecret-";
+        final String redirectURI = "-your-redirecturi-";
         final OAuth20Service service = new ServiceBuilder(clientId)
                 .apiSecret(clientSecret)
                 .defaultScope("openid email profile offline_access accounting.settings accounting.transactions") // replace with desired scope
-                .callback("http://localhost:8080/Callback")
+                .callback(redirectURI)
                 .build(XeroApi20.instance());
+        
+
+        PrintWriter respWriter = response.getWriter();
+		response.setStatus(200);
+		response.setContentType("text/html"); 
+		respWriter.println("<div class=\"container\">Let's make <a href=\"./AuthenticatedResource\">API calls</a></div>");
      	
 		String code = "123";
 		if (request.getParameter("code") != null) {   
 			code = request.getParameter("code");
 		}
-		System.out.println("Trading the Authorization Code for an Access Token...");
+		
+
         OAuth2AccessToken accessToken;
 		try {
 			accessToken = service.getAccessToken(code);
 			TokenStorage store = new TokenStorage();
 			store.saveItem(response, "access_token", accessToken.getAccessToken());
-			System.out.println("Got the Access Token!");
-			
-			System.out.println("Refreshing the Access Token...");
-			accessToken = service.refreshAccessToken(accessToken.getRefreshToken());
-			store.saveItem(response, "access_token", accessToken.getAccessToken());
+			store.saveItem(response, "refresh_token", accessToken.getRefreshToken());
+
+			// REFRESH BITS
+			//accessToken = service.refreshAccessToken(accessToken.getRefreshToken());
+			//store.saveItem(response, "access_token", accessToken.getAccessToken());
 			
 			// GET CONNECTIONS
 			String requestUrl = "https://api.xero.com/connections";
@@ -81,17 +90,7 @@ public class Callback extends HttpServlet {
             System.out.println(jsonObject.get("tenantId"));
             store.saveItem(response, "tenant_id", jsonObject.get("tenantId").toString());
             
-            System.out.println(store.get(request, "access_token"));
-            System.out.println(store.get(request, "tenant_id"));
-            
-            // GET ORGANISATION
-            requestUrl = "https://api.xero.com/api.xro/2.0/Organisation";
-	        final OAuthRequest requestOrg = new OAuthRequest(Verb.GET, requestUrl);
-	        requestOrg.addHeader("Accept", "application/json");
-	        requestOrg.addHeader("xero-tenant-id",jsonObject.get("tenantId").toString());
-            service.signRequest(accessToken.getAccessToken(), requestOrg);
-            final Response responseOrg = service.execute(requestOrg);
-            System.out.println(responseOrg.getBody());
+            response.sendRedirect("./AuthenticatedResource");
 
 		} catch (InterruptedException | ExecutionException | ParseException e) {
 			// TODO Auto-generated catch block
