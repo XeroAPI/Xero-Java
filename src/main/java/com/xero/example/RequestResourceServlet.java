@@ -296,7 +296,7 @@ public class RequestResourceServlet extends HttpServlet
 				String mimeType = URLConnection.guessContentTypeFromName(name);
 				InputStream inputStream = JsonConfig.class.getResourceAsStream("/" + name);
 				byte[] bytes = IOUtils.toByteArray(inputStream);
-				FileObject newFileObj = filesApi.uploadFile(bytes, null,name, fileName ,mimeType);
+				FileObject newFileObj = filesApi.uploadFile(null,bytes, name, fileName ,mimeType);
 				messages.add("Files found: " + newFileObj.getName());
 				inputStream.close();
 				
