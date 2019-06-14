@@ -241,8 +241,9 @@ public class FilesApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(association);
 
             String response = this.DATA(url, strBody, params, "POST");
+
             TypeReference<Association> typeRef = new TypeReference<Association>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -271,8 +272,9 @@ public class FilesApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(folder);
 
             String response = this.DATA(url, strBody, params, "POST");
+
             TypeReference<Folder> typeRef = new TypeReference<Folder>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -309,8 +311,9 @@ public class FilesApi {
 
             
             String response = this.DATA(url, strBody, params, "DELETE");
+
             TypeReference<FileResponse204> typeRef = new TypeReference<FileResponse204>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -350,8 +353,9 @@ public class FilesApi {
 
             
             String response = this.DATA(url, strBody, params, "DELETE");
+
             TypeReference<FileResponse204> typeRef = new TypeReference<FileResponse204>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -389,8 +393,9 @@ public class FilesApi {
 
             
             String response = this.DATA(url, strBody, params, "DELETE");
+
             TypeReference<FileResponse204> typeRef = new TypeReference<FileResponse204>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -427,8 +432,9 @@ public class FilesApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<List<Association>> typeRef = new TypeReference<List<Association>>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -464,8 +470,9 @@ public class FilesApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<FileObject> typeRef = new TypeReference<FileObject>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -502,8 +509,9 @@ public class FilesApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<List<Association>> typeRef = new TypeReference<List<Association>>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -514,7 +522,7 @@ public class FilesApi {
   /**
     * searches files to retrieve the data
     * By passing in the appropriate options, retrieve data for specific file
-    * <p><b>200</b> - search results matching criteria
+    * <p><b>200</b> - returns the byte array of the specific file based on id
     * @param fileId File id for single object
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -574,8 +582,9 @@ public class FilesApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<Files> typeRef = new TypeReference<Files>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -613,8 +622,9 @@ public class FilesApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<Folder> typeRef = new TypeReference<Folder>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -644,8 +654,9 @@ public class FilesApi {
             }
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<List<Folder>> typeRef = new TypeReference<List<Folder>>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -671,8 +682,9 @@ public class FilesApi {
 
             
             String response = this.DATA(url, strBody, params, "GET");
+
             TypeReference<Folder> typeRef = new TypeReference<Folder>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -712,8 +724,9 @@ public class FilesApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(fileObject);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<FileObject> typeRef = new TypeReference<FileObject>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -754,8 +767,9 @@ public class FilesApi {
             strBody = apiClient.getObjectMapper().writeValueAsString(folder);
 
             String response = this.DATA(url, strBody, params, "PUT");
+
             TypeReference<Folder> typeRef = new TypeReference<Folder>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -770,7 +784,7 @@ public class FilesApi {
     * <p><b>409</b> - an existing item already exists - TODO
     * @param folderId pass an optional folder id to save file to specific folder
     * @param body The body parameter
-    * @param name The name parameter
+    * @param name exact name of the file you are uploading
     * @param filename The filename parameter
     * @param mimeType The mimeType parameter
     * @return FileObject
@@ -803,8 +817,9 @@ public class FilesApi {
             
             String response = this.FILE(url, strBody, params, "POST", destination, contentType);
             
+
             TypeReference<FileObject> typeRef = new TypeReference<FileObject>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
+            return apiClient.getObjectMapper().readValue(response, typeRef);           
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
