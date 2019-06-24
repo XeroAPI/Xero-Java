@@ -79,28 +79,26 @@ public class AccountingApi {
     private String xeroTenantId;
 
     public AccountingApi() {
-        //this(new ApiClient());
+        this(new ApiClient());
     }
 
-    public AccountingApi(ApiClient apiClient, String xeroTenantId) {
+    public AccountingApi(ApiClient apiClient) {
         this.apiClient = apiClient;
-        this.xeroTenantId = xeroTenantId;
     }
 
     public ApiClient getApiClient() {
         return apiClient;
     }
 
-    public void setApiClient(ApiClient apiClient, String xeroTenantId) {
+    public void setApiClient(ApiClient apiClient) {
         this.apiClient = apiClient;
-        this.xeroTenantId = xeroTenantId;
     }
 
     public String getXeroTenantId(String xeroTenantId) {
         return xeroTenantId;
     }
 
-    public void aetXeroTenantId(String xeroTenantId) {
+    public void setXeroTenantId(String xeroTenantId) {
         this.xeroTenantId = xeroTenantId;
     }
 
