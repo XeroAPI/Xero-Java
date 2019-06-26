@@ -141,6 +141,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to create Attachment on Account
     * <p><b>200</b> - Success - return response of type Attachments array of Attachment
@@ -196,6 +198,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to create a spend or receive money transaction
     * <p><b>200</b> - Success - return response of type BankTransactions array with new BankTransaction
@@ -246,6 +250,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to createa an Attachment on BankTransaction by Filename
@@ -302,6 +308,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to create history record for a bank transactions
     * <p><b>200</b> - Success - return response of HistoryRecords array of 0 to N HistoryRecord
@@ -350,6 +358,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to create a bank transfers
     * <p><b>200</b> - Success - return response of BankTransfers array of one BankTransfer
@@ -388,6 +398,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * <p><b>200</b> - Success - return response of Attachments array of 0 to N Attachment for a Bank Transfer
@@ -443,6 +455,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * <p><b>200</b> - Success - return response HistoryRecords array with the newly created HistoryRecord for a Bank Transfer
     * <p><b>400</b> - A failed request due to validation error
@@ -490,6 +504,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Create one or many BatchPayments for invoices
     * <p><b>200</b> - Success - return response of type BatchPayments array of BatchPayment objects
@@ -528,6 +544,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to create a history record for a Batch Payment
@@ -577,6 +595,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allow for the creation of new custom payment service for specified Branding Theme
     * <p><b>200</b> - Success - return response of type PaymentServices array with newly created PaymentService
@@ -625,6 +645,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * <p><b>200</b> - Success - return response of type Contacts array with newly created Contact
     * <p><b>400</b> - Validation Error - some data was incorrect returns response of type Error
@@ -662,6 +684,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * <p><b>200</b> - Success - return response of type Attachments array with an newly created Attachment
@@ -717,6 +741,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to create a contact group
     * <p><b>200</b> - Success - return response of type Contact Groups array of newly created Contact Group
@@ -755,6 +781,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to add Contacts to a Contract Group
@@ -804,6 +832,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve a history records of an Contact
     * <p><b>200</b> - Success - return response of type History Records array of newly created History Record for a specific Contact
@@ -851,6 +881,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to create a credit note
@@ -903,6 +935,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to create Allocation on CreditNote
     * <p><b>200</b> - Success - return response of type Allocations array with newly created Allocation for specific Credit Note
@@ -950,6 +984,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to create Attachments on CreditNote by file name
@@ -1006,6 +1042,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve a history records of an CreditNote
     * <p><b>200</b> - Success - return response of type HistoryRecords array with newly created HistoryRecord for specific Credit Note
@@ -1054,6 +1092,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * <p><b>200</b> - Unsupported - return response incorrect exception, API is not able to create new Currency
     * @param currencies The currencies parameter
@@ -1090,6 +1130,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to create new employees used in Xero payrun
@@ -1129,6 +1171,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve expense claims
@@ -1181,6 +1225,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to create a history records of an ExpenseClaim
     * <p><b>200</b> - Unsupported - return response incorrect exception, API is not able to create HistoryRecord for Expense Claims
@@ -1227,6 +1273,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to create any sales invoices or purchase bills
@@ -1278,6 +1326,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to create an Attachment on invoices or purchase bills by it&#39;s filename
@@ -1334,6 +1384,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve a history records of an invoice
     * <p><b>200</b> - Success - return response of type HistoryRecords array with newly created HistoryRecord for specific Invoice
@@ -1382,6 +1434,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to create an item
     * <p><b>200</b> - Success - return response of type Items array with newly created Item
@@ -1420,6 +1474,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to create a history record for items
@@ -1468,6 +1524,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to create linked transactions (billable expenses)
     * <p><b>200</b> - Success - return response of type LinkedTransactions array with newly created LinkedTransaction
@@ -1507,6 +1565,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to create a manual journal
     * <p><b>200</b> - Success - return response of type ManualJournals array with newly created ManualJournal
@@ -1545,6 +1605,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to create a specified Attachment on ManualJournal by file name
@@ -1601,6 +1663,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve Allocations for overpayments
     * <p><b>200</b> - Success - return response of type Allocations array with all Allocation for Overpayments
@@ -1648,6 +1712,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to create history records of an Overpayment
@@ -1697,6 +1763,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to create payments for invoices and credit notes
     * <p><b>200</b> - Success - return response of type Payments array for newly created Payment
@@ -1735,6 +1803,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to create a history record for a payment
@@ -1784,6 +1854,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to create payment services
     * <p><b>200</b> - Success - return response of type PaymentServices array for newly created PaymentService
@@ -1822,6 +1894,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to create an Allocation for prepayments
@@ -1871,6 +1945,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to create a history record for an Prepayment
     * <p><b>200</b> - Success - return response of type HistoryRecords array for newly created HistoryRecord for PrePayment
@@ -1918,6 +1994,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to create purchase orders
@@ -1970,6 +2048,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to create HistoryRecord for purchase orders
     * <p><b>200</b> - Success - return response of type HistoryRecords array for newly created HistoryRecord for PurchaseOrder
@@ -2018,6 +2098,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to create draft expense claim receipts for any user
     * <p><b>200</b> - Success - return response of type Receipts array for newly created Receipt
@@ -2056,6 +2138,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to create Attachment on expense claim receipts by file name
@@ -2112,6 +2196,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve a history records of an Receipt
     * <p><b>200</b> - Unsupported - return response incorrect exception, API is not able to create HistoryRecord for Receipts
@@ -2159,6 +2245,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to create attachment on repeating invoices by file name
@@ -2215,6 +2303,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to create history for a repeating invoice
     * <p><b>200</b> - Unsupported - return response incorrect exception, API is not able to create HistoryRecord for Repeating Invoice
@@ -2263,6 +2353,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to create Tax Rates
     * <p><b>200</b> - Success - return response of type TaxRates array newly created TaxRate
@@ -2302,6 +2394,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to create tracking categories
     * <p><b>200</b> - Success - return response of type TrackingCategories array of newly created TrackingCategory
@@ -2340,6 +2434,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to create options for a specified tracking category
@@ -2389,6 +2485,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to delete a chart of accounts
     * <p><b>200</b> - Success - delete existing Account and return response of type Accounts array with deleted Account
@@ -2430,6 +2528,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.DELETE, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to delete a specific Contact from a Contract Group
@@ -2475,6 +2575,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.DELETE, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to delete  all Contacts from a Contract Group
     * <p><b>200</b> - Success - return response 204 no content
@@ -2512,6 +2614,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.DELETE, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to delete a specified item
@@ -2552,6 +2656,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.DELETE, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to delete a specified linked transactions (billable expenses)
     * <p><b>204</b> - Success - return response 204 no content
@@ -2590,6 +2696,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.DELETE, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to update a specified payment for invoices and credit notes
@@ -2639,6 +2747,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to delete tracking categories
     * <p><b>200</b> - Success - return response of type TrackingCategories array of deleted TrackingCategory
@@ -2680,6 +2790,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.DELETE, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to delete a specified option for a specified tracking category
@@ -2728,6 +2840,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.DELETE, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to email a copy of invoice to related Contact
     * <p><b>204</b> - Success - return response 204 no content
@@ -2773,6 +2887,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve a single chart of accounts
     * <p><b>200</b> - Success - return response of type Accounts array with one Account
@@ -2813,6 +2929,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve Attachment on Account by Filename
@@ -2872,6 +2990,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve specific Attachment on Account
     * <p><b>200</b> - Success - return response of attachment for Account as binary data
@@ -2930,6 +3050,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve Attachments for accounts
     * <p><b>200</b> - Success - return response of type Attachments array of Attachment
@@ -2970,6 +3092,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve the full chart of accounts
@@ -3027,6 +3151,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve a single spend or receive money transaction
     * <p><b>200</b> - Success - return response of type BankTransactions array with a specific BankTransaction
@@ -3067,6 +3193,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve Attachments on BankTransaction by Filename
@@ -3126,6 +3254,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve Attachments on a specific BankTransaction
     * <p><b>200</b> - Success - return response of attachment for BankTransaction as binary data
@@ -3184,6 +3314,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve any attachments to bank transactions
     * <p><b>200</b> - Success - return response of type Attachments array with 0 to n Attachment
@@ -3224,6 +3356,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve any spend or receive money transactions
@@ -3303,6 +3437,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve history from a bank transactions
     * <p><b>200</b> - Success - return response of HistoryRecords array of 0 to N HistoryRecord
@@ -3344,6 +3480,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve any bank transfers
     * <p><b>200</b> - Success - return response of BankTransfers array with one BankTransfer
@@ -3384,6 +3522,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve Attachments on BankTransfer by file name
@@ -3443,6 +3583,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve Attachments on BankTransfer
     * <p><b>200</b> - Success - return response of binary data from the Attachment to a Bank Transfer
@@ -3501,6 +3643,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve Attachments from  bank transfers
     * <p><b>200</b> - Success - return response of Attachments array of 0 to N Attachment for a Bank Transfer
@@ -3542,6 +3686,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve history from a bank transfers
     * <p><b>200</b> - Success - return response of HistoryRecords array of 0 to N HistoryRecord for a Bank Transfer
@@ -3582,6 +3728,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve all bank transfers
@@ -3639,6 +3787,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve history from a Batch Payment
     * <p><b>200</b> - Success - return response of type HistoryRecords array of HistoryRecord objects
@@ -3679,6 +3829,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Retrieve either one or many BatchPayments for invoices
@@ -3736,6 +3888,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve a specific BrandingThemes
     * <p><b>200</b> - Success - return response of type BrandingThemes with one BrandingTheme
@@ -3776,6 +3930,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve the Payment services for a Branding Theme
@@ -3818,6 +3974,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve all the BrandingThemes
     * <p><b>200</b> - Success - return response of type BrandingThemes
@@ -3849,6 +4007,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve, add and update contacts in a Xero organisation
@@ -3890,6 +4050,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve Attachments on Contacts by file name
@@ -3949,6 +4111,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve Attachments on Contacts
     * <p><b>200</b> - Success - return response of attachment for Contact as binary data
@@ -4007,6 +4171,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve, add and update contacts in a Xero organisation
     * <p><b>200</b> - Success - return response of type Attachments array with 0 to N Attachment
@@ -4047,6 +4213,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve CISSettings for a contact in a Xero organisation
@@ -4089,6 +4257,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve a unique Contract Group by ID
     * <p><b>200</b> - Success - return response of type Contact Groups array with a specific Contact Group
@@ -4129,6 +4299,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve the ContactID and Name of all the contacts in a contact group
@@ -4185,6 +4357,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve a history records of an Contact
     * <p><b>200</b> - Success - return response of type History Records array of 0 to N History Record for a specific Contact
@@ -4225,6 +4399,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve, add and update contacts in a Xero organisation
@@ -4315,6 +4491,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve a specific credit note
     * <p><b>200</b> - Success - return response of type Credit Notes array with a unique CreditNote
@@ -4355,6 +4533,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve Credit Note as PDF files
@@ -4408,6 +4588,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve Attachments on CreditNote by file name
@@ -4467,6 +4649,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve Attachments on CreditNote
     * <p><b>200</b> - Success - return response of attachment for Credit Note as binary data
@@ -4525,6 +4709,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve Attachments for credit notes
     * <p><b>200</b> - Success - return response of type Attachments array with all Attachment for specific Credit Note
@@ -4566,6 +4752,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve a history records of an CreditNote
     * <p><b>200</b> - Success - return response of type HistoryRecords array with all HistoryRecord for specific Credit Note
@@ -4606,6 +4794,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve any credit notes
@@ -4674,6 +4864,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve currencies for your organisation
     * <p><b>200</b> - Success - return response of type Currencies array with all Currencies
@@ -4729,6 +4921,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve a specific employee used in Xero payrun
     * <p><b>200</b> - Success - return response of type Employees array with specified Employee
@@ -4769,6 +4963,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve employees used in Xero payrun
@@ -4826,6 +5022,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve a specified expense claim
     * <p><b>200</b> - Success - return response of type ExpenseClaims array with specified ExpenseClaim
@@ -4867,6 +5065,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve a history records of an ExpenseClaim
     * <p><b>200</b> - Success - return response of type HistoryRecords array with all HistoryRecord for specific ExpenseClaim
@@ -4907,6 +5107,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve expense claims
@@ -4964,6 +5166,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve a specified sales invoice or purchase bill
     * <p><b>200</b> - Success - return response of type Invoices array with specified Invoices
@@ -5004,6 +5208,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve invoices or purchase bills as PDF files
@@ -5057,6 +5263,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve Attachment on invoices or purchase bills by it&#39;s filename
@@ -5116,6 +5324,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve a specified Attachment on invoices or purchase bills by it&#39;s ID
     * <p><b>200</b> - Success - return response of attachment for Invoice as binary data
@@ -5174,6 +5384,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve Attachments on invoices or purchase bills
     * <p><b>200</b> - Success - return response of type Attachments array of Attachments for specified Invoices
@@ -5214,6 +5426,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve a history records of an invoice
@@ -5256,6 +5470,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve invoice reminder settings
     * <p><b>200</b> - Success - return response of Invoice Reminders
@@ -5287,6 +5503,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve any sales invoices or purchase bills
@@ -5432,6 +5650,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve a specified item
     * <p><b>200</b> - Success - return response of type Items array with specified Item
@@ -5473,6 +5693,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve history for items
     * <p><b>200</b> - Success - return response of type HistoryRecords array with all HistoryRecord for specific Item
@@ -5513,6 +5735,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve any items
@@ -5581,6 +5805,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve a specified journals.
     * <p><b>200</b> - Success - return response of type Journals array with specified Journal
@@ -5621,6 +5847,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve any journals.
@@ -5678,6 +5906,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve a specified linked transactions (billable expenses)
     * <p><b>200</b> - Success - return response of type LinkedTransactions array with a specified LinkedTransaction
@@ -5718,6 +5948,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Retrieve linked transactions (billable expenses)
@@ -5818,6 +6050,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve a specified manual journals
     * <p><b>200</b> - Success - return response of type ManualJournals array with a specified ManualJournals
@@ -5858,6 +6092,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve specified Attachment on ManualJournal by file name
@@ -5917,6 +6153,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve specified Attachment on ManualJournals
     * <p><b>200</b> - Success - return response of attachment for Manual Journal as binary data
@@ -5975,6 +6213,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve Attachment for manual journals
     * <p><b>200</b> - Success - return response of type Attachments array with all Attachments for a ManualJournals
@@ -6015,6 +6255,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve any manual journals
@@ -6083,6 +6325,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve a URL to an online invoice
     * <p><b>200</b> - Success - return response of type OnlineInvoice array with one OnlineInvoice
@@ -6123,6 +6367,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you To verify if an organisation is using contruction industry scheme, you can retrieve the CIS settings for the organistaion.
@@ -6165,6 +6411,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve Organisation details
     * <p><b>200</b> - Success - return response of type Organisation array with all Organisation
@@ -6196,6 +6444,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve a specified overpayments
@@ -6238,6 +6488,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve a history records of an Overpayment
     * <p><b>200</b> - Success - return response of type HistoryRecords array with all HistoryRecord for Overpayments
@@ -6278,6 +6530,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve overpayments
@@ -6357,6 +6611,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve a specified payment for invoices and credit notes
     * <p><b>200</b> - Success - return response of type Payments array for specified Payment
@@ -6397,6 +6653,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve history records of a payment
@@ -6439,6 +6697,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve payment services
     * <p><b>200</b> - Success - return response of type PaymentServices array for all PaymentService
@@ -6470,6 +6730,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve payments for invoices and credit notes
@@ -6527,6 +6789,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve a specified prepayments
     * <p><b>200</b> - Success - return response of type Prepayments array for a specified Prepayment
@@ -6568,6 +6832,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve a history records of an Prepayment
     * <p><b>200</b> - Success - return response of type HistoryRecords array with all HistoryRecord for PrePayment
@@ -6608,6 +6874,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve prepayments
@@ -6687,6 +6955,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve a specified purchase orders
     * <p><b>200</b> - Success - return response of type PurchaseOrder array for specified PurchaseOrder
@@ -6728,6 +6998,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve history for PurchaseOrder
     * <p><b>200</b> - Success - return response of type HistoryRecords array for all HistoryRecord for PurchaseOrder
@@ -6768,6 +7040,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve purchase orders
@@ -6858,6 +7132,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve a specified draft expense claim receipts
     * <p><b>200</b> - Success - return response of type Receipts array for a specified Receipt
@@ -6898,6 +7174,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve Attachments on expense claim receipts by file name
@@ -6957,6 +7235,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve Attachments on expense claim receipts by ID
     * <p><b>200</b> - Success - return response of attachment for Receipt as binary data
@@ -7015,6 +7295,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve Attachments for expense claim receipts
     * <p><b>200</b> - Success - return response of type Attachments array of Attachments for a specified Receipt
@@ -7056,6 +7338,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve a history records of an Receipt
     * <p><b>200</b> - Success - return response of type HistoryRecords array of all HistoryRecord for Receipt
@@ -7096,6 +7380,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve draft expense claim receipts for any user
@@ -7164,6 +7450,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve a specified repeating invoice
     * <p><b>200</b> - Success - return response of type Repeating Invoices array with a specified Repeating Invoice
@@ -7204,6 +7492,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve specified attachment on repeating invoices by file name
@@ -7263,6 +7553,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve a specified Attachments on repeating invoices
     * <p><b>200</b> - Success - return response of attachment for Repeating Invoice as binary data
@@ -7321,6 +7613,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve Attachments on repeating invoice
     * <p><b>200</b> - Success - return response of type Attachments array with all Attachments for a specified Repeating Invoice
@@ -7362,6 +7656,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve history for a repeating invoice
     * <p><b>200</b> - Success - return response of type HistoryRecords array of all HistoryRecord for Repeating Invoice
@@ -7402,6 +7698,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve any repeating invoices
@@ -7457,6 +7755,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve report for AgedPayablesByContact
@@ -7538,6 +7838,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve report for AgedReceivablesByContact
     * <p><b>200</b> - Success - return response of type ReportWithRows
@@ -7618,6 +7920,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve report for BAS only valid for AU orgs
     * <p><b>200</b> - Success - return response of type ReportWithRows
@@ -7659,6 +7963,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve report for BAS only valid for AU orgs
     * <p><b>200</b> - Success - return response of type ReportWithRows
@@ -7690,6 +7996,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve report for BalanceSheet
@@ -7801,6 +8109,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve report for BankSummary
     * <p><b>200</b> - Success - return response of type ReportWithRows
@@ -7866,6 +8176,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve report for Budget Summary
@@ -7933,6 +8245,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve report for ExecutiveSummary
     * <p><b>200</b> - Success - return response of type ReportWithRows
@@ -7976,6 +8290,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve report for ProfitAndLoss
@@ -8120,6 +8436,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve report for TenNinetyNine
     * <p><b>200</b> - Success - return response of type Reports
@@ -8163,6 +8481,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve report for TrialBalance
@@ -8218,6 +8538,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve Tax Rates
@@ -8285,6 +8607,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve tracking categories and options
     * <p><b>200</b> - Success - return response of type TrackingCategories array of TrackingCategory
@@ -8351,6 +8675,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve tracking categories and options for specified category
     * <p><b>200</b> - Success - return response of type TrackingCategories array of specified TrackingCategory
@@ -8392,6 +8718,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve a specified user
     * <p><b>200</b> - Success - return response of type Users array of specified User
@@ -8432,6 +8760,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to retrieve users
@@ -8489,6 +8819,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to update a chart of accounts
     * <p><b>200</b> - Success - update existing Account and return response of type Accounts array with updated Account
@@ -8536,6 +8868,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to update Attachment on Account by Filename
@@ -8592,6 +8926,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to update a single spend or receive money transaction
     * <p><b>200</b> - Success - return response of type BankTransactions array with updated BankTransaction
@@ -8639,6 +8975,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to update an Attachment on BankTransaction by Filename
@@ -8695,6 +9033,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * <p><b>200</b> - Success - return response of Attachments array of 0 to N Attachment for a Bank Transfer
     * <p><b>400</b> - A failed request due to validation error
@@ -8749,6 +9089,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * <p><b>200</b> - Success - return response of type Contacts array with an updated Contact
     * <p><b>400</b> - A failed request due to validation error
@@ -8795,6 +9137,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * <p><b>200</b> - Success - return response of type Attachments array with an updated Attachment
@@ -8850,6 +9194,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to update a Contract Group
     * <p><b>200</b> - Success - return response of type Contact Groups array of updated Contact Group
@@ -8898,6 +9244,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to update a specific credit note
     * <p><b>200</b> - Success - return response of type Credit Notes array with updated CreditNote
@@ -8945,6 +9293,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to update Attachments on CreditNote by file name
@@ -9001,6 +9351,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to update a specific employee used in Xero payrun
     * <p><b>200</b> - Success - return response of type Employees array with updated Employee
@@ -9048,6 +9400,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to update specified expense claims
@@ -9097,6 +9451,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to update a specified sales invoices or purchase bills
     * <p><b>200</b> - Success - return response of type Invoices array with updated Invoice
@@ -9144,6 +9500,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to update Attachment on invoices or purchase bills by it&#39;s filename
@@ -9200,6 +9558,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to udpate a specified item
     * <p><b>200</b> - Success - return response of type Items array with updated Item
@@ -9247,6 +9607,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to update a specified linked transactions (billable expenses)
@@ -9296,6 +9658,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to update a specified manual journal
     * <p><b>200</b> - Success - return response of type ManualJournals array with an updated ManualJournal
@@ -9343,6 +9707,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to update a specified Attachment on ManualJournal by file name
@@ -9399,6 +9765,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to update a specified purchase order
     * <p><b>200</b> - Success - return response of type PurchaseOrder array for updated PurchaseOrder
@@ -9447,6 +9815,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to retrieve a specified draft expense claim receipts
     * <p><b>200</b> - Success - return response of type Receipts array for updated Receipt
@@ -9494,6 +9864,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to update Attachment on expense claim receipts by file name
@@ -9550,6 +9922,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to update specified attachment on repeating invoices by file name
     * <p><b>200</b> - Success - return response of type Attachments array with specified Attachment for a specified Repeating Invoice
@@ -9605,6 +9979,8 @@ public class AccountingApi {
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
+    
+
   /**
     * Allows you to update Tax Rates
     * <p><b>200</b> - Success - return response of type TaxRates array updated TaxRate
@@ -9643,6 +10019,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
   /**
     * Allows you to update tracking categories
@@ -9691,6 +10069,8 @@ public class AccountingApi {
         
         return apiClient.getHttpRequestFactory().buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
+
+    
 
 
     public ByteArrayInputStream convertInputToByteArray(InputStream is) throws IOException {

@@ -44,7 +44,7 @@ public class AccountingApiLinkedTransactionsTest {
 
 	ApiClient defaultClient; 
     AccountingApi accountingApi; 
-    String xeroTenantId = "3697c2dc5-cc47-4afd-8ec8-74990b8761e9";  
+     
     
     private static boolean setUpIsDone = false;
 	
@@ -69,7 +69,7 @@ public class AccountingApiLinkedTransactionsTest {
 
         try {
             System.out.println("Sleep for 60 seconds");
-            Thread.sleep(60);
+            Thread.sleep(60000);
         } catch(InterruptedException e) {
             System.out.println(e);
         }
@@ -86,7 +86,7 @@ public class AccountingApiLinkedTransactionsTest {
     public void createLinkedTransactionTest() throws IOException {
         System.out.println("@Test - createLinkedTransaction");
         LinkedTransactions linkedTransactions = new LinkedTransactions();
-        LinkedTransactions response = accountingApi.createLinkedTransaction(xeroTenantId, linkedTransactions);
+        LinkedTransactions response = accountingApi.createLinkedTransaction(linkedTransactions);
 
         assertThat(response.getLinkedTransactions().get(0).getSourceTransactionID(), is(equalTo(UUID.fromString("a848644a-f20f-4630-98c3-386bd7505631"))));
         assertThat(response.getLinkedTransactions().get(0).getSourceLineItemID(), is(equalTo(UUID.fromString("b0df260d-3cc8-4ced-9bd6-41924f624ed3"))));
@@ -103,14 +103,14 @@ public class AccountingApiLinkedTransactionsTest {
     public void deleteLinkedTransactionTest() throws IOException {
         System.out.println("@Test - deleteLinkedTransaction");
         UUID linkedTransactionID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        accountingApi.deleteLinkedTransaction(xeroTenantId, linkedTransactionID);
+        accountingApi.deleteLinkedTransaction(linkedTransactionID);
     }
 
     @Test
     public void getLinkedTransactionTest() throws IOException {
         System.out.println("@Test - getLinkedTransaction");
         UUID linkedTransactionID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        LinkedTransactions response = accountingApi.getLinkedTransaction(xeroTenantId, linkedTransactionID);
+        LinkedTransactions response = accountingApi.getLinkedTransaction(linkedTransactionID);
 
         assertThat(response.getLinkedTransactions().get(0).getSourceTransactionID(), is(equalTo(UUID.fromString("aec416dd-38ea-40dc-9f0b-813c8c71f87f"))));
         assertThat(response.getLinkedTransactions().get(0).getSourceLineItemID(), is(equalTo(UUID.fromString("77e0b23b-5b79-4f4b-ae20-c9031d41442f"))));
@@ -134,7 +134,7 @@ public class AccountingApiLinkedTransactionsTest {
         String contactID = null;
         String status = null;
         String targetTransactionID = null;
-        LinkedTransactions response = accountingApi.getLinkedTransactions(xeroTenantId, page, linkedTransactionID, sourceTransactionID, contactID, status, targetTransactionID);
+        LinkedTransactions response = accountingApi.getLinkedTransactions(page, linkedTransactionID, sourceTransactionID, contactID, status, targetTransactionID);
 
         assertThat(response.getLinkedTransactions().get(0).getSourceTransactionID(), is(equalTo(UUID.fromString("aec416dd-38ea-40dc-9f0b-813c8c71f87f"))));
         assertThat(response.getLinkedTransactions().get(0).getSourceLineItemID(), is(equalTo(UUID.fromString("77e0b23b-5b79-4f4b-ae20-c9031d41442f"))));
@@ -154,7 +154,7 @@ public class AccountingApiLinkedTransactionsTest {
         System.out.println("@Test - updateLinkedTransaction");
         UUID linkedTransactionID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         LinkedTransactions linkedTransactions = new LinkedTransactions();
-        LinkedTransactions response = accountingApi.updateLinkedTransaction(xeroTenantId, linkedTransactionID, linkedTransactions);
+        LinkedTransactions response = accountingApi.updateLinkedTransaction(linkedTransactionID, linkedTransactions);
 
         assertThat(response.getLinkedTransactions().get(0).getSourceTransactionID(), is(equalTo(UUID.fromString("a848644a-f20f-4630-98c3-386bd7505631"))));
         assertThat(response.getLinkedTransactions().get(0).getSourceLineItemID(), is(equalTo(UUID.fromString("b0df260d-3cc8-4ced-9bd6-41924f624ed3"))));

@@ -44,7 +44,7 @@ public class AccountingApiOverpaymentsTest {
 
 	ApiClient defaultClient; 
     AccountingApi accountingApi; 
-    String xeroTenantId = "3697c2dc5-cc47-4afd-8ec8-74990b8761e9";  
+     
     File body;
 
     private static boolean setUpIsDone = false;
@@ -73,7 +73,7 @@ public class AccountingApiOverpaymentsTest {
 
         try {
             System.out.println("Sleep for 60 seconds");
-            Thread.sleep(60);
+            Thread.sleep(60000);
         } catch(InterruptedException e) {
             System.out.println(e);
         }
@@ -91,7 +91,7 @@ public class AccountingApiOverpaymentsTest {
         System.out.println("@Test - createOverpaymentAllocation");
         UUID overpaymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         Allocations allocations = new Allocations();
-        Allocations response = accountingApi.createOverpaymentAllocation(xeroTenantId, overpaymentID, allocations);
+        Allocations response = accountingApi.createOverpaymentAllocation(overpaymentID, allocations);
 
         // TODO: test validations
         assertThat(response.getAllocations().get(0).getInvoice().getInvoiceID(), is(equalTo(UUID.fromString("c45720a1-ade3-4a38-a064-d15489be6841"))));
@@ -115,7 +115,7 @@ public class AccountingApiOverpaymentsTest {
     public void getOverpaymentTest() throws IOException {
         System.out.println("@Test - getOverpayment");
         UUID overpaymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Overpayments response = accountingApi.getOverpayment(xeroTenantId, overpaymentID);
+        Overpayments response = accountingApi.getOverpayment(overpaymentID);
 
         //assertThat(response.getOverpayments().get(0).getType(), is(equalTo(com.xero.models.accounting.Overpayment.TypeEnum.SPEND-OVERPAYMENT)));
         assertThat(response.getOverpayments().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,11))));  
@@ -157,7 +157,7 @@ public class AccountingApiOverpaymentsTest {
     public void getOverpaymentHistoryTest() throws IOException {
         System.out.println("@Test - getOverpaymentHistory");
         UUID overpaymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords response = accountingApi.getOverpaymentHistory(xeroTenantId, overpaymentID);
+        HistoryRecords response = accountingApi.getOverpaymentHistory(overpaymentID);
 
         assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("System Generated")));       
         assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Applied")));     
@@ -174,7 +174,7 @@ public class AccountingApiOverpaymentsTest {
         String order = null;
         Integer page = null;
         Integer unitdp = null;
-        Overpayments response = accountingApi.getOverpayments(xeroTenantId, ifModifiedSince, where, order, page,unitdp);
+        Overpayments response = accountingApi.getOverpayments(ifModifiedSince, where, order, page,unitdp);
 
         assertThat(response.getOverpayments().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,11))));  
         assertThat(response.getOverpayments().get(0).getStatus(), is(equalTo(com.xero.models.accounting.Overpayment.StatusEnum.AUTHORISED)));

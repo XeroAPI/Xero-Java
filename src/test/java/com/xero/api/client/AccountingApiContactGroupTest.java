@@ -44,7 +44,7 @@ public class AccountingApiContactGroupTest {
 
 	ApiClient defaultClient; 
     AccountingApi accountingApi; 
-    String xeroTenantId = "3697c2dc5-cc47-4afd-8ec8-74990b8761e9";  
+     
     
     private static boolean setUpIsDone = false;
 	
@@ -69,7 +69,7 @@ public class AccountingApiContactGroupTest {
 
         try {
             System.out.println("Sleep for 60 seconds");
-            Thread.sleep(60);
+            Thread.sleep(60000);
         } catch(InterruptedException e) {
             System.out.println(e);
         }
@@ -88,7 +88,7 @@ public class AccountingApiContactGroupTest {
 
         String where = null;
         String order = null;
-        ContactGroups response = accountingApi.getContactGroups(xeroTenantId, where, order);
+        ContactGroups response = accountingApi.getContactGroups(where, order);
         assertThat(response.getContactGroups().get(0).getContactGroupID(), is(equalTo(UUID.fromString("d7a86b80-8dac-4d89-a334-9dcf5753676c"))));
         assertThat(response.getContactGroups().get(0).getName(), is(equalTo("Suppliers")));
         assertThat(response.getContactGroups().get(0).getStatus(), is(equalTo(com.xero.models.accounting.ContactGroup.StatusEnum.ACTIVE)));
@@ -100,7 +100,7 @@ public class AccountingApiContactGroupTest {
         System.out.println("@Test - getContactGroupTest");
         
         UUID contactGroupID = UUID.fromString("17b44ed7-4389-4162-91cb-3dd5766e4e22");
-        ContactGroups response = accountingApi.getContactGroup(xeroTenantId, contactGroupID);
+        ContactGroups response = accountingApi.getContactGroup(contactGroupID);
 
         assertThat(response.getContactGroups().get(0).getContactGroupID(), is(equalTo(UUID.fromString("17b44ed7-4389-4162-91cb-3dd5766e4e22"))));
         assertThat(response.getContactGroups().get(0).getName(), is(equalTo("Oasis")));
@@ -117,7 +117,7 @@ public class AccountingApiContactGroupTest {
         System.out.println("@Test - createContactGroupTest");
 
         ContactGroups contactGroups = new ContactGroups();
-        ContactGroups response = accountingApi.createContactGroup(xeroTenantId, contactGroups);
+        ContactGroups response = accountingApi.createContactGroup(contactGroups);
         assertThat(response.getContactGroups().get(0).getContactGroupID(), is(equalTo(UUID.fromString("d7a86b80-8dac-4d89-a334-9dcf5753676c"))));
         assertThat(response.getContactGroups().get(0).getName(), is(equalTo("Suppliers")));
         assertThat(response.getContactGroups().get(0).getStatus(), is(equalTo(com.xero.models.accounting.ContactGroup.StatusEnum.ACTIVE)));
@@ -130,7 +130,7 @@ public class AccountingApiContactGroupTest {
 
         UUID contactGroupID = UUID.fromString("13f47537-7c1d-4e62-966e-617d76558fc5");
         ContactGroups contactGroups = new ContactGroups();
-        ContactGroups response = accountingApi.updateContactGroup(xeroTenantId, contactGroupID, contactGroups);
+        ContactGroups response = accountingApi.updateContactGroup(contactGroupID, contactGroups);
         assertThat(response.getContactGroups().get(0).getContactGroupID(), is(equalTo(UUID.fromString("13f47537-7c1d-4e62-966e-617d76558fc5"))));
         assertThat(response.getContactGroups().get(0).getName(), is(equalTo("Supplier Vendor")));
         assertThat(response.getContactGroups().get(0).getStatus(), is(equalTo(com.xero.models.accounting.ContactGroup.StatusEnum.ACTIVE)));
@@ -143,7 +143,7 @@ public class AccountingApiContactGroupTest {
 
         UUID contactGroupID = UUID.fromString("13f47537-7c1d-4e62-966e-617d76558fc5");
         Contacts contacts = new Contacts();
-        Contacts response = accountingApi.createContactGroupContacts(xeroTenantId, contactGroupID, contacts);
+        Contacts response = accountingApi.createContactGroupContacts(contactGroupID, contacts);
         assertThat(response.getContacts().get(0).getContactID(), is(equalTo(UUID.fromString("a3675fc4-f8dd-4f03-ba5b-f1870566bcd7"))));
         //System.out.println(response.getContacts().get(0).toString());
     }
@@ -154,7 +154,7 @@ public class AccountingApiContactGroupTest {
 
         UUID contactGroupID = UUID.fromString("13f47537-7c1d-4e62-966e-617d76558fc5");
         UUID contactID = UUID.fromString("13f47537-7c1d-4e62-966e-617d76558fc5");
-        accountingApi.deleteContactGroupContact(xeroTenantId, contactGroupID, contactID);
+        accountingApi.deleteContactGroupContact(contactGroupID, contactID);
     }
 
     @Test
@@ -162,7 +162,7 @@ public class AccountingApiContactGroupTest {
         System.out.println("@Test - deleteContactGroupContactsTest");
 
         UUID contactGroupID = UUID.fromString("13f47537-7c1d-4e62-966e-617d76558fc5");
-        accountingApi.deleteContactGroupContacts(xeroTenantId, contactGroupID);
+        accountingApi.deleteContactGroupContacts(contactGroupID);
     }
 	
 }

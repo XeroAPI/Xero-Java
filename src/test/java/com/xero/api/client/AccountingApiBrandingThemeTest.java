@@ -41,7 +41,7 @@ public class AccountingApiBrandingThemeTest {
 
 	ApiClient defaultClient; 
     AccountingApi accountingApi; 
-    String xeroTenantId = "3697c2dc5-cc47-4afd-8ec8-74990b8761e9";  
+     
     
 	private static boolean setUpIsDone = false;
 
@@ -66,7 +66,7 @@ public class AccountingApiBrandingThemeTest {
 
     	try {
     		System.out.println("Sleep for 60 seconds");
-	    	Thread.sleep(60);
+	    	Thread.sleep(60000);
     	} catch(InterruptedException e) {
     		System.out.println(e);
     	}
@@ -84,7 +84,7 @@ public class AccountingApiBrandingThemeTest {
 	public void testGetBrandingThemes() throws Exception {
 		System.out.println("@Test - getBrandingThemes");
 
-		BrandingThemes bt = accountingApi.getBrandingThemes(xeroTenantId);
+		BrandingThemes bt = accountingApi.getBrandingThemes();
 		assertThat(bt.getBrandingThemes().get(0).getBrandingThemeID().toString(), is(equalTo("dabc7637-62c1-4941-8a6e-ee44fa5090e7")));
 		assertThat(bt.getBrandingThemes().get(0).getName(), is(equalTo("Standard")));
 		//System.out.println(bt.toString());
@@ -95,7 +95,7 @@ public class AccountingApiBrandingThemeTest {
 		System.out.println("@Test - getBrandingTheme");
 		UUID brandingThemeId = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");	
 
-		BrandingThemes oneBrandingTheme = accountingApi.getBrandingTheme(xeroTenantId,brandingThemeId);	
+		BrandingThemes oneBrandingTheme = accountingApi.getBrandingTheme(brandingThemeId);	
 		assertThat(oneBrandingTheme.getBrandingThemes().get(0).getBrandingThemeID().toString(), is(equalTo("dabc7637-62c1-4941-8a6e-ee44fa5090e7")));
 		assertThat(oneBrandingTheme.getBrandingThemes().get(0).getName(), is(equalTo("Standard")));
 		//System.out.println(bt.toString());
@@ -106,7 +106,7 @@ public class AccountingApiBrandingThemeTest {
 		System.out.println("@Test - getBrandingThemePaymentServices");
 		UUID brandingThemeId = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");	
 
-		PaymentServices paymentServicesForBrandingTheme = accountingApi.getBrandingThemePaymentServices(xeroTenantId,brandingThemeId);	
+		PaymentServices paymentServicesForBrandingTheme = accountingApi.getBrandingThemePaymentServices(brandingThemeId);	
 		assertThat(paymentServicesForBrandingTheme.getPaymentServices().get(1).getPaymentServiceID().toString(), is(equalTo("dede7858-14e3-4a46-bf95-4d4cc491e645")));
 		assertThat(paymentServicesForBrandingTheme.getPaymentServices().get(1).getPaymentServiceName(), is(equalTo("ACME Payment")));
 		//System.out.println(paymentServicesForBrandingTheme.toString());
@@ -123,7 +123,7 @@ public class AccountingApiBrandingThemeTest {
 		btPaymentService.setPaymentServiceName("ACME Payments");
 		btPaymentService.setPaymentServiceUrl("http://www.mydomain.com/paymentservice");
 		btPaymentService.setPayNowText("Pay Now");
-		PaymentServices response = accountingApi.createBrandingThemePaymentServices(xeroTenantId,brandingThemeId, btPaymentService);	
+		PaymentServices response = accountingApi.createBrandingThemePaymentServices(brandingThemeId, btPaymentService);	
 		assertThat(response.getPaymentServices().get(0).getPaymentServiceID().toString(), is(equalTo("dede7858-14e3-4a46-bf95-4d4cc491e645")));
 		assertThat(response.getPaymentServices().get(0).getPaymentServiceName(), is(equalTo("ACME Payments")));
 		assertThat(response.getPaymentServices().get(0).getPaymentServiceUrl(), is(equalTo("https://www.payupnow.com/")));

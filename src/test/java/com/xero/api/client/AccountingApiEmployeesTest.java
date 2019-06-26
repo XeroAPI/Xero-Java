@@ -44,7 +44,7 @@ public class AccountingApiEmployeesTest {
 
 	ApiClient defaultClient; 
     AccountingApi accountingApi; 
-    String xeroTenantId = "3697c2dc5-cc47-4afd-8ec8-74990b8761e9";  
+     
 
     private static boolean setUpIsDone = false;
 	
@@ -69,7 +69,7 @@ public class AccountingApiEmployeesTest {
 
         try {
             System.out.println("Sleep for 60 seconds");
-            Thread.sleep(60);
+            Thread.sleep(60000);
         } catch(InterruptedException e) {
             System.out.println(e);
         }
@@ -86,7 +86,7 @@ public class AccountingApiEmployeesTest {
     public void createEmployeeTest() throws IOException {
         System.out.println("@Test - createEmployee");
         Employees employees = new Employees();
-        Employees response = accountingApi.createEmployee(xeroTenantId, employees);
+        Employees response = accountingApi.createEmployee(employees);
 
         assertThat(response.getEmployees().get(0).getEmployeeID(), is(equalTo(UUID.fromString("e1ada26b-a10e-4065-a941-af34b53740e3"))));
         assertThat(response.getEmployees().get(0).getStatus(), is(equalTo(com.xero.models.accounting.Employee.StatusEnum.ACTIVE)));
@@ -102,7 +102,7 @@ public class AccountingApiEmployeesTest {
     public void getEmployeeTest() throws IOException {
         System.out.println("@Test - getEmployee");
         UUID employeeID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Employees response = accountingApi.getEmployee(xeroTenantId, employeeID);
+        Employees response = accountingApi.getEmployee(employeeID);
 
         assertThat(response.getEmployees().get(0).getEmployeeID(), is(equalTo(UUID.fromString("972615c5-ad3d-47a0-b579-20370d374578"))));
         assertThat(response.getEmployees().get(0).getStatus(), is(equalTo(com.xero.models.accounting.Employee.StatusEnum.ACTIVE)));
@@ -121,7 +121,7 @@ public class AccountingApiEmployeesTest {
         OffsetDateTime ifModifiedSince = null;
         String where = null;
         String order = null;
-        Employees response = accountingApi.getEmployees(xeroTenantId, ifModifiedSince, where, order);
+        Employees response = accountingApi.getEmployees(ifModifiedSince, where, order);
 
         assertThat(response.getEmployees().get(0).getEmployeeID(), is(equalTo(UUID.fromString("972615c5-ad3d-47a0-b579-20370d374578"))));
         assertThat(response.getEmployees().get(0).getStatus(), is(equalTo(com.xero.models.accounting.Employee.StatusEnum.ACTIVE)));
@@ -138,7 +138,7 @@ public class AccountingApiEmployeesTest {
         System.out.println("@Test - updateEmployee");
         UUID employeeID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         Employees employees = new Employees();
-        Employees response = accountingApi.updateEmployee(xeroTenantId, employeeID, employees);
+        Employees response = accountingApi.updateEmployee(employeeID, employees);
 
         assertThat(response.getEmployees().get(0).getEmployeeID(), is(equalTo(UUID.fromString("ad3db144-6362-459c-8c36-5d31d196e629"))));
         assertThat(response.getEmployees().get(0).getStatus(), is(equalTo(com.xero.models.accounting.Employee.StatusEnum.ACTIVE)));

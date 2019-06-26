@@ -43,7 +43,7 @@ public class AccountingApiExpenseClaimsTest {
 
 	ApiClient defaultClient; 
     AccountingApi accountingApi; 
-    String xeroTenantId = "3697c2dc5-cc47-4afd-8ec8-74990b8761e9";  
+     
     File body;
 
     private static boolean setUpIsDone = false;
@@ -72,7 +72,7 @@ public class AccountingApiExpenseClaimsTest {
 
         try {
             System.out.println("Sleep for 60 seconds");
-            Thread.sleep(60);
+            Thread.sleep(60000);
         } catch(InterruptedException e) {
             System.out.println(e);
         }
@@ -90,7 +90,7 @@ public class AccountingApiExpenseClaimsTest {
         System.out.println("@Test - createExpenseClaim");
         ExpenseClaims expenseClaims = new ExpenseClaims();
         Boolean summarizeErrors = null;
-        ExpenseClaims response = accountingApi.createExpenseClaim(xeroTenantId, expenseClaims, summarizeErrors);
+        ExpenseClaims response = accountingApi.createExpenseClaim(expenseClaims, summarizeErrors);
 
         assertThat(response.getExpenseClaims().get(0).getExpenseClaimID(), is(equalTo(UUID.fromString("646b15ab-b874-4e13-82ae-f4385b2ac4b6"))));
         assertThat(response.getExpenseClaims().get(0).getStatus(), is(equalTo(com.xero.models.accounting.ExpenseClaim.StatusEnum.SUBMITTED)));
@@ -132,7 +132,7 @@ public class AccountingApiExpenseClaimsTest {
     public void getExpenseClaimTest() throws IOException {
         System.out.println("@Test - getExpenseClaim");
         UUID expenseClaimID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        ExpenseClaims response = accountingApi.getExpenseClaim(xeroTenantId, expenseClaimID);
+        ExpenseClaims response = accountingApi.getExpenseClaim(expenseClaimID);
 
         assertThat(response.getExpenseClaims().get(0).getExpenseClaimID(), is(equalTo(UUID.fromString("646b15ab-b874-4e13-82ae-f4385b2ac4b6"))));
         assertThat(response.getExpenseClaims().get(0).getStatus(), is(equalTo(com.xero.models.accounting.ExpenseClaim.StatusEnum.AUTHORISED)));
@@ -159,7 +159,7 @@ public class AccountingApiExpenseClaimsTest {
     public void getExpenseClaimHistoryTest() throws IOException {
         System.out.println("@Test - getExpenseClaimHistory");
         UUID expenseClaimID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords response = accountingApi.getExpenseClaimHistory(xeroTenantId, expenseClaimID);
+        HistoryRecords response = accountingApi.getExpenseClaimHistory(expenseClaimID);
 
         assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("System Generated")));       
         assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Voided")));     
@@ -173,7 +173,7 @@ public class AccountingApiExpenseClaimsTest {
         OffsetDateTime ifModifiedSince = null;
         String where = null;
         String order = null;
-        ExpenseClaims response = accountingApi.getExpenseClaims(xeroTenantId, ifModifiedSince, where, order);
+        ExpenseClaims response = accountingApi.getExpenseClaims(ifModifiedSince, where, order);
 
         // TODO: test validations
         assertThat(response.getExpenseClaims().get(0).getExpenseClaimID(), is(equalTo(UUID.fromString("646b15ab-b874-4e13-82ae-f4385b2ac4b6"))));
@@ -200,7 +200,7 @@ public class AccountingApiExpenseClaimsTest {
         System.out.println("@Test - updateExpenseClaim");
         UUID expenseClaimID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         ExpenseClaims expenseClaims = new ExpenseClaims();
-        ExpenseClaims response = accountingApi.updateExpenseClaim(xeroTenantId, expenseClaimID, expenseClaims);
+        ExpenseClaims response = accountingApi.updateExpenseClaim(expenseClaimID, expenseClaims);
 
         // TODO: test validations
         assertThat(response.getExpenseClaims().get(0).getExpenseClaimID(), is(equalTo(UUID.fromString("646b15ab-b874-4e13-82ae-f4385b2ac4b6"))));

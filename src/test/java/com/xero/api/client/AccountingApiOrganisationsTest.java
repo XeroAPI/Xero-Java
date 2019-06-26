@@ -44,7 +44,7 @@ public class AccountingApiOrganisationsTest {
 
 	ApiClient defaultClient; 
     AccountingApi accountingApi; 
-    String xeroTenantId = "3697c2dc5-cc47-4afd-8ec8-74990b8761e9";  
+     
    
     private static boolean setUpIsDone = false;
 	
@@ -69,7 +69,7 @@ public class AccountingApiOrganisationsTest {
 
         try {
             System.out.println("Sleep for 60 seconds");
-            Thread.sleep(60);
+            Thread.sleep(60000);
         } catch(InterruptedException e) {
             System.out.println(e);
         }
@@ -85,7 +85,7 @@ public class AccountingApiOrganisationsTest {
 	@Test
     public void getOrganisationsTest() throws IOException {
         System.out.println("@Test - getOrganisations");
-        Organisations response = accountingApi.getOrganisations(xeroTenantId);
+        Organisations response = accountingApi.getOrganisations();
 
         assertThat(response.getOrganisations().get(0).getOrganisationID(), is(equalTo(UUID.fromString("b2c885a9-4bb9-4a00-9b6e-6c2bf60b1a2b"))));
         assertThat(response.getOrganisations().get(0).getApIKey(), is(equalTo("CTJ60UH519MXQIXEJSDPDALS3EOZ5Y")));

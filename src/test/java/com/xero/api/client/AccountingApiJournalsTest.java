@@ -44,7 +44,7 @@ public class AccountingApiJournalsTest {
 
 	ApiClient defaultClient; 
     AccountingApi accountingApi; 
-    String xeroTenantId = "3697c2dc5-cc47-4afd-8ec8-74990b8761e9";  
+     
    
     private static boolean setUpIsDone = false;
 	
@@ -69,7 +69,7 @@ public class AccountingApiJournalsTest {
 
         try {
             System.out.println("Sleep for 60 seconds");
-            Thread.sleep(60);
+            Thread.sleep(60000);
         } catch(InterruptedException e) {
             System.out.println(e);
         }
@@ -86,7 +86,7 @@ public class AccountingApiJournalsTest {
     public void getJournalTest() throws IOException {
         System.out.println("@Test - getJournal");
         UUID journalID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Journals response = accountingApi.getJournal(xeroTenantId, journalID);
+        Journals response = accountingApi.getJournal(journalID);
 
         assertThat(response.getJournals().get(0).getJournalID(), is(equalTo(UUID.fromString("1b31feeb-aa23-404c-8c19-24c827c53661"))));
         assertThat(response.getJournals().get(0).getJournalDate(), is(equalTo(LocalDate.of(2018,10,19))));  
@@ -128,7 +128,7 @@ public class AccountingApiJournalsTest {
         OffsetDateTime ifModifiedSince = null;
         Integer offset = null;
         Boolean paymentsOnly = null;
-        Journals response = accountingApi.getJournals(xeroTenantId, ifModifiedSince, offset, paymentsOnly);
+        Journals response = accountingApi.getJournals(ifModifiedSince, offset, paymentsOnly);
 
         assertThat(response.getJournals().get(0).getJournalID(), is(equalTo(UUID.fromString("1b31feeb-aa23-404c-8c19-24c827c53661"))));
         assertThat(response.getJournals().get(0).getJournalDate(), is(equalTo(LocalDate.of(2018,10,19))));  

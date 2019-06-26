@@ -44,7 +44,7 @@ public class AccountingApiManualJournalsTest {
 
 	ApiClient defaultClient; 
     AccountingApi accountingApi; 
-    String xeroTenantId = "3697c2dc5-cc47-4afd-8ec8-74990b8761e9";  
+     
     File body;
 
     private static boolean setUpIsDone = false;
@@ -73,7 +73,7 @@ public class AccountingApiManualJournalsTest {
 
         try {
             System.out.println("Sleep for 60 seconds");
-            Thread.sleep(60);
+            Thread.sleep(60000);
         } catch(InterruptedException e) {
             System.out.println(e);
         }
@@ -90,7 +90,7 @@ public class AccountingApiManualJournalsTest {
     public void createManualJournalTest() throws IOException {
         System.out.println("@Test - createManualJournal");
         ManualJournals manualJournals = new ManualJournals();
-        ManualJournals response = accountingApi.createManualJournal(xeroTenantId, manualJournals);
+        ManualJournals response = accountingApi.createManualJournal(manualJournals);
 
         assertThat(response.getManualJournals().get(0).getNarration(), is(equalTo("Foo bar")));
         assertThat(response.getManualJournals().get(0).getJournalLines().get(0).getLineAmount(), is(equalTo(100.0)));
@@ -126,7 +126,7 @@ public class AccountingApiManualJournalsTest {
         System.out.println("@Test - createManualJournalAttachmentByFileName");
         UUID manualJournalID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         String fileName = "sample5.jpg";
-        Attachments response = accountingApi.createManualJournalAttachmentByFileName(xeroTenantId, manualJournalID, fileName, body);
+        Attachments response = accountingApi.createManualJournalAttachmentByFileName(manualJournalID, fileName, body);
 
         assertThat(response.getAttachments().get(0).getAttachmentID(), is(equalTo(UUID.fromString("47ac97ff-d4f9-48a0-8a8e-49fae29129e7"))));
         assertThat(response.getAttachments().get(0).getFileName(), is(equalTo("foobar.jpg")));
@@ -141,7 +141,7 @@ public class AccountingApiManualJournalsTest {
     public void getManualJournalTest() throws IOException {
         System.out.println("@Test - getManualJournal");
         UUID manualJournalID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        ManualJournals response = accountingApi.getManualJournal(xeroTenantId, manualJournalID);
+        ManualJournals response = accountingApi.getManualJournal(manualJournalID);
 
         assertThat(response.getManualJournals().get(0).getNarration(), is(equalTo("These aren't the droids you are looking for")));
         assertThat(response.getManualJournals().get(0).getJournalLines().get(0).getLineAmount(), is(equalTo(100.0)));
@@ -175,7 +175,7 @@ public class AccountingApiManualJournalsTest {
     public void getManualJournalAttachmentsTest() throws IOException {
         System.out.println("@Test - getManualJournalAttachments");
         UUID manualJournalID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Attachments response = accountingApi.getManualJournalAttachments(xeroTenantId, manualJournalID);
+        Attachments response = accountingApi.getManualJournalAttachments(manualJournalID);
 
         assertThat(response.getAttachments().get(0).getAttachmentID(), is(equalTo(UUID.fromString("16e86f32-3e25-4209-8662-c0dfd91b654c"))));
         assertThat(response.getAttachments().get(0).getFileName(), is(equalTo("HelloWorld.jpg")));
@@ -193,7 +193,7 @@ public class AccountingApiManualJournalsTest {
         String where = null;
         String order = null;
         Integer page = null;
-        ManualJournals response = accountingApi.getManualJournals(xeroTenantId, ifModifiedSince, where, order, page);
+        ManualJournals response = accountingApi.getManualJournals(ifModifiedSince, where, order, page);
 
         assertThat(response.getManualJournals().get(0).getNarration(), is(equalTo("Reversal: These aren't the droids you are looking for")));
         assertThat(response.getManualJournals().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,20))));  
@@ -211,7 +211,7 @@ public class AccountingApiManualJournalsTest {
         System.out.println("@Test - updateManualJournal");
         UUID manualJournalID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         ManualJournals manualJournals = new ManualJournals();
-        ManualJournals response = accountingApi.updateManualJournal(xeroTenantId, manualJournalID, manualJournals);
+        ManualJournals response = accountingApi.updateManualJournal(manualJournalID, manualJournals);
 
         assertThat(response.getManualJournals().get(0).getNarration(), is(equalTo("Hello Xero")));
         assertThat(response.getManualJournals().get(0).getJournalLines().get(0).getLineAmount(), is(equalTo(100.0)));
@@ -241,7 +241,7 @@ public class AccountingApiManualJournalsTest {
         System.out.println("@Test - updateManualJournalAttachmentByFileName");
         UUID manualJournalID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         String fileName = "sample5.jpg";
-        Attachments response = accountingApi.updateManualJournalAttachmentByFileName(xeroTenantId, manualJournalID, fileName, body);
+        Attachments response = accountingApi.updateManualJournalAttachmentByFileName(manualJournalID, fileName, body);
 
         assertThat(response.getAttachments().get(0).getAttachmentID(), is(equalTo(UUID.fromString("16e86f32-3e25-4209-8662-c0dfd91b654c"))));
         assertThat(response.getAttachments().get(0).getFileName(), is(equalTo("HelloWorld.jpg")));

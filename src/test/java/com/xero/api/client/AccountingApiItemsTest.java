@@ -44,7 +44,7 @@ public class AccountingApiItemsTest {
 
 	ApiClient defaultClient; 
     AccountingApi accountingApi; 
-    String xeroTenantId = "3697c2dc5-cc47-4afd-8ec8-74990b8761e9";  
+     
  
     private static boolean setUpIsDone = false;
 	
@@ -69,7 +69,7 @@ public class AccountingApiItemsTest {
 
         try {
             System.out.println("Sleep for 60 seconds");
-            Thread.sleep(60);
+            Thread.sleep(60000);
         } catch(InterruptedException e) {
             System.out.println(e);
         }
@@ -86,7 +86,7 @@ public class AccountingApiItemsTest {
     public void createItemTest() throws IOException {
         System.out.println("@Test - createItem");
         Items items = new Items();
-        Items response = accountingApi.createItem(xeroTenantId, items);
+        Items response = accountingApi.createItem(items);
 
         assertThat(response.getItems().get(0).getCode(), is(equalTo("abc65591")));
         assertThat(response.getItems().get(0).getName(), is(equalTo("Hello11350")));
@@ -114,7 +114,7 @@ public class AccountingApiItemsTest {
     public void getItemTest() throws IOException {
         System.out.println("@Test - getItem");
         UUID itemID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Items response = accountingApi.getItem(xeroTenantId, itemID);
+        Items response = accountingApi.getItem(itemID);
 
         assertThat(response.getItems().get(0).getCode(), is(equalTo("123")));
         assertThat(response.getItems().get(0).getInventoryAssetAccountCode(), is(equalTo("630")));
@@ -143,7 +143,7 @@ public class AccountingApiItemsTest {
     public void getItemHistoryTest() throws IOException {
         System.out.println("@Test - getItemHistory");
         UUID itemID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords response = accountingApi.getItemHistory(xeroTenantId, itemID);
+        HistoryRecords response = accountingApi.getItemHistory(itemID);
 
         assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("Sidney Maestre")));       
         assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Created")));     
@@ -159,7 +159,7 @@ public class AccountingApiItemsTest {
         String where = null;
         String order = null;
         Integer unitdp = null;
-        Items response = accountingApi.getItems(xeroTenantId, ifModifiedSince, where, order, unitdp);
+        Items response = accountingApi.getItems(ifModifiedSince, where, order, unitdp);
 
         assertThat(response.getItems().get(0).getCode(), is(equalTo("123")));
         assertThat(response.getItems().get(0).getName(), is(equalTo("Guitars")));
@@ -180,7 +180,7 @@ public class AccountingApiItemsTest {
         System.out.println("@Test - updateItem");
         UUID itemID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         Items items = new Items();
-        Items response = accountingApi.updateItem(xeroTenantId, itemID, items);
+        Items response = accountingApi.updateItem(itemID, items);
 
         assertThat(response.getItems().get(0).getCode(), is(equalTo("abc38306")));
         assertThat(response.getItems().get(0).getName(), is(equalTo("Hello8746")));
@@ -197,6 +197,6 @@ public class AccountingApiItemsTest {
     public void deleteItemTest() throws IOException {
         System.out.println("@Test - deleteItem");
         UUID itemID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        accountingApi.deleteItem(xeroTenantId, itemID);
+        accountingApi.deleteItem(itemID);
     }
 }

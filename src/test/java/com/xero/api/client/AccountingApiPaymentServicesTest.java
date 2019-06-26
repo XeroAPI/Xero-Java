@@ -44,7 +44,7 @@ public class AccountingApiPaymentServicesTest {
 
 	ApiClient defaultClient; 
     AccountingApi accountingApi; 
-    String xeroTenantId = "3697c2dc5-cc47-4afd-8ec8-74990b8761e9";  
+     
     
     private static boolean setUpIsDone = false;
 	
@@ -69,7 +69,7 @@ public class AccountingApiPaymentServicesTest {
 
         try {
             System.out.println("Sleep for 60 seconds");
-            Thread.sleep(60);
+            Thread.sleep(60000);
         } catch(InterruptedException e) {
             System.out.println(e);
         }
@@ -86,7 +86,7 @@ public class AccountingApiPaymentServicesTest {
     public void createPaymentServiceTest() throws IOException {
         System.out.println("@Test - createPaymentService");
         PaymentServices paymentServices = new PaymentServices();
-        PaymentServices response = accountingApi.createPaymentService(xeroTenantId, paymentServices);
+        PaymentServices response = accountingApi.createPaymentService(paymentServices);
 
         assertThat(response.getPaymentServices().get(0).getPaymentServiceID(), is(equalTo(UUID.fromString("54b3b4f6-0443-4fba-bcd1-61ec0c35ca55"))));
         assertThat(response.getPaymentServices().get(0).getPaymentServiceName(), is(equalTo("PayUpNow")));
@@ -100,7 +100,7 @@ public class AccountingApiPaymentServicesTest {
     @Test
     public void getPaymentServicesTest() throws IOException {
         System.out.println("@Test - getPaymentServices");
-        PaymentServices response = accountingApi.getPaymentServices(xeroTenantId);
+        PaymentServices response = accountingApi.getPaymentServices();
 
         assertThat(response.getPaymentServices().get(0).getPaymentServiceID(), is(equalTo(UUID.fromString("54b3b4f6-0443-4fba-bcd1-61ec0c35ca55"))));
         assertThat(response.getPaymentServices().get(0).getPaymentServiceName(), is(equalTo("PayUpNow")));

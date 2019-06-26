@@ -40,7 +40,7 @@ import java.util.UUID;
 public class AccountingApiBatchPaymentTest {
 	ApiClient defaultClient; 
     AccountingApi accountingApi; 
-    String xeroTenantId = "3697c2dc5-cc47-4afd-8ec8-74990b8761e9";  
+     
     File bytes;
 
 	private static boolean setUpIsDone = false;
@@ -69,7 +69,7 @@ public class AccountingApiBatchPaymentTest {
 
     	try {
     		System.out.println("Sleep for 60 seconds");
-	    	Thread.sleep(60);
+	    	Thread.sleep(60000);
     	} catch(InterruptedException e) {
     		System.out.println(e);
     	}
@@ -88,7 +88,7 @@ public class AccountingApiBatchPaymentTest {
 		OffsetDateTime ifModifiedSince = null;
 		String where = null;
 		String order = null;
-		BatchPayments batchPayments = accountingApi.getBatchPayments(xeroTenantId,ifModifiedSince, where, order);
+		BatchPayments batchPayments = accountingApi.getBatchPayments(ifModifiedSince, where, order);
     	assertThat(batchPayments.getBatchPayments().get(0).getBatchPaymentID().toString(), is(equalTo("d0e9bbbf-5b8a-48b6-906a-035591fcb061")));	
 		assertThat(batchPayments.getBatchPayments().get(0).getReference(), is(equalTo("Hello World")));	
 		//System.out.println(batchPayments.getBatchPayments().toString());
@@ -101,7 +101,7 @@ public class AccountingApiBatchPaymentTest {
 		BatchPayments createBatchPayments = new BatchPayments();
 		BatchPayment createBatchPayment = new BatchPayment();
 		createBatchPayments.addBatchPaymentsItem(createBatchPayment);		
-		BatchPayments newBatchPayments = accountingApi.createBatchPayment(xeroTenantId,createBatchPayments);
+		BatchPayments newBatchPayments = accountingApi.createBatchPayment(createBatchPayments);
 		assertThat(newBatchPayments.getBatchPayments().get(0).getBatchPaymentID().toString(), is(equalTo("d318c343-208e-49fe-b04a-45642349bcf1")));	
 		assertThat(newBatchPayments.getBatchPayments().get(0).getReference(), is(equalTo("Foobar123")));	
 		//System.out.println(newBatchPayments.getBatchPayments().toString());
@@ -112,7 +112,7 @@ public class AccountingApiBatchPaymentTest {
 		System.out.println("@Test - getBatchPaymentHistory");
 		UUID batchPaymentID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");	
 
-		HistoryRecords hr = accountingApi.getBatchPaymentHistory(xeroTenantId,batchPaymentID);
+		HistoryRecords hr = accountingApi.getBatchPaymentHistory(batchPaymentID);
 		assertThat(hr.getHistoryRecords().get(0).getUser(), is(equalTo("Sidney Maestre")));		
 		assertThat(hr.getHistoryRecords().get(0).getChanges(), is(equalTo("Approved")));		
 		//System.out.println(hr.getHistoryRecords().toString());		
@@ -127,7 +127,7 @@ public class AccountingApiBatchPaymentTest {
 		HistoryRecord newHistoryRecord = new  HistoryRecord();
 		newHistoryRecord.setDetails("Hello World");
 		newHistoryRecords.addHistoryRecordsItem(newHistoryRecord);
-		HistoryRecords newHistory = accountingApi.createBatchPaymentHistoryRecord(xeroTenantId,batchPaymentID,newHistoryRecords);
+		HistoryRecords newHistory = accountingApi.createBatchPaymentHistoryRecord(batchPaymentID,newHistoryRecords);
 		assertThat(newHistory.getHistoryRecords().get(0).getDetails(), is(equalTo("Hello World")));		
 		//System.out.println(newHistory.getHistoryRecords().toString());		
 	}

@@ -44,7 +44,7 @@ public class AccountingApiPrepaymentsTest {
 
 	ApiClient defaultClient; 
     AccountingApi accountingApi; 
-    String xeroTenantId = "3697c2dc5-cc47-4afd-8ec8-74990b8761e9";  
+     
 
     private static boolean setUpIsDone = false;
 	
@@ -69,7 +69,7 @@ public class AccountingApiPrepaymentsTest {
 
         try {
             System.out.println("Sleep for 30 seconds");
-            Thread.sleep(60);
+            Thread.sleep(60000);
         } catch(InterruptedException e) {
             System.out.println(e);
         }
@@ -87,7 +87,7 @@ public class AccountingApiPrepaymentsTest {
         System.out.println("@Test - createPrepaymentAllocation");
         UUID prepaymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         Allocations allocations = new Allocations();
-        Allocations response = accountingApi.createPrepaymentAllocation(xeroTenantId, prepaymentID, allocations);
+        Allocations response = accountingApi.createPrepaymentAllocation(prepaymentID, allocations);
 
         assertThat(response.getAllocations().get(0).getAmount(), is(equalTo(1.0)));
         assertThat(response.getAllocations().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,12))));
@@ -109,7 +109,7 @@ public class AccountingApiPrepaymentsTest {
     public void getPrepaymentTest() throws IOException {
         System.out.println("@Test - getPrepayment");
         UUID prepaymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Prepayments response = accountingApi.getPrepayment(xeroTenantId, prepaymentID);
+        Prepayments response = accountingApi.getPrepayment(prepaymentID);
 
         assertThat(response.getPrepayments().get(0).getType().toString(), is(equalTo("RECEIVE-PREPAYMENT")));
         assertThat(response.getPrepayments().get(0).getContact().getName(), is(equalTo("Luke Skywalker")));
@@ -152,7 +152,7 @@ public class AccountingApiPrepaymentsTest {
     public void getPrepaymentHistoryTest() throws IOException {
         System.out.println("@Test - getPrepaymentHistory");
         UUID prepaymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords response = accountingApi.getPrepaymentHistory(xeroTenantId, prepaymentID);
+        HistoryRecords response = accountingApi.getPrepaymentHistory(prepaymentID);
 
         assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("Sidney Maestre")));       
         assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Cash Refunded")));     
@@ -169,7 +169,7 @@ public class AccountingApiPrepaymentsTest {
         String order = null;
         Integer page = null;
         Integer unitdp = null;
-        Prepayments response = accountingApi.getPrepayments(xeroTenantId, ifModifiedSince, where, order, page, unitdp);
+        Prepayments response = accountingApi.getPrepayments(ifModifiedSince, where, order, page, unitdp);
 
         assertThat(response.getPrepayments().get(0).getType().toString(), is(equalTo("RECEIVE-PREPAYMENT")));
         assertThat(response.getPrepayments().get(0).getContact().getName(), is(equalTo("Luke Skywalker")));
