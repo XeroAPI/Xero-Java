@@ -68,6 +68,7 @@ import java.io.ByteArrayInputStream;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
@@ -77,6 +78,8 @@ import org.apache.logging.log4j.Logger;
 public class AccountingApi {
     private ApiClient apiClient;
     private String xeroTenantId;
+    private String userAgent = "Default";
+    private String version = "3.0.0-beta-7";
 
     public AccountingApi() {
         this(new ApiClient());
@@ -94,12 +97,20 @@ public class AccountingApi {
         this.apiClient = apiClient;
     }
 
-    public String getXeroTenantId(String xeroTenantId) {
+    public String getXeroTenantId() {
         return xeroTenantId;
     }
 
     public void setXeroTenantId(String xeroTenantId) {
         this.xeroTenantId = xeroTenantId;
+    }
+
+    public void setUserAgent(String userAgent) {
+        this.userAgent = userAgent;
+    }
+    
+    public String getUserAgent() {
+        return this.userAgent +  "[Xero-Java-" + this.version + "]";
     }
 
   /**
@@ -124,6 +135,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Accounts";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.build().toString();
@@ -173,6 +186,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Accounts/{AccountID}/Attachments/{FileName}";
         
         // create a map of path variables
@@ -223,6 +238,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/BankTransactions";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (summarizeErrors != null) {
@@ -283,6 +300,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/BankTransactions/{BankTransactionID}/Attachments/{FileName}";
         
         // create a map of path variables
@@ -336,6 +355,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/BankTransactions/{BankTransactionID}/History";
         
         // create a map of path variables
@@ -382,6 +403,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/BankTransfers";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.build().toString();
@@ -430,6 +453,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/BankTransfers/{BankTransferID}/Attachments/{FileName}";
         
         // create a map of path variables
@@ -482,6 +507,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/BankTransfers/{BankTransferID}/History";
         
         // create a map of path variables
@@ -528,6 +555,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/BatchPayments";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.build().toString();
@@ -573,6 +602,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/BatchPayments/{BatchPaymentID}/History";
         
         // create a map of path variables
@@ -623,6 +654,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/BrandingThemes/{BrandingThemeID}/PaymentServices";
         
         // create a map of path variables
@@ -668,6 +701,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Contacts";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.build().toString();
@@ -716,6 +751,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Contacts/{ContactID}/Attachments/{FileName}";
         
         // create a map of path variables
@@ -765,6 +802,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/ContactGroups";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.build().toString();
@@ -810,6 +849,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/ContactGroups/{ContactGroupID}/Contacts";
         
         // create a map of path variables
@@ -860,6 +901,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Contacts/{ContactID}/History";
         
         // create a map of path variables
@@ -907,6 +950,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/CreditNotes";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (summarizeErrors != null) {
@@ -963,6 +1008,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/CreditNotes/{CreditNoteID}/Allocations";
         
         // create a map of path variables
@@ -1017,6 +1064,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/CreditNotes/{CreditNoteID}/Attachments/{FileName}";
         
         // create a map of path variables
@@ -1070,6 +1119,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/CreditNotes/{CreditNoteID}/History";
         
         // create a map of path variables
@@ -1114,6 +1165,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Currencies";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.build().toString();
@@ -1155,6 +1208,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Employees";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.build().toString();
@@ -1197,6 +1252,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/ExpenseClaims";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (summarizeErrors != null) {
@@ -1252,6 +1309,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/ExpenseClaims/{ExpenseClaimID}/History";
         
         // create a map of path variables
@@ -1299,6 +1358,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Invoices";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (summarizeErrors != null) {
@@ -1359,6 +1420,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Invoices/{InvoiceID}/Attachments/{FileName}";
         
         // create a map of path variables
@@ -1412,6 +1475,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Invoices/{InvoiceID}/History";
         
         // create a map of path variables
@@ -1458,6 +1523,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Items";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.build().toString();
@@ -1502,6 +1569,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Items/{ItemID}/History";
         
         // create a map of path variables
@@ -1548,6 +1617,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/LinkedTransactions";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.build().toString();
@@ -1589,6 +1660,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/ManualJournals";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.build().toString();
@@ -1638,6 +1711,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/ManualJournals/{ManualJournalID}/Attachments/{FileName}";
         
         // create a map of path variables
@@ -1691,6 +1766,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Overpayments/{OverpaymentID}/Allocations";
         
         // create a map of path variables
@@ -1741,6 +1818,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Overpayments/{OverpaymentID}/History";
         
         // create a map of path variables
@@ -1787,6 +1866,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Payments";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.build().toString();
@@ -1832,6 +1913,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Payments/{PaymentID}/History";
         
         // create a map of path variables
@@ -1878,6 +1961,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/PaymentServices";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.build().toString();
@@ -1923,6 +2008,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Prepayments/{PrepaymentID}/Allocations";
         
         // create a map of path variables
@@ -1973,6 +2060,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Prepayments/{PrepaymentID}/History";
         
         // create a map of path variables
@@ -2020,6 +2109,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/PurchaseOrders";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (summarizeErrors != null) {
@@ -2076,6 +2167,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/PurchaseOrders/{PurchaseOrderID}/History";
         
         // create a map of path variables
@@ -2122,6 +2215,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Receipts";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.build().toString();
@@ -2171,6 +2266,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Receipts/{ReceiptID}/Attachments/{FileName}";
         
         // create a map of path variables
@@ -2224,6 +2321,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Receipts/{ReceiptID}/History";
         
         // create a map of path variables
@@ -2278,6 +2377,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{FileName}";
         
         // create a map of path variables
@@ -2331,6 +2432,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/RepeatingInvoices/{RepeatingInvoiceID}/History";
         
         // create a map of path variables
@@ -2377,6 +2480,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/TaxRates";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.build().toString();
@@ -2418,6 +2523,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/TrackingCategories";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.build().toString();
@@ -2463,6 +2570,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/TrackingCategories/{TrackingCategoryID}/Options";
         
         // create a map of path variables
@@ -2509,6 +2618,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Accounts/{AccountID}";
         
         // create a map of path variables
@@ -2554,6 +2665,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/ContactGroups/{ContactGroupID}/Contacts/{ContactID}";
         
         // create a map of path variables
@@ -2595,6 +2708,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/ContactGroups/{ContactGroupID}/Contacts";
         
         // create a map of path variables
@@ -2636,6 +2751,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Items/{ItemID}";
         
         // create a map of path variables
@@ -2677,6 +2794,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/LinkedTransactions/{LinkedTransactionID}";
         
         // create a map of path variables
@@ -2725,6 +2844,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Payments/{PaymentID}";
         
         // create a map of path variables
@@ -2771,6 +2892,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/TrackingCategories/{TrackingCategoryID}";
         
         // create a map of path variables
@@ -2819,6 +2942,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/TrackingCategories/{TrackingCategoryID}/Options/{TrackingOptionID}";
         
         // create a map of path variables
@@ -2865,6 +2990,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Invoices/{InvoiceID}/Email";
         
         // create a map of path variables
@@ -2910,6 +3037,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Accounts/{AccountID}";
         
         // create a map of path variables
@@ -2962,6 +3091,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Accounts/{AccountID}/Attachments/{FileName}";
         
         // Hacky path manipulation to support different return types from same endpoint
@@ -3022,6 +3153,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Accounts/{AccountID}/Attachments/{AttachmentID}";
         
         // Hacky path manipulation to support different return types from same endpoint
@@ -3073,6 +3206,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Accounts/{AccountID}/Attachments";
         
         // create a map of path variables
@@ -3115,6 +3250,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Accounts";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
@@ -3174,6 +3311,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/BankTransactions/{BankTransactionID}";
         
         // create a map of path variables
@@ -3226,6 +3365,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/BankTransactions/{BankTransactionID}/Attachments/{FileName}";
         
         // Hacky path manipulation to support different return types from same endpoint
@@ -3286,6 +3427,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/BankTransactions/{BankTransactionID}/Attachments/{AttachmentID}";
         
         // Hacky path manipulation to support different return types from same endpoint
@@ -3337,6 +3480,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/BankTransactions/{BankTransactionID}/Attachments";
         
         // create a map of path variables
@@ -3381,6 +3526,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/BankTransactions";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
@@ -3460,6 +3607,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/BankTransactions/{BankTransactionID}/History";
         
         // create a map of path variables
@@ -3503,6 +3652,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/BankTransfers/{BankTransferID}";
         
         // create a map of path variables
@@ -3555,6 +3706,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/BankTransfers/{BankTransferID}/Attachments/{FileName}";
         
         // Hacky path manipulation to support different return types from same endpoint
@@ -3615,6 +3768,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/BankTransfers/{BankTransferID}/Attachments/{AttachmentID}";
         
         // Hacky path manipulation to support different return types from same endpoint
@@ -3666,6 +3821,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/BankTransfers/{BankTransferID}/Attachments";
         
         // create a map of path variables
@@ -3709,6 +3866,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/BankTransfers/{BankTransferID}/History";
         
         // create a map of path variables
@@ -3751,6 +3910,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/BankTransfers";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
@@ -3810,6 +3971,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/BatchPayments/{BatchPaymentID}/History";
         
         // create a map of path variables
@@ -3852,6 +4015,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/BatchPayments";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
@@ -3911,6 +4076,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/BrandingThemes/{BrandingThemeID}";
         
         // create a map of path variables
@@ -3954,6 +4121,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/BrandingThemes/{BrandingThemeID}/PaymentServices";
         
         // create a map of path variables
@@ -3993,6 +4162,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/BrandingThemes";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.build().toString();
@@ -4031,6 +4202,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Contacts/{ContactID}";
         
         // create a map of path variables
@@ -4083,6 +4256,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Contacts/{ContactID}/Attachments/{FileName}";
         
         // Hacky path manipulation to support different return types from same endpoint
@@ -4143,6 +4318,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Contacts/{ContactID}/Attachments/{AttachmentID}";
         
         // Hacky path manipulation to support different return types from same endpoint
@@ -4194,6 +4371,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Contacts/{ContactID}/Attachments";
         
         // create a map of path variables
@@ -4237,6 +4416,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Contacts/{ContactID}/CISSettings";
         
         // create a map of path variables
@@ -4280,6 +4461,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/ContactGroups/{ContactGroupID}";
         
         // create a map of path variables
@@ -4321,6 +4504,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/ContactGroups";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
@@ -4380,6 +4565,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Contacts/{ContactID}/History";
         
         // create a map of path variables
@@ -4425,6 +4612,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Contacts";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
@@ -4514,6 +4703,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/CreditNotes/{CreditNoteID}";
         
         // create a map of path variables
@@ -4562,6 +4753,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/CreditNotes/{CreditNoteID}/pdf";
         
         // Hacky path manipulation to support different return types from same endpoint
@@ -4621,6 +4814,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/CreditNotes/{CreditNoteID}/Attachments/{FileName}";
         
         // Hacky path manipulation to support different return types from same endpoint
@@ -4681,6 +4876,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/CreditNotes/{CreditNoteID}/Attachments/{AttachmentID}";
         
         // Hacky path manipulation to support different return types from same endpoint
@@ -4732,6 +4929,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/CreditNotes/{CreditNoteID}/Attachments";
         
         // create a map of path variables
@@ -4775,6 +4974,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/CreditNotes/{CreditNoteID}/History";
         
         // create a map of path variables
@@ -4818,6 +5019,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/CreditNotes";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
@@ -4885,6 +5088,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Currencies";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
@@ -4944,6 +5149,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Employees/{EmployeeID}";
         
         // create a map of path variables
@@ -4986,6 +5193,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Employees";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
@@ -5045,6 +5254,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/ExpenseClaims/{ExpenseClaimID}";
         
         // create a map of path variables
@@ -5088,6 +5299,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/ExpenseClaims/{ExpenseClaimID}/History";
         
         // create a map of path variables
@@ -5130,6 +5343,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/ExpenseClaims";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
@@ -5189,6 +5404,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Invoices/{InvoiceID}";
         
         // create a map of path variables
@@ -5237,6 +5454,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Invoices/{InvoiceID}/pdf";
         
         // Hacky path manipulation to support different return types from same endpoint
@@ -5296,6 +5515,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Invoices/{InvoiceID}/Attachments/{FileName}";
         
         // Hacky path manipulation to support different return types from same endpoint
@@ -5356,6 +5577,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Invoices/{InvoiceID}/Attachments/{AttachmentID}";
         
         // Hacky path manipulation to support different return types from same endpoint
@@ -5407,6 +5630,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Invoices/{InvoiceID}/Attachments";
         
         // create a map of path variables
@@ -5450,6 +5675,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Invoices/{InvoiceID}/History";
         
         // create a map of path variables
@@ -5489,6 +5716,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/InvoiceReminders/Settings";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.build().toString();
@@ -5534,6 +5763,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Invoices";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
@@ -5673,6 +5904,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Items/{ItemID}";
         
         // create a map of path variables
@@ -5716,6 +5949,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Items/{ItemID}/History";
         
         // create a map of path variables
@@ -5759,6 +5994,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Items";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
@@ -5828,6 +6065,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Journals/{JournalID}";
         
         // create a map of path variables
@@ -5870,6 +6109,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Journals";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (offset != null) {
@@ -5929,6 +6170,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/LinkedTransactions/{LinkedTransactionID}";
         
         // create a map of path variables
@@ -5974,6 +6217,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/LinkedTransactions";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (page != null) {
@@ -6073,6 +6318,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/ManualJournals/{ManualJournalID}";
         
         // create a map of path variables
@@ -6125,6 +6372,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/ManualJournals/{ManualJournalID}/Attachments/{FileName}";
         
         // Hacky path manipulation to support different return types from same endpoint
@@ -6185,6 +6434,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/ManualJournals/{ManualJournalID}/Attachments/{AttachmentID}";
         
         // Hacky path manipulation to support different return types from same endpoint
@@ -6236,6 +6487,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/ManualJournals/{ManualJournalID}/Attachments";
         
         // create a map of path variables
@@ -6279,6 +6532,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/ManualJournals";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
@@ -6348,6 +6603,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Invoices/{InvoiceID}/OnlineInvoice";
         
         // create a map of path variables
@@ -6391,6 +6648,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Organisation/{OrganisationID}/CISSettings";
         
         // create a map of path variables
@@ -6430,6 +6689,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Organisation";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.build().toString();
@@ -6468,6 +6729,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Overpayments/{OverpaymentID}";
         
         // create a map of path variables
@@ -6511,6 +6774,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Overpayments/{OverpaymentID}/History";
         
         // create a map of path variables
@@ -6555,6 +6820,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Overpayments";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
@@ -6634,6 +6901,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Payments/{PaymentID}";
         
         // create a map of path variables
@@ -6677,6 +6946,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Payments/{PaymentID}/History";
         
         // create a map of path variables
@@ -6716,6 +6987,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/PaymentServices";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.build().toString();
@@ -6753,6 +7026,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Payments";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
@@ -6812,6 +7087,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Prepayments/{PrepaymentID}";
         
         // create a map of path variables
@@ -6855,6 +7132,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Prepayments/{PrepaymentID}/History";
         
         // create a map of path variables
@@ -6899,6 +7178,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Prepayments";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
@@ -6978,6 +7259,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/PurchaseOrders/{PurchaseOrderID}";
         
         // create a map of path variables
@@ -7021,6 +7304,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/PurchaseOrders/{PurchaseOrderID}/History";
         
         // create a map of path variables
@@ -7066,6 +7351,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/PurchaseOrders";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (status != null) {
@@ -7155,6 +7442,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Receipts/{ReceiptID}";
         
         // create a map of path variables
@@ -7207,6 +7496,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Receipts/{ReceiptID}/Attachments/{FileName}";
         
         // Hacky path manipulation to support different return types from same endpoint
@@ -7267,6 +7558,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Receipts/{ReceiptID}/Attachments/{AttachmentID}";
         
         // Hacky path manipulation to support different return types from same endpoint
@@ -7318,6 +7611,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Receipts/{ReceiptID}/Attachments";
         
         // create a map of path variables
@@ -7361,6 +7656,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Receipts/{ReceiptID}/History";
         
         // create a map of path variables
@@ -7404,6 +7701,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Receipts";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
@@ -7473,6 +7772,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/RepeatingInvoices/{RepeatingInvoiceID}";
         
         // create a map of path variables
@@ -7525,6 +7826,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{FileName}";
         
         // Hacky path manipulation to support different return types from same endpoint
@@ -7585,6 +7888,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{AttachmentID}";
         
         // Hacky path manipulation to support different return types from same endpoint
@@ -7636,6 +7941,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/RepeatingInvoices/{RepeatingInvoiceID}/Attachments";
         
         // create a map of path variables
@@ -7679,6 +7986,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/RepeatingInvoices/{RepeatingInvoiceID}/History";
         
         // create a map of path variables
@@ -7720,6 +8029,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/RepeatingInvoices";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
@@ -7782,6 +8093,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Reports/AgedPayablesByContact";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (contactId != null) {
@@ -7864,6 +8177,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Reports/AgedReceivablesByContact";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (contactId != null) {
@@ -7943,6 +8258,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Reports/{ReportID}";
         
         // create a map of path variables
@@ -7982,6 +8299,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Reports";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.build().toString();
@@ -8023,6 +8342,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Reports/BalanceSheet";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (date != null) {
@@ -8131,6 +8452,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Reports/BankSummary";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (date != null) {
@@ -8199,6 +8522,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Reports/BudgetSummary";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (date != null) {
@@ -8265,6 +8590,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Reports/ExecutiveSummary";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (date != null) {
@@ -8320,6 +8647,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Reports/ProfitAndLoss";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (fromDate != null) {
@@ -8456,6 +8785,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Reports/TenNinetyNine";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (reportYear != null) {
@@ -8503,6 +8834,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Reports/TrialBalance";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (date != null) {
@@ -8561,6 +8894,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/TaxRates";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
@@ -8629,6 +8964,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/TrackingCategories";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
@@ -8698,6 +9035,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/TrackingCategories/{TrackingCategoryID}";
         
         // create a map of path variables
@@ -8741,6 +9080,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Users/{UserID}";
         
         // create a map of path variables
@@ -8783,6 +9124,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Users";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (where != null) {
@@ -8847,6 +9190,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Accounts/{AccountID}";
         
         // create a map of path variables
@@ -8901,6 +9246,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Accounts/{AccountID}/Attachments/{FileName}";
         
         // create a map of path variables
@@ -8954,6 +9301,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/BankTransactions/{BankTransactionID}";
         
         // create a map of path variables
@@ -9008,6 +9357,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/BankTransactions/{BankTransactionID}/Attachments/{FileName}";
         
         // create a map of path variables
@@ -9064,6 +9415,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/BankTransfers/{BankTransferID}/Attachments/{FileName}";
         
         // create a map of path variables
@@ -9116,6 +9469,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Contacts/{ContactID}";
         
         // create a map of path variables
@@ -9169,6 +9524,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Contacts/{ContactID}/Attachments/{FileName}";
         
         // create a map of path variables
@@ -9222,6 +9579,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/ContactGroups/{ContactGroupID}";
         
         // create a map of path variables
@@ -9272,6 +9631,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/CreditNotes/{CreditNoteID}";
         
         // create a map of path variables
@@ -9326,6 +9687,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/CreditNotes/{CreditNoteID}/Attachments/{FileName}";
         
         // create a map of path variables
@@ -9379,6 +9742,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Employees/{EmployeeID}";
         
         // create a map of path variables
@@ -9429,6 +9794,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/ExpenseClaims/{ExpenseClaimID}";
         
         // create a map of path variables
@@ -9479,6 +9846,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Invoices/{InvoiceID}";
         
         // create a map of path variables
@@ -9533,6 +9902,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Invoices/{InvoiceID}/Attachments/{FileName}";
         
         // create a map of path variables
@@ -9586,6 +9957,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Items/{ItemID}";
         
         // create a map of path variables
@@ -9636,6 +10009,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/LinkedTransactions/{LinkedTransactionID}";
         
         // create a map of path variables
@@ -9686,6 +10061,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/ManualJournals/{ManualJournalID}";
         
         // create a map of path variables
@@ -9740,6 +10117,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/ManualJournals/{ManualJournalID}/Attachments/{FileName}";
         
         // create a map of path variables
@@ -9793,6 +10172,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/PurchaseOrders/{PurchaseOrderID}";
         
         // create a map of path variables
@@ -9843,6 +10224,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Receipts/{ReceiptID}";
         
         // create a map of path variables
@@ -9897,6 +10280,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/Receipts/{ReceiptID}/Attachments/{FileName}";
         
         // create a map of path variables
@@ -9954,6 +10339,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{FileName}";
         
         // create a map of path variables
@@ -10003,6 +10390,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/TaxRates";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.build().toString();
@@ -10048,6 +10437,8 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
         String correctPath = "/TrackingCategories/{TrackingCategoryID}";
         
         // create a map of path variables
