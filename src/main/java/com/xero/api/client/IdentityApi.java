@@ -75,7 +75,7 @@ public class IdentityApi {
         headers.set("xero-tenant-id", this.xeroTenantId);
         headers.setAccept("application/json"); 
         String correctPath = "/connections";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri("https://api.xero.com" + correctPath);
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
