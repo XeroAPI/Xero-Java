@@ -1,17 +1,10 @@
 package com.xero.example;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.URLConnection;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -25,38 +18,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
-import com.google.api.client.auth.oauth2.BearerToken;
-import com.google.api.client.auth.oauth2.ClientCredentialsTokenRequest;
-import com.google.api.client.auth.oauth2.ClientParametersAuthentication;
 import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.auth.oauth2.CredentialRefreshListener;
-import com.google.api.client.auth.oauth2.DataStoreCredentialRefreshListener;
-import com.google.api.client.auth.oauth2.TokenErrorResponse;
-import com.google.api.client.auth.oauth2.TokenResponse;
-import com.google.api.client.auth.oauth2.TokenResponseException;
-import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
-import com.google.api.client.googleapis.util.Utils;
-import com.google.api.client.http.GenericUrl;
-import com.google.api.client.http.HttpHeaders;
-import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.HttpRequestInitializer;
-import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.JsonFactory;
-import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.util.store.DataStoreFactory;
-import com.google.api.client.util.store.MemoryDataStoreFactory;
 import com.xero.api.*;
 import com.xero.models.accounting.*;
 import com.xero.models.accounting.Phone.PhoneTypeEnum;
-import com.xero.models.accounting.TaxRate.ReportTaxTypeEnum;
 import com.xero.api.client.AccountingApi;
 
-import org.apache.commons.io.IOUtils;
-//import java.time.LocalDate;
 import org.threeten.bp.*;
 
 @WebServlet("/AuthenticatedResource")
@@ -180,34 +150,11 @@ public class AuthenticatedResource extends HttpServlet
 		// Set Access Token from Storage
 		TokenStorage store = new TokenStorage();
         
-		final String clientId = "CEC496D0B24D4448A8F1D8B6A3F5C00E";
-        final String clientSecret = "RyndE0-u_Drvu-jIwBNO4Hcsug-kCcQQgUQOB4AHTHpHl2z9";
-        
-        //HttpTransport httpTransport = new NetHttpTransport();
- 	   	//JsonFactory jsonFactory = new JacksonFactory();
- 	   	final HttpServletResponse resp = response;
+		final String clientId = "--YOUR_CLIENT_ID--";
+    	final String clientSecret = "--YOUR_CLIENT_SECRET--";
+
+        final HttpServletResponse resp = response;
  	   	Credential credential = com.xero.example.RefreshCredential.createRefreshCredential(resp, clientId, clientSecret).build();
- 	   	/*
- 	   	Credential credential = new XeroCredential.Builder().setTransport(httpTransport).setJsonFactory(jsonFactory)
- 	   			.setClientSecrets(clientId, clientSecret)
- 	   			.addRefreshListener(new CredentialRefreshListener() {
-
-				@Override
-				public void onTokenResponse(Credential credential, TokenResponse tokenResponse) throws IOException {
-					TokenStorage store = new TokenStorage();
-				    store.saveItem(resp, "access_token", tokenResponse.getAccessToken());
-				    store.saveItem(resp, "refresh_token", tokenResponse.getRefreshToken());
-				    store.saveItem(resp, "expires_in_seconds", tokenResponse.getExpiresInSeconds().toString());
-				}
-
-				@Override
-				public void onTokenErrorResponse(Credential credential, TokenErrorResponse tokenErrorResponse)
-						throws IOException {
-					System.out.println("Error Response");	
-				}
- 	        }).build();
- 	   	*/
- 	   	
  	   	credential.setAccessToken(store.get(request, "access_token"));
  	   	credential.setRefreshToken(store.get(request, "refresh_token"));
  	   	credential.setExpiresInSeconds( Long.parseLong(store.get(request, "expires_in_seconds")));

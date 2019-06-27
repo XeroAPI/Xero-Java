@@ -49,59 +49,59 @@ public class Callback extends HttpServlet {
 		if (request.getParameter("code") != null) {   
 			code = request.getParameter("code");
 		}
-		final String clientId = "CEC496D0B24D4448A8F1D8B6A3F5C00E";
-        final String clientSecret = "RyndE0-u_Drvu-jIwBNO4Hcsug-kCcQQgUQOB4AHTHpHl2z9";
-        final String redirectURI = "http://localhost:8080/xero-sdk-oauth2-dev-01/Callback";
+		
+    final String clientId = "--YOUR_CLIENT_ID--";
+    final String clientSecret = "--YOUR_CLIENT_SECRET--";
+    final String redirectURI = "--YOUR_REDIRECT_URI--";
         
-        ArrayList<String> scopeList = new ArrayList<String>();
-        scopeList.add("openid");
-        scopeList.add("email");
-        scopeList.add("profile");
-        scopeList.add("offline_access");
-        scopeList.add("accounting.settings");
-        scopeList.add("accounting.transactions");
-        scopeList.add("accounting.contacts");
-        scopeList.add("accounting.journals.read");
-        scopeList.add("accounting.reports.read");
-        scopeList.add("accounting.attachments");
-        scopeList.add("paymentservices");
-        
-        final NetHttpTransport HTTP_TRANSPORT = new NetHttpTransport();
-        final JsonFactory JSON_FACTORY = new JacksonFactory();
-        final String TOKEN_SERVER_URL = "https://identity.xero.com/connect/token";
-        final String AUTHORIZATION_SERVER_URL = "https://login.xero.com/identity/connect/authorize";
-        DataStoreFactory DATA_STORE_FACTORY = new MemoryDataStoreFactory();		
-        
-        AuthorizationCodeFlow flow = new AuthorizationCodeFlow.Builder(BearerToken.authorizationHeaderAccessMethod(), 
-        		HTTP_TRANSPORT, 
-        		JSON_FACTORY, 
-        		new GenericUrl(TOKEN_SERVER_URL), 
-        		new ClientParametersAuthentication(clientId, clientSecret), clientId, AUTHORIZATION_SERVER_URL).setScopes(scopeList).setDataStoreFactory(DATA_STORE_FACTORY).build();
-       TokenResponse accessToken = flow.newTokenRequest(code).setRedirectUri(redirectURI).execute();
-       
-       HttpTransport httpTransport = new NetHttpTransport();
-	   JsonFactory jsonFactory = new JacksonFactory();
-	   GoogleCredential credential = new GoogleCredential.Builder().setTransport(httpTransport).setJsonFactory(jsonFactory).setClientSecrets(clientId, clientSecret).build();
-	   credential.setAccessToken(accessToken.getAccessToken());
-	   credential.setRefreshToken(accessToken.getRefreshToken());
-	   credential.setExpiresInSeconds(accessToken.getExpiresInSeconds());
-	 
-      
-       // Create requestFactory with credentials
-       HttpTransport transport = new NetHttpTransport();        
-       HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+    ArrayList<String> scopeList = new ArrayList<String>();
+    scopeList.add("openid");
+    scopeList.add("email");
+    scopeList.add("profile");
+    scopeList.add("offline_access");
+    scopeList.add("accounting.settings");
+    scopeList.add("accounting.transactions");
+    scopeList.add("accounting.contacts");
+    scopeList.add("accounting.journals.read");
+    scopeList.add("accounting.reports.read");
+    scopeList.add("accounting.attachments");
+    scopeList.add("paymentservices");
+    
+    final NetHttpTransport HTTP_TRANSPORT = new NetHttpTransport();
+    final JsonFactory JSON_FACTORY = new JacksonFactory();
+    final String TOKEN_SERVER_URL = "https://identity.xero.com/connect/token";
+    final String AUTHORIZATION_SERVER_URL = "https://login.xero.com/identity/connect/authorize";
+    DataStoreFactory DATA_STORE_FACTORY = new MemoryDataStoreFactory();		
+    
+    AuthorizationCodeFlow flow = new AuthorizationCodeFlow.Builder(BearerToken.authorizationHeaderAccessMethod(), 
+    		HTTP_TRANSPORT, 
+    		JSON_FACTORY, 
+    		new GenericUrl(TOKEN_SERVER_URL), 
+    		new ClientParametersAuthentication(clientId, clientSecret), clientId, AUTHORIZATION_SERVER_URL).setScopes(scopeList).setDataStoreFactory(DATA_STORE_FACTORY).build();
+    TokenResponse accessToken = flow.newTokenRequest(code).setRedirectUri(redirectURI).execute();
+   
+    HttpTransport httpTransport = new NetHttpTransport();
+    JsonFactory jsonFactory = new JacksonFactory();
+    GoogleCredential credential = new GoogleCredential.Builder().setTransport(httpTransport).setJsonFactory(jsonFactory).setClientSecrets(clientId, clientSecret).build();
+    credential.setAccessToken(accessToken.getAccessToken());
+    credential.setRefreshToken(accessToken.getRefreshToken());
+    credential.setExpiresInSeconds(accessToken.getExpiresInSeconds());
 
-       // Init IdentityApi client
-       ApiClient defaultClient = new ApiClient(null,null,null,null,requestFactory);
-       IdentityApi idApi = new IdentityApi(defaultClient);
-       List<Connection> connection = idApi.getConnections();
+    // Create requestFactory with credentials
+    HttpTransport transport = new NetHttpTransport();        
+    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
 
-       TokenStorage store = new TokenStorage();
-       store.saveItem(response, "access_token", accessToken.getAccessToken());
-       store.saveItem(response, "refresh_token", accessToken.getRefreshToken());
-       store.saveItem(response, "expires_in_seconds", accessToken.getExpiresInSeconds().toString());
-       store.saveItem(response, "xero_tenant_id", connection.get(0).getTenantId().toString());
+    // Init IdentityApi client
+    ApiClient defaultClient = new ApiClient("https://api.xero.com",null,null,null,requestFactory);
+    IdentityApi idApi = new IdentityApi(defaultClient);
+    List<Connection> connection = idApi.getConnections();
 
-       response.sendRedirect("./AuthenticatedResource");
+    TokenStorage store = new TokenStorage();
+    store.saveItem(response, "access_token", accessToken.getAccessToken());
+    store.saveItem(response, "refresh_token", accessToken.getRefreshToken());
+    store.saveItem(response, "expires_in_seconds", accessToken.getExpiresInSeconds().toString());
+    store.saveItem(response, "xero_tenant_id", connection.get(0).getTenantId().toString());
+
+   response.sendRedirect("./AuthenticatedResource");
 	}
 }

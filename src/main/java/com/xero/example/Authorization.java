@@ -39,9 +39,9 @@ public class Authorization extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		final String clientId = "CEC496D0B24D4448A8F1D8B6A3F5C00E";
-        final String clientSecret = "RyndE0-u_Drvu-jIwBNO4Hcsug-kCcQQgUQOB4AHTHpHl2z9";
-        final String redirectURI = "http://localhost:8080/xero-sdk-oauth2-dev-01/Callback";
+		final String clientId = "--YOUR_CLIENT_ID--";
+        final String clientSecret = "--YOUR_CLIENT_SECRET--";
+        final String redirectURI = "--YOUR_REDIRECT_URI--";
         final String secretState = "secret" + new Random().nextInt(999_999);
         
         ArrayList<String> scopeList = new ArrayList<String>();
@@ -79,13 +79,5 @@ public class Authorization extends HttpServlet {
             .setRedirectUri(redirectURI).build();
         
          response.sendRedirect(url);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 }
