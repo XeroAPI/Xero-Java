@@ -36,6 +36,8 @@ public class RefreshCredential {
 			@Override
 			public void onTokenResponse(Credential credential, TokenResponse tokenResponse) throws IOException {
 				System.out.println("Token Refresh success");
+				credential.setFromTokenResponse(tokenResponse);
+				// implement your own storage of new tokens
 				TokenStorage store = new TokenStorage();
 			    store.saveItem(response, "access_token", tokenResponse.getAccessToken());
 			    store.saveItem(response, "refresh_token", tokenResponse.getRefreshToken());
