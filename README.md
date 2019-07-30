@@ -3,6 +3,7 @@
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.xeroapi/xero-java.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.github.xeroapi%22%20AND%20a:%22xero-java%22)
 
+## Current release of SDK with oAuth 2 support
 The release of version 3.x of Xero Java SDK only supports oAuth2 authentication and the following API sets.
 * accounting
 * fixed asset 
@@ -17,69 +18,25 @@ Coming soon
 All third party libraries dependencies managed with Maven.
 
 ## Looking for version 2.x of the SDK with oAuth 1.0a support?
-Codebase, samples and setup instructions located in [oauth1 branch](https://github.com/XeroAPI/Xero-Java/tree/master/example).
-
-### Initializing Client
-
-1.0 Client (deprecated)
-```java
-XeroClient client = new XeroClient();
-client.setOAuthToken(accessToken.getToken(), accessToken.getTokenSecret());				
-```
-
-2.0 Client
-```java
-// Accounting API endpoints
-ApiClient apiClientForAccounting = new ApiClient(config.getApiUrl(),null,null,null);
-AccountingApi accountingApi = new AccountingApi(apiClientForAccounting);
-accountingApi.setOAuthToken(token, tokenSecret);
-
-// BankFeeds API endpoints (for approved Partners)
-ApiClient apiClientForBankFeeds = new ApiClient(config.getBankFeedsUrl(),null,null,null);
-BankFeedsApi bankFeedsApi = new BankFeedsApi(apiClientForBankFeeds);
-bankFeedsApi.setOAuthToken(token, tokenSecret);
-
-// Files API endpoints
-ApiClient apiClientForFiles = new ApiClient(config.getFilesUrl(),null,null,null);
-FilesApi filesApi = new FilesApi(apiClientForFiles);
-filesApi.setOAuthToken(token, tokenSecret);
-
-// Fixed Assets API endpoints
-ApiClient apiClientForAssets = new ApiClient(config.getAssetsUrl(),null,null,null);
-AssetApi assetApi = new AssetApi(apiClientForAssets);
-assetApi.setOAuthToken(token, tokenSecret);
-```
-
-### Making API calls will change as well.
-
-1.0 Example GET
-```java
-List<Organisation> organisations = client.getOrganisations();
-System.out.println("Org Name : " + organisations.get(0).getName());
-```
-
-2.0 Example GET
-```java
-Organisations organisations = accountingApi.getOrganisations();
-System.out.println("Org Name : " + organisations.getOrganisations().get(0).getName());
-```
-
-### Models are moving
-
-1.0 models where imported from com.xero.model.*
-
-2.0 models are separated into major API groups under *com.xero.models* 
-i.e. com.xero.models.accounting.*
-
+Codebase, samples and setup instructions located in [oauth1 branch](https://github.com/XeroAPI/Xero-Java/tree/oauth1).
 
 ## Getting Started
 
-### Xero App Type
-Start by deciding which type of Xero app you'll be building [Private](http://developer.xero.com/documentation/auth-and-limits/private-applications/), [Public](http://developer.xero.com/documentation/auth-and-limits/public-applications/), or [Partner](http://developer.xero.com/documentation/auth-and-limits/partner-applications/). Go to [http://app.xero.com](http://app.xero.com) and login with your Xero user account to create a Private or Public app (Public apps can be upgraded to Partner).
+### Create a Xero App
+Follow these steps to create your Xero app
+
+* Create a free Xero user account (if you don't have one)
+* Login to [developer.xero.com/myapps](https://developer.xero.com/myapps)
+* Click "New App" button
+* Foo
+* Bar
+* Copy your client id and secret for use later
+* Set your callback uri (i.e. http://localhost:3000/callback) 
+
 
 ### Add Xero-Java Dependency
 
-Add the dependency to your pom.xml.  Gradle, sbt and other build tools can be found on [maven central](https://search.maven.org/search?q=g:com.github.xeroapi).
+Add the Xero Java SDK dependency to project via maven, gradle, sbt or other build tools can be found on [maven central](https://search.maven.org/search?q=g:com.github.xeroapi).
 
 ### Default Configuration
 The SDK uses a config.json file to manage API keys along with other configuration values.  The SDK will look for a file *config.json* in a source folder called *resources*.
