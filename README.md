@@ -3,18 +3,21 @@
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.xeroapi/xero-java.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.github.xeroapi%22%20AND%20a:%22xero-java%22)
 
+The release of version 3.x of Xero Java SDK only supports oAuth2 authentication and the following API sets.
+* accounting
+* fixed asset 
+* bank feeds 
 
-This is the official Java SDK for Xero's API. It supports accounting, fixed asset and bank feed API endpoints. All third party libraries dependencies managed with Maven.
+Coming soon
+* files 
+* payroll
+* projects
+* xero hq
 
+All third party libraries dependencies managed with Maven.
 
-## Migrating from version 1.0 to 2.0 of SDK
-We've made some big changes to our Java SDK with version 2.0.  All code examples in this README are for version 2.0.  We've archived [code samples for version 1.0 here](https://github.com/XeroAPI/Xero-Java/tree/master/example).
-
-2.0 implements requests and responses for accounting API endpoints using JSON only.  Don't worry we won't be removing any of the existing methods for XML, but will mark them as deprecated in favor of JSON.
-
-Our XSD schema files will also be deprecated in favor of [OpenAPI spec 3.0 files now available on Github](https://github.com/XeroAPI/Xero-OpenAPI).
-
-Lastly, our trusty XeroClient class that holds methods for interacting with each endpoint will be deprecated in favor of clients for each major API group at Xero.  See below. 
+## Looking for version 2.x of the SDK with oAuth 1.0a support?
+Codebase, samples and setup instructions located in [oauth1 branch](https://github.com/XeroAPI/Xero-Java/tree/master/example).
 
 ### Initializing Client
 
