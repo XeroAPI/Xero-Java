@@ -4,7 +4,7 @@
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.xeroapi/xero-java.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.github.xeroapi%22%20AND%20a:%22xero-java%22)
 
 ## Current release of SDK with oAuth 2 support
-The release of version 3.x of Xero Java SDK only supports oAuth2 authentication and the following API sets.
+Version 3.x of Xero Java SDK only supports oAuth2 authentication and the following API sets.
 * accounting
 * fixed asset 
 * bank feeds 
@@ -28,15 +28,23 @@ Follow these steps to create your Xero app
 * Create a free Xero user account (if you don't have one)
 * Login to [developer.xero.com/myapps](https://developer.xero.com/myapps)
 * Click "New App" button
-* Foo
-* Bar
+* additional steps ... todo
 * Copy your client id and secret for use later
 * Set your callback uri (i.e. http://localhost:3000/callback) 
-
 
 ### Add Xero-Java Dependency
 
 Add the Xero Java SDK dependency to project via maven, gradle, sbt or other build tools can be found on [maven central](https://search.maven.org/search?q=g:com.github.xeroapi).
+
+```xml
+<dependency>
+  <groupId>com.github.xeroapi</groupId>
+  <artifactId>xero-java</artifactId>
+  <version>3.X.X</version>
+</dependency>
+```
+
+
 
 ### Default Configuration
 The SDK uses a config.json file to manage API keys along with other configuration values.  The SDK will look for a file *config.json* in a source folder called *resources*.

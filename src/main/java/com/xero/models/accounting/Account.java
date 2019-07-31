@@ -110,6 +110,8 @@ public class Account {
     
     PAYPAL("PAYPAL"),
     
+    NONE("NONE"),
+    
     EMPTY("");
 
     private String value;

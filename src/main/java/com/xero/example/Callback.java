@@ -49,8 +49,8 @@ public class Callback extends HttpServlet {
 		if (request.getParameter("code") != null) {   
 			code = request.getParameter("code");
 		}
-		
-    final String clientId = "--YOUR_CLIENT_ID--";
+	
+	final String clientId = "--YOUR_CLIENT_ID--";
     final String clientSecret = "--YOUR_CLIENT_SECRET--";
     final String redirectURI = "--YOUR_REDIRECT_URI--";
         

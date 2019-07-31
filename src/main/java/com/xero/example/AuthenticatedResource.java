@@ -27,14 +27,18 @@ import com.xero.models.accounting.*;
 import com.xero.models.accounting.Phone.PhoneTypeEnum;
 import com.xero.api.client.AccountingApi;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.threeten.bp.*;
 
 @WebServlet("/AuthenticatedResource")
 public class AuthenticatedResource extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L; 
-	//private Config config = null;
-	//final static Logger logger = LogManager.getLogger(OAuthRequestResource.class);
+	final static Logger logger = LogManager.getLogger(AuthenticatedResource.class);
+	final String clientId = "--YOUR_CLIENT_ID--";
+	final String clientSecret = "--YOUR_CLIENT_SECRET--";
+	final String redirectURI = "--YOUR_REDIRECT_URI--";
 	   
 	private String htmlString =  "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css\" integrity=\"sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7\" crossorigin=\"anonymous\">"
 			+ "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css\" integrity=\"sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r\" crossorigin=\"anonymous\">"
@@ -47,12 +51,9 @@ public class AuthenticatedResource extends HttpServlet
 			+ "<div class=\"form-group\">" 
 		  	+ "<label for=\"object\">Create, Read, Update & Delete</label>"
 		  	+ "<select name=\"object\" class=\"form-control\" id=\"object\">"
-		  	+ "<option value=\"Assets\" >Assets</option>"
 			+ "<option value=\"Accounts\" >Accounts</option>"
 			+ "<option value=\"CreateAttachments\">Attachments - Create</option>"
 			+ "<option value=\"GetAttachments\">Attachments - Get</option>"
-			+ "<option value=\"BankFeedConnections\">Bank Feed Connections</option>"
-			+ "<option value=\"BankStatements\">Bank Statements</option>"
 		  	+ "<option value=\"BankTransactions\" >BankTransactions</option>"
 		  	+ "<option value=\"BankTransfers\" >BankTransfers</option>"
 		  	+ "<option value=\"BatchPayments\" >BatchPayments</option>"
@@ -65,8 +66,6 @@ public class AuthenticatedResource extends HttpServlet
 		  	+ "<option value=\"Currencies\">Currencies</option>"
 		  	+ "<option value=\"Employees\" >Employees</option>"
 		  	+ "<option value=\"ExpenseClaims\">ExpenseClaims</option>"
-			+ "<option value=\"Files\" >Files</option>"
-		  	+ "<option value=\"Folders\" >Folders</option>"
 		  	+ "<option value=\"Invoices\" >Invoices</option>"
 		  	+ "<option value=\"InvoiceReminders\">InvoiceReminders</option>"
 		  	+ "<option value=\"Items\">Items</option>"
@@ -150,9 +149,6 @@ public class AuthenticatedResource extends HttpServlet
 		// Set Access Token from Storage
 		TokenStorage store = new TokenStorage();
         
-		final String clientId = "--YOUR_CLIENT_ID--";
-    	final String clientSecret = "--YOUR_CLIENT_SECRET--";
-
         final HttpServletResponse resp = response;
  	   	Credential credential = com.xero.example.RefreshCredential.createRefreshCredential(resp, clientId, clientSecret).build();
  	   	credential.setAccessToken(store.get(request, "access_token"));
@@ -167,21 +163,17 @@ public class AuthenticatedResource extends HttpServlet
        
         // Init AccountingApi client
         ApiClient defaultClient = new ApiClient(null,null,null,null,requestFactory);
-        AccountingApi accountingApi = new AccountingApi(defaultClient);
-        accountingApi.setXeroTenantId(xeroTenantId);       
+        AccountingApi accountingApi = new AccountingApi(defaultClient);    
         
-        if (object.equals("Files")) {
-			// FILES 
-        
-        } else if (object.equals("Accounts")) {
+        if (object.equals("Accounts")) {
 			// ACCOUNTS
 			try {
 				// GET all accounts
-				Accounts accounts = accountingApi.getAccounts(null, null, null);
+				Accounts accounts = accountingApi.getAccounts(xeroTenantId,null, null, null);
 				messages.add("Get a all Accounts - total : " + accounts.getAccounts().size());
 				
 				// GET one account
-				Accounts oneAccount = accountingApi.getAccount(accounts.getAccounts().get(0).getAccountID());
+				Accounts oneAccount = accountingApi.getAccount(xeroTenantId,accounts.getAccounts().get(0).getAccountID());
 				messages.add("Get a one Account - name : " + oneAccount.getAccounts().get(0).getName());				
 				
 				// CREATE account
@@ -190,7 +182,7 @@ public class AuthenticatedResource extends HttpServlet
 				acct.setCode("Hello" + loadRandomNum());
 				acct.setDescription("Foo boo");
 				acct.setType(com.xero.models.accounting.AccountType.EXPENSE);
-				Accounts newAccount = accountingApi.createAccount(acct);
+				Accounts newAccount = accountingApi.createAccount(xeroTenantId,acct);
 				messages.add("Create a new Account - Name : " + newAccount.getAccounts().get(0).getName() + " Description : " + newAccount.getAccounts().get(0).getDescription() + "");
 				UUID accountID = newAccount.getAccounts().get(0).getAccountID();
 				
@@ -200,18 +192,18 @@ public class AuthenticatedResource extends HttpServlet
 				bankAcct.setCode("12" + loadRandomNum());
 				bankAcct.setType(com.xero.models.accounting.AccountType.BANK);
 				bankAcct.setBankAccountNumber("1234" + loadRandomNum());
-				Accounts newBankAccount = accountingApi.createAccount(bankAcct);
+				Accounts newBankAccount = accountingApi.createAccount(xeroTenantId,bankAcct);
 				messages.add("Create Bank Account - Name : " + newBankAccount.getAccounts().get(0).getName());				
 				
 				// GET BANK account
 			    where = "Status==\"ACTIVE\"&&Type==\"BANK\"";
-				Accounts accountsWhere = accountingApi.getAccounts(ifModifiedSince, where, order);
+				Accounts accountsWhere = accountingApi.getAccounts(xeroTenantId,ifModifiedSince, where, order);
 				messages.add("Get a all Accounts - total : " + accountsWhere.getAccounts().size());				
 				
 				// UDPATE Account
 				newAccount.getAccounts().get(0).setDescription("Monsters Inc.");
 				newAccount.getAccounts().get(0).setStatus(null);
-				Accounts updateAccount = accountingApi.updateAccount(accountID, newAccount);
+				Accounts updateAccount = accountingApi.updateAccount(xeroTenantId,accountID, newAccount);
 				messages.add("Update Account - Name : " + updateAccount.getAccounts().get(0).getName() + " Description : " + updateAccount.getAccounts().get(0).getDescription() + "");
 				
 				// ARCHIVE Account
@@ -220,12 +212,12 @@ public class AuthenticatedResource extends HttpServlet
 				archiveAccount.setStatus(com.xero.models.accounting.Account.StatusEnum.ARCHIVED);
 				archiveAccount.setAccountID(accountID);
 				archiveAccounts.addAccountsItem(archiveAccount);
-				Accounts achivedAccount = accountingApi.updateAccount(accountID, archiveAccounts);
+				Accounts achivedAccount = accountingApi.updateAccount(xeroTenantId,accountID, archiveAccounts);
 				messages.add("Archived Account - Name : " + achivedAccount.getAccounts().get(0).getName() + " Status: " + achivedAccount.getAccounts().get(0).getStatus());
 				
 				// DELETE Account
 				UUID deleteAccountID = newAccount.getAccounts().get(0).getAccountID();
-				Accounts deleteAccount = accountingApi.deleteAccount(deleteAccountID);
+				Accounts deleteAccount = accountingApi.deleteAccount(xeroTenantId,deleteAccountID);
 				messages.add("Delete account - Status? : " + deleteAccount.getAccounts().get(0).getStatus());	
 				
 			} catch (Exception e) {
@@ -238,14 +230,14 @@ public class AuthenticatedResource extends HttpServlet
         	try {
 				// GET Account Attachment 
         		where = "Status==\"ACTIVE\"";
-				Accounts accounts = accountingApi.getAccounts(ifModifiedSince, where, order);
+				Accounts accounts = accountingApi.getAccounts(xeroTenantId,ifModifiedSince, where, order);
 				if (accounts.getAccounts().size() > 0) {
 					UUID accountID = accounts.getAccounts().get(0).getAccountID();				
-					Attachments accountsAttachments = accountingApi.getAccountAttachments(accountID);
+					Attachments accountsAttachments = accountingApi.getAccountAttachments(xeroTenantId,accountID);
 					if (accountsAttachments.getAttachments().size() > 0) {
 						UUID attachementId = accountsAttachments.getAttachments().get(0).getAttachmentID();
 						String contentType = accountsAttachments.getAttachments().get(0).getMimeType();
-						ByteArrayInputStream input	 = accountingApi.getAccountAttachmentById(accountID,attachementId, contentType);
+						ByteArrayInputStream input	 = accountingApi.getAccountAttachmentById(xeroTenantId,accountID,attachementId, contentType);
 						String fileName = "Account_" + accountsAttachments.getAttachments().get(0).getFileName();
 						String saveFilePath = saveFile(input,fileName);
 						messages.add("Get Account attachment - save it here: " + saveFilePath);	
@@ -254,14 +246,14 @@ public class AuthenticatedResource extends HttpServlet
 				
 				// GET BankTransactions Attachment
 				where = null;
-				BankTransactions bankTransactions = accountingApi.getBankTransactions(ifModifiedSince, where, order, null, null);
+				BankTransactions bankTransactions = accountingApi.getBankTransactions(xeroTenantId,ifModifiedSince, where, order, null, null);
 				if (bankTransactions.getBankTransactions().size() > 0) {
 					UUID BankTransactionID = bankTransactions.getBankTransactions().get(0).getBankTransactionID();				
-					Attachments bankTransactionsAttachments = accountingApi.getBankTransactionAttachments(BankTransactionID);
+					Attachments bankTransactionsAttachments = accountingApi.getBankTransactionAttachments(xeroTenantId,BankTransactionID);
 					if (bankTransactionsAttachments.getAttachments().size() > 0) {
 						UUID BankTransactionAttachementID = bankTransactionsAttachments.getAttachments().get(0).getAttachmentID();
 						String BankTransactionContentType = bankTransactionsAttachments.getAttachments().get(0).getMimeType();
-						ByteArrayInputStream BankTransactionInput	 = accountingApi.getAccountAttachmentById(BankTransactionID,BankTransactionAttachementID, BankTransactionContentType);
+						ByteArrayInputStream BankTransactionInput	 = accountingApi.getAccountAttachmentById(xeroTenantId,BankTransactionID,BankTransactionAttachementID, BankTransactionContentType);
 						String BankTransactionFileName = "BankTransaction_" + bankTransactionsAttachments.getAttachments().get(0).getFileName();
 						String BankTransactionSaveFilePath = saveFile(BankTransactionInput,BankTransactionFileName);
 						messages.add("Get BankTransactions attachment - save it here: " + BankTransactionSaveFilePath);
@@ -269,14 +261,14 @@ public class AuthenticatedResource extends HttpServlet
 				}
 				
 				// GET BankTransfers Attachment 
-				BankTransfers bankTransfers = accountingApi.getBankTransfers(ifModifiedSince, where, order);
+				BankTransfers bankTransfers = accountingApi.getBankTransfers(xeroTenantId,ifModifiedSince, where, order);
 				if (bankTransfers.getBankTransfers().size() > 0) {
 					UUID BankTransferID = bankTransfers.getBankTransfers().get(0).getBankTransferID();				
-					Attachments bankTransfersAttachments = accountingApi.getBankTransferAttachments(BankTransferID);
+					Attachments bankTransfersAttachments = accountingApi.getBankTransferAttachments(xeroTenantId,BankTransferID);
 					if (bankTransfersAttachments.getAttachments().size() > 0) {	
 						UUID BankTransferAttachementID = bankTransfersAttachments.getAttachments().get(0).getAttachmentID();
 						String BankTransferContentType = bankTransfersAttachments.getAttachments().get(0).getMimeType();
-						ByteArrayInputStream BankTransferInput	 = accountingApi.getAccountAttachmentById(BankTransferID,BankTransferAttachementID, BankTransferContentType);
+						ByteArrayInputStream BankTransferInput	 = accountingApi.getAccountAttachmentById(xeroTenantId,BankTransferID,BankTransferAttachementID, BankTransferContentType);
 						String BankTransferFileName = "BankTransfer_" + bankTransfersAttachments.getAttachments().get(0).getFileName();
 						String BankTransferSaveFilePath = saveFile(BankTransferInput,BankTransferFileName);
 						messages.add("Get BankTransfers attachment - save it here: " + BankTransferSaveFilePath);
@@ -284,14 +276,14 @@ public class AuthenticatedResource extends HttpServlet
 				}
 				// GET Contacts Attachment 
 				where =  "ContactStatus==\"ACTIVE\"";
-				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
+				Contacts contacts = accountingApi.getContacts(xeroTenantId,ifModifiedSince, where, order, ids, null, includeArchived);
 				if (contacts.getContacts().size() > 0) {
 					UUID ContactID = contacts.getContacts().get(0).getContactID();				
-					Attachments contactsAttachments = accountingApi.getContactAttachments(ContactID);
+					Attachments contactsAttachments = accountingApi.getContactAttachments(xeroTenantId,ContactID);
 					if (contactsAttachments.getAttachments().size() > 0) {	
 						UUID ContactAttachementID = contactsAttachments.getAttachments().get(0).getAttachmentID();
 						String ContactContentType = contactsAttachments.getAttachments().get(0).getMimeType();
-						ByteArrayInputStream ContactInput	 = accountingApi.getAccountAttachmentById(ContactID,ContactAttachementID, ContactContentType);
+						ByteArrayInputStream ContactInput	 = accountingApi.getAccountAttachmentById(xeroTenantId,ContactID,ContactAttachementID, ContactContentType);
 						String ContactFileName = "Contact_" + contactsAttachments.getAttachments().get(0).getFileName();
 						String ContactSaveFilePath = saveFile(ContactInput,ContactFileName);
 						messages.add("Get Contacts attachment - save it here: " + ContactSaveFilePath);
@@ -299,14 +291,14 @@ public class AuthenticatedResource extends HttpServlet
 				}
 				// GET CreditNotes Attachment 
 				where = "Status==\"AUTHORISED\"";
-				CreditNotes creditNotes = accountingApi.getCreditNotes(ifModifiedSince, where, order, null);
+				CreditNotes creditNotes = accountingApi.getCreditNotes(xeroTenantId,ifModifiedSince, where, order, null);
 				if (creditNotes.getCreditNotes().size() > 0) {	
 					UUID CreditNoteID = creditNotes.getCreditNotes().get(0).getCreditNoteID();				
-					Attachments creditNotesAttachments = accountingApi.getCreditNoteAttachments(CreditNoteID);
+					Attachments creditNotesAttachments = accountingApi.getCreditNoteAttachments(xeroTenantId,CreditNoteID);
 					if (creditNotesAttachments.getAttachments().size() > 0) {
 						UUID CreditNoteAttachementID = creditNotesAttachments.getAttachments().get(0).getAttachmentID();
 						String CreditNoteContentType = creditNotesAttachments.getAttachments().get(0).getMimeType();
-						ByteArrayInputStream CreditNoteInput	 = accountingApi.getAccountAttachmentById(CreditNoteID,CreditNoteAttachementID, CreditNoteContentType);
+						ByteArrayInputStream CreditNoteInput	 = accountingApi.getAccountAttachmentById(xeroTenantId,CreditNoteID,CreditNoteAttachementID, CreditNoteContentType);
 						String CreditNoteFileName = "CreditNote_" + creditNotesAttachments.getAttachments().get(0).getFileName();
 						String CreditNoteSaveFilePath = saveFile(CreditNoteInput,CreditNoteFileName);
 						messages.add("Get CreditNotes attachment - save it here: " + CreditNoteSaveFilePath);
@@ -314,14 +306,14 @@ public class AuthenticatedResource extends HttpServlet
 				}
 				
 				// GET Invoices Attachment 
-				Invoices invoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
+				Invoices invoices = accountingApi.getInvoices(xeroTenantId,ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
 				if (invoices.getInvoices().size() > 0) {	
 					UUID InvoiceID = invoices.getInvoices().get(0).getInvoiceID();				
-					Attachments invoicesAttachments = accountingApi.getInvoiceAttachments(InvoiceID);
+					Attachments invoicesAttachments = accountingApi.getInvoiceAttachments(xeroTenantId,InvoiceID);
 					if (invoicesAttachments.getAttachments().size() > 0) {	
 						UUID InvoiceAttachementID = invoicesAttachments.getAttachments().get(0).getAttachmentID();
 						String InvoiceContentType = invoicesAttachments.getAttachments().get(0).getMimeType();
-						ByteArrayInputStream InvoiceInput	 = accountingApi.getAccountAttachmentById(InvoiceID,InvoiceAttachementID, InvoiceContentType);
+						ByteArrayInputStream InvoiceInput	 = accountingApi.getAccountAttachmentById(xeroTenantId,InvoiceID,InvoiceAttachementID, InvoiceContentType);
 						String InvoiceFileName = "Invoice_" + invoicesAttachments.getAttachments().get(0).getFileName();
 						String InvoiceSaveFilePath = saveFile(InvoiceInput,InvoiceFileName);
 						messages.add("Get Invoices attachment - save it here: " + InvoiceSaveFilePath);
@@ -330,14 +322,14 @@ public class AuthenticatedResource extends HttpServlet
 
 				// GET ManualJournals Attachment 
 				where= null;
-				ManualJournals manualJournals = accountingApi.getManualJournals(ifModifiedSince, where, order, null);
+				ManualJournals manualJournals = accountingApi.getManualJournals(xeroTenantId,ifModifiedSince, where, order, null);
 				if (manualJournals.getManualJournals().size() > 0) {	
 					UUID ManualJournalID = manualJournals.getManualJournals().get(0).getManualJournalID();				
-					Attachments manualJournalsAttachments = accountingApi.getManualJournalAttachments(ManualJournalID);
+					Attachments manualJournalsAttachments = accountingApi.getManualJournalAttachments(xeroTenantId,ManualJournalID);
 					if (manualJournalsAttachments.getAttachments().size() > 0) {	
 						UUID ManualJournalAttachementID = manualJournalsAttachments.getAttachments().get(0).getAttachmentID();
 						String ManualJournalContentType = manualJournalsAttachments.getAttachments().get(0).getMimeType();
-						ByteArrayInputStream ManualJournalInput	 = accountingApi.getAccountAttachmentById(ManualJournalID,ManualJournalAttachementID, ManualJournalContentType);
+						ByteArrayInputStream ManualJournalInput	 = accountingApi.getAccountAttachmentById(xeroTenantId,ManualJournalID,ManualJournalAttachementID, ManualJournalContentType);
 						String ManualJournalFileName = "ManualJournal_" + manualJournalsAttachments.getAttachments().get(0).getFileName();
 						String ManualJournalSaveFilePath = saveFile(ManualJournalInput,ManualJournalFileName);
 						messages.add("Get ManualJournals attachment - save it here: " + ManualJournalSaveFilePath);
@@ -345,14 +337,14 @@ public class AuthenticatedResource extends HttpServlet
 				}
 				
 				// GET Receipts Attachment 
-				Receipts receipts = accountingApi.getReceipts(ifModifiedSince, where, order, null);
+				Receipts receipts = accountingApi.getReceipts(xeroTenantId,ifModifiedSince, where, order, null);
 				if (receipts.getReceipts().size() > 0) {			
 					UUID ReceiptID = receipts.getReceipts().get(0).getReceiptID();				
-					Attachments receiptsAttachments = accountingApi.getReceiptAttachments(ReceiptID);
+					Attachments receiptsAttachments = accountingApi.getReceiptAttachments(xeroTenantId,ReceiptID);
 					if (receiptsAttachments.getAttachments().size() > 0) {			
 						UUID ReceiptAttachementID = receiptsAttachments.getAttachments().get(0).getAttachmentID();
 						String ReceiptContentType = receiptsAttachments.getAttachments().get(0).getMimeType();
-						ByteArrayInputStream ReceiptInput	 = accountingApi.getAccountAttachmentById(ReceiptID,ReceiptAttachementID, ReceiptContentType);
+						ByteArrayInputStream ReceiptInput	 = accountingApi.getAccountAttachmentById(xeroTenantId,ReceiptID,ReceiptAttachementID, ReceiptContentType);
 						String ReceiptFileName = "Receipt_" + receiptsAttachments.getAttachments().get(0).getFileName();						
 						String ReceiptSaveFilePath = saveFile(ReceiptInput,ReceiptFileName);
 						messages.add("Get Receipts attachment - save it here: " + ReceiptSaveFilePath);
@@ -360,14 +352,14 @@ public class AuthenticatedResource extends HttpServlet
 				}
 
 				// GET RepeatingInvoices Attachment 
-				RepeatingInvoices repeatingInvoices = accountingApi.getRepeatingInvoices(where, order);
+				RepeatingInvoices repeatingInvoices = accountingApi.getRepeatingInvoices(xeroTenantId,where, order);
 				if (repeatingInvoices.getRepeatingInvoices().size() > 0) {			
 					UUID RepeatingInvoiceID = repeatingInvoices.getRepeatingInvoices().get(0).getRepeatingInvoiceID();				
-					Attachments repeatingInvoicesAttachments = accountingApi.getRepeatingInvoiceAttachments(RepeatingInvoiceID);
+					Attachments repeatingInvoicesAttachments = accountingApi.getRepeatingInvoiceAttachments(xeroTenantId,RepeatingInvoiceID);
 					if (repeatingInvoicesAttachments.getAttachments().size() > 0) {			
 						UUID RepeatingInvoiceAttachementID = repeatingInvoicesAttachments.getAttachments().get(0).getAttachmentID();
 						String RepeatingInvoiceContentType = repeatingInvoicesAttachments.getAttachments().get(0).getMimeType();
-						ByteArrayInputStream RepeatingInvoiceInput	 = accountingApi.getAccountAttachmentById(RepeatingInvoiceID,RepeatingInvoiceAttachementID, RepeatingInvoiceContentType);
+						ByteArrayInputStream RepeatingInvoiceInput	 = accountingApi.getAccountAttachmentById(xeroTenantId,RepeatingInvoiceID,RepeatingInvoiceAttachementID, RepeatingInvoiceContentType);
 						String RepeatingInvoiceFileName = "RepeatingInvoice_" + repeatingInvoicesAttachments.getAttachments().get(0).getFileName();
 						String RepeatingInvoiceSaveFilePath = saveFile(RepeatingInvoiceInput,RepeatingInvoiceFileName);
 						messages.add("Get RepeatingInvoices attachment - save it here: " + RepeatingInvoiceSaveFilePath);
@@ -385,11 +377,11 @@ public class AuthenticatedResource extends HttpServlet
         	try {
 				// CREATE Accounts attachment
 			    where = "Status==\"ACTIVE\"";
-				Accounts myAccounts = accountingApi.getAccounts(ifModifiedSince, where, order);
+				Accounts myAccounts = accountingApi.getAccounts(xeroTenantId,ifModifiedSince, where, order);
 				if ( myAccounts.getAccounts().size() > 0) {
 					UUID accountID = myAccounts.getAccounts().get(0).getAccountID();
 					String accountName = myAccounts.getAccounts().get(0).getName();
-					Attachments createdAttachments = accountingApi.createAccountAttachmentByFileName(accountID, newFileName, bytes);
+					Attachments createdAttachments = accountingApi.createAccountAttachmentByFileName(xeroTenantId,accountID, newFileName, bytes);
 					messages.add("Attachment to Name: " + accountName + " Account ID: " + accountID + " attachment - ID: " + createdAttachments.getAttachments().get(0).getAttachmentID());
 				}
         	} catch (Exception e) {
@@ -399,10 +391,10 @@ public class AuthenticatedResource extends HttpServlet
         	try {
         		where = null;
 				// CREATE BankTransactions attachment
-				BankTransactions myBanktransactions = accountingApi.getBankTransactions(ifModifiedSince, where, order, null, null);
+				BankTransactions myBanktransactions = accountingApi.getBankTransactions(xeroTenantId,ifModifiedSince, where, order, null, null);
 				if ( myBanktransactions.getBankTransactions().size() > 0) {
 					UUID banktransactionID = myBanktransactions.getBankTransactions().get(0).getBankTransactionID();			
-					Attachments createdBanktransationAttachments = accountingApi.createBankTransactionAttachmentByFileName(banktransactionID, newFileName, bytes);
+					Attachments createdBanktransationAttachments = accountingApi.createBankTransactionAttachmentByFileName(xeroTenantId,banktransactionID, newFileName, bytes);
 					messages.add("Attachment to BankTransaction ID: " + banktransactionID + " attachment - ID: "  + createdBanktransationAttachments.getAttachments().get(0).getAttachmentID());
 				}
         	} catch (Exception e) {
@@ -411,10 +403,10 @@ public class AuthenticatedResource extends HttpServlet
 			
         	try {
 				// CREATE BankTransfer attachment
-				BankTransfers myBankTransfer = accountingApi.getBankTransfers(ifModifiedSince, where, order);
+				BankTransfers myBankTransfer = accountingApi.getBankTransfers(xeroTenantId,ifModifiedSince, where, order);
 				if ( myBankTransfer.getBankTransfers().size() > 0) {
 					UUID bankTransferID = myBankTransfer.getBankTransfers().get(0).getBankTransferID();			
-					Attachments createdBankTransferAttachments = accountingApi.createBankTransferAttachmentByFileName(bankTransferID, newFileName, bytes);
+					Attachments createdBankTransferAttachments = accountingApi.createBankTransferAttachmentByFileName(xeroTenantId,bankTransferID, newFileName, bytes);
 					messages.add("Attachment to BankTransfer ID: " + bankTransferID + " attachment - ID: " + createdBankTransferAttachments.getAttachments().get(0).getAttachmentID());
 				}
         	} catch (Exception e) {
@@ -424,10 +416,10 @@ public class AuthenticatedResource extends HttpServlet
         	try {
 				// CREATE Contacts attachment
 				where =  "ContactStatus==\"ACTIVE\"";
-				Contacts contactsWhere = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
+				Contacts contactsWhere = accountingApi.getContacts(xeroTenantId,ifModifiedSince, where, order, ids, null, includeArchived);
 				if ( contactsWhere.getContacts().size() > 0) {
 					UUID contactID = contactsWhere.getContacts().get(0).getContactID();
-					Attachments createdContactAttachments = accountingApi.createContactAttachmentByFileName(contactID, newFileName, bytes);
+					Attachments createdContactAttachments = accountingApi.createContactAttachmentByFileName(xeroTenantId,contactID, newFileName, bytes);
 					messages.add("Attachment to Contact ID: " + contactID + " attachment - ID: " + createdContactAttachments.getAttachments().get(0).getAttachmentID());
 				}
         	} catch (Exception e) {
@@ -437,10 +429,10 @@ public class AuthenticatedResource extends HttpServlet
         	try {
 				where = "Status==\"AUTHORISED\"";
 				// CREATE CreditNotes attachment
-				CreditNotes myCreditNotes = accountingApi.getCreditNotes(ifModifiedSince, where, order, null);
+				CreditNotes myCreditNotes = accountingApi.getCreditNotes(xeroTenantId,ifModifiedSince, where, order, null);
 				if ( myCreditNotes.getCreditNotes().size() > 0) {
 					UUID creditNoteID = myCreditNotes.getCreditNotes().get(0).getCreditNoteID();
-					Attachments createdCreditNoteAttachments = accountingApi.createCreditNoteAttachmentByFileName(creditNoteID, newFileName, bytes);
+					Attachments createdCreditNoteAttachments = accountingApi.createCreditNoteAttachmentByFileName(xeroTenantId,creditNoteID, newFileName, bytes);
 					messages.add("Attachment to Credit Notes ID: " + creditNoteID + " attachment - ID: " + createdCreditNoteAttachments.getAttachments().get(0).getAttachmentID());
 				}
         	} catch (Exception e) {
@@ -449,10 +441,10 @@ public class AuthenticatedResource extends HttpServlet
 			
         	try {
 				// CREATE invoice attachment
-				Invoices myInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
+				Invoices myInvoices = accountingApi.getInvoices(xeroTenantId,ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
 				if ( myInvoices.getInvoices().size() > 0) {
 					UUID invoiceID = myInvoices.getInvoices().get(0).getInvoiceID();
-					Attachments createdInvoiceAttachments = accountingApi.createInvoiceAttachmentByFileName(invoiceID, newFileName, bytes);
+					Attachments createdInvoiceAttachments = accountingApi.createInvoiceAttachmentByFileName(xeroTenantId,invoiceID, newFileName, bytes);
 					messages.add("Attachment to Invoice ID: " + invoiceID + " attachment - ID: "  + createdInvoiceAttachments.getAttachments().get(0).getAttachmentID());
 				}
         	} catch (Exception e) {
@@ -462,12 +454,12 @@ public class AuthenticatedResource extends HttpServlet
         	try {
 				// CREATE ManualJournals attachment
         		where= null;
-				ManualJournals myManualJournals = accountingApi.getManualJournals(ifModifiedSince, where, order, null);
+				ManualJournals myManualJournals = accountingApi.getManualJournals(xeroTenantId,ifModifiedSince, where, order, null);
 				System.out.println(myManualJournals.getManualJournals().size());
 				
 				if ( myManualJournals.getManualJournals().size() > 0) {
 					UUID manualJournalID = myManualJournals.getManualJournals().get(0).getManualJournalID();
-					Attachments createdManualJournalAttachments = accountingApi.createManualJournalAttachmentByFileName(manualJournalID, newFileName, bytes);
+					Attachments createdManualJournalAttachments = accountingApi.createManualJournalAttachmentByFileName(xeroTenantId,manualJournalID, newFileName, bytes);
 					messages.add("Attachment to Manual Journal ID: " + manualJournalID + " attachment - ID: " + createdManualJournalAttachments.getAttachments().get(0).getAttachmentID());
 				}
         	} catch (Exception e) {
@@ -476,10 +468,10 @@ public class AuthenticatedResource extends HttpServlet
 			
         	try {
 				// CREATE Receipts attachment
-				Receipts myReceipts = accountingApi.getReceipts(ifModifiedSince, where, order, null);
+				Receipts myReceipts = accountingApi.getReceipts(xeroTenantId,ifModifiedSince, where, order, null);
 				if ( myReceipts.getReceipts().size() > 0) {
 					UUID receiptID = myReceipts.getReceipts().get(0).getReceiptID();
-					Attachments createdReceiptsAttachments = accountingApi.createReceiptAttachmentByFileName(receiptID, newFileName, bytes);
+					Attachments createdReceiptsAttachments = accountingApi.createReceiptAttachmentByFileName(xeroTenantId,receiptID, newFileName, bytes);
 					messages.add("Attachment to Receipt ID: " + receiptID + " attachment - ID: " + createdReceiptsAttachments.getAttachments().get(0).getAttachmentID());
 				}
         	} catch (Exception e) {
@@ -488,10 +480,10 @@ public class AuthenticatedResource extends HttpServlet
 			
         	try {
 				// CREATE Repeating Invoices attachment
-				RepeatingInvoices myRepeatingInvoices = accountingApi.getRepeatingInvoices(where, order);
+				RepeatingInvoices myRepeatingInvoices = accountingApi.getRepeatingInvoices(xeroTenantId,where, order);
 				if ( myRepeatingInvoices.getRepeatingInvoices().size() > 0) {	
 					UUID repeatingInvoiceID = myRepeatingInvoices.getRepeatingInvoices().get(0).getRepeatingInvoiceID();
-					Attachments createdRepeatingInvoiceAttachments = accountingApi.createRepeatingInvoiceAttachmentByFileName(repeatingInvoiceID, newFileName, bytes);
+					Attachments createdRepeatingInvoiceAttachments = accountingApi.createRepeatingInvoiceAttachmentByFileName(xeroTenantId,repeatingInvoiceID, newFileName, bytes);
 					messages.add("Attachment to Repeating Invoices ID: " + repeatingInvoiceID + " attachment - ID: " + createdRepeatingInvoiceAttachments.getAttachments().get(0).getAttachmentID());
 				}
 				
@@ -503,7 +495,7 @@ public class AuthenticatedResource extends HttpServlet
 			/* BANK TRANSFER */
 			try {
 			    where = "Status==\"ACTIVE\"&&Type==\"BANK\"";
-				Accounts accountsWhere = accountingApi.getAccounts(ifModifiedSince, where, order);
+				Accounts accountsWhere = accountingApi.getAccounts(xeroTenantId,ifModifiedSince, where, order);
 				where = null;
 				// Maker sure we have at least 2 banks
 				if(accountsWhere.getAccounts().size() > 1) {				
@@ -514,20 +506,20 @@ public class AuthenticatedResource extends HttpServlet
 					bankTransfer.setAmount("50.00");
 					BankTransfers newBTs = new BankTransfers();
 					newBTs.addBankTransfersItem(bankTransfer);					
-					BankTransfers newBankTranfer = accountingApi.createBankTransfer(newBTs);
+					BankTransfers newBankTranfer = accountingApi.createBankTransfer(xeroTenantId,newBTs);
 					messages.add("Get a one Bank Transfer - amount : " + newBankTranfer.getBankTransfers().get(0).getAmount());				
 
 					// GET all Bank Transfers
-					BankTransfers bankTranfers = accountingApi.getBankTransfers(ifModifiedSince, where, order);
+					BankTransfers bankTranfers = accountingApi.getBankTransfers(xeroTenantId,ifModifiedSince, where, order);
 					messages.add("Get a all Bank Transfers - total : " + bankTranfers.getBankTransfers().size());				
 					UUID bankTransferId = bankTranfers.getBankTransfers().get(0).getBankTransferID();
 
 					// GET one Bank Transfer
-					BankTransfers oneBankTranfer = accountingApi.getBankTransfer(bankTransferId);
+					BankTransfers oneBankTranfer = accountingApi.getBankTransfer(xeroTenantId,bankTransferId);
 					messages.add("Get a one Bank Transfer - amount : " + oneBankTranfer.getBankTransfers().get(0).getAmount());				
 			
 					// GET  Bank Transfer History
-					HistoryRecords hr = accountingApi.getBankTransferHistory(bankTransferId);
+					HistoryRecords hr = accountingApi.getBankTransferHistory(xeroTenantId,bankTransferId);
 					messages.add("Get a one Bank Transfer History Record - details :" + hr.getHistoryRecords().get(0).getDetails());				
 					
 					// CREATE  Bank Transfer History
@@ -550,13 +542,13 @@ public class AuthenticatedResource extends HttpServlet
 			/* BANK TRANSACTION */
 			try {
 			    where = "Status==\"ACTIVE\"&&Type==\"BANK\"";
-				Accounts accountsWhere = accountingApi.getAccounts(ifModifiedSince, where, order);
+				Accounts accountsWhere = accountingApi.getAccounts(xeroTenantId,ifModifiedSince, where, order);
 				
 				Account bankAcct = new Account();
 				bankAcct.setCode(accountsWhere.getAccounts().get(0).getCode());
 				
 				where = null;
-				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
+				Contacts contacts = accountingApi.getContacts(xeroTenantId,ifModifiedSince, where, order, ids, null, includeArchived);
 				Contact useContact = new Contact();
 				useContact.setContactID(contacts.getContacts().get(0).getContactID());
 				
@@ -577,31 +569,31 @@ public class AuthenticatedResource extends HttpServlet
 					bt.setType(com.xero.models.accounting.BankTransaction.TypeEnum.SPEND);
 					BankTransactions bts = new BankTransactions();
 					bts.addBankTransactionsItem(bt);					
-					BankTransactions newBankTransaction = accountingApi.createBankTransaction(bts, summarizeErrors);
+					BankTransactions newBankTransaction = accountingApi.createBankTransaction(xeroTenantId,bts, summarizeErrors);
 					messages.add("Create new BankTransaction : amount:" + newBankTransaction.getBankTransactions().get(0).getTotal());				
 					
 					// GET all Bank Transaction
-					BankTransactions bankTransactions = accountingApi.getBankTransactions(ifModifiedSince, where, order, null, null);
+					BankTransactions bankTransactions = accountingApi.getBankTransactions(xeroTenantId,ifModifiedSince, where, order, null, null);
 					messages.add("Get a all Bank Transactions - total : " + bankTransactions.getBankTransactions().size());				
 
 					// GET one Bank Transaction
-					BankTransactions oneBankTransaction = accountingApi.getBankTransaction(bankTransactions.getBankTransactions().get(0).getBankTransactionID());
+					BankTransactions oneBankTransaction = accountingApi.getBankTransaction(xeroTenantId,bankTransactions.getBankTransactions().get(0).getBankTransactionID());
 					messages.add("Get a one Bank Transaction : amount:" + oneBankTransaction.getBankTransactions().get(0).getTotal());				
 					
 					// UDPATE Bank Transaction
 					newBankTransaction.getBankTransactions().get(0).setSubTotal(null);
 					newBankTransaction.getBankTransactions().get(0).setTotal(null);	
 					newBankTransaction.getBankTransactions().get(0).setReference("You just updated");
-					BankTransactions updateBankTransaction = accountingApi.updateBankTransaction(newBankTransaction.getBankTransactions().get(0).getBankTransactionID(),newBankTransaction);
+					BankTransactions updateBankTransaction = accountingApi.updateBankTransaction(xeroTenantId,newBankTransaction.getBankTransactions().get(0).getBankTransactionID(),newBankTransaction);
 					messages.add("Update new BankTransaction : reference:" + updateBankTransaction.getBankTransactions().get(0).getReference());				
 
 					// DELETE Bank Transaction
 					newBankTransaction.getBankTransactions().get(0).setStatus(com.xero.models.accounting.BankTransaction.StatusEnum.DELETED);
-					BankTransactions deletedBankTransaction = accountingApi.updateBankTransaction(newBankTransaction.getBankTransactions().get(0).getBankTransactionID(),newBankTransaction);
+					BankTransactions deletedBankTransaction = accountingApi.updateBankTransaction(xeroTenantId,newBankTransaction.getBankTransactions().get(0).getBankTransactionID(),newBankTransaction);
 					messages.add("Deleted new Bank Transaction : Status:" + deletedBankTransaction.getBankTransactions().get(0).getStatus());				
 				
 					// GET  Bank Transaction History
-					HistoryRecords hr = accountingApi.getBankTransactionsHistory(oneBankTransaction.getBankTransactions().get(0).getBankTransactionID());
+					HistoryRecords hr = accountingApi.getBankTransactionsHistory(xeroTenantId,oneBankTransaction.getBankTransactions().get(0).getBankTransactionID());
 					messages.add("Get a one Bank Transaction History Record - details :" + hr.getHistoryRecords().get(0).getDetails());				
 					
 					// CREATE  Bank Transaction History
@@ -625,7 +617,7 @@ public class AuthenticatedResource extends HttpServlet
         	try {
 				// CREATE payment
 				where =  "Status==\"AUTHORISED\"&&Type==\"ACCREC\"";			
-				Invoices allInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
+				Invoices allInvoices = accountingApi.getInvoices(xeroTenantId,ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
 				Invoice inv = new Invoice();
 				inv.setInvoiceID(allInvoices.getInvoices().get(0).getInvoiceID());
 				Invoice inv2 = new Invoice();
@@ -635,7 +627,7 @@ public class AuthenticatedResource extends HttpServlet
 				where = null;
 			
 			    where = "EnablePaymentsToAccount==true";
-				Accounts accountsWhere = accountingApi.getAccounts(ifModifiedSince, where, order);
+				Accounts accountsWhere = accountingApi.getAccounts(xeroTenantId,ifModifiedSince, where, order);
 				Account paymentAccount = new Account();
 				paymentAccount.setAccountID(accountsWhere.getAccounts().get(0).getAccountID());
 				where = null;
@@ -672,11 +664,11 @@ public class AuthenticatedResource extends HttpServlet
 				
 				createBatchPayments.addBatchPaymentsItem(createBatchPayment);
 				
-				BatchPayments newBatchPayments = accountingApi.createBatchPayment(createBatchPayments);
+				BatchPayments newBatchPayments = accountingApi.createBatchPayment(xeroTenantId,createBatchPayments);
 				messages.add("Create BatchPayments - ID : " + newBatchPayments.getBatchPayments().get(0).getTotalAmount());					
 				
 				// GET all Payments
-				BatchPayments allBatchPayments = accountingApi.getBatchPayments(ifModifiedSince, where, order);
+				BatchPayments allBatchPayments = accountingApi.getBatchPayments(xeroTenantId,ifModifiedSince, where, order);
 				messages.add("Get BatchPayments - Total : " + allBatchPayments.getBatchPayments().size());					
 			} catch (Exception e) {
 				System.out.println(e.getMessage());	
@@ -686,12 +678,12 @@ public class AuthenticatedResource extends HttpServlet
 			/* BRANDING THEME */
 			try {
 				// GET all BrandingTheme
-				BrandingThemes bt = accountingApi.getBrandingThemes();
+				BrandingThemes bt = accountingApi.getBrandingThemes(xeroTenantId);
 				messages.add("Get a All Branding Themes - total : " + bt.getBrandingThemes().size());				
 
 				// GET one BrandingTheme
 				UUID btID = bt.getBrandingThemes().get(0).getBrandingThemeID();
-				BrandingThemes oneBt = accountingApi.getBrandingTheme(btID);
+				BrandingThemes oneBt = accountingApi.getBrandingTheme(xeroTenantId,btID);
 				messages.add("Get a one Branding Themes - name : " + oneBt.getBrandingThemes().get(0).getName());				
 /*
 				// Create PaymentService for a Branding Theme  
@@ -704,7 +696,7 @@ public class AuthenticatedResource extends HttpServlet
 				messages.add("Created payment services for Branding Themes - name : " + createdPaymentService.getPaymentServices().get(0).getPaymentServiceName());				
 */
 				// GET Payment Services for a single Branding Theme
-				PaymentServices paymentServicesForBrandingTheme = accountingApi.getBrandingThemePaymentServices(btID);
+				PaymentServices paymentServicesForBrandingTheme = accountingApi.getBrandingThemePaymentServices(xeroTenantId,btID);
 				messages.add("Get payment services for Branding Themes - name : " + paymentServicesForBrandingTheme.getPaymentServices().get(0).getPaymentServiceName());				
 
 			} catch (Exception e) {
@@ -725,41 +717,41 @@ public class AuthenticatedResource extends HttpServlet
 				phone.setPhoneAreaCode("415");
 				phones.add(phone);
 				contact.setPhones(phones);
-				Contacts newContact = accountingApi.createContact(contact);
+				Contacts newContact = accountingApi.createContact(xeroTenantId,contact);
 				messages.add("Create new Contact - Name : " + newContact.getContacts().get(0).getName());
 				
 				// UPDATE contact
 				newContact.getContacts().get(0).setName("Bar" + loadRandomNum());
 				UUID contactID = newContact.getContacts().get(0).getContactID();
-				Contacts updatedContact = accountingApi.updateContact(contactID, newContact);
+				Contacts updatedContact = accountingApi.updateContact(xeroTenantId,contactID, newContact);
 				messages.add("Update new Contact - Name : " + updatedContact.getContacts().get(0).getName());
 				
 				// GET all contact
-				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
+				Contacts contacts = accountingApi.getContacts(xeroTenantId,ifModifiedSince, where, order, ids, null, includeArchived);
 				messages.add("Get a All Contacts - Total : " + contacts.getContacts().size());	
 
 				// GET one contact
 				UUID oneContactID = contacts.getContacts().get(0).getContactID();
-				Contacts oneContact = accountingApi.getContact(oneContactID);
+				Contacts oneContact = accountingApi.getContact(xeroTenantId,oneContactID);
 				messages.add("Get a One Contact - Name : " + oneContact.getContacts().get(0).getName());	
 				
 				// GET contact cisSettings
 			    where = "Name==\"sidney\"";   
-				Contacts cisContact = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
+				Contacts cisContact = accountingApi.getContacts(xeroTenantId,ifModifiedSince, where, order, ids, null, includeArchived);
 				if (cisContact.getContacts().size() > 0) {
-					CISSettings cisSettings = accountingApi.getContactCISSettings(cisContact.getContacts().get(0).getContactID());
+					CISSettings cisSettings = accountingApi.getContactCISSettings(xeroTenantId,cisContact.getContacts().get(0).getContactID());
 					messages.add("Get a Contact cisSettings - Enabled? : " + cisSettings.getCiSSettings().get(0).getCiSEnabled());	
 				}
 				where = null;
 				
 				// GET active contacts
 			    where =  "ContactStatus==\"ACTIVE\"";
-				Contacts contactsWhere = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
+				Contacts contactsWhere = accountingApi.getContacts(xeroTenantId,ifModifiedSince, where, order, ids, null, includeArchived);
 				messages.add("Get a all ACTIVE Contacts - Total : " + contactsWhere.getContacts().size());
 				where = null;
 				
 				// Get Contact History
-				HistoryRecords contactHistory = accountingApi.getContactHistory(contactID);
+				HistoryRecords contactHistory = accountingApi.getContactHistory(xeroTenantId,contactID);
 				messages.add("Contact History - count : " + contactHistory.getHistoryRecords().size() );
 			
 				// Create Contact History
@@ -768,7 +760,7 @@ public class AuthenticatedResource extends HttpServlet
 				newHistoryRecord.setDetails("Hello World");
 				newHistoryRecords.addHistoryRecordsItem(newHistoryRecord);
 				
-				HistoryRecords newInvoiceHistory = accountingApi.createContactHistory(contactID,newHistoryRecords);
+				HistoryRecords newInvoiceHistory = accountingApi.createContactHistory(xeroTenantId,contactID,newHistoryRecords);
 				messages.add("Contact History - note added to  : " + newInvoiceHistory.getHistoryRecords().get(0).getDetails());
 				
 			} catch (Exception e) {
@@ -784,28 +776,28 @@ public class AuthenticatedResource extends HttpServlet
 				ContactGroup cg = new ContactGroup();
 				cg.setName("NewGroup" + loadRandomNum());
 				newCGs.addContactGroupsItem(cg);
-				ContactGroups newContactGroup = accountingApi.createContactGroup(newCGs);
+				ContactGroups newContactGroup = accountingApi.createContactGroup(xeroTenantId,newCGs);
 				messages.add("Create a ContactGroup - Name : " + newContactGroup.getContactGroups().get(0).getName());
 				
 				// UPDATE Contact group
 				newCGs.getContactGroups().get(0).setName("Old Group" + loadRandomNum());
 				UUID newContactGroupID = newContactGroup.getContactGroups().get(0).getContactGroupID();
-				ContactGroups updateContactGroup = accountingApi.updateContactGroup(newContactGroupID, newCGs);
+				ContactGroups updateContactGroup = accountingApi.updateContactGroup(xeroTenantId,newContactGroupID, newCGs);
 				messages.add("Update a ContactGroup - Name : " + updateContactGroup.getContactGroups().get(0).getName());
 
 				// GET all contact groups
-				ContactGroups contactGroups = accountingApi.getContactGroups(where, order);
+				ContactGroups contactGroups = accountingApi.getContactGroups(xeroTenantId,where, order);
 				messages.add("Get all ContactGroups - Total : " + contactGroups.getContactGroups().size());
 				
 				// GET one contact groups
 				UUID contactGroupId = contactGroups.getContactGroups().get(0).getContactGroupID();
-				ContactGroups oneCg = accountingApi.getContactGroup(contactGroupId);
+				ContactGroups oneCg = accountingApi.getContactGroup(xeroTenantId,contactGroupId);
 				messages.add("Get one ContactGroups - Name : " + oneCg.getContactGroups().get(0).getName());
 				
 				// DELETE contact Group
 				newCGs.getContactGroups().get(0).setStatus(com.xero.models.accounting.ContactGroup.StatusEnum.DELETED);
 				UUID contactGroupID = newContactGroup.getContactGroups().get(0).getContactGroupID();
-				ContactGroups deletedContactGroup = accountingApi.updateContactGroup(contactGroupID, contactGroups);
+				ContactGroups deletedContactGroup = accountingApi.updateContactGroup(xeroTenantId,contactGroupID, contactGroups);
 				messages.add("Delete a ContactGroup - Name : " + deletedContactGroup.getContactGroups().get(0).getName());
 					
 			} catch (Exception e) {
@@ -820,23 +812,23 @@ public class AuthenticatedResource extends HttpServlet
 				ContactGroup cg = new ContactGroup();
 				cg.setName("NewGroup" + loadRandomNum());
 				newCGs.addContactGroupsItem(cg);
-				ContactGroups newContactGroup = accountingApi.createContactGroup(newCGs);
+				ContactGroups newContactGroup = accountingApi.createContactGroup(xeroTenantId,newCGs);
 			
-				Contacts allContacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
+				Contacts allContacts = accountingApi.getContacts(xeroTenantId,ifModifiedSince, where, order, ids, null, includeArchived);
 				
 				// Create Contacts in Group
 				Contacts contactList = new Contacts();
 				contactList.addContactsItem(allContacts.getContacts().get(0));
 				contactList.addContactsItem(allContacts.getContacts().get(1));
 				UUID contactGroupID = newContactGroup.getContactGroups().get(0).getContactGroupID();
-				Contacts addContacts = accountingApi.createContactGroupContacts(contactGroupID, contactList);
+				Contacts addContacts = accountingApi.createContactGroupContacts(xeroTenantId,contactGroupID, contactList);
 				messages.add("Add 2 Contacts to Contact Group - Total : " + addContacts.getContacts().size());	
 				
 				// DELETE all Contacts in Group
-				accountingApi.deleteContactGroupContacts(newContactGroup.getContactGroups().get(0).getContactGroupID());
+				accountingApi.deleteContactGroupContacts(xeroTenantId,newContactGroup.getContactGroups().get(0).getContactGroupID());
 				messages.add("Delete All Contacts  to Contact Group - no content in response ");	
 				
-				ContactGroups oneCg = accountingApi.getContactGroup(newContactGroup.getContactGroups().get(0).getContactGroupID());
+				ContactGroups oneCg = accountingApi.getContactGroup(xeroTenantId,newContactGroup.getContactGroups().get(0).getContactGroupID());
 				messages.add("Get ContactGroups - Total Contacts : " + oneCg.getContactGroups().get(0).getContacts().size());
 				
 				// DELETE Single Contact
@@ -845,14 +837,14 @@ public class AuthenticatedResource extends HttpServlet
 				contactList2.addContactsItem(allContacts.getContacts().get(4));
 				
 				UUID newContactGroupID = newContactGroup.getContactGroups().get(0).getContactGroupID();
-				Contacts addContacts2 = accountingApi.createContactGroupContacts(newContactGroupID, contactList2);				
+				Contacts addContacts2 = accountingApi.createContactGroupContacts(xeroTenantId,newContactGroupID, contactList2);				
 				messages.add("Add 2 Contacts to Contact Group - Total : " + addContacts2.getContacts().size());	
 
 				// DELETE Single CONACTS
-				accountingApi.deleteContactGroupContact(newContactGroup.getContactGroups().get(0).getContactGroupID(),allContacts.getContacts().get(3).getContactID());
+				accountingApi.deleteContactGroupContact(xeroTenantId,newContactGroup.getContactGroups().get(0).getContactGroupID(),allContacts.getContacts().get(3).getContactID());
 				messages.add("Delete 1 contact from Contact Group - no content in response");	
 				
-				ContactGroups oneCg2 = accountingApi.getContactGroup(newContactGroup.getContactGroups().get(0).getContactGroupID());
+				ContactGroups oneCg2 = accountingApi.getContactGroup(xeroTenantId,newContactGroup.getContactGroups().get(0).getContactGroupID());
 				messages.add("Get ContactGroups - Total Contacts : " + oneCg2.getContactGroups().get(0).getContacts().size());
 				
 			} catch (Exception e) {
@@ -861,9 +853,9 @@ public class AuthenticatedResource extends HttpServlet
 		
 		} else if (object.equals("CreditNotesPDF")) {
 			// GET CreditNote As a PDF
-			CreditNotes creditNotes = accountingApi.getCreditNotes(ifModifiedSince, where, order, null);
+			CreditNotes creditNotes = accountingApi.getCreditNotes(xeroTenantId,ifModifiedSince, where, order, null);
 			UUID creditNoteId = creditNotes.getCreditNotes().get(0).getCreditNoteID();
-			ByteArrayInputStream CreditNoteInput = accountingApi.getCreditNoteAsPdf(creditNoteId, "application/pdf");
+			ByteArrayInputStream CreditNoteInput = accountingApi.getCreditNoteAsPdf(xeroTenantId,creditNoteId, "application/pdf");
 			String CreditNoteFileName = "CreditNoteAsPDF.pdf";
 			
 			String CreditNoteSaveFilePath = saveFile(CreditNoteInput,CreditNoteFileName);
@@ -872,7 +864,7 @@ public class AuthenticatedResource extends HttpServlet
 		} else if (object.equals("CreditNotes")) {
 			// CREDIT NOTE
 			try {	
-				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
+				Contacts contacts = accountingApi.getContacts(xeroTenantId,ifModifiedSince, where, order, ids, null, includeArchived);
 				
 				// Create Credit Note
 				List<LineItem> lineItems = new ArrayList<>();
@@ -889,22 +881,22 @@ public class AuthenticatedResource extends HttpServlet
 				cn.setLineItems(lineItems);  
 				cn.setType(com.xero.models.accounting.CreditNote.TypeEnum.ACCPAYCREDIT);
 				newCNs.addCreditNotesItem(cn);
-				CreditNotes newCreditNote = accountingApi.createCreditNote(newCNs, summarizeErrors);
+				CreditNotes newCreditNote = accountingApi.createCreditNote(xeroTenantId,newCNs, summarizeErrors);
 				messages.add("Create a CreditNote - Amount : " + newCreditNote.getCreditNotes().get(0).getTotal());
 				UUID newCreditNoteId = newCreditNote.getCreditNotes().get(0).getCreditNoteID();
 				
 				// GET all Credit Note
-				CreditNotes creditNotes = accountingApi.getCreditNotes(ifModifiedSince, where, order, null);
+				CreditNotes creditNotes = accountingApi.getCreditNotes(xeroTenantId,ifModifiedSince, where, order, null);
 				messages.add("Get all CreditNotes - Total : " + creditNotes.getCreditNotes().size());
 				
 				// GET One Credit Note
 				UUID creditNoteID = creditNotes.getCreditNotes().get(0).getCreditNoteID();
-				CreditNotes oneCreditNote = accountingApi.getCreditNote(creditNoteID);
+				CreditNotes oneCreditNote = accountingApi.getCreditNote(xeroTenantId,creditNoteID);
 				messages.add("Get a CreditNote - Amount : " + oneCreditNote.getCreditNotes().get(0).getTotal());
 				
 				// UPDATE Credit Note
 				newCNs.getCreditNotes().get(0).setStatus(com.xero.models.accounting.CreditNote.StatusEnum.AUTHORISED);
-				CreditNotes updatedCreditNote = accountingApi.updateCreditNote(newCreditNoteId, newCNs);				
+				CreditNotes updatedCreditNote = accountingApi.updateCreditNote(xeroTenantId,newCreditNoteId, newCNs);				
 				messages.add("Update a CreditNote - Ref : " + updatedCreditNote.getCreditNotes().get(0).getReference());
 				
 				// Allocate Credit Note
@@ -912,7 +904,7 @@ public class AuthenticatedResource extends HttpServlet
 				Allocation allocation = new Allocation();
 				
 			    where =  "Status==\"AUTHORISED\"&&Type==\"ACCPAY\"";
-			    Invoices allInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
+			    Invoices allInvoices = accountingApi.getInvoices(xeroTenantId,ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
 				Invoice inv = new Invoice();
 				inv.setInvoiceID(allInvoices.getInvoices().get(0).getInvoiceID());
 				allocation.setInvoice(inv);
@@ -922,11 +914,11 @@ public class AuthenticatedResource extends HttpServlet
 				allocations.addAllocationsItem(allocation);
 				where = null;
 				
-				Allocations allocatedCreditNote = accountingApi.createCreditNoteAllocation(newCreditNoteId,allocations);
+				Allocations allocatedCreditNote = accountingApi.createCreditNoteAllocation(xeroTenantId,newCreditNoteId,allocations);
 				messages.add("Update CreditNote Allocation - Amount : " + allocatedCreditNote.getAllocations().get(0).getAmount());
 				
 				// Get Invoice History
-				HistoryRecords history = accountingApi.getCreditNoteHistory(creditNoteID);
+				HistoryRecords history = accountingApi.getCreditNoteHistory(xeroTenantId,creditNoteID);
 				messages.add("History - count : " + history.getHistoryRecords().size() );
 			
 				// Create Invoice History
@@ -935,7 +927,7 @@ public class AuthenticatedResource extends HttpServlet
 				newHistoryRecord.setDetails("Hello World");
 				newHistoryRecords.addHistoryRecordsItem(newHistoryRecord);
 				
-				HistoryRecords newHistory = accountingApi.createCreditNoteHistory(creditNoteID, newHistoryRecords);
+				HistoryRecords newHistory = accountingApi.createCreditNoteHistory(xeroTenantId,creditNoteID, newHistoryRecords);
 				messages.add("History - note added to  : " + newHistory.getHistoryRecords().get(0).getDetails());
 			
 			} catch (Exception e) {
@@ -948,7 +940,7 @@ public class AuthenticatedResource extends HttpServlet
 			// JSON - incomplete
 			try {	
 				//Get All
-				Currencies currencies = accountingApi.getCurrencies(where, order);
+				Currencies currencies = accountingApi.getCurrencies(xeroTenantId,where, order);
 				messages.add("Get all Currencies - Total : " + currencies.getCurrencies().size());
 				
 				// Create New
@@ -979,17 +971,17 @@ public class AuthenticatedResource extends HttpServlet
 				Employees emps = new Employees();
 				emps.addEmployeesItem(employee);
 				
-				Employees newEmployee = accountingApi.createEmployee(emps);
+				Employees newEmployee = accountingApi.createEmployee(xeroTenantId,emps);
 				messages.add("Create an Employee - Last Name : " + newEmployee.getEmployees().get(0).getLastName());
 
 				//Get All
-				Employees employees = accountingApi.getEmployees(ifModifiedSince, where, order);
+				Employees employees = accountingApi.getEmployees(xeroTenantId,ifModifiedSince, where, order);
 				messages.add("Get all Employees - Total : " + employees.getEmployees().size());
 				
 				UUID newEmpId = employees.getEmployees().get(0).getEmployeeID();
 				
 				// Get One
-				Employees oneEmployee = accountingApi.getEmployee(newEmpId);
+				Employees oneEmployee = accountingApi.getEmployee(xeroTenantId,newEmpId);
 				messages.add("Get one Employees - Name : " + oneEmployee.getEmployees().get(0).getFirstName());
 
 // 404 ERROR
@@ -998,7 +990,7 @@ public class AuthenticatedResource extends HttpServlet
 				extLink2.setUrl("http://twitter.com/#!/search/Bart+Simpson");
 				newEmployee.getEmployees().get(0).setExternalLink(extLink2);
 			
-				Employees updateEmployee = accountingApi.updateEmployee(newEmpId, newEmployee);
+				Employees updateEmployee = accountingApi.updateEmployee(xeroTenantId,newEmpId, newEmployee);
 				messages.add("Update an Employee - Last Name : " + updateEmployee.getEmployees().get(0).getLastName());
 	
 			} catch (Exception e) {
@@ -1010,18 +1002,18 @@ public class AuthenticatedResource extends HttpServlet
 			try {
 				//Create
 			    //where = "IsSubscriber==true";
-				Users users = accountingApi.getUsers(ifModifiedSince, where, order);
+				Users users = accountingApi.getUsers(xeroTenantId,ifModifiedSince, where, order);
 				where = null;
 				
 			    where = "ShowInExpenseClaims==true&&Status==\"ACTIVE\"";
-				Accounts accounts = accountingApi.getAccounts(ifModifiedSince, where, order);
+				Accounts accounts = accountingApi.getAccounts(xeroTenantId,ifModifiedSince, where, order);
 				where = null;
 				
 				if (users.getUsers().size() > 0) {
 					User user = new User();
 					user.setUserID(users.getUsers().get(0).getUserID());
 					
-					Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
+					Contacts contacts = accountingApi.getContacts(xeroTenantId,ifModifiedSince, where, order, ids, null, includeArchived);
 					Contact useContact = new Contact();
 					useContact.setContactID(contacts.getContacts().get(0).getContactID());
 					
@@ -1043,7 +1035,7 @@ public class AuthenticatedResource extends HttpServlet
 					receipt.contact(useContact);
 					receipt.setStatus(com.xero.models.accounting.Receipt.StatusEnum.DRAFT);
 					receipts.addReceiptsItem(receipt);
-					Receipts newReceipts = accountingApi.createReceipt(receipts);
+					Receipts newReceipts = accountingApi.createReceipt(xeroTenantId,receipts);
 		
 					// CREATE EXPENSE CLAIM
 					ExpenseClaims createExpenseClaims = new ExpenseClaims();
@@ -1057,30 +1049,30 @@ public class AuthenticatedResource extends HttpServlet
 					expenseClaim.setReceipts(myReceipts.getReceipts());
 					expenseClaim.setStatus(com.xero.models.accounting.ExpenseClaim.StatusEnum.SUBMITTED);
 					createExpenseClaims.addExpenseClaimsItem(expenseClaim);
-					ExpenseClaims newExpenseClaims = accountingApi.createExpenseClaim(createExpenseClaims, summarizeErrors);
+					ExpenseClaims newExpenseClaims = accountingApi.createExpenseClaim(xeroTenantId,createExpenseClaims, summarizeErrors);
 					messages.add("Create new Expense Claim - Status : " + newExpenseClaims.getExpenseClaims().get(0).getStatus());
 					
 					// UPDATE EXPENSE CLAIM
 					createExpenseClaims.getExpenseClaims().get(0).setStatus(com.xero.models.accounting.ExpenseClaim.StatusEnum.AUTHORISED);
 					UUID expenseClaimID = newExpenseClaims.getExpenseClaims().get(0).getExpenseClaimID();
-					ExpenseClaims updateExpenseClaims = accountingApi.updateExpenseClaim(expenseClaimID, createExpenseClaims);
+					ExpenseClaims updateExpenseClaims = accountingApi.updateExpenseClaim(xeroTenantId,expenseClaimID, createExpenseClaims);
 					messages.add("Update new Expense Claim - Status : " + updateExpenseClaims.getExpenseClaims().get(0).getStatus());
 					
 					//Get All Expense Claims
-					ExpenseClaims expenseClaims = accountingApi.getExpenseClaims(ifModifiedSince, where, order);
+					ExpenseClaims expenseClaims = accountingApi.getExpenseClaims(xeroTenantId,ifModifiedSince, where, order);
 					messages.add("Get all Expense Claim - Total : " + expenseClaims.getExpenseClaims().size());
 					
 					// Get One Expense Claim
-					ExpenseClaims oneExpenseClaim = accountingApi.getExpenseClaim(expenseClaims.getExpenseClaims().get(0).getExpenseClaimID());
+					ExpenseClaims oneExpenseClaim = accountingApi.getExpenseClaim(xeroTenantId,expenseClaims.getExpenseClaims().get(0).getExpenseClaimID());
 					messages.add("Get one Expense Claim - Total : " + oneExpenseClaim.getExpenseClaims().get(0).getStatus());
 					
 					// VOID EXPENSE CLAIM
 					createExpenseClaims.getExpenseClaims().get(0).setStatus(com.xero.models.accounting.ExpenseClaim.StatusEnum.VOIDED);
-					ExpenseClaims voidExpenseClaims = accountingApi.updateExpenseClaim(expenseClaimID, createExpenseClaims);
+					ExpenseClaims voidExpenseClaims = accountingApi.updateExpenseClaim(xeroTenantId,expenseClaimID, createExpenseClaims);
 					messages.add("Void new Expense Claim - Status : " + voidExpenseClaims.getExpenseClaims().get(0).getStatus());
 					
 					// Get Invoice History
-					HistoryRecords history = accountingApi.getExpenseClaimHistory(expenseClaimID);
+					HistoryRecords history = accountingApi.getExpenseClaimHistory(xeroTenantId,expenseClaimID);
 					messages.add("History - count : " + history.getHistoryRecords().size() );
 				
 					// Create Invoice History
@@ -1104,20 +1096,20 @@ public class AuthenticatedResource extends HttpServlet
 			//  INVOICE 
 		
 			// GET Invoice As a PDF
-			Invoices myInvoicesForPDF = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
+			Invoices myInvoicesForPDF = accountingApi.getInvoices(xeroTenantId,ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
 			UUID invoiceIDForPDF = myInvoicesForPDF.getInvoices().get(0).getInvoiceID();
-			ByteArrayInputStream InvoiceNoteInput	 = accountingApi.getInvoiceAsPdf(invoiceIDForPDF, "application/pdf");
+			ByteArrayInputStream InvoiceNoteInput	 = accountingApi.getInvoiceAsPdf(xeroTenantId,invoiceIDForPDF, "application/pdf");
 			String InvoiceFileName = "InvoiceAsPDF.pdf";			
 			String InvoiceSaveFilePath = saveFile(InvoiceNoteInput,InvoiceFileName);
 			messages.add("Get Invoice attachment - save it here: " + InvoiceSaveFilePath);
 	
 			// Create Invoice
 		    where = "Type==\"REVENUE\"";
-			Accounts accounts = accountingApi.getAccounts(ifModifiedSince, where, order);
+			Accounts accounts = accountingApi.getAccounts(xeroTenantId,ifModifiedSince, where, order);
 			String accountCodeForInvoice = accounts.getAccounts().get(0).getCode();
 			where = null;
 			
-			Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
+			Contacts contacts = accountingApi.getContacts(xeroTenantId,ifModifiedSince, where, order, ids, null, includeArchived);
 			
 			UUID contactIDForInvoice = contacts.getContacts().get(0).getContactID();
 
@@ -1156,7 +1148,7 @@ public class AuthenticatedResource extends HttpServlet
 			myInvoice.setStatus(com.xero.models.accounting.Invoice.StatusEnum.AUTHORISED);
 			newInvoices.addInvoicesItem(myInvoice);
 			
-			Invoices newInvoice = accountingApi.createInvoice(newInvoices, summarizeErrors);
+			Invoices newInvoice = accountingApi.createInvoice(xeroTenantId,newInvoices, summarizeErrors);
 			messages.add("Create invoice - Reference : " + newInvoice.getInvoices().get(0).getReference());
 			UUID newInvoiceID = newInvoice.getInvoices().get(0).getInvoiceID();
 			Invoices updateInvoices = new Invoices();
@@ -1165,35 +1157,35 @@ public class AuthenticatedResource extends HttpServlet
 			updateInvoice.setReference("Red Fish, Blue Fish");
 			updateInvoices.addInvoicesItem(updateInvoice);
 			
-			Invoices updatedInvoice = accountingApi.updateInvoice(newInvoiceID,updateInvoices);
+			Invoices updatedInvoice = accountingApi.updateInvoice(xeroTenantId,newInvoiceID,updateInvoices);
 			messages.add("Update invoice - Reference : " + updatedInvoice.getInvoices().get(0).getReference());
 			
 			//Get All
-			Invoices invoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
+			Invoices invoices = accountingApi.getInvoices(xeroTenantId,ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
 			messages.add("Get all invoices - Total : " + invoices.getInvoices().size());
 			
 			//Get Invoice If-Modified-Since
 			OffsetDateTime invModified =  OffsetDateTime.of(LocalDateTime.of(2018, 12, 06, 15, 00), ZoneOffset.UTC);
-			Invoices invoicesSince = accountingApi.getInvoices(invModified, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
+			Invoices invoicesSince = accountingApi.getInvoices(xeroTenantId,invModified, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
 			messages.add("Get all invoices - Since Modfied Date - Total : " + invoicesSince.getInvoices().size());
 		
 			// Get One
-			Invoices oneInvoice = accountingApi.getInvoice(invoices.getInvoices().get(0).getInvoiceID());
+			Invoices oneInvoice = accountingApi.getInvoice(xeroTenantId,invoices.getInvoices().get(0).getInvoiceID());
 			messages.add("Get one invoice - total : " + oneInvoice.getInvoices().get(0).getTotal());
 			LocalDate myDate = oneInvoice.getInvoices().get(0).getDate();
 			OffsetDateTime myUTC = oneInvoice.getInvoices().get(0).getUpdatedDateUTC();
 	
 			// Get Online Invoice
-			OnlineInvoices onlineInvoice = accountingApi.getOnlineInvoice(newInvoiceID);
+			OnlineInvoices onlineInvoice = accountingApi.getOnlineInvoice(xeroTenantId,newInvoiceID);
 			messages.add("Get Online invoice - URL : " + onlineInvoice.getOnlineInvoices().get(0).getOnlineInvoiceUrl());
 
 			// Email Invoice
 			RequestEmpty empty = new RequestEmpty();
-			accountingApi.emailInvoice(newInvoiceID,empty);
+			accountingApi.emailInvoice(xeroTenantId,newInvoiceID,empty);
 			messages.add("Email invoice - no content in response");
 
 			// Get Invoice History
-			HistoryRecords history = accountingApi.getInvoiceHistory(newInvoiceID);
+			HistoryRecords history = accountingApi.getInvoiceHistory(xeroTenantId,newInvoiceID);
 			messages.add("History - count : " + history.getHistoryRecords().size() );
 		
 			// Create Invoice History
@@ -1201,27 +1193,27 @@ public class AuthenticatedResource extends HttpServlet
 			HistoryRecord newHistoryRecord = new  HistoryRecord();
 			newHistoryRecord.setDetails("Hello World");
 			newHistoryRecords.addHistoryRecordsItem(newHistoryRecord);
-			HistoryRecords newHistory = accountingApi.createInvoiceHistory(newInvoiceID,newHistoryRecords);
+			HistoryRecords newHistory = accountingApi.createInvoiceHistory(xeroTenantId,newInvoiceID,newHistoryRecords);
 			messages.add("History - note added to  : " + newHistory.getHistoryRecords().get(0).getDetails());
 		
 			// CREATE invoice attachment
 			statuses = "AUTHORISED";
-			Invoices myInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
+			Invoices myInvoices = accountingApi.getInvoices(xeroTenantId,ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
 			UUID invoiceID = myInvoices.getInvoices().get(0).getInvoiceID();
 			
 			File requestBodyFile = new File("/Users/sid.maestre/eclipse-workspace/xero-sdk-oauth2-dev-01/resources/youngsid.jpg");
 			String newFileName = requestBodyFile.getName();
 			
-			Attachments createdAttachments = accountingApi.createInvoiceAttachmentByFileName(invoiceID, newFileName, requestBodyFile);
+			Attachments createdAttachments = accountingApi.createInvoiceAttachmentByFileName(xeroTenantId,invoiceID, newFileName, requestBodyFile);
 			messages.add("Attachment to Invoice complete - ID: " + createdAttachments.getAttachments().get(0).getAttachmentID());
 	 		
 			// GET Invoice Attachment 
 			System.out.println(invoiceID);
-			Attachments attachments = accountingApi.getInvoiceAttachments(invoiceID);
+			Attachments attachments = accountingApi.getInvoiceAttachments(xeroTenantId,invoiceID);
 			System.out.println(attachments.getAttachments().get(0).getFileName());
 			UUID attachementId = attachments.getAttachments().get(0).getAttachmentID();
 			String contentType = attachments.getAttachments().get(0).getMimeType();
-			ByteArrayInputStream InvoiceAttachmentInput	 = accountingApi.getInvoiceAttachmentById(invoiceID,attachementId, contentType);
+			ByteArrayInputStream InvoiceAttachmentInput	 = accountingApi.getInvoiceAttachmentById(xeroTenantId,invoiceID,attachementId, contentType);
 
 			String InvoiceAttachmentFileName = attachments.getAttachments().get(0).getFileName();
 			String InvoiceAttachmentSaveFilePath = saveFile(InvoiceAttachmentInput,InvoiceAttachmentFileName);
@@ -1230,7 +1222,7 @@ public class AuthenticatedResource extends HttpServlet
 		} else if (object.equals("InvoiceReminders")) {
 			// INVOICE REMINDER 
 			try {				
-				InvoiceReminders invReminders = accountingApi.getInvoiceReminders();
+				InvoiceReminders invReminders = accountingApi.getInvoiceReminders(xeroTenantId);
 				messages.add("Get a Invoice Reminder - Is Enabled: " + invReminders.getInvoiceReminders().get(0).getEnabled() );
 			} catch (Exception e) {
 				System.out.println(e.getMessage());	
@@ -1245,26 +1237,26 @@ public class AuthenticatedResource extends HttpServlet
 				myItem.setDescription("foobar");
 				myItem.setName("Hello"+loadRandomNum());
 				myItems.addItemsItem(myItem);
-				Items newItems = accountingApi.createItem(myItems);
+				Items newItems = accountingApi.createItem(xeroTenantId,myItems);
 				messages.add("Create new item - Description : " + newItems.getItems().get(0).getDescription());
 				UUID newItemId = newItems.getItems().get(0).getItemID();
 				
 				// Update Item
 				newItems.getItems().get(0).setDescription("Barfoo");
-				Items updateItem = accountingApi.updateItem(newItemId, newItems);
+				Items updateItem = accountingApi.updateItem(xeroTenantId,newItemId, newItems);
 				messages.add("Update item - Description : " + updateItem.getItems().get(0).getDescription());
 				
 				//Get All Items
-				Items items = accountingApi.getItems(ifModifiedSince, where, order, null);
+				Items items = accountingApi.getItems(xeroTenantId,ifModifiedSince, where, order, null);
 				messages.add("Get all items - Total : " + items.getItems().size());
 				
 				// Get One Item
 				UUID itemId = items.getItems().get(0).getItemID();
-				Items oneItem = accountingApi.getItem(itemId);
+				Items oneItem = accountingApi.getItem(xeroTenantId,itemId);
 				messages.add("Get one item - Description : " + oneItem.getItems().get(0).getDescription());
 			
 				// Get Invoice History
-				HistoryRecords history = accountingApi.getItemHistory(itemId);
+				HistoryRecords history = accountingApi.getItemHistory(xeroTenantId,itemId);
 				messages.add("History - count : " + history.getHistoryRecords().size() );
 			
 				// Create Invoice History
@@ -1279,7 +1271,7 @@ public class AuthenticatedResource extends HttpServlet
 				*/
 				
 				//Delete
-				accountingApi.deleteItem(newItemId);
+				accountingApi.deleteItem(xeroTenantId,newItemId);
 				messages.add("Delete one item - no content in response");
 			} catch (Exception e) {
 				System.out.println(e.getMessage());	
@@ -1291,11 +1283,11 @@ public class AuthenticatedResource extends HttpServlet
 					
 				boolean paymentsOnly = false;
 				// GET all Journals
-				Journals journals = accountingApi.getJournals(ifModifiedSince, null, paymentsOnly);
+				Journals journals = accountingApi.getJournals(xeroTenantId,ifModifiedSince, null, paymentsOnly);
 				messages.add("Get Journals - total : " + journals.getJournals().size());
 				
 				// GET Journal with offset
-				Journals journalsOffset = accountingApi.getJournals(ifModifiedSince, null, paymentsOnly);
+				Journals journalsOffset = accountingApi.getJournals(xeroTenantId,ifModifiedSince, null, paymentsOnly);
 				messages.add("Get Journals offset - total : " + journalsOffset.getJournals().size());
 // 404 ERROR
 /*
@@ -1313,10 +1305,10 @@ public class AuthenticatedResource extends HttpServlet
 			try {
 				// Create Linked Transaction
 			    where = "Type==\"EXPENSE\"";
-				Accounts accounts = accountingApi.getAccounts(ifModifiedSince, where, order);
+				Accounts accounts = accountingApi.getAccounts(xeroTenantId,ifModifiedSince, where, order);
 				where = null;
 				
-				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
+				Contacts contacts = accountingApi.getContacts(xeroTenantId,ifModifiedSince, where, order, ids, null, includeArchived);
 				Contact useContact = new Contact();
 				useContact.setContactID(contacts.getContacts().get(0).getContactID());
 				
@@ -1342,7 +1334,7 @@ public class AuthenticatedResource extends HttpServlet
 				myInvoice.setStatus(com.xero.models.accounting.Invoice.StatusEnum.AUTHORISED);
 				newInvoices.addInvoicesItem(myInvoice);
 				
-				Invoices newInvoice = accountingApi.createInvoice(newInvoices, summarizeErrors);
+				Invoices newInvoice = accountingApi.createInvoice(xeroTenantId,newInvoices, summarizeErrors);
 				
 				UUID sourceTransactionID1 = newInvoice.getInvoices().get(0).getInvoiceID();
 				UUID sourceLineItemID1 = newInvoice.getInvoices().get(0).getLineItems().get(0).getLineItemID();
@@ -1352,17 +1344,17 @@ public class AuthenticatedResource extends HttpServlet
 				newLinkedTransaction.setSourceLineItemID(sourceLineItemID1);
 				newLinkedTransactions.addLinkedTransactionsItem(newLinkedTransaction);
 				
-				LinkedTransactions createdLinkedTransaction = accountingApi.createLinkedTransaction(newLinkedTransactions);
+				LinkedTransactions createdLinkedTransaction = accountingApi.createLinkedTransaction(xeroTenantId,newLinkedTransactions);
 				messages.add("Create LinkedTransaction - Status : " + createdLinkedTransaction.getLinkedTransactions().get(0).getStatus());
 				
 				// Created Linked Transaction 2
 				Contact contact = new Contact();
 				contact.setName("Foo" + loadRandomNum());
 				contact.setEmailAddress("sid" + loadRandomNum() + "@blah.com");
-				Contacts newContact = accountingApi.createContact(contact);
+				Contacts newContact = accountingApi.createContact(xeroTenantId,contact);
 				UUID newContactID = newContact.getContacts().get(0).getContactID();
 				
-				Invoices newInvoice2 = accountingApi.createInvoice(newInvoices, summarizeErrors);
+				Invoices newInvoice2 = accountingApi.createInvoice(xeroTenantId,newInvoices, summarizeErrors);
 				
 				UUID sourceTransactionID2 = newInvoice2.getInvoices().get(0).getInvoiceID();
 				UUID sourceLineItemID2 = newInvoice2.getInvoices().get(0).getLineItems().get(0).getLineItemID();
@@ -1373,7 +1365,7 @@ public class AuthenticatedResource extends HttpServlet
 				newLinkedTransaction2.setContactID(newContactID);
 				newLinkedTransactions2.addLinkedTransactionsItem(newLinkedTransaction2);
 				
-				LinkedTransactions createdLinkedTransaction2 = accountingApi.createLinkedTransaction(newLinkedTransactions2);
+				LinkedTransactions createdLinkedTransaction2 = accountingApi.createLinkedTransaction(xeroTenantId,newLinkedTransactions2);
 				messages.add("Create LinkedTransaction 2 - Status : " + createdLinkedTransaction2.getLinkedTransactions().get(0).getStatus());
 				
 				// Created Linked Transaction 3
@@ -1390,11 +1382,11 @@ public class AuthenticatedResource extends HttpServlet
 				myInvoiceAccRec.setStatus(com.xero.models.accounting.Invoice.StatusEnum.AUTHORISED);
 				newInvoicesAccRec.addInvoicesItem(myInvoiceAccRec);
 				
-				Invoices newInvoiceAccRec = accountingApi.createInvoice(newInvoicesAccRec, summarizeErrors);
+				Invoices newInvoiceAccRec = accountingApi.createInvoice(xeroTenantId,newInvoicesAccRec, summarizeErrors);
 				UUID sourceTransactionID4 = newInvoiceAccRec.getInvoices().get(0).getInvoiceID();
 				UUID sourceLineItemID4 = newInvoiceAccRec.getInvoices().get(0).getLineItems().get(0).getLineItemID();
 				
-				Invoices newInvoice3 = accountingApi.createInvoice(newInvoices, summarizeErrors);
+				Invoices newInvoice3 = accountingApi.createInvoice(xeroTenantId,newInvoices, summarizeErrors);
 				
 				UUID sourceTransactionID3 = newInvoice3.getInvoices().get(0).getInvoiceID();
 				UUID sourceLineItemID3 = newInvoice3.getInvoices().get(0).getLineItems().get(0).getLineItemID();
@@ -1407,7 +1399,7 @@ public class AuthenticatedResource extends HttpServlet
 				newLinkedTransaction3.setTargetLineItemID(sourceLineItemID4);
 				newLinkedTransactions3.addLinkedTransactionsItem(newLinkedTransaction3);
 				
-				LinkedTransactions createdLinkedTransaction3 = accountingApi.createLinkedTransaction(newLinkedTransactions3);
+				LinkedTransactions createdLinkedTransaction3 = accountingApi.createLinkedTransaction(xeroTenantId,newLinkedTransactions3);
 				messages.add("Create LinkedTransaction 3 - Status : " + createdLinkedTransaction3.getLinkedTransactions().get(0).getStatus());
 				
 				// GET all Link Transactions
@@ -1418,12 +1410,12 @@ public class AuthenticatedResource extends HttpServlet
 				String targetTransactionID = null;
 				String status = null;
 				String contactID = null;
-				LinkedTransactions linkTransactions = accountingApi.getLinkedTransactions(page, linkedTransactionID, sourceTransactionID, contactID, status, targetTransactionID);
+				LinkedTransactions linkTransactions = accountingApi.getLinkedTransactions(xeroTenantId,page, linkedTransactionID, sourceTransactionID, contactID, status, targetTransactionID);
 				messages.add("Get Link Transactions - total : " + linkTransactions.getLinkedTransactions().size());
 				
 				// GET all Link Transactions
 				UUID linkedTransactionID2 = linkTransactions.getLinkedTransactions().get(0).getLinkedTransactionID();
-				LinkedTransactions oneLinkTransaction = accountingApi.getLinkedTransaction(linkedTransactionID2);
+				LinkedTransactions oneLinkTransaction = accountingApi.getLinkedTransaction(xeroTenantId,linkedTransactionID2);
 				messages.add("Get one Link Transaction - Status : " + oneLinkTransaction.getLinkedTransactions().get(0).getStatus());
 // 500 Error				
 				/*
@@ -1441,7 +1433,7 @@ public class AuthenticatedResource extends HttpServlet
 			try {
 				// Create Manual Journal
 			    where = "Type==\"EXPENSE\" && Status ==\"ACTIVE\"";
-				Accounts accounts = accountingApi.getAccounts(ifModifiedSince, where, order);
+				Accounts accounts = accountingApi.getAccounts(xeroTenantId,ifModifiedSince, where, order);
 				String accountCode = accounts.getAccounts().get(0).getCode();
 				where = null;
 				ManualJournals manualJournals = new ManualJournals();
@@ -1462,17 +1454,17 @@ public class AuthenticatedResource extends HttpServlet
 				debit.setLineAmount(-100.00);
 				manualJournal.addJournalLinesItem(debit);
 				manualJournals.addManualJournalsItem(manualJournal);
-				ManualJournals createdManualJournals = accountingApi.createManualJournal(manualJournals);
+				ManualJournals createdManualJournals = accountingApi.createManualJournal(xeroTenantId,manualJournals);
 				UUID newManualJournalId = createdManualJournals.getManualJournals().get(0).getManualJournalID();
 				messages.add("Create Manual Journal - Narration : " + createdManualJournals.getManualJournals().get(0).getNarration());
 				
 				// GET all Manual Journal
-				ManualJournals getManualJournals = accountingApi.getManualJournals(ifModifiedSince, where, order, null);
+				ManualJournals getManualJournals = accountingApi.getManualJournals(xeroTenantId,ifModifiedSince, where, order, null);
 				messages.add("Get Manual Journal - total : " + getManualJournals.getManualJournals().size());
 				
 				// GET one Manual Journal
 				UUID manualJournalId = getManualJournals.getManualJournals().get(0).getManualJournalID();			
-				ManualJournals oneManualJournal = accountingApi.getManualJournal(manualJournalId);
+				ManualJournals oneManualJournal = accountingApi.getManualJournal(xeroTenantId,manualJournalId);
 				messages.add("Get one Manual Journal - Narration : " + oneManualJournal.getManualJournals().get(0).getNarration());
 				
 				// Update Manual Journal
@@ -1481,7 +1473,7 @@ public class AuthenticatedResource extends HttpServlet
 				updateManualJournal.setManualJournalID(newManualJournalId);
 				updateManualJournal.setNarration("Hello Xero");
 				updateManualJournals.addManualJournalsItem(updateManualJournal);
-				ManualJournals updatedManualJournal = accountingApi.updateManualJournal(newManualJournalId,updateManualJournals);
+				ManualJournals updatedManualJournal = accountingApi.updateManualJournal(xeroTenantId,newManualJournalId,updateManualJournals);
 				messages.add("Update Manual Journal - Narration : " + updatedManualJournal.getManualJournals().get(0).getNarration());
 				
 			} catch (Exception e) {
@@ -1491,7 +1483,7 @@ public class AuthenticatedResource extends HttpServlet
         } else if (object.equals("Organisations")) {
 			// Organisation 
 			try {
-				Organisations organisations = accountingApi.getOrganisations();
+				Organisations organisations = accountingApi.getOrganisations(xeroTenantId);
 				messages.add("Get a Organisation - Name : " + organisations.getOrganisations().get(0).getName());
 			} catch (Exception e) {
 				
@@ -1504,17 +1496,17 @@ public class AuthenticatedResource extends HttpServlet
 		} else if (object.equals("Overpayments")) {
 			// OVERPAYMENT 
 		    where = "Status==\"ACTIVE\"&&Type==\"BANK\"";
-			Accounts accountsWhere = accountingApi.getAccounts(ifModifiedSince, where, order);
+			Accounts accountsWhere = accountingApi.getAccounts(xeroTenantId,ifModifiedSince, where, order);
 			Account bankAccount = new Account();
 			bankAccount.setAccountID(accountsWhere.getAccounts().get(0).getAccountID());
 			where = null;
 			
 		    where = "SystemAccount==\"DEBTORS\"";
-			Accounts arAccounts = accountingApi.getAccounts(ifModifiedSince, where, order);
+			Accounts arAccounts = accountingApi.getAccounts(xeroTenantId,ifModifiedSince, where, order);
 			Account arAccount = arAccounts.getAccounts().get(0);
 			where = null;
 			
-			Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
+			Contacts contacts = accountingApi.getContacts(xeroTenantId,ifModifiedSince, where, order, ids, null, includeArchived);
 			Contact useContact = new Contact();
 			useContact.setContactID(contacts.getContacts().get(0).getContactID());
 			
@@ -1535,18 +1527,18 @@ public class AuthenticatedResource extends HttpServlet
 				bt.setType(com.xero.models.accounting.BankTransaction.TypeEnum.RECEIVE_OVERPAYMENT);
 				BankTransactions bts = new BankTransactions();
 				bts.addBankTransactionsItem(bt);					
-				BankTransactions newBankTransaction = accountingApi.createBankTransaction(bts, summarizeErrors);
+				BankTransactions newBankTransaction = accountingApi.createBankTransaction(xeroTenantId,bts, summarizeErrors);
 				
-				Overpayments overpayments = accountingApi.getOverpayments(ifModifiedSince, where, order, null, null);
+				Overpayments overpayments = accountingApi.getOverpayments(xeroTenantId,ifModifiedSince, where, order, null, null);
 				messages.add("Get a Overpayments - Count : " + overpayments.getOverpayments().size());
 				
 				if(overpayments.getOverpayments().size() > 0) {	
 					UUID overpaymentId = overpayments.getOverpayments().get(2).getOverpaymentID();
-					Overpayments oneOverpayment = accountingApi.getOverpayment(overpaymentId);
+					Overpayments oneOverpayment = accountingApi.getOverpayment(xeroTenantId,overpaymentId);
 					messages.add("Get one Overpayment - Total : " + oneOverpayment.getOverpayments().get(0).getTotal());					
 					
 				    where = "Status==\"AUTHORISED\"&&Type==\"ACCREC\"";					
-					Invoices allInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
+					Invoices allInvoices = accountingApi.getInvoices(xeroTenantId,ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
 					Invoice inv = new Invoice();
 					inv.setInvoiceID(allInvoices.getInvoices().get(0).getInvoiceID());
 					where = null;
@@ -1559,11 +1551,11 @@ public class AuthenticatedResource extends HttpServlet
 					allocation.setInvoice(inv);
 					allocations.addAllocationsItem(allocation);
 					
-					Allocations newAllocation = accountingApi.createOverpaymentAllocation(overpaymentId, allocations);
+					Allocations newAllocation = accountingApi.createOverpaymentAllocation(xeroTenantId,overpaymentId, allocations);
 					messages.add("Create OverPayment allocation - Amt : " + newAllocation.getAllocations().get(0).getAmount());					
 				
 					// Get History
-					HistoryRecords history = accountingApi.getOverpaymentHistory(overpaymentId);
+					HistoryRecords history = accountingApi.getOverpaymentHistory(xeroTenantId,overpaymentId);
 					messages.add("History - count : " + history.getHistoryRecords().size() );
 				
 					// Create  History
@@ -1583,13 +1575,13 @@ public class AuthenticatedResource extends HttpServlet
 			/* Payment 	*/
 			// CREATE payment
 			where =  "Status==\"AUTHORISED\"&&Type==\"ACCREC\"";			
-			Invoices allInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
+			Invoices allInvoices = accountingApi.getInvoices(xeroTenantId,ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
 			Invoice inv = new Invoice();
 			inv.setInvoiceID(allInvoices.getInvoices().get(0).getInvoiceID());
 			where = null;
 		
 		    where = "EnablePaymentsToAccount==true";
-			Accounts accountsWhere = accountingApi.getAccounts(ifModifiedSince, where, order);
+			Accounts accountsWhere = accountingApi.getAccounts(xeroTenantId,ifModifiedSince, where, order);
 			Account paymentAccount = new Account();
 			paymentAccount.setCode(accountsWhere.getAccounts().get(0).getCode());
 			where = null;
@@ -1604,20 +1596,20 @@ public class AuthenticatedResource extends HttpServlet
 			createPayment.setDate(currDate);
 			createPayments.addPaymentsItem(createPayment);
 			
-			Payments newPayments = accountingApi.createPayment(createPayments);
+			Payments newPayments = accountingApi.createPayment(xeroTenantId,createPayments);
 			messages.add("Create Payments - Amt : " + newPayments.getPayments().get(0).getAmount());					
 			
 			// GET all Payments
-			Payments payments = accountingApi.getPayments(ifModifiedSince, where, order);
+			Payments payments = accountingApi.getPayments(xeroTenantId,ifModifiedSince, where, order);
 			messages.add("Get Payments - Total : " + payments.getPayments().size());					
 			
 			// GET one Payment
 			UUID paymentID = payments.getPayments().get(0).getPaymentID();
-			Payments onePayment = accountingApi.getPayment(paymentID);
+			Payments onePayment = accountingApi.getPayment(xeroTenantId,paymentID);
 			messages.add("Get Payments - Amount : " + onePayment.getPayments().get(0).getAmount());		
 			
 			// Get  History
-			HistoryRecords allHistory = accountingApi.getPaymentHistory(paymentID);
+			HistoryRecords allHistory = accountingApi.getPaymentHistory(xeroTenantId,paymentID);
 			messages.add("History - count : " + allHistory.getHistoryRecords().size() );
 		
 			// Create History
@@ -1639,11 +1631,11 @@ public class AuthenticatedResource extends HttpServlet
 				newPaymentService.setPaymentServiceUrl("https://www.payupnow.com/");
 				newPaymentService.setPayNowText("Time To PayUp");
 				newPaymentServices.addPaymentServicesItem(newPaymentService);
-				PaymentServices createdPaymentService = accountingApi.createPaymentService(newPaymentServices);
+				PaymentServices createdPaymentService = accountingApi.createPaymentService(xeroTenantId,newPaymentServices);
 				messages.add("Create PaymentServices - name : " + createdPaymentService.getPaymentServices().get(0).getPaymentServiceName());				
 			
 				// GET all Payments
-				PaymentServices paymentServices = accountingApi.getPaymentServices();
+				PaymentServices paymentServices = accountingApi.getPaymentServices(xeroTenantId);
 				messages.add("Get PaymentServices - Total : " + paymentServices.getPaymentServices().size());					
 			} catch (Exception e) {
 				System.out.println(e.getMessage());	
@@ -1651,17 +1643,17 @@ public class AuthenticatedResource extends HttpServlet
 		} else if (object.equals("Prepayments")) {
 			/* PREPAYMENT */
 		    where = "Status==\"ACTIVE\"&&Type==\"BANK\"";
-			Accounts accountsWhere = accountingApi.getAccounts(ifModifiedSince, where, order);
+			Accounts accountsWhere = accountingApi.getAccounts(xeroTenantId,ifModifiedSince, where, order);
 			Account bankAccount = new Account();
 			bankAccount.setAccountID(accountsWhere.getAccounts().get(0).getAccountID());
 			where = null;
 			
 		    where = "Type==\"EXPENSE\"";
-			Accounts arAccounts = accountingApi.getAccounts(ifModifiedSince, where, order);
+			Accounts arAccounts = accountingApi.getAccounts(xeroTenantId,ifModifiedSince, where, order);
 			Account arAccount = arAccounts.getAccounts().get(0);
 			where = null;
 			
-			Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
+			Contacts contacts = accountingApi.getContacts(xeroTenantId,ifModifiedSince, where, order, ids, null, includeArchived);
 			Contact useContact = new Contact();
 			useContact.setContactID(contacts.getContacts().get(0).getContactID());
 			
@@ -1683,17 +1675,17 @@ public class AuthenticatedResource extends HttpServlet
 				bt.setType(com.xero.models.accounting.BankTransaction.TypeEnum.RECEIVE_PREPAYMENT);
 				BankTransactions bts = new BankTransactions();
 				bts.addBankTransactionsItem(bt);					
-				BankTransactions newBankTransaction = accountingApi.createBankTransaction(bts, summarizeErrors);
+				BankTransactions newBankTransaction = accountingApi.createBankTransaction(xeroTenantId,bts, summarizeErrors);
 				where =  "Status==\"AUTHORISED\" && TYPE==\"RECEIVE-PREPAYMENT\"";
-				Prepayments prepayments = accountingApi.getPrepayments(ifModifiedSince, where, order, null, null);
+				Prepayments prepayments = accountingApi.getPrepayments(xeroTenantId,ifModifiedSince, where, order, null, null);
 				messages.add("Get a Prepayments - Count : " + prepayments.getPrepayments().size());
 				where = null;
 				if(prepayments.getPrepayments().size() > 0) {	
 					UUID prepaymentId = prepayments.getPrepayments().get(0).getPrepaymentID();
-					Prepayments onePrepayment = accountingApi.getPrepayment(prepaymentId);
+					Prepayments onePrepayment = accountingApi.getPrepayment(xeroTenantId,prepaymentId);
 					messages.add("Get one Prepayment - Total : " + onePrepayment.getPrepayments().get(0).getTotal());
 				    where = "Status==\"AUTHORISED\"&&Type==\"ACCREC\"";					
-					Invoices allInvoices = accountingApi.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
+					Invoices allInvoices = accountingApi.getInvoices(xeroTenantId,ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
 					Invoice inv = new Invoice();
 					inv.setInvoiceID(allInvoices.getInvoices().get(0).getInvoiceID());
 					where = null;
@@ -1710,7 +1702,7 @@ public class AuthenticatedResource extends HttpServlet
 					//messages.add("Create PrePayment allocation - Amt : " + newAllocation.getAllocations().get(0).getAmount());		
 					
 					// Get History
-					HistoryRecords history = accountingApi.getPrepaymentHistory(prepaymentId);
+					HistoryRecords history = accountingApi.getPrepaymentHistory(xeroTenantId,prepaymentId);
 					messages.add("History - count : " + history.getHistoryRecords().size() );
 				
 					// Create  History
@@ -1730,7 +1722,7 @@ public class AuthenticatedResource extends HttpServlet
 			try {
 				// CREATE Purchase Order
 			    where = "Type==\"EXPENSE\"";
-				Accounts arAccounts = accountingApi.getAccounts(ifModifiedSince, where, order);
+				Accounts arAccounts = accountingApi.getAccounts(xeroTenantId,ifModifiedSince, where, order);
 				Account arAccount = arAccounts.getAccounts().get(0);
 				where = null;
 				
@@ -1738,7 +1730,7 @@ public class AuthenticatedResource extends HttpServlet
 				PurchaseOrder purchaseOrder = new PurchaseOrder();
 				LocalDate currDate = LocalDate.now();
 				purchaseOrder.setDate(currDate);
-				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
+				Contacts contacts = accountingApi.getContacts(xeroTenantId,ifModifiedSince, where, order, ids, null, includeArchived);
 				Contact useContact = new Contact();
 				useContact.setContactID(contacts.getContacts().get(0).getContactID());
 				purchaseOrder.setContact(useContact);
@@ -1752,34 +1744,34 @@ public class AuthenticatedResource extends HttpServlet
 				lineItems.add(li);
 				purchaseOrder.setLineItems(lineItems);
 				purchaseOrders.addPurchaseOrdersItem(purchaseOrder);
-				PurchaseOrders createdPurchaseOrders = accountingApi.createPurchaseOrder(purchaseOrders, summarizeErrors);
+				PurchaseOrders createdPurchaseOrders = accountingApi.createPurchaseOrder(xeroTenantId,purchaseOrders, summarizeErrors);
 				messages.add("Create Purchase order - total : " + createdPurchaseOrders.getPurchaseOrders().get(0).getTotal());					
 			
 				// UPDATE Purchase Orders
 				UUID newPurchaseOrderID = createdPurchaseOrders.getPurchaseOrders().get(0).getPurchaseOrderID();
 				createdPurchaseOrders.getPurchaseOrders().get(0).setAttentionTo("Jimmy");
-				PurchaseOrders updatePurchaseOrders = accountingApi.updatePurchaseOrder(newPurchaseOrderID, createdPurchaseOrders);
+				PurchaseOrders updatePurchaseOrders = accountingApi.updatePurchaseOrder(xeroTenantId,newPurchaseOrderID, createdPurchaseOrders);
 				messages.add("Update Purchase order - attn : " + updatePurchaseOrders.getPurchaseOrders().get(0).getAttentionTo());								
 				
 				// GET Purchase Orders
 				String status = null;
 				String dateFrom = null;
 				String dateTo = null;
-				PurchaseOrders allPurchaseOrders = accountingApi.getPurchaseOrders(ifModifiedSince, status, dateFrom, dateTo, order, null);
+				PurchaseOrders allPurchaseOrders = accountingApi.getPurchaseOrders(xeroTenantId,ifModifiedSince, status, dateFrom, dateTo, order, null);
 				messages.add("Get Purchase orders - Count : " + allPurchaseOrders.getPurchaseOrders().size());					
 			
 				// GET one Purchase Order
 				UUID purchaseOrderID = allPurchaseOrders.getPurchaseOrders().get(0).getPurchaseOrderID();
-				PurchaseOrders onePurchaseOrder = accountingApi.getPurchaseOrder(purchaseOrderID);
+				PurchaseOrders onePurchaseOrder = accountingApi.getPurchaseOrder(xeroTenantId,purchaseOrderID);
 				messages.add("Get one Purchase order - Total : " + onePurchaseOrder.getPurchaseOrders().get(0).getTotal());					
 				
 				// DELETE Purchase Orders
 				createdPurchaseOrders.getPurchaseOrders().get(0).setStatus(com.xero.models.accounting.PurchaseOrder.StatusEnum.DELETED);
-				PurchaseOrders deletePurchaseOrders = accountingApi.updatePurchaseOrder(newPurchaseOrderID, createdPurchaseOrders);
+				PurchaseOrders deletePurchaseOrders = accountingApi.updatePurchaseOrder(xeroTenantId,newPurchaseOrderID, createdPurchaseOrders);
 				messages.add("Delete Purchase order - Status : " + deletePurchaseOrders.getPurchaseOrders().get(0).getStatus());								
 				
 				// Get History
-				HistoryRecords history = accountingApi.getInvoiceHistory(purchaseOrderID);
+				HistoryRecords history = accountingApi.getInvoiceHistory(xeroTenantId,purchaseOrderID);
 				messages.add("History - count : " + history.getHistoryRecords().size() );
 			
 				// Create History
@@ -1787,7 +1779,7 @@ public class AuthenticatedResource extends HttpServlet
 				HistoryRecord newHistoryRecord = new  HistoryRecord();
 				newHistoryRecord.setDetails("Hello World");
 				newHistoryRecords.addHistoryRecordsItem(newHistoryRecord);
-				HistoryRecords newHistory = accountingApi.createPurchaseOrderHistory(purchaseOrderID,newHistoryRecords);
+				HistoryRecords newHistory = accountingApi.createPurchaseOrderHistory(xeroTenantId,purchaseOrderID,newHistoryRecords);
 				messages.add("History - note added to  : " + newHistory.getHistoryRecords().get(0).getDetails());
 			
 			} catch (Exception e) {
@@ -1798,17 +1790,17 @@ public class AuthenticatedResource extends HttpServlet
 			try {
 				//Create
 //			    where = "IsSubscriber==true";
-				Users users = accountingApi.getUsers(ifModifiedSince, where, order);
+				Users users = accountingApi.getUsers(xeroTenantId,ifModifiedSince, where, order);
 				where = null;
 				
 			    where = "ShowInExpenseClaims==true && Status==\"ACTIVE\"";
-				Accounts accounts = accountingApi.getAccounts(ifModifiedSince, where, order);
+				Accounts accounts = accountingApi.getAccounts(xeroTenantId,ifModifiedSince, where, order);
 				where = null;
 				
 				User useUser = new User();
 				useUser.setUserID(users.getUsers().get(0).getUserID());
 					
-				Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
+				Contacts contacts = accountingApi.getContacts(xeroTenantId,ifModifiedSince, where, order, ids, null, includeArchived);
 				Contact useContact = new Contact();
 				useContact.setContactID(contacts.getContacts().get(0).getContactID());
 					
@@ -1830,26 +1822,26 @@ public class AuthenticatedResource extends HttpServlet
 				receipt.contact(useContact);
 				receipt.setStatus(com.xero.models.accounting.Receipt.StatusEnum.DRAFT);
 				receipts.addReceiptsItem(receipt);
-				Receipts newReceipts = accountingApi.createReceipt(receipts);
+				Receipts newReceipts = accountingApi.createReceipt(xeroTenantId,receipts);
 				messages.add("Create Receipts - Total : " + newReceipts.getReceipts().get(0).getTotal());								
 				
 				// UPDATE Receipts
 				UUID newReceiptId = newReceipts.getReceipts().get(0).getReceiptID();
 				newReceipts.getReceipts().get(0).setReference("Foobar");
-				Receipts updateReceipts = accountingApi.updateReceipt(newReceiptId, newReceipts);
+				Receipts updateReceipts = accountingApi.updateReceipt(xeroTenantId,newReceiptId, newReceipts);
 				messages.add("Create Receipts - Ref : " + updateReceipts.getReceipts().get(0).getReference());								
 				
 				// GET all Receipts
-				Receipts allReceipts = accountingApi.getReceipts(ifModifiedSince, where, order, null);
+				Receipts allReceipts = accountingApi.getReceipts(xeroTenantId,ifModifiedSince, where, order, null);
 				messages.add("Create Receipts - Count : " + allReceipts.getReceipts().size());								
 				
 				// GET one Receipts
 				UUID receiptID = allReceipts.getReceipts().get(0).getReceiptID();
-				Receipts oneReceipts = accountingApi.getReceipt(receiptID);
+				Receipts oneReceipts = accountingApi.getReceipt(xeroTenantId,receiptID);
 				messages.add("Create Receipts - Total : " + oneReceipts.getReceipts().get(0).getTotal());								
 				
 				// Get History
-				HistoryRecords history = accountingApi.getReceiptHistory(receiptID);
+				HistoryRecords history = accountingApi.getReceiptHistory(xeroTenantId,receiptID);
 				messages.add("History - count : " + history.getHistoryRecords().size() );
 			
 				// Create History
@@ -1869,17 +1861,17 @@ public class AuthenticatedResource extends HttpServlet
 	        /* REPEATING INVOICE */
 			try {
 				// GET all Repeating Invoices
-				RepeatingInvoices repeatingInvoices = accountingApi.getRepeatingInvoices(where, order);
+				RepeatingInvoices repeatingInvoices = accountingApi.getRepeatingInvoices(xeroTenantId,where, order);
 				if ( repeatingInvoices.getRepeatingInvoices().size() > 0) {
 					messages.add("Repeating Invoice - count : " + repeatingInvoices.getRepeatingInvoices().size() );
 					
 					// GET one Repeating Invoices
 					UUID repeatingInvoiceID = repeatingInvoices.getRepeatingInvoices().get(0).getRepeatingInvoiceID();
-					RepeatingInvoices repeatingInvoice = accountingApi.getRepeatingInvoice(repeatingInvoiceID);
+					RepeatingInvoices repeatingInvoice = accountingApi.getRepeatingInvoice(xeroTenantId,repeatingInvoiceID);
 					messages.add("Repeating Invoice - total : " + repeatingInvoice.getRepeatingInvoices().get(0).getTotal());
 				
 					// Get History
-					HistoryRecords history = accountingApi.getRepeatingInvoiceHistory(repeatingInvoiceID);
+					HistoryRecords history = accountingApi.getRepeatingInvoiceHistory(xeroTenantId,repeatingInvoiceID);
 					messages.add("History - count : " + history.getHistoryRecords().size() );
 					
 					// Create History
@@ -1921,39 +1913,39 @@ public class AuthenticatedResource extends HttpServlet
 			String trackingCategoryID2 = null;
 			String trackingOptionID = null;
 			
-			Contacts contacts = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
+			Contacts contacts = accountingApi.getContacts(xeroTenantId,ifModifiedSince, where, order, ids, null, includeArchived);
 			UUID contactId = contacts.getContacts().get(0).getContactID();
 			LocalDate xDate = LocalDate.now();
 			LocalDate xFromDate = LocalDate.now();
 			LocalDate xToDate = LocalDate.now();
 			
-			ReportWithRows reportAgedPayablesByContact = accountingApi.getReportAgedPayablesByContact(contactId, xDate, xFromDate, xToDate);
+			ReportWithRows reportAgedPayablesByContact = accountingApi.getReportAgedPayablesByContact(xeroTenantId,contactId, xDate, xFromDate, xToDate);
 			messages.add("Get a Reports - Name:" + reportAgedPayablesByContact.getReports().get(0).getReportName());
 			
 			// AgedReceivablesByContact
-			ReportWithRows reportAgedReceivablesByContact = accountingApi.getReportAgedReceivablesByContact(contactId, xDate, xFromDate, xToDate);
+			ReportWithRows reportAgedReceivablesByContact = accountingApi.getReportAgedReceivablesByContact(xeroTenantId,contactId, xDate, xFromDate, xToDate);
 			messages.add("Get a Reports - Name:" + reportAgedReceivablesByContact.getReports().get(0).getReportName());
 			
 			// reportBalanceSheet
-			ReportWithRows reportBalanceSheet = accountingApi.getReportBalanceSheet(toDate, 3, "MONTH", trackingOptionID1, trackingOptionID2, standardLayout, paymentsOnly);
+			ReportWithRows reportBalanceSheet = accountingApi.getReportBalanceSheet(xeroTenantId,toDate, 3, "MONTH", trackingOptionID1, trackingOptionID2, standardLayout, paymentsOnly);
 			messages.add("Get a Reports - Name:" + reportBalanceSheet.getReports().get(0).getReportName());
 			
 			// reportBankSummary
-			ReportWithRows reportBankSummary = accountingApi.getReportBankSummary(xToDate, null, null);
+			ReportWithRows reportBankSummary = accountingApi.getReportBankSummary(xeroTenantId,xToDate, null, null);
 			messages.add("Get a Reports - Name:" + reportBankSummary.getReports().get(0).getReportName());
 			
 			// reportBASorGSTlist - AU and NZ only
-			ReportWithRows reportTax = accountingApi.getReportBASorGSTList();
+			ReportWithRows reportTax = accountingApi.getReportBASorGSTList(xeroTenantId);
 			System.out.println(reportTax.toString());
 			
 			// reportBudgetSummary
 			int budgetPeriod = 1;
 			int budgetTimeframe = 3;
-			ReportWithRows reportBudgetSummary = accountingApi.getReportBudgetSummary(xToDate, budgetPeriod, budgetTimeframe);
+			ReportWithRows reportBudgetSummary = accountingApi.getReportBudgetSummary(xeroTenantId,xToDate, budgetPeriod, budgetTimeframe);
 			messages.add("Get a Reports - Name:" + reportBudgetSummary.getReports().get(0).getReportName());
 			
 			// reportExecutiveSummary
-			ReportWithRows reportExecutiveSummary = accountingApi.getReportExecutiveSummary(xToDate);
+			ReportWithRows reportExecutiveSummary = accountingApi.getReportExecutiveSummary(xeroTenantId,xToDate);
 			messages.add("Get a Reports - Name:" + reportExecutiveSummary.getReports().get(0).getReportName());
 			
 			// reportProfitandLoss
@@ -1962,52 +1954,52 @@ public class AuthenticatedResource extends HttpServlet
 		    profitLossTimeframe = "MONTH";
 		    standardLayout = true;
 		    paymentsOnly = false;
-			ReportWithRows reportProfitLoss = accountingApi.getReportProfitAndLoss(xFromDate, xToDate, null, profitLossTimeframe, trackingCategoryID, trackingCategoryID2, trackingOptionID, trackingOptionID2, standardLayout, paymentsOnly);
+			ReportWithRows reportProfitLoss = accountingApi.getReportProfitAndLoss(xeroTenantId,xFromDate, xToDate, null, profitLossTimeframe, trackingCategoryID, trackingCategoryID2, trackingOptionID, trackingOptionID2, standardLayout, paymentsOnly);
 			messages.add("Get a Reports - Name:" + reportProfitLoss.getReports().get(0).getReportName());
 			fromDate = null;
 		    toDate = null;
 						
 			// reportTrialBalance
-			ReportWithRows reportTrialBalance = accountingApi.getReportTrialBalance(xToDate, paymentsOnly);
+			ReportWithRows reportTrialBalance = accountingApi.getReportTrialBalance(xeroTenantId,xToDate, paymentsOnly);
 			messages.add("Get a Reports - Name:" + reportTrialBalance.getReports().get(0).getReportName());
 		
 		} else if (object.equals("TrackingCategories")) {
 			// TRACKING CATEGORIES 
 			try {
 				// GET Tracking Categories
-				TrackingCategories trackingCategories = accountingApi.getTrackingCategories(where, order, includeArchived);
+				TrackingCategories trackingCategories = accountingApi.getTrackingCategories(xeroTenantId,where, order, includeArchived);
 				int count = trackingCategories.getTrackingCategories().size();
 				
 				if (count == 2) {
 					//DELETE Tracking Categories
 					UUID trackingCategoryID = trackingCategories.getTrackingCategories().get(0).getTrackingCategoryID();
-					TrackingCategories deletedTrackingCategories = accountingApi.deleteTrackingCategory(trackingCategoryID);
+					TrackingCategories deletedTrackingCategories = accountingApi.deleteTrackingCategory(xeroTenantId,trackingCategoryID);
 					messages.add("DELETED tracking categories - status : " + deletedTrackingCategories.getTrackingCategories().get(0).getStatus());					
 				}
 				
 				// CREATE  Tracking Categories
 				TrackingCategory newTrackingCategory = new TrackingCategory();
 				newTrackingCategory.setName("Foo"+ loadRandomNum());
-				TrackingCategories createdTrackingCategories = accountingApi.createTrackingCategory(newTrackingCategory);
+				TrackingCategories createdTrackingCategories = accountingApi.createTrackingCategory(xeroTenantId,newTrackingCategory);
 				messages.add("CREATED tracking categories - name : " + createdTrackingCategories.getTrackingCategories().get(0).getName());					
 			
 				// UPDATE  Tracking Categories
 				UUID newTrackingCategoryID = createdTrackingCategories.getTrackingCategories().get(0).getTrackingCategoryID();
 				newTrackingCategory.setName("Foo"+ loadRandomNum());
-				TrackingCategories updatedTrackingCategories = accountingApi.updateTrackingCategory(newTrackingCategoryID,newTrackingCategory);
+				TrackingCategories updatedTrackingCategories = accountingApi.updateTrackingCategory(xeroTenantId,newTrackingCategoryID,newTrackingCategory);
 				messages.add("UPDATED tracking categories - name : " + updatedTrackingCategories.getTrackingCategories().get(0).getName());					
 				
 				// GET one Tracking Categories
 				if (count > 0) 
 				{
 					UUID oneTrackingCategoryID = trackingCategories.getTrackingCategories().get(0).getTrackingCategoryID();
-					TrackingCategories oneTrackingCategories = accountingApi.getTrackingCategory(oneTrackingCategoryID);
+					TrackingCategories oneTrackingCategories = accountingApi.getTrackingCategory(xeroTenantId,oneTrackingCategoryID);
 					messages.add("GET ONE tracking categories - name : " + oneTrackingCategories.getTrackingCategories().get(0).getName());
 					
 					// Create one Option
 					TrackingOption option = new TrackingOption();
 					option.setName("Bar"+ loadRandomNum());
-					TrackingOptions newTrackingOptions = accountingApi.createTrackingOptions(oneTrackingCategoryID,option);
+					TrackingOptions newTrackingOptions = accountingApi.createTrackingOptions(xeroTenantId,oneTrackingCategoryID,option);
 					messages.add("CREATE option - name : " + newTrackingOptions.getOptions().get(0).getName());
 					
 					// DELETE All options
@@ -2033,22 +2025,22 @@ public class AuthenticatedResource extends HttpServlet
 				newTaxRate.addTaxComponentsItem(rate01);
 				newTaxRates.addTaxRatesItem(newTaxRate);
 				
-				TaxRates createdTaxRate = accountingApi.createTaxRate(newTaxRates);
+				TaxRates createdTaxRate = accountingApi.createTaxRate(xeroTenantId,newTaxRates);
 				messages.add("CREATE TaxRate - name : " + createdTaxRate.getTaxRates().get(0).getName());
 				
 				// UDPATE Tax Rate
 				newTaxRates.getTaxRates().get(0).setStatus(com.xero.models.accounting.TaxRate.StatusEnum.DELETED);
-				TaxRates updatedTaxRate = accountingApi.updateTaxRate(newTaxRates);
+				TaxRates updatedTaxRate = accountingApi.updateTaxRate(xeroTenantId,newTaxRates);
 				messages.add("UPDATED TaxRate - status : " + updatedTaxRate.getTaxRates().get(0).getStatus());
 				
 				// GET Tax Rate
 				String taxType = null;
-				TaxRates taxRates = accountingApi.getTaxRates(where, order, taxType);
+				TaxRates taxRates = accountingApi.getTaxRates(xeroTenantId,where, order, taxType);
 				messages.add("GET TaxRate - cnt : " + taxRates.getTaxRates().size());
 				
 				// GET Tax Rate
 			    taxType = "CAPEXINPUT2";
-				TaxRates taxRatesByType = accountingApi.getTaxRates(where, order, taxType);
+				TaxRates taxRatesByType = accountingApi.getTaxRates(xeroTenantId,where, order, taxType);
 				messages.add("GET TaxRate by Cap Purchase Type : " + taxRatesByType.getTaxRates().size());
 				
 			} catch (Exception e) {
@@ -2058,12 +2050,12 @@ public class AuthenticatedResource extends HttpServlet
 			// USER
 			try {
 				// GET Users
-				Users users = accountingApi.getUsers(ifModifiedSince, where, order);
+				Users users = accountingApi.getUsers(xeroTenantId,ifModifiedSince, where, order);
 				messages.add("GET Users - cnt : " + users.getUsers().size());
 				
 				//GET One User
 				UUID userID = users.getUsers().get(0).getUserID();
-				Users user = accountingApi.getUser(userID);
+				Users user = accountingApi.getUser(xeroTenantId,userID);
 				messages.add("GET Users - First Name : " + user.getUsers().get(0).getFirstName());
 			} catch (Exception e) {
 				System.out.println(e.getMessage());

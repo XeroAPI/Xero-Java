@@ -42,6 +42,7 @@ public class Authorization extends HttpServlet {
 		final String clientId = "--YOUR_CLIENT_ID--";
         final String clientSecret = "--YOUR_CLIENT_SECRET--";
         final String redirectURI = "--YOUR_REDIRECT_URI--";
+		
         final String secretState = "secret" + new Random().nextInt(999_999);
         
         ArrayList<String> scopeList = new ArrayList<String>();
