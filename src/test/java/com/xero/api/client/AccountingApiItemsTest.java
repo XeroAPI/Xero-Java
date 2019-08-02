@@ -44,23 +44,21 @@ public class AccountingApiItemsTest {
 
 	ApiClient defaultClient; 
     AccountingApi accountingApi; 
+	String accessToken;
+    String xeroTenantId; 
      
  
     private static boolean setUpIsDone = false;
 	
 	@Before
 	public void setUp() {
-		// Set Access Token from Storage
-        String accessToken = "123";
-        Credential credential =  new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+		// Set Access Token and Tenant Id
+        accessToken = "123";
+        xeroTenantId = "xyz";
         
-        // Create requestFactory with credentials
-        HttpTransport transport = new NetHttpTransport();        
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-
         // Init AccountingApi client
-        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,requestFactory);
-        accountingApi = new AccountingApi(defaultClient);
+        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
+        accountingApi = AccountingApi.getInstance(defaultClient);   
          
         // ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
         if (setUpIsDone) {
@@ -86,7 +84,7 @@ public class AccountingApiItemsTest {
     public void createItemTest() throws IOException {
         System.out.println("@Test - createItem");
         Items items = new Items();
-        Items response = accountingApi.createItem(items);
+        Items response = accountingApi.createItem(accessToken,xeroTenantId,items);
 
         assertThat(response.getItems().get(0).getCode(), is(equalTo("abc65591")));
         assertThat(response.getItems().get(0).getName(), is(equalTo("Hello11350")));
@@ -114,7 +112,7 @@ public class AccountingApiItemsTest {
     public void getItemTest() throws IOException {
         System.out.println("@Test - getItem");
         UUID itemID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Items response = accountingApi.getItem(itemID);
+        Items response = accountingApi.getItem(accessToken,xeroTenantId,itemID);
 
         assertThat(response.getItems().get(0).getCode(), is(equalTo("123")));
         assertThat(response.getItems().get(0).getInventoryAssetAccountCode(), is(equalTo("630")));
@@ -143,7 +141,7 @@ public class AccountingApiItemsTest {
     public void getItemHistoryTest() throws IOException {
         System.out.println("@Test - getItemHistory");
         UUID itemID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords response = accountingApi.getItemHistory(itemID);
+        HistoryRecords response = accountingApi.getItemHistory(accessToken,xeroTenantId,itemID);
 
         assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("Sidney Maestre")));       
         assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Created")));     
@@ -159,7 +157,7 @@ public class AccountingApiItemsTest {
         String where = null;
         String order = null;
         Integer unitdp = null;
-        Items response = accountingApi.getItems(ifModifiedSince, where, order, unitdp);
+        Items response = accountingApi.getItems(accessToken,xeroTenantId,ifModifiedSince, where, order, unitdp);
 
         assertThat(response.getItems().get(0).getCode(), is(equalTo("123")));
         assertThat(response.getItems().get(0).getName(), is(equalTo("Guitars")));
@@ -180,7 +178,7 @@ public class AccountingApiItemsTest {
         System.out.println("@Test - updateItem");
         UUID itemID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         Items items = new Items();
-        Items response = accountingApi.updateItem(itemID, items);
+        Items response = accountingApi.updateItem(accessToken,xeroTenantId,itemID, items);
 
         assertThat(response.getItems().get(0).getCode(), is(equalTo("abc38306")));
         assertThat(response.getItems().get(0).getName(), is(equalTo("Hello8746")));
@@ -197,6 +195,6 @@ public class AccountingApiItemsTest {
     public void deleteItemTest() throws IOException {
         System.out.println("@Test - deleteItem");
         UUID itemID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        accountingApi.deleteItem(itemID);
+        accountingApi.deleteItem(accessToken,xeroTenantId,itemID);
     }
 }

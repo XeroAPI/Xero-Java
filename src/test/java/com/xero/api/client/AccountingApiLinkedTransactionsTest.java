@@ -44,23 +44,21 @@ public class AccountingApiLinkedTransactionsTest {
 
 	ApiClient defaultClient; 
     AccountingApi accountingApi; 
+	String accessToken;
+    String xeroTenantId; 
      
     
     private static boolean setUpIsDone = false;
 	
 	@Before
 	public void setUp() {
-		// Set Access Token from Storage
-        String accessToken = "123";
-        Credential credential =  new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+		// Set Access Token and Tenant Id
+        accessToken = "123";
+        xeroTenantId = "xyz";
         
-        // Create requestFactory with credentials
-        HttpTransport transport = new NetHttpTransport();        
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-
         // Init AccountingApi client
-        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,requestFactory);
-        accountingApi = new AccountingApi(defaultClient);
+        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
+        accountingApi = AccountingApi.getInstance(defaultClient);   
        
         // ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
         if (setUpIsDone) {
@@ -86,7 +84,7 @@ public class AccountingApiLinkedTransactionsTest {
     public void createLinkedTransactionTest() throws IOException {
         System.out.println("@Test - createLinkedTransaction");
         LinkedTransactions linkedTransactions = new LinkedTransactions();
-        LinkedTransactions response = accountingApi.createLinkedTransaction(linkedTransactions);
+        LinkedTransactions response = accountingApi.createLinkedTransaction(accessToken,xeroTenantId,linkedTransactions);
 
         assertThat(response.getLinkedTransactions().get(0).getSourceTransactionID(), is(equalTo(UUID.fromString("a848644a-f20f-4630-98c3-386bd7505631"))));
         assertThat(response.getLinkedTransactions().get(0).getSourceLineItemID(), is(equalTo(UUID.fromString("b0df260d-3cc8-4ced-9bd6-41924f624ed3"))));
@@ -103,14 +101,14 @@ public class AccountingApiLinkedTransactionsTest {
     public void deleteLinkedTransactionTest() throws IOException {
         System.out.println("@Test - deleteLinkedTransaction");
         UUID linkedTransactionID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        accountingApi.deleteLinkedTransaction(linkedTransactionID);
+        accountingApi.deleteLinkedTransaction(accessToken,xeroTenantId,linkedTransactionID);
     }
 
     @Test
     public void getLinkedTransactionTest() throws IOException {
         System.out.println("@Test - getLinkedTransaction");
         UUID linkedTransactionID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        LinkedTransactions response = accountingApi.getLinkedTransaction(linkedTransactionID);
+        LinkedTransactions response = accountingApi.getLinkedTransaction(accessToken,xeroTenantId,linkedTransactionID);
 
         assertThat(response.getLinkedTransactions().get(0).getSourceTransactionID(), is(equalTo(UUID.fromString("aec416dd-38ea-40dc-9f0b-813c8c71f87f"))));
         assertThat(response.getLinkedTransactions().get(0).getSourceLineItemID(), is(equalTo(UUID.fromString("77e0b23b-5b79-4f4b-ae20-c9031d41442f"))));
@@ -134,7 +132,7 @@ public class AccountingApiLinkedTransactionsTest {
         String contactID = null;
         String status = null;
         String targetTransactionID = null;
-        LinkedTransactions response = accountingApi.getLinkedTransactions(page, linkedTransactionID, sourceTransactionID, contactID, status, targetTransactionID);
+        LinkedTransactions response = accountingApi.getLinkedTransactions(accessToken,xeroTenantId,page, linkedTransactionID, sourceTransactionID, contactID, status, targetTransactionID);
 
         assertThat(response.getLinkedTransactions().get(0).getSourceTransactionID(), is(equalTo(UUID.fromString("aec416dd-38ea-40dc-9f0b-813c8c71f87f"))));
         assertThat(response.getLinkedTransactions().get(0).getSourceLineItemID(), is(equalTo(UUID.fromString("77e0b23b-5b79-4f4b-ae20-c9031d41442f"))));
@@ -154,7 +152,7 @@ public class AccountingApiLinkedTransactionsTest {
         System.out.println("@Test - updateLinkedTransaction");
         UUID linkedTransactionID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         LinkedTransactions linkedTransactions = new LinkedTransactions();
-        LinkedTransactions response = accountingApi.updateLinkedTransaction(linkedTransactionID, linkedTransactions);
+        LinkedTransactions response = accountingApi.updateLinkedTransaction(accessToken,xeroTenantId,linkedTransactionID, linkedTransactions);
 
         assertThat(response.getLinkedTransactions().get(0).getSourceTransactionID(), is(equalTo(UUID.fromString("a848644a-f20f-4630-98c3-386bd7505631"))));
         assertThat(response.getLinkedTransactions().get(0).getSourceLineItemID(), is(equalTo(UUID.fromString("b0df260d-3cc8-4ced-9bd6-41924f624ed3"))));

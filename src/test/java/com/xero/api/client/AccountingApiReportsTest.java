@@ -43,23 +43,21 @@ import java.math.BigDecimal;
 public class AccountingApiReportsTest {
 
 	ApiClient defaultClient; 
-    AccountingApi accountingApi;  
+    AccountingApi accountingApi; 
+	String accessToken;
+    String xeroTenantId;  
 
     private static boolean setUpIsDone = false;
 	
 	@Before
 	public void setUp() {
-		// Set Access Token from Storage
-        String accessToken = "123";
-        Credential credential =  new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+		// Set Access Token and Tenant Id
+        accessToken = "123";
+        xeroTenantId = "xyz";
         
-        // Create requestFactory with credentials
-        HttpTransport transport = new NetHttpTransport();        
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-
         // Init AccountingApi client
-        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,requestFactory);
-        accountingApi = new AccountingApi(defaultClient);
+        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
+        accountingApi = AccountingApi.getInstance(defaultClient);   
 
         // ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
         if (setUpIsDone) {
@@ -88,7 +86,7 @@ public class AccountingApiReportsTest {
         LocalDate date = null;
         LocalDate fromDate = null;
         LocalDate toDate = null;
-        ReportWithRows response = accountingApi.getReportAgedPayablesByContact(contactId, date, fromDate, toDate);
+        ReportWithRows response = accountingApi.getReportAgedPayablesByContact(accessToken,xeroTenantId,contactId, date, fromDate, toDate);
 
         assertThat(response.getReports().get(0).getReportID(), is(equalTo("AgedPayablesByContact")));
         assertThat(response.getReports().get(0).getReportName(), is(equalTo("Aged Payables By Contact")));
@@ -123,7 +121,7 @@ public class AccountingApiReportsTest {
         LocalDate date = null;
         LocalDate fromDate = null;
         LocalDate toDate = null;
-        ReportWithRows response = accountingApi.getReportAgedReceivablesByContact(contactId, date, fromDate, toDate);
+        ReportWithRows response = accountingApi.getReportAgedReceivablesByContact(accessToken,xeroTenantId,contactId, date, fromDate, toDate);
 
         assertThat(response.getReports().get(0).getReportID(), is(equalTo("AgedReceivablesByContact")));
         assertThat(response.getReports().get(0).getReportName(), is(equalTo("Aged Receivables By Contact")));
@@ -165,7 +163,7 @@ public class AccountingApiReportsTest {
         String trackingOptionID2 = null;
         Boolean standardLayout = null;
         Boolean paymentsOnly = null;
-        ReportWithRows response = accountingApi.getReportBalanceSheet(date, periods, timeframe, trackingOptionID1, trackingOptionID2, standardLayout, paymentsOnly);
+        ReportWithRows response = accountingApi.getReportBalanceSheet(accessToken,xeroTenantId,date, periods, timeframe, trackingOptionID1, trackingOptionID2, standardLayout, paymentsOnly);
 
         assertThat(response.getReports().get(0).getReportID(), is(equalTo("BalanceSheet")));
         assertThat(response.getReports().get(0).getReportName(), is(equalTo("Balance Sheet")));
@@ -194,7 +192,7 @@ public class AccountingApiReportsTest {
         Integer period = null;
         Integer timeframe = null;
         
-        ReportWithRows response = accountingApi.getReportBankSummary(date, period, timeframe);
+        ReportWithRows response = accountingApi.getReportBankSummary(accessToken,xeroTenantId,date, period, timeframe);
         assertThat(response.getReports().get(0).getReportID(), is(equalTo("BankSummary")));
         assertThat(response.getReports().get(0).getReportName(), is(equalTo("Bank Summary")));
         assertThat(response.getReports().get(0).getReportType(), is("BankSummary"));
@@ -224,7 +222,7 @@ public class AccountingApiReportsTest {
     public void getReportExecutiveSummaryTest() throws IOException {
         System.out.println("@Test - getReportExecutiveSummary");
         LocalDate date = null;
-        ReportWithRows response = accountingApi.getReportExecutiveSummary(date);
+        ReportWithRows response = accountingApi.getReportExecutiveSummary(accessToken,xeroTenantId,date);
 
         assertThat(response.getReports().get(0).getReportID(), is(equalTo("ExecutiveSummary")));
         assertThat(response.getReports().get(0).getReportName(), is(equalTo("Executive Summary")));
@@ -257,7 +255,7 @@ public class AccountingApiReportsTest {
     public void getReportTenNinetyNineTest() throws IOException {
         System.out.println("@Test - getReportTenNinetyNine");
         String reportYear = null;
-        Reports response = accountingApi.getReportTenNinetyNine(reportYear);
+        Reports response = accountingApi.getReportTenNinetyNine(accessToken,xeroTenantId,reportYear);
 
         assertThat(response.getReports().get(0).getReportName(), is(equalTo("1099 report")));
         assertThat(response.getReports().get(0).getReportDate(), is(equalTo("1 Jan 2016 to 31 Dec 2016")));
@@ -279,7 +277,7 @@ public class AccountingApiReportsTest {
         System.out.println("@Test - getReportTrialBalance");
         LocalDate date = null;
         Boolean paymentsOnly = null;
-        ReportWithRows response = accountingApi.getReportTrialBalance(date, paymentsOnly);
+        ReportWithRows response = accountingApi.getReportTrialBalance(accessToken,xeroTenantId,date, paymentsOnly);
         
         assertThat(response.getReports().get(0).getReportID(), is(equalTo("TrialBalance")));
         assertThat(response.getReports().get(0).getReportName(), is(equalTo("Trial Balance")));
@@ -310,7 +308,7 @@ public class AccountingApiReportsTest {
         LocalDate date = null;
         Integer period = null;
         Integer timeframe = null;
-        ReportWithRows response = accountingApi.getReportBudgetSummary(date, period, timeframe);
+        ReportWithRows response = accountingApi.getReportBudgetSummary(accessToken,xeroTenantId,date, period, timeframe);
 
         assertThat(response.getReports().get(0).getReportID(), is(equalTo("BudgetSummary")));
         assertThat(response.getReports().get(0).getReportName(), is(equalTo("Budget Summary")));
@@ -356,7 +354,7 @@ public class AccountingApiReportsTest {
         String trackingCategoryID2 = null;
         String trackingOptionID = null;
         String trackingOptionID2 = null;
-        ReportWithRows response = accountingApi.getReportProfitAndLoss(fromDate, toDate, periods, timeframe, trackingCategoryID, trackingCategoryID2, trackingOptionID, trackingOptionID2, standardLayout, paymentsOnly);
+        ReportWithRows response = accountingApi.getReportProfitAndLoss(accessToken,xeroTenantId,fromDate, toDate, periods, timeframe, trackingCategoryID, trackingCategoryID2, trackingOptionID, trackingOptionID2, standardLayout, paymentsOnly);
 
         assertThat(response.getReports().get(0).getReportID(), is(equalTo("ProfitAndLoss")));
         assertThat(response.getReports().get(0).getReportName(), is(equalTo("Profit and Loss")));

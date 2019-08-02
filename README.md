@@ -1,15 +1,14 @@
 # Xero-Java
 
-
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.xeroapi/xero-java.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.github.xeroapi%22%20AND%20a:%22xero-java%22)
 
 ## Current release of SDK with oAuth 2 support
 Version 3.x of Xero Java SDK only supports oAuth2 authentication and the following API sets.
 * accounting
-* fixed asset 
-* bank feeds 
 
 Coming soon
+* fixed asset 
+* bank feeds 
 * files 
 * payroll
 * projects
@@ -44,228 +43,111 @@ Add the Xero Java SDK dependency to project via maven, gradle, sbt or other buil
 </dependency>
 ```
 
-
-
-### Default Configuration
-The SDK uses a config.json file to manage API keys along with other configuration values.  The SDK will look for a file *config.json* in a source folder called *resources*.
-
-To create you config.json file, login to app.xero.com. Create a Xero App, if you have not already. Under the *SDK Configuration* heading, select Java to see your config.json and copy it.  Create a new file named *config.json* paste your configuration information and save the file in a source folder named *resources*.
-
-You can confirm your config.json file is loading properly by running the code below in your project. If successful, in the debugging console you'll see your User Agent string displayed.
-
-```java
-try {
-	Config config = JsonConfig.getInstance();		
-	System.out.println("Your user agent is: " + config.getUserAgent());			
-} catch(Exception e) {
-	System.out.println(e.getMessage());
-}
-```
-
-Above is the default configuration method.  You also have the option to [customize your configuration](#custom-configuration).
-
-#### Config.json example
-You should get the minimum config.json from app.xero.com. 
-
-Here are examples of the minimum config.json for different Xero App Types.
-
-**Public**
-```javascript
-{ 
-	"AppType" : "PUBLIC",
-	"UserAgent": "YourAppName",
-	"ConsumerKey" : "WTCXXXXXXXXXXXXXXXXXXXXXXKG",
-	"ConsumerSecret" : "GJ2XXXXXXXXXXXXXXXXXXXXXXXXWZ",
-	"CallbackBaseUrl" : "http://localhost:8080/myapp",
-	"CallbackPath" : "/CallbackServlet"
-}
-```
-
-**Private**
-```javascript
-{ 
-	"AppType" : "PRIVATE",
-	"UserAgent": "YourAppName",
-	"ConsumerKey" : "CW1XXXXXXXXXXXXXXXXXXXXXXXXYG",
-	"ConsumerSecret" : "SRJXXXXXXXXXXXXXXXXXXXXXXXZEA6",
-	"PrivateKeyCert" :  "/certs/public_privatekey.pfx",
-	"PrivateKeyPassword" :  "1234"
-}
-```
-
-**Partner**
-```javascript
-{ 
-	"AppType" : "PARTNER",
-	"UserAgent": "YourAppName",
-	"ConsumerKey" : "FA6UXXXXXXXXXXXXXXXXXXXXXXRC7",
-	"ConsumerSecret" : "7FMXXXXXXXXXXXXXXXXXXXXXXXXXCSA",
-	"CallbackBaseUrl" : "http://localhost:8080/myapp",
-	"CallbackPath" : "/CallbackServlet",
-	"PrivateKeyCert" :  "/certs/public_privatekey.pfx",
-	"PrivateKeyPassword" :  "1234"
-}
-```
-
-**Optional Attributes**
-
-* Accept: format of data returned from API  (application/xml or application/json) *default is XML*
-* ApiBaseUrl: base URL for API calls      *default is https://api.xero.com*
-* ApiEndpointPath: path for API Calls      *default is /api.xro/2.0/*
-* RequestTokenPath: path for Request Token      *default it /oauth/RequestToken*
-* AuthenticateUrl: path for redirect to authorize      *default is /oauth/RequestToken*
-* AccessTokenPath: path for Access Token         *default it /oauth/AccessToken*
-* KeyStorePath: Path to your cacerts is typically inside your $JAVA_HOME/jre/lib/security/cacerts 
-* KeyStorePassword: your password
-
-### Custom Configuration
-
-You have the option to implement your own Config class and pass it as an argument to the OAuthRequestToken, OAuthAccessToken and Api Clients (AccountingApi, AssetsApi, etc). 
-
-An example of how you might implement Config can be found in the `/src/main/java/com/xero/example` folder named `CustomJsonConfig.java`.
-
-```java
-try {
-	config = new CustomJsonConfig();
-	System.out.println("Your user agent is: " + config.getUserAgent());			
-} catch(Exception e) {
-	System.out.println(e.getMessage());
-}
-
-ApiClient apiClientForAccounting = new ApiClient(config.getApiUrl(),null,null,null);
-
-AccountingApi accountingApi = new AccountingApi(config);
-accountingApi.setApiClient(apiClientForAccounting);
-accountingApi.setOAuthToken(token, tokenSecret);
-```
-
-### Spring Framework based Configuration
-
-An alternative method of configuring the Xero Java SDK can be found in the `example-spring/src/main/java` folder named `SpringConfig.java`.
- 
-This class reads the configuration from the spring `Environment` backed by the `application.properties`. This handy way of configuring the SDK
-allows spring profiles to control your production and development environments.
-
-This code should be updated and replace XeroClient with new Clients (AccountingApi, AssetsApi, etc)
-```java
-    @Bean
-    public XeroClient xeroClient(Environment environment) {
-        SpringConfig config = new SpringConfig("xero.", environment);
-        XeroClient client = new XeroClient(config);
-        client.setOAuthToken(config.getConsumerKey(), config.getConsumerSecret());
-        return client;
-    }
-```
-
-Application.properties 
-```
-xero.AppType=PRIVATE
-xero.UserAgent=Your App Name
-xero.ConsumerKey=FA6UXXXXXXXXXXXXXXXXXXXXXXRC7
-xero.ConsumerSecret=7FMXXXXXXXXXXXXXXXXXXXXXXXXXCSA
-xero.PrivateKeyCert=/certs/public_privatekey.pfx
-xero.PrivateKeyPassword=
-```
-
-## Customize Request Signing
-
-You can provide your own signing mechanism by using the `public AccountingApi(Config config, SignerFactory signerFactory)` constructor. Simply implement the `SignerFactory` interface with your implementation.
-
-You can also provide a `RsaSignerFactory` using the `public RsaSignerFactory(InputStream privateKeyInputStream, String privateKeyPassword)` constructor to fetch keys from any InputStream.
-
-```java
-config = new JsonConfig("xero/config.json");
-
-try (FileInputStream privateKeyStream = new FileInputStream(config.getPathToPrivateKey()))
-{
-	RsaSignerFactory signerFactory = new RsaSignerFactory(privateKeyStream, config.getPrivateKeyPassword());
-
-	// v2
-	ApiClient apiClientForAccounting = new ApiClient(config.getApiUrl(), null, null, null);
-	accountingApi = new AccountingApi(config, signerFactory);
-	accountingApi.setApiClient(apiClientForAccounting);
-	accountingApi.setOAuthToken(config.getConsumerKey(), config.getConsumerSecret());
-}
-```
-
 ## Logging
-The SDK uses log4j2.  To configure, add a log4j.properties file to the Resources directory.
-
+The SDK uses log4j2.  To configure, add a log4j.properties file to the src/resources directory in your project.
 
 ## How to use the Xero-Java SDK
-
-### Example App
-We've created an example app with code examples for each endpoint.  To build the example app as a WAR file, **update the config.json in example/src/main/resources directory** and from the terminal run 
-
-```javascript
-mvn clean compile war:war
-```
-
-Then deploy the Xero-Java-SDK.war found in the target directory to your Java server.
-
 
 ### Step by Step Video
 We've created a video walking through how to create a new Eclipse project, add your dependencies and make your first API call.
 [Watch this video](https://youtu.be/F3upynnpztc). 
 
-### Hello Organization
+Below are the code snippets used in the video
 
-This is the code we used in our video.
+### Authorization
+Create your [Xero app](https://developer.xero.com/myapps) to obtain your clientId, clientSecret and set your redirectUri.  The redirectUri is your server that Xero will send a user back to once authorization is complete (aka callback url).
 
-For Public & Partner Apps, you'll implement 3 legged oAuth - Private Apps can skip down to the Data Endpoints (your Consumer Key is your long lived  Access Token)
+You can add or remove items from the scopeList for your integration.
 
-*RequestTokenServlet.java*
+Lastly, you'll generate an authorization URL and redirect the user to Xero for authorization.
+
+*Authorization.java*
 ```java
 package com.xero.example;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Random;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.xero.api.Config;
-import com.xero.api.JsonConfig;
-import com.xero.api.OAuthAuthorizeToken;
-import com.xero.api.OAuthRequestToken;
+import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
+import com.google.api.client.auth.oauth2.BearerToken;
+import com.google.api.client.auth.oauth2.ClientParametersAuthentication;
+import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.store.DataStoreFactory;
+import com.google.api.client.util.store.MemoryDataStoreFactory;
 
-@WebServlet("/RequestTokenServlet")
-public class RequestTokenServlet extends HttpServlet {
+@WebServlet("/Authorization")
+public class Authorization extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	public RequestTokenServlet() {
-		super();
-	}
+	final String clientId = "--YOUR_CLIENT_ID--";
+	final String clientSecret = "--YOUR_CLIENT_SECRET--";
+	final String redirectURI = "--YOUR_REDIRECT_URI--";
+    final String TOKEN_SERVER_URL = "https://identity.xero.com/connect/token";
+    final String AUTHORIZATION_SERVER_URL = "https://login.xero.com/identity/connect/authorize";
+	final NetHttpTransport HTTP_TRANSPORT = new NetHttpTransport();
+    final JsonFactory JSON_FACTORY = new JacksonFactory();
+    final String secretState = "secret" + new Random().nextInt(999_999);
+       
+    public Authorization() {
+        super();
+    }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		try {
-			Config config = JsonConfig.getInstance();
-			
-			OAuthRequestToken requestToken = new OAuthRequestToken(config);
-			requestToken.execute();	
-			
-			TokenStorage storage = new TokenStorage();
-			storage.save(response,requestToken.getAll());
-
-			OAuthAuthorizeToken authToken = new OAuthAuthorizeToken(config, requestToken.getTempToken());
-			response.sendRedirect(authToken.getAuthUrl());	
-		} catch(Exception e) {
-			System.out.println(e.getMessage());
-		}
-
+        ArrayList<String> scopeList = new ArrayList<String>();
+        scopeList.add("openid");
+        scopeList.add("email");
+        scopeList.add("profile");
+        scopeList.add("offline_access");
+        scopeList.add("accounting.settings");
+        scopeList.add("accounting.transactions");
+        scopeList.add("accounting.contacts");
+        scopeList.add("accounting.journals.read");
+        scopeList.add("accounting.reports.read");
+        scopeList.add("accounting.attachments");
+        scopeList.add("paymentservices");
+        
+        DataStoreFactory DATA_STORE_FACTORY = new MemoryDataStoreFactory();		
+        AuthorizationCodeFlow flow = new AuthorizationCodeFlow.Builder(BearerToken.authorizationHeaderAccessMethod(), 
+        		HTTP_TRANSPORT, 
+        		JSON_FACTORY, 
+        		new GenericUrl(TOKEN_SERVER_URL), 
+        		new ClientParametersAuthentication(clientId, clientSecret), clientId, AUTHORIZATION_SERVER_URL)
+        			.setScopes(scopeList)
+        			.setDataStoreFactory(DATA_STORE_FACTORY)
+        			.build();
+       
+        String url = flow.newAuthorizationUrl()
+        	.setClientId(clientId)
+        	.setScopes(scopeList)
+        	.setState(secretState)
+            .setRedirectUri(redirectURI).build();
+        
+         response.sendRedirect(url);
 	}
 }
 ```
 
-In your callback Servlet you'll read the query params and swap your temporary for your 30 min access token. 
+After the user has selected an organisation to authorise, they will be returned to your application specified in the redirectUri.  Below is an example Callback servlet.  You'll get a *code* from callback url query string and use it to request you access token.
 
-*CallbackServlet.java*
+An access token can be associate with one or more Xero orgs, so you'll need to call Xero's identity service (https://api.xero.com/Connections).  You'll receive an array of xero-tenant-id's (that identify the organisation(s) authorized). Use both the access token and the tenant id to access resources via the API.
+
+Lastly, we save the access token, refresh token and Xero tenant id.  We've mocked up a TokenStorage class for this demo.
+
+*Callback.java*
 ```java
 package com.xero.example;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -274,57 +156,94 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.api.client.auth.oauth2.AuthorizationCodeFlow;
+import com.google.api.client.auth.oauth2.BearerToken;
+import com.google.api.client.auth.oauth2.ClientParametersAuthentication;
+import com.google.api.client.auth.oauth2.TokenResponse;
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpRequestFactory;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.store.DataStoreFactory;
+import com.google.api.client.util.store.MemoryDataStoreFactory;
 import com.xero.api.ApiClient;
-import com.xero.api.OAuthAccessToken;
-import com.xero.api.client.AccountingApi;
-import com.xero.models.accounting.Organisations;
-import com.xero.api.Config;
-import com.xero.api.JsonConfig;
+import com.xero.api.client.IdentityApi;
+import com.xero.models.identity.Connection;
 
-@WebServlet("/CallbackServlet")
-public class CallbackServlet extends HttpServlet 
-{
+@WebServlet("/Callback")
+public class Callback extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	public CallbackServlet() 
-	{
-		super();
-	}
+	final String clientId = "--YOUR_CLIENT_ID--";
+	final String clientSecret = "--YOUR_CLIENT_SECRET--";
+	final String redirectURI = "--YOUR_REDIRECT_URI--";
+    final String TOKEN_SERVER_URL = "https://identity.xero.com/connect/token";
+    final String AUTHORIZATION_SERVER_URL = "https://login.xero.com/identity/connect/authorize";
+	final NetHttpTransport HTTP_TRANSPORT = new NetHttpTransport();
+    final JsonFactory JSON_FACTORY = new JacksonFactory();
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-	{	
-		TokenStorage storage = new TokenStorage();
-		String verifier = request.getParameter("oauth_verifier");
+    public Callback() {
+        super();
+    }
 
-		try {
-			Config config = JsonConfig.getInstance();
-			
-			OAuthAccessToken accessToken = new OAuthAccessToken(config);
-			
-			accessToken.build(verifier,storage.get(request,"tempToken"),storage.get(request,"tempTokenSecret")).execute();
-			
-			if(!accessToken.isSuccess()) {
-				storage.clear(response);
-				request.getRequestDispatcher("index.jsp").forward(request, response);
-			} else {
-				storage.save(response,accessToken.getAll());			
-				
-				ApiClient apiClientForAccounting = new ApiClient(config.getApiUrl(),null,null,null);
-				AccountingApi accountingApi = new AccountingApi(apiClientForAccounting);
-				accountingApi.setOAuthToken(accessToken.getToken(), accessToken.getTokenSecret());
-		
-				Organisations organisations = accountingApi.getOrganisations();
-				System.out.println("Get a Organisation - Name : " + organisations.getOrganisations().get(0).getName());
-				
-			}
-		} catch(Exception e) {
-			System.out.println(e.getMessage());
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String code = "123";
+		if (request.getParameter("code") != null) {   
+			code = request.getParameter("code");
 		}
-	}	
+	
+	    ArrayList<String> scopeList = new ArrayList<String>();
+	    scopeList.add("openid");
+	    scopeList.add("email");
+	    scopeList.add("profile");
+	    scopeList.add("offline_access");
+	    scopeList.add("accounting.settings");
+	    scopeList.add("accounting.transactions");
+	    scopeList.add("accounting.contacts");
+	    scopeList.add("accounting.journals.read");
+	    scopeList.add("accounting.reports.read");
+	    scopeList.add("accounting.attachments");
+	    scopeList.add("paymentservices");
+	    
+	    DataStoreFactory DATA_STORE_FACTORY = new MemoryDataStoreFactory();		
+	    
+	    AuthorizationCodeFlow flow = new AuthorizationCodeFlow.Builder(BearerToken.authorizationHeaderAccessMethod(), 
+	    		HTTP_TRANSPORT, 
+	    		JSON_FACTORY, 
+	    		new GenericUrl(TOKEN_SERVER_URL), 
+	    		new ClientParametersAuthentication(clientId, clientSecret), clientId, AUTHORIZATION_SERVER_URL).setScopes(scopeList).setDataStoreFactory(DATA_STORE_FACTORY).build();
+	    
+	    TokenResponse tokenResponse = flow.newTokenRequest(code).setRedirectUri(redirectURI).execute();
+	   
+	    HttpTransport httpTransport = new NetHttpTransport();
+	    JsonFactory jsonFactory = new JacksonFactory();
+	    GoogleCredential credential = new GoogleCredential.Builder().setTransport(httpTransport).setJsonFactory(jsonFactory).setClientSecrets(clientId, clientSecret).build();
+	    credential.setAccessToken(tokenResponse.getAccessToken());
+	    credential.setRefreshToken(tokenResponse.getRefreshToken());
+	    credential.setExpiresInSeconds(tokenResponse.getExpiresInSeconds());
+	
+	    // Create requestFactory with credentials
+	    HttpTransport transport = new NetHttpTransport();        
+	    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+	
+	    // Init IdentityApi client
+	    ApiClient defaultClient = new ApiClient("https://api.xero.com",null,null,null,requestFactory);
+	    IdentityApi idApi = new IdentityApi(defaultClient);
+	    List<Connection> connection = idApi.getConnections();
+	
+	    TokenStorage store = new TokenStorage();
+	    store.saveItem(response, "access_token", tokenResponse.getAccessToken());
+	    store.saveItem(response, "refresh_token", tokenResponse.getRefreshToken());
+	    store.saveItem(response, "xero_tenant_id", connection.get(0).getTenantId().toString());
+	
+	    response.sendRedirect("./AuthenticatedResource");
+	}
 }		
 ```
 
-The TokenStorage class uses cookies to store your temporary token & secret so they can be swapped for 30 min access token & secret.  Of course, you'd want to create your own implementation to store this user information in a database.  This class is merely for demo purposes so you can trying out the SDK.
+TokenStorage class uses cookies to store your access token, refresh token and Xero tenant id.  Of course, you'd want to create your own implementation of Token Storage to store information in a database.  This class is merely for demo purposes so you can trying out the SDK.
 
 *TokenStorage.java*
 ```java
@@ -363,24 +282,21 @@ public class TokenStorage
 		}
 		return item;
 	}
-	
-	public boolean tokenIsNull(String token) {
-		if (token != null && !token.isEmpty()) { 
-			return false;
-		} else {
-			return true;
-		}
-	}
 
 	public void clear(HttpServletResponse response)
 	{
 		HashMap<String,String> map = new HashMap<String,String>();
-		map.put("tempToken","");
-		map.put("tempTokenSecret","");
-		map.put("sessionHandle","");
-		map.put("tokenTimestamp","");
+		map.put("access_token","");
+		map.put("refresh_token","");
+		map.put("xero_tenant_id","");
 
 		save(response,map);
+	}
+	
+	public void saveItem(HttpServletResponse response,String key, String value)
+	{
+		Cookie t = new Cookie(key,value);
+		response.addCookie(t);
 	}
 
 	public void save(HttpServletResponse response,HashMap<String,String> map)
@@ -400,10 +316,91 @@ public class TokenStorage
 }
 ```
 
+TokenRefresh class is an example of how you can check if your access token is expired and perform a token refresh if needed. This example uses the TokenStorage class to persist you new access token and refresh token when performing a refresh.  You are welcome to modify or replace this class to suit your needs.
+
+*TokenRefresh.java*
+```java
+package com.xero.example;
+
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.google.api.client.auth.oauth2.RefreshTokenRequest;
+import com.google.api.client.auth.oauth2.TokenResponse;
+import com.google.api.client.auth.oauth2.TokenResponseException;
+import com.google.api.client.http.BasicAuthentication;
+import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
+
+public class TokenRefresh {
+	final static Logger logger = LogManager.getLogger(AuthenticatedResource.class);
+	final String clientId = "--YOUR_CLIENT_ID--";
+	final String clientSecret = "--YOUR_CLIENT_SECRET--";
+	final String redirectURI = "--YOUR_REDIRECT_URI--";
+	
+	public  TokenRefresh() 
+	{
+		super();
+	}
+	
+	public String checkToken(String accessToken, String refreshToken, HttpServletResponse response) throws IOException 
+	{
+		String currToken =null;
+
+		try {
+			DecodedJWT jwt = JWT.decode(accessToken);
+
+			if (jwt.getExpiresAt().getTime() > System.currentTimeMillis()) {
+				currToken = accessToken;
+			} else {
+				try {
+					TokenResponse tokenResponse = new RefreshTokenRequest(new NetHttpTransport(), new JacksonFactory(), new GenericUrl(
+		    	        		  TOKEN_SERVER_URL), refreshToken)
+		    	          		.setClientAuthentication(new BasicAuthentication(this.clientId, this.clientSecret)).execute();
+		    	      
+					// DEMO PURPOSE ONLY - You'll need to implement your own token storage solution
+					TokenStorage store = new TokenStorage();
+					store.saveItem(response, "jwt_token", tokenResponse.toPrettyString());
+					store.saveItem(response, "access_token", tokenResponse.getAccessToken());
+					store.saveItem(response, "refresh_token", tokenResponse.getRefreshToken());
+					store.saveItem(response, "expires_in_seconds", tokenResponse.getExpiresInSeconds().toString());
+		    	      
+					currToken = tokenResponse.getAccessToken();
+				} catch (TokenResponseException e) {			
+					if (e.getDetails() != null) {
+						System.out.println("Error: " + e.getDetails().getError());
+						if (e.getDetails().getErrorDescription() != null) {
+							System.out.println(e.getDetails().getErrorDescription());
+						}
+						if (e.getDetails().getErrorUri() != null) {
+							System.out.println(e.getDetails().getErrorUri());
+						}
+					} else {
+						System.out.println(e.getMessage());	
+		   			}
+		   		}
+		    }
+		} catch (JWTDecodeException exception){
+			System.out.println(exception.getMessage());
+		}
+		return currToken;
+	}
+}
+```
 
 **Data Endpoints**
 
-The Xero Java SDK contains Client classes (AccountingApi, AssetsApi, etc) which have helper methods to perform (Create, Read, Update and Delete) actions on each endpoints.  Once you instantiate a Client class, you'll use Xero API models to interact with Java Objects.
+The Xero Java SDK contains Client classes (AccountingApi, etc) which have helper methods to perform (Create, Read, Update and Delete) actions on each endpoints.  AccountingApi is designed as a Singleton. Use the getInstance method of the class class and use with API models to interact with Java Objects.
+
+* Token expiration should be checked prior to making API calls *
 
 ```java
 import com.xero.api.*;
@@ -411,192 +408,65 @@ import com.xero.api.ApiClient;
 import com.xero.api.client.AccountingApi;
 import com.xero.models.accounting.*;
 
-// Get Xero API Resource - DEMONSTRATION ONLY get token from Cookie
-TokenStorage storage = new TokenStorage();
-String token = storage.get(request,"token");
-String tokenSecret = storage.get(request,"tokenSecret");
+// Get Tokens and Xero Tenant Id from Storage
+TokenStorage store = new TokenStorage();
+String savedAccessToken =store.get(request, "access_token");
+String savedRefreshToken = store.get(request, "refresh_token");
+String xeroTenantId = store.get(request, "xero_tenant_id");	
 
-// For Private Apps the token is your consumerKey and the tokenSecret is your consumerSecret
-// You can get these values out of the config object above
-ApiClient apiClientForAccounting = new ApiClient(config.getApiUrl(),null,null,null);
-AccountingApi accountingApi = new AccountingApi(apiClientForAccounting);
-accountingApi.setOAuthToken(token, tokenSecret);
+// Check expiration of token and refresh if necessary
+// This should be done prior to each API call to ensure your accessToken is valid
+String accessToken = new TokenRefresh().checkToken(savedAccessToken,savedRefreshToken,response);
+
+// Init AccountingApi client
+ApiClient defaultClient = new ApiClient();
+
+// Get Singleton - instance of accounting client
+accountingApi = AccountingApi.getInstance(defaultClient);	
 		
 // Get All Contacts
-Contacts contactList = accountingApi.getContacts(null, null, null, null, null, null);
-System.out.println("How many contacts did we find: " + contactList.getContacts().size());
+Contacts contacts = accountingApi.getContacts(accessToken,xeroTenantId,null, null, null, null, null, null);
+System.out.println("How many contacts did we find: " + contacts.getContacts().size());
 				
 /* CREATE ACCOUNT */
-Account newAccount = new Account();
-newAccount.setName("Office Expense");
-newAccount.setCode("66000"));
-newAccount.setType(Account.TypeEnum.EXPENSE);
-Accounts newAccount = accountingApi.createAccount(newAccount);
-messages.add("Create a new Account - Name : " + newAccount.getAccounts().get(0).getName());
+Account acct = new Account();
+acct.setName("Office Expense");
+acct.setCode("66000");
+acct.setType(com.xero.models.accounting.AccountType.EXPENSE);
+Accounts newAccount = accountingApi.createAccount(accessToken,xeroTenantId,acct);
+System.out.println("New account created: " + newAccount.getAccounts().get(0).getName());
 			
 /* READ ACCOUNT using a WHERE clause */
 where = "Status==\"ACTIVE\"&&Type==\"BANK\"";
-Accounts accountsWhere = accountingApi.getAccounts(null, where, null);
+Accounts accountsWhere = accountingApi.getAccounts(accessToken,xeroTenantId,ifModifiedSince, where, order);
 
 /* READ ACCOUNT using the ID */
-Accounts accountList = accountingApi.getAccounts(null, null, null);
-UUID accountID = accountList.getAccounts().get(0).getAccountID();
-Accounts oneAccount = accountingApi.getAccount(accountID);
+Accounts accounts = accountingApi.getAccounts(accessToken,xeroTenantId,null, null, null);
+UUID accountID = accounts.getAccounts().get(0).getAccountID();
+Accounts oneAccount = accountingApi.getAccount(accessToken,xeroTenantId,accountID);
 							
 /* UPDATE ACCOUNT */
 UUID newAccountID = newAccount.getAccounts().get(0).getAccountID();
 newAccount.getAccounts().get(0).setDescription("Monsters Inc.");
 newAccount.getAccounts().get(0).setStatus(null);
-Accounts updateAccount = accountingApi.updateAccount(newAccountID, newAccount);
+Accounts updateAccount = accountingApi.updateAccount(accessToken,xeroTenantId,newAccountID, newAccount);
 
 /* DELETE ACCOUNT */
 UUID deleteAccountID = newAccount.getAccounts().get(0).getAccountID();
-Accounts deleteAccount = accountingApi.deleteAccount(deleteAccountID);
-String status = deleteAccount.getAccounts().get(0).getStatus();
+Accounts deleteAccount = accountingApi.deleteAccount(accessToken,xeroTenantId,deleteAccountID);
+System.out.println("Delete account - Status? : " + deleteAccount.getAccounts().get(0).getStatus());
 
 // GET INVOICE MODIFIED in LAST 24 HOURS
 OffsetDateTime invModified = OffsetDateTime.now();
 invModified.minusDays(1);	
-Invoices InvoiceList24hour = accountingApi.getInvoices(invModified, null, null, null, null, null, null, null, null, null);
+Invoices InvoiceList24hour = accountingApi.getInvoices(accessToken,xeroTenantId,invModified, null, null, null, null, null, null, null, null, null, null);
 System.out.println("How many invoices modified in last 24 hours?: " + InvoiceList24hour.getInvoices().size());
-```
-
-**BankFeed Endpoints**
-
-Currently, BankFeed endpoints (FeedConnection & Statements) is limited beta financial institutions who are engaged with Xero.  Once these endpoints have been enabled for your Xero Partner App, use the following pattern to make API calls.
-
-```java
-import com.xero.api.*;
-import com.xero.api.ApiClient;
-import com.xero.models.bankfeeds.*;
-import com.xero.models.bankfeeds.Statements;
-import com.xero.models.bankfeeds.FeedConnection.AccountTypeEnum;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import org.threeten.bp.LocalDate;
-
-// Get Xero API Resource - DEMONSTRATION ONLY get token from Cookie
-TokenStorage storage = new TokenStorage();
-String token = storage.get(request,"token");
-String tokenSecret = storage.get(request,"tokenSecret");
-
-// Initialize the BankFeedApi object and set the token & secret
-ApiClient apiClientForBankFeeds = new ApiClient(config.getBankFeedsUrl(),null,null,null);
-BankFeedsApi bankFeedsApi = new BankFeedsApi(apiClientForBankFeeds);
-bankFeedsApi.setOAuthToken(token, tokenSecret);
-Map<String, String> params = null;
-
-// Get ALL Feed Connections
-try {
-	FeedConnections fc = bankFeedsApi.getFeedConnections(null);
-	System.out.println("Total Banks found: " + fc.getItems().size());
-} catch (Exception e) {
-	System.out.println(e.toString());
-}
-
-// Get one Feed Connection
-try {
-	FeedConnections fc = bankFeedsApi.getFeedConnections(null);
-	FeedConnection oneFC = bankFeedsApi.getFeedConnection("123456789",null);
-	System.out.println("One Bank: " + oneFC.getAccountName());
-} catch (Exception e) {
-	System.out.println(e.toString());
-}
-
-try {
-	FeedConnection newBank = new FeedConnection();
-	newBank.setAccountName("SDK Bank " + SampleData.loadRandomNum());
-	newBank.setAccountNumber("1234" + SampleData.loadRandomNum());
-	newBank.setAccountType(AccountTypeEnum.BANK);
-	newBank.setAccountToken("foobar" + SampleData.loadRandomNum());
-	newBank.setCurrency("GBP");
-	
-	FeedConnections arrayFeedConnections = new FeedConnections();
-	arrayFeedConnections.addItemsItem(newBank);
-	
-	FeedConnections fc1 = bankFeedsApi.createFeedConnections(arrayFeedConnections, null);
-	System.out.println("New Bank with status: " + fc1.getItems().get(0).getStatus());
-} catch (Exception e) {
-	System.out.println(e.toString());
-}
-
-
-// Create Bank Statement
-// Create One Statement
-try {
-	Statements arrayOfStatements = new Statements();
-	Statement newStatement = new Statement();
-	LocalDate stDate = LocalDate.of(2018, 9, 01);
-	newStatement.setStartDate(stDate);
-	LocalDate endDate = LocalDate.of(2018, 9, 15);
-	newStatement.endDate(endDate);
-	StartBalance stBalance = new StartBalance();
-	stBalance.setAmount("100");
-	stBalance.setCreditDebitIndicator(CreditDebitIndicator.CREDIT);
-	newStatement.setStartBalance(stBalance);
-	
-	EndBalance endBalance = new EndBalance();
-	endBalance.setAmount("300");
-	endBalance.setCreditDebitIndicator(CreditDebitIndicator.CREDIT);
-	newStatement.endBalance(endBalance);
-	
-	FeedConnections fc = bankFeedsApi.getFeedConnections(null);
-	newStatement.setFeedConnectionId(fc.getItems().get(0).getId().toString());
-	
-	StatementLine newStatementLine = new StatementLine();
-	newStatementLine.setAmount("50");
-	newStatementLine.setChequeNumber("123");
-	newStatementLine.setDescription("My new line");
-	newStatementLine.setCreditDebitIndicator(CreditDebitIndicator.CREDIT);
-	newStatementLine.setReference("Foobar");
-	newStatementLine.setPayeeName("StarLord");
-	newStatementLine.setTransactionId("1234");
-	LocalDate postedDate = LocalDate.of(2017, 9, 05);
-	newStatementLine.setPostedDate(postedDate);
-
-	StatementLines arrayStatementLines = new StatementLines();
-	arrayStatementLines.add(newStatementLine);
-	
-	newStatement.setStatementLines(arrayStatementLines);
-	arrayOfStatements.addItemsItem(newStatement);
-	Statements rStatements = bankFeedsApi.createStatements(arrayOfStatements, params);
-	
-	System.out.println("New Bank Statement Status: " + rStatements.getItems().get(0).getStatus());
-				
-} catch (Exception e) {
-	// Error throw is of type Statements - it contains an array of Errors.
-	TypeReference<Statements> typeRef = new TypeReference<Statements>() {};
-	Statements statementErrors =  apiClientForBankFeeds.getObjectMapper().readValue(e.getMessage(), typeRef);
-	System.out.println(statementErrors.getItems().get(0).getErrors().get(0).getDetail());
-}
-
 ```
 
 **Exception Handling**
 
-Below is an example of how how to handle errors.
+TBD
 
-
-```java
-import com.xero.api.*;
-import com.xero.api.ApiClient;
-import com.xero.api.client.AccountingApi;
-import com.xero.models.accounting.*;
-
-try {
-	// BAD invoice data
-		
-} catch (XeroApiException e) {
-	System.out.println("Response Code: " + e.getResponseCode());
-	System.out.println("Error Type: " + e.getError().getType());
-	System.out.println("Error Number: " + e.getError().getErrorNumber());
-	System.out.println("Error Message: " + e.getError().getMessage());
-	if (e.getResponseCode() == 400) {
-		System.out.println("Validation Message: " + e.getError().getElements().get(0).getValidationErrors().get(0).getMessage());
-	}
-}
-
-```
 
 
 ## TLS 1.0 deprecation
@@ -604,41 +474,13 @@ As of June 30, 2018, Xero's API will remove support for TLS 1.0.
 
 The easiest way to force TLS 1.2 is to set the Runtime Environment for your server (Tomcat, etc) to Java 1.8 which defaults to TLS 1.2.
 
-Those using Java 1.7 or 1.6 will need to add two attributes to the config.json file.
-
-* KeyStorePath: Path to your cacerts is typically inside your $JAVA_HOME/jre/lib/security/cacerts 
-* KeyStorePassword: your password
-
-On a Mac your KeyStorePath value would look something like this ... 
-*/Library/Java/JavaVirtualMachines/jdk1.7.0_67.jdk/Contents/Home/jre/lib/security/cacerts*
-
-Example config.json with optional keystore attributes
-
-```javascript
-{ 
-	"AppType" : "PUBLIC",
-	"UserAgent": "YourAppName",
-	"ConsumerKey" : "WTCXXXXXXXXXXXXXXXXXXXXXXKG",
-	"ConsumerSecret" : "GJ2XXXXXXXXXXXXXXXXXXXXXXXXWZ",
-	"CallbackBaseUrl" : "http://localhost:8080/myapp",
-	"CallbackPath" : "/CallbackServlet",
-	"KeyStorePath" : "/Library/Java/JavaVirtualMachines/jdk1.7.0_67.jdk/Contents/Home/jre/lib/security/cacerts",
-	"KeyStorePassword" : "changeit"
-}
-```
-
-
-
 ## Acknowledgement
-
-Special thanks to [Connectifier](https://github.com/connectifier) and [Ben Mccann](https://github.com/benmccann).  Marshalling and Unmarshalling in XeroClient was derived and extended from [Xero-Java-Client](https://github.com/connectifier/xero-java-client)
-  
 
 ## License
 
 This software is published under the [MIT License](http://en.wikipedia.org/wiki/MIT_License).
 
-	Copyright (c) 2016 Xero Limited
+	Copyright (c) 2019 Xero Limited
 
 	Permission is hereby granted, free of charge, to any person
 	obtaining a copy of this software and associated documentation

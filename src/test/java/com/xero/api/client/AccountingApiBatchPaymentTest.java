@@ -40,6 +40,8 @@ import java.util.UUID;
 public class AccountingApiBatchPaymentTest {
 	ApiClient defaultClient; 
     AccountingApi accountingApi; 
+	String accessToken;
+    String xeroTenantId; 
      
     File bytes;
 
@@ -47,17 +49,13 @@ public class AccountingApiBatchPaymentTest {
 
 	@Before
 	public void setUp() {
-		// Set Access Token from Storage
-        String accessToken = "123";
-        Credential credential =  new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+		// Set Access Token and Tenant Id
+        accessToken = "123";
+        xeroTenantId = "xyz";
         
-        // Create requestFactory with credentials
-        HttpTransport transport = new NetHttpTransport();        
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-
         // Init AccountingApi client
-        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,requestFactory);
-        accountingApi = new AccountingApi(defaultClient);
+        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
+        accountingApi = AccountingApi.getInstance(defaultClient);	
         
         ClassLoader classLoader = getClass().getClassLoader();
         bytes = new File(classLoader.getResource("helo-heros.jpg").getFile());
@@ -88,7 +86,7 @@ public class AccountingApiBatchPaymentTest {
 		OffsetDateTime ifModifiedSince = null;
 		String where = null;
 		String order = null;
-		BatchPayments batchPayments = accountingApi.getBatchPayments(ifModifiedSince, where, order);
+		BatchPayments batchPayments = accountingApi.getBatchPayments(accessToken,xeroTenantId,ifModifiedSince, where, order);
     	assertThat(batchPayments.getBatchPayments().get(0).getBatchPaymentID().toString(), is(equalTo("d0e9bbbf-5b8a-48b6-906a-035591fcb061")));	
 		assertThat(batchPayments.getBatchPayments().get(0).getReference(), is(equalTo("Hello World")));	
 		//System.out.println(batchPayments.getBatchPayments().toString());
@@ -101,7 +99,7 @@ public class AccountingApiBatchPaymentTest {
 		BatchPayments createBatchPayments = new BatchPayments();
 		BatchPayment createBatchPayment = new BatchPayment();
 		createBatchPayments.addBatchPaymentsItem(createBatchPayment);		
-		BatchPayments newBatchPayments = accountingApi.createBatchPayment(createBatchPayments);
+		BatchPayments newBatchPayments = accountingApi.createBatchPayment(accessToken,xeroTenantId,createBatchPayments);
 		assertThat(newBatchPayments.getBatchPayments().get(0).getBatchPaymentID().toString(), is(equalTo("d318c343-208e-49fe-b04a-45642349bcf1")));	
 		assertThat(newBatchPayments.getBatchPayments().get(0).getReference(), is(equalTo("Foobar123")));	
 		//System.out.println(newBatchPayments.getBatchPayments().toString());
@@ -112,7 +110,7 @@ public class AccountingApiBatchPaymentTest {
 		System.out.println("@Test - getBatchPaymentHistory");
 		UUID batchPaymentID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");	
 
-		HistoryRecords hr = accountingApi.getBatchPaymentHistory(batchPaymentID);
+		HistoryRecords hr = accountingApi.getBatchPaymentHistory(accessToken,xeroTenantId,batchPaymentID);
 		assertThat(hr.getHistoryRecords().get(0).getUser(), is(equalTo("Sidney Maestre")));		
 		assertThat(hr.getHistoryRecords().get(0).getChanges(), is(equalTo("Approved")));		
 		//System.out.println(hr.getHistoryRecords().toString());		
@@ -127,7 +125,7 @@ public class AccountingApiBatchPaymentTest {
 		HistoryRecord newHistoryRecord = new  HistoryRecord();
 		newHistoryRecord.setDetails("Hello World");
 		newHistoryRecords.addHistoryRecordsItem(newHistoryRecord);
-		HistoryRecords newHistory = accountingApi.createBatchPaymentHistoryRecord(batchPaymentID,newHistoryRecords);
+		HistoryRecords newHistory = accountingApi.createBatchPaymentHistoryRecord(accessToken,xeroTenantId,batchPaymentID,newHistoryRecords);
 		assertThat(newHistory.getHistoryRecords().get(0).getDetails(), is(equalTo("Hello World")));		
 		//System.out.println(newHistory.getHistoryRecords().toString());		
 	}

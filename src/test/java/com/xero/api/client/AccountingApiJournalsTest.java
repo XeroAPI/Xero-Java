@@ -44,23 +44,21 @@ public class AccountingApiJournalsTest {
 
 	ApiClient defaultClient; 
     AccountingApi accountingApi; 
+	String accessToken;
+    String xeroTenantId; 
      
    
     private static boolean setUpIsDone = false;
 	
 	@Before
 	public void setUp() {
-		// Set Access Token from Storage
-        String accessToken = "123";
-        Credential credential =  new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+		// Set Access Token and Tenant Id
+        accessToken = "123";
+        xeroTenantId = "xyz";
         
-        // Create requestFactory with credentials
-        HttpTransport transport = new NetHttpTransport();        
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-
         // Init AccountingApi client
-        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,requestFactory);
-        accountingApi = new AccountingApi(defaultClient);
+        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
+        accountingApi = AccountingApi.getInstance(defaultClient);   
        
         // ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
         if (setUpIsDone) {
@@ -86,7 +84,7 @@ public class AccountingApiJournalsTest {
     public void getJournalTest() throws IOException {
         System.out.println("@Test - getJournal");
         UUID journalID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Journals response = accountingApi.getJournal(journalID);
+        Journals response = accountingApi.getJournal(accessToken,xeroTenantId,journalID);
 
         assertThat(response.getJournals().get(0).getJournalID(), is(equalTo(UUID.fromString("1b31feeb-aa23-404c-8c19-24c827c53661"))));
         assertThat(response.getJournals().get(0).getJournalDate(), is(equalTo(LocalDate.of(2018,10,19))));  
@@ -128,7 +126,7 @@ public class AccountingApiJournalsTest {
         OffsetDateTime ifModifiedSince = null;
         Integer offset = null;
         Boolean paymentsOnly = null;
-        Journals response = accountingApi.getJournals(ifModifiedSince, offset, paymentsOnly);
+        Journals response = accountingApi.getJournals(accessToken,xeroTenantId,ifModifiedSince, offset, paymentsOnly);
 
         assertThat(response.getJournals().get(0).getJournalID(), is(equalTo(UUID.fromString("1b31feeb-aa23-404c-8c19-24c827c53661"))));
         assertThat(response.getJournals().get(0).getJournalDate(), is(equalTo(LocalDate.of(2018,10,19))));  

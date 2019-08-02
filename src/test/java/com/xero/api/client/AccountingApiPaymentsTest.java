@@ -44,23 +44,21 @@ public class AccountingApiPaymentsTest {
 
 	ApiClient defaultClient; 
     AccountingApi accountingApi; 
+	String accessToken;
+    String xeroTenantId; 
      
     
     private static boolean setUpIsDone = false;
 	
 	@Before
 	public void setUp() {
-		// Set Access Token from Storage
-        String accessToken = "123";
-        Credential credential =  new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+		// Set Access Token and Tenant Id
+        accessToken = "123";
+        xeroTenantId = "xyz";
         
-        // Create requestFactory with credentials
-        HttpTransport transport = new NetHttpTransport();        
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-
         // Init AccountingApi client
-        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,requestFactory);
-        accountingApi = new AccountingApi(defaultClient);
+        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
+        accountingApi = AccountingApi.getInstance(defaultClient);   
        
         // ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
         if (setUpIsDone) {
@@ -86,7 +84,7 @@ public class AccountingApiPaymentsTest {
     public void createPaymentTest() throws IOException {
         System.out.println("@Test - createPayment");
         Payments payments = new Payments();
-        Payments response = accountingApi.createPayment(payments);
+        Payments response = accountingApi.createPayment(accessToken,xeroTenantId,payments);
 
         assertThat(response.getPayments().get(0).getInvoice().getInvoiceNumber(), is(equalTo("INV-0004")));
         assertThat(response.getPayments().get(0).getAccount().getCode(), is(equalTo("970")));
@@ -121,7 +119,7 @@ public class AccountingApiPaymentsTest {
         System.out.println("@Test - deletePayment");
         UUID paymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         Payments payments = new Payments();
-        Payments response = accountingApi.deletePayment(paymentID, payments);
+        Payments response = accountingApi.deletePayment(accessToken,xeroTenantId,paymentID, payments);
 
         assertThat(response.getPayments().get(0).getInvoice().getInvoiceNumber(), is(equalTo("INV-0006")));
         assertThat(response.getPayments().get(0).getAccount().getCode(), is(equalTo("980")));
@@ -145,7 +143,7 @@ public class AccountingApiPaymentsTest {
     public void getPaymentTest() throws IOException {
         System.out.println("@Test - getPayment");
         UUID paymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Payments response = accountingApi.getPayment(paymentID);
+        Payments response = accountingApi.getPayment(accessToken,xeroTenantId,paymentID);
 
         assertThat(response.getPayments().get(0).getInvoice().getInvoiceNumber(), is(equalTo("INV-0002")));
         assertThat(response.getPayments().get(0).getAccount().getCode(), is(equalTo("970")));
@@ -168,7 +166,7 @@ public class AccountingApiPaymentsTest {
     public void getPaymentHistoryTest() throws IOException {
         System.out.println("@Test - getPaymentHistory");
         UUID paymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords response = accountingApi.getPaymentHistory(paymentID);
+        HistoryRecords response = accountingApi.getPaymentHistory(accessToken,xeroTenantId,paymentID);
 
         assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("Sidney Maestre")));       
         assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Created")));     
@@ -182,7 +180,7 @@ public class AccountingApiPaymentsTest {
         OffsetDateTime ifModifiedSince = null;
         String where = null;
         String order = null;
-        Payments response = accountingApi.getPayments(ifModifiedSince, where, order);
+        Payments response = accountingApi.getPayments(accessToken,xeroTenantId,ifModifiedSince, where, order);
 
         assertThat(response.getPayments().get(0).getInvoice().getInvoiceNumber(), is(equalTo("INV-0002")));
         assertThat(response.getPayments().get(0).getAccount().getCode(), is(equalTo("970")));

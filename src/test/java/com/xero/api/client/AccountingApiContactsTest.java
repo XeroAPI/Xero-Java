@@ -44,6 +44,8 @@ public class AccountingApiContactsTest {
 
 	ApiClient defaultClient; 
     AccountingApi accountingApi; 
+	String accessToken;
+    String xeroTenantId; 
      
     File body;
 
@@ -51,17 +53,13 @@ public class AccountingApiContactsTest {
 	
 	@Before
 	public void setUp() {
-		// Set Access Token from Storage
-        String accessToken = "123";
-        Credential credential =  new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+		// Set Access Token and Tenant Id
+        accessToken = "123";
+        xeroTenantId = "xyz";
         
-        // Create requestFactory with credentials
-        HttpTransport transport = new NetHttpTransport();        
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-
         // Init AccountingApi client
-        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,requestFactory);
-        accountingApi = new AccountingApi(defaultClient);
+        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
+        accountingApi = AccountingApi.getInstance(defaultClient);   
        
         ClassLoader classLoader = getClass().getClassLoader();
         body = new File(classLoader.getResource("helo-heros.jpg").getFile());
@@ -95,7 +93,7 @@ public class AccountingApiContactsTest {
         String order = null;
         String ids = null;
         Boolean includeArchived = null;
-        Contacts response = accountingApi.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
+        Contacts response = accountingApi.getContacts(accessToken,xeroTenantId,ifModifiedSince, where, order, ids, null, includeArchived);
 
         assertThat(response.getContacts().get(0).getContactID(), is(equalTo(UUID.fromString("5cc8cf28-567e-4d43-b287-687cfcaec47c"))));
         assertThat(response.getContacts().get(0).getName(), is(equalTo("Katherine Warren")));
@@ -127,7 +125,7 @@ public class AccountingApiContactsTest {
         System.out.println("@Test - getContactTest");
 
         UUID contactID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Contacts response = accountingApi.getContact(contactID);
+        Contacts response = accountingApi.getContact(accessToken,xeroTenantId,contactID);
 
         assertThat(response.getContacts().get(0).getContactID(), is(equalTo(UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d"))));
         assertThat(response.getContacts().get(0).getContactNumber(), is(equalTo("SB2")));
@@ -184,7 +182,7 @@ public class AccountingApiContactsTest {
         System.out.println("@Test - createContactTest");
 
         Contact contact = new Contact();
-        Contacts response = accountingApi.createContact(contact);
+        Contacts response = accountingApi.createContact(accessToken,xeroTenantId,contact);
 		assertThat(response.getContacts().get(0).getContactID(), is(equalTo(UUID.fromString("3ff6d40c-af9a-40a3-89ce-3c1556a25591"))));
 		assertThat(response.getContacts().get(0).getContactStatus(), is(equalTo(com.xero.models.accounting.Contact.ContactStatusEnum.ACTIVE)));
 		assertThat(response.getContacts().get(0).getName(), is(equalTo("Foo9987")));
@@ -204,7 +202,7 @@ public class AccountingApiContactsTest {
 
         UUID contactID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         Contacts contacts = new Contacts();
-        Contacts response = accountingApi.updateContact(contactID,contacts);
+        Contacts response = accountingApi.updateContact(accessToken,xeroTenantId,contactID,contacts);
         assertThat(response.getContacts().get(0).getContactID(), is(equalTo(UUID.fromString("d5be01fb-b09f-4c3a-9c67-e10c2a03412c"))));
         assertThat(response.getContacts().get(0).getContactStatus(), is(equalTo(com.xero.models.accounting.Contact.ContactStatusEnum.ACTIVE)));
         assertThat(response.getContacts().get(0).getName(), is(equalTo("FooBar")));
@@ -228,7 +226,7 @@ public class AccountingApiContactsTest {
         System.out.println("@Test - getContactHistoryTest");
 
         UUID contactID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");  
-        HistoryRecords response = accountingApi.getContactHistory(contactID);
+        HistoryRecords response = accountingApi.getContactHistory(accessToken,xeroTenantId,contactID);
         assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("System Generated")));       
         assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Edited")));     
         assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Name changed from Foo9987 to Bar8156.")));     
@@ -242,7 +240,7 @@ public class AccountingApiContactsTest {
 
         UUID contactID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");  
         HistoryRecords historyRecords = new HistoryRecords();
-        HistoryRecords response = accountingApi.createContactHistory(contactID, historyRecords);
+        HistoryRecords response = accountingApi.createContactHistory(accessToken,xeroTenantId,contactID, historyRecords);
         assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Hello World")));     
         assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-02-28T16:15:24.272-08:00"))));  
         //System.out.println(response.getHistoryRecords().get(0).toString());
@@ -255,7 +253,7 @@ public class AccountingApiContactsTest {
         UUID contactID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");  
         String fileName = "sample5.jpg";
         
-        Attachments response = accountingApi.createContactAttachmentByFileName(contactID, fileName, body);
+        Attachments response = accountingApi.createContactAttachmentByFileName(accessToken,xeroTenantId,contactID, fileName, body);
         assertThat(response.getAttachments().get(0).getAttachmentID(), is(equalTo(UUID.fromString("27e37b01-6996-4ebe-836c-95fd472ad674"))));
         assertThat(response.getAttachments().get(0).getFileName(), is(equalTo("sample5.jpg")));
         assertThat(response.getAttachments().get(0).getMimeType(), is(equalTo("image/jpg")));
@@ -271,7 +269,7 @@ public class AccountingApiContactsTest {
         System.out.println("@Test - getContactAttachmentsTest");
 
         UUID contactID = UUID.fromString("04e0a3e3-b116-456a-9f32-9706f0d33afa");  
-        Attachments response = accountingApi.getContactAttachments(contactID);
+        Attachments response = accountingApi.getContactAttachments(accessToken,xeroTenantId,contactID);
 
         assertThat(response.getAttachments().get(0).getAttachmentID(), is(equalTo(UUID.fromString("04e0a3e3-b116-456a-9f32-9706f0d33afa"))));
         assertThat(response.getAttachments().get(0).getFileName(), is(equalTo("sample5.jpg")));

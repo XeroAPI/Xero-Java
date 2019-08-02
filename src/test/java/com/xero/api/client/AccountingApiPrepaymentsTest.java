@@ -44,23 +44,21 @@ public class AccountingApiPrepaymentsTest {
 
 	ApiClient defaultClient; 
     AccountingApi accountingApi; 
+	String accessToken;
+    String xeroTenantId; 
      
 
     private static boolean setUpIsDone = false;
 	
 	@Before
 	public void setUp() {
-		// Set Access Token from Storage
-        String accessToken = "123";
-        Credential credential =  new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+		// Set Access Token and Tenant Id
+        accessToken = "123";
+        xeroTenantId = "xyz";
         
-        // Create requestFactory with credentials
-        HttpTransport transport = new NetHttpTransport();        
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-
         // Init AccountingApi client
-        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,requestFactory);
-        accountingApi = new AccountingApi(defaultClient);
+        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
+        accountingApi = AccountingApi.getInstance(defaultClient);   
        
         // ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
         if (setUpIsDone) {
@@ -87,7 +85,7 @@ public class AccountingApiPrepaymentsTest {
         System.out.println("@Test - createPrepaymentAllocation");
         UUID prepaymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         Allocations allocations = new Allocations();
-        Allocations response = accountingApi.createPrepaymentAllocation(prepaymentID, allocations);
+        Allocations response = accountingApi.createPrepaymentAllocation(accessToken,xeroTenantId,prepaymentID, allocations);
 
         assertThat(response.getAllocations().get(0).getAmount(), is(equalTo(1.0)));
         assertThat(response.getAllocations().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,12))));
@@ -109,7 +107,7 @@ public class AccountingApiPrepaymentsTest {
     public void getPrepaymentTest() throws IOException {
         System.out.println("@Test - getPrepayment");
         UUID prepaymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Prepayments response = accountingApi.getPrepayment(prepaymentID);
+        Prepayments response = accountingApi.getPrepayment(accessToken,xeroTenantId,prepaymentID);
 
         assertThat(response.getPrepayments().get(0).getType().toString(), is(equalTo("RECEIVE-PREPAYMENT")));
         assertThat(response.getPrepayments().get(0).getContact().getName(), is(equalTo("Luke Skywalker")));
@@ -152,7 +150,7 @@ public class AccountingApiPrepaymentsTest {
     public void getPrepaymentHistoryTest() throws IOException {
         System.out.println("@Test - getPrepaymentHistory");
         UUID prepaymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords response = accountingApi.getPrepaymentHistory(prepaymentID);
+        HistoryRecords response = accountingApi.getPrepaymentHistory(accessToken,xeroTenantId,prepaymentID);
 
         assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("Sidney Maestre")));       
         assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Cash Refunded")));     
@@ -169,7 +167,7 @@ public class AccountingApiPrepaymentsTest {
         String order = null;
         Integer page = null;
         Integer unitdp = null;
-        Prepayments response = accountingApi.getPrepayments(ifModifiedSince, where, order, page, unitdp);
+        Prepayments response = accountingApi.getPrepayments(accessToken,xeroTenantId,ifModifiedSince, where, order, page, unitdp);
 
         assertThat(response.getPrepayments().get(0).getType().toString(), is(equalTo("RECEIVE-PREPAYMENT")));
         assertThat(response.getPrepayments().get(0).getContact().getName(), is(equalTo("Luke Skywalker")));

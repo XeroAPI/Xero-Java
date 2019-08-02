@@ -44,6 +44,8 @@ public class AccountingApiOverpaymentsTest {
 
 	ApiClient defaultClient; 
     AccountingApi accountingApi; 
+	String accessToken;
+    String xeroTenantId; 
      
     File body;
 
@@ -51,17 +53,13 @@ public class AccountingApiOverpaymentsTest {
 	
 	@Before
 	public void setUp() {
-		// Set Access Token from Storage
-        String accessToken = "123";
-        Credential credential =  new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+		// Set Access Token and Tenant Id
+        accessToken = "123";
+        xeroTenantId = "xyz";
         
-        // Create requestFactory with credentials
-        HttpTransport transport = new NetHttpTransport();        
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-
         // Init AccountingApi client
-        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,requestFactory);
-        accountingApi = new AccountingApi(defaultClient);
+        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
+        accountingApi = AccountingApi.getInstance(defaultClient);   
        
         ClassLoader classLoader = getClass().getClassLoader();
         body = new File(classLoader.getResource("helo-heros.jpg").getFile());
@@ -91,7 +89,7 @@ public class AccountingApiOverpaymentsTest {
         System.out.println("@Test - createOverpaymentAllocation");
         UUID overpaymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         Allocations allocations = new Allocations();
-        Allocations response = accountingApi.createOverpaymentAllocation(overpaymentID, allocations);
+        Allocations response = accountingApi.createOverpaymentAllocation(accessToken,xeroTenantId,overpaymentID, allocations);
 
         // TODO: test validations
         assertThat(response.getAllocations().get(0).getInvoice().getInvoiceID(), is(equalTo(UUID.fromString("c45720a1-ade3-4a38-a064-d15489be6841"))));
@@ -115,7 +113,7 @@ public class AccountingApiOverpaymentsTest {
     public void getOverpaymentTest() throws IOException {
         System.out.println("@Test - getOverpayment");
         UUID overpaymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Overpayments response = accountingApi.getOverpayment(overpaymentID);
+        Overpayments response = accountingApi.getOverpayment(accessToken,xeroTenantId,overpaymentID);
 
         //assertThat(response.getOverpayments().get(0).getType(), is(equalTo(com.xero.models.accounting.Overpayment.TypeEnum.SPEND-OVERPAYMENT)));
         assertThat(response.getOverpayments().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,11))));  
@@ -157,7 +155,7 @@ public class AccountingApiOverpaymentsTest {
     public void getOverpaymentHistoryTest() throws IOException {
         System.out.println("@Test - getOverpaymentHistory");
         UUID overpaymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords response = accountingApi.getOverpaymentHistory(overpaymentID);
+        HistoryRecords response = accountingApi.getOverpaymentHistory(accessToken,xeroTenantId,overpaymentID);
 
         assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("System Generated")));       
         assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Applied")));     
@@ -174,7 +172,7 @@ public class AccountingApiOverpaymentsTest {
         String order = null;
         Integer page = null;
         Integer unitdp = null;
-        Overpayments response = accountingApi.getOverpayments(ifModifiedSince, where, order, page,unitdp);
+        Overpayments response = accountingApi.getOverpayments(accessToken,xeroTenantId,ifModifiedSince, where, order, page,unitdp);
 
         assertThat(response.getOverpayments().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,11))));  
         assertThat(response.getOverpayments().get(0).getStatus(), is(equalTo(com.xero.models.accounting.Overpayment.StatusEnum.AUTHORISED)));

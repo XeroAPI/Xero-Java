@@ -44,23 +44,21 @@ public class AccountingApiRepeatingInvoicesTest {
 
 	ApiClient defaultClient; 
     AccountingApi accountingApi; 
+	String accessToken;
+    String xeroTenantId; 
     File body;
 
     private static boolean setUpIsDone = false;
 	
 	@Before
 	public void setUp() {
-	   // Set Access Token from Storage
-        String accessToken = "123";
-        Credential credential =  new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+	   // Set Access Token and Tenant Id
+        accessToken = "123";
+        xeroTenantId = "xyz";
         
-        // Create requestFactory with credentials
-        HttpTransport transport = new NetHttpTransport();        
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-
         // Init AccountingApi client
-        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,requestFactory);
-        accountingApi = new AccountingApi(defaultClient);
+        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
+        accountingApi = AccountingApi.getInstance(defaultClient);   
 
         ClassLoader classLoader = getClass().getClassLoader();
         body = new File(classLoader.getResource("helo-heros.jpg").getFile());
@@ -90,7 +88,7 @@ public class AccountingApiRepeatingInvoicesTest {
         System.out.println("@Test - createRepeatingInvoiceAttachmentByFileName");
         UUID repeatingInvoiceID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         String fileName = "sample5.jpg";
-        Attachments response = accountingApi.createRepeatingInvoiceAttachmentByFileName(repeatingInvoiceID, fileName, body);
+        Attachments response = accountingApi.createRepeatingInvoiceAttachmentByFileName(accessToken,xeroTenantId,repeatingInvoiceID, fileName, body);
 
         assertThat(response.getAttachments().get(0).getAttachmentID(), is(equalTo(UUID.fromString("e078e56c-9a2b-4f6c-a1fa-5d19b0dab611"))));
         assertThat(response.getAttachments().get(0).getFileName(), is(equalTo("foobar.jpg")));
@@ -114,7 +112,7 @@ public class AccountingApiRepeatingInvoicesTest {
     public void getRepeatingInvoiceTest() throws IOException {
         System.out.println("@Test - getRepeatingInvoice");
         UUID repeatingInvoiceID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        RepeatingInvoices response = accountingApi.getRepeatingInvoice(repeatingInvoiceID);
+        RepeatingInvoices response = accountingApi.getRepeatingInvoice(accessToken,xeroTenantId,repeatingInvoiceID);
 
         assertThat(response.getRepeatingInvoices().get(0).getType(), is(equalTo(com.xero.models.accounting.RepeatingInvoice.TypeEnum.ACCREC)));
         assertThat(response.getRepeatingInvoices().get(0).getContact().getContactID(), is(equalTo(UUID.fromString("430fa14a-f945-44d3-9f97-5df5e28441b8"))));
@@ -159,7 +157,7 @@ public class AccountingApiRepeatingInvoicesTest {
     public void getRepeatingInvoiceAttachmentsTest() throws IOException {
         System.out.println("@Test - getRepeatingInvoiceAttachments");
         UUID repeatingInvoiceID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Attachments response = accountingApi.getRepeatingInvoiceAttachments(repeatingInvoiceID);
+        Attachments response = accountingApi.getRepeatingInvoiceAttachments(accessToken,xeroTenantId,repeatingInvoiceID);
 
         assertThat(response.getAttachments().get(0).getAttachmentID(), is(equalTo(UUID.fromString("2a488b0f-3966-4b6e-a7e1-b6d3286351f2"))));
         assertThat(response.getAttachments().get(0).getFileName(), is(equalTo("HelloWorld.jpg")));
@@ -174,7 +172,7 @@ public class AccountingApiRepeatingInvoicesTest {
     public void getRepeatingInvoiceHistoryTest() throws IOException {
         System.out.println("@Test - getRepeatingInvoiceHistory");
         UUID repeatingInvoiceID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords response = accountingApi.getRepeatingInvoiceHistory(repeatingInvoiceID);
+        HistoryRecords response = accountingApi.getRepeatingInvoiceHistory(accessToken,xeroTenantId,repeatingInvoiceID);
 
         assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("System Generated")));       
         assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Attached a file")));     
@@ -188,7 +186,7 @@ public class AccountingApiRepeatingInvoicesTest {
         System.out.println("@Test - getRepeatingInvoices");
         String where = null;
         String order = null;
-        RepeatingInvoices response = accountingApi.getRepeatingInvoices(where, order);
+        RepeatingInvoices response = accountingApi.getRepeatingInvoices(accessToken,xeroTenantId,where, order);
 
         assertThat(response.getRepeatingInvoices().get(0).getType(), is(equalTo(com.xero.models.accounting.RepeatingInvoice.TypeEnum.ACCREC)));
         assertThat(response.getRepeatingInvoices().get(0).getContact().getContactID(), is(equalTo(UUID.fromString("430fa14a-f945-44d3-9f97-5df5e28441b8"))));

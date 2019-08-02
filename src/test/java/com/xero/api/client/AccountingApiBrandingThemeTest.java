@@ -41,23 +41,21 @@ public class AccountingApiBrandingThemeTest {
 
 	ApiClient defaultClient; 
     AccountingApi accountingApi; 
+	String accessToken;
+    String xeroTenantId; 
      
     
 	private static boolean setUpIsDone = false;
 
 	@Before
 	public void setUp() {
-		// Set Access Token from Storage
-        String accessToken = "123";
-        Credential credential =  new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+		// Set Access Token and Tenant Id
+        accessToken = "123";
+        xeroTenantId = "xyz";
         
-        // Create requestFactory with credentials
-        HttpTransport transport = new NetHttpTransport();        
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-
         // Init AccountingApi client
-        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,requestFactory);
-        accountingApi = new AccountingApi(defaultClient);
+        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
+        accountingApi = AccountingApi.getInstance(defaultClient);	
        
 		// ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
 		if (setUpIsDone) {
@@ -84,7 +82,7 @@ public class AccountingApiBrandingThemeTest {
 	public void testGetBrandingThemes() throws Exception {
 		System.out.println("@Test - getBrandingThemes");
 
-		BrandingThemes bt = accountingApi.getBrandingThemes();
+		BrandingThemes bt = accountingApi.getBrandingThemes(accessToken,xeroTenantId);
 		assertThat(bt.getBrandingThemes().get(0).getBrandingThemeID().toString(), is(equalTo("dabc7637-62c1-4941-8a6e-ee44fa5090e7")));
 		assertThat(bt.getBrandingThemes().get(0).getName(), is(equalTo("Standard")));
 		//System.out.println(bt.toString());
@@ -95,7 +93,7 @@ public class AccountingApiBrandingThemeTest {
 		System.out.println("@Test - getBrandingTheme");
 		UUID brandingThemeId = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");	
 
-		BrandingThemes oneBrandingTheme = accountingApi.getBrandingTheme(brandingThemeId);	
+		BrandingThemes oneBrandingTheme = accountingApi.getBrandingTheme(accessToken,xeroTenantId,brandingThemeId);	
 		assertThat(oneBrandingTheme.getBrandingThemes().get(0).getBrandingThemeID().toString(), is(equalTo("dabc7637-62c1-4941-8a6e-ee44fa5090e7")));
 		assertThat(oneBrandingTheme.getBrandingThemes().get(0).getName(), is(equalTo("Standard")));
 		//System.out.println(bt.toString());
@@ -106,7 +104,7 @@ public class AccountingApiBrandingThemeTest {
 		System.out.println("@Test - getBrandingThemePaymentServices");
 		UUID brandingThemeId = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");	
 
-		PaymentServices paymentServicesForBrandingTheme = accountingApi.getBrandingThemePaymentServices(brandingThemeId);	
+		PaymentServices paymentServicesForBrandingTheme = accountingApi.getBrandingThemePaymentServices(accessToken,xeroTenantId,brandingThemeId);	
 		assertThat(paymentServicesForBrandingTheme.getPaymentServices().get(1).getPaymentServiceID().toString(), is(equalTo("dede7858-14e3-4a46-bf95-4d4cc491e645")));
 		assertThat(paymentServicesForBrandingTheme.getPaymentServices().get(1).getPaymentServiceName(), is(equalTo("ACME Payment")));
 		//System.out.println(paymentServicesForBrandingTheme.toString());
@@ -123,7 +121,7 @@ public class AccountingApiBrandingThemeTest {
 		btPaymentService.setPaymentServiceName("ACME Payments");
 		btPaymentService.setPaymentServiceUrl("http://www.mydomain.com/paymentservice");
 		btPaymentService.setPayNowText("Pay Now");
-		PaymentServices response = accountingApi.createBrandingThemePaymentServices(brandingThemeId, btPaymentService);	
+		PaymentServices response = accountingApi.createBrandingThemePaymentServices(accessToken,xeroTenantId,brandingThemeId, btPaymentService);	
 		assertThat(response.getPaymentServices().get(0).getPaymentServiceID().toString(), is(equalTo("dede7858-14e3-4a46-bf95-4d4cc491e645")));
 		assertThat(response.getPaymentServices().get(0).getPaymentServiceName(), is(equalTo("ACME Payments")));
 		assertThat(response.getPaymentServices().get(0).getPaymentServiceUrl(), is(equalTo("https://www.payupnow.com/")));

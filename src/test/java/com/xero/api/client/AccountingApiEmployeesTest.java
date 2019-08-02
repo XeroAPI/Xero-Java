@@ -44,23 +44,21 @@ public class AccountingApiEmployeesTest {
 
 	ApiClient defaultClient; 
     AccountingApi accountingApi; 
+	String accessToken;
+    String xeroTenantId; 
      
 
     private static boolean setUpIsDone = false;
 	
 	@Before
 	public void setUp() {
-		// Set Access Token from Storage
-        String accessToken = "123";
-        Credential credential =  new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+		// Set Access Token and Tenant Id
+        accessToken = "123";
+        xeroTenantId = "xyz";
         
-        // Create requestFactory with credentials
-        HttpTransport transport = new NetHttpTransport();        
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-
         // Init AccountingApi client
-        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,requestFactory);
-        accountingApi = new AccountingApi(defaultClient);
+        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
+        accountingApi = AccountingApi.getInstance(defaultClient);   
        
         // ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
         if (setUpIsDone) {
@@ -86,7 +84,7 @@ public class AccountingApiEmployeesTest {
     public void createEmployeeTest() throws IOException {
         System.out.println("@Test - createEmployee");
         Employees employees = new Employees();
-        Employees response = accountingApi.createEmployee(employees);
+        Employees response = accountingApi.createEmployee(accessToken,xeroTenantId,employees);
 
         assertThat(response.getEmployees().get(0).getEmployeeID(), is(equalTo(UUID.fromString("e1ada26b-a10e-4065-a941-af34b53740e3"))));
         assertThat(response.getEmployees().get(0).getStatus(), is(equalTo(com.xero.models.accounting.Employee.StatusEnum.ACTIVE)));
@@ -102,7 +100,7 @@ public class AccountingApiEmployeesTest {
     public void getEmployeeTest() throws IOException {
         System.out.println("@Test - getEmployee");
         UUID employeeID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Employees response = accountingApi.getEmployee(employeeID);
+        Employees response = accountingApi.getEmployee(accessToken,xeroTenantId,employeeID);
 
         assertThat(response.getEmployees().get(0).getEmployeeID(), is(equalTo(UUID.fromString("972615c5-ad3d-47a0-b579-20370d374578"))));
         assertThat(response.getEmployees().get(0).getStatus(), is(equalTo(com.xero.models.accounting.Employee.StatusEnum.ACTIVE)));
@@ -121,7 +119,7 @@ public class AccountingApiEmployeesTest {
         OffsetDateTime ifModifiedSince = null;
         String where = null;
         String order = null;
-        Employees response = accountingApi.getEmployees(ifModifiedSince, where, order);
+        Employees response = accountingApi.getEmployees(accessToken,xeroTenantId,ifModifiedSince, where, order);
 
         assertThat(response.getEmployees().get(0).getEmployeeID(), is(equalTo(UUID.fromString("972615c5-ad3d-47a0-b579-20370d374578"))));
         assertThat(response.getEmployees().get(0).getStatus(), is(equalTo(com.xero.models.accounting.Employee.StatusEnum.ACTIVE)));
@@ -138,7 +136,7 @@ public class AccountingApiEmployeesTest {
         System.out.println("@Test - updateEmployee");
         UUID employeeID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         Employees employees = new Employees();
-        Employees response = accountingApi.updateEmployee(employeeID, employees);
+        Employees response = accountingApi.updateEmployee(accessToken,xeroTenantId,employeeID, employees);
 
         assertThat(response.getEmployees().get(0).getEmployeeID(), is(equalTo(UUID.fromString("ad3db144-6362-459c-8c36-5d31d196e629"))));
         assertThat(response.getEmployees().get(0).getStatus(), is(equalTo(com.xero.models.accounting.Employee.StatusEnum.ACTIVE)));

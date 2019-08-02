@@ -44,23 +44,21 @@ public class AccountingApiReceiptsTest {
 
 	ApiClient defaultClient; 
     AccountingApi accountingApi; 
+	String accessToken;
+    String xeroTenantId; 
     File body;
     
     private static boolean setUpIsDone = false;
 	
 	@Before
 	public void setUp() {
-		// Set Access Token from Storage
-        String accessToken = "123";
-        Credential credential =  new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+		// Set Access Token and Tenant Id
+        accessToken = "123";
+        xeroTenantId = "xyz";
         
-        // Create requestFactory with credentials
-        HttpTransport transport = new NetHttpTransport();        
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-
         // Init AccountingApi client
-        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,requestFactory);
-        accountingApi = new AccountingApi(defaultClient);
+        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
+        accountingApi = AccountingApi.getInstance(defaultClient);   
        
         ClassLoader classLoader = getClass().getClassLoader();
         body = new File(classLoader.getResource("helo-heros.jpg").getFile());
@@ -89,7 +87,7 @@ public class AccountingApiReceiptsTest {
     public void createReceiptTest() throws IOException {
         System.out.println("@Test - createReceipt");
         Receipts receipts = new Receipts();
-        Receipts response = accountingApi.createReceipt(receipts);
+        Receipts response = accountingApi.createReceipt(accessToken,xeroTenantId,receipts);
 
         assertThat(response.getReceipts().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,13))));  
         assertThat(response.getReceipts().get(0).getContact().getContactID(), is(equalTo(UUID.fromString("430fa14a-f945-44d3-9f97-5df5e28441b8"))));
@@ -115,7 +113,7 @@ public class AccountingApiReceiptsTest {
         System.out.println("@Test - createReceiptAttachmentByFileName");
         UUID receiptID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         String fileName = "sample5.jpg";
-        Attachments response = accountingApi.createReceiptAttachmentByFileName(receiptID, fileName, body);
+        Attachments response = accountingApi.createReceiptAttachmentByFileName(accessToken,xeroTenantId,receiptID, fileName, body);
 
         assertThat(response.getAttachments().get(0).getAttachmentID(), is(equalTo(UUID.fromString("3451e34c-66a6-42b0-91e2-88618bdc169b"))));
         assertThat(response.getAttachments().get(0).getFileName(), is(equalTo("foobar.jpg")));
@@ -140,7 +138,7 @@ public class AccountingApiReceiptsTest {
     public void getReceiptTest() throws IOException {
         System.out.println("@Test - getReceipt");
         UUID receiptID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Receipts response = accountingApi.getReceipt(receiptID);
+        Receipts response = accountingApi.getReceipt(accessToken,xeroTenantId,receiptID);
 
         assertThat(response.getReceipts().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,12))));  
         assertThat(response.getReceipts().get(0).getContact().getContactID(), is(equalTo(UUID.fromString("430fa14a-f945-44d3-9f97-5df5e28441b8"))));
@@ -170,7 +168,7 @@ public class AccountingApiReceiptsTest {
     public void getReceiptAttachmentsTest() throws IOException {
         System.out.println("@Test - getReceiptAttachments");
         UUID receiptID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Attachments response = accountingApi.getReceiptAttachments(receiptID);
+        Attachments response = accountingApi.getReceiptAttachments(accessToken,xeroTenantId,receiptID);
 
         assertThat(response.getAttachments().get(0).getAttachmentID(), is(equalTo(UUID.fromString("11e5ca6b-d38c-42ab-a29f-c1710d171aa1"))));
         assertThat(response.getAttachments().get(0).getFileName(), is(equalTo("giphy.gif")));
@@ -185,7 +183,7 @@ public class AccountingApiReceiptsTest {
     public void getReceiptHistoryTest() throws IOException {
         System.out.println("@Test - getReceiptHistory");
         UUID receiptID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords response = accountingApi.getReceiptHistory(receiptID);
+        HistoryRecords response = accountingApi.getReceiptHistory(accessToken,xeroTenantId,receiptID);
 
         assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("System Generated")));       
         assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Edited")));     
@@ -201,7 +199,7 @@ public class AccountingApiReceiptsTest {
         String where = null;
         String order = null;
         Integer unitdp = null;
-        Receipts response = accountingApi.getReceipts(ifModifiedSince, where, order,unitdp);
+        Receipts response = accountingApi.getReceipts(accessToken,xeroTenantId,ifModifiedSince, where, order,unitdp);
 
         assertThat(response.getReceipts().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,12))));  
         assertThat(response.getReceipts().get(0).getContact().getContactID(), is(equalTo(UUID.fromString("430fa14a-f945-44d3-9f97-5df5e28441b8"))));
@@ -226,7 +224,7 @@ public class AccountingApiReceiptsTest {
         System.out.println("@Test - updateReceipt");
         UUID receiptID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         Receipts receipts = new Receipts();
-        Receipts response = accountingApi.updateReceipt(receiptID, receipts);
+        Receipts response = accountingApi.updateReceipt(accessToken,xeroTenantId,receiptID, receipts);
 
         assertThat(response.getReceipts().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,15))));  
         assertThat(response.getReceipts().get(0).getContact().getContactID(), is(equalTo(UUID.fromString("430fa14a-f945-44d3-9f97-5df5e28441b8"))));

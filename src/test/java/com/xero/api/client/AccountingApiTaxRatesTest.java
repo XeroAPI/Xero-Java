@@ -43,23 +43,21 @@ import java.math.BigDecimal;
 public class AccountingApiTaxRatesTest {
 
 	ApiClient defaultClient; 
-    AccountingApi accountingApi;  
+    AccountingApi accountingApi; 
+	String accessToken;
+    String xeroTenantId;  
 
     private static boolean setUpIsDone = false;
 	
 	@Before
 	public void setUp() {
-		// Set Access Token from Storage
-        String accessToken = "123";
-        Credential credential =  new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+		// Set Access Token and Tenant Id
+        accessToken = "123";
+        xeroTenantId = "xyz";
         
-        // Create requestFactory with credentials
-        HttpTransport transport = new NetHttpTransport();        
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-
         // Init AccountingApi client
-        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,requestFactory);
-        accountingApi = new AccountingApi(defaultClient);
+        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
+        accountingApi = AccountingApi.getInstance(defaultClient);   
 
         // ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
         if (setUpIsDone) {
@@ -85,7 +83,7 @@ public class AccountingApiTaxRatesTest {
     public void createTaxRateTest() throws IOException {
         System.out.println("@Test - createTaxRate");
         TaxRates taxRates = new TaxRates();
-        TaxRates response = accountingApi.createTaxRate(taxRates);
+        TaxRates response = accountingApi.createTaxRate(accessToken,xeroTenantId,taxRates);
 
         assertThat(response.getTaxRates().get(0).getName(), is(equalTo("SDKTax29067")));
         assertThat(response.getTaxRates().get(0).getTaxType(), is(equalTo("TAX002")));
@@ -113,7 +111,7 @@ public class AccountingApiTaxRatesTest {
         String where = null;
         String order = null;
         String taxType = null;
-        TaxRates response = accountingApi.getTaxRates(where, order, taxType);
+        TaxRates response = accountingApi.getTaxRates(accessToken,xeroTenantId,where, order, taxType);
 
         assertThat(response.getTaxRates().get(0).getName(), is(equalTo("15% GST on Expenses")));
         assertThat(response.getTaxRates().get(0).getTaxType(), is(equalTo("INPUT2")));
@@ -139,7 +137,7 @@ public class AccountingApiTaxRatesTest {
     public void updateTaxRateTest() throws IOException {
         System.out.println("@Test - updateTaxRate");
         TaxRates taxRates = new TaxRates();
-        TaxRates response = accountingApi.updateTaxRate(taxRates);
+        TaxRates response = accountingApi.updateTaxRate(accessToken,xeroTenantId,taxRates);
 
         assertThat(response.getTaxRates().get(0).getName(), is(equalTo("SDKTax29067")));
         assertThat(response.getTaxRates().get(0).getTaxType(), is(equalTo("TAX002")));

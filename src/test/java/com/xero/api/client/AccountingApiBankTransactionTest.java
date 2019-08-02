@@ -43,24 +43,21 @@ import java.math.BigDecimal;
 public class AccountingApiBankTransactionTest {
 
 	ApiClient defaultClient; 
-	AccountingApi api; 
-		
+	AccountingApi accountingApi; 
+	String accessToken;
+    String xeroTenantId; 
 	
 	private static boolean setUpIsDone = false;
 
 	@Before
 	public void setUp() {
-		// Set Access Token from Storage
-        String accessToken = "123";
-        Credential credential =  new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+		// Set Access Token and Tenant Id
+        accessToken = "123";
+        xeroTenantId = "xyz";
         
-        // Create requestFactory with credentials
-        HttpTransport transport = new NetHttpTransport();        
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-
         // Init AccountingApi client
-        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,requestFactory);
-        api = new AccountingApi(defaultClient);
+        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
+        accountingApi = AccountingApi.getInstance(defaultClient);	
         
 		// ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
 		if (setUpIsDone) {
@@ -79,7 +76,7 @@ public class AccountingApiBankTransactionTest {
 
 
 	public void tearDown() {
-		api = null;
+		accountingApi = null;
 		defaultClient = null;
 	}
 
@@ -91,7 +88,7 @@ public class AccountingApiBankTransactionTest {
         String order = null;
         Integer page = null;
         Integer unitdp = null;
-		BankTransactions response = api.getBankTransactions(ifModifiedSince, where, order, page, unitdp);
+		BankTransactions response = accountingApi.getBankTransactions(accessToken,xeroTenantId,ifModifiedSince, where, order, page, unitdp);
 		assertThat(response.getBankTransactions().get(0).getBankTransactionID(), is(equalTo(UUID.fromString("db54aab0-ad40-4ced-bcff-0940ba20db2c"))));
 		assertThat(response.getBankTransactions().get(0).getStatus(), is(equalTo(com.xero.models.accounting.BankTransaction.StatusEnum.AUTHORISED)));
 		assertThat(response.getBankTransactions().get(0).getType(), is(equalTo(com.xero.models.accounting.BankTransaction.TypeEnum.RECEIVE)));
@@ -107,7 +104,7 @@ public class AccountingApiBankTransactionTest {
 	public void testGetBankTransaction() throws Exception {
 		System.out.println("@Test - getBankTransaction");
 		UUID bankTransactionID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");
-		BankTransactions response = api.getBankTransaction(bankTransactionID);
+		BankTransactions response = accountingApi.getBankTransaction(accessToken,xeroTenantId,bankTransactionID);
 		assertThat(response.getBankTransactions().get(0).getBankTransactionID(), is(equalTo(UUID.fromString("db54aab0-ad40-4ced-bcff-0940ba20db2c"))));
 		assertThat(response.getBankTransactions().get(0).getStatus(), is(equalTo(com.xero.models.accounting.BankTransaction.StatusEnum.AUTHORISED)));
 		assertThat(response.getBankTransactions().get(0).getType(), is(equalTo(com.xero.models.accounting.BankTransaction.TypeEnum.RECEIVE)));
@@ -123,7 +120,7 @@ public class AccountingApiBankTransactionTest {
 		System.out.println("@Test - updateBankTransaction");
 		UUID bankTransactionID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");
 		BankTransactions newBankTransactions = new BankTransactions();
-		BankTransactions response = api.updateBankTransaction(bankTransactionID,newBankTransactions);
+		BankTransactions response = accountingApi.updateBankTransaction(accessToken,xeroTenantId,bankTransactionID,newBankTransactions);
 					
 		assertThat(response.getBankTransactions().get(0).getBankTransactionID(), is(equalTo(UUID.fromString("1289c190-e46d-434b-9628-463ffdb52f00"))));		
 		assertThat(response.getBankTransactions().get(0).getStatus(), is(equalTo(com.xero.models.accounting.BankTransaction.StatusEnum.AUTHORISED)));
@@ -139,7 +136,7 @@ public class AccountingApiBankTransactionTest {
 	public void testCreateBankTransaction() throws Exception {
 		System.out.println("@Test - createBankTransaction");
 		BankTransactions newBankTransactions = new BankTransactions();
-		BankTransactions response = api.createBankTransaction(newBankTransactions,null);
+		BankTransactions response = accountingApi.createBankTransaction(accessToken,xeroTenantId,newBankTransactions,null);
 					
 		assertThat(response.getBankTransactions().get(0).getBankTransactionID(), is(equalTo(UUID.fromString("1289c190-e46d-434b-9628-463ffdb52f00"))));		
 		assertThat(response.getBankTransactions().get(0).getStatus(), is(equalTo(com.xero.models.accounting.BankTransaction.StatusEnum.AUTHORISED)));
@@ -160,7 +157,7 @@ public class AccountingApiBankTransactionTest {
 		File bytes = new File(classLoader.getResource("helo-heros.jpg").getFile());
         String fileName = "sample5.jpg";
 		
-        Attachments response = api.createBankTransactionAttachmentByFileName(bankTransactionID, fileName, bytes);
+        Attachments response = accountingApi.createBankTransactionAttachmentByFileName(accessToken,xeroTenantId,bankTransactionID, fileName, bytes);
 		assertThat(response.getAttachments().get(0).getAttachmentID(), is(equalTo(UUID.fromString("4508a692-e52c-4ad8-a138-2f13e22bf57b"))));
 		assertThat(response.getAttachments().get(0).getFileName().toString(), is(equalTo("sample5.jpg")));
 		assertThat(response.getAttachments().get(0).getMimeType().toString(), is(equalTo("image/jpg")));
@@ -173,7 +170,7 @@ public class AccountingApiBankTransactionTest {
     public void getBankTransactionAttachmentsTest() throws IOException {
     	System.out.println("@Test - getBankTransactionAttachmentsTest");
     	UUID bankTransactionID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");
-        Attachments response = api.getBankTransactionAttachments(bankTransactionID);
+        Attachments response = accountingApi.getBankTransactionAttachments(accessToken,xeroTenantId,bankTransactionID);
 
        	assertThat(response.getAttachments().get(0).getAttachmentID(), is(equalTo(UUID.fromString("4508a692-e52c-4ad8-a138-2f13e22bf57b"))));
 		assertThat(response.getAttachments().get(0).getFileName(), is(equalTo("sample5.jpg")));
@@ -191,7 +188,7 @@ public class AccountingApiBankTransactionTest {
 		File bytes = new File(classLoade2.getResource("helo-heros2.jpg").getFile());
     	String fileName = "sample2.jpg";
 		
-        Attachments response = api.updateBankTransactionAttachmentByFileName(bankTransactionID, fileName, bytes);
+        Attachments response = accountingApi.updateBankTransactionAttachmentByFileName(bankTransactionID, fileName, bytes);
 		assertThat(response.getAttachments().get(0).getAttachmentID(), is(equalTo(UUID.fromString("4508a692-e52c-4ad8-a138-2f13e22bf57b"))));
 		assertThat(response.getAttachments().get(0).getFileName().toString(), is(equalTo("sample5.jpg")));
 		assertThat(response.getAttachments().get(0).getMimeType().toString(), is(equalTo("image/jpg")));
@@ -203,7 +200,7 @@ public class AccountingApiBankTransactionTest {
 	public void testGetBankTransactionsHistory() throws Exception {
 		System.out.println("@Test - getBankTransactionsHistory");
 		UUID bankTransactionID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");
-		HistoryRecords hr = api.getBankTransactionsHistory(bankTransactionID);
+		HistoryRecords hr = accountingApi.getBankTransactionsHistory(accessToken,xeroTenantId,bankTransactionID);
 		assertThat(hr.getHistoryRecords().get(0).getUser(), is(equalTo("System Generated")));		
 		assertThat(hr.getHistoryRecords().get(0).getChanges(), is(equalTo("Attached a file")));		
 		//System.out.println(hr.getHistoryRecords().toString());		
@@ -218,7 +215,7 @@ public class AccountingApiBankTransactionTest {
 		HistoryRecord newHistoryRecord = new  HistoryRecord();
 		newHistoryRecord.setDetails("Hello World");
 		newHistoryRecords.addHistoryRecordsItem(newHistoryRecord);
-		HistoryRecords newHistory = api.createBankTransactionHistoryRecord(bankTransactionID,newHistoryRecords);
+		HistoryRecords newHistory = accountingApi.createBankTransactionHistoryRecord(bankTransactionID,newHistoryRecords);
 		//assertThat(newHistory.getHistoryRecords().get(0).getDetails(), is(equalTo("Hello World")));		
 		System.out.println(newHistory.getHistoryRecords().toString());	
 		*/	

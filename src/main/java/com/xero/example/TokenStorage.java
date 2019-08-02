@@ -33,22 +33,13 @@ public class TokenStorage
 		}
 		return item;
 	}
-	
-	public boolean tokenIsNull(String token) {
-		if (token != null && !token.isEmpty()) { 
-			return false;
-		} else {
-			return true;
-		}
-	}
 
 	public void clear(HttpServletResponse response)
 	{
 		HashMap<String,String> map = new HashMap<String,String>();
-		map.put("tempToken","");
-		map.put("tempTokenSecret","");
-		map.put("sessionHandle","");
-		map.put("tokenTimestamp","");
+		map.put("accessToken","");
+		map.put("refreshToken","");
+		map.put("xeroTenantId","");
 
 		save(response,map);
 	}

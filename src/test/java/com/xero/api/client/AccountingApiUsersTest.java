@@ -43,23 +43,21 @@ import java.math.BigDecimal;
 public class AccountingApiUsersTest {
 
     ApiClient defaultClient; 
-    AccountingApi accountingApi;  
+    AccountingApi accountingApi; 
+	String accessToken;
+    String xeroTenantId;  
 
     private static boolean setUpIsDone = false;
 	
 	@Before
 	public void setUp() {
-		// Set Access Token from Storage
-        String accessToken = "123";
-        Credential credential =  new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+		// Set Access Token and Tenant Id
+        accessToken = "123";
+        xeroTenantId = "xyz";
         
-        // Create requestFactory with credentials
-        HttpTransport transport = new NetHttpTransport();        
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-
         // Init AccountingApi client
-        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,requestFactory);
-        accountingApi = new AccountingApi(defaultClient);
+        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
+        accountingApi = AccountingApi.getInstance(defaultClient);   
 
         // ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
         if (setUpIsDone) {
@@ -85,7 +83,7 @@ public class AccountingApiUsersTest {
     public void getUserTest() throws IOException {
         System.out.println("@Test - getUser");
         UUID userID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Users response = accountingApi.getUser(userID);
+        Users response = accountingApi.getUser(accessToken,xeroTenantId,userID);
 
         assertThat(response.getUsers().get(0).getUserID(), is(equalTo(UUID.fromString("3c37ef1d-cd49-4589-9787-3c418ed8b6ac"))));
         assertThat(response.getUsers().get(0).getEmailAddress(), is(equalTo("sid.maestre@xero.com")));
@@ -103,7 +101,7 @@ public class AccountingApiUsersTest {
         OffsetDateTime ifModifiedSince = null;
         String where = null;
         String order = null;
-        Users response = accountingApi.getUsers(ifModifiedSince, where, order);
+        Users response = accountingApi.getUsers(accessToken,xeroTenantId,ifModifiedSince, where, order);
 
         assertThat(response.getUsers().get(0).getUserID(), is(equalTo(UUID.fromString("3c37ef1d-cd49-4589-9787-3c418ed8b6ac"))));
         assertThat(response.getUsers().get(0).getEmailAddress(), is(equalTo("sid.maestre@xero.com")));
