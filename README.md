@@ -464,7 +464,7 @@ System.out.println("How many invoices modified in last 24 hours?: " + InvoiceLis
 TBD
 
 ## Logging
-The SDK uses log4j2.  To configure, add a log4j.properties file to the src/resources directory in your project.
+The SDK uses log4j2.  To configure, add a log4j2.xml file to the src/resources directory in your project.
 
 log4j2.xml
 ```xml
