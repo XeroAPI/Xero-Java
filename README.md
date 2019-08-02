@@ -400,7 +400,7 @@ public class TokenRefresh {
 
 The Xero Java SDK contains Client classes (AccountingApi, etc) which have helper methods to perform (Create, Read, Update and Delete) actions on each endpoints.  AccountingApi is designed as a Singleton. Use the getInstance method of the class class and use with API models to interact with Java Objects.
 
-* Token expiration should be checked prior to making API calls *
+*Token expiration should be checked prior to making API calls*
 
 ```java
 import com.xero.api.*;
@@ -468,13 +468,10 @@ System.out.println("How many invoices modified in last 24 hours?: " + InvoiceLis
 TBD
 
 
-
 ## TLS 1.0 deprecation
 As of June 30, 2018, Xero's API will remove support for TLS 1.0.  
 
 The easiest way to force TLS 1.2 is to set the Runtime Environment for your server (Tomcat, etc) to Java 1.8 which defaults to TLS 1.2.
-
-## Acknowledgement
 
 ## License
 
