@@ -42,15 +42,11 @@ Add the Xero Java SDK dependency to project via maven, gradle, sbt or other buil
   <version>3.X.X</version>
 </dependency>
 ```
-
-## Logging
-The SDK uses log4j2.  To configure, add a log4j.properties file to the src/resources directory in your project.
-
 ## How to use the Xero-Java SDK
 
 ### Step by Step Video
 We've created a video walking through how to create a new Eclipse project, add your dependencies and make your first API call.
-[Watch this video](https://youtu.be/F3upynnpztc). 
+Watch this video - TODO. 
 
 Below are the code snippets used in the video
 
@@ -467,6 +463,36 @@ System.out.println("How many invoices modified in last 24 hours?: " + InvoiceLis
 
 TBD
 
+## Logging
+The SDK uses log4j2.  To configure, add a log4j.properties file to the src/resources directory in your project.
+
+log4j2.xml
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="DEBUG">
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{YYYY-MM-dd HH:mm:ss} [%t] %-5p %c{1}:%L - %msg%n" />
+		</Console>
+ 
+		<RollingFile name="RollingFile" filename="log/XeroJavaSDK.log"
+			filepattern="${logPath}/%d{YYYYMMddHHmmss}-fargo.log">
+			<PatternLayout pattern="%d{YYYY-MM-dd HH:mm:ss} [%t] %-5p %c{1}:%L - %msg%n" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="100 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="20" />
+		</RollingFile>
+ 
+	</Appenders>
+	<Loggers>
+        <Root level="debug" additivity="false">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="RollingFile" />
+		</Root>
+	</Loggers>
+</Configuration>
+```
 
 ## TLS 1.0 deprecation
 As of June 30, 2018, Xero's API will remove support for TLS 1.0.  
