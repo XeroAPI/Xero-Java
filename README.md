@@ -25,8 +25,8 @@ Codebase, samples and setup instructions located in [oauth1 branch](https://gith
 Follow these steps to create your Xero app
 
 * Create a free Xero user account (if you don't have one)
-* Login to [developer.xero.com/myapps](https://developer.xero.com/myapps)
-* Click "New App" button
+* Use this URL for beta access to oAuth2 [https://developer.xero.com/myapps?code=oauth2create](https://developer.xero.com/myapps?code=oauth2create)
+* Click "or Try oAuth2" link
 * additional steps ... todo
 * Copy your client id and secret for use later
 * Set your callback uri (i.e. http://localhost:3000/callback) 
