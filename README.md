@@ -398,65 +398,86 @@ The Xero Java SDK contains Client classes (AccountingApi, etc) which have helper
 
 *Token expiration should be checked prior to making API calls*
 
+*AuthenticatedResource.java*
 ```java
-import com.xero.api.*;
+package com.xero.example;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.xero.api.ApiClient;
 import com.xero.api.client.AccountingApi;
 import com.xero.models.accounting.*;
 
-// Get Tokens and Xero Tenant Id from Storage
-TokenStorage store = new TokenStorage();
-String savedAccessToken =store.get(request, "access_token");
-String savedRefreshToken = store.get(request, "refresh_token");
-String xeroTenantId = store.get(request, "xero_tenant_id");	
+@WebServlet("/AuthenticatedResource")
+public class AuthenticatedResource extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	private AccountingApi accountingApi;
+       
+    public AuthenticatedResource() {
+        super();
+    }
 
-// Check expiration of token and refresh if necessary
-// This should be done prior to each API call to ensure your accessToken is valid
-String accessToken = new TokenRefresh().checkToken(savedAccessToken,savedRefreshToken,response);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// Get Tokens and Xero Tenant Id from Storage
+		TokenStorage store = new TokenStorage();
+		String savedAccessToken =store.get(request, "access_token");
+		String savedRefreshToken = store.get(request, "refresh_token");
+		String xeroTenantId = store.get(request, "xero_tenant_id");	
 
-// Init AccountingApi client
-ApiClient defaultClient = new ApiClient();
+		// Check expiration of token and refresh if necessary
+		// This should be done prior to each API call to ensure your accessToken is valid
+		String accessToken = new TokenRefresh().checkToken(savedAccessToken,savedRefreshToken,response);
 
-// Get Singleton - instance of accounting client
-accountingApi = AccountingApi.getInstance(defaultClient);	
-		
-// Get All Contacts
-Contacts contacts = accountingApi.getContacts(accessToken,xeroTenantId,null, null, null, null, null, null);
-System.out.println("How many contacts did we find: " + contacts.getContacts().size());
+		// Init AccountingApi client
+		ApiClient defaultClient = new ApiClient();
+
+		// Get Singleton - instance of accounting client
+		accountingApi = AccountingApi.getInstance(defaultClient);	
 				
-/* CREATE ACCOUNT */
-Account acct = new Account();
-acct.setName("Office Expense");
-acct.setCode("66000");
-acct.setType(com.xero.models.accounting.AccountType.EXPENSE);
-Accounts newAccount = accountingApi.createAccount(accessToken,xeroTenantId,acct);
-System.out.println("New account created: " + newAccount.getAccounts().get(0).getName());
-			
-/* READ ACCOUNT using a WHERE clause */
-where = "Status==\"ACTIVE\"&&Type==\"BANK\"";
-Accounts accountsWhere = accountingApi.getAccounts(accessToken,xeroTenantId,ifModifiedSince, where, order);
+		// Get All Contacts
+		Contacts contacts = accountingApi.getContacts(accessToken,xeroTenantId,null, null, null, null, null, null);
+		System.out.println("How many contacts did we find: " + contacts.getContacts().size());
+		
+		/* CREATE ACCOUNT */
+		Account acct = new Account();
+		acct.setName("Office Expense for Me");
+		acct.setCode("66000");
+		acct.setType(com.xero.models.accounting.AccountType.EXPENSE);
+		Accounts newAccount = accountingApi.createAccount(accessToken,xeroTenantId,acct);
+		System.out.println("New account created: " + newAccount.getAccounts().get(0).getName());
 
-/* READ ACCOUNT using the ID */
-Accounts accounts = accountingApi.getAccounts(accessToken,xeroTenantId,null, null, null);
-UUID accountID = accounts.getAccounts().get(0).getAccountID();
-Accounts oneAccount = accountingApi.getAccount(accessToken,xeroTenantId,accountID);
-							
-/* UPDATE ACCOUNT */
-UUID newAccountID = newAccount.getAccounts().get(0).getAccountID();
-newAccount.getAccounts().get(0).setDescription("Monsters Inc.");
-newAccount.getAccounts().get(0).setStatus(null);
-Accounts updateAccount = accountingApi.updateAccount(accessToken,xeroTenantId,newAccountID, newAccount);
+		/* READ ACCOUNT using a WHERE clause */
+		where = "Status==\"ACTIVE\"&&Type==\"BANK\"";
+		Accounts accountsWhere = accountingApi.getAccounts(accessToken,xeroTenantId,ifModifiedSince, where, order);
 
-/* DELETE ACCOUNT */
-UUID deleteAccountID = newAccount.getAccounts().get(0).getAccountID();
-Accounts deleteAccount = accountingApi.deleteAccount(accessToken,xeroTenantId,deleteAccountID);
-System.out.println("Delete account - Status? : " + deleteAccount.getAccounts().get(0).getStatus());
+		/* READ ACCOUNT using the ID */
+		Accounts accounts = accountingApi.getAccounts(accessToken,xeroTenantId,null, null, null);
+		UUID accountID = accounts.getAccounts().get(0).getAccountID();
+		Accounts oneAccount = accountingApi.getAccount(accessToken,xeroTenantId,accountID);
+									
+		/* UPDATE ACCOUNT */
+		UUID newAccountID = newAccount.getAccounts().get(0).getAccountID();
+		newAccount.getAccounts().get(0).setDescription("Monsters Inc.");
+		newAccount.getAccounts().get(0).setStatus(null);
+		Accounts updateAccount = accountingApi.updateAccount(accessToken,xeroTenantId,newAccountID, newAccount);
 
-// GET INVOICE MODIFIED in LAST 24 HOURS
-OffsetDateTime invModified = OffsetDateTime.now();
-invModified.minusDays(1);	
-Invoices InvoiceList24hour = accountingApi.getInvoices(accessToken,xeroTenantId,invModified, null, null, null, null, null, null, null, null, null, null);
-System.out.println("How many invoices modified in last 24 hours?: " + InvoiceList24hour.getInvoices().size());
+		/* DELETE ACCOUNT */
+		UUID deleteAccountID = newAccount.getAccounts().get(0).getAccountID();
+		Accounts deleteAccount = accountingApi.deleteAccount(accessToken,xeroTenantId,deleteAccountID);
+		System.out.println("Delete account - Status? : " + deleteAccount.getAccounts().get(0).getStatus());
+
+		// GET INVOICE MODIFIED in LAST 24 HOURS
+		OffsetDateTime invModified = OffsetDateTime.now();
+		invModified.minusDays(1);	
+		Invoices InvoiceList24hour = accountingApi.getInvoices(accessToken,xeroTenantId,invModified, null, null, null, null, null, null, null, null, null, null);
+		System.out.println("How many invoices modified in last 24 hours?: " + InvoiceList24hour.getInvoices().size());
+	}
+}
 ```
 
 **Exception Handling**
