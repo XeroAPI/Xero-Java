@@ -225,9 +225,10 @@ public class AuthenticatedResource extends HttpServlet
 				Accounts deleteAccount = accountingApi.deleteAccount(accessToken,xeroTenantId,deleteAccountID);
 				messages.add("Delete account - Status? : " + deleteAccount.getAccounts().get(0).getStatus());	
 				
+			} catch (XeroApiException xe) {
+				this.addError(xe,messages);
 			} catch (Exception e) {
-				System.out.println(e.toString());
-				e.printStackTrace();
+				System.out.println(e.getMessage());	
 			}
 			
         } else if (object.equals("GetAttachments")) {
@@ -370,8 +371,10 @@ public class AuthenticatedResource extends HttpServlet
 						messages.add("Get RepeatingInvoices attachment - save it here: " + RepeatingInvoiceSaveFilePath);
 					}
 				}
+        	} catch (XeroApiException xe) {
+				this.addError(xe,messages);
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
+				System.out.println(e.getMessage());	
 			}
 	
         } else if (object.equals("CreateAttachments")) {	
@@ -389,8 +392,10 @@ public class AuthenticatedResource extends HttpServlet
 					Attachments createdAttachments = accountingApi.createAccountAttachmentByFileName(accessToken,xeroTenantId,accountID, newFileName, bytes);
 					messages.add("Attachment to Name: " + accountName + " Account ID: " + accountID + " attachment - ID: " + createdAttachments.getAttachments().get(0).getAttachmentID());
 				}
-        	} catch (Exception e) {
-				System.out.println(e);
+        	} catch (XeroApiException xe) {
+				this.addError(xe,messages);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());	
 			}
 			
         	try {
@@ -402,8 +407,10 @@ public class AuthenticatedResource extends HttpServlet
 					Attachments createdBanktransationAttachments = accountingApi.createBankTransactionAttachmentByFileName(accessToken,xeroTenantId,banktransactionID, newFileName, bytes);
 					messages.add("Attachment to BankTransaction ID: " + banktransactionID + " attachment - ID: "  + createdBanktransationAttachments.getAttachments().get(0).getAttachmentID());
 				}
-        	} catch (Exception e) {
-				System.out.println(e);
+        	} catch (XeroApiException xe) {
+				this.addError(xe,messages);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());	
 			}
 			
         	try {
@@ -414,8 +421,10 @@ public class AuthenticatedResource extends HttpServlet
 					Attachments createdBankTransferAttachments = accountingApi.createBankTransferAttachmentByFileName(accessToken,xeroTenantId,bankTransferID, newFileName, bytes);
 					messages.add("Attachment to BankTransfer ID: " + bankTransferID + " attachment - ID: " + createdBankTransferAttachments.getAttachments().get(0).getAttachmentID());
 				}
-        	} catch (Exception e) {
-				System.out.println(e);
+        	} catch (XeroApiException xe) {
+				this.addError(xe,messages);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());	
 			}
 			
         	try {
@@ -427,8 +436,10 @@ public class AuthenticatedResource extends HttpServlet
 					Attachments createdContactAttachments = accountingApi.createContactAttachmentByFileName(accessToken,xeroTenantId,contactID, newFileName, bytes);
 					messages.add("Attachment to Contact ID: " + contactID + " attachment - ID: " + createdContactAttachments.getAttachments().get(0).getAttachmentID());
 				}
-        	} catch (Exception e) {
-				System.out.println(e);
+        	} catch (XeroApiException xe) {
+				this.addError(xe,messages);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());	
 			}
 			
         	try {
@@ -440,8 +451,10 @@ public class AuthenticatedResource extends HttpServlet
 					Attachments createdCreditNoteAttachments = accountingApi.createCreditNoteAttachmentByFileName(accessToken,xeroTenantId,creditNoteID, newFileName, bytes);
 					messages.add("Attachment to Credit Notes ID: " + creditNoteID + " attachment - ID: " + createdCreditNoteAttachments.getAttachments().get(0).getAttachmentID());
 				}
-        	} catch (Exception e) {
-				System.out.println(e);
+        	} catch (XeroApiException xe) {
+				this.addError(xe,messages);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());	
 			}
 			
         	try {
@@ -452,8 +465,10 @@ public class AuthenticatedResource extends HttpServlet
 					Attachments createdInvoiceAttachments = accountingApi.createInvoiceAttachmentByFileName(accessToken,xeroTenantId,invoiceID, newFileName, bytes);
 					messages.add("Attachment to Invoice ID: " + invoiceID + " attachment - ID: "  + createdInvoiceAttachments.getAttachments().get(0).getAttachmentID());
 				}
-        	} catch (Exception e) {
-				System.out.println(e);
+        	} catch (XeroApiException xe) {
+				this.addError(xe,messages);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());	
 			}
 			
         	try {
@@ -467,8 +482,10 @@ public class AuthenticatedResource extends HttpServlet
 					Attachments createdManualJournalAttachments = accountingApi.createManualJournalAttachmentByFileName(accessToken,xeroTenantId,manualJournalID, newFileName, bytes);
 					messages.add("Attachment to Manual Journal ID: " + manualJournalID + " attachment - ID: " + createdManualJournalAttachments.getAttachments().get(0).getAttachmentID());
 				}
-        	} catch (Exception e) {
-				System.out.println(e);
+        	} catch (XeroApiException xe) {
+				this.addError(xe,messages);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());	
 			}
 			
         	try {
@@ -479,8 +496,10 @@ public class AuthenticatedResource extends HttpServlet
 					Attachments createdReceiptsAttachments = accountingApi.createReceiptAttachmentByFileName(accessToken,xeroTenantId,receiptID, newFileName, bytes);
 					messages.add("Attachment to Receipt ID: " + receiptID + " attachment - ID: " + createdReceiptsAttachments.getAttachments().get(0).getAttachmentID());
 				}
-        	} catch (Exception e) {
-				System.out.println(e);
+        	} catch (XeroApiException xe) {
+				this.addError(xe,messages);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());	
 			}
 			
         	try {
@@ -491,9 +510,10 @@ public class AuthenticatedResource extends HttpServlet
 					Attachments createdRepeatingInvoiceAttachments = accountingApi.createRepeatingInvoiceAttachmentByFileName(accessToken,xeroTenantId,repeatingInvoiceID, newFileName, bytes);
 					messages.add("Attachment to Repeating Invoices ID: " + repeatingInvoiceID + " attachment - ID: " + createdRepeatingInvoiceAttachments.getAttachments().get(0).getAttachmentID());
 				}
-				
+        	} catch (XeroApiException xe) {
+				this.addError(xe,messages);
 			} catch (Exception e) {
-				System.out.println(e);
+				System.out.println(e.getMessage());	
 			}
         
         } else if (object.equals("BankTransfers")) {		
@@ -538,11 +558,11 @@ public class AuthenticatedResource extends HttpServlet
 					messages.add("Get a one Bank Transfer History Record - details :" + newHr.getHistoryRecords().get(0).getDetails());				
 					*/
 				}
+			} catch (XeroApiException xe) {
+				this.addError(xe,messages);
 			} catch (Exception e) {
-				System.out.println(e.toString());
+				System.out.println(e.getMessage());	
 			}	
-			
-		
         } else if (object.equals("BankTransactions")) {
 			/* BANK TRANSACTION */
 			try {
@@ -612,11 +632,11 @@ public class AuthenticatedResource extends HttpServlet
 					messages.add("Create a one Bank Transaction History Record - details :" + newHr.getHistoryRecords().get(0).getDetails());				
 					*/
 				}
-				
+			} catch (XeroApiException xe) {
+				this.addError(xe,messages);
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
-			}			
-		
+				System.out.println(e.getMessage());	
+			}
         } else if (object.equals("BatchPayments")) {
         	//BATCH PAYMENTS 
         	try {
@@ -675,10 +695,11 @@ public class AuthenticatedResource extends HttpServlet
 				// GET all Payments
 				BatchPayments allBatchPayments = accountingApi.getBatchPayments(accessToken,xeroTenantId,ifModifiedSince, where, order);
 				messages.add("Get BatchPayments - Total : " + allBatchPayments.getBatchPayments().size());					
+        	} catch (XeroApiException xe) {
+				this.addError(xe,messages);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());	
 			}
-        
         } else if (object.equals("BrandingThemes")) {
 			/* BRANDING THEME */
 			try {
@@ -704,10 +725,11 @@ public class AuthenticatedResource extends HttpServlet
 				PaymentServices paymentServicesForBrandingTheme = accountingApi.getBrandingThemePaymentServices(accessToken,xeroTenantId,btID);
 				messages.add("Get payment services for Branding Themes - name : " + paymentServicesForBrandingTheme.getPaymentServices().get(0).getPaymentServiceName());				
 
+			} catch (XeroApiException xe) {
+				this.addError(xe,messages);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());	
 			}
-		
         } else if (object.equals("Contacts")) {		
 			/* CONTACTS */
 			try {
@@ -726,7 +748,7 @@ public class AuthenticatedResource extends HttpServlet
 				messages.add("Create new Contact - Name : " + newContact.getContacts().get(0).getName());
 				
 				// UPDATE contact
-				newContact.getContacts().get(0).setName("Bar" + loadRandomNum());
+				newContact.getContacts().get(0).setName("Foo");
 				UUID contactID = newContact.getContacts().get(0).getContactID();
 				Contacts updatedContact = accountingApi.updateContact(accessToken,xeroTenantId,contactID, newContact);
 				messages.add("Update new Contact - Name : " + updatedContact.getContacts().get(0).getName());
@@ -747,8 +769,8 @@ public class AuthenticatedResource extends HttpServlet
 					CISSettings cisSettings = accountingApi.getContactCISSettings(accessToken,xeroTenantId,cisContact.getContacts().get(0).getContactID());
 					messages.add("Get a Contact cisSettings - Enabled? : " + cisSettings.getCiSSettings().get(0).getCiSEnabled());	
 				}
-				where = null;
 				
+				where = null;
 				// GET active contacts
 			    where =  "ContactStatus==\"ACTIVE\"";
 				Contacts contactsWhere = accountingApi.getContacts(accessToken,xeroTenantId,ifModifiedSince, where, order, ids, null, includeArchived);
@@ -768,10 +790,11 @@ public class AuthenticatedResource extends HttpServlet
 				HistoryRecords newInvoiceHistory = accountingApi.createContactHistory(accessToken,xeroTenantId,contactID,newHistoryRecords);
 				messages.add("Contact History - note added to  : " + newInvoiceHistory.getHistoryRecords().get(0).getDetails());
 				
+			} catch (XeroApiException xe) {
+				this.addError(xe,messages);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());	
 			}
-		
         } else if (object.equals("ContactGroups")) {
     		
 			/* CONTACT GROUP  */		
@@ -805,10 +828,11 @@ public class AuthenticatedResource extends HttpServlet
 				ContactGroups deletedContactGroup = accountingApi.updateContactGroup(accessToken,xeroTenantId,contactGroupID, contactGroups);
 				messages.add("Delete a ContactGroup - Name : " + deletedContactGroup.getContactGroups().get(0).getName());
 					
+			} catch (XeroApiException xe) {
+				this.addError(xe,messages);
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
+				System.out.println(e.getMessage());	
 			}
-			
 		} else if (object.equals("ContactGroupContacts")) {
 			/* CONTACT GROUP CONTACTS */
 			try {	
@@ -852,10 +876,11 @@ public class AuthenticatedResource extends HttpServlet
 				ContactGroups oneCg2 = accountingApi.getContactGroup(accessToken,xeroTenantId,newContactGroup.getContactGroups().get(0).getContactGroupID());
 				messages.add("Get ContactGroups - Total Contacts : " + oneCg2.getContactGroups().get(0).getContacts().size());
 				
+			} catch (XeroApiException xe) {
+				this.addError(xe,messages);
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
+				System.out.println(e.getMessage());	
 			}
-		
 		} else if (object.equals("CreditNotesPDF")) {
 			// GET CreditNote As a PDF
 			CreditNotes creditNotes = accountingApi.getCreditNotes(accessToken,xeroTenantId,ifModifiedSince, where, order, null);
@@ -934,11 +959,11 @@ public class AuthenticatedResource extends HttpServlet
 				
 				HistoryRecords newHistory = accountingApi.createCreditNoteHistory(accessToken,xeroTenantId,creditNoteID, newHistoryRecords);
 				messages.add("History - note added to  : " + newHistory.getHistoryRecords().get(0).getDetails());
-			
+			} catch (XeroApiException xe) {
+				this.addError(xe,messages);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());	
 			}
-			
 		} else if (object.equals("Currencies")) {
 
 			/* CURRENCY  */
@@ -958,10 +983,11 @@ public class AuthenticatedResource extends HttpServlet
 				Currencies newCurrency = accountingApi.createCurrency(currs);
 				messages.add("New Currencies - Code : " + newCurrency.getCurrencies().get(0).getCode());
 				*/
+			} catch (XeroApiException xe) {
+				this.addError(xe,messages);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());	
-			}	
-			
+			}
 		} else if (object.equals("Employees")) {
 			//  EMPLOYEE
 			try {	
@@ -997,11 +1023,11 @@ public class AuthenticatedResource extends HttpServlet
 			
 				Employees updateEmployee = accountingApi.updateEmployee(accessToken,xeroTenantId,newEmpId, newEmployee);
 				messages.add("Update an Employee - Last Name : " + updateEmployee.getEmployees().get(0).getLastName());
-	
+			} catch (XeroApiException xe) {
+				this.addError(xe,messages);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());	
 			}
-			
 		} else if (object.equals("ExpenseClaims")) {
 			// EXPENSE CLAIM
 			try {
@@ -1093,10 +1119,11 @@ public class AuthenticatedResource extends HttpServlet
 				} else {
 					System.out.println("No User Found");
 				}
+			} catch (XeroApiException xe) {
+				this.addError(xe,messages);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());	
 			}
-		
 		} else if (object.equals("Invoices")) {
 			//  INVOICE 
 		
@@ -1278,10 +1305,11 @@ public class AuthenticatedResource extends HttpServlet
 				//Delete
 				accountingApi.deleteItem(accessToken,xeroTenantId,newItemId);
 				messages.add("Delete one item - no content in response");
+			} catch (XeroApiException xe) {
+				this.addError(xe,messages);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());	
 			}
-			
 		} else if (object.equals("Journals")) {
 			// JOURNAL 
 			try {
@@ -1301,6 +1329,8 @@ public class AuthenticatedResource extends HttpServlet
 				Journals oneJournal = accountingApi.getJournal(journalId);
 				messages.add("Get one Journal - number : " + oneJournal.getJournals().get(0).getJournalNumber());
 */
+			} catch (XeroApiException xe) {
+				this.addError(xe,messages);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());	
 			}
@@ -1429,10 +1459,11 @@ public class AuthenticatedResource extends HttpServlet
 				accountingApi.deleteLinkedTransaction(newLinkedTransactionID);
 				messages.add("Delete LinkedTransaction - no content in response");
 				*/
+			} catch (XeroApiException xe) {
+				this.addError(xe,messages);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());	
 			}
-		
 		} else if (object.equals("ManualJournals")) {
 			// MANUAL JOURNAL  
 			try {
@@ -1481,23 +1512,21 @@ public class AuthenticatedResource extends HttpServlet
 				ManualJournals updatedManualJournal = accountingApi.updateManualJournal(accessToken,xeroTenantId,newManualJournalId,updateManualJournals);
 				messages.add("Update Manual Journal - Narration : " + updatedManualJournal.getManualJournals().get(0).getNarration());
 				
+			} catch (XeroApiException xe) {
+				this.addError(xe,messages);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());	
 			}
-			
         } else if (object.equals("Organisations")) {
 			// Organisation 
 			try {
 				Organisations organisations = accountingApi.getOrganisations(accessToken,xeroTenantId);
 				messages.add("Get a Organisation - Name : " + organisations.getOrganisations().get(0).getName());
+			} catch (XeroApiException xe) {
+				this.addError(xe,messages);
 			} catch (Exception e) {
-				
-				System.out.println("ERROR");
 				System.out.println(e.getMessage());	
-			}		
-			
-			
-     
+			}
 		} else if (object.equals("Overpayments")) {
 			// OVERPAYMENT 
 		    where = "Status==\"ACTIVE\"&&Type==\"BANK\"";
@@ -1578,54 +1607,62 @@ public class AuthenticatedResource extends HttpServlet
 	
 		} else if (object.equals("Payments")) {
 			/* Payment 	*/
-			// CREATE payment
-			where =  "Status==\"AUTHORISED\"&&Type==\"ACCREC\"";			
-			Invoices allInvoices = accountingApi.getInvoices(accessToken,xeroTenantId,ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
-			Invoice inv = new Invoice();
-			inv.setInvoiceID(allInvoices.getInvoices().get(0).getInvoiceID());
-			where = null;
+			try {
+				
+			
+				// CREATE payment
+				where =  "Status==\"AUTHORISED\"&&Type==\"ACCREC\"";			
+				Invoices allInvoices = accountingApi.getInvoices(accessToken,xeroTenantId,ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
+				Invoice inv = new Invoice();
+				inv.setInvoiceID(allInvoices.getInvoices().get(0).getInvoiceID());
+				where = null;
+			
+			    where = "EnablePaymentsToAccount==true";
+				Accounts accountsWhere = accountingApi.getAccounts(accessToken,xeroTenantId,ifModifiedSince, where, order);
+				Account paymentAccount = new Account();
+				paymentAccount.setCode(accountsWhere.getAccounts().get(0).getCode());
+				where = null;
+				
+				Payments createPayments = new Payments();
+				Payment createPayment = new Payment();
+				createPayment.setAccount(paymentAccount);
+				createPayment.setInvoice(inv);
+				createPayment.setAmount(1.00);
 		
-		    where = "EnablePaymentsToAccount==true";
-			Accounts accountsWhere = accountingApi.getAccounts(accessToken,xeroTenantId,ifModifiedSince, where, order);
-			Account paymentAccount = new Account();
-			paymentAccount.setCode(accountsWhere.getAccounts().get(0).getCode());
-			where = null;
+				LocalDate currDate = LocalDate.now();
+				createPayment.setDate(currDate);
+				createPayments.addPaymentsItem(createPayment);
+				
+				Payments newPayments = accountingApi.createPayment(accessToken,xeroTenantId,createPayments);
+				messages.add("Create Payments - Amt : " + newPayments.getPayments().get(0).getAmount());					
+				
+				// GET all Payments
+				Payments payments = accountingApi.getPayments(accessToken,xeroTenantId,ifModifiedSince, where, order);
+				messages.add("Get Payments - Total : " + payments.getPayments().size());					
+				
+				// GET one Payment
+				UUID paymentID = payments.getPayments().get(0).getPaymentID();
+				Payments onePayment = accountingApi.getPayment(accessToken,xeroTenantId,paymentID);
+				messages.add("Get Payments - Amount : " + onePayment.getPayments().get(0).getAmount());		
+				
+				// Get  History
+				HistoryRecords allHistory = accountingApi.getPaymentHistory(accessToken,xeroTenantId,paymentID);
+				messages.add("History - count : " + allHistory.getHistoryRecords().size() );
 			
-			Payments createPayments = new Payments();
-			Payment createPayment = new Payment();
-			createPayment.setAccount(paymentAccount);
-			createPayment.setInvoice(inv);
-			createPayment.setAmount(1.00);
-	
-			LocalDate currDate = LocalDate.now();
-			createPayment.setDate(currDate);
-			createPayments.addPaymentsItem(createPayment);
-			
-			Payments newPayments = accountingApi.createPayment(accessToken,xeroTenantId,createPayments);
-			messages.add("Create Payments - Amt : " + newPayments.getPayments().get(0).getAmount());					
-			
-			// GET all Payments
-			Payments payments = accountingApi.getPayments(accessToken,xeroTenantId,ifModifiedSince, where, order);
-			messages.add("Get Payments - Total : " + payments.getPayments().size());					
-			
-			// GET one Payment
-			UUID paymentID = payments.getPayments().get(0).getPaymentID();
-			Payments onePayment = accountingApi.getPayment(accessToken,xeroTenantId,paymentID);
-			messages.add("Get Payments - Amount : " + onePayment.getPayments().get(0).getAmount());		
-			
-			// Get  History
-			HistoryRecords allHistory = accountingApi.getPaymentHistory(accessToken,xeroTenantId,paymentID);
-			messages.add("History - count : " + allHistory.getHistoryRecords().size() );
-		
-			// Create History
-			/*
-			HistoryRecords newHistoryRecords = new  HistoryRecords();
-			HistoryRecord newHistoryRecord = new  HistoryRecord();
-			newHistoryRecord.setDetails("Hello World");
-			newHistoryRecords.addHistoryRecordsItem(newHistoryRecord);			
-			HistoryRecords newHistory = accountingApi.createPaymentHistory(paymentID,newHistoryRecords);
-			messages.add("History - note added to  : " + newHistory.getHistoryRecords().get(0).getDetails());
-			*/		
+				// Create History
+				/*
+				HistoryRecords newHistoryRecords = new  HistoryRecords();
+				HistoryRecord newHistoryRecord = new  HistoryRecord();
+				newHistoryRecord.setDetails("Hello World");
+				newHistoryRecords.addHistoryRecordsItem(newHistoryRecord);			
+				HistoryRecords newHistory = accountingApi.createPaymentHistory(paymentID,newHistoryRecords);
+				messages.add("History - note added to  : " + newHistory.getHistoryRecords().get(0).getDetails());
+				*/		
+			} catch (XeroApiException xe) {
+				this.addError(xe,messages);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());	
+			}
 		} else if (object.equals("PaymentServices")) {
 			// Payment Services	
 			try {
@@ -1642,85 +1679,93 @@ public class AuthenticatedResource extends HttpServlet
 				// GET all Payments
 				PaymentServices paymentServices = accountingApi.getPaymentServices(accessToken,xeroTenantId);
 				messages.add("Get PaymentServices - Total : " + paymentServices.getPaymentServices().size());					
+			} catch (XeroApiException xe) {
+				this.addError(xe,messages);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());	
 			}
 		} else if (object.equals("Prepayments")) {
 			/* PREPAYMENT */
-		    where = "Status==\"ACTIVE\"&&Type==\"BANK\"";
-			Accounts accountsWhere = accountingApi.getAccounts(accessToken,xeroTenantId,ifModifiedSince, where, order);
-			Account bankAccount = new Account();
-			bankAccount.setAccountID(accountsWhere.getAccounts().get(0).getAccountID());
-			where = null;
-			
-		    where = "Type==\"EXPENSE\"";
-			Accounts arAccounts = accountingApi.getAccounts(accessToken,xeroTenantId,ifModifiedSince, where, order);
-			Account arAccount = arAccounts.getAccounts().get(0);
-			where = null;
-			
-			Contacts contacts = accountingApi.getContacts(accessToken,xeroTenantId,ifModifiedSince, where, order, ids, null, includeArchived);
-			Contact useContact = new Contact();
-			useContact.setContactID(contacts.getContacts().get(0).getContactID());
-			
-			// Maker sure we have at least 2 banks
-			if(accountsWhere.getAccounts().size() > 0) {	
-				List<LineItem> lineItems = new ArrayList<>();
-				LineItem li = new LineItem();
-				li.setAccountCode(arAccount.getCode());
-				li.setDescription("Foobar");
-				li.setQuantity(1.0);
-				li.setTaxType("NONE");
-				li.setUnitAmount(20.00);
-				lineItems.add(li);
-				
-				BankTransaction bt = new BankTransaction();
-				bt.setBankAccount(bankAccount);
-				bt.setContact(useContact);
-				bt.setLineitems(lineItems);
-				bt.setType(com.xero.models.accounting.BankTransaction.TypeEnum.RECEIVE_PREPAYMENT);
-				BankTransactions bts = new BankTransactions();
-				bts.addBankTransactionsItem(bt);					
-				BankTransactions newBankTransaction = accountingApi.createBankTransaction(accessToken,xeroTenantId,bts, summarizeErrors);
-				where =  "Status==\"AUTHORISED\" && TYPE==\"RECEIVE-PREPAYMENT\"";
-				Prepayments prepayments = accountingApi.getPrepayments(accessToken,xeroTenantId,ifModifiedSince, where, order, null, null);
-				messages.add("Get a Prepayments - Count : " + prepayments.getPrepayments().size());
+			try {
+			    where = "Status==\"ACTIVE\"&&Type==\"BANK\"";
+				Accounts accountsWhere = accountingApi.getAccounts(accessToken,xeroTenantId,ifModifiedSince, where, order);
+				Account bankAccount = new Account();
+				bankAccount.setAccountID(accountsWhere.getAccounts().get(0).getAccountID());
 				where = null;
-				if(prepayments.getPrepayments().size() > 0) {	
-					UUID prepaymentId = prepayments.getPrepayments().get(0).getPrepaymentID();
-					Prepayments onePrepayment = accountingApi.getPrepayment(accessToken,xeroTenantId,prepaymentId);
-					messages.add("Get one Prepayment - Total : " + onePrepayment.getPrepayments().get(0).getTotal());
-				    where = "Status==\"AUTHORISED\"&&Type==\"ACCREC\"";					
-					Invoices allInvoices = accountingApi.getInvoices(accessToken,xeroTenantId,ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
-					Invoice inv = new Invoice();
-					inv.setInvoiceID(allInvoices.getInvoices().get(0).getInvoiceID());
-					where = null;
-					
-					Allocations allocations = new Allocations();
-					Allocation allocation = new Allocation();
-					allocation.setAmount(1.0);
-					LocalDate currDate = LocalDate.now();
-					allocation.setDate(currDate);
-					allocation.setInvoice(inv);
-					allocations.addAllocationsItem(allocation);
-					
-					//Allocations newAllocation = accountingApi.createPrepaymentAllocation(prepaymentId, allocations);
-					//messages.add("Create PrePayment allocation - Amt : " + newAllocation.getAllocations().get(0).getAmount());		
-					
-					// Get History
-					HistoryRecords history = accountingApi.getPrepaymentHistory(accessToken,xeroTenantId,prepaymentId);
-					messages.add("History - count : " + history.getHistoryRecords().size() );
 				
-					// Create  History
-					// Error: "The document with the supplied id was not found for this end point.					
-					/*
-					HistoryRecords newHistoryRecords = new  HistoryRecords();
-					HistoryRecord newHistoryRecord = new  HistoryRecord();
-					newHistoryRecord.setDetails("Hello World");
-					newHistoryRecords.addHistoryRecordsItem(newHistoryRecord);
-					HistoryRecords createdHistory = accountingApi.createPrepaymentHistory(prepaymentId,newHistoryRecords);
-					messages.add("History - note added to  : " + createdHistory.getHistoryRecords().get(0).getDetails());	
-					*/
+			    where = "Type==\"EXPENSE\"";
+				Accounts arAccounts = accountingApi.getAccounts(accessToken,xeroTenantId,ifModifiedSince, where, order);
+				Account arAccount = arAccounts.getAccounts().get(0);
+				where = null;
+				
+				Contacts contacts = accountingApi.getContacts(accessToken,xeroTenantId,ifModifiedSince, where, order, ids, null, includeArchived);
+				Contact useContact = new Contact();
+				useContact.setContactID(contacts.getContacts().get(0).getContactID());
+				
+				// Maker sure we have at least 2 banks
+				if(accountsWhere.getAccounts().size() > 0) {	
+					List<LineItem> lineItems = new ArrayList<>();
+					LineItem li = new LineItem();
+					li.setAccountCode(arAccount.getCode());
+					li.setDescription("Foobar");
+					li.setQuantity(1.0);
+					li.setTaxType("NONE");
+					li.setUnitAmount(20.00);
+					lineItems.add(li);
+					
+					BankTransaction bt = new BankTransaction();
+					bt.setBankAccount(bankAccount);
+					bt.setContact(useContact);
+					bt.setLineitems(lineItems);
+					bt.setType(com.xero.models.accounting.BankTransaction.TypeEnum.RECEIVE_PREPAYMENT);
+					BankTransactions bts = new BankTransactions();
+					bts.addBankTransactionsItem(bt);					
+					BankTransactions newBankTransaction = accountingApi.createBankTransaction(accessToken,xeroTenantId,bts, summarizeErrors);
+					where =  "Status==\"AUTHORISED\" && TYPE==\"RECEIVE-PREPAYMENT\"";
+					Prepayments prepayments = accountingApi.getPrepayments(accessToken,xeroTenantId,ifModifiedSince, where, order, null, null);
+					messages.add("Get a Prepayments - Count : " + prepayments.getPrepayments().size());
+					where = null;
+					if(prepayments.getPrepayments().size() > 0) {	
+						UUID prepaymentId = prepayments.getPrepayments().get(0).getPrepaymentID();
+						Prepayments onePrepayment = accountingApi.getPrepayment(accessToken,xeroTenantId,prepaymentId);
+						messages.add("Get one Prepayment - Total : " + onePrepayment.getPrepayments().get(0).getTotal());
+					    where = "Status==\"AUTHORISED\"&&Type==\"ACCREC\"";					
+						Invoices allInvoices = accountingApi.getInvoices(accessToken,xeroTenantId,ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, null, includeArchived, createdByMyApp, null);
+						Invoice inv = new Invoice();
+						inv.setInvoiceID(allInvoices.getInvoices().get(0).getInvoiceID());
+						where = null;
+						
+						Allocations allocations = new Allocations();
+						Allocation allocation = new Allocation();
+						allocation.setAmount(1.0);
+						LocalDate currDate = LocalDate.now();
+						allocation.setDate(currDate);
+						allocation.setInvoice(inv);
+						allocations.addAllocationsItem(allocation);
+						
+						//Allocations newAllocation = accountingApi.createPrepaymentAllocation(prepaymentId, allocations);
+						//messages.add("Create PrePayment allocation - Amt : " + newAllocation.getAllocations().get(0).getAmount());		
+						
+						// Get History
+						HistoryRecords history = accountingApi.getPrepaymentHistory(accessToken,xeroTenantId,prepaymentId);
+						messages.add("History - count : " + history.getHistoryRecords().size() );
+					
+						// Create  History
+						// Error: "The document with the supplied id was not found for this end point.					
+						/*
+						HistoryRecords newHistoryRecords = new  HistoryRecords();
+						HistoryRecord newHistoryRecord = new  HistoryRecord();
+						newHistoryRecord.setDetails("Hello World");
+						newHistoryRecords.addHistoryRecordsItem(newHistoryRecord);
+						HistoryRecords createdHistory = accountingApi.createPrepaymentHistory(prepaymentId,newHistoryRecords);
+						messages.add("History - note added to  : " + createdHistory.getHistoryRecords().get(0).getDetails());	
+						*/
+					}
 				}
+			} catch (XeroApiException xe) {
+				this.addError(xe,messages);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());	
 			}
 		} else if (object.equals("PurchaseOrders")) {
 			// PURCHASE ORDERS 
@@ -1786,9 +1831,10 @@ public class AuthenticatedResource extends HttpServlet
 				newHistoryRecords.addHistoryRecordsItem(newHistoryRecord);
 				HistoryRecords newHistory = accountingApi.createPurchaseOrderHistory(accessToken,xeroTenantId,purchaseOrderID,newHistoryRecords);
 				messages.add("History - note added to  : " + newHistory.getHistoryRecords().get(0).getDetails());
-			
+			} catch (XeroApiException xe) {
+				this.addError(xe,messages);
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
+				System.out.println(e.getMessage());	
 			}
 		} else if (object.equals("Receipts")) {
 			/* RECEIPTS */
@@ -1859,8 +1905,10 @@ public class AuthenticatedResource extends HttpServlet
 				HistoryRecords newHistory = accountingApi.createReceiptHistory(receiptID, newHistoryRecords);
 				messages.add("History - note added to  : " + newHistory.getHistoryRecords().get(0).getDetails());
 				*/
+			} catch (XeroApiException xe) {
+				this.addError(xe,messages);
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
+				System.out.println(e.getMessage());	
 			}					
 		} else if (object.equals("RepeatingInvoices")) {
 	        /* REPEATING INVOICE */
@@ -1893,81 +1941,90 @@ public class AuthenticatedResource extends HttpServlet
 					messages.add("Zero repeating Invoices found" );
 					
 				}
+			} catch (XeroApiException xe) {
+				this.addError(xe,messages);
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
+				System.out.println(e.getMessage());	
 			}
 		} else if (object.equals("Reports")) {
 			
-			/* REPORTS */			
-			/*
-			// TenNinetyNine - US Only
-			String reportYear = null;
-			Reports reports = accountingApi.getReportTenNinetyNine(reportYear);
-			System.out.println(reports.toString());
-		    */
-			// AgedPayablesByContact
-			String date = null;
-			String fromDate = null;
-			String toDate = null;
-			String profitLossTimeframe = null;
-			String trackingOptionID1 = null;
-			String trackingOptionID2 = null;
-			boolean standardLayout = false;
-			boolean paymentsOnly = false;
-			String trackingCategoryID = null;
-			String trackingCategoryID2 = null;
-			String trackingOptionID = null;
-			
-			Contacts contacts = accountingApi.getContacts(accessToken,xeroTenantId,ifModifiedSince, where, order, ids, null, includeArchived);
-			UUID contactId = contacts.getContacts().get(0).getContactID();
-			LocalDate xDate = LocalDate.now();
-			LocalDate xFromDate = LocalDate.now();
-			LocalDate xToDate = LocalDate.now();
-			
-			ReportWithRows reportAgedPayablesByContact = accountingApi.getReportAgedPayablesByContact(accessToken,xeroTenantId,contactId, xDate, xFromDate, xToDate);
-			messages.add("Get a Reports - Name:" + reportAgedPayablesByContact.getReports().get(0).getReportName());
-			
-			// AgedReceivablesByContact
-			ReportWithRows reportAgedReceivablesByContact = accountingApi.getReportAgedReceivablesByContact(accessToken,xeroTenantId,contactId, xDate, xFromDate, xToDate);
-			messages.add("Get a Reports - Name:" + reportAgedReceivablesByContact.getReports().get(0).getReportName());
-			
-			// reportBalanceSheet
-			ReportWithRows reportBalanceSheet = accountingApi.getReportBalanceSheet(accessToken,xeroTenantId,toDate, 3, "MONTH", trackingOptionID1, trackingOptionID2, standardLayout, paymentsOnly);
-			messages.add("Get a Reports - Name:" + reportBalanceSheet.getReports().get(0).getReportName());
-			
-			// reportBankSummary
-			ReportWithRows reportBankSummary = accountingApi.getReportBankSummary(accessToken,xeroTenantId,xToDate, null, null);
-			messages.add("Get a Reports - Name:" + reportBankSummary.getReports().get(0).getReportName());
-			
-			// reportBASorGSTlist - AU and NZ only
-			ReportWithRows reportTax = accountingApi.getReportBASorGSTList(accessToken,xeroTenantId);
-			System.out.println(reportTax.toString());
-			
-			// reportBudgetSummary
-			int budgetPeriod = 1;
-			int budgetTimeframe = 3;
-			ReportWithRows reportBudgetSummary = accountingApi.getReportBudgetSummary(accessToken,xeroTenantId,xToDate, budgetPeriod, budgetTimeframe);
-			messages.add("Get a Reports - Name:" + reportBudgetSummary.getReports().get(0).getReportName());
-			
-			// reportExecutiveSummary
-			ReportWithRows reportExecutiveSummary = accountingApi.getReportExecutiveSummary(accessToken,xeroTenantId,xToDate);
-			messages.add("Get a Reports - Name:" + reportExecutiveSummary.getReports().get(0).getReportName());
-			
-			// reportProfitandLoss
-			fromDate = "2018-01-01";
-		    toDate = "2018-12-31";
-		    profitLossTimeframe = "MONTH";
-		    standardLayout = true;
-		    paymentsOnly = false;
-			ReportWithRows reportProfitLoss = accountingApi.getReportProfitAndLoss(accessToken,xeroTenantId,xFromDate, xToDate, null, profitLossTimeframe, trackingCategoryID, trackingCategoryID2, trackingOptionID, trackingOptionID2, standardLayout, paymentsOnly);
-			messages.add("Get a Reports - Name:" + reportProfitLoss.getReports().get(0).getReportName());
-			fromDate = null;
-		    toDate = null;
-						
-			// reportTrialBalance
-			ReportWithRows reportTrialBalance = accountingApi.getReportTrialBalance(accessToken,xeroTenantId,xToDate, paymentsOnly);
-			messages.add("Get a Reports - Name:" + reportTrialBalance.getReports().get(0).getReportName());
-		
+			/* REPORTS */	
+			try {
+				
+				
+				/*
+				// TenNinetyNine - US Only
+				String reportYear = null;
+				Reports reports = accountingApi.getReportTenNinetyNine(reportYear);
+				System.out.println(reports.toString());
+			    */
+				// AgedPayablesByContact
+				String date = null;
+				String fromDate = null;
+				String toDate = null;
+				String profitLossTimeframe = null;
+				String trackingOptionID1 = null;
+				String trackingOptionID2 = null;
+				boolean standardLayout = false;
+				boolean paymentsOnly = false;
+				String trackingCategoryID = null;
+				String trackingCategoryID2 = null;
+				String trackingOptionID = null;
+				
+				Contacts contacts = accountingApi.getContacts(accessToken,xeroTenantId,ifModifiedSince, where, order, ids, null, includeArchived);
+				UUID contactId = contacts.getContacts().get(0).getContactID();
+				LocalDate xDate = LocalDate.now();
+				LocalDate xFromDate = LocalDate.now();
+				LocalDate xToDate = LocalDate.now();
+				
+				ReportWithRows reportAgedPayablesByContact = accountingApi.getReportAgedPayablesByContact(accessToken,xeroTenantId,contactId, xDate, xFromDate, xToDate);
+				messages.add("Get a Reports - Name:" + reportAgedPayablesByContact.getReports().get(0).getReportName());
+				
+				// AgedReceivablesByContact
+				ReportWithRows reportAgedReceivablesByContact = accountingApi.getReportAgedReceivablesByContact(accessToken,xeroTenantId,contactId, xDate, xFromDate, xToDate);
+				messages.add("Get a Reports - Name:" + reportAgedReceivablesByContact.getReports().get(0).getReportName());
+				
+				// reportBalanceSheet
+				ReportWithRows reportBalanceSheet = accountingApi.getReportBalanceSheet(accessToken,xeroTenantId,toDate, 3, "MONTH", trackingOptionID1, trackingOptionID2, standardLayout, paymentsOnly);
+				messages.add("Get a Reports - Name:" + reportBalanceSheet.getReports().get(0).getReportName());
+				
+				// reportBankSummary
+				ReportWithRows reportBankSummary = accountingApi.getReportBankSummary(accessToken,xeroTenantId,xToDate, null, null);
+				messages.add("Get a Reports - Name:" + reportBankSummary.getReports().get(0).getReportName());
+				
+				// reportBASorGSTlist - AU and NZ only
+				ReportWithRows reportTax = accountingApi.getReportBASorGSTList(accessToken,xeroTenantId);
+				System.out.println(reportTax.toString());
+				
+				// reportBudgetSummary
+				int budgetPeriod = 1;
+				int budgetTimeframe = 3;
+				ReportWithRows reportBudgetSummary = accountingApi.getReportBudgetSummary(accessToken,xeroTenantId,xToDate, budgetPeriod, budgetTimeframe);
+				messages.add("Get a Reports - Name:" + reportBudgetSummary.getReports().get(0).getReportName());
+				
+				// reportExecutiveSummary
+				ReportWithRows reportExecutiveSummary = accountingApi.getReportExecutiveSummary(accessToken,xeroTenantId,xToDate);
+				messages.add("Get a Reports - Name:" + reportExecutiveSummary.getReports().get(0).getReportName());
+				
+				// reportProfitandLoss
+				fromDate = "2018-01-01";
+			    toDate = "2018-12-31";
+			    profitLossTimeframe = "MONTH";
+			    standardLayout = true;
+			    paymentsOnly = false;
+				ReportWithRows reportProfitLoss = accountingApi.getReportProfitAndLoss(accessToken,xeroTenantId,xFromDate, xToDate, null, profitLossTimeframe, trackingCategoryID, trackingCategoryID2, trackingOptionID, trackingOptionID2, standardLayout, paymentsOnly);
+				messages.add("Get a Reports - Name:" + reportProfitLoss.getReports().get(0).getReportName());
+				fromDate = null;
+			    toDate = null;
+							
+				// reportTrialBalance
+				ReportWithRows reportTrialBalance = accountingApi.getReportTrialBalance(accessToken,xeroTenantId,xToDate, paymentsOnly);
+				messages.add("Get a Reports - Name:" + reportTrialBalance.getReports().get(0).getReportName());
+			} catch (XeroApiException xe) {
+				this.addError(xe,messages);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());	
+			}
 		} else if (object.equals("TrackingCategories")) {
 			// TRACKING CATEGORIES 
 			try {
@@ -2011,12 +2068,12 @@ public class AuthenticatedResource extends HttpServlet
 					//UUID newOptionId = newTrackingOptions.getOptions().get(0).getTrackingOptionID();                                 
 					//TrackingOptions deleteOptions = accountingApi.deleteTrackingOptions(oneTrackingCategoryID, newOptionId);
 					//messages.add("DELETE one option - Status : " + deleteOptions.getOptions().get(0).getStatus());
-				}
-				
+				}	
+			} catch (XeroApiException xe) {
+				this.addError(xe,messages);
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
+				System.out.println(e.getMessage());	
 			}
-		
 		} else if (object.equals("TaxRates")) {
 			// TAX RATE
 			try {
@@ -2047,10 +2104,11 @@ public class AuthenticatedResource extends HttpServlet
 			    taxType = "CAPEXINPUT2";
 				TaxRates taxRatesByType = accountingApi.getTaxRates(accessToken,xeroTenantId,where, order, taxType);
 				messages.add("GET TaxRate by Cap Purchase Type : " + taxRatesByType.getTaxRates().size());
-				
+			} catch (XeroApiException xe) {
+				this.addError(xe,messages);
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
-			}	
+				System.out.println(e.getMessage());	
+			}
 		} else if (object.equals("Users")) {
 			// USER
 			try {
@@ -2062,11 +2120,79 @@ public class AuthenticatedResource extends HttpServlet
 				UUID userID = users.getUsers().get(0).getUserID();
 				Users user = accountingApi.getUser(accessToken,xeroTenantId,userID);
 				messages.add("GET Users - First Name : " + user.getUsers().get(0).getFirstName());
+			} catch (XeroApiException xe) {
+				this.addError(xe,messages);
 			} catch (Exception e) {
-				System.out.println(e.getMessage());
+				System.out.println(e.getMessage());	
+			}
+		} else if (object.equals("Errors")) {
+			
+			try {
+				Contact contact = new Contact();
+				contact.setName("Sidney Maestre");
+				Contacts createContact1 = accountingApi.createContact(accessToken,xeroTenantId, contact);
+				Contacts createContact2 = accountingApi.createContact(accessToken,xeroTenantId, contact);	
+			} catch (XeroApiException xe) {
+				this.addError(xe,messages);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());	
+			}
+			
+			try {
+				Contacts contacts = accountingApi.getContacts(accessToken,xeroTenantId, ifModifiedSince, where, order, ids, null, includeArchived);
+				Contact useContact = new Contact();
+				useContact.setContactID(contacts.getContacts().get(0).getContactID());
+				
+				Invoices newInvoices = new Invoices();
+				Invoice myInvoice = new Invoice();
+				
+				LineItem li = new LineItem();
+				li.setAccountCode("123456789");
+				li.setDescription("Acme Tires");
+				li.setQuantity(2.0);
+				li.setUnitAmount(20.00);
+				li.setLineAmount(40.00);
+				li.setTaxType("NONE");
+				
+				myInvoice.addLineItemsItem(li);
+				myInvoice.setContact(useContact);
+				myInvoice.setType(com.xero.models.accounting.Invoice.TypeEnum.ACCREC);
+				myInvoice.setReference("One Fish, Two Fish");
+				myInvoice.setStatus(com.xero.models.accounting.Invoice.StatusEnum.SUBMITTED);
+				newInvoices.addInvoicesItem(myInvoice);
+				
+				Invoices newInvoice = accountingApi.createInvoice(accessToken,xeroTenantId, newInvoices, true);
+				messages.add("Create invoice - Reference : " + newInvoice.getInvoices().get(0).getReference());
+			} catch (XeroApiException xe) {
+				this.addError(xe,messages);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());	
+			}
+			
+			try {
+				UUID badContactId = UUID.fromString("bd2270c3-0000-4c11-9cfb-000b551c3f51");
+				Contacts badContacts = accountingApi.getContact(accessToken,xeroTenantId, badContactId);	
+			} catch (XeroApiException xe) {
+				this.addError(xe,messages);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());	
+			}
+			
+			Contacts ContactList = accountingApi.getContacts(accessToken,xeroTenantId, ifModifiedSince, where, order, ids, null, includeArchived);
+			int num4 = findRandomNum(ContactList.getContacts().size());			
+			UUID contactId = ContactList.getContacts().get(num4).getContactID();
+			try {
+				for(int i=80; i>1; i--){
+					Contacts allMyContacts = accountingApi.getContact(accessToken,xeroTenantId, contactId);
+				}
+				messages.add("Congrats - you made over 60 calls without hitting rate limit");
+			} catch (XeroApiException xe) {
+				this.addError(xe,messages);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());	
 			}
 		}
-
+        
 		for (int i = 0; i < messages.size(); i++) {
 			System.out.println(messages.get(i));
 			respWriter.println("<p>" + messages.get(i) + "</p>");
@@ -2081,6 +2207,16 @@ public class AuthenticatedResource extends HttpServlet
             map.put(key, value.toString());
         }
     }
+	
+	protected void addError(XeroApiException xe, ArrayList<String> messages) 
+	{
+		messages.add("Xero Exception: " + xe.getResponseCode());	
+		for(Element item : xe.getError().getElements()){
+			for(ValidationError err : item.getValidationErrors()){
+				messages.add("Error Msg: " + err.getMessage());
+			}
+		}
+	}
 	
 	protected String saveFile(ByteArrayInputStream input, String fileName) {
 		String saveFilePath = null;
@@ -2114,6 +2250,12 @@ public class AuthenticatedResource extends HttpServlet
 	public static int loadRandomNum() {
 		Random randomGenerator = new Random();
 		int randomInt = randomGenerator.nextInt(100000);
+		return randomInt;
+	}
+	
+	public static int findRandomNum(int total) {
+		Random randomGenerator = new Random();
+		int randomInt = randomGenerator.nextInt(total);
 		return randomInt;
 	}
 }

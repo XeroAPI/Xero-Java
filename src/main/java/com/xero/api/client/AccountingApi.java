@@ -50,6 +50,8 @@ import com.xero.models.accounting.TrackingOption;
 import com.xero.models.accounting.TrackingOptions;
 import java.util.UUID;
 import com.xero.models.accounting.Users;
+import com.xero.api.XeroApiException;
+import com.xero.api.XeroApiExceptionHandler;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.api.client.http.GenericUrl;
@@ -58,6 +60,7 @@ import com.google.api.client.http.HttpMethods;
 import com.google.api.client.http.HttpRequestFactory;
 import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpResponse;
+import com.google.api.client.http.HttpResponseException;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.FileContent;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -84,7 +87,7 @@ public class AccountingApi {
     private ApiClient apiClient;
     private static AccountingApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.0.0-beta-8";
+    private String version = "3.0.0-beta-9";
 
     public AccountingApi() {
         this(new ApiClient());
@@ -129,9 +132,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Accounts  createAccount(String accessToken, String xeroTenantId, Account account) throws IOException {
-        HttpResponse response = createAccountForHttpResponse(accessToken, xeroTenantId, account);
-        TypeReference typeRef = new TypeReference<Accounts>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Accounts> typeRef = new TypeReference<Accounts>() {};
+            HttpResponse response = createAccountForHttpResponse(accessToken, xeroTenantId, account);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createAccountForHttpResponse(String accessToken,  String xeroTenantId,  Account account) throws IOException {
@@ -182,9 +193,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments  createAccountAttachmentByFileName(String accessToken, String xeroTenantId, UUID accountID, String fileName, File body) throws IOException {
-        HttpResponse response = createAccountAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, accountID, fileName, body);
-        TypeReference typeRef = new TypeReference<Attachments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+            HttpResponse response = createAccountAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, accountID, fileName, body);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createAccountAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID accountID,  String fileName, File  body) throws IOException {
@@ -248,9 +267,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public BankTransactions  createBankTransaction(String accessToken, String xeroTenantId, BankTransactions bankTransactions, Boolean summarizeErrors) throws IOException {
-        HttpResponse response = createBankTransactionForHttpResponse(accessToken, xeroTenantId, bankTransactions, summarizeErrors);
-        TypeReference typeRef = new TypeReference<BankTransactions>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<BankTransactions> typeRef = new TypeReference<BankTransactions>() {};
+            HttpResponse response = createBankTransactionForHttpResponse(accessToken, xeroTenantId, bankTransactions, summarizeErrors);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createBankTransactionForHttpResponse(String accessToken,  String xeroTenantId,  BankTransactions bankTransactions,  Boolean summarizeErrors) throws IOException {
@@ -312,9 +339,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments  createBankTransactionAttachmentByFileName(String accessToken, String xeroTenantId, UUID bankTransactionID, String fileName, File body) throws IOException {
-        HttpResponse response = createBankTransactionAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, bankTransactionID, fileName, body);
-        TypeReference typeRef = new TypeReference<Attachments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+            HttpResponse response = createBankTransactionAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, bankTransactionID, fileName, body);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createBankTransactionAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID bankTransactionID,  String fileName, File  body) throws IOException {
@@ -378,9 +413,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords  createBankTransactionHistoryRecord(String accessToken, String xeroTenantId, UUID bankTransactionID, HistoryRecords historyRecords) throws IOException {
-        HttpResponse response = createBankTransactionHistoryRecordForHttpResponse(accessToken, xeroTenantId, bankTransactionID, historyRecords);
-        TypeReference typeRef = new TypeReference<HistoryRecords>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
+            HttpResponse response = createBankTransactionHistoryRecordForHttpResponse(accessToken, xeroTenantId, bankTransactionID, historyRecords);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createBankTransactionHistoryRecordForHttpResponse(String accessToken,  String xeroTenantId,  UUID bankTransactionID,  HistoryRecords historyRecords) throws IOException {
@@ -437,9 +480,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public BankTransfers  createBankTransfer(String accessToken, String xeroTenantId, BankTransfers bankTransfers) throws IOException {
-        HttpResponse response = createBankTransferForHttpResponse(accessToken, xeroTenantId, bankTransfers);
-        TypeReference typeRef = new TypeReference<BankTransfers>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<BankTransfers> typeRef = new TypeReference<BankTransfers>() {};
+            HttpResponse response = createBankTransferForHttpResponse(accessToken, xeroTenantId, bankTransfers);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createBankTransferForHttpResponse(String accessToken,  String xeroTenantId,  BankTransfers bankTransfers) throws IOException {
@@ -489,9 +540,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments  createBankTransferAttachmentByFileName(String accessToken, String xeroTenantId, UUID bankTransferID, String fileName, File body) throws IOException {
-        HttpResponse response = createBankTransferAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, bankTransferID, fileName, body);
-        TypeReference typeRef = new TypeReference<Attachments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+            HttpResponse response = createBankTransferAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, bankTransferID, fileName, body);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createBankTransferAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID bankTransferID,  String fileName, File  body) throws IOException {
@@ -554,9 +613,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords  createBankTransferHistoryRecord(String accessToken, String xeroTenantId, UUID bankTransferID, HistoryRecords historyRecords) throws IOException {
-        HttpResponse response = createBankTransferHistoryRecordForHttpResponse(accessToken, xeroTenantId, bankTransferID, historyRecords);
-        TypeReference typeRef = new TypeReference<HistoryRecords>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
+            HttpResponse response = createBankTransferHistoryRecordForHttpResponse(accessToken, xeroTenantId, bankTransferID, historyRecords);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createBankTransferHistoryRecordForHttpResponse(String accessToken,  String xeroTenantId,  UUID bankTransferID,  HistoryRecords historyRecords) throws IOException {
@@ -613,9 +680,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public BatchPayments  createBatchPayment(String accessToken, String xeroTenantId, BatchPayments batchPayments) throws IOException {
-        HttpResponse response = createBatchPaymentForHttpResponse(accessToken, xeroTenantId, batchPayments);
-        TypeReference typeRef = new TypeReference<BatchPayments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<BatchPayments> typeRef = new TypeReference<BatchPayments>() {};
+            HttpResponse response = createBatchPaymentForHttpResponse(accessToken, xeroTenantId, batchPayments);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createBatchPaymentForHttpResponse(String accessToken,  String xeroTenantId,  BatchPayments batchPayments) throws IOException {
@@ -665,9 +740,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords  createBatchPaymentHistoryRecord(String accessToken, String xeroTenantId, UUID batchPaymentID, HistoryRecords historyRecords) throws IOException {
-        HttpResponse response = createBatchPaymentHistoryRecordForHttpResponse(accessToken, xeroTenantId, batchPaymentID, historyRecords);
-        TypeReference typeRef = new TypeReference<HistoryRecords>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
+            HttpResponse response = createBatchPaymentHistoryRecordForHttpResponse(accessToken, xeroTenantId, batchPaymentID, historyRecords);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createBatchPaymentHistoryRecordForHttpResponse(String accessToken,  String xeroTenantId,  UUID batchPaymentID,  HistoryRecords historyRecords) throws IOException {
@@ -725,9 +808,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public PaymentServices  createBrandingThemePaymentServices(String accessToken, String xeroTenantId, UUID brandingThemeID, PaymentService paymentService) throws IOException {
-        HttpResponse response = createBrandingThemePaymentServicesForHttpResponse(accessToken, xeroTenantId, brandingThemeID, paymentService);
-        TypeReference typeRef = new TypeReference<PaymentServices>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<PaymentServices> typeRef = new TypeReference<PaymentServices>() {};
+            HttpResponse response = createBrandingThemePaymentServicesForHttpResponse(accessToken, xeroTenantId, brandingThemeID, paymentService);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createBrandingThemePaymentServicesForHttpResponse(String accessToken,  String xeroTenantId,  UUID brandingThemeID,  PaymentService paymentService) throws IOException {
@@ -783,9 +874,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Contacts  createContact(String accessToken, String xeroTenantId, Contact contact) throws IOException {
-        HttpResponse response = createContactForHttpResponse(accessToken, xeroTenantId, contact);
-        TypeReference typeRef = new TypeReference<Contacts>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Contacts> typeRef = new TypeReference<Contacts>() {};
+            HttpResponse response = createContactForHttpResponse(accessToken, xeroTenantId, contact);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createContactForHttpResponse(String accessToken,  String xeroTenantId,  Contact contact) throws IOException {
@@ -835,9 +934,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments  createContactAttachmentByFileName(String accessToken, String xeroTenantId, UUID contactID, String fileName, File body) throws IOException {
-        HttpResponse response = createContactAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, contactID, fileName, body);
-        TypeReference typeRef = new TypeReference<Attachments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+            HttpResponse response = createContactAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, contactID, fileName, body);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createContactAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID contactID,  String fileName, File  body) throws IOException {
@@ -900,9 +1007,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ContactGroups  createContactGroup(String accessToken, String xeroTenantId, ContactGroups contactGroups) throws IOException {
-        HttpResponse response = createContactGroupForHttpResponse(accessToken, xeroTenantId, contactGroups);
-        TypeReference typeRef = new TypeReference<ContactGroups>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<ContactGroups> typeRef = new TypeReference<ContactGroups>() {};
+            HttpResponse response = createContactGroupForHttpResponse(accessToken, xeroTenantId, contactGroups);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createContactGroupForHttpResponse(String accessToken,  String xeroTenantId,  ContactGroups contactGroups) throws IOException {
@@ -952,9 +1067,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Contacts  createContactGroupContacts(String accessToken, String xeroTenantId, UUID contactGroupID, Contacts contacts) throws IOException {
-        HttpResponse response = createContactGroupContactsForHttpResponse(accessToken, xeroTenantId, contactGroupID, contacts);
-        TypeReference typeRef = new TypeReference<Contacts>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Contacts> typeRef = new TypeReference<Contacts>() {};
+            HttpResponse response = createContactGroupContactsForHttpResponse(accessToken, xeroTenantId, contactGroupID, contacts);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createContactGroupContactsForHttpResponse(String accessToken,  String xeroTenantId,  UUID contactGroupID,  Contacts contacts) throws IOException {
@@ -1012,9 +1135,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords  createContactHistory(String accessToken, String xeroTenantId, UUID contactID, HistoryRecords historyRecords) throws IOException {
-        HttpResponse response = createContactHistoryForHttpResponse(accessToken, xeroTenantId, contactID, historyRecords);
-        TypeReference typeRef = new TypeReference<HistoryRecords>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
+            HttpResponse response = createContactHistoryForHttpResponse(accessToken, xeroTenantId, contactID, historyRecords);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createContactHistoryForHttpResponse(String accessToken,  String xeroTenantId,  UUID contactID,  HistoryRecords historyRecords) throws IOException {
@@ -1072,9 +1203,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public CreditNotes  createCreditNote(String accessToken, String xeroTenantId, CreditNotes creditNotes, Boolean summarizeErrors) throws IOException {
-        HttpResponse response = createCreditNoteForHttpResponse(accessToken, xeroTenantId, creditNotes, summarizeErrors);
-        TypeReference typeRef = new TypeReference<CreditNotes>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<CreditNotes> typeRef = new TypeReference<CreditNotes>() {};
+            HttpResponse response = createCreditNoteForHttpResponse(accessToken, xeroTenantId, creditNotes, summarizeErrors);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createCreditNoteForHttpResponse(String accessToken,  String xeroTenantId,  CreditNotes creditNotes,  Boolean summarizeErrors) throws IOException {
@@ -1135,9 +1274,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Allocations  createCreditNoteAllocation(String accessToken, String xeroTenantId, UUID creditNoteID, Allocations allocations) throws IOException {
-        HttpResponse response = createCreditNoteAllocationForHttpResponse(accessToken, xeroTenantId, creditNoteID, allocations);
-        TypeReference typeRef = new TypeReference<Allocations>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Allocations> typeRef = new TypeReference<Allocations>() {};
+            HttpResponse response = createCreditNoteAllocationForHttpResponse(accessToken, xeroTenantId, creditNoteID, allocations);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createCreditNoteAllocationForHttpResponse(String accessToken,  String xeroTenantId,  UUID creditNoteID,  Allocations allocations) throws IOException {
@@ -1196,9 +1343,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments  createCreditNoteAttachmentByFileName(String accessToken, String xeroTenantId, UUID creditNoteID, String fileName, File body) throws IOException {
-        HttpResponse response = createCreditNoteAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, creditNoteID, fileName, body);
-        TypeReference typeRef = new TypeReference<Attachments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+            HttpResponse response = createCreditNoteAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, creditNoteID, fileName, body);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createCreditNoteAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID creditNoteID,  String fileName, File  body) throws IOException {
@@ -1262,9 +1417,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords  createCreditNoteHistory(String accessToken, String xeroTenantId, UUID creditNoteID, HistoryRecords historyRecords) throws IOException {
-        HttpResponse response = createCreditNoteHistoryForHttpResponse(accessToken, xeroTenantId, creditNoteID, historyRecords);
-        TypeReference typeRef = new TypeReference<HistoryRecords>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
+            HttpResponse response = createCreditNoteHistoryForHttpResponse(accessToken, xeroTenantId, creditNoteID, historyRecords);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createCreditNoteHistoryForHttpResponse(String accessToken,  String xeroTenantId,  UUID creditNoteID,  HistoryRecords historyRecords) throws IOException {
@@ -1319,9 +1482,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Currencies  createCurrency(String accessToken, String xeroTenantId, Currencies currencies) throws IOException {
-        HttpResponse response = createCurrencyForHttpResponse(accessToken, xeroTenantId, currencies);
-        TypeReference typeRef = new TypeReference<Currencies>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Currencies> typeRef = new TypeReference<Currencies>() {};
+            HttpResponse response = createCurrencyForHttpResponse(accessToken, xeroTenantId, currencies);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createCurrencyForHttpResponse(String accessToken,  String xeroTenantId,  Currencies currencies) throws IOException {
@@ -1370,9 +1541,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Employees  createEmployee(String accessToken, String xeroTenantId, Employees employees) throws IOException {
-        HttpResponse response = createEmployeeForHttpResponse(accessToken, xeroTenantId, employees);
-        TypeReference typeRef = new TypeReference<Employees>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Employees> typeRef = new TypeReference<Employees>() {};
+            HttpResponse response = createEmployeeForHttpResponse(accessToken, xeroTenantId, employees);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createEmployeeForHttpResponse(String accessToken,  String xeroTenantId,  Employees employees) throws IOException {
@@ -1422,9 +1601,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ExpenseClaims  createExpenseClaim(String accessToken, String xeroTenantId, ExpenseClaims expenseClaims, Boolean summarizeErrors) throws IOException {
-        HttpResponse response = createExpenseClaimForHttpResponse(accessToken, xeroTenantId, expenseClaims, summarizeErrors);
-        TypeReference typeRef = new TypeReference<ExpenseClaims>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<ExpenseClaims> typeRef = new TypeReference<ExpenseClaims>() {};
+            HttpResponse response = createExpenseClaimForHttpResponse(accessToken, xeroTenantId, expenseClaims, summarizeErrors);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createExpenseClaimForHttpResponse(String accessToken,  String xeroTenantId,  ExpenseClaims expenseClaims,  Boolean summarizeErrors) throws IOException {
@@ -1484,9 +1671,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords  createExpenseClaimHistory(String accessToken, String xeroTenantId, UUID expenseClaimID, HistoryRecords historyRecords) throws IOException {
-        HttpResponse response = createExpenseClaimHistoryForHttpResponse(accessToken, xeroTenantId, expenseClaimID, historyRecords);
-        TypeReference typeRef = new TypeReference<HistoryRecords>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
+            HttpResponse response = createExpenseClaimHistoryForHttpResponse(accessToken, xeroTenantId, expenseClaimID, historyRecords);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createExpenseClaimHistoryForHttpResponse(String accessToken,  String xeroTenantId,  UUID expenseClaimID,  HistoryRecords historyRecords) throws IOException {
@@ -1544,9 +1739,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Invoices  createInvoice(String accessToken, String xeroTenantId, Invoices invoices, Boolean summarizeErrors) throws IOException {
-        HttpResponse response = createInvoiceForHttpResponse(accessToken, xeroTenantId, invoices, summarizeErrors);
-        TypeReference typeRef = new TypeReference<Invoices>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Invoices> typeRef = new TypeReference<Invoices>() {};
+            HttpResponse response = createInvoiceForHttpResponse(accessToken, xeroTenantId, invoices, summarizeErrors);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createInvoiceForHttpResponse(String accessToken,  String xeroTenantId,  Invoices invoices,  Boolean summarizeErrors) throws IOException {
@@ -1608,9 +1811,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments  createInvoiceAttachmentByFileName(String accessToken, String xeroTenantId, UUID invoiceID, String fileName, File body) throws IOException {
-        HttpResponse response = createInvoiceAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, invoiceID, fileName, body);
-        TypeReference typeRef = new TypeReference<Attachments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+            HttpResponse response = createInvoiceAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, invoiceID, fileName, body);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createInvoiceAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID invoiceID,  String fileName, File  body) throws IOException {
@@ -1674,9 +1885,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords  createInvoiceHistory(String accessToken, String xeroTenantId, UUID invoiceID, HistoryRecords historyRecords) throws IOException {
-        HttpResponse response = createInvoiceHistoryForHttpResponse(accessToken, xeroTenantId, invoiceID, historyRecords);
-        TypeReference typeRef = new TypeReference<HistoryRecords>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
+            HttpResponse response = createInvoiceHistoryForHttpResponse(accessToken, xeroTenantId, invoiceID, historyRecords);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createInvoiceHistoryForHttpResponse(String accessToken,  String xeroTenantId,  UUID invoiceID,  HistoryRecords historyRecords) throws IOException {
@@ -1733,9 +1952,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Items  createItem(String accessToken, String xeroTenantId, Items items) throws IOException {
-        HttpResponse response = createItemForHttpResponse(accessToken, xeroTenantId, items);
-        TypeReference typeRef = new TypeReference<Items>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Items> typeRef = new TypeReference<Items>() {};
+            HttpResponse response = createItemForHttpResponse(accessToken, xeroTenantId, items);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createItemForHttpResponse(String accessToken,  String xeroTenantId,  Items items) throws IOException {
@@ -1784,9 +2011,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords  createItemHistory(String accessToken, String xeroTenantId, UUID itemID, HistoryRecords historyRecords) throws IOException {
-        HttpResponse response = createItemHistoryForHttpResponse(accessToken, xeroTenantId, itemID, historyRecords);
-        TypeReference typeRef = new TypeReference<HistoryRecords>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
+            HttpResponse response = createItemHistoryForHttpResponse(accessToken, xeroTenantId, itemID, historyRecords);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createItemHistoryForHttpResponse(String accessToken,  String xeroTenantId,  UUID itemID,  HistoryRecords historyRecords) throws IOException {
@@ -1843,9 +2078,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public LinkedTransactions  createLinkedTransaction(String accessToken, String xeroTenantId, LinkedTransactions linkedTransactions) throws IOException {
-        HttpResponse response = createLinkedTransactionForHttpResponse(accessToken, xeroTenantId, linkedTransactions);
-        TypeReference typeRef = new TypeReference<LinkedTransactions>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<LinkedTransactions> typeRef = new TypeReference<LinkedTransactions>() {};
+            HttpResponse response = createLinkedTransactionForHttpResponse(accessToken, xeroTenantId, linkedTransactions);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createLinkedTransactionForHttpResponse(String accessToken,  String xeroTenantId,  LinkedTransactions linkedTransactions) throws IOException {
@@ -1894,9 +2137,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ManualJournals  createManualJournal(String accessToken, String xeroTenantId, ManualJournals manualJournals) throws IOException {
-        HttpResponse response = createManualJournalForHttpResponse(accessToken, xeroTenantId, manualJournals);
-        TypeReference typeRef = new TypeReference<ManualJournals>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<ManualJournals> typeRef = new TypeReference<ManualJournals>() {};
+            HttpResponse response = createManualJournalForHttpResponse(accessToken, xeroTenantId, manualJournals);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createManualJournalForHttpResponse(String accessToken,  String xeroTenantId,  ManualJournals manualJournals) throws IOException {
@@ -1947,9 +2198,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments  createManualJournalAttachmentByFileName(String accessToken, String xeroTenantId, UUID manualJournalID, String fileName, File body) throws IOException {
-        HttpResponse response = createManualJournalAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, manualJournalID, fileName, body);
-        TypeReference typeRef = new TypeReference<Attachments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+            HttpResponse response = createManualJournalAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, manualJournalID, fileName, body);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createManualJournalAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID manualJournalID,  String fileName, File  body) throws IOException {
@@ -2013,9 +2272,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Allocations  createOverpaymentAllocation(String accessToken, String xeroTenantId, UUID overpaymentID, Allocations allocations) throws IOException {
-        HttpResponse response = createOverpaymentAllocationForHttpResponse(accessToken, xeroTenantId, overpaymentID, allocations);
-        TypeReference typeRef = new TypeReference<Allocations>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Allocations> typeRef = new TypeReference<Allocations>() {};
+            HttpResponse response = createOverpaymentAllocationForHttpResponse(accessToken, xeroTenantId, overpaymentID, allocations);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createOverpaymentAllocationForHttpResponse(String accessToken,  String xeroTenantId,  UUID overpaymentID,  Allocations allocations) throws IOException {
@@ -2073,9 +2340,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords  createOverpaymentHistory(String accessToken, String xeroTenantId, UUID overpaymentID, HistoryRecords historyRecords) throws IOException {
-        HttpResponse response = createOverpaymentHistoryForHttpResponse(accessToken, xeroTenantId, overpaymentID, historyRecords);
-        TypeReference typeRef = new TypeReference<HistoryRecords>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
+            HttpResponse response = createOverpaymentHistoryForHttpResponse(accessToken, xeroTenantId, overpaymentID, historyRecords);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createOverpaymentHistoryForHttpResponse(String accessToken,  String xeroTenantId,  UUID overpaymentID,  HistoryRecords historyRecords) throws IOException {
@@ -2132,9 +2407,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Payments  createPayment(String accessToken, String xeroTenantId, Payments payments) throws IOException {
-        HttpResponse response = createPaymentForHttpResponse(accessToken, xeroTenantId, payments);
-        TypeReference typeRef = new TypeReference<Payments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Payments> typeRef = new TypeReference<Payments>() {};
+            HttpResponse response = createPaymentForHttpResponse(accessToken, xeroTenantId, payments);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createPaymentForHttpResponse(String accessToken,  String xeroTenantId,  Payments payments) throws IOException {
@@ -2184,9 +2467,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords  createPaymentHistory(String accessToken, String xeroTenantId, UUID paymentID, HistoryRecords historyRecords) throws IOException {
-        HttpResponse response = createPaymentHistoryForHttpResponse(accessToken, xeroTenantId, paymentID, historyRecords);
-        TypeReference typeRef = new TypeReference<HistoryRecords>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
+            HttpResponse response = createPaymentHistoryForHttpResponse(accessToken, xeroTenantId, paymentID, historyRecords);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createPaymentHistoryForHttpResponse(String accessToken,  String xeroTenantId,  UUID paymentID,  HistoryRecords historyRecords) throws IOException {
@@ -2243,9 +2534,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public PaymentServices  createPaymentService(String accessToken, String xeroTenantId, PaymentServices paymentServices) throws IOException {
-        HttpResponse response = createPaymentServiceForHttpResponse(accessToken, xeroTenantId, paymentServices);
-        TypeReference typeRef = new TypeReference<PaymentServices>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<PaymentServices> typeRef = new TypeReference<PaymentServices>() {};
+            HttpResponse response = createPaymentServiceForHttpResponse(accessToken, xeroTenantId, paymentServices);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createPaymentServiceForHttpResponse(String accessToken,  String xeroTenantId,  PaymentServices paymentServices) throws IOException {
@@ -2295,9 +2594,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Allocations  createPrepaymentAllocation(String accessToken, String xeroTenantId, UUID prepaymentID, Allocations allocations) throws IOException {
-        HttpResponse response = createPrepaymentAllocationForHttpResponse(accessToken, xeroTenantId, prepaymentID, allocations);
-        TypeReference typeRef = new TypeReference<Allocations>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Allocations> typeRef = new TypeReference<Allocations>() {};
+            HttpResponse response = createPrepaymentAllocationForHttpResponse(accessToken, xeroTenantId, prepaymentID, allocations);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createPrepaymentAllocationForHttpResponse(String accessToken,  String xeroTenantId,  UUID prepaymentID,  Allocations allocations) throws IOException {
@@ -2355,9 +2662,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords  createPrepaymentHistory(String accessToken, String xeroTenantId, UUID prepaymentID, HistoryRecords historyRecords) throws IOException {
-        HttpResponse response = createPrepaymentHistoryForHttpResponse(accessToken, xeroTenantId, prepaymentID, historyRecords);
-        TypeReference typeRef = new TypeReference<HistoryRecords>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
+            HttpResponse response = createPrepaymentHistoryForHttpResponse(accessToken, xeroTenantId, prepaymentID, historyRecords);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createPrepaymentHistoryForHttpResponse(String accessToken,  String xeroTenantId,  UUID prepaymentID,  HistoryRecords historyRecords) throws IOException {
@@ -2415,9 +2730,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public PurchaseOrders  createPurchaseOrder(String accessToken, String xeroTenantId, PurchaseOrders purchaseOrders, Boolean summarizeErrors) throws IOException {
-        HttpResponse response = createPurchaseOrderForHttpResponse(accessToken, xeroTenantId, purchaseOrders, summarizeErrors);
-        TypeReference typeRef = new TypeReference<PurchaseOrders>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<PurchaseOrders> typeRef = new TypeReference<PurchaseOrders>() {};
+            HttpResponse response = createPurchaseOrderForHttpResponse(accessToken, xeroTenantId, purchaseOrders, summarizeErrors);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createPurchaseOrderForHttpResponse(String accessToken,  String xeroTenantId,  PurchaseOrders purchaseOrders,  Boolean summarizeErrors) throws IOException {
@@ -2478,9 +2801,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords  createPurchaseOrderHistory(String accessToken, String xeroTenantId, UUID purchaseOrderID, HistoryRecords historyRecords) throws IOException {
-        HttpResponse response = createPurchaseOrderHistoryForHttpResponse(accessToken, xeroTenantId, purchaseOrderID, historyRecords);
-        TypeReference typeRef = new TypeReference<HistoryRecords>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
+            HttpResponse response = createPurchaseOrderHistoryForHttpResponse(accessToken, xeroTenantId, purchaseOrderID, historyRecords);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createPurchaseOrderHistoryForHttpResponse(String accessToken,  String xeroTenantId,  UUID purchaseOrderID,  HistoryRecords historyRecords) throws IOException {
@@ -2537,9 +2868,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Receipts  createReceipt(String accessToken, String xeroTenantId, Receipts receipts) throws IOException {
-        HttpResponse response = createReceiptForHttpResponse(accessToken, xeroTenantId, receipts);
-        TypeReference typeRef = new TypeReference<Receipts>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Receipts> typeRef = new TypeReference<Receipts>() {};
+            HttpResponse response = createReceiptForHttpResponse(accessToken, xeroTenantId, receipts);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createReceiptForHttpResponse(String accessToken,  String xeroTenantId,  Receipts receipts) throws IOException {
@@ -2590,9 +2929,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments  createReceiptAttachmentByFileName(String accessToken, String xeroTenantId, UUID receiptID, String fileName, File body) throws IOException {
-        HttpResponse response = createReceiptAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, receiptID, fileName, body);
-        TypeReference typeRef = new TypeReference<Attachments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+            HttpResponse response = createReceiptAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, receiptID, fileName, body);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createReceiptAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID receiptID,  String fileName, File  body) throws IOException {
@@ -2656,9 +3003,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords  createReceiptHistory(String accessToken, String xeroTenantId, UUID receiptID, HistoryRecords historyRecords) throws IOException {
-        HttpResponse response = createReceiptHistoryForHttpResponse(accessToken, xeroTenantId, receiptID, historyRecords);
-        TypeReference typeRef = new TypeReference<HistoryRecords>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
+            HttpResponse response = createReceiptHistoryForHttpResponse(accessToken, xeroTenantId, receiptID, historyRecords);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createReceiptHistoryForHttpResponse(String accessToken,  String xeroTenantId,  UUID receiptID,  HistoryRecords historyRecords) throws IOException {
@@ -2717,9 +3072,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments  createRepeatingInvoiceAttachmentByFileName(String accessToken, String xeroTenantId, UUID repeatingInvoiceID, String fileName, File body) throws IOException {
-        HttpResponse response = createRepeatingInvoiceAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, repeatingInvoiceID, fileName, body);
-        TypeReference typeRef = new TypeReference<Attachments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+            HttpResponse response = createRepeatingInvoiceAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, repeatingInvoiceID, fileName, body);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createRepeatingInvoiceAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID repeatingInvoiceID,  String fileName, File  body) throws IOException {
@@ -2783,9 +3146,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords  createRepeatingInvoiceHistory(String accessToken, String xeroTenantId, UUID repeatingInvoiceID, HistoryRecords historyRecords) throws IOException {
-        HttpResponse response = createRepeatingInvoiceHistoryForHttpResponse(accessToken, xeroTenantId, repeatingInvoiceID, historyRecords);
-        TypeReference typeRef = new TypeReference<HistoryRecords>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
+            HttpResponse response = createRepeatingInvoiceHistoryForHttpResponse(accessToken, xeroTenantId, repeatingInvoiceID, historyRecords);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createRepeatingInvoiceHistoryForHttpResponse(String accessToken,  String xeroTenantId,  UUID repeatingInvoiceID,  HistoryRecords historyRecords) throws IOException {
@@ -2842,9 +3213,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public TaxRates  createTaxRate(String accessToken, String xeroTenantId, TaxRates taxRates) throws IOException {
-        HttpResponse response = createTaxRateForHttpResponse(accessToken, xeroTenantId, taxRates);
-        TypeReference typeRef = new TypeReference<TaxRates>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<TaxRates> typeRef = new TypeReference<TaxRates>() {};
+            HttpResponse response = createTaxRateForHttpResponse(accessToken, xeroTenantId, taxRates);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createTaxRateForHttpResponse(String accessToken,  String xeroTenantId,  TaxRates taxRates) throws IOException {
@@ -2893,9 +3272,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public TrackingCategories  createTrackingCategory(String accessToken, String xeroTenantId, TrackingCategory trackingCategory) throws IOException {
-        HttpResponse response = createTrackingCategoryForHttpResponse(accessToken, xeroTenantId, trackingCategory);
-        TypeReference typeRef = new TypeReference<TrackingCategories>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<TrackingCategories> typeRef = new TypeReference<TrackingCategories>() {};
+            HttpResponse response = createTrackingCategoryForHttpResponse(accessToken, xeroTenantId, trackingCategory);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createTrackingCategoryForHttpResponse(String accessToken,  String xeroTenantId,  TrackingCategory trackingCategory) throws IOException {
@@ -2945,9 +3332,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public TrackingOptions  createTrackingOptions(String accessToken, String xeroTenantId, UUID trackingCategoryID, TrackingOption trackingOption) throws IOException {
-        HttpResponse response = createTrackingOptionsForHttpResponse(accessToken, xeroTenantId, trackingCategoryID, trackingOption);
-        TypeReference typeRef = new TypeReference<TrackingOptions>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<TrackingOptions> typeRef = new TypeReference<TrackingOptions>() {};
+            HttpResponse response = createTrackingOptionsForHttpResponse(accessToken, xeroTenantId, trackingCategoryID, trackingOption);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse createTrackingOptionsForHttpResponse(String accessToken,  String xeroTenantId,  UUID trackingCategoryID,  TrackingOption trackingOption) throws IOException {
@@ -3004,9 +3399,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Accounts  deleteAccount(String accessToken, String xeroTenantId, UUID accountID) throws IOException {
-        HttpResponse response = deleteAccountForHttpResponse(accessToken, xeroTenantId, accountID);
-        TypeReference typeRef = new TypeReference<Accounts>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Accounts> typeRef = new TypeReference<Accounts>() {};
+            HttpResponse response = deleteAccountForHttpResponse(accessToken, xeroTenantId, accountID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse deleteAccountForHttpResponse(String accessToken,  String xeroTenantId,  UUID accountID) throws IOException {
@@ -3057,7 +3460,15 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public void deleteContactGroupContact(String accessToken, String xeroTenantId, UUID contactGroupID, UUID contactID) throws IOException {
-        deleteContactGroupContactForHttpResponse(accessToken, xeroTenantId, contactGroupID, contactID);
+        try {
+            deleteContactGroupContactForHttpResponse(accessToken, xeroTenantId, contactGroupID, contactID);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        
     }
 
     public HttpResponse deleteContactGroupContactForHttpResponse(String accessToken,  String xeroTenantId,  UUID contactGroupID,  UUID contactID) throws IOException {
@@ -3110,7 +3521,15 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public void deleteContactGroupContacts(String accessToken, String xeroTenantId, UUID contactGroupID) throws IOException {
-        deleteContactGroupContactsForHttpResponse(accessToken, xeroTenantId, contactGroupID);
+        try {
+            deleteContactGroupContactsForHttpResponse(accessToken, xeroTenantId, contactGroupID);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        
     }
 
     public HttpResponse deleteContactGroupContactsForHttpResponse(String accessToken,  String xeroTenantId,  UUID contactGroupID) throws IOException {
@@ -3160,7 +3579,15 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public void deleteItem(String accessToken, String xeroTenantId, UUID itemID) throws IOException {
-        deleteItemForHttpResponse(accessToken, xeroTenantId, itemID);
+        try {
+            deleteItemForHttpResponse(accessToken, xeroTenantId, itemID);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        
     }
 
     public HttpResponse deleteItemForHttpResponse(String accessToken,  String xeroTenantId,  UUID itemID) throws IOException {
@@ -3210,7 +3637,15 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public void deleteLinkedTransaction(String accessToken, String xeroTenantId, UUID linkedTransactionID) throws IOException {
-        deleteLinkedTransactionForHttpResponse(accessToken, xeroTenantId, linkedTransactionID);
+        try {
+            deleteLinkedTransactionForHttpResponse(accessToken, xeroTenantId, linkedTransactionID);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        
     }
 
     public HttpResponse deleteLinkedTransactionForHttpResponse(String accessToken,  String xeroTenantId,  UUID linkedTransactionID) throws IOException {
@@ -3263,9 +3698,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Payments  deletePayment(String accessToken, String xeroTenantId, UUID paymentID, Payments payments) throws IOException {
-        HttpResponse response = deletePaymentForHttpResponse(accessToken, xeroTenantId, paymentID, payments);
-        TypeReference typeRef = new TypeReference<Payments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Payments> typeRef = new TypeReference<Payments>() {};
+            HttpResponse response = deletePaymentForHttpResponse(accessToken, xeroTenantId, paymentID, payments);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse deletePaymentForHttpResponse(String accessToken,  String xeroTenantId,  UUID paymentID,  Payments payments) throws IOException {
@@ -3322,9 +3765,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public TrackingCategories  deleteTrackingCategory(String accessToken, String xeroTenantId, UUID trackingCategoryID) throws IOException {
-        HttpResponse response = deleteTrackingCategoryForHttpResponse(accessToken, xeroTenantId, trackingCategoryID);
-        TypeReference typeRef = new TypeReference<TrackingCategories>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<TrackingCategories> typeRef = new TypeReference<TrackingCategories>() {};
+            HttpResponse response = deleteTrackingCategoryForHttpResponse(accessToken, xeroTenantId, trackingCategoryID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse deleteTrackingCategoryForHttpResponse(String accessToken,  String xeroTenantId,  UUID trackingCategoryID) throws IOException {
@@ -3377,9 +3828,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public TrackingOptions  deleteTrackingOptions(String accessToken, String xeroTenantId, UUID trackingCategoryID, UUID trackingOptionID) throws IOException {
-        HttpResponse response = deleteTrackingOptionsForHttpResponse(accessToken, xeroTenantId, trackingCategoryID, trackingOptionID);
-        TypeReference typeRef = new TypeReference<TrackingOptions>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<TrackingOptions> typeRef = new TypeReference<TrackingOptions>() {};
+            HttpResponse response = deleteTrackingOptionsForHttpResponse(accessToken, xeroTenantId, trackingCategoryID, trackingOptionID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse deleteTrackingOptionsForHttpResponse(String accessToken,  String xeroTenantId,  UUID trackingCategoryID,  UUID trackingOptionID) throws IOException {
@@ -3434,7 +3893,15 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public void emailInvoice(String accessToken, String xeroTenantId, UUID invoiceID, RequestEmpty requestEmpty) throws IOException {
-        emailInvoiceForHttpResponse(accessToken, xeroTenantId, invoiceID, requestEmpty);
+        try {
+            emailInvoiceForHttpResponse(accessToken, xeroTenantId, invoiceID, requestEmpty);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        
     }
 
     public HttpResponse emailInvoiceForHttpResponse(String accessToken,  String xeroTenantId,  UUID invoiceID,  RequestEmpty requestEmpty) throws IOException {
@@ -3490,9 +3957,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Accounts  getAccount(String accessToken, String xeroTenantId, UUID accountID) throws IOException {
-        HttpResponse response = getAccountForHttpResponse(accessToken, xeroTenantId, accountID);
-        TypeReference typeRef = new TypeReference<Accounts>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Accounts> typeRef = new TypeReference<Accounts>() {};
+            HttpResponse response = getAccountForHttpResponse(accessToken, xeroTenantId, accountID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getAccountForHttpResponse(String accessToken,  String xeroTenantId,  UUID accountID) throws IOException {
@@ -3545,10 +4020,19 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ByteArrayInputStream  getAccountAttachmentByFileName(String accessToken, String xeroTenantId, UUID accountID, String fileName, String contentType) throws IOException {
-        HttpResponse response = getAccountAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, accountID, fileName, contentType);
-        InputStream is = response.getContent();
-        return convertInputToByteArray(is);
+        try {
+            TypeReference<File> typeRef = new TypeReference<File>() {};
+            HttpResponse response = getAccountAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, accountID, fileName, contentType);
+            InputStream is = response.getContent();
+            return convertInputToByteArray(is);
 
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getAccountAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID accountID,  String fileName,  String contentType) throws IOException {
@@ -3615,10 +4099,19 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ByteArrayInputStream  getAccountAttachmentById(String accessToken, String xeroTenantId, UUID accountID, UUID attachmentID, String contentType) throws IOException {
-        HttpResponse response = getAccountAttachmentByIdForHttpResponse(accessToken, xeroTenantId, accountID, attachmentID, contentType);
-        InputStream is = response.getContent();
-        return convertInputToByteArray(is);
+        try {
+            TypeReference<File> typeRef = new TypeReference<File>() {};
+            HttpResponse response = getAccountAttachmentByIdForHttpResponse(accessToken, xeroTenantId, accountID, attachmentID, contentType);
+            InputStream is = response.getContent();
+            return convertInputToByteArray(is);
 
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getAccountAttachmentByIdForHttpResponse(String accessToken,  String xeroTenantId,  UUID accountID,  UUID attachmentID,  String contentType) throws IOException {
@@ -3683,9 +4176,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments  getAccountAttachments(String accessToken, String xeroTenantId, UUID accountID) throws IOException {
-        HttpResponse response = getAccountAttachmentsForHttpResponse(accessToken, xeroTenantId, accountID);
-        TypeReference typeRef = new TypeReference<Attachments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+            HttpResponse response = getAccountAttachmentsForHttpResponse(accessToken, xeroTenantId, accountID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getAccountAttachmentsForHttpResponse(String accessToken,  String xeroTenantId,  UUID accountID) throws IOException {
@@ -3738,9 +4239,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Accounts  getAccounts(String accessToken, String xeroTenantId, OffsetDateTime ifModifiedSince, String where, String order) throws IOException {
-        HttpResponse response = getAccountsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order);
-        TypeReference typeRef = new TypeReference<Accounts>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Accounts> typeRef = new TypeReference<Accounts>() {};
+            HttpResponse response = getAccountsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getAccountsForHttpResponse(String accessToken,  String xeroTenantId,  OffsetDateTime ifModifiedSince,  String where,  String order) throws IOException {
@@ -3804,9 +4313,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public BankTransactions  getBankTransaction(String accessToken, String xeroTenantId, UUID bankTransactionID) throws IOException {
-        HttpResponse response = getBankTransactionForHttpResponse(accessToken, xeroTenantId, bankTransactionID);
-        TypeReference typeRef = new TypeReference<BankTransactions>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<BankTransactions> typeRef = new TypeReference<BankTransactions>() {};
+            HttpResponse response = getBankTransactionForHttpResponse(accessToken, xeroTenantId, bankTransactionID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getBankTransactionForHttpResponse(String accessToken,  String xeroTenantId,  UUID bankTransactionID) throws IOException {
@@ -3859,10 +4376,19 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ByteArrayInputStream  getBankTransactionAttachmentByFileName(String accessToken, String xeroTenantId, UUID bankTransactionID, String fileName, String contentType) throws IOException {
-        HttpResponse response = getBankTransactionAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, bankTransactionID, fileName, contentType);
-        InputStream is = response.getContent();
-        return convertInputToByteArray(is);
+        try {
+            TypeReference<File> typeRef = new TypeReference<File>() {};
+            HttpResponse response = getBankTransactionAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, bankTransactionID, fileName, contentType);
+            InputStream is = response.getContent();
+            return convertInputToByteArray(is);
 
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getBankTransactionAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID bankTransactionID,  String fileName,  String contentType) throws IOException {
@@ -3929,10 +4455,19 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ByteArrayInputStream  getBankTransactionAttachmentById(String accessToken, String xeroTenantId, UUID bankTransactionID, UUID attachmentID, String contentType) throws IOException {
-        HttpResponse response = getBankTransactionAttachmentByIdForHttpResponse(accessToken, xeroTenantId, bankTransactionID, attachmentID, contentType);
-        InputStream is = response.getContent();
-        return convertInputToByteArray(is);
+        try {
+            TypeReference<File> typeRef = new TypeReference<File>() {};
+            HttpResponse response = getBankTransactionAttachmentByIdForHttpResponse(accessToken, xeroTenantId, bankTransactionID, attachmentID, contentType);
+            InputStream is = response.getContent();
+            return convertInputToByteArray(is);
 
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getBankTransactionAttachmentByIdForHttpResponse(String accessToken,  String xeroTenantId,  UUID bankTransactionID,  UUID attachmentID,  String contentType) throws IOException {
@@ -3997,9 +4532,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments  getBankTransactionAttachments(String accessToken, String xeroTenantId, UUID bankTransactionID) throws IOException {
-        HttpResponse response = getBankTransactionAttachmentsForHttpResponse(accessToken, xeroTenantId, bankTransactionID);
-        TypeReference typeRef = new TypeReference<Attachments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+            HttpResponse response = getBankTransactionAttachmentsForHttpResponse(accessToken, xeroTenantId, bankTransactionID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getBankTransactionAttachmentsForHttpResponse(String accessToken,  String xeroTenantId,  UUID bankTransactionID) throws IOException {
@@ -4054,9 +4597,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public BankTransactions  getBankTransactions(String accessToken, String xeroTenantId, OffsetDateTime ifModifiedSince, String where, String order, Integer page, Integer unitdp) throws IOException {
-        HttpResponse response = getBankTransactionsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order, page, unitdp);
-        TypeReference typeRef = new TypeReference<BankTransactions>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<BankTransactions> typeRef = new TypeReference<BankTransactions>() {};
+            HttpResponse response = getBankTransactionsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order, page, unitdp);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getBankTransactionsForHttpResponse(String accessToken,  String xeroTenantId,  OffsetDateTime ifModifiedSince,  String where,  String order,  Integer page,  Integer unitdp) throws IOException {
@@ -4140,9 +4691,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords  getBankTransactionsHistory(String accessToken, String xeroTenantId, UUID bankTransactionID) throws IOException {
-        HttpResponse response = getBankTransactionsHistoryForHttpResponse(accessToken, xeroTenantId, bankTransactionID);
-        TypeReference typeRef = new TypeReference<HistoryRecords>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
+            HttpResponse response = getBankTransactionsHistoryForHttpResponse(accessToken, xeroTenantId, bankTransactionID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getBankTransactionsHistoryForHttpResponse(String accessToken,  String xeroTenantId,  UUID bankTransactionID) throws IOException {
@@ -4193,9 +4752,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public BankTransfers  getBankTransfer(String accessToken, String xeroTenantId, UUID bankTransferID) throws IOException {
-        HttpResponse response = getBankTransferForHttpResponse(accessToken, xeroTenantId, bankTransferID);
-        TypeReference typeRef = new TypeReference<BankTransfers>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<BankTransfers> typeRef = new TypeReference<BankTransfers>() {};
+            HttpResponse response = getBankTransferForHttpResponse(accessToken, xeroTenantId, bankTransferID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getBankTransferForHttpResponse(String accessToken,  String xeroTenantId,  UUID bankTransferID) throws IOException {
@@ -4248,10 +4815,19 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ByteArrayInputStream  getBankTransferAttachmentByFileName(String accessToken, String xeroTenantId, UUID bankTransferID, String fileName, String contentType) throws IOException {
-        HttpResponse response = getBankTransferAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, bankTransferID, fileName, contentType);
-        InputStream is = response.getContent();
-        return convertInputToByteArray(is);
+        try {
+            TypeReference<File> typeRef = new TypeReference<File>() {};
+            HttpResponse response = getBankTransferAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, bankTransferID, fileName, contentType);
+            InputStream is = response.getContent();
+            return convertInputToByteArray(is);
 
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getBankTransferAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID bankTransferID,  String fileName,  String contentType) throws IOException {
@@ -4318,10 +4894,19 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ByteArrayInputStream  getBankTransferAttachmentById(String accessToken, String xeroTenantId, UUID bankTransferID, UUID attachmentID, String contentType) throws IOException {
-        HttpResponse response = getBankTransferAttachmentByIdForHttpResponse(accessToken, xeroTenantId, bankTransferID, attachmentID, contentType);
-        InputStream is = response.getContent();
-        return convertInputToByteArray(is);
+        try {
+            TypeReference<File> typeRef = new TypeReference<File>() {};
+            HttpResponse response = getBankTransferAttachmentByIdForHttpResponse(accessToken, xeroTenantId, bankTransferID, attachmentID, contentType);
+            InputStream is = response.getContent();
+            return convertInputToByteArray(is);
 
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getBankTransferAttachmentByIdForHttpResponse(String accessToken,  String xeroTenantId,  UUID bankTransferID,  UUID attachmentID,  String contentType) throws IOException {
@@ -4386,9 +4971,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments  getBankTransferAttachments(String accessToken, String xeroTenantId, UUID bankTransferID) throws IOException {
-        HttpResponse response = getBankTransferAttachmentsForHttpResponse(accessToken, xeroTenantId, bankTransferID);
-        TypeReference typeRef = new TypeReference<Attachments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+            HttpResponse response = getBankTransferAttachmentsForHttpResponse(accessToken, xeroTenantId, bankTransferID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getBankTransferAttachmentsForHttpResponse(String accessToken,  String xeroTenantId,  UUID bankTransferID) throws IOException {
@@ -4439,9 +5032,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords  getBankTransferHistory(String accessToken, String xeroTenantId, UUID bankTransferID) throws IOException {
-        HttpResponse response = getBankTransferHistoryForHttpResponse(accessToken, xeroTenantId, bankTransferID);
-        TypeReference typeRef = new TypeReference<HistoryRecords>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
+            HttpResponse response = getBankTransferHistoryForHttpResponse(accessToken, xeroTenantId, bankTransferID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getBankTransferHistoryForHttpResponse(String accessToken,  String xeroTenantId,  UUID bankTransferID) throws IOException {
@@ -4494,9 +5095,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public BankTransfers  getBankTransfers(String accessToken, String xeroTenantId, OffsetDateTime ifModifiedSince, String where, String order) throws IOException {
-        HttpResponse response = getBankTransfersForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order);
-        TypeReference typeRef = new TypeReference<BankTransfers>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<BankTransfers> typeRef = new TypeReference<BankTransfers>() {};
+            HttpResponse response = getBankTransfersForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getBankTransfersForHttpResponse(String accessToken,  String xeroTenantId,  OffsetDateTime ifModifiedSince,  String where,  String order) throws IOException {
@@ -4560,9 +5169,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords  getBatchPaymentHistory(String accessToken, String xeroTenantId, UUID batchPaymentID) throws IOException {
-        HttpResponse response = getBatchPaymentHistoryForHttpResponse(accessToken, xeroTenantId, batchPaymentID);
-        TypeReference typeRef = new TypeReference<HistoryRecords>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
+            HttpResponse response = getBatchPaymentHistoryForHttpResponse(accessToken, xeroTenantId, batchPaymentID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getBatchPaymentHistoryForHttpResponse(String accessToken,  String xeroTenantId,  UUID batchPaymentID) throws IOException {
@@ -4615,9 +5232,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public BatchPayments  getBatchPayments(String accessToken, String xeroTenantId, OffsetDateTime ifModifiedSince, String where, String order) throws IOException {
-        HttpResponse response = getBatchPaymentsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order);
-        TypeReference typeRef = new TypeReference<BatchPayments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<BatchPayments> typeRef = new TypeReference<BatchPayments>() {};
+            HttpResponse response = getBatchPaymentsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getBatchPaymentsForHttpResponse(String accessToken,  String xeroTenantId,  OffsetDateTime ifModifiedSince,  String where,  String order) throws IOException {
@@ -4681,9 +5306,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public BrandingThemes  getBrandingTheme(String accessToken, String xeroTenantId, UUID brandingThemeID) throws IOException {
-        HttpResponse response = getBrandingThemeForHttpResponse(accessToken, xeroTenantId, brandingThemeID);
-        TypeReference typeRef = new TypeReference<BrandingThemes>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<BrandingThemes> typeRef = new TypeReference<BrandingThemes>() {};
+            HttpResponse response = getBrandingThemeForHttpResponse(accessToken, xeroTenantId, brandingThemeID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getBrandingThemeForHttpResponse(String accessToken,  String xeroTenantId,  UUID brandingThemeID) throws IOException {
@@ -4734,9 +5367,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public PaymentServices  getBrandingThemePaymentServices(String accessToken, String xeroTenantId, UUID brandingThemeID) throws IOException {
-        HttpResponse response = getBrandingThemePaymentServicesForHttpResponse(accessToken, xeroTenantId, brandingThemeID);
-        TypeReference typeRef = new TypeReference<PaymentServices>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<PaymentServices> typeRef = new TypeReference<PaymentServices>() {};
+            HttpResponse response = getBrandingThemePaymentServicesForHttpResponse(accessToken, xeroTenantId, brandingThemeID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getBrandingThemePaymentServicesForHttpResponse(String accessToken,  String xeroTenantId,  UUID brandingThemeID) throws IOException {
@@ -4786,9 +5427,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public BrandingThemes  getBrandingThemes(String accessToken, String xeroTenantId) throws IOException {
-        HttpResponse response = getBrandingThemesForHttpResponse(accessToken, xeroTenantId);
-        TypeReference typeRef = new TypeReference<BrandingThemes>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<BrandingThemes> typeRef = new TypeReference<BrandingThemes>() {};
+            HttpResponse response = getBrandingThemesForHttpResponse(accessToken, xeroTenantId);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getBrandingThemesForHttpResponse(String accessToken,  String xeroTenantId) throws IOException {
@@ -4831,9 +5480,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Contacts  getContact(String accessToken, String xeroTenantId, UUID contactID) throws IOException {
-        HttpResponse response = getContactForHttpResponse(accessToken, xeroTenantId, contactID);
-        TypeReference typeRef = new TypeReference<Contacts>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Contacts> typeRef = new TypeReference<Contacts>() {};
+            HttpResponse response = getContactForHttpResponse(accessToken, xeroTenantId, contactID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getContactForHttpResponse(String accessToken,  String xeroTenantId,  UUID contactID) throws IOException {
@@ -4886,10 +5543,19 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ByteArrayInputStream  getContactAttachmentByFileName(String accessToken, String xeroTenantId, UUID contactID, String fileName, String contentType) throws IOException {
-        HttpResponse response = getContactAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, contactID, fileName, contentType);
-        InputStream is = response.getContent();
-        return convertInputToByteArray(is);
+        try {
+            TypeReference<File> typeRef = new TypeReference<File>() {};
+            HttpResponse response = getContactAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, contactID, fileName, contentType);
+            InputStream is = response.getContent();
+            return convertInputToByteArray(is);
 
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getContactAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID contactID,  String fileName,  String contentType) throws IOException {
@@ -4956,10 +5622,19 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ByteArrayInputStream  getContactAttachmentById(String accessToken, String xeroTenantId, UUID contactID, UUID attachmentID, String contentType) throws IOException {
-        HttpResponse response = getContactAttachmentByIdForHttpResponse(accessToken, xeroTenantId, contactID, attachmentID, contentType);
-        InputStream is = response.getContent();
-        return convertInputToByteArray(is);
+        try {
+            TypeReference<File> typeRef = new TypeReference<File>() {};
+            HttpResponse response = getContactAttachmentByIdForHttpResponse(accessToken, xeroTenantId, contactID, attachmentID, contentType);
+            InputStream is = response.getContent();
+            return convertInputToByteArray(is);
 
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getContactAttachmentByIdForHttpResponse(String accessToken,  String xeroTenantId,  UUID contactID,  UUID attachmentID,  String contentType) throws IOException {
@@ -5024,9 +5699,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments  getContactAttachments(String accessToken, String xeroTenantId, UUID contactID) throws IOException {
-        HttpResponse response = getContactAttachmentsForHttpResponse(accessToken, xeroTenantId, contactID);
-        TypeReference typeRef = new TypeReference<Attachments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+            HttpResponse response = getContactAttachmentsForHttpResponse(accessToken, xeroTenantId, contactID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getContactAttachmentsForHttpResponse(String accessToken,  String xeroTenantId,  UUID contactID) throws IOException {
@@ -5077,9 +5760,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public CISSettings  getContactCISSettings(String accessToken, String xeroTenantId, UUID contactID) throws IOException {
-        HttpResponse response = getContactCISSettingsForHttpResponse(accessToken, xeroTenantId, contactID);
-        TypeReference typeRef = new TypeReference<CISSettings>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<CISSettings> typeRef = new TypeReference<CISSettings>() {};
+            HttpResponse response = getContactCISSettingsForHttpResponse(accessToken, xeroTenantId, contactID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getContactCISSettingsForHttpResponse(String accessToken,  String xeroTenantId,  UUID contactID) throws IOException {
@@ -5130,9 +5821,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ContactGroups  getContactGroup(String accessToken, String xeroTenantId, UUID contactGroupID) throws IOException {
-        HttpResponse response = getContactGroupForHttpResponse(accessToken, xeroTenantId, contactGroupID);
-        TypeReference typeRef = new TypeReference<ContactGroups>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<ContactGroups> typeRef = new TypeReference<ContactGroups>() {};
+            HttpResponse response = getContactGroupForHttpResponse(accessToken, xeroTenantId, contactGroupID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getContactGroupForHttpResponse(String accessToken,  String xeroTenantId,  UUID contactGroupID) throws IOException {
@@ -5184,9 +5883,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ContactGroups  getContactGroups(String accessToken, String xeroTenantId, String where, String order) throws IOException {
-        HttpResponse response = getContactGroupsForHttpResponse(accessToken, xeroTenantId, where, order);
-        TypeReference typeRef = new TypeReference<ContactGroups>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<ContactGroups> typeRef = new TypeReference<ContactGroups>() {};
+            HttpResponse response = getContactGroupsForHttpResponse(accessToken, xeroTenantId, where, order);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getContactGroupsForHttpResponse(String accessToken,  String xeroTenantId,  String where,  String order) throws IOException {
@@ -5250,9 +5957,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords  getContactHistory(String accessToken, String xeroTenantId, UUID contactID) throws IOException {
-        HttpResponse response = getContactHistoryForHttpResponse(accessToken, xeroTenantId, contactID);
-        TypeReference typeRef = new TypeReference<HistoryRecords>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
+            HttpResponse response = getContactHistoryForHttpResponse(accessToken, xeroTenantId, contactID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getContactHistoryForHttpResponse(String accessToken,  String xeroTenantId,  UUID contactID) throws IOException {
@@ -5308,9 +6023,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Contacts  getContacts(String accessToken, String xeroTenantId, OffsetDateTime ifModifiedSince, String where, String order, String ids, Integer page, Boolean includeArchived) throws IOException {
-        HttpResponse response = getContactsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order, ids, page, includeArchived);
-        TypeReference typeRef = new TypeReference<Contacts>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Contacts> typeRef = new TypeReference<Contacts>() {};
+            HttpResponse response = getContactsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order, ids, page, includeArchived);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getContactsForHttpResponse(String accessToken,  String xeroTenantId,  OffsetDateTime ifModifiedSince,  String where,  String order,  String ids,  Integer page,  Boolean includeArchived) throws IOException {
@@ -5404,9 +6127,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public CreditNotes  getCreditNote(String accessToken, String xeroTenantId, UUID creditNoteID) throws IOException {
-        HttpResponse response = getCreditNoteForHttpResponse(accessToken, xeroTenantId, creditNoteID);
-        TypeReference typeRef = new TypeReference<CreditNotes>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<CreditNotes> typeRef = new TypeReference<CreditNotes>() {};
+            HttpResponse response = getCreditNoteForHttpResponse(accessToken, xeroTenantId, creditNoteID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getCreditNoteForHttpResponse(String accessToken,  String xeroTenantId,  UUID creditNoteID) throws IOException {
@@ -5458,10 +6189,19 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ByteArrayInputStream  getCreditNoteAsPdf(String accessToken, String xeroTenantId, UUID creditNoteID, String contentType) throws IOException {
-        HttpResponse response = getCreditNoteAsPdfForHttpResponse(accessToken, xeroTenantId, creditNoteID, contentType);
-        InputStream is = response.getContent();
-        return convertInputToByteArray(is);
+        try {
+            TypeReference<File> typeRef = new TypeReference<File>() {};
+            HttpResponse response = getCreditNoteAsPdfForHttpResponse(accessToken, xeroTenantId, creditNoteID, contentType);
+            InputStream is = response.getContent();
+            return convertInputToByteArray(is);
 
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getCreditNoteAsPdfForHttpResponse(String accessToken,  String xeroTenantId,  UUID creditNoteID,  String contentType) throws IOException {
@@ -5524,10 +6264,19 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ByteArrayInputStream  getCreditNoteAttachmentByFileName(String accessToken, String xeroTenantId, UUID creditNoteID, String fileName, String contentType) throws IOException {
-        HttpResponse response = getCreditNoteAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, creditNoteID, fileName, contentType);
-        InputStream is = response.getContent();
-        return convertInputToByteArray(is);
+        try {
+            TypeReference<File> typeRef = new TypeReference<File>() {};
+            HttpResponse response = getCreditNoteAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, creditNoteID, fileName, contentType);
+            InputStream is = response.getContent();
+            return convertInputToByteArray(is);
 
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getCreditNoteAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID creditNoteID,  String fileName,  String contentType) throws IOException {
@@ -5594,10 +6343,19 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ByteArrayInputStream  getCreditNoteAttachmentById(String accessToken, String xeroTenantId, UUID creditNoteID, UUID attachmentID, String contentType) throws IOException {
-        HttpResponse response = getCreditNoteAttachmentByIdForHttpResponse(accessToken, xeroTenantId, creditNoteID, attachmentID, contentType);
-        InputStream is = response.getContent();
-        return convertInputToByteArray(is);
+        try {
+            TypeReference<File> typeRef = new TypeReference<File>() {};
+            HttpResponse response = getCreditNoteAttachmentByIdForHttpResponse(accessToken, xeroTenantId, creditNoteID, attachmentID, contentType);
+            InputStream is = response.getContent();
+            return convertInputToByteArray(is);
 
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getCreditNoteAttachmentByIdForHttpResponse(String accessToken,  String xeroTenantId,  UUID creditNoteID,  UUID attachmentID,  String contentType) throws IOException {
@@ -5662,9 +6420,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments  getCreditNoteAttachments(String accessToken, String xeroTenantId, UUID creditNoteID) throws IOException {
-        HttpResponse response = getCreditNoteAttachmentsForHttpResponse(accessToken, xeroTenantId, creditNoteID);
-        TypeReference typeRef = new TypeReference<Attachments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+            HttpResponse response = getCreditNoteAttachmentsForHttpResponse(accessToken, xeroTenantId, creditNoteID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getCreditNoteAttachmentsForHttpResponse(String accessToken,  String xeroTenantId,  UUID creditNoteID) throws IOException {
@@ -5715,9 +6481,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords  getCreditNoteHistory(String accessToken, String xeroTenantId, UUID creditNoteID) throws IOException {
-        HttpResponse response = getCreditNoteHistoryForHttpResponse(accessToken, xeroTenantId, creditNoteID);
-        TypeReference typeRef = new TypeReference<HistoryRecords>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
+            HttpResponse response = getCreditNoteHistoryForHttpResponse(accessToken, xeroTenantId, creditNoteID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getCreditNoteHistoryForHttpResponse(String accessToken,  String xeroTenantId,  UUID creditNoteID) throws IOException {
@@ -5771,9 +6545,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public CreditNotes  getCreditNotes(String accessToken, String xeroTenantId, OffsetDateTime ifModifiedSince, String where, String order, Integer page) throws IOException {
-        HttpResponse response = getCreditNotesForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order, page);
-        TypeReference typeRef = new TypeReference<CreditNotes>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<CreditNotes> typeRef = new TypeReference<CreditNotes>() {};
+            HttpResponse response = getCreditNotesForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order, page);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getCreditNotesForHttpResponse(String accessToken,  String xeroTenantId,  OffsetDateTime ifModifiedSince,  String where,  String order,  Integer page) throws IOException {
@@ -5848,9 +6630,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Currencies  getCurrencies(String accessToken, String xeroTenantId, String where, String order) throws IOException {
-        HttpResponse response = getCurrenciesForHttpResponse(accessToken, xeroTenantId, where, order);
-        TypeReference typeRef = new TypeReference<Currencies>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Currencies> typeRef = new TypeReference<Currencies>() {};
+            HttpResponse response = getCurrenciesForHttpResponse(accessToken, xeroTenantId, where, order);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getCurrenciesForHttpResponse(String accessToken,  String xeroTenantId,  String where,  String order) throws IOException {
@@ -5914,9 +6704,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Employees  getEmployee(String accessToken, String xeroTenantId, UUID employeeID) throws IOException {
-        HttpResponse response = getEmployeeForHttpResponse(accessToken, xeroTenantId, employeeID);
-        TypeReference typeRef = new TypeReference<Employees>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Employees> typeRef = new TypeReference<Employees>() {};
+            HttpResponse response = getEmployeeForHttpResponse(accessToken, xeroTenantId, employeeID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getEmployeeForHttpResponse(String accessToken,  String xeroTenantId,  UUID employeeID) throws IOException {
@@ -5969,9 +6767,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Employees  getEmployees(String accessToken, String xeroTenantId, OffsetDateTime ifModifiedSince, String where, String order) throws IOException {
-        HttpResponse response = getEmployeesForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order);
-        TypeReference typeRef = new TypeReference<Employees>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Employees> typeRef = new TypeReference<Employees>() {};
+            HttpResponse response = getEmployeesForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getEmployeesForHttpResponse(String accessToken,  String xeroTenantId,  OffsetDateTime ifModifiedSince,  String where,  String order) throws IOException {
@@ -6035,9 +6841,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ExpenseClaims  getExpenseClaim(String accessToken, String xeroTenantId, UUID expenseClaimID) throws IOException {
-        HttpResponse response = getExpenseClaimForHttpResponse(accessToken, xeroTenantId, expenseClaimID);
-        TypeReference typeRef = new TypeReference<ExpenseClaims>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<ExpenseClaims> typeRef = new TypeReference<ExpenseClaims>() {};
+            HttpResponse response = getExpenseClaimForHttpResponse(accessToken, xeroTenantId, expenseClaimID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getExpenseClaimForHttpResponse(String accessToken,  String xeroTenantId,  UUID expenseClaimID) throws IOException {
@@ -6088,9 +6902,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords  getExpenseClaimHistory(String accessToken, String xeroTenantId, UUID expenseClaimID) throws IOException {
-        HttpResponse response = getExpenseClaimHistoryForHttpResponse(accessToken, xeroTenantId, expenseClaimID);
-        TypeReference typeRef = new TypeReference<HistoryRecords>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
+            HttpResponse response = getExpenseClaimHistoryForHttpResponse(accessToken, xeroTenantId, expenseClaimID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getExpenseClaimHistoryForHttpResponse(String accessToken,  String xeroTenantId,  UUID expenseClaimID) throws IOException {
@@ -6143,9 +6965,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ExpenseClaims  getExpenseClaims(String accessToken, String xeroTenantId, OffsetDateTime ifModifiedSince, String where, String order) throws IOException {
-        HttpResponse response = getExpenseClaimsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order);
-        TypeReference typeRef = new TypeReference<ExpenseClaims>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<ExpenseClaims> typeRef = new TypeReference<ExpenseClaims>() {};
+            HttpResponse response = getExpenseClaimsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getExpenseClaimsForHttpResponse(String accessToken,  String xeroTenantId,  OffsetDateTime ifModifiedSince,  String where,  String order) throws IOException {
@@ -6209,9 +7039,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Invoices  getInvoice(String accessToken, String xeroTenantId, UUID invoiceID) throws IOException {
-        HttpResponse response = getInvoiceForHttpResponse(accessToken, xeroTenantId, invoiceID);
-        TypeReference typeRef = new TypeReference<Invoices>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Invoices> typeRef = new TypeReference<Invoices>() {};
+            HttpResponse response = getInvoiceForHttpResponse(accessToken, xeroTenantId, invoiceID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getInvoiceForHttpResponse(String accessToken,  String xeroTenantId,  UUID invoiceID) throws IOException {
@@ -6263,10 +7101,19 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ByteArrayInputStream  getInvoiceAsPdf(String accessToken, String xeroTenantId, UUID invoiceID, String contentType) throws IOException {
-        HttpResponse response = getInvoiceAsPdfForHttpResponse(accessToken, xeroTenantId, invoiceID, contentType);
-        InputStream is = response.getContent();
-        return convertInputToByteArray(is);
+        try {
+            TypeReference<File> typeRef = new TypeReference<File>() {};
+            HttpResponse response = getInvoiceAsPdfForHttpResponse(accessToken, xeroTenantId, invoiceID, contentType);
+            InputStream is = response.getContent();
+            return convertInputToByteArray(is);
 
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getInvoiceAsPdfForHttpResponse(String accessToken,  String xeroTenantId,  UUID invoiceID,  String contentType) throws IOException {
@@ -6329,10 +7176,19 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ByteArrayInputStream  getInvoiceAttachmentByFileName(String accessToken, String xeroTenantId, UUID invoiceID, String fileName, String contentType) throws IOException {
-        HttpResponse response = getInvoiceAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, invoiceID, fileName, contentType);
-        InputStream is = response.getContent();
-        return convertInputToByteArray(is);
+        try {
+            TypeReference<File> typeRef = new TypeReference<File>() {};
+            HttpResponse response = getInvoiceAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, invoiceID, fileName, contentType);
+            InputStream is = response.getContent();
+            return convertInputToByteArray(is);
 
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getInvoiceAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID invoiceID,  String fileName,  String contentType) throws IOException {
@@ -6399,10 +7255,19 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ByteArrayInputStream  getInvoiceAttachmentById(String accessToken, String xeroTenantId, UUID invoiceID, UUID attachmentID, String contentType) throws IOException {
-        HttpResponse response = getInvoiceAttachmentByIdForHttpResponse(accessToken, xeroTenantId, invoiceID, attachmentID, contentType);
-        InputStream is = response.getContent();
-        return convertInputToByteArray(is);
+        try {
+            TypeReference<File> typeRef = new TypeReference<File>() {};
+            HttpResponse response = getInvoiceAttachmentByIdForHttpResponse(accessToken, xeroTenantId, invoiceID, attachmentID, contentType);
+            InputStream is = response.getContent();
+            return convertInputToByteArray(is);
 
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getInvoiceAttachmentByIdForHttpResponse(String accessToken,  String xeroTenantId,  UUID invoiceID,  UUID attachmentID,  String contentType) throws IOException {
@@ -6467,9 +7332,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments  getInvoiceAttachments(String accessToken, String xeroTenantId, UUID invoiceID) throws IOException {
-        HttpResponse response = getInvoiceAttachmentsForHttpResponse(accessToken, xeroTenantId, invoiceID);
-        TypeReference typeRef = new TypeReference<Attachments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+            HttpResponse response = getInvoiceAttachmentsForHttpResponse(accessToken, xeroTenantId, invoiceID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getInvoiceAttachmentsForHttpResponse(String accessToken,  String xeroTenantId,  UUID invoiceID) throws IOException {
@@ -6520,9 +7393,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords  getInvoiceHistory(String accessToken, String xeroTenantId, UUID invoiceID) throws IOException {
-        HttpResponse response = getInvoiceHistoryForHttpResponse(accessToken, xeroTenantId, invoiceID);
-        TypeReference typeRef = new TypeReference<HistoryRecords>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
+            HttpResponse response = getInvoiceHistoryForHttpResponse(accessToken, xeroTenantId, invoiceID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getInvoiceHistoryForHttpResponse(String accessToken,  String xeroTenantId,  UUID invoiceID) throws IOException {
@@ -6572,9 +7453,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public InvoiceReminders  getInvoiceReminders(String accessToken, String xeroTenantId) throws IOException {
-        HttpResponse response = getInvoiceRemindersForHttpResponse(accessToken, xeroTenantId);
-        TypeReference typeRef = new TypeReference<InvoiceReminders>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<InvoiceReminders> typeRef = new TypeReference<InvoiceReminders>() {};
+            HttpResponse response = getInvoiceRemindersForHttpResponse(accessToken, xeroTenantId);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getInvoiceRemindersForHttpResponse(String accessToken,  String xeroTenantId) throws IOException {
@@ -6627,9 +7516,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Invoices  getInvoices(String accessToken, String xeroTenantId, OffsetDateTime ifModifiedSince, String where, String order, String ids, String invoiceNumbers, String contactIDs, String statuses, Integer page, Boolean includeArchived, Boolean createdByMyApp, Integer unitdp) throws IOException {
-        HttpResponse response = getInvoicesForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp, unitdp);
-        TypeReference typeRef = new TypeReference<Invoices>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Invoices> typeRef = new TypeReference<Invoices>() {};
+            HttpResponse response = getInvoicesForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp, unitdp);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getInvoicesForHttpResponse(String accessToken,  String xeroTenantId,  OffsetDateTime ifModifiedSince,  String where,  String order,  String ids,  String invoiceNumbers,  String contactIDs,  String statuses,  Integer page,  Boolean includeArchived,  Boolean createdByMyApp,  Integer unitdp) throws IOException {
@@ -6773,9 +7670,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Items  getItem(String accessToken, String xeroTenantId, UUID itemID) throws IOException {
-        HttpResponse response = getItemForHttpResponse(accessToken, xeroTenantId, itemID);
-        TypeReference typeRef = new TypeReference<Items>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Items> typeRef = new TypeReference<Items>() {};
+            HttpResponse response = getItemForHttpResponse(accessToken, xeroTenantId, itemID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getItemForHttpResponse(String accessToken,  String xeroTenantId,  UUID itemID) throws IOException {
@@ -6826,9 +7731,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords  getItemHistory(String accessToken, String xeroTenantId, UUID itemID) throws IOException {
-        HttpResponse response = getItemHistoryForHttpResponse(accessToken, xeroTenantId, itemID);
-        TypeReference typeRef = new TypeReference<HistoryRecords>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
+            HttpResponse response = getItemHistoryForHttpResponse(accessToken, xeroTenantId, itemID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getItemHistoryForHttpResponse(String accessToken,  String xeroTenantId,  UUID itemID) throws IOException {
@@ -6882,9 +7795,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Items  getItems(String accessToken, String xeroTenantId, OffsetDateTime ifModifiedSince, String where, String order, Integer unitdp) throws IOException {
-        HttpResponse response = getItemsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order, unitdp);
-        TypeReference typeRef = new TypeReference<Items>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Items> typeRef = new TypeReference<Items>() {};
+            HttpResponse response = getItemsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order, unitdp);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getItemsForHttpResponse(String accessToken,  String xeroTenantId,  OffsetDateTime ifModifiedSince,  String where,  String order,  Integer unitdp) throws IOException {
@@ -6958,9 +7879,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Journals  getJournal(String accessToken, String xeroTenantId, UUID journalID) throws IOException {
-        HttpResponse response = getJournalForHttpResponse(accessToken, xeroTenantId, journalID);
-        TypeReference typeRef = new TypeReference<Journals>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Journals> typeRef = new TypeReference<Journals>() {};
+            HttpResponse response = getJournalForHttpResponse(accessToken, xeroTenantId, journalID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getJournalForHttpResponse(String accessToken,  String xeroTenantId,  UUID journalID) throws IOException {
@@ -7013,9 +7942,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Journals  getJournals(String accessToken, String xeroTenantId, OffsetDateTime ifModifiedSince, Integer offset, Boolean paymentsOnly) throws IOException {
-        HttpResponse response = getJournalsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, offset, paymentsOnly);
-        TypeReference typeRef = new TypeReference<Journals>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Journals> typeRef = new TypeReference<Journals>() {};
+            HttpResponse response = getJournalsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, offset, paymentsOnly);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getJournalsForHttpResponse(String accessToken,  String xeroTenantId,  OffsetDateTime ifModifiedSince,  Integer offset,  Boolean paymentsOnly) throws IOException {
@@ -7079,9 +8016,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public LinkedTransactions  getLinkedTransaction(String accessToken, String xeroTenantId, UUID linkedTransactionID) throws IOException {
-        HttpResponse response = getLinkedTransactionForHttpResponse(accessToken, xeroTenantId, linkedTransactionID);
-        TypeReference typeRef = new TypeReference<LinkedTransactions>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<LinkedTransactions> typeRef = new TypeReference<LinkedTransactions>() {};
+            HttpResponse response = getLinkedTransactionForHttpResponse(accessToken, xeroTenantId, linkedTransactionID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getLinkedTransactionForHttpResponse(String accessToken,  String xeroTenantId,  UUID linkedTransactionID) throws IOException {
@@ -7137,9 +8082,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public LinkedTransactions  getLinkedTransactions(String accessToken, String xeroTenantId, Integer page, String linkedTransactionID, String sourceTransactionID, String contactID, String status, String targetTransactionID) throws IOException {
-        HttpResponse response = getLinkedTransactionsForHttpResponse(accessToken, xeroTenantId, page, linkedTransactionID, sourceTransactionID, contactID, status, targetTransactionID);
-        TypeReference typeRef = new TypeReference<LinkedTransactions>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<LinkedTransactions> typeRef = new TypeReference<LinkedTransactions>() {};
+            HttpResponse response = getLinkedTransactionsForHttpResponse(accessToken, xeroTenantId, page, linkedTransactionID, sourceTransactionID, contactID, status, targetTransactionID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getLinkedTransactionsForHttpResponse(String accessToken,  String xeroTenantId,  Integer page,  String linkedTransactionID,  String sourceTransactionID,  String contactID,  String status,  String targetTransactionID) throws IOException {
@@ -7243,9 +8196,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ManualJournals  getManualJournal(String accessToken, String xeroTenantId, UUID manualJournalID) throws IOException {
-        HttpResponse response = getManualJournalForHttpResponse(accessToken, xeroTenantId, manualJournalID);
-        TypeReference typeRef = new TypeReference<ManualJournals>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<ManualJournals> typeRef = new TypeReference<ManualJournals>() {};
+            HttpResponse response = getManualJournalForHttpResponse(accessToken, xeroTenantId, manualJournalID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getManualJournalForHttpResponse(String accessToken,  String xeroTenantId,  UUID manualJournalID) throws IOException {
@@ -7298,10 +8259,19 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ByteArrayInputStream  getManualJournalAttachmentByFileName(String accessToken, String xeroTenantId, UUID manualJournalID, String fileName, String contentType) throws IOException {
-        HttpResponse response = getManualJournalAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, manualJournalID, fileName, contentType);
-        InputStream is = response.getContent();
-        return convertInputToByteArray(is);
+        try {
+            TypeReference<File> typeRef = new TypeReference<File>() {};
+            HttpResponse response = getManualJournalAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, manualJournalID, fileName, contentType);
+            InputStream is = response.getContent();
+            return convertInputToByteArray(is);
 
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getManualJournalAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID manualJournalID,  String fileName,  String contentType) throws IOException {
@@ -7368,10 +8338,19 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ByteArrayInputStream  getManualJournalAttachmentById(String accessToken, String xeroTenantId, UUID manualJournalID, UUID attachmentID, String contentType) throws IOException {
-        HttpResponse response = getManualJournalAttachmentByIdForHttpResponse(accessToken, xeroTenantId, manualJournalID, attachmentID, contentType);
-        InputStream is = response.getContent();
-        return convertInputToByteArray(is);
+        try {
+            TypeReference<File> typeRef = new TypeReference<File>() {};
+            HttpResponse response = getManualJournalAttachmentByIdForHttpResponse(accessToken, xeroTenantId, manualJournalID, attachmentID, contentType);
+            InputStream is = response.getContent();
+            return convertInputToByteArray(is);
 
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getManualJournalAttachmentByIdForHttpResponse(String accessToken,  String xeroTenantId,  UUID manualJournalID,  UUID attachmentID,  String contentType) throws IOException {
@@ -7436,9 +8415,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments  getManualJournalAttachments(String accessToken, String xeroTenantId, UUID manualJournalID) throws IOException {
-        HttpResponse response = getManualJournalAttachmentsForHttpResponse(accessToken, xeroTenantId, manualJournalID);
-        TypeReference typeRef = new TypeReference<Attachments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+            HttpResponse response = getManualJournalAttachmentsForHttpResponse(accessToken, xeroTenantId, manualJournalID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getManualJournalAttachmentsForHttpResponse(String accessToken,  String xeroTenantId,  UUID manualJournalID) throws IOException {
@@ -7492,9 +8479,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ManualJournals  getManualJournals(String accessToken, String xeroTenantId, OffsetDateTime ifModifiedSince, String where, String order, Integer page) throws IOException {
-        HttpResponse response = getManualJournalsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order, page);
-        TypeReference typeRef = new TypeReference<ManualJournals>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<ManualJournals> typeRef = new TypeReference<ManualJournals>() {};
+            HttpResponse response = getManualJournalsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order, page);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getManualJournalsForHttpResponse(String accessToken,  String xeroTenantId,  OffsetDateTime ifModifiedSince,  String where,  String order,  Integer page) throws IOException {
@@ -7568,9 +8563,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public OnlineInvoices  getOnlineInvoice(String accessToken, String xeroTenantId, UUID invoiceID) throws IOException {
-        HttpResponse response = getOnlineInvoiceForHttpResponse(accessToken, xeroTenantId, invoiceID);
-        TypeReference typeRef = new TypeReference<OnlineInvoices>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<OnlineInvoices> typeRef = new TypeReference<OnlineInvoices>() {};
+            HttpResponse response = getOnlineInvoiceForHttpResponse(accessToken, xeroTenantId, invoiceID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getOnlineInvoiceForHttpResponse(String accessToken,  String xeroTenantId,  UUID invoiceID) throws IOException {
@@ -7621,9 +8624,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public CISOrgSetting  getOrganisationCISSettings(String accessToken, String xeroTenantId, UUID organisationID) throws IOException {
-        HttpResponse response = getOrganisationCISSettingsForHttpResponse(accessToken, xeroTenantId, organisationID);
-        TypeReference typeRef = new TypeReference<CISOrgSetting>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<CISOrgSetting> typeRef = new TypeReference<CISOrgSetting>() {};
+            HttpResponse response = getOrganisationCISSettingsForHttpResponse(accessToken, xeroTenantId, organisationID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getOrganisationCISSettingsForHttpResponse(String accessToken,  String xeroTenantId,  UUID organisationID) throws IOException {
@@ -7673,9 +8684,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Organisations  getOrganisations(String accessToken, String xeroTenantId) throws IOException {
-        HttpResponse response = getOrganisationsForHttpResponse(accessToken, xeroTenantId);
-        TypeReference typeRef = new TypeReference<Organisations>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Organisations> typeRef = new TypeReference<Organisations>() {};
+            HttpResponse response = getOrganisationsForHttpResponse(accessToken, xeroTenantId);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getOrganisationsForHttpResponse(String accessToken,  String xeroTenantId) throws IOException {
@@ -7718,9 +8737,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Overpayments  getOverpayment(String accessToken, String xeroTenantId, UUID overpaymentID) throws IOException {
-        HttpResponse response = getOverpaymentForHttpResponse(accessToken, xeroTenantId, overpaymentID);
-        TypeReference typeRef = new TypeReference<Overpayments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Overpayments> typeRef = new TypeReference<Overpayments>() {};
+            HttpResponse response = getOverpaymentForHttpResponse(accessToken, xeroTenantId, overpaymentID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getOverpaymentForHttpResponse(String accessToken,  String xeroTenantId,  UUID overpaymentID) throws IOException {
@@ -7771,9 +8798,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords  getOverpaymentHistory(String accessToken, String xeroTenantId, UUID overpaymentID) throws IOException {
-        HttpResponse response = getOverpaymentHistoryForHttpResponse(accessToken, xeroTenantId, overpaymentID);
-        TypeReference typeRef = new TypeReference<HistoryRecords>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
+            HttpResponse response = getOverpaymentHistoryForHttpResponse(accessToken, xeroTenantId, overpaymentID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getOverpaymentHistoryForHttpResponse(String accessToken,  String xeroTenantId,  UUID overpaymentID) throws IOException {
@@ -7828,9 +8863,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Overpayments  getOverpayments(String accessToken, String xeroTenantId, OffsetDateTime ifModifiedSince, String where, String order, Integer page, Integer unitdp) throws IOException {
-        HttpResponse response = getOverpaymentsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order, page, unitdp);
-        TypeReference typeRef = new TypeReference<Overpayments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Overpayments> typeRef = new TypeReference<Overpayments>() {};
+            HttpResponse response = getOverpaymentsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order, page, unitdp);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getOverpaymentsForHttpResponse(String accessToken,  String xeroTenantId,  OffsetDateTime ifModifiedSince,  String where,  String order,  Integer page,  Integer unitdp) throws IOException {
@@ -7914,9 +8957,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Payments  getPayment(String accessToken, String xeroTenantId, UUID paymentID) throws IOException {
-        HttpResponse response = getPaymentForHttpResponse(accessToken, xeroTenantId, paymentID);
-        TypeReference typeRef = new TypeReference<Payments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Payments> typeRef = new TypeReference<Payments>() {};
+            HttpResponse response = getPaymentForHttpResponse(accessToken, xeroTenantId, paymentID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getPaymentForHttpResponse(String accessToken,  String xeroTenantId,  UUID paymentID) throws IOException {
@@ -7967,9 +9018,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords  getPaymentHistory(String accessToken, String xeroTenantId, UUID paymentID) throws IOException {
-        HttpResponse response = getPaymentHistoryForHttpResponse(accessToken, xeroTenantId, paymentID);
-        TypeReference typeRef = new TypeReference<HistoryRecords>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
+            HttpResponse response = getPaymentHistoryForHttpResponse(accessToken, xeroTenantId, paymentID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getPaymentHistoryForHttpResponse(String accessToken,  String xeroTenantId,  UUID paymentID) throws IOException {
@@ -8019,9 +9078,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public PaymentServices  getPaymentServices(String accessToken, String xeroTenantId) throws IOException {
-        HttpResponse response = getPaymentServicesForHttpResponse(accessToken, xeroTenantId);
-        TypeReference typeRef = new TypeReference<PaymentServices>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<PaymentServices> typeRef = new TypeReference<PaymentServices>() {};
+            HttpResponse response = getPaymentServicesForHttpResponse(accessToken, xeroTenantId);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getPaymentServicesForHttpResponse(String accessToken,  String xeroTenantId) throws IOException {
@@ -8066,9 +9133,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Payments  getPayments(String accessToken, String xeroTenantId, OffsetDateTime ifModifiedSince, String where, String order) throws IOException {
-        HttpResponse response = getPaymentsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order);
-        TypeReference typeRef = new TypeReference<Payments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Payments> typeRef = new TypeReference<Payments>() {};
+            HttpResponse response = getPaymentsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getPaymentsForHttpResponse(String accessToken,  String xeroTenantId,  OffsetDateTime ifModifiedSince,  String where,  String order) throws IOException {
@@ -8132,9 +9207,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Prepayments  getPrepayment(String accessToken, String xeroTenantId, UUID prepaymentID) throws IOException {
-        HttpResponse response = getPrepaymentForHttpResponse(accessToken, xeroTenantId, prepaymentID);
-        TypeReference typeRef = new TypeReference<Prepayments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Prepayments> typeRef = new TypeReference<Prepayments>() {};
+            HttpResponse response = getPrepaymentForHttpResponse(accessToken, xeroTenantId, prepaymentID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getPrepaymentForHttpResponse(String accessToken,  String xeroTenantId,  UUID prepaymentID) throws IOException {
@@ -8185,9 +9268,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords  getPrepaymentHistory(String accessToken, String xeroTenantId, UUID prepaymentID) throws IOException {
-        HttpResponse response = getPrepaymentHistoryForHttpResponse(accessToken, xeroTenantId, prepaymentID);
-        TypeReference typeRef = new TypeReference<HistoryRecords>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
+            HttpResponse response = getPrepaymentHistoryForHttpResponse(accessToken, xeroTenantId, prepaymentID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getPrepaymentHistoryForHttpResponse(String accessToken,  String xeroTenantId,  UUID prepaymentID) throws IOException {
@@ -8242,9 +9333,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Prepayments  getPrepayments(String accessToken, String xeroTenantId, OffsetDateTime ifModifiedSince, String where, String order, Integer page, Integer unitdp) throws IOException {
-        HttpResponse response = getPrepaymentsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order, page, unitdp);
-        TypeReference typeRef = new TypeReference<Prepayments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Prepayments> typeRef = new TypeReference<Prepayments>() {};
+            HttpResponse response = getPrepaymentsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order, page, unitdp);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getPrepaymentsForHttpResponse(String accessToken,  String xeroTenantId,  OffsetDateTime ifModifiedSince,  String where,  String order,  Integer page,  Integer unitdp) throws IOException {
@@ -8328,9 +9427,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public PurchaseOrders  getPurchaseOrder(String accessToken, String xeroTenantId, UUID purchaseOrderID) throws IOException {
-        HttpResponse response = getPurchaseOrderForHttpResponse(accessToken, xeroTenantId, purchaseOrderID);
-        TypeReference typeRef = new TypeReference<PurchaseOrders>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<PurchaseOrders> typeRef = new TypeReference<PurchaseOrders>() {};
+            HttpResponse response = getPurchaseOrderForHttpResponse(accessToken, xeroTenantId, purchaseOrderID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getPurchaseOrderForHttpResponse(String accessToken,  String xeroTenantId,  UUID purchaseOrderID) throws IOException {
@@ -8381,9 +9488,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords  getPurchaseOrderHistory(String accessToken, String xeroTenantId, UUID purchaseOrderID) throws IOException {
-        HttpResponse response = getPurchaseOrderHistoryForHttpResponse(accessToken, xeroTenantId, purchaseOrderID);
-        TypeReference typeRef = new TypeReference<HistoryRecords>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
+            HttpResponse response = getPurchaseOrderHistoryForHttpResponse(accessToken, xeroTenantId, purchaseOrderID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getPurchaseOrderHistoryForHttpResponse(String accessToken,  String xeroTenantId,  UUID purchaseOrderID) throws IOException {
@@ -8439,9 +9554,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public PurchaseOrders  getPurchaseOrders(String accessToken, String xeroTenantId, OffsetDateTime ifModifiedSince, String status, String dateFrom, String dateTo, String order, Integer page) throws IOException {
-        HttpResponse response = getPurchaseOrdersForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, status, dateFrom, dateTo, order, page);
-        TypeReference typeRef = new TypeReference<PurchaseOrders>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<PurchaseOrders> typeRef = new TypeReference<PurchaseOrders>() {};
+            HttpResponse response = getPurchaseOrdersForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, status, dateFrom, dateTo, order, page);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getPurchaseOrdersForHttpResponse(String accessToken,  String xeroTenantId,  OffsetDateTime ifModifiedSince,  String status,  String dateFrom,  String dateTo,  String order,  Integer page) throws IOException {
@@ -8535,9 +9658,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Receipts  getReceipt(String accessToken, String xeroTenantId, UUID receiptID) throws IOException {
-        HttpResponse response = getReceiptForHttpResponse(accessToken, xeroTenantId, receiptID);
-        TypeReference typeRef = new TypeReference<Receipts>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Receipts> typeRef = new TypeReference<Receipts>() {};
+            HttpResponse response = getReceiptForHttpResponse(accessToken, xeroTenantId, receiptID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getReceiptForHttpResponse(String accessToken,  String xeroTenantId,  UUID receiptID) throws IOException {
@@ -8590,10 +9721,19 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ByteArrayInputStream  getReceiptAttachmentByFileName(String accessToken, String xeroTenantId, UUID receiptID, String fileName, String contentType) throws IOException {
-        HttpResponse response = getReceiptAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, receiptID, fileName, contentType);
-        InputStream is = response.getContent();
-        return convertInputToByteArray(is);
+        try {
+            TypeReference<File> typeRef = new TypeReference<File>() {};
+            HttpResponse response = getReceiptAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, receiptID, fileName, contentType);
+            InputStream is = response.getContent();
+            return convertInputToByteArray(is);
 
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getReceiptAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID receiptID,  String fileName,  String contentType) throws IOException {
@@ -8660,10 +9800,19 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ByteArrayInputStream  getReceiptAttachmentById(String accessToken, String xeroTenantId, UUID receiptID, UUID attachmentID, String contentType) throws IOException {
-        HttpResponse response = getReceiptAttachmentByIdForHttpResponse(accessToken, xeroTenantId, receiptID, attachmentID, contentType);
-        InputStream is = response.getContent();
-        return convertInputToByteArray(is);
+        try {
+            TypeReference<File> typeRef = new TypeReference<File>() {};
+            HttpResponse response = getReceiptAttachmentByIdForHttpResponse(accessToken, xeroTenantId, receiptID, attachmentID, contentType);
+            InputStream is = response.getContent();
+            return convertInputToByteArray(is);
 
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getReceiptAttachmentByIdForHttpResponse(String accessToken,  String xeroTenantId,  UUID receiptID,  UUID attachmentID,  String contentType) throws IOException {
@@ -8728,9 +9877,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments  getReceiptAttachments(String accessToken, String xeroTenantId, UUID receiptID) throws IOException {
-        HttpResponse response = getReceiptAttachmentsForHttpResponse(accessToken, xeroTenantId, receiptID);
-        TypeReference typeRef = new TypeReference<Attachments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+            HttpResponse response = getReceiptAttachmentsForHttpResponse(accessToken, xeroTenantId, receiptID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getReceiptAttachmentsForHttpResponse(String accessToken,  String xeroTenantId,  UUID receiptID) throws IOException {
@@ -8781,9 +9938,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords  getReceiptHistory(String accessToken, String xeroTenantId, UUID receiptID) throws IOException {
-        HttpResponse response = getReceiptHistoryForHttpResponse(accessToken, xeroTenantId, receiptID);
-        TypeReference typeRef = new TypeReference<HistoryRecords>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
+            HttpResponse response = getReceiptHistoryForHttpResponse(accessToken, xeroTenantId, receiptID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getReceiptHistoryForHttpResponse(String accessToken,  String xeroTenantId,  UUID receiptID) throws IOException {
@@ -8837,9 +10002,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Receipts  getReceipts(String accessToken, String xeroTenantId, OffsetDateTime ifModifiedSince, String where, String order, Integer unitdp) throws IOException {
-        HttpResponse response = getReceiptsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order, unitdp);
-        TypeReference typeRef = new TypeReference<Receipts>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Receipts> typeRef = new TypeReference<Receipts>() {};
+            HttpResponse response = getReceiptsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order, unitdp);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getReceiptsForHttpResponse(String accessToken,  String xeroTenantId,  OffsetDateTime ifModifiedSince,  String where,  String order,  Integer unitdp) throws IOException {
@@ -8913,9 +10086,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public RepeatingInvoices  getRepeatingInvoice(String accessToken, String xeroTenantId, UUID repeatingInvoiceID) throws IOException {
-        HttpResponse response = getRepeatingInvoiceForHttpResponse(accessToken, xeroTenantId, repeatingInvoiceID);
-        TypeReference typeRef = new TypeReference<RepeatingInvoices>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<RepeatingInvoices> typeRef = new TypeReference<RepeatingInvoices>() {};
+            HttpResponse response = getRepeatingInvoiceForHttpResponse(accessToken, xeroTenantId, repeatingInvoiceID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getRepeatingInvoiceForHttpResponse(String accessToken,  String xeroTenantId,  UUID repeatingInvoiceID) throws IOException {
@@ -8968,10 +10149,19 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ByteArrayInputStream  getRepeatingInvoiceAttachmentByFileName(String accessToken, String xeroTenantId, UUID repeatingInvoiceID, String fileName, String contentType) throws IOException {
-        HttpResponse response = getRepeatingInvoiceAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, repeatingInvoiceID, fileName, contentType);
-        InputStream is = response.getContent();
-        return convertInputToByteArray(is);
+        try {
+            TypeReference<File> typeRef = new TypeReference<File>() {};
+            HttpResponse response = getRepeatingInvoiceAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, repeatingInvoiceID, fileName, contentType);
+            InputStream is = response.getContent();
+            return convertInputToByteArray(is);
 
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getRepeatingInvoiceAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID repeatingInvoiceID,  String fileName,  String contentType) throws IOException {
@@ -9038,10 +10228,19 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ByteArrayInputStream  getRepeatingInvoiceAttachmentById(String accessToken, String xeroTenantId, UUID repeatingInvoiceID, UUID attachmentID, String contentType) throws IOException {
-        HttpResponse response = getRepeatingInvoiceAttachmentByIdForHttpResponse(accessToken, xeroTenantId, repeatingInvoiceID, attachmentID, contentType);
-        InputStream is = response.getContent();
-        return convertInputToByteArray(is);
+        try {
+            TypeReference<File> typeRef = new TypeReference<File>() {};
+            HttpResponse response = getRepeatingInvoiceAttachmentByIdForHttpResponse(accessToken, xeroTenantId, repeatingInvoiceID, attachmentID, contentType);
+            InputStream is = response.getContent();
+            return convertInputToByteArray(is);
 
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getRepeatingInvoiceAttachmentByIdForHttpResponse(String accessToken,  String xeroTenantId,  UUID repeatingInvoiceID,  UUID attachmentID,  String contentType) throws IOException {
@@ -9106,9 +10305,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments  getRepeatingInvoiceAttachments(String accessToken, String xeroTenantId, UUID repeatingInvoiceID) throws IOException {
-        HttpResponse response = getRepeatingInvoiceAttachmentsForHttpResponse(accessToken, xeroTenantId, repeatingInvoiceID);
-        TypeReference typeRef = new TypeReference<Attachments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+            HttpResponse response = getRepeatingInvoiceAttachmentsForHttpResponse(accessToken, xeroTenantId, repeatingInvoiceID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getRepeatingInvoiceAttachmentsForHttpResponse(String accessToken,  String xeroTenantId,  UUID repeatingInvoiceID) throws IOException {
@@ -9159,9 +10366,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public HistoryRecords  getRepeatingInvoiceHistory(String accessToken, String xeroTenantId, UUID repeatingInvoiceID) throws IOException {
-        HttpResponse response = getRepeatingInvoiceHistoryForHttpResponse(accessToken, xeroTenantId, repeatingInvoiceID);
-        TypeReference typeRef = new TypeReference<HistoryRecords>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
+            HttpResponse response = getRepeatingInvoiceHistoryForHttpResponse(accessToken, xeroTenantId, repeatingInvoiceID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getRepeatingInvoiceHistoryForHttpResponse(String accessToken,  String xeroTenantId,  UUID repeatingInvoiceID) throws IOException {
@@ -9213,9 +10428,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public RepeatingInvoices  getRepeatingInvoices(String accessToken, String xeroTenantId, String where, String order) throws IOException {
-        HttpResponse response = getRepeatingInvoicesForHttpResponse(accessToken, xeroTenantId, where, order);
-        TypeReference typeRef = new TypeReference<RepeatingInvoices>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<RepeatingInvoices> typeRef = new TypeReference<RepeatingInvoices>() {};
+            HttpResponse response = getRepeatingInvoicesForHttpResponse(accessToken, xeroTenantId, where, order);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getRepeatingInvoicesForHttpResponse(String accessToken,  String xeroTenantId,  String where,  String order) throws IOException {
@@ -9282,9 +10505,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ReportWithRows  getReportAgedPayablesByContact(String accessToken, String xeroTenantId, UUID contactId, LocalDate date, LocalDate fromDate, LocalDate toDate) throws IOException {
-        HttpResponse response = getReportAgedPayablesByContactForHttpResponse(accessToken, xeroTenantId, contactId, date, fromDate, toDate);
-        TypeReference typeRef = new TypeReference<ReportWithRows>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<ReportWithRows> typeRef = new TypeReference<ReportWithRows>() {};
+            HttpResponse response = getReportAgedPayablesByContactForHttpResponse(accessToken, xeroTenantId, contactId, date, fromDate, toDate);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getReportAgedPayablesByContactForHttpResponse(String accessToken,  String xeroTenantId,  UUID contactId,  LocalDate date,  LocalDate fromDate,  LocalDate toDate) throws IOException {
@@ -9374,9 +10605,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ReportWithRows  getReportAgedReceivablesByContact(String accessToken, String xeroTenantId, UUID contactId, LocalDate date, LocalDate fromDate, LocalDate toDate) throws IOException {
-        HttpResponse response = getReportAgedReceivablesByContactForHttpResponse(accessToken, xeroTenantId, contactId, date, fromDate, toDate);
-        TypeReference typeRef = new TypeReference<ReportWithRows>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<ReportWithRows> typeRef = new TypeReference<ReportWithRows>() {};
+            HttpResponse response = getReportAgedReceivablesByContactForHttpResponse(accessToken, xeroTenantId, contactId, date, fromDate, toDate);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getReportAgedReceivablesByContactForHttpResponse(String accessToken,  String xeroTenantId,  UUID contactId,  LocalDate date,  LocalDate fromDate,  LocalDate toDate) throws IOException {
@@ -9463,9 +10702,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ReportWithRows  getReportBASorGST(String accessToken, String xeroTenantId, String reportID) throws IOException {
-        HttpResponse response = getReportBASorGSTForHttpResponse(accessToken, xeroTenantId, reportID);
-        TypeReference typeRef = new TypeReference<ReportWithRows>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<ReportWithRows> typeRef = new TypeReference<ReportWithRows>() {};
+            HttpResponse response = getReportBASorGSTForHttpResponse(accessToken, xeroTenantId, reportID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getReportBASorGSTForHttpResponse(String accessToken,  String xeroTenantId,  String reportID) throws IOException {
@@ -9515,9 +10762,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ReportWithRows  getReportBASorGSTList(String accessToken, String xeroTenantId) throws IOException {
-        HttpResponse response = getReportBASorGSTListForHttpResponse(accessToken, xeroTenantId);
-        TypeReference typeRef = new TypeReference<ReportWithRows>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<ReportWithRows> typeRef = new TypeReference<ReportWithRows>() {};
+            HttpResponse response = getReportBASorGSTListForHttpResponse(accessToken, xeroTenantId);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getReportBASorGSTListForHttpResponse(String accessToken,  String xeroTenantId) throws IOException {
@@ -9566,9 +10821,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ReportWithRows  getReportBalanceSheet(String accessToken, String xeroTenantId, String date, Integer periods, String timeframe, String trackingOptionID1, String trackingOptionID2, Boolean standardLayout, Boolean paymentsOnly) throws IOException {
-        HttpResponse response = getReportBalanceSheetForHttpResponse(accessToken, xeroTenantId, date, periods, timeframe, trackingOptionID1, trackingOptionID2, standardLayout, paymentsOnly);
-        TypeReference typeRef = new TypeReference<ReportWithRows>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<ReportWithRows> typeRef = new TypeReference<ReportWithRows>() {};
+            HttpResponse response = getReportBalanceSheetForHttpResponse(accessToken, xeroTenantId, date, periods, timeframe, trackingOptionID1, trackingOptionID2, standardLayout, paymentsOnly);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getReportBalanceSheetForHttpResponse(String accessToken,  String xeroTenantId,  String date,  Integer periods,  String timeframe,  String trackingOptionID1,  String trackingOptionID2,  Boolean standardLayout,  Boolean paymentsOnly) throws IOException {
@@ -9684,9 +10947,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ReportWithRows  getReportBankSummary(String accessToken, String xeroTenantId, LocalDate date, Integer period, Integer timeframe) throws IOException {
-        HttpResponse response = getReportBankSummaryForHttpResponse(accessToken, xeroTenantId, date, period, timeframe);
-        TypeReference typeRef = new TypeReference<ReportWithRows>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<ReportWithRows> typeRef = new TypeReference<ReportWithRows>() {};
+            HttpResponse response = getReportBankSummaryForHttpResponse(accessToken, xeroTenantId, date, period, timeframe);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getReportBankSummaryForHttpResponse(String accessToken,  String xeroTenantId,  LocalDate date,  Integer period,  Integer timeframe) throws IOException {
@@ -9762,9 +11033,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ReportWithRows  getReportBudgetSummary(String accessToken, String xeroTenantId, LocalDate date, Integer period, Integer timeframe) throws IOException {
-        HttpResponse response = getReportBudgetSummaryForHttpResponse(accessToken, xeroTenantId, date, period, timeframe);
-        TypeReference typeRef = new TypeReference<ReportWithRows>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<ReportWithRows> typeRef = new TypeReference<ReportWithRows>() {};
+            HttpResponse response = getReportBudgetSummaryForHttpResponse(accessToken, xeroTenantId, date, period, timeframe);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getReportBudgetSummaryForHttpResponse(String accessToken,  String xeroTenantId,  LocalDate date,  Integer period,  Integer timeframe) throws IOException {
@@ -9838,9 +11117,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ReportWithRows  getReportExecutiveSummary(String accessToken, String xeroTenantId, LocalDate date) throws IOException {
-        HttpResponse response = getReportExecutiveSummaryForHttpResponse(accessToken, xeroTenantId, date);
-        TypeReference typeRef = new TypeReference<ReportWithRows>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<ReportWithRows> typeRef = new TypeReference<ReportWithRows>() {};
+            HttpResponse response = getReportExecutiveSummaryForHttpResponse(accessToken, xeroTenantId, date);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getReportExecutiveSummaryForHttpResponse(String accessToken,  String xeroTenantId,  LocalDate date) throws IOException {
@@ -9903,9 +11190,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ReportWithRows  getReportProfitAndLoss(String accessToken, String xeroTenantId, LocalDate fromDate, LocalDate toDate, Integer periods, String timeframe, String trackingCategoryID, String trackingCategoryID2, String trackingOptionID, String trackingOptionID2, Boolean standardLayout, Boolean paymentsOnly) throws IOException {
-        HttpResponse response = getReportProfitAndLossForHttpResponse(accessToken, xeroTenantId, fromDate, toDate, periods, timeframe, trackingCategoryID, trackingCategoryID2, trackingOptionID, trackingOptionID2, standardLayout, paymentsOnly);
-        TypeReference typeRef = new TypeReference<ReportWithRows>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<ReportWithRows> typeRef = new TypeReference<ReportWithRows>() {};
+            HttpResponse response = getReportProfitAndLossForHttpResponse(accessToken, xeroTenantId, fromDate, toDate, periods, timeframe, trackingCategoryID, trackingCategoryID2, trackingOptionID, trackingOptionID2, standardLayout, paymentsOnly);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getReportProfitAndLossForHttpResponse(String accessToken,  String xeroTenantId,  LocalDate fromDate,  LocalDate toDate,  Integer periods,  String timeframe,  String trackingCategoryID,  String trackingCategoryID2,  String trackingOptionID,  String trackingOptionID2,  Boolean standardLayout,  Boolean paymentsOnly) throws IOException {
@@ -10049,9 +11344,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Reports  getReportTenNinetyNine(String accessToken, String xeroTenantId, String reportYear) throws IOException {
-        HttpResponse response = getReportTenNinetyNineForHttpResponse(accessToken, xeroTenantId, reportYear);
-        TypeReference typeRef = new TypeReference<Reports>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Reports> typeRef = new TypeReference<Reports>() {};
+            HttpResponse response = getReportTenNinetyNineForHttpResponse(accessToken, xeroTenantId, reportYear);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getReportTenNinetyNineForHttpResponse(String accessToken,  String xeroTenantId,  String reportYear) throws IOException {
@@ -10106,9 +11409,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ReportWithRows  getReportTrialBalance(String accessToken, String xeroTenantId, LocalDate date, Boolean paymentsOnly) throws IOException {
-        HttpResponse response = getReportTrialBalanceForHttpResponse(accessToken, xeroTenantId, date, paymentsOnly);
-        TypeReference typeRef = new TypeReference<ReportWithRows>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<ReportWithRows> typeRef = new TypeReference<ReportWithRows>() {};
+            HttpResponse response = getReportTrialBalanceForHttpResponse(accessToken, xeroTenantId, date, paymentsOnly);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getReportTrialBalanceForHttpResponse(String accessToken,  String xeroTenantId,  LocalDate date,  Boolean paymentsOnly) throws IOException {
@@ -10174,9 +11485,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public TaxRates  getTaxRates(String accessToken, String xeroTenantId, String where, String order, String taxType) throws IOException {
-        HttpResponse response = getTaxRatesForHttpResponse(accessToken, xeroTenantId, where, order, taxType);
-        TypeReference typeRef = new TypeReference<TaxRates>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<TaxRates> typeRef = new TypeReference<TaxRates>() {};
+            HttpResponse response = getTaxRatesForHttpResponse(accessToken, xeroTenantId, where, order, taxType);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getTaxRatesForHttpResponse(String accessToken,  String xeroTenantId,  String where,  String order,  String taxType) throws IOException {
@@ -10252,9 +11571,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public TrackingCategories  getTrackingCategories(String accessToken, String xeroTenantId, String where, String order, Boolean includeArchived) throws IOException {
-        HttpResponse response = getTrackingCategoriesForHttpResponse(accessToken, xeroTenantId, where, order, includeArchived);
-        TypeReference typeRef = new TypeReference<TrackingCategories>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<TrackingCategories> typeRef = new TypeReference<TrackingCategories>() {};
+            HttpResponse response = getTrackingCategoriesForHttpResponse(accessToken, xeroTenantId, where, order, includeArchived);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getTrackingCategoriesForHttpResponse(String accessToken,  String xeroTenantId,  String where,  String order,  Boolean includeArchived) throws IOException {
@@ -10328,9 +11655,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public TrackingCategories  getTrackingCategory(String accessToken, String xeroTenantId, UUID trackingCategoryID) throws IOException {
-        HttpResponse response = getTrackingCategoryForHttpResponse(accessToken, xeroTenantId, trackingCategoryID);
-        TypeReference typeRef = new TypeReference<TrackingCategories>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<TrackingCategories> typeRef = new TypeReference<TrackingCategories>() {};
+            HttpResponse response = getTrackingCategoryForHttpResponse(accessToken, xeroTenantId, trackingCategoryID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getTrackingCategoryForHttpResponse(String accessToken,  String xeroTenantId,  UUID trackingCategoryID) throws IOException {
@@ -10381,9 +11716,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Users  getUser(String accessToken, String xeroTenantId, UUID userID) throws IOException {
-        HttpResponse response = getUserForHttpResponse(accessToken, xeroTenantId, userID);
-        TypeReference typeRef = new TypeReference<Users>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Users> typeRef = new TypeReference<Users>() {};
+            HttpResponse response = getUserForHttpResponse(accessToken, xeroTenantId, userID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getUserForHttpResponse(String accessToken,  String xeroTenantId,  UUID userID) throws IOException {
@@ -10436,9 +11779,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Users  getUsers(String accessToken, String xeroTenantId, OffsetDateTime ifModifiedSince, String where, String order) throws IOException {
-        HttpResponse response = getUsersForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order);
-        TypeReference typeRef = new TypeReference<Users>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Users> typeRef = new TypeReference<Users>() {};
+            HttpResponse response = getUsersForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse getUsersForHttpResponse(String accessToken,  String xeroTenantId,  OffsetDateTime ifModifiedSince,  String where,  String order) throws IOException {
@@ -10504,9 +11855,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Accounts  updateAccount(String accessToken, String xeroTenantId, UUID accountID, Accounts accounts) throws IOException {
-        HttpResponse response = updateAccountForHttpResponse(accessToken, xeroTenantId, accountID, accounts);
-        TypeReference typeRef = new TypeReference<Accounts>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Accounts> typeRef = new TypeReference<Accounts>() {};
+            HttpResponse response = updateAccountForHttpResponse(accessToken, xeroTenantId, accountID, accounts);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse updateAccountForHttpResponse(String accessToken,  String xeroTenantId,  UUID accountID,  Accounts accounts) throws IOException {
@@ -10565,9 +11924,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments  updateAccountAttachmentByFileName(String accessToken, String xeroTenantId, UUID accountID, String fileName, File body) throws IOException {
-        HttpResponse response = updateAccountAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, accountID, fileName, body);
-        TypeReference typeRef = new TypeReference<Attachments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+            HttpResponse response = updateAccountAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, accountID, fileName, body);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse updateAccountAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID accountID,  String fileName, File  body) throws IOException {
@@ -10631,9 +11998,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public BankTransactions  updateBankTransaction(String accessToken, String xeroTenantId, UUID bankTransactionID, BankTransactions bankTransactions) throws IOException {
-        HttpResponse response = updateBankTransactionForHttpResponse(accessToken, xeroTenantId, bankTransactionID, bankTransactions);
-        TypeReference typeRef = new TypeReference<BankTransactions>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<BankTransactions> typeRef = new TypeReference<BankTransactions>() {};
+            HttpResponse response = updateBankTransactionForHttpResponse(accessToken, xeroTenantId, bankTransactionID, bankTransactions);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse updateBankTransactionForHttpResponse(String accessToken,  String xeroTenantId,  UUID bankTransactionID,  BankTransactions bankTransactions) throws IOException {
@@ -10692,9 +12067,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments  updateBankTransactionAttachmentByFileName(String accessToken, String xeroTenantId, UUID bankTransactionID, String fileName, File body) throws IOException {
-        HttpResponse response = updateBankTransactionAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, bankTransactionID, fileName, body);
-        TypeReference typeRef = new TypeReference<Attachments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+            HttpResponse response = updateBankTransactionAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, bankTransactionID, fileName, body);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse updateBankTransactionAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID bankTransactionID,  String fileName, File  body) throws IOException {
@@ -10758,9 +12141,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments  updateBankTransferAttachmentByFileName(String accessToken, String xeroTenantId, UUID bankTransferID, String fileName, File body) throws IOException {
-        HttpResponse response = updateBankTransferAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, bankTransferID, fileName, body);
-        TypeReference typeRef = new TypeReference<Attachments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+            HttpResponse response = updateBankTransferAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, bankTransferID, fileName, body);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse updateBankTransferAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID bankTransferID,  String fileName, File  body) throws IOException {
@@ -10823,9 +12214,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Contacts  updateContact(String accessToken, String xeroTenantId, UUID contactID, Contacts contacts) throws IOException {
-        HttpResponse response = updateContactForHttpResponse(accessToken, xeroTenantId, contactID, contacts);
-        TypeReference typeRef = new TypeReference<Contacts>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Contacts> typeRef = new TypeReference<Contacts>() {};
+            HttpResponse response = updateContactForHttpResponse(accessToken, xeroTenantId, contactID, contacts);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse updateContactForHttpResponse(String accessToken,  String xeroTenantId,  UUID contactID,  Contacts contacts) throws IOException {
@@ -10883,9 +12282,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments  updateContactAttachmentByFileName(String accessToken, String xeroTenantId, UUID contactID, String fileName, File body) throws IOException {
-        HttpResponse response = updateContactAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, contactID, fileName, body);
-        TypeReference typeRef = new TypeReference<Attachments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+            HttpResponse response = updateContactAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, contactID, fileName, body);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse updateContactAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID contactID,  String fileName, File  body) throws IOException {
@@ -10949,9 +12356,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ContactGroups  updateContactGroup(String accessToken, String xeroTenantId, UUID contactGroupID, ContactGroups contactGroups) throws IOException {
-        HttpResponse response = updateContactGroupForHttpResponse(accessToken, xeroTenantId, contactGroupID, contactGroups);
-        TypeReference typeRef = new TypeReference<ContactGroups>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<ContactGroups> typeRef = new TypeReference<ContactGroups>() {};
+            HttpResponse response = updateContactGroupForHttpResponse(accessToken, xeroTenantId, contactGroupID, contactGroups);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse updateContactGroupForHttpResponse(String accessToken,  String xeroTenantId,  UUID contactGroupID,  ContactGroups contactGroups) throws IOException {
@@ -11009,9 +12424,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public CreditNotes  updateCreditNote(String accessToken, String xeroTenantId, UUID creditNoteID, CreditNotes creditNotes) throws IOException {
-        HttpResponse response = updateCreditNoteForHttpResponse(accessToken, xeroTenantId, creditNoteID, creditNotes);
-        TypeReference typeRef = new TypeReference<CreditNotes>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<CreditNotes> typeRef = new TypeReference<CreditNotes>() {};
+            HttpResponse response = updateCreditNoteForHttpResponse(accessToken, xeroTenantId, creditNoteID, creditNotes);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse updateCreditNoteForHttpResponse(String accessToken,  String xeroTenantId,  UUID creditNoteID,  CreditNotes creditNotes) throws IOException {
@@ -11070,9 +12493,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments  updateCreditNoteAttachmentByFileName(String accessToken, String xeroTenantId, UUID creditNoteID, String fileName, File body) throws IOException {
-        HttpResponse response = updateCreditNoteAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, creditNoteID, fileName, body);
-        TypeReference typeRef = new TypeReference<Attachments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+            HttpResponse response = updateCreditNoteAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, creditNoteID, fileName, body);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse updateCreditNoteAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID creditNoteID,  String fileName, File  body) throws IOException {
@@ -11136,9 +12567,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Employees  updateEmployee(String accessToken, String xeroTenantId, UUID employeeID, Employees employees) throws IOException {
-        HttpResponse response = updateEmployeeForHttpResponse(accessToken, xeroTenantId, employeeID, employees);
-        TypeReference typeRef = new TypeReference<Employees>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Employees> typeRef = new TypeReference<Employees>() {};
+            HttpResponse response = updateEmployeeForHttpResponse(accessToken, xeroTenantId, employeeID, employees);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse updateEmployeeForHttpResponse(String accessToken,  String xeroTenantId,  UUID employeeID,  Employees employees) throws IOException {
@@ -11196,9 +12635,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ExpenseClaims  updateExpenseClaim(String accessToken, String xeroTenantId, UUID expenseClaimID, ExpenseClaims expenseClaims) throws IOException {
-        HttpResponse response = updateExpenseClaimForHttpResponse(accessToken, xeroTenantId, expenseClaimID, expenseClaims);
-        TypeReference typeRef = new TypeReference<ExpenseClaims>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<ExpenseClaims> typeRef = new TypeReference<ExpenseClaims>() {};
+            HttpResponse response = updateExpenseClaimForHttpResponse(accessToken, xeroTenantId, expenseClaimID, expenseClaims);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse updateExpenseClaimForHttpResponse(String accessToken,  String xeroTenantId,  UUID expenseClaimID,  ExpenseClaims expenseClaims) throws IOException {
@@ -11256,9 +12703,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Invoices  updateInvoice(String accessToken, String xeroTenantId, UUID invoiceID, Invoices invoices) throws IOException {
-        HttpResponse response = updateInvoiceForHttpResponse(accessToken, xeroTenantId, invoiceID, invoices);
-        TypeReference typeRef = new TypeReference<Invoices>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Invoices> typeRef = new TypeReference<Invoices>() {};
+            HttpResponse response = updateInvoiceForHttpResponse(accessToken, xeroTenantId, invoiceID, invoices);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse updateInvoiceForHttpResponse(String accessToken,  String xeroTenantId,  UUID invoiceID,  Invoices invoices) throws IOException {
@@ -11317,9 +12772,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments  updateInvoiceAttachmentByFileName(String accessToken, String xeroTenantId, UUID invoiceID, String fileName, File body) throws IOException {
-        HttpResponse response = updateInvoiceAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, invoiceID, fileName, body);
-        TypeReference typeRef = new TypeReference<Attachments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+            HttpResponse response = updateInvoiceAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, invoiceID, fileName, body);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse updateInvoiceAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID invoiceID,  String fileName, File  body) throws IOException {
@@ -11383,9 +12846,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Items  updateItem(String accessToken, String xeroTenantId, UUID itemID, Items items) throws IOException {
-        HttpResponse response = updateItemForHttpResponse(accessToken, xeroTenantId, itemID, items);
-        TypeReference typeRef = new TypeReference<Items>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Items> typeRef = new TypeReference<Items>() {};
+            HttpResponse response = updateItemForHttpResponse(accessToken, xeroTenantId, itemID, items);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse updateItemForHttpResponse(String accessToken,  String xeroTenantId,  UUID itemID,  Items items) throws IOException {
@@ -11443,9 +12914,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public LinkedTransactions  updateLinkedTransaction(String accessToken, String xeroTenantId, UUID linkedTransactionID, LinkedTransactions linkedTransactions) throws IOException {
-        HttpResponse response = updateLinkedTransactionForHttpResponse(accessToken, xeroTenantId, linkedTransactionID, linkedTransactions);
-        TypeReference typeRef = new TypeReference<LinkedTransactions>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<LinkedTransactions> typeRef = new TypeReference<LinkedTransactions>() {};
+            HttpResponse response = updateLinkedTransactionForHttpResponse(accessToken, xeroTenantId, linkedTransactionID, linkedTransactions);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse updateLinkedTransactionForHttpResponse(String accessToken,  String xeroTenantId,  UUID linkedTransactionID,  LinkedTransactions linkedTransactions) throws IOException {
@@ -11503,9 +12982,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public ManualJournals  updateManualJournal(String accessToken, String xeroTenantId, UUID manualJournalID, ManualJournals manualJournals) throws IOException {
-        HttpResponse response = updateManualJournalForHttpResponse(accessToken, xeroTenantId, manualJournalID, manualJournals);
-        TypeReference typeRef = new TypeReference<ManualJournals>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<ManualJournals> typeRef = new TypeReference<ManualJournals>() {};
+            HttpResponse response = updateManualJournalForHttpResponse(accessToken, xeroTenantId, manualJournalID, manualJournals);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse updateManualJournalForHttpResponse(String accessToken,  String xeroTenantId,  UUID manualJournalID,  ManualJournals manualJournals) throws IOException {
@@ -11564,9 +13051,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments  updateManualJournalAttachmentByFileName(String accessToken, String xeroTenantId, UUID manualJournalID, String fileName, File body) throws IOException {
-        HttpResponse response = updateManualJournalAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, manualJournalID, fileName, body);
-        TypeReference typeRef = new TypeReference<Attachments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+            HttpResponse response = updateManualJournalAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, manualJournalID, fileName, body);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse updateManualJournalAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID manualJournalID,  String fileName, File  body) throws IOException {
@@ -11630,9 +13125,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public PurchaseOrders  updatePurchaseOrder(String accessToken, String xeroTenantId, UUID purchaseOrderID, PurchaseOrders purchaseOrders) throws IOException {
-        HttpResponse response = updatePurchaseOrderForHttpResponse(accessToken, xeroTenantId, purchaseOrderID, purchaseOrders);
-        TypeReference typeRef = new TypeReference<PurchaseOrders>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<PurchaseOrders> typeRef = new TypeReference<PurchaseOrders>() {};
+            HttpResponse response = updatePurchaseOrderForHttpResponse(accessToken, xeroTenantId, purchaseOrderID, purchaseOrders);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse updatePurchaseOrderForHttpResponse(String accessToken,  String xeroTenantId,  UUID purchaseOrderID,  PurchaseOrders purchaseOrders) throws IOException {
@@ -11690,9 +13193,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Receipts  updateReceipt(String accessToken, String xeroTenantId, UUID receiptID, Receipts receipts) throws IOException {
-        HttpResponse response = updateReceiptForHttpResponse(accessToken, xeroTenantId, receiptID, receipts);
-        TypeReference typeRef = new TypeReference<Receipts>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Receipts> typeRef = new TypeReference<Receipts>() {};
+            HttpResponse response = updateReceiptForHttpResponse(accessToken, xeroTenantId, receiptID, receipts);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse updateReceiptForHttpResponse(String accessToken,  String xeroTenantId,  UUID receiptID,  Receipts receipts) throws IOException {
@@ -11751,9 +13262,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments  updateReceiptAttachmentByFileName(String accessToken, String xeroTenantId, UUID receiptID, String fileName, File body) throws IOException {
-        HttpResponse response = updateReceiptAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, receiptID, fileName, body);
-        TypeReference typeRef = new TypeReference<Attachments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+            HttpResponse response = updateReceiptAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, receiptID, fileName, body);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse updateReceiptAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID receiptID,  String fileName, File  body) throws IOException {
@@ -11818,9 +13337,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Attachments  updateRepeatingInvoiceAttachmentByFileName(String accessToken, String xeroTenantId, UUID repeatingInvoiceID, String fileName, File body) throws IOException {
-        HttpResponse response = updateRepeatingInvoiceAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, repeatingInvoiceID, fileName, body);
-        TypeReference typeRef = new TypeReference<Attachments>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+            HttpResponse response = updateRepeatingInvoiceAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, repeatingInvoiceID, fileName, body);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse updateRepeatingInvoiceAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID repeatingInvoiceID,  String fileName, File  body) throws IOException {
@@ -11883,9 +13410,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public TaxRates  updateTaxRate(String accessToken, String xeroTenantId, TaxRates taxRates) throws IOException {
-        HttpResponse response = updateTaxRateForHttpResponse(accessToken, xeroTenantId, taxRates);
-        TypeReference typeRef = new TypeReference<TaxRates>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<TaxRates> typeRef = new TypeReference<TaxRates>() {};
+            HttpResponse response = updateTaxRateForHttpResponse(accessToken, xeroTenantId, taxRates);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse updateTaxRateForHttpResponse(String accessToken,  String xeroTenantId,  TaxRates taxRates) throws IOException {
@@ -11935,9 +13470,17 @@ public class AccountingApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public TrackingCategories  updateTrackingCategory(String accessToken, String xeroTenantId, UUID trackingCategoryID, TrackingCategory trackingCategory) throws IOException {
-        HttpResponse response = updateTrackingCategoryForHttpResponse(accessToken, xeroTenantId, trackingCategoryID, trackingCategory);
-        TypeReference typeRef = new TypeReference<TrackingCategories>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        try {
+            TypeReference<TrackingCategories> typeRef = new TypeReference<TrackingCategories>() {};
+            HttpResponse response = updateTrackingCategoryForHttpResponse(accessToken, xeroTenantId, trackingCategoryID, trackingCategory);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
     }
 
     public HttpResponse updateTrackingCategoryForHttpResponse(String accessToken,  String xeroTenantId,  UUID trackingCategoryID,  TrackingCategory trackingCategory) throws IOException {
