@@ -27,8 +27,11 @@ Follow these steps to create your Xero app
 * Create a free Xero user account (if you don't have one)
 * Use this URL for beta access to oAuth2 [https://developer.xero.com/myapps?code=oauth2create](https://developer.xero.com/myapps?code=oauth2create)
 * Click "or Try oAuth2" link
-* additional steps ... todo
-* Copy your client id and secret for use later
+* Enter your App name, company url, privacy policy url, and redirect URI
+* Agree to terms and condition and click "Create App".
+* Click "Generate a secret" button.
+* Copy your client id and client secret and save for use later.
+* Click the "Save" button. You secret is now hidden
 * Set your callback uri (i.e. http://localhost:3000/callback) 
 
 ### Add Xero-Java Dependency
@@ -497,9 +500,9 @@ public class AuthenticatedResource extends HttpServlet {
 
 **Exception Handling**
 
-Utilize the XeroApiException class or exceptions related to Xero's API.  By wrapping your APIs in a try block you can catch XeroApiExceptions and determine the appropriate action.
+Utilize the XeroApiException class for exceptions related to Xero's API.  By wrapping your APIs in a try/catch block you can read  XeroApiExceptions and determine the appropriate action.
 
-Validation errors  are common and contain a response code of "400", with an Array of elements and validation errors will be included in the caught exception.
+Validation errors  are common and contain a response code of "400", a list of elements and validation errors will be included in the caught exception.
 
 ```java
 try {
