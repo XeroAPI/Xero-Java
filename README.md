@@ -496,8 +496,28 @@ public class AuthenticatedResource extends HttpServlet {
 ```
 
 **Exception Handling**
+Exeption handling is managed with the XeroApiException and XeroApiExceptionHander classes.  By wrapping your APIs in a try block you can catch XeroApiExceptions and determine the appropriate action.
 
-TBD
+Validation errors  are common and contain a response code of "400", with an Array of elements and validation errors will be included in the caught exception.
+
+```java
+try {
+	// Create contact with the same name as an existing contact will generate a validation error.
+	Contact contact = new Contact();
+	contact.setName("Sidney Maestre");
+	Contacts createContact1 = accountingApi.createContact(accessToken,xeroTenantId, contact);
+	Contacts createContact2 = accountingApi.createContact(accessToken,xeroTenantId, contact);
+} catch (XeroApiException xe) {
+	System.out.println("Xero Exception: " + xe.getResponseCode());	
+	for(Element item : xe.getError().getElements()){
+		for(ValidationError err : item.getValidationErrors()){
+			System.out.println("Error Msg: " + err.getMessage());
+		}
+	}
+} catch (Exception e) {
+	System.out.println(e.getMessage());	
+}
+```
 
 ## Logging
 The SDK uses log4j2.  To configure, add a log4j2.xml file to the src/resources directory in your project.
