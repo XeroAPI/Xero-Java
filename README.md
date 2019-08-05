@@ -109,7 +109,6 @@ public class Authorization extends HttpServlet {
         scopeList.add("accounting.journals.read");
         scopeList.add("accounting.reports.read");
         scopeList.add("accounting.attachments");
-        scopeList.add("paymentservices");
         
         DataStoreFactory DATA_STORE_FACTORY = new MemoryDataStoreFactory();		
         AuthorizationCodeFlow flow = new AuthorizationCodeFlow.Builder(BearerToken.authorizationHeaderAccessMethod(), 
@@ -201,7 +200,6 @@ public class Callback extends HttpServlet {
 	    scopeList.add("accounting.journals.read");
 	    scopeList.add("accounting.reports.read");
 	    scopeList.add("accounting.attachments");
-	    scopeList.add("paymentservices");
 	    
 	    DataStoreFactory DATA_STORE_FACTORY = new MemoryDataStoreFactory();		
 	    
@@ -341,6 +339,7 @@ public class TokenRefresh {
 	final String clientId = "--YOUR_CLIENT_ID--";
 	final String clientSecret = "--YOUR_CLIENT_SECRET--";
 	final String redirectURI = "--YOUR_REDIRECT_URI--";
+	final String TOKEN_SERVER_URL = "https://identity.xero.com/connect/token";
 	
 	public  TokenRefresh() 
 	{
