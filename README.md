@@ -496,7 +496,8 @@ public class AuthenticatedResource extends HttpServlet {
 ```
 
 **Exception Handling**
-Exeption handling is managed with the XeroApiException and XeroApiExceptionHander classes.  By wrapping your APIs in a try block you can catch XeroApiExceptions and determine the appropriate action.
+
+Utilize the XeroApiException class or exceptions related to Xero's API.  By wrapping your APIs in a try block you can catch XeroApiExceptions and determine the appropriate action.
 
 Validation errors  are common and contain a response code of "400", with an Array of elements and validation errors will be included in the caught exception.
 
