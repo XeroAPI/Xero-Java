@@ -402,13 +402,18 @@ The Xero Java SDK contains Client classes (AccountingApi, etc) which have helper
 package com.xero.example;
 
 import java.io.IOException;
+import java.util.UUID;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.threeten.bp.OffsetDateTime;
+
 import com.xero.api.ApiClient;
+import com.xero.api.XeroApiException;
 import com.xero.api.client.AccountingApi;
 import com.xero.models.accounting.*;
 
@@ -452,8 +457,8 @@ public class AuthenticatedResource extends HttpServlet {
 			System.out.println("New account created: " + newAccount.getAccounts().get(0).getName());
 
 			/* READ ACCOUNT using a WHERE clause */
-			where = "Status==\"ACTIVE\"&&Type==\"BANK\"";
-			Accounts accountsWhere = accountingApi.getAccounts(accessToken,xeroTenantId,ifModifiedSince, where, order);
+			String where = "Status==\"ACTIVE\"&&Type==\"BANK\"";
+			Accounts accountsWhere = accountingApi.getAccounts(accessToken,xeroTenantId,null, where, null);
 
 			/* READ ACCOUNT using the ID */
 			Accounts accounts = accountingApi.getAccounts(accessToken,xeroTenantId,null, null, null);
