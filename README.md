@@ -484,7 +484,6 @@ public class AuthenticatedResource extends HttpServlet {
 			Invoices InvoiceList24hour = accountingApi.getInvoices(accessToken,xeroTenantId,invModified, null, null, null, null, null, null, null, null, null, null);
 			System.out.println("How many invoices modified in last 24 hours?: " + InvoiceList24hour.getInvoices().size());
 		
-
 			response.getWriter().append("API calls completed at: ").append(request.getContextPath());
 		} catch (XeroApiException xe) {
 			System.out.println("Xero Exception: " + xe.getResponseCode());	
