@@ -95,8 +95,8 @@ public class BankTransaction {
   private Contact contact = null;
 
   
-  @JsonProperty("Lineitems")
-  private List<LineItem> lineitems = new ArrayList<LineItem>();
+  @JsonProperty("LineItems")
+  private List<LineItem> lineItems = new ArrayList<LineItem>();
 
   
   @JsonProperty("BankAccount")
@@ -245,27 +245,27 @@ public class BankTransaction {
     this.contact = contact;
   }
 
-  public BankTransaction lineitems(List<LineItem> lineitems) {
-    this.lineitems = lineitems;
+  public BankTransaction lineItems(List<LineItem> lineItems) {
+    this.lineItems = lineItems;
     return this;
   }
 
-  public BankTransaction addLineitemsItem(LineItem lineitemsItem) {
-    this.lineitems.add(lineitemsItem);
+  public BankTransaction addLineItemsItem(LineItem lineItemsItem) {
+    this.lineItems.add(lineItemsItem);
     return this;
   }
 
    /**
    * See LineItems
-   * @return lineitems
+   * @return lineItems
   **/
   @ApiModelProperty(required = true, value = "See LineItems")
-  public List<LineItem> getLineitems() {
-    return lineitems;
+  public List<LineItem> getLineItems() {
+    return lineItems;
   }
 
-  public void setLineitems(List<LineItem> lineitems) {
-    this.lineitems = lineitems;
+  public void setLineItems(List<LineItem> lineItems) {
+    this.lineItems = lineItems;
   }
 
   public BankTransaction bankAccount(Account bankAccount) {
@@ -594,7 +594,7 @@ public class BankTransaction {
     BankTransaction bankTransaction = (BankTransaction) o;
     return Objects.equals(this.type, bankTransaction.type) &&
         Objects.equals(this.contact, bankTransaction.contact) &&
-        Objects.equals(this.lineitems, bankTransaction.lineitems) &&
+        Objects.equals(this.lineItems, bankTransaction.lineItems) &&
         Objects.equals(this.bankAccount, bankTransaction.bankAccount) &&
         Objects.equals(this.isReconciled, bankTransaction.isReconciled) &&
         Objects.equals(this.date, bankTransaction.date) &&
@@ -618,7 +618,7 @@ public class BankTransaction {
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, contact, lineitems, bankAccount, isReconciled, date, reference, currencyCode, currencyRate, url, status, lineAmountTypes, subTotal, totalTax, total, bankTransactionID, prepaymentID, overpaymentID, updatedDateUTC, hasAttachments, statusAttributeString, validationErrors);
+    return Objects.hash(type, contact, lineItems, bankAccount, isReconciled, date, reference, currencyCode, currencyRate, url, status, lineAmountTypes, subTotal, totalTax, total, bankTransactionID, prepaymentID, overpaymentID, updatedDateUTC, hasAttachments, statusAttributeString, validationErrors);
   }
 
 
@@ -629,7 +629,7 @@ public class BankTransaction {
     
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    contact: ").append(toIndentedString(contact)).append("\n");
-    sb.append("    lineitems: ").append(toIndentedString(lineitems)).append("\n");
+    sb.append("    lineItems: ").append(toIndentedString(lineItems)).append("\n");
     sb.append("    bankAccount: ").append(toIndentedString(bankAccount)).append("\n");
     sb.append("    isReconciled: ").append(toIndentedString(isReconciled)).append("\n");
     sb.append("    date: ").append(toIndentedString(date)).append("\n");
