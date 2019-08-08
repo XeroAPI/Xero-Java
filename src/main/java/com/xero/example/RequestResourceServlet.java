@@ -1093,6 +1093,7 @@ public class RequestResourceServlet extends HttpServlet
 		} else if (object.equals("BankTransactions")) {
 			/* BANK TRANSACTION */
 			try {
+
 			    where = "Status==\"ACTIVE\"&&Type==\"BANK\"";
 				Accounts accountsWhere = accountingApi.getAccounts(ifModifiedSince, where, order);
 				
@@ -1117,7 +1118,7 @@ public class RequestResourceServlet extends HttpServlet
 					BankTransaction bt = new BankTransaction();
 					bt.setBankAccount(bankAcct);
 					bt.setContact(useContact);
-					bt.setLineitems(lineItems);
+					bt.setLineItems(lineItems);
 					bt.setType(com.xero.models.accounting.BankTransaction.TypeEnum.SPEND);
 					BankTransactions bts = new BankTransactions();
 					bts.addBankTransactionsItem(bt);					
@@ -1159,7 +1160,6 @@ public class RequestResourceServlet extends HttpServlet
 					messages.add("Create a one Bank Transaction History Record - details :" + newHr.getHistoryRecords().get(0).getDetails());				
 					*/
 				}
-				
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}			
@@ -1361,7 +1361,7 @@ public class RequestResourceServlet extends HttpServlet
 				
 				HistoryRecords newInvoiceHistory = accountingApi.createContactHistory(contactID,newHistoryRecords);
 				messages.add("Contact History - note added to  : " + newInvoiceHistory.getHistoryRecords().get(0).getDetails());
-				
+		
 			} catch (XeroApiException e) {
 				System.out.println(e.getResponseCode());
 				System.out.println(e.getMessage());	
@@ -1623,7 +1623,7 @@ public class RequestResourceServlet extends HttpServlet
 				li.setLineAmount(40.00);
 				li.setTaxType("NONE");
 				
-				receipt.addLineitemsItem(li);
+				receipt.addLineItemsItem(li);
 				receipt.setUser(user);
 				receipt.lineAmountTypes(LineAmountTypes.NOTAX);
 				receipt.contact(useContact);
@@ -2098,7 +2098,7 @@ public class RequestResourceServlet extends HttpServlet
 				BankTransaction bt = new BankTransaction();
 				bt.setBankAccount(bankAccount);
 				bt.setContact(useContact);
-				bt.setLineitems(lineItems);
+				bt.setLineItems(lineItems);
 				bt.setType(com.xero.models.accounting.BankTransaction.TypeEnum.RECEIVE_OVERPAYMENT);
 				BankTransactions bts = new BankTransactions();
 				bts.addBankTransactionsItem(bt);					
@@ -2247,7 +2247,7 @@ public class RequestResourceServlet extends HttpServlet
 				BankTransaction bt = new BankTransaction();
 				bt.setBankAccount(bankAccount);
 				bt.setContact(useContact);
-				bt.setLineitems(lineItems);
+				bt.setLineItems(lineItems);
 				bt.setType(com.xero.models.accounting.BankTransaction.TypeEnum.RECEIVE_PREPAYMENT);
 				BankTransactions bts = new BankTransactions();
 				bts.addBankTransactionsItem(bt);					
@@ -2392,7 +2392,7 @@ public class RequestResourceServlet extends HttpServlet
 				li.setLineAmount(40.00);
 				li.setTaxType("NONE");
 				
-				receipt.addLineitemsItem(li);
+				receipt.addLineItemsItem(li);
 				receipt.setUser(useUser);
 				receipt.lineAmountTypes(LineAmountTypes.NOTAX);
 				receipt.contact(useContact);
