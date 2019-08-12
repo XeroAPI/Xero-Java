@@ -28,7 +28,7 @@ import com.xero.models.accounting.ContactPerson;
 import com.xero.models.accounting.CurrencyCode;
 import com.xero.models.accounting.PaymentTerm;
 import com.xero.models.accounting.Phone;
-import com.xero.models.accounting.TrackingCategory;
+import com.xero.models.accounting.SalesTrackingCategory;
 import com.xero.models.accounting.ValidationError;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -171,11 +171,11 @@ public class Contact {
 
   
   @JsonProperty("SalesTrackingCategories")
-  private List<TrackingCategory> salesTrackingCategories = new ArrayList<TrackingCategory>();
+  private List<SalesTrackingCategory> salesTrackingCategories = new ArrayList<SalesTrackingCategory>();
 
   
   @JsonProperty("PurchasesTrackingCategories")
-  private List<TrackingCategory> purchasesTrackingCategories = new ArrayList<TrackingCategory>();
+  private List<SalesTrackingCategory> purchasesTrackingCategories = new ArrayList<SalesTrackingCategory>();
 
   
   @JsonProperty("TrackingCategoryName")
@@ -653,14 +653,14 @@ public class Contact {
     this.purchasesDefaultAccountCode = purchasesDefaultAccountCode;
   }
 
-  public Contact salesTrackingCategories(List<TrackingCategory> salesTrackingCategories) {
+  public Contact salesTrackingCategories(List<SalesTrackingCategory> salesTrackingCategories) {
     this.salesTrackingCategories = salesTrackingCategories;
     return this;
   }
 
-  public Contact addSalesTrackingCategoriesItem(TrackingCategory salesTrackingCategoriesItem) {
+  public Contact addSalesTrackingCategoriesItem(SalesTrackingCategory salesTrackingCategoriesItem) {
     if (this.salesTrackingCategories == null) {
-      this.salesTrackingCategories = new ArrayList<TrackingCategory>();
+      this.salesTrackingCategories = new ArrayList<SalesTrackingCategory>();
     }
     this.salesTrackingCategories.add(salesTrackingCategoriesItem);
     return this;
@@ -671,22 +671,22 @@ public class Contact {
    * @return salesTrackingCategories
   **/
   @ApiModelProperty(value = "The default sales tracking categories for contacts")
-  public List<TrackingCategory> getSalesTrackingCategories() {
+  public List<SalesTrackingCategory> getSalesTrackingCategories() {
     return salesTrackingCategories;
   }
 
-  public void setSalesTrackingCategories(List<TrackingCategory> salesTrackingCategories) {
+  public void setSalesTrackingCategories(List<SalesTrackingCategory> salesTrackingCategories) {
     this.salesTrackingCategories = salesTrackingCategories;
   }
 
-  public Contact purchasesTrackingCategories(List<TrackingCategory> purchasesTrackingCategories) {
+  public Contact purchasesTrackingCategories(List<SalesTrackingCategory> purchasesTrackingCategories) {
     this.purchasesTrackingCategories = purchasesTrackingCategories;
     return this;
   }
 
-  public Contact addPurchasesTrackingCategoriesItem(TrackingCategory purchasesTrackingCategoriesItem) {
+  public Contact addPurchasesTrackingCategoriesItem(SalesTrackingCategory purchasesTrackingCategoriesItem) {
     if (this.purchasesTrackingCategories == null) {
-      this.purchasesTrackingCategories = new ArrayList<TrackingCategory>();
+      this.purchasesTrackingCategories = new ArrayList<SalesTrackingCategory>();
     }
     this.purchasesTrackingCategories.add(purchasesTrackingCategoriesItem);
     return this;
@@ -697,11 +697,11 @@ public class Contact {
    * @return purchasesTrackingCategories
   **/
   @ApiModelProperty(value = "The default purchases tracking categories for contacts")
-  public List<TrackingCategory> getPurchasesTrackingCategories() {
+  public List<SalesTrackingCategory> getPurchasesTrackingCategories() {
     return purchasesTrackingCategories;
   }
 
-  public void setPurchasesTrackingCategories(List<TrackingCategory> purchasesTrackingCategories) {
+  public void setPurchasesTrackingCategories(List<SalesTrackingCategory> purchasesTrackingCategories) {
     this.purchasesTrackingCategories = purchasesTrackingCategories;
   }
 

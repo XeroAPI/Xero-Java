@@ -48,8 +48,8 @@ public class Receipt {
   private Contact contact = null;
 
   
-  @JsonProperty("Lineitems")
-  private List<LineItem> lineitems = new ArrayList<LineItem>();
+  @JsonProperty("LineItems")
+  private List<LineItem> lineItems = new ArrayList<LineItem>();
 
   
   @JsonProperty("User")
@@ -182,27 +182,27 @@ public class Receipt {
     this.contact = contact;
   }
 
-  public Receipt lineitems(List<LineItem> lineitems) {
-    this.lineitems = lineitems;
+  public Receipt lineItems(List<LineItem> lineItems) {
+    this.lineItems = lineItems;
     return this;
   }
 
-  public Receipt addLineitemsItem(LineItem lineitemsItem) {
-    this.lineitems.add(lineitemsItem);
+  public Receipt addLineItemsItem(LineItem lineItemsItem) {
+    this.lineItems.add(lineItemsItem);
     return this;
   }
 
    /**
-   * Get lineitems
-   * @return lineitems
+   * Get lineItems
+   * @return lineItems
   **/
   @ApiModelProperty(required = true, value = "")
-  public List<LineItem> getLineitems() {
-    return lineitems;
+  public List<LineItem> getLineItems() {
+    return lineItems;
   }
 
-  public void setLineitems(List<LineItem> lineitems) {
-    this.lineitems = lineitems;
+  public void setLineItems(List<LineItem> lineItems) {
+    this.lineItems = lineItems;
   }
 
   public Receipt user(User user) {
@@ -449,7 +449,7 @@ public class Receipt {
     Receipt receipt = (Receipt) o;
     return Objects.equals(this.date, receipt.date) &&
         Objects.equals(this.contact, receipt.contact) &&
-        Objects.equals(this.lineitems, receipt.lineitems) &&
+        Objects.equals(this.lineItems, receipt.lineItems) &&
         Objects.equals(this.user, receipt.user) &&
         Objects.equals(this.reference, receipt.reference) &&
         Objects.equals(this.lineAmountTypes, receipt.lineAmountTypes) &&
@@ -468,7 +468,7 @@ public class Receipt {
 
   @Override
   public int hashCode() {
-    return Objects.hash(date, contact, lineitems, user, reference, lineAmountTypes, subTotal, totalTax, total, receiptID, status, receiptNumber, updatedDateUTC, hasAttachments, url, validationErrors, attachments);
+    return Objects.hash(date, contact, lineItems, user, reference, lineAmountTypes, subTotal, totalTax, total, receiptID, status, receiptNumber, updatedDateUTC, hasAttachments, url, validationErrors, attachments);
   }
 
 
@@ -478,7 +478,7 @@ public class Receipt {
     sb.append("class Receipt {\n");
     sb.append("    date: ").append(toIndentedString(date)).append("\n");
     sb.append("    contact: ").append(toIndentedString(contact)).append("\n");
-    sb.append("    lineitems: ").append(toIndentedString(lineitems)).append("\n");
+    sb.append("    lineItems: ").append(toIndentedString(lineItems)).append("\n");
     sb.append("    user: ").append(toIndentedString(user)).append("\n");
     sb.append("    reference: ").append(toIndentedString(reference)).append("\n");
     sb.append("    lineAmountTypes: ").append(toIndentedString(lineAmountTypes)).append("\n");

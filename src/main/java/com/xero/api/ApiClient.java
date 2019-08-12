@@ -30,7 +30,7 @@ public class ApiClient {
             .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
             .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
             .setDateFormat(new RFC3339DateFormat())
-            .setSerializationInclusion(Include.NON_NULL);
+            .setSerializationInclusion(Include.NON_EMPTY);
         objectMapper.configure(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL, true);
         
         ThreeTenModule module = new ThreeTenModule();
