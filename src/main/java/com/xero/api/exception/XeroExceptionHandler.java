@@ -100,6 +100,8 @@ public class XeroExceptionHandler {
             } catch (Exception e) {
                 logger.error(e);
             }
+        } else {
+            return new XeroApiException(500, content);
         }
 		return null;
     }
