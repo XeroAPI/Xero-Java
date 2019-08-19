@@ -15,7 +15,7 @@ The best way to propose changes to the codebase is to open an [issue](https://gi
 
 We are using OpenAPI generator and [our OpenAPI specs](https://github.com/XeroAPI/Xero-OpenAPI), to create and update our models and client classes.  Improvements may require updates to our OAS or our customized mustache templates.
 
-We welcome your feedback and will work with you to incorporate them via the (generated code or pull request):
+We welcome your feedback and will work with you to incorporate them. (via the generated code or pull request):
 
 Sometimes, a pull request is the best way to communicate a change. 
 
