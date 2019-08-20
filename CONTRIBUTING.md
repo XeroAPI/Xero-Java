@@ -17,6 +17,7 @@ The following is a set of guidelines for contributing to Xero and its projects, 
 [I don't want to read this whole thing, I just have a question!!!](#i-dont-want-to-read-this-whole-thing-i-just-have-a-question)
 
 [How Can I Contribute?](#how-can-i-contribute)
+  * [What version of SDK are you using?](#what-version-of-the-sdk-are-you-using)
   * [Reporting Bugs](#reporting-bugs)
   * [Suggesting Enhancements](#suggesting-enhancements)
   * [Pull Requests](#pull-requests)
@@ -40,6 +41,16 @@ We have an official [message board](https://community.xero.com/developer) where 
 # How Can I Contribute?
 
 You can contribute by reporting bugs, suggesting enhancements, improving documentation i.e. [README](https://github.com/XeroAPI/Xero-Java/blob/oauth2/README.md) or submitting a pull request.
+
+
+## What version of the SDK are your using?
+
+As of Sept 2019, support for oAuth 2 will be generally available for developers.  During this transition period from oAuth 1.0a to oAuth 2, we will be supporting two versions of the SDK.  
+
+* 2.x supports oAuth 1.0a
+* 3.x supports oAuth 2
+
+Bugs and enhancements for version 3.x will be prioritized over 2.x.
 
 ## Reporting Bugs
 
