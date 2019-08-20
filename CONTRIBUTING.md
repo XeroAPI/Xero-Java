@@ -35,7 +35,7 @@ We have an official [message board](https://community.xero.com/developer) where 
 * [Xero FAQ](https://developer.xero.com/faq)
 * [Community, the official Xero message board](https://community.xero.com/developer)
 * [Stackoverflow - Xero related](https://stackoverflow.com/questions/tagged/xero-api?sort=Newest)
-* [Submit requests for support](https://developer.xero.com/contact-xero-developer-platform-support/) using this SDK or Xero's developer platform and APIs to our API Support team.
+* [Submit requests for support](https://developer.xero.com/contact-xero-developer-platform-support/) to our API Support team.
 
 # How Can I Contribute?
 
@@ -77,16 +77,16 @@ We are using [OpenAPI Generator](https://github.com/OpenAPITools/openapi-generat
 
 ### Submit a pull request
 
-1. [Fork][fork] and clone the repository
+1. Fork and clone the repository
 1. Create a new branch: `git checkout -b my-branch-name`
 1. Make your change, add tests if needed
 1. Make sure the tests pass on your machine: `mvn test`
-1. Push to your fork and [submit a pull request][pr]
+1. Push to your fork and submit a pull request
 1. Pat your self on the back and wait for your pull request to be reviewed and merged.
 
 Here are a few things you can do that will increase the likelihood of your pull request being accepted:
 
-- Follow the [style guide][style-guide].
+- Follow the [style guide](#style-guide).
 - Write tests.
 - Keep your change as focused as possible. If there are multiple changes you would like to make that are not dependent upon each other, consider submitting them as separate pull requests.
 - Write a [good commit message](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html).
