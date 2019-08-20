@@ -10,10 +10,10 @@ We love your input! We want to make contributing to this project as easy and tra
 ## We Develop with Github
 We use github to host code, to track issues and feature requests, as well as accept pull requests.
 
-## We Use [OpenAPI Generator](https://github.com/OpenAPITools/openapi-generator)
+## We Use OpenAPI Generator
 The best way to propose changes to the codebase is to open an [issue](https://github.com/XeroAPI/Xero-Java/issues) to discuss.  
 
-We are using OpenAPI generator and [our OpenAPI specs](https://github.com/XeroAPI/Xero-OpenAPI), to create and update our models and client classes.  Improvements may require updates to our OAS or our customized mustache templates.
+We are using [OpenAPI Generator](https://github.com/OpenAPITools/openapi-generator) and [our OpenAPI specs](https://github.com/XeroAPI/Xero-OpenAPI), to create and update our models and client classes.  Improvements may require updates to our OAS or our customized mustache templates.
 
 We welcome your feedback and will work with you to incorporate them. (via generated code or pull request):
 
