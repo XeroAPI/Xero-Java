@@ -42,7 +42,7 @@ public class XeroApiException extends RuntimeException {
         this.responseCode = responseCode;
         this.error = error;
     }
-    
+
     public XeroApiException(int responseCode, String message, Error error) {
         super(responseCode + " response: " + message);
         this.responseCode = responseCode;
@@ -61,7 +61,7 @@ public class XeroApiException extends RuntimeException {
     public Map<String, String> getMessages() {
         return messageMap;
     }
-    
+
     public Error getError() {
         return error;
     }

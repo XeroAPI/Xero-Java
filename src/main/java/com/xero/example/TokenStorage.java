@@ -10,58 +10,51 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class TokenStorage 
-{
-	
-	public  TokenStorage() 
-	{
-		super();
-	}
+public class TokenStorage {
 
-	public String get(HttpServletRequest request,String key)
-	{
-		String item = null;
-		Cookie[] cookies = request.getCookies();
-		if (cookies != null) {
-			for (int i = 0; i < cookies.length; i++) 
-			{
-				if (cookies[i].getName().equals(key)) 
-				{
-					item = cookies[i].getValue();
-				}
-			}
-		}
-		return item;
-	}
+    public TokenStorage() {
+        super();
+    }
 
-	public void clear(HttpServletResponse response)
-	{
-		HashMap<String,String> map = new HashMap<String,String>();
-		map.put("accessToken","");
-		map.put("refreshToken","");
-		map.put("xeroTenantId","");
+    public String get(HttpServletRequest request, String key) {
+        String item = null;
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (int i = 0; i < cookies.length; i++) {
+                if (cookies[i].getName().equals(key)) {
+                    item = cookies[i].getValue();
+                }
+            }
+        }
+        return item;
+    }
 
-		save(response,map);
-	}
-	
-	public void saveItem(HttpServletResponse response,String key, String value)
-	{
-		Cookie t = new Cookie(key,value);
-		response.addCookie(t);
-	}
+    public void clear(HttpServletResponse response) {
+        HashMap<String, String> map = new HashMap<String, String>();
+        map.put("tempToken", "");
+        map.put("tempTokenSecret", "");
+        map.put("sessionHandle", "");
+        map.put("tokenTimestamp", "");
 
-	public void save(HttpServletResponse response,HashMap<String,String> map)
-	{
-		Set<Entry<String, String>> set = map.entrySet();
-		Iterator<Entry<String, String>> iterator = set.iterator();
-	
-		while(iterator.hasNext()) {
-			Map.Entry<?, ?> mentry = iterator.next();
-			String key = (String)mentry.getKey();
-			String value = (String)mentry.getValue();
+        save(response, map);
+    }
 
-			Cookie t = new Cookie(key,value);
-			response.addCookie(t);
-		}
-	}
+    public void saveItem(HttpServletResponse response, String key, String value) {
+        Cookie t = new Cookie(key, value);
+        response.addCookie(t);
+    }
+
+    public void save(HttpServletResponse response, HashMap<String, String> map) {
+        Set<Entry<String, String>> set = map.entrySet();
+        Iterator<Entry<String, String>> iterator = set.iterator();
+
+        while (iterator.hasNext()) {
+            Map.Entry<?, ?> mentry = iterator.next();
+            String key = (String) mentry.getKey();
+            String value = (String) mentry.getValue();
+
+            Cookie t = new Cookie(key, value);
+            response.addCookie(t);
+        }
+    }
 }
