@@ -47,8 +47,9 @@ You can contribute by reporting bugs, suggesting enhancements, improving documen
 
 As of Sept 2019, support for oAuth 2 will be generally available for developers.  During this transition period from oAuth 1.0a to oAuth 2, we will be supporting two versions of the SDK.  
 
-* 2.x supports oAuth 1.0a
-* 3.x supports oAuth 2
+
+* 2.x code resides in `master` and supports oAuth 1.0a
+* 3.x code resides in the `oauth2` branch and supports oAuth 2
 
 Bugs and enhancements for version 3.x will be prioritized over 2.x.
 
@@ -63,6 +64,7 @@ Before opening a new issue:
 
 ### Write bug reports with detail, background, and sample code
 
+- Which version of the SDK are you using?
 - A quick summary and/or background
 - Steps to reproduce
   - Be specific!
