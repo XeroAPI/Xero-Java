@@ -43,7 +43,7 @@ We have an official [message board](https://community.xero.com/developer) where 
 You can contribute by reporting bugs, suggesting enhancements, improving documentation i.e. [README](https://github.com/XeroAPI/Xero-Java/blob/oauth2/README.md) or submitting a pull request.
 
 
-## Which version of the SDK are your using?
+## Which version of the SDK are you using?
 
 As of Sept 2019, support for oAuth 2 will be generally available for developers.  During this transition period from oAuth 1.0a to oAuth 2, we will be supporting two versions of the SDK.  
 
