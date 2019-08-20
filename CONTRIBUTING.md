@@ -29,11 +29,12 @@ Please note that this project is released with a [Contributor Code of Conduct](h
 
 > **Note:** Please don't file an issue to ask a question. You'll get faster results by using the resources below.
 
-We have an official message board where Xero API support and the community chimes in with helpful advice if you have questions.
+We have an official [message board](https://community.xero.com/developer) where Xero API support and the community chimes in with helpful advice if you have questions.
 
 * [API Documentation](https://developer.xero.com/documentation/)
 * [Xero FAQ](https://developer.xero.com/faq)
 * [Community, the official Xero message board](https://community.xero.com/developer)
+* [Stackoverflow - Xero related](https://stackoverflow.com/questions/tagged/xero-api?sort=Newest)
 * [Submit requests for support](https://developer.xero.com/contact-xero-developer-platform-support/) using this SDK or Xero's developer platform and APIs to our API Support team.
 
 # How Can I Contribute?
