@@ -17,7 +17,7 @@ The following is a set of guidelines for contributing to Xero and its projects, 
 [I don't want to read this whole thing, I just have a question!!!](#i-dont-want-to-read-this-whole-thing-i-just-have-a-question)
 
 [How Can I Contribute?](#how-can-i-contribute)
-  * [Which version of SDK are you using?](#Which-version-of-the-SDK-are-you-using?)
+  * [Which version of SDK are you using?](#Which-version-of-the-SDK-are-you-using)
   * [Reporting Bugs](#reporting-bugs)
   * [Suggesting Enhancements](#suggesting-enhancements)
   * [Pull Requests](#pull-requests)
