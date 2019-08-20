@@ -23,13 +23,13 @@ The following is a set of guidelines for contributing to Xero and its projects, 
 
 
 ## Code of Conduct
-Please note that this project is released with a [Contributor Code of Conduct][code-of-conduct]. By participating in this project you agree to abide by its terms.
+Please note that this project is released with a [Contributor Code of Conduct][https://github.com/XeroAPI/Xero-Java/blob/oauth2/CODE_OF_CONDUCT.md]. By participating in this project you agree to abide by its terms.
 
 ## I don't want to read this whole thing I just have a question!!!
 
 > **Note:** Please don't file an issue to ask a question. You'll get faster results by using the resources below.
 
-We have an official message board and detailed FAQs and where the community chimes in with helpful advice if you have questions.
+We have an official message board where Xero API support and the community chimes in with helpful advice if you have questions.
 
 * [API Documentation](https://developer.xero.com/documentation/)
 * [Xero FAQ](https://developer.xero.com/faq)
