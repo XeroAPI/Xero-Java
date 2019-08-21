@@ -7,8 +7,8 @@ assignees: SidneyAllen
 
 ---
 
-**Which SDK?
-- Version [e.g. 2.3.10]
+**SDK you're using (please complete the following information):**
+ - Version [e.g. 2.3.10]
 
 **Is your feature request related to a problem? Please describe.**
 A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
