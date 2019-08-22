@@ -53,6 +53,7 @@ import com.xero.models.accounting.CreditNote;
 import com.xero.models.accounting.CreditNotes;
 import com.xero.models.accounting.Currencies;
 import com.xero.models.accounting.Currency;
+import com.xero.models.accounting.CurrencyCode;
 import com.xero.models.accounting.Employee;
 import com.xero.models.accounting.Employees;
 import com.xero.models.accounting.ExpenseClaim;
@@ -1544,15 +1545,11 @@ public class RequestResourceServlet extends HttpServlet
 				messages.add("Get all Currencies - Total : " + currencies.getCurrencies().size());
 				
 				// Create New
-				// Error: 400
-				/*
 				Currency curr = new Currency();
-				curr.setCode("SGD");
-				Currencies currs = new Currencies();
-				currs.addCurrenciesItem(curr);
-				Currencies newCurrency = accountingApi.createCurrency(currs);
-				messages.add("New Currencies - Code : " + newCurrency.getCurrencies().get(0).getCode());
-				*/
+	            curr.setCode(CurrencyCode.CAD);
+	            curr.setDescription("Canadian Dollar");
+	            Currencies newCurrency = accountingApi.createCurrency(curr);
+	        
 			} catch (XeroApiException e) {
 				System.out.println(e.getMessage());	
 			}	
