@@ -17,6 +17,7 @@ import com.xero.models.accounting.ContactGroups;
 import com.xero.models.accounting.Contacts;
 import com.xero.models.accounting.CreditNotes;
 import com.xero.models.accounting.Currencies;
+import com.xero.models.accounting.Currency;
 import com.xero.models.accounting.Employees;
 import com.xero.models.accounting.Error;
 import com.xero.models.accounting.ExpenseClaims;
@@ -1016,11 +1017,11 @@ public class AccountingApi {
     }
   /**
     * <p><b>200</b> - Unsupported - return response incorrect exception, API is not able to create new Currency
-    * @param currencies The currencies parameter
+    * @param currency The currency parameter
     * @return Currencies
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Currencies createCurrency(Currencies currencies) throws IOException {
+    public Currencies createCurrency(Currency currency) throws IOException {
         try {
             String strBody = null;
             Map<String, String> params = null;
@@ -1029,7 +1030,7 @@ public class AccountingApi {
             String url = uriBuilder.build().toString();
 
             
-            strBody = apiClient.getObjectMapper().writeValueAsString(currencies);
+            strBody = apiClient.getObjectMapper().writeValueAsString(currency);
 
             String response = this.DATA(url, strBody, params, "PUT");
 
