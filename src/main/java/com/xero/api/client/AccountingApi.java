@@ -17,6 +17,7 @@ import com.xero.models.accounting.ContactGroups;
 import com.xero.models.accounting.Contacts;
 import com.xero.models.accounting.CreditNotes;
 import com.xero.models.accounting.Currencies;
+import com.xero.models.accounting.Currency;
 import com.xero.models.accounting.Employees;
 import com.xero.models.accounting.Error;
 import com.xero.models.accounting.ExpenseClaims;
@@ -1476,15 +1477,15 @@ public class AccountingApi {
   /**
     * <p><b>200</b> - Unsupported - return response incorrect exception, API is not able to create new Currency
     * @param xeroTenantId Xero identifier for Tenant
-    * @param currencies The currencies parameter
+    * @param currency The currency parameter
     * @param accessToken Authorization token for user set in header of each request
     * @return Currencies
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Currencies  createCurrency(String accessToken, String xeroTenantId, Currencies currencies) throws IOException {
+    public Currencies  createCurrency(String accessToken, String xeroTenantId, Currency currency) throws IOException {
         try {
             TypeReference<Currencies> typeRef = new TypeReference<Currencies>() {};
-            HttpResponse response = createCurrencyForHttpResponse(accessToken, xeroTenantId, currencies);
+            HttpResponse response = createCurrencyForHttpResponse(accessToken, xeroTenantId, currency);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -1495,13 +1496,13 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse createCurrencyForHttpResponse(String accessToken,  String xeroTenantId,  Currencies currencies) throws IOException {
+    public HttpResponse createCurrencyForHttpResponse(String accessToken,  String xeroTenantId,  Currency currency) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createCurrency");
-        }// verify the required parameter 'currencies' is set
-        if (currencies == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'currencies' when calling createCurrency");
+        }// verify the required parameter 'currency' is set
+        if (currency == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'currency' when calling createCurrency");
         }
         if (accessToken == null) {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createCurrency");
@@ -1520,7 +1521,7 @@ public class AccountingApi {
         HttpContent content = null;
         
         
-        content = apiClient.new JacksonJsonHttpContent(currencies);
+        content = apiClient.new JacksonJsonHttpContent(currency);
         
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);

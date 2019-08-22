@@ -1116,21 +1116,16 @@ public class AuthenticatedResource extends HttpServlet {
         } else if (object.equals("Currencies")) {
 
             /* CURRENCY */
-            // JSON - incomplete
             try {
                 // Get All
                 Currencies currencies = accountingApi.getCurrencies(accessToken, xeroTenantId, where, order);
                 messages.add("Get all Currencies - Total : " + currencies.getCurrencies().size());
 
                 // Create New
-                // Error: 400
-                /*
-                 * Currency curr = new Currency(); curr.setCode(CurrencyCode.SGD); Currencies
-                 * currs = new Currencies(); currs.addCurrenciesItem(curr); Currencies
-                 * newCurrency = accountingApi.createCurrency(currs);
-                 * messages.add("New Currencies - Code : " +
-                 * newCurrency.getCurrencies().get(0).getCode());
-                 */
+                Currency curr = new Currency();
+                curr.setCode(CurrencyCode.SGD);
+                curr.setDescription("Singapore Dollar");
+                Currencies newCurrency = accountingApi.createCurrency(curr);
             } catch (XeroApiException xe) {
                 this.addError(xe, messages);
             } catch (Exception e) {
