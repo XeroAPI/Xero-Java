@@ -682,7 +682,7 @@ public class AuthenticatedResource extends HttpServlet {
                     BankTransaction bt = new BankTransaction();
                     bt.setBankAccount(bankAcct);
                     bt.setContact(useContact);
-                    bt.setLineitems(lineItems);
+                    bt.setLineItems(lineItems);
                     bt.setType(com.xero.models.accounting.BankTransaction.TypeEnum.SPEND);
                     BankTransactions bts = new BankTransactions();
                     bts.addBankTransactionsItem(bt);
@@ -1125,7 +1125,7 @@ public class AuthenticatedResource extends HttpServlet {
                 Currency curr = new Currency();
                 curr.setCode(CurrencyCode.SGD);
                 curr.setDescription("Singapore Dollar");
-                Currencies newCurrency = accountingApi.createCurrency(curr);
+                Currencies newCurrency = accountingApi.createCurrency(accessToken, xeroTenantId, curr);
             } catch (XeroApiException xe) {
                 this.addError(xe, messages);
             } catch (Exception e) {
@@ -1206,7 +1206,7 @@ public class AuthenticatedResource extends HttpServlet {
                     li.setLineAmount(40.00);
                     li.setTaxType("NONE");
 
-                    receipt.addLineitemsItem(li);
+                    receipt.addLineItemsItem(li);
                     receipt.setUser(user);
                     receipt.lineAmountTypes(LineAmountTypes.NOTAX);
                     receipt.contact(useContact);
@@ -1759,7 +1759,7 @@ public class AuthenticatedResource extends HttpServlet {
                 BankTransaction bt = new BankTransaction();
                 bt.setBankAccount(bankAccount);
                 bt.setContact(useContact);
-                bt.setLineitems(lineItems);
+                bt.setLineItems(lineItems);
                 bt.setType(com.xero.models.accounting.BankTransaction.TypeEnum.RECEIVE_OVERPAYMENT);
                 BankTransactions bts = new BankTransactions();
                 bts.addBankTransactionsItem(bt);
@@ -1935,7 +1935,7 @@ public class AuthenticatedResource extends HttpServlet {
                     BankTransaction bt = new BankTransaction();
                     bt.setBankAccount(bankAccount);
                     bt.setContact(useContact);
-                    bt.setLineitems(lineItems);
+                    bt.setLineItems(lineItems);
                     bt.setType(com.xero.models.accounting.BankTransaction.TypeEnum.RECEIVE_PREPAYMENT);
                     BankTransactions bts = new BankTransactions();
                     bts.addBankTransactionsItem(bt);
@@ -2111,7 +2111,7 @@ public class AuthenticatedResource extends HttpServlet {
                 li.setLineAmount(40.00);
                 li.setTaxType("NONE");
 
-                receipt.addLineitemsItem(li);
+                receipt.addLineItemsItem(li);
                 receipt.setUser(useUser);
                 receipt.lineAmountTypes(LineAmountTypes.NOTAX);
                 receipt.contact(useContact);
