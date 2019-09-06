@@ -106,7 +106,7 @@ public class AccountingApiReportsTest {
         assertThat(response.getReports().get(0).getRows().get(2).getRows().get(0).getRowType(), is(equalTo(com.xero.models.accounting.RowType.ROW)));
         assertThat(response.getReports().get(0).getRows().get(2).getRows().get(0).getCells().get(0).getValue(), is(equalTo("2018-10-09T00:00:00")));
         assertThat(response.getReports().get(0).getRows().get(2).getRows().get(0).getCells().get(0).getAttributes().get(0).getId(), is(equalTo("invoiceID")));
-        assertThat(response.getReports().get(0).getRows().get(2).getRows().get(0).getCells().get(0).getAttributes().get(0).getValue(), is(equalTo("1f3960ae-0537-4438-a4dd-76d785e6d7d8")));
+        assertThat(response.getReports().get(0).getRows().get(2).getRows().get(0).getCells().get(0).getAttributes().get(0).getValue().toString(),  is(equalTo("1f3960ae-0537-4438-a4dd-76d785e6d7d8")));
         assertThat(response.getReports().get(0).getRows().get(2).getRows().get(1).getRowType(), is(equalTo(com.xero.models.accounting.RowType.SUMMARYROW)));        
         assertThat(response.getReports().get(0).getRows().get(2).getRows().get(1).getCells().get(0).getValue(), is(equalTo("Total")));
         assertThat(response.getReports().get(0).getRows().get(2).getRows().get(1).getCells().get(4).getValue(), is(equalTo("250.00")));
@@ -141,7 +141,7 @@ public class AccountingApiReportsTest {
         assertThat(response.getReports().get(0).getRows().get(2).getRows().get(0).getRowType(), is(equalTo(com.xero.models.accounting.RowType.ROW)));
         assertThat(response.getReports().get(0).getRows().get(2).getRows().get(0).getCells().get(0).getValue(), is(equalTo("2018-05-13T00:00:00")));
         assertThat(response.getReports().get(0).getRows().get(2).getRows().get(0).getCells().get(0).getAttributes().get(0).getId(), is(equalTo("invoiceID")));
-        assertThat(response.getReports().get(0).getRows().get(2).getRows().get(0).getCells().get(0).getAttributes().get(0).getValue(), is(equalTo("40ebad47-24e2-4dc9-a5f5-579df427671b")));
+        assertThat(response.getReports().get(0).getRows().get(2).getRows().get(0).getCells().get(0).getAttributes().get(0).getValue().toString(), is(equalTo("40ebad47-24e2-4dc9-a5f5-579df427671b")));
         assertThat(response.getReports().get(0).getRows().get(2).getRows().get(1).getRowType(), is(equalTo(com.xero.models.accounting.RowType.ROW)));        
         assertThat(response.getReports().get(0).getRows().get(2).getRows().get(1).getCells().get(0).getValue(), is(equalTo("2019-04-23T00:00:00")));
         assertThat(response.getReports().get(0).getRows().get(2).getRows().get(1).getCells().get(4).getValue(), is(equalTo("50.00")));
@@ -181,7 +181,7 @@ public class AccountingApiReportsTest {
         assertThat(response.getReports().get(0).getRows().get(2).getRows().get(0).getRowType(), is(equalTo(com.xero.models.accounting.RowType.ROW)));
         assertThat(response.getReports().get(0).getRows().get(2).getRows().get(0).getCells().get(0).getValue(), is(equalTo("Country Savings")));
         assertThat(response.getReports().get(0).getRows().get(2).getRows().get(0).getCells().get(0).getAttributes().get(0).getId(), is(equalTo("account")));
-        assertThat(response.getReports().get(0).getRows().get(2).getRows().get(0).getCells().get(0).getAttributes().get(0).getValue(), is(equalTo("041207d2-3d61-4e5d-8c1a-b9236955a71c")));
+        assertThat(response.getReports().get(0).getRows().get(2).getRows().get(0).getCells().get(0).getAttributes().get(0).getValue().toString(), is(equalTo("041207d2-3d61-4e5d-8c1a-b9236955a71c")));
         //System.out.println(response.getReports().toString());
     }
 
@@ -211,7 +211,7 @@ public class AccountingApiReportsTest {
         assertThat(response.getReports().get(0).getRows().get(1).getRows().get(0).getRowType(), is(equalTo(com.xero.models.accounting.RowType.ROW)));
         assertThat(response.getReports().get(0).getRows().get(1).getRows().get(0).getCells().get(0).getValue(), is(equalTo("Big City Bank")));
         assertThat(response.getReports().get(0).getRows().get(1).getRows().get(0).getCells().get(0).getAttributes().get(0).getId(), is(equalTo("accountID")));
-        assertThat(response.getReports().get(0).getRows().get(1).getRows().get(0).getCells().get(0).getAttributes().get(0).getValue(), is(equalTo("03f9cf1e-2deb-4bf1-b0a8-b57f08672eb8")));
+        assertThat(response.getReports().get(0).getRows().get(1).getRows().get(0).getCells().get(0).getAttributes().get(0).getValue().toString(), is(equalTo("03f9cf1e-2deb-4bf1-b0a8-b57f08672eb8")));
         assertThat(response.getReports().get(0).getRows().get(1).getRows().get(1).getRowType(), is(equalTo(com.xero.models.accounting.RowType.SUMMARYROW)));
         assertThat(response.getReports().get(0).getRows().get(1).getRows().get(1).getCells().get(0).getValue(), is(equalTo("Total")));
         assertThat(response.getReports().get(0).getRows().get(1).getRows().get(1).getCells().get(4).getValue(), is(equalTo("10.00")));
@@ -298,7 +298,7 @@ public class AccountingApiReportsTest {
         assertThat(response.getReports().get(0).getRows().get(1).getRows().get(0).getRowType(), is(equalTo(com.xero.models.accounting.RowType.ROW)));
         assertThat(response.getReports().get(0).getRows().get(1).getRows().get(0).getCells().get(0).getValue(), is(equalTo("Big Expense (002)")));
         assertThat(response.getReports().get(0).getRows().get(1).getRows().get(0).getCells().get(0).getAttributes().get(0).getId(), is(equalTo("account")));
-        assertThat(response.getReports().get(0).getRows().get(1).getRows().get(0).getCells().get(0).getAttributes().get(0).getValue(), is(equalTo("da962997-a8bd-4dff-9616-01cdc199283f")));
+        assertThat(response.getReports().get(0).getRows().get(1).getRows().get(0).getCells().get(0).getAttributes().get(0).getValue().toString(), is(equalTo("da962997-a8bd-4dff-9616-01cdc199283f")));
         //System.out.println(response.getReports().get(0).toString());
     }    
 
@@ -335,7 +335,7 @@ public class AccountingApiReportsTest {
         assertThat(response.getReports().get(0).getRows().get(1).getRows().get(0).getRowType(), is(equalTo(com.xero.models.accounting.RowType.ROW)));
         assertThat(response.getReports().get(0).getRows().get(1).getRows().get(0).getCells().get(0).getValue(), is(equalTo("Big Expense")));
         assertThat(response.getReports().get(0).getRows().get(1).getRows().get(0).getCells().get(0).getAttributes().get(0).getId(), is(equalTo("account")));
-        assertThat(response.getReports().get(0).getRows().get(1).getRows().get(0).getCells().get(0).getAttributes().get(0).getValue(), is(equalTo("da962997-a8bd-4dff-9616-01cdc199283f")));
+        assertThat(response.getReports().get(0).getRows().get(1).getRows().get(0).getCells().get(0).getAttributes().get(0).getValue().toString(), is(equalTo("da962997-a8bd-4dff-9616-01cdc199283f")));
         //System.out.println(response.toString());
     }
 
@@ -371,10 +371,10 @@ public class AccountingApiReportsTest {
         assertThat(response.getReports().get(0).getRows().get(1).getRows().get(0).getRowType(), is(equalTo(com.xero.models.accounting.RowType.ROW)));
         assertThat(response.getReports().get(0).getRows().get(1).getRows().get(0).getCells().get(0).getValue(), is(equalTo("Big Expense")));
         assertThat(response.getReports().get(0).getRows().get(1).getRows().get(0).getCells().get(0).getAttributes().get(0).getId(), is(equalTo("account")));
-        assertThat(response.getReports().get(0).getRows().get(1).getRows().get(0).getCells().get(0).getAttributes().get(0).getValue(), is(equalTo("da962997-a8bd-4dff-9616-01cdc199283f")));
+        assertThat(response.getReports().get(0).getRows().get(1).getRows().get(0).getCells().get(0).getAttributes().get(0).getValue().toString(), is(equalTo("da962997-a8bd-4dff-9616-01cdc199283f")));
         assertThat(response.getReports().get(0).getRows().get(1).getRows().get(0).getCells().get(1).getValue(), is(equalTo("480.00")));
         assertThat(response.getReports().get(0).getRows().get(1).getRows().get(0).getCells().get(1).getAttributes().get(0).getId(), is(equalTo("account")));
-        assertThat(response.getReports().get(0).getRows().get(1).getRows().get(0).getCells().get(1).getAttributes().get(0).getValue(), is(equalTo("da962997-a8bd-4dff-9616-01cdc199283f")));
+        assertThat(response.getReports().get(0).getRows().get(1).getRows().get(0).getCells().get(1).getAttributes().get(0).getValue().toString(), is(equalTo("da962997-a8bd-4dff-9616-01cdc199283f")));
         //System.out.println(response.toString());
     }
 

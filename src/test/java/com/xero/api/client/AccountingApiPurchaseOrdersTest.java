@@ -82,9 +82,8 @@ public class AccountingApiPurchaseOrdersTest {
     @Test
     public void createPurchaseOrderTest() throws IOException {
         System.out.println("@Test - createPurchaseOrder");
-        PurchaseOrders purchaseOrders = new PurchaseOrders();
-        Boolean summarizeErrors = null;
-        PurchaseOrders response = accountingApi.createPurchaseOrder(accessToken,xeroTenantId,purchaseOrders, summarizeErrors);
+        PurchaseOrder purchaseOrder = new PurchaseOrder();
+        PurchaseOrders response = accountingApi.createPurchaseOrder(accessToken,xeroTenantId,purchaseOrder);
 
         // TODO: test validations
         assertThat(response.getPurchaseOrders().get(0).getContact().getContactID(), is(equalTo(UUID.fromString("430fa14a-f945-44d3-9f97-5df5e28441b8"))));

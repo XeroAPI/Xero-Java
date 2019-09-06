@@ -1963,15 +1963,14 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
     * @param invoice The invoice parameter
-    * @param summarizeErrors shows validation errors for each invoice
     * @param accessToken Authorization token for user set in header of each request
     * @return Invoices
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Invoices  createInvoice(String accessToken, String xeroTenantId, Invoice invoice, Boolean summarizeErrors) throws IOException {
+    public Invoices  createInvoice(String accessToken, String xeroTenantId, Invoice invoice) throws IOException {
         try {
             TypeReference<Invoices> typeRef = new TypeReference<Invoices>() {};
-            HttpResponse response = createInvoiceForHttpResponse(accessToken, xeroTenantId, invoice, summarizeErrors);
+            HttpResponse response = createInvoiceForHttpResponse(accessToken, xeroTenantId, invoice);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -1982,7 +1981,7 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse createInvoiceForHttpResponse(String accessToken,  String xeroTenantId,  Invoice invoice,  Boolean summarizeErrors) throws IOException {
+    public HttpResponse createInvoiceForHttpResponse(String accessToken,  String xeroTenantId,  Invoice invoice) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createInvoice");
@@ -2000,17 +1999,6 @@ public class AccountingApi {
         
         String correctPath = "/Invoices";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-        if (summarizeErrors != null) {
-            String key = "SummarizeErrors";
-            Object value = summarizeErrors;
-            if (value instanceof Collection) {
-                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
-            } else if (value instanceof Object[]) {
-                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-            } else {
-                uriBuilder = uriBuilder.queryParam(key, value);
-            }
-        }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 

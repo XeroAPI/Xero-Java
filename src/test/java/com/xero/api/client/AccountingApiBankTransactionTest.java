@@ -135,8 +135,8 @@ public class AccountingApiBankTransactionTest {
 	@Test
 	public void testCreateBankTransaction() throws Exception {
 		System.out.println("@Test - createBankTransaction");
-		BankTransactions newBankTransactions = new BankTransactions();
-		BankTransactions response = accountingApi.createBankTransaction(accessToken,xeroTenantId,newBankTransactions,null);
+		BankTransaction newBankTransaction = new BankTransaction();
+		BankTransactions response = accountingApi.createBankTransaction(accessToken,xeroTenantId,newBankTransaction);
 					
 		assertThat(response.getBankTransactions().get(0).getBankTransactionID(), is(equalTo(UUID.fromString("1289c190-e46d-434b-9628-463ffdb52f00"))));		
 		assertThat(response.getBankTransactions().get(0).getStatus(), is(equalTo(com.xero.models.accounting.BankTransaction.StatusEnum.AUTHORISED)));

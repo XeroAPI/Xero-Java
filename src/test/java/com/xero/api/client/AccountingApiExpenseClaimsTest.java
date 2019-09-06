@@ -87,8 +87,7 @@ public class AccountingApiExpenseClaimsTest {
     public void createExpenseClaimTest() throws IOException {
         System.out.println("@Test - createExpenseClaim");
         ExpenseClaims expenseClaims = new ExpenseClaims();
-        Boolean summarizeErrors = null;
-        ExpenseClaims response = accountingApi.createExpenseClaim(accessToken,xeroTenantId,expenseClaims, summarizeErrors);
+        ExpenseClaims response = accountingApi.createExpenseClaims(accessToken,xeroTenantId,expenseClaims);
 
         assertThat(response.getExpenseClaims().get(0).getExpenseClaimID(), is(equalTo(UUID.fromString("646b15ab-b874-4e13-82ae-f4385b2ac4b6"))));
         assertThat(response.getExpenseClaims().get(0).getStatus(), is(equalTo(com.xero.models.accounting.ExpenseClaim.StatusEnum.SUBMITTED)));

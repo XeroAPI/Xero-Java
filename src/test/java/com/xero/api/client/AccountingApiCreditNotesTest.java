@@ -88,8 +88,8 @@ public class AccountingApiCreditNotesTest {
     public void createCreditNoteTest() throws IOException {
         System.out.println("@Test - createCreditNote");
         Boolean summarizeErrors = null;
-        CreditNotes creditNotes = new CreditNotes();
-        CreditNotes response = accountingApi.createCreditNote(accessToken,xeroTenantId,creditNotes, summarizeErrors);
+        CreditNote creditNote = new CreditNote();
+        CreditNotes response = accountingApi.createCreditNote(accessToken,xeroTenantId,creditNote);
         
         assertThat(response.getCreditNotes().get(0).getType(), is(equalTo(com.xero.models.accounting.CreditNote.TypeEnum.ACCPAYCREDIT)));
         assertThat(response.getCreditNotes().get(0).getStatus(), is(equalTo(com.xero.models.accounting.CreditNote.StatusEnum.DRAFT)));

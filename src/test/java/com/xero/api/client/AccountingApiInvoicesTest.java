@@ -86,9 +86,8 @@ public class AccountingApiInvoicesTest {
     @Test
     public void createInvoiceTest() throws IOException {
         System.out.println("@Test - createInvoice");
-        Invoices invoices = new Invoices();
-        Boolean summarizeErrors = null;
-        Invoices response = accountingApi.createInvoice(accessToken,xeroTenantId,invoices, summarizeErrors);
+        Invoice invoice = new Invoice();
+        Invoices response = accountingApi.createInvoice(accessToken,xeroTenantId,invoice);
 
         assertThat(response.getInvoices().get(0).getType(), is(equalTo(com.xero.models.accounting.Invoice.TypeEnum.ACCREC)));
         assertThat(response.getInvoices().get(0).getDate(), is(equalTo(LocalDate.of(2019, 03, 10))));  
@@ -247,15 +246,15 @@ public class AccountingApiInvoicesTest {
         OffsetDateTime ifModifiedSince = null;
         String where = null;
         String order = null;
-        String ids = null;
-        String invoiceNumbers = null;
-        String contactIDs = null;
-        String statuses = null;
+        List<UUID> ids = new ArrayList();
+        List<String> invoiceNumbers =  new ArrayList();
+        List<UUID> contactIDs =  new ArrayList();
+        List<String> statuses =  new ArrayList();
         Integer page = null;
         Boolean includeArchived = null;
         Boolean createdByMyApp = null;
         Integer unitdp = null;
-        Invoices response = accountingApi.getInvoices(accessToken,xeroTenantId,ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp, unitdp);
+        Invoices response = accountingApi.getInvoices(accessToken,xeroTenantId,ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp, unitdp);          
 
         assertThat(response.getInvoices().get(0).getType(), is(equalTo(com.xero.models.accounting.Invoice.TypeEnum.ACCREC)));
         assertThat(response.getInvoices().get(0).getDate(), is(equalTo(LocalDate.of(2018,10,19))));  

@@ -91,7 +91,7 @@ public class AccountingApiContactsTest {
         OffsetDateTime ifModifiedSince = null;
         String where = null;
         String order = null;
-        String ids = null;
+        List<UUID> ids = new ArrayList();
         Boolean includeArchived = null;
         Contacts response = accountingApi.getContacts(accessToken,xeroTenantId,ifModifiedSince, where, order, ids, null, includeArchived);
 
