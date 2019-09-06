@@ -46,7 +46,9 @@ public class Overpayment {
   public enum TypeEnum {
     RECEIVE_OVERPAYMENT("RECEIVE-OVERPAYMENT"),
     
-    SPEND_OVERPAYMENT("SPEND-OVERPAYMENT");
+    SPEND_OVERPAYMENT("SPEND-OVERPAYMENT"),
+    
+    AROVERPAYMENT("AROVERPAYMENT");
 
     private String value;
 

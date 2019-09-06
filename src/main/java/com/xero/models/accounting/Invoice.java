@@ -49,7 +49,11 @@ public class Invoice {
   public enum TypeEnum {
     ACCREC("ACCREC"),
     
-    ACCPAY("ACCPAY");
+    ACCPAY("ACCPAY"),
+    
+    ACCPAYCREDIT("ACCPAYCREDIT"),
+    
+    AROVERPAYMENT("AROVERPAYMENT");
 
     private String value;
 
@@ -184,6 +188,10 @@ public class Invoice {
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("PlannedPaymentDate")
   private LocalDate plannedPaymentDate;
+
+  
+  @JsonProperty("CISDeduction")
+  private Double ciSDeduction;
 
   
   @JsonProperty("SubTotal")
@@ -559,6 +567,15 @@ public class Invoice {
   }
 
    /**
+   * CIS deduction for UK contractors
+   * @return ciSDeduction
+  **/
+  @ApiModelProperty(value = "CIS deduction for UK contractors")
+  public Double getCiSDeduction() {
+    return ciSDeduction;
+  }
+
+   /**
    * Total of invoice excluding taxes
    * @return subTotal
   **/
@@ -825,6 +842,7 @@ public class Invoice {
         Objects.equals(this.sentToContact, invoice.sentToContact) &&
         Objects.equals(this.expectedPaymentDate, invoice.expectedPaymentDate) &&
         Objects.equals(this.plannedPaymentDate, invoice.plannedPaymentDate) &&
+        Objects.equals(this.ciSDeduction, invoice.ciSDeduction) &&
         Objects.equals(this.subTotal, invoice.subTotal) &&
         Objects.equals(this.totalTax, invoice.totalTax) &&
         Objects.equals(this.total, invoice.total) &&
@@ -849,7 +867,7 @@ public class Invoice {
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, contact, lineItems, date, dueDate, lineAmountTypes, invoiceNumber, reference, brandingThemeID, url, currencyCode, currencyRate, status, sentToContact, expectedPaymentDate, plannedPaymentDate, subTotal, totalTax, total, totalDiscount, invoiceID, hasAttachments, isDiscounted, payments, prepayments, overpayments, amountDue, amountPaid, fullyPaidOnDate, amountCredited, updatedDateUTC, creditNotes, attachments, hasErrors, statusAttributeString, validationErrors);
+    return Objects.hash(type, contact, lineItems, date, dueDate, lineAmountTypes, invoiceNumber, reference, brandingThemeID, url, currencyCode, currencyRate, status, sentToContact, expectedPaymentDate, plannedPaymentDate, ciSDeduction, subTotal, totalTax, total, totalDiscount, invoiceID, hasAttachments, isDiscounted, payments, prepayments, overpayments, amountDue, amountPaid, fullyPaidOnDate, amountCredited, updatedDateUTC, creditNotes, attachments, hasErrors, statusAttributeString, validationErrors);
   }
 
 
@@ -873,6 +891,7 @@ public class Invoice {
     sb.append("    sentToContact: ").append(toIndentedString(sentToContact)).append("\n");
     sb.append("    expectedPaymentDate: ").append(toIndentedString(expectedPaymentDate)).append("\n");
     sb.append("    plannedPaymentDate: ").append(toIndentedString(plannedPaymentDate)).append("\n");
+    sb.append("    ciSDeduction: ").append(toIndentedString(ciSDeduction)).append("\n");
     sb.append("    subTotal: ").append(toIndentedString(subTotal)).append("\n");
     sb.append("    totalTax: ").append(toIndentedString(totalTax)).append("\n");
     sb.append("    total: ").append(toIndentedString(total)).append("\n");

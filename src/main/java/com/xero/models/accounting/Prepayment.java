@@ -45,7 +45,11 @@ public class Prepayment {
   public enum TypeEnum {
     RECEIVE_PREPAYMENT("RECEIVE-PREPAYMENT"),
     
-    SPEND_PREPAYMENT("SPEND-PREPAYMENT");
+    SPEND_PREPAYMENT("SPEND-PREPAYMENT"),
+    
+    ARPREPAYMENT("ARPREPAYMENT"),
+    
+    APPREPAYMENT("APPREPAYMENT");
 
     private String value;
 

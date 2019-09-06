@@ -87,7 +87,7 @@ public class Receipt {
     
     SUBMITTED("SUBMITTED"),
     
-    AUTHORIZED("AUTHORIZED"),
+    AUTHORISED("AUTHORISED"),
     
     DECLINED("DECLINED");
 

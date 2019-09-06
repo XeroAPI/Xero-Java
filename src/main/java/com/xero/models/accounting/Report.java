@@ -23,6 +23,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import org.threeten.bp.OffsetDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -34,7 +35,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class Report {
   
   @JsonProperty("ReportID")
-  private String reportID;
+  private UUID reportID;
 
   
   @JsonProperty("ReportName")
@@ -93,7 +94,7 @@ public class Report {
   @JsonProperty("Contacts")
   private List<TenNinteyNineContact> contacts = new ArrayList<TenNinteyNineContact>();
 
-  public Report reportID(String reportID) {
+  public Report reportID(UUID reportID) {
     this.reportID = reportID;
     return this;
   }
@@ -103,11 +104,11 @@ public class Report {
    * @return reportID
   **/
   @ApiModelProperty(value = "See Prepayment Types")
-  public String getReportID() {
+  public UUID getReportID() {
     return reportID;
   }
 
-  public void setReportID(String reportID) {
+  public void setReportID(UUID reportID) {
     this.reportID = reportID;
   }
 

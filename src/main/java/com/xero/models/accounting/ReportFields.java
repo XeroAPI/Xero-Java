@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.UUID;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -30,7 +31,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class ReportFields {
   
   @JsonProperty("FieldID")
-  private String fieldID;
+  private UUID fieldID;
 
   
   @JsonProperty("Description")
@@ -40,7 +41,7 @@ public class ReportFields {
   @JsonProperty("Value")
   private String value;
 
-  public ReportFields fieldID(String fieldID) {
+  public ReportFields fieldID(UUID fieldID) {
     this.fieldID = fieldID;
     return this;
   }
@@ -50,11 +51,11 @@ public class ReportFields {
    * @return fieldID
   **/
   @ApiModelProperty(value = "")
-  public String getFieldID() {
+  public UUID getFieldID() {
     return fieldID;
   }
 
-  public void setFieldID(String fieldID) {
+  public void setFieldID(UUID fieldID) {
     this.fieldID = fieldID;
   }
 

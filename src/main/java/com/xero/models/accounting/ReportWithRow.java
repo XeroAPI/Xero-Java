@@ -24,6 +24,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import org.threeten.bp.OffsetDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -35,7 +36,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class ReportWithRow {
   
   @JsonProperty("ReportID")
-  private String reportID;
+  private UUID reportID;
 
   
   @JsonProperty("ReportName")
@@ -69,7 +70,7 @@ public class ReportWithRow {
   @JsonProperty("Fields")
   private List<ReportFields> fields = new ArrayList<ReportFields>();
 
-  public ReportWithRow reportID(String reportID) {
+  public ReportWithRow reportID(UUID reportID) {
     this.reportID = reportID;
     return this;
   }
@@ -79,11 +80,11 @@ public class ReportWithRow {
    * @return reportID
   **/
   @ApiModelProperty(value = "Report id")
-  public String getReportID() {
+  public UUID getReportID() {
     return reportID;
   }
 
-  public void setReportID(String reportID) {
+  public void setReportID(UUID reportID) {
     this.reportID = reportID;
   }
 

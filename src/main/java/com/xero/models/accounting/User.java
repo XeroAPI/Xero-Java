@@ -68,7 +68,9 @@ public class User {
     
     MANAGEDCLIENT("MANAGEDCLIENT"),
     
-    CASHBOOKCLIENT("CASHBOOKCLIENT");
+    CASHBOOKCLIENT("CASHBOOKCLIENT"),
+    
+    UNKNOWN("UNKNOWN");
 
     private String value;
 
