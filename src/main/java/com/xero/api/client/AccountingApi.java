@@ -2425,10 +2425,10 @@ public class AccountingApi {
     * @return LinkedTransactions
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public LinkedTransactions  createLinkedTransaction(String accessToken, String xeroTenantId, LinkedTransactions linkedTransactions) throws IOException {
+    public LinkedTransactions  createLinkedTransactions(String accessToken, String xeroTenantId, LinkedTransactions linkedTransactions) throws IOException {
         try {
             TypeReference<LinkedTransactions> typeRef = new TypeReference<LinkedTransactions>() {};
-            HttpResponse response = createLinkedTransactionForHttpResponse(accessToken, xeroTenantId, linkedTransactions);
+            HttpResponse response = createLinkedTransactionsForHttpResponse(accessToken, xeroTenantId, linkedTransactions);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -2439,16 +2439,16 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse createLinkedTransactionForHttpResponse(String accessToken,  String xeroTenantId,  LinkedTransactions linkedTransactions) throws IOException {
+    public HttpResponse createLinkedTransactionsForHttpResponse(String accessToken,  String xeroTenantId,  LinkedTransactions linkedTransactions) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createLinkedTransaction");
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createLinkedTransactions");
         }// verify the required parameter 'linkedTransactions' is set
         if (linkedTransactions == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'linkedTransactions' when calling createLinkedTransaction");
+            throw new IllegalArgumentException("Missing the required parameter 'linkedTransactions' when calling createLinkedTransactions");
         }
         if (accessToken == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createLinkedTransaction");
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createLinkedTransactions");
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
@@ -2465,65 +2465,6 @@ public class AccountingApi {
         
         
         content = apiClient.new JacksonJsonHttpContent(linkedTransactions);
-        
-        
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = new NetHttpTransport();        
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-        
-        return requestFactory.buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
-    }
-
-  /**
-    * Allows you to create a manual journal
-    * <p><b>200</b> - Success - return response of type ManualJournals array with newly created ManualJournal
-    * <p><b>400</b> - A failed request due to validation error
-    * @param xeroTenantId Xero identifier for Tenant
-    * @param manualJournals The manualJournals parameter
-    * @param accessToken Authorization token for user set in header of each request
-    * @return ManualJournals
-    * @throws IOException if an error occurs while attempting to invoke the API
-    **/
-    public ManualJournals  createManualJournal(String accessToken, String xeroTenantId, ManualJournals manualJournals) throws IOException {
-        try {
-            TypeReference<ManualJournals> typeRef = new TypeReference<ManualJournals>() {};
-            HttpResponse response = createManualJournalForHttpResponse(accessToken, xeroTenantId, manualJournals);
-            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-        } catch (HttpResponseException e) {
-            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
-        } catch (IOException ioe) {
-            throw ioe;
-        }
-        return null;
-    }
-
-    public HttpResponse createManualJournalForHttpResponse(String accessToken,  String xeroTenantId,  ManualJournals manualJournals) throws IOException {
-        // verify the required parameter 'xeroTenantId' is set
-        if (xeroTenantId == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createManualJournal");
-        }// verify the required parameter 'manualJournals' is set
-        if (manualJournals == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'manualJournals' when calling createManualJournal");
-        }
-        if (accessToken == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createManualJournal");
-        }
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/ManualJournals";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-        String url = uriBuilder.build().toString();
-        GenericUrl genericUrl = new GenericUrl(url);
-
-        
-        HttpContent content = null;
-        
-        
-        content = apiClient.new JacksonJsonHttpContent(manualJournals);
         
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -2609,20 +2550,19 @@ public class AccountingApi {
     }
 
   /**
-    * Allows you to retrieve Allocations for overpayments
-    * <p><b>200</b> - Success - return response of type Allocations array with all Allocation for Overpayments
+    * Allows you to create a manual journal
+    * <p><b>200</b> - Success - return response of type ManualJournals array with newly created ManualJournal
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
-    * @param overpaymentID Unique identifier for a Overpayment
-    * @param allocations The allocations parameter
+    * @param manualJournals The manualJournals parameter
     * @param accessToken Authorization token for user set in header of each request
-    * @return Allocations
+    * @return ManualJournals
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Allocations  createOverpaymentAllocation(String accessToken, String xeroTenantId, UUID overpaymentID, Allocations allocations) throws IOException {
+    public ManualJournals  createManualJournals(String accessToken, String xeroTenantId, ManualJournals manualJournals) throws IOException {
         try {
-            TypeReference<Allocations> typeRef = new TypeReference<Allocations>() {};
-            HttpResponse response = createOverpaymentAllocationForHttpResponse(accessToken, xeroTenantId, overpaymentID, allocations);
+            TypeReference<ManualJournals> typeRef = new TypeReference<ManualJournals>() {};
+            HttpResponse response = createManualJournalsForHttpResponse(accessToken, xeroTenantId, manualJournals);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -2633,19 +2573,79 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse createOverpaymentAllocationForHttpResponse(String accessToken,  String xeroTenantId,  UUID overpaymentID,  Allocations allocations) throws IOException {
+    public HttpResponse createManualJournalsForHttpResponse(String accessToken,  String xeroTenantId,  ManualJournals manualJournals) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createOverpaymentAllocation");
-        }// verify the required parameter 'overpaymentID' is set
-        if (overpaymentID == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'overpaymentID' when calling createOverpaymentAllocation");
-        }// verify the required parameter 'allocations' is set
-        if (allocations == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'allocations' when calling createOverpaymentAllocation");
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createManualJournals");
+        }// verify the required parameter 'manualJournals' is set
+        if (manualJournals == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'manualJournals' when calling createManualJournals");
         }
         if (accessToken == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createOverpaymentAllocation");
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createManualJournals");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
+        String correctPath = "/ManualJournals";
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        String url = uriBuilder.build().toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+
+        
+        HttpContent content = null;
+        
+        
+        content = apiClient.new JacksonJsonHttpContent(manualJournals);
+        
+        
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = new NetHttpTransport();        
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        
+        return requestFactory.buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
+    }
+
+  /**
+    * Allows you to retrieve Allocations for overpayments
+    * <p><b>200</b> - Success - return response of type Allocations array with all Allocation for Overpayments
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param overpaymentID Unique identifier for a Overpayment
+    * @param allocations The allocations parameter
+    * @param accessToken Authorization token for user set in header of each request
+    * @return Allocations
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public Allocations  createOverpaymentAllocations(String accessToken, String xeroTenantId, UUID overpaymentID, Allocations allocations) throws IOException {
+        try {
+            TypeReference<Allocations> typeRef = new TypeReference<Allocations>() {};
+            HttpResponse response = createOverpaymentAllocationsForHttpResponse(accessToken, xeroTenantId, overpaymentID, allocations);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    public HttpResponse createOverpaymentAllocationsForHttpResponse(String accessToken,  String xeroTenantId,  UUID overpaymentID,  Allocations allocations) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createOverpaymentAllocations");
+        }// verify the required parameter 'overpaymentID' is set
+        if (overpaymentID == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'overpaymentID' when calling createOverpaymentAllocations");
+        }// verify the required parameter 'allocations' is set
+        if (allocations == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'allocations' when calling createOverpaymentAllocations");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createOverpaymentAllocations");
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
@@ -2735,65 +2735,6 @@ public class AccountingApi {
         
         
         content = apiClient.new JacksonJsonHttpContent(historyRecords);
-        
-        
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = new NetHttpTransport();        
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-        
-        return requestFactory.buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
-    }
-
-  /**
-    * Allows you to create payments for invoices and credit notes
-    * <p><b>200</b> - Success - return response of type Payments array for newly created Payment
-    * <p><b>400</b> - A failed request due to validation error
-    * @param xeroTenantId Xero identifier for Tenant
-    * @param payments The payments parameter
-    * @param accessToken Authorization token for user set in header of each request
-    * @return Payments
-    * @throws IOException if an error occurs while attempting to invoke the API
-    **/
-    public Payments  createPayment(String accessToken, String xeroTenantId, Payments payments) throws IOException {
-        try {
-            TypeReference<Payments> typeRef = new TypeReference<Payments>() {};
-            HttpResponse response = createPaymentForHttpResponse(accessToken, xeroTenantId, payments);
-            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-        } catch (HttpResponseException e) {
-            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
-        } catch (IOException ioe) {
-            throw ioe;
-        }
-        return null;
-    }
-
-    public HttpResponse createPaymentForHttpResponse(String accessToken,  String xeroTenantId,  Payments payments) throws IOException {
-        // verify the required parameter 'xeroTenantId' is set
-        if (xeroTenantId == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createPayment");
-        }// verify the required parameter 'payments' is set
-        if (payments == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'payments' when calling createPayment");
-        }
-        if (accessToken == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createPayment");
-        }
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Payments";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-        String url = uriBuilder.build().toString();
-        GenericUrl genericUrl = new GenericUrl(url);
-
-        
-        HttpContent content = null;
-        
-        
-        content = apiClient.new JacksonJsonHttpContent(payments);
         
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -2921,6 +2862,65 @@ public class AccountingApi {
         
         
         content = apiClient.new JacksonJsonHttpContent(paymentServices);
+        
+        
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = new NetHttpTransport();        
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        
+        return requestFactory.buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
+    }
+
+  /**
+    * Allows you to create payments for invoices and credit notes
+    * <p><b>200</b> - Success - return response of type Payments array for newly created Payment
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param payments The payments parameter
+    * @param accessToken Authorization token for user set in header of each request
+    * @return Payments
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public Payments  createPayments(String accessToken, String xeroTenantId, Payments payments) throws IOException {
+        try {
+            TypeReference<Payments> typeRef = new TypeReference<Payments>() {};
+            HttpResponse response = createPaymentsForHttpResponse(accessToken, xeroTenantId, payments);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    public HttpResponse createPaymentsForHttpResponse(String accessToken,  String xeroTenantId,  Payments payments) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createPayments");
+        }// verify the required parameter 'payments' is set
+        if (payments == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'payments' when calling createPayments");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createPayments");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
+        String correctPath = "/Payments";
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        String url = uriBuilder.build().toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+
+        
+        HttpContent content = null;
+        
+        
+        content = apiClient.new JacksonJsonHttpContent(payments);
         
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -3619,10 +3619,10 @@ public class AccountingApi {
     * @return TaxRates
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public TaxRates  createTaxRate(String accessToken, String xeroTenantId, TaxRates taxRates) throws IOException {
+    public TaxRates  createTaxRates(String accessToken, String xeroTenantId, TaxRates taxRates) throws IOException {
         try {
             TypeReference<TaxRates> typeRef = new TypeReference<TaxRates>() {};
-            HttpResponse response = createTaxRateForHttpResponse(accessToken, xeroTenantId, taxRates);
+            HttpResponse response = createTaxRatesForHttpResponse(accessToken, xeroTenantId, taxRates);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -3633,16 +3633,16 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse createTaxRateForHttpResponse(String accessToken,  String xeroTenantId,  TaxRates taxRates) throws IOException {
+    public HttpResponse createTaxRatesForHttpResponse(String accessToken,  String xeroTenantId,  TaxRates taxRates) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createTaxRate");
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createTaxRates");
         }// verify the required parameter 'taxRates' is set
         if (taxRates == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'taxRates' when calling createTaxRate");
+            throw new IllegalArgumentException("Missing the required parameter 'taxRates' when calling createTaxRates");
         }
         if (accessToken == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createTaxRate");
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createTaxRates");
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
@@ -13924,6 +13924,79 @@ public class AccountingApi {
         
         
         content = apiClient.new JacksonJsonHttpContent(trackingCategory);
+        
+        
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = new NetHttpTransport();        
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        
+        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
+    }
+
+  /**
+    * Allows you to update options for a specified tracking category
+    * <p><b>200</b> - Success - return response of type TrackingOptions array of options for a specified category
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param trackingCategoryID Unique identifier for a TrackingCategory
+    * @param trackingOptionID Unique identifier for a Tracking Option
+    * @param trackingOption The trackingOption parameter
+    * @param accessToken Authorization token for user set in header of each request
+    * @return TrackingOptions
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public TrackingOptions  updateTrackingOptions(String accessToken, String xeroTenantId, UUID trackingCategoryID, UUID trackingOptionID, TrackingOption trackingOption) throws IOException {
+        try {
+            TypeReference<TrackingOptions> typeRef = new TypeReference<TrackingOptions>() {};
+            HttpResponse response = updateTrackingOptionsForHttpResponse(accessToken, xeroTenantId, trackingCategoryID, trackingOptionID, trackingOption);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    public HttpResponse updateTrackingOptionsForHttpResponse(String accessToken,  String xeroTenantId,  UUID trackingCategoryID,  UUID trackingOptionID,  TrackingOption trackingOption) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling updateTrackingOptions");
+        }// verify the required parameter 'trackingCategoryID' is set
+        if (trackingCategoryID == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'trackingCategoryID' when calling updateTrackingOptions");
+        }// verify the required parameter 'trackingOptionID' is set
+        if (trackingOptionID == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'trackingOptionID' when calling updateTrackingOptions");
+        }// verify the required parameter 'trackingOption' is set
+        if (trackingOption == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'trackingOption' when calling updateTrackingOptions");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling updateTrackingOptions");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
+        String correctPath = "/TrackingCategories/{TrackingCategoryID}/Options/{TrackingOptionID}";
+        
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("TrackingCategoryID", trackingCategoryID);
+        uriVariables.put("TrackingOptionID", trackingOptionID);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+
+        
+        HttpContent content = null;
+        
+        
+        content = apiClient.new JacksonJsonHttpContent(trackingOption);
         
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);

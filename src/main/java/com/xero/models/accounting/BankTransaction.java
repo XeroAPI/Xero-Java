@@ -132,7 +132,9 @@ public class BankTransaction {
   public enum StatusEnum {
     AUTHORISED("AUTHORISED"),
     
-    DELETED("DELETED");
+    DELETED("DELETED"),
+    
+    VOIDED("VOIDED");
 
     private String value;
 

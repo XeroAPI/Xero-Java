@@ -118,7 +118,9 @@ public class TaxRate {
     
     NONE("NONE"),
     
-    GSTONIMPORTS("GSTONIMPORTS");
+    GSTONIMPORTS("GSTONIMPORTS"),
+    
+    AVALARA("AVALARA");
 
     private String value;
 

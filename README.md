@@ -32,7 +32,7 @@ Follow these steps to create your Xero app
 * Agree to terms and condition and click "Create App".
 * Click "Generate a secret" button.
 * Copy your client id and client secret and save for use later.
-* Click the "Save" button. You secret is now hidden.
+* Click the "Save" button. Your secret is now hidden.
 
 ### Add Xero-Java Dependency
 
