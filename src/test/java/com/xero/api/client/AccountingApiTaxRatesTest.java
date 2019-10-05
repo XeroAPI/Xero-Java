@@ -80,10 +80,10 @@ public class AccountingApiTaxRatesTest {
 	}
 
     @Test
-    public void createTaxRateTest() throws IOException {
-        System.out.println("@Test - createTaxRate");
+    public void createTaxRatesTest() throws IOException {
+        System.out.println("@Test - createTaxRates");
         TaxRates taxRates = new TaxRates();
-        TaxRates response = accountingApi.createTaxRate(accessToken,xeroTenantId,taxRates);
+        TaxRates response = accountingApi.createTaxRates(accessToken,xeroTenantId,taxRates);
 
         assertThat(response.getTaxRates().get(0).getName(), is(equalTo("SDKTax29067")));
         assertThat(response.getTaxRates().get(0).getTaxType(), is(equalTo("TAX002")));
