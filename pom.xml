@@ -299,7 +299,6 @@
         <junit-version>4.12</junit-version>
         <org-apache-httpcomponents>4.5.3</org-apache-httpcomponents>
         <jersey-version>2.27</jersey-version>
-        <jackson-databind-version>2.9.9.2</jackson-databind-version>
         <threetenbp-version>2.6.4</threetenbp-version>
         <maven-plugin-version>1.0.0</maven-plugin-version>
         <feign-version>9.7.0</feign-version>
