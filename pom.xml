@@ -4,7 +4,7 @@
 	<groupId>com.github.xeroapi</groupId>
 	<artifactId>xero-java</artifactId>
 	<packaging>jar</packaging>
-	<version>3.0.2</version>
+	<version>3.0.3</version>
 	<name>Xero-Java SDK</name>
 	<description>This is the official Java SDK for Xero API</description>
 	<url>https://github.com/XeroAPI/Xero-Java</url>
@@ -304,7 +304,7 @@
         <maven-plugin-version>1.0.0</maven-plugin-version>
         <feign-version>9.7.0</feign-version>
         <feign-form-version>2.1.0</feign-form-version>
-        <jackson-databind-version>2.9.9</jackson-databind-version>
+        <jackson-databind-version>2.9.10</jackson-databind-version>
         <oltu-version>1.0.1</oltu-version>
 	</properties>
 </project>
