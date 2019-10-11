@@ -26,8 +26,9 @@ import org.threeten.bp.LocalDate;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
- * StatementLine
+ * the lines details for a statement
  */
+@ApiModel(description = "the lines details for a statement")
 
 public class StatementLine {
   @JsonProperty("postedDate")
@@ -37,7 +38,7 @@ public class StatementLine {
   private String description;
 
   @JsonProperty("amount")
-  private String amount;
+  private Double amount;
 
   @JsonProperty("creditDebitIndicator")
   private CreditDebitIndicator creditDebitIndicator;
@@ -60,10 +61,10 @@ public class StatementLine {
   }
 
    /**
-   * Get postedDate
+   * The date that the transaction was processed or cleared as seen in internet banking ISO-8601 YYYY-MM-DD
    * @return postedDate
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The date that the transaction was processed or cleared as seen in internet banking ISO-8601 YYYY-MM-DD")
   public LocalDate getPostedDate() {
     return postedDate;
   }
@@ -78,10 +79,10 @@ public class StatementLine {
   }
 
    /**
-   * Get description
+   * Transaction description
    * @return description
   **/
-  @ApiModelProperty(example = "Description for statement line 2", value = "")
+  @ApiModelProperty(example = "Description for statement line 2", value = "Transaction description")
   public String getDescription() {
     return description;
   }
@@ -90,21 +91,21 @@ public class StatementLine {
     this.description = description;
   }
 
-  public StatementLine amount(String amount) {
+  public StatementLine amount(Double amount) {
     this.amount = amount;
     return this;
   }
 
    /**
-   * Get amount
+   * Transaction amount
    * @return amount
   **/
-  @ApiModelProperty(example = "5.00", value = "")
-  public String getAmount() {
+  @ApiModelProperty(example = "5.00", value = "Transaction amount")
+  public Double getAmount() {
     return amount;
   }
 
-  public void setAmount(String amount) {
+  public void setAmount(Double amount) {
     this.amount = amount;
   }
 
@@ -132,10 +133,10 @@ public class StatementLine {
   }
 
    /**
-   * Get transactionId
+   * Financial institute&#39;s internal transaction identifier. If provided this field is factored into duplicate detection.
    * @return transactionId
   **/
-  @ApiModelProperty(example = "transaction-id-2", value = "")
+  @ApiModelProperty(example = "transaction-id-2", value = "Financial institute's internal transaction identifier. If provided this field is factored into duplicate detection.")
   public String getTransactionId() {
     return transactionId;
   }
@@ -150,10 +151,10 @@ public class StatementLine {
   }
 
    /**
-   * Get payeeName
+   * Typically the merchant or payee name
    * @return payeeName
   **/
-  @ApiModelProperty(example = "Payee name for statement line 2", value = "")
+  @ApiModelProperty(example = "Payee name for statement line 2", value = "Typically the merchant or payee name")
   public String getPayeeName() {
     return payeeName;
   }
@@ -168,10 +169,10 @@ public class StatementLine {
   }
 
    /**
-   * Get reference
+   * Optional field to enhance the Description
    * @return reference
   **/
-  @ApiModelProperty(example = "Reference for statement line 2", value = "")
+  @ApiModelProperty(example = "Reference for statement line 2", value = "Optional field to enhance the Description")
   public String getReference() {
     return reference;
   }
@@ -186,10 +187,10 @@ public class StatementLine {
   }
 
    /**
-   * Get chequeNumber
+   * The cheque/check number
    * @return chequeNumber
   **/
-  @ApiModelProperty(example = "021", value = "")
+  @ApiModelProperty(example = "021", value = "The cheque/check number")
   public String getChequeNumber() {
     return chequeNumber;
   }

@@ -25,17 +25,18 @@ import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
- * EndBalance
+ * The StartBalance plus all the Statement Line Amounts should be equal to the EndBalance Amount.
  */
+@ApiModel(description = "The StartBalance plus all the Statement Line Amounts should be equal to the EndBalance Amount.")
 
 public class EndBalance {
   @JsonProperty("amount")
-  private String amount;
+  private Double amount;
 
   @JsonProperty("creditDebitIndicator")
   private CreditDebitIndicator creditDebitIndicator;
 
-  public EndBalance amount(String amount) {
+  public EndBalance amount(Double amount) {
     this.amount = amount;
     return this;
   }
@@ -45,11 +46,11 @@ public class EndBalance {
    * @return amount
   **/
   @ApiModelProperty(example = "10.1340", value = "")
-  public String getAmount() {
+  public Double getAmount() {
     return amount;
   }
 
-  public void setAmount(String amount) {
+  public void setAmount(Double amount) {
     this.amount = amount;
   }
 

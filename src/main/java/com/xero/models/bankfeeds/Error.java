@@ -39,7 +39,7 @@ public class Error {
   private String detail;
 
   /**
-   * Gets or Sets type
+   * Identifies the type of error.
    */
   public enum TypeEnum {
     INVALID_REQUEST("invalid-request"),
@@ -94,10 +94,10 @@ public class Error {
   }
 
    /**
-   * Get title
+   * Human readable high level error description.
    * @return title
   **/
-  @ApiModelProperty(example = "Invalid Application", value = "")
+  @ApiModelProperty(example = "Invalid Application", value = "Human readable high level error description.")
   public String getTitle() {
     return title;
   }
@@ -112,10 +112,10 @@ public class Error {
   }
 
    /**
-   * Get status
+   * The numeric HTTP Status Code, e.g. 404
    * @return status
   **/
-  @ApiModelProperty(example = "403", value = "")
+  @ApiModelProperty(example = "403", value = "The numeric HTTP Status Code, e.g. 404")
   public Integer getStatus() {
     return status;
   }
@@ -130,10 +130,10 @@ public class Error {
   }
 
    /**
-   * Get detail
+   * Human readable detailed error description.
    * @return detail
   **/
-  @ApiModelProperty(example = "The application has not been configured to use these API endpoints.", value = "")
+  @ApiModelProperty(example = "The application has not been configured to use these API endpoints.", value = "Human readable detailed error description.")
   public String getDetail() {
     return detail;
   }
@@ -148,10 +148,10 @@ public class Error {
   }
 
    /**
-   * Get type
+   * Identifies the type of error.
    * @return type
   **/
-  @ApiModelProperty(example = "invalid-application", value = "")
+  @ApiModelProperty(example = "invalid-application", value = "Identifies the type of error.")
   public TypeEnum getType() {
     return type;
   }

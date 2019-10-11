@@ -21,11 +21,12 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.bankfeeds.EndBalance;
 import com.xero.models.bankfeeds.Error;
 import com.xero.models.bankfeeds.StartBalance;
-import com.xero.models.bankfeeds.StatementLine;
+import com.xero.models.bankfeeds.StatementLines;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import org.threeten.bp.LocalDate;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -36,13 +37,13 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 public class Statement {
   @JsonProperty("id")
-  private String id;
+  private UUID id;
 
   @JsonProperty("feedConnectionId")
-  private String feedConnectionId;
+  private UUID feedConnectionId;
 
   /**
-   * Gets or Sets status
+   * Current status of statements
    */
   public enum StatusEnum {
     PENDING("PENDING"),
@@ -94,7 +95,7 @@ public class Statement {
   private EndBalance endBalance = null;
 
   @JsonProperty("statementLines")
-  private List<StatementLine> statementLines = new ArrayList<StatementLine>();
+  private StatementLines statementLines = null;
 
   @JsonProperty("errors")
   private List<Error> errors = new ArrayList<Error>();
@@ -102,39 +103,39 @@ public class Statement {
   @JsonProperty("statementLineCount")
   private Integer statementLineCount;
 
-  public Statement id(String id) {
+  public Statement id(UUID id) {
     this.id = id;
     return this;
   }
 
    /**
-   * Get id
+   * GUID used to identify the Statement.
    * @return id
   **/
-  @ApiModelProperty(example = "ba4f3127-5e46-427d-80ea-dea2fcd26afe", required = true, value = "")
-  public String getId() {
+  @ApiModelProperty(example = "ba4f3127-5e46-427d-80ea-dea2fcd26afe", required = true, value = "GUID used to identify the Statement.")
+  public UUID getId() {
     return id;
   }
 
-  public void setId(String id) {
+  public void setId(UUID id) {
     this.id = id;
   }
 
-  public Statement feedConnectionId(String feedConnectionId) {
+  public Statement feedConnectionId(UUID feedConnectionId) {
     this.feedConnectionId = feedConnectionId;
     return this;
   }
 
    /**
-   * Get feedConnectionId
+   * The Xero generated feed connection Id that identifies the Xero Bank Account Container into which the statement should be delivered. This is obtained by calling GET FeedConnections.
    * @return feedConnectionId
   **/
-  @ApiModelProperty(example = "87cb0dc8-fa32-409c-b622-19f8de8dcc83", value = "")
-  public String getFeedConnectionId() {
+  @ApiModelProperty(example = "87cb0dc8-fa32-409c-b622-19f8de8dcc83", value = "The Xero generated feed connection Id that identifies the Xero Bank Account Container into which the statement should be delivered. This is obtained by calling GET FeedConnections.")
+  public UUID getFeedConnectionId() {
     return feedConnectionId;
   }
 
-  public void setFeedConnectionId(String feedConnectionId) {
+  public void setFeedConnectionId(UUID feedConnectionId) {
     this.feedConnectionId = feedConnectionId;
   }
 
@@ -144,10 +145,10 @@ public class Statement {
   }
 
    /**
-   * Get status
+   * Current status of statements
    * @return status
   **/
-  @ApiModelProperty(example = "PENDING", value = "")
+  @ApiModelProperty(example = "PENDING", value = "Current status of statements")
   public StatusEnum getStatus() {
     return status;
   }
@@ -162,10 +163,10 @@ public class Statement {
   }
 
    /**
-   * Get startDate
+   * Opening balance date (can be no older than one year from the current date) ISO-8601 YYYY-MM-DD
    * @return startDate
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Opening balance date (can be no older than one year from the current date) ISO-8601 YYYY-MM-DD")
   public LocalDate getStartDate() {
     return startDate;
   }
@@ -180,10 +181,10 @@ public class Statement {
   }
 
    /**
-   * Get endDate
+   * Closing balance date ISO-8601 YYYY-MM-DD
    * @return endDate
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "Closing balance date ISO-8601 YYYY-MM-DD")
   public LocalDate getEndDate() {
     return endDate;
   }
@@ -228,16 +229,8 @@ public class Statement {
     this.endBalance = endBalance;
   }
 
-  public Statement statementLines(List<StatementLine> statementLines) {
+  public Statement statementLines(StatementLines statementLines) {
     this.statementLines = statementLines;
-    return this;
-  }
-
-  public Statement addStatementLinesItem(StatementLine statementLinesItem) {
-    if (this.statementLines == null) {
-      this.statementLines = new ArrayList<StatementLine>();
-    }
-    this.statementLines.add(statementLinesItem);
     return this;
   }
 
@@ -246,11 +239,11 @@ public class Statement {
    * @return statementLines
   **/
   @ApiModelProperty(value = "")
-  public List<StatementLine> getStatementLines() {
+  public StatementLines getStatementLines() {
     return statementLines;
   }
 
-  public void setStatementLines(List<StatementLine> statementLines) {
+  public void setStatementLines(StatementLines statementLines) {
     this.statementLines = statementLines;
   }
 

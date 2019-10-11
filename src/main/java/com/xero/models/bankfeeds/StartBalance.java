@@ -25,31 +25,32 @@ import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
- * StartBalance
+ * The starting balance of the statement
  */
+@ApiModel(description = "The starting balance of the statement")
 
 public class StartBalance {
   @JsonProperty("amount")
-  private String amount;
+  private Double amount;
 
   @JsonProperty("creditDebitIndicator")
   private CreditDebitIndicator creditDebitIndicator;
 
-  public StartBalance amount(String amount) {
+  public StartBalance amount(Double amount) {
     this.amount = amount;
     return this;
   }
 
    /**
-   * Get amount
+   * decimal(19,4) unsigned Opening/closing balance amount.
    * @return amount
   **/
-  @ApiModelProperty(example = "9.0000", value = "")
-  public String getAmount() {
+  @ApiModelProperty(example = "9.0000", value = "decimal(19,4) unsigned Opening/closing balance amount.")
+  public Double getAmount() {
     return amount;
   }
 
-  public void setAmount(String amount) {
+  public void setAmount(Double amount) {
     this.amount = amount;
   }
 

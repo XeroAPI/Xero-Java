@@ -15,12 +15,13 @@ package com.xero.models.bankfeeds;
 
 import java.util.Objects;
 import java.util.Arrays;
+import io.swagger.annotations.ApiModel;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * Gets or Sets CreditDebitIndicator
+ * If the statement balances are credit or debit, the CreditDebitIndicator should be specified from the perspective of the Customer.
  */
 public enum CreditDebitIndicator {
   
