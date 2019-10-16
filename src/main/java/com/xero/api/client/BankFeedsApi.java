@@ -7,6 +7,7 @@ import com.xero.models.bankfeeds.FeedConnection;
 import com.xero.models.bankfeeds.FeedConnections;
 import com.xero.models.bankfeeds.Statement;
 import com.xero.models.bankfeeds.Statements;
+import java.util.UUID;
 
 import com.xero.api.XeroApiException;
 import com.xero.api.XeroApiExceptionHandler;
@@ -89,13 +90,15 @@ public class BankFeedsApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public FeedConnections  createFeedConnections(String accessToken, String xeroTenantId, FeedConnections feedConnections) throws IOException {
-        HttpResponse response = createFeedConnectionsForHttpResponse(accessToken,xeroTenantId, feedConnections);
-        //InputStream instream = response.getContent();
-        //String result = convertStreamToString(instream);
-        //System.out.println("RESPONSE: " + result);
-        //instream.close();
-        TypeReference typeRef = new TypeReference<FeedConnections>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        TypeReference<FeedConnections> typeRef = new TypeReference<FeedConnections>() {};
+        try {
+            HttpResponse response = createFeedConnectionsForHttpResponse(accessToken,xeroTenantId, feedConnections);       
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            return apiClient.getObjectMapper().readValue(e.getContent(), typeRef);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
     }
 
     public HttpResponse createFeedConnectionsForHttpResponse(String accessToken,  String xeroTenantId,  FeedConnections feedConnections) throws IOException {
@@ -118,14 +121,9 @@ public class BankFeedsApi {
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
-        
-        //HttpContent content = new FileContent(mimeType, body);
         HttpContent content = null;
         
-        
         content = apiClient.new JacksonJsonHttpContent(feedConnections);
-        
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
         HttpTransport transport = new NetHttpTransport();        
@@ -148,13 +146,15 @@ public class BankFeedsApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Statements  createStatements(String accessToken, String xeroTenantId, Statements statements) throws IOException {
-        HttpResponse response = createStatementsForHttpResponse(accessToken,xeroTenantId, statements);
-        //InputStream instream = response.getContent();
-        //String result = convertStreamToString(instream);
-        //System.out.println("RESPONSE: " + result);
-        //instream.close();
-        TypeReference typeRef = new TypeReference<Statements>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        TypeReference<Statements> typeRef = new TypeReference<Statements>() {};
+        try {
+            HttpResponse response = createStatementsForHttpResponse(accessToken,xeroTenantId, statements);       
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            return apiClient.getObjectMapper().readValue(e.getContent(), typeRef);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
     }
 
     public HttpResponse createStatementsForHttpResponse(String accessToken,  String xeroTenantId,  Statements statements) throws IOException {
@@ -174,14 +174,9 @@ public class BankFeedsApi {
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
-        
-        //HttpContent content = new FileContent(mimeType, body);
         HttpContent content = null;
         
-        
         content = apiClient.new JacksonJsonHttpContent(statements);
-        
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
         HttpTransport transport = new NetHttpTransport();        
@@ -201,13 +196,15 @@ public class BankFeedsApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public FeedConnections  deleteFeedConnections(String accessToken, String xeroTenantId, FeedConnections feedConnections) throws IOException {
-        HttpResponse response = deleteFeedConnectionsForHttpResponse(accessToken,xeroTenantId, feedConnections);
-        //InputStream instream = response.getContent();
-        //String result = convertStreamToString(instream);
-        //System.out.println("RESPONSE: " + result);
-        //instream.close();
-        TypeReference typeRef = new TypeReference<FeedConnections>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        TypeReference<FeedConnections> typeRef = new TypeReference<FeedConnections>() {};
+        try {
+            HttpResponse response = deleteFeedConnectionsForHttpResponse(accessToken,xeroTenantId, feedConnections);       
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            return apiClient.getObjectMapper().readValue(e.getContent(), typeRef);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
     }
 
     public HttpResponse deleteFeedConnectionsForHttpResponse(String accessToken,  String xeroTenantId,  FeedConnections feedConnections) throws IOException {
@@ -230,14 +227,9 @@ public class BankFeedsApi {
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
-        
-        //HttpContent content = new FileContent(mimeType, body);
         HttpContent content = null;
         
-        
         content = apiClient.new JacksonJsonHttpContent(feedConnections);
-        
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
         HttpTransport transport = new NetHttpTransport();        
@@ -252,21 +244,23 @@ public class BankFeedsApi {
     * <p><b>200</b> - success returns a FeedConnection object matching the id in response
     * <p><b>400</b> - bad input parameter
     * @param xeroTenantId Xero identifier for Tenant
-    * @param id feed connection id for single object
+    * @param id Unique identifier for retrieving single object
     * @return FeedConnection
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public FeedConnection  getFeedConnection(String accessToken, String xeroTenantId, String id) throws IOException {
-        HttpResponse response = getFeedConnectionForHttpResponse(accessToken,xeroTenantId, id);
-        //InputStream instream = response.getContent();
-        //String result = convertStreamToString(instream);
-        //System.out.println("RESPONSE: " + result);
-        //instream.close();
-        TypeReference typeRef = new TypeReference<FeedConnection>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+    public FeedConnection  getFeedConnection(String accessToken, String xeroTenantId, UUID id) throws IOException {
+        TypeReference<FeedConnection> typeRef = new TypeReference<FeedConnection>() {};
+        try {
+            HttpResponse response = getFeedConnectionForHttpResponse(accessToken,xeroTenantId, id);       
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            return apiClient.getObjectMapper().readValue(e.getContent(), typeRef);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
     }
 
-    public HttpResponse getFeedConnectionForHttpResponse(String accessToken,  String xeroTenantId,  String id) throws IOException {
+    public HttpResponse getFeedConnectionForHttpResponse(String accessToken,  String xeroTenantId,  UUID id) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getFeedConnection");
@@ -291,11 +285,7 @@ public class BankFeedsApi {
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
-        
-        //HttpContent content = new FileContent(mimeType, body);
         HttpContent content = null;
-        
         
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -317,13 +307,15 @@ public class BankFeedsApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public FeedConnections  getFeedConnections(String accessToken, String xeroTenantId, Integer page, Integer pageSize) throws IOException {
-        HttpResponse response = getFeedConnectionsForHttpResponse(accessToken,xeroTenantId, page, pageSize);
-        //InputStream instream = response.getContent();
-        //String result = convertStreamToString(instream);
-        //System.out.println("RESPONSE: " + result);
-        //instream.close();
-        TypeReference typeRef = new TypeReference<FeedConnections>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        TypeReference<FeedConnections> typeRef = new TypeReference<FeedConnections>() {};
+        try {
+            HttpResponse response = getFeedConnectionsForHttpResponse(accessToken,xeroTenantId, page, pageSize);       
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            return apiClient.getObjectMapper().readValue(e.getContent(), typeRef);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
     }
 
     public HttpResponse getFeedConnectionsForHttpResponse(String accessToken,  String xeroTenantId,  Integer page,  Integer pageSize) throws IOException {
@@ -364,11 +356,7 @@ public class BankFeedsApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
-        
-        //HttpContent content = new FileContent(mimeType, body);
         HttpContent content = null;
-        
         
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -388,17 +376,19 @@ public class BankFeedsApi {
     * @return Statement
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Statement  getStatement(String accessToken, String xeroTenantId, String statementId) throws IOException {
-        HttpResponse response = getStatementForHttpResponse(accessToken,xeroTenantId, statementId);
-        //InputStream instream = response.getContent();
-        //String result = convertStreamToString(instream);
-        //System.out.println("RESPONSE: " + result);
-        //instream.close();
-        TypeReference typeRef = new TypeReference<Statement>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+    public Statement  getStatement(String accessToken, String xeroTenantId, UUID statementId) throws IOException {
+        TypeReference<Statement> typeRef = new TypeReference<Statement>() {};
+        try {
+            HttpResponse response = getStatementForHttpResponse(accessToken,xeroTenantId, statementId);       
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            return apiClient.getObjectMapper().readValue(e.getContent(), typeRef);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
     }
 
-    public HttpResponse getStatementForHttpResponse(String accessToken,  String xeroTenantId,  String statementId) throws IOException {
+    public HttpResponse getStatementForHttpResponse(String accessToken,  String xeroTenantId,  UUID statementId) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getStatement");
@@ -423,11 +413,7 @@ public class BankFeedsApi {
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
-        
-        //HttpContent content = new FileContent(mimeType, body);
         HttpContent content = null;
-        
         
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -451,13 +437,15 @@ public class BankFeedsApi {
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public Statements  getStatements(String accessToken, String xeroTenantId, Integer page, Integer pageSize, String xeroApplicationId, String xeroUserId) throws IOException {
-        HttpResponse response = getStatementsForHttpResponse(accessToken,xeroTenantId, page, pageSize, xeroApplicationId, xeroUserId);
-        //InputStream instream = response.getContent();
-        //String result = convertStreamToString(instream);
-        //System.out.println("RESPONSE: " + result);
-        //instream.close();
-        TypeReference typeRef = new TypeReference<Statements>() {};
-        return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        TypeReference<Statements> typeRef = new TypeReference<Statements>() {};
+        try {
+            HttpResponse response = getStatementsForHttpResponse(accessToken,xeroTenantId, page, pageSize, xeroApplicationId, xeroUserId);       
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            return apiClient.getObjectMapper().readValue(e.getContent(), typeRef);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
     }
 
     public HttpResponse getStatementsForHttpResponse(String accessToken,  String xeroTenantId,  Integer page,  Integer pageSize,  String xeroApplicationId,  String xeroUserId) throws IOException {
@@ -498,11 +486,7 @@ public class BankFeedsApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
-        
-        //HttpContent content = new FileContent(mimeType, body);
         HttpContent content = null;
-        
         
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);

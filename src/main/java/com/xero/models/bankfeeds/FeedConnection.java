@@ -31,7 +31,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 public class FeedConnection {
   @JsonProperty("id")
-  private String id;
+  private UUID id;
 
   @JsonProperty("accountToken")
   private String accountToken;
@@ -130,7 +130,7 @@ public class FeedConnection {
   @JsonProperty("error")
   private Error error = null;
 
-  public FeedConnection id(String id) {
+  public FeedConnection id(UUID id) {
     this.id = id;
     return this;
   }
@@ -139,12 +139,12 @@ public class FeedConnection {
    * GUID used to identify the Account.
    * @return id
   **/
-  @ApiModelProperty(example = "0d3cf8d-95dc-4466-8dc0-47e6d1197e28", required = true, value = "GUID used to identify the Account.")
-  public String getId() {
+  @ApiModelProperty(example = "00d3cf8d-95dc-4466-8dc0-47e6d1197e28", required = true, value = "GUID used to identify the Account.")
+  public UUID getId() {
     return id;
   }
 
-  public void setId(String id) {
+  public void setId(UUID id) {
     this.id = id;
   }
 

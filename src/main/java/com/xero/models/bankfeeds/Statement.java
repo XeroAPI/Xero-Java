@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.bankfeeds.EndBalance;
 import com.xero.models.bankfeeds.Error;
 import com.xero.models.bankfeeds.StartBalance;
-import com.xero.models.bankfeeds.StatementLines;
+import com.xero.models.bankfeeds.StatementLine;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -95,7 +95,7 @@ public class Statement {
   private EndBalance endBalance = null;
 
   @JsonProperty("statementLines")
-  private StatementLines statementLines = null;
+  private List<StatementLine> statementLines = new ArrayList<StatementLine>();
 
   @JsonProperty("errors")
   private List<Error> errors = new ArrayList<Error>();
@@ -229,8 +229,16 @@ public class Statement {
     this.endBalance = endBalance;
   }
 
-  public Statement statementLines(StatementLines statementLines) {
+  public Statement statementLines(List<StatementLine> statementLines) {
     this.statementLines = statementLines;
+    return this;
+  }
+
+  public Statement addStatementLinesItem(StatementLine statementLinesItem) {
+    if (this.statementLines == null) {
+      this.statementLines = new ArrayList<StatementLine>();
+    }
+    this.statementLines.add(statementLinesItem);
     return this;
   }
 
@@ -239,11 +247,11 @@ public class Statement {
    * @return statementLines
   **/
   @ApiModelProperty(value = "")
-  public StatementLines getStatementLines() {
+  public List<StatementLine> getStatementLines() {
     return statementLines;
   }
 
-  public void setStatementLines(StatementLines statementLines) {
+  public void setStatementLines(List<StatementLine> statementLines) {
     this.statementLines = statementLines;
   }
 
