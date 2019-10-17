@@ -4,8 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import static java.lang.String.format;
 
@@ -54,12 +54,12 @@ public class JsonConfig implements Config {
   private String KEY_STORE_PASSWORD;
   private String configFile;
   private static Config instance = null;
-  final static Logger logger = LogManager.getLogger(JsonConfig.class);
-  
+  final static Logger logger = LoggerFactory.getLogger(JsonConfig.class);
+
   public JsonConfig(String configFile) {
     this.configFile = configFile;
-    
-	load(); 
+
+	load();
   }
 
   /* Static 'instance' method */
@@ -104,16 +104,16 @@ public class JsonConfig implements Config {
   public String getFilesUrl() {
     return FILES_ENDPOINT_URL;
   }
-  
+
   @Override
   public String getAssetsUrl() {
     return ASSETS_ENDPOINT_URL;
   }
-  
+
   @Override
   public String getBankFeedsUrl() {
     return BANKFEEDS_ENDPOINT_URL;
-  }  
+  }
 
   @Override
   public String getRequestTokenUrl() {
@@ -192,12 +192,12 @@ public class JsonConfig implements Config {
   public String getAppFirewallUrlPrefix() {
     return APP_FIREWALL_URL_PREFIX;
   }
-  
+
   @Override
   public String getKeyStorePath() {
     return KEY_STORE_PATH;
   }
-  
+
   @Override
   public String getKeyStorePassword() {
     return KEY_STORE_PASSWORD;
@@ -257,59 +257,59 @@ public class JsonConfig implements Config {
   public void setAppFirewallUrlPrefix(String appFirewallUrlPrefix) {
       this.APP_FIREWALL_URL_PREFIX = appFirewallUrlPrefix;
   }
-  
+
   @Override
   public void setKeyStorePath(String keyStorePath) {
       this.KEY_STORE_PATH = keyStorePath;
   }
-  
+
   @Override
   public void setKeyStorePassword(String keyStorePassword) {
       this.KEY_STORE_PASSWORD = keyStorePassword;
   }
 
-  private void load() {  
+  private void load() {
 	InputStream inputStream = JsonConfig.class.getResourceAsStream("/" + configFile);
-    
+
 	if (inputStream == null) {
   		logger.error(format("Config file '%s' could not be found in src/resources folder. Missing file?", configFile));
-		throw new XeroClientException(format("Config file '%s' could not be opened. Missing file?", configFile));    
+		throw new XeroClientException(format("Config file '%s' could not be opened. Missing file?", configFile));
 	} else {
 		JSONObject jsonObject;
 		try(InputStreamReader reader = new InputStreamReader(inputStream)) {
 			JSONParser parser = new JSONParser();
 			jsonObject = (JSONObject) parser.parse(reader);
 		} catch (FileNotFoundException e) {
-			logger.error(e);
+			logger.error(e.getMessage(), e);
 			throw new XeroClientException(format("Config file '%s' not found", configFile), e);
 		} catch (IOException e) {
-			logger.error(e);
+			logger.error(e.getMessage(), e);
 			throw new XeroClientException(format("IO error reading config file '%s' not found", configFile), e);
 		} catch (ParseException e) {
-			logger.error(e);
+			logger.error(e.getMessage(), e);
 			throw new XeroClientException(format("Parse error reading config file '%s' not found", configFile), e);
 		}
 
 	    if (jsonObject.containsKey("AppType")) {
 	      APP_TYPE = (String) jsonObject.get("AppType");
 	    }
-	
+
 	    if (jsonObject.containsKey("UserAgent")) {
 	      USER_AGENT = (String) jsonObject.get("UserAgent");
 	    }
-	
+
 	    if (jsonObject.containsKey("Accept")) {
 	      ACCEPT = (String) jsonObject.get("Accept");
 	    }
-	
+
 	    if (jsonObject.containsKey("ConsumerKey")) {
 	      CONSUMER_KEY = (String) jsonObject.get("ConsumerKey");
 	    }
-	
+
 	    if (jsonObject.containsKey("ConsumerSecret")) {
 	      CONSUMER_SECRET = (String) jsonObject.get("ConsumerSecret");
 	    }
-	
+
 	    if (jsonObject.containsKey("ApiBaseUrl")) {
 	      API_BASE_URL = (String) jsonObject.get("ApiBaseUrl");
 	      if (jsonObject.containsKey("ApiEndpointPath")) {
@@ -318,42 +318,42 @@ public class JsonConfig implements Config {
 	      } else {
 	    	  	API_ENDPOINT_URL = API_BASE_URL + API_ENDPOINT_STEM;
 	    	  }
-	
+
 	      if (jsonObject.containsKey("FilesEndpointPath")) {
 	        String filesEndpointPath = (String) jsonObject.get("FilesEndpointPath");
 	        FILES_ENDPOINT_URL = API_BASE_URL + filesEndpointPath;
 	      } else {
 	    	  	FILES_ENDPOINT_URL = API_BASE_URL + FILES_ENDPOINT_STEM;
 	      }
-	      
+
 	      if (jsonObject.containsKey("AssetsEndpointPath")) {
 	    	  	String assetsEndpointPath = (String) jsonObject.get("AssetsEndpointPath");
 	    	  		ASSETS_ENDPOINT_URL = API_BASE_URL + assetsEndpointPath;
 	      } else {
 	      		ASSETS_ENDPOINT_URL = API_BASE_URL + ASSETS_ENDPOINT_STEM;
 	      }
-	      
+
 	      if (jsonObject.containsKey("BankFeedsEndpointPath")) {
 	    	  	String BankFeedsEndpointPath = (String) jsonObject.get("BankFeedsEndpointPath");
 	    	  	BANKFEEDS_ENDPOINT_URL = API_BASE_URL + BankFeedsEndpointPath;
 	      } else {
 	    	  BANKFEEDS_ENDPOINT_URL = API_BASE_URL + BANKFEEDS_ENDPOINT_STEM;
 	      }
-	      
+
 	      if (jsonObject.containsKey("RequestTokenPath")) {
 	        String requestPath = (String) jsonObject.get("RequestTokenPath");
 	        REQUEST_TOKEN_URL = API_BASE_URL + requestPath;
 	      } else {
-	    	  	REQUEST_TOKEN_URL = API_BASE_URL + REQUEST_TOKEN_STEM;            
+	    	  	REQUEST_TOKEN_URL = API_BASE_URL + REQUEST_TOKEN_STEM;
 	      }
-	
+
 	      if (jsonObject.containsKey("AccessTokenPath")) {
 	        String accessPath = (String) jsonObject.get("AccessTokenPath");
 	        ACCESS_TOKEN_URL = API_BASE_URL + accessPath;
 	      } else {
 	    	  	ACCESS_TOKEN_URL = API_BASE_URL + ACCESS_TOKEN_STEM;
 	      }
-	
+
 	      if (jsonObject.containsKey("AuthenticateUrl")) {
 	        String authenticatePath = (String) jsonObject.get("AuthenticateUrl");
 	        AUTHENTICATE_URL = API_BASE_URL + authenticatePath;
@@ -361,7 +361,7 @@ public class JsonConfig implements Config {
 	    	  	AUTHENTICATE_URL = API_BASE_URL + AUTHENTICATE_STEM;
 	      }
 	    }
-	
+
 	    if (jsonObject.containsKey("CallbackBaseUrl")) {
 	      CALLBACK_BASE_URL = (String) jsonObject.get("CallbackBaseUrl");
 	      if (jsonObject.containsKey("CallbackPath")) {
@@ -369,42 +369,42 @@ public class JsonConfig implements Config {
 	        AUTH_CALLBACK_URL = CALLBACK_BASE_URL + callbackPath;
 	      }
 	    }
-	
+
 	    if (jsonObject.containsKey("PrivateKeyCert")) {
 	      PATH_TO_PRIVATE_KEY_CERT = (String) jsonObject.get("PrivateKeyCert");
 	      PRIVATE_KEY_PASSWORD = (String) jsonObject.get("PrivateKeyPassword");
 	    }
-	
+
 	    if (jsonObject.containsKey("ProxyHost")) {
 	      PROXY_HOST = (String) jsonObject.get("ProxyHost");
 	      if (jsonObject.containsKey("ProxyPort")) {
 	        PROXY_PORT = (long) jsonObject.get("ProxyPort");
 	      }
-	
+
 	      if (jsonObject.containsKey("ProxyHttpsEnabled")) {
 	        PROXY_HTTPS_ENABLED = (boolean) jsonObject.get("ProxyHttpsEnabled");
 	      }
 	    }
-	
+
 	    if (jsonObject.containsKey("DecimalPlaces")) {
 	    		DECIMAL_PLACES = (String) jsonObject.get("DecimalPlaces");
 	    }
-	    
+
 	    if (jsonObject.containsKey("KeyStorePath")) {
 			KEY_STORE_PATH = (String) jsonObject.get("KeyStorePath");
 	    }
-	    
+
 	    if (jsonObject.containsKey("KeyStorePassword")) {
 			KEY_STORE_PASSWORD = (String) jsonObject.get("KeyStorePassword");
 	    }
-	
+
 	    if (jsonObject.containsKey("usingAppFirewall")) {
 	        USING_APP_FIREWALL = (boolean) jsonObject.get("usingAppFirewall");
-	
+
 	        if (jsonObject.containsKey("appFirewallHostname")) {
 	            APP_FIREWALL_HOSTNAME = (String) jsonObject.get("appFirewallHostname");
 	        }
-	
+
 	        if (jsonObject.containsKey("appFirewallUrlPrefix")) {
 	            APP_FIREWALL_URL_PREFIX = (String) jsonObject.get("appFirewallUrlPrefix");
 	        }

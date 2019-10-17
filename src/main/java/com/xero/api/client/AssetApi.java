@@ -16,8 +16,8 @@ import com.xero.api.*;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.OffsetDateTime;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -39,7 +39,7 @@ public class AssetApi {
     private SignerFactory signerFactory;
     private String token = null;
     private String tokenSecret = null;
-    final static Logger logger = LogManager.getLogger(XeroClient.class);
+    final static Logger logger = LoggerFactory.getLogger(XeroClient.class);
     protected static final DateFormat utcFormatter;
 
     static {
@@ -50,7 +50,7 @@ public class AssetApi {
     protected static final Pattern MESSAGE_PATTERN = Pattern.compile("<Message>(.*)</Message>");
     protected final ObjectFactory objFactory = new ObjectFactory();
 
-    
+
     public AssetApi(Config config) {
         this(config, new ConfigBasedSignerFactory(config));
         this.xeroExceptionHandler = new XeroExceptionHandler();
@@ -81,7 +81,7 @@ public class AssetApi {
         this.tokenSecret = tokenSecret;
     }
 
-    
+
     protected String DATA(String url, String body, Map<String, String> params, String method) throws IOException {
         return this.DATA(url,body,params,method,null, "application/json");
     }
@@ -95,20 +95,20 @@ public class AssetApi {
     }
 
     protected String DATA(String url, String body, Map<String, String> params, String method, OffsetDateTime ifModifiedSince, String contentType) throws IOException {
-        
+
         OAuthRequestResource req = new OAuthRequestResource(
-            config, 
-            signerFactory, 
-            url, 
-            method, 
-            body, 
+            config,
+            signerFactory,
+            url,
+            method,
+            body,
             params,
             contentType,
             "application/json");
-        
+
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
-        
+
         if (ifModifiedSince != null) {
             req.setIfModifiedSince(ifModifiedSince);
         }
@@ -123,20 +123,20 @@ public class AssetApi {
     }
 
     protected String DATA(String url, String body, Map<String, String> params, String method, String xeroApplicationId, String xeroTenantId, String xeroUserId) throws IOException {
-        
+
         OAuthRequestResource req = new OAuthRequestResource(
-            config, 
-            signerFactory, 
-            url, 
-            method, 
-            body, 
+            config,
+            signerFactory,
+            url,
+            method,
+            body,
             params,
             null,
             "application/json");
-        
+
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
-        
+
         //if (ifModifiedSince != null) {
         //    req.setIfModifiedSince(ifModifiedSince);
         //}
@@ -150,26 +150,26 @@ public class AssetApi {
         }
     }
 
-   
+
     protected ByteArrayInputStream FILE(String url, String body, Map<String, String> params, String method) throws IOException {
        return this.FILE(url,body,params,method,"application/octet-stream");
     }
 
     protected ByteArrayInputStream FILE(String url, String body, Map<String, String> params, String method, String accept) throws IOException {
-        
+
         OAuthRequestResource req = new OAuthRequestResource(
-            config, 
-            signerFactory, 
-            url, 
-            method, 
-            body, 
+            config,
+            signerFactory,
+            url,
+            method,
+            body,
             params,
             accept,
             "application/json");
-        
+
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
-        
+
         try {
             ByteArrayInputStream resp = req.executefile();
             return resp;
@@ -181,22 +181,22 @@ public class AssetApi {
     protected String FILE(String url, String body, Map<String, String> params, String method, byte[] byteBody) throws IOException {
         return this.FILE(url,body,params,method,byteBody,"application/octet-stream");
     }
-    
+
     protected String FILE(String url, String body, Map<String, String> params, String method, byte[] byteBody, String contentType) throws IOException {
-        
+
         OAuthRequestResource req = new OAuthRequestResource(
-            config, 
-            signerFactory, 
-            url, 
+            config,
+            signerFactory,
+            url,
             method,
             contentType,
-            byteBody, 
+            byteBody,
             params,
             "application/json");
-        
+
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
-       
+
         try {
             Map<String, String>  resp = req.execute();
             Object r = resp.get("content");
@@ -223,7 +223,7 @@ public class AssetApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            
+
             strBody = apiClient.getObjectMapper().writeValueAsString(asset);
 
             String response = this.DATA(url, strBody, params, "POST");
@@ -254,7 +254,7 @@ public class AssetApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            
+
             strBody = apiClient.getObjectMapper().writeValueAsString(assetType);
 
             String response = this.DATA(url, strBody, params, "POST");
@@ -269,7 +269,7 @@ public class AssetApi {
     }
   /**
     * retrieves fixed asset by id
-    * By passing in the appropriate asset id, you can search for a specific fixed asset in the system 
+    * By passing in the appropriate asset id, you can search for a specific fixed asset in the system
     * <p><b>200</b> - search results matching criteria
     * <p><b>400</b> - bad input parameter
     * @param id fixed asset id for single object
@@ -287,7 +287,7 @@ public class AssetApi {
             if(path.toLowerCase().contains(type.toLowerCase()))
             {
                 correctPath = path.replace("/pdf","");
-            } 
+            }
 
             // create a map of path variables
             final Map<String, String> uriVariables = new HashMap<String, String>();
@@ -295,7 +295,7 @@ public class AssetApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            
+
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<Asset> typeRef = new TypeReference<Asset>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
@@ -322,7 +322,7 @@ public class AssetApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            
+
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<Setting> typeRef = new TypeReference<Setting>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
@@ -349,7 +349,7 @@ public class AssetApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            
+
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<List<AssetType>> typeRef = new TypeReference<List<AssetType>>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
@@ -395,7 +395,7 @@ public class AssetApi {
             }if (filterBy != null) {
                 addToMapIfNotNull(params, "filterBy", filterBy);
             }
-            
+
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<Assets> typeRef = new TypeReference<Assets>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);

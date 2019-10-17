@@ -18,12 +18,12 @@ import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 public class OAuthParameters implements HttpExecuteInterceptor, HttpRequestInitializer {
-	final static Logger logger = LogManager.getLogger(OAuthParameters.class);
-	   
+	final static Logger logger = LoggerFactory.getLogger(OAuthParameters.class);
+
 	public OAuthParameters()  {
 
 	}
@@ -132,7 +132,7 @@ public class OAuthParameters implements HttpExecuteInterceptor, HttpRequestIniti
 	 * @throws GeneralSecurityException general security exception
 	 */
 	public void computeSignature(String requestMethod, GenericUrl requestUrl)
-			throws GeneralSecurityException 
+			throws GeneralSecurityException
 	{
 		OAuthSigner signer = this.signer;
 		String signatureMethod = this.signatureMethod = signer.getSignatureMethod();
@@ -213,7 +213,7 @@ public class OAuthParameters implements HttpExecuteInterceptor, HttpRequestIniti
 	 * the fields.
      * @return String
 	 */
-	public String getAuthorizationHeader() 
+	public String getAuthorizationHeader()
 	{
 		StringBuilder buf = new StringBuilder("OAuth");
 		appendParameter(buf, "realm", realm);
@@ -231,112 +231,112 @@ public class OAuthParameters implements HttpExecuteInterceptor, HttpRequestIniti
 		return buf.substring(0, buf.length() - 1);
 	}
 
-	private void appendParameter(StringBuilder buf, String name, String value) 
+	private void appendParameter(StringBuilder buf, String name, String value)
 	{
-		if (value != null) 
+		if (value != null)
 		{
 			buf.append(' ').append(escape(name)).append("=\"").append(escape(value)).append("\",");
 		}
 	}
 
-	private void putParameterIfValueNotNull(TreeMap<String, String> parameters, String key, String value) 
+	private void putParameterIfValueNotNull(TreeMap<String, String> parameters, String key, String value)
 	{
 		if (value != null) {
 			putParameter(parameters, key, value);
 		}
 	}
 
-	private void putParameter(TreeMap<String, String> parameters, String key, Object value) 
+	private void putParameter(TreeMap<String, String> parameters, String key, Object value)
 	{
 		parameters.put(escape(key), value == null ? null : escape(value.toString()));
 	}
 
-	/** Returns the escaped form of the given value using OAuth escaping rules. 
+	/** Returns the escaped form of the given value using OAuth escaping rules.
     * @param value The string value you wish to escape
     * @return String
 	*/
-	public static String escape(String value) 
+	public static String escape(String value)
 	{
 		return ESCAPER.escape(value);
 	}
 
-	public void initialize(HttpRequest request) throws IOException 
+	public void initialize(HttpRequest request) throws IOException
 	{
 		request.setInterceptor(this);
 	}
 
-	public void intercept(HttpRequest request) throws IOException 
+	public void intercept(HttpRequest request) throws IOException
 	{
 		computeNonce();
 		computeTimestamp();
 		try {
 			computeSignature(request.getRequestMethod(), request.getUrl());
 		} catch (GeneralSecurityException e) {
-			logger.error(e);
+			logger.error(e.getMessage(), e);
 			IOException io = new IOException();
 			io.initCause(e);
 			throw io;
 		}
 		request.getHeaders().setAuthorization(getAuthorizationHeader());
 	}
-	
-	public void intercept(HttpGet request, GenericUrl url) throws IOException 
+
+	public void intercept(HttpGet request, GenericUrl url) throws IOException
 	{
 		computeNonce();
 		computeTimestamp();
-	
+
 		try {
 			computeSignature(request.getMethod(), url);
 		} catch (GeneralSecurityException e) {
-			logger.error(e);
+			logger.error(e.getMessage(), e);
 			IOException io = new IOException();
 			io.initCause(e);
 			throw io;
 		}
 		request.addHeader("Authorization", getAuthorizationHeader());
 	}
-	
-	public void intercept(HttpPost request, GenericUrl url) throws IOException 
+
+	public void intercept(HttpPost request, GenericUrl url) throws IOException
 	{
 		computeNonce();
 		computeTimestamp();
-	
+
 		try {
 			computeSignature(request.getMethod(), url);
 		} catch (GeneralSecurityException e) {
-			logger.error(e);
+			logger.error(e.getMessage(), e);
 			IOException io = new IOException();
 			io.initCause(e);
 			throw io;
 		};
 		request.addHeader("Authorization", getAuthorizationHeader());
 	}
-	
-	public void intercept(HttpPut request, GenericUrl url) throws IOException 
+
+	public void intercept(HttpPut request, GenericUrl url) throws IOException
 	{
 		computeNonce();
 		computeTimestamp();
-	
+
 		try {
 			computeSignature(request.getMethod(), url);
 		} catch (GeneralSecurityException e) {
-			logger.error(e);
+			logger.error(e.getMessage(), e);
 			IOException io = new IOException();
 			io.initCause(e);
 			throw io;
 		}
 		request.addHeader("Authorization", getAuthorizationHeader());
 	}
-	
-	public void intercept(HttpDelete request, GenericUrl url) throws IOException 
+
+	public void intercept(HttpDelete request, GenericUrl url) throws IOException
 	{
 		computeNonce();
 		computeTimestamp();
-	
+
 		try {
 			computeSignature(request.getMethod(), url);
 		} catch (GeneralSecurityException e) {
-			logger.error(e);
+			logger.error(e.getMessage(), e);
 			IOException io = new IOException();
 			io.initCause(e);
 			throw io;

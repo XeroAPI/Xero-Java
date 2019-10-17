@@ -16,8 +16,8 @@ import com.xero.api.*;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.OffsetDateTime;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -39,7 +39,7 @@ public class BankFeedsApi {
     private SignerFactory signerFactory;
     private String token = null;
     private String tokenSecret = null;
-    final static Logger logger = LogManager.getLogger(XeroClient.class);
+    final static Logger logger = LoggerFactory.getLogger(XeroClient.class);
     protected static final DateFormat utcFormatter;
 
     static {
@@ -50,7 +50,7 @@ public class BankFeedsApi {
     protected static final Pattern MESSAGE_PATTERN = Pattern.compile("<Message>(.*)</Message>");
     protected final ObjectFactory objFactory = new ObjectFactory();
 
-    
+
     public BankFeedsApi(Config config) {
         this(config, new ConfigBasedSignerFactory(config));
         this.xeroExceptionHandler = new XeroExceptionHandler();
@@ -81,7 +81,7 @@ public class BankFeedsApi {
         this.tokenSecret = tokenSecret;
     }
 
-    
+
     protected String DATA(String url, String body, Map<String, String> params, String method) throws IOException {
         return this.DATA(url,body,params,method,null, "application/json");
     }
@@ -95,20 +95,20 @@ public class BankFeedsApi {
     }
 
     protected String DATA(String url, String body, Map<String, String> params, String method, OffsetDateTime ifModifiedSince, String contentType) throws IOException {
-        
+
         OAuthRequestResource req = new OAuthRequestResource(
-            config, 
-            signerFactory, 
-            url, 
-            method, 
-            body, 
+            config,
+            signerFactory,
+            url,
+            method,
+            body,
             params,
             contentType,
             "application/json");
-        
+
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
-        
+
         if (ifModifiedSince != null) {
             req.setIfModifiedSince(ifModifiedSince);
         }
@@ -123,20 +123,20 @@ public class BankFeedsApi {
     }
 
     protected String DATA(String url, String body, Map<String, String> params, String method, String xeroApplicationId, String xeroTenantId, String xeroUserId) throws IOException {
-        
+
         OAuthRequestResource req = new OAuthRequestResource(
-            config, 
-            signerFactory, 
-            url, 
-            method, 
-            body, 
+            config,
+            signerFactory,
+            url,
+            method,
+            body,
             params,
             null,
             "application/json");
-        
+
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
-        
+
         //if (ifModifiedSince != null) {
         //    req.setIfModifiedSince(ifModifiedSince);
         //}
@@ -150,26 +150,26 @@ public class BankFeedsApi {
         }
     }
 
-   
+
     protected ByteArrayInputStream FILE(String url, String body, Map<String, String> params, String method) throws IOException {
        return this.FILE(url,body,params,method,"application/octet-stream");
     }
 
     protected ByteArrayInputStream FILE(String url, String body, Map<String, String> params, String method, String accept) throws IOException {
-        
+
         OAuthRequestResource req = new OAuthRequestResource(
-            config, 
-            signerFactory, 
-            url, 
-            method, 
-            body, 
+            config,
+            signerFactory,
+            url,
+            method,
+            body,
             params,
             accept,
             "application/json");
-        
+
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
-        
+
         try {
             ByteArrayInputStream resp = req.executefile();
             return resp;
@@ -181,22 +181,22 @@ public class BankFeedsApi {
     protected String FILE(String url, String body, Map<String, String> params, String method, byte[] byteBody) throws IOException {
         return this.FILE(url,body,params,method,byteBody,"application/octet-stream");
     }
-    
+
     protected String FILE(String url, String body, Map<String, String> params, String method, byte[] byteBody, String contentType) throws IOException {
-        
+
         OAuthRequestResource req = new OAuthRequestResource(
-            config, 
-            signerFactory, 
-            url, 
+            config,
+            signerFactory,
+            url,
             method,
             contentType,
-            byteBody, 
+            byteBody,
             params,
             "application/json");
-        
+
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
-       
+
         try {
             Map<String, String>  resp = req.execute();
             Object r = resp.get("content");
@@ -208,7 +208,7 @@ public class BankFeedsApi {
 
   /**
     * create one or more new feed connection
-    * By passing in the appropriate body, you can create one or more new feed connections in the system 
+    * By passing in the appropriate body, you can create one or more new feed connections in the system
     * <p><b>201</b> - feed connection created
     * <p><b>400</b> - invalid input, object invalid
     * @param feedConnections Feed Connection(s) to add
@@ -223,7 +223,7 @@ public class BankFeedsApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            
+
             strBody = apiClient.getObjectMapper().writeValueAsString(feedConnections);
 
             String response = this.DATA(url, strBody, params, "POST");
@@ -256,7 +256,7 @@ public class BankFeedsApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            
+
             strBody = apiClient.getObjectMapper().writeValueAsString(statements);
 
             String response = this.DATA(url, strBody, params, "POST");
@@ -271,7 +271,7 @@ public class BankFeedsApi {
     }
   /**
     * delete an exsiting feed connection
-    * By passing in the appropriate body, you can create a new feed connections in the system 
+    * By passing in the appropriate body, you can create a new feed connections in the system
     * <p><b>202</b> - create results matching body content
     * <p><b>400</b> - bad input parameter
     * @param feedConnections Feed Connections to delete
@@ -286,7 +286,7 @@ public class BankFeedsApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            
+
             strBody = apiClient.getObjectMapper().writeValueAsString(feedConnections);
 
             String response = this.DATA(url, strBody, params, "POST");
@@ -301,7 +301,7 @@ public class BankFeedsApi {
     }
   /**
     * get single feed connection by id
-    * By passing in a FeedConnection Id options, you can search for available feed connections in the system 
+    * By passing in a FeedConnection Id options, you can search for available feed connections in the system
     * <p><b>200</b> - search results matching criteria
     * <p><b>400</b> - bad input parameter
     * @param id feed connection id for single object
@@ -319,7 +319,7 @@ public class BankFeedsApi {
             if(path.toLowerCase().contains(type.toLowerCase()))
             {
                 correctPath = path.replace("/pdf","");
-            } 
+            }
 
             // create a map of path variables
             final Map<String, String> uriVariables = new HashMap<String, String>();
@@ -327,7 +327,7 @@ public class BankFeedsApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            
+
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<FeedConnection> typeRef = new TypeReference<FeedConnection>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
@@ -361,7 +361,7 @@ public class BankFeedsApi {
             }if (pageSize != null) {
                 addToMapIfNotNull(params, "pageSize", pageSize);
             }
-            
+
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<FeedConnections> typeRef = new TypeReference<FeedConnections>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
@@ -390,7 +390,7 @@ public class BankFeedsApi {
             if(path.toLowerCase().contains(type.toLowerCase()))
             {
                 correctPath = path.replace("/pdf","");
-            } 
+            }
 
             // create a map of path variables
             final Map<String, String> uriVariables = new HashMap<String, String>();
@@ -398,7 +398,7 @@ public class BankFeedsApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            
+
             String response = this.DATA(url, strBody, params, "GET");
             TypeReference<Statement> typeRef = new TypeReference<Statement>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);
@@ -433,7 +433,7 @@ public class BankFeedsApi {
             }if (pageSize != null) {
                 addToMapIfNotNull(params, "pageSize", pageSize);
             }
-            
+
             String response = this.DATA(url, strBody, params, "GET", xeroApplicationId, xeroTenantId, xeroUserId);
             TypeReference<Statements> typeRef = new TypeReference<Statements>() {};
             return apiClient.getObjectMapper().readValue(response, typeRef);

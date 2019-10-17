@@ -3,8 +3,8 @@ package com.xero.api;
 import java.io.IOException;
 import java.util.HashMap;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import com.google.api.client.auth.oauth.OAuthCredentialsResponse;
 import com.google.api.client.auth.oauth.OAuthSigner;
@@ -16,8 +16,8 @@ public class OAuthRequestToken {
   private OAuthGetTemporaryToken tokenRequest = null;
   private Config config;
   private SignerFactory signerFactory;
-  final static Logger logger = LogManager.getLogger(OAuthRequestToken.class);
-  
+  final static Logger logger = LoggerFactory.getLogger(OAuthRequestToken.class);
+
   public OAuthRequestToken(Config config) {
     this(config, new ConfigBasedSignerFactory(config));
   }
@@ -36,20 +36,20 @@ public class OAuthRequestToken {
     } else {
         tokenRequest = new OAuthGetTemporaryToken(config.getRequestTokenUrl());
     }
-  
+
     tokenRequest.setConfig(config);
     tokenRequest.signer = signer;
-    
+
     OAuthCredentialsResponse temporaryTokenResponse = null;
     try {
     	  	temporaryTokenResponse = tokenRequest.execute();
     		tempToken = temporaryTokenResponse.token;
     		tempTokenSecret = temporaryTokenResponse.tokenSecret;
     } catch (XeroApiException e) {
-		logger.error(e);
-		throw e;    	
+		logger.error(e.getMessage(), e);
+		throw e;
     } catch (IOException e) {
-		logger.error(e);
+		logger.error(e.getMessage(), e);
 		throw e;
     }
   }
