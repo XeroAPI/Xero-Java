@@ -117,7 +117,7 @@ public class AccountingApiAccountsTest {
 		System.out.println("@Test - createAccount");
 		Account acct = new Account();
 		Accounts newAccount = accountingApi.createAccount(accessToken,xeroTenantId,acct);
-		assertThat(newAccount.getAccounts().get(0).getName(), is(equalTo("Foobar")));		
+		assertThat(newAccount.getAccounts().get(0).getName(), is(equalTo("Foobar")));	
 	}
 
 	@Test
