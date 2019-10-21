@@ -14,6 +14,16 @@ Our XSD schema files will also be deprecated in favor of [OpenAPI spec 3.0 files
 
 Lastly, our trusty XeroClient class that holds methods for interacting with each endpoint will be deprecated in favor of clients for each major API group at Xero.  See below. 
 
+### Maven dependency
+
+```
+<dependency>
+  <groupId>com.github.xeroapi</groupId>
+  <artifactId>xero-java</artifactId>
+  <version>2.3.18</version>
+</dependency>
+```
+
 ### Initializing Client
 
 1.0 Client (deprecated)
