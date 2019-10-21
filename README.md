@@ -1,6 +1,6 @@
 # Xero-Java
 
-[![Maven Central](https://img.shields.io/badge/Maven%20Central-2.3.17-green.svg)](https://search.maven.org/artifact/com.github.xeroapi/xero-java/2.3.17/jar)
+[![Maven Central](https://img.shields.io/badge/Maven%20Central-2.3.18-green.svg)](https://search.maven.org/artifact/com.github.xeroapi/xero-java/2.3.18/jar)
 
 This is the official Java SDK for Xero's API. It supports accounting, fixed asset and bank feed API endpoints. All third party libraries dependencies managed with Maven.
 
@@ -219,7 +219,7 @@ try (FileInputStream privateKeyStream = new FileInputStream(config.getPathToPriv
 ```
 
 ## Logging
-The SDK uses log4j2.  To configure, add a log4j.properties file to the Resources directory.
+The SDK uses [SLF4J](http://www.slf4j.org/index.html) that allows you to plug in the logging library of your choice at deployment time.  This[blog post explains how to add log4j2](https://www.baeldung.com/slf4j-with-log4j2-logback) for logging.  To configure, add a log4j.properties file to the Resources directory.
 
 
 ## How to use the Xero-Java SDK
@@ -656,7 +656,6 @@ Example config.json with optional keystore attributes
 	"KeyStorePassword" : "changeit"
 }
 ```
-
 
 
 ## Acknowledgement
