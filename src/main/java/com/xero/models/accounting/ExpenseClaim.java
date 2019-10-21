@@ -50,7 +50,9 @@ public class ExpenseClaim {
     
     PAID("PAID"),
     
-    VOIDED("VOIDED");
+    VOIDED("VOIDED"),
+    
+    DELETED("DELETED");
 
     private String value;
 

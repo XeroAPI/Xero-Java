@@ -47,13 +47,15 @@ public class Invoice {
    * See Invoice Types
    */
   public enum TypeEnum {
-    ACCREC("ACCREC"),
-    
     ACCPAY("ACCPAY"),
     
     ACCPAYCREDIT("ACCPAYCREDIT"),
     
-    AROVERPAYMENT("AROVERPAYMENT");
+    AROVERPAYMENT("AROVERPAYMENT"),
+    
+    ACCREC("ACCREC"),
+    
+    ACCRECCREDIT("ACCRECCREDIT");
 
     private String value;
 

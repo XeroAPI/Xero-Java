@@ -105,7 +105,6 @@ public class AccountingApi {
         this(new ApiClient());
     }
 
-    /* Static 'instance' method */
     public static AccountingApi getInstance(ApiClient apiClient) {
       if (instance == null) {
         instance = new AccountingApi(apiClient);
