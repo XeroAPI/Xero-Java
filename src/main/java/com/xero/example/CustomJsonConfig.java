@@ -1,12 +1,12 @@
 package com.xero.example;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 
 import com.xero.api.Config;
+import org.slf4j.LoggerFactory;
 
 public class CustomJsonConfig implements Config {
-	
+
   private String APP_TYPE = "PUBLIC";
   private String USER_AGENT = "Xero-Java-SDK";
   private String ACCEPT = "application/xml";
@@ -21,7 +21,7 @@ public class CustomJsonConfig implements Config {
   private String ACCESS_TOKEN_URL = "https://api.xero.com/oauth/AccessToken";
   private String AUTH_CALLBACK_URL="http://localhost:8080/xero-sdk-demo-7/CallbackServlet";
   private String PATH_TO_PRIVATE_KEY_CERT = "/certs/public_privatekey.pfx";
-  private String PRIVATE_KEY_PASSWORD = "1234";  
+  private String PRIVATE_KEY_PASSWORD = "1234";
   private String PROXY_HOST;
   private long PROXY_PORT = 80;
   private boolean PROXY_HTTPS_ENABLED = false;
@@ -34,7 +34,7 @@ public class CustomJsonConfig implements Config {
   private String KEY_STORE_PATH;
   private String KEY_STORE_PASSWORD;
 
-  final static Logger logger = LogManager.getLogger(CustomJsonConfig.class); 
+  final static Logger logger = LoggerFactory.getLogger(CustomJsonConfig.class);
 
   public String getAppType() {
     return APP_TYPE;
@@ -63,15 +63,15 @@ public class CustomJsonConfig implements Config {
   public String getFilesUrl() {
     return FILES_ENDPOINT_URL;
   }
-  
+
   public String getAssetsUrl() {
     return ASSETS_ENDPOINT_URL;
   }
-  
+
   @Override
   public String getBankFeedsUrl() {
     return BANKFEEDS_ENDPOINT_URL;
-  }  
+  }
 
   public String getRequestTokenUrl() {
     return REQUEST_TOKEN_URL;
@@ -135,37 +135,37 @@ public class CustomJsonConfig implements Config {
   public String getAppFirewallUrlPrefix() {
     return APP_FIREWALL_URL_PREFIX;
   }
-  
+
   public String getKeyStorePath() {
     return KEY_STORE_PATH;
   }
-  
+
   public String getKeyStorePassword() {
     return KEY_STORE_PASSWORD;
   }
-	
+
   public void setConsumerKey(String consumerKey) { }
-	
+
   public void setConsumerSecret(String consumerSecret) {  }
-	
+
   public void setAppType(String appType) { }
-	
+
   public void setAuthCallBackUrl(String authCallbackUrl) { }
-	
+
   public void setConnectTimeout(int connectTimeout) { }
-	
+
   public void setReadTimeout(int readTimeout) { }
-	
+
   public void setDecimalPlaces(String decimalPlaces) { }
-	
+
   public void setUsingAppFirewall(boolean usingAppFirewall) { }
-	
+
   public void setAppFirewallHostname(String appFirewallHostname) { }
-	
+
   public void setAppFirewallUrlPrefix(String appFirewallUrlPrefix) { }
-	
+
   public void setKeyStorePath(String keyStorePath) { }
-	
+
   public void setKeyStorePassword(String keyStorePassword) { }
 
 }

@@ -20,21 +20,21 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 /**
  * This class is to handle Xero API exceptions with the help of the {@link XeroJAXBMarshaller}
  */
 public class XeroExceptionHandler {
 
-    //private final static Logger logger = LogManager.getLogger(XeroExceptionHandler.class.getName());
-    final static Logger logger = LogManager.getLogger(XeroExceptionHandler.class);
-    
+    //private final static Logger logger = LoggerFactory.getLogger(XeroExceptionHandler.class.getName());
+    final static Logger logger = LoggerFactory.getLogger(XeroExceptionHandler.class);
+
     private static final Pattern MESSAGE_PATTERN = Pattern.compile("<Message>(.*)</Message>");
     private XeroJAXBMarshaller xeroJaxbMarshaller;
     private ApiClient apiClient = new ApiClient(null,null,null,null);
-	
+
 
     public XeroExceptionHandler() {
         this.xeroJaxbMarshaller = new XeroJAXBMarshaller();
@@ -83,14 +83,14 @@ public class XeroExceptionHandler {
                 ApiException apiException = xeroJaxbMarshaller.unmarshall(content, ApiException.class);
                 return new XeroApiException(httpResponseException.getStatusCode(), content, apiException);
             } catch (Exception e) {
-            		logger.error(e);
+            		logger.error(e.getMessage(), e);
                 return convertException(httpResponseException);
             }
         } else {
             return newApiException(httpResponseException);
         }
     }
-    
+
     public XeroApiException handleBadRequest(String content) {
         //TODO we could use the ApiException.xsd to validate that the content is an ApiException xml
         if (content.contains("ApiException")) {
@@ -98,14 +98,14 @@ public class XeroExceptionHandler {
                 ApiException apiException = xeroJaxbMarshaller.unmarshall(content, ApiException.class);
                 return new XeroApiException(412, content, apiException);
             } catch (Exception e) {
-                logger.error(e);
+                logger.error(e.getMessage(), e);
             }
         } else {
             return new XeroApiException(500, content);
         }
 		return null;
     }
-    
+
     public XeroApiException handleBadRequest(String content, int code, boolean isJson) {
         //TODO we could use the ApiException.xsd to validate that the content is an ApiException xml
         if (isJson) {
@@ -114,7 +114,7 @@ public class XeroExceptionHandler {
 				Error error =  apiClient.getObjectMapper().readValue(content, typeRef);
 				return new XeroApiException(code, content, error);
 			} catch (IOException e) {
-				logger.error(e);
+				logger.error(e.getMessage(), e);
 			}
         } else {
         	Error error = new Error();
@@ -123,7 +123,7 @@ public class XeroExceptionHandler {
         }
     	return null;
     }
-    
+
     public XeroApiException handleBadRequest(String content,int code) {
         //TODO we could use the ApiException.xsd to validate that the content is an ApiException xml
         if (content.contains("ApiException")) {
@@ -131,7 +131,7 @@ public class XeroExceptionHandler {
                 ApiException apiException = xeroJaxbMarshaller.unmarshall(content, ApiException.class);
                 return new XeroApiException(code, content, apiException);
             } catch (Exception e) {
-            	logger.error(e);
+            	logger.error(e.getMessage(), e);
             }
         } else {
         	return  newApiException(content, code);
@@ -194,17 +194,17 @@ public class XeroExceptionHandler {
                 return new XeroApiException(httpResponseException.getStatusCode(), errorMap);
 
             } catch (UnsupportedEncodingException e) {
-            		logger.error(e);
+            		logger.error(e.getMessage(), e);
                 throw new XeroClientException(e.getMessage(), e);
             }
         }
 
         return new XeroApiException(httpResponseException.getStatusCode(), httpResponseException.getContent());
     }
-    
+
     public XeroApiException newApiException(String content, int code) {
         Matcher matcher = MESSAGE_PATTERN.matcher(content);
-        
+
         StringBuilder messages = new StringBuilder();
         while (matcher.find()) {
             if (messages.length() > 0) {
@@ -229,7 +229,7 @@ public class XeroExceptionHandler {
                 return new XeroApiException(code, errorMap);
 
             } catch (UnsupportedEncodingException e) {
-            		logger.error(e);
+            		logger.error(e.getMessage(), e);
                 throw new XeroClientException(e.getMessage(), e);
             }
         }

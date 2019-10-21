@@ -18,8 +18,8 @@ import com.xero.api.*;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.OffsetDateTime;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -41,7 +41,7 @@ public class FilesApi {
     private SignerFactory signerFactory;
     private String token = null;
     private String tokenSecret = null;
-    final static Logger logger = LogManager.getLogger(XeroClient.class);
+    final static Logger logger = LoggerFactory.getLogger(XeroClient.class);
     protected static final DateFormat utcFormatter;
 
     static {
@@ -52,7 +52,7 @@ public class FilesApi {
     protected static final Pattern MESSAGE_PATTERN = Pattern.compile("<Message>(.*)</Message>");
     protected final ObjectFactory objFactory = new ObjectFactory();
 
-    
+
     public FilesApi(Config config) {
         this(config, new ConfigBasedSignerFactory(config));
         this.xeroExceptionHandler = new XeroExceptionHandler();
@@ -83,7 +83,7 @@ public class FilesApi {
         this.tokenSecret = tokenSecret;
     }
 
-    
+
     protected String DATA(String url, String body, Map<String, String> params, String method) throws IOException {
         return this.DATA(url,body,params,method,null, "application/json");
     }
@@ -97,20 +97,20 @@ public class FilesApi {
     }
 
     protected String DATA(String url, String body, Map<String, String> params, String method, OffsetDateTime ifModifiedSince, String contentType) throws IOException {
-        
+
         OAuthRequestResource req = new OAuthRequestResource(
-            config, 
-            signerFactory, 
-            url, 
-            method, 
-            body, 
+            config,
+            signerFactory,
+            url,
+            method,
+            body,
             params,
             contentType,
             "application/json");
-        
+
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
-        
+
         if (ifModifiedSince != null) {
             req.setIfModifiedSince(ifModifiedSince);
         }
@@ -125,20 +125,20 @@ public class FilesApi {
     }
 
     protected String DATA(String url, String body, Map<String, String> params, String method, String xeroApplicationId, String xeroTenantId, String xeroUserId) throws IOException {
-        
+
         OAuthRequestResource req = new OAuthRequestResource(
-            config, 
-            signerFactory, 
-            url, 
-            method, 
-            body, 
+            config,
+            signerFactory,
+            url,
+            method,
+            body,
             params,
             null,
             "application/json");
-        
+
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
-        
+
         //if (ifModifiedSince != null) {
         //    req.setIfModifiedSince(ifModifiedSince);
         //}
@@ -152,26 +152,26 @@ public class FilesApi {
         }
     }
 
-   
+
     protected ByteArrayInputStream FILE(String url, String body, Map<String, String> params, String method) throws IOException {
        return this.FILE(url,body,params,method,"application/octet-stream");
     }
 
     protected ByteArrayInputStream FILE(String url, String body, Map<String, String> params, String method, String accept) throws IOException {
-        
+
         OAuthRequestResource req = new OAuthRequestResource(
-            config, 
-            signerFactory, 
-            url, 
-            method, 
-            body, 
+            config,
+            signerFactory,
+            url,
+            method,
+            body,
             params,
             accept,
             "application/json");
-        
+
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
-        
+
         try {
             ByteArrayInputStream resp = req.executefile();
             return resp;
@@ -183,22 +183,22 @@ public class FilesApi {
     protected String FILE(String url, String body, Map<String, String> params, String method, byte[] byteBody) throws IOException {
         return this.FILE(url,body,params,method,byteBody,"application/octet-stream");
     }
-    
+
     protected String FILE(String url, String body, Map<String, String> params, String method, byte[] byteBody, String contentType) throws IOException {
-        
+
         OAuthRequestResource req = new OAuthRequestResource(
-            config, 
-            signerFactory, 
-            url, 
+            config,
+            signerFactory,
+            url,
             method,
             contentType,
-            byteBody, 
+            byteBody,
             params,
             "application/json");
-        
+
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
-       
+
         try {
             Map<String, String>  resp = req.execute();
             Object r = resp.get("content");
@@ -229,7 +229,7 @@ public class FilesApi {
             if(path.toLowerCase().contains(type.toLowerCase()))
             {
                 correctPath = path.replace("/pdf","");
-            } 
+            }
 
             // create a map of path variables
             final Map<String, String> uriVariables = new HashMap<String, String>();
@@ -237,13 +237,13 @@ public class FilesApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            
+
             strBody = apiClient.getObjectMapper().writeValueAsString(association);
 
             String response = this.DATA(url, strBody, params, "POST");
 
             TypeReference<Association> typeRef = new TypeReference<Association>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);           
+            return apiClient.getObjectMapper().readValue(response, typeRef);
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -268,13 +268,13 @@ public class FilesApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            
+
             strBody = apiClient.getObjectMapper().writeValueAsString(folder);
 
             String response = this.DATA(url, strBody, params, "POST");
 
             TypeReference<Folder> typeRef = new TypeReference<Folder>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);           
+            return apiClient.getObjectMapper().readValue(response, typeRef);
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -301,7 +301,7 @@ public class FilesApi {
             if(path.toLowerCase().contains(type.toLowerCase()))
             {
                 correctPath = path.replace("/pdf","");
-            } 
+            }
 
             // create a map of path variables
             final Map<String, String> uriVariables = new HashMap<String, String>();
@@ -309,11 +309,11 @@ public class FilesApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            
+
             String response = this.DATA(url, strBody, params, "DELETE");
 
             TypeReference<FileResponse204> typeRef = new TypeReference<FileResponse204>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);           
+            return apiClient.getObjectMapper().readValue(response, typeRef);
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -342,7 +342,7 @@ public class FilesApi {
             if(path.toLowerCase().contains(type.toLowerCase()))
             {
                 correctPath = path.replace("/pdf","");
-            } 
+            }
 
             // create a map of path variables
             final Map<String, String> uriVariables = new HashMap<String, String>();
@@ -351,11 +351,11 @@ public class FilesApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            
+
             String response = this.DATA(url, strBody, params, "DELETE");
 
             TypeReference<FileResponse204> typeRef = new TypeReference<FileResponse204>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);           
+            return apiClient.getObjectMapper().readValue(response, typeRef);
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -383,7 +383,7 @@ public class FilesApi {
             if(path.toLowerCase().contains(type.toLowerCase()))
             {
                 correctPath = path.replace("/pdf","");
-            } 
+            }
 
             // create a map of path variables
             final Map<String, String> uriVariables = new HashMap<String, String>();
@@ -391,11 +391,11 @@ public class FilesApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            
+
             String response = this.DATA(url, strBody, params, "DELETE");
 
             TypeReference<FileResponse204> typeRef = new TypeReference<FileResponse204>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);           
+            return apiClient.getObjectMapper().readValue(response, typeRef);
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -422,7 +422,7 @@ public class FilesApi {
             if(path.toLowerCase().contains(type.toLowerCase()))
             {
                 correctPath = path.replace("/pdf","");
-            } 
+            }
 
             // create a map of path variables
             final Map<String, String> uriVariables = new HashMap<String, String>();
@@ -430,11 +430,11 @@ public class FilesApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            
+
             String response = this.DATA(url, strBody, params, "GET");
 
             TypeReference<List<Association>> typeRef = new TypeReference<List<Association>>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);           
+            return apiClient.getObjectMapper().readValue(response, typeRef);
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -460,7 +460,7 @@ public class FilesApi {
             if(path.toLowerCase().contains(type.toLowerCase()))
             {
                 correctPath = path.replace("/pdf","");
-            } 
+            }
 
             // create a map of path variables
             final Map<String, String> uriVariables = new HashMap<String, String>();
@@ -468,11 +468,11 @@ public class FilesApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            
+
             String response = this.DATA(url, strBody, params, "GET");
 
             TypeReference<FileObject> typeRef = new TypeReference<FileObject>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);           
+            return apiClient.getObjectMapper().readValue(response, typeRef);
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -482,7 +482,7 @@ public class FilesApi {
     }
   /**
     * searches files
-    * By passing in the appropriate options,  
+    * By passing in the appropriate options,
     * <p><b>200</b> - search results matching criteria
     * @param fileId File id for single object
     * @return List&lt;Association&gt;
@@ -499,7 +499,7 @@ public class FilesApi {
             if(path.toLowerCase().contains(type.toLowerCase()))
             {
                 correctPath = path.replace("/pdf","");
-            } 
+            }
 
             // create a map of path variables
             final Map<String, String> uriVariables = new HashMap<String, String>();
@@ -507,11 +507,11 @@ public class FilesApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            
+
             String response = this.DATA(url, strBody, params, "GET");
 
             TypeReference<List<Association>> typeRef = new TypeReference<List<Association>>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);           
+            return apiClient.getObjectMapper().readValue(response, typeRef);
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -538,7 +538,7 @@ public class FilesApi {
             if(path.toLowerCase().contains(type.toLowerCase()))
             {
                 correctPath = path.replace("/pdf","");
-            } 
+            }
 
             // create a map of path variables
             final Map<String, String> uriVariables = new HashMap<String, String>();
@@ -548,7 +548,7 @@ public class FilesApi {
 
                         ByteArrayInputStream response = this.FILE(url, strBody, params, "GET");
             return response;
-            
+
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
         } catch (XeroApiException e) {
@@ -580,11 +580,11 @@ public class FilesApi {
             }if (sort != null) {
                 addToMapIfNotNull(params, "sort", sort);
             }
-            
+
             String response = this.DATA(url, strBody, params, "GET");
 
             TypeReference<Files> typeRef = new TypeReference<Files>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);           
+            return apiClient.getObjectMapper().readValue(response, typeRef);
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -612,7 +612,7 @@ public class FilesApi {
             if(path.toLowerCase().contains(type.toLowerCase()))
             {
                 correctPath = path.replace("/pdf","");
-            } 
+            }
 
             // create a map of path variables
             final Map<String, String> uriVariables = new HashMap<String, String>();
@@ -620,11 +620,11 @@ public class FilesApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            
+
             String response = this.DATA(url, strBody, params, "GET");
 
             TypeReference<Folder> typeRef = new TypeReference<Folder>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);           
+            return apiClient.getObjectMapper().readValue(response, typeRef);
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -652,11 +652,11 @@ public class FilesApi {
             if (sort != null) {
                 addToMapIfNotNull(params, "sort", sort);
             }
-            
+
             String response = this.DATA(url, strBody, params, "GET");
 
             TypeReference<List<Folder>> typeRef = new TypeReference<List<Folder>>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);           
+            return apiClient.getObjectMapper().readValue(response, typeRef);
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -680,11 +680,11 @@ public class FilesApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.build().toString();
 
-            
+
             String response = this.DATA(url, strBody, params, "GET");
 
             TypeReference<Folder> typeRef = new TypeReference<Folder>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);           
+            return apiClient.getObjectMapper().readValue(response, typeRef);
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -712,7 +712,7 @@ public class FilesApi {
             if(path.toLowerCase().contains(type.toLowerCase()))
             {
                 correctPath = path.replace("/pdf","");
-            } 
+            }
 
             // create a map of path variables
             final Map<String, String> uriVariables = new HashMap<String, String>();
@@ -720,13 +720,13 @@ public class FilesApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            
+
             strBody = apiClient.getObjectMapper().writeValueAsString(fileObject);
 
             String response = this.DATA(url, strBody, params, "PUT");
 
             TypeReference<FileObject> typeRef = new TypeReference<FileObject>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);           
+            return apiClient.getObjectMapper().readValue(response, typeRef);
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -755,7 +755,7 @@ public class FilesApi {
             if(path.toLowerCase().contains(type.toLowerCase()))
             {
                 correctPath = path.replace("/pdf","");
-            } 
+            }
 
             // create a map of path variables
             final Map<String, String> uriVariables = new HashMap<String, String>();
@@ -763,13 +763,13 @@ public class FilesApi {
             UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
             String url = uriBuilder.buildFromMap(uriVariables).toString();
 
-            
+
             strBody = apiClient.getObjectMapper().writeValueAsString(folder);
 
             String response = this.DATA(url, strBody, params, "PUT");
 
             TypeReference<Folder> typeRef = new TypeReference<Folder>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);           
+            return apiClient.getObjectMapper().readValue(response, typeRef);
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());
@@ -801,25 +801,25 @@ public class FilesApi {
             if (folderId != null) {
                 addToMapIfNotNull(params, "folderId", folderId);
             }
-            
+
             UUID uuid = UUID.randomUUID();
             String boundary = uuid.toString();
-           
+
             byte[] head = new String("\r\n--" + boundary + "\r\nContent-Disposition: form-data; name=" + name + ";FileName=" + filename + " \r\nContent-Type: " + mimeType + "\r\n\r\n").getBytes();
             byte[] trailer = new String("\r\n--" + boundary + "--\r\n").getBytes();
 
             String contentType = "multipart/form-data; boundary=" + boundary;
-            
+
             byte[] destination = new byte[head.length + body.length + trailer.length];
             System.arraycopy(head, 0, destination, 0, head.length);
             System.arraycopy(body, 0, destination, head.length, body.length);
             System.arraycopy(trailer, 0, destination, head.length + body.length, trailer.length);
-            
+
             String response = this.FILE(url, strBody, params, "POST", destination, contentType);
-            
+
 
             TypeReference<FileObject> typeRef = new TypeReference<FileObject>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);           
+            return apiClient.getObjectMapper().readValue(response, typeRef);
 
         } catch (IOException e) {
             throw xeroExceptionHandler.handleBadRequest(e.getMessage());

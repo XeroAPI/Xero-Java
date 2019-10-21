@@ -8,8 +8,8 @@ import com.xero.models.assets.*;
 
 import javax.xml.bind.JAXBElement;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.json.simple.parser.ParseException;
 
 import java.io.ByteArrayInputStream;
@@ -36,7 +36,7 @@ public class XeroClient {
     private SignerFactory signerFactory;
     private String token = null;
     private String tokenSecret = null;
-    final static Logger logger = LogManager.getLogger(XeroClient.class);
+    final static Logger logger = LoggerFactory.getLogger(XeroClient.class);
     static XeroJAXBMarshaller u = new XeroJAXBMarshaller();
     protected static final DateFormat utcFormatter;
 
@@ -74,7 +74,7 @@ public class XeroClient {
     }
 
     protected Response get(String endPoint, Date modifiedAfter, Map<String, String> params) throws IOException {
-    	//XeroJAXBMarshaller u = new XeroJAXBMarshaller();
+        //XeroJAXBMarshaller u = new XeroJAXBMarshaller();
 
         OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "GET", null, params);
         req.setToken(token);
@@ -84,19 +84,20 @@ public class XeroClient {
         }
 
         try {
-       		Map<String, String>  resp = req.execute();
-       		Object r = resp.get("content");
+            Map<String, String> resp = req.execute();
+            Object r = resp.get("content");
             return u.unmarshall(r.toString(), Response.class);
         } catch (IOException ioe) {
-       		logger.error(ioe);
-			throw xeroExceptionHandler.convertException(ioe);
-	    } catch (XeroApiException e) {
-    		logger.error(e);
-    		throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(),e.getResponseCode());
-	    }
+            logger.error(ioe.getMessage(), ioe);
+            throw xeroExceptionHandler.convertException(ioe);
+        } catch (XeroApiException e) {
+            logger.error(e.getMessage(), e);
+            throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode());
+        }
     }
+
     /*
-     * Deprecated as of 0.7.0 - instead use getInputStream, then save your file 
+     * Deprecated as of 0.7.0 - instead use getInputStream, then save your file
      * to your storage system (local filesystem, S3, etc)
      */
     @Deprecated
@@ -105,47 +106,47 @@ public class XeroClient {
                              Map<String, String> params,
                              String accept,
                              String dirPath) throws IOException {
-    		
-    		OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "GET", null, params, accept);
+
+        OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "GET", null, params, accept);
         req.setToken(this.token);
         req.setTokenSecret(this.tokenSecret);
-        
+
         if (modifiedAfter != null) {
             req.setIfModifiedSince(modifiedAfter);
         }
-        
+
         String saveFilePath = null;
         String fileName = null;
-    
-        try {    	
-       		ByteArrayInputStream input = req.executefile();
+
+        try {
+            ByteArrayInputStream input = req.executefile();
             fileName = req.getFileName();
-			saveFilePath = dirPath + File.separator + fileName;
-			
-			FileOutputStream output = new FileOutputStream(saveFilePath);
+            saveFilePath = dirPath + File.separator + fileName;
 
-			int DEFAULT_BUFFER_SIZE = 1024;
-			byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
-			int n = 0;
+            FileOutputStream output = new FileOutputStream(saveFilePath);
 
-			n = input.read(buffer, 0, DEFAULT_BUFFER_SIZE);
+            int DEFAULT_BUFFER_SIZE = 1024;
+            byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
+            int n = 0;
 
-			while (n >= 0) {
-			   output.write(buffer, 0, n);
-			   n = input.read(buffer, 0, DEFAULT_BUFFER_SIZE);
-			}
-			
-			input.close();
-			output.close();
-			
-			return saveFilePath;	
+            n = input.read(buffer, 0, DEFAULT_BUFFER_SIZE);
+
+            while (n >= 0) {
+                output.write(buffer, 0, n);
+                n = input.read(buffer, 0, DEFAULT_BUFFER_SIZE);
+            }
+
+            input.close();
+            output.close();
+
+            return saveFilePath;
         } catch (IOException ioe) {
-       		logger.error(ioe);
-			throw xeroExceptionHandler.convertException(ioe);
-	    } catch (XeroApiException e) {
-    		logger.error(e);
-    		throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(),e.getResponseCode());
-	    }
+            logger.error(ioe.getMessage(), ioe);
+            throw xeroExceptionHandler.convertException(ioe);
+        } catch (XeroApiException e) {
+            logger.error(e.getMessage(), e);
+            throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode());
+        }
     }
 
     protected ByteArrayInputStream getInputStream(String endPoint,
@@ -163,12 +164,12 @@ public class XeroClient {
             ByteArrayInputStream byteStream = req.executefile();
             return byteStream;
         } catch (IOException ioe) {
-       		logger.error(ioe);
-			throw xeroExceptionHandler.convertException(ioe);
-	    } catch (XeroApiException e) {
-    		logger.error(e);
-    		throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(),e.getResponseCode());
-	    }
+            logger.error(ioe.getMessage(), ioe);
+            throw xeroExceptionHandler.convertException(ioe);
+        } catch (XeroApiException e) {
+            logger.error(e.getMessage(), e);
+            throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode());
+        }
     }
 
     protected Response put(String endPoint, JAXBElement<?> object) {
@@ -179,146 +180,146 @@ public class XeroClient {
         OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "PUT", contents, null);
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
-        
+
         try {
-       		Map<String, String> resp = req.execute();
-    		Object r = resp.get("content");
-    		return u.unmarshall(r.toString(), Response.class);
+            Map<String, String> resp = req.execute();
+            Object r = resp.get("content");
+            return u.unmarshall(r.toString(), Response.class);
         } catch (IOException ioe) {
-       		logger.error(ioe);
-       		throw xeroExceptionHandler.convertException(ioe);
+            logger.error(ioe.getMessage(), ioe);
+            throw xeroExceptionHandler.convertException(ioe);
         } catch (XeroApiException e) {
-       		logger.error(e);
-       		throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(),e.getResponseCode());
+            logger.error(e.getMessage(), e);
+            throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode());
         }
     }
 
     protected Response put(String endPoint, String contentType, byte[] bytes) throws IOException {
-   		return put(endPoint, contentType, bytes, null);
+        return put(endPoint, contentType, bytes, null);
     }
-    	
-    protected Response put(String endPoint, String contentType, byte[] bytes, Map<? extends String, ?> params) throws IOException {
-    	//XeroJAXBMarshaller u = new XeroJAXBMarshaller();
 
-    	OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "PUT", contentType, bytes, params);
-    	
+    protected Response put(String endPoint, String contentType, byte[] bytes, Map<? extends String, ?> params) throws IOException {
+        //XeroJAXBMarshaller u = new XeroJAXBMarshaller();
+
+        OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "PUT", contentType, bytes, params);
+
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
 
         try {
-       		Map<String, String> resp = req.execute();
-    		Object r = resp.get("content");
+            Map<String, String> resp = req.execute();
+            Object r = resp.get("content");
             return u.unmarshall(r.toString(), Response.class);
         } catch (IOException ioe) {
-       		logger.error(ioe);
-   			throw xeroExceptionHandler.convertException(ioe);
-	    } catch (XeroApiException e) {
-    		logger.error(e);
-    		throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(),e.getResponseCode());
-	    }
+            logger.error(ioe.getMessage(), ioe);
+            throw xeroExceptionHandler.convertException(ioe);
+        } catch (XeroApiException e) {
+            logger.error(e.getMessage(), e);
+            throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode());
+        }
     }
 
     protected Response put(String endPoint, JAXBElement<?> object, Map<String, String> params) {
-    	//XeroJAXBMarshaller u = new XeroJAXBMarshaller();	
-    	String contents = u.marshall(object);
+        //XeroJAXBMarshaller u = new XeroJAXBMarshaller();
+        String contents = u.marshall(object);
 
         OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "PUT", contents, params);
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
 
         try {
-        	Map<String, String> resp = req.execute();
-        	Object r = resp.get("content");
+            Map<String, String> resp = req.execute();
+            Object r = resp.get("content");
             return u.unmarshall(r.toString(), Response.class);
         } catch (IOException ioe) {
-        	logger.error(ioe);
-			throw xeroExceptionHandler.convertException(ioe);
-	    } catch (XeroApiException e) {
-	    	logger.error(e);
-	    	throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(),e.getResponseCode());
-	    }
+            logger.error(ioe.getMessage(), ioe);
+            throw xeroExceptionHandler.convertException(ioe);
+        } catch (XeroApiException e) {
+            logger.error(e.getMessage(), e);
+            throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode());
+        }
     }
 
     protected Response put(String endPoint, String contentType, File file) throws IOException {
-    	//XeroJAXBMarshaller u = new XeroJAXBMarshaller();
-    	
-    	OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "PUT", contentType, file, null);
+        //XeroJAXBMarshaller u = new XeroJAXBMarshaller();
+
+        OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "PUT", contentType, file, null);
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
 
         try {
-        	Map<String, String> resp = req.execute();
-	    	Object r = resp.get("content");
+            Map<String, String> resp = req.execute();
+            Object r = resp.get("content");
             return u.unmarshall(r.toString(), Response.class);
         } catch (IOException ioe) {
-        	logger.error(ioe);
-			throw xeroExceptionHandler.convertException(ioe);
-	    } catch (XeroApiException e) {
-	    	logger.error(e);
-	    	throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(),e.getResponseCode());
-	    }
+            logger.error(ioe.getMessage(), ioe);
+            throw xeroExceptionHandler.convertException(ioe);
+        } catch (XeroApiException e) {
+            logger.error(e.getMessage(), e);
+            throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode());
+        }
     }
 
     protected Response post(String endPoint, JAXBElement<?> object) throws IOException {
-    	//XeroJAXBMarshaller u = new XeroJAXBMarshaller();
-    	
-    	String contents = u.marshall(object);
+        //XeroJAXBMarshaller u = new XeroJAXBMarshaller();
+
+        String contents = u.marshall(object);
         OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "POST", contents, null);
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
 
         try {
-        	Map<String, String> resp = req.execute();
-    		Object r = resp.get("content");
+            Map<String, String> resp = req.execute();
+            Object r = resp.get("content");
             return u.unmarshall(r.toString(), Response.class);
         } catch (IOException ioe) {
-        	logger.error(ioe);
-			throw xeroExceptionHandler.convertException(ioe);
-	    } catch (XeroApiException e) {
-	    	logger.error(e);
-	    	throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(),e.getResponseCode());
-	    }
+            logger.error(ioe.toString(), ioe);
+            throw xeroExceptionHandler.convertException(ioe);
+        } catch (XeroApiException e) {
+            logger.error(e.getMessage(), e);
+            throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode());
+        }
     }
 
     protected Response post(String endPoint, JAXBElement<?> object, Map<String, String> params) throws IOException {
-    	//XeroJAXBMarshaller u = new XeroJAXBMarshaller();
-    	
-    	String contents = u.marshall(object);
+        //XeroJAXBMarshaller u = new XeroJAXBMarshaller();
+
+        String contents = u.marshall(object);
         OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "POST", contents, params);
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
 
         try {
-        	Map<String, String>  resp = req.execute();
-        	Object r = resp.get("content");
+            Map<String, String> resp = req.execute();
+            Object r = resp.get("content");
             return u.unmarshall(r.toString(), Response.class);
         } catch (IOException ioe) {
-        	logger.error(ioe);
-			throw xeroExceptionHandler.convertException(ioe);
-	    } catch (XeroApiException e) {
-	    	logger.error(e);
-	    	throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(),e.getResponseCode());
-	    }
+            logger.error(ioe.getMessage(), ioe);
+            throw xeroExceptionHandler.convertException(ioe);
+        } catch (XeroApiException e) {
+            logger.error(e.getMessage(), e);
+            throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode());
+        }
     }
 
     protected Response delete(String endPoint) throws IOException {
-    	//XeroJAXBMarshaller u = new XeroJAXBMarshaller();
-    	
-    	OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "DELETE", null, null);
+        //XeroJAXBMarshaller u = new XeroJAXBMarshaller();
+
+        OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, endPoint, "DELETE", null, null);
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
-    
+
         try {
-        	Map<String, String> resp = req.execute();
-        	Object r = resp.get("content");
+            Map<String, String> resp = req.execute();
+            Object r = resp.get("content");
             return u.unmarshall(r.toString(), Response.class);
         } catch (IOException ioe) {
-        	logger.error(ioe);
-        	throw xeroExceptionHandler.convertException(ioe);
-	    } catch (XeroApiException e) {
-	    	logger.error(e);
-	    	throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(),e.getResponseCode());
-	    }
+            logger.error(ioe.getMessage(), ioe);
+            throw xeroExceptionHandler.convertException(ioe);
+        } catch (XeroApiException e) {
+            logger.error(e.getMessage(), e);
+            throw this.xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode());
+        }
     }
 
     protected void addToMapIfNotNull(Map<String, String> map, String key, Object value) {
@@ -647,7 +648,7 @@ public class XeroClient {
     public String deleteSingleContactFromContactGroup(String ContactGroupId, String ContactId) throws IOException {
         System.out.println(ContactGroupId);
         System.out.println(ContactId);
-        
+
         return delete("ContactGroups/" + ContactGroupId + "/Contacts/" + ContactId).getStatus();
     }
 
@@ -691,15 +692,15 @@ public class XeroClient {
         array.getCreditNote().addAll(objects);
         return put("CreditNote", objFactory.createCreditNotes(array)).getCreditNotes().getCreditNote();
     }
-    
-    
+
+
     public List<CreditNote> createCreditNotes(List<CreditNote> objects, String unitdp) throws IOException {
         Map<String, String> params = new HashMap<>();
         addToMapIfNotNull(params, "unitdp", unitdp);
 
         ArrayOfCreditNote array = new ArrayOfCreditNote();
         array.getCreditNote().addAll(objects);
-        return put("CreditNote", objFactory.createCreditNotes(array),params).getCreditNotes().getCreditNote();
+        return put("CreditNote", objFactory.createCreditNotes(array), params).getCreditNotes().getCreditNote();
     }
 
     public List<CreditNote> updateCreditNote(List<CreditNote> objects) throws IOException {
@@ -711,16 +712,16 @@ public class XeroClient {
     public CreditNote getCreditNote(String id) throws IOException {
         return singleResult(get("CreditNotes/" + id).getCreditNotes().getCreditNote());
     }
-    
+
     @Deprecated
     public String getCreditNotePdf(String id, String dirPath) throws IOException {
         return getFile("CreditNotes/" + id, null, null, "application/pdf", dirPath);
     }
-    
+
     public ByteArrayInputStream getCreditNotePdfContent(String id) throws IOException {
         return getInputStream("CreditNotes/" + id, null, null, "application/pdf");
     }
-    
+
     public List<Allocation> createCreditNoteAllocations(List<Allocation> objects, String id) throws IOException {
         ArrayOfAllocation array = new ArrayOfAllocation();
         array.getAllocation().addAll(objects);
@@ -859,17 +860,17 @@ public class XeroClient {
     }
 
     public List<Invoice> getInvoices(Date modifiedAfter, String where, String order) throws IOException {
-    		Map<String, String> filter = new HashMap<>();
-    		return getInvoices(modifiedAfter, where, order, null,null,filter);
+        Map<String, String> filter = new HashMap<>();
+        return getInvoices(modifiedAfter, where, order, null, null, filter);
     }
 
     public List<Invoice> getInvoices(Date modifiedAfter, String where, String order, String page) throws IOException {
-    		Map<String, String> filter = new HashMap<>();
-    		return getInvoices(modifiedAfter, where, order, page, null,filter);
+        Map<String, String> filter = new HashMap<>();
+        return getInvoices(modifiedAfter, where, order, page, null, filter);
     }
-    
+
     public List<Invoice> getInvoices(Date modifiedAfter, String where, String order, String page, String ids) throws IOException {
-        return getInvoices(modifiedAfter, where, order, page,null, ids);
+        return getInvoices(modifiedAfter, where, order, page, null, ids);
     }
 
     public List<Invoice> getInvoices(Date modifiedAfter, String where, String order, String page, String unitdp, Map<String, String> filter)
@@ -879,11 +880,10 @@ public class XeroClient {
         addToMapIfNotNull(params, "order", order);
         addToMapIfNotNull(params, "page", page);
         addToMapIfNotNull(params, "unitdp", unitdp);
-        for (Map.Entry<String, String> entry : filter.entrySet())
-        {
-        		addToMapIfNotNull(params, entry.getKey(), entry.getValue());
+        for (Map.Entry<String, String> entry : filter.entrySet()) {
+            addToMapIfNotNull(params, entry.getKey(), entry.getValue());
         }
-        
+
         Response responseObj = get("Invoices", modifiedAfter, params);
         if (responseObj.getInvoices() == null) {
             ArrayOfInvoice array = new ArrayOfInvoice();
@@ -895,7 +895,7 @@ public class XeroClient {
 
     @Deprecated
     // deprecated as of version 1.0.0 - maintained for backwards compatibility
-    public List<Invoice> getInvoices(Date modifiedAfter, String where, String order, String page, String unitdp,String ids)
+    public List<Invoice> getInvoices(Date modifiedAfter, String where, String order, String page, String unitdp, String ids)
         throws IOException {
         Map<String, String> params = new HashMap<>();
         addToMapIfNotNull(params, "Where", where);
@@ -927,8 +927,8 @@ public class XeroClient {
         array.getInvoice().addAll(invoices);
         return put("Invoices", objFactory.createInvoices(array), params).getInvoices().getInvoice();
     }
-    
-    public List<Invoice> createInvoices(List<Invoice> invoices, String unitdp,Boolean summarizeErrors) throws IOException {
+
+    public List<Invoice> createInvoices(List<Invoice> invoices, String unitdp, Boolean summarizeErrors) throws IOException {
         Map<String, String> params = new HashMap<>();
         addToMapIfNotNull(params, "unitdp", unitdp);
         addToMapIfNotNull(params, "SummarizeErrors", summarizeErrors);
@@ -962,12 +962,12 @@ public class XeroClient {
         addToMapIfNotNull(params, "unitdp", unitdp);
         return singleResult(get("Invoices/" + id, null, params).getInvoices().getInvoice());
     }
-    
+
     @Deprecated
     public String getInvoicePdf(String id, String dirPath) throws IOException {
         return getFile("Invoices/" + id, null, null, "application/pdf", dirPath);
     }
-    
+
     public ByteArrayInputStream getInvoicePdfContent(String id) throws IOException {
         return getInputStream("Invoices/" + id, null, null, "application/pdf");
     }
@@ -1402,12 +1402,12 @@ public class XeroClient {
     public PurchaseOrder getPurchaseOrder(String id) throws IOException {
         return singleResult(get("PurchaseOrders/" + id).getPurchaseOrders().getPurchaseOrder());
     }
-    
+
     @Deprecated
     public String getPurchaseOrderPdf(String id, String dirPath) throws IOException {
         return getFile("PurchaseOrders/" + id, null, null, "application/pdf", dirPath);
     }
-    
+
     public ByteArrayInputStream getPurchaseOrderPdfContent(String id) throws IOException {
         return getInputStream("PurchaseOrders/" + id, null, null, "application/pdf");
     }
@@ -1442,16 +1442,16 @@ public class XeroClient {
         array.getReceipt().addAll(objects);
         return put("Receipts", objFactory.createReceipts(array)).getReceipts().getReceipt();
     }
-    
-    public List<Receipt> createReceipts(List<Receipt> objects, String unitdp) throws IOException {        
+
+    public List<Receipt> createReceipts(List<Receipt> objects, String unitdp) throws IOException {
         Map<String, String> params = new HashMap<>();
         addToMapIfNotNull(params, "unitdp", unitdp);
 
         ArrayOfReceipt array = new ArrayOfReceipt();
         array.getReceipt().addAll(objects);
-        return put("Receipts", objFactory.createReceipts(array),params).getReceipts().getReceipt();
+        return put("Receipts", objFactory.createReceipts(array), params).getReceipts().getReceipt();
     }
-  
+
     public List<Receipt> updateReceipt(List<Receipt> objects) throws IOException {
         ArrayOfReceipt array = new ArrayOfReceipt();
         array.getReceipt().addAll(objects);
@@ -1864,10 +1864,10 @@ public class XeroClient {
     public List<Attachment> getAttachments(String endpoint, String guid) throws IOException {
         return get(endpoint + "/" + guid + "/Attachments/", null, null).getAttachments().getAttachment();
     }
-    
+
     public Attachment createAttachment(String endpoint, String guid, String filename, String contentType, byte[] bytes)
-            throws IOException {
-    		return createAttachment(endpoint, guid, filename, contentType, bytes, false);
+        throws IOException {
+        return createAttachment(endpoint, guid, filename, contentType, bytes, false);
     }
 
     public Attachment createAttachment(
@@ -1886,13 +1886,13 @@ public class XeroClient {
 
         final HashMap<String, String> params = new HashMap();
         if (includeOnline) {
-            params.put("IncludeOnline",  Boolean.toString(true));
+            params.put("IncludeOnline", Boolean.toString(true));
         }
 
         final String alphaNumericFileName = normalizeFileNameForURI(filename);
         return singleResult(
             put(
-                format("%s/%s/Attachments/%s",endpoint, guid, alphaNumericFileName),
+                format("%s/%s/Attachments/%s", endpoint, guid, alphaNumericFileName),
                 contentType,
                 bytes,
                 params
@@ -1924,35 +1924,36 @@ public class XeroClient {
         String encodedFileName = URLEncoder.encode(filename, "UTF-8").replace("+", "%20");
         return getInputStream(endpoint + "/" + guid + "/Attachments/" + encodedFileName, null, null, accept);
     }
-    
+
     public ByteArrayInputStream getAttachmentContentById(String endpoint, String guid, String attachmentid, String accept)
         throws IOException {
         return getInputStream(endpoint + "/" + guid + "/Attachments/" + attachmentid, null, null, accept);
     }
-    
-  //Assets
+
+    //Assets
     public Assets getAssets() throws XeroApiException, ParseException {
-   
+
         try {
             Map<String, String> params = new HashMap<String, String>();
 
-            params.put("Status","REGISTERED");
+            params.put("Status", "REGISTERED");
             String resource = "https://api.xero.com/assets.xro/1.0/Assets";
             String response = this.get2(resource, null, params);
-            
-            TypeReference<Assets> typeRef = new TypeReference<Assets>() {};
+
+            TypeReference<Assets> typeRef = new TypeReference<Assets>() {
+            };
             ApiClient apiClient = new ApiClient();
-			
+
             return apiClient.getObjectMapper().readValue(response, typeRef);
-    
+
         } catch (IOException e) {
             throw xeroExceptionHandler.convertException(e);
         }
     }
-        
+
     protected String get2(String resource, Date modifiedAfter, Map<String, String> params) throws IOException {
-		
-    		OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, resource, "GET", null, params,"application/json");
+
+        OAuthRequestResource req = new OAuthRequestResource(config, signerFactory, resource, "GET", null, params, "application/json");
         req.setToken(token);
         req.setTokenSecret(tokenSecret);
         if (modifiedAfter != null) {
@@ -1960,11 +1961,11 @@ public class XeroClient {
         }
 
         try {
-       		Map<String, String>  resp = req.execute();
-       		Object r = resp.get("content");
+            Map<String, String> resp = req.execute();
+            Object r = resp.get("content");
             return r.toString();
-		} catch (IOException ioe) {
-			 throw xeroExceptionHandler.convertException(ioe);
-		}
-	}
+        } catch (IOException ioe) {
+            throw xeroExceptionHandler.convertException(ioe);
+        }
+    }
 }
