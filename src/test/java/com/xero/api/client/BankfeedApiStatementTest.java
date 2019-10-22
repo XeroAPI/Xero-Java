@@ -64,14 +64,14 @@ public class BankfeedApiStatementTest {
 		if (setUpIsDone) {
         	return;
     	}
-/*
+
     	try {
     		System.out.println("Sleep for 60 seconds");
 	    	Thread.sleep(60000);
     	} catch(InterruptedException e) {
     		System.out.println(e);
     	}
-*/
+
     	// do the setup
     	setUpIsDone = true;
 	}

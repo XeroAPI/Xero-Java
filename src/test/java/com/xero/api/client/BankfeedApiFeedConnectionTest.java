@@ -1,44 +1,17 @@
 package com.xero.api.client;
 
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.*;
-
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.hamcrest.core.Every.everyItem;
-
-import com.xero.api.ApiClient;
-import com.xero.api.client.*;
-import com.xero.models.bankfeeds.*;
-
-import java.io.File;
-import java.net.URL;
-
-import com.google.api.client.auth.oauth2.BearerToken;
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
-
-import org.threeten.bp.*;
-import java.io.IOException;
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import java.util.Calendar;
-import java.util.Map;
 import java.util.UUID;
 
-import java.io.File;
-import java.io.IOException;
+import com.xero.api.ApiClient;
+import com.xero.models.bankfeeds.FeedConnection;
+import com.xero.models.bankfeeds.FeedConnections;
 
-import org.apache.commons.io.IOUtils;
+import org.junit.Before;
+import org.junit.Test;
 
 public class BankfeedApiFeedConnectionTest {
 
@@ -64,14 +37,13 @@ public class BankfeedApiFeedConnectionTest {
 		if (setUpIsDone) {
         	return;
     	}
-/*
+
     	try {
     		System.out.println("Sleep for 60 seconds");
 	    	Thread.sleep(60000);
     	} catch(InterruptedException e) {
     		System.out.println(e);
     	}
-*/
     	// do the setup
     	setUpIsDone = true;
 	}
@@ -107,8 +79,8 @@ public class BankfeedApiFeedConnectionTest {
         assertThat(response.getItems().get(0).getAccountName(), (equalTo("SDK Bank 95921")));
 		assertThat(response.getItems().get(0).getAccountId().toString(), (equalTo("aefbf6be-4285-4ca5-bf39-0f486c8515c7")));
 		assertThat(response.getItems().get(0).getAccountType(), is(equalTo(com.xero.models.bankfeeds.FeedConnection.AccountTypeEnum.BANK)));   
-		assertThat(response.getItems().get(0).getCurrency(), (equalTo("GBP")));   
-		assertThat(response.getItems().get(0).getCountry(), (equalTo("GB")));
+		assertThat(response.getItems().get(0).getCurrency(), is(equalTo(com.xero.models.bankfeeds.CurrencyCode.GBP)));   
+		assertThat(response.getItems().get(0).getCountry(), is(equalTo(com.xero.models.bankfeeds.CountryCode.GB)));
     }
 
     @Test
@@ -123,8 +95,8 @@ public class BankfeedApiFeedConnectionTest {
         assertThat(response.getAccountName(), (equalTo("SDK Bank 5517")));
 		assertThat(response.getAccountId().toString(), (equalTo("f4c4d595-da94-493b-999a-19d1ae1f508a")));
 		assertThat(response.getAccountType(), is(equalTo(com.xero.models.bankfeeds.FeedConnection.AccountTypeEnum.BANK)));   
-		assertThat(response.getCurrency(), (equalTo("GBP")));   
-        assertThat(response.getCountry(), (equalTo("GB")));      
+		assertThat(response.getCurrency(), is(equalTo(com.xero.models.bankfeeds.CurrencyCode.GBP)));   
+        assertThat(response.getCountry(), is(equalTo(com.xero.models.bankfeeds.CountryCode.GB)));
     }
 
     @Test

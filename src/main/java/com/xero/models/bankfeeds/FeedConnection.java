@@ -18,6 +18,8 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.bankfeeds.CountryCode;
+import com.xero.models.bankfeeds.CurrencyCode;
 import com.xero.models.bankfeeds.Error;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -84,10 +86,10 @@ public class FeedConnection {
   private AccountTypeEnum accountType;
 
   @JsonProperty("currency")
-  private String currency;
+  private CurrencyCode currency;
 
   @JsonProperty("country")
-  private String country;
+  private CountryCode country;
 
   /**
    * the current status of the feed connection
@@ -238,39 +240,39 @@ public class FeedConnection {
     this.accountType = accountType;
   }
 
-  public FeedConnection currency(String currency) {
+  public FeedConnection currency(CurrencyCode currency) {
     this.currency = currency;
     return this;
   }
 
    /**
-   * ISO-4217 currency code, e.g. USD, AUD.
+   * Get currency
    * @return currency
   **/
-  @ApiModelProperty(example = "AUD", value = "ISO-4217 currency code, e.g. USD, AUD.")
-  public String getCurrency() {
+  @ApiModelProperty(value = "")
+  public CurrencyCode getCurrency() {
     return currency;
   }
 
-  public void setCurrency(String currency) {
+  public void setCurrency(CurrencyCode currency) {
     this.currency = currency;
   }
 
-  public FeedConnection country(String country) {
+  public FeedConnection country(CountryCode country) {
     this.country = country;
     return this;
   }
 
    /**
-   * ISO-3166 alpha-2 country code, e.g. US, AU This element is required only when the Application supports multi-region. Talk to your Partner Manager to confirm if this is the case.
+   * Get country
    * @return country
   **/
-  @ApiModelProperty(example = "GB", value = "ISO-3166 alpha-2 country code, e.g. US, AU This element is required only when the Application supports multi-region. Talk to your Partner Manager to confirm if this is the case.")
-  public String getCountry() {
+  @ApiModelProperty(value = "")
+  public CountryCode getCountry() {
     return country;
   }
 
-  public void setCountry(String country) {
+  public void setCountry(CountryCode country) {
     this.country = country;
   }
 

@@ -1,14 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.github.xeroapi</groupId>
-	<artifactId>xero-java</artifactId>
-	<packaging>jar</packaging>
-	<version>3.0.5</version>
-	<name>Xero-Java SDK</name>
-	<description>This is the official Java SDK for Xero API</description>
-	<url>https://github.com/XeroAPI/Xero-Java</url>
-	<licenses>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.github.xeroapi</groupId>
+    <artifactId>xero-java</artifactId>
+    <packaging>jar</packaging>
+    <name>xero-java</name>
+    <version>3.1.0</version>
+    <url>https://github.com/XeroAPI/Xero-Java</url>
+    <description>This is the official Java SDK for Xero API</description>
+    <licenses>
 		<license>
 			<name>MIT License</name>
 			<url>http://www.opensource.org/licenses/mit-license.php</url>
@@ -24,20 +24,20 @@
 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 	</distributionManagement>
-	<developers>
-		<developer>
-			<name>Sidney Maestre</name>
-			<email>api@xero.com</email>
-			<organization>Xero</organization>
-			<organizationUrl>https://developer.xero.com</organizationUrl>
-		</developer>
-	</developers>
-	<scm>
-		<connection>scm:git:git://github.com/XeroAPI/Xero-Java.git</connection>
-		<developerConnection>scm:git:ssh://github.com:XeroAPI/Xero-Java.git</developerConnection>
-		<url>http://github.com/XeroAPI/Xero-Java/tree/master</url>
-	</scm>
-	<dependencies>
+    <developers>
+        <developer>
+            <name>Xero API Team</name>
+            <email>api@xero.com</email>
+            <organization>Xero</organization>
+            <organizationUrl>https://developer.xero.com</organizationUrl>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:git://github.com/XeroAPI/Xero-Java.git</connection>
+        <developerConnection>scm:git:ssh://github.com:XeroAPI/Xero-Java.git</developerConnection>
+        <url>http://github.com/XeroAPI/Xero-Java/tree/master</url>
+    </scm>
+    <dependencies>
 		<dependency>
 		    <groupId>com.auth0</groupId>
 		    <artifactId>java-jwt</artifactId>
@@ -263,7 +263,6 @@
 	</build>
 	<reporting>
 		<plugins>
-			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>

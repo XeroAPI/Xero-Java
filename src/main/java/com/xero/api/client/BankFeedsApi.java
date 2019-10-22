@@ -1,5 +1,4 @@
 package com.xero.api.client;
-
 import com.xero.api.ApiClient;
 
 import com.xero.models.bankfeeds.Error;
@@ -46,7 +45,7 @@ public class BankFeedsApi {
     private ApiClient apiClient;
     private static BankFeedsApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.0.5";
+    private String version = "3.1.0";
 
     public BankFeedsApi() {
         this(new ApiClient());
@@ -297,7 +296,7 @@ public class BankFeedsApi {
 
   /**
     * searches feed connections
-    * By passing in the appropriate options, you can search for available feed connections in the system
+    * By passing in the appropriate options, you can search for available feed connections in the system.
     * <p><b>201</b> - search results matching criteria returned with pagination and items array
     * <p><b>400</b> - validation error response
     * @param xeroTenantId Xero identifier for Tenant
