@@ -77,6 +77,10 @@ public class LineItem {
   private String discountRate;
 
   
+  @JsonProperty("DiscountAmount")
+  private Double discountAmount;
+
+  
   @JsonProperty("RepeatingInvoiceID")
   private UUID repeatingInvoiceID;
 
@@ -286,6 +290,24 @@ public class LineItem {
     this.discountRate = discountRate;
   }
 
+  public LineItem discountAmount(Double discountAmount) {
+    this.discountAmount = discountAmount;
+    return this;
+  }
+
+   /**
+   * Discount amount being applied to a line item. Only supported on ACCREC invoices - ACCPAY invoices and credit notes in Xero do not support discounts.
+   * @return discountAmount
+  **/
+  @ApiModelProperty(value = "Discount amount being applied to a line item. Only supported on ACCREC invoices - ACCPAY invoices and credit notes in Xero do not support discounts.")
+  public Double getDiscountAmount() {
+    return discountAmount;
+  }
+
+  public void setDiscountAmount(Double discountAmount) {
+    this.discountAmount = discountAmount;
+  }
+
   public LineItem repeatingInvoiceID(UUID repeatingInvoiceID) {
     this.repeatingInvoiceID = repeatingInvoiceID;
     return this;
@@ -325,12 +347,13 @@ public class LineItem {
         Objects.equals(this.lineAmount, lineItem.lineAmount) &&
         Objects.equals(this.tracking, lineItem.tracking) &&
         Objects.equals(this.discountRate, lineItem.discountRate) &&
+        Objects.equals(this.discountAmount, lineItem.discountAmount) &&
         Objects.equals(this.repeatingInvoiceID, lineItem.repeatingInvoiceID);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(lineItemID, description, quantity, unitAmount, itemCode, accountCode, taxType, taxAmount, lineAmount, tracking, discountRate, repeatingInvoiceID);
+    return Objects.hash(lineItemID, description, quantity, unitAmount, itemCode, accountCode, taxType, taxAmount, lineAmount, tracking, discountRate, discountAmount, repeatingInvoiceID);
   }
 
 
@@ -350,6 +373,7 @@ public class LineItem {
     sb.append("    lineAmount: ").append(toIndentedString(lineAmount)).append("\n");
     sb.append("    tracking: ").append(toIndentedString(tracking)).append("\n");
     sb.append("    discountRate: ").append(toIndentedString(discountRate)).append("\n");
+    sb.append("    discountAmount: ").append(toIndentedString(discountAmount)).append("\n");
     sb.append("    repeatingInvoiceID: ").append(toIndentedString(repeatingInvoiceID)).append("\n");
     sb.append("}");
     return sb.toString();

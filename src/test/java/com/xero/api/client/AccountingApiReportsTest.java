@@ -50,7 +50,7 @@ public class AccountingApiReportsTest {
 	@Before
 	public void setUp() {
 		config = new CustomJsonConfig();
-		apiClientForAccounting = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null);
+		apiClientForAccounting = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting-oauth1/2.0.0",null,null,null);
 		api = new AccountingApi(config);
 		api.setApiClient(apiClientForAccounting);
 		api.setOAuthToken(config.getConsumerKey(), config.getConsumerSecret());
@@ -92,7 +92,6 @@ public class AccountingApiReportsTest {
         assertThat(response.getReports().get(0).getReportTitles().get(2), is(equalTo("From 10 October 2017 to 22 April 2019")));
         assertThat(response.getReports().get(0).getReportTitles().get(3), is(equalTo("Showing payments to 22 April 2019")));
         assertThat(response.getReports().get(0).getReportDate(), is(equalTo("22 April 2019")));
-        assertThat(response.getReports().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-04-22T15:11:28.085-07:00"))));  
         assertThat(response.getReports().get(0).getRows().get(0).getRowType(), is(equalTo(com.xero.models.accounting.RowType.HEADER)));
         assertThat(response.getReports().get(0).getRows().get(0).getCells().get(0).getValue(), is(equalTo("Date")));
         assertThat(response.getReports().get(0).getRows().get(1).getRowType(), is(equalTo(com.xero.models.accounting.RowType.SECTION)));
@@ -127,8 +126,7 @@ public class AccountingApiReportsTest {
         assertThat(response.getReports().get(0).getReportTitles().get(2), is(equalTo("From 10 October 2017 to 23 April 2019")));
         assertThat(response.getReports().get(0).getReportTitles().get(3), is(equalTo("Showing payments to 23 April 2019")));
         assertThat(response.getReports().get(0).getReportDate(), is(equalTo("23 April 2019")));
-        assertThat(response.getReports().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-04-23T08:21:02.815-07:00"))));  
-        assertThat(response.getReports().get(0).getRows().get(0).getRowType(), is(equalTo(com.xero.models.accounting.RowType.HEADER)));
+       assertThat(response.getReports().get(0).getRows().get(0).getRowType(), is(equalTo(com.xero.models.accounting.RowType.HEADER)));
         assertThat(response.getReports().get(0).getRows().get(0).getCells().get(0).getValue(), is(equalTo("Date")));
         assertThat(response.getReports().get(0).getRows().get(1).getRowType(), is(equalTo(com.xero.models.accounting.RowType.SECTION)));
         assertThat(response.getReports().get(0).getRows().get(1).getRows().get(0).getCells().get(0).getValue(), is(equalTo("2017-10-10T00:00:00")));
@@ -167,7 +165,6 @@ public class AccountingApiReportsTest {
         assertThat(response.getReports().get(0).getReportTitles().get(0), is(equalTo("Balance Sheet")));
         assertThat(response.getReports().get(0).getReportTitles().get(1), is(equalTo("Dev Evangelist - Sid Test 3 (NZ-2016-02)")));
         assertThat(response.getReports().get(0).getReportDate(), is(equalTo("12 April 2019")));
-        assertThat(response.getReports().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-04-12T13:03:32.778-07:00"))));  
         assertThat(response.getReports().get(0).getRows().get(0).getRowType(), is(equalTo(com.xero.models.accounting.RowType.HEADER)));
         assertThat(response.getReports().get(0).getRows().get(0).getCells().get(1).getValue(), is(equalTo("30 Apr 2019")));
         assertThat(response.getReports().get(0).getRows().get(1).getRowType(), is(equalTo(com.xero.models.accounting.RowType.SECTION)));
@@ -196,7 +193,6 @@ public class AccountingApiReportsTest {
         assertThat(response.getReports().get(0).getReportTitles().get(1), is(equalTo("MindBody Test 10 (AU-2016-02)")));
         assertThat(response.getReports().get(0).getReportTitles().get(2), is(equalTo("From 1 April 2019 to 30 April 2019")));
         assertThat(response.getReports().get(0).getReportDate(), is(equalTo("23 April 2019")));
-        assertThat(response.getReports().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-04-23T09:05:26.223-07:00"))));  
         assertThat(response.getReports().get(0).getRows().get(0).getRowType(), is(equalTo(com.xero.models.accounting.RowType.HEADER)));
         assertThat(response.getReports().get(0).getRows().get(0).getCells().get(0).getValue(), is(equalTo("Bank Accounts")));
         assertThat(response.getReports().get(0).getRows().get(0).getCells().get(1).getValue(), is(equalTo("Opening Balance")));
@@ -227,7 +223,6 @@ public class AccountingApiReportsTest {
         assertThat(response.getReports().get(0).getReportTitles().get(1), is(equalTo("Dev Evangelist - Sid Test 1 (US-2016-06)")));
         assertThat(response.getReports().get(0).getReportTitles().get(2), is(equalTo("For the month of April 2019")));
         assertThat(response.getReports().get(0).getReportDate(), is(equalTo("24 April 2019")));
-        assertThat(response.getReports().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-04-24T11:04:57.941-07:00"))));  
         assertThat(response.getReports().get(0).getRows().get(0).getRowType(), is(equalTo(com.xero.models.accounting.RowType.HEADER)));
         assertThat(response.getReports().get(0).getRows().get(0).getCells().get(1).getValue(), is(equalTo("Apr 2019")));
         assertThat(response.getReports().get(0).getRows().get(0).getCells().get(2).getValue(), is(equalTo("Mar 2019")));
@@ -282,8 +277,7 @@ public class AccountingApiReportsTest {
         assertThat(response.getReports().get(0).getReportTitles().get(1), is(equalTo("Dev Evangelist - Sid Test 1 (US-2016-06)")));
         assertThat(response.getReports().get(0).getReportTitles().get(2), is(equalTo("As at 24 April 2019")));
         assertThat(response.getReports().get(0).getReportDate(), is(equalTo("24 April 2019")));
-        assertThat(response.getReports().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-04-24T11:12:38.724-07:00"))));  
-        assertThat(response.getReports().get(0).getRows().get(0).getRowType(), is(equalTo(com.xero.models.accounting.RowType.HEADER)));
+       assertThat(response.getReports().get(0).getRows().get(0).getRowType(), is(equalTo(com.xero.models.accounting.RowType.HEADER)));
         assertThat(response.getReports().get(0).getRows().get(0).getCells().get(0).getValue(), is(equalTo("Account")));
         assertThat(response.getReports().get(0).getRows().get(0).getCells().get(1).getValue(), is(equalTo("Debit")));
         assertThat(response.getReports().get(0).getRows().get(0).getCells().get(2).getValue(), is(equalTo("Credit")));
@@ -314,8 +308,7 @@ public class AccountingApiReportsTest {
         assertThat(response.getReports().get(0).getReportTitles().get(2), is(equalTo("Dev Evangelist - Sid Test 1 (US-2016-06)")));
         assertThat(response.getReports().get(0).getReportTitles().get(3), is(equalTo("April 2019 to March 2022")));
         assertThat(response.getReports().get(0).getReportDate(), is(equalTo("24 April 2019")));
-        assertThat(response.getReports().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-04-24T11:59:36.350-07:00"))));  
-        assertThat(response.getReports().get(0).getRows().get(0).getRowType(), is(equalTo(com.xero.models.accounting.RowType.HEADER)));
+         assertThat(response.getReports().get(0).getRows().get(0).getRowType(), is(equalTo(com.xero.models.accounting.RowType.HEADER)));
         assertThat(response.getReports().get(0).getRows().get(0).getCells().get(0).getValue(), is(equalTo("Account")));
         assertThat(response.getReports().get(0).getRows().get(0).getCells().get(1).getValue(), is(equalTo("Jun-19")));
         assertThat(response.getReports().get(0).getRows().get(0).getCells().get(2).getValue(), is(equalTo("Sep-19")));
@@ -359,7 +352,6 @@ public class AccountingApiReportsTest {
         assertThat(response.getReports().get(0).getReportTitles().get(1), is(equalTo("Dev Evangelist - Sid Test 1 (US-2016-06)")));
         assertThat(response.getReports().get(0).getReportTitles().get(2), is(equalTo("10 October 2018 to 24 April 2019")));
         assertThat(response.getReports().get(0).getReportDate(), is(equalTo("24 April 2019")));
-        assertThat(response.getReports().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-04-24T12:12:53.644-07:00"))));  
         assertThat(response.getReports().get(0).getRows().get(0).getRowType(), is(equalTo(com.xero.models.accounting.RowType.HEADER)));
         assertThat(response.getReports().get(0).getRows().get(0).getCells().get(1).getValue(), is(equalTo("24 Apr 19")));
         assertThat(response.getReports().get(0).getRows().get(1).getRowType(), is(equalTo(com.xero.models.accounting.RowType.SECTION)));

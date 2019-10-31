@@ -51,7 +51,7 @@ public class AccountingApiAccountsTest {
 	@Before
 	public void setUp() {
 		config = new CustomJsonConfig();
-		apiClientForAccounting = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null);
+		apiClientForAccounting = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting-oauth1/2.0.0",null,null,null);
 		accountingApi = new AccountingApi(config);
 		accountingApi.setApiClient(apiClientForAccounting);
 		accountingApi.setOAuthToken(config.getConsumerKey(), config.getConsumerSecret());
@@ -176,7 +176,7 @@ public class AccountingApiAccountsTest {
 		byte[] bytes = IOUtils.toByteArray(inputStream);
 		String newFileName = "sample5.jpg";
 		Attachments createAccountsAttachments = accountingApi.updateAccountAttachmentByFileName(accountID, newFileName, bytes);					
-		assertThat(createAccountsAttachments.getAttachments().get(0).getAttachmentID().toString(), is(equalTo("ab95b276-9dce-4925-9077-439818ba270f")));
+		assertThat(createAccountsAttachments.getAttachments().get(0).getAttachmentID().toString(), is(equalTo("3fa85f64-5717-4562-b3fc-2c963f66afa6")));
 		assertThat(createAccountsAttachments.getAttachments().get(0).getFileName().toString(), is(equalTo("sample5.jpg")));
 		assertThat(createAccountsAttachments.getAttachments().get(0).getMimeType().toString(), is(equalTo("image/jpg")));
 		assertThat(createAccountsAttachments.getAttachments().get(0).getUrl().toString(), is(equalTo("https://api.xero.com/api.xro/2.0/Accounts/da962997-a8bd-4dff-9616-01cdc199283f/Attachments/sample5.jpg")));

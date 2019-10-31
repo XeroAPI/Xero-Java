@@ -55,7 +55,7 @@ public class AccountingApiOverpaymentsTest {
 	@Before
 	public void setUp() {
 		config = new CustomJsonConfig();
-		apiClientForAccounting = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null);
+		apiClientForAccounting = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting-oauth1/2.0.0",null,null,null);
 		api = new AccountingApi(config);
 		api.setApiClient(apiClientForAccounting);
 		api.setOAuthToken(config.getConsumerKey(), config.getConsumerSecret());
