@@ -83,6 +83,7 @@ public class BankFeedsApi {
     * By passing in the FeedConnections array object in the body, you can create one or more new feed connections
     * <p><b>201</b> - success new feed connection(s)response
     * <p><b>400</b> - invalid input, object invalid
+    * <p><b>409</b> - failed to create new feed connection(s)response
     * @param xeroTenantId Xero identifier for Tenant
     * @param feedConnections Feed Connection(s) array object in the body
     * @return FeedConnections

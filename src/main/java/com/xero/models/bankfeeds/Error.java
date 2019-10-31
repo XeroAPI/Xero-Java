@@ -56,7 +56,9 @@ public class Error {
     
     INVALID_START_DATE("invalid-start-date"),
     
-    INTERNAL_ERROR("internal-error");
+    INTERNAL_ERROR("internal-error"),
+    
+    FEED_ALREADY_CONNECTED_IN_CURRENT_ORGANISATION("feed-already-connected-in-current-organisation");
 
     private String value;
 
