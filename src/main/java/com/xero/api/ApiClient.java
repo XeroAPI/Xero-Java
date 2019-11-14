@@ -17,6 +17,7 @@ import com.google.api.client.json.Json;
 import java.io.IOException;
 import java.io.OutputStream;
 
+
 public class ApiClient {
     private final String basePath;
     private final HttpRequestFactory httpRequestFactory;
@@ -31,7 +32,7 @@ public class ApiClient {
             .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
             .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
             .setDateFormat(new RFC3339DateFormat())
-        	.setSerializationInclusion(Include.NON_EMPTY);
+            .setSerializationInclusion(Include.NON_EMPTY);
         objectMapper.configure(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL, true);
         
         ThreeTenModule module = new ThreeTenModule();
@@ -48,7 +49,7 @@ public class ApiClient {
 
     public ApiClient(
         String basePath,
-        HttpTransport httpTransport,
+        HttpTransport transport,
         HttpRequestInitializer initializer,
         ObjectMapper objectMapper,
         HttpRequestFactory reqFactory
@@ -56,7 +57,10 @@ public class ApiClient {
         this.basePath = basePath == null ? defaultBasePath : (
             basePath.endsWith("/") ? basePath.substring(0, basePath.length() - 1) : basePath
         );
-        this.httpRequestFactory = (reqFactory != null ? reqFactory : (httpTransport == null ? Utils.getDefaultTransport() : httpTransport).createRequestFactory(initializer) );
+        if (transport != null) {
+            this.httpTransport = transport;
+        }
+        this.httpRequestFactory = (reqFactory != null ? reqFactory : (transport == null ? Utils.getDefaultTransport() : transport).createRequestFactory(initializer) );
         this.objectMapper = (objectMapper == null ? createDefaultObjectMapper() : objectMapper);
     }
 
@@ -66,6 +70,10 @@ public class ApiClient {
 
     public HttpTransport getHttpTransport() {
         return httpTransport;
+    }
+
+    public void setHttpTransport(HttpTransport transport) {
+        this.httpTransport = transport;
     }
 
     public String getBasePath() {

@@ -58,9 +58,10 @@ public class AccountingApiAccountsTest {
         
 		// Init AccountingApi client
 		// NEW Sandbox for API Mocking
-		//defaultClient = new ApiClient("https://twilight-grass-2493.getsandbox.com:443/api.xro/2.0",null,null,null,null);
-        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
-        accountingApi = AccountingApi.getInstance(defaultClient);	
+		//defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
+		defaultClient = new ApiClient("https://twilight-grass-2493.getsandbox.com:443/api.xro/2.0",null,null,null,null);
+        
+		accountingApi = AccountingApi.getInstance(defaultClient);	
         
 		// ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
 		if (setUpIsDone) {
@@ -69,7 +70,7 @@ public class AccountingApiAccountsTest {
 
     	try {
     		System.out.println("Sleep for 60 seconds");
-	    	Thread.sleep(60000);
+	    	Thread.sleep(60);
     	} catch(InterruptedException e) {
     		System.out.println(e);
     	}

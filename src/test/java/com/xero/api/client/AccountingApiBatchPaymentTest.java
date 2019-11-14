@@ -54,7 +54,10 @@ public class AccountingApiBatchPaymentTest {
         xeroTenantId = "xyz";
         
         // Init AccountingApi client
-        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
+        // NEW Sandbox for API Mocking
+		//defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
+		defaultClient = new ApiClient("https://twilight-grass-2493.getsandbox.com:443/api.xro/2.0",null,null,null,null);
+        
         accountingApi = AccountingApi.getInstance(defaultClient);	
         
         ClassLoader classLoader = getClass().getClassLoader();
@@ -67,7 +70,7 @@ public class AccountingApiBatchPaymentTest {
 
     	try {
     		System.out.println("Sleep for 60 seconds");
-	    	Thread.sleep(60000);
+	    	Thread.sleep(60);
     	} catch(InterruptedException e) {
     		System.out.println(e);
     	}

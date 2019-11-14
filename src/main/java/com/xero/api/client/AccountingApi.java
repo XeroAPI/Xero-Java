@@ -100,7 +100,7 @@ public class AccountingApi {
     private ApiClient apiClient;
     private static AccountingApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.1.0";
+    private String version = "3.1.1";
 
     public AccountingApi() {
         this(new ApiClient());
@@ -180,11 +180,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(account);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -252,12 +250,9 @@ public class AccountingApi {
 
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        
         HttpContent content = null;
-        
         content = new FileContent(mimeType, body);
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -311,11 +306,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(bankTransaction);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -383,12 +376,9 @@ public class AccountingApi {
 
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        
         HttpContent content = null;
-        
         content = new FileContent(mimeType, body);
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -451,11 +441,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(historyRecords);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -521,11 +509,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(bankTransactions);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -579,11 +565,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(bankTransfers);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -650,12 +634,9 @@ public class AccountingApi {
 
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        
         HttpContent content = null;
-        
         content = new FileContent(mimeType, body);
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -717,11 +698,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(historyRecords);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -775,11 +754,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(batchPayments);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -842,11 +819,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(historyRecords);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -909,11 +884,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(paymentService);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -966,11 +939,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(contact);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -1037,12 +1008,9 @@ public class AccountingApi {
 
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        
         HttpContent content = null;
-        
         content = new FileContent(mimeType, body);
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -1096,11 +1064,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(contactGroups);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -1163,11 +1129,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(contacts);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -1230,11 +1194,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(historyRecords);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -1287,11 +1249,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(contacts);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -1345,11 +1305,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(creditNote);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -1412,11 +1370,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(allocations);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -1484,12 +1440,9 @@ public class AccountingApi {
 
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        
         HttpContent content = null;
-        
         content = new FileContent(mimeType, body);
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -1552,11 +1505,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(historyRecords);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -1622,11 +1573,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(creditNotes);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -1678,11 +1627,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(currency);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -1736,11 +1683,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(employee);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -1794,11 +1739,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(employees);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -1860,11 +1803,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(historyRecords);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -1918,11 +1859,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(expenseClaims);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -1976,11 +1915,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(invoice);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -2048,12 +1985,9 @@ public class AccountingApi {
 
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        
         HttpContent content = null;
-        
         content = new FileContent(mimeType, body);
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -2116,11 +2050,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(historyRecords);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -2186,11 +2118,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(invoices);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -2244,11 +2174,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(item);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -2310,11 +2238,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(historyRecords);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -2368,11 +2294,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(items);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -2426,11 +2350,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(linkedTransaction);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -2484,11 +2406,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(linkedTransactions);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -2542,11 +2462,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(manualJournal);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -2614,12 +2532,9 @@ public class AccountingApi {
 
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        
         HttpContent content = null;
-        
         content = new FileContent(mimeType, body);
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -2673,11 +2588,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(manualJournals);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -2740,11 +2653,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(allocation);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -2807,11 +2718,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(allocations);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -2874,11 +2783,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(historyRecords);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -2932,11 +2839,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(payment);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -2999,11 +2904,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(historyRecords);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -3057,11 +2960,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(paymentServices);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -3115,11 +3016,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(payments);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -3182,11 +3081,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(allocations);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -3249,11 +3146,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(historyRecords);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -3307,11 +3202,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(purchaseOrder);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -3374,11 +3267,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(historyRecords);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -3444,11 +3335,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(purchaseOrders);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -3502,11 +3391,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(receipts);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -3574,12 +3461,9 @@ public class AccountingApi {
 
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        
         HttpContent content = null;
-        
         content = new FileContent(mimeType, body);
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -3642,11 +3526,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(historyRecords);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -3714,12 +3596,9 @@ public class AccountingApi {
 
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        
         HttpContent content = null;
-        
         content = new FileContent(mimeType, body);
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -3782,11 +3661,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(historyRecords);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -3840,11 +3717,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(taxRate);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -3898,11 +3773,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(taxRates);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -3956,11 +3829,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(trackingCategory);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -4023,11 +3894,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(trackingOption);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -4086,9 +3955,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -4148,9 +4015,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -4204,9 +4069,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -4261,9 +4124,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -4318,9 +4179,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -4383,11 +4242,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(payments);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -4446,9 +4303,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -4512,9 +4367,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -4573,11 +4426,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(requestEmpty);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -4635,9 +4486,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -4713,9 +4562,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -4791,9 +4638,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -4851,9 +4696,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -4926,9 +4769,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -4986,9 +4827,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -5064,9 +4903,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -5142,9 +4979,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -5202,9 +5037,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -5299,9 +5132,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -5359,9 +5190,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -5419,9 +5248,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -5497,9 +5324,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -5575,9 +5400,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -5635,9 +5458,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -5695,9 +5516,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -5770,9 +5589,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -5830,9 +5647,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -5905,9 +5720,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -5965,9 +5778,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -6025,9 +5836,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -6076,9 +5885,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -6136,9 +5943,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -6214,9 +6019,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -6292,9 +6095,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -6352,9 +6153,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -6412,9 +6211,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -6472,9 +6269,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -6546,9 +6341,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -6606,9 +6399,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -6714,9 +6505,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -6774,9 +6563,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -6847,9 +6634,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -6925,9 +6710,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -7003,9 +6786,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -7063,9 +6844,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -7123,9 +6902,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -7209,9 +6986,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -7283,9 +7058,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -7343,9 +7116,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -7418,9 +7189,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -7478,9 +7247,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -7538,9 +7305,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -7613,9 +7378,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -7673,9 +7436,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -7746,9 +7507,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -7824,9 +7583,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -7902,9 +7659,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -7962,9 +7717,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -8022,9 +7775,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -8073,9 +7824,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -8236,9 +7985,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -8296,9 +8043,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -8356,9 +8101,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -8442,9 +8185,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -8502,9 +8243,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -8577,9 +8316,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -8637,9 +8374,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -8755,9 +8490,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -8815,9 +8548,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -8893,9 +8624,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -8971,9 +8700,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -9031,9 +8758,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -9117,9 +8842,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -9177,9 +8900,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -9237,9 +8958,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -9288,9 +9007,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -9348,9 +9065,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -9408,9 +9123,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -9505,9 +9218,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -9565,9 +9276,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -9625,9 +9334,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -9676,9 +9383,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -9751,9 +9456,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -9811,9 +9514,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -9871,9 +9572,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -9968,9 +9667,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -10028,9 +9725,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -10088,9 +9783,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -10196,9 +9889,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -10256,9 +9947,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -10397,9 +10086,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -10457,9 +10144,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -10535,9 +10220,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -10613,9 +10296,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -10673,9 +10354,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -10733,9 +10412,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -10819,9 +10496,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -10879,9 +10554,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -10957,9 +10630,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -11035,9 +10706,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -11095,9 +10764,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -11155,9 +10822,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -11229,9 +10894,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -11328,9 +10991,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -11427,9 +11088,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -11487,9 +11146,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -11538,9 +11195,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -11667,9 +11322,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -11752,9 +11405,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -11837,9 +11488,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -11900,9 +11549,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -12062,9 +11709,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -12125,9 +11770,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -12199,9 +11842,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -12284,9 +11925,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -12369,9 +12008,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -12429,9 +12066,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -12489,9 +12124,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -12564,9 +12197,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -12629,11 +12260,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(accounts);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -12701,12 +12330,9 @@ public class AccountingApi {
 
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        
         HttpContent content = null;
-        
         content = new FileContent(mimeType, body);
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -12769,11 +12395,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(bankTransactions);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -12841,12 +12465,9 @@ public class AccountingApi {
 
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        
         HttpContent content = null;
-        
         content = new FileContent(mimeType, body);
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -12913,12 +12534,9 @@ public class AccountingApi {
 
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        
         HttpContent content = null;
-        
         content = new FileContent(mimeType, body);
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -12980,11 +12598,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(contacts);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -13051,12 +12667,9 @@ public class AccountingApi {
 
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        
         HttpContent content = null;
-        
         content = new FileContent(mimeType, body);
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -13119,11 +12732,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(contactGroups);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -13186,11 +12797,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(creditNotes);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -13258,12 +12867,9 @@ public class AccountingApi {
 
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        
         HttpContent content = null;
-        
         content = new FileContent(mimeType, body);
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -13326,11 +12932,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(employees);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -13393,11 +12997,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(expenseClaims);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -13460,11 +13062,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(invoices);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -13532,12 +13132,9 @@ public class AccountingApi {
 
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        
         HttpContent content = null;
-        
         content = new FileContent(mimeType, body);
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -13600,11 +13197,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(items);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -13667,11 +13262,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(linkedTransactions);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -13734,11 +13327,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(manualJournals);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -13806,12 +13397,9 @@ public class AccountingApi {
 
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        
         HttpContent content = null;
-        
         content = new FileContent(mimeType, body);
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -13874,11 +13462,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(purchaseOrders);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -13941,11 +13527,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(receipts);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -14013,12 +13597,9 @@ public class AccountingApi {
 
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        
         HttpContent content = null;
-        
         content = new FileContent(mimeType, body);
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -14086,12 +13667,9 @@ public class AccountingApi {
 
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
-        
         HttpContent content = null;
-        
         content = new FileContent(mimeType, body);
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -14145,11 +13723,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(taxRates);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -14212,11 +13788,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(trackingCategory);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
@@ -14284,11 +13858,9 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        
         content = apiClient.new JacksonJsonHttpContent(trackingOption);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        //HttpTransport transport = new NetHttpTransport(); 
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
