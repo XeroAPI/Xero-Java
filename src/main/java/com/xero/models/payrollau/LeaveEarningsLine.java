@@ -25,10 +25,10 @@ import java.util.UUID;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
- * PayslipEarningsLines
+ * LeaveEarningsLine
  */
 
-public class PayslipEarningsLines {
+public class LeaveEarningsLine {
   
   @JsonProperty("EarningsRateID")
   private UUID earningsRateID;
@@ -41,11 +41,7 @@ public class PayslipEarningsLines {
   @JsonProperty("NumberOfUnits")
   private Float numberOfUnits;
 
-  
-  @JsonProperty("FixedAmount")
-  private Float fixedAmount;
-
-  public PayslipEarningsLines earningsRateID(UUID earningsRateID) {
+  public LeaveEarningsLine earningsRateID(UUID earningsRateID) {
     this.earningsRateID = earningsRateID;
     return this;
   }
@@ -63,7 +59,7 @@ public class PayslipEarningsLines {
     this.earningsRateID = earningsRateID;
   }
 
-  public PayslipEarningsLines ratePerUnit(Float ratePerUnit) {
+  public LeaveEarningsLine ratePerUnit(Float ratePerUnit) {
     this.ratePerUnit = ratePerUnit;
     return this;
   }
@@ -81,7 +77,7 @@ public class PayslipEarningsLines {
     this.ratePerUnit = ratePerUnit;
   }
 
-  public PayslipEarningsLines numberOfUnits(Float numberOfUnits) {
+  public LeaveEarningsLine numberOfUnits(Float numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
     return this;
   }
@@ -99,24 +95,6 @@ public class PayslipEarningsLines {
     this.numberOfUnits = numberOfUnits;
   }
 
-  public PayslipEarningsLines fixedAmount(Float fixedAmount) {
-    this.fixedAmount = fixedAmount;
-    return this;
-  }
-
-   /**
-   * Earnings rate amount. Only applicable if the EarningsRate RateType is Fixed
-   * @return fixedAmount
-  **/
-  @ApiModelProperty(example = "2.5", value = "Earnings rate amount. Only applicable if the EarningsRate RateType is Fixed")
-  public Float getFixedAmount() {
-    return fixedAmount;
-  }
-
-  public void setFixedAmount(Float fixedAmount) {
-    this.fixedAmount = fixedAmount;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -126,27 +104,25 @@ public class PayslipEarningsLines {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PayslipEarningsLines payslipEarningsLines = (PayslipEarningsLines) o;
-    return Objects.equals(this.earningsRateID, payslipEarningsLines.earningsRateID) &&
-        Objects.equals(this.ratePerUnit, payslipEarningsLines.ratePerUnit) &&
-        Objects.equals(this.numberOfUnits, payslipEarningsLines.numberOfUnits) &&
-        Objects.equals(this.fixedAmount, payslipEarningsLines.fixedAmount);
+    LeaveEarningsLine leaveEarningsLine = (LeaveEarningsLine) o;
+    return Objects.equals(this.earningsRateID, leaveEarningsLine.earningsRateID) &&
+        Objects.equals(this.ratePerUnit, leaveEarningsLine.ratePerUnit) &&
+        Objects.equals(this.numberOfUnits, leaveEarningsLine.numberOfUnits);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(earningsRateID, ratePerUnit, numberOfUnits, fixedAmount);
+    return Objects.hash(earningsRateID, ratePerUnit, numberOfUnits);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PayslipEarningsLines {\n");
+    sb.append("class LeaveEarningsLine {\n");
     sb.append("    earningsRateID: ").append(toIndentedString(earningsRateID)).append("\n");
     sb.append("    ratePerUnit: ").append(toIndentedString(ratePerUnit)).append("\n");
     sb.append("    numberOfUnits: ").append(toIndentedString(numberOfUnits)).append("\n");
-    sb.append("    fixedAmount: ").append(toIndentedString(fixedAmount)).append("\n");
     sb.append("}");
     return sb.toString();
   }

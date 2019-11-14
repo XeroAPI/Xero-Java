@@ -18,7 +18,7 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.payrollau.Superfund;
+import com.xero.models.payrollau.SuperFund;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -27,38 +27,38 @@ import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
- * Superfunds
+ * SuperFunds
  */
 
-public class Superfunds {
+public class SuperFunds {
   
-  @JsonProperty("Superfunds")
-  private List<Superfund> superfunds = new ArrayList<Superfund>();
+  @JsonProperty("SuperFunds")
+  private List<SuperFund> superFunds = new ArrayList<SuperFund>();
 
-  public Superfunds superfunds(List<Superfund> superfunds) {
-    this.superfunds = superfunds;
+  public SuperFunds superFunds(List<SuperFund> superFunds) {
+    this.superFunds = superFunds;
     return this;
   }
 
-  public Superfunds addSuperfundsItem(Superfund superfundsItem) {
-    if (this.superfunds == null) {
-      this.superfunds = new ArrayList<Superfund>();
+  public SuperFunds addSuperFundsItem(SuperFund superFundsItem) {
+    if (this.superFunds == null) {
+      this.superFunds = new ArrayList<SuperFund>();
     }
-    this.superfunds.add(superfundsItem);
+    this.superFunds.add(superFundsItem);
     return this;
   }
 
    /**
-   * Get superfunds
-   * @return superfunds
+   * Get superFunds
+   * @return superFunds
   **/
   @ApiModelProperty(value = "")
-  public List<Superfund> getSuperfunds() {
-    return superfunds;
+  public List<SuperFund> getSuperFunds() {
+    return superFunds;
   }
 
-  public void setSuperfunds(List<Superfund> superfunds) {
-    this.superfunds = superfunds;
+  public void setSuperFunds(List<SuperFund> superFunds) {
+    this.superFunds = superFunds;
   }
 
 
@@ -70,21 +70,21 @@ public class Superfunds {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Superfunds superfunds = (Superfunds) o;
-    return Objects.equals(this.superfunds, superfunds.superfunds);
+    SuperFunds superFunds = (SuperFunds) o;
+    return Objects.equals(this.superFunds, superFunds.superFunds);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(superfunds);
+    return Objects.hash(superFunds);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Superfunds {\n");
-    sb.append("    superfunds: ").append(toIndentedString(superfunds)).append("\n");
+    sb.append("class SuperFunds {\n");
+    sb.append("    superFunds: ").append(toIndentedString(superFunds)).append("\n");
     sb.append("}");
     return sb.toString();
   }

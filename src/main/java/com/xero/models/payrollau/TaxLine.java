@@ -25,10 +25,10 @@ import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
- * PayslipTaxLine
+ * TaxLine
  */
 
-public class PayslipTaxLine {
+public class TaxLine {
   
   @JsonProperty("Amount")
   private Float amount;
@@ -49,7 +49,7 @@ public class PayslipTaxLine {
   @JsonProperty("LiabilityAccount")
   private String liabilityAccount;
 
-  public PayslipTaxLine amount(Float amount) {
+  public TaxLine amount(Float amount) {
     this.amount = amount;
     return this;
   }
@@ -67,7 +67,7 @@ public class PayslipTaxLine {
     this.amount = amount;
   }
 
-  public PayslipTaxLine taxTypeName(String taxTypeName) {
+  public TaxLine taxTypeName(String taxTypeName) {
     this.taxTypeName = taxTypeName;
     return this;
   }
@@ -85,7 +85,7 @@ public class PayslipTaxLine {
     this.taxTypeName = taxTypeName;
   }
 
-  public PayslipTaxLine description(String description) {
+  public TaxLine description(String description) {
     this.description = description;
     return this;
   }
@@ -103,7 +103,7 @@ public class PayslipTaxLine {
     this.description = description;
   }
 
-  public PayslipTaxLine manualTaxType(ManualTaxType manualTaxType) {
+  public TaxLine manualTaxType(ManualTaxType manualTaxType) {
     this.manualTaxType = manualTaxType;
     return this;
   }
@@ -121,7 +121,7 @@ public class PayslipTaxLine {
     this.manualTaxType = manualTaxType;
   }
 
-  public PayslipTaxLine liabilityAccount(String liabilityAccount) {
+  public TaxLine liabilityAccount(String liabilityAccount) {
     this.liabilityAccount = liabilityAccount;
     return this;
   }
@@ -148,12 +148,12 @@ public class PayslipTaxLine {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PayslipTaxLine payslipTaxLine = (PayslipTaxLine) o;
-    return Objects.equals(this.amount, payslipTaxLine.amount) &&
-        Objects.equals(this.taxTypeName, payslipTaxLine.taxTypeName) &&
-        Objects.equals(this.description, payslipTaxLine.description) &&
-        Objects.equals(this.manualTaxType, payslipTaxLine.manualTaxType) &&
-        Objects.equals(this.liabilityAccount, payslipTaxLine.liabilityAccount);
+    TaxLine taxLine = (TaxLine) o;
+    return Objects.equals(this.amount, taxLine.amount) &&
+        Objects.equals(this.taxTypeName, taxLine.taxTypeName) &&
+        Objects.equals(this.description, taxLine.description) &&
+        Objects.equals(this.manualTaxType, taxLine.manualTaxType) &&
+        Objects.equals(this.liabilityAccount, taxLine.liabilityAccount);
   }
 
   @Override
@@ -165,7 +165,7 @@ public class PayslipTaxLine {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PayslipTaxLine {\n");
+    sb.append("class TaxLine {\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
     sb.append("    taxTypeName: ").append(toIndentedString(taxTypeName)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");

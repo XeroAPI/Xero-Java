@@ -79,9 +79,44 @@ public class BatchPayment {
   @JsonProperty("Payments")
   private List<Payment> payments = new ArrayList<Payment>();
 
+  /**
+   * PAYBATCH for bill payments or RECBATCH for sales invoice payments (read-only)
+   */
+  public enum TypeEnum {
+    PAYBATCH("PAYBATCH"),
+    
+    RECBATCH("RECBATCH");
+
+    private String value;
+
+    TypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static TypeEnum fromValue(String value) {
+      for (TypeEnum b : TypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
   
   @JsonProperty("Type")
-  private String type;
+  private TypeEnum type;
 
   
   @JsonProperty("Status")
@@ -301,7 +336,7 @@ public class BatchPayment {
    * @return type
   **/
   @ApiModelProperty(value = "PAYBATCH for bill payments or RECBATCH for sales invoice payments (read-only)")
-  public String getType() {
+  public TypeEnum getType() {
     return type;
   }
 

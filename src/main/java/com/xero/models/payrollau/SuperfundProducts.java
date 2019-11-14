@@ -18,7 +18,7 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.payrollau.SuperfundProduct;
+import com.xero.models.payrollau.SuperFundProduct;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -27,38 +27,38 @@ import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
- * SuperfundProducts
+ * SuperFundProducts
  */
 
-public class SuperfundProducts {
+public class SuperFundProducts {
   
-  @JsonProperty("SuperfundProducts")
-  private List<SuperfundProduct> superfundProducts = new ArrayList<SuperfundProduct>();
+  @JsonProperty("SuperFundProducts")
+  private List<SuperFundProduct> superFundProducts = new ArrayList<SuperFundProduct>();
 
-  public SuperfundProducts superfundProducts(List<SuperfundProduct> superfundProducts) {
-    this.superfundProducts = superfundProducts;
+  public SuperFundProducts superFundProducts(List<SuperFundProduct> superFundProducts) {
+    this.superFundProducts = superFundProducts;
     return this;
   }
 
-  public SuperfundProducts addSuperfundProductsItem(SuperfundProduct superfundProductsItem) {
-    if (this.superfundProducts == null) {
-      this.superfundProducts = new ArrayList<SuperfundProduct>();
+  public SuperFundProducts addSuperFundProductsItem(SuperFundProduct superFundProductsItem) {
+    if (this.superFundProducts == null) {
+      this.superFundProducts = new ArrayList<SuperFundProduct>();
     }
-    this.superfundProducts.add(superfundProductsItem);
+    this.superFundProducts.add(superFundProductsItem);
     return this;
   }
 
    /**
-   * Get superfundProducts
-   * @return superfundProducts
+   * Get superFundProducts
+   * @return superFundProducts
   **/
   @ApiModelProperty(value = "")
-  public List<SuperfundProduct> getSuperfundProducts() {
-    return superfundProducts;
+  public List<SuperFundProduct> getSuperFundProducts() {
+    return superFundProducts;
   }
 
-  public void setSuperfundProducts(List<SuperfundProduct> superfundProducts) {
-    this.superfundProducts = superfundProducts;
+  public void setSuperFundProducts(List<SuperFundProduct> superFundProducts) {
+    this.superFundProducts = superFundProducts;
   }
 
 
@@ -70,21 +70,21 @@ public class SuperfundProducts {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SuperfundProducts superfundProducts = (SuperfundProducts) o;
-    return Objects.equals(this.superfundProducts, superfundProducts.superfundProducts);
+    SuperFundProducts superFundProducts = (SuperFundProducts) o;
+    return Objects.equals(this.superFundProducts, superFundProducts.superFundProducts);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(superfundProducts);
+    return Objects.hash(superFundProducts);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SuperfundProducts {\n");
-    sb.append("    superfundProducts: ").append(toIndentedString(superfundProducts)).append("\n");
+    sb.append("class SuperFundProducts {\n");
+    sb.append("    superFundProducts: ").append(toIndentedString(superFundProducts)).append("\n");
     sb.append("}");
     return sb.toString();
   }

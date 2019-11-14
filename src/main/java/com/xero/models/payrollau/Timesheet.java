@@ -24,7 +24,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import org.threeten.bp.LocalDate;
+import java.util.UUID;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -35,15 +35,15 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class Timesheet {
   
   @JsonProperty("EmployeeID")
-  private Object employeeID = null;
+  private UUID employeeID;
 
-  @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
+  
   @JsonProperty("StartDate")
-  private LocalDate startDate;
+  private String startDate;
 
-  @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
+  
   @JsonProperty("EndDate")
-  private LocalDate endDate;
+  private String endDate;
 
   
   @JsonProperty("Status")
@@ -55,13 +55,13 @@ public class Timesheet {
 
   
   @JsonProperty("TimesheetID")
-  private Object timesheetID = null;
+  private UUID timesheetID;
 
   
   @JsonProperty("TimesheetLines")
   private List<TimesheetLine> timesheetLines = new ArrayList<TimesheetLine>();
 
-  public Timesheet employeeID(Object employeeID) {
+  public Timesheet employeeID(UUID employeeID) {
     this.employeeID = employeeID;
     return this;
   }
@@ -71,15 +71,15 @@ public class Timesheet {
    * @return employeeID
   **/
   @ApiModelProperty(example = "72a0d0c2-0cf8-4f0b-ade1-33231f47b41b", required = true, value = "The Xero identifier for an employee")
-  public Object getEmployeeID() {
+  public UUID getEmployeeID() {
     return employeeID;
   }
 
-  public void setEmployeeID(Object employeeID) {
+  public void setEmployeeID(UUID employeeID) {
     this.employeeID = employeeID;
   }
 
-  public Timesheet startDate(LocalDate startDate) {
+  public Timesheet startDate(String startDate) {
     this.startDate = startDate;
     return this;
   }
@@ -88,16 +88,16 @@ public class Timesheet {
    * Period start date (YYYY-MM-DD)
    * @return startDate
   **/
-  @ApiModelProperty(required = true, value = "Period start date (YYYY-MM-DD)")
-  public LocalDate getStartDate() {
+  @ApiModelProperty(example = "2013-02-01T00:00:00Z", required = true, value = "Period start date (YYYY-MM-DD)")
+  public String getStartDate() {
     return startDate;
   }
 
-  public void setStartDate(LocalDate startDate) {
+  public void setStartDate(String startDate) {
     this.startDate = startDate;
   }
 
-  public Timesheet endDate(LocalDate endDate) {
+  public Timesheet endDate(String endDate) {
     this.endDate = endDate;
     return this;
   }
@@ -106,12 +106,12 @@ public class Timesheet {
    * Period end date (YYYY-MM-DD)
    * @return endDate
   **/
-  @ApiModelProperty(required = true, value = "Period end date (YYYY-MM-DD)")
-  public LocalDate getEndDate() {
+  @ApiModelProperty(example = "2013-02-07T00:00:00Z", required = true, value = "Period end date (YYYY-MM-DD)")
+  public String getEndDate() {
     return endDate;
   }
 
-  public void setEndDate(LocalDate endDate) {
+  public void setEndDate(String endDate) {
     this.endDate = endDate;
   }
 
@@ -151,7 +151,7 @@ public class Timesheet {
     this.hours = hours;
   }
 
-  public Timesheet timesheetID(Object timesheetID) {
+  public Timesheet timesheetID(UUID timesheetID) {
     this.timesheetID = timesheetID;
     return this;
   }
@@ -161,11 +161,11 @@ public class Timesheet {
    * @return timesheetID
   **/
   @ApiModelProperty(example = "049765fc-4506-48fb-bf88-3578dec0ec47", value = "The Xero identifier for a Payroll Timesheet")
-  public Object getTimesheetID() {
+  public UUID getTimesheetID() {
     return timesheetID;
   }
 
-  public void setTimesheetID(Object timesheetID) {
+  public void setTimesheetID(UUID timesheetID) {
     this.timesheetID = timesheetID;
   }
 

@@ -25,10 +25,10 @@ import java.util.UUID;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
- * PayslipLeaveAccrualLine
+ * LeaveAccrualLine
  */
 
-public class PayslipLeaveAccrualLine {
+public class LeaveAccrualLine {
   
   @JsonProperty("LeaveTypeID")
   private UUID leaveTypeID;
@@ -41,7 +41,7 @@ public class PayslipLeaveAccrualLine {
   @JsonProperty("AutoCalculate")
   private Boolean autoCalculate;
 
-  public PayslipLeaveAccrualLine leaveTypeID(UUID leaveTypeID) {
+  public LeaveAccrualLine leaveTypeID(UUID leaveTypeID) {
     this.leaveTypeID = leaveTypeID;
     return this;
   }
@@ -59,7 +59,7 @@ public class PayslipLeaveAccrualLine {
     this.leaveTypeID = leaveTypeID;
   }
 
-  public PayslipLeaveAccrualLine numberOfUnits(Float numberOfUnits) {
+  public LeaveAccrualLine numberOfUnits(Float numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
     return this;
   }
@@ -77,7 +77,7 @@ public class PayslipLeaveAccrualLine {
     this.numberOfUnits = numberOfUnits;
   }
 
-  public PayslipLeaveAccrualLine autoCalculate(Boolean autoCalculate) {
+  public LeaveAccrualLine autoCalculate(Boolean autoCalculate) {
     this.autoCalculate = autoCalculate;
     return this;
   }
@@ -104,10 +104,10 @@ public class PayslipLeaveAccrualLine {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PayslipLeaveAccrualLine payslipLeaveAccrualLine = (PayslipLeaveAccrualLine) o;
-    return Objects.equals(this.leaveTypeID, payslipLeaveAccrualLine.leaveTypeID) &&
-        Objects.equals(this.numberOfUnits, payslipLeaveAccrualLine.numberOfUnits) &&
-        Objects.equals(this.autoCalculate, payslipLeaveAccrualLine.autoCalculate);
+    LeaveAccrualLine leaveAccrualLine = (LeaveAccrualLine) o;
+    return Objects.equals(this.leaveTypeID, leaveAccrualLine.leaveTypeID) &&
+        Objects.equals(this.numberOfUnits, leaveAccrualLine.numberOfUnits) &&
+        Objects.equals(this.autoCalculate, leaveAccrualLine.autoCalculate);
   }
 
   @Override
@@ -119,7 +119,7 @@ public class PayslipLeaveAccrualLine {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PayslipLeaveAccrualLine {\n");
+    sb.append("class LeaveAccrualLine {\n");
     sb.append("    leaveTypeID: ").append(toIndentedString(leaveTypeID)).append("\n");
     sb.append("    numberOfUnits: ").append(toIndentedString(numberOfUnits)).append("\n");
     sb.append("    autoCalculate: ").append(toIndentedString(autoCalculate)).append("\n");

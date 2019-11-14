@@ -21,17 +21,18 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.payrollau.SuperFundType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.UUID;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
- * Superfund
+ * SuperFund
  */
 
-public class Superfund {
+public class SuperFund {
   
   @JsonProperty("SuperFundID")
-  private Object superFundID = null;
+  private UUID superFundID;
 
   
   @JsonProperty("Type")
@@ -54,8 +55,8 @@ public class Superfund {
   private String accountNumber;
 
   
-  @JsonProperty("AccountNme")
-  private String accountNme;
+  @JsonProperty("AccountName")
+  private String accountName;
 
   
   @JsonProperty("ElectronicServiceAddress")
@@ -73,7 +74,7 @@ public class Superfund {
   @JsonProperty("USI")
   private String USI;
 
-  public Superfund superFundID(Object superFundID) {
+  public SuperFund superFundID(UUID superFundID) {
     this.superFundID = superFundID;
     return this;
   }
@@ -83,15 +84,15 @@ public class Superfund {
    * @return superFundID
   **/
   @ApiModelProperty(example = "bfac31bd-ea62-4fc8-a5e7-7965d9504b15", value = "Xero identifier for a super fund")
-  public Object getSuperFundID() {
+  public UUID getSuperFundID() {
     return superFundID;
   }
 
-  public void setSuperFundID(Object superFundID) {
+  public void setSuperFundID(UUID superFundID) {
     this.superFundID = superFundID;
   }
 
-  public Superfund type(SuperFundType type) {
+  public SuperFund type(SuperFundType type) {
     this.type = type;
     return this;
   }
@@ -109,7 +110,7 @@ public class Superfund {
     this.type = type;
   }
 
-  public Superfund name(String name) {
+  public SuperFund name(String name) {
     this.name = name;
     return this;
   }
@@ -127,7 +128,7 @@ public class Superfund {
     this.name = name;
   }
 
-  public Superfund ABN(String ABN) {
+  public SuperFund ABN(String ABN) {
     this.ABN = ABN;
     return this;
   }
@@ -145,7 +146,7 @@ public class Superfund {
     this.ABN = ABN;
   }
 
-  public Superfund BSB(String BSB) {
+  public SuperFund BSB(String BSB) {
     this.BSB = BSB;
     return this;
   }
@@ -163,7 +164,7 @@ public class Superfund {
     this.BSB = BSB;
   }
 
-  public Superfund accountNumber(String accountNumber) {
+  public SuperFund accountNumber(String accountNumber) {
     this.accountNumber = accountNumber;
     return this;
   }
@@ -181,25 +182,25 @@ public class Superfund {
     this.accountNumber = accountNumber;
   }
 
-  public Superfund accountNme(String accountNme) {
-    this.accountNme = accountNme;
+  public SuperFund accountName(String accountName) {
+    this.accountName = accountName;
     return this;
   }
 
    /**
    * The account name for the self managed super fund.
-   * @return accountNme
+   * @return accountName
   **/
   @ApiModelProperty(example = "Money account", value = "The account name for the self managed super fund.")
-  public String getAccountNme() {
-    return accountNme;
+  public String getAccountName() {
+    return accountName;
   }
 
-  public void setAccountNme(String accountNme) {
-    this.accountNme = accountNme;
+  public void setAccountName(String accountName) {
+    this.accountName = accountName;
   }
 
-  public Superfund electronicServiceAddress(String electronicServiceAddress) {
+  public SuperFund electronicServiceAddress(String electronicServiceAddress) {
     this.electronicServiceAddress = electronicServiceAddress;
     return this;
   }
@@ -217,7 +218,7 @@ public class Superfund {
     this.electronicServiceAddress = electronicServiceAddress;
   }
 
-  public Superfund employerNumber(String employerNumber) {
+  public SuperFund employerNumber(String employerNumber) {
     this.employerNumber = employerNumber;
     return this;
   }
@@ -235,7 +236,7 @@ public class Superfund {
     this.employerNumber = employerNumber;
   }
 
-  public Superfund SPIN(String SPIN) {
+  public SuperFund SPIN(String SPIN) {
     this.SPIN = SPIN;
     return this;
   }
@@ -253,7 +254,7 @@ public class Superfund {
     this.SPIN = SPIN;
   }
 
-  public Superfund USI(String USI) {
+  public SuperFund USI(String USI) {
     this.USI = USI;
     return this;
   }
@@ -280,37 +281,37 @@ public class Superfund {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Superfund superfund = (Superfund) o;
-    return Objects.equals(this.superFundID, superfund.superFundID) &&
-        Objects.equals(this.type, superfund.type) &&
-        Objects.equals(this.name, superfund.name) &&
-        Objects.equals(this.ABN, superfund.ABN) &&
-        Objects.equals(this.BSB, superfund.BSB) &&
-        Objects.equals(this.accountNumber, superfund.accountNumber) &&
-        Objects.equals(this.accountNme, superfund.accountNme) &&
-        Objects.equals(this.electronicServiceAddress, superfund.electronicServiceAddress) &&
-        Objects.equals(this.employerNumber, superfund.employerNumber) &&
-        Objects.equals(this.SPIN, superfund.SPIN) &&
-        Objects.equals(this.USI, superfund.USI);
+    SuperFund superFund = (SuperFund) o;
+    return Objects.equals(this.superFundID, superFund.superFundID) &&
+        Objects.equals(this.type, superFund.type) &&
+        Objects.equals(this.name, superFund.name) &&
+        Objects.equals(this.ABN, superFund.ABN) &&
+        Objects.equals(this.BSB, superFund.BSB) &&
+        Objects.equals(this.accountNumber, superFund.accountNumber) &&
+        Objects.equals(this.accountName, superFund.accountName) &&
+        Objects.equals(this.electronicServiceAddress, superFund.electronicServiceAddress) &&
+        Objects.equals(this.employerNumber, superFund.employerNumber) &&
+        Objects.equals(this.SPIN, superFund.SPIN) &&
+        Objects.equals(this.USI, superFund.USI);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(superFundID, type, name, ABN, BSB, accountNumber, accountNme, electronicServiceAddress, employerNumber, SPIN, USI);
+    return Objects.hash(superFundID, type, name, ABN, BSB, accountNumber, accountName, electronicServiceAddress, employerNumber, SPIN, USI);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Superfund {\n");
+    sb.append("class SuperFund {\n");
     sb.append("    superFundID: ").append(toIndentedString(superFundID)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    ABN: ").append(toIndentedString(ABN)).append("\n");
     sb.append("    BSB: ").append(toIndentedString(BSB)).append("\n");
     sb.append("    accountNumber: ").append(toIndentedString(accountNumber)).append("\n");
-    sb.append("    accountNme: ").append(toIndentedString(accountNme)).append("\n");
+    sb.append("    accountName: ").append(toIndentedString(accountName)).append("\n");
     sb.append("    electronicServiceAddress: ").append(toIndentedString(electronicServiceAddress)).append("\n");
     sb.append("    employerNumber: ").append(toIndentedString(employerNumber)).append("\n");
     sb.append("    SPIN: ").append(toIndentedString(SPIN)).append("\n");

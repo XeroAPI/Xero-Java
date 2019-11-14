@@ -21,7 +21,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
-import org.threeten.bp.OffsetDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -58,9 +57,9 @@ public class LeaveType {
   @JsonProperty("LeaveLoadingRate")
   private Float leaveLoadingRate;
 
-  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
+  
   @JsonProperty("UpdatedDateUTC")
-  private OffsetDateTime updatedDateUTC;
+  private String updatedDateUTC;
 
   public LeaveType name(String name) {
     this.name = name;
@@ -188,22 +187,13 @@ public class LeaveType {
     this.leaveLoadingRate = leaveLoadingRate;
   }
 
-  public LeaveType updatedDateUTC(OffsetDateTime updatedDateUTC) {
-    this.updatedDateUTC = updatedDateUTC;
-    return this;
-  }
-
    /**
    * Last modified timestamp
    * @return updatedDateUTC
   **/
-  @ApiModelProperty(value = "Last modified timestamp")
-  public OffsetDateTime getUpdatedDateUTC() {
+  @ApiModelProperty(example = "2018-04-01T23:02:36", value = "Last modified timestamp")
+  public String getUpdatedDateUTC() {
     return updatedDateUTC;
-  }
-
-  public void setUpdatedDateUTC(OffsetDateTime updatedDateUTC) {
-    this.updatedDateUTC = updatedDateUTC;
   }
 
 

@@ -21,7 +21,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.payrollau.LeavePeriodStatus;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.threeten.bp.OffsetDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -34,13 +33,13 @@ public class LeavePeriod {
   @JsonProperty("NumberOfUnits")
   private Float numberOfUnits;
 
-  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
+  
   @JsonProperty("PayPeriodEndDate")
-  private OffsetDateTime payPeriodEndDate;
+  private String payPeriodEndDate;
 
-  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
+  
   @JsonProperty("PayPeriodStartDate")
-  private OffsetDateTime payPeriodStartDate;
+  private String payPeriodStartDate;
 
   
   @JsonProperty("LeavePeriodStatus")
@@ -64,7 +63,7 @@ public class LeavePeriod {
     this.numberOfUnits = numberOfUnits;
   }
 
-  public LeavePeriod payPeriodEndDate(OffsetDateTime payPeriodEndDate) {
+  public LeavePeriod payPeriodEndDate(String payPeriodEndDate) {
     this.payPeriodEndDate = payPeriodEndDate;
     return this;
   }
@@ -73,16 +72,16 @@ public class LeavePeriod {
    * The Pay Period End Date (YYYY-MM-DD)
    * @return payPeriodEndDate
   **/
-  @ApiModelProperty(value = "The Pay Period End Date (YYYY-MM-DD)")
-  public OffsetDateTime getPayPeriodEndDate() {
+  @ApiModelProperty(example = "2013-05-12T00:00:00", value = "The Pay Period End Date (YYYY-MM-DD)")
+  public String getPayPeriodEndDate() {
     return payPeriodEndDate;
   }
 
-  public void setPayPeriodEndDate(OffsetDateTime payPeriodEndDate) {
+  public void setPayPeriodEndDate(String payPeriodEndDate) {
     this.payPeriodEndDate = payPeriodEndDate;
   }
 
-  public LeavePeriod payPeriodStartDate(OffsetDateTime payPeriodStartDate) {
+  public LeavePeriod payPeriodStartDate(String payPeriodStartDate) {
     this.payPeriodStartDate = payPeriodStartDate;
     return this;
   }
@@ -91,12 +90,12 @@ public class LeavePeriod {
    * The Pay Period Start Date (YYYY-MM-DD)
    * @return payPeriodStartDate
   **/
-  @ApiModelProperty(value = "The Pay Period Start Date (YYYY-MM-DD)")
-  public OffsetDateTime getPayPeriodStartDate() {
+  @ApiModelProperty(example = "2013-04-29T00:00:00", value = "The Pay Period Start Date (YYYY-MM-DD)")
+  public String getPayPeriodStartDate() {
     return payPeriodStartDate;
   }
 
-  public void setPayPeriodStartDate(OffsetDateTime payPeriodStartDate) {
+  public void setPayPeriodStartDate(String payPeriodStartDate) {
     this.payPeriodStartDate = payPeriodStartDate;
   }
 

@@ -22,7 +22,6 @@ import com.xero.models.payrollau.CalendarType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
-import org.threeten.bp.OffsetDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -39,13 +38,13 @@ public class PayrollCalendar {
   @JsonProperty("CalendarType")
   private CalendarType calendarType;
 
-  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
+  
   @JsonProperty("StartDate")
-  private OffsetDateTime startDate;
+  private String startDate;
 
-  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
+  
   @JsonProperty("PaymentDate")
-  private OffsetDateTime paymentDate;
+  private String paymentDate;
 
   
   @JsonProperty("PayrollCalendarID")
@@ -87,7 +86,7 @@ public class PayrollCalendar {
     this.calendarType = calendarType;
   }
 
-  public PayrollCalendar startDate(OffsetDateTime startDate) {
+  public PayrollCalendar startDate(String startDate) {
     this.startDate = startDate;
     return this;
   }
@@ -96,16 +95,16 @@ public class PayrollCalendar {
    * The start date of the upcoming pay period. The end date will be calculated based upon this date, and the calendar type selected (YYYY-MM-DD)
    * @return startDate
   **/
-  @ApiModelProperty(value = "The start date of the upcoming pay period. The end date will be calculated based upon this date, and the calendar type selected (YYYY-MM-DD)")
-  public OffsetDateTime getStartDate() {
+  @ApiModelProperty(example = "2012-08-17T00:00:00Z", value = "The start date of the upcoming pay period. The end date will be calculated based upon this date, and the calendar type selected (YYYY-MM-DD)")
+  public String getStartDate() {
     return startDate;
   }
 
-  public void setStartDate(OffsetDateTime startDate) {
+  public void setStartDate(String startDate) {
     this.startDate = startDate;
   }
 
-  public PayrollCalendar paymentDate(OffsetDateTime paymentDate) {
+  public PayrollCalendar paymentDate(String paymentDate) {
     this.paymentDate = paymentDate;
     return this;
   }
@@ -114,12 +113,12 @@ public class PayrollCalendar {
    * The date on which employees will be paid for the upcoming pay period (YYYY-MM-DD)
    * @return paymentDate
   **/
-  @ApiModelProperty(value = "The date on which employees will be paid for the upcoming pay period (YYYY-MM-DD)")
-  public OffsetDateTime getPaymentDate() {
+  @ApiModelProperty(example = "2012-08-17T00:00:00Z", value = "The date on which employees will be paid for the upcoming pay period (YYYY-MM-DD)")
+  public String getPaymentDate() {
     return paymentDate;
   }
 
-  public void setPaymentDate(OffsetDateTime paymentDate) {
+  public void setPaymentDate(String paymentDate) {
     this.paymentDate = paymentDate;
   }
 

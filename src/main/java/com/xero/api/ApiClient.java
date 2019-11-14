@@ -12,15 +12,16 @@ import com.google.api.client.http.AbstractHttpContent;
 import com.google.api.client.http.HttpRequestFactory;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.Json;
 import java.io.IOException;
 import java.io.OutputStream;
-
 
 public class ApiClient {
     private final String basePath;
     private final HttpRequestFactory httpRequestFactory;
     private final ObjectMapper objectMapper;
+    private HttpTransport httpTransport = new NetHttpTransport();
 
     private static final String defaultBasePath = "https://api.xero.com/api.xro/2.0";
 
@@ -61,6 +62,10 @@ public class ApiClient {
 
     public HttpRequestFactory getHttpRequestFactory() {
         return httpRequestFactory;
+    }
+
+    public HttpTransport getHttpTransport() {
+        return httpTransport;
     }
 
     public String getBasePath() {

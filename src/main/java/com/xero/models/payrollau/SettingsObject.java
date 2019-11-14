@@ -18,47 +18,37 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.payrollau.Timesheet;
+import com.xero.models.payrollau.Settings;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
- * Timesheets
+ * SettingsObject
  */
 
-public class Timesheets {
+public class SettingsObject {
   
-  @JsonProperty("Timesheets")
-  private List<Timesheet> timesheets = new ArrayList<Timesheet>();
+  @JsonProperty("Settings")
+  private Settings settings = null;
 
-  public Timesheets timesheets(List<Timesheet> timesheets) {
-    this.timesheets = timesheets;
-    return this;
-  }
-
-  public Timesheets addTimesheetsItem(Timesheet timesheetsItem) {
-    if (this.timesheets == null) {
-      this.timesheets = new ArrayList<Timesheet>();
-    }
-    this.timesheets.add(timesheetsItem);
+  public SettingsObject settings(Settings settings) {
+    this.settings = settings;
     return this;
   }
 
    /**
-   * Get timesheets
-   * @return timesheets
+   * Get settings
+   * @return settings
   **/
   @ApiModelProperty(value = "")
-  public List<Timesheet> getTimesheets() {
-    return timesheets;
+  public Settings getSettings() {
+    return settings;
   }
 
-  public void setTimesheets(List<Timesheet> timesheets) {
-    this.timesheets = timesheets;
+  public void setSettings(Settings settings) {
+    this.settings = settings;
   }
 
 
@@ -70,21 +60,21 @@ public class Timesheets {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Timesheets timesheets = (Timesheets) o;
-    return Objects.equals(this.timesheets, timesheets.timesheets);
+    SettingsObject settingsObject = (SettingsObject) o;
+    return Objects.equals(this.settings, settingsObject.settings);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(timesheets);
+    return Objects.hash(settings);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Timesheets {\n");
-    sb.append("    timesheets: ").append(toIndentedString(timesheets)).append("\n");
+    sb.append("class SettingsObject {\n");
+    sb.append("    settings: ").append(toIndentedString(settings)).append("\n");
     sb.append("}");
     return sb.toString();
   }

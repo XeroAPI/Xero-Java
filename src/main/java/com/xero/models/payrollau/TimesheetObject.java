@@ -21,44 +21,34 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.payrollau.Timesheet;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
- * Timesheets
+ * TimesheetObject
  */
 
-public class Timesheets {
+public class TimesheetObject {
   
-  @JsonProperty("Timesheets")
-  private List<Timesheet> timesheets = new ArrayList<Timesheet>();
+  @JsonProperty("Timesheet")
+  private Timesheet timesheet = null;
 
-  public Timesheets timesheets(List<Timesheet> timesheets) {
-    this.timesheets = timesheets;
-    return this;
-  }
-
-  public Timesheets addTimesheetsItem(Timesheet timesheetsItem) {
-    if (this.timesheets == null) {
-      this.timesheets = new ArrayList<Timesheet>();
-    }
-    this.timesheets.add(timesheetsItem);
+  public TimesheetObject timesheet(Timesheet timesheet) {
+    this.timesheet = timesheet;
     return this;
   }
 
    /**
-   * Get timesheets
-   * @return timesheets
+   * Get timesheet
+   * @return timesheet
   **/
   @ApiModelProperty(value = "")
-  public List<Timesheet> getTimesheets() {
-    return timesheets;
+  public Timesheet getTimesheet() {
+    return timesheet;
   }
 
-  public void setTimesheets(List<Timesheet> timesheets) {
-    this.timesheets = timesheets;
+  public void setTimesheet(Timesheet timesheet) {
+    this.timesheet = timesheet;
   }
 
 
@@ -70,21 +60,21 @@ public class Timesheets {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Timesheets timesheets = (Timesheets) o;
-    return Objects.equals(this.timesheets, timesheets.timesheets);
+    TimesheetObject timesheetObject = (TimesheetObject) o;
+    return Objects.equals(this.timesheet, timesheetObject.timesheet);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(timesheets);
+    return Objects.hash(timesheet);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Timesheets {\n");
-    sb.append("    timesheets: ").append(toIndentedString(timesheets)).append("\n");
+    sb.append("class TimesheetObject {\n");
+    sb.append("    timesheet: ").append(toIndentedString(timesheet)).append("\n");
     sb.append("}");
     return sb.toString();
   }

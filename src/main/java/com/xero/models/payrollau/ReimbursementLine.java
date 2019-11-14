@@ -37,6 +37,14 @@ public class ReimbursementLine {
   @JsonProperty("Amount")
   private Float amount;
 
+  
+  @JsonProperty("Description")
+  private String description;
+
+  
+  @JsonProperty("ExpenseAccount")
+  private String expenseAccount;
+
   public ReimbursementLine reimbursementTypeID(UUID reimbursementTypeID) {
     this.reimbursementTypeID = reimbursementTypeID;
     return this;
@@ -73,6 +81,42 @@ public class ReimbursementLine {
     this.amount = amount;
   }
 
+  public ReimbursementLine description(String description) {
+    this.description = description;
+    return this;
+  }
+
+   /**
+   * Reimbursement lines description (max length 50)
+   * @return description
+  **/
+  @ApiModelProperty(example = "For the taxi", value = "Reimbursement lines description (max length 50)")
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public ReimbursementLine expenseAccount(String expenseAccount) {
+    this.expenseAccount = expenseAccount;
+    return this;
+  }
+
+   /**
+   * Reimbursement expense account. For posted pay run you should be able to see expense account code.
+   * @return expenseAccount
+  **/
+  @ApiModelProperty(example = "420", value = "Reimbursement expense account. For posted pay run you should be able to see expense account code.")
+  public String getExpenseAccount() {
+    return expenseAccount;
+  }
+
+  public void setExpenseAccount(String expenseAccount) {
+    this.expenseAccount = expenseAccount;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -84,12 +128,14 @@ public class ReimbursementLine {
     }
     ReimbursementLine reimbursementLine = (ReimbursementLine) o;
     return Objects.equals(this.reimbursementTypeID, reimbursementLine.reimbursementTypeID) &&
-        Objects.equals(this.amount, reimbursementLine.amount);
+        Objects.equals(this.amount, reimbursementLine.amount) &&
+        Objects.equals(this.description, reimbursementLine.description) &&
+        Objects.equals(this.expenseAccount, reimbursementLine.expenseAccount);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(reimbursementTypeID, amount);
+    return Objects.hash(reimbursementTypeID, amount, description, expenseAccount);
   }
 
 
@@ -99,6 +145,8 @@ public class ReimbursementLine {
     sb.append("class ReimbursementLine {\n");
     sb.append("    reimbursementTypeID: ").append(toIndentedString(reimbursementTypeID)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    expenseAccount: ").append(toIndentedString(expenseAccount)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.threeten.bp.OffsetDateTime;
+import java.util.UUID;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -35,7 +35,7 @@ public class PayslipSummary {
 
   
   @JsonProperty("PayslipID")
-  private Object payslipID = null;
+  private UUID payslipID;
 
   
   @JsonProperty("FirstName")
@@ -69,9 +69,9 @@ public class PayslipSummary {
   @JsonProperty("NetPay")
   private Float netPay;
 
-  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
+  
   @JsonProperty("UpdatedDateUTC")
-  private OffsetDateTime updatedDateUTC;
+  private String updatedDateUTC;
 
   public PayslipSummary employeeID(Object employeeID) {
     this.employeeID = employeeID;
@@ -91,7 +91,7 @@ public class PayslipSummary {
     this.employeeID = employeeID;
   }
 
-  public PayslipSummary payslipID(Object payslipID) {
+  public PayslipSummary payslipID(UUID payslipID) {
     this.payslipID = payslipID;
     return this;
   }
@@ -101,11 +101,11 @@ public class PayslipSummary {
    * @return payslipID
   **/
   @ApiModelProperty(example = "f3c0874d-7cdd-459a-a95c-d90d51decc42", value = "Xero identifier for the payslip")
-  public Object getPayslipID() {
+  public UUID getPayslipID() {
     return payslipID;
   }
 
-  public void setPayslipID(Object payslipID) {
+  public void setPayslipID(UUID payslipID) {
     this.payslipID = payslipID;
   }
 
@@ -253,7 +253,7 @@ public class PayslipSummary {
     this.netPay = netPay;
   }
 
-  public PayslipSummary updatedDateUTC(OffsetDateTime updatedDateUTC) {
+  public PayslipSummary updatedDateUTC(String updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
     return this;
   }
@@ -262,12 +262,12 @@ public class PayslipSummary {
    * Last modified timestamp
    * @return updatedDateUTC
   **/
-  @ApiModelProperty(value = "Last modified timestamp")
-  public OffsetDateTime getUpdatedDateUTC() {
+  @ApiModelProperty(example = "2018-04-01T23:02:36", value = "Last modified timestamp")
+  public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
 
-  public void setUpdatedDateUTC(OffsetDateTime updatedDateUTC) {
+  public void setUpdatedDateUTC(String updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
   }
 

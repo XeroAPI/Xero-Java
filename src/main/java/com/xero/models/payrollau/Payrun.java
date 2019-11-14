@@ -24,47 +24,46 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import org.threeten.bp.LocalDate;
-import org.threeten.bp.OffsetDateTime;
+import java.util.UUID;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
- * Payrun
+ * PayRun
  */
 
-public class Payrun {
+public class PayRun {
   
   @JsonProperty("PayrollCalendarID")
-  private Object payrollCalendarID = null;
+  private UUID payrollCalendarID;
 
   
   @JsonProperty("PayRunID")
-  private Object payRunID = null;
+  private UUID payRunID;
 
-  @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
+  
   @JsonProperty("PayRunPeriodStartDate")
-  private LocalDate payRunPeriodStartDate;
+  private String payRunPeriodStartDate;
 
-  @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
+  
   @JsonProperty("PayRunPeriodEndDate")
-  private LocalDate payRunPeriodEndDate;
+  private String payRunPeriodEndDate;
 
   
   @JsonProperty("PayRunStatus")
   private PayRunStatus payRunStatus;
 
-  @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
+  
   @JsonProperty("PaymentDate")
-  private LocalDate paymentDate;
+  private String paymentDate;
 
   
   @JsonProperty("PayslipMessage")
   private String payslipMessage;
 
-  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
+  
   @JsonProperty("UpdatedDateUTC")
-  private OffsetDateTime updatedDateUTC;
+  private String updatedDateUTC;
 
   
   @JsonProperty("Payslips")
@@ -94,7 +93,7 @@ public class Payrun {
   @JsonProperty("NetPay")
   private Float netPay;
 
-  public Payrun payrollCalendarID(Object payrollCalendarID) {
+  public PayRun payrollCalendarID(UUID payrollCalendarID) {
     this.payrollCalendarID = payrollCalendarID;
     return this;
   }
@@ -104,15 +103,15 @@ public class Payrun {
    * @return payrollCalendarID
   **/
   @ApiModelProperty(example = "bfac31bd-ea62-4fc8-a5e7-7965d9504b15", required = true, value = "Xero identifier for pay run")
-  public Object getPayrollCalendarID() {
+  public UUID getPayrollCalendarID() {
     return payrollCalendarID;
   }
 
-  public void setPayrollCalendarID(Object payrollCalendarID) {
+  public void setPayrollCalendarID(UUID payrollCalendarID) {
     this.payrollCalendarID = payrollCalendarID;
   }
 
-  public Payrun payRunID(Object payRunID) {
+  public PayRun payRunID(UUID payRunID) {
     this.payRunID = payRunID;
     return this;
   }
@@ -122,15 +121,15 @@ public class Payrun {
    * @return payRunID
   **/
   @ApiModelProperty(example = "bba1d10f-63b1-4692-b5c5-a99f869523a4", value = "Xero identifier for pay run")
-  public Object getPayRunID() {
+  public UUID getPayRunID() {
     return payRunID;
   }
 
-  public void setPayRunID(Object payRunID) {
+  public void setPayRunID(UUID payRunID) {
     this.payRunID = payRunID;
   }
 
-  public Payrun payRunPeriodStartDate(LocalDate payRunPeriodStartDate) {
+  public PayRun payRunPeriodStartDate(String payRunPeriodStartDate) {
     this.payRunPeriodStartDate = payRunPeriodStartDate;
     return this;
   }
@@ -139,16 +138,16 @@ public class Payrun {
    * Period Start Date for the PayRun (YYYY-MM-DD)
    * @return payRunPeriodStartDate
   **/
-  @ApiModelProperty(value = "Period Start Date for the PayRun (YYYY-MM-DD)")
-  public LocalDate getPayRunPeriodStartDate() {
+  @ApiModelProperty(example = "2013-02-01T00:00:00Z", value = "Period Start Date for the PayRun (YYYY-MM-DD)")
+  public String getPayRunPeriodStartDate() {
     return payRunPeriodStartDate;
   }
 
-  public void setPayRunPeriodStartDate(LocalDate payRunPeriodStartDate) {
+  public void setPayRunPeriodStartDate(String payRunPeriodStartDate) {
     this.payRunPeriodStartDate = payRunPeriodStartDate;
   }
 
-  public Payrun payRunPeriodEndDate(LocalDate payRunPeriodEndDate) {
+  public PayRun payRunPeriodEndDate(String payRunPeriodEndDate) {
     this.payRunPeriodEndDate = payRunPeriodEndDate;
     return this;
   }
@@ -157,16 +156,16 @@ public class Payrun {
    * Period End Date for the PayRun (YYYY-MM-DD)
    * @return payRunPeriodEndDate
   **/
-  @ApiModelProperty(value = "Period End Date for the PayRun (YYYY-MM-DD)")
-  public LocalDate getPayRunPeriodEndDate() {
+  @ApiModelProperty(example = "2013-02-07T00:00:00Z", value = "Period End Date for the PayRun (YYYY-MM-DD)")
+  public String getPayRunPeriodEndDate() {
     return payRunPeriodEndDate;
   }
 
-  public void setPayRunPeriodEndDate(LocalDate payRunPeriodEndDate) {
+  public void setPayRunPeriodEndDate(String payRunPeriodEndDate) {
     this.payRunPeriodEndDate = payRunPeriodEndDate;
   }
 
-  public Payrun payRunStatus(PayRunStatus payRunStatus) {
+  public PayRun payRunStatus(PayRunStatus payRunStatus) {
     this.payRunStatus = payRunStatus;
     return this;
   }
@@ -184,7 +183,7 @@ public class Payrun {
     this.payRunStatus = payRunStatus;
   }
 
-  public Payrun paymentDate(LocalDate paymentDate) {
+  public PayRun paymentDate(String paymentDate) {
     this.paymentDate = paymentDate;
     return this;
   }
@@ -193,16 +192,16 @@ public class Payrun {
    * Payment Date for the PayRun (YYYY-MM-DD)
    * @return paymentDate
   **/
-  @ApiModelProperty(value = "Payment Date for the PayRun (YYYY-MM-DD)")
-  public LocalDate getPaymentDate() {
+  @ApiModelProperty(example = "2013-02-07T00:00:00Z", value = "Payment Date for the PayRun (YYYY-MM-DD)")
+  public String getPaymentDate() {
     return paymentDate;
   }
 
-  public void setPaymentDate(LocalDate paymentDate) {
+  public void setPaymentDate(String paymentDate) {
     this.paymentDate = paymentDate;
   }
 
-  public Payrun payslipMessage(String payslipMessage) {
+  public PayRun payslipMessage(String payslipMessage) {
     this.payslipMessage = payslipMessage;
     return this;
   }
@@ -220,7 +219,7 @@ public class Payrun {
     this.payslipMessage = payslipMessage;
   }
 
-  public Payrun updatedDateUTC(OffsetDateTime updatedDateUTC) {
+  public PayRun updatedDateUTC(String updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
     return this;
   }
@@ -229,21 +228,21 @@ public class Payrun {
    * Last modified timestamp
    * @return updatedDateUTC
   **/
-  @ApiModelProperty(value = "Last modified timestamp")
-  public OffsetDateTime getUpdatedDateUTC() {
+  @ApiModelProperty(example = "2018-04-01T23:02:36", value = "Last modified timestamp")
+  public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
 
-  public void setUpdatedDateUTC(OffsetDateTime updatedDateUTC) {
+  public void setUpdatedDateUTC(String updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
   }
 
-  public Payrun payslips(List<PayslipSummary> payslips) {
+  public PayRun payslips(List<PayslipSummary> payslips) {
     this.payslips = payslips;
     return this;
   }
 
-  public Payrun addPayslipsItem(PayslipSummary payslipsItem) {
+  public PayRun addPayslipsItem(PayslipSummary payslipsItem) {
     if (this.payslips == null) {
       this.payslips = new ArrayList<PayslipSummary>();
     }
@@ -264,7 +263,7 @@ public class Payrun {
     this.payslips = payslips;
   }
 
-  public Payrun wages(Float wages) {
+  public PayRun wages(Float wages) {
     this.wages = wages;
     return this;
   }
@@ -282,7 +281,7 @@ public class Payrun {
     this.wages = wages;
   }
 
-  public Payrun deductions(Float deductions) {
+  public PayRun deductions(Float deductions) {
     this.deductions = deductions;
     return this;
   }
@@ -300,7 +299,7 @@ public class Payrun {
     this.deductions = deductions;
   }
 
-  public Payrun tax(Float tax) {
+  public PayRun tax(Float tax) {
     this.tax = tax;
     return this;
   }
@@ -318,7 +317,7 @@ public class Payrun {
     this.tax = tax;
   }
 
-  public Payrun _super(Float _super) {
+  public PayRun _super(Float _super) {
     this._super = _super;
     return this;
   }
@@ -336,7 +335,7 @@ public class Payrun {
     this._super = _super;
   }
 
-  public Payrun reimbursements(Float reimbursements) {
+  public PayRun reimbursements(Float reimbursements) {
     this.reimbursements = reimbursements;
     return this;
   }
@@ -354,7 +353,7 @@ public class Payrun {
     this.reimbursements = reimbursements;
   }
 
-  public Payrun netPay(Float netPay) {
+  public PayRun netPay(Float netPay) {
     this.netPay = netPay;
     return this;
   }
@@ -381,22 +380,22 @@ public class Payrun {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Payrun payrun = (Payrun) o;
-    return Objects.equals(this.payrollCalendarID, payrun.payrollCalendarID) &&
-        Objects.equals(this.payRunID, payrun.payRunID) &&
-        Objects.equals(this.payRunPeriodStartDate, payrun.payRunPeriodStartDate) &&
-        Objects.equals(this.payRunPeriodEndDate, payrun.payRunPeriodEndDate) &&
-        Objects.equals(this.payRunStatus, payrun.payRunStatus) &&
-        Objects.equals(this.paymentDate, payrun.paymentDate) &&
-        Objects.equals(this.payslipMessage, payrun.payslipMessage) &&
-        Objects.equals(this.updatedDateUTC, payrun.updatedDateUTC) &&
-        Objects.equals(this.payslips, payrun.payslips) &&
-        Objects.equals(this.wages, payrun.wages) &&
-        Objects.equals(this.deductions, payrun.deductions) &&
-        Objects.equals(this.tax, payrun.tax) &&
-        Objects.equals(this._super, payrun._super) &&
-        Objects.equals(this.reimbursements, payrun.reimbursements) &&
-        Objects.equals(this.netPay, payrun.netPay);
+    PayRun payRun = (PayRun) o;
+    return Objects.equals(this.payrollCalendarID, payRun.payrollCalendarID) &&
+        Objects.equals(this.payRunID, payRun.payRunID) &&
+        Objects.equals(this.payRunPeriodStartDate, payRun.payRunPeriodStartDate) &&
+        Objects.equals(this.payRunPeriodEndDate, payRun.payRunPeriodEndDate) &&
+        Objects.equals(this.payRunStatus, payRun.payRunStatus) &&
+        Objects.equals(this.paymentDate, payRun.paymentDate) &&
+        Objects.equals(this.payslipMessage, payRun.payslipMessage) &&
+        Objects.equals(this.updatedDateUTC, payRun.updatedDateUTC) &&
+        Objects.equals(this.payslips, payRun.payslips) &&
+        Objects.equals(this.wages, payRun.wages) &&
+        Objects.equals(this.deductions, payRun.deductions) &&
+        Objects.equals(this.tax, payRun.tax) &&
+        Objects.equals(this._super, payRun._super) &&
+        Objects.equals(this.reimbursements, payRun.reimbursements) &&
+        Objects.equals(this.netPay, payRun.netPay);
   }
 
   @Override
@@ -408,7 +407,7 @@ public class Payrun {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Payrun {\n");
+    sb.append("class PayRun {\n");
     sb.append("    payrollCalendarID: ").append(toIndentedString(payrollCalendarID)).append("\n");
     sb.append("    payRunID: ").append(toIndentedString(payRunID)).append("\n");
     sb.append("    payRunPeriodStartDate: ").append(toIndentedString(payRunPeriodStartDate)).append("\n");

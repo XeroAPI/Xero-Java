@@ -23,7 +23,6 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import org.threeten.bp.OffsetDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -44,9 +43,9 @@ public class TimesheetLine {
   @JsonProperty("NumberOfUnits")
   private List<Float> numberOfUnits = new ArrayList<Float>();
 
-  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
+  
   @JsonProperty("UpdatedDateUTC")
-  private OffsetDateTime updatedDateUTC;
+  private String updatedDateUTC;
 
   public TimesheetLine earningsRateID(UUID earningsRateID) {
     this.earningsRateID = earningsRateID;
@@ -110,7 +109,7 @@ public class TimesheetLine {
     this.numberOfUnits = numberOfUnits;
   }
 
-  public TimesheetLine updatedDateUTC(OffsetDateTime updatedDateUTC) {
+  public TimesheetLine updatedDateUTC(String updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
     return this;
   }
@@ -119,12 +118,12 @@ public class TimesheetLine {
    * Last modified timestamp
    * @return updatedDateUTC
   **/
-  @ApiModelProperty(value = "Last modified timestamp")
-  public OffsetDateTime getUpdatedDateUTC() {
+  @ApiModelProperty(example = "2018-04-01T23:02:36", value = "Last modified timestamp")
+  public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
 
-  public void setUpdatedDateUTC(OffsetDateTime updatedDateUTC) {
+  public void setUpdatedDateUTC(String updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
   }
 

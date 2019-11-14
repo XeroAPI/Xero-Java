@@ -18,7 +18,7 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.payrollau.Payrun;
+import com.xero.models.payrollau.PayRun;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -27,38 +27,38 @@ import java.util.List;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
- * Payruns
+ * PayRuns
  */
 
-public class Payruns {
+public class PayRuns {
   
-  @JsonProperty("Payruns")
-  private List<Payrun> payruns = new ArrayList<Payrun>();
+  @JsonProperty("PayRuns")
+  private List<PayRun> payRuns = new ArrayList<PayRun>();
 
-  public Payruns payruns(List<Payrun> payruns) {
-    this.payruns = payruns;
+  public PayRuns payRuns(List<PayRun> payRuns) {
+    this.payRuns = payRuns;
     return this;
   }
 
-  public Payruns addPayrunsItem(Payrun payrunsItem) {
-    if (this.payruns == null) {
-      this.payruns = new ArrayList<Payrun>();
+  public PayRuns addPayRunsItem(PayRun payRunsItem) {
+    if (this.payRuns == null) {
+      this.payRuns = new ArrayList<PayRun>();
     }
-    this.payruns.add(payrunsItem);
+    this.payRuns.add(payRunsItem);
     return this;
   }
 
    /**
-   * Get payruns
-   * @return payruns
+   * Get payRuns
+   * @return payRuns
   **/
   @ApiModelProperty(value = "")
-  public List<Payrun> getPayruns() {
-    return payruns;
+  public List<PayRun> getPayRuns() {
+    return payRuns;
   }
 
-  public void setPayruns(List<Payrun> payruns) {
-    this.payruns = payruns;
+  public void setPayRuns(List<PayRun> payRuns) {
+    this.payRuns = payRuns;
   }
 
 
@@ -70,21 +70,21 @@ public class Payruns {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Payruns payruns = (Payruns) o;
-    return Objects.equals(this.payruns, payruns.payruns);
+    PayRuns payRuns = (PayRuns) o;
+    return Objects.equals(this.payRuns, payRuns.payRuns);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(payruns);
+    return Objects.hash(payRuns);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Payruns {\n");
-    sb.append("    payruns: ").append(toIndentedString(payruns)).append("\n");
+    sb.append("class PayRuns {\n");
+    sb.append("    payRuns: ").append(toIndentedString(payRuns)).append("\n");
     sb.append("}");
     return sb.toString();
   }

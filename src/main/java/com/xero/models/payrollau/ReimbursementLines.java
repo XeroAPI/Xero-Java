@@ -33,33 +33,33 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 public class ReimbursementLines {
   
-  @JsonProperty("Employee")
-  private List<ReimbursementLine> employee = new ArrayList<ReimbursementLine>();
+  @JsonProperty("ReimbursementLines")
+  private List<ReimbursementLine> reimbursementLines = new ArrayList<ReimbursementLine>();
 
-  public ReimbursementLines employee(List<ReimbursementLine> employee) {
-    this.employee = employee;
+  public ReimbursementLines reimbursementLines(List<ReimbursementLine> reimbursementLines) {
+    this.reimbursementLines = reimbursementLines;
     return this;
   }
 
-  public ReimbursementLines addEmployeeItem(ReimbursementLine employeeItem) {
-    if (this.employee == null) {
-      this.employee = new ArrayList<ReimbursementLine>();
+  public ReimbursementLines addReimbursementLinesItem(ReimbursementLine reimbursementLinesItem) {
+    if (this.reimbursementLines == null) {
+      this.reimbursementLines = new ArrayList<ReimbursementLine>();
     }
-    this.employee.add(employeeItem);
+    this.reimbursementLines.add(reimbursementLinesItem);
     return this;
   }
 
    /**
-   * Get employee
-   * @return employee
+   * Get reimbursementLines
+   * @return reimbursementLines
   **/
   @ApiModelProperty(value = "")
-  public List<ReimbursementLine> getEmployee() {
-    return employee;
+  public List<ReimbursementLine> getReimbursementLines() {
+    return reimbursementLines;
   }
 
-  public void setEmployee(List<ReimbursementLine> employee) {
-    this.employee = employee;
+  public void setReimbursementLines(List<ReimbursementLine> reimbursementLines) {
+    this.reimbursementLines = reimbursementLines;
   }
 
 
@@ -72,12 +72,12 @@ public class ReimbursementLines {
       return false;
     }
     ReimbursementLines reimbursementLines = (ReimbursementLines) o;
-    return Objects.equals(this.employee, reimbursementLines.employee);
+    return Objects.equals(this.reimbursementLines, reimbursementLines.reimbursementLines);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(employee);
+    return Objects.hash(reimbursementLines);
   }
 
 
@@ -85,7 +85,7 @@ public class ReimbursementLines {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ReimbursementLines {\n");
-    sb.append("    employee: ").append(toIndentedString(employee)).append("\n");
+    sb.append("    reimbursementLines: ").append(toIndentedString(reimbursementLines)).append("\n");
     sb.append("}");
     return sb.toString();
   }

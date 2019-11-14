@@ -58,6 +58,14 @@ public class EarningsLine {
   @JsonProperty("Amount")
   private Float amount;
 
+  
+  @JsonProperty("NumberOfUnits")
+  private Float numberOfUnits;
+
+  
+  @JsonProperty("FixedAmount")
+  private Float fixedAmount;
+
   public EarningsLine earningsRateID(UUID earningsRateID) {
     this.earningsRateID = earningsRateID;
     return this;
@@ -184,6 +192,42 @@ public class EarningsLine {
     this.amount = amount;
   }
 
+  public EarningsLine numberOfUnits(Float numberOfUnits) {
+    this.numberOfUnits = numberOfUnits;
+    return this;
+  }
+
+   /**
+   * Earnings rate number of units.
+   * @return numberOfUnits
+  **/
+  @ApiModelProperty(example = "2.5", value = "Earnings rate number of units.")
+  public Float getNumberOfUnits() {
+    return numberOfUnits;
+  }
+
+  public void setNumberOfUnits(Float numberOfUnits) {
+    this.numberOfUnits = numberOfUnits;
+  }
+
+  public EarningsLine fixedAmount(Float fixedAmount) {
+    this.fixedAmount = fixedAmount;
+    return this;
+  }
+
+   /**
+   * Earnings rate amount. Only applicable if the EarningsRate RateType is Fixed
+   * @return fixedAmount
+  **/
+  @ApiModelProperty(example = "2.5", value = "Earnings rate amount. Only applicable if the EarningsRate RateType is Fixed")
+  public Float getFixedAmount() {
+    return fixedAmount;
+  }
+
+  public void setFixedAmount(Float fixedAmount) {
+    this.fixedAmount = fixedAmount;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -200,12 +244,14 @@ public class EarningsLine {
         Objects.equals(this.numberOfUnitsPerWeek, earningsLine.numberOfUnitsPerWeek) &&
         Objects.equals(this.ratePerUnit, earningsLine.ratePerUnit) &&
         Objects.equals(this.normalNumberOfUnits, earningsLine.normalNumberOfUnits) &&
-        Objects.equals(this.amount, earningsLine.amount);
+        Objects.equals(this.amount, earningsLine.amount) &&
+        Objects.equals(this.numberOfUnits, earningsLine.numberOfUnits) &&
+        Objects.equals(this.fixedAmount, earningsLine.fixedAmount);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(earningsRateID, calculationType, annualSalary, numberOfUnitsPerWeek, ratePerUnit, normalNumberOfUnits, amount);
+    return Objects.hash(earningsRateID, calculationType, annualSalary, numberOfUnitsPerWeek, ratePerUnit, normalNumberOfUnits, amount, numberOfUnits, fixedAmount);
   }
 
 
@@ -220,6 +266,8 @@ public class EarningsLine {
     sb.append("    ratePerUnit: ").append(toIndentedString(ratePerUnit)).append("\n");
     sb.append("    normalNumberOfUnits: ").append(toIndentedString(normalNumberOfUnits)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+    sb.append("    numberOfUnits: ").append(toIndentedString(numberOfUnits)).append("\n");
+    sb.append("    fixedAmount: ").append(toIndentedString(fixedAmount)).append("\n");
     sb.append("}");
     return sb.toString();
   }

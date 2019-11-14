@@ -23,15 +23,14 @@ import com.xero.models.payrollau.SuperannuationContributionType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
-import org.threeten.bp.LocalDate;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
- * PayslipSuperannuationLine
+ * SuperannuationLine
  */
 
-public class PayslipSuperannuationLine {
+public class SuperannuationLine {
   
   @JsonProperty("SuperMembershipID")
   private UUID superMembershipID;
@@ -56,9 +55,9 @@ public class PayslipSuperannuationLine {
   @JsonProperty("LiabilityAccountCode")
   private String liabilityAccountCode;
 
-  @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
+  
   @JsonProperty("PaymentDateForThisPeriod")
-  private LocalDate paymentDateForThisPeriod;
+  private String paymentDateForThisPeriod;
 
   
   @JsonProperty("Percentage")
@@ -68,7 +67,7 @@ public class PayslipSuperannuationLine {
   @JsonProperty("Amount")
   private Float amount;
 
-  public PayslipSuperannuationLine superMembershipID(UUID superMembershipID) {
+  public SuperannuationLine superMembershipID(UUID superMembershipID) {
     this.superMembershipID = superMembershipID;
     return this;
   }
@@ -86,7 +85,7 @@ public class PayslipSuperannuationLine {
     this.superMembershipID = superMembershipID;
   }
 
-  public PayslipSuperannuationLine contributionType(SuperannuationContributionType contributionType) {
+  public SuperannuationLine contributionType(SuperannuationContributionType contributionType) {
     this.contributionType = contributionType;
     return this;
   }
@@ -104,7 +103,7 @@ public class PayslipSuperannuationLine {
     this.contributionType = contributionType;
   }
 
-  public PayslipSuperannuationLine calculationType(SuperannuationCalculationType calculationType) {
+  public SuperannuationLine calculationType(SuperannuationCalculationType calculationType) {
     this.calculationType = calculationType;
     return this;
   }
@@ -122,7 +121,7 @@ public class PayslipSuperannuationLine {
     this.calculationType = calculationType;
   }
 
-  public PayslipSuperannuationLine minimumMonthlyEarnings(Float minimumMonthlyEarnings) {
+  public SuperannuationLine minimumMonthlyEarnings(Float minimumMonthlyEarnings) {
     this.minimumMonthlyEarnings = minimumMonthlyEarnings;
     return this;
   }
@@ -140,7 +139,7 @@ public class PayslipSuperannuationLine {
     this.minimumMonthlyEarnings = minimumMonthlyEarnings;
   }
 
-  public PayslipSuperannuationLine expenseAccountCode(String expenseAccountCode) {
+  public SuperannuationLine expenseAccountCode(String expenseAccountCode) {
     this.expenseAccountCode = expenseAccountCode;
     return this;
   }
@@ -158,7 +157,7 @@ public class PayslipSuperannuationLine {
     this.expenseAccountCode = expenseAccountCode;
   }
 
-  public PayslipSuperannuationLine liabilityAccountCode(String liabilityAccountCode) {
+  public SuperannuationLine liabilityAccountCode(String liabilityAccountCode) {
     this.liabilityAccountCode = liabilityAccountCode;
     return this;
   }
@@ -176,7 +175,7 @@ public class PayslipSuperannuationLine {
     this.liabilityAccountCode = liabilityAccountCode;
   }
 
-  public PayslipSuperannuationLine paymentDateForThisPeriod(LocalDate paymentDateForThisPeriod) {
+  public SuperannuationLine paymentDateForThisPeriod(String paymentDateForThisPeriod) {
     this.paymentDateForThisPeriod = paymentDateForThisPeriod;
     return this;
   }
@@ -185,16 +184,16 @@ public class PayslipSuperannuationLine {
    * Superannuation payment date for the current period (YYYY-MM-DD)
    * @return paymentDateForThisPeriod
   **/
-  @ApiModelProperty(value = "Superannuation payment date for the current period (YYYY-MM-DD)")
-  public LocalDate getPaymentDateForThisPeriod() {
+  @ApiModelProperty(example = "2019-10-01", value = "Superannuation payment date for the current period (YYYY-MM-DD)")
+  public String getPaymentDateForThisPeriod() {
     return paymentDateForThisPeriod;
   }
 
-  public void setPaymentDateForThisPeriod(LocalDate paymentDateForThisPeriod) {
+  public void setPaymentDateForThisPeriod(String paymentDateForThisPeriod) {
     this.paymentDateForThisPeriod = paymentDateForThisPeriod;
   }
 
-  public PayslipSuperannuationLine percentage(Float percentage) {
+  public SuperannuationLine percentage(Float percentage) {
     this.percentage = percentage;
     return this;
   }
@@ -212,7 +211,7 @@ public class PayslipSuperannuationLine {
     this.percentage = percentage;
   }
 
-  public PayslipSuperannuationLine amount(Float amount) {
+  public SuperannuationLine amount(Float amount) {
     this.amount = amount;
     return this;
   }
@@ -239,16 +238,16 @@ public class PayslipSuperannuationLine {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PayslipSuperannuationLine payslipSuperannuationLine = (PayslipSuperannuationLine) o;
-    return Objects.equals(this.superMembershipID, payslipSuperannuationLine.superMembershipID) &&
-        Objects.equals(this.contributionType, payslipSuperannuationLine.contributionType) &&
-        Objects.equals(this.calculationType, payslipSuperannuationLine.calculationType) &&
-        Objects.equals(this.minimumMonthlyEarnings, payslipSuperannuationLine.minimumMonthlyEarnings) &&
-        Objects.equals(this.expenseAccountCode, payslipSuperannuationLine.expenseAccountCode) &&
-        Objects.equals(this.liabilityAccountCode, payslipSuperannuationLine.liabilityAccountCode) &&
-        Objects.equals(this.paymentDateForThisPeriod, payslipSuperannuationLine.paymentDateForThisPeriod) &&
-        Objects.equals(this.percentage, payslipSuperannuationLine.percentage) &&
-        Objects.equals(this.amount, payslipSuperannuationLine.amount);
+    SuperannuationLine superannuationLine = (SuperannuationLine) o;
+    return Objects.equals(this.superMembershipID, superannuationLine.superMembershipID) &&
+        Objects.equals(this.contributionType, superannuationLine.contributionType) &&
+        Objects.equals(this.calculationType, superannuationLine.calculationType) &&
+        Objects.equals(this.minimumMonthlyEarnings, superannuationLine.minimumMonthlyEarnings) &&
+        Objects.equals(this.expenseAccountCode, superannuationLine.expenseAccountCode) &&
+        Objects.equals(this.liabilityAccountCode, superannuationLine.liabilityAccountCode) &&
+        Objects.equals(this.paymentDateForThisPeriod, superannuationLine.paymentDateForThisPeriod) &&
+        Objects.equals(this.percentage, superannuationLine.percentage) &&
+        Objects.equals(this.amount, superannuationLine.amount);
   }
 
   @Override
@@ -260,7 +259,7 @@ public class PayslipSuperannuationLine {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PayslipSuperannuationLine {\n");
+    sb.append("class SuperannuationLine {\n");
     sb.append("    superMembershipID: ").append(toIndentedString(superMembershipID)).append("\n");
     sb.append("    contributionType: ").append(toIndentedString(contributionType)).append("\n");
     sb.append("    calculationType: ").append(toIndentedString(calculationType)).append("\n");

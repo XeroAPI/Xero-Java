@@ -42,6 +42,14 @@ public class DeductionLine {
   @JsonProperty("Amount")
   private Float amount;
 
+  
+  @JsonProperty("Percentage")
+  private Float percentage;
+
+  
+  @JsonProperty("NumberOfUnits")
+  private Float numberOfUnits;
+
   public DeductionLine deductionTypeID(UUID deductionTypeID) {
     this.deductionTypeID = deductionTypeID;
     return this;
@@ -96,6 +104,42 @@ public class DeductionLine {
     this.amount = amount;
   }
 
+  public DeductionLine percentage(Float percentage) {
+    this.percentage = percentage;
+    return this;
+  }
+
+   /**
+   * The Percentage of the Deduction
+   * @return percentage
+  **/
+  @ApiModelProperty(example = "10.0", value = "The Percentage of the Deduction")
+  public Float getPercentage() {
+    return percentage;
+  }
+
+  public void setPercentage(Float percentage) {
+    this.percentage = percentage;
+  }
+
+  public DeductionLine numberOfUnits(Float numberOfUnits) {
+    this.numberOfUnits = numberOfUnits;
+    return this;
+  }
+
+   /**
+   * Deduction number of units
+   * @return numberOfUnits
+  **/
+  @ApiModelProperty(example = "10.0", value = "Deduction number of units")
+  public Float getNumberOfUnits() {
+    return numberOfUnits;
+  }
+
+  public void setNumberOfUnits(Float numberOfUnits) {
+    this.numberOfUnits = numberOfUnits;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -108,12 +152,14 @@ public class DeductionLine {
     DeductionLine deductionLine = (DeductionLine) o;
     return Objects.equals(this.deductionTypeID, deductionLine.deductionTypeID) &&
         Objects.equals(this.calculationType, deductionLine.calculationType) &&
-        Objects.equals(this.amount, deductionLine.amount);
+        Objects.equals(this.amount, deductionLine.amount) &&
+        Objects.equals(this.percentage, deductionLine.percentage) &&
+        Objects.equals(this.numberOfUnits, deductionLine.numberOfUnits);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(deductionTypeID, calculationType, amount);
+    return Objects.hash(deductionTypeID, calculationType, amount, percentage, numberOfUnits);
   }
 
 
@@ -124,6 +170,8 @@ public class DeductionLine {
     sb.append("    deductionTypeID: ").append(toIndentedString(deductionTypeID)).append("\n");
     sb.append("    calculationType: ").append(toIndentedString(calculationType)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+    sb.append("    percentage: ").append(toIndentedString(percentage)).append("\n");
+    sb.append("    numberOfUnits: ").append(toIndentedString(numberOfUnits)).append("\n");
     sb.append("}");
     return sb.toString();
   }

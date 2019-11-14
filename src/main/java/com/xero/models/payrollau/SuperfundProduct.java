@@ -24,10 +24,10 @@ import io.swagger.annotations.ApiModelProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
- * SuperfundProduct
+ * SuperFundProduct
  */
 
-public class SuperfundProduct {
+public class SuperFundProduct {
   
   @JsonProperty("ABN")
   private Object ABN = null;
@@ -44,7 +44,7 @@ public class SuperfundProduct {
   @JsonProperty("ProductName")
   private Object productName = null;
 
-  public SuperfundProduct ABN(Object ABN) {
+  public SuperFundProduct ABN(Object ABN) {
     this.ABN = ABN;
     return this;
   }
@@ -62,7 +62,7 @@ public class SuperfundProduct {
     this.ABN = ABN;
   }
 
-  public SuperfundProduct USI(Object USI) {
+  public SuperFundProduct USI(Object USI) {
     this.USI = USI;
     return this;
   }
@@ -80,7 +80,7 @@ public class SuperfundProduct {
     this.USI = USI;
   }
 
-  public SuperfundProduct SPIN(Object SPIN) {
+  public SuperFundProduct SPIN(Object SPIN) {
     this.SPIN = SPIN;
     return this;
   }
@@ -98,7 +98,7 @@ public class SuperfundProduct {
     this.SPIN = SPIN;
   }
 
-  public SuperfundProduct productName(Object productName) {
+  public SuperFundProduct productName(Object productName) {
     this.productName = productName;
     return this;
   }
@@ -125,11 +125,11 @@ public class SuperfundProduct {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SuperfundProduct superfundProduct = (SuperfundProduct) o;
-    return Objects.equals(this.ABN, superfundProduct.ABN) &&
-        Objects.equals(this.USI, superfundProduct.USI) &&
-        Objects.equals(this.SPIN, superfundProduct.SPIN) &&
-        Objects.equals(this.productName, superfundProduct.productName);
+    SuperFundProduct superFundProduct = (SuperFundProduct) o;
+    return Objects.equals(this.ABN, superFundProduct.ABN) &&
+        Objects.equals(this.USI, superFundProduct.USI) &&
+        Objects.equals(this.SPIN, superFundProduct.SPIN) &&
+        Objects.equals(this.productName, superFundProduct.productName);
   }
 
   @Override
@@ -141,7 +141,7 @@ public class SuperfundProduct {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SuperfundProduct {\n");
+    sb.append("class SuperFundProduct {\n");
     sb.append("    ABN: ").append(toIndentedString(ABN)).append("\n");
     sb.append("    USI: ").append(toIndentedString(USI)).append("\n");
     sb.append("    SPIN: ").append(toIndentedString(SPIN)).append("\n");

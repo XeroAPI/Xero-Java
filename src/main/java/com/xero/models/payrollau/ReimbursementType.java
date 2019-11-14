@@ -21,7 +21,6 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
-import org.threeten.bp.OffsetDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -42,9 +41,9 @@ public class ReimbursementType {
   @JsonProperty("ReimbursementTypeID")
   private UUID reimbursementTypeID;
 
-  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
+  
   @JsonProperty("UpdatedDateUTC")
-  private OffsetDateTime updatedDateUTC;
+  private String updatedDateUTC;
 
   public ReimbursementType name(String name) {
     this.name = name;
@@ -100,7 +99,7 @@ public class ReimbursementType {
     this.reimbursementTypeID = reimbursementTypeID;
   }
 
-  public ReimbursementType updatedDateUTC(OffsetDateTime updatedDateUTC) {
+  public ReimbursementType updatedDateUTC(String updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
     return this;
   }
@@ -109,12 +108,12 @@ public class ReimbursementType {
    * Last modified timestamp
    * @return updatedDateUTC
   **/
-  @ApiModelProperty(value = "Last modified timestamp")
-  public OffsetDateTime getUpdatedDateUTC() {
+  @ApiModelProperty(example = "2018-04-01T23:02:36", value = "Last modified timestamp")
+  public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
 
-  public void setUpdatedDateUTC(OffsetDateTime updatedDateUTC) {
+  public void setUpdatedDateUTC(String updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
   }
 

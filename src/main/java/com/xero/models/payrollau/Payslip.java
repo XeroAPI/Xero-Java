@@ -18,18 +18,17 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.payrollau.PayslipDeductionLine;
-import com.xero.models.payrollau.PayslipEarningsLines;
-import com.xero.models.payrollau.PayslipLeaveAccrualLine;
-import com.xero.models.payrollau.PayslipLeaveEarningsLines;
-import com.xero.models.payrollau.PayslipReimbursementLine;
-import com.xero.models.payrollau.PayslipSuperannuationLine;
-import com.xero.models.payrollau.PayslipTaxLine;
+import com.xero.models.payrollau.DeductionLine;
+import com.xero.models.payrollau.EarningsLine;
+import com.xero.models.payrollau.LeaveAccrualLine;
+import com.xero.models.payrollau.LeaveEarningsLine;
+import com.xero.models.payrollau.ReimbursementLine;
+import com.xero.models.payrollau.SuperannuationLine;
+import com.xero.models.payrollau.TaxLine;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import org.threeten.bp.OffsetDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -80,39 +79,39 @@ public class Payslip {
 
   
   @JsonProperty("EarningsLines")
-  private List<PayslipEarningsLines> earningsLines = new ArrayList<PayslipEarningsLines>();
+  private List<EarningsLine> earningsLines = new ArrayList<EarningsLine>();
 
   
   @JsonProperty("LeaveEarningsLines")
-  private List<PayslipLeaveEarningsLines> leaveEarningsLines = new ArrayList<PayslipLeaveEarningsLines>();
+  private List<LeaveEarningsLine> leaveEarningsLines = new ArrayList<LeaveEarningsLine>();
 
   
   @JsonProperty("TimesheetEarningsLines")
-  private List<PayslipLeaveEarningsLines> timesheetEarningsLines = new ArrayList<PayslipLeaveEarningsLines>();
+  private List<EarningsLine> timesheetEarningsLines = new ArrayList<EarningsLine>();
 
   
-  @JsonProperty("DeductionLine")
-  private List<PayslipDeductionLine> deductionLine = new ArrayList<PayslipDeductionLine>();
+  @JsonProperty("DeductionLines")
+  private List<DeductionLine> deductionLines = new ArrayList<DeductionLine>();
 
   
-  @JsonProperty("LeaveAccrualLine")
-  private List<PayslipLeaveAccrualLine> leaveAccrualLine = new ArrayList<PayslipLeaveAccrualLine>();
+  @JsonProperty("LeaveAccrualLines")
+  private List<LeaveAccrualLine> leaveAccrualLines = new ArrayList<LeaveAccrualLine>();
 
   
-  @JsonProperty("ReimbursementLine")
-  private List<PayslipReimbursementLine> reimbursementLine = new ArrayList<PayslipReimbursementLine>();
+  @JsonProperty("ReimbursementLines")
+  private List<ReimbursementLine> reimbursementLines = new ArrayList<ReimbursementLine>();
 
   
-  @JsonProperty("SuperannuationLine")
-  private List<PayslipSuperannuationLine> superannuationLine = new ArrayList<PayslipSuperannuationLine>();
+  @JsonProperty("SuperannuationLines")
+  private List<SuperannuationLine> superannuationLines = new ArrayList<SuperannuationLine>();
 
   
-  @JsonProperty("TaxLine")
-  private List<PayslipTaxLine> taxLine = new ArrayList<PayslipTaxLine>();
+  @JsonProperty("TaxLines")
+  private List<TaxLine> taxLines = new ArrayList<TaxLine>();
 
-  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
+  
   @JsonProperty("UpdatedDateUTC")
-  private OffsetDateTime updatedDateUTC;
+  private String updatedDateUTC;
 
   public Payslip employeeID(Object employeeID) {
     this.employeeID = employeeID;
@@ -294,14 +293,14 @@ public class Payslip {
     this.netPay = netPay;
   }
 
-  public Payslip earningsLines(List<PayslipEarningsLines> earningsLines) {
+  public Payslip earningsLines(List<EarningsLine> earningsLines) {
     this.earningsLines = earningsLines;
     return this;
   }
 
-  public Payslip addEarningsLinesItem(PayslipEarningsLines earningsLinesItem) {
+  public Payslip addEarningsLinesItem(EarningsLine earningsLinesItem) {
     if (this.earningsLines == null) {
-      this.earningsLines = new ArrayList<PayslipEarningsLines>();
+      this.earningsLines = new ArrayList<EarningsLine>();
     }
     this.earningsLines.add(earningsLinesItem);
     return this;
@@ -312,22 +311,22 @@ public class Payslip {
    * @return earningsLines
   **/
   @ApiModelProperty(value = "")
-  public List<PayslipEarningsLines> getEarningsLines() {
+  public List<EarningsLine> getEarningsLines() {
     return earningsLines;
   }
 
-  public void setEarningsLines(List<PayslipEarningsLines> earningsLines) {
+  public void setEarningsLines(List<EarningsLine> earningsLines) {
     this.earningsLines = earningsLines;
   }
 
-  public Payslip leaveEarningsLines(List<PayslipLeaveEarningsLines> leaveEarningsLines) {
+  public Payslip leaveEarningsLines(List<LeaveEarningsLine> leaveEarningsLines) {
     this.leaveEarningsLines = leaveEarningsLines;
     return this;
   }
 
-  public Payslip addLeaveEarningsLinesItem(PayslipLeaveEarningsLines leaveEarningsLinesItem) {
+  public Payslip addLeaveEarningsLinesItem(LeaveEarningsLine leaveEarningsLinesItem) {
     if (this.leaveEarningsLines == null) {
-      this.leaveEarningsLines = new ArrayList<PayslipLeaveEarningsLines>();
+      this.leaveEarningsLines = new ArrayList<LeaveEarningsLine>();
     }
     this.leaveEarningsLines.add(leaveEarningsLinesItem);
     return this;
@@ -338,22 +337,22 @@ public class Payslip {
    * @return leaveEarningsLines
   **/
   @ApiModelProperty(value = "")
-  public List<PayslipLeaveEarningsLines> getLeaveEarningsLines() {
+  public List<LeaveEarningsLine> getLeaveEarningsLines() {
     return leaveEarningsLines;
   }
 
-  public void setLeaveEarningsLines(List<PayslipLeaveEarningsLines> leaveEarningsLines) {
+  public void setLeaveEarningsLines(List<LeaveEarningsLine> leaveEarningsLines) {
     this.leaveEarningsLines = leaveEarningsLines;
   }
 
-  public Payslip timesheetEarningsLines(List<PayslipLeaveEarningsLines> timesheetEarningsLines) {
+  public Payslip timesheetEarningsLines(List<EarningsLine> timesheetEarningsLines) {
     this.timesheetEarningsLines = timesheetEarningsLines;
     return this;
   }
 
-  public Payslip addTimesheetEarningsLinesItem(PayslipLeaveEarningsLines timesheetEarningsLinesItem) {
+  public Payslip addTimesheetEarningsLinesItem(EarningsLine timesheetEarningsLinesItem) {
     if (this.timesheetEarningsLines == null) {
-      this.timesheetEarningsLines = new ArrayList<PayslipLeaveEarningsLines>();
+      this.timesheetEarningsLines = new ArrayList<EarningsLine>();
     }
     this.timesheetEarningsLines.add(timesheetEarningsLinesItem);
     return this;
@@ -364,145 +363,145 @@ public class Payslip {
    * @return timesheetEarningsLines
   **/
   @ApiModelProperty(value = "")
-  public List<PayslipLeaveEarningsLines> getTimesheetEarningsLines() {
+  public List<EarningsLine> getTimesheetEarningsLines() {
     return timesheetEarningsLines;
   }
 
-  public void setTimesheetEarningsLines(List<PayslipLeaveEarningsLines> timesheetEarningsLines) {
+  public void setTimesheetEarningsLines(List<EarningsLine> timesheetEarningsLines) {
     this.timesheetEarningsLines = timesheetEarningsLines;
   }
 
-  public Payslip deductionLine(List<PayslipDeductionLine> deductionLine) {
-    this.deductionLine = deductionLine;
+  public Payslip deductionLines(List<DeductionLine> deductionLines) {
+    this.deductionLines = deductionLines;
     return this;
   }
 
-  public Payslip addDeductionLineItem(PayslipDeductionLine deductionLineItem) {
-    if (this.deductionLine == null) {
-      this.deductionLine = new ArrayList<PayslipDeductionLine>();
+  public Payslip addDeductionLinesItem(DeductionLine deductionLinesItem) {
+    if (this.deductionLines == null) {
+      this.deductionLines = new ArrayList<DeductionLine>();
     }
-    this.deductionLine.add(deductionLineItem);
+    this.deductionLines.add(deductionLinesItem);
     return this;
   }
 
    /**
-   * Get deductionLine
-   * @return deductionLine
+   * Get deductionLines
+   * @return deductionLines
   **/
   @ApiModelProperty(value = "")
-  public List<PayslipDeductionLine> getDeductionLine() {
-    return deductionLine;
+  public List<DeductionLine> getDeductionLines() {
+    return deductionLines;
   }
 
-  public void setDeductionLine(List<PayslipDeductionLine> deductionLine) {
-    this.deductionLine = deductionLine;
+  public void setDeductionLines(List<DeductionLine> deductionLines) {
+    this.deductionLines = deductionLines;
   }
 
-  public Payslip leaveAccrualLine(List<PayslipLeaveAccrualLine> leaveAccrualLine) {
-    this.leaveAccrualLine = leaveAccrualLine;
+  public Payslip leaveAccrualLines(List<LeaveAccrualLine> leaveAccrualLines) {
+    this.leaveAccrualLines = leaveAccrualLines;
     return this;
   }
 
-  public Payslip addLeaveAccrualLineItem(PayslipLeaveAccrualLine leaveAccrualLineItem) {
-    if (this.leaveAccrualLine == null) {
-      this.leaveAccrualLine = new ArrayList<PayslipLeaveAccrualLine>();
+  public Payslip addLeaveAccrualLinesItem(LeaveAccrualLine leaveAccrualLinesItem) {
+    if (this.leaveAccrualLines == null) {
+      this.leaveAccrualLines = new ArrayList<LeaveAccrualLine>();
     }
-    this.leaveAccrualLine.add(leaveAccrualLineItem);
+    this.leaveAccrualLines.add(leaveAccrualLinesItem);
     return this;
   }
 
    /**
-   * Get leaveAccrualLine
-   * @return leaveAccrualLine
+   * Get leaveAccrualLines
+   * @return leaveAccrualLines
   **/
   @ApiModelProperty(value = "")
-  public List<PayslipLeaveAccrualLine> getLeaveAccrualLine() {
-    return leaveAccrualLine;
+  public List<LeaveAccrualLine> getLeaveAccrualLines() {
+    return leaveAccrualLines;
   }
 
-  public void setLeaveAccrualLine(List<PayslipLeaveAccrualLine> leaveAccrualLine) {
-    this.leaveAccrualLine = leaveAccrualLine;
+  public void setLeaveAccrualLines(List<LeaveAccrualLine> leaveAccrualLines) {
+    this.leaveAccrualLines = leaveAccrualLines;
   }
 
-  public Payslip reimbursementLine(List<PayslipReimbursementLine> reimbursementLine) {
-    this.reimbursementLine = reimbursementLine;
+  public Payslip reimbursementLines(List<ReimbursementLine> reimbursementLines) {
+    this.reimbursementLines = reimbursementLines;
     return this;
   }
 
-  public Payslip addReimbursementLineItem(PayslipReimbursementLine reimbursementLineItem) {
-    if (this.reimbursementLine == null) {
-      this.reimbursementLine = new ArrayList<PayslipReimbursementLine>();
+  public Payslip addReimbursementLinesItem(ReimbursementLine reimbursementLinesItem) {
+    if (this.reimbursementLines == null) {
+      this.reimbursementLines = new ArrayList<ReimbursementLine>();
     }
-    this.reimbursementLine.add(reimbursementLineItem);
+    this.reimbursementLines.add(reimbursementLinesItem);
     return this;
   }
 
    /**
-   * Get reimbursementLine
-   * @return reimbursementLine
+   * Get reimbursementLines
+   * @return reimbursementLines
   **/
   @ApiModelProperty(value = "")
-  public List<PayslipReimbursementLine> getReimbursementLine() {
-    return reimbursementLine;
+  public List<ReimbursementLine> getReimbursementLines() {
+    return reimbursementLines;
   }
 
-  public void setReimbursementLine(List<PayslipReimbursementLine> reimbursementLine) {
-    this.reimbursementLine = reimbursementLine;
+  public void setReimbursementLines(List<ReimbursementLine> reimbursementLines) {
+    this.reimbursementLines = reimbursementLines;
   }
 
-  public Payslip superannuationLine(List<PayslipSuperannuationLine> superannuationLine) {
-    this.superannuationLine = superannuationLine;
+  public Payslip superannuationLines(List<SuperannuationLine> superannuationLines) {
+    this.superannuationLines = superannuationLines;
     return this;
   }
 
-  public Payslip addSuperannuationLineItem(PayslipSuperannuationLine superannuationLineItem) {
-    if (this.superannuationLine == null) {
-      this.superannuationLine = new ArrayList<PayslipSuperannuationLine>();
+  public Payslip addSuperannuationLinesItem(SuperannuationLine superannuationLinesItem) {
+    if (this.superannuationLines == null) {
+      this.superannuationLines = new ArrayList<SuperannuationLine>();
     }
-    this.superannuationLine.add(superannuationLineItem);
+    this.superannuationLines.add(superannuationLinesItem);
     return this;
   }
 
    /**
-   * Get superannuationLine
-   * @return superannuationLine
+   * Get superannuationLines
+   * @return superannuationLines
   **/
   @ApiModelProperty(value = "")
-  public List<PayslipSuperannuationLine> getSuperannuationLine() {
-    return superannuationLine;
+  public List<SuperannuationLine> getSuperannuationLines() {
+    return superannuationLines;
   }
 
-  public void setSuperannuationLine(List<PayslipSuperannuationLine> superannuationLine) {
-    this.superannuationLine = superannuationLine;
+  public void setSuperannuationLines(List<SuperannuationLine> superannuationLines) {
+    this.superannuationLines = superannuationLines;
   }
 
-  public Payslip taxLine(List<PayslipTaxLine> taxLine) {
-    this.taxLine = taxLine;
+  public Payslip taxLines(List<TaxLine> taxLines) {
+    this.taxLines = taxLines;
     return this;
   }
 
-  public Payslip addTaxLineItem(PayslipTaxLine taxLineItem) {
-    if (this.taxLine == null) {
-      this.taxLine = new ArrayList<PayslipTaxLine>();
+  public Payslip addTaxLinesItem(TaxLine taxLinesItem) {
+    if (this.taxLines == null) {
+      this.taxLines = new ArrayList<TaxLine>();
     }
-    this.taxLine.add(taxLineItem);
+    this.taxLines.add(taxLinesItem);
     return this;
   }
 
    /**
-   * Get taxLine
-   * @return taxLine
+   * Get taxLines
+   * @return taxLines
   **/
   @ApiModelProperty(value = "")
-  public List<PayslipTaxLine> getTaxLine() {
-    return taxLine;
+  public List<TaxLine> getTaxLines() {
+    return taxLines;
   }
 
-  public void setTaxLine(List<PayslipTaxLine> taxLine) {
-    this.taxLine = taxLine;
+  public void setTaxLines(List<TaxLine> taxLines) {
+    this.taxLines = taxLines;
   }
 
-  public Payslip updatedDateUTC(OffsetDateTime updatedDateUTC) {
+  public Payslip updatedDateUTC(String updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
     return this;
   }
@@ -511,12 +510,12 @@ public class Payslip {
    * Last modified timestamp
    * @return updatedDateUTC
   **/
-  @ApiModelProperty(value = "Last modified timestamp")
-  public OffsetDateTime getUpdatedDateUTC() {
+  @ApiModelProperty(example = "2018-04-01T23:02:36", value = "Last modified timestamp")
+  public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
 
-  public void setUpdatedDateUTC(OffsetDateTime updatedDateUTC) {
+  public void setUpdatedDateUTC(String updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
   }
 
@@ -543,17 +542,17 @@ public class Payslip {
         Objects.equals(this.earningsLines, payslip.earningsLines) &&
         Objects.equals(this.leaveEarningsLines, payslip.leaveEarningsLines) &&
         Objects.equals(this.timesheetEarningsLines, payslip.timesheetEarningsLines) &&
-        Objects.equals(this.deductionLine, payslip.deductionLine) &&
-        Objects.equals(this.leaveAccrualLine, payslip.leaveAccrualLine) &&
-        Objects.equals(this.reimbursementLine, payslip.reimbursementLine) &&
-        Objects.equals(this.superannuationLine, payslip.superannuationLine) &&
-        Objects.equals(this.taxLine, payslip.taxLine) &&
+        Objects.equals(this.deductionLines, payslip.deductionLines) &&
+        Objects.equals(this.leaveAccrualLines, payslip.leaveAccrualLines) &&
+        Objects.equals(this.reimbursementLines, payslip.reimbursementLines) &&
+        Objects.equals(this.superannuationLines, payslip.superannuationLines) &&
+        Objects.equals(this.taxLines, payslip.taxLines) &&
         Objects.equals(this.updatedDateUTC, payslip.updatedDateUTC);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(employeeID, payslipID, firstName, lastName, wages, deductions, tax, _super, reimbursements, netPay, earningsLines, leaveEarningsLines, timesheetEarningsLines, deductionLine, leaveAccrualLine, reimbursementLine, superannuationLine, taxLine, updatedDateUTC);
+    return Objects.hash(employeeID, payslipID, firstName, lastName, wages, deductions, tax, _super, reimbursements, netPay, earningsLines, leaveEarningsLines, timesheetEarningsLines, deductionLines, leaveAccrualLines, reimbursementLines, superannuationLines, taxLines, updatedDateUTC);
   }
 
 
@@ -574,11 +573,11 @@ public class Payslip {
     sb.append("    earningsLines: ").append(toIndentedString(earningsLines)).append("\n");
     sb.append("    leaveEarningsLines: ").append(toIndentedString(leaveEarningsLines)).append("\n");
     sb.append("    timesheetEarningsLines: ").append(toIndentedString(timesheetEarningsLines)).append("\n");
-    sb.append("    deductionLine: ").append(toIndentedString(deductionLine)).append("\n");
-    sb.append("    leaveAccrualLine: ").append(toIndentedString(leaveAccrualLine)).append("\n");
-    sb.append("    reimbursementLine: ").append(toIndentedString(reimbursementLine)).append("\n");
-    sb.append("    superannuationLine: ").append(toIndentedString(superannuationLine)).append("\n");
-    sb.append("    taxLine: ").append(toIndentedString(taxLine)).append("\n");
+    sb.append("    deductionLines: ").append(toIndentedString(deductionLines)).append("\n");
+    sb.append("    leaveAccrualLines: ").append(toIndentedString(leaveAccrualLines)).append("\n");
+    sb.append("    reimbursementLines: ").append(toIndentedString(reimbursementLines)).append("\n");
+    sb.append("    superannuationLines: ").append(toIndentedString(superannuationLines)).append("\n");
+    sb.append("    taxLines: ").append(toIndentedString(taxLines)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
     sb.append("}");
     return sb.toString();

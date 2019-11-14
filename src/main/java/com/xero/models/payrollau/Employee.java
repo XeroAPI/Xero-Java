@@ -30,8 +30,6 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import org.threeten.bp.LocalDate;
-import org.threeten.bp.OffsetDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -159,9 +157,9 @@ public class Employee {
   @JsonProperty("EmployeeID")
   private UUID employeeID;
 
-  @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
+  
   @JsonProperty("TerminationDate")
-  private LocalDate terminationDate;
+  private String terminationDate;
 
   
   @JsonProperty("BankAccounts")
@@ -187,9 +185,9 @@ public class Employee {
   @JsonProperty("Status")
   private EmployeeStatus status;
 
-  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
+  
   @JsonProperty("UpdatedDateUTC")
-  private OffsetDateTime updatedDateUTC;
+  private String updatedDateUTC;
 
   public Employee firstName(String firstName) {
     this.firstName = firstName;
@@ -551,7 +549,7 @@ public class Employee {
     this.employeeID = employeeID;
   }
 
-  public Employee terminationDate(LocalDate terminationDate) {
+  public Employee terminationDate(String terminationDate) {
     this.terminationDate = terminationDate;
     return this;
   }
@@ -560,12 +558,12 @@ public class Employee {
    * Employee Termination Date (YYYY-MM-DD)
    * @return terminationDate
   **/
-  @ApiModelProperty(value = "Employee Termination Date (YYYY-MM-DD)")
-  public LocalDate getTerminationDate() {
+  @ApiModelProperty(example = "2019-01-01", value = "Employee Termination Date (YYYY-MM-DD)")
+  public String getTerminationDate() {
     return terminationDate;
   }
 
-  public void setTerminationDate(LocalDate terminationDate) {
+  public void setTerminationDate(String terminationDate) {
     this.terminationDate = terminationDate;
   }
 
@@ -701,7 +699,7 @@ public class Employee {
     this.status = status;
   }
 
-  public Employee updatedDateUTC(OffsetDateTime updatedDateUTC) {
+  public Employee updatedDateUTC(String updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
     return this;
   }
@@ -710,12 +708,12 @@ public class Employee {
    * Last modified timestamp
    * @return updatedDateUTC
   **/
-  @ApiModelProperty(value = "Last modified timestamp")
-  public OffsetDateTime getUpdatedDateUTC() {
+  @ApiModelProperty(example = "2018-04-01T23:02:36", value = "Last modified timestamp")
+  public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
 
-  public void setUpdatedDateUTC(OffsetDateTime updatedDateUTC) {
+  public void setUpdatedDateUTC(String updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
   }
 

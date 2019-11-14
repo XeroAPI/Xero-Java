@@ -51,7 +51,9 @@ public class TaxRate {
     
     DELETED("DELETED"),
     
-    ARCHIVED("ARCHIVED");
+    ARCHIVED("ARCHIVED"),
+    
+    PENDING("PENDING");
 
     private String value;
 

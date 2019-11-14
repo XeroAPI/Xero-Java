@@ -27,7 +27,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import org.threeten.bp.LocalDate;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -36,9 +35,9 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class OpeningBalances {
-  @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
+  
   @JsonProperty("OpeningBalanceDate")
-  private LocalDate openingBalanceDate;
+  private String openingBalanceDate;
 
   
   @JsonProperty("Tax")
@@ -64,7 +63,7 @@ public class OpeningBalances {
   @JsonProperty("LeaveLines")
   private List<LeaveLine> leaveLines = new ArrayList<LeaveLine>();
 
-  public OpeningBalances openingBalanceDate(LocalDate openingBalanceDate) {
+  public OpeningBalances openingBalanceDate(String openingBalanceDate) {
     this.openingBalanceDate = openingBalanceDate;
     return this;
   }
@@ -74,11 +73,11 @@ public class OpeningBalances {
    * @return openingBalanceDate
   **/
   @ApiModelProperty(value = "Opening Balance Date. (YYYY-MM-DD)")
-  public LocalDate getOpeningBalanceDate() {
+  public String getOpeningBalanceDate() {
     return openingBalanceDate;
   }
 
-  public void setOpeningBalanceDate(LocalDate openingBalanceDate) {
+  public void setOpeningBalanceDate(String openingBalanceDate) {
     this.openingBalanceDate = openingBalanceDate;
   }
 
