@@ -1,18 +1,11 @@
-# Xero-Java
+# Xero-Java OAuth 1.0a
 
-[![Maven Central](https://img.shields.io/badge/Maven%20Central-2.3.20-green.svg)](https://search.maven.org/artifact/com.github.xeroapi/xero-java/2.3.20/jar)
+[![Maven Central](https://img.shields.io/badge/Maven%20Central-2.3.21-green.svg)](https://search.maven.org/artifact/com.github.xeroapi/xero-java/2.3.21/jar)
 
-This is the official Java SDK for Xero's API. It supports accounting, fixed asset and bank feed API endpoints. All third party libraries dependencies managed with Maven.
+This is the official OAuth 1.0a Java SDK for Xero's API. It supports accounting, fixed asset and bank feed API endpoints. All third party libraries dependencies managed with Maven.
 
-
-## Migrating from version 1.0 to 2.0 of SDK
-We've made some big changes to our Java SDK with version 2.0.  All code examples in this README are for version 2.0.  We've archived [code samples for version 1.0 here](https://github.com/XeroAPI/Xero-Java/tree/master/example).
-
-2.0 implements requests and responses for accounting API endpoints using JSON only.  Don't worry we won't be removing any of the existing methods for XML, but will mark them as deprecated in favor of JSON.
-
-Our XSD schema files will also be deprecated in favor of [OpenAPI spec 3.0 files now available on Github](https://github.com/XeroAPI/Xero-OpenAPI).
-
-Lastly, our trusty XeroClient class that holds methods for interacting with each endpoint will be deprecated in favor of clients for each major API group at Xero.  See below. 
+## Looking for OAuth 2.0 SDK? 
+3.x version of Xero-Java SDK support OAuth 2.0 only.
 
 ### Maven dependency
 
@@ -20,19 +13,12 @@ Lastly, our trusty XeroClient class that holds methods for interacting with each
 <dependency>
   <groupId>com.github.xeroapi</groupId>
   <artifactId>xero-java</artifactId>
-  <version>2.3.18</version>
+  <version>2.3.21</version>
 </dependency>
 ```
 
 ### Initializing Client
 
-1.0 Client (deprecated)
-```java
-XeroClient client = new XeroClient();
-client.setOAuthToken(accessToken.getToken(), accessToken.getTokenSecret());				
-```
-
-2.0 Client
 ```java
 // Accounting API endpoints
 ApiClient apiClientForAccounting = new ApiClient(config.getApiUrl(),null,null,null);
@@ -57,25 +43,15 @@ assetApi.setOAuthToken(token, tokenSecret);
 
 ### Making API calls will change as well.
 
-1.0 Example GET
-```java
-List<Organisation> organisations = client.getOrganisations();
-System.out.println("Org Name : " + organisations.get(0).getName());
-```
-
-2.0 Example GET
+Example GET
 ```java
 Organisations organisations = accountingApi.getOrganisations();
 System.out.println("Org Name : " + organisations.getOrganisations().get(0).getName());
 ```
 
-### Models are moving
-
-1.0 models where imported from com.xero.model.*
-
-2.0 models are separated into major API groups under *com.xero.models* 
+### Models
+Models are separated into major API groups under *com.xero.models* 
 i.e. com.xero.models.accounting.*
-
 
 ## Getting Started
 

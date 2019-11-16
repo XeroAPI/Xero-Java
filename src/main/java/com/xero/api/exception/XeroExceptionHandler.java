@@ -111,7 +111,17 @@ public class XeroExceptionHandler {
         if (isJson) {
         	TypeReference<Error> typeRef = new TypeReference<Error>() {};
 			try {
-				Error error =  apiClient.getObjectMapper().readValue(content, typeRef);
+                Error error = new Error();
+                // Error generated when Too many invoices posted
+                // content null from response is XML server error 
+                //creating understandable response
+			    if(code == 504) {
+			        content = "Content too large";
+	                error.setMessage(content);
+	                error.setErrorNumber(504);
+	            } else {
+	                error =  apiClient.getObjectMapper().readValue(content, typeRef);	                
+	            }
 				return new XeroApiException(code, content, error);
 			} catch (IOException e) {
 				logger.error(e.getMessage(), e);
