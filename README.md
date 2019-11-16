@@ -1,6 +1,6 @@
 # Xero-Java OAuth 2.0
 
-[![Maven Central](https://img.shields.io/badge/Maven%20Central-2.3.21-green.svg)](https://search.maven.org/artifact/com.github.xeroapi/xero-java/2.3.21/jar)
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.xeroapi/xero-java.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.github.xeroapi%22%20AND%20a:%22xero-java%22)
 
 ## Current release of SDK with oAuth 2 support
 Version 3.x of Xero Java SDK only supports oAuth2 authentication and the following API sets.
