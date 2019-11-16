@@ -96,7 +96,6 @@ public class SalesTrackingCategory {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class SalesTrackingCategory {\n");
-    
     sb.append("    trackingCategoryName: ").append(toIndentedString(trackingCategoryName)).append("\n");
     sb.append("    trackingOptionName: ").append(toIndentedString(trackingOptionName)).append("\n");
     sb.append("}");

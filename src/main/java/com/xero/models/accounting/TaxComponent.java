@@ -142,7 +142,6 @@ public class TaxComponent {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class TaxComponent {\n");
-    
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
     sb.append("    isCompound: ").append(toIndentedString(isCompound)).append("\n");

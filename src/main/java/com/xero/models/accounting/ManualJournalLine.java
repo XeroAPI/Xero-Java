@@ -49,7 +49,7 @@ public class ManualJournalLine {
 
   
   @JsonProperty("Tracking")
-  private List<TrackingCategory> tracking = null;
+  private List<TrackingCategory> tracking = new ArrayList<TrackingCategory>();
 
   
   @JsonProperty("TaxAmount")
@@ -213,7 +213,6 @@ public class ManualJournalLine {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ManualJournalLine {\n");
-    
     sb.append("    lineAmount: ").append(toIndentedString(lineAmount)).append("\n");
     sb.append("    accountCode: ").append(toIndentedString(accountCode)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");

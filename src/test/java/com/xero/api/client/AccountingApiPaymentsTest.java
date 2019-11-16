@@ -2,10 +2,6 @@ package com.xero.api.client;
 
 import static org.junit.Assert.assertTrue;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
 import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
@@ -15,19 +11,27 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Every.everyItem;
 
-
-import com.xero.api.XeroApiException;
 import com.xero.api.ApiClient;
-import com.xero.example.CustomJsonConfig;
-
 import com.xero.api.client.*;
 import com.xero.models.accounting.*;
 
-import com.xero.example.SampleData;
+import java.io.File;
+import java.net.URL;
+
+import com.google.api.client.auth.oauth2.BearerToken;
+import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.http.HttpRequestFactory;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
 
 import org.threeten.bp.*;
 import java.io.IOException;
 import com.fasterxml.jackson.core.type.TypeReference;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.IOUtils;
 
 import java.util.Calendar;
 import java.util.Map;
@@ -36,38 +40,36 @@ import java.util.List;
 import java.util.ArrayList;
 import java.math.BigDecimal;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.apache.commons.io.IOUtils;
-
 public class AccountingApiPaymentsTest {
 
-	CustomJsonConfig config;
-	ApiClient apiClientForAccounting; 
-	AccountingApi api; 
-
+	ApiClient defaultClient; 
+    AccountingApi accountingApi; 
+	String accessToken;
+    String xeroTenantId; 
+     
+    
     private static boolean setUpIsDone = false;
 	
 	@Before
 	public void setUp() {
-		config = new CustomJsonConfig();
-		apiClientForAccounting = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting-oauth1/2.0.0",null,null,null);
-		api = new AccountingApi(config);
-		api.setApiClient(apiClientForAccounting);
-		api.setOAuthToken(config.getConsumerKey(), config.getConsumerSecret());
-
+		// Set Access Token and Tenant Id
+        accessToken = "123";
+        xeroTenantId = "xyz";
+        
+        // Init AccountingApi client
+        // NEW Sandbox for API Mocking
+		//defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
+		defaultClient = new ApiClient("https://twilight-grass-2493.getsandbox.com:443/api.xro/2.0",null,null,null,null);
+        accountingApi = AccountingApi.getInstance(defaultClient);   
+       
         // ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
         if (setUpIsDone) {
             return;
         }
 
         try {
-            System.out.println("Sleep for 30 seconds");
-            Thread.sleep(60000);
+            System.out.println("Sleep for 60 seconds");
+            Thread.sleep(60);
         } catch(InterruptedException e) {
             System.out.println(e);
         }
@@ -76,15 +78,15 @@ public class AccountingApiPaymentsTest {
 	}
 
 	public void tearDown() {
-		api = null;
-		apiClientForAccounting = null;
+		accountingApi = null;
+        defaultClient = null;
 	}
 
      @Test
-    public void createPaymentTest() throws IOException {
-        System.out.println("@Test - createPayment");
-        Payments payments = null;
-        Payments response = api.createPayment(payments);
+    public void createPaymentsTest() throws IOException {
+        System.out.println("@Test - createPayments");
+        Payments payments = new Payments();
+        Payments response = accountingApi.createPayments(accessToken,xeroTenantId,payments);
 
         assertThat(response.getPayments().get(0).getInvoice().getInvoiceNumber(), is(equalTo("INV-0004")));
         assertThat(response.getPayments().get(0).getAccount().getCode(), is(equalTo("970")));
@@ -108,8 +110,8 @@ public class AccountingApiPaymentsTest {
     public void createPaymentHistoryTest() throws IOException {
         System.out.println("@Test - createPaymentHistory");
         UUID paymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords historyRecords = null;
-        //HistoryRecords response = api.createPaymentHistory(paymentID, historyRecords);
+        HistoryRecords historyRecords = new HistoryRecords();
+        //HistoryRecords response = accountingApi.createPaymentHistory(paymentID, historyRecords);
         // TODO: test validations
         //System.out.println(response.getHistoryRecords().get(0).toString());
     }
@@ -118,8 +120,8 @@ public class AccountingApiPaymentsTest {
     public void deletePaymentTest() throws IOException {
         System.out.println("@Test - deletePayment");
         UUID paymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Payments payments = null;
-        Payments response = api.deletePayment(paymentID, payments);
+        Payments payments = new Payments();
+        Payments response = accountingApi.deletePayment(accessToken,xeroTenantId,paymentID, payments);
 
         assertThat(response.getPayments().get(0).getInvoice().getInvoiceNumber(), is(equalTo("INV-0006")));
         assertThat(response.getPayments().get(0).getAccount().getCode(), is(equalTo("980")));
@@ -143,7 +145,7 @@ public class AccountingApiPaymentsTest {
     public void getPaymentTest() throws IOException {
         System.out.println("@Test - getPayment");
         UUID paymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Payments response = api.getPayment(paymentID);
+        Payments response = accountingApi.getPayment(accessToken,xeroTenantId,paymentID);
 
         assertThat(response.getPayments().get(0).getInvoice().getInvoiceNumber(), is(equalTo("INV-0002")));
         assertThat(response.getPayments().get(0).getAccount().getCode(), is(equalTo("970")));
@@ -166,7 +168,7 @@ public class AccountingApiPaymentsTest {
     public void getPaymentHistoryTest() throws IOException {
         System.out.println("@Test - getPaymentHistory");
         UUID paymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords response = api.getPaymentHistory(paymentID);
+        HistoryRecords response = accountingApi.getPaymentHistory(accessToken,xeroTenantId,paymentID);
 
         assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("Sidney Maestre")));       
         assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Created")));     
@@ -180,7 +182,7 @@ public class AccountingApiPaymentsTest {
         OffsetDateTime ifModifiedSince = null;
         String where = null;
         String order = null;
-        Payments response = api.getPayments(ifModifiedSince, where, order);
+        Payments response = accountingApi.getPayments(accessToken,xeroTenantId,ifModifiedSince, where, order);
 
         assertThat(response.getPayments().get(0).getInvoice().getInvoiceNumber(), is(equalTo("INV-0002")));
         assertThat(response.getPayments().get(0).getAccount().getCode(), is(equalTo("970")));

@@ -51,23 +51,23 @@ public class ReportWithRow {
 
   
   @JsonProperty("ReportTitles")
-  private List<String> reportTitles = null;
+  private List<String> reportTitles = new ArrayList<String>();
 
   
   @JsonProperty("ReportDate")
   private String reportDate;
+
+  
+  @JsonProperty("Rows")
+  private List<ReportRows> rows = new ArrayList<ReportRows>();
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
   private OffsetDateTime updatedDateUTC;
 
   
-  @JsonProperty("Rows")
-  private List<ReportRows> rows = null;
-
-  
   @JsonProperty("Fields")
-  private List<ReportFields> fields = null;
+  private List<ReportFields> fields = new ArrayList<ReportFields>();
 
   public ReportWithRow reportID(String reportID) {
     this.reportID = reportID;
@@ -185,24 +185,6 @@ public class ReportWithRow {
     this.reportDate = reportDate;
   }
 
-  public ReportWithRow updatedDateUTC(OffsetDateTime updatedDateUTC) {
-    this.updatedDateUTC = updatedDateUTC;
-    return this;
-  }
-
-   /**
-   * Updated Date
-   * @return updatedDateUTC
-  **/
-  @ApiModelProperty(value = "Updated Date")
-  public OffsetDateTime getUpdatedDateUTC() {
-    return updatedDateUTC;
-  }
-
-  public void setUpdatedDateUTC(OffsetDateTime updatedDateUTC) {
-    this.updatedDateUTC = updatedDateUTC;
-  }
-
   public ReportWithRow rows(List<ReportRows> rows) {
     this.rows = rows;
     return this;
@@ -227,6 +209,24 @@ public class ReportWithRow {
 
   public void setRows(List<ReportRows> rows) {
     this.rows = rows;
+  }
+
+  public ReportWithRow updatedDateUTC(OffsetDateTime updatedDateUTC) {
+    this.updatedDateUTC = updatedDateUTC;
+    return this;
+  }
+
+   /**
+   * Updated Date
+   * @return updatedDateUTC
+  **/
+  @ApiModelProperty(value = "Updated Date")
+  public OffsetDateTime getUpdatedDateUTC() {
+    return updatedDateUTC;
+  }
+
+  public void setUpdatedDateUTC(OffsetDateTime updatedDateUTC) {
+    this.updatedDateUTC = updatedDateUTC;
   }
 
   public ReportWithRow fields(List<ReportFields> fields) {
@@ -271,14 +271,14 @@ public class ReportWithRow {
         Objects.equals(this.reportType, reportWithRow.reportType) &&
         Objects.equals(this.reportTitles, reportWithRow.reportTitles) &&
         Objects.equals(this.reportDate, reportWithRow.reportDate) &&
-        Objects.equals(this.updatedDateUTC, reportWithRow.updatedDateUTC) &&
         Objects.equals(this.rows, reportWithRow.rows) &&
+        Objects.equals(this.updatedDateUTC, reportWithRow.updatedDateUTC) &&
         Objects.equals(this.fields, reportWithRow.fields);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(reportID, reportName, reportTitle, reportType, reportTitles, reportDate, updatedDateUTC, rows, fields);
+    return Objects.hash(reportID, reportName, reportTitle, reportType, reportTitles, reportDate, rows, updatedDateUTC, fields);
   }
 
 
@@ -286,15 +286,14 @@ public class ReportWithRow {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ReportWithRow {\n");
-    
     sb.append("    reportID: ").append(toIndentedString(reportID)).append("\n");
     sb.append("    reportName: ").append(toIndentedString(reportName)).append("\n");
     sb.append("    reportTitle: ").append(toIndentedString(reportTitle)).append("\n");
     sb.append("    reportType: ").append(toIndentedString(reportType)).append("\n");
     sb.append("    reportTitles: ").append(toIndentedString(reportTitles)).append("\n");
     sb.append("    reportDate: ").append(toIndentedString(reportDate)).append("\n");
-    sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
     sb.append("    rows: ").append(toIndentedString(rows)).append("\n");
+    sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
     sb.append("    fields: ").append(toIndentedString(fields)).append("\n");
     sb.append("}");
     return sb.toString();

@@ -61,13 +61,13 @@ public class ContactGroup {
     }
 
     @JsonCreator
-    public static StatusEnum fromValue(String text) {
+    public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -81,7 +81,7 @@ public class ContactGroup {
 
   
   @JsonProperty("Contacts")
-  private List<Contact> contacts = null;
+  private List<Contact> contacts = new ArrayList<Contact>();
 
   public ContactGroup name(String name) {
     this.name = name;
@@ -189,7 +189,6 @@ public class ContactGroup {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ContactGroup {\n");
-    
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    contactGroupID: ").append(toIndentedString(contactGroupID)).append("\n");

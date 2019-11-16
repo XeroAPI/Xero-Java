@@ -101,13 +101,13 @@ public class Organisation {
     }
 
     @JsonCreator
-    public static VersionEnum fromValue(String text) {
+    public static VersionEnum fromValue(String value) {
       for (VersionEnum b : VersionEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -158,13 +158,13 @@ public class Organisation {
     }
 
     @JsonCreator
-    public static OrganisationTypeEnum fromValue(String text) {
+    public static OrganisationTypeEnum fromValue(String value) {
       for (OrganisationTypeEnum b : OrganisationTypeEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -241,13 +241,13 @@ public class Organisation {
     }
 
     @JsonCreator
-    public static SalesTaxBasisEnum fromValue(String text) {
+    public static SalesTaxBasisEnum fromValue(String value) {
       for (SalesTaxBasisEnum b : SalesTaxBasisEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -304,13 +304,13 @@ public class Organisation {
     }
 
     @JsonCreator
-    public static SalesTaxPeriodEnum fromValue(String text) {
+    public static SalesTaxPeriodEnum fromValue(String value) {
       for (SalesTaxPeriodEnum b : SalesTaxPeriodEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -385,13 +385,13 @@ public class Organisation {
     }
 
     @JsonCreator
-    public static OrganisationEntityTypeEnum fromValue(String text) {
+    public static OrganisationEntityTypeEnum fromValue(String value) {
       for (OrganisationEntityTypeEnum b : OrganisationEntityTypeEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -446,13 +446,13 @@ public class Organisation {
     }
 
     @JsonCreator
-    public static PropertyClassEnum fromValue(String text) {
+    public static PropertyClassEnum fromValue(String value) {
       for (PropertyClassEnum b : PropertyClassEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -485,13 +485,13 @@ public class Organisation {
     }
 
     @JsonCreator
-    public static EditionEnum fromValue(String text) {
+    public static EditionEnum fromValue(String value) {
       for (EditionEnum b : EditionEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -505,15 +505,15 @@ public class Organisation {
 
   
   @JsonProperty("Addresses")
-  private List<Address> addresses = null;
+  private List<Address> addresses = new ArrayList<Address>();
 
   
   @JsonProperty("Phones")
-  private List<Phone> phones = null;
+  private List<Phone> phones = new ArrayList<Phone>();
 
   
   @JsonProperty("ExternalLinks")
-  private List<ExternalLink> externalLinks = null;
+  private List<ExternalLink> externalLinks = new ArrayList<ExternalLink>();
 
   
   @JsonProperty("PaymentTerms")
@@ -1173,7 +1173,6 @@ public class Organisation {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Organisation {\n");
-    
     sb.append("    organisationID: ").append(toIndentedString(organisationID)).append("\n");
     sb.append("    apIKey: ").append(toIndentedString(apIKey)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");

@@ -86,13 +86,13 @@ public enum AccountType {
   }
 
   @JsonCreator
-  public static AccountType fromValue(String text) {
+  public static AccountType fromValue(String value) {
     for (AccountType b : AccountType.values()) {
-      if (String.valueOf(b.value).equals(text)) {
+      if (b.value.equals(value)) {
         return b;
       }
     }
-    throw new IllegalArgumentException("Unexpected value '" + text + "'");
+    throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 }
 

@@ -1,14 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.github.xeroapi</groupId>
-	<artifactId>xero-java</artifactId>
-	<packaging>jar</packaging>
-	<version>2.3.21</version>
-	<name>Xero-Java SDK</name>
-	<description>This is the official Java SDK for Xero API</description>
-	<url>https://github.com/XeroAPI/Xero-Java</url>
-	<licenses>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.github.xeroapi</groupId>
+    <artifactId>xero-java</artifactId>
+    <packaging>jar</packaging>
+    <name>xero-java</name>
+    <version>3.1.1</version>
+    <url>https://github.com/XeroAPI/Xero-Java</url>
+    <description>This is the official Java SDK for Xero API</description>
+    <licenses>
 		<license>
 			<name>MIT License</name>
 			<url>http://www.opensource.org/licenses/mit-license.php</url>
@@ -24,24 +24,24 @@
 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 	</distributionManagement>
-	<developers>
-		<developer>
-			<name>Sidney Maestre</name>
-			<email>api@xero.com</email>
-			<organization>Xero</organization>
-			<organizationUrl>https://developer.xero.com</organizationUrl>
-		</developer>
-	</developers>
-	<scm>
-		<connection>scm:git:git://github.com/XeroAPI/Xero-Java.git</connection>
-		<developerConnection>scm:git:ssh://github.com:XeroAPI/Xero-Java.git</developerConnection>
-		<url>http://github.com/XeroAPI/Xero-Java/tree/master</url>
-	</scm>
-	<dependencies>
+    <developers>
+        <developer>
+            <name>Xero API Team</name>
+            <email>api@xero.com</email>
+            <organization>Xero</organization>
+            <organizationUrl>https://developer.xero.com</organizationUrl>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:git://github.com/XeroAPI/Xero-Java.git</connection>
+        <developerConnection>scm:git:ssh://github.com:XeroAPI/Xero-Java.git</developerConnection>
+        <url>http://github.com/XeroAPI/Xero-Java/tree/master</url>
+    </scm>
+    <dependencies>
 		<dependency>
-			<groupId>com.github.xeroapi</groupId>
-			<artifactId>xeroapi-schemas</artifactId>
-			<version>1.0.0</version>
+		    <groupId>com.auth0</groupId>
+		    <artifactId>java-jwt</artifactId>
+		    <version>3.8.1</version>
 		</dependency>
 		<dependency>
             <groupId>com.google.api-client</groupId>
@@ -69,13 +69,7 @@
             <version>2.8.47</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit-version}</version>
-            <scope>test</scope>
 
-        </dependency>
         <!-- This will get hamcrest-core automatically -->
 		<dependency>
 			<groupId>org.hamcrest</groupId>
@@ -84,20 +78,15 @@
 			<scope>test</scope>
 		</dependency>
         <dependency>
-		    <groupId>org.apache.httpcomponents</groupId>
-		    <artifactId>httpclient</artifactId>
-		    <version>${org-apache-httpcomponents}</version>
-		</dependency>
-		<dependency>
-		    <groupId>org.apache.httpcomponents</groupId>
-		    <artifactId>httpmime</artifactId>
-		    <version>${org-apache-httpcomponents}</version>
-		</dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.28</version>
-        </dependency>
+	       <groupId>org.apache.logging.log4j</groupId>
+	       <artifactId>log4j-api</artifactId>
+	       <version>2.11.0</version>
+	   </dependency>
+	   <dependency>
+	       <groupId>org.apache.logging.log4j</groupId>
+	       <artifactId>log4j-core</artifactId>
+	       <version>2.11.0</version>
+	   	</dependency>
 	    <!-- JSON processing: jackson -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -112,7 +101,7 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>${jackson-databind}</version>
+			<version>${jackson-databind-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.joschi.jackson</groupId>
@@ -124,15 +113,42 @@
 			<artifactId>swagger-annotations</artifactId>
 			<version>${swagger-annotations-version}</version>
 		</dependency>
-		<dependency>
+		
+        <!-- HTTP client: jersey-client -->
+        <dependency>
             <groupId>org.glassfish.jersey.core</groupId>
-            <artifactId>jersey-common</artifactId>
-            <version>${jersey-common-version}</version>
+            <artifactId>jersey-client</artifactId>
+            <version>${jersey-version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-multipart</artifactId>
+            <version>${jersey-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-jackson</artifactId>
+            <version>${jersey-version}</version>
+        </dependency>
+        <!-- Base64 encoding that works in both JVM and Android -->
+        <dependency>
+            <groupId>com.brsanthu</groupId>
+            <artifactId>migbase64</artifactId>
+            <version>2.2</version>
+        </dependency>
+
+        <!-- test dependencies -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit-version}</version>
+            <scope>test</scope>
+        </dependency>
+       
 	</dependencies>
 	<build>
 		<finalName>Xero-Java-SDK</finalName>
-		<plugins>
+		<plugins>	
 			<plugin>
 				<artifactId>maven3-deploy-plugin</artifactId>
 				<version>2.8.1</version>
@@ -205,20 +221,6 @@
 					</webResources>
 				</configuration>
 			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>2.2.1</version>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar-no-fork</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
@@ -261,7 +263,6 @@
 	</build>
 	<reporting>
 		<plugins>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
@@ -272,7 +273,7 @@
 				<artifactId>findbugs-maven-plugin</artifactId>
 				<version>3.0.4</version>
 				<configuration>
-					<!-- Enables analysis which takes more memory but finds more bugs. If
+					<!-- Enables analysis which takes more memory but finds more bugs. If 
 						you run out of memory, changes the value of the effort element to 'low'. -->
 					<effort>Max</effort>
 					<!-- Reports all bugs (other values are medium and max) -->
@@ -293,9 +294,15 @@
 		<google-api-client-version>1.23.0</google-api-client-version>
 		<jersey-common-version>2.25.1</jersey-common-version>
 		<jackson-version>2.9.10</jackson-version>
-		<jackson-databind>2.9.10.1</jackson-databind>
+		<jackson-databind-version>2.9.10.1</jackson-databind-version>
 		<jackson-threetenbp-version>2.6.4</jackson-threetenbp-version>
         <junit-version>4.12</junit-version>
         <org-apache-httpcomponents>4.5.3</org-apache-httpcomponents>
+        <jersey-version>2.27</jersey-version>
+        <threetenbp-version>2.6.4</threetenbp-version>
+        <maven-plugin-version>1.0.0</maven-plugin-version>
+        <feign-version>9.7.0</feign-version>
+        <feign-form-version>2.1.0</feign-form-version>
+        <oltu-version>1.0.1</oltu-version>
 	</properties>
 </project>

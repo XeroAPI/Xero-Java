@@ -33,7 +33,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class CISSettings {
   
   @JsonProperty("CISSettings")
-  private List<CISSetting> ciSSettings = null;
+  private List<CISSetting> ciSSettings = new ArrayList<CISSetting>();
 
   public CISSettings ciSSettings(List<CISSetting> ciSSettings) {
     this.ciSSettings = ciSSettings;
@@ -84,7 +84,6 @@ public class CISSettings {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CISSettings {\n");
-    
     sb.append("    ciSSettings: ").append(toIndentedString(ciSSettings)).append("\n");
     sb.append("}");
     return sb.toString();

@@ -59,13 +59,13 @@ public class Phone {
     }
 
     @JsonCreator
-    public static PhoneTypeEnum fromValue(String text) {
+    public static PhoneTypeEnum fromValue(String value) {
       for (PhoneTypeEnum b : PhoneTypeEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -183,7 +183,6 @@ public class Phone {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Phone {\n");
-    
     sb.append("    phoneType: ").append(toIndentedString(phoneType)).append("\n");
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
     sb.append("    phoneAreaCode: ").append(toIndentedString(phoneAreaCode)).append("\n");

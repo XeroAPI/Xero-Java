@@ -50,7 +50,9 @@ public class ExpenseClaim {
     
     PAID("PAID"),
     
-    VOIDED("VOIDED");
+    VOIDED("VOIDED"),
+    
+    DELETED("DELETED");
 
     private String value;
 
@@ -69,13 +71,13 @@ public class ExpenseClaim {
     }
 
     @JsonCreator
-    public static StatusEnum fromValue(String text) {
+    public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -85,7 +87,7 @@ public class ExpenseClaim {
 
   
   @JsonProperty("Payments")
-  private List<Payment> payments = null;
+  private List<Payment> payments = new ArrayList<Payment>();
 
   
   @JsonProperty("User")
@@ -93,7 +95,7 @@ public class ExpenseClaim {
 
   
   @JsonProperty("Receipts")
-  private List<Receipt> receipts = null;
+  private List<Receipt> receipts = new ArrayList<Receipt>();
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
@@ -335,7 +337,6 @@ public class ExpenseClaim {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ExpenseClaim {\n");
-    
     sb.append("    expenseClaimID: ").append(toIndentedString(expenseClaimID)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    payments: ").append(toIndentedString(payments)).append("\n");

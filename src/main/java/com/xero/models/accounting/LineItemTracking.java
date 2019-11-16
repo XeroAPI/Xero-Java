@@ -120,7 +120,6 @@ public class LineItemTracking {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class LineItemTracking {\n");
-    
     sb.append("    trackingCategoryID: ").append(toIndentedString(trackingCategoryID)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    option: ").append(toIndentedString(option)).append("\n");

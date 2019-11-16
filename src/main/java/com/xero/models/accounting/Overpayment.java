@@ -46,7 +46,9 @@ public class Overpayment {
   public enum TypeEnum {
     RECEIVE_OVERPAYMENT("RECEIVE-OVERPAYMENT"),
     
-    SPEND_OVERPAYMENT("SPEND-OVERPAYMENT");
+    SPEND_OVERPAYMENT("SPEND-OVERPAYMENT"),
+    
+    AROVERPAYMENT("AROVERPAYMENT");
 
     private String value;
 
@@ -65,13 +67,13 @@ public class Overpayment {
     }
 
     @JsonCreator
-    public static TypeEnum fromValue(String text) {
+    public static TypeEnum fromValue(String value) {
       for (TypeEnum b : TypeEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -114,13 +116,13 @@ public class Overpayment {
     }
 
     @JsonCreator
-    public static StatusEnum fromValue(String text) {
+    public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -134,7 +136,7 @@ public class Overpayment {
 
   
   @JsonProperty("LineItems")
-  private List<LineItem> lineItems = null;
+  private List<LineItem> lineItems = new ArrayList<LineItem>();
 
   
   @JsonProperty("SubTotal")
@@ -170,11 +172,11 @@ public class Overpayment {
 
   
   @JsonProperty("Allocations")
-  private List<Allocation> allocations = null;
+  private List<Allocation> allocations = new ArrayList<Allocation>();
 
   
   @JsonProperty("Payments")
-  private List<Payment> payments = null;
+  private List<Payment> payments = new ArrayList<Payment>();
 
   
   @JsonProperty("HasAttachments")
@@ -182,7 +184,7 @@ public class Overpayment {
 
   
   @JsonProperty("Attachments")
-  private List<Attachment> attachments = null;
+  private List<Attachment> attachments = new ArrayList<Attachment>();
 
   public Overpayment type(TypeEnum type) {
     this.type = type;
@@ -580,7 +582,6 @@ public class Overpayment {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Overpayment {\n");
-    
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    contact: ").append(toIndentedString(contact)).append("\n");
     sb.append("    date: ").append(toIndentedString(date)).append("\n");

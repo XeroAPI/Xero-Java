@@ -2,10 +2,6 @@ package com.xero.api.client;
 
 import static org.junit.Assert.assertTrue;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
 import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
@@ -15,20 +11,27 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Every.everyItem;
 
-
-import com.xero.api.XeroApiException;
 import com.xero.api.ApiClient;
-import com.xero.example.CustomJsonConfig;
-
 import com.xero.api.client.*;
 import com.xero.models.accounting.*;
 
-import com.xero.example.SampleData;
+import java.io.File;
+import java.net.URL;
+
+import com.google.api.client.auth.oauth2.BearerToken;
+import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.http.HttpRequestFactory;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
 
 import org.threeten.bp.*;
 import java.io.IOException;
 import com.fasterxml.jackson.core.type.TypeReference;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.IOUtils;
 import java.util.Calendar;
 import java.util.Map;
 import java.util.UUID;
@@ -36,38 +39,40 @@ import java.util.List;
 import java.util.ArrayList;
 import java.math.BigDecimal;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.apache.commons.io.IOUtils;
-
 public class AccountingApiExpenseClaimsTest {
 
-	CustomJsonConfig config;
-	ApiClient apiClientForAccounting; 
-	AccountingApi api; 
+	ApiClient defaultClient; 
+    AccountingApi accountingApi; 
+	String accessToken;
+    String xeroTenantId; 
+     
+    File body;
 
     private static boolean setUpIsDone = false;
 	
 	@Before
 	public void setUp() {
-		config = new CustomJsonConfig();
-		apiClientForAccounting = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting-oauth1/2.0.0",null,null,null);
-		api = new AccountingApi(config);
-		api.setApiClient(apiClientForAccounting);
-		api.setOAuthToken(config.getConsumerKey(), config.getConsumerSecret());
-
+		// Set Access Token and Tenant Id
+        accessToken = "123";
+        xeroTenantId = "xyz";
+        
+        // Init AccountingApi client
+        // NEW Sandbox for API Mocking
+		//defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
+		defaultClient = new ApiClient("https://twilight-grass-2493.getsandbox.com:443/api.xro/2.0",null,null,null,null);
+        accountingApi = AccountingApi.getInstance(defaultClient);   
+       
+        ClassLoader classLoader = getClass().getClassLoader();
+        body = new File(classLoader.getResource("helo-heros.jpg").getFile());
+       
         // ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
         if (setUpIsDone) {
             return;
         }
 
         try {
-            System.out.println("Sleep for 30 seconds");
-            Thread.sleep(60000);
+            System.out.println("Sleep for 60 seconds");
+            Thread.sleep(60);
         } catch(InterruptedException e) {
             System.out.println(e);
         }
@@ -76,16 +81,15 @@ public class AccountingApiExpenseClaimsTest {
 	}
 
 	public void tearDown() {
-		api = null;
-		apiClientForAccounting = null;
+		accountingApi = null;
+        defaultClient = null;
 	}
 
     @Test
     public void createExpenseClaimTest() throws IOException {
         System.out.println("@Test - createExpenseClaim");
-        ExpenseClaims expenseClaims = null;
-        Boolean summarizeErrors = null;
-        ExpenseClaims response = api.createExpenseClaim(expenseClaims, summarizeErrors);
+        ExpenseClaims expenseClaims = new ExpenseClaims();
+        ExpenseClaims response = accountingApi.createExpenseClaims(accessToken,xeroTenantId,expenseClaims);
 
         assertThat(response.getExpenseClaims().get(0).getExpenseClaimID(), is(equalTo(UUID.fromString("646b15ab-b874-4e13-82ae-f4385b2ac4b6"))));
         assertThat(response.getExpenseClaims().get(0).getStatus(), is(equalTo(com.xero.models.accounting.ExpenseClaim.StatusEnum.SUBMITTED)));
@@ -116,8 +120,8 @@ public class AccountingApiExpenseClaimsTest {
     public void createExpenseClaimHistoryTest() throws IOException {
         System.out.println("@Test - createExpenseClaimHistory not implemented");
         UUID expenseClaimID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords historyRecords = null;
-        //HistoryRecords response = api.createExpenseClaimHistory(expenseClaimID, historyRecords);
+        HistoryRecords historyRecords = new HistoryRecords();
+        //HistoryRecords response = accountingApi.createExpenseClaimHistory(expenseClaimID, historyRecords);
 
         // TODO: test validations
         //System.out.println(response.getHistoryRecords().get(0).toString());
@@ -127,7 +131,7 @@ public class AccountingApiExpenseClaimsTest {
     public void getExpenseClaimTest() throws IOException {
         System.out.println("@Test - getExpenseClaim");
         UUID expenseClaimID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        ExpenseClaims response = api.getExpenseClaim(expenseClaimID);
+        ExpenseClaims response = accountingApi.getExpenseClaim(accessToken,xeroTenantId,expenseClaimID);
 
         assertThat(response.getExpenseClaims().get(0).getExpenseClaimID(), is(equalTo(UUID.fromString("646b15ab-b874-4e13-82ae-f4385b2ac4b6"))));
         assertThat(response.getExpenseClaims().get(0).getStatus(), is(equalTo(com.xero.models.accounting.ExpenseClaim.StatusEnum.AUTHORISED)));
@@ -154,7 +158,7 @@ public class AccountingApiExpenseClaimsTest {
     public void getExpenseClaimHistoryTest() throws IOException {
         System.out.println("@Test - getExpenseClaimHistory");
         UUID expenseClaimID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords response = api.getExpenseClaimHistory(expenseClaimID);
+        HistoryRecords response = accountingApi.getExpenseClaimHistory(accessToken,xeroTenantId,expenseClaimID);
 
         assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("System Generated")));       
         assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Voided")));     
@@ -168,7 +172,7 @@ public class AccountingApiExpenseClaimsTest {
         OffsetDateTime ifModifiedSince = null;
         String where = null;
         String order = null;
-        ExpenseClaims response = api.getExpenseClaims(ifModifiedSince, where, order);
+        ExpenseClaims response = accountingApi.getExpenseClaims(accessToken,xeroTenantId,ifModifiedSince, where, order);
 
         // TODO: test validations
         assertThat(response.getExpenseClaims().get(0).getExpenseClaimID(), is(equalTo(UUID.fromString("646b15ab-b874-4e13-82ae-f4385b2ac4b6"))));
@@ -194,8 +198,8 @@ public class AccountingApiExpenseClaimsTest {
     public void updateExpenseClaimTest() throws IOException {
         System.out.println("@Test - updateExpenseClaim");
         UUID expenseClaimID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        ExpenseClaims expenseClaims = null;
-        ExpenseClaims response = api.updateExpenseClaim(expenseClaimID, expenseClaims);
+        ExpenseClaims expenseClaims = new ExpenseClaims();
+        ExpenseClaims response = accountingApi.updateExpenseClaim(accessToken,xeroTenantId,expenseClaimID, expenseClaims);
 
         // TODO: test validations
         assertThat(response.getExpenseClaims().get(0).getExpenseClaimID(), is(equalTo(UUID.fromString("646b15ab-b874-4e13-82ae-f4385b2ac4b6"))));

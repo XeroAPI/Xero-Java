@@ -2,10 +2,6 @@ package com.xero.api.client;
 
 import static org.junit.Assert.assertTrue;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
 import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
@@ -15,19 +11,27 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Every.everyItem;
 
-
-import com.xero.api.XeroApiException;
 import com.xero.api.ApiClient;
-import com.xero.example.CustomJsonConfig;
-
 import com.xero.api.client.*;
 import com.xero.models.accounting.*;
 
-import com.xero.example.SampleData;
+import java.io.File;
+import java.net.URL;
+
+import com.google.api.client.auth.oauth2.BearerToken;
+import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.http.HttpRequestFactory;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
 
 import org.threeten.bp.*;
 import java.io.IOException;
 import com.fasterxml.jackson.core.type.TypeReference;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.IOUtils;
 
 import java.util.Calendar;
 import java.util.Map;
@@ -36,30 +40,28 @@ import java.util.List;
 import java.util.ArrayList;
 import java.math.BigDecimal;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.apache.commons.io.IOUtils;
-
 public class AccountingApiPrepaymentsTest {
 
-	CustomJsonConfig config;
-	ApiClient apiClientForAccounting; 
-	AccountingApi api; 
+	ApiClient defaultClient; 
+    AccountingApi accountingApi; 
+	String accessToken;
+    String xeroTenantId; 
+     
 
     private static boolean setUpIsDone = false;
 	
 	@Before
 	public void setUp() {
-		config = new CustomJsonConfig();
-		apiClientForAccounting = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting-oauth1/2.0.0",null,null,null);
-		api = new AccountingApi(config);
-		api.setApiClient(apiClientForAccounting);
-		api.setOAuthToken(config.getConsumerKey(), config.getConsumerSecret());
-
+		// Set Access Token and Tenant Id
+        accessToken = "123";
+        xeroTenantId = "xyz";
+        
+        // Init AccountingApi client
+        // NEW Sandbox for API Mocking
+		//defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
+		defaultClient = new ApiClient("https://twilight-grass-2493.getsandbox.com:443/api.xro/2.0",null,null,null,null);
+        accountingApi = AccountingApi.getInstance(defaultClient);   
+       
         // ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
         if (setUpIsDone) {
             return;
@@ -76,16 +78,16 @@ public class AccountingApiPrepaymentsTest {
 	}
 
 	public void tearDown() {
-		api = null;
-		apiClientForAccounting = null;
+		accountingApi = null;
+        defaultClient = null;
 	}
 
     @Test
     public void createPrepaymentAllocationTest() throws IOException {
         System.out.println("@Test - createPrepaymentAllocation");
         UUID prepaymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Allocations allocations = null;
-        Allocations response = api.createPrepaymentAllocation(prepaymentID, allocations);
+        Allocations allocations = new Allocations();
+        Allocations response = accountingApi.createPrepaymentAllocation(accessToken,xeroTenantId,prepaymentID, allocations);
 
         assertThat(response.getAllocations().get(0).getAmount(), is(equalTo(1.0)));
         assertThat(response.getAllocations().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,12))));
@@ -97,8 +99,8 @@ public class AccountingApiPrepaymentsTest {
     public void createPrepaymentHistoryTest() throws IOException {
         System.out.println("@Test - createPrepaymentHistory");
         UUID prepaymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords historyRecords = null;
-        //HistoryRecords response = api.createPrepaymentHistory(prepaymentID, historyRecords);
+        HistoryRecords historyRecords = new HistoryRecords();
+        //HistoryRecords response = accountingApi.createPrepaymentHistory(prepaymentID, historyRecords);
         // TODO: test validations
         //System.out.println(response.getHistoryRecords().get(0).toString());
     }
@@ -107,7 +109,7 @@ public class AccountingApiPrepaymentsTest {
     public void getPrepaymentTest() throws IOException {
         System.out.println("@Test - getPrepayment");
         UUID prepaymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Prepayments response = api.getPrepayment(prepaymentID);
+        Prepayments response = accountingApi.getPrepayment(accessToken,xeroTenantId,prepaymentID);
 
         assertThat(response.getPrepayments().get(0).getType().toString(), is(equalTo("RECEIVE-PREPAYMENT")));
         assertThat(response.getPrepayments().get(0).getContact().getName(), is(equalTo("Luke Skywalker")));
@@ -150,7 +152,7 @@ public class AccountingApiPrepaymentsTest {
     public void getPrepaymentHistoryTest() throws IOException {
         System.out.println("@Test - getPrepaymentHistory");
         UUID prepaymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords response = api.getPrepaymentHistory(prepaymentID);
+        HistoryRecords response = accountingApi.getPrepaymentHistory(accessToken,xeroTenantId,prepaymentID);
 
         assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("Sidney Maestre")));       
         assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Cash Refunded")));     
@@ -167,7 +169,7 @@ public class AccountingApiPrepaymentsTest {
         String order = null;
         Integer page = null;
         Integer unitdp = null;
-        Prepayments response = api.getPrepayments(ifModifiedSince, where, order, page, unitdp);
+        Prepayments response = accountingApi.getPrepayments(accessToken,xeroTenantId,ifModifiedSince, where, order, page, unitdp);
 
         assertThat(response.getPrepayments().get(0).getType().toString(), is(equalTo("RECEIVE-PREPAYMENT")));
         assertThat(response.getPrepayments().get(0).getContact().getName(), is(equalTo("Luke Skywalker")));

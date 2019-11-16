@@ -2,10 +2,6 @@ package com.xero.api.client;
 
 import static org.junit.Assert.assertTrue;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
 import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
@@ -15,19 +11,27 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Every.everyItem;
 
-
-import com.xero.api.XeroApiException;
 import com.xero.api.ApiClient;
-import com.xero.example.CustomJsonConfig;
-
 import com.xero.api.client.*;
 import com.xero.models.accounting.*;
 
-import com.xero.example.SampleData;
+import java.io.File;
+import java.net.URL;
+
+import com.google.api.client.auth.oauth2.BearerToken;
+import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.http.HttpRequestFactory;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
 
 import org.threeten.bp.*;
 import java.io.IOException;
 import com.fasterxml.jackson.core.type.TypeReference;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.IOUtils;
 
 import java.util.Calendar;
 import java.util.Map;
@@ -36,38 +40,41 @@ import java.util.List;
 import java.util.ArrayList;
 import java.math.BigDecimal;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.apache.commons.io.IOUtils;
-
 public class AccountingApiContactsTest {
 
-	CustomJsonConfig config;
-	ApiClient apiClientForAccounting; 
-	AccountingApi api; 
+	ApiClient defaultClient; 
+    AccountingApi accountingApi; 
+	String accessToken;
+    String xeroTenantId; 
+     
+    File body;
 
     private static boolean setUpIsDone = false;
 	
 	@Before
 	public void setUp() {
-		config = new CustomJsonConfig();
-		apiClientForAccounting = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting-oauth1/2.0.0",null,null,null);
-		api = new AccountingApi(config);
-		api.setApiClient(apiClientForAccounting);
-		api.setOAuthToken(config.getConsumerKey(), config.getConsumerSecret());
-
+		// Set Access Token and Tenant Id
+        accessToken = "123";
+        xeroTenantId = "xyz";
+        
+        // Init AccountingApi client
+        // NEW Sandbox for API Mocking
+		//defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
+		defaultClient = new ApiClient("https://twilight-grass-2493.getsandbox.com:443/api.xro/2.0",null,null,null,null);
+        
+        accountingApi = AccountingApi.getInstance(defaultClient);   
+       
+        ClassLoader classLoader = getClass().getClassLoader();
+        body = new File(classLoader.getResource("helo-heros.jpg").getFile());
+       
         // ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
         if (setUpIsDone) {
             return;
         }
 
         try {
-            System.out.println("Sleep for 30 seconds");
-            Thread.sleep(60000);
+            System.out.println("Sleep for 60 seconds");
+            Thread.sleep(60);
         } catch(InterruptedException e) {
             System.out.println(e);
         }
@@ -76,8 +83,8 @@ public class AccountingApiContactsTest {
 	}
 
 	public void tearDown() {
-		api = null;
-		apiClientForAccounting = null;
+		accountingApi = null;
+        defaultClient = null;
 	}
 
 	@Test
@@ -87,9 +94,9 @@ public class AccountingApiContactsTest {
         OffsetDateTime ifModifiedSince = null;
         String where = null;
         String order = null;
-        String ids = null;
+        List<UUID> ids = new ArrayList();
         Boolean includeArchived = null;
-        Contacts response = api.getContacts(ifModifiedSince, where, order, ids, null, includeArchived);
+        Contacts response = accountingApi.getContacts(accessToken,xeroTenantId,ifModifiedSince, where, order, ids, null, includeArchived);
 
         assertThat(response.getContacts().get(0).getContactID(), is(equalTo(UUID.fromString("5cc8cf28-567e-4d43-b287-687cfcaec47c"))));
         assertThat(response.getContacts().get(0).getName(), is(equalTo("Katherine Warren")));
@@ -121,7 +128,7 @@ public class AccountingApiContactsTest {
         System.out.println("@Test - getContactTest");
 
         UUID contactID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Contacts response = api.getContact(contactID);
+        Contacts response = accountingApi.getContact(accessToken,xeroTenantId,contactID);
 
         assertThat(response.getContacts().get(0).getContactID(), is(equalTo(UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d"))));
         assertThat(response.getContacts().get(0).getContactNumber(), is(equalTo("SB2")));
@@ -177,8 +184,8 @@ public class AccountingApiContactsTest {
      public void createContactTest() throws IOException {
         System.out.println("@Test - createContactTest");
 
-        Contact contact = null;
-        Contacts response = api.createContact(contact);
+        Contact contact = new Contact();
+        Contacts response = accountingApi.createContact(accessToken,xeroTenantId,contact);
 		assertThat(response.getContacts().get(0).getContactID(), is(equalTo(UUID.fromString("3ff6d40c-af9a-40a3-89ce-3c1556a25591"))));
 		assertThat(response.getContacts().get(0).getContactStatus(), is(equalTo(com.xero.models.accounting.Contact.ContactStatusEnum.ACTIVE)));
 		assertThat(response.getContacts().get(0).getName(), is(equalTo("Foo9987")));
@@ -197,8 +204,8 @@ public class AccountingApiContactsTest {
         System.out.println("@Test - updateContactTest");
 
         UUID contactID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Contacts contacts = null;
-        Contacts response = api.updateContact(contactID,contacts);
+        Contacts contacts = new Contacts();
+        Contacts response = accountingApi.updateContact(accessToken,xeroTenantId,contactID,contacts);
         assertThat(response.getContacts().get(0).getContactID(), is(equalTo(UUID.fromString("d5be01fb-b09f-4c3a-9c67-e10c2a03412c"))));
         assertThat(response.getContacts().get(0).getContactStatus(), is(equalTo(com.xero.models.accounting.Contact.ContactStatusEnum.ACTIVE)));
         assertThat(response.getContacts().get(0).getName(), is(equalTo("FooBar")));
@@ -222,7 +229,7 @@ public class AccountingApiContactsTest {
         System.out.println("@Test - getContactHistoryTest");
 
         UUID contactID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");  
-        HistoryRecords response = api.getContactHistory(contactID);
+        HistoryRecords response = accountingApi.getContactHistory(accessToken,xeroTenantId,contactID);
         assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("System Generated")));       
         assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Edited")));     
         assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Name changed from Foo9987 to Bar8156.")));     
@@ -235,8 +242,8 @@ public class AccountingApiContactsTest {
         System.out.println("@Test - createContactHistoryTest - not implemented at this time");
 
         UUID contactID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");  
-        HistoryRecords historyRecords = null;
-        HistoryRecords response = api.createContactHistory(contactID, historyRecords);
+        HistoryRecords historyRecords = new HistoryRecords();
+        HistoryRecords response = accountingApi.createContactHistory(accessToken,xeroTenantId,contactID, historyRecords);
         assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Hello World")));     
         assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-02-28T16:15:24.272-08:00"))));  
         //System.out.println(response.getHistoryRecords().get(0).toString());
@@ -247,12 +254,10 @@ public class AccountingApiContactsTest {
         System.out.println("@Test - createContactAttachmentByFileNameTest");
 
         UUID contactID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");  
-        InputStream inputStream = CustomJsonConfig.class.getResourceAsStream("/helo-heros.jpg");
-        byte[] body = IOUtils.toByteArray(inputStream);
         String fileName = "sample5.jpg";
         
-        Attachments response = api.createContactAttachmentByFileName(contactID, fileName, body);
-         assertThat(response.getAttachments().get(0).getAttachmentID(), is(equalTo(UUID.fromString("27e37b01-6996-4ebe-836c-95fd472ad674"))));
+        Attachments response = accountingApi.createContactAttachmentByFileName(accessToken,xeroTenantId,contactID, fileName, body);
+        assertThat(response.getAttachments().get(0).getAttachmentID(), is(equalTo(UUID.fromString("27e37b01-6996-4ebe-836c-95fd472ad674"))));
         assertThat(response.getAttachments().get(0).getFileName(), is(equalTo("sample5.jpg")));
         assertThat(response.getAttachments().get(0).getMimeType(), is(equalTo("image/jpg")));
         assertThat(response.getAttachments().get(0).getUrl(), is(equalTo("https://api.xero.com/api.xro/2.0/Contacts/8138a266-fb42-49b2-a104-014b7045753d/Attachments/sample5.jpg")));
@@ -267,7 +272,7 @@ public class AccountingApiContactsTest {
         System.out.println("@Test - getContactAttachmentsTest");
 
         UUID contactID = UUID.fromString("04e0a3e3-b116-456a-9f32-9706f0d33afa");  
-        Attachments response = api.getContactAttachments(contactID);
+        Attachments response = accountingApi.getContactAttachments(accessToken,xeroTenantId,contactID);
 
         assertThat(response.getAttachments().get(0).getAttachmentID(), is(equalTo(UUID.fromString("04e0a3e3-b116-456a-9f32-9706f0d33afa"))));
         assertThat(response.getAttachments().get(0).getFileName(), is(equalTo("sample5.jpg")));

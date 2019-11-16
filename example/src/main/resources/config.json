@@ -1,7 +1,0 @@
-{ 
-	"AppType" : "PUBLIC",
-	"ConsumerKey" : "YOUR_CONSUMER_KEY",
-	"ConsumerSecret" : "YOUR_CONSUMER_SECRET",
-	"CallbackBaseUrl" : "https://localhost",
-	"CallbackPath" : "/CallbackServlet"
-}

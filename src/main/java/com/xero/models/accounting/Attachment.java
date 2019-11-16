@@ -190,7 +190,6 @@ public class Attachment {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Attachment {\n");
-    
     sb.append("    attachmentID: ").append(toIndentedString(attachmentID)).append("\n");
     sb.append("    fileName: ").append(toIndentedString(fileName)).append("\n");
     sb.append("    url: ").append(toIndentedString(url)).append("\n");

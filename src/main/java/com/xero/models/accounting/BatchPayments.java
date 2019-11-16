@@ -33,7 +33,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class BatchPayments {
   
   @JsonProperty("BatchPayments")
-  private List<BatchPayment> batchPayments = null;
+  private List<BatchPayment> batchPayments = new ArrayList<BatchPayment>();
 
   public BatchPayments batchPayments(List<BatchPayment> batchPayments) {
     this.batchPayments = batchPayments;
@@ -84,7 +84,6 @@ public class BatchPayments {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class BatchPayments {\n");
-    
     sb.append("    batchPayments: ").append(toIndentedString(batchPayments)).append("\n");
     sb.append("}");
     return sb.toString();

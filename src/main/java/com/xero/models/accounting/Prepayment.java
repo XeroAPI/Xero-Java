@@ -45,7 +45,11 @@ public class Prepayment {
   public enum TypeEnum {
     RECEIVE_PREPAYMENT("RECEIVE-PREPAYMENT"),
     
-    SPEND_PREPAYMENT("SPEND-PREPAYMENT");
+    SPEND_PREPAYMENT("SPEND-PREPAYMENT"),
+    
+    ARPREPAYMENT("ARPREPAYMENT"),
+    
+    APPREPAYMENT("APPREPAYMENT");
 
     private String value;
 
@@ -64,13 +68,13 @@ public class Prepayment {
     }
 
     @JsonCreator
-    public static TypeEnum fromValue(String text) {
+    public static TypeEnum fromValue(String value) {
       for (TypeEnum b : TypeEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -113,13 +117,13 @@ public class Prepayment {
     }
 
     @JsonCreator
-    public static StatusEnum fromValue(String text) {
+    public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -133,7 +137,7 @@ public class Prepayment {
 
   
   @JsonProperty("LineItems")
-  private List<LineItem> lineItems = null;
+  private List<LineItem> lineItems = new ArrayList<LineItem>();
 
   
   @JsonProperty("SubTotal")
@@ -169,7 +173,7 @@ public class Prepayment {
 
   
   @JsonProperty("Allocations")
-  private List<Allocation> allocations = null;
+  private List<Allocation> allocations = new ArrayList<Allocation>();
 
   
   @JsonProperty("HasAttachments")
@@ -177,7 +181,7 @@ public class Prepayment {
 
   
   @JsonProperty("Attachments")
-  private List<Attachment> attachments = null;
+  private List<Attachment> attachments = new ArrayList<Attachment>();
 
   public Prepayment type(TypeEnum type) {
     this.type = type;
@@ -548,7 +552,6 @@ public class Prepayment {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Prepayment {\n");
-    
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    contact: ").append(toIndentedString(contact)).append("\n");
     sb.append("    date: ").append(toIndentedString(date)).append("\n");

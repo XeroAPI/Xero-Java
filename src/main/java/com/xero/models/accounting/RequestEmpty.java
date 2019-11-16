@@ -73,7 +73,6 @@ public class RequestEmpty {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class RequestEmpty {\n");
-    
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("}");
     return sb.toString();

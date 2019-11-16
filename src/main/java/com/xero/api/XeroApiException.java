@@ -1,22 +1,9 @@
 package com.xero.api;
 
-import com.xero.api.exception.XeroExceptionHandler;
-import com.xero.model.ApiException;
-import com.xero.models.bankfeeds.Statements;
 import com.xero.models.accounting.Error;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 
 public class XeroApiException extends RuntimeException {
 
@@ -24,7 +11,6 @@ public class XeroApiException extends RuntimeException {
     private final int responseCode;
     private String message;
     private Map<String, String> messageMap = new HashMap<String, String>();
-    private ApiException apiException;
     private Error error;
 
     public XeroApiException(int responseCode) {
@@ -51,15 +37,12 @@ public class XeroApiException extends RuntimeException {
         this.messageMap = map;
     }
 
-    // response type XML uses ApiException class to unmarshall
-    public XeroApiException(int responseCode, String message, ApiException apiException) {
-        super(responseCode + " response: " + message);
+    public XeroApiException(int responseCode, Error error) {
+        super(responseCode + " response: none");
         this.responseCode = responseCode;
-        this.message = message;
-        this.apiException = apiException;
+        this.error = error;
     }
-    
-    // response type JSON uses Error class
+
     public XeroApiException(int responseCode, String message, Error error) {
         super(responseCode + " response: " + message);
         this.responseCode = responseCode;
@@ -79,10 +62,6 @@ public class XeroApiException extends RuntimeException {
         return messageMap;
     }
 
-    public ApiException getApiException() {
-        return apiException;
-    }
-    
     public Error getError() {
         return error;
     }

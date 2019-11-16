@@ -33,7 +33,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class RepeatingInvoices {
   
   @JsonProperty("RepeatingInvoices")
-  private List<RepeatingInvoice> repeatingInvoices = null;
+  private List<RepeatingInvoice> repeatingInvoices = new ArrayList<RepeatingInvoice>();
 
   public RepeatingInvoices repeatingInvoices(List<RepeatingInvoice> repeatingInvoices) {
     this.repeatingInvoices = repeatingInvoices;
@@ -84,7 +84,6 @@ public class RepeatingInvoices {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class RepeatingInvoices {\n");
-    
     sb.append("    repeatingInvoices: ").append(toIndentedString(repeatingInvoices)).append("\n");
     sb.append("}");
     return sb.toString();

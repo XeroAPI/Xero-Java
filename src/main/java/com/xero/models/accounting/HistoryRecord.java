@@ -143,7 +143,6 @@ public class HistoryRecord {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class HistoryRecord {\n");
-    
     sb.append("    details: ").append(toIndentedString(details)).append("\n");
     sb.append("    changes: ").append(toIndentedString(changes)).append("\n");
     sb.append("    user: ").append(toIndentedString(user)).append("\n");

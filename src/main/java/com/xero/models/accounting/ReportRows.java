@@ -43,11 +43,11 @@ public class ReportRows {
 
   
   @JsonProperty("Cells")
-  private List<ReportCell> cells = null;
+  private List<ReportCell> cells = new ArrayList<ReportCell>();
 
   
   @JsonProperty("Rows")
-  private List<ReportRow> rows = null;
+  private List<ReportRow> rows = new ArrayList<ReportRow>();
 
   public ReportRows rowType(RowType rowType) {
     this.rowType = rowType;
@@ -163,7 +163,6 @@ public class ReportRows {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ReportRows {\n");
-    
     sb.append("    rowType: ").append(toIndentedString(rowType)).append("\n");
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    cells: ").append(toIndentedString(cells)).append("\n");

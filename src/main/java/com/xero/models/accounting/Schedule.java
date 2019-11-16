@@ -58,13 +58,13 @@ public class Schedule {
     }
 
     @JsonCreator
-    public static UnitEnum fromValue(String text) {
+    public static UnitEnum fromValue(String value) {
       for (UnitEnum b : UnitEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -105,13 +105,13 @@ public class Schedule {
     }
 
     @JsonCreator
-    public static DueDateTypeEnum fromValue(String text) {
+    public static DueDateTypeEnum fromValue(String value) {
       for (DueDateTypeEnum b : DueDateTypeEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -286,7 +286,6 @@ public class Schedule {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Schedule {\n");
-    
     sb.append("    period: ").append(toIndentedString(period)).append("\n");
     sb.append("    unit: ").append(toIndentedString(unit)).append("\n");
     sb.append("    dueDate: ").append(toIndentedString(dueDate)).append("\n");

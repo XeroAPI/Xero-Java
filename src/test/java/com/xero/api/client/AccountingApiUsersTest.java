@@ -2,10 +2,6 @@ package com.xero.api.client;
 
 import static org.junit.Assert.assertTrue;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
 import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
@@ -15,19 +11,27 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Every.everyItem;
 
-
-import com.xero.api.XeroApiException;
 import com.xero.api.ApiClient;
-import com.xero.example.CustomJsonConfig;
-
 import com.xero.api.client.*;
 import com.xero.models.accounting.*;
 
-import com.xero.example.SampleData;
+import java.io.File;
+import java.net.URL;
+
+import com.google.api.client.auth.oauth2.BearerToken;
+import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.http.HttpRequestFactory;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
 
 import org.threeten.bp.*;
 import java.io.IOException;
 import com.fasterxml.jackson.core.type.TypeReference;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.IOUtils;
 
 import java.util.Calendar;
 import java.util.Map;
@@ -36,29 +40,26 @@ import java.util.List;
 import java.util.ArrayList;
 import java.math.BigDecimal;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.apache.commons.io.IOUtils;
-
 public class AccountingApiUsersTest {
 
-	CustomJsonConfig config;
-	ApiClient apiClientForAccounting; 
-	AccountingApi api; 
+    ApiClient defaultClient; 
+    AccountingApi accountingApi; 
+	String accessToken;
+    String xeroTenantId;  
 
     private static boolean setUpIsDone = false;
 	
 	@Before
 	public void setUp() {
-		config = new CustomJsonConfig();
-		apiClientForAccounting = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting-oauth1/2.0.0",null,null,null);
-		api = new AccountingApi(config);
-		api.setApiClient(apiClientForAccounting);
-		api.setOAuthToken(config.getConsumerKey(), config.getConsumerSecret());
+		// Set Access Token and Tenant Id
+        accessToken = "123";
+        xeroTenantId = "xyz";
+        
+        // Init AccountingApi client
+        // NEW Sandbox for API Mocking
+		//defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
+		defaultClient = new ApiClient("https://twilight-grass-2493.getsandbox.com:443/api.xro/2.0",null,null,null,null);
+        accountingApi = AccountingApi.getInstance(defaultClient);   
 
         // ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
         if (setUpIsDone) {
@@ -76,15 +77,15 @@ public class AccountingApiUsersTest {
 	}
 
 	public void tearDown() {
-		api = null;
-		apiClientForAccounting = null;
+		accountingApi = null;
+        defaultClient = null;
 	}
 
     @Test
     public void getUserTest() throws IOException {
         System.out.println("@Test - getUser");
         UUID userID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Users response = api.getUser(userID);
+        Users response = accountingApi.getUser(accessToken,xeroTenantId,userID);
 
         assertThat(response.getUsers().get(0).getUserID(), is(equalTo(UUID.fromString("3c37ef1d-cd49-4589-9787-3c418ed8b6ac"))));
         assertThat(response.getUsers().get(0).getEmailAddress(), is(equalTo("sid.maestre@xero.com")));
@@ -102,7 +103,7 @@ public class AccountingApiUsersTest {
         OffsetDateTime ifModifiedSince = null;
         String where = null;
         String order = null;
-        Users response = api.getUsers(ifModifiedSince, where, order);
+        Users response = accountingApi.getUsers(accessToken,xeroTenantId,ifModifiedSince, where, order);
 
         assertThat(response.getUsers().get(0).getUserID(), is(equalTo(UUID.fromString("3c37ef1d-cd49-4589-9787-3c418ed8b6ac"))));
         assertThat(response.getUsers().get(0).getEmailAddress(), is(equalTo("sid.maestre@xero.com")));

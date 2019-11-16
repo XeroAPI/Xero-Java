@@ -82,13 +82,13 @@ public class ManualJournal {
     }
 
     @JsonCreator
-    public static StatusEnum fromValue(String text) {
+    public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -118,15 +118,15 @@ public class ManualJournal {
 
   
   @JsonProperty("Warnings")
-  private List<ValidationError> warnings = null;
+  private List<ValidationError> warnings = new ArrayList<ValidationError>();
 
   
   @JsonProperty("ValidationErrors")
-  private List<ValidationError> validationErrors = null;
+  private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
 
   
   @JsonProperty("Attachments")
-  private List<Attachment> attachments = null;
+  private List<Attachment> attachments = new ArrayList<Attachment>();
 
   public ManualJournal narration(String narration) {
     this.narration = narration;
@@ -408,7 +408,6 @@ public class ManualJournal {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ManualJournal {\n");
-    
     sb.append("    narration: ").append(toIndentedString(narration)).append("\n");
     sb.append("    journalLines: ").append(toIndentedString(journalLines)).append("\n");
     sb.append("    date: ").append(toIndentedString(date)).append("\n");

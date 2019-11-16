@@ -129,13 +129,13 @@ public class Journal {
     }
 
     @JsonCreator
-    public static SourceTypeEnum fromValue(String text) {
+    public static SourceTypeEnum fromValue(String value) {
       for (SourceTypeEnum b : SourceTypeEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -145,7 +145,7 @@ public class Journal {
 
   
   @JsonProperty("JournalLines")
-  private List<JournalLine> journalLines = null;
+  private List<JournalLine> journalLines = new ArrayList<JournalLine>();
 
   public Journal journalID(UUID journalID) {
     this.journalID = journalID;
@@ -320,7 +320,6 @@ public class Journal {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Journal {\n");
-    
     sb.append("    journalID: ").append(toIndentedString(journalID)).append("\n");
     sb.append("    journalDate: ").append(toIndentedString(journalDate)).append("\n");
     sb.append("    journalNumber: ").append(toIndentedString(journalNumber)).append("\n");

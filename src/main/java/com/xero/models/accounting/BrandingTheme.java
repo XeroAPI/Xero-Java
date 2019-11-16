@@ -144,7 +144,6 @@ public class BrandingTheme {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class BrandingTheme {\n");
-    
     sb.append("    brandingThemeID: ").append(toIndentedString(brandingThemeID)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    sortOrder: ").append(toIndentedString(sortOrder)).append("\n");

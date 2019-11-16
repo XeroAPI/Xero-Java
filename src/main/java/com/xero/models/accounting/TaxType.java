@@ -146,13 +146,13 @@ public enum TaxType {
   }
 
   @JsonCreator
-  public static TaxType fromValue(String text) {
+  public static TaxType fromValue(String value) {
     for (TaxType b : TaxType.values()) {
-      if (String.valueOf(b.value).equals(text)) {
+      if (b.value.equals(value)) {
         return b;
       }
     }
-    throw new IllegalArgumentException("Unexpected value '" + text + "'");
+    throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 }
 

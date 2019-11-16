@@ -166,7 +166,6 @@ public class BatchPaymentDetails {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class BatchPaymentDetails {\n");
-    
     sb.append("    bankAccountNumber: ").append(toIndentedString(bankAccountNumber)).append("\n");
     sb.append("    bankAccountName: ").append(toIndentedString(bankAccountName)).append("\n");
     sb.append("    details: ").append(toIndentedString(details)).append("\n");

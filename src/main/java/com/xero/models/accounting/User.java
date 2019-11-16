@@ -68,7 +68,9 @@ public class User {
     
     MANAGEDCLIENT("MANAGEDCLIENT"),
     
-    CASHBOOKCLIENT("CASHBOOKCLIENT");
+    CASHBOOKCLIENT("CASHBOOKCLIENT"),
+    
+    UNKNOWN("UNKNOWN");
 
     private String value;
 
@@ -87,13 +89,13 @@ public class User {
     }
 
     @JsonCreator
-    public static OrganisationRoleEnum fromValue(String text) {
+    public static OrganisationRoleEnum fromValue(String value) {
       for (OrganisationRoleEnum b : OrganisationRoleEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -256,7 +258,6 @@ public class User {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class User {\n");
-    
     sb.append("    userID: ").append(toIndentedString(userID)).append("\n");
     sb.append("    emailAddress: ").append(toIndentedString(emailAddress)).append("\n");
     sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");

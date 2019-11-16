@@ -33,7 +33,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class Element {
   
   @JsonProperty("ValidationErrors")
-  private List<ValidationError> validationErrors = null;
+  private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
 
   public Element validationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
@@ -84,7 +84,6 @@ public class Element {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Element {\n");
-    
     sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("}");
     return sb.toString();

@@ -116,13 +116,13 @@ public class Payment {
     }
 
     @JsonCreator
-    public static StatusEnum fromValue(String text) {
+    public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -167,13 +167,13 @@ public class Payment {
     }
 
     @JsonCreator
-    public static PaymentTypeEnum fromValue(String text) {
+    public static PaymentTypeEnum fromValue(String value) {
       for (PaymentTypeEnum b : PaymentTypeEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -211,7 +211,7 @@ public class Payment {
 
   
   @JsonProperty("ValidationErrors")
-  private List<ValidationError> validationErrors = null;
+  private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
 
   public Payment invoice(Invoice invoice) {
     this.invoice = invoice;
@@ -662,7 +662,6 @@ public class Payment {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Payment {\n");
-    
     sb.append("    invoice: ").append(toIndentedString(invoice)).append("\n");
     sb.append("    creditNote: ").append(toIndentedString(creditNote)).append("\n");
     sb.append("    prepayment: ").append(toIndentedString(prepayment)).append("\n");

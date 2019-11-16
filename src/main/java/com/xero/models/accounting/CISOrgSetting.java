@@ -119,7 +119,6 @@ public class CISOrgSetting {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CISOrgSetting {\n");
-    
     sb.append("    ciSContractorEnabled: ").append(toIndentedString(ciSContractorEnabled)).append("\n");
     sb.append("    ciSSubContractorEnabled: ").append(toIndentedString(ciSSubContractorEnabled)).append("\n");
     sb.append("    rate: ").append(toIndentedString(rate)).append("\n");

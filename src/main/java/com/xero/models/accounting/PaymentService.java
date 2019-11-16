@@ -54,7 +54,7 @@ public class PaymentService {
 
   
   @JsonProperty("ValidationErrors")
-  private List<ValidationError> validationErrors = null;
+  private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
 
   public PaymentService paymentServiceID(UUID paymentServiceID) {
     this.paymentServiceID = paymentServiceID;
@@ -200,7 +200,6 @@ public class PaymentService {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class PaymentService {\n");
-    
     sb.append("    paymentServiceID: ").append(toIndentedString(paymentServiceID)).append("\n");
     sb.append("    paymentServiceName: ").append(toIndentedString(paymentServiceName)).append("\n");
     sb.append("    paymentServiceUrl: ").append(toIndentedString(paymentServiceUrl)).append("\n");

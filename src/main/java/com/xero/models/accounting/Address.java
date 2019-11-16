@@ -55,13 +55,13 @@ public class Address {
     }
 
     @JsonCreator
-    public static AddressTypeEnum fromValue(String text) {
+    public static AddressTypeEnum fromValue(String value) {
       for (AddressTypeEnum b : AddressTypeEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -317,7 +317,6 @@ public class Address {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Address {\n");
-    
     sb.append("    addressType: ").append(toIndentedString(addressType)).append("\n");
     sb.append("    addressLine1: ").append(toIndentedString(addressLine1)).append("\n");
     sb.append("    addressLine2: ").append(toIndentedString(addressLine2)).append("\n");

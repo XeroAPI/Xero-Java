@@ -2,10 +2,6 @@ package com.xero.api.client;
 
 import static org.junit.Assert.assertTrue;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
 import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
@@ -15,19 +11,27 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Every.everyItem;
 
-
-import com.xero.api.XeroApiException;
 import com.xero.api.ApiClient;
-import com.xero.example.CustomJsonConfig;
-
 import com.xero.api.client.*;
 import com.xero.models.accounting.*;
 
-import com.xero.example.SampleData;
+import java.io.File;
+import java.net.URL;
+
+import com.google.api.client.auth.oauth2.BearerToken;
+import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.http.HttpRequestFactory;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
 
 import org.threeten.bp.*;
 import java.io.IOException;
 import com.fasterxml.jackson.core.type.TypeReference;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.IOUtils;
 
 import java.util.Calendar;
 import java.util.Map;
@@ -36,38 +40,36 @@ import java.util.List;
 import java.util.ArrayList;
 import java.math.BigDecimal;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.apache.commons.io.IOUtils;
-
 public class AccountingApiItemsTest {
 
-	CustomJsonConfig config;
-	ApiClient apiClientForAccounting; 
-	AccountingApi api; 
-
+	ApiClient defaultClient; 
+    AccountingApi accountingApi; 
+	String accessToken;
+    String xeroTenantId; 
+     
+ 
     private static boolean setUpIsDone = false;
 	
 	@Before
 	public void setUp() {
-		config = new CustomJsonConfig();
-		apiClientForAccounting = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting-oauth1/2.0.0",null,null,null);
-		api = new AccountingApi(config);
-		api.setApiClient(apiClientForAccounting);
-		api.setOAuthToken(config.getConsumerKey(), config.getConsumerSecret());
-
+		// Set Access Token and Tenant Id
+        accessToken = "123";
+        xeroTenantId = "xyz";
+        
+        // Init AccountingApi client
+        // NEW Sandbox for API Mocking
+		//defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
+		defaultClient = new ApiClient("https://twilight-grass-2493.getsandbox.com:443/api.xro/2.0",null,null,null,null);
+        accountingApi = AccountingApi.getInstance(defaultClient);   
+         
         // ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
         if (setUpIsDone) {
             return;
         }
 
         try {
-            System.out.println("Sleep for 30 seconds");
-            Thread.sleep(60000);
+            System.out.println("Sleep for 60 seconds");
+            Thread.sleep(60);
         } catch(InterruptedException e) {
             System.out.println(e);
         }
@@ -76,15 +78,15 @@ public class AccountingApiItemsTest {
 	}
 
 	public void tearDown() {
-		api = null;
-		apiClientForAccounting = null;
+		accountingApi = null;
+        defaultClient = null;
 	}
 
     @Test
     public void createItemTest() throws IOException {
         System.out.println("@Test - createItem");
-        Items items = null;
-        Items response = api.createItem(items);
+        Item item = new Item();
+        Items response = accountingApi.createItem(accessToken,xeroTenantId,item);
 
         assertThat(response.getItems().get(0).getCode(), is(equalTo("abc65591")));
         assertThat(response.getItems().get(0).getName(), is(equalTo("Hello11350")));
@@ -102,8 +104,8 @@ public class AccountingApiItemsTest {
     public void createItemHistoryTest() throws IOException {
         System.out.println("@Test - createItemHistory - not implemented");
         UUID itemID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords historyRecords = null;
-        //HistoryRecords response = api.createItemHistory(itemID, historyRecords);
+        HistoryRecords historyRecords = new HistoryRecords();
+        //HistoryRecords response = accountingApi.createItemHistory(itemID, historyRecords);
         // TODO: test validations
         //System.out.println(response.getHistoryRecords().get(0).toString());
     }
@@ -112,7 +114,7 @@ public class AccountingApiItemsTest {
     public void getItemTest() throws IOException {
         System.out.println("@Test - getItem");
         UUID itemID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Items response = api.getItem(itemID);
+        Items response = accountingApi.getItem(accessToken,xeroTenantId,itemID);
 
         assertThat(response.getItems().get(0).getCode(), is(equalTo("123")));
         assertThat(response.getItems().get(0).getInventoryAssetAccountCode(), is(equalTo("630")));
@@ -141,7 +143,7 @@ public class AccountingApiItemsTest {
     public void getItemHistoryTest() throws IOException {
         System.out.println("@Test - getItemHistory");
         UUID itemID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords response = api.getItemHistory(itemID);
+        HistoryRecords response = accountingApi.getItemHistory(accessToken,xeroTenantId,itemID);
 
         assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("Sidney Maestre")));       
         assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Created")));     
@@ -157,7 +159,7 @@ public class AccountingApiItemsTest {
         String where = null;
         String order = null;
         Integer unitdp = null;
-        Items response = api.getItems(ifModifiedSince, where, order, unitdp);
+        Items response = accountingApi.getItems(accessToken,xeroTenantId,ifModifiedSince, where, order, unitdp);
 
         assertThat(response.getItems().get(0).getCode(), is(equalTo("123")));
         assertThat(response.getItems().get(0).getName(), is(equalTo("Guitars")));
@@ -177,8 +179,8 @@ public class AccountingApiItemsTest {
     public void updateItemTest() throws IOException {
         System.out.println("@Test - updateItem");
         UUID itemID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Items items = null;
-        Items response = api.updateItem(itemID, items);
+        Items items = new Items();
+        Items response = accountingApi.updateItem(accessToken,xeroTenantId,itemID, items);
 
         assertThat(response.getItems().get(0).getCode(), is(equalTo("abc38306")));
         assertThat(response.getItems().get(0).getName(), is(equalTo("Hello8746")));
@@ -195,6 +197,6 @@ public class AccountingApiItemsTest {
     public void deleteItemTest() throws IOException {
         System.out.println("@Test - deleteItem");
         UUID itemID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        api.deleteItem(itemID);
+        accountingApi.deleteItem(accessToken,xeroTenantId,itemID);
     }
 }

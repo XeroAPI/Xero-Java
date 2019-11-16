@@ -106,13 +106,13 @@ public class PurchaseOrder {
     }
 
     @JsonCreator
-    public static StatusEnum fromValue(String text) {
+    public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -182,15 +182,15 @@ public class PurchaseOrder {
 
   
   @JsonProperty("ValidationErrors")
-  private List<ValidationError> validationErrors = null;
+  private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
 
   
   @JsonProperty("Warnings")
-  private List<ValidationError> warnings = null;
+  private List<ValidationError> warnings = new ArrayList<ValidationError>();
 
   
   @JsonProperty("Attachments")
-  private List<Attachment> attachments = null;
+  private List<Attachment> attachments = new ArrayList<Attachment>();
 
   public PurchaseOrder contact(Contact contact) {
     this.contact = contact;
@@ -712,7 +712,6 @@ public class PurchaseOrder {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class PurchaseOrder {\n");
-    
     sb.append("    contact: ").append(toIndentedString(contact)).append("\n");
     sb.append("    lineItems: ").append(toIndentedString(lineItems)).append("\n");
     sb.append("    date: ").append(toIndentedString(date)).append("\n");

@@ -73,7 +73,6 @@ public class OnlineInvoice {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class OnlineInvoice {\n");
-    
     sb.append("    onlineInvoiceUrl: ").append(toIndentedString(onlineInvoiceUrl)).append("\n");
     sb.append("}");
     return sb.toString();

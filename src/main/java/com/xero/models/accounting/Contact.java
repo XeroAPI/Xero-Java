@@ -83,13 +83,13 @@ public class Contact {
     }
 
     @JsonCreator
-    public static ContactStatusEnum fromValue(String text) {
+    public static ContactStatusEnum fromValue(String value) {
       for (ContactStatusEnum b : ContactStatusEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -119,7 +119,7 @@ public class Contact {
 
   
   @JsonProperty("ContactPersons")
-  private List<ContactPerson> contactPersons = null;
+  private List<ContactPerson> contactPersons = new ArrayList<ContactPerson>();
 
   
   @JsonProperty("BankAccountDetails")
@@ -139,11 +139,11 @@ public class Contact {
 
   
   @JsonProperty("Addresses")
-  private List<Address> addresses = null;
+  private List<Address> addresses = new ArrayList<Address>();
 
   
   @JsonProperty("Phones")
-  private List<Phone> phones = null;
+  private List<Phone> phones = new ArrayList<Phone>();
 
   
   @JsonProperty("IsSupplier")
@@ -171,11 +171,11 @@ public class Contact {
 
   
   @JsonProperty("SalesTrackingCategories")
-  private List<SalesTrackingCategory> salesTrackingCategories = null;
+  private List<SalesTrackingCategory> salesTrackingCategories = new ArrayList<SalesTrackingCategory>();
 
   
   @JsonProperty("PurchasesTrackingCategories")
-  private List<SalesTrackingCategory> purchasesTrackingCategories = null;
+  private List<SalesTrackingCategory> purchasesTrackingCategories = new ArrayList<SalesTrackingCategory>();
 
   
   @JsonProperty("TrackingCategoryName")
@@ -195,7 +195,7 @@ public class Contact {
 
   
   @JsonProperty("ContactGroups")
-  private List<ContactGroup> contactGroups = null;
+  private List<ContactGroup> contactGroups = new ArrayList<ContactGroup>();
 
   
   @JsonProperty("Website")
@@ -219,7 +219,7 @@ public class Contact {
 
   
   @JsonProperty("Attachments")
-  private List<Attachment> attachments = null;
+  private List<Attachment> attachments = new ArrayList<Attachment>();
 
   
   @JsonProperty("HasAttachments")
@@ -227,7 +227,7 @@ public class Contact {
 
   
   @JsonProperty("ValidationErrors")
-  private List<ValidationError> validationErrors = null;
+  private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
 
   
   @JsonProperty("HasValidationErrors")
@@ -1023,7 +1023,6 @@ public class Contact {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Contact {\n");
-    
     sb.append("    contactID: ").append(toIndentedString(contactID)).append("\n");
     sb.append("    contactNumber: ").append(toIndentedString(contactNumber)).append("\n");
     sb.append("    accountNumber: ").append(toIndentedString(accountNumber)).append("\n");

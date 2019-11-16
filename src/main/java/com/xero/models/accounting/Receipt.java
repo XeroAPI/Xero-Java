@@ -87,7 +87,7 @@ public class Receipt {
     
     SUBMITTED("SUBMITTED"),
     
-    AUTHORIZED("AUTHORIZED"),
+    AUTHORISED("AUTHORISED"),
     
     DECLINED("DECLINED");
 
@@ -108,13 +108,13 @@ public class Receipt {
     }
 
     @JsonCreator
-    public static StatusEnum fromValue(String text) {
+    public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -140,11 +140,11 @@ public class Receipt {
 
   
   @JsonProperty("ValidationErrors")
-  private List<ValidationError> validationErrors = null;
+  private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
 
   
   @JsonProperty("Attachments")
-  private List<Attachment> attachments = null;
+  private List<Attachment> attachments = new ArrayList<Attachment>();
 
   public Receipt date(LocalDate date) {
     this.date = date;
@@ -476,7 +476,6 @@ public class Receipt {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Receipt {\n");
-    
     sb.append("    date: ").append(toIndentedString(date)).append("\n");
     sb.append("    contact: ").append(toIndentedString(contact)).append("\n");
     sb.append("    lineItems: ").append(toIndentedString(lineItems)).append("\n");

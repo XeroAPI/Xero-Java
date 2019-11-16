@@ -521,13 +521,13 @@ public enum CountryCode {
   }
 
   @JsonCreator
-  public static CountryCode fromValue(String text) {
+  public static CountryCode fromValue(String value) {
     for (CountryCode b : CountryCode.values()) {
-      if (String.valueOf(b.value).equals(text)) {
+      if (b.value.equals(value)) {
         return b;
       }
     }
-    throw new IllegalArgumentException("Unexpected value '" + text + "'");
+    throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 }
 

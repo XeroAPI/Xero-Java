@@ -96,7 +96,6 @@ public class CISSetting {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CISSetting {\n");
-    
     sb.append("    ciSEnabled: ").append(toIndentedString(ciSEnabled)).append("\n");
     sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
     sb.append("}");

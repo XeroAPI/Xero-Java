@@ -49,13 +49,13 @@ public enum PaymentTermType {
   }
 
   @JsonCreator
-  public static PaymentTermType fromValue(String text) {
+  public static PaymentTermType fromValue(String value) {
     for (PaymentTermType b : PaymentTermType.values()) {
-      if (String.valueOf(b.value).equals(text)) {
+      if (b.value.equals(value)) {
         return b;
       }
     }
-    throw new IllegalArgumentException("Unexpected value '" + text + "'");
+    throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 }
 

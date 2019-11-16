@@ -82,13 +82,13 @@ public class Account {
     }
 
     @JsonCreator
-    public static StatusEnum fromValue(String text) {
+    public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -110,6 +110,8 @@ public class Account {
     
     PAYPAL("PAYPAL"),
     
+    NONE("NONE"),
+    
     EMPTY("");
 
     private String value;
@@ -129,13 +131,13 @@ public class Account {
     }
 
     @JsonCreator
-    public static BankAccountTypeEnum fromValue(String text) {
+    public static BankAccountTypeEnum fromValue(String value) {
       for (BankAccountTypeEnum b : BankAccountTypeEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -190,13 +192,13 @@ public class Account {
     }
 
     @JsonCreator
-    public static PropertyClassEnum fromValue(String text) {
+    public static PropertyClassEnum fromValue(String value) {
       for (PropertyClassEnum b : PropertyClassEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -253,13 +255,13 @@ public class Account {
     }
 
     @JsonCreator
-    public static SystemAccountEnum fromValue(String text) {
+    public static SystemAccountEnum fromValue(String value) {
       for (SystemAccountEnum b : SystemAccountEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -285,7 +287,7 @@ public class Account {
 
   
   @JsonProperty("ValidationErrors")
-  private List<ValidationError> validationErrors = null;
+  private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
 
   public Account code(String code) {
     this.code = code;
@@ -624,7 +626,6 @@ public class Account {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Account {\n");
-    
     sb.append("    code: ").append(toIndentedString(code)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    accountID: ").append(toIndentedString(accountID)).append("\n");

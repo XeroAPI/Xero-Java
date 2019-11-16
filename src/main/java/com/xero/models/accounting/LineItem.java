@@ -70,7 +70,7 @@ public class LineItem {
 
   
   @JsonProperty("Tracking")
-  private List<LineItemTracking> tracking = null;
+  private List<LineItemTracking> tracking = new ArrayList<LineItemTracking>();
 
   
   @JsonProperty("DiscountRate")
@@ -361,7 +361,6 @@ public class LineItem {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class LineItem {\n");
-    
     sb.append("    lineItemID: ").append(toIndentedString(lineItemID)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    quantity: ").append(toIndentedString(quantity)).append("\n");

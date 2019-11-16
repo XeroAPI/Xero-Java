@@ -77,7 +77,7 @@ public class BankTransfer {
 
   
   @JsonProperty("ValidationErrors")
-  private List<ValidationError> validationErrors = null;
+  private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
 
   public BankTransfer fromBankAccount(Account fromBankAccount) {
     this.fromBankAccount = fromBankAccount;
@@ -264,7 +264,6 @@ public class BankTransfer {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class BankTransfer {\n");
-    
     sb.append("    fromBankAccount: ").append(toIndentedString(fromBankAccount)).append("\n");
     sb.append("    toBankAccount: ").append(toIndentedString(toBankAccount)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");

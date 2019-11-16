@@ -96,7 +96,6 @@ public class ReportAttribute {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ReportAttribute {\n");
-    
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("}");

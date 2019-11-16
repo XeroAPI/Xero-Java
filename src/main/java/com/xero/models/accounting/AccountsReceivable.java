@@ -96,7 +96,6 @@ public class AccountsReceivable {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class AccountsReceivable {\n");
-    
     sb.append("    outstanding: ").append(toIndentedString(outstanding)).append("\n");
     sb.append("    overdue: ").append(toIndentedString(overdue)).append("\n");
     sb.append("}");

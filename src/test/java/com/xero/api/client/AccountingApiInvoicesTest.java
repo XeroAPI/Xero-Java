@@ -2,10 +2,6 @@ package com.xero.api.client;
 
 import static org.junit.Assert.assertTrue;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
 import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
@@ -15,16 +11,27 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Every.everyItem;
 
-import com.xero.api.XeroApiException;
 import com.xero.api.ApiClient;
-import com.xero.example.CustomJsonConfig;
-
 import com.xero.api.client.*;
 import com.xero.models.accounting.*;
+
+import java.io.File;
+import java.net.URL;
+
+import com.google.api.client.auth.oauth2.BearerToken;
+import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.http.HttpRequestFactory;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
 
 import org.threeten.bp.*;
 import java.io.IOException;
 import com.fasterxml.jackson.core.type.TypeReference;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.IOUtils;
 
 import java.util.Calendar;
 import java.util.Map;
@@ -33,30 +40,31 @@ import java.util.List;
 import java.util.ArrayList;
 import java.math.BigDecimal;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.apache.commons.io.IOUtils;
-
 public class AccountingApiInvoicesTest {
 
-	CustomJsonConfig config;
-	ApiClient apiClientForAccounting; 
-	AccountingApi api; 
+	ApiClient defaultClient; 
+    AccountingApi accountingApi; 
+	String accessToken;
+    String xeroTenantId; 
+    File body;
 
     private static boolean setUpIsDone = false;
 	
 	@Before
 	public void setUp() {
-		config = new CustomJsonConfig();
-		apiClientForAccounting = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting-oauth1/2.0.0",null,null,null);
-		api = new AccountingApi(config);
-		api.setApiClient(apiClientForAccounting);
-		api.setOAuthToken(config.getConsumerKey(), config.getConsumerSecret());
-
+		// Set Access Token and Tenant Id
+        accessToken = "123";
+        xeroTenantId = "xyz";
+        
+        // Init AccountingApi client
+        // NEW Sandbox for API Mocking
+		//defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
+		defaultClient = new ApiClient("https://twilight-grass-2493.getsandbox.com:443/api.xro/2.0",null,null,null,null);
+        accountingApi = AccountingApi.getInstance(defaultClient);   
+       
+        ClassLoader classLoader = getClass().getClassLoader();
+        body = new File(classLoader.getResource("helo-heros.jpg").getFile());
+       
         // ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
         if (setUpIsDone) {
             return;
@@ -64,7 +72,7 @@ public class AccountingApiInvoicesTest {
 
         try {
             System.out.println("Sleep for 60 seconds");
-            Thread.sleep(60000);
+            Thread.sleep(60);
         } catch(InterruptedException e) {
             System.out.println(e);
         }
@@ -73,16 +81,15 @@ public class AccountingApiInvoicesTest {
 	}
 
 	public void tearDown() {
-		api = null;
-		apiClientForAccounting = null;
+		accountingApi = null;
+        defaultClient = null;
 	}
 
     @Test
     public void createInvoiceTest() throws IOException {
         System.out.println("@Test - createInvoice");
-        Invoices invoices = null;
-        Boolean summarizeErrors = null;
-        Invoices response = api.createInvoice(invoices, summarizeErrors);
+        Invoice invoice = new Invoice();
+        Invoices response = accountingApi.createInvoice(accessToken,xeroTenantId,invoice);
 
         assertThat(response.getInvoices().get(0).getType(), is(equalTo(com.xero.models.accounting.Invoice.TypeEnum.ACCREC)));
         assertThat(response.getInvoices().get(0).getDate(), is(equalTo(LocalDate.of(2019, 03, 10))));  
@@ -132,8 +139,8 @@ public class AccountingApiInvoicesTest {
     public void createInvoiceHistoryTest() throws IOException {
         System.out.println("@Test - createInvoiceHistory");
         UUID invoiceID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords historyRecords = null;
-        HistoryRecords response = api.createInvoiceHistory(invoiceID, historyRecords);
+        HistoryRecords historyRecords = new HistoryRecords();
+        HistoryRecords response = accountingApi.createInvoiceHistory(accessToken,xeroTenantId,invoiceID, historyRecords);
 
         assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Hello World")));     
         assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T12:08:03.349-07:00"))));  
@@ -144,7 +151,7 @@ public class AccountingApiInvoicesTest {
     public void getInvoiceTest() throws IOException {
         System.out.println("@Test - getInvoiceTest");
         UUID invoiceID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Invoices response = api.getInvoice(invoiceID);
+        Invoices response = accountingApi.getInvoice(accessToken,xeroTenantId,invoiceID);
 
         assertThat(response.getInvoices().get(0).getType(), is(equalTo(com.xero.models.accounting.Invoice.TypeEnum.ACCREC)));
         assertThat(response.getInvoices().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,06))));  
@@ -211,7 +218,7 @@ public class AccountingApiInvoicesTest {
     public void getInvoiceAttachmentsTest() throws IOException {
         System.out.println("@Test - getInvoiceAttachments");
         UUID invoiceID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Attachments response = api.getInvoiceAttachments(invoiceID);
+        Attachments response = accountingApi.getInvoiceAttachments(accessToken,xeroTenantId,invoiceID);
 
         assertThat(response.getAttachments().get(0).getAttachmentID(), is(equalTo(UUID.fromString("9808ad7f-c8d4-41cf-995e-bc29cb76fd2c"))));
         assertThat(response.getAttachments().get(0).getFileName(), is(equalTo("foobar.jpg")));
@@ -226,7 +233,7 @@ public class AccountingApiInvoicesTest {
     public void getInvoiceHistoryTest() throws IOException {
         System.out.println("@Test - getInvoiceHistory");
         UUID invoiceID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords response = api.getInvoiceHistory(invoiceID);
+        HistoryRecords response = accountingApi.getInvoiceHistory(accessToken,xeroTenantId,invoiceID);
 
         assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("Sidney Maestre")));       
         assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Paid")));     
@@ -241,15 +248,15 @@ public class AccountingApiInvoicesTest {
         OffsetDateTime ifModifiedSince = null;
         String where = null;
         String order = null;
-        String ids = null;
-        String invoiceNumbers = null;
-        String contactIDs = null;
-        String statuses = null;
+        List<UUID> ids = new ArrayList();
+        List<String> invoiceNumbers =  new ArrayList();
+        List<UUID> contactIDs =  new ArrayList();
+        List<String> statuses =  new ArrayList();
         Integer page = null;
         Boolean includeArchived = null;
         Boolean createdByMyApp = null;
         Integer unitdp = null;
-        Invoices response = api.getInvoices(ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp, unitdp);
+        Invoices response = accountingApi.getInvoices(accessToken,xeroTenantId,ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp, unitdp);          
 
         assertThat(response.getInvoices().get(0).getType(), is(equalTo(com.xero.models.accounting.Invoice.TypeEnum.ACCREC)));
         assertThat(response.getInvoices().get(0).getDate(), is(equalTo(LocalDate.of(2018,10,19))));  
@@ -287,7 +294,7 @@ public class AccountingApiInvoicesTest {
     public void getOnlineInvoiceTest() throws IOException {
         System.out.println("@Test - getOnlineInvoice");
         UUID invoiceID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        OnlineInvoices response = api.getOnlineInvoice(invoiceID);
+        OnlineInvoices response = accountingApi.getOnlineInvoice(accessToken,xeroTenantId,invoiceID);
 
         assertThat(response.getOnlineInvoices().get(0).getOnlineInvoiceUrl(), is(equalTo("https://in.xero.com/bCWCCfytGdTXoJam9HENWlQt07G6zcDaj4gQojHu")));
         //System.out.println(response.getOnlineInvoices().get(0).toString());
@@ -297,8 +304,8 @@ public class AccountingApiInvoicesTest {
     public void updateInvoiceTest() throws IOException {
         System.out.println("@Test - updateInvoice");
         UUID invoiceID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Invoices invoices = null;
-        Invoices response = api.updateInvoice(invoiceID, invoices);
+        Invoices invoices = new Invoices();
+        Invoices response = accountingApi.updateInvoice(accessToken,xeroTenantId,invoiceID, invoices);
 
         assertThat(response.getInvoices().get(0).getType(), is(equalTo(com.xero.models.accounting.Invoice.TypeEnum.ACCREC)));
         assertThat(response.getInvoices().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,10))));  
@@ -338,15 +345,13 @@ public class AccountingApiInvoicesTest {
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getLineAmount(), is(equalTo(500.00)));
         //System.out.println(response.getInvoices().get(0).toString());
     }
-    
+    /*
     @Test
     public void updateInvoiceAttachmentByFileNameTest() throws IOException {
         System.out.println("@Test - updateInvoiceAttachmentByFileName");
         UUID invoiceID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         String fileName = "sample5.jpg";
-        InputStream inputStream = CustomJsonConfig.class.getResourceAsStream("/helo-heros.jpg");
-        byte[] body = IOUtils.toByteArray(inputStream);
-        Attachments response = api.updateInvoiceAttachmentByFileName(invoiceID, fileName, body);
+        Attachments response = accountingApi.updateInvoiceAttachmentByFileName(invoiceID, fileName, body);
 
         assertThat(response.getAttachments().get(0).getAttachmentID(), is(equalTo(UUID.fromString("08085449-fda3-45f4-a685-ff44c8a29ee3"))));
         assertThat(response.getAttachments().get(0).getFileName(), is(equalTo("HelloWorld.jpg")));
@@ -356,11 +361,11 @@ public class AccountingApiInvoicesTest {
         assertThat(response.getAttachments().get(0).getIncludeOnline(), is(equalTo(null)));  
         //System.out.println(response.getAttachments().get(0).toString());
     }
-
+*/
     @Test
     public void getInvoiceRemindersTest() throws IOException {
         System.out.println("@Test - getInvoiceReminders");
-        InvoiceReminders response = api.getInvoiceReminders();
+        InvoiceReminders response = accountingApi.getInvoiceReminders(accessToken,xeroTenantId);
 
         assertThat(response.getInvoiceReminders().get(0).getEnabled(), is(equalTo(false)));
         //System.out.println(response.getInvoiceReminders().get(0).toString());

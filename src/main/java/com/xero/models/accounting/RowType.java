@@ -49,13 +49,13 @@ public enum RowType {
   }
 
   @JsonCreator
-  public static RowType fromValue(String text) {
+  public static RowType fromValue(String value) {
     for (RowType b : RowType.values()) {
-      if (String.valueOf(b.value).equals(text)) {
+      if (b.value.equals(value)) {
         return b;
       }
     }
-    throw new IllegalArgumentException("Unexpected value '" + text + "'");
+    throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 }
 

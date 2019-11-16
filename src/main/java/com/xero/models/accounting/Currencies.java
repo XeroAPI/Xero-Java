@@ -33,7 +33,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class Currencies {
   
   @JsonProperty("Currencies")
-  private List<Currency> currencies = null;
+  private List<Currency> currencies = new ArrayList<Currency>();
 
   public Currencies currencies(List<Currency> currencies) {
     this.currencies = currencies;
@@ -84,7 +84,6 @@ public class Currencies {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Currencies {\n");
-    
     sb.append("    currencies: ").append(toIndentedString(currencies)).append("\n");
     sb.append("}");
     return sb.toString();

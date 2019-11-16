@@ -37,7 +37,7 @@ public class ReportCell {
 
   
   @JsonProperty("Attributes")
-  private List<ReportAttribute> attributes = null;
+  private List<ReportAttribute> attributes = new ArrayList<ReportAttribute>();
 
   public ReportCell value(String value) {
     this.value = value;
@@ -107,7 +107,6 @@ public class ReportCell {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ReportCell {\n");
-    
     sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("    attributes: ").append(toIndentedString(attributes)).append("\n");
     sb.append("}");

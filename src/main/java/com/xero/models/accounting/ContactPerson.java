@@ -142,7 +142,6 @@ public class ContactPerson {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ContactPerson {\n");
-    
     sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
     sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
     sb.append("    emailAddress: ").append(toIndentedString(emailAddress)).append("\n");

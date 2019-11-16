@@ -99,7 +99,6 @@ public class Balances {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Balances {\n");
-    
     sb.append("    accountsReceivable: ").append(toIndentedString(accountsReceivable)).append("\n");
     sb.append("    accountsPayable: ").append(toIndentedString(accountsPayable)).append("\n");
     sb.append("}");

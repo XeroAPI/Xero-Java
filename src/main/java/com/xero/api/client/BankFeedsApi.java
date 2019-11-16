@@ -1,5 +1,4 @@
 package com.xero.api.client;
-
 import com.xero.api.ApiClient;
 
 import com.xero.models.bankfeeds.Error;
@@ -7,64 +6,59 @@ import com.xero.models.bankfeeds.FeedConnection;
 import com.xero.models.bankfeeds.FeedConnections;
 import com.xero.models.bankfeeds.Statement;
 import com.xero.models.bankfeeds.Statements;
+import java.util.UUID;
+
+import com.xero.api.XeroApiException;
+import com.xero.api.XeroApiExceptionHandler;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.xero.api.exception.XeroExceptionHandler;
-import com.xero.model.*;
-import com.xero.api.*;
-
-import org.threeten.bp.LocalDate;
-import org.threeten.bp.OffsetDateTime;
-
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TimeZone;
-import java.util.regex.Pattern;
+import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpContent;
+import com.google.api.client.http.HttpMethods;
+import com.google.api.client.http.HttpRequestFactory;
+import com.google.api.client.http.HttpHeaders;
+import com.google.api.client.http.HttpResponse;
+import com.google.api.client.http.HttpResponseException;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.FileContent;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.auth.oauth2.BearerToken;
+import com.google.api.client.auth.oauth2.Credential;
 
 import javax.ws.rs.core.UriBuilder;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.io.ByteArrayInputStream;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.List;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 public class BankFeedsApi {
     private ApiClient apiClient;
-    private XeroExceptionHandler xeroExceptionHandler;
-    private Config config;
-    private SignerFactory signerFactory;
-    private String token = null;
-    private String tokenSecret = null;
-    final static Logger logger = LoggerFactory.getLogger(XeroClient.class);
-    protected static final DateFormat utcFormatter;
+    private static BankFeedsApi instance = null;
+    private String userAgent = "Default";
+    private String version = "3.1.1";
 
-    static {
-        utcFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-        utcFormatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+    public BankFeedsApi() {
+        this(new ApiClient());
     }
 
-    protected static final Pattern MESSAGE_PATTERN = Pattern.compile("<Message>(.*)</Message>");
-    protected final ObjectFactory objFactory = new ObjectFactory();
-
-
-    public BankFeedsApi(Config config) {
-        this(config, new ConfigBasedSignerFactory(config));
-        this.xeroExceptionHandler = new XeroExceptionHandler();
-    }
-
-    public BankFeedsApi(Config config, SignerFactory signerFactory) {
-        this.config = config;
-        this.signerFactory = signerFactory;
-        this.xeroExceptionHandler = new XeroExceptionHandler();
+    public static BankFeedsApi getInstance(ApiClient apiClient) {
+      if (instance == null) {
+        instance = new BankFeedsApi(apiClient);
+      }
+      return instance;
     }
 
     public BankFeedsApi(ApiClient apiClient) {
-        this(JsonConfig.getInstance());
-        this.xeroExceptionHandler = new XeroExceptionHandler();
         this.apiClient = apiClient;
     }
 
@@ -76,380 +70,435 @@ public class BankFeedsApi {
         this.apiClient = apiClient;
     }
 
-    public void setOAuthToken(String token, String tokenSecret) {
-        this.token = token;
-        this.tokenSecret = tokenSecret;
+    public void setUserAgent(String userAgent) {
+        this.userAgent = userAgent;
     }
-
-
-    protected String DATA(String url, String body, Map<String, String> params, String method) throws IOException {
-        return this.DATA(url,body,params,method,null, "application/json");
-    }
-
-    protected String DATA(String url, String body, Map<String, String> params, String method, OffsetDateTime ifModifiedSince) throws IOException {
-        return this.DATA(url,body,params,method,ifModifiedSince,"application/json");
-    }
-
-    protected String DATA(String url, String body, Map<String, String> params, String method, String contentType) throws IOException {
-        return this.DATA(url,body,params,method,null,contentType);
-    }
-
-    protected String DATA(String url, String body, Map<String, String> params, String method, OffsetDateTime ifModifiedSince, String contentType) throws IOException {
-
-        OAuthRequestResource req = new OAuthRequestResource(
-            config,
-            signerFactory,
-            url,
-            method,
-            body,
-            params,
-            contentType,
-            "application/json");
-
-        req.setToken(token);
-        req.setTokenSecret(tokenSecret);
-
-        if (ifModifiedSince != null) {
-            req.setIfModifiedSince(ifModifiedSince);
-        }
-
-        try {
-            Map<String, String>  resp = req.execute();
-            Object r = resp.get("content");
-            return r.toString();
-        } catch (IOException ioe) {
-             throw xeroExceptionHandler.convertException(ioe);
-        }
-    }
-
-    protected String DATA(String url, String body, Map<String, String> params, String method, String xeroApplicationId, String xeroTenantId, String xeroUserId) throws IOException {
-
-        OAuthRequestResource req = new OAuthRequestResource(
-            config,
-            signerFactory,
-            url,
-            method,
-            body,
-            params,
-            null,
-            "application/json");
-
-        req.setToken(token);
-        req.setTokenSecret(tokenSecret);
-
-        //if (ifModifiedSince != null) {
-        //    req.setIfModifiedSince(ifModifiedSince);
-        //}
-
-        try {
-            Map<String, String>  resp = req.execute();
-            Object r = resp.get("content");
-            return r.toString();
-        } catch (IOException ioe) {
-             throw xeroExceptionHandler.convertException(ioe);
-        }
-    }
-
-
-    protected ByteArrayInputStream FILE(String url, String body, Map<String, String> params, String method) throws IOException {
-       return this.FILE(url,body,params,method,"application/octet-stream");
-    }
-
-    protected ByteArrayInputStream FILE(String url, String body, Map<String, String> params, String method, String accept) throws IOException {
-
-        OAuthRequestResource req = new OAuthRequestResource(
-            config,
-            signerFactory,
-            url,
-            method,
-            body,
-            params,
-            accept,
-            "application/json");
-
-        req.setToken(token);
-        req.setTokenSecret(tokenSecret);
-
-        try {
-            ByteArrayInputStream resp = req.executefile();
-            return resp;
-        } catch (IOException ioe) {
-             throw xeroExceptionHandler.convertException(ioe);
-        }
-    }
-
-    protected String FILE(String url, String body, Map<String, String> params, String method, byte[] byteBody) throws IOException {
-        return this.FILE(url,body,params,method,byteBody,"application/octet-stream");
-    }
-
-    protected String FILE(String url, String body, Map<String, String> params, String method, byte[] byteBody, String contentType) throws IOException {
-
-        OAuthRequestResource req = new OAuthRequestResource(
-            config,
-            signerFactory,
-            url,
-            method,
-            contentType,
-            byteBody,
-            params,
-            "application/json");
-
-        req.setToken(token);
-        req.setTokenSecret(tokenSecret);
-
-        try {
-            Map<String, String>  resp = req.execute();
-            Object r = resp.get("content");
-            return r.toString();
-        } catch (IOException ioe) {
-             throw xeroExceptionHandler.convertException(ioe);
-        }
+    
+    public String getUserAgent() {
+        return this.userAgent +  "[Xero-Java-" + this.version + "]";
     }
 
   /**
     * create one or more new feed connection
-    * By passing in the appropriate body, you can create one or more new feed connections in the system
-    * <p><b>201</b> - feed connection created
+    * By passing in the FeedConnections array object in the body, you can create one or more new feed connections
+    * <p><b>201</b> - success new feed connection(s)response
     * <p><b>400</b> - invalid input, object invalid
-    * @param feedConnections Feed Connection(s) to add
+    * <p><b>409</b> - failed to create new feed connection(s)response
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param feedConnections Feed Connection(s) array object in the body
+    * @param accessToken Authorization token for user set in header of each request
     * @return FeedConnections
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public FeedConnections createFeedConnections(FeedConnections feedConnections) throws IOException {
+    public FeedConnections  createFeedConnections(String accessToken, String xeroTenantId, FeedConnections feedConnections) throws IOException {
+        TypeReference<FeedConnections> typeRef = new TypeReference<FeedConnections>() {};
         try {
-            String strBody = null;
-            Map<String, String> params = null;
-            String correctPath = "/FeedConnections";
-            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-            String url = uriBuilder.build().toString();
-
-
-            strBody = apiClient.getObjectMapper().writeValueAsString(feedConnections);
-
-            String response = this.DATA(url, strBody, params, "POST");
-            TypeReference<FeedConnections> typeRef = new TypeReference<FeedConnections>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
-
-        } catch (IOException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage());
-        } catch (XeroApiException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode(),JSONUtils.isJSONValid(e.getMessage()));
+            HttpResponse response = createFeedConnectionsForHttpResponse(accessToken,xeroTenantId, feedConnections);       
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            return apiClient.getObjectMapper().readValue(e.getContent(), typeRef);
+        } catch (IOException ioe) {
+            throw ioe;
         }
     }
+
+    public HttpResponse createFeedConnectionsForHttpResponse(String accessToken,  String xeroTenantId,  FeedConnections feedConnections) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createFeedConnections");
+        }// verify the required parameter 'feedConnections' is set
+        if (feedConnections == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'feedConnections' when calling createFeedConnections");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createFeedConnections");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
+        String correctPath = "/FeedConnections";
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        String url = uriBuilder.build().toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        HttpContent content = null;
+        content = apiClient.new JacksonJsonHttpContent(feedConnections);
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        
+        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();    
+    }
+
   /**
-    * <p><b>202</b> - Success
+    * <p><b>202</b> - Success returns Statements array of objects in response
     * <p><b>400</b> - Statement failed validation
     * <p><b>403</b> - Invalid application or feed connection
     * <p><b>409</b> - Duplicate statement received
     * <p><b>413</b> - Statement exceeds size limit
     * <p><b>422</b> - Unprocessable Entity
     * <p><b>500</b> - Intermittent Xero Error
-    * @param statements Feed Connection(s) to add
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param statements Statements array of objects in the body
+    * @param accessToken Authorization token for user set in header of each request
     * @return Statements
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Statements createStatements(Statements statements) throws IOException {
+    public Statements  createStatements(String accessToken, String xeroTenantId, Statements statements) throws IOException {
+        TypeReference<Statements> typeRef = new TypeReference<Statements>() {};
         try {
-            String strBody = null;
-            Map<String, String> params = null;
-            String correctPath = "/Statements";
-            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-            String url = uriBuilder.build().toString();
-
-
-            strBody = apiClient.getObjectMapper().writeValueAsString(statements);
-
-            String response = this.DATA(url, strBody, params, "POST");
-            TypeReference<Statements> typeRef = new TypeReference<Statements>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
-
-        } catch (IOException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage());
-        } catch (XeroApiException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode(),JSONUtils.isJSONValid(e.getMessage()));
+            HttpResponse response = createStatementsForHttpResponse(accessToken,xeroTenantId, statements);       
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            return apiClient.getObjectMapper().readValue(e.getContent(), typeRef);
+        } catch (IOException ioe) {
+            throw ioe;
         }
     }
+
+    public HttpResponse createStatementsForHttpResponse(String accessToken,  String xeroTenantId,  Statements statements) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createStatements");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createStatements");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
+        String correctPath = "/Statements";
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        String url = uriBuilder.build().toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        HttpContent content = null;
+        content = apiClient.new JacksonJsonHttpContent(statements);
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        
+        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();    
+    }
+
   /**
-    * delete an exsiting feed connection
-    * By passing in the appropriate body, you can create a new feed connections in the system
-    * <p><b>202</b> - create results matching body content
+    * Delete an exsiting feed connection
+    * By passing in FeedConnections array object in the body, you can delete a feed connection.
+    * <p><b>202</b> - Success response for deleted feed connection
     * <p><b>400</b> - bad input parameter
-    * @param feedConnections Feed Connections to delete
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param feedConnections Feed Connections array object in the body
+    * @param accessToken Authorization token for user set in header of each request
     * @return FeedConnections
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public FeedConnections deleteFeedConnections(FeedConnections feedConnections) throws IOException {
+    public FeedConnections  deleteFeedConnections(String accessToken, String xeroTenantId, FeedConnections feedConnections) throws IOException {
+        TypeReference<FeedConnections> typeRef = new TypeReference<FeedConnections>() {};
         try {
-            String strBody = null;
-            Map<String, String> params = null;
-            String correctPath = "/FeedConnections/DeleteRequests";
-            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-            String url = uriBuilder.build().toString();
-
-
-            strBody = apiClient.getObjectMapper().writeValueAsString(feedConnections);
-
-            String response = this.DATA(url, strBody, params, "POST");
-            TypeReference<FeedConnections> typeRef = new TypeReference<FeedConnections>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
-
-        } catch (IOException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage());
-        } catch (XeroApiException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode(),JSONUtils.isJSONValid(e.getMessage()));
+            HttpResponse response = deleteFeedConnectionsForHttpResponse(accessToken,xeroTenantId, feedConnections);       
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            return apiClient.getObjectMapper().readValue(e.getContent(), typeRef);
+        } catch (IOException ioe) {
+            throw ioe;
         }
     }
+
+    public HttpResponse deleteFeedConnectionsForHttpResponse(String accessToken,  String xeroTenantId,  FeedConnections feedConnections) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling deleteFeedConnections");
+        }// verify the required parameter 'feedConnections' is set
+        if (feedConnections == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'feedConnections' when calling deleteFeedConnections");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling deleteFeedConnections");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
+        String correctPath = "/FeedConnections/DeleteRequests";
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        String url = uriBuilder.build().toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        HttpContent content = null;
+        content = apiClient.new JacksonJsonHttpContent(feedConnections);
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        
+        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();    
+    }
+
   /**
-    * get single feed connection by id
-    * By passing in a FeedConnection Id options, you can search for available feed connections in the system
-    * <p><b>200</b> - search results matching criteria
+    * Retrive single feed connection based on unique id provided
+    * By passing in a FeedConnection Id options, you can search for matching feed connections
+    * <p><b>200</b> - success returns a FeedConnection object matching the id in response
     * <p><b>400</b> - bad input parameter
-    * @param id feed connection id for single object
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param id Unique identifier for retrieving single object
+    * @param accessToken Authorization token for user set in header of each request
     * @return FeedConnection
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public FeedConnection getFeedConnection(String id) throws IOException {
+    public FeedConnection  getFeedConnection(String accessToken, String xeroTenantId, UUID id) throws IOException {
+        TypeReference<FeedConnection> typeRef = new TypeReference<FeedConnection>() {};
         try {
-            String strBody = null;
-            Map<String, String> params = null;
-            String correctPath = "/FeedConnections/{id}";
-            // Hacky path manipulation to support different return types from same endpoint
-            String path = "/FeedConnections/{id}";
-            String type = "/pdf";
-            if(path.toLowerCase().contains(type.toLowerCase()))
-            {
-                correctPath = path.replace("/pdf","");
-            }
-
-            // create a map of path variables
-            final Map<String, String> uriVariables = new HashMap<String, String>();
-            uriVariables.put("id", id.toString());
-            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-            String url = uriBuilder.buildFromMap(uriVariables).toString();
-
-
-            String response = this.DATA(url, strBody, params, "GET");
-            TypeReference<FeedConnection> typeRef = new TypeReference<FeedConnection>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
-
-        } catch (IOException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage());
-        } catch (XeroApiException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode(),JSONUtils.isJSONValid(e.getMessage()));
+            HttpResponse response = getFeedConnectionForHttpResponse(accessToken,xeroTenantId, id);       
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            return apiClient.getObjectMapper().readValue(e.getContent(), typeRef);
+        } catch (IOException ioe) {
+            throw ioe;
         }
     }
+
+    public HttpResponse getFeedConnectionForHttpResponse(String accessToken,  String xeroTenantId,  UUID id) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getFeedConnection");
+        }// verify the required parameter 'id' is set
+        if (id == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'id' when calling getFeedConnection");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getFeedConnection");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
+        String correctPath = "/FeedConnections/{id}";
+        
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("id", id);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();    
+    }
+
   /**
     * searches feed connections
-    * By passing in the appropriate options, you can search for available feed connections in the system
-    * <p><b>201</b> - search results matching criteria
-    * <p><b>400</b> - bad input parameter
+    * By passing in the appropriate options, you can search for available feed connections in the system.
+    * <p><b>201</b> - search results matching criteria returned with pagination and items array
+    * <p><b>400</b> - validation error response
+    * @param xeroTenantId Xero identifier for Tenant
     * @param page Page number which specifies the set of records to retrieve. By default the number of the records per set is 10. Example - https://api.xero.com/bankfeeds.xro/1.0/FeedConnections?page&#x3D;1 to get the second set of the records. When page value is not a number or a negative number, by default, the first set of records is returned.
     * @param pageSize Page size which specifies how many records per page will be returned (default 10). Example - https://api.xero.com/bankfeeds.xro/1.0/FeedConnections?pageSize&#x3D;100 to specify page size of 100.
+    * @param accessToken Authorization token for user set in header of each request
     * @return FeedConnections
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public FeedConnections getFeedConnections(Integer page, Integer pageSize) throws IOException {
+    public FeedConnections  getFeedConnections(String accessToken, String xeroTenantId, Integer page, Integer pageSize) throws IOException {
+        TypeReference<FeedConnections> typeRef = new TypeReference<FeedConnections>() {};
         try {
-            String strBody = null;
-            Map<String, String> params = null;
-            String correctPath = "/FeedConnections";
-            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-            String url = uriBuilder.build().toString();
-            params = new HashMap<>();
-            if (page != null) {
-                addToMapIfNotNull(params, "page", page);
-            }if (pageSize != null) {
-                addToMapIfNotNull(params, "pageSize", pageSize);
-            }
-
-            String response = this.DATA(url, strBody, params, "GET");
-            TypeReference<FeedConnections> typeRef = new TypeReference<FeedConnections>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
-
-        } catch (IOException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage());
-        } catch (XeroApiException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode(),JSONUtils.isJSONValid(e.getMessage()));
+            HttpResponse response = getFeedConnectionsForHttpResponse(accessToken,xeroTenantId, page, pageSize);       
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            return apiClient.getObjectMapper().readValue(e.getContent(), typeRef);
+        } catch (IOException ioe) {
+            throw ioe;
         }
     }
+
+    public HttpResponse getFeedConnectionsForHttpResponse(String accessToken,  String xeroTenantId,  Integer page,  Integer pageSize) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getFeedConnections");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getFeedConnections");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
+        String correctPath = "/FeedConnections";
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        if (page != null) {
+            String key = "page";
+            Object value = page;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (pageSize != null) {
+            String key = "pageSize";
+            Object value = pageSize;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
+        String url = uriBuilder.build().toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();    
+    }
+
   /**
+    * Retrive single statement based on unique id provided
+    * By passing in a statement id, you can search for matching statements
     * <p><b>200</b> - search results matching id for single statement
     * <p><b>404</b> - Statement not found
-    * @param statementId The statementId parameter
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param statementId statement id for single object
+    * @param accessToken Authorization token for user set in header of each request
     * @return Statement
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Statement getStatement(String statementId) throws IOException {
+    public Statement  getStatement(String accessToken, String xeroTenantId, UUID statementId) throws IOException {
+        TypeReference<Statement> typeRef = new TypeReference<Statement>() {};
         try {
-            String strBody = null;
-            Map<String, String> params = null;
-            String correctPath = "/Statements/{statementId}";
-            // Hacky path manipulation to support different return types from same endpoint
-            String path = "/Statements/{statementId}";
-            String type = "/pdf";
-            if(path.toLowerCase().contains(type.toLowerCase()))
-            {
-                correctPath = path.replace("/pdf","");
-            }
-
-            // create a map of path variables
-            final Map<String, String> uriVariables = new HashMap<String, String>();
-            uriVariables.put("statementId", statementId.toString());
-            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-            String url = uriBuilder.buildFromMap(uriVariables).toString();
-
-
-            String response = this.DATA(url, strBody, params, "GET");
-            TypeReference<Statement> typeRef = new TypeReference<Statement>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
-
-        } catch (IOException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage());
-        } catch (XeroApiException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode(),JSONUtils.isJSONValid(e.getMessage()));
+            HttpResponse response = getStatementForHttpResponse(accessToken,xeroTenantId, statementId);       
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            return apiClient.getObjectMapper().readValue(e.getContent(), typeRef);
+        } catch (IOException ioe) {
+            throw ioe;
         }
     }
+
+    public HttpResponse getStatementForHttpResponse(String accessToken,  String xeroTenantId,  UUID statementId) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getStatement");
+        }// verify the required parameter 'statementId' is set
+        if (statementId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'statementId' when calling getStatement");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getStatement");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
+        String correctPath = "/Statements/{statementId}";
+        
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("statementId", statementId);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();    
+    }
+
   /**
-    * <p><b>200</b> - search results matching criteria
+    * Retrive all statements based on unique search criteria
+    * By passing in parameters, you can search for matching statements
+    * <p><b>200</b> - success returns Statements array of objects response
     * <p><b>400</b> - bad input parameter
-    * @param page The page parameter
-    * @param pageSize The pageSize parameter
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param page unique id for single object
+    * @param pageSize Page size which specifies how many records per page will be returned (default 10). Example - https://api.xero.com/bankfeeds.xro/1.0/Statements?pageSize&#x3D;100 to specify page size of 100.
     * @param xeroApplicationId The xeroApplicationId parameter
-    * @param xeroTenantId The xeroTenantId parameter
     * @param xeroUserId The xeroUserId parameter
+    * @param accessToken Authorization token for user set in header of each request
     * @return Statements
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Statements getStatements(Integer page, Integer pageSize, String xeroApplicationId, String xeroTenantId, String xeroUserId) throws IOException {
+    public Statements  getStatements(String accessToken, String xeroTenantId, Integer page, Integer pageSize, String xeroApplicationId, String xeroUserId) throws IOException {
+        TypeReference<Statements> typeRef = new TypeReference<Statements>() {};
         try {
-            String strBody = null;
-            Map<String, String> params = null;
-            String correctPath = "/Statements";
-            UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-            String url = uriBuilder.build().toString();
-            params = new HashMap<>();
-            if (page != null) {
-                addToMapIfNotNull(params, "page", page);
-            }if (pageSize != null) {
-                addToMapIfNotNull(params, "pageSize", pageSize);
+            HttpResponse response = getStatementsForHttpResponse(accessToken,xeroTenantId, page, pageSize, xeroApplicationId, xeroUserId);       
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            return apiClient.getObjectMapper().readValue(e.getContent(), typeRef);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+    }
+
+    public HttpResponse getStatementsForHttpResponse(String accessToken,  String xeroTenantId,  Integer page,  Integer pageSize,  String xeroApplicationId,  String xeroUserId) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getStatements");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getStatements");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
+        String correctPath = "/Statements";
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        if (page != null) {
+            String key = "page";
+            Object value = page;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
             }
-
-            String response = this.DATA(url, strBody, params, "GET", xeroApplicationId, xeroTenantId, xeroUserId);
-            TypeReference<Statements> typeRef = new TypeReference<Statements>() {};
-            return apiClient.getObjectMapper().readValue(response, typeRef);
-
-        } catch (IOException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage());
-        } catch (XeroApiException e) {
-            throw xeroExceptionHandler.handleBadRequest(e.getMessage(), e.getResponseCode(),JSONUtils.isJSONValid(e.getMessage()));
+        }        if (pageSize != null) {
+            String key = "pageSize";
+            Object value = pageSize;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
         }
+        String url = uriBuilder.build().toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();    
     }
 
-    protected void addToMapIfNotNull(Map<String, String> map, String key, Object value) {
-        if (value != null) {
-            map.put(key, value.toString());
-        }
-    }
 
+    public ByteArrayInputStream convertInputToByteArray(InputStream is) throws IOException {
+        byte[] bytes = IOUtils.toByteArray(is);
+        try {
+            // Process the input stream..
+            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
+            return byteArrayInputStream;
+        } finally {
+            is.close();
+        }
+        
+    }
 }
-

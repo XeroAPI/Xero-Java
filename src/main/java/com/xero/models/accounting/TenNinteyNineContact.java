@@ -557,7 +557,6 @@ public class TenNinteyNineContact {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class TenNinteyNineContact {\n");
-    
     sb.append("    box1: ").append(toIndentedString(box1)).append("\n");
     sb.append("    box2: ").append(toIndentedString(box2)).append("\n");
     sb.append("    box3: ").append(toIndentedString(box3)).append("\n");

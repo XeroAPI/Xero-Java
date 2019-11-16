@@ -121,7 +121,6 @@ public class Allocation {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Allocation {\n");
-    
     sb.append("    invoice: ").append(toIndentedString(invoice)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
     sb.append("    date: ").append(toIndentedString(date)).append("\n");

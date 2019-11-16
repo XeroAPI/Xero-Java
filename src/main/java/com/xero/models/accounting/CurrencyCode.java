@@ -366,13 +366,13 @@ public enum CurrencyCode {
   }
 
   @JsonCreator
-  public static CurrencyCode fromValue(String text) {
+  public static CurrencyCode fromValue(String value) {
     for (CurrencyCode b : CurrencyCode.values()) {
-      if (String.valueOf(b.value).equals(text)) {
+      if (b.value.equals(value)) {
         return b;
       }
     }
-    throw new IllegalArgumentException("Unexpected value '" + text + "'");
+    throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 }
 

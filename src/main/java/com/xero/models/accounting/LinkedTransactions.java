@@ -33,7 +33,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class LinkedTransactions {
   
   @JsonProperty("LinkedTransactions")
-  private List<LinkedTransaction> linkedTransactions = null;
+  private List<LinkedTransaction> linkedTransactions = new ArrayList<LinkedTransaction>();
 
   public LinkedTransactions linkedTransactions(List<LinkedTransaction> linkedTransactions) {
     this.linkedTransactions = linkedTransactions;
@@ -84,7 +84,6 @@ public class LinkedTransactions {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class LinkedTransactions {\n");
-    
     sb.append("    linkedTransactions: ").append(toIndentedString(linkedTransactions)).append("\n");
     sb.append("}");
     return sb.toString();

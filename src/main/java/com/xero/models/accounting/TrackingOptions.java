@@ -33,7 +33,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class TrackingOptions {
   
   @JsonProperty("Options")
-  private List<TrackingOption> options = null;
+  private List<TrackingOption> options = new ArrayList<TrackingOption>();
 
   public TrackingOptions options(List<TrackingOption> options) {
     this.options = options;
@@ -84,7 +84,6 @@ public class TrackingOptions {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class TrackingOptions {\n");
-    
     sb.append("    options: ").append(toIndentedString(options)).append("\n");
     sb.append("}");
     return sb.toString();

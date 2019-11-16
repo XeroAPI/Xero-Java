@@ -142,7 +142,6 @@ public class Purchase {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Purchase {\n");
-    
     sb.append("    unitPrice: ").append(toIndentedString(unitPrice)).append("\n");
     sb.append("    accountCode: ").append(toIndentedString(accountCode)).append("\n");
     sb.append("    coGSAccountCode: ").append(toIndentedString(coGSAccountCode)).append("\n");

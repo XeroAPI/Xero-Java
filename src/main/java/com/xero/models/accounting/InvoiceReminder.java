@@ -73,7 +73,6 @@ public class InvoiceReminder {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class InvoiceReminder {\n");
-    
     sb.append("    enabled: ").append(toIndentedString(enabled)).append("\n");
     sb.append("}");
     return sb.toString();

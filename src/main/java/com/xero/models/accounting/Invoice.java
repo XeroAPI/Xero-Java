@@ -47,9 +47,15 @@ public class Invoice {
    * See Invoice Types
    */
   public enum TypeEnum {
+    ACCPAY("ACCPAY"),
+    
+    ACCPAYCREDIT("ACCPAYCREDIT"),
+    
+    AROVERPAYMENT("AROVERPAYMENT"),
+    
     ACCREC("ACCREC"),
     
-    ACCPAY("ACCPAY");
+    ACCRECCREDIT("ACCRECCREDIT");
 
     private String value;
 
@@ -68,13 +74,13 @@ public class Invoice {
     }
 
     @JsonCreator
-    public static TypeEnum fromValue(String text) {
+    public static TypeEnum fromValue(String value) {
       for (TypeEnum b : TypeEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -159,13 +165,13 @@ public class Invoice {
     }
 
     @JsonCreator
-    public static StatusEnum fromValue(String text) {
+    public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -184,6 +190,10 @@ public class Invoice {
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("PlannedPaymentDate")
   private LocalDate plannedPaymentDate;
+
+  
+  @JsonProperty("CISDeduction")
+  private Double ciSDeduction;
 
   
   @JsonProperty("SubTotal")
@@ -215,15 +225,15 @@ public class Invoice {
 
   
   @JsonProperty("Payments")
-  private List<Payment> payments = null;
+  private List<Payment> payments = new ArrayList<Payment>();
 
   
   @JsonProperty("Prepayments")
-  private List<Prepayment> prepayments = null;
+  private List<Prepayment> prepayments = new ArrayList<Prepayment>();
 
   
   @JsonProperty("Overpayments")
-  private List<Overpayment> overpayments = null;
+  private List<Overpayment> overpayments = new ArrayList<Overpayment>();
 
   
   @JsonProperty("AmountDue")
@@ -247,11 +257,11 @@ public class Invoice {
 
   
   @JsonProperty("CreditNotes")
-  private List<CreditNote> creditNotes = null;
+  private List<CreditNote> creditNotes = new ArrayList<CreditNote>();
 
   
   @JsonProperty("Attachments")
-  private List<Attachment> attachments = null;
+  private List<Attachment> attachments = new ArrayList<Attachment>();
 
   
   @JsonProperty("HasErrors")
@@ -263,7 +273,7 @@ public class Invoice {
 
   
   @JsonProperty("ValidationErrors")
-  private List<ValidationError> validationErrors = null;
+  private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
 
   public Invoice type(TypeEnum type) {
     this.type = type;
@@ -559,6 +569,15 @@ public class Invoice {
   }
 
    /**
+   * CIS deduction for UK contractors
+   * @return ciSDeduction
+  **/
+  @ApiModelProperty(value = "CIS deduction for UK contractors")
+  public Double getCiSDeduction() {
+    return ciSDeduction;
+  }
+
+   /**
    * Total of invoice excluding taxes
    * @return subTotal
   **/
@@ -825,6 +844,7 @@ public class Invoice {
         Objects.equals(this.sentToContact, invoice.sentToContact) &&
         Objects.equals(this.expectedPaymentDate, invoice.expectedPaymentDate) &&
         Objects.equals(this.plannedPaymentDate, invoice.plannedPaymentDate) &&
+        Objects.equals(this.ciSDeduction, invoice.ciSDeduction) &&
         Objects.equals(this.subTotal, invoice.subTotal) &&
         Objects.equals(this.totalTax, invoice.totalTax) &&
         Objects.equals(this.total, invoice.total) &&
@@ -849,7 +869,7 @@ public class Invoice {
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, contact, lineItems, date, dueDate, lineAmountTypes, invoiceNumber, reference, brandingThemeID, url, currencyCode, currencyRate, status, sentToContact, expectedPaymentDate, plannedPaymentDate, subTotal, totalTax, total, totalDiscount, invoiceID, hasAttachments, isDiscounted, payments, prepayments, overpayments, amountDue, amountPaid, fullyPaidOnDate, amountCredited, updatedDateUTC, creditNotes, attachments, hasErrors, statusAttributeString, validationErrors);
+    return Objects.hash(type, contact, lineItems, date, dueDate, lineAmountTypes, invoiceNumber, reference, brandingThemeID, url, currencyCode, currencyRate, status, sentToContact, expectedPaymentDate, plannedPaymentDate, ciSDeduction, subTotal, totalTax, total, totalDiscount, invoiceID, hasAttachments, isDiscounted, payments, prepayments, overpayments, amountDue, amountPaid, fullyPaidOnDate, amountCredited, updatedDateUTC, creditNotes, attachments, hasErrors, statusAttributeString, validationErrors);
   }
 
 
@@ -857,7 +877,6 @@ public class Invoice {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Invoice {\n");
-    
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    contact: ").append(toIndentedString(contact)).append("\n");
     sb.append("    lineItems: ").append(toIndentedString(lineItems)).append("\n");
@@ -874,6 +893,7 @@ public class Invoice {
     sb.append("    sentToContact: ").append(toIndentedString(sentToContact)).append("\n");
     sb.append("    expectedPaymentDate: ").append(toIndentedString(expectedPaymentDate)).append("\n");
     sb.append("    plannedPaymentDate: ").append(toIndentedString(plannedPaymentDate)).append("\n");
+    sb.append("    ciSDeduction: ").append(toIndentedString(ciSDeduction)).append("\n");
     sb.append("    subTotal: ").append(toIndentedString(subTotal)).append("\n");
     sb.append("    totalTax: ").append(toIndentedString(totalTax)).append("\n");
     sb.append("    total: ").append(toIndentedString(total)).append("\n");

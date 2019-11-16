@@ -97,7 +97,6 @@ public class Currency {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Currency {\n");
-    
     sb.append("    code: ").append(toIndentedString(code)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("}");

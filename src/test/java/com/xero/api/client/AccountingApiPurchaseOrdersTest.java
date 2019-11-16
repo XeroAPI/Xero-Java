@@ -2,10 +2,6 @@ package com.xero.api.client;
 
 import static org.junit.Assert.assertTrue;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
 import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
@@ -15,19 +11,27 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Every.everyItem;
 
-
-import com.xero.api.XeroApiException;
 import com.xero.api.ApiClient;
-import com.xero.example.CustomJsonConfig;
-
 import com.xero.api.client.*;
 import com.xero.models.accounting.*;
 
-import com.xero.example.SampleData;
+import java.io.File;
+import java.net.URL;
+
+import com.google.api.client.auth.oauth2.BearerToken;
+import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.http.HttpRequestFactory;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
 
 import org.threeten.bp.*;
 import java.io.IOException;
 import com.fasterxml.jackson.core.type.TypeReference;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.IOUtils;
 
 import java.util.Calendar;
 import java.util.Map;
@@ -36,38 +40,35 @@ import java.util.List;
 import java.util.ArrayList;
 import java.math.BigDecimal;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.apache.commons.io.IOUtils;
-
 public class AccountingApiPurchaseOrdersTest {
 
-	CustomJsonConfig config;
-	ApiClient apiClientForAccounting; 
-	AccountingApi api; 
-
+	ApiClient defaultClient; 
+    AccountingApi accountingApi; 
+	String accessToken;
+    String xeroTenantId; 
+     
     private static boolean setUpIsDone = false;
 	
 	@Before
 	public void setUp() {
-		config = new CustomJsonConfig();
-		apiClientForAccounting = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting-oauth1/2.0.0",null,null,null);
-		api = new AccountingApi(config);
-		api.setApiClient(apiClientForAccounting);
-		api.setOAuthToken(config.getConsumerKey(), config.getConsumerSecret());
-
+		// Set Access Token and Tenant Id
+        accessToken = "123";
+        xeroTenantId = "xyz";
+        
+        // Init AccountingApi client
+        // NEW Sandbox for API Mocking
+		//defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
+		defaultClient = new ApiClient("https://twilight-grass-2493.getsandbox.com:443/api.xro/2.0",null,null,null,null);
+        accountingApi = AccountingApi.getInstance(defaultClient);   
+       
         // ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
         if (setUpIsDone) {
             return;
         }
 
         try {
-            System.out.println("Sleep for 30 seconds");
-            Thread.sleep(60000);
+            System.out.println("Sleep for 60 seconds");
+            Thread.sleep(60);
         } catch(InterruptedException e) {
             System.out.println(e);
         }
@@ -76,16 +77,15 @@ public class AccountingApiPurchaseOrdersTest {
 	}
 
 	public void tearDown() {
-		api = null;
-		apiClientForAccounting = null;
+		accountingApi = null;
+        defaultClient = null;
 	}
 
     @Test
     public void createPurchaseOrderTest() throws IOException {
         System.out.println("@Test - createPurchaseOrder");
-        PurchaseOrders purchaseOrders = null;
-        Boolean summarizeErrors = null;
-        PurchaseOrders response = api.createPurchaseOrder(purchaseOrders, summarizeErrors);
+        PurchaseOrder purchaseOrder = new PurchaseOrder();
+        PurchaseOrders response = accountingApi.createPurchaseOrder(accessToken,xeroTenantId,purchaseOrder);
 
         // TODO: test validations
         assertThat(response.getPurchaseOrders().get(0).getContact().getContactID(), is(equalTo(UUID.fromString("430fa14a-f945-44d3-9f97-5df5e28441b8"))));
@@ -124,8 +124,8 @@ public class AccountingApiPurchaseOrdersTest {
     public void createPurchaseOrderHistoryTest() throws IOException {
         System.out.println("@Test - createPurchaseOrderHistory");
         UUID purchaseOrderID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords historyRecords = null;
-        HistoryRecords response = api.createPurchaseOrderHistory(purchaseOrderID, historyRecords);
+        HistoryRecords historyRecords = new HistoryRecords();
+        HistoryRecords response = accountingApi.createPurchaseOrderHistory(accessToken,xeroTenantId,purchaseOrderID, historyRecords);
 
         assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Hello World")));     
         assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-13T17:39:39.354-07:00"))));  
@@ -136,7 +136,7 @@ public class AccountingApiPurchaseOrdersTest {
     public void getPurchaseOrderTest() throws IOException {
         System.out.println("@Test - getPurchaseOrder");
         UUID purchaseOrderID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        PurchaseOrders response = api.getPurchaseOrder(purchaseOrderID);
+        PurchaseOrders response = accountingApi.getPurchaseOrder(accessToken,xeroTenantId,purchaseOrderID);
 
         assertThat(response.getPurchaseOrders().get(0).getContact().getContactID(), is(equalTo(UUID.fromString("430fa14a-f945-44d3-9f97-5df5e28441b8"))));
         assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getLineItemID(), is(equalTo(UUID.fromString("8a9d3eca-e052-43bc-9b87-221d0648c045"))));
@@ -188,7 +188,7 @@ public class AccountingApiPurchaseOrdersTest {
     public void getPurchaseOrderHistoryTest() throws IOException {
         System.out.println("@Test - getPurchaseOrderHistory");
         UUID purchaseOrderID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords response = api.getPurchaseOrderHistory(purchaseOrderID);
+        HistoryRecords response = accountingApi.getPurchaseOrderHistory(accessToken,xeroTenantId,purchaseOrderID);
 
         assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("System Generated")));       
         assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Note")));     
@@ -206,7 +206,7 @@ public class AccountingApiPurchaseOrdersTest {
         String dateTo = null;
         String order = null;
         Integer page = null;
-        PurchaseOrders response = api.getPurchaseOrders(ifModifiedSince, status, dateFrom, dateTo, order, page);
+        PurchaseOrders response = accountingApi.getPurchaseOrders(accessToken,xeroTenantId,ifModifiedSince, status, dateFrom, dateTo, order, page);
 
         assertThat(response.getPurchaseOrders().get(0).getContact().getContactID(), is(equalTo(UUID.fromString("430fa14a-f945-44d3-9f97-5df5e28441b8"))));
         assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getLineItemID(), is(equalTo(UUID.fromString("0f7b54b8-bfa4-4c5d-9c22-73dbd5796e54"))));
@@ -238,8 +238,8 @@ public class AccountingApiPurchaseOrdersTest {
     public void updatePurchaseOrderTest() throws IOException {
         System.out.println("@Test - updatePurchaseOrder");
         UUID purchaseOrderID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        PurchaseOrders purchaseOrders = null;
-        PurchaseOrders response = api.updatePurchaseOrder(purchaseOrderID, purchaseOrders);
+        PurchaseOrders purchaseOrders = new PurchaseOrders();
+        PurchaseOrders response = accountingApi.updatePurchaseOrder(accessToken,xeroTenantId,purchaseOrderID, purchaseOrders);
 
         assertThat(response.getPurchaseOrders().get(0).getContact().getContactID(), is(equalTo(UUID.fromString("430fa14a-f945-44d3-9f97-5df5e28441b8"))));
         assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getLineItemID(), is(equalTo(UUID.fromString("d1d9b2cd-c9f2-4445-8d98-0b8096cf4dae"))));

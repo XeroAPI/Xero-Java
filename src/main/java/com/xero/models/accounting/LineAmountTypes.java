@@ -48,13 +48,13 @@ public enum LineAmountTypes {
   }
 
   @JsonCreator
-  public static LineAmountTypes fromValue(String text) {
+  public static LineAmountTypes fromValue(String value) {
     for (LineAmountTypes b : LineAmountTypes.values()) {
-      if (String.valueOf(b.value).equals(text)) {
+      if (b.value.equals(value)) {
         return b;
       }
     }
-    throw new IllegalArgumentException("Unexpected value '" + text + "'");
+    throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 }
 

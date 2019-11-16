@@ -2,10 +2,6 @@ package com.xero.api.client;
 
 import static org.junit.Assert.assertTrue;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
 import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
@@ -15,19 +11,27 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Every.everyItem;
 
-
-import com.xero.api.XeroApiException;
 import com.xero.api.ApiClient;
-import com.xero.example.CustomJsonConfig;
-
 import com.xero.api.client.*;
 import com.xero.models.accounting.*;
 
-import com.xero.example.SampleData;
+import java.io.File;
+import java.net.URL;
+
+import com.google.api.client.auth.oauth2.BearerToken;
+import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.http.HttpRequestFactory;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
 
 import org.threeten.bp.*;
 import java.io.IOException;
 import com.fasterxml.jackson.core.type.TypeReference;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.IOUtils;
 
 import java.util.Calendar;
 import java.util.Map;
@@ -36,38 +40,36 @@ import java.util.List;
 import java.util.ArrayList;
 import java.math.BigDecimal;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.apache.commons.io.IOUtils;
-
 public class AccountingApiLinkedTransactionsTest {
 
-	CustomJsonConfig config;
-	ApiClient apiClientForAccounting; 
-	AccountingApi api; 
-
+	ApiClient defaultClient; 
+    AccountingApi accountingApi; 
+	String accessToken;
+    String xeroTenantId; 
+     
+    
     private static boolean setUpIsDone = false;
 	
 	@Before
 	public void setUp() {
-		config = new CustomJsonConfig();
-		apiClientForAccounting = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting-oauth1/2.0.0",null,null,null);
-		api = new AccountingApi(config);
-		api.setApiClient(apiClientForAccounting);
-		api.setOAuthToken(config.getConsumerKey(), config.getConsumerSecret());
-
+		// Set Access Token and Tenant Id
+        accessToken = "123";
+        xeroTenantId = "xyz";
+        
+        // Init AccountingApi client
+        // NEW Sandbox for API Mocking
+		//defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
+		defaultClient = new ApiClient("https://twilight-grass-2493.getsandbox.com:443/api.xro/2.0",null,null,null,null);
+        accountingApi = AccountingApi.getInstance(defaultClient);   
+       
         // ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
         if (setUpIsDone) {
             return;
         }
 
         try {
-            System.out.println("Sleep for 30 seconds");
-            Thread.sleep(60000);
+            System.out.println("Sleep for 60 seconds");
+            Thread.sleep(60);
         } catch(InterruptedException e) {
             System.out.println(e);
         }
@@ -76,15 +78,15 @@ public class AccountingApiLinkedTransactionsTest {
 	}
 
 	public void tearDown() {
-		api = null;
-		apiClientForAccounting = null;
+		accountingApi = null;
+        defaultClient = null;
 	}
 
     @Test
-    public void createLinkedTransactionTest() throws IOException {
-        System.out.println("@Test - createLinkedTransaction");
-        LinkedTransactions linkedTransactions = null;
-        LinkedTransactions response = api.createLinkedTransaction(linkedTransactions);
+    public void createLinkedTransactionsTest() throws IOException {
+        System.out.println("@Test - createLinkedTransactions");
+        LinkedTransactions linkedTransactions = new LinkedTransactions();
+        LinkedTransactions response = accountingApi.createLinkedTransactions(accessToken,xeroTenantId,linkedTransactions);
 
         assertThat(response.getLinkedTransactions().get(0).getSourceTransactionID(), is(equalTo(UUID.fromString("a848644a-f20f-4630-98c3-386bd7505631"))));
         assertThat(response.getLinkedTransactions().get(0).getSourceLineItemID(), is(equalTo(UUID.fromString("b0df260d-3cc8-4ced-9bd6-41924f624ed3"))));
@@ -101,14 +103,14 @@ public class AccountingApiLinkedTransactionsTest {
     public void deleteLinkedTransactionTest() throws IOException {
         System.out.println("@Test - deleteLinkedTransaction");
         UUID linkedTransactionID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        api.deleteLinkedTransaction(linkedTransactionID);
+        accountingApi.deleteLinkedTransaction(accessToken,xeroTenantId,linkedTransactionID);
     }
 
     @Test
     public void getLinkedTransactionTest() throws IOException {
         System.out.println("@Test - getLinkedTransaction");
         UUID linkedTransactionID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        LinkedTransactions response = api.getLinkedTransaction(linkedTransactionID);
+        LinkedTransactions response = accountingApi.getLinkedTransaction(accessToken,xeroTenantId,linkedTransactionID);
 
         assertThat(response.getLinkedTransactions().get(0).getSourceTransactionID(), is(equalTo(UUID.fromString("aec416dd-38ea-40dc-9f0b-813c8c71f87f"))));
         assertThat(response.getLinkedTransactions().get(0).getSourceLineItemID(), is(equalTo(UUID.fromString("77e0b23b-5b79-4f4b-ae20-c9031d41442f"))));
@@ -132,7 +134,7 @@ public class AccountingApiLinkedTransactionsTest {
         String contactID = null;
         String status = null;
         String targetTransactionID = null;
-        LinkedTransactions response = api.getLinkedTransactions(page, linkedTransactionID, sourceTransactionID, contactID, status, targetTransactionID);
+        LinkedTransactions response = accountingApi.getLinkedTransactions(accessToken,xeroTenantId,page, linkedTransactionID, sourceTransactionID, contactID, status, targetTransactionID);
 
         assertThat(response.getLinkedTransactions().get(0).getSourceTransactionID(), is(equalTo(UUID.fromString("aec416dd-38ea-40dc-9f0b-813c8c71f87f"))));
         assertThat(response.getLinkedTransactions().get(0).getSourceLineItemID(), is(equalTo(UUID.fromString("77e0b23b-5b79-4f4b-ae20-c9031d41442f"))));
@@ -151,8 +153,8 @@ public class AccountingApiLinkedTransactionsTest {
     public void updateLinkedTransactionTest() throws IOException {
         System.out.println("@Test - updateLinkedTransaction");
         UUID linkedTransactionID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        LinkedTransactions linkedTransactions = null;
-        LinkedTransactions response = api.updateLinkedTransaction(linkedTransactionID, linkedTransactions);
+        LinkedTransactions linkedTransactions = new LinkedTransactions();
+        LinkedTransactions response = accountingApi.updateLinkedTransaction(accessToken,xeroTenantId,linkedTransactionID, linkedTransactions);
 
         assertThat(response.getLinkedTransactions().get(0).getSourceTransactionID(), is(equalTo(UUID.fromString("a848644a-f20f-4630-98c3-386bd7505631"))));
         assertThat(response.getLinkedTransactions().get(0).getSourceLineItemID(), is(equalTo(UUID.fromString("b0df260d-3cc8-4ced-9bd6-41924f624ed3"))));

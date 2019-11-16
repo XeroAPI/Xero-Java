@@ -97,7 +97,6 @@ public class Bill {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Bill {\n");
-    
     sb.append("    day: ").append(toIndentedString(day)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("}");

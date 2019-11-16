@@ -92,7 +92,7 @@ public class Item {
 
   
   @JsonProperty("ValidationErrors")
-  private List<ValidationError> validationErrors = null;
+  private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
 
   public Item code(String code) {
     this.code = code;
@@ -409,7 +409,6 @@ public class Item {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Item {\n");
-    
     sb.append("    code: ").append(toIndentedString(code)).append("\n");
     sb.append("    inventoryAssetAccountCode: ").append(toIndentedString(inventoryAssetAccountCode)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");

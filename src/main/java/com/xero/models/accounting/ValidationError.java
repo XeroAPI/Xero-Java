@@ -73,7 +73,6 @@ public class ValidationError {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ValidationError {\n");
-    
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("}");
     return sb.toString();

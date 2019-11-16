@@ -41,7 +41,7 @@ public class TaxRate {
 
   
   @JsonProperty("TaxComponents")
-  private List<TaxComponent> taxComponents = null;
+  private List<TaxComponent> taxComponents = new ArrayList<TaxComponent>();
 
   /**
    * See Status Codes
@@ -51,7 +51,9 @@ public class TaxRate {
     
     DELETED("DELETED"),
     
-    ARCHIVED("ARCHIVED");
+    ARCHIVED("ARCHIVED"),
+    
+    PENDING("PENDING");
 
     private String value;
 
@@ -70,13 +72,13 @@ public class TaxRate {
     }
 
     @JsonCreator
-    public static StatusEnum fromValue(String text) {
+    public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -88,19 +90,13 @@ public class TaxRate {
    * See ReportTaxTypes
    */
   public enum ReportTaxTypeEnum {
-    OUTPUT("OUTPUT"),
-    
-    INPUT("INPUT"),
-    
-    EXEMPTOUTPUT("EXEMPTOUTPUT"),
-    
-    INPUTTAXED("INPUTTAXED"),
+    AVALARA("AVALARA"),
     
     BASEXCLUDED("BASEXCLUDED"),
     
-    EXEMPTEXPENSES("EXEMPTEXPENSES"),
+    CAPITALSALESOUTPUT("CAPITALSALESOUTPUT"),
     
-    EXEMPTINPUT("EXEMPTINPUT"),
+    CAPITALEXPENSESINPUT("CAPITALEXPENSESINPUT"),
     
     ECOUTPUT("ECOUTPUT"),
     
@@ -110,15 +106,53 @@ public class TaxRate {
     
     ECACQUISITIONS("ECACQUISITIONS"),
     
-    CAPITALSALESOUTPUT("CAPITALSALESOUTPUT"),
+    EXEMPTEXPENSES("EXEMPTEXPENSES"),
     
-    CAPITALEXPENSESINPUT("CAPITALEXPENSESINPUT"),
+    EXEMPTINPUT("EXEMPTINPUT"),
+    
+    EXEMPTOUTPUT("EXEMPTOUTPUT"),
+    
+    GSTONIMPORTS("GSTONIMPORTS"),
+    
+    INPUT("INPUT"),
+    
+    INPUTTAXED("INPUTTAXED"),
     
     MOSSSALES("MOSSSALES"),
     
     NONE("NONE"),
     
-    GSTONIMPORTS("GSTONIMPORTS");
+    NONEOUTPUT("NONEOUTPUT"),
+    
+    OUTPUT("OUTPUT"),
+    
+    PURCHASESINPUT("PURCHASESINPUT"),
+    
+    SALESOUTPUT("SALESOUTPUT"),
+    
+    EXEMPTCAPITAL("EXEMPTCAPITAL"),
+    
+    EXEMPTEXPORT("EXEMPTEXPORT"),
+    
+    CAPITALEXINPUT("CAPITALEXINPUT"),
+    
+    GSTONCAPIMPORTS("GSTONCAPIMPORTS"),
+    
+    REVERSECHARGES("REVERSECHARGES"),
+    
+    PAYMENTS("PAYMENTS"),
+    
+    INVOICE("INVOICE"),
+    
+    CASH("CASH"),
+    
+    ACCRUAL("ACCRUAL"),
+    
+    FLATRATECASH("FLATRATECASH"),
+    
+    FLATRATEACCRUAL("FLATRATEACCRUAL"),
+    
+    ACCRUALS("ACCRUALS");
 
     private String value;
 
@@ -137,13 +171,13 @@ public class TaxRate {
     }
 
     @JsonCreator
-    public static ReportTaxTypeEnum fromValue(String text) {
+    public static ReportTaxTypeEnum fromValue(String value) {
       for (ReportTaxTypeEnum b : ReportTaxTypeEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -374,7 +408,6 @@ public class TaxRate {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class TaxRate {\n");
-    
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    taxType: ").append(toIndentedString(taxType)).append("\n");
     sb.append("    taxComponents: ").append(toIndentedString(taxComponents)).append("\n");

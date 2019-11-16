@@ -63,13 +63,13 @@ public class Report {
     }
 
     @JsonCreator
-    public static ReportTypeEnum fromValue(String text) {
+    public static ReportTypeEnum fromValue(String value) {
       for (ReportTypeEnum b : ReportTypeEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
+        if (b.value.equals(value)) {
           return b;
         }
       }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
 
@@ -91,7 +91,7 @@ public class Report {
 
   
   @JsonProperty("Contacts")
-  private List<TenNinteyNineContact> contacts = null;
+  private List<TenNinteyNineContact> contacts = new ArrayList<TenNinteyNineContact>();
 
   public Report reportID(String reportID) {
     this.reportID = reportID;
@@ -256,7 +256,6 @@ public class Report {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Report {\n");
-    
     sb.append("    reportID: ").append(toIndentedString(reportID)).append("\n");
     sb.append("    reportName: ").append(toIndentedString(reportName)).append("\n");
     sb.append("    reportType: ").append(toIndentedString(reportType)).append("\n");

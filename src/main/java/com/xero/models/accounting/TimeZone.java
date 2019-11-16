@@ -256,13 +256,13 @@ public enum TimeZone {
   }
 
   @JsonCreator
-  public static TimeZone fromValue(String text) {
+  public static TimeZone fromValue(String value) {
     for (TimeZone b : TimeZone.values()) {
-      if (String.valueOf(b.value).equals(text)) {
+      if (b.value.equals(value)) {
         return b;
       }
     }
-    throw new IllegalArgumentException("Unexpected value '" + text + "'");
+    throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 }
 

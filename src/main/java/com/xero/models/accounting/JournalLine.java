@@ -79,7 +79,7 @@ public class JournalLine {
 
   
   @JsonProperty("TrackingCategories")
-  private List<TrackingCategory> trackingCategories = null;
+  private List<TrackingCategory> trackingCategories = new ArrayList<TrackingCategory>();
 
   public JournalLine journalLineID(UUID journalLineID) {
     this.journalLineID = journalLineID;
@@ -330,7 +330,6 @@ public class JournalLine {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class JournalLine {\n");
-    
     sb.append("    journalLineID: ").append(toIndentedString(journalLineID)).append("\n");
     sb.append("    accountID: ").append(toIndentedString(accountID)).append("\n");
     sb.append("    accountCode: ").append(toIndentedString(accountCode)).append("\n");

@@ -33,7 +33,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 public class CreditNotes {
   
   @JsonProperty("CreditNotes")
-  private List<CreditNote> creditNotes = null;
+  private List<CreditNote> creditNotes = new ArrayList<CreditNote>();
 
   public CreditNotes creditNotes(List<CreditNote> creditNotes) {
     this.creditNotes = creditNotes;
@@ -84,7 +84,6 @@ public class CreditNotes {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CreditNotes {\n");
-    
     sb.append("    creditNotes: ").append(toIndentedString(creditNotes)).append("\n");
     sb.append("}");
     return sb.toString();

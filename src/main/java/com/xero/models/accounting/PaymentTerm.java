@@ -97,7 +97,6 @@ public class PaymentTerm {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class PaymentTerm {\n");
-    
     sb.append("    bills: ").append(toIndentedString(bills)).append("\n");
     sb.append("    sales: ").append(toIndentedString(sales)).append("\n");
     sb.append("}");
