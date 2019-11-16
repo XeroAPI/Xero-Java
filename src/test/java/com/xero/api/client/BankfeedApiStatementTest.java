@@ -57,7 +57,8 @@ public class BankfeedApiStatementTest {
         xeroTenantId = "xyz";
         
         // Init AccountingApi client
-        defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/bankfeeds/1.0.0",null,null,null,null);
+		//defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/bankfeeds/1.0.0",null,null,null,null);
+		defaultClient = new ApiClient("https://xero-bank-feeds.getsandbox.com:443/bankfeeds.xro/1.0",null,null,null,null);
         bankfeedsApi = BankFeedsApi.getInstance(defaultClient);	
         
 		// ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
@@ -67,7 +68,7 @@ public class BankfeedApiStatementTest {
 
     	try {
     		System.out.println("Sleep for 60 seconds");
-	    	Thread.sleep(30000);
+	    	Thread.sleep(60);
     	} catch(InterruptedException e) {
     		System.out.println(e);
     	}
