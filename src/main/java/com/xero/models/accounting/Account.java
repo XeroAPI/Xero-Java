@@ -286,6 +286,10 @@ public class Account {
   private OffsetDateTime updatedDateUTC;
 
   
+  @JsonProperty("AddToWatchlist")
+  private Boolean addToWatchlist;
+
+  
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
 
@@ -559,6 +563,24 @@ public class Account {
     return updatedDateUTC;
   }
 
+  public Account addToWatchlist(Boolean addToWatchlist) {
+    this.addToWatchlist = addToWatchlist;
+    return this;
+  }
+
+   /**
+   * Boolean – describes whether the account is shown in the watchlist widget on the dashboard
+   * @return addToWatchlist
+  **/
+  @ApiModelProperty(value = "Boolean – describes whether the account is shown in the watchlist widget on the dashboard")
+  public Boolean getAddToWatchlist() {
+    return addToWatchlist;
+  }
+
+  public void setAddToWatchlist(Boolean addToWatchlist) {
+    this.addToWatchlist = addToWatchlist;
+  }
+
   public Account validationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
     return this;
@@ -613,12 +635,13 @@ public class Account {
         Objects.equals(this.reportingCodeName, account.reportingCodeName) &&
         Objects.equals(this.hasAttachments, account.hasAttachments) &&
         Objects.equals(this.updatedDateUTC, account.updatedDateUTC) &&
+        Objects.equals(this.addToWatchlist, account.addToWatchlist) &&
         Objects.equals(this.validationErrors, account.validationErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, name, accountID, type, bankAccountNumber, status, description, bankAccountType, currencyCode, taxType, enablePaymentsToAccount, showInExpenseClaims, propertyClass, systemAccount, reportingCode, reportingCodeName, hasAttachments, updatedDateUTC, validationErrors);
+    return Objects.hash(code, name, accountID, type, bankAccountNumber, status, description, bankAccountType, currencyCode, taxType, enablePaymentsToAccount, showInExpenseClaims, propertyClass, systemAccount, reportingCode, reportingCodeName, hasAttachments, updatedDateUTC, addToWatchlist, validationErrors);
   }
 
 
@@ -644,6 +667,7 @@ public class Account {
     sb.append("    reportingCodeName: ").append(toIndentedString(reportingCodeName)).append("\n");
     sb.append("    hasAttachments: ").append(toIndentedString(hasAttachments)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
+    sb.append("    addToWatchlist: ").append(toIndentedString(addToWatchlist)).append("\n");
     sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("}");
     return sb.toString();

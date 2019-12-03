@@ -119,6 +119,8 @@ public class Organisation {
    * Organisation Type
    */
   public enum OrganisationTypeEnum {
+    ACCOUNTING_PRACTICE("ACCOUNTING_PRACTICE"),
+    
     COMPANY("COMPANY"),
     
     CHARITY("CHARITY"),
@@ -346,6 +348,8 @@ public class Organisation {
    * Organisation Type
    */
   public enum OrganisationEntityTypeEnum {
+    ACCOUNTING_PRACTICE("ACCOUNTING_PRACTICE"),
+    
     COMPANY("COMPANY"),
     
     CHARITY("CHARITY"),

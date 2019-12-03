@@ -39,6 +39,47 @@ public class BrandingTheme {
   private String name;
 
   
+  @JsonProperty("LogoUrl")
+  private String logoUrl;
+
+  /**
+   * Always INVOICE
+   */
+  public enum TypeEnum {
+    INVOICE("INVOICE");
+
+    private String value;
+
+    TypeEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static TypeEnum fromValue(String value) {
+      for (TypeEnum b : TypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  
+  @JsonProperty("Type")
+  private TypeEnum type;
+
+  
   @JsonProperty("SortOrder")
   private Integer sortOrder;
 
@@ -80,6 +121,42 @@ public class BrandingTheme {
 
   public void setName(String name) {
     this.name = name;
+  }
+
+  public BrandingTheme logoUrl(String logoUrl) {
+    this.logoUrl = logoUrl;
+    return this;
+  }
+
+   /**
+   * The location of the image file used as the logo on this branding theme
+   * @return logoUrl
+  **/
+  @ApiModelProperty(value = "The location of the image file used as the logo on this branding theme")
+  public String getLogoUrl() {
+    return logoUrl;
+  }
+
+  public void setLogoUrl(String logoUrl) {
+    this.logoUrl = logoUrl;
+  }
+
+  public BrandingTheme type(TypeEnum type) {
+    this.type = type;
+    return this;
+  }
+
+   /**
+   * Always INVOICE
+   * @return type
+  **/
+  @ApiModelProperty(value = "Always INVOICE")
+  public TypeEnum getType() {
+    return type;
+  }
+
+  public void setType(TypeEnum type) {
+    this.type = type;
   }
 
   public BrandingTheme sortOrder(Integer sortOrder) {
@@ -130,13 +207,15 @@ public class BrandingTheme {
     BrandingTheme brandingTheme = (BrandingTheme) o;
     return Objects.equals(this.brandingThemeID, brandingTheme.brandingThemeID) &&
         Objects.equals(this.name, brandingTheme.name) &&
+        Objects.equals(this.logoUrl, brandingTheme.logoUrl) &&
+        Objects.equals(this.type, brandingTheme.type) &&
         Objects.equals(this.sortOrder, brandingTheme.sortOrder) &&
         Objects.equals(this.createdDateUTC, brandingTheme.createdDateUTC);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(brandingThemeID, name, sortOrder, createdDateUTC);
+    return Objects.hash(brandingThemeID, name, logoUrl, type, sortOrder, createdDateUTC);
   }
 
 
@@ -146,6 +225,8 @@ public class BrandingTheme {
     sb.append("class BrandingTheme {\n");
     sb.append("    brandingThemeID: ").append(toIndentedString(brandingThemeID)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    logoUrl: ").append(toIndentedString(logoUrl)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    sortOrder: ").append(toIndentedString(sortOrder)).append("\n");
     sb.append("    createdDateUTC: ").append(toIndentedString(createdDateUTC)).append("\n");
     sb.append("}");
