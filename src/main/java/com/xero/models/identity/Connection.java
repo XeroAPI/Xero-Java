@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import org.threeten.bp.OffsetDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -40,6 +41,14 @@ public class Connection {
   
   @JsonProperty("tenantType")
   private String tenantType;
+
+  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
+  @JsonProperty("createdDateUTC")
+  private OffsetDateTime createdDateUTC;
+
+  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
+  @JsonProperty("updatedDateUtc")
+  private OffsetDateTime updatedDateUtc;
 
   public Connection id(UUID id) {
     this.id = id;
@@ -95,6 +104,42 @@ public class Connection {
     this.tenantType = tenantType;
   }
 
+  public Connection createdDateUTC(OffsetDateTime createdDateUTC) {
+    this.createdDateUTC = createdDateUTC;
+    return this;
+  }
+
+   /**
+   * The date when the user connected this tenant to your app
+   * @return createdDateUTC
+  **/
+  @ApiModelProperty(value = "The date when the user connected this tenant to your app")
+  public OffsetDateTime getCreatedDateUTC() {
+    return createdDateUTC;
+  }
+
+  public void setCreatedDateUTC(OffsetDateTime createdDateUTC) {
+    this.createdDateUTC = createdDateUTC;
+  }
+
+  public Connection updatedDateUtc(OffsetDateTime updatedDateUtc) {
+    this.updatedDateUtc = updatedDateUtc;
+    return this;
+  }
+
+   /**
+   * The date when the user most recently connected this tenant to your app. May differ to the created date if the user has disconnected and subsequently reconnected this tenant to your app.
+   * @return updatedDateUtc
+  **/
+  @ApiModelProperty(value = "The date when the user most recently connected this tenant to your app. May differ to the created date if the user has disconnected and subsequently reconnected this tenant to your app.")
+  public OffsetDateTime getUpdatedDateUtc() {
+    return updatedDateUtc;
+  }
+
+  public void setUpdatedDateUtc(OffsetDateTime updatedDateUtc) {
+    this.updatedDateUtc = updatedDateUtc;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -107,12 +152,14 @@ public class Connection {
     Connection connection = (Connection) o;
     return Objects.equals(this.id, connection.id) &&
         Objects.equals(this.tenantId, connection.tenantId) &&
-        Objects.equals(this.tenantType, connection.tenantType);
+        Objects.equals(this.tenantType, connection.tenantType) &&
+        Objects.equals(this.createdDateUTC, connection.createdDateUTC) &&
+        Objects.equals(this.updatedDateUtc, connection.updatedDateUtc);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, tenantId, tenantType);
+    return Objects.hash(id, tenantId, tenantType, createdDateUTC, updatedDateUtc);
   }
 
 
@@ -123,6 +170,8 @@ public class Connection {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    tenantId: ").append(toIndentedString(tenantId)).append("\n");
     sb.append("    tenantType: ").append(toIndentedString(tenantType)).append("\n");
+    sb.append("    createdDateUTC: ").append(toIndentedString(createdDateUTC)).append("\n");
+    sb.append("    updatedDateUtc: ").append(toIndentedString(updatedDateUtc)).append("\n");
     sb.append("}");
     return sb.toString();
   }

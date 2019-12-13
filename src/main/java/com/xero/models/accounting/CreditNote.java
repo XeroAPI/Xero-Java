@@ -207,6 +207,10 @@ public class CreditNote {
   private Boolean hasAttachments;
 
   
+  @JsonProperty("HasErrors")
+  private Boolean hasErrors;
+
+  
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
 
@@ -621,6 +625,24 @@ public class CreditNote {
     this.hasAttachments = hasAttachments;
   }
 
+  public CreditNote hasErrors(Boolean hasErrors) {
+    this.hasErrors = hasErrors;
+    return this;
+  }
+
+   /**
+   * A boolean to indicate if a credit note has an validation errors
+   * @return hasErrors
+  **/
+  @ApiModelProperty(value = "A boolean to indicate if a credit note has an validation errors")
+  public Boolean getHasErrors() {
+    return hasErrors;
+  }
+
+  public void setHasErrors(Boolean hasErrors) {
+    this.hasErrors = hasErrors;
+  }
+
   public CreditNote validationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
     return this;
@@ -679,12 +701,13 @@ public class CreditNote {
         Objects.equals(this.payments, creditNote.payments) &&
         Objects.equals(this.brandingThemeID, creditNote.brandingThemeID) &&
         Objects.equals(this.hasAttachments, creditNote.hasAttachments) &&
+        Objects.equals(this.hasErrors, creditNote.hasErrors) &&
         Objects.equals(this.validationErrors, creditNote.validationErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, contact, date, status, lineAmountTypes, lineItems, subTotal, totalTax, total, updatedDateUTC, currencyCode, fullyPaidOnDate, creditNoteID, creditNoteNumber, reference, sentToContact, currencyRate, remainingCredit, allocations, payments, brandingThemeID, hasAttachments, validationErrors);
+    return Objects.hash(type, contact, date, status, lineAmountTypes, lineItems, subTotal, totalTax, total, updatedDateUTC, currencyCode, fullyPaidOnDate, creditNoteID, creditNoteNumber, reference, sentToContact, currencyRate, remainingCredit, allocations, payments, brandingThemeID, hasAttachments, hasErrors, validationErrors);
   }
 
 
@@ -714,6 +737,7 @@ public class CreditNote {
     sb.append("    payments: ").append(toIndentedString(payments)).append("\n");
     sb.append("    brandingThemeID: ").append(toIndentedString(brandingThemeID)).append("\n");
     sb.append("    hasAttachments: ").append(toIndentedString(hasAttachments)).append("\n");
+    sb.append("    hasErrors: ").append(toIndentedString(hasErrors)).append("\n");
     sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("}");
     return sb.toString();
