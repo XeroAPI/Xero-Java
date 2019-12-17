@@ -83,9 +83,9 @@ public class IdentityApi {
     * @param accessToken Authorization token for user set in header of each request
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public void deleteConnection(String accessTokenUUID id) throws IOException {
+    public void deleteConnection(String accessToken, UUID id) throws IOException {
         try {
-            deleteConnectionForHttpResponse(accessTokenid);
+            deleteConnectionForHttpResponse(accessToken, id);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
             handler.execute(e,apiClient);
@@ -95,7 +95,7 @@ public class IdentityApi {
         
     }
 
-    public HttpResponse deleteConnectionForHttpResponse(String accessToken UUID id) throws IOException {
+    public HttpResponse deleteConnectionForHttpResponse(String accessToken,  UUID id) throws IOException {
         // verify the required parameter 'id' is set
         if (id == null) {
             throw new IllegalArgumentException("Missing the required parameter 'id' when calling deleteConnection");
