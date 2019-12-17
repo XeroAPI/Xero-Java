@@ -894,6 +894,7 @@ public class AccountingApi {
     }
 
   /**
+    * Allows you to create a single contact in a Xero organisation
     * <p><b>200</b> - Success - return response of type Contacts array with newly created Contact
     * <p><b>400</b> - Validation Error - some data was incorrect returns response of type Error
     * @param xeroTenantId Xero identifier for Tenant
@@ -1204,18 +1205,20 @@ public class AccountingApi {
     }
 
   /**
+    * Allows you to create a multiple contacts (bulk) in a Xero organisation
     * <p><b>200</b> - Success - return response of type Contacts array with newly created Contact
     * <p><b>400</b> - Validation Error - some data was incorrect returns response of type Error
     * @param xeroTenantId Xero identifier for Tenant
     * @param contacts The contacts parameter
+    * @param summarizeErrors response format that shows validation errors for each bank transaction
     * @param accessToken Authorization token for user set in header of each request
     * @return Contacts
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Contacts  createContacts(String accessToken, String xeroTenantId, Contacts contacts) throws IOException {
+    public Contacts  createContacts(String accessToken, String xeroTenantId, Contacts contacts, Boolean summarizeErrors) throws IOException {
         try {
             TypeReference<Contacts> typeRef = new TypeReference<Contacts>() {};
-            HttpResponse response = createContactsForHttpResponse(accessToken, xeroTenantId, contacts);
+            HttpResponse response = createContactsForHttpResponse(accessToken, xeroTenantId, contacts, summarizeErrors);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -1226,7 +1229,7 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse createContactsForHttpResponse(String accessToken,  String xeroTenantId,  Contacts contacts) throws IOException {
+    public HttpResponse createContactsForHttpResponse(String accessToken,  String xeroTenantId,  Contacts contacts,  Boolean summarizeErrors) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createContacts");
@@ -1244,6 +1247,17 @@ public class AccountingApi {
         
         String correctPath = "/Contacts#bulk";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        if (summarizeErrors != null) {
+            String key = "SummarizeErrors";
+            Object value = summarizeErrors;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
@@ -2253,14 +2267,15 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
     * @param items The items parameter
+    * @param summarizeErrors response format that shows validation errors for each bank transaction
     * @param accessToken Authorization token for user set in header of each request
     * @return Items
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Items  createItems(String accessToken, String xeroTenantId, Items items) throws IOException {
+    public Items  createItems(String accessToken, String xeroTenantId, Items items, Boolean summarizeErrors) throws IOException {
         try {
             TypeReference<Items> typeRef = new TypeReference<Items>() {};
-            HttpResponse response = createItemsForHttpResponse(accessToken, xeroTenantId, items);
+            HttpResponse response = createItemsForHttpResponse(accessToken, xeroTenantId, items, summarizeErrors);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -2271,7 +2286,7 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse createItemsForHttpResponse(String accessToken,  String xeroTenantId,  Items items) throws IOException {
+    public HttpResponse createItemsForHttpResponse(String accessToken,  String xeroTenantId,  Items items,  Boolean summarizeErrors) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createItems");
@@ -2289,6 +2304,17 @@ public class AccountingApi {
         
         String correctPath = "/Items#bulk";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        if (summarizeErrors != null) {
+            String key = "SummarizeErrors";
+            Object value = summarizeErrors;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
