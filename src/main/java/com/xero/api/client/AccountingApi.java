@@ -55,7 +55,6 @@ import com.xero.models.accounting.RepeatingInvoices;
 import com.xero.models.accounting.ReportWithRows;
 import com.xero.models.accounting.Reports;
 import com.xero.models.accounting.RequestEmpty;
-import com.xero.models.accounting.TaxRate;
 import com.xero.models.accounting.TaxRates;
 import com.xero.models.accounting.TrackingCategories;
 import com.xero.models.accounting.TrackingCategory;
@@ -100,7 +99,7 @@ public class AccountingApi {
     private ApiClient apiClient;
     private static AccountingApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.1.5";
+    private String version = "3.1.6";
 
     public AccountingApi() {
         this(new ApiClient());
@@ -491,7 +490,7 @@ public class AccountingApi {
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
-        String correctPath = "/BankTransactions#bulk";
+        String correctPath = "/BankTransactions";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (summarizeErrors != null) {
             String key = "SummarizeErrors";
@@ -515,7 +514,7 @@ public class AccountingApi {
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
-        return requestFactory.buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
+        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
   /**
@@ -1245,7 +1244,7 @@ public class AccountingApi {
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
-        String correctPath = "/Contacts#bulk";
+        String correctPath = "/Contacts";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (summarizeErrors != null) {
             String key = "SummarizeErrors";
@@ -1269,7 +1268,7 @@ public class AccountingApi {
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
-        return requestFactory.buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
+        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
   /**
@@ -1569,7 +1568,7 @@ public class AccountingApi {
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
-        String correctPath = "/CreditNotes#bulk";
+        String correctPath = "/CreditNotes";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (summarizeErrors != null) {
             String key = "SummarizeErrors";
@@ -1593,7 +1592,7 @@ public class AccountingApi {
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
-        return requestFactory.buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
+        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
   /**
@@ -1746,7 +1745,7 @@ public class AccountingApi {
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
-        String correctPath = "/Employees#bulk";
+        String correctPath = "/Employees";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
@@ -1759,7 +1758,7 @@ public class AccountingApi {
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
-        return requestFactory.buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
+        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
   /**
@@ -2114,7 +2113,7 @@ public class AccountingApi {
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
-        String correctPath = "/Invoices#bulk";
+        String correctPath = "/Invoices";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (summarizeErrors != null) {
             String key = "SummarizeErrors";
@@ -2138,7 +2137,7 @@ public class AccountingApi {
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
-        return requestFactory.buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
+        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
   /**
@@ -2302,7 +2301,7 @@ public class AccountingApi {
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
-        String correctPath = "/Items#bulk";
+        String correctPath = "/Items";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (summarizeErrors != null) {
             String key = "SummarizeErrors";
@@ -2326,7 +2325,7 @@ public class AccountingApi {
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
-        return requestFactory.buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
+        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
   /**
@@ -2425,7 +2424,7 @@ public class AccountingApi {
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
-        String correctPath = "/LinkedTransactions#bulk";
+        String correctPath = "/LinkedTransactions";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
@@ -2438,7 +2437,7 @@ public class AccountingApi {
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
-        return requestFactory.buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
+        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
   /**
@@ -2607,7 +2606,7 @@ public class AccountingApi {
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
-        String correctPath = "/ManualJournals#bulk";
+        String correctPath = "/ManualJournals";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
@@ -2620,7 +2619,7 @@ public class AccountingApi {
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
-        return requestFactory.buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
+        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
   /**
@@ -2732,7 +2731,7 @@ public class AccountingApi {
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
-        String correctPath = "/Overpayments/{OverpaymentID}/Allocations#bulk";
+        String correctPath = "/Overpayments/{OverpaymentID}/Allocations";
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -2750,7 +2749,7 @@ public class AccountingApi {
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
-        return requestFactory.buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
+        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
   /**
@@ -3035,7 +3034,7 @@ public class AccountingApi {
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
-        String correctPath = "/Payments#bulk";
+        String correctPath = "/Payments";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
@@ -3048,7 +3047,7 @@ public class AccountingApi {
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
-        return requestFactory.buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
+        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
   /**
@@ -3343,7 +3342,7 @@ public class AccountingApi {
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
-        String correctPath = "/PurchaseOrders#bulk";
+        String correctPath = "/PurchaseOrders";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (summarizeErrors != null) {
             String key = "SummarizeErrors";
@@ -3367,7 +3366,7 @@ public class AccountingApi {
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
-        return requestFactory.buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
+        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
   /**
@@ -3697,63 +3696,7 @@ public class AccountingApi {
     }
 
   /**
-    * Allows you to create Tax Rates
-    * <p><b>200</b> - Success - return response of type TaxRates array newly created TaxRate
-    * <p><b>400</b> - A failed request due to validation error
-    * @param xeroTenantId Xero identifier for Tenant
-    * @param taxRate The taxRate parameter
-    * @param accessToken Authorization token for user set in header of each request
-    * @return TaxRates
-    * @throws IOException if an error occurs while attempting to invoke the API
-    **/
-    public TaxRates  createTaxRate(String accessToken, String xeroTenantId, TaxRate taxRate) throws IOException {
-        try {
-            TypeReference<TaxRates> typeRef = new TypeReference<TaxRates>() {};
-            HttpResponse response = createTaxRateForHttpResponse(accessToken, xeroTenantId, taxRate);
-            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-        } catch (HttpResponseException e) {
-            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
-        } catch (IOException ioe) {
-            throw ioe;
-        }
-        return null;
-    }
-
-    public HttpResponse createTaxRateForHttpResponse(String accessToken,  String xeroTenantId,  TaxRate taxRate) throws IOException {
-        // verify the required parameter 'xeroTenantId' is set
-        if (xeroTenantId == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createTaxRate");
-        }// verify the required parameter 'taxRate' is set
-        if (taxRate == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'taxRate' when calling createTaxRate");
-        }
-        if (accessToken == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createTaxRate");
-        }
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/TaxRates";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-        String url = uriBuilder.build().toString();
-        GenericUrl genericUrl = new GenericUrl(url);
-
-        
-        HttpContent content = null;
-        content = apiClient.new JacksonJsonHttpContent(taxRate);
-        
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-        
-        return requestFactory.buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers).execute();
-    }
-
-  /**
-    * Allows you to create Tax Rates
+    * Allows you to create one or more Tax Rates
     * <p><b>200</b> - Success - return response of type TaxRates array newly created TaxRate
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
@@ -3792,7 +3735,7 @@ public class AccountingApi {
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
-        String correctPath = "/TaxRates#bulk";
+        String correctPath = "/TaxRates";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
