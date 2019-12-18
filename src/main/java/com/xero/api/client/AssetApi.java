@@ -88,10 +88,10 @@ public class AssetApi {
     * @return Asset
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Asset  createAsset(String accessToken, String xeroTenantId, Asset asset) throws IOException {
+    public Asset  createAsset(String accessToken,  String xeroTenantId, Asset asset) throws IOException {
         TypeReference<Asset> typeRef = new TypeReference<Asset>() {};
         try {
-            HttpResponse response = createAssetForHttpResponse(accessToken,xeroTenantId, asset);       
+            HttpResponse response = createAssetForHttpResponse(accessToken, xeroTenantId, asset);       
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             return apiClient.getObjectMapper().readValue(e.getContent(), typeRef);
@@ -100,7 +100,7 @@ public class AssetApi {
         }
     }
 
-    public HttpResponse createAssetForHttpResponse(String accessToken,  String xeroTenantId,  Asset asset) throws IOException {
+    public HttpResponse createAssetForHttpResponse(String accessToken,   String xeroTenantId,  Asset asset) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createAsset");
@@ -141,10 +141,10 @@ public class AssetApi {
     * @return AssetType
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public AssetType  createAssetType(String accessToken, String xeroTenantId, AssetType assetType) throws IOException {
+    public AssetType  createAssetType(String accessToken,  String xeroTenantId, AssetType assetType) throws IOException {
         TypeReference<AssetType> typeRef = new TypeReference<AssetType>() {};
         try {
-            HttpResponse response = createAssetTypeForHttpResponse(accessToken,xeroTenantId, assetType);       
+            HttpResponse response = createAssetTypeForHttpResponse(accessToken, xeroTenantId, assetType);       
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             return apiClient.getObjectMapper().readValue(e.getContent(), typeRef);
@@ -153,7 +153,7 @@ public class AssetApi {
         }
     }
 
-    public HttpResponse createAssetTypeForHttpResponse(String accessToken,  String xeroTenantId,  AssetType assetType) throws IOException {
+    public HttpResponse createAssetTypeForHttpResponse(String accessToken,   String xeroTenantId,  AssetType assetType) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createAssetType");
@@ -190,10 +190,10 @@ public class AssetApi {
     * @return Asset
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Asset  getAssetById(String accessToken, String xeroTenantId, UUID id) throws IOException {
+    public Asset  getAssetById(String accessToken,  String xeroTenantId, UUID id) throws IOException {
         TypeReference<Asset> typeRef = new TypeReference<Asset>() {};
         try {
-            HttpResponse response = getAssetByIdForHttpResponse(accessToken,xeroTenantId, id);       
+            HttpResponse response = getAssetByIdForHttpResponse(accessToken, xeroTenantId, id);       
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             return apiClient.getObjectMapper().readValue(e.getContent(), typeRef);
@@ -202,7 +202,7 @@ public class AssetApi {
         }
     }
 
-    public HttpResponse getAssetByIdForHttpResponse(String accessToken,  String xeroTenantId,  UUID id) throws IOException {
+    public HttpResponse getAssetByIdForHttpResponse(String accessToken,   String xeroTenantId,  UUID id) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getAssetById");
@@ -245,10 +245,10 @@ public class AssetApi {
     * @return Setting
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Setting  getAssetSettings(String accessToken, String xeroTenantId) throws IOException {
+    public Setting  getAssetSettings(String accessToken,  String xeroTenantId) throws IOException {
         TypeReference<Setting> typeRef = new TypeReference<Setting>() {};
         try {
-            HttpResponse response = getAssetSettingsForHttpResponse(accessToken,xeroTenantId);       
+            HttpResponse response = getAssetSettingsForHttpResponse(accessToken, xeroTenantId);       
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             return apiClient.getObjectMapper().readValue(e.getContent(), typeRef);
@@ -257,7 +257,7 @@ public class AssetApi {
         }
     }
 
-    public HttpResponse getAssetSettingsForHttpResponse(String accessToken,  String xeroTenantId) throws IOException {
+    public HttpResponse getAssetSettingsForHttpResponse(String accessToken,   String xeroTenantId) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getAssetSettings");
@@ -292,10 +292,10 @@ public class AssetApi {
     * @return List&lt;AssetType&gt;
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public List<AssetType>  getAssetTypes(String accessToken, String xeroTenantId) throws IOException {
+    public List<AssetType>  getAssetTypes(String accessToken,  String xeroTenantId) throws IOException {
         TypeReference<List<AssetType>> typeRef = new TypeReference<List<AssetType>>() {};
         try {
-            HttpResponse response = getAssetTypesForHttpResponse(accessToken,xeroTenantId);       
+            HttpResponse response = getAssetTypesForHttpResponse(accessToken, xeroTenantId);       
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             return apiClient.getObjectMapper().readValue(e.getContent(), typeRef);
@@ -304,7 +304,7 @@ public class AssetApi {
         }
     }
 
-    public HttpResponse getAssetTypesForHttpResponse(String accessToken,  String xeroTenantId) throws IOException {
+    public HttpResponse getAssetTypesForHttpResponse(String accessToken,   String xeroTenantId) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getAssetTypes");
@@ -345,10 +345,10 @@ public class AssetApi {
     * @return Assets
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Assets  getAssets(String accessToken, String xeroTenantId, String status, Integer page, Integer pageSize, String orderBy, String sortDirection, String filterBy) throws IOException {
+    public Assets  getAssets(String accessToken,  String xeroTenantId, String status, Integer page, Integer pageSize, String orderBy, String sortDirection, String filterBy) throws IOException {
         TypeReference<Assets> typeRef = new TypeReference<Assets>() {};
         try {
-            HttpResponse response = getAssetsForHttpResponse(accessToken,xeroTenantId, status, page, pageSize, orderBy, sortDirection, filterBy);       
+            HttpResponse response = getAssetsForHttpResponse(accessToken, xeroTenantId, status, page, pageSize, orderBy, sortDirection, filterBy);       
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             return apiClient.getObjectMapper().readValue(e.getContent(), typeRef);
@@ -357,7 +357,7 @@ public class AssetApi {
         }
     }
 
-    public HttpResponse getAssetsForHttpResponse(String accessToken,  String xeroTenantId,  String status,  Integer page,  Integer pageSize,  String orderBy,  String sortDirection,  String filterBy) throws IOException {
+    public HttpResponse getAssetsForHttpResponse(String accessToken,   String xeroTenantId,  String status,  Integer page,  Integer pageSize,  String orderBy,  String sortDirection,  String filterBy) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getAssets");

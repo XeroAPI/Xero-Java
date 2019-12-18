@@ -41,7 +41,7 @@ public class IdentityApi {
     private ApiClient apiClient;
     private static IdentityApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.1.4";
+    private String version = "3.1.5";
 
     public IdentityApi() {
         this(new ApiClient());
@@ -104,7 +104,6 @@ public class IdentityApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling deleteConnection");
         }
         HttpHeaders headers = new HttpHeaders();
-        
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -155,7 +154,6 @@ public class IdentityApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getConnections");
         }
         HttpHeaders headers = new HttpHeaders();
-        
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         

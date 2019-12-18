@@ -100,7 +100,7 @@ public class AccountingApi {
     private ApiClient apiClient;
     private static AccountingApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.1.4";
+    private String version = "3.1.5";
 
     public AccountingApi() {
         this(new ApiClient());
@@ -4570,6 +4570,7 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("contentType", contentType);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -4646,6 +4647,7 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("contentType", contentType);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -4769,6 +4771,9 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        if (ifModifiedSince != null) {
+            headers.setIfModifiedSince(ifModifiedSince.toString());
+        }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -4911,6 +4916,7 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("contentType", contentType);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -4987,6 +4993,7 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("contentType", contentType);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -5112,6 +5119,9 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        if (ifModifiedSince != null) {
+            headers.setIfModifiedSince(ifModifiedSince.toString());
+        }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -5332,6 +5342,7 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("contentType", contentType);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -5408,6 +5419,7 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("contentType", contentType);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -5589,6 +5601,9 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        if (ifModifiedSince != null) {
+            headers.setIfModifiedSince(ifModifiedSince.toString());
+        }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -5720,6 +5735,9 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        if (ifModifiedSince != null) {
+            headers.setIfModifiedSince(ifModifiedSince.toString());
+        }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -6027,6 +6045,7 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("contentType", contentType);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -6103,6 +6122,7 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("contentType", contentType);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -6475,6 +6495,9 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        if (ifModifiedSince != null) {
+            headers.setIfModifiedSince(ifModifiedSince.toString());
+        }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -6643,6 +6666,7 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("contentType", contentType);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -6718,6 +6742,7 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("contentType", contentType);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -6794,6 +6819,7 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("contentType", contentType);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -6976,6 +7002,9 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        if (ifModifiedSince != null) {
+            headers.setIfModifiedSince(ifModifiedSince.toString());
+        }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -7189,6 +7218,9 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        if (ifModifiedSince != null) {
+            headers.setIfModifiedSince(ifModifiedSince.toString());
+        }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -7378,6 +7410,9 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        if (ifModifiedSince != null) {
+            headers.setIfModifiedSince(ifModifiedSince.toString());
+        }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -7516,6 +7551,7 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("contentType", contentType);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -7591,6 +7627,7 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("contentType", contentType);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -7667,6 +7704,7 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("contentType", contentType);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -7905,6 +7943,9 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        if (ifModifiedSince != null) {
+            headers.setIfModifiedSince(ifModifiedSince.toString());
+        }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -8175,6 +8216,9 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        if (ifModifiedSince != null) {
+            headers.setIfModifiedSince(ifModifiedSince.toString());
+        }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -8316,6 +8360,9 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        if (ifModifiedSince != null) {
+            headers.setIfModifiedSince(ifModifiedSince.toString());
+        }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -8632,6 +8679,7 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("contentType", contentType);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -8708,6 +8756,7 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("contentType", contentType);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -8832,6 +8881,9 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        if (ifModifiedSince != null) {
+            headers.setIfModifiedSince(ifModifiedSince.toString());
+        }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -9198,6 +9250,9 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        if (ifModifiedSince != null) {
+            headers.setIfModifiedSince(ifModifiedSince.toString());
+        }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -9456,6 +9511,9 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        if (ifModifiedSince != null) {
+            headers.setIfModifiedSince(ifModifiedSince.toString());
+        }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -9647,6 +9705,9 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        if (ifModifiedSince != null) {
+            headers.setIfModifiedSince(ifModifiedSince.toString());
+        }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -9859,6 +9920,9 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        if (ifModifiedSince != null) {
+            headers.setIfModifiedSince(ifModifiedSince.toString());
+        }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -10026,6 +10090,9 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        if (ifModifiedSince != null) {
+            headers.setIfModifiedSince(ifModifiedSince.toString());
+        }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -10228,6 +10295,7 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("contentType", contentType);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -10304,6 +10372,7 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("contentType", contentType);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -10486,6 +10555,9 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        if (ifModifiedSince != null) {
+            headers.setIfModifiedSince(ifModifiedSince.toString());
+        }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -10638,6 +10710,7 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("contentType", contentType);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -10714,6 +10787,7 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("contentType", contentType);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -12197,6 +12271,9 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
+        if (ifModifiedSince != null) {
+            headers.setIfModifiedSince(ifModifiedSince.toString());
+        }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         

@@ -1,6 +1,6 @@
 /*
  * Xero Assets API
- * This the Xero Assets API
+ * This is the Xero Assets API
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: api@xero.com
