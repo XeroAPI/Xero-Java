@@ -59,7 +59,7 @@ public class PayrollAuApi {
     private ApiClient apiClient;
     private static PayrollAuApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.1.3";
+    private String version = "3.1.5";
 
     public PayrollAuApi() {
         this(new ApiClient());
@@ -128,7 +128,7 @@ public class PayrollAuApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createEmployee");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -184,7 +184,7 @@ public class PayrollAuApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createLeaveApplication");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -240,7 +240,7 @@ public class PayrollAuApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createPayItem");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -296,7 +296,7 @@ public class PayrollAuApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createPayRun");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -352,7 +352,7 @@ public class PayrollAuApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createPayrollCalendar");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -408,7 +408,7 @@ public class PayrollAuApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createSuperfund");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -464,7 +464,7 @@ public class PayrollAuApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createTimesheet");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -519,7 +519,7 @@ public class PayrollAuApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getEmployee");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -578,7 +578,8 @@ public class PayrollAuApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getEmployees");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
+        headers.set("If-Modified-Since", ifModifiedSince);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -662,7 +663,7 @@ public class PayrollAuApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getLeaveApplication");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -721,7 +722,8 @@ public class PayrollAuApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getLeaveApplications");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
+        headers.set("If-Modified-Since", ifModifiedSince);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -806,7 +808,8 @@ public class PayrollAuApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getPayItems");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
+        headers.set("If-Modified-Since", ifModifiedSince);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -890,7 +893,7 @@ public class PayrollAuApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getPayRun");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -949,7 +952,8 @@ public class PayrollAuApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getPayRuns");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
+        headers.set("If-Modified-Since", ifModifiedSince);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -1034,7 +1038,7 @@ public class PayrollAuApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getPayrollCalendar");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -1093,7 +1097,8 @@ public class PayrollAuApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getPayrollCalendars");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
+        headers.set("If-Modified-Since", ifModifiedSince);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -1177,7 +1182,7 @@ public class PayrollAuApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getPayslip");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -1231,7 +1236,7 @@ public class PayrollAuApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getSettings");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -1283,7 +1288,7 @@ public class PayrollAuApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getSuperFundProducts");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -1358,7 +1363,8 @@ public class PayrollAuApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getSuperFunds");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
+        headers.set("If-Modified-Since", ifModifiedSince);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -1442,7 +1448,7 @@ public class PayrollAuApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getSuperfund");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -1500,7 +1506,7 @@ public class PayrollAuApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getTimesheet");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -1559,7 +1565,8 @@ public class PayrollAuApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getTimesheets");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
+        headers.set("If-Modified-Since", ifModifiedSince);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -1645,7 +1652,7 @@ public class PayrollAuApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling updateEmployee");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -1710,7 +1717,7 @@ public class PayrollAuApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling updateLeaveApplication");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -1772,7 +1779,7 @@ public class PayrollAuApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling updatePayRun");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -1834,7 +1841,7 @@ public class PayrollAuApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling updatePayslipByID");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -1896,7 +1903,7 @@ public class PayrollAuApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling updateSuperfund");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -1958,7 +1965,7 @@ public class PayrollAuApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling updateTimesheet");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
