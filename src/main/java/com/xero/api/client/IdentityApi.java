@@ -41,7 +41,7 @@ public class IdentityApi {
     private ApiClient apiClient;
     private static IdentityApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.1.6";
+    private String version = "3.1.7";
 
     public IdentityApi() {
         this(new ApiClient());

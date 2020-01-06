@@ -29,6 +29,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class ReportFields {
+
   
   @JsonProperty("FieldID")
   private UUID fieldID;
@@ -40,7 +41,6 @@ public class ReportFields {
   
   @JsonProperty("Value")
   private String value;
-
   public ReportFields fieldID(UUID fieldID) {
     this.fieldID = fieldID;
     return this;

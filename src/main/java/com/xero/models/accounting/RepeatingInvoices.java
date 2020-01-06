@@ -31,10 +31,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class RepeatingInvoices {
+
   
   @JsonProperty("RepeatingInvoices")
   private List<RepeatingInvoice> repeatingInvoices = new ArrayList<RepeatingInvoice>();
-
   public RepeatingInvoices repeatingInvoices(List<RepeatingInvoice> repeatingInvoices) {
     this.repeatingInvoices = repeatingInvoices;
     return this;

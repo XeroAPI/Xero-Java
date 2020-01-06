@@ -28,10 +28,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class RequestEmpty {
+
   
   @JsonProperty("Status")
   private String status;
-
   public RequestEmpty status(String status) {
     this.status = status;
     return this;

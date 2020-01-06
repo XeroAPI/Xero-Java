@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -29,6 +30,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class AccessToken {
+
   
   @JsonProperty("id_token")
   private String idToken;
@@ -48,7 +50,6 @@ public class AccessToken {
   
   @JsonProperty("refresh_token")
   private String refreshToken;
-
   public AccessToken idToken(String idToken) {
     this.idToken = idToken;
     return this;

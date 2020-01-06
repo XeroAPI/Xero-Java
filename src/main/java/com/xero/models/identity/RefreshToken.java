@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -28,6 +29,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class RefreshToken {
+
   
   @JsonProperty("grant_type")
   private String grantType;
@@ -43,7 +45,6 @@ public class RefreshToken {
   
   @JsonProperty("client_secret")
   private String clientSecret;
-
   public RefreshToken grantType(String grantType) {
     this.grantType = grantType;
     return this;

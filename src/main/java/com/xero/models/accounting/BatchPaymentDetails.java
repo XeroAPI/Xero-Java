@@ -29,6 +29,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @ApiModel(description = "Bank details for use on a batch payment stored with each contact")
 
 public class BatchPaymentDetails {
+
   
   @JsonProperty("BankAccountNumber")
   private String bankAccountNumber;
@@ -48,7 +49,6 @@ public class BatchPaymentDetails {
   
   @JsonProperty("Reference")
   private String reference;
-
   public BatchPaymentDetails bankAccountNumber(String bankAccountNumber) {
     this.bankAccountNumber = bankAccountNumber;
     return this;

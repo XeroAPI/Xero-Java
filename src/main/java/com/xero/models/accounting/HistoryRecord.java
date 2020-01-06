@@ -29,6 +29,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class HistoryRecord {
+
   
   @JsonProperty("Details")
   private String details;
@@ -44,7 +45,6 @@ public class HistoryRecord {
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("DateUTC")
   private OffsetDateTime dateUTC;
-
   public HistoryRecord details(String details) {
     this.details = details;
     return this;

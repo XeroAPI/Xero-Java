@@ -31,10 +31,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class BrandingThemes {
+
   
   @JsonProperty("BrandingThemes")
   private List<BrandingTheme> brandingThemes = new ArrayList<BrandingTheme>();
-
   public BrandingThemes brandingThemes(List<BrandingTheme> brandingThemes) {
     this.brandingThemes = brandingThemes;
     return this;

@@ -31,10 +31,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class CISSettings {
+
   
   @JsonProperty("CISSettings")
   private List<CISSetting> ciSSettings = new ArrayList<CISSetting>();
-
   public CISSettings ciSSettings(List<CISSetting> ciSSettings) {
     this.ciSSettings = ciSSettings;
     return this;

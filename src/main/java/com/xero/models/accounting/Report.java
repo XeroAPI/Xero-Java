@@ -32,6 +32,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class Report {
+
   
   @JsonProperty("ReportID")
   private String reportID;
@@ -39,7 +40,6 @@ public class Report {
   
   @JsonProperty("ReportName")
   private String reportName;
-
   /**
    * See Prepayment Types
    */
@@ -73,6 +73,7 @@ public class Report {
     }
   }
 
+
   
   @JsonProperty("ReportType")
   private ReportTypeEnum reportType;
@@ -92,7 +93,6 @@ public class Report {
   
   @JsonProperty("Contacts")
   private List<TenNinteyNineContact> contacts = new ArrayList<TenNinteyNineContact>();
-
   public Report reportID(String reportID) {
     this.reportID = reportID;
     return this;

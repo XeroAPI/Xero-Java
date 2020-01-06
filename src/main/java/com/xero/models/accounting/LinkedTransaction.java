@@ -33,6 +33,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class LinkedTransaction {
+
   
   @JsonProperty("SourceTransactionID")
   private UUID sourceTransactionID;
@@ -56,7 +57,6 @@ public class LinkedTransaction {
   
   @JsonProperty("LinkedTransactionID")
   private UUID linkedTransactionID;
-
   /**
    * Filter by the combination of ContactID and Status. Get all the linked transactions that have been assigned to a particular customer and have a particular status e.g. GET /LinkedTransactions?ContactID&#x3D;4bb34b03-3378-4bb2-a0ed-6345abf3224e&amp;Status&#x3D;APPROVED.
    */
@@ -98,10 +98,10 @@ public class LinkedTransaction {
     }
   }
 
+
   
   @JsonProperty("Status")
   private StatusEnum status;
-
   /**
    * This will always be BILLABLEEXPENSE. More types may be added in future.
    */
@@ -135,6 +135,7 @@ public class LinkedTransaction {
     }
   }
 
+
   
   @JsonProperty("Type")
   private TypeEnum type;
@@ -142,7 +143,6 @@ public class LinkedTransaction {
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
   private OffsetDateTime updatedDateUTC;
-
   /**
    * The Type of the source tranasction. This will be ACCPAY if the linked transaction was created from an invoice and SPEND if it was created from a bank transaction.
    */
@@ -178,6 +178,7 @@ public class LinkedTransaction {
     }
   }
 
+
   
   @JsonProperty("SourceTransactionTypeCode")
   private SourceTransactionTypeCodeEnum sourceTransactionTypeCode;
@@ -185,7 +186,6 @@ public class LinkedTransaction {
   
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
-
   public LinkedTransaction sourceTransactionID(UUID sourceTransactionID) {
     this.sourceTransactionID = sourceTransactionID;
     return this;

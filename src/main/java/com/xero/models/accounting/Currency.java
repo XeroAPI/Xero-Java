@@ -29,6 +29,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class Currency {
+
   
   @JsonProperty("Code")
   private CurrencyCode code;
@@ -36,7 +37,6 @@ public class Currency {
   
   @JsonProperty("Description")
   private String description;
-
   public Currency code(CurrencyCode code) {
     this.code = code;
     return this;

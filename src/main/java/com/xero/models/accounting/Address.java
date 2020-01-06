@@ -65,6 +65,7 @@ public class Address {
     }
   }
 
+
   
   @JsonProperty("AddressType")
   private AddressTypeEnum addressType;
@@ -104,7 +105,6 @@ public class Address {
   
   @JsonProperty("AttentionTo")
   private String attentionTo;
-
   public Address addressType(AddressTypeEnum addressType) {
     this.addressType = addressType;
     return this;

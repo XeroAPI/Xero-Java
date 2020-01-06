@@ -33,6 +33,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class ReportWithRow {
+
   
   @JsonProperty("ReportID")
   private String reportID;
@@ -68,7 +69,6 @@ public class ReportWithRow {
   
   @JsonProperty("Fields")
   private List<ReportFields> fields = new ArrayList<ReportFields>();
-
   public ReportWithRow reportID(String reportID) {
     this.reportID = reportID;
     return this;

@@ -77,6 +77,7 @@ public class Overpayment {
     }
   }
 
+
   
   @JsonProperty("Type")
   private TypeEnum type;
@@ -88,7 +89,6 @@ public class Overpayment {
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("Date")
   private LocalDate date;
-
   /**
    * See Overpayment Status Codes
    */
@@ -125,6 +125,7 @@ public class Overpayment {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
+
 
   
   @JsonProperty("Status")
@@ -185,7 +186,6 @@ public class Overpayment {
   
   @JsonProperty("Attachments")
   private List<Attachment> attachments = new ArrayList<Attachment>();
-
   public Overpayment type(TypeEnum type) {
     this.type = type;
     return this;

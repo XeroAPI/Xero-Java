@@ -29,6 +29,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class TenNinteyNineContact {
+
   
   @JsonProperty("Box1")
   private Double box1;
@@ -116,7 +117,6 @@ public class TenNinteyNineContact {
   
   @JsonProperty("ContactId")
   private UUID contactId;
-
   public TenNinteyNineContact box1(Double box1) {
     this.box1 = box1;
     return this;

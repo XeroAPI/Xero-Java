@@ -30,6 +30,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class BrandingTheme {
+
   
   @JsonProperty("BrandingThemeID")
   private UUID brandingThemeID;
@@ -41,7 +42,6 @@ public class BrandingTheme {
   
   @JsonProperty("LogoUrl")
   private String logoUrl;
-
   /**
    * Always INVOICE
    */
@@ -75,6 +75,7 @@ public class BrandingTheme {
     }
   }
 
+
   
   @JsonProperty("Type")
   private TypeEnum type;
@@ -86,7 +87,6 @@ public class BrandingTheme {
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("CreatedDateUTC")
   private OffsetDateTime createdDateUTC;
-
   public BrandingTheme brandingThemeID(UUID brandingThemeID) {
     this.brandingThemeID = brandingThemeID;
     return this;

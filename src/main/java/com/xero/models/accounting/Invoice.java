@@ -84,6 +84,7 @@ public class Invoice {
     }
   }
 
+
   
   @JsonProperty("Type")
   private TypeEnum type;
@@ -131,7 +132,6 @@ public class Invoice {
   
   @JsonProperty("CurrencyRate")
   private Double currencyRate;
-
   /**
    * See Invoice Status Codes
    */
@@ -174,6 +174,7 @@ public class Invoice {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
+
 
   
   @JsonProperty("Status")
@@ -274,7 +275,6 @@ public class Invoice {
   
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
-
   public Invoice type(TypeEnum type) {
     this.type = type;
     return this;

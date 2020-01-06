@@ -69,6 +69,7 @@ public class Phone {
     }
   }
 
+
   
   @JsonProperty("PhoneType")
   private PhoneTypeEnum phoneType;
@@ -84,7 +85,6 @@ public class Phone {
   
   @JsonProperty("PhoneCountryCode")
   private String phoneCountryCode;
-
   public Phone phoneType(PhoneTypeEnum phoneType) {
     this.phoneType = phoneType;
     return this;

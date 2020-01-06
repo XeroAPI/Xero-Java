@@ -99,7 +99,7 @@ public class AccountingApi {
     private ApiClient apiClient;
     private static AccountingApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.1.6";
+    private String version = "3.1.7";
 
     public AccountingApi() {
         this(new ApiClient());
@@ -2385,62 +2385,6 @@ public class AccountingApi {
     }
 
   /**
-    * Allows you to create linked transactions (billable expenses)
-    * <p><b>200</b> - Success - return response of type LinkedTransactions array with newly created LinkedTransaction
-    * <p><b>400</b> - A failed request due to validation error
-    * @param xeroTenantId Xero identifier for Tenant
-    * @param linkedTransactions The linkedTransactions parameter
-    * @param accessToken Authorization token for user set in header of each request
-    * @return LinkedTransactions
-    * @throws IOException if an error occurs while attempting to invoke the API
-    **/
-    public LinkedTransactions  createLinkedTransactions(String accessToken, String xeroTenantId, LinkedTransactions linkedTransactions) throws IOException {
-        try {
-            TypeReference<LinkedTransactions> typeRef = new TypeReference<LinkedTransactions>() {};
-            HttpResponse response = createLinkedTransactionsForHttpResponse(accessToken, xeroTenantId, linkedTransactions);
-            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-        } catch (HttpResponseException e) {
-            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
-        } catch (IOException ioe) {
-            throw ioe;
-        }
-        return null;
-    }
-
-    public HttpResponse createLinkedTransactionsForHttpResponse(String accessToken,  String xeroTenantId,  LinkedTransactions linkedTransactions) throws IOException {
-        // verify the required parameter 'xeroTenantId' is set
-        if (xeroTenantId == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createLinkedTransactions");
-        }// verify the required parameter 'linkedTransactions' is set
-        if (linkedTransactions == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'linkedTransactions' when calling createLinkedTransactions");
-        }
-        if (accessToken == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createLinkedTransactions");
-        }
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/LinkedTransactions";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-        String url = uriBuilder.build().toString();
-        GenericUrl genericUrl = new GenericUrl(url);
-
-        
-        HttpContent content = null;
-        content = apiClient.new JacksonJsonHttpContent(linkedTransactions);
-        
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-        
-        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
-    }
-
-  /**
     * Allows you to create a manual journal
     * <p><b>200</b> - Success - return response of type ManualJournals array with newly created ManualJournal
     * <p><b>400</b> - A failed request due to validation error
@@ -3181,7 +3125,7 @@ public class AccountingApi {
     }
 
   /**
-    * Allows you to create purchase orders
+    * Allows you to create a single purchase order
     * <p><b>200</b> - Success - return response of type PurchaseOrder array for specified PurchaseOrder
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant

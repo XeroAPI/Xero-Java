@@ -28,10 +28,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class OnlineInvoice {
+
   
   @JsonProperty("OnlineInvoiceUrl")
   private String onlineInvoiceUrl;
-
   public OnlineInvoice onlineInvoiceUrl(String onlineInvoiceUrl) {
     this.onlineInvoiceUrl = onlineInvoiceUrl;
     return this;

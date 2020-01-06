@@ -28,6 +28,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class Purchase {
+
   
   @JsonProperty("UnitPrice")
   private Double unitPrice;
@@ -43,7 +44,6 @@ public class Purchase {
   
   @JsonProperty("TaxType")
   private String taxType;
-
   public Purchase unitPrice(Double unitPrice) {
     this.unitPrice = unitPrice;
     return this;

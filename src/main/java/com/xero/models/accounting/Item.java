@@ -34,6 +34,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class Item {
+
   
   @JsonProperty("Code")
   private String code;
@@ -93,7 +94,6 @@ public class Item {
   
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
-
   public Item code(String code) {
     this.code = code;
     return this;

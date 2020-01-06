@@ -44,6 +44,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class Contact {
+
   
   @JsonProperty("ContactID")
   private UUID contactID;
@@ -55,7 +56,6 @@ public class Contact {
   
   @JsonProperty("AccountNumber")
   private String accountNumber;
-
   /**
    * Current status of a contact – see contact status types
    */
@@ -92,6 +92,7 @@ public class Contact {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
+
 
   
   @JsonProperty("ContactStatus")
@@ -232,7 +233,6 @@ public class Contact {
   
   @JsonProperty("HasValidationErrors")
   private Boolean hasValidationErrors;
-
   public Contact contactID(UUID contactID) {
     this.contactID = contactID;
     return this;

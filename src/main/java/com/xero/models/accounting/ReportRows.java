@@ -33,6 +33,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class ReportRows {
+
   
   @JsonProperty("RowType")
   private RowType rowType;
@@ -48,7 +49,6 @@ public class ReportRows {
   
   @JsonProperty("Rows")
   private List<ReportRow> rows = new ArrayList<ReportRow>();
-
   public ReportRows rowType(RowType rowType) {
     this.rowType = rowType;
     return this;

@@ -28,6 +28,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class TaxComponent {
+
   
   @JsonProperty("Name")
   private String name;
@@ -43,7 +44,6 @@ public class TaxComponent {
   
   @JsonProperty("IsNonRecoverable")
   private Boolean isNonRecoverable;
-
   public TaxComponent name(String name) {
     this.name = name;
     return this;

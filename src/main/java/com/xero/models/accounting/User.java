@@ -30,6 +30,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class User {
+
   
   @JsonProperty("UserID")
   private UUID userID;
@@ -53,7 +54,6 @@ public class User {
   
   @JsonProperty("IsSubscriber")
   private Boolean isSubscriber;
-
   /**
    * User role that defines permissions in Xero and via API (READONLY, INVOICEONLY, STANDARD, FINANCIALADVISER, etc)
    */
@@ -99,10 +99,10 @@ public class User {
     }
   }
 
+
   
   @JsonProperty("OrganisationRole")
   private OrganisationRoleEnum organisationRole;
-
   public User userID(UUID userID) {
     this.userID = userID;
     return this;

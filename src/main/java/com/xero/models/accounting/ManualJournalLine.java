@@ -31,6 +31,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class ManualJournalLine {
+
   
   @JsonProperty("LineAmount")
   private Double lineAmount;
@@ -58,7 +59,6 @@ public class ManualJournalLine {
   
   @JsonProperty("IsBlank")
   private Boolean isBlank;
-
   public ManualJournalLine lineAmount(Double lineAmount) {
     this.lineAmount = lineAmount;
     return this;

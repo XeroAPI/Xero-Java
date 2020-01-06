@@ -28,6 +28,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class AccountsPayable {
+
   
   @JsonProperty("Outstanding")
   private Double outstanding;
@@ -35,7 +36,6 @@ public class AccountsPayable {
   
   @JsonProperty("Overdue")
   private Double overdue;
-
   public AccountsPayable outstanding(Double outstanding) {
     this.outstanding = outstanding;
     return this;

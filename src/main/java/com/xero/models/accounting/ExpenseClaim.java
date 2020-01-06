@@ -36,10 +36,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class ExpenseClaim {
+
   
   @JsonProperty("ExpenseClaimID")
   private UUID expenseClaimID;
-
   /**
    * Current status of an expense claim – see status types
    */
@@ -80,6 +80,7 @@ public class ExpenseClaim {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
+
 
   
   @JsonProperty("Status")
@@ -124,7 +125,6 @@ public class ExpenseClaim {
   
   @JsonProperty("ReceiptID")
   private UUID receiptID;
-
   public ExpenseClaim expenseClaimID(UUID expenseClaimID) {
     this.expenseClaimID = expenseClaimID;
     return this;

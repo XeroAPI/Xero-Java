@@ -29,10 +29,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class Schedule {
+
   
   @JsonProperty("Period")
   private Integer period;
-
   /**
    * One of the following - WEEKLY or MONTHLY
    */
@@ -68,6 +68,7 @@ public class Schedule {
     }
   }
 
+
   
   @JsonProperty("Unit")
   private UnitEnum unit;
@@ -75,7 +76,6 @@ public class Schedule {
   
   @JsonProperty("DueDate")
   private Integer dueDate;
-
   /**
    * the payment terms
    */
@@ -115,6 +115,7 @@ public class Schedule {
     }
   }
 
+
   
   @JsonProperty("DueDateType")
   private DueDateTypeEnum dueDateType;
@@ -130,7 +131,6 @@ public class Schedule {
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("EndDate")
   private LocalDate endDate;
-
   public Schedule period(Integer period) {
     this.period = period;
     return this;

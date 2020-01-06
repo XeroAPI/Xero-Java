@@ -31,6 +31,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class ReportCell {
+
   
   @JsonProperty("Value")
   private String value;
@@ -38,7 +39,6 @@ public class ReportCell {
   
   @JsonProperty("Attributes")
   private List<ReportAttribute> attributes = new ArrayList<ReportAttribute>();
-
   public ReportCell value(String value) {
     this.value = value;
     return this;

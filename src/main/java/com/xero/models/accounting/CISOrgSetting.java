@@ -28,6 +28,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class CISOrgSetting {
+
   
   @JsonProperty("CISContractorEnabled")
   private Boolean ciSContractorEnabled;
@@ -39,7 +40,6 @@ public class CISOrgSetting {
   
   @JsonProperty("Rate")
   private Integer rate;
-
   public CISOrgSetting ciSContractorEnabled(Boolean ciSContractorEnabled) {
     this.ciSContractorEnabled = ciSContractorEnabled;
     return this;

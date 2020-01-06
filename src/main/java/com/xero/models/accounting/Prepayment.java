@@ -78,6 +78,7 @@ public class Prepayment {
     }
   }
 
+
   
   @JsonProperty("Type")
   private TypeEnum type;
@@ -89,7 +90,6 @@ public class Prepayment {
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("Date")
   private LocalDate date;
-
   /**
    * See Prepayment Status Codes
    */
@@ -126,6 +126,7 @@ public class Prepayment {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
+
 
   
   @JsonProperty("Status")
@@ -182,7 +183,6 @@ public class Prepayment {
   
   @JsonProperty("Attachments")
   private List<Attachment> attachments = new ArrayList<Attachment>();
-
   public Prepayment type(TypeEnum type) {
     this.type = type;
     return this;

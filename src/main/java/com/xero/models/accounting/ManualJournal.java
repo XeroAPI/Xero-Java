@@ -37,6 +37,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class ManualJournal {
+
   
   @JsonProperty("Narration")
   private String narration;
@@ -52,7 +53,6 @@ public class ManualJournal {
   
   @JsonProperty("LineAmountTypes")
   private LineAmountTypes lineAmountTypes;
-
   /**
    * See Manual Journal Status Codes
    */
@@ -92,6 +92,7 @@ public class ManualJournal {
     }
   }
 
+
   
   @JsonProperty("Status")
   private StatusEnum status;
@@ -127,7 +128,6 @@ public class ManualJournal {
   
   @JsonProperty("Attachments")
   private List<Attachment> attachments = new ArrayList<Attachment>();
-
   public ManualJournal narration(String narration) {
     this.narration = narration;
     return this;

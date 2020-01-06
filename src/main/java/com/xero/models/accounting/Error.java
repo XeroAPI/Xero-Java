@@ -31,6 +31,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class Error {
+
   
   @JsonProperty("ErrorNumber")
   private Integer errorNumber;
@@ -46,7 +47,6 @@ public class Error {
   
   @JsonProperty("Elements")
   private List<Element> elements = new ArrayList<Element>();
-
   public Error errorNumber(Integer errorNumber) {
     this.errorNumber = errorNumber;
     return this;

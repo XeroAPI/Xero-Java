@@ -72,6 +72,7 @@ public class RepeatingInvoice {
     }
   }
 
+
   
   @JsonProperty("Type")
   private TypeEnum type;
@@ -103,7 +104,6 @@ public class RepeatingInvoice {
   
   @JsonProperty("CurrencyCode")
   private CurrencyCode currencyCode;
-
   /**
    * One of the following - DRAFT or AUTHORISED – See Invoice Status Codes
    */
@@ -139,6 +139,7 @@ public class RepeatingInvoice {
     }
   }
 
+
   
   @JsonProperty("Status")
   private StatusEnum status;
@@ -170,7 +171,6 @@ public class RepeatingInvoice {
   
   @JsonProperty("Attachments")
   private List<Attachment> attachments = new ArrayList<Attachment>();
-
   public RepeatingInvoice type(TypeEnum type) {
     this.type = type;
     return this;

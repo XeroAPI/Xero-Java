@@ -30,6 +30,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class Attachment {
+
   
   @JsonProperty("AttachmentID")
   private UUID attachmentID;
@@ -53,7 +54,6 @@ public class Attachment {
   
   @JsonProperty("IncludeOnline")
   private Boolean includeOnline;
-
   public Attachment attachmentID(UUID attachmentID) {
     this.attachmentID = attachmentID;
     return this;

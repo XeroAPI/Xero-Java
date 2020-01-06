@@ -34,6 +34,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class Journal {
+
   
   @JsonProperty("JournalID")
   private UUID journalID;
@@ -57,7 +58,6 @@ public class Journal {
   
   @JsonProperty("SourceID")
   private UUID sourceID;
-
   /**
    * The journal source type. The type of transaction that created the journal
    */
@@ -139,6 +139,7 @@ public class Journal {
     }
   }
 
+
   
   @JsonProperty("SourceType")
   private SourceTypeEnum sourceType;
@@ -146,7 +147,6 @@ public class Journal {
   
   @JsonProperty("JournalLines")
   private List<JournalLine> journalLines = new ArrayList<JournalLine>();
-
   public Journal journalID(UUID journalID) {
     this.journalID = journalID;
     return this;

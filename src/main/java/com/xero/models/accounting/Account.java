@@ -35,6 +35,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class Account {
+
   
   @JsonProperty("Code")
   private String code;
@@ -54,7 +55,6 @@ public class Account {
   
   @JsonProperty("BankAccountNumber")
   private String bankAccountNumber;
-
   /**
    * Accounts with a status of ACTIVE can be updated to ARCHIVED. See Account Status Codes
    */
@@ -92,6 +92,7 @@ public class Account {
     }
   }
 
+
   
   @JsonProperty("Status")
   private StatusEnum status;
@@ -99,7 +100,6 @@ public class Account {
   
   @JsonProperty("Description")
   private String description;
-
   /**
    * For bank accounts only. See Bank Account types
    */
@@ -141,6 +141,7 @@ public class Account {
     }
   }
 
+
   
   @JsonProperty("BankAccountType")
   private BankAccountTypeEnum bankAccountType;
@@ -160,7 +161,6 @@ public class Account {
   
   @JsonProperty("ShowInExpenseClaims")
   private Boolean showInExpenseClaims;
-
   /**
    * See Account Class Types
    */
@@ -202,10 +202,10 @@ public class Account {
     }
   }
 
+
   
   @JsonProperty("Class")
   private PropertyClassEnum propertyClass;
-
   /**
    * If this is a system account then this element is returned. See System Account types. Note that non-system accounts may have this element set as either “” or null.
    */
@@ -265,6 +265,7 @@ public class Account {
     }
   }
 
+
   
   @JsonProperty("SystemAccount")
   private SystemAccountEnum systemAccount;
@@ -292,7 +293,6 @@ public class Account {
   
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
-
   public Account code(String code) {
     this.code = code;
     return this;

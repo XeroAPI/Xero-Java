@@ -39,6 +39,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class Payment {
+
   
   @JsonProperty("Invoice")
   private Invoice invoice = null;
@@ -90,7 +91,6 @@ public class Payment {
   
   @JsonProperty("IsReconciled")
   private Boolean isReconciled;
-
   /**
    * The status of the payment.
    */
@@ -126,10 +126,10 @@ public class Payment {
     }
   }
 
+
   
   @JsonProperty("Status")
   private StatusEnum status;
-
   /**
    * See Payment Types.
    */
@@ -177,6 +177,7 @@ public class Payment {
     }
   }
 
+
   
   @JsonProperty("PaymentType")
   private PaymentTypeEnum paymentType;
@@ -212,7 +213,6 @@ public class Payment {
   
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
-
   public Payment invoice(Invoice invoice) {
     this.invoice = invoice;
     return this;

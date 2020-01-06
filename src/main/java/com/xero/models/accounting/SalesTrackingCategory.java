@@ -28,6 +28,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class SalesTrackingCategory {
+
   
   @JsonProperty("TrackingCategoryName")
   private String trackingCategoryName;
@@ -35,7 +36,6 @@ public class SalesTrackingCategory {
   
   @JsonProperty("TrackingOptionName")
   private String trackingOptionName;
-
   public SalesTrackingCategory trackingCategoryName(String trackingCategoryName) {
     this.trackingCategoryName = trackingCategoryName;
     return this;

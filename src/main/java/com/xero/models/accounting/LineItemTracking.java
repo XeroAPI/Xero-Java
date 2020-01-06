@@ -29,6 +29,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class LineItemTracking {
+
   
   @JsonProperty("TrackingCategoryID")
   private UUID trackingCategoryID;
@@ -40,7 +41,6 @@ public class LineItemTracking {
   
   @JsonProperty("Option")
   private String option;
-
   public LineItemTracking trackingCategoryID(UUID trackingCategoryID) {
     this.trackingCategoryID = trackingCategoryID;
     return this;

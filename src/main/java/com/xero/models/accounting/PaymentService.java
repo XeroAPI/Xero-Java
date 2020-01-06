@@ -32,6 +32,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class PaymentService {
+
   
   @JsonProperty("PaymentServiceID")
   private UUID paymentServiceID;
@@ -55,7 +56,6 @@ public class PaymentService {
   
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
-
   public PaymentService paymentServiceID(UUID paymentServiceID) {
     this.paymentServiceID = paymentServiceID;
     return this;

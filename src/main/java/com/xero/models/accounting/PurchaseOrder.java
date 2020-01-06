@@ -39,6 +39,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class PurchaseOrder {
+
   
   @JsonProperty("Contact")
   private Contact contact = null;
@@ -74,7 +75,6 @@ public class PurchaseOrder {
   
   @JsonProperty("CurrencyCode")
   private CurrencyCode currencyCode;
-
   /**
    * See Purchase Order Status Codes
    */
@@ -115,6 +115,7 @@ public class PurchaseOrder {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
+
 
   
   @JsonProperty("Status")
@@ -191,7 +192,6 @@ public class PurchaseOrder {
   
   @JsonProperty("Attachments")
   private List<Attachment> attachments = new ArrayList<Attachment>();
-
   public PurchaseOrder contact(Contact contact) {
     this.contact = contact;
     return this;

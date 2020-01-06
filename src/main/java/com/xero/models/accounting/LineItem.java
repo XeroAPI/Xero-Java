@@ -32,6 +32,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class LineItem {
+
   
   @JsonProperty("LineItemID")
   private UUID lineItemID;
@@ -83,7 +84,6 @@ public class LineItem {
   
   @JsonProperty("RepeatingInvoiceID")
   private UUID repeatingInvoiceID;
-
   public LineItem lineItemID(UUID lineItemID) {
     this.lineItemID = lineItemID;
     return this;

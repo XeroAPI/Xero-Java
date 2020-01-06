@@ -29,6 +29,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class PaymentTerm {
+
   
   @JsonProperty("Bills")
   private Bill bills = null;
@@ -36,7 +37,6 @@ public class PaymentTerm {
   
   @JsonProperty("Sales")
   private Bill sales = null;
-
   public PaymentTerm bills(Bill bills) {
     this.bills = bills;
     return this;

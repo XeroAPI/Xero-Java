@@ -35,6 +35,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class BatchPayment {
+
   
   @JsonProperty("Account")
   private Account account = null;
@@ -78,7 +79,6 @@ public class BatchPayment {
   
   @JsonProperty("Payments")
   private List<Payment> payments = new ArrayList<Payment>();
-
   /**
    * PAYBATCH for bill payments or RECBATCH for sales invoice payments (read-only)
    */
@@ -114,6 +114,7 @@ public class BatchPayment {
     }
   }
 
+
   
   @JsonProperty("Type")
   private TypeEnum type;
@@ -133,7 +134,6 @@ public class BatchPayment {
   
   @JsonProperty("IsReconciled")
   private String isReconciled;
-
   public BatchPayment account(Account account) {
     this.account = account;
     return this;

@@ -29,6 +29,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class Bill {
+
   
   @JsonProperty("Day")
   private Integer day;
@@ -36,7 +37,6 @@ public class Bill {
   
   @JsonProperty("Type")
   private PaymentTermType type;
-
   public Bill day(Integer day) {
     this.day = day;
     return this;

@@ -31,6 +31,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @ApiModel(description = "The raw AccountsReceivable(sales invoices) and AccountsPayable(bills) outstanding and overdue amounts, not converted to base currency (read only)")
 
 public class Balances {
+
   
   @JsonProperty("AccountsReceivable")
   private AccountsReceivable accountsReceivable = null;
@@ -38,7 +39,6 @@ public class Balances {
   
   @JsonProperty("AccountsPayable")
   private AccountsPayable accountsPayable = null;
-
   public Balances accountsReceivable(AccountsReceivable accountsReceivable) {
     this.accountsReceivable = accountsReceivable;
     return this;

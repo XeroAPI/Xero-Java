@@ -45,7 +45,7 @@ public class BankFeedsApi {
     private ApiClient apiClient;
     private static BankFeedsApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.1.6";
+    private String version = "3.1.7";
 
     public BankFeedsApi() {
         this(new ApiClient());
@@ -90,19 +90,21 @@ public class BankFeedsApi {
     * @return FeedConnections
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public FeedConnections  createFeedConnections(String accessToken,  String xeroTenantId, FeedConnections feedConnections) throws IOException {
-        TypeReference<FeedConnections> typeRef = new TypeReference<FeedConnections>() {};
+    public FeedConnections  createFeedConnections(String accessToken, String xeroTenantId, FeedConnections feedConnections) throws IOException {
         try {
-            HttpResponse response = createFeedConnectionsForHttpResponse(accessToken, xeroTenantId, feedConnections);       
+            TypeReference<FeedConnections> typeRef = new TypeReference<FeedConnections>() {};
+            HttpResponse response = createFeedConnectionsForHttpResponse(accessToken, xeroTenantId, feedConnections);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
-            return apiClient.getObjectMapper().readValue(e.getContent(), typeRef);
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
         } catch (IOException ioe) {
             throw ioe;
         }
+        return null;
     }
 
-    public HttpResponse createFeedConnectionsForHttpResponse(String accessToken,   String xeroTenantId,  FeedConnections feedConnections) throws IOException {
+    public HttpResponse createFeedConnectionsForHttpResponse(String accessToken,  String xeroTenantId,  FeedConnections feedConnections) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createFeedConnections");
@@ -114,7 +116,7 @@ public class BankFeedsApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createFeedConnections");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -145,19 +147,21 @@ public class BankFeedsApi {
     * @return Statements
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Statements  createStatements(String accessToken,  String xeroTenantId, Statements statements) throws IOException {
-        TypeReference<Statements> typeRef = new TypeReference<Statements>() {};
+    public Statements  createStatements(String accessToken, String xeroTenantId, Statements statements) throws IOException {
         try {
-            HttpResponse response = createStatementsForHttpResponse(accessToken, xeroTenantId, statements);       
+            TypeReference<Statements> typeRef = new TypeReference<Statements>() {};
+            HttpResponse response = createStatementsForHttpResponse(accessToken, xeroTenantId, statements);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
-            return apiClient.getObjectMapper().readValue(e.getContent(), typeRef);
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
         } catch (IOException ioe) {
             throw ioe;
         }
+        return null;
     }
 
-    public HttpResponse createStatementsForHttpResponse(String accessToken,   String xeroTenantId,  Statements statements) throws IOException {
+    public HttpResponse createStatementsForHttpResponse(String accessToken,  String xeroTenantId,  Statements statements) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createStatements");
@@ -166,7 +170,7 @@ public class BankFeedsApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createStatements");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -194,19 +198,21 @@ public class BankFeedsApi {
     * @return FeedConnections
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public FeedConnections  deleteFeedConnections(String accessToken,  String xeroTenantId, FeedConnections feedConnections) throws IOException {
-        TypeReference<FeedConnections> typeRef = new TypeReference<FeedConnections>() {};
+    public FeedConnections  deleteFeedConnections(String accessToken, String xeroTenantId, FeedConnections feedConnections) throws IOException {
         try {
-            HttpResponse response = deleteFeedConnectionsForHttpResponse(accessToken, xeroTenantId, feedConnections);       
+            TypeReference<FeedConnections> typeRef = new TypeReference<FeedConnections>() {};
+            HttpResponse response = deleteFeedConnectionsForHttpResponse(accessToken, xeroTenantId, feedConnections);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
-            return apiClient.getObjectMapper().readValue(e.getContent(), typeRef);
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
         } catch (IOException ioe) {
             throw ioe;
         }
+        return null;
     }
 
-    public HttpResponse deleteFeedConnectionsForHttpResponse(String accessToken,   String xeroTenantId,  FeedConnections feedConnections) throws IOException {
+    public HttpResponse deleteFeedConnectionsForHttpResponse(String accessToken,  String xeroTenantId,  FeedConnections feedConnections) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling deleteFeedConnections");
@@ -218,7 +224,7 @@ public class BankFeedsApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling deleteFeedConnections");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -246,19 +252,21 @@ public class BankFeedsApi {
     * @return FeedConnection
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public FeedConnection  getFeedConnection(String accessToken,  String xeroTenantId, UUID id) throws IOException {
-        TypeReference<FeedConnection> typeRef = new TypeReference<FeedConnection>() {};
+    public FeedConnection  getFeedConnection(String accessToken, String xeroTenantId, UUID id) throws IOException {
         try {
-            HttpResponse response = getFeedConnectionForHttpResponse(accessToken, xeroTenantId, id);       
+            TypeReference<FeedConnection> typeRef = new TypeReference<FeedConnection>() {};
+            HttpResponse response = getFeedConnectionForHttpResponse(accessToken, xeroTenantId, id);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
-            return apiClient.getObjectMapper().readValue(e.getContent(), typeRef);
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
         } catch (IOException ioe) {
             throw ioe;
         }
+        return null;
     }
 
-    public HttpResponse getFeedConnectionForHttpResponse(String accessToken,   String xeroTenantId,  UUID id) throws IOException {
+    public HttpResponse getFeedConnectionForHttpResponse(String accessToken,  String xeroTenantId,  UUID id) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getFeedConnection");
@@ -270,7 +278,7 @@ public class BankFeedsApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getFeedConnection");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -303,19 +311,21 @@ public class BankFeedsApi {
     * @return FeedConnections
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public FeedConnections  getFeedConnections(String accessToken,  String xeroTenantId, Integer page, Integer pageSize) throws IOException {
-        TypeReference<FeedConnections> typeRef = new TypeReference<FeedConnections>() {};
+    public FeedConnections  getFeedConnections(String accessToken, String xeroTenantId, Integer page, Integer pageSize) throws IOException {
         try {
-            HttpResponse response = getFeedConnectionsForHttpResponse(accessToken, xeroTenantId, page, pageSize);       
+            TypeReference<FeedConnections> typeRef = new TypeReference<FeedConnections>() {};
+            HttpResponse response = getFeedConnectionsForHttpResponse(accessToken, xeroTenantId, page, pageSize);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
-            return apiClient.getObjectMapper().readValue(e.getContent(), typeRef);
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
         } catch (IOException ioe) {
             throw ioe;
         }
+        return null;
     }
 
-    public HttpResponse getFeedConnectionsForHttpResponse(String accessToken,   String xeroTenantId,  Integer page,  Integer pageSize) throws IOException {
+    public HttpResponse getFeedConnectionsForHttpResponse(String accessToken,  String xeroTenantId,  Integer page,  Integer pageSize) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getFeedConnections");
@@ -324,7 +334,7 @@ public class BankFeedsApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getFeedConnections");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -372,19 +382,21 @@ public class BankFeedsApi {
     * @return Statement
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Statement  getStatement(String accessToken,  String xeroTenantId, UUID statementId) throws IOException {
-        TypeReference<Statement> typeRef = new TypeReference<Statement>() {};
+    public Statement  getStatement(String accessToken, String xeroTenantId, UUID statementId) throws IOException {
         try {
-            HttpResponse response = getStatementForHttpResponse(accessToken, xeroTenantId, statementId);       
+            TypeReference<Statement> typeRef = new TypeReference<Statement>() {};
+            HttpResponse response = getStatementForHttpResponse(accessToken, xeroTenantId, statementId);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
-            return apiClient.getObjectMapper().readValue(e.getContent(), typeRef);
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
         } catch (IOException ioe) {
             throw ioe;
         }
+        return null;
     }
 
-    public HttpResponse getStatementForHttpResponse(String accessToken,   String xeroTenantId,  UUID statementId) throws IOException {
+    public HttpResponse getStatementForHttpResponse(String accessToken,  String xeroTenantId,  UUID statementId) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getStatement");
@@ -396,7 +408,7 @@ public class BankFeedsApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getStatement");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
@@ -431,19 +443,21 @@ public class BankFeedsApi {
     * @return Statements
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Statements  getStatements(String accessToken,  String xeroTenantId, Integer page, Integer pageSize, String xeroApplicationId, String xeroUserId) throws IOException {
-        TypeReference<Statements> typeRef = new TypeReference<Statements>() {};
+    public Statements  getStatements(String accessToken, String xeroTenantId, Integer page, Integer pageSize, String xeroApplicationId, String xeroUserId) throws IOException {
         try {
-            HttpResponse response = getStatementsForHttpResponse(accessToken, xeroTenantId, page, pageSize, xeroApplicationId, xeroUserId);       
+            TypeReference<Statements> typeRef = new TypeReference<Statements>() {};
+            HttpResponse response = getStatementsForHttpResponse(accessToken, xeroTenantId, page, pageSize, xeroApplicationId, xeroUserId);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
-            return apiClient.getObjectMapper().readValue(e.getContent(), typeRef);
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
         } catch (IOException ioe) {
             throw ioe;
         }
+        return null;
     }
 
-    public HttpResponse getStatementsForHttpResponse(String accessToken,   String xeroTenantId,  Integer page,  Integer pageSize,  String xeroApplicationId,  String xeroUserId) throws IOException {
+    public HttpResponse getStatementsForHttpResponse(String accessToken,  String xeroTenantId,  Integer page,  Integer pageSize,  String xeroApplicationId,  String xeroUserId) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getStatements");
@@ -452,7 +466,9 @@ public class BankFeedsApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getStatements");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("Xero-Tenant-Id", xeroTenantId);
+        headers.set("Xero-Application-Id", xeroApplicationId);
+        headers.set("Xero-User-Id", xeroUserId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         

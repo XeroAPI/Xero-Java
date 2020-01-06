@@ -33,6 +33,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class JournalLine {
+
   
   @JsonProperty("JournalLineID")
   private UUID journalLineID;
@@ -80,7 +81,6 @@ public class JournalLine {
   
   @JsonProperty("TrackingCategories")
   private List<TrackingCategory> trackingCategories = new ArrayList<TrackingCategory>();
-
   public JournalLine journalLineID(UUID journalLineID) {
     this.journalLineID = journalLineID;
     return this;

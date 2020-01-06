@@ -28,10 +28,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class ValidationError {
+
   
   @JsonProperty("Message")
   private String message;
-
   public ValidationError message(String message) {
     this.message = message;
     return this;

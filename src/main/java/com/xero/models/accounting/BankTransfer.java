@@ -35,6 +35,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class BankTransfer {
+
   
   @JsonProperty("FromBankAccount")
   private Account fromBankAccount = null;
@@ -78,7 +79,6 @@ public class BankTransfer {
   
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
-
   public BankTransfer fromBankAccount(Account fromBankAccount) {
     this.fromBankAccount = fromBankAccount;
     return this;

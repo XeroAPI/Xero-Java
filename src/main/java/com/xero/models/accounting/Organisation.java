@@ -40,6 +40,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class Organisation {
+
   
   @JsonProperty("OrganisationID")
   private UUID organisationID;
@@ -59,7 +60,6 @@ public class Organisation {
   
   @JsonProperty("PaysTax")
   private Boolean paysTax;
-
   /**
    * See Version Types
    */
@@ -111,10 +111,10 @@ public class Organisation {
     }
   }
 
+
   
   @JsonProperty("Version")
   private VersionEnum version;
-
   /**
    * Organisation Type
    */
@@ -170,6 +170,7 @@ public class Organisation {
     }
   }
 
+
   
   @JsonProperty("OrganisationType")
   private OrganisationTypeEnum organisationType;
@@ -205,7 +206,6 @@ public class Organisation {
   
   @JsonProperty("FinancialYearEndMonth")
   private Integer financialYearEndMonth;
-
   /**
    * The accounting basis used for tax returns. See Sales Tax Basis
    */
@@ -253,10 +253,10 @@ public class Organisation {
     }
   }
 
+
   
   @JsonProperty("SalesTaxBasis")
   private SalesTaxBasisEnum salesTaxBasis;
-
   /**
    * The frequency with which tax returns are processed. See Sales Tax Period
    */
@@ -316,6 +316,7 @@ public class Organisation {
     }
   }
 
+
   
   @JsonProperty("SalesTaxPeriod")
   private SalesTaxPeriodEnum salesTaxPeriod;
@@ -343,7 +344,6 @@ public class Organisation {
   
   @JsonProperty("Timezone")
   private TimeZone timezone;
-
   /**
    * Organisation Type
    */
@@ -399,6 +399,7 @@ public class Organisation {
     }
   }
 
+
   
   @JsonProperty("OrganisationEntityType")
   private OrganisationEntityTypeEnum organisationEntityType;
@@ -406,7 +407,6 @@ public class Organisation {
   
   @JsonProperty("ShortCode")
   private String shortCode;
-
   /**
    * Organisation Classes describe which plan the Xero organisation is on (e.g. DEMO, TRIAL, PREMIUM)
    */
@@ -460,10 +460,10 @@ public class Organisation {
     }
   }
 
+
   
   @JsonProperty("Class")
   private PropertyClassEnum propertyClass;
-
   /**
    * BUSINESS or PARTNER. Partner edition organisations are sold exclusively through accounting partners and have restricted functionality (e.g. no access to invoicing)
    */
@@ -499,6 +499,7 @@ public class Organisation {
     }
   }
 
+
   
   @JsonProperty("Edition")
   private EditionEnum edition;
@@ -522,7 +523,6 @@ public class Organisation {
   
   @JsonProperty("PaymentTerms")
   private PaymentTerm paymentTerms = null;
-
   public Organisation organisationID(UUID organisationID) {
     this.organisationID = organisationID;
     return this;

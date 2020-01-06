@@ -38,6 +38,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class Quote {
+
   
   @JsonProperty("QuoteID")
   private UUID quoteID;
@@ -125,7 +126,6 @@ public class Quote {
   
   @JsonProperty("LineAmountTypes")
   private LineAmountTypes lineAmountTypes;
-
   public Quote quoteID(UUID quoteID) {
     this.quoteID = quoteID;
     return this;

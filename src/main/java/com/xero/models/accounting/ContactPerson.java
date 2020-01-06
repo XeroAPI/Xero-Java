@@ -28,6 +28,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class ContactPerson {
+
   
   @JsonProperty("FirstName")
   private String firstName;
@@ -43,7 +44,6 @@ public class ContactPerson {
   
   @JsonProperty("IncludeInEmails")
   private Boolean includeInEmails;
-
   public ContactPerson firstName(String firstName) {
     this.firstName = firstName;
     return this;

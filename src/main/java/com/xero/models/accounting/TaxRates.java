@@ -31,10 +31,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class TaxRates {
+
   
   @JsonProperty("TaxRates")
   private List<TaxRate> taxRates = new ArrayList<TaxRate>();
-
   public TaxRates taxRates(List<TaxRate> taxRates) {
     this.taxRates = taxRates;
     return this;

@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
-import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -30,6 +30,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class Connection {
+
   
   @JsonProperty("id")
   private UUID id;
@@ -42,14 +43,13 @@ public class Connection {
   @JsonProperty("tenantType")
   private String tenantType;
 
-  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
+  @JsonDeserialize(using = com.xero.api.CustomLocalDateTimeDeserializer.class)
   @JsonProperty("createdDateUTC")
-  private OffsetDateTime createdDateUTC;
+  private LocalDateTime createdDateUTC;
 
-  @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
+  @JsonDeserialize(using = com.xero.api.CustomLocalDateTimeDeserializer.class)
   @JsonProperty("updatedDateUtc")
-  private OffsetDateTime updatedDateUtc;
-
+  private LocalDateTime updatedDateUtc;
   public Connection id(UUID id) {
     this.id = id;
     return this;
@@ -104,7 +104,7 @@ public class Connection {
     this.tenantType = tenantType;
   }
 
-  public Connection createdDateUTC(OffsetDateTime createdDateUTC) {
+  public Connection createdDateUTC(LocalDateTime createdDateUTC) {
     this.createdDateUTC = createdDateUTC;
     return this;
   }
@@ -114,15 +114,15 @@ public class Connection {
    * @return createdDateUTC
   **/
   @ApiModelProperty(value = "The date when the user connected this tenant to your app")
-  public OffsetDateTime getCreatedDateUTC() {
+  public LocalDateTime getCreatedDateUTC() {
     return createdDateUTC;
   }
 
-  public void setCreatedDateUTC(OffsetDateTime createdDateUTC) {
+  public void setCreatedDateUTC(LocalDateTime createdDateUTC) {
     this.createdDateUTC = createdDateUTC;
   }
 
-  public Connection updatedDateUtc(OffsetDateTime updatedDateUtc) {
+  public Connection updatedDateUtc(LocalDateTime updatedDateUtc) {
     this.updatedDateUtc = updatedDateUtc;
     return this;
   }
@@ -132,11 +132,11 @@ public class Connection {
    * @return updatedDateUtc
   **/
   @ApiModelProperty(value = "The date when the user most recently connected this tenant to your app. May differ to the created date if the user has disconnected and subsequently reconnected this tenant to your app.")
-  public OffsetDateTime getUpdatedDateUtc() {
+  public LocalDateTime getUpdatedDateUtc() {
     return updatedDateUtc;
   }
 
-  public void setUpdatedDateUtc(OffsetDateTime updatedDateUtc) {
+  public void setUpdatedDateUtc(LocalDateTime updatedDateUtc) {
     this.updatedDateUtc = updatedDateUtc;
   }
 

@@ -75,6 +75,7 @@ public class CreditNote {
     }
   }
 
+
   
   @JsonProperty("Type")
   private TypeEnum type;
@@ -86,7 +87,6 @@ public class CreditNote {
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("Date")
   private LocalDate date;
-
   /**
    * See Credit Note Status Codes
    */
@@ -129,6 +129,7 @@ public class CreditNote {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
+
 
   
   @JsonProperty("Status")
@@ -213,7 +214,6 @@ public class CreditNote {
   
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
-
   public CreditNote type(TypeEnum type) {
     this.type = type;
     return this;

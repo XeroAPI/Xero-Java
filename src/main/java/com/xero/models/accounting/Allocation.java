@@ -30,6 +30,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class Allocation {
+
   
   @JsonProperty("Invoice")
   private Invoice invoice = null;
@@ -41,7 +42,6 @@ public class Allocation {
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("Date")
   private LocalDate date;
-
   public Allocation invoice(Invoice invoice) {
     this.invoice = invoice;
     return this;

@@ -86,6 +86,7 @@ public class BankTransaction {
     }
   }
 
+
   
   @JsonProperty("Type")
   private TypeEnum type;
@@ -125,7 +126,6 @@ public class BankTransaction {
   
   @JsonProperty("Url")
   private String url;
-
   /**
    * See Bank Transaction Status Codes
    */
@@ -162,6 +162,7 @@ public class BankTransaction {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
+
 
   
   @JsonProperty("Status")
@@ -210,7 +211,6 @@ public class BankTransaction {
   
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
-
   public BankTransaction type(TypeEnum type) {
     this.type = type;
     return this;

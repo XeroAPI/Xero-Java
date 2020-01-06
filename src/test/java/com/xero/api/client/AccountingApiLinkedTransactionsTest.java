@@ -83,10 +83,10 @@ public class AccountingApiLinkedTransactionsTest {
 	}
 
     @Test
-    public void createLinkedTransactionsTest() throws IOException {
-        System.out.println("@Test - createLinkedTransactions");
-        LinkedTransactions linkedTransactions = new LinkedTransactions();
-        LinkedTransactions response = accountingApi.createLinkedTransactions(accessToken,xeroTenantId,linkedTransactions);
+    public void createLinkedTransactionTest() throws IOException {
+        System.out.println("@Test - createLinkedTransaction");
+        LinkedTransaction linkedTransaction = new LinkedTransaction();
+        LinkedTransactions response = accountingApi.createLinkedTransaction(accessToken,xeroTenantId,linkedTransaction);
 
         assertThat(response.getLinkedTransactions().get(0).getSourceTransactionID(), is(equalTo(UUID.fromString("a848644a-f20f-4630-98c3-386bd7505631"))));
         assertThat(response.getLinkedTransactions().get(0).getSourceLineItemID(), is(equalTo(UUID.fromString("b0df260d-3cc8-4ced-9bd6-41924f624ed3"))));

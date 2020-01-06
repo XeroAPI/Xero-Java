@@ -69,6 +69,7 @@ public class ExternalLink {
     }
   }
 
+
   
   @JsonProperty("LinkType")
   private LinkTypeEnum linkType;
@@ -80,7 +81,6 @@ public class ExternalLink {
   
   @JsonProperty("Description")
   private String description;
-
   public ExternalLink linkType(LinkTypeEnum linkType) {
     this.linkType = linkType;
     return this;

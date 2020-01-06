@@ -31,10 +31,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class Employee {
+
   
   @JsonProperty("EmployeeID")
   private UUID employeeID;
-
   /**
    * Current status of an employee – see contact status types
    */
@@ -72,6 +72,7 @@ public class Employee {
     }
   }
 
+
   
   @JsonProperty("Status")
   private StatusEnum status;
@@ -91,7 +92,6 @@ public class Employee {
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
   private OffsetDateTime updatedDateUTC;
-
   public Employee employeeID(UUID employeeID) {
     this.employeeID = employeeID;
     return this;

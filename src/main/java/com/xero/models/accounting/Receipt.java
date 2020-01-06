@@ -39,6 +39,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class Receipt {
+
   @JsonDeserialize(using = com.xero.api.CustomDateDeserializer.class)
   @JsonProperty("Date")
   private LocalDate date;
@@ -78,7 +79,6 @@ public class Receipt {
   
   @JsonProperty("ReceiptID")
   private UUID receiptID;
-
   /**
    * Current status of receipt – see status types
    */
@@ -118,6 +118,7 @@ public class Receipt {
     }
   }
 
+
   
   @JsonProperty("Status")
   private StatusEnum status;
@@ -145,7 +146,6 @@ public class Receipt {
   
   @JsonProperty("Attachments")
   private List<Attachment> attachments = new ArrayList<Attachment>();
-
   public Receipt date(LocalDate date) {
     this.date = date;
     return this;
