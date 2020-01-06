@@ -24,6 +24,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -75,7 +76,7 @@ public class LineItem {
 
   
   @JsonProperty("DiscountRate")
-  private String discountRate;
+  private Double discountRate;
 
   
   @JsonProperty("DiscountAmount")
@@ -272,7 +273,7 @@ public class LineItem {
     this.tracking = tracking;
   }
 
-  public LineItem discountRate(String discountRate) {
+  public LineItem discountRate(Double discountRate) {
     this.discountRate = discountRate;
     return this;
   }
@@ -282,11 +283,11 @@ public class LineItem {
    * @return discountRate
   **/
   @ApiModelProperty(value = "Percentage discount being applied to a line item (only supported on  ACCREC invoices – ACC PAY invoices and credit notes in Xero do not support discounts")
-  public String getDiscountRate() {
+  public Double getDiscountRate() {
     return discountRate;
   }
 
-  public void setDiscountRate(String discountRate) {
+  public void setDiscountRate(Double discountRate) {
     this.discountRate = discountRate;
   }
 

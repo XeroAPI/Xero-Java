@@ -15,6 +15,7 @@ package com.xero.models.accounting;
 
 import java.util.Objects;
 import java.util.Arrays;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
