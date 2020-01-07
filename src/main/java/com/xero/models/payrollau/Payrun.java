@@ -25,6 +25,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -33,6 +34,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class PayRun {
+
   
   @JsonProperty("PayrollCalendarID")
   private UUID payrollCalendarID;
@@ -92,7 +94,6 @@ public class PayRun {
   
   @JsonProperty("NetPay")
   private Float netPay;
-
   public PayRun payrollCalendarID(UUID payrollCalendarID) {
     this.payrollCalendarID = payrollCalendarID;
     return this;

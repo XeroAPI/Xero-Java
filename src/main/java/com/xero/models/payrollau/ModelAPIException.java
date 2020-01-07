@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -30,6 +31,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @ApiModel(description = "The object returned for a bad request")
 
 public class ModelAPIException {
+
   
   @JsonProperty("ErrorNumber")
   private BigDecimal errorNumber;
@@ -41,7 +43,6 @@ public class ModelAPIException {
   
   @JsonProperty("Message")
   private String message;
-
   public ModelAPIException errorNumber(BigDecimal errorNumber) {
     this.errorNumber = errorNumber;
     return this;

@@ -23,6 +23,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -32,10 +33,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @ApiModel(description = "The reimbursement type lines")
 
 public class ReimbursementLines {
+
   
   @JsonProperty("ReimbursementLines")
   private List<ReimbursementLine> reimbursementLines = new ArrayList<ReimbursementLine>();
-
   public ReimbursementLines reimbursementLines(List<ReimbursementLine> reimbursementLines) {
     this.reimbursementLines = reimbursementLines;
     return this;

@@ -22,6 +22,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.UUID;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -30,6 +31,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class SuperMembership {
+
   
   @JsonProperty("SuperMembershipID")
   private UUID superMembershipID;
@@ -41,7 +43,6 @@ public class SuperMembership {
   
   @JsonProperty("EmployeeNumber")
   private BigDecimal employeeNumber;
-
   public SuperMembership superMembershipID(UUID superMembershipID) {
     this.superMembershipID = superMembershipID;
     return this;

@@ -22,6 +22,7 @@ import com.xero.models.payrollau.EarningsRateCalculationType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -30,6 +31,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class EarningsLine {
+
   
   @JsonProperty("EarningsRateID")
   private UUID earningsRateID;
@@ -65,7 +67,6 @@ public class EarningsLine {
   
   @JsonProperty("FixedAmount")
   private Float fixedAmount;
-
   public EarningsLine earningsRateID(UUID earningsRateID) {
     this.earningsRateID = earningsRateID;
     return this;

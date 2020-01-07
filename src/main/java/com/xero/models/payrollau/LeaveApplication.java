@@ -24,6 +24,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -32,6 +33,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class LeaveApplication {
+
   
   @JsonProperty("LeaveApplicationID")
   private UUID leaveApplicationID;
@@ -63,7 +65,6 @@ public class LeaveApplication {
   
   @JsonProperty("LeavePeriods")
   private List<LeavePeriod> leavePeriods = new ArrayList<LeavePeriod>();
-
   public LeaveApplication leaveApplicationID(UUID leaveApplicationID) {
     this.leaveApplicationID = leaveApplicationID;
     return this;

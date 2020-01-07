@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.payrollau.ManualTaxType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -29,6 +30,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class TaxLine {
+
   
   @JsonProperty("Amount")
   private Float amount;
@@ -48,7 +50,6 @@ public class TaxLine {
   
   @JsonProperty("LiabilityAccount")
   private String liabilityAccount;
-
   public TaxLine amount(Float amount) {
     this.amount = amount;
     return this;

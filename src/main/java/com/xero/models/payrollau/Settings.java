@@ -25,6 +25,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -33,6 +34,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class Settings {
+
   
   @JsonProperty("Accounts")
   private List<Account> accounts = new ArrayList<Account>();
@@ -44,7 +46,6 @@ public class Settings {
   
   @JsonProperty("DaysInPayrollYear")
   private BigDecimal daysInPayrollYear;
-
   public Settings accounts(List<Account> accounts) {
     this.accounts = accounts;
     return this;

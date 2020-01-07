@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -28,6 +29,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class BankAccount {
+
   
   @JsonProperty("StatementText")
   private String statementText;
@@ -51,7 +53,6 @@ public class BankAccount {
   
   @JsonProperty("Amount")
   private Float amount;
-
   public BankAccount statementText(String statementText) {
     this.statementText = statementText;
     return this;

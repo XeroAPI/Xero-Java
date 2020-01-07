@@ -22,6 +22,7 @@ import com.xero.models.payrollau.SettingsTrackingCategoriesEmployeeGroups;
 import com.xero.models.payrollau.SettingsTrackingCategoriesTimesheetCategories;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -31,6 +32,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @ApiModel(description = "Tracking categories for Employees and Timesheets")
 
 public class SettingsTrackingCategories {
+
   
   @JsonProperty("EmployeeGroups")
   private SettingsTrackingCategoriesEmployeeGroups employeeGroups = null;
@@ -38,7 +40,6 @@ public class SettingsTrackingCategories {
   
   @JsonProperty("TimesheetCategories")
   private SettingsTrackingCategoriesTimesheetCategories timesheetCategories = null;
-
   public SettingsTrackingCategories employeeGroups(SettingsTrackingCategoriesEmployeeGroups employeeGroups) {
     this.employeeGroups = employeeGroups;
     return this;

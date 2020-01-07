@@ -23,6 +23,7 @@ import com.xero.models.payrollau.EntitlementFinalPayPayoutType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -31,6 +32,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class LeaveLine {
+
   
   @JsonProperty("LeaveTypeID")
   private UUID leaveTypeID;
@@ -54,7 +56,6 @@ public class LeaveLine {
   
   @JsonProperty("NumberOfUnits")
   private Float numberOfUnits;
-
   public LeaveLine leaveTypeID(UUID leaveTypeID) {
     this.leaveTypeID = leaveTypeID;
     return this;

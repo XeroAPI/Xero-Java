@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -28,6 +29,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class SuperFundProduct {
+
   
   @JsonProperty("ABN")
   private Object ABN = null;
@@ -43,7 +45,6 @@ public class SuperFundProduct {
   
   @JsonProperty("ProductName")
   private Object productName = null;
-
   public SuperFundProduct ABN(Object ABN) {
     this.ABN = ABN;
     return this;

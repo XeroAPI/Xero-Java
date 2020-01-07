@@ -22,6 +22,7 @@ import com.xero.models.payrollau.SuperFundType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -30,6 +31,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class SuperFund {
+
   
   @JsonProperty("SuperFundID")
   private UUID superFundID;
@@ -73,7 +75,6 @@ public class SuperFund {
   
   @JsonProperty("USI")
   private String USI;
-
   public SuperFund superFundID(UUID superFundID) {
     this.superFundID = superFundID;
     return this;

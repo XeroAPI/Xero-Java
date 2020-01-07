@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -29,6 +30,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class LeaveAccrualLine {
+
   
   @JsonProperty("LeaveTypeID")
   private UUID leaveTypeID;
@@ -40,7 +42,6 @@ public class LeaveAccrualLine {
   
   @JsonProperty("AutoCalculate")
   private Boolean autoCalculate;
-
   public LeaveAccrualLine leaveTypeID(UUID leaveTypeID) {
     this.leaveTypeID = leaveTypeID;
     return this;

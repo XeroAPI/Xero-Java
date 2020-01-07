@@ -30,6 +30,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -38,6 +39,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class Employee {
+
   
   @JsonProperty("FirstName")
   private String firstName;
@@ -69,7 +71,6 @@ public class Employee {
   
   @JsonProperty("Email")
   private String email;
-
   /**
    * The employee’s gender. See Employee Gender
    */
@@ -108,6 +109,7 @@ public class Employee {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
+
 
   
   @JsonProperty("Gender")
@@ -188,7 +190,6 @@ public class Employee {
   
   @JsonProperty("UpdatedDateUTC")
   private String updatedDateUTC;
-
   public Employee firstName(String firstName) {
     this.firstName = firstName;
     return this;

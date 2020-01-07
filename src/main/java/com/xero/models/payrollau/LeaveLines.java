@@ -23,6 +23,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -32,10 +33,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @ApiModel(description = "The leave type lines")
 
 public class LeaveLines {
+
   
   @JsonProperty("Employee")
   private List<LeaveLine> employee = new ArrayList<LeaveLine>();
-
   public LeaveLines employee(List<LeaveLine> employee) {
     this.employee = employee;
     return this;

@@ -24,6 +24,7 @@ import com.xero.models.payrollau.RateType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -32,6 +33,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class EarningsRate {
+
   
   @JsonProperty("Name")
   private String name;
@@ -91,7 +93,6 @@ public class EarningsRate {
   
   @JsonProperty("UpdatedDateUTC")
   private String updatedDateUTC;
-
   public EarningsRate name(String name) {
     this.name = name;
     return this;

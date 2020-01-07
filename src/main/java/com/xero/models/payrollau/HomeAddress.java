@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.payrollau.State;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -29,6 +30,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class HomeAddress {
+
   
   @JsonProperty("AddressLine1")
   private String addressLine1;
@@ -52,7 +54,6 @@ public class HomeAddress {
   
   @JsonProperty("Country")
   private String country;
-
   public HomeAddress addressLine1(String addressLine1) {
     this.addressLine1 = addressLine1;
     return this;

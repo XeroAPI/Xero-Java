@@ -23,6 +23,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -31,10 +32,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class SuperFundProducts {
+
   
   @JsonProperty("SuperFundProducts")
   private List<SuperFundProduct> superFundProducts = new ArrayList<SuperFundProduct>();
-
   public SuperFundProducts superFundProducts(List<SuperFundProduct> superFundProducts) {
     this.superFundProducts = superFundProducts;
     return this;

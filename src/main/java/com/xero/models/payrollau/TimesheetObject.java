@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.payrollau.Timesheet;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -29,10 +30,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class TimesheetObject {
+
   
   @JsonProperty("Timesheet")
   private Timesheet timesheet = null;
-
   public TimesheetObject timesheet(Timesheet timesheet) {
     this.timesheet = timesheet;
     return this;

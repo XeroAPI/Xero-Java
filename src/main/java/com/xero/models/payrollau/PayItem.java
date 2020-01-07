@@ -26,6 +26,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -34,6 +35,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class PayItem {
+
   
   @JsonProperty("EarningsRates")
   private List<EarningsRate> earningsRates = new ArrayList<EarningsRate>();
@@ -49,7 +51,6 @@ public class PayItem {
   
   @JsonProperty("ReimbursementTypes")
   private List<ReimbursementType> reimbursementTypes = new ArrayList<ReimbursementType>();
-
   public PayItem earningsRates(List<EarningsRate> earningsRates) {
     this.earningsRates = earningsRates;
     return this;

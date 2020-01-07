@@ -22,6 +22,7 @@ import com.xero.models.payrollau.CalendarType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -30,6 +31,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class PayrollCalendar {
+
   
   @JsonProperty("Name")
   private String name;
@@ -49,7 +51,6 @@ public class PayrollCalendar {
   
   @JsonProperty("PayrollCalendarID")
   private UUID payrollCalendarID;
-
   public PayrollCalendar name(String name) {
     this.name = name;
     return this;

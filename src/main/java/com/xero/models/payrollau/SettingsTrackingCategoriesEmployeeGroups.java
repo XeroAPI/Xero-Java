@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -30,6 +31,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @ApiModel(description = "The tracking category used for employees")
 
 public class SettingsTrackingCategoriesEmployeeGroups {
+
   
   @JsonProperty("TrackingCategoryID")
   private UUID trackingCategoryID;
@@ -37,7 +39,6 @@ public class SettingsTrackingCategoriesEmployeeGroups {
   
   @JsonProperty("TrackingCategoryName")
   private String trackingCategoryName;
-
   public SettingsTrackingCategoriesEmployeeGroups trackingCategoryID(UUID trackingCategoryID) {
     this.trackingCategoryID = trackingCategoryID;
     return this;

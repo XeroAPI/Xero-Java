@@ -22,6 +22,7 @@ import com.xero.models.payrollau.AccountType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -30,6 +31,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class Account {
+
   
   @JsonProperty("AccountID")
   private UUID accountID;
@@ -45,7 +47,6 @@ public class Account {
   
   @JsonProperty("Name")
   private String name;
-
   public Account accountID(UUID accountID) {
     this.accountID = accountID;
     return this;

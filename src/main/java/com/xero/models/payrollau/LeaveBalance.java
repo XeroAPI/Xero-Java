@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -28,6 +29,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class LeaveBalance {
+
   
   @JsonProperty("LeaveName")
   private String leaveName;
@@ -43,7 +45,6 @@ public class LeaveBalance {
   
   @JsonProperty("TypeOfUnits")
   private String typeOfUnits;
-
   public LeaveBalance leaveName(String leaveName) {
     this.leaveName = leaveName;
     return this;

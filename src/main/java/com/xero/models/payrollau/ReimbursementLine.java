@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -29,6 +30,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class ReimbursementLine {
+
   
   @JsonProperty("ReimbursementTypeID")
   private UUID reimbursementTypeID;
@@ -44,7 +46,6 @@ public class ReimbursementLine {
   
   @JsonProperty("ExpenseAccount")
   private String expenseAccount;
-
   public ReimbursementLine reimbursementTypeID(UUID reimbursementTypeID) {
     this.reimbursementTypeID = reimbursementTypeID;
     return this;

@@ -23,6 +23,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -31,10 +32,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class PayRuns {
+
   
   @JsonProperty("PayRuns")
   private List<PayRun> payRuns = new ArrayList<PayRun>();
-
   public PayRuns payRuns(List<PayRun> payRuns) {
     this.payRuns = payRuns;
     return this;

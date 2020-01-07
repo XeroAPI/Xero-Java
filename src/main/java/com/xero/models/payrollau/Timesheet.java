@@ -25,6 +25,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -33,6 +34,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class Timesheet {
+
   
   @JsonProperty("EmployeeID")
   private UUID employeeID;
@@ -60,7 +62,6 @@ public class Timesheet {
   
   @JsonProperty("TimesheetLines")
   private List<TimesheetLine> timesheetLines = new ArrayList<TimesheetLine>();
-
   public Timesheet employeeID(UUID employeeID) {
     this.employeeID = employeeID;
     return this;

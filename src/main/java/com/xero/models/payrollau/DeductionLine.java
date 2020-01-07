@@ -22,6 +22,7 @@ import com.xero.models.payrollau.DeductionTypeCalculationType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -30,6 +31,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class DeductionLine {
+
   
   @JsonProperty("DeductionTypeID")
   private UUID deductionTypeID;
@@ -49,7 +51,6 @@ public class DeductionLine {
   
   @JsonProperty("NumberOfUnits")
   private Float numberOfUnits;
-
   public DeductionLine deductionTypeID(UUID deductionTypeID) {
     this.deductionTypeID = deductionTypeID;
     return this;

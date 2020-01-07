@@ -99,7 +99,7 @@ public class AccountingApi {
     private ApiClient apiClient;
     private static AccountingApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.1.7";
+    private String version = "3.1.8";
 
     public AccountingApi() {
         this(new ApiClient());

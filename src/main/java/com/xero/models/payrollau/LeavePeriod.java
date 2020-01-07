@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.payrollau.LeavePeriodStatus;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -29,6 +30,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class LeavePeriod {
+
   
   @JsonProperty("NumberOfUnits")
   private Float numberOfUnits;
@@ -44,7 +46,6 @@ public class LeavePeriod {
   
   @JsonProperty("LeavePeriodStatus")
   private LeavePeriodStatus leavePeriodStatus;
-
   public LeavePeriod numberOfUnits(Float numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
     return this;

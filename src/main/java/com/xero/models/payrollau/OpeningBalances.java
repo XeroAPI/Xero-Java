@@ -27,6 +27,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -35,6 +36,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class OpeningBalances {
+
   
   @JsonProperty("OpeningBalanceDate")
   private String openingBalanceDate;
@@ -62,7 +64,6 @@ public class OpeningBalances {
   
   @JsonProperty("LeaveLines")
   private List<LeaveLine> leaveLines = new ArrayList<LeaveLine>();
-
   public OpeningBalances openingBalanceDate(String openingBalanceDate) {
     this.openingBalanceDate = openingBalanceDate;
     return this;

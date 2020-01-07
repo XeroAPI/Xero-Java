@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.payrollau.PayItem;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -29,10 +30,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class PayItems {
+
   
   @JsonProperty("PayItems")
   private PayItem payItems = null;
-
   public PayItems payItems(PayItem payItems) {
     this.payItems = payItems;
     return this;

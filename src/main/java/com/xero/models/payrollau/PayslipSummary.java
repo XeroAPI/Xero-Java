@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import org.threeten.bp.LocalDateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -29,6 +30,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  */
 
 public class PayslipSummary {
+
   
   @JsonProperty("EmployeeID")
   private Object employeeID = null;
@@ -72,7 +74,6 @@ public class PayslipSummary {
   
   @JsonProperty("UpdatedDateUTC")
   private String updatedDateUTC;
-
   public PayslipSummary employeeID(Object employeeID) {
     this.employeeID = employeeID;
     return this;
