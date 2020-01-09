@@ -41,7 +41,7 @@ public class IdentityApi {
     private ApiClient apiClient;
     private static IdentityApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.1.8";
+    private String version = "3.1.9";
 
     public IdentityApi() {
         this(new ApiClient());
@@ -113,7 +113,7 @@ public class IdentityApi {
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("id", id);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri("https://api.xero.com" + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
@@ -157,7 +157,7 @@ public class IdentityApi {
         headers.setUserAgent(this.getUserAgent());
         
         String correctPath = "/connections";
-        UriBuilder uriBuilder = UriBuilder.fromUri("https://api.xero.com" + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 

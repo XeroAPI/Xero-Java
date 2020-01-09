@@ -99,7 +99,7 @@ public class AccountingApi {
     private ApiClient apiClient;
     private static AccountingApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.1.8";
+    private String version = "3.1.9";
 
     public AccountingApi() {
         this(new ApiClient());
@@ -257,7 +257,7 @@ public class AccountingApi {
     }
 
   /**
-    * Allows you to create a spend or receive money transaction
+    * Allows you to create a single spend or receive money transaction
     * <p><b>200</b> - Success - return response of type BankTransactions array with new BankTransaction
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
@@ -488,7 +488,7 @@ public class AccountingApi {
         String correctPath = "/BankTransactions";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (summarizeErrors != null) {
-            String key = "SummarizeErrors";
+            String key = "summarizeErrors";
             Object value = summarizeErrors;
             if (value instanceof Collection) {
                 uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
@@ -1230,7 +1230,7 @@ public class AccountingApi {
         String correctPath = "/Contacts";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (summarizeErrors != null) {
-            String key = "SummarizeErrors";
+            String key = "summarizeErrors";
             Object value = summarizeErrors;
             if (value instanceof Collection) {
                 uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
@@ -1254,7 +1254,7 @@ public class AccountingApi {
     }
 
   /**
-    * Allows you to create a credit note
+    * Allows you to create a single credit note
     * <p><b>200</b> - Success - return response of type Credit Notes array of newly created CreditNote
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
@@ -1549,7 +1549,7 @@ public class AccountingApi {
         String correctPath = "/CreditNotes";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (summarizeErrors != null) {
-            String key = "SummarizeErrors";
+            String key = "summarizeErrors";
             Object value = summarizeErrors;
             if (value instanceof Collection) {
                 uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
@@ -1626,7 +1626,7 @@ public class AccountingApi {
     }
 
   /**
-    * Allows you to create new employees used in Xero payrun
+    * Allows you to create a single new employees used in Xero payrun
     * <p><b>200</b> - Success - return response of type Employees array with new Employee
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
@@ -2042,7 +2042,7 @@ public class AccountingApi {
     }
 
   /**
-    * Allows you to create any sales invoices or purchase bills
+    * Allows you to create a single sales invoices or purchase bills
     * <p><b>200</b> - Success - return response of type Invoices array with newly created Invoice
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
@@ -2085,7 +2085,7 @@ public class AccountingApi {
         String correctPath = "/Invoices";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (summarizeErrors != null) {
-            String key = "SummarizeErrors";
+            String key = "summarizeErrors";
             Object value = summarizeErrors;
             if (value instanceof Collection) {
                 uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
@@ -2109,7 +2109,7 @@ public class AccountingApi {
     }
 
   /**
-    * Allows you to create an item
+    * Allows you to create a single item
     * <p><b>200</b> - Success - return response of type Items array with newly created Item
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
@@ -2270,7 +2270,7 @@ public class AccountingApi {
         String correctPath = "/Items";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (summarizeErrors != null) {
-            String key = "SummarizeErrors";
+            String key = "summarizeErrors";
             Object value = summarizeErrors;
             if (value instanceof Collection) {
                 uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
@@ -2349,7 +2349,7 @@ public class AccountingApi {
     }
 
   /**
-    * Allows you to create a manual journal
+    * Allows you to create a single manual journal
     * <p><b>200</b> - Success - return response of type ManualJournals array with newly created ManualJournal
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
@@ -2528,7 +2528,7 @@ public class AccountingApi {
     }
 
   /**
-    * Allows you to retrieve Allocations for overpayments
+    * Allows you to create a single allocations for overpayments
     * <p><b>200</b> - Success - return response of type Allocations array with all Allocation for Overpayments
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
@@ -2592,7 +2592,7 @@ public class AccountingApi {
     }
 
   /**
-    * Allows you to create Allocations for overpayments
+    * Allows you to create a single allocation for an overpayment
     * <p><b>200</b> - Success - return response of type Allocations array with all Allocation for Overpayments
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
@@ -2720,7 +2720,7 @@ public class AccountingApi {
     }
 
   /**
-    * Allows you to create payments for invoices and credit notes
+    * Allows you to create a single payment for invoices or credit notes
     * <p><b>200</b> - Success - return response of type Payments array for newly created Payment
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
@@ -2894,7 +2894,7 @@ public class AccountingApi {
     }
 
   /**
-    * Allows you to create payments for invoices and credit notes
+    * Allows you to create multiple payments for invoices or credit notes
     * <p><b>200</b> - Success - return response of type Payments array for newly created Payment
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
@@ -3196,7 +3196,7 @@ public class AccountingApi {
     }
 
   /**
-    * Allows you to create purchase orders
+    * Allows you to create multiple purchase orders
     * <p><b>200</b> - Success - return response of type PurchaseOrder array for specified PurchaseOrder
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
@@ -3239,7 +3239,7 @@ public class AccountingApi {
         String correctPath = "/PurchaseOrders";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         if (summarizeErrors != null) {
-            String key = "SummarizeErrors";
+            String key = "summarizeErrors";
             Object value = summarizeErrors;
             if (value instanceof Collection) {
                 uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
