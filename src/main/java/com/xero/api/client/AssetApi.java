@@ -77,6 +77,16 @@ public class AssetApi {
         return this.userAgent +  "[Xero-Java-" + this.version + "]";
     }
 
+    private HttpRequestFactory getRequestFactory(String accessToken) {
+        if(apiClient.getHttpRequestFactory() != null){
+            return apiClient.getHttpRequestFactory();
+        } else {
+            Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+            HttpTransport transport = apiClient.getHttpTransport();
+            return transport.createRequestFactory(credential);
+        }
+    }
+    
   /**
     * adds a fixed asset
     * Adds an asset to the system
@@ -124,9 +134,7 @@ public class AssetApi {
         GenericUrl genericUrl = new GenericUrl(url);
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(asset);
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         
         return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();    
     }
@@ -176,9 +184,7 @@ public class AssetApi {
         GenericUrl genericUrl = new GenericUrl(url);
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(assetType);
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         
         return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();    
     }
@@ -234,9 +240,7 @@ public class AssetApi {
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
         HttpContent content = null;
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         
         return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();    
     }
@@ -283,9 +287,7 @@ public class AssetApi {
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
         HttpContent content = null;
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         
         return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();    
     }
@@ -332,9 +334,7 @@ public class AssetApi {
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
         HttpContent content = null;
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         
         return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();    
     }
@@ -451,9 +451,7 @@ public class AssetApi {
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
         HttpContent content = null;
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         
         return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();    
     }

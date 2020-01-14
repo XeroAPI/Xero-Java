@@ -22,7 +22,7 @@ public class ApiClient {
     private final String basePath;
     private final HttpRequestFactory httpRequestFactory;
     private final ObjectMapper objectMapper;
-    private HttpTransport httpTransport = new NetHttpTransport();
+    private HttpTransport httpTransport;
 
     private static final String defaultBasePath = "https://api.xero.com/api.xro/2.0";
 
@@ -59,6 +59,8 @@ public class ApiClient {
         );
         if (transport != null) {
             this.httpTransport = transport;
+        } else {
+            this.httpTransport = new NetHttpTransport();
         }
         this.httpRequestFactory = (reqFactory != null ? reqFactory : (transport == null ? Utils.getDefaultTransport() : transport).createRequestFactory(initializer) );
         this.objectMapper = (objectMapper == null ? createDefaultObjectMapper() : objectMapper);

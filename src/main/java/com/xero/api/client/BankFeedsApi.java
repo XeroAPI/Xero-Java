@@ -78,6 +78,16 @@ public class BankFeedsApi {
         return this.userAgent +  "[Xero-Java-" + this.version + "]";
     }
 
+    private HttpRequestFactory getRequestFactory(String accessToken) {
+        if(apiClient.getHttpRequestFactory() != null){
+            return apiClient.getHttpRequestFactory();
+        } else {
+            Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+            HttpTransport transport = apiClient.getHttpTransport();
+            return transport.createRequestFactory(credential);
+        }
+    }
+
   /**
     * create one or more new feed connection
     * By passing in the FeedConnections array object in the body, you can create one or more new feed connections
@@ -126,9 +136,7 @@ public class BankFeedsApi {
         GenericUrl genericUrl = new GenericUrl(url);
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(feedConnections);
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         
         return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();    
     }
@@ -180,9 +188,7 @@ public class BankFeedsApi {
         GenericUrl genericUrl = new GenericUrl(url);
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(statements);
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         
         return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();    
     }
@@ -234,9 +240,7 @@ public class BankFeedsApi {
         GenericUrl genericUrl = new GenericUrl(url);
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(feedConnections);
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         
         return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();    
     }
@@ -292,9 +296,7 @@ public class BankFeedsApi {
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
         HttpContent content = null;
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         
         return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();    
     }
@@ -364,9 +366,7 @@ public class BankFeedsApi {
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
         HttpContent content = null;
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         
         return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();    
     }
@@ -422,9 +422,7 @@ public class BankFeedsApi {
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
         HttpContent content = null;
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         
         return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();    
     }
@@ -498,9 +496,7 @@ public class BankFeedsApi {
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
         HttpContent content = null;
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         
         return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();    
     }

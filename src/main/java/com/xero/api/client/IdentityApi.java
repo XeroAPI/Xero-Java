@@ -74,6 +74,16 @@ public class IdentityApi {
         return this.userAgent +  "[Xero-Java-" + this.version + "]";
     }
 
+    private HttpRequestFactory getRequestFactory(String accessToken) {
+        if(apiClient.getHttpRequestFactory() != null){
+            return apiClient.getHttpRequestFactory();
+        } else {
+            Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+            HttpTransport transport = apiClient.getHttpTransport();
+            return transport.createRequestFactory(credential);
+        }
+    }
+    
   /**
     * Allows you to delete a connection for this user (i.e. disconnect a tenant)
     * Override the base server url that include version
@@ -119,9 +129,7 @@ public class IdentityApi {
 
         
         HttpContent content = null;
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         return requestFactory.buildRequest(HttpMethods.DELETE, genericUrl, content).setHeaders(headers).execute();
     }
 
@@ -163,9 +171,7 @@ public class IdentityApi {
 
         
         HttpContent content = null;
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 

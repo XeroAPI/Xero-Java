@@ -92,6 +92,16 @@ public class PayrollAuApi {
         return this.userAgent +  "[Xero-Java-" + this.version + "]";
     }
 
+    private HttpRequestFactory getRequestFactory(String accessToken) {
+        if(apiClient.getHttpRequestFactory() != null){
+            return apiClient.getHttpRequestFactory();
+        } else {
+            Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+            HttpTransport transport = apiClient.getHttpTransport();
+            return transport.createRequestFactory(credential);
+        }
+    }
+    
   /**
     * Use this method to create a payroll employee
     * <p><b>200</b> - A successful request
@@ -141,9 +151,7 @@ public class PayrollAuApi {
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(employee);
         
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
@@ -196,9 +204,7 @@ public class PayrollAuApi {
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(leaveApplication);
         
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
@@ -251,9 +257,7 @@ public class PayrollAuApi {
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(payItem);
         
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
@@ -306,9 +310,7 @@ public class PayrollAuApi {
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(payRun);
         
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
@@ -361,9 +363,7 @@ public class PayrollAuApi {
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(payrollCalendar);
         
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
@@ -416,9 +416,7 @@ public class PayrollAuApi {
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(superFund);
         
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
@@ -471,9 +469,7 @@ public class PayrollAuApi {
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(timesheet);
         
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
@@ -528,9 +524,7 @@ public class PayrollAuApi {
 
         
         HttpContent content = null;
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
@@ -613,9 +607,7 @@ public class PayrollAuApi {
 
         
         HttpContent content = null;
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
@@ -670,9 +662,7 @@ public class PayrollAuApi {
 
         
         HttpContent content = null;
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
@@ -755,9 +745,7 @@ public class PayrollAuApi {
 
         
         HttpContent content = null;
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
@@ -840,9 +828,7 @@ public class PayrollAuApi {
 
         
         HttpContent content = null;
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
@@ -897,9 +883,7 @@ public class PayrollAuApi {
 
         
         HttpContent content = null;
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
@@ -982,9 +966,7 @@ public class PayrollAuApi {
 
         
         HttpContent content = null;
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
@@ -1040,9 +1022,7 @@ public class PayrollAuApi {
 
         
         HttpContent content = null;
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
@@ -1125,9 +1105,7 @@ public class PayrollAuApi {
 
         
         HttpContent content = null;
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
@@ -1182,9 +1160,7 @@ public class PayrollAuApi {
 
         
         HttpContent content = null;
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
@@ -1230,9 +1206,7 @@ public class PayrollAuApi {
 
         
         HttpContent content = null;
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
@@ -1302,9 +1276,7 @@ public class PayrollAuApi {
 
         
         HttpContent content = null;
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
@@ -1387,9 +1359,7 @@ public class PayrollAuApi {
 
         
         HttpContent content = null;
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
@@ -1444,9 +1414,7 @@ public class PayrollAuApi {
 
         
         HttpContent content = null;
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
@@ -1501,9 +1469,7 @@ public class PayrollAuApi {
 
         
         HttpContent content = null;
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
@@ -1586,9 +1552,7 @@ public class PayrollAuApi {
 
         
         HttpContent content = null;
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
     }
 
@@ -1647,9 +1611,7 @@ public class PayrollAuApi {
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(employee);
         
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
@@ -1711,9 +1673,7 @@ public class PayrollAuApi {
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(leaveApplication);
         
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
@@ -1772,9 +1732,7 @@ public class PayrollAuApi {
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(payRun);
         
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
@@ -1833,9 +1791,7 @@ public class PayrollAuApi {
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(payslipObject);
         
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
@@ -1894,9 +1850,7 @@ public class PayrollAuApi {
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(superFund);
         
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
@@ -1955,9 +1909,7 @@ public class PayrollAuApi {
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(timesheet);
         
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        HttpRequestFactory requestFactory = getRequestFactory(accessToken);
         return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();
     }
 
