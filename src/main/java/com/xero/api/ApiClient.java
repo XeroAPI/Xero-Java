@@ -23,6 +23,8 @@ public class ApiClient {
     private final HttpRequestFactory httpRequestFactory;
     private final ObjectMapper objectMapper;
     private HttpTransport httpTransport = new NetHttpTransport();
+    private int connectionTimeout = 20000;
+    private int readTimeout = 20000;
 
     private static final String defaultBasePath = "https://api.xero.com/api.xro/2.0";
 
@@ -62,6 +64,22 @@ public class ApiClient {
         }
         this.httpRequestFactory = (reqFactory != null ? reqFactory : (transport == null ? Utils.getDefaultTransport() : transport).createRequestFactory(initializer) );
         this.objectMapper = (objectMapper == null ? createDefaultObjectMapper() : objectMapper);
+    }
+
+    public int getConnectionTimeout() {
+        return connectionTimeout;
+    }
+
+    public void setConnectionTimeout(int connectionTimeout) {
+        this.connectionTimeout = connectionTimeout;
+    }
+
+    public int getReadTimeout() {
+        return readTimeout;
+    }
+
+    public void setReadTimeout(int readTimeout) {
+        this.readTimeout = readTimeout;
     }
 
     public HttpRequestFactory getHttpRequestFactory() {

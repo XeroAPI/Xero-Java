@@ -128,7 +128,9 @@ public class AssetApi {
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
-        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();    
+        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();    
     }
 
   /**
@@ -180,7 +182,9 @@ public class AssetApi {
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
-        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();    
+        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();    
     }
 
   /**
@@ -238,7 +242,9 @@ public class AssetApi {
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
-        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();    
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();    
     }
 
   /**
@@ -287,7 +293,9 @@ public class AssetApi {
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
-        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();    
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();    
     }
 
   /**
@@ -336,7 +344,9 @@ public class AssetApi {
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
-        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();    
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();    
     }
 
   /**
@@ -455,7 +465,9 @@ public class AssetApi {
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
-        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();    
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();    
     }
 
 
