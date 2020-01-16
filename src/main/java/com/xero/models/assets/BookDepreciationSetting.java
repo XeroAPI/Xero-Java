@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.UUID;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -158,6 +159,15 @@ public class BookDepreciationSetting {
   @JsonProperty("depreciationCalculationMethod")
   private DepreciationCalculationMethodEnum depreciationCalculationMethod;
 
+  @JsonProperty("depreciableObjectId")
+  private UUID depreciableObjectId;
+
+  @JsonProperty("depreciableObjectType")
+  private String depreciableObjectType;
+
+  @JsonProperty("bookEffectiveDateOfChangeId")
+  private UUID bookEffectiveDateOfChangeId;
+
   public BookDepreciationSetting depreciationMethod(DepreciationMethodEnum depreciationMethod) {
     this.depreciationMethod = depreciationMethod;
     return this;
@@ -248,6 +258,60 @@ public class BookDepreciationSetting {
     this.depreciationCalculationMethod = depreciationCalculationMethod;
   }
 
+  public BookDepreciationSetting depreciableObjectId(UUID depreciableObjectId) {
+    this.depreciableObjectId = depreciableObjectId;
+    return this;
+  }
+
+   /**
+   * Unique Xero identifier for the depreciable object
+   * @return depreciableObjectId
+  **/
+  @ApiModelProperty(example = "68f17094-af97-4f1b-b36b-013b45b6ad3c", value = "Unique Xero identifier for the depreciable object")
+  public UUID getDepreciableObjectId() {
+    return depreciableObjectId;
+  }
+
+  public void setDepreciableObjectId(UUID depreciableObjectId) {
+    this.depreciableObjectId = depreciableObjectId;
+  }
+
+  public BookDepreciationSetting depreciableObjectType(String depreciableObjectType) {
+    this.depreciableObjectType = depreciableObjectType;
+    return this;
+  }
+
+   /**
+   * The type of asset object
+   * @return depreciableObjectType
+  **/
+  @ApiModelProperty(example = "Asset", value = "The type of asset object")
+  public String getDepreciableObjectType() {
+    return depreciableObjectType;
+  }
+
+  public void setDepreciableObjectType(String depreciableObjectType) {
+    this.depreciableObjectType = depreciableObjectType;
+  }
+
+  public BookDepreciationSetting bookEffectiveDateOfChangeId(UUID bookEffectiveDateOfChangeId) {
+    this.bookEffectiveDateOfChangeId = bookEffectiveDateOfChangeId;
+    return this;
+  }
+
+   /**
+   * Unique Xero identifier for the effective date change
+   * @return bookEffectiveDateOfChangeId
+  **/
+  @ApiModelProperty(example = "68f17094-af97-4f1b-b36b-013b45b6ad3c", value = "Unique Xero identifier for the effective date change")
+  public UUID getBookEffectiveDateOfChangeId() {
+    return bookEffectiveDateOfChangeId;
+  }
+
+  public void setBookEffectiveDateOfChangeId(UUID bookEffectiveDateOfChangeId) {
+    this.bookEffectiveDateOfChangeId = bookEffectiveDateOfChangeId;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -262,12 +326,15 @@ public class BookDepreciationSetting {
         Objects.equals(this.averagingMethod, bookDepreciationSetting.averagingMethod) &&
         Objects.equals(this.depreciationRate, bookDepreciationSetting.depreciationRate) &&
         Objects.equals(this.effectiveLifeYears, bookDepreciationSetting.effectiveLifeYears) &&
-        Objects.equals(this.depreciationCalculationMethod, bookDepreciationSetting.depreciationCalculationMethod);
+        Objects.equals(this.depreciationCalculationMethod, bookDepreciationSetting.depreciationCalculationMethod) &&
+        Objects.equals(this.depreciableObjectId, bookDepreciationSetting.depreciableObjectId) &&
+        Objects.equals(this.depreciableObjectType, bookDepreciationSetting.depreciableObjectType) &&
+        Objects.equals(this.bookEffectiveDateOfChangeId, bookDepreciationSetting.bookEffectiveDateOfChangeId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(depreciationMethod, averagingMethod, depreciationRate, effectiveLifeYears, depreciationCalculationMethod);
+    return Objects.hash(depreciationMethod, averagingMethod, depreciationRate, effectiveLifeYears, depreciationCalculationMethod, depreciableObjectId, depreciableObjectType, bookEffectiveDateOfChangeId);
   }
 
 
@@ -280,6 +347,9 @@ public class BookDepreciationSetting {
     sb.append("    depreciationRate: ").append(toIndentedString(depreciationRate)).append("\n");
     sb.append("    effectiveLifeYears: ").append(toIndentedString(effectiveLifeYears)).append("\n");
     sb.append("    depreciationCalculationMethod: ").append(toIndentedString(depreciationCalculationMethod)).append("\n");
+    sb.append("    depreciableObjectId: ").append(toIndentedString(depreciableObjectId)).append("\n");
+    sb.append("    depreciableObjectType: ").append(toIndentedString(depreciableObjectType)).append("\n");
+    sb.append("    bookEffectiveDateOfChangeId: ").append(toIndentedString(bookEffectiveDateOfChangeId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

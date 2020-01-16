@@ -30,27 +30,27 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 public class BookDepreciationDetail {
   @JsonProperty("currentCapitalGain")
-  private Integer currentCapitalGain;
+  private Float currentCapitalGain;
 
   @JsonProperty("currentGainLoss")
-  private Integer currentGainLoss;
+  private Float currentGainLoss;
 
   @JsonProperty("depreciationStartDate")
   private LocalDate depreciationStartDate;
 
   @JsonProperty("costLimit")
-  private Integer costLimit;
+  private Float costLimit;
 
   @JsonProperty("residualValue")
-  private Integer residualValue;
+  private Float residualValue;
 
   @JsonProperty("priorAccumDepreciationAmount")
-  private Integer priorAccumDepreciationAmount;
+  private Float priorAccumDepreciationAmount;
 
   @JsonProperty("currentAccumDepreciationAmount")
-  private Integer currentAccumDepreciationAmount;
+  private Float currentAccumDepreciationAmount;
 
-  public BookDepreciationDetail currentCapitalGain(Integer currentCapitalGain) {
+  public BookDepreciationDetail currentCapitalGain(Float currentCapitalGain) {
     this.currentCapitalGain = currentCapitalGain;
     return this;
   }
@@ -59,16 +59,16 @@ public class BookDepreciationDetail {
    * When an asset is disposed, this will be the sell price minus the purchase price if a profit was made.
    * @return currentCapitalGain
   **/
-  @ApiModelProperty(example = "0", value = "When an asset is disposed, this will be the sell price minus the purchase price if a profit was made.")
-  public Integer getCurrentCapitalGain() {
+  @ApiModelProperty(example = "5.25", value = "When an asset is disposed, this will be the sell price minus the purchase price if a profit was made.")
+  public Float getCurrentCapitalGain() {
     return currentCapitalGain;
   }
 
-  public void setCurrentCapitalGain(Integer currentCapitalGain) {
+  public void setCurrentCapitalGain(Float currentCapitalGain) {
     this.currentCapitalGain = currentCapitalGain;
   }
 
-  public BookDepreciationDetail currentGainLoss(Integer currentGainLoss) {
+  public BookDepreciationDetail currentGainLoss(Float currentGainLoss) {
     this.currentGainLoss = currentGainLoss;
     return this;
   }
@@ -77,12 +77,12 @@ public class BookDepreciationDetail {
    * When an asset is disposed, this will be the lowest one of sell price or purchase price, minus the current book value.
    * @return currentGainLoss
   **/
-  @ApiModelProperty(example = "0", value = "When an asset is disposed, this will be the lowest one of sell price or purchase price, minus the current book value.")
-  public Integer getCurrentGainLoss() {
+  @ApiModelProperty(example = "10.5", value = "When an asset is disposed, this will be the lowest one of sell price or purchase price, minus the current book value.")
+  public Float getCurrentGainLoss() {
     return currentGainLoss;
   }
 
-  public void setCurrentGainLoss(Integer currentGainLoss) {
+  public void setCurrentGainLoss(Float currentGainLoss) {
     this.currentGainLoss = currentGainLoss;
   }
 
@@ -104,7 +104,7 @@ public class BookDepreciationDetail {
     this.depreciationStartDate = depreciationStartDate;
   }
 
-  public BookDepreciationDetail costLimit(Integer costLimit) {
+  public BookDepreciationDetail costLimit(Float costLimit) {
     this.costLimit = costLimit;
     return this;
   }
@@ -113,16 +113,16 @@ public class BookDepreciationDetail {
    * The value of the asset you want to depreciate, if this is less than the cost of the asset.
    * @return costLimit
   **/
-  @ApiModelProperty(example = "100000", value = "The value of the asset you want to depreciate, if this is less than the cost of the asset.")
-  public Integer getCostLimit() {
+  @ApiModelProperty(example = "9000.0", value = "The value of the asset you want to depreciate, if this is less than the cost of the asset.")
+  public Float getCostLimit() {
     return costLimit;
   }
 
-  public void setCostLimit(Integer costLimit) {
+  public void setCostLimit(Float costLimit) {
     this.costLimit = costLimit;
   }
 
-  public BookDepreciationDetail residualValue(Integer residualValue) {
+  public BookDepreciationDetail residualValue(Float residualValue) {
     this.residualValue = residualValue;
     return this;
   }
@@ -131,16 +131,16 @@ public class BookDepreciationDetail {
    * The value of the asset remaining when you&#39;ve fully depreciated it.
    * @return residualValue
   **/
-  @ApiModelProperty(example = "10000", value = "The value of the asset remaining when you've fully depreciated it.")
-  public Integer getResidualValue() {
+  @ApiModelProperty(example = "10000.0", value = "The value of the asset remaining when you've fully depreciated it.")
+  public Float getResidualValue() {
     return residualValue;
   }
 
-  public void setResidualValue(Integer residualValue) {
+  public void setResidualValue(Float residualValue) {
     this.residualValue = residualValue;
   }
 
-  public BookDepreciationDetail priorAccumDepreciationAmount(Integer priorAccumDepreciationAmount) {
+  public BookDepreciationDetail priorAccumDepreciationAmount(Float priorAccumDepreciationAmount) {
     this.priorAccumDepreciationAmount = priorAccumDepreciationAmount;
     return this;
   }
@@ -149,16 +149,16 @@ public class BookDepreciationDetail {
    * All depreciation prior to the current financial year.
    * @return priorAccumDepreciationAmount
   **/
-  @ApiModelProperty(example = "0", value = "All depreciation prior to the current financial year.")
-  public Integer getPriorAccumDepreciationAmount() {
+  @ApiModelProperty(example = "0.45", value = "All depreciation prior to the current financial year.")
+  public Float getPriorAccumDepreciationAmount() {
     return priorAccumDepreciationAmount;
   }
 
-  public void setPriorAccumDepreciationAmount(Integer priorAccumDepreciationAmount) {
+  public void setPriorAccumDepreciationAmount(Float priorAccumDepreciationAmount) {
     this.priorAccumDepreciationAmount = priorAccumDepreciationAmount;
   }
 
-  public BookDepreciationDetail currentAccumDepreciationAmount(Integer currentAccumDepreciationAmount) {
+  public BookDepreciationDetail currentAccumDepreciationAmount(Float currentAccumDepreciationAmount) {
     this.currentAccumDepreciationAmount = currentAccumDepreciationAmount;
     return this;
   }
@@ -167,12 +167,12 @@ public class BookDepreciationDetail {
    * All depreciation occurring in the current financial year.
    * @return currentAccumDepreciationAmount
   **/
-  @ApiModelProperty(example = "0", value = "All depreciation occurring in the current financial year.")
-  public Integer getCurrentAccumDepreciationAmount() {
+  @ApiModelProperty(example = "5.0", value = "All depreciation occurring in the current financial year.")
+  public Float getCurrentAccumDepreciationAmount() {
     return currentAccumDepreciationAmount;
   }
 
-  public void setCurrentAccumDepreciationAmount(Integer currentAccumDepreciationAmount) {
+  public void setCurrentAccumDepreciationAmount(Float currentAccumDepreciationAmount) {
     this.currentAccumDepreciationAmount = currentAccumDepreciationAmount;
   }
 

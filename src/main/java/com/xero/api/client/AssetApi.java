@@ -83,7 +83,7 @@ public class AssetApi {
     * <p><b>200</b> - return single object - create new asset
     * <p><b>400</b> - invalid input, object invalid
     * @param xeroTenantId Xero identifier for Tenant
-    * @param asset Fixed asset to add
+    * @param asset Fixed asset you are creating
     * @param accessToken Authorization token for user set in header of each request
     * @return Asset
     * @throws IOException if an error occurs while attempting to invoke the API

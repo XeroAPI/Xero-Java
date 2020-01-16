@@ -45,10 +45,10 @@ public class Asset {
   private LocalDate purchaseDate;
 
   @JsonProperty("purchasePrice")
-  private Integer purchasePrice;
+  private Float purchasePrice;
 
   @JsonProperty("disposalPrice")
-  private Integer disposalPrice;
+  private Float disposalPrice;
 
   /**
    * See Asset Status Codes.
@@ -102,11 +102,14 @@ public class Asset {
   @JsonProperty("bookDepreciationDetail")
   private BookDepreciationDetail bookDepreciationDetail = null;
 
-  @JsonProperty("canRollBack")
-  private Boolean canRollBack;
+  @JsonProperty("canRollback")
+  private Boolean canRollback;
 
-  @JsonProperty("AccountingBookValue")
-  private Integer accountingBookValue;
+  @JsonProperty("accountingBookValue")
+  private Float accountingBookValue;
+
+  @JsonProperty("isDeleteEnabledForDate")
+  private Boolean isDeleteEnabledForDate;
 
   public Asset assetId(UUID assetId) {
     this.assetId = assetId;
@@ -180,7 +183,7 @@ public class Asset {
     this.purchaseDate = purchaseDate;
   }
 
-  public Asset purchasePrice(Integer purchasePrice) {
+  public Asset purchasePrice(Float purchasePrice) {
     this.purchasePrice = purchasePrice;
     return this;
   }
@@ -189,16 +192,16 @@ public class Asset {
    * The purchase price of the asset
    * @return purchasePrice
   **/
-  @ApiModelProperty(example = "1000", value = "The purchase price of the asset")
-  public Integer getPurchasePrice() {
+  @ApiModelProperty(example = "1000.0000", value = "The purchase price of the asset")
+  public Float getPurchasePrice() {
     return purchasePrice;
   }
 
-  public void setPurchasePrice(Integer purchasePrice) {
+  public void setPurchasePrice(Float purchasePrice) {
     this.purchasePrice = purchasePrice;
   }
 
-  public Asset disposalPrice(Integer disposalPrice) {
+  public Asset disposalPrice(Float disposalPrice) {
     this.disposalPrice = disposalPrice;
     return this;
   }
@@ -207,12 +210,12 @@ public class Asset {
    * The price the asset was disposed at
    * @return disposalPrice
   **/
-  @ApiModelProperty(example = "0", value = "The price the asset was disposed at")
-  public Integer getDisposalPrice() {
+  @ApiModelProperty(example = "1.0000", value = "The price the asset was disposed at")
+  public Float getDisposalPrice() {
     return disposalPrice;
   }
 
-  public void setDisposalPrice(Integer disposalPrice) {
+  public void setDisposalPrice(Float disposalPrice) {
     this.disposalPrice = disposalPrice;
   }
 
@@ -306,25 +309,25 @@ public class Asset {
     this.bookDepreciationDetail = bookDepreciationDetail;
   }
 
-  public Asset canRollBack(Boolean canRollBack) {
-    this.canRollBack = canRollBack;
+  public Asset canRollback(Boolean canRollback) {
+    this.canRollback = canRollback;
     return this;
   }
 
    /**
    * Boolean to indicate whether depreciation can be rolled back for this asset individually. This is true if it doesn&#39;t have &#39;legacy&#39; journal entries and if there is no lock period that would prevent this asset from rolling back.
-   * @return canRollBack
+   * @return canRollback
   **/
   @ApiModelProperty(example = "true", value = "Boolean to indicate whether depreciation can be rolled back for this asset individually. This is true if it doesn't have 'legacy' journal entries and if there is no lock period that would prevent this asset from rolling back.")
-  public Boolean getCanRollBack() {
-    return canRollBack;
+  public Boolean getCanRollback() {
+    return canRollback;
   }
 
-  public void setCanRollBack(Boolean canRollBack) {
-    this.canRollBack = canRollBack;
+  public void setCanRollback(Boolean canRollback) {
+    this.canRollback = canRollback;
   }
 
-  public Asset accountingBookValue(Integer accountingBookValue) {
+  public Asset accountingBookValue(Float accountingBookValue) {
     this.accountingBookValue = accountingBookValue;
     return this;
   }
@@ -334,12 +337,30 @@ public class Asset {
    * @return accountingBookValue
   **/
   @ApiModelProperty(example = "0", value = "The accounting value of the asset")
-  public Integer getAccountingBookValue() {
+  public Float getAccountingBookValue() {
     return accountingBookValue;
   }
 
-  public void setAccountingBookValue(Integer accountingBookValue) {
+  public void setAccountingBookValue(Float accountingBookValue) {
     this.accountingBookValue = accountingBookValue;
+  }
+
+  public Asset isDeleteEnabledForDate(Boolean isDeleteEnabledForDate) {
+    this.isDeleteEnabledForDate = isDeleteEnabledForDate;
+    return this;
+  }
+
+   /**
+   * Boolean to indicate whether delete is enabled
+   * @return isDeleteEnabledForDate
+  **/
+  @ApiModelProperty(example = "true", value = "Boolean to indicate whether delete is enabled")
+  public Boolean getIsDeleteEnabledForDate() {
+    return isDeleteEnabledForDate;
+  }
+
+  public void setIsDeleteEnabledForDate(Boolean isDeleteEnabledForDate) {
+    this.isDeleteEnabledForDate = isDeleteEnabledForDate;
   }
 
 
@@ -363,13 +384,14 @@ public class Asset {
         Objects.equals(this.serialNumber, asset.serialNumber) &&
         Objects.equals(this.bookDepreciationSetting, asset.bookDepreciationSetting) &&
         Objects.equals(this.bookDepreciationDetail, asset.bookDepreciationDetail) &&
-        Objects.equals(this.canRollBack, asset.canRollBack) &&
-        Objects.equals(this.accountingBookValue, asset.accountingBookValue);
+        Objects.equals(this.canRollback, asset.canRollback) &&
+        Objects.equals(this.accountingBookValue, asset.accountingBookValue) &&
+        Objects.equals(this.isDeleteEnabledForDate, asset.isDeleteEnabledForDate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(assetId, assetName, assetNumber, purchaseDate, purchasePrice, disposalPrice, assetStatus, warrantyExpiryDate, serialNumber, bookDepreciationSetting, bookDepreciationDetail, canRollBack, accountingBookValue);
+    return Objects.hash(assetId, assetName, assetNumber, purchaseDate, purchasePrice, disposalPrice, assetStatus, warrantyExpiryDate, serialNumber, bookDepreciationSetting, bookDepreciationDetail, canRollback, accountingBookValue, isDeleteEnabledForDate);
   }
 
 
@@ -388,8 +410,9 @@ public class Asset {
     sb.append("    serialNumber: ").append(toIndentedString(serialNumber)).append("\n");
     sb.append("    bookDepreciationSetting: ").append(toIndentedString(bookDepreciationSetting)).append("\n");
     sb.append("    bookDepreciationDetail: ").append(toIndentedString(bookDepreciationDetail)).append("\n");
-    sb.append("    canRollBack: ").append(toIndentedString(canRollBack)).append("\n");
+    sb.append("    canRollback: ").append(toIndentedString(canRollback)).append("\n");
     sb.append("    accountingBookValue: ").append(toIndentedString(accountingBookValue)).append("\n");
+    sb.append("    isDeleteEnabledForDate: ").append(toIndentedString(isDeleteEnabledForDate)).append("\n");
     sb.append("}");
     return sb.toString();
   }
