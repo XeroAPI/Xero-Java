@@ -93,6 +93,10 @@ public class Item {
   private UUID itemID;
 
   
+  @JsonProperty("StatusAttributeString")
+  private String statusAttributeString;
+
+  
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
   public Item code(String code) {
@@ -347,6 +351,24 @@ public class Item {
     this.itemID = itemID;
   }
 
+  public Item statusAttributeString(String statusAttributeString) {
+    this.statusAttributeString = statusAttributeString;
+    return this;
+  }
+
+   /**
+   * Status of object
+   * @return statusAttributeString
+  **/
+  @ApiModelProperty(value = "Status of object")
+  public String getStatusAttributeString() {
+    return statusAttributeString;
+  }
+
+  public void setStatusAttributeString(String statusAttributeString) {
+    this.statusAttributeString = statusAttributeString;
+  }
+
   public Item validationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
     return this;
@@ -397,12 +419,13 @@ public class Item {
         Objects.equals(this.quantityOnHand, item.quantityOnHand) &&
         Objects.equals(this.updatedDateUTC, item.updatedDateUTC) &&
         Objects.equals(this.itemID, item.itemID) &&
+        Objects.equals(this.statusAttributeString, item.statusAttributeString) &&
         Objects.equals(this.validationErrors, item.validationErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, inventoryAssetAccountCode, name, isSold, isPurchased, description, purchaseDescription, purchaseDetails, salesDetails, isTrackedAsInventory, totalCostPool, quantityOnHand, updatedDateUTC, itemID, validationErrors);
+    return Objects.hash(code, inventoryAssetAccountCode, name, isSold, isPurchased, description, purchaseDescription, purchaseDetails, salesDetails, isTrackedAsInventory, totalCostPool, quantityOnHand, updatedDateUTC, itemID, statusAttributeString, validationErrors);
   }
 
 
@@ -424,6 +447,7 @@ public class Item {
     sb.append("    quantityOnHand: ").append(toIndentedString(quantityOnHand)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
     sb.append("    itemID: ").append(toIndentedString(itemID)).append("\n");
+    sb.append("    statusAttributeString: ").append(toIndentedString(statusAttributeString)).append("\n");
     sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("}");
     return sb.toString();

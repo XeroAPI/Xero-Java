@@ -234,6 +234,10 @@ public class Contact {
   
   @JsonProperty("HasValidationErrors")
   private Boolean hasValidationErrors;
+
+  
+  @JsonProperty("StatusAttributeString")
+  private String statusAttributeString;
   public Contact contactID(UUID contactID) {
     this.contactID = contactID;
     return this;
@@ -964,6 +968,24 @@ public class Contact {
     this.hasValidationErrors = hasValidationErrors;
   }
 
+  public Contact statusAttributeString(String statusAttributeString) {
+    this.statusAttributeString = statusAttributeString;
+    return this;
+  }
+
+   /**
+   * Status of object
+   * @return statusAttributeString
+  **/
+  @ApiModelProperty(value = "Status of object")
+  public String getStatusAttributeString() {
+    return statusAttributeString;
+  }
+
+  public void setStatusAttributeString(String statusAttributeString) {
+    this.statusAttributeString = statusAttributeString;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -1011,12 +1033,13 @@ public class Contact {
         Objects.equals(this.attachments, contact.attachments) &&
         Objects.equals(this.hasAttachments, contact.hasAttachments) &&
         Objects.equals(this.validationErrors, contact.validationErrors) &&
-        Objects.equals(this.hasValidationErrors, contact.hasValidationErrors);
+        Objects.equals(this.hasValidationErrors, contact.hasValidationErrors) &&
+        Objects.equals(this.statusAttributeString, contact.statusAttributeString);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(contactID, contactNumber, accountNumber, contactStatus, name, firstName, lastName, emailAddress, skypeUserName, contactPersons, bankAccountDetails, taxNumber, accountsReceivableTaxType, accountsPayableTaxType, addresses, phones, isSupplier, isCustomer, defaultCurrency, xeroNetworkKey, salesDefaultAccountCode, purchasesDefaultAccountCode, salesTrackingCategories, purchasesTrackingCategories, trackingCategoryName, trackingCategoryOption, paymentTerms, updatedDateUTC, contactGroups, website, brandingTheme, batchPayments, discount, balances, attachments, hasAttachments, validationErrors, hasValidationErrors);
+    return Objects.hash(contactID, contactNumber, accountNumber, contactStatus, name, firstName, lastName, emailAddress, skypeUserName, contactPersons, bankAccountDetails, taxNumber, accountsReceivableTaxType, accountsPayableTaxType, addresses, phones, isSupplier, isCustomer, defaultCurrency, xeroNetworkKey, salesDefaultAccountCode, purchasesDefaultAccountCode, salesTrackingCategories, purchasesTrackingCategories, trackingCategoryName, trackingCategoryOption, paymentTerms, updatedDateUTC, contactGroups, website, brandingTheme, batchPayments, discount, balances, attachments, hasAttachments, validationErrors, hasValidationErrors, statusAttributeString);
   }
 
 
@@ -1062,6 +1085,7 @@ public class Contact {
     sb.append("    hasAttachments: ").append(toIndentedString(hasAttachments)).append("\n");
     sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("    hasValidationErrors: ").append(toIndentedString(hasValidationErrors)).append("\n");
+    sb.append("    statusAttributeString: ").append(toIndentedString(statusAttributeString)).append("\n");
     sb.append("}");
     return sb.toString();
   }

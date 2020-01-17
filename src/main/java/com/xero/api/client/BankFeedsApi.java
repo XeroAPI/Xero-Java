@@ -45,7 +45,7 @@ public class BankFeedsApi {
     private ApiClient apiClient;
     private static BankFeedsApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.1.9";
+    private String version = "3.2.0";
 
     public BankFeedsApi() {
         this(new ApiClient());
