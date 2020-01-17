@@ -114,7 +114,7 @@ public class AccountingApiContactsTest {
         assertThat(response.getContacts().get(0).getPhones().get(1).getPhoneAreaCode(), is(equalTo("(626)")));
         assertThat(response.getContacts().get(0).getIsSupplier(), is(equalTo(true)));
         assertThat(response.getContacts().get(0).getIsCustomer(), is(equalTo(true)));
-        assertThat(response.getContacts().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2017-08-21T13:49:04.227-07:00"))));
+        assertThat(response.getContacts().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2017-08-21T22:49:04.227+02:00"))));
         assertThat(response.getContacts().get(0).getBalances().getAccountsReceivable().getOutstanding(), is(equalTo(760.0)));
         assertThat(response.getContacts().get(0).getBalances().getAccountsReceivable().getOverdue(), is(equalTo(920.0)));
         assertThat(response.getContacts().get(0).getBalances().getAccountsPayable().getOutstanding(), is(equalTo(231.6)));
@@ -176,7 +176,7 @@ public class AccountingApiContactsTest {
         assertThat(response.getContacts().get(0).getPaymentTerms().getBills().getType(), is(equalTo(com.xero.models.accounting.PaymentTermType.OFFOLLOWINGMONTH)));
         assertThat(response.getContacts().get(0).getPaymentTerms().getSales().getDay(), is(equalTo(Integer.parseInt("14"))));
         assertThat(response.getContacts().get(0).getPaymentTerms().getSales().getType(), is(equalTo(com.xero.models.accounting.PaymentTermType.OFCURRENTMONTH)));
-        assertThat(response.getContacts().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-01T09:02:57.193-08:00"))));  
+        assertThat(response.getContacts().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-01T18:02:57.193+01:00"))));
         //System.out.println(response.getContacts().get(0).toString());
     }
     
@@ -219,7 +219,7 @@ public class AccountingApiContactsTest {
         assertThat(response.getContacts().get(0).getPaymentTerms().getBills().getType(), is(equalTo(com.xero.models.accounting.PaymentTermType.OFCURRENTMONTH)));
         assertThat(response.getContacts().get(0).getPaymentTerms().getSales().getDay(), is(equalTo(Integer.parseInt("10"))));
         assertThat(response.getContacts().get(0).getPaymentTerms().getSales().getType(), is(equalTo(com.xero.models.accounting.PaymentTermType.DAYSAFTERBILLMONTH)));
-        assertThat(response.getContacts().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-02-28T16:27:11.763-08:00"))));  
+        assertThat(response.getContacts().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-01T01:27:11.763+01:00"))));
         assertThat(response.getContacts().get(0).getHasValidationErrors(), is(equalTo(false))); 
         //System.out.println(response.getContacts().get(0).toString());
     }
@@ -233,7 +233,7 @@ public class AccountingApiContactsTest {
         assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("System Generated")));       
         assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Edited")));     
         assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Name changed from Foo9987 to Bar8156.")));     
-        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-02-28T16:15:22.350-08:00"))));  
+        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-01T01:15:22.350+01:00"))));
         //System.out.println(response.getHistoryRecords().get(0).toString());
     }
 
@@ -245,7 +245,7 @@ public class AccountingApiContactsTest {
         HistoryRecords historyRecords = new HistoryRecords();
         HistoryRecords response = accountingApi.createContactHistory(accessToken,xeroTenantId,contactID, historyRecords);
         assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Hello World")));     
-        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-02-28T16:15:24.272-08:00"))));  
+        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-01T01:15:24.272+01:00"))));
         //System.out.println(response.getHistoryRecords().get(0).toString());
     }
 

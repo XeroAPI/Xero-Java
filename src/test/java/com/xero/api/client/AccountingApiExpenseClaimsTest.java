@@ -97,12 +97,12 @@ public class AccountingApiExpenseClaimsTest {
         assertThat(response.getExpenseClaims().get(0).getUser().getFirstName(), is(equalTo("API ")));
         assertThat(response.getExpenseClaims().get(0).getUser().getLastName(), is(equalTo("Team")));
         assertThat(response.getExpenseClaims().get(0).getUser().getEmailAddress(), is(equalTo("api@xero.com")));
-        assertThat(response.getExpenseClaims().get(0).getUser().getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2017-11-29T04:06:19.217-08:00"))));
+        assertThat(response.getExpenseClaims().get(0).getUser().getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2017-11-29T13:06:19.217+01:00"))));
         assertThat(response.getExpenseClaims().get(0).getUser().getIsSubscriber(), is(equalTo(true)));
         assertThat(response.getExpenseClaims().get(0).getUser().getOrganisationRole(), is(equalTo(com.xero.models.accounting.User.OrganisationRoleEnum.FINANCIALADVISER)));
-        assertThat(response.getExpenseClaims().get(0).getReceipts().get(0).getDate(), is(equalTo(LocalDate.of(2019, 03, 11))));
+        assertThat(response.getExpenseClaims().get(0).getReceipts().get(0).getDate(), is(equalTo(LocalDate.of(2019, 03, 12))));
         assertThat(response.getExpenseClaims().get(0).getReceipts().get(0).getReceiptID(), is(equalTo(UUID.fromString("dc1c7f6d-0a4c-402f-acac-551d62ce5816"))));
-        assertThat(response.getExpenseClaims().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T10:37:30.107-07:00"))));  
+        assertThat(response.getExpenseClaims().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T18:37:30.107+01:00"))));
         assertThat(response.getExpenseClaims().get(0).getTotal(), is(equalTo(40.0)));
         assertThat(response.getExpenseClaims().get(0).getTotal().toString(), is(equalTo("40.0")));
         assertThat(response.getExpenseClaims().get(0).getAmountDue(), is(equalTo(40.0)));
@@ -139,12 +139,12 @@ public class AccountingApiExpenseClaimsTest {
         assertThat(response.getExpenseClaims().get(0).getUser().getFirstName(), is(equalTo("API ")));
         assertThat(response.getExpenseClaims().get(0).getUser().getLastName(), is(equalTo("Team")));
         assertThat(response.getExpenseClaims().get(0).getUser().getEmailAddress(), is(equalTo("api@xero.com")));
-        assertThat(response.getExpenseClaims().get(0).getUser().getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2017-11-29T04:06:19.217-08:00"))));
+        assertThat(response.getExpenseClaims().get(0).getUser().getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2017-11-29T13:06:19.217+01:00"))));
         assertThat(response.getExpenseClaims().get(0).getUser().getIsSubscriber(), is(equalTo(true)));
         assertThat(response.getExpenseClaims().get(0).getUser().getOrganisationRole(), is(equalTo(com.xero.models.accounting.User.OrganisationRoleEnum.FINANCIALADVISER)));
-        assertThat(response.getExpenseClaims().get(0).getReceipts().get(0).getDate(), is(equalTo(LocalDate.of(2019, 03, 11))));
+        assertThat(response.getExpenseClaims().get(0).getReceipts().get(0).getDate(), is(equalTo(LocalDate.of(2019, 03, 12))));
         assertThat(response.getExpenseClaims().get(0).getReceipts().get(0).getReceiptID(), is(equalTo(UUID.fromString("dc1c7f6d-0a4c-402f-acac-551d62ce5816"))));
-        assertThat(response.getExpenseClaims().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T10:37:31.767-07:00"))));  
+        assertThat(response.getExpenseClaims().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T18:37:31.767+01:00"))));
         assertThat(response.getExpenseClaims().get(0).getTotal(), is(equalTo(40.0)));
         assertThat(response.getExpenseClaims().get(0).getTotal().toString(), is(equalTo("40.0")));
         assertThat(response.getExpenseClaims().get(0).getAmountDue(), is(equalTo(40.0)));
@@ -162,7 +162,7 @@ public class AccountingApiExpenseClaimsTest {
 
         assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("System Generated")));       
         assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Voided")));     
-        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T10:37:36.747-07:00"))));    
+        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T18:37:36.747+01:00"))));
         //System.out.println(response.getHistoryRecords().get(0).toString());
     }
 
@@ -181,10 +181,10 @@ public class AccountingApiExpenseClaimsTest {
         assertThat(response.getExpenseClaims().get(0).getUser().getFirstName(), is(equalTo("API ")));
         assertThat(response.getExpenseClaims().get(0).getUser().getLastName(), is(equalTo("Team")));
         assertThat(response.getExpenseClaims().get(0).getUser().getEmailAddress(), is(equalTo("api@xero.com")));
-        assertThat(response.getExpenseClaims().get(0).getUser().getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2017-11-29T04:06:19.217-08:00"))));
+        assertThat(response.getExpenseClaims().get(0).getUser().getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2017-11-29T13:06:19.217+01:00"))));
         assertThat(response.getExpenseClaims().get(0).getUser().getIsSubscriber(), is(equalTo(true)));
         assertThat(response.getExpenseClaims().get(0).getUser().getOrganisationRole(), is(equalTo(com.xero.models.accounting.User.OrganisationRoleEnum.FINANCIALADVISER)));
-        assertThat(response.getExpenseClaims().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T10:37:31.767-07:00"))));  
+        assertThat(response.getExpenseClaims().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T18:37:31.767+01:00"))));
         assertThat(response.getExpenseClaims().get(0).getTotal(), is(equalTo(40.0)));
         assertThat(response.getExpenseClaims().get(0).getTotal().toString(), is(equalTo("40.0")));
         assertThat(response.getExpenseClaims().get(0).getAmountDue(), is(equalTo(40.0)));
@@ -208,12 +208,12 @@ public class AccountingApiExpenseClaimsTest {
         assertThat(response.getExpenseClaims().get(0).getUser().getFirstName(), is(equalTo("API ")));
         assertThat(response.getExpenseClaims().get(0).getUser().getLastName(), is(equalTo("Team")));
         assertThat(response.getExpenseClaims().get(0).getUser().getEmailAddress(), is(equalTo("api@xero.com")));
-        assertThat(response.getExpenseClaims().get(0).getUser().getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2017-11-29T04:06:19.217-08:00"))));
+        assertThat(response.getExpenseClaims().get(0).getUser().getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2017-11-29T13:06:19.217+01:00"))));
         assertThat(response.getExpenseClaims().get(0).getUser().getIsSubscriber(), is(equalTo(true)));
         assertThat(response.getExpenseClaims().get(0).getUser().getOrganisationRole(), is(equalTo(com.xero.models.accounting.User.OrganisationRoleEnum.FINANCIALADVISER)));
-        assertThat(response.getExpenseClaims().get(0).getReceipts().get(0).getDate(), is(equalTo(LocalDate.of(2019, 03, 11))));
+        assertThat(response.getExpenseClaims().get(0).getReceipts().get(0).getDate(), is(equalTo(LocalDate.of(2019, 03, 12))));
         assertThat(response.getExpenseClaims().get(0).getReceipts().get(0).getReceiptID(), is(equalTo(UUID.fromString("dc1c7f6d-0a4c-402f-acac-551d62ce5816"))));
-        assertThat(response.getExpenseClaims().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T10:37:31.767-07:00"))));  
+        assertThat(response.getExpenseClaims().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T18:37:31.767+01:00"))));
         assertThat(response.getExpenseClaims().get(0).getTotal(), is(equalTo(40.0)));
         assertThat(response.getExpenseClaims().get(0).getTotal().toString(), is(equalTo("40.0")));
         assertThat(response.getExpenseClaims().get(0).getAmountDue(), is(equalTo(40.0)));

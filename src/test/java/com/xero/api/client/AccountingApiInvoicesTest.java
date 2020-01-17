@@ -92,8 +92,8 @@ public class AccountingApiInvoicesTest {
         Invoices response = accountingApi.createInvoice(accessToken,xeroTenantId,invoice);
 
         assertThat(response.getInvoices().get(0).getType(), is(equalTo(com.xero.models.accounting.Invoice.TypeEnum.ACCREC)));
-        assertThat(response.getInvoices().get(0).getDate(), is(equalTo(LocalDate.of(2019, 03, 10))));  
-        assertThat(response.getInvoices().get(0).getDueDate(), is(equalTo(LocalDate.of(2018, 12, 9))));  
+        assertThat(response.getInvoices().get(0).getDate(), is(equalTo(LocalDate.of(2019, 03, 11))));
+        assertThat(response.getInvoices().get(0).getDueDate(), is(equalTo(LocalDate.of(2018, 12, 10))));
         assertThat(response.getInvoices().get(0).getLineAmountTypes(), is(equalTo(com.xero.models.accounting.LineAmountTypes.EXCLUSIVE)));
         assertThat(response.getInvoices().get(0).getInvoiceNumber(), is(equalTo("INV-0007")));
         assertThat(response.getInvoices().get(0).getReference(), is(equalTo("Website Design")));
@@ -114,7 +114,7 @@ public class AccountingApiInvoicesTest {
         assertThat(response.getInvoices().get(0).getAmountDue().toString(), is(equalTo("40.0")));
         assertThat(response.getInvoices().get(0).getAmountPaid(), is(equalTo(0.0)));
         assertThat(response.getInvoices().get(0).getAmountPaid().toString(), is(equalTo("0.0")));
-        assertThat(response.getInvoices().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T10:58:46.117-07:00"))));  
+        assertThat(response.getInvoices().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T18:58:46.117+01:00"))));
         assertThat(response.getInvoices().get(0).getHasErrors(), is(equalTo(false)));
         assertThat(response.getInvoices().get(0).getContact().getContactID(), is(equalTo(UUID.fromString("430fa14a-f945-44d3-9f97-5df5e28441b8"))));
         assertThat(response.getInvoices().get(0).getContact().getName(), is(equalTo("Liam Gallagher")));
@@ -143,7 +143,7 @@ public class AccountingApiInvoicesTest {
         HistoryRecords response = accountingApi.createInvoiceHistory(accessToken,xeroTenantId,invoiceID, historyRecords);
 
         assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Hello World")));     
-        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T12:08:03.349-07:00"))));  
+        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T20:08:03.349+01:00"))));
        //System.out.println(response.getHistoryRecords().get(0).toString());
     }
 
@@ -154,8 +154,8 @@ public class AccountingApiInvoicesTest {
         Invoices response = accountingApi.getInvoice(accessToken,xeroTenantId,invoiceID);
 
         assertThat(response.getInvoices().get(0).getType(), is(equalTo(com.xero.models.accounting.Invoice.TypeEnum.ACCREC)));
-        assertThat(response.getInvoices().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,06))));  
-        assertThat(response.getInvoices().get(0).getDueDate(), is(equalTo(LocalDate.of(2019, 03, 12))));  
+        assertThat(response.getInvoices().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,07))));
+        assertThat(response.getInvoices().get(0).getDueDate(), is(equalTo(LocalDate.of(2019, 03, 13))));
         assertThat(response.getInvoices().get(0).getLineAmountTypes(), is(equalTo(com.xero.models.accounting.LineAmountTypes.EXCLUSIVE)));
         assertThat(response.getInvoices().get(0).getInvoiceNumber(), is(equalTo("INV-0006")));
         assertThat(response.getInvoices().get(0).getReference(), is(equalTo("Tour")));
@@ -176,7 +176,7 @@ public class AccountingApiInvoicesTest {
         assertThat(response.getInvoices().get(0).getAmountDue().toString(), is(equalTo("0.0")));
         assertThat(response.getInvoices().get(0).getAmountPaid().toString(), is(equalTo("148062.76")));
         assertThat(response.getInvoices().get(0).getAmountPaid(), is(equalTo(148062.76)));
-        assertThat(response.getInvoices().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-07T09:59:28.133-08:00"))));
+        assertThat(response.getInvoices().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-07T18:59:28.133+01:00"))));
         assertThat(response.getInvoices().get(0).getHasErrors(), is(equalTo(false)));
         assertThat(response.getInvoices().get(0).getContact().getContactID(), is(equalTo(UUID.fromString("430fa14a-f945-44d3-9f97-5df5e28441b8"))));
         assertThat(response.getInvoices().get(0).getContact().getName(), is(equalTo("Liam Gallagher")));
@@ -196,8 +196,8 @@ public class AccountingApiInvoicesTest {
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getTaxAmount(), is(equalTo(0.0)));
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getLineAmount(), is(equalTo(148062.76)));
         assertThat(response.getInvoices().get(0).getHasAttachments(), is(equalTo(true)));
-        assertThat(response.getInvoices().get(0).getFullyPaidOnDate(), is(equalTo(LocalDate.of(2019,03,18))));
-        assertThat(response.getInvoices().get(0).getPayments().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,18))));
+        assertThat(response.getInvoices().get(0).getFullyPaidOnDate(), is(equalTo(LocalDate.of(2019,03,19))));
+        assertThat(response.getInvoices().get(0).getPayments().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,19))));
         assertThat(response.getInvoices().get(0).getPayments().get(0).getCurrencyRate(), is(equalTo(1.0)));
         assertThat(response.getInvoices().get(0).getPayments().get(0).getAmount(), is(equalTo(148062.76)));
         assertThat(response.getInvoices().get(0).getPayments().get(0).getReference(), is(equalTo("Yahoo")));
@@ -238,7 +238,7 @@ public class AccountingApiInvoicesTest {
         assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("Sidney Maestre")));       
         assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Paid")));     
         assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Payment received from Liam Gallagher on 19 March 2019 for 148,062.76. This invoice has been fully paid.")));     
-        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-07T09:59:28.133-08:00"))));  
+        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-07T18:59:28.133+01:00"))));
         //System.out.println(response.getHistoryRecords().get(0).toString());
     }
 
@@ -259,8 +259,8 @@ public class AccountingApiInvoicesTest {
         Invoices response = accountingApi.getInvoices(accessToken,xeroTenantId,ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp, unitdp);          
 
         assertThat(response.getInvoices().get(0).getType(), is(equalTo(com.xero.models.accounting.Invoice.TypeEnum.ACCREC)));
-        assertThat(response.getInvoices().get(0).getDate(), is(equalTo(LocalDate.of(2018,10,19))));  
-        assertThat(response.getInvoices().get(0).getDueDate(), is(equalTo(LocalDate.of(2018,12,29))));  
+        assertThat(response.getInvoices().get(0).getDate(), is(equalTo(LocalDate.of(2018,10,20))));
+        assertThat(response.getInvoices().get(0).getDueDate(), is(equalTo(LocalDate.of(2018,12,30))));
         assertThat(response.getInvoices().get(0).getLineAmountTypes(), is(equalTo(com.xero.models.accounting.LineAmountTypes.EXCLUSIVE)));
         assertThat(response.getInvoices().get(0).getInvoiceNumber(), is(equalTo("INV-0001")));
         assertThat(response.getInvoices().get(0).getReference(), is(equalTo("Red Fish, Blue Fish")));
@@ -283,7 +283,7 @@ public class AccountingApiInvoicesTest {
         assertThat(response.getInvoices().get(0).getAmountPaid(), is(equalTo(0.0)));
         assertThat(response.getInvoices().get(0).getAmountCredited().toString(), is(equalTo("0.0")));
         assertThat(response.getInvoices().get(0).getAmountCredited(), is(equalTo(0.0)));
-        assertThat(response.getInvoices().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2018-11-02T09:31:30.160-07:00"))));
+        assertThat(response.getInvoices().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2018-11-02T17:31:30.160+01:00"))));
         assertThat(response.getInvoices().get(0).getHasErrors(), is(equalTo(false)));
         assertThat(response.getInvoices().get(0).getContact().getContactID(), is(equalTo(UUID.fromString("a3675fc4-f8dd-4f03-ba5b-f1870566bcd7"))));
         assertThat(response.getInvoices().get(0).getContact().getName(), is(equalTo("Barney Rubble-83203")));
@@ -308,8 +308,8 @@ public class AccountingApiInvoicesTest {
         Invoices response = accountingApi.updateInvoice(accessToken,xeroTenantId,invoiceID, invoices);
 
         assertThat(response.getInvoices().get(0).getType(), is(equalTo(com.xero.models.accounting.Invoice.TypeEnum.ACCREC)));
-        assertThat(response.getInvoices().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,10))));  
-        assertThat(response.getInvoices().get(0).getDueDate(), is(equalTo(LocalDate.of(2019, 03, 11))));  
+        assertThat(response.getInvoices().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,11))));
+        assertThat(response.getInvoices().get(0).getDueDate(), is(equalTo(LocalDate.of(2019, 03, 12))));
         assertThat(response.getInvoices().get(0).getLineAmountTypes(), is(equalTo(com.xero.models.accounting.LineAmountTypes.EXCLUSIVE)));
         assertThat(response.getInvoices().get(0).getInvoiceNumber(), is(equalTo("INV-0008")));
         assertThat(response.getInvoices().get(0).getReference(), is(equalTo("My the Force be With You")));
@@ -330,7 +330,7 @@ public class AccountingApiInvoicesTest {
         assertThat(response.getInvoices().get(0).getAmountDue().toString(), is(equalTo("575.0")));
         assertThat(response.getInvoices().get(0).getAmountPaid().toString(), is(equalTo("0.0")));
         assertThat(response.getInvoices().get(0).getAmountPaid(), is(equalTo(0.0)));
-        assertThat(response.getInvoices().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T11:42:08.987-07:00"))));
+        assertThat(response.getInvoices().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T19:42:08.987+01:00"))));
         assertThat(response.getInvoices().get(0).getHasErrors(), is(equalTo(false)));
         assertThat(response.getInvoices().get(0).getContact().getContactID(), is(equalTo(UUID.fromString("be392c72-c121-4f83-9512-03ac71e54c20"))));
         assertThat(response.getInvoices().get(0).getContact().getName(), is(equalTo("Luke Skywalker")));        

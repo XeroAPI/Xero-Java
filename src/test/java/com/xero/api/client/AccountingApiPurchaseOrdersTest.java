@@ -97,7 +97,7 @@ public class AccountingApiPurchaseOrdersTest {
         assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getAccountCode(), is(equalTo("710")));
         assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getTaxAmount(), is(equalTo(3.0)));
         assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getLineAmount(), is(equalTo(20.0)));
-        assertThat(response.getPurchaseOrders().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,12))));  
+        assertThat(response.getPurchaseOrders().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,13))));
         assertThat(response.getPurchaseOrders().get(0).getLineAmountTypes(), is(equalTo(com.xero.models.accounting.LineAmountTypes.EXCLUSIVE)));
         assertThat(response.getPurchaseOrders().get(0).getPurchaseOrderNumber(), is(equalTo("PO-0004")));
         assertThat(response.getPurchaseOrders().get(0).getCurrencyCode(), is(equalTo(com.xero.models.accounting.CurrencyCode.NZD)));
@@ -114,7 +114,7 @@ public class AccountingApiPurchaseOrdersTest {
         assertThat(response.getPurchaseOrders().get(0).getTotal().toString(), is(equalTo("23.0")));
         assertThat(response.getPurchaseOrders().get(0).getTotalDiscount(), is(equalTo(0.0)));
         assertThat(response.getPurchaseOrders().get(0).getTotalDiscount().toString(), is(equalTo("0.0")));
-        assertThat(response.getPurchaseOrders().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-13T17:22:26.077-07:00"))));  
+        assertThat(response.getPurchaseOrders().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-14T01:22:26.077+01:00"))));
         assertThat(response.getPurchaseOrders().get(0).getValidationErrors().get(0).getMessage(), is(equalTo("Order number must be unique")));
         assertThat(response.getPurchaseOrders().get(0).getWarnings().get(0).getMessage(), is(equalTo("Only AUTHORISED and BILLED purchase orders may have SentToContact updated.")));
         //System.out.println(response.getPurchaseOrders().get(0).toString());
@@ -128,7 +128,7 @@ public class AccountingApiPurchaseOrdersTest {
         HistoryRecords response = accountingApi.createPurchaseOrderHistory(accessToken,xeroTenantId,purchaseOrderID, historyRecords);
 
         assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Hello World")));     
-        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-13T17:39:39.354-07:00"))));  
+        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-14T01:39:39.354+01:00"))));
         //System.out.println(response.getHistoryRecords().get(0).toString());
     }
 
@@ -149,8 +149,8 @@ public class AccountingApiPurchaseOrdersTest {
         assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getTaxAmount(), is(equalTo(337.5)));
         assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getLineAmount(), is(equalTo(2250.0)));
         assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getTracking().get(0).getName(), is(equalTo("Simpsons")));
-        assertThat(response.getPurchaseOrders().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,25))));  
-        assertThat(response.getPurchaseOrders().get(0).getDeliveryDate(), is(equalTo(LocalDate.of(2019,03,27))));  
+        assertThat(response.getPurchaseOrders().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,26))));
+        assertThat(response.getPurchaseOrders().get(0).getDeliveryDate(), is(equalTo(LocalDate.of(2019,03,28))));
         assertThat(response.getPurchaseOrders().get(0).getLineAmountTypes(), is(equalTo(com.xero.models.accounting.LineAmountTypes.EXCLUSIVE)));
         assertThat(response.getPurchaseOrders().get(0).getPurchaseOrderNumber(), is(equalTo("PO-0006")));
         assertThat(response.getPurchaseOrders().get(0).getReference(), is(equalTo("foobar")));
@@ -174,7 +174,7 @@ public class AccountingApiPurchaseOrdersTest {
         assertThat(response.getPurchaseOrders().get(0).getTotalDiscount(), is(equalTo(250.0)));
         assertThat(response.getPurchaseOrders().get(0).getTotalDiscount().toString(), is(equalTo("250.0")));
         assertThat(response.getPurchaseOrders().get(0).getHasAttachments(), is(equalTo(true)));
-        assertThat(response.getPurchaseOrders().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-26T11:47:09.823-07:00"))));  
+        assertThat(response.getPurchaseOrders().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-26T19:47:09.823+01:00"))));
         assertThat(response.getPurchaseOrders().get(0).getAttachments().get(0).getAttachmentID(), is(equalTo(UUID.fromString("7d94ccdc-ef7b-4806-87ac-8442f25e593b"))));
         assertThat(response.getPurchaseOrders().get(0).getAttachments().get(0).getFileName(), is(equalTo("HelloWorld.png")));
         assertThat(response.getPurchaseOrders().get(0).getAttachments().get(0).getMimeType(), is(equalTo("image/png")));
@@ -193,7 +193,7 @@ public class AccountingApiPurchaseOrdersTest {
         assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("System Generated")));       
         assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Note")));     
         assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Hello World")));     
-        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-13T17:22:28.670-07:00"))));  
+        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-14T01:22:28.670+01:00"))));
         //System.out.println(response.getHistoryRecords().get(0).toString());
     }
     
@@ -215,7 +215,7 @@ public class AccountingApiPurchaseOrdersTest {
         assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(20.0)));
         assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getTaxAmount(), is(equalTo(0.0)));
         assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getLineAmount(), is(equalTo(20.0)));
-        assertThat(response.getPurchaseOrders().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,11))));  
+        assertThat(response.getPurchaseOrders().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,12))));
         assertThat(response.getPurchaseOrders().get(0).getLineAmountTypes(), is(equalTo(com.xero.models.accounting.LineAmountTypes.EXCLUSIVE)));
         assertThat(response.getPurchaseOrders().get(0).getPurchaseOrderNumber(), is(equalTo("PO-0001")));
         assertThat(response.getPurchaseOrders().get(0).getAttentionTo(), is(equalTo("Jimmy")));
@@ -230,7 +230,7 @@ public class AccountingApiPurchaseOrdersTest {
         assertThat(response.getPurchaseOrders().get(0).getTotalTax().toString(), is(equalTo("0.0")));
         assertThat(response.getPurchaseOrders().get(0).getTotal(), is(equalTo(20.0)));       
         assertThat(response.getPurchaseOrders().get(0).getTotal().toString(), is(equalTo("20.0")));
-        assertThat(response.getPurchaseOrders().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-13T17:18:23.443-07:00"))));  
+        assertThat(response.getPurchaseOrders().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-14T01:18:23.443+01:00"))));
         //System.out.println(response.getPurchaseOrders().get(0).toString());
     }
     
@@ -250,7 +250,7 @@ public class AccountingApiPurchaseOrdersTest {
         assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getAccountCode(), is(equalTo("710")));
         assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getTaxAmount(), is(equalTo(3.0)));
         assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getLineAmount(), is(equalTo(20.0)));
-        assertThat(response.getPurchaseOrders().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,12))));  
+        assertThat(response.getPurchaseOrders().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,13))));
         assertThat(response.getPurchaseOrders().get(0).getLineAmountTypes(), is(equalTo(com.xero.models.accounting.LineAmountTypes.EXCLUSIVE)));
         assertThat(response.getPurchaseOrders().get(0).getPurchaseOrderNumber(), is(equalTo("PO-0005")));
         assertThat(response.getPurchaseOrders().get(0).getAttentionTo(), is(equalTo("Jimmy")));
@@ -268,7 +268,7 @@ public class AccountingApiPurchaseOrdersTest {
         assertThat(response.getPurchaseOrders().get(0).getTotal().toString(), is(equalTo("23.0")));
         assertThat(response.getPurchaseOrders().get(0).getTotalDiscount(), is(equalTo(0.0)));
         assertThat(response.getPurchaseOrders().get(0).getTotalDiscount().toString(), is(equalTo("0.0")));
-        assertThat(response.getPurchaseOrders().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-13T17:39:36.853-07:00"))));  
+        assertThat(response.getPurchaseOrders().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-14T01:39:36.853+01:00"))));
         //System.out.println(response.getPurchaseOrders().get(0).toString());
     }
 }

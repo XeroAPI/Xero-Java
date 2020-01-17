@@ -93,7 +93,7 @@ public class AccountingApiLinkedTransactionsTest {
         assertThat(response.getLinkedTransactions().get(0).getLinkedTransactionID(), is(equalTo(UUID.fromString("e9684b6c-4df9-45a0-917b-85cc29857008"))));
         assertThat(response.getLinkedTransactions().get(0).getStatus(), is(equalTo(com.xero.models.accounting.LinkedTransaction.StatusEnum.DRAFT)));
         assertThat(response.getLinkedTransactions().get(0).getType(), is(equalTo(com.xero.models.accounting.LinkedTransaction.TypeEnum.BILLABLEEXPENSE)));
-        assertThat(response.getLinkedTransactions().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T17:37:35-07:00"))));  
+        assertThat(response.getLinkedTransactions().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-12T01:37:35+01:00"))));
         assertThat(response.getLinkedTransactions().get(0).getSourceTransactionTypeCode(), is(equalTo(com.xero.models.accounting.LinkedTransaction.SourceTransactionTypeCodeEnum.ACCPAY)));
         assertThat(response.getLinkedTransactions().get(0).getValidationErrors().get(0).getMessage(), is(equalTo("The SourceLineItemID and SourceTransactionID do not match")));
         //System.out.println(response.getLinkedTransactions().get(0).toString());
@@ -120,7 +120,7 @@ public class AccountingApiLinkedTransactionsTest {
         assertThat(response.getLinkedTransactions().get(0).getLinkedTransactionID(), is(equalTo(UUID.fromString("5cf7d9c0-b9a7-4433-a2dc-ae3c11bba39b"))));
         assertThat(response.getLinkedTransactions().get(0).getStatus(), is(equalTo(com.xero.models.accounting.LinkedTransaction.StatusEnum.ONDRAFT)));
         assertThat(response.getLinkedTransactions().get(0).getType(), is(equalTo(com.xero.models.accounting.LinkedTransaction.TypeEnum.BILLABLEEXPENSE)));
-        assertThat(response.getLinkedTransactions().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T16:46:31-07:00"))));  
+        assertThat(response.getLinkedTransactions().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-12T00:46:31+01:00"))));
         assertThat(response.getLinkedTransactions().get(0).getSourceTransactionTypeCode(), is(equalTo(com.xero.models.accounting.LinkedTransaction.SourceTransactionTypeCodeEnum.ACCPAY)));
         //System.out.println(response.getLinkedTransactions().get(0).toString());
     }
@@ -144,7 +144,7 @@ public class AccountingApiLinkedTransactionsTest {
         assertThat(response.getLinkedTransactions().get(0).getLinkedTransactionID(), is(equalTo(UUID.fromString("5cf7d9c0-b9a7-4433-a2dc-ae3c11bba39b"))));
         assertThat(response.getLinkedTransactions().get(0).getStatus(), is(equalTo(com.xero.models.accounting.LinkedTransaction.StatusEnum.ONDRAFT)));
         assertThat(response.getLinkedTransactions().get(0).getType(), is(equalTo(com.xero.models.accounting.LinkedTransaction.TypeEnum.BILLABLEEXPENSE)));
-        assertThat(response.getLinkedTransactions().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T16:46:31-07:00"))));  
+        assertThat(response.getLinkedTransactions().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-12T00:46:31+01:00"))));
         assertThat(response.getLinkedTransactions().get(0).getSourceTransactionTypeCode(), is(equalTo(com.xero.models.accounting.LinkedTransaction.SourceTransactionTypeCodeEnum.ACCPAY)));
         //System.out.println(response.getLinkedTransactions().get(0).toString());
     }
@@ -162,7 +162,7 @@ public class AccountingApiLinkedTransactionsTest {
         assertThat(response.getLinkedTransactions().get(0).getLinkedTransactionID(), is(equalTo(UUID.fromString("e9684b6c-4df9-45a0-917b-85cc29857008"))));     
         assertThat(response.getLinkedTransactions().get(0).getStatus(), is(equalTo(com.xero.models.accounting.LinkedTransaction.StatusEnum.DRAFT)));
         assertThat(response.getLinkedTransactions().get(0).getType(), is(equalTo(com.xero.models.accounting.LinkedTransaction.TypeEnum.BILLABLEEXPENSE)));
-        assertThat(response.getLinkedTransactions().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T17:37:35-07:00"))));  
+        assertThat(response.getLinkedTransactions().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-12T01:37:35+01:00"))));
         assertThat(response.getLinkedTransactions().get(0).getSourceTransactionTypeCode(), is(equalTo(com.xero.models.accounting.LinkedTransaction.SourceTransactionTypeCodeEnum.ACCPAY)));
         //System.out.println(response.getLinkedTransactions().get(0).toString());
     }
