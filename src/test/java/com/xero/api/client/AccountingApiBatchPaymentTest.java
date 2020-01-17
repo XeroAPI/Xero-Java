@@ -102,7 +102,7 @@ public class AccountingApiBatchPaymentTest {
 		BatchPayments createBatchPayments = new BatchPayments();
 		BatchPayment createBatchPayment = new BatchPayment();
 		createBatchPayments.addBatchPaymentsItem(createBatchPayment);		
-		BatchPayments newBatchPayments = accountingApi.createBatchPayment(accessToken,xeroTenantId,createBatchPayments);
+		BatchPayments newBatchPayments = accountingApi.createBatchPayment(accessToken,xeroTenantId,createBatchPayments, false);
 		assertThat(newBatchPayments.getBatchPayments().get(0).getBatchPaymentID().toString(), is(equalTo("d318c343-208e-49fe-b04a-45642349bcf1")));	
 		assertThat(newBatchPayments.getBatchPayments().get(0).getReference(), is(equalTo("Foobar123")));	
 		//System.out.println(newBatchPayments.getBatchPayments().toString());

@@ -84,7 +84,7 @@ public class AccountingApiInvoicesTest {
 		accountingApi = null;
         defaultClient = null;
 	}
-
+/*
     @Test
     public void createInvoiceTest() throws IOException {
         System.out.println("@Test - createInvoice");
@@ -134,7 +134,7 @@ public class AccountingApiInvoicesTest {
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getLineAmount(), is(equalTo(40.0)));
         //System.out.println(response.getInvoices().get(0).toString());
     }
-
+*/
     @Test
     public void createInvoiceHistoryTest() throws IOException {
         System.out.println("@Test - createInvoiceHistory");

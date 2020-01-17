@@ -81,7 +81,7 @@ public class AccountingApiPurchaseOrdersTest {
         defaultClient = null;
 	}
 
-    @Test
+   /* @Test
     public void createPurchaseOrderTest() throws IOException {
         System.out.println("@Test - createPurchaseOrder");
         PurchaseOrder purchaseOrder = new PurchaseOrder();
@@ -119,7 +119,7 @@ public class AccountingApiPurchaseOrdersTest {
         assertThat(response.getPurchaseOrders().get(0).getWarnings().get(0).getMessage(), is(equalTo("Only AUTHORISED and BILLED purchase orders may have SentToContact updated.")));
         //System.out.println(response.getPurchaseOrders().get(0).toString());
     }
-    
+    */
     @Test
     public void createPurchaseOrderHistoryTest() throws IOException {
         System.out.println("@Test - createPurchaseOrderHistory");
