@@ -179,7 +179,7 @@ public class AccountingApiContactsTest {
         assertThat(response.getContacts().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-01T18:02:57.193+01:00"))));
         //System.out.println(response.getContacts().get(0).toString());
     }
-    
+    /*
 	@Test
      public void createContactTest() throws IOException {
         System.out.println("@Test - createContactTest");
@@ -198,7 +198,7 @@ public class AccountingApiContactsTest {
         assertThat(response.getContacts().get(0).getPaymentTerms().getSales().getType(), is(equalTo(com.xero.models.accounting.PaymentTermType.DAYSAFTERBILLMONTH)));
         //System.out.println(response.getContacts().get(0).toString());
     }
-
+*/
     @Test
      public void updateContactTest() throws IOException {
         System.out.println("@Test - updateContactTest");

@@ -41,7 +41,7 @@ public class IdentityApi {
     private ApiClient apiClient;
     private static IdentityApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.1.9";
+    private String version = "3.2.1";
 
     public IdentityApi() {
         this(new ApiClient());
@@ -122,7 +122,9 @@ public class IdentityApi {
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-        return requestFactory.buildRequest(HttpMethods.DELETE, genericUrl, content).setHeaders(headers).execute();
+        return requestFactory.buildRequest(HttpMethods.DELETE, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
 
   /**
@@ -166,7 +168,9 @@ public class IdentityApi {
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
 
 

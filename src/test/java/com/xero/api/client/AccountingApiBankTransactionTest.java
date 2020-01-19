@@ -134,7 +134,7 @@ public class AccountingApiBankTransactionTest {
 		assertThat(response.getBankTransactions().get(0).getTotal(), is(equalTo(20.00)));
 		//System.out.println(response.getBankTransactions().get(0).toString());
 	}
-
+/*
 	@Test
 	public void testCreateBankTransaction() throws Exception {
 		System.out.println("@Test - createBankTransaction");
@@ -150,7 +150,7 @@ public class AccountingApiBankTransactionTest {
 		assertThat(response.getBankTransactions().get(0).getTotal(), is(equalTo(20.00)));
 		//System.out.println(response.getBankTransactions().get(0).toString());
 	}
-
+*/
 
     @Test
     public void createBankTransactionAttachmentByFileNameTest() throws IOException {

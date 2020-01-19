@@ -84,14 +84,14 @@ public class AccountingApiCreditNotesTest {
 		accountingApi = null;
         defaultClient = null;
 	}
-
+/*
 	@Test
     public void createCreditNoteTest() throws IOException {
         System.out.println("@Test - createCreditNote");
         Boolean summarizeErrors = null;
         CreditNote creditNote = new CreditNote();
         CreditNotes response = accountingApi.createCreditNote(accessToken,xeroTenantId,creditNote);
-        /*
+        
         assertThat(response.getCreditNotes().get(0).getType(), is(equalTo(com.xero.models.accounting.CreditNote.TypeEnum.ACCPAYCREDIT)));
         assertThat(response.getCreditNotes().get(0).getStatus(), is(equalTo(com.xero.models.accounting.CreditNote.StatusEnum.DRAFT)));
         assertThat(response.getCreditNotes().get(0).getSubTotal(), is(equalTo(40.0)));
@@ -116,10 +116,10 @@ public class AccountingApiCreditNotesTest {
         assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getAccountCode(), is(equalTo("400")));
         assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getTaxAmount(), is(equalTo(6.0)));
         assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getLineAmount(), is(equalTo(40.0)));
-        */
+        
         //System.out.println(response.getCreditNotes().get(0).toString());
     }
-
+*/
     @Test
     public void createCreditNoteAllocationTest() throws IOException {
         System.out.println("@Test - createCreditNoteAllocation");

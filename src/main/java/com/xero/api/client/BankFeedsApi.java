@@ -45,7 +45,7 @@ public class BankFeedsApi {
     private ApiClient apiClient;
     private static BankFeedsApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.1.9";
+    private String version = "3.2.1";
 
     public BankFeedsApi() {
         this(new ApiClient());
@@ -130,7 +130,9 @@ public class BankFeedsApi {
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
-        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();    
+        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();      
     }
 
   /**
@@ -184,7 +186,9 @@ public class BankFeedsApi {
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
-        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();    
+        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();      
     }
 
   /**
@@ -238,7 +242,9 @@ public class BankFeedsApi {
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
-        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers).execute();    
+        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();      
     }
 
   /**
@@ -296,7 +302,9 @@ public class BankFeedsApi {
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
-        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();    
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();      
     }
 
   /**
@@ -368,7 +376,9 @@ public class BankFeedsApi {
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
-        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();    
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();      
     }
 
   /**
@@ -426,7 +436,9 @@ public class BankFeedsApi {
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
-        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();    
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();      
     }
 
   /**
@@ -502,7 +514,9 @@ public class BankFeedsApi {
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
         
-        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers).execute();    
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();      
     }
 
 
