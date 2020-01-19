@@ -122,9 +122,9 @@ public class AccountingApiRepeatingInvoicesTest {
         assertThat(response.getRepeatingInvoices().get(0).getSchedule().getUnit(), is(equalTo(com.xero.models.accounting.Schedule.UnitEnum.MONTHLY)));
         assertThat(response.getRepeatingInvoices().get(0).getSchedule().getDueDate(), is(equalTo(10)));
         assertThat(response.getRepeatingInvoices().get(0).getSchedule().getDueDateType(), is(equalTo(com.xero.models.accounting.Schedule.DueDateTypeEnum.OFFOLLOWINGMONTH)));
-        assertThat(response.getRepeatingInvoices().get(0).getSchedule().getStartDate(), is(equalTo(LocalDate.of(2019,04,15))));
-        assertThat(response.getRepeatingInvoices().get(0).getSchedule().getNextScheduledDate(), is(equalTo(LocalDate.of(2019,04,15))));
-        assertThat(response.getRepeatingInvoices().get(0).getSchedule().getEndDate(), is(equalTo(LocalDate.of(2019,9,30))));
+        assertThat(response.getRepeatingInvoices().get(0).getSchedule().getStartDate(), is(equalTo(LocalDate.of(2019,04,14))));
+        assertThat(response.getRepeatingInvoices().get(0).getSchedule().getNextScheduledDate(), is(equalTo(LocalDate.of(2019,04,14))));
+        assertThat(response.getRepeatingInvoices().get(0).getSchedule().getEndDate(), is(equalTo(LocalDate.of(2019,9,29))));         
         assertThat(response.getRepeatingInvoices().get(0).getLineItems().get(0).getLineItemID(), is(equalTo(UUID.fromString("13a8353c-d2af-4d5b-920c-438449f08900"))));
         assertThat(response.getRepeatingInvoices().get(0).getLineItems().get(0).getDescription(), is(equalTo("Guitars Fender Strat")));
         assertThat(response.getRepeatingInvoices().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0)));
@@ -179,7 +179,7 @@ public class AccountingApiRepeatingInvoicesTest {
         assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("System Generated")));       
         assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Attached a file")));     
         assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Attached the file foobar.jpg through the Xero API using Java Partner Example")));     
-        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-15T23:07:28.587+01:00"))));
+        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-15T14:07:28.587-08:00"))));
         //System.out.println(response.getHistoryRecords().get(0).toString());
     }
     
@@ -196,9 +196,9 @@ public class AccountingApiRepeatingInvoicesTest {
         assertThat(response.getRepeatingInvoices().get(0).getSchedule().getUnit(), is(equalTo(com.xero.models.accounting.Schedule.UnitEnum.MONTHLY)));
         assertThat(response.getRepeatingInvoices().get(0).getSchedule().getDueDate(), is(equalTo(10)));
         assertThat(response.getRepeatingInvoices().get(0).getSchedule().getDueDateType(), is(equalTo(com.xero.models.accounting.Schedule.DueDateTypeEnum.OFFOLLOWINGMONTH)));
-        assertThat(response.getRepeatingInvoices().get(0).getSchedule().getStartDate(), is(equalTo(LocalDate.of(2019,04,15))));
-        assertThat(response.getRepeatingInvoices().get(0).getSchedule().getNextScheduledDate(), is(equalTo(LocalDate.of(2019,04,15))));
-        assertThat(response.getRepeatingInvoices().get(0).getSchedule().getEndDate(), is(equalTo(LocalDate.of(2019,9,30))));
+        assertThat(response.getRepeatingInvoices().get(0).getSchedule().getStartDate(), is(equalTo(LocalDate.of(2019,04,14))));
+        assertThat(response.getRepeatingInvoices().get(0).getSchedule().getNextScheduledDate(), is(equalTo(LocalDate.of(2019,04,14))));
+        assertThat(response.getRepeatingInvoices().get(0).getSchedule().getEndDate(), is(equalTo(LocalDate.of(2019,9,29))));         
         assertThat(response.getRepeatingInvoices().get(0).getLineItems().get(0).getLineItemID(), is(equalTo(UUID.fromString("13a8353c-d2af-4d5b-920c-438449f08900"))));
         assertThat(response.getRepeatingInvoices().get(0).getLineItems().get(0).getDescription(), is(equalTo("Guitars Fender Strat")));
         assertThat(response.getRepeatingInvoices().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0)));

@@ -94,7 +94,7 @@ public class AccountingApiEmployeesTest {
         assertThat(response.getEmployees().get(0).getLastName(), is(equalTo("Fury")));
         assertThat(response.getEmployees().get(0).getExternalLink().getUrl(), is(equalTo("http://twitter.com/#!/search/Nick+Fury")));
         assertThat(response.getEmployees().get(0).getExternalLink().getDescription(), is(equalTo("Go to external link")));
-        assertThat(response.getEmployees().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T18:18:56.463+01:00"))));
+        assertThat(response.getEmployees().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T09:18:56.463-08:00"))));
         //System.out.println(response.getEmployees().get(0).toString());
     }
 
@@ -110,7 +110,7 @@ public class AccountingApiEmployeesTest {
         assertThat(response.getEmployees().get(0).getLastName(), is(equalTo("Stark")));
         assertThat(response.getEmployees().get(0).getExternalLink().getUrl(), is(equalTo("http://twitter.com/#!/search/Stark+Industries")));
         assertThat(response.getEmployees().get(0).getExternalLink().getDescription(), is(equalTo("Go to external link")));
-        assertThat(response.getEmployees().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T18:18:01.593+01:00"))));
+        assertThat(response.getEmployees().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T09:18:01.593-08:00"))));
         //System.out.println(response.getEmployees().get(0).toString());
     }
     
@@ -129,7 +129,7 @@ public class AccountingApiEmployeesTest {
         assertThat(response.getEmployees().get(0).getLastName(), is(equalTo("Stark")));
         assertThat(response.getEmployees().get(0).getExternalLink().getUrl(), is(equalTo("http://twitter.com/#!/search/Stark+Industries")));
         assertThat(response.getEmployees().get(0).getExternalLink().getDescription(), is(equalTo("Go to external link")));
-        assertThat(response.getEmployees().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T18:18:01.593+01:00"))));
+        assertThat(response.getEmployees().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T09:18:01.593-08:00"))));
         //System.out.println(response.getEmployees().get(0).toString());
     }
 
@@ -146,7 +146,7 @@ public class AccountingApiEmployeesTest {
         assertThat(response.getEmployees().get(0).getLastName(), is(equalTo("Banner")));
         assertThat(response.getEmployees().get(0).getExternalLink().getUrl(), is(equalTo("http://twitter.com/#!/search/Nick+Fury")));
         assertThat(response.getEmployees().get(0).getExternalLink().getDescription(), is(equalTo("Go to external link")));
-        assertThat(response.getEmployees().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T18:24:41.303+01:00"))));
+        assertThat(response.getEmployees().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T09:24:41.303-08:00"))));
         //System.out.println(response.getEmployees().get(0).toString());
     }
 }

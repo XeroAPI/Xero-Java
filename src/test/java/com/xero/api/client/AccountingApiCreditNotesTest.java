@@ -128,7 +128,7 @@ public class AccountingApiCreditNotesTest {
         Allocations response = accountingApi.createCreditNoteAllocation(accessToken,xeroTenantId,creditNoteID, allocations);
         
         assertThat(response.getAllocations().get(0).getAmount(), is(equalTo(1.0)));
-        assertThat(response.getAllocations().get(0).getDate(), is(equalTo(LocalDate.of(2019, 03, 05))));
+        assertThat(response.getAllocations().get(0).getDate(), is(equalTo(LocalDate.of(2019, 03, 04))));
         //System.out.println(response.getAllocations().get(0).toString());
     }
     
@@ -157,7 +157,7 @@ public class AccountingApiCreditNotesTest {
         HistoryRecords response = accountingApi.createCreditNoteHistory(accessToken,xeroTenantId,creditNoteID, historyRecords);
         
         assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Hello World")));     
-        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-06T00:29:04.585+01:00"))));
+        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-05T15:29:04.585-08:00"))));  
         //System.out.println(response.getHistoryRecords().get(0).toString());
     }
 
@@ -168,7 +168,7 @@ public class AccountingApiCreditNotesTest {
         CreditNotes response = accountingApi.getCreditNote(accessToken,xeroTenantId,creditNoteID);
         
         assertThat(response.getCreditNotes().get(0).getType(), is(equalTo(com.xero.models.accounting.CreditNote.TypeEnum.ACCRECCREDIT)));
-        assertThat(response.getCreditNotes().get(0).getDate(), is(equalTo(LocalDate.of(2019, 03, 05))));
+        assertThat(response.getCreditNotes().get(0).getDate(), is(equalTo(LocalDate.of(2019, 03, 04))));  
         assertThat(response.getCreditNotes().get(0).getStatus(), is(equalTo(com.xero.models.accounting.CreditNote.StatusEnum.AUTHORISED)));
         assertThat(response.getCreditNotes().get(0).getLineAmountTypes(), is(equalTo(com.xero.models.accounting.LineAmountTypes.EXCLUSIVE)));
         assertThat(response.getCreditNotes().get(0).getSubTotal(), is(equalTo(30.0)));
@@ -177,7 +177,7 @@ public class AccountingApiCreditNotesTest {
         assertThat(response.getCreditNotes().get(0).getTotalTax().toString(), is(equalTo("4.5")));
         assertThat(response.getCreditNotes().get(0).getTotal(), is(equalTo(34.5)));
         assertThat(response.getCreditNotes().get(0).getTotal().toString(), is(equalTo("34.5")));
-        assertThat(response.getCreditNotes().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-05T19:59:06.157+01:00"))));
+        assertThat(response.getCreditNotes().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-05T10:59:06.157-08:00"))));  
         assertThat(response.getCreditNotes().get(0).getCurrencyCode(), is(equalTo(com.xero.models.accounting.CurrencyCode.NZD)));
         assertThat(response.getCreditNotes().get(0).getCreditNoteID(), is(equalTo(UUID.fromString("249f15fa-f2a7-4acc-8769-0984103f2225"))));
         assertThat(response.getCreditNotes().get(0).getCreditNoteNumber(), is(equalTo("CN-0005")));
@@ -188,7 +188,7 @@ public class AccountingApiCreditNotesTest {
         assertThat(response.getCreditNotes().get(0).getRemainingCredit().toString(), is(equalTo("32.5")));
         assertThat(response.getCreditNotes().get(0).getHasAttachments(), is(equalTo(true)));
         assertThat(response.getCreditNotes().get(0).getPayments().get(0).getReference(), is(equalTo("Too much")));
-        assertThat(response.getCreditNotes().get(0).getPayments().get(0).getDate(), is(equalTo(LocalDate.of(2019, 03, 14))));
+        assertThat(response.getCreditNotes().get(0).getPayments().get(0).getDate(), is(equalTo(LocalDate.of(2019, 03, 13))));
         assertThat(response.getCreditNotes().get(0).getPayments().get(0).getCurrencyRate(), is(equalTo(1.0)));
         assertThat(response.getCreditNotes().get(0).getPayments().get(0).getAmount(), is(equalTo(2.0)));
         assertThat(response.getCreditNotes().get(0).getPayments().get(0).getPaymentID(), is(equalTo(UUID.fromString("6b037c9b-2e5d-4905-84d3-eabfb3438242"))));
@@ -221,7 +221,7 @@ public class AccountingApiCreditNotesTest {
         assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("Sidney Maestre")));       
         assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Cash Refunded")));     
         assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Payment made to Liam Gallagher on 14 March 2019 for 2.00. There is 32.50 credit remaining on this credit note.")));     
-        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-05T19:59:06.157+01:00"))));
+        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-05T10:59:06.157-08:00"))));  
         //System.out.println(response.getHistoryRecords().get(0).toString());
     }
     
@@ -236,7 +236,7 @@ public class AccountingApiCreditNotesTest {
         CreditNotes response = accountingApi.getCreditNotes(accessToken,xeroTenantId,ifModifiedSince, where, order, page);
 
         assertThat(response.getCreditNotes().get(0).getType(), is(equalTo(com.xero.models.accounting.CreditNote.TypeEnum.ACCRECCREDIT)));
-        assertThat(response.getCreditNotes().get(0).getDate(), is(equalTo(LocalDate.of(2019, 03, 05))));
+        assertThat(response.getCreditNotes().get(0).getDate(), is(equalTo(LocalDate.of(2019, 03, 04))));  
         assertThat(response.getCreditNotes().get(0).getStatus(), is(equalTo(com.xero.models.accounting.CreditNote.StatusEnum.AUTHORISED)));
         assertThat(response.getCreditNotes().get(0).getLineAmountTypes(), is(equalTo(com.xero.models.accounting.LineAmountTypes.EXCLUSIVE)));
         assertThat(response.getCreditNotes().get(0).getSubTotal(), is(equalTo(30.0)));
@@ -245,7 +245,7 @@ public class AccountingApiCreditNotesTest {
         assertThat(response.getCreditNotes().get(0).getTotalTax().toString(), is(equalTo("4.5")));
         assertThat(response.getCreditNotes().get(0).getTotal(), is(equalTo(34.5)));
         assertThat(response.getCreditNotes().get(0).getTotal().toString(), is(equalTo("34.5")));
-        assertThat(response.getCreditNotes().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-05T19:59:06.157+01:00"))));
+        assertThat(response.getCreditNotes().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-05T10:59:06.157-08:00"))));  
         assertThat(response.getCreditNotes().get(0).getCurrencyCode(), is(equalTo(com.xero.models.accounting.CurrencyCode.NZD)));
         assertThat(response.getCreditNotes().get(0).getCreditNoteID(), is(equalTo(UUID.fromString("249f15fa-f2a7-4acc-8769-0984103f2225"))));
         assertThat(response.getCreditNotes().get(0).getCreditNoteNumber(), is(equalTo("CN-0005")));
@@ -256,7 +256,7 @@ public class AccountingApiCreditNotesTest {
         assertThat(response.getCreditNotes().get(0).getRemainingCredit().toString(), is(equalTo("32.5")));
         assertThat(response.getCreditNotes().get(0).getHasAttachments(), is(equalTo(true)));
         assertThat(response.getCreditNotes().get(0).getPayments().get(0).getReference(), is(equalTo("Too much")));
-        assertThat(response.getCreditNotes().get(0).getPayments().get(0).getDate(), is(equalTo(LocalDate.of(2019, 03, 14))));
+        assertThat(response.getCreditNotes().get(0).getPayments().get(0).getDate(), is(equalTo(LocalDate.of(2019, 03, 13))));
         assertThat(response.getCreditNotes().get(0).getPayments().get(0).getCurrencyRate(), is(equalTo(1.0)));
         assertThat(response.getCreditNotes().get(0).getPayments().get(0).getAmount(), is(equalTo(2.0)));
         assertThat(response.getCreditNotes().get(0).getPayments().get(0).getPaymentID(), is(equalTo(UUID.fromString("6b037c9b-2e5d-4905-84d3-eabfb3438242"))));
@@ -273,7 +273,7 @@ public class AccountingApiCreditNotesTest {
         CreditNotes response = accountingApi.updateCreditNote(accessToken,xeroTenantId,creditNoteID, creditNotes);
 
         assertThat(response.getCreditNotes().get(0).getType(), is(equalTo(com.xero.models.accounting.CreditNote.TypeEnum.ACCPAYCREDIT)));
-        assertThat(response.getCreditNotes().get(0).getDate(), is(equalTo(LocalDate.of(2019, 01, 05))));
+        assertThat(response.getCreditNotes().get(0).getDate(), is(equalTo(LocalDate.of(2019, 01, 04))));
         assertThat(response.getCreditNotes().get(0).getStatus(), is(equalTo(com.xero.models.accounting.CreditNote.StatusEnum.AUTHORISED)));
         assertThat(response.getCreditNotes().get(0).getLineAmountTypes(), is(equalTo(com.xero.models.accounting.LineAmountTypes.EXCLUSIVE)));
         assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getDescription(), is(equalTo("Foobar")));
@@ -289,7 +289,7 @@ public class AccountingApiCreditNotesTest {
         assertThat(response.getCreditNotes().get(0).getTotalTax().toString(), is(equalTo("6.0")));
         assertThat(response.getCreditNotes().get(0).getTotal(), is(equalTo(46.0)));
         assertThat(response.getCreditNotes().get(0).getTotal().toString(), is(equalTo("46.0")));
-        assertThat(response.getCreditNotes().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-05T20:05:04.223+01:00"))));
+        assertThat(response.getCreditNotes().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-05T11:05:04.223-08:00"))));  
         assertThat(response.getCreditNotes().get(0).getCurrencyCode(), is(equalTo(com.xero.models.accounting.CurrencyCode.NZD)));
         assertThat(response.getCreditNotes().get(0).getCreditNoteID(), is(equalTo(UUID.fromString("f9256f04-5a99-4680-acb9-6b4639cc439a"))));
         assertThat(response.getCreditNotes().get(0).getReference(), is(equalTo("HelloWorld")));  

@@ -105,9 +105,9 @@ public class AccountingApiOrganisationsTest {
         assertThat(response.getOrganisations().get(0).getSalesTaxPeriod(), is(equalTo(com.xero.models.accounting.Organisation.SalesTaxPeriodEnum.TWOMONTHS)));
         assertThat(response.getOrganisations().get(0).getDefaultSalesTax(), is(equalTo("Tax Exclusive")));
         assertThat(response.getOrganisations().get(0).getDefaultPurchasesTax(), is(equalTo("Tax Exclusive")));
-        assertThat(response.getOrganisations().get(0).getPeriodLockDate(), is(equalTo(LocalDate.of(2018,12,31))));
-        assertThat(response.getOrganisations().get(0).getEndOfYearLockDate(), is(equalTo(LocalDate.of(2018,12,31))));
-        assertThat(response.getOrganisations().get(0).getCreatedDateUTC(), is(equalTo(OffsetDateTime.parse("2016-02-18T21:29:53+01:00"))));
+        assertThat(response.getOrganisations().get(0).getPeriodLockDate(), is(equalTo(LocalDate.of(2018,12,30))));  
+        assertThat(response.getOrganisations().get(0).getEndOfYearLockDate(), is(equalTo(LocalDate.of(2018,12,30))));  
+        assertThat(response.getOrganisations().get(0).getCreatedDateUTC(), is(equalTo(OffsetDateTime.parse("2016-02-18T12:29:53-08:00"))));  
         assertThat(response.getOrganisations().get(0).getTimezone(), is(equalTo(com.xero.models.accounting.TimeZone.NEWZEALANDSTANDARDTIME)));
         assertThat(response.getOrganisations().get(0).getOrganisationEntityType(), is(equalTo(com.xero.models.accounting.Organisation.OrganisationEntityTypeEnum.COMPANY)));
         assertThat(response.getOrganisations().get(0).getShortCode(), is(equalTo("!mBdtL")));

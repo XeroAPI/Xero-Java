@@ -91,7 +91,7 @@ public class AccountingApiReceiptsTest {
         Receipts receipts = new Receipts();
         Receipts response = accountingApi.createReceipt(accessToken,xeroTenantId,receipts);
 
-        assertThat(response.getReceipts().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,14))));
+        assertThat(response.getReceipts().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,13))));  
         assertThat(response.getReceipts().get(0).getContact().getContactID(), is(equalTo(UUID.fromString("430fa14a-f945-44d3-9f97-5df5e28441b8"))));
         assertThat(response.getReceipts().get(0).getUser().getUserID(), is(equalTo(UUID.fromString("d1164823-0ac1-41ad-987b-b4e30fe0b273"))));
         assertThat(response.getReceipts().get(0).getLineAmountTypes(), is(equalTo(com.xero.models.accounting.LineAmountTypes.NOTAX)));
@@ -104,7 +104,7 @@ public class AccountingApiReceiptsTest {
         assertThat(response.getReceipts().get(0).getReceiptID(), is(equalTo(UUID.fromString("a44fd147-af4e-4fe8-a09a-55332df74162"))));
         assertThat(response.getReceipts().get(0).getStatus(), is(equalTo(com.xero.models.accounting.Receipt.StatusEnum.DRAFT)));
         assertThat(response.getReceipts().get(0).getReceiptNumber(), is(equalTo("1")));
-        assertThat(response.getReceipts().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-14T01:49:43.367+01:00"))));
+        assertThat(response.getReceipts().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-13T16:49:43.367-08:00"))));
         assertThat(response.getReceipts().get(0).getHasAttachments(), is(equalTo(false)));
         assertThat(response.getReceipts().get(0).getValidationErrors().get(0).getMessage(), is(equalTo("A valid user should be identified using the UserID.")));
         //System.out.println(response.getReceipts().get(0).toString());
@@ -142,7 +142,7 @@ public class AccountingApiReceiptsTest {
         UUID receiptID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         Receipts response = accountingApi.getReceipt(accessToken,xeroTenantId,receiptID);
 
-        assertThat(response.getReceipts().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,13))));
+        assertThat(response.getReceipts().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,12))));  
         assertThat(response.getReceipts().get(0).getContact().getContactID(), is(equalTo(UUID.fromString("430fa14a-f945-44d3-9f97-5df5e28441b8"))));
         assertThat(response.getReceipts().get(0).getUser().getUserID(), is(equalTo(UUID.fromString("d1164823-0ac1-41ad-987b-b4e30fe0b273"))));
         assertThat(response.getReceipts().get(0).getLineAmountTypes(), is(equalTo(com.xero.models.accounting.LineAmountTypes.NOTAX)));
@@ -155,7 +155,7 @@ public class AccountingApiReceiptsTest {
         assertThat(response.getReceipts().get(0).getReceiptID(), is(equalTo(UUID.fromString("a44fd147-af4e-4fe8-a09a-55332df74162"))));
         assertThat(response.getReceipts().get(0).getStatus(), is(equalTo(com.xero.models.accounting.Receipt.StatusEnum.DRAFT)));
         assertThat(response.getReceipts().get(0).getReceiptNumber(), is(equalTo("1")));
-        assertThat(response.getReceipts().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-14T01:49:43.983+01:00"))));
+        assertThat(response.getReceipts().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-13T16:49:43.983-08:00"))));
         assertThat(response.getReceipts().get(0).getHasAttachments(), is(equalTo(true)));
         assertThat(response.getReceipts().get(0).getAttachments().get(0).getAttachmentID(), is(equalTo(UUID.fromString("e02a84f6-b83a-4983-b3b9-35cd8880c7bc"))));
         assertThat(response.getReceipts().get(0).getAttachments().get(0).getFileName(), is(equalTo("HelloWorld.jpg")));
@@ -190,7 +190,7 @@ public class AccountingApiReceiptsTest {
         assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("System Generated")));       
         assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Edited")));     
         assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Received through the Xero API from Java Partner Example")));     
-        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-14T01:49:43.983+01:00"))));
+        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-13T16:49:43.983-08:00"))));
         //System.out.println(response.getHistoryRecords().get(0).toString());
     }
     
@@ -203,7 +203,7 @@ public class AccountingApiReceiptsTest {
         Integer unitdp = null;
         Receipts response = accountingApi.getReceipts(accessToken,xeroTenantId,ifModifiedSince, where, order,unitdp);
 
-        assertThat(response.getReceipts().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,13))));
+        assertThat(response.getReceipts().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,12))));  
         assertThat(response.getReceipts().get(0).getContact().getContactID(), is(equalTo(UUID.fromString("430fa14a-f945-44d3-9f97-5df5e28441b8"))));
         assertThat(response.getReceipts().get(0).getUser().getUserID(), is(equalTo(UUID.fromString("d1164823-0ac1-41ad-987b-b4e30fe0b273"))));
         assertThat(response.getReceipts().get(0).getLineAmountTypes(), is(equalTo(com.xero.models.accounting.LineAmountTypes.NOTAX)));
@@ -216,7 +216,7 @@ public class AccountingApiReceiptsTest {
         assertThat(response.getReceipts().get(0).getReceiptID(), is(equalTo(UUID.fromString("a44fd147-af4e-4fe8-a09a-55332df74162"))));
         assertThat(response.getReceipts().get(0).getStatus(), is(equalTo(com.xero.models.accounting.Receipt.StatusEnum.DRAFT)));
         assertThat(response.getReceipts().get(0).getReceiptNumber(), is(equalTo("1")));
-        assertThat(response.getReceipts().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-14T01:49:43.983+01:00"))));
+        assertThat(response.getReceipts().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-13T16:49:43.983-08:00"))));
         assertThat(response.getReceipts().get(0).getHasAttachments(), is(equalTo(false)));
         //System.out.println(response.getReceipts().get(0).toString());
     }
@@ -228,7 +228,7 @@ public class AccountingApiReceiptsTest {
         Receipts receipts = new Receipts();
         Receipts response = accountingApi.updateReceipt(accessToken,xeroTenantId,receiptID, receipts);
 
-        assertThat(response.getReceipts().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,16))));
+        assertThat(response.getReceipts().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,15))));  
         assertThat(response.getReceipts().get(0).getContact().getContactID(), is(equalTo(UUID.fromString("430fa14a-f945-44d3-9f97-5df5e28441b8"))));
         assertThat(response.getReceipts().get(0).getUser().getUserID(), is(equalTo(UUID.fromString("d1164823-0ac1-41ad-987b-b4e30fe0b273"))));
         assertThat(response.getReceipts().get(0).getReference(), is(equalTo("Foobar")));
@@ -242,7 +242,7 @@ public class AccountingApiReceiptsTest {
         assertThat(response.getReceipts().get(0).getReceiptID(), is(equalTo(UUID.fromString("e3686fdc-c661-4581-b9df-cbb20782ea66"))));
         assertThat(response.getReceipts().get(0).getStatus(), is(equalTo(com.xero.models.accounting.Receipt.StatusEnum.DRAFT)));
         assertThat(response.getReceipts().get(0).getReceiptNumber(), is(equalTo("2")));
-        assertThat(response.getReceipts().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-15T19:45:56.927+01:00"))));
+        assertThat(response.getReceipts().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-15T10:45:56.927-08:00"))));
         assertThat(response.getReceipts().get(0).getHasAttachments(), is(equalTo(false)));
         //System.out.println(response.getReceipts().get(0).toString());
     }
