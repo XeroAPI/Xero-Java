@@ -13526,6 +13526,77 @@ public class AccountingApi {
             .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
 
+    /**
+     * Allows you to update OR create one or more items
+     * <p><b>200</b> - Success - return response of type Items array with newly created Item
+     * <p><b>400</b> - A failed request due to validation error
+     * @param xeroTenantId Xero identifier for Tenant
+     * @param items The items parameter
+     * @param summarizeErrors shows validation errors for each credit note
+     * @param accessToken Authorization token for user set in header of each request
+     * @return Items
+     * @throws IOException if an error occurs while attempting to invoke the API
+     **/
+    public Items  updateOrCreateItems(String accessToken, String xeroTenantId, Items items, Boolean summarizeErrors) throws IOException {
+        try {
+            TypeReference<Items> typeRef = new TypeReference<Items>() {};
+            HttpResponse response = updateOrCreateItemsForHttpResponse(accessToken, xeroTenantId, items, summarizeErrors);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+
+    public HttpResponse updateOrCreateItemsForHttpResponse(String accessToken,  String xeroTenantId,  Items items,  Boolean summarizeErrors) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling updateOrCreateItems");
+        }// verify the required parameter 'items' is set
+        if (items == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'items' when calling updateOrCreateItems");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling updateOrCreateItems");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json");
+        headers.setUserAgent(this.getUserAgent());
+
+        String correctPath = "/Items";
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        if (summarizeErrors != null) {
+            String key = "summarizeErrors";
+            Object value = summarizeErrors;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
+        String url = uriBuilder.build().toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+
+
+        HttpContent content = null;
+        content = apiClient.new JacksonJsonHttpContent(items);
+
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();
+    }
+
+
   /**
     * Allows you to update OR create one or more sales invoices or purchase bills
     * <p><b>200</b> - Success - return response of type Invoices array with newly created Invoice
