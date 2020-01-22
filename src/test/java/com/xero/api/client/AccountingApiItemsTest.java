@@ -85,8 +85,8 @@ public class AccountingApiItemsTest {
     @Test
     public void createItemTest() throws IOException {
         System.out.println("@Test - createItem");
-        Item item = new Item();
-        Items response = accountingApi.createItem(accessToken,xeroTenantId,item);
+        Items items = new Items();
+        Items response = accountingApi.updateOrCreateItems(accessToken,xeroTenantId,items,false);
 
         assertThat(response.getItems().get(0).getCode(), is(equalTo("abc65591")));
         assertThat(response.getItems().get(0).getName(), is(equalTo("Hello11350")));

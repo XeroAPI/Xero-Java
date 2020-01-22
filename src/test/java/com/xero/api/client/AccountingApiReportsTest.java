@@ -186,11 +186,10 @@ public class AccountingApiReportsTest {
     @Test
     public void getReportBankSummaryTest() throws IOException {
         System.out.println("@Test - getReportBankSummary");
-        LocalDate date = null;
-        Integer period = null;
-        Integer timeframe = null;
+        LocalDate toDate = null;
+        LocalDate fromDate = null;  
         
-        ReportWithRows response = accountingApi.getReportBankSummary(accessToken,xeroTenantId,date, period, timeframe);
+        ReportWithRows response = accountingApi.getReportBankSummary(accessToken,xeroTenantId,fromDate, toDate );
         assertThat(response.getReports().get(0).getReportID(), is(equalTo("BankSummary")));
         assertThat(response.getReports().get(0).getReportName(), is(equalTo("Bank Summary")));
         assertThat(response.getReports().get(0).getReportType(), is("BankSummary"));
