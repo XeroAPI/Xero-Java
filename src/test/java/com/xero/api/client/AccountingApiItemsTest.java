@@ -94,7 +94,7 @@ public class AccountingApiItemsTest {
         assertThat(response.getItems().get(0).getIsPurchased(), is(equalTo(true)));
         assertThat(response.getItems().get(0).getDescription(), is(equalTo("foobar")));
         assertThat(response.getItems().get(0).getIsTrackedAsInventory(), is(equalTo(false)));
-        assertThat(response.getItems().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T12:17:51.707-07:00"))));  
+        assertThat(response.getItems().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T11:17:51.707-08:00"))));
         assertThat(response.getItems().get(0).getItemID(), is(equalTo(UUID.fromString("a4544d51-48f6-441f-a623-99ecbced6ab7"))));
         assertThat(response.getItems().get(0).getValidationErrors().get(0).getMessage(), is(equalTo("Price List Item with Code 'abc' already exists")));
         //System.out.println(response.getItems().get(0).toString());
@@ -134,7 +134,7 @@ public class AccountingApiItemsTest {
         assertThat(response.getItems().get(0).getTotalCostPool().toString(), is(equalTo("25000.0")));
         assertThat(response.getItems().get(0).getQuantityOnHand(), is(equalTo(10.0)));
         assertThat(response.getItems().get(0).getQuantityOnHand().toString(), is(equalTo("10.0")));
-        assertThat(response.getItems().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T12:41:49.387-07:00"))));  
+        assertThat(response.getItems().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T11:41:49.387-08:00"))));
         assertThat(response.getItems().get(0).getItemID(), is(equalTo(UUID.fromString("c8c54d65-f3f2-452d-926e-bf450b12fb07"))));
         //System.out.println(response.getItems().get(0).toString());
     }
@@ -188,7 +188,7 @@ public class AccountingApiItemsTest {
         assertThat(response.getItems().get(0).getIsPurchased(), is(equalTo(true)));
         assertThat(response.getItems().get(0).getDescription(), is(equalTo("Hello Xero")));
         assertThat(response.getItems().get(0).getIsTrackedAsInventory(), is(equalTo(false)));
-        assertThat(response.getItems().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T12:29:18.924-07:00"))));  
+        assertThat(response.getItems().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T11:29:18.924-08:00"))));
         assertThat(response.getItems().get(0).getItemID(), is(equalTo(UUID.fromString("a7e87086-e0ae-4df2-83d7-e26e9a6b7786"))));
         //System.out.println(response.getItems().get(0).toString());
     }

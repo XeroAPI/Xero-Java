@@ -114,7 +114,7 @@ public class AccountingApiContactsTest {
         assertThat(response.getContacts().get(0).getPhones().get(1).getPhoneAreaCode(), is(equalTo("(626)")));
         assertThat(response.getContacts().get(0).getIsSupplier(), is(equalTo(true)));
         assertThat(response.getContacts().get(0).getIsCustomer(), is(equalTo(true)));
-        assertThat(response.getContacts().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2017-08-21T13:49:04.227-07:00"))));
+        assertThat(response.getContacts().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2017-08-21T12:49:04.227-08:00"))));
         assertThat(response.getContacts().get(0).getBalances().getAccountsReceivable().getOutstanding(), is(equalTo(760.0)));
         assertThat(response.getContacts().get(0).getBalances().getAccountsReceivable().getOverdue(), is(equalTo(920.0)));
         assertThat(response.getContacts().get(0).getBalances().getAccountsPayable().getOutstanding(), is(equalTo(231.6)));

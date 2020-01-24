@@ -113,7 +113,7 @@ public class AccountingApiManualJournalsTest {
         assertThat(response.getManualJournals().get(0).getLineAmountTypes(), is(equalTo(com.xero.models.accounting.LineAmountTypes.NOTAX)));
         assertThat(response.getManualJournals().get(0).getStatus(), is(equalTo(com.xero.models.accounting.ManualJournal.StatusEnum.DRAFT)));
         assertThat(response.getManualJournals().get(0).getShowOnCashBasisReports(), is(equalTo(true)));
-        assertThat(response.getManualJournals().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-14T13:39:32.920-07:00"))));  
+        assertThat(response.getManualJournals().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-14T12:39:32.920-08:00"))));
         assertThat(response.getManualJournals().get(0).getManualJournalID(), is(equalTo(UUID.fromString("d312dd5e-a53e-46d1-9d51-c569ef4570b7"))));
         assertThat(response.getManualJournals().get(0).getWarnings().get(0).getMessage(), is(equalTo("Account code '476' has been removed as it does not match a recognised account.")));
         assertThat(response.getManualJournals().get(0).getValidationErrors().get(0).getMessage(), is(equalTo("The total debits (100.00) must equal total credits (-10.00)")));
@@ -161,7 +161,7 @@ public class AccountingApiManualJournalsTest {
         assertThat(response.getManualJournals().get(0).getStatus(), is(equalTo(com.xero.models.accounting.ManualJournal.StatusEnum.POSTED)));
         assertThat(response.getManualJournals().get(0).getShowOnCashBasisReports(), is(equalTo(true)));
         assertThat(response.getManualJournals().get(0).getHasAttachments(), is(equalTo(true)));
-        assertThat(response.getManualJournals().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T19:19:48.147-07:00"))));  
+        assertThat(response.getManualJournals().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T18:19:48.147-08:00"))));
         assertThat(response.getManualJournals().get(0).getManualJournalID(), is(equalTo(UUID.fromString("99cb8353-ce73-4a5d-8e0d-8b0edf86cfc4"))));        
         assertThat(response.getManualJournals().get(0).getAttachments().get(0).getAttachmentID(), is(equalTo(UUID.fromString("166ca8f8-8bc6-4780-8466-a0e474d586ea"))));
         assertThat(response.getManualJournals().get(0).getAttachments().get(0).getFileName(), is(equalTo("giphy.gif")));
@@ -201,7 +201,7 @@ public class AccountingApiManualJournalsTest {
         assertThat(response.getManualJournals().get(0).getStatus(), is(equalTo(com.xero.models.accounting.ManualJournal.StatusEnum.POSTED)));
         assertThat(response.getManualJournals().get(0).getShowOnCashBasisReports(), is(equalTo(true)));
         assertThat(response.getManualJournals().get(0).getHasAttachments(), is(equalTo(false)));
-        assertThat(response.getManualJournals().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T19:19:48.083-07:00"))));  
+        assertThat(response.getManualJournals().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T18:19:48.083-08:00"))));
         assertThat(response.getManualJournals().get(0).getManualJournalID(), is(equalTo(UUID.fromString("0b159335-606b-485f-b51b-97b3b32bad32"))));
         //System.out.println(response.getManualJournals().get(0).toString());
     }
@@ -231,7 +231,7 @@ public class AccountingApiManualJournalsTest {
         assertThat(response.getManualJournals().get(0).getLineAmountTypes(), is(equalTo(com.xero.models.accounting.LineAmountTypes.NOTAX)));
         assertThat(response.getManualJournals().get(0).getStatus(), is(equalTo(com.xero.models.accounting.ManualJournal.StatusEnum.DRAFT)));
         assertThat(response.getManualJournals().get(0).getShowOnCashBasisReports(), is(equalTo(true)));
-        assertThat(response.getManualJournals().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T19:28:56.820-07:00"))));  
+        assertThat(response.getManualJournals().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T18:28:56.820-08:00"))));
         assertThat(response.getManualJournals().get(0).getManualJournalID(), is(equalTo(UUID.fromString("07eac261-78ef-47a0-a0eb-a57b74137877"))));
         //System.out.println(response.getManualJournals().get(0).toString());
     }

@@ -128,7 +128,7 @@ public class AccountingApiPurchaseOrdersTest {
         HistoryRecords response = accountingApi.createPurchaseOrderHistory(accessToken,xeroTenantId,purchaseOrderID, historyRecords);
 
         assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Hello World")));     
-        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-13T17:39:39.354-07:00"))));  
+        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-13T16:39:39.354-08:00"))));
         //System.out.println(response.getHistoryRecords().get(0).toString());
     }
 
@@ -174,7 +174,7 @@ public class AccountingApiPurchaseOrdersTest {
         assertThat(response.getPurchaseOrders().get(0).getTotalDiscount(), is(equalTo(250.0)));
         assertThat(response.getPurchaseOrders().get(0).getTotalDiscount().toString(), is(equalTo("250.0")));
         assertThat(response.getPurchaseOrders().get(0).getHasAttachments(), is(equalTo(true)));
-        assertThat(response.getPurchaseOrders().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-26T11:47:09.823-07:00"))));  
+        assertThat(response.getPurchaseOrders().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-26T10:47:09.823-08:00"))));
         assertThat(response.getPurchaseOrders().get(0).getAttachments().get(0).getAttachmentID(), is(equalTo(UUID.fromString("7d94ccdc-ef7b-4806-87ac-8442f25e593b"))));
         assertThat(response.getPurchaseOrders().get(0).getAttachments().get(0).getFileName(), is(equalTo("HelloWorld.png")));
         assertThat(response.getPurchaseOrders().get(0).getAttachments().get(0).getMimeType(), is(equalTo("image/png")));
@@ -193,7 +193,7 @@ public class AccountingApiPurchaseOrdersTest {
         assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("System Generated")));       
         assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Note")));     
         assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Hello World")));     
-        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-13T17:22:28.670-07:00"))));  
+        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-13T16:22:28.670-08:00"))));
         //System.out.println(response.getHistoryRecords().get(0).toString());
     }
     
@@ -230,7 +230,7 @@ public class AccountingApiPurchaseOrdersTest {
         assertThat(response.getPurchaseOrders().get(0).getTotalTax().toString(), is(equalTo("0.0")));
         assertThat(response.getPurchaseOrders().get(0).getTotal(), is(equalTo(20.0)));       
         assertThat(response.getPurchaseOrders().get(0).getTotal().toString(), is(equalTo("20.0")));
-        assertThat(response.getPurchaseOrders().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-13T17:18:23.443-07:00"))));  
+        assertThat(response.getPurchaseOrders().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-13T16:18:23.443-08:00"))));
         //System.out.println(response.getPurchaseOrders().get(0).toString());
     }
     
@@ -268,7 +268,7 @@ public class AccountingApiPurchaseOrdersTest {
         assertThat(response.getPurchaseOrders().get(0).getTotal().toString(), is(equalTo("23.0")));
         assertThat(response.getPurchaseOrders().get(0).getTotalDiscount(), is(equalTo(0.0)));
         assertThat(response.getPurchaseOrders().get(0).getTotalDiscount().toString(), is(equalTo("0.0")));
-        assertThat(response.getPurchaseOrders().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-13T17:39:36.853-07:00"))));  
+        assertThat(response.getPurchaseOrders().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-13T16:39:36.853-08:00"))));
         //System.out.println(response.getPurchaseOrders().get(0).toString());
     }
 }

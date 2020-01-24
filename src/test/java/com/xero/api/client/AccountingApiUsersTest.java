@@ -91,7 +91,7 @@ public class AccountingApiUsersTest {
         assertThat(response.getUsers().get(0).getEmailAddress(), is(equalTo("sid.maestre@xero.com")));
         assertThat(response.getUsers().get(0).getFirstName(), is(equalTo("Sidney")));
         assertThat(response.getUsers().get(0).getLastName(), is(equalTo("Maestre")));
-        assertThat(response.getUsers().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2017-10-20T11:14:21.613-07:00"))));  
+        assertThat(response.getUsers().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2017-10-20T10:14:21.613-08:00"))));
         assertThat(response.getUsers().get(0).getIsSubscriber(), is(equalTo(false)));
         assertThat(response.getUsers().get(0).getOrganisationRole(), is(equalTo(com.xero.models.accounting.User.OrganisationRoleEnum.FINANCIALADVISER)));
         //System.out.println(response.getUsers().get(0).toString());
@@ -109,7 +109,7 @@ public class AccountingApiUsersTest {
         assertThat(response.getUsers().get(0).getEmailAddress(), is(equalTo("sid.maestre@xero.com")));
         assertThat(response.getUsers().get(0).getFirstName(), is(equalTo("Sidney")));
         assertThat(response.getUsers().get(0).getLastName(), is(equalTo("Maestre")));
-        assertThat(response.getUsers().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2017-10-20T11:14:21.613-07:00"))));  
+        assertThat(response.getUsers().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2017-10-20T10:14:21.613-08:00"))));
         assertThat(response.getUsers().get(0).getIsSubscriber(), is(equalTo(false)));
         assertThat(response.getUsers().get(0).getOrganisationRole(), is(equalTo(com.xero.models.accounting.User.OrganisationRoleEnum.FINANCIALADVISER)));
         //System.out.println(response.getUsers().toString());

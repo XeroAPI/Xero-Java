@@ -143,7 +143,7 @@ public class AccountingApiInvoicesTest {
         HistoryRecords response = accountingApi.createInvoiceHistory(accessToken,xeroTenantId,invoiceID, historyRecords);
 
         assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Hello World")));     
-        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T12:08:03.349-07:00"))));  
+        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T11:08:03.349-08:00"))));
        //System.out.println(response.getHistoryRecords().get(0).toString());
     }
 
@@ -283,7 +283,7 @@ public class AccountingApiInvoicesTest {
         assertThat(response.getInvoices().get(0).getAmountPaid(), is(equalTo(0.0)));
         assertThat(response.getInvoices().get(0).getAmountCredited().toString(), is(equalTo("0.0")));
         assertThat(response.getInvoices().get(0).getAmountCredited(), is(equalTo(0.0)));
-        assertThat(response.getInvoices().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2018-11-02T09:31:30.160-07:00"))));
+        assertThat(response.getInvoices().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2018-11-02T08:31:30.160-08:00"))));
         assertThat(response.getInvoices().get(0).getHasErrors(), is(equalTo(false)));
         assertThat(response.getInvoices().get(0).getContact().getContactID(), is(equalTo(UUID.fromString("a3675fc4-f8dd-4f03-ba5b-f1870566bcd7"))));
         assertThat(response.getInvoices().get(0).getContact().getName(), is(equalTo("Barney Rubble-83203")));
@@ -330,7 +330,7 @@ public class AccountingApiInvoicesTest {
         assertThat(response.getInvoices().get(0).getAmountDue().toString(), is(equalTo("575.0")));
         assertThat(response.getInvoices().get(0).getAmountPaid().toString(), is(equalTo("0.0")));
         assertThat(response.getInvoices().get(0).getAmountPaid(), is(equalTo(0.0)));
-        assertThat(response.getInvoices().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T11:42:08.987-07:00"))));
+        assertThat(response.getInvoices().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T10:42:08.987-08:00"))));
         assertThat(response.getInvoices().get(0).getHasErrors(), is(equalTo(false)));
         assertThat(response.getInvoices().get(0).getContact().getContactID(), is(equalTo(UUID.fromString("be392c72-c121-4f83-9512-03ac71e54c20"))));
         assertThat(response.getInvoices().get(0).getContact().getName(), is(equalTo("Luke Skywalker")));        
