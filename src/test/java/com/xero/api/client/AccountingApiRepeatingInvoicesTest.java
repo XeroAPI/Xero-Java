@@ -179,7 +179,7 @@ public class AccountingApiRepeatingInvoicesTest {
         assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("System Generated")));       
         assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Attached a file")));     
         assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Attached the file foobar.jpg through the Xero API using Java Partner Example")));     
-        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-15T15:07:28.587-07:00"))));  
+        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-15T14:07:28.587-08:00"))));
         //System.out.println(response.getHistoryRecords().get(0).toString());
     }
     

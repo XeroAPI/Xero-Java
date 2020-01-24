@@ -127,7 +127,7 @@ public class AccountingApiOverpaymentsTest {
         assertThat(response.getOverpayments().get(0).getTotalTax().toString(), is(equalTo("0.0")));
         assertThat(response.getOverpayments().get(0).getTotal(), is(equalTo(3000.0)));
         assertThat(response.getOverpayments().get(0).getTotal().toString(), is(equalTo("3000.0")));
-        assertThat(response.getOverpayments().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-12T15:15:52.890-07:00"))));  
+        assertThat(response.getOverpayments().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-12T14:15:52.890-08:00"))));
         assertThat(response.getOverpayments().get(0).getCurrencyCode(), is(equalTo(com.xero.models.accounting.CurrencyCode.NZD)));
         assertThat(response.getOverpayments().get(0).getOverpaymentID(), is(equalTo(UUID.fromString("ed7f6041-c915-4667-bd1d-54c48e92161e"))));
         assertThat(response.getOverpayments().get(0).getCurrencyRate(), is(equalTo(1.0)));
@@ -162,7 +162,7 @@ public class AccountingApiOverpaymentsTest {
         assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("System Generated")));       
         assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Applied")));     
         assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Credit applied on 12 March 2019 for 1.00.")));     
-        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-12T15:15:52.877-07:00"))));  
+        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-12T14:15:52.877-08:00"))));
         //System.out.println(response.getHistoryRecords().get(0).toString());
     }
     
@@ -185,7 +185,7 @@ public class AccountingApiOverpaymentsTest {
         assertThat(response.getOverpayments().get(0).getTotalTax().toString(), is(equalTo("0.0")));
         assertThat(response.getOverpayments().get(0).getTotal(), is(equalTo(500.0)));
         assertThat(response.getOverpayments().get(0).getTotal().toString(), is(equalTo("500.0")));
-        assertThat(response.getOverpayments().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-12T15:08:55.123-07:00"))));  
+        assertThat(response.getOverpayments().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-12T14:08:55.123-08:00"))));
         assertThat(response.getOverpayments().get(0).getCurrencyCode(), is(equalTo(com.xero.models.accounting.CurrencyCode.NZD)));
         assertThat(response.getOverpayments().get(0).getOverpaymentID(), is(equalTo(UUID.fromString("098b4dcb-5622-4699-87f8-9d40c4ccceb3"))));
         assertThat(response.getOverpayments().get(0).getRemainingCredit(), is(equalTo(500.0)));
