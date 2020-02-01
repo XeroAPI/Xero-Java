@@ -84,13 +84,13 @@ public class AccountingApiCreditNotesTest {
 		accountingApi = null;
         defaultClient = null;
 	}
-/*
+
 	@Test
     public void createCreditNoteTest() throws IOException {
         System.out.println("@Test - createCreditNote");
-        Boolean summarizeErrors = null;
-        CreditNote creditNote = new CreditNote();
-        CreditNotes response = accountingApi.createCreditNote(accessToken,xeroTenantId,creditNote);
+        Boolean summarizeErrors = false;
+        CreditNotes creditNotes = new CreditNotes();
+        CreditNotes response = accountingApi.createCreditNotes(accessToken,xeroTenantId,creditNotes,summarizeErrors);
         
         assertThat(response.getCreditNotes().get(0).getType(), is(equalTo(com.xero.models.accounting.CreditNote.TypeEnum.ACCPAYCREDIT)));
         assertThat(response.getCreditNotes().get(0).getStatus(), is(equalTo(com.xero.models.accounting.CreditNote.StatusEnum.DRAFT)));
@@ -119,7 +119,7 @@ public class AccountingApiCreditNotesTest {
         
         //System.out.println(response.getCreditNotes().get(0).toString());
     }
-*/
+
     @Test
     public void createCreditNoteAllocationTest() throws IOException {
         System.out.println("@Test - createCreditNoteAllocation");
@@ -137,7 +137,7 @@ public class AccountingApiCreditNotesTest {
         System.out.println("@Test - createCreditNoteAttachmentByFileName");
         UUID creditNoteID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         String fileName = "sample5.jpg";
-        Attachments response = accountingApi.createCreditNoteAttachmentByFileName(accessToken,xeroTenantId,creditNoteID, fileName, body);
+        Attachments response = accountingApi.createCreditNoteAttachmentByFileName(accessToken,xeroTenantId,creditNoteID, fileName, false, body);
         
         assertThat(response.getAttachments().get(0).getAttachmentID(), is(equalTo(UUID.fromString("91bbae3f-5de5-4e3d-875f-8662f25897bd"))));
         assertThat(response.getAttachments().get(0).getFileName(), is(equalTo("sample5.jpg")));
