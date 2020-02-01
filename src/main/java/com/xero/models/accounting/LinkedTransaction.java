@@ -283,10 +283,10 @@ public class LinkedTransaction {
   }
 
    /**
-   * The Xero identifier for an Linked Transaction e.g. /LinkedTransactions/297c2dc5-cc47-4afd-8ec8-74990b8761e9
+   * The Xero identifier for an Linked Transaction e.g./LinkedTransactions/297c2dc5-cc47-4afd-8ec8-74990b8761e9
    * @return linkedTransactionID
   **/
-  @ApiModelProperty(value = "The Xero identifier for an Linked Transaction e.g. /LinkedTransactions/297c2dc5-cc47-4afd-8ec8-74990b8761e9")
+  @ApiModelProperty(value = "The Xero identifier for an Linked Transaction e.g./LinkedTransactions/297c2dc5-cc47-4afd-8ec8-74990b8761e9")
   public UUID getLinkedTransactionID() {
     return linkedTransactionID;
   }

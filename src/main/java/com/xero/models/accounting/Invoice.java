@@ -52,11 +52,15 @@ public class Invoice {
     
     ACCPAYCREDIT("ACCPAYCREDIT"),
     
-    AROVERPAYMENT("AROVERPAYMENT"),
+    APOVERPAYMENT("APOVERPAYMENT"),
+    
+    APPREPAYMENT("APPREPAYMENT"),
     
     ACCREC("ACCREC"),
     
-    ACCRECCREDIT("ACCRECCREDIT");
+    ACCRECCREDIT("ACCRECCREDIT"),
+    
+    AROVERPAYMENT("AROVERPAYMENT");
 
     private String value;
 
@@ -285,7 +289,7 @@ public class Invoice {
    * See Invoice Types
    * @return type
   **/
-  @ApiModelProperty(required = true, value = "See Invoice Types")
+  @ApiModelProperty(value = "See Invoice Types")
   public TypeEnum getType() {
     return type;
   }
@@ -303,7 +307,7 @@ public class Invoice {
    * Get contact
    * @return contact
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(value = "")
   public Contact getContact() {
     return contact;
   }
@@ -318,6 +322,9 @@ public class Invoice {
   }
 
   public Invoice addLineItemsItem(LineItem lineItemsItem) {
+    if (this.lineItems == null) {
+      this.lineItems = new ArrayList<LineItem>();
+    }
     this.lineItems.add(lineItemsItem);
     return this;
   }
@@ -326,7 +333,7 @@ public class Invoice {
    * See LineItems
    * @return lineItems
   **/
-  @ApiModelProperty(required = true, value = "See LineItems")
+  @ApiModelProperty(value = "See LineItems")
   public List<LineItem> getLineItems() {
     return lineItems;
   }

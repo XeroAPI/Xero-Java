@@ -51,7 +51,7 @@ public class LineItemTracking {
    * The Xero identifier for a tracking category
    * @return trackingCategoryID
   **/
-  @ApiModelProperty(example = "297c2dc5-cc47-4afd-8ec8-74990b8761e9", value = "The Xero identifier for a tracking category")
+  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "The Xero identifier for a tracking category")
   public UUID getTrackingCategoryID() {
     return trackingCategoryID;
   }

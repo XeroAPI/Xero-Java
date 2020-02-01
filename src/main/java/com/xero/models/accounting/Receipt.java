@@ -156,7 +156,7 @@ public class Receipt {
    * Date of receipt – YYYY-MM-DD
    * @return date
   **/
-  @ApiModelProperty(required = true, value = "Date of receipt – YYYY-MM-DD")
+  @ApiModelProperty(value = "Date of receipt – YYYY-MM-DD")
   public LocalDate getDate() {
     return date;
   }
@@ -174,7 +174,7 @@ public class Receipt {
    * Get contact
    * @return contact
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(value = "")
   public Contact getContact() {
     return contact;
   }
@@ -189,6 +189,9 @@ public class Receipt {
   }
 
   public Receipt addLineItemsItem(LineItem lineItemsItem) {
+    if (this.lineItems == null) {
+      this.lineItems = new ArrayList<LineItem>();
+    }
     this.lineItems.add(lineItemsItem);
     return this;
   }
@@ -197,7 +200,7 @@ public class Receipt {
    * Get lineItems
    * @return lineItems
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(value = "")
   public List<LineItem> getLineItems() {
     return lineItems;
   }
@@ -215,7 +218,7 @@ public class Receipt {
    * Get user
    * @return user
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(value = "")
   public User getUser() {
     return user;
   }

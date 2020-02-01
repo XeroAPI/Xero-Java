@@ -131,7 +131,7 @@ public class AccountingApi {
     * <p><b>200</b> - Success - created new Account and return response of type Accounts array with new Account
     * <p><b>400</b> - Validation Error - some data was incorrect returns response of type Error
     * @param xeroTenantId Xero identifier for Tenant
-    * @param account Request of type Account
+    * @param account Account object in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return Accounts
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -331,7 +331,7 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
     * @param bankTransactionID Xero generated unique identifier for a bank transaction
-    * @param historyRecords The historyRecords parameter
+    * @param historyRecords HistoryRecords containing an array of HistoryRecord objects in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -396,8 +396,8 @@ public class AccountingApi {
     * <p><b>200</b> - Success - return response of type BankTransactions array with new BankTransaction
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
-    * @param bankTransactions The bankTransactions parameter
-    * @param summarizeErrors response format that shows validation errors for each bank transaction
+    * @param bankTransactions BankTransactions with an array of BankTransaction objects in body of request
+    * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any with validation errors
     * @param accessToken Authorization token for user set in header of each request
     * @return BankTransactions
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -465,7 +465,7 @@ public class AccountingApi {
     * <p><b>200</b> - Success - return response of BankTransfers array of one BankTransfer
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
-    * @param bankTransfers The bankTransfers parameter
+    * @param bankTransfers BankTransfers with array of BankTransfer objects in request body
     * @param accessToken Authorization token for user set in header of each request
     * @return BankTransfers
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -592,7 +592,7 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
     * @param bankTransferID Xero generated unique identifier for a bank transfer
-    * @param historyRecords The historyRecords parameter
+    * @param historyRecords HistoryRecords containing an array of HistoryRecord objects in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -657,8 +657,8 @@ public class AccountingApi {
     * <p><b>200</b> - Success - return response of type BatchPayments array of BatchPayment objects
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
-    * @param batchPayments Request of type BatchPayments containing a Payments array with one or more Payment objects
-    * @param summarizeErrors shows validation errors for each credit note
+    * @param batchPayments BatchPayments with an array of Payments in body of request
+    * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any with validation errors
     * @param accessToken Authorization token for user set in header of each request
     * @return BatchPayments
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -727,7 +727,7 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
     * @param batchPaymentID Unique identifier for BatchPayment
-    * @param historyRecords The historyRecords parameter
+    * @param historyRecords HistoryRecords containing an array of HistoryRecord objects in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -793,7 +793,7 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
     * @param brandingThemeID Unique identifier for a Branding Theme
-    * @param paymentService The paymentService parameter
+    * @param paymentService PaymentService object in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return PaymentServices
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -928,7 +928,7 @@ public class AccountingApi {
     * <p><b>200</b> - Success - return response of type Contact Groups array of newly created Contact Group
     * <p><b>400</b> - Validation Error - some data was incorrect returns response of type Error
     * @param xeroTenantId Xero identifier for Tenant
-    * @param contactGroups an array of contact groups with names specified
+    * @param contactGroups ContactGroups with an array of names in request body
     * @param accessToken Authorization token for user set in header of each request
     * @return ContactGroups
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -986,7 +986,7 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
     * @param contactGroupID Unique identifier for a Contact Group
-    * @param contacts an array of contacts with ContactID to be added to ContactGroup
+    * @param contacts Contacts with array of contacts specifiying the ContactID to be added to ContactGroup in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return Contacts
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -1052,7 +1052,7 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
     * @param contactID Unique identifier for a Contact
-    * @param historyRecords The historyRecords parameter
+    * @param historyRecords HistoryRecords containing an array of HistoryRecord objects in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -1117,8 +1117,8 @@ public class AccountingApi {
     * <p><b>200</b> - Success - return response of type Contacts array with newly created Contact
     * <p><b>400</b> - Validation Error - some data was incorrect returns response of type Error
     * @param xeroTenantId Xero identifier for Tenant
-    * @param contacts The contacts parameter
-    * @param summarizeErrors response format that shows validation errors for each bank transaction
+    * @param contacts Contacts with an array of Contact objects to create in body of request
+    * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any with validation errors
     * @param accessToken Authorization token for user set in header of each request
     * @return Contacts
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -1187,7 +1187,7 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
     * @param creditNoteID Unique identifier for a Credit Note
-    * @param allocations an array of Allocations with single Allocation object defined.
+    * @param allocations Allocations with array of Allocation object in body of request.
     * @param accessToken Authorization token for user set in header of each request
     * @return Allocations
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -1254,15 +1254,16 @@ public class AccountingApi {
     * @param xeroTenantId Xero identifier for Tenant
     * @param creditNoteID Unique identifier for a Credit Note
     * @param fileName Name of the file you are attaching to Credit Note
+    * @param includeOnline Set an attachment to be included with the invoice when viewed online (through Xero)
     * @param body Byte array of file in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Attachments  createCreditNoteAttachmentByFileName(String accessToken, String xeroTenantId, UUID creditNoteID, String fileName, File body) throws IOException {
+    public Attachments  createCreditNoteAttachmentByFileName(String accessToken, String xeroTenantId, UUID creditNoteID, String fileName, Boolean includeOnline, File body) throws IOException {
         try {
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            HttpResponse response = createCreditNoteAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, creditNoteID, fileName, body);
+            HttpResponse response = createCreditNoteAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, creditNoteID, fileName, includeOnline, body);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -1273,7 +1274,7 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse createCreditNoteAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID creditNoteID,  String fileName, File  body) throws IOException {
+    public HttpResponse createCreditNoteAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID creditNoteID,  String fileName,  Boolean includeOnline, File  body) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createCreditNoteAttachmentByFileName");
@@ -1283,6 +1284,9 @@ public class AccountingApi {
         }// verify the required parameter 'fileName' is set
         if (fileName == null) {
             throw new IllegalArgumentException("Missing the required parameter 'fileName' when calling createCreditNoteAttachmentByFileName");
+        }// verify the required parameter 'includeOnline' is set
+        if (includeOnline == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'includeOnline' when calling createCreditNoteAttachmentByFileName");
         }// verify the required parameter 'body' is set
         if (body == null) {
             throw new IllegalArgumentException("Missing the required parameter 'body' when calling createCreditNoteAttachmentByFileName");
@@ -1301,6 +1305,7 @@ public class AccountingApi {
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("CreditNoteID", creditNoteID);
         uriVariables.put("FileName", fileName);
+        uriVariables.put("IncludeOnline", includeOnline);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.buildFromMap(uriVariables).toString();
@@ -1324,7 +1329,7 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
     * @param creditNoteID Unique identifier for a Credit Note
-    * @param historyRecords The historyRecords parameter
+    * @param historyRecords HistoryRecords containing an array of HistoryRecord objects in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -1389,8 +1394,8 @@ public class AccountingApi {
     * <p><b>200</b> - Success - return response of type Credit Notes array of newly created CreditNote
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
-    * @param creditNotes an array of Credit Notes with a single CreditNote object.
-    * @param summarizeErrors shows validation errors for each credit note
+    * @param creditNotes Credit Notes with array of CreditNote object in body of request
+    * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any with validation errors
     * @param accessToken Authorization token for user set in header of each request
     * @return CreditNotes
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -1456,7 +1461,7 @@ public class AccountingApi {
   /**
     * <p><b>200</b> - Unsupported - return response incorrect exception, API is not able to create new Currency
     * @param xeroTenantId Xero identifier for Tenant
-    * @param currency The currency parameter
+    * @param currency Currency obejct in the body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return Currencies
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -1513,7 +1518,7 @@ public class AccountingApi {
     * <p><b>200</b> - Success - return response of type Employees array with new Employee
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
-    * @param employee The employee parameter
+    * @param employee Employee object in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return Employees
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -1570,7 +1575,7 @@ public class AccountingApi {
     * <p><b>200</b> - Success - return response of type Employees array with new Employee
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
-    * @param employees The employees parameter
+    * @param employees Employees with array of Employee object in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return Employees
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -1627,7 +1632,7 @@ public class AccountingApi {
     * <p><b>200</b> - Unsupported - return response incorrect exception, API is not able to create HistoryRecord for Expense Claims
     * @param xeroTenantId Xero identifier for Tenant
     * @param expenseClaimID Unique identifier for a ExpenseClaim
-    * @param historyRecords The historyRecords parameter
+    * @param historyRecords HistoryRecords containing an array of HistoryRecord objects in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -1692,7 +1697,7 @@ public class AccountingApi {
     * <p><b>200</b> - Success - return response of type ExpenseClaims array with newly created ExpenseClaim
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
-    * @param expenseClaims The expenseClaims parameter
+    * @param expenseClaims ExpenseClaims with array of ExpenseClaim object in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return ExpenseClaims
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -1751,15 +1756,16 @@ public class AccountingApi {
     * @param xeroTenantId Xero identifier for Tenant
     * @param invoiceID Unique identifier for an Invoice
     * @param fileName Name of the file you are attaching
+    * @param includeOnline Set an attachment to be included with the invoice when viewed online (through Xero)
     * @param body Byte array of file in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Attachments  createInvoiceAttachmentByFileName(String accessToken, String xeroTenantId, UUID invoiceID, String fileName, File body) throws IOException {
+    public Attachments  createInvoiceAttachmentByFileName(String accessToken, String xeroTenantId, UUID invoiceID, String fileName, Boolean includeOnline, File body) throws IOException {
         try {
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            HttpResponse response = createInvoiceAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, invoiceID, fileName, body);
+            HttpResponse response = createInvoiceAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, invoiceID, fileName, includeOnline, body);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -1770,7 +1776,7 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse createInvoiceAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID invoiceID,  String fileName, File  body) throws IOException {
+    public HttpResponse createInvoiceAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID invoiceID,  String fileName,  Boolean includeOnline, File  body) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createInvoiceAttachmentByFileName");
@@ -1780,6 +1786,9 @@ public class AccountingApi {
         }// verify the required parameter 'fileName' is set
         if (fileName == null) {
             throw new IllegalArgumentException("Missing the required parameter 'fileName' when calling createInvoiceAttachmentByFileName");
+        }// verify the required parameter 'includeOnline' is set
+        if (includeOnline == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'includeOnline' when calling createInvoiceAttachmentByFileName");
         }// verify the required parameter 'body' is set
         if (body == null) {
             throw new IllegalArgumentException("Missing the required parameter 'body' when calling createInvoiceAttachmentByFileName");
@@ -1798,6 +1807,7 @@ public class AccountingApi {
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("InvoiceID", invoiceID);
         uriVariables.put("FileName", fileName);
+        uriVariables.put("IncludeOnline", includeOnline);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.buildFromMap(uriVariables).toString();
@@ -1821,7 +1831,7 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
     * @param invoiceID Unique identifier for an Invoice
-    * @param historyRecords The historyRecords parameter
+    * @param historyRecords HistoryRecords containing an array of HistoryRecord objects in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -1886,8 +1896,8 @@ public class AccountingApi {
     * <p><b>200</b> - Success - return response of type Invoices array with newly created Invoice
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
-    * @param invoices The invoices parameter
-    * @param summarizeErrors shows validation errors for each invoice
+    * @param invoices Invoices with an array of invoice objects in body of request
+    * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any with validation errors
     * @param accessToken Authorization token for user set in header of each request
     * @return Invoices
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -1955,7 +1965,7 @@ public class AccountingApi {
     * <p><b>200</b> - Unsupported - return response incorrect exception, API is not able to create HistoryRecord for Items
     * @param xeroTenantId Xero identifier for Tenant
     * @param itemID Unique identifier for an Item
-    * @param historyRecords The historyRecords parameter
+    * @param historyRecords HistoryRecords containing an array of HistoryRecord objects in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -2020,8 +2030,8 @@ public class AccountingApi {
     * <p><b>200</b> - Success - return response of type Items array with newly created Item
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
-    * @param items The items parameter
-    * @param summarizeErrors response format that shows validation errors for each bank transaction
+    * @param items Items with an array of Item objects in body of request
+    * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any with validation errors
     * @param accessToken Authorization token for user set in header of each request
     * @return Items
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -2089,7 +2099,7 @@ public class AccountingApi {
     * <p><b>200</b> - Success - return response of type LinkedTransactions array with newly created LinkedTransaction
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
-    * @param linkedTransaction The linkedTransaction parameter
+    * @param linkedTransaction LinkedTransaction object in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return LinkedTransactions
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -2146,7 +2156,7 @@ public class AccountingApi {
     * <p><b>200</b> - Success - return response of type ManualJournals array with newly created ManualJournal
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
-    * @param manualJournal The manualJournal parameter
+    * @param manualJournal ManualJournal object in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return ManualJournals
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -2270,11 +2280,11 @@ public class AccountingApi {
     }
 
   /**
-    * Allows you to create multiple manual journals
+    * Allows you to create one or more manual journals
     * <p><b>200</b> - Success - return response of type ManualJournals array with newly created ManualJournal
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
-    * @param manualJournals The manualJournals parameter
+    * @param manualJournals ManualJournals array with ManualJournal object in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return ManualJournals
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -2332,7 +2342,7 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
     * @param overpaymentID Unique identifier for a Overpayment
-    * @param allocation The allocation parameter
+    * @param allocation Allocation object in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return Allocations
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -2398,7 +2408,7 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
     * @param overpaymentID Unique identifier for a Overpayment
-    * @param allocations The allocations parameter
+    * @param allocations Allocations array with Allocation object in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return Allocations
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -2464,7 +2474,7 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error - API is not able to create HistoryRecord for Overpayments
     * @param xeroTenantId Xero identifier for Tenant
     * @param overpaymentID Unique identifier for a Overpayment
-    * @param historyRecords The historyRecords parameter
+    * @param historyRecords HistoryRecords containing an array of HistoryRecord objects in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -2529,7 +2539,7 @@ public class AccountingApi {
     * <p><b>200</b> - Success - return response of type Payments array for newly created Payment
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
-    * @param payment The payment parameter
+    * @param payment Request body with a single Payment object
     * @param accessToken Authorization token for user set in header of each request
     * @return Payments
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -2587,7 +2597,7 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error - API is not able to create HistoryRecord for Payments
     * @param xeroTenantId Xero identifier for Tenant
     * @param paymentID Unique identifier for a Payment
-    * @param historyRecords The historyRecords parameter
+    * @param historyRecords HistoryRecords containing an array of HistoryRecord objects in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -2652,7 +2662,7 @@ public class AccountingApi {
     * <p><b>200</b> - Success - return response of type PaymentServices array for newly created PaymentService
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
-    * @param paymentServices The paymentServices parameter
+    * @param paymentServices PaymentServices array with PaymentService object in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return PaymentServices
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -2709,7 +2719,7 @@ public class AccountingApi {
     * <p><b>200</b> - Success - return response of type Payments array for newly created Payment
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
-    * @param payments The payments parameter
+    * @param payments Payments array with Payment object in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return Payments
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -2766,8 +2776,8 @@ public class AccountingApi {
     * <p><b>200</b> - Success - return response of type Allocations array of Allocation for all Prepayment
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
-    * @param prepaymentID The prepaymentID parameter
-    * @param allocations The allocations parameter
+    * @param prepaymentID Unique identifier for Prepayment
+    * @param allocations Allocations with an array of Allocation object in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return Allocations
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -2833,7 +2843,7 @@ public class AccountingApi {
     * <p><b>400</b> - Unsupported - return response incorrect exception, API is not able to create HistoryRecord for Expense Claims
     * @param xeroTenantId Xero identifier for Tenant
     * @param prepaymentID Unique identifier for a PrePayment
-    * @param historyRecords The historyRecords parameter
+    * @param historyRecords HistoryRecords containing an array of HistoryRecord objects in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -2899,7 +2909,7 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
     * @param purchaseOrderID Unique identifier for a PurchaseOrder
-    * @param historyRecords The historyRecords parameter
+    * @param historyRecords HistoryRecords containing an array of HistoryRecord objects in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -2964,8 +2974,8 @@ public class AccountingApi {
     * <p><b>200</b> - Success - return response of type PurchaseOrder array for specified PurchaseOrder
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
-    * @param purchaseOrders The purchaseOrders parameter
-    * @param summarizeErrors shows validation errors for each purchase order.
+    * @param purchaseOrders PurchaseOrders with an array of PurchaseOrder object in body of request
+    * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any with validation errors
     * @param accessToken Authorization token for user set in header of each request
     * @return PurchaseOrders
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -3029,11 +3039,146 @@ public class AccountingApi {
     }
 
   /**
+    * Allows you to retrieve a history records of an quote
+    * <p><b>200</b> - Success - return response of type HistoryRecords array with newly created HistoryRecord for specific Quote
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param quoteID Unique identifier for an Quote
+    * @param historyRecords HistoryRecords containing an array of HistoryRecord objects in body of request
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HistoryRecords
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HistoryRecords  createQuoteHistory(String accessToken, String xeroTenantId, UUID quoteID, HistoryRecords historyRecords) throws IOException {
+        try {
+            TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
+            HttpResponse response = createQuoteHistoryForHttpResponse(accessToken, xeroTenantId, quoteID, historyRecords);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    public HttpResponse createQuoteHistoryForHttpResponse(String accessToken,  String xeroTenantId,  UUID quoteID,  HistoryRecords historyRecords) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createQuoteHistory");
+        }// verify the required parameter 'quoteID' is set
+        if (quoteID == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'quoteID' when calling createQuoteHistory");
+        }// verify the required parameter 'historyRecords' is set
+        if (historyRecords == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'historyRecords' when calling createQuoteHistory");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createQuoteHistory");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
+        String correctPath = "/Quotes/{QuoteID}/History";
+        
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("QuoteID", quoteID);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+
+        
+        HttpContent content = null;
+        content = apiClient.new JacksonJsonHttpContent(historyRecords);
+        
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+  /**
+    * Allows you to create one or more quotes
+    * <p><b>200</b> - Success - return response of type Quotes with array with newly created Quote
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param quotes Quotes with an array of Quote object in body of request
+    * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any with validation errors
+    * @param accessToken Authorization token for user set in header of each request
+    * @return Quotes
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public Quotes  createQuotes(String accessToken, String xeroTenantId, Quotes quotes, Boolean summarizeErrors) throws IOException {
+        try {
+            TypeReference<Quotes> typeRef = new TypeReference<Quotes>() {};
+            HttpResponse response = createQuotesForHttpResponse(accessToken, xeroTenantId, quotes, summarizeErrors);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    public HttpResponse createQuotesForHttpResponse(String accessToken,  String xeroTenantId,  Quotes quotes,  Boolean summarizeErrors) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createQuotes");
+        }// verify the required parameter 'quotes' is set
+        if (quotes == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'quotes' when calling createQuotes");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createQuotes");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
+        String correctPath = "/Quotes";
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        if (summarizeErrors != null) {
+            String key = "summarizeErrors";
+            Object value = summarizeErrors;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
+        String url = uriBuilder.build().toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+
+        
+        HttpContent content = null;
+        content = apiClient.new JacksonJsonHttpContent(quotes);
+        
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+  /**
     * Allows you to create draft expense claim receipts for any user
     * <p><b>200</b> - Success - return response of type Receipts array for newly created Receipt
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
-    * @param receipts The receipts parameter
+    * @param receipts Receipts with an array of Receipt object in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return Receipts
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -3162,7 +3307,7 @@ public class AccountingApi {
     * <p><b>400</b> - Unsupported - return response incorrect exception, API is not able to create HistoryRecord for Receipts
     * @param xeroTenantId Xero identifier for Tenant
     * @param receiptID Unique identifier for a Receipt
-    * @param historyRecords The historyRecords parameter
+    * @param historyRecords HistoryRecords containing an array of HistoryRecord objects in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -3299,7 +3444,7 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
     * @param repeatingInvoiceID Unique identifier for a Repeating Invoice
-    * @param historyRecords The historyRecords parameter
+    * @param historyRecords HistoryRecords containing an array of HistoryRecord objects in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return HistoryRecords
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -3364,7 +3509,7 @@ public class AccountingApi {
     * <p><b>200</b> - Success - return response of type TaxRates array newly created TaxRate
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
-    * @param taxRates The taxRates parameter
+    * @param taxRates TaxRates array with TaxRate object in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return TaxRates
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -3421,7 +3566,7 @@ public class AccountingApi {
     * <p><b>200</b> - Success - return response of type TrackingCategories array of newly created TrackingCategory
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
-    * @param trackingCategory The trackingCategory parameter
+    * @param trackingCategory TrackingCategory object in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return TrackingCategories
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -3479,7 +3624,7 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
     * @param trackingCategoryID Unique identifier for a TrackingCategory
-    * @param trackingOption The trackingOption parameter
+    * @param trackingOption TrackingOption object in body of request
     * @param accessToken Authorization token for user set in header of each request
     * @return TrackingOptions
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -4717,8 +4862,8 @@ public class AccountingApi {
     * @param ifModifiedSince Only records created or modified since this timestamp will be returned
     * @param where Filter by an any element
     * @param order Order by an any element
-    * @param page e.g. page&#x3D;1 – Up to 100 bank transactions will be returned in a single API call with line items shown for each bank transaction
-    * @param unitdp e.g. unitdp&#x3D;4 – You can opt in to use four decimal places for unit amounts
+    * @param page Up to 100 bank transactions will be returned in a single API call with line items details
+    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal places for unit amounts
     * @param accessToken Authorization token for user set in header of each request
     * @return BankTransactions
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -6280,7 +6425,7 @@ public class AccountingApi {
     * <p><b>200</b> - Success - return response of binary data from the Attachment to a Credit Note
     * @param xeroTenantId Xero identifier for Tenant
     * @param creditNoteID Unique identifier for a Credit Note
-    * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
+    * @param contentType The mime type of the attachment file you are retrieving i.e application/pdf
     * @param accessToken Authorization token for user set in header of each request
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -7178,7 +7323,7 @@ public class AccountingApi {
     * <p><b>200</b> - Success - return response of byte array pdf version of specified Invoices
     * @param xeroTenantId Xero identifier for Tenant
     * @param invoiceID Unique identifier for an Invoice
-    * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
+    * @param contentType The mime type of the attachment file you are retrieving
     * @param accessToken Authorization token for user set in header of each request
     * @return File
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -7577,14 +7722,14 @@ public class AccountingApi {
     * @param ifModifiedSince Only records created or modified since this timestamp will be returned
     * @param where Filter by an any element
     * @param order Order by an any element
-    * @param ids Filter by a comma-separated list of InvoicesIDs. For faster response times we recommend using these explicit parameters instead of passing OR conditions into the Where filter.
-    * @param invoiceNumbers Filter by a comma-separated list of InvoiceNumbers. For faster response times we recommend using these explicit parameters instead of passing OR conditions into the Where filter.
-    * @param contactIDs Filter by a comma-separated list of ContactIDs. For faster response times we recommend using these explicit parameters instead of passing OR conditions into the Where filter.
+    * @param ids Filter by a comma-separated list of InvoicesIDs.
+    * @param invoiceNumbers Filter by a comma-separated list of InvoiceNumbers.
+    * @param contactIDs Filter by a comma-separated list of ContactIDs.
     * @param statuses Filter by a comma-separated list Statuses. For faster response times we recommend using these explicit parameters instead of passing OR conditions into the Where filter.
     * @param page e.g. page&#x3D;1 – Up to 100 invoices will be returned in a single API call with line items shown for each invoice
     * @param includeArchived e.g. includeArchived&#x3D;true - Contacts with a status of ARCHIVED will be included in the response
     * @param createdByMyApp When set to true you&#39;ll only retrieve Invoices created by your app
-    * @param unitdp e.g. unitdp&#x3D;4 – You can opt in to use four decimal places for unit amounts
+    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal places for unit amounts
     * @param accessToken Authorization token for user set in header of each request
     * @return Invoices
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -7860,7 +8005,7 @@ public class AccountingApi {
     * @param ifModifiedSince Only records created or modified since this timestamp will be returned
     * @param where Filter by an any element
     * @param order Order by an any element
-    * @param unitdp e.g. unitdp&#x3D;4 – You can opt in to use four decimal places for unit amounts
+    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal places for unit amounts
     * @param accessToken Authorization token for user set in header of each request
     * @return Items
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -8142,9 +8287,9 @@ public class AccountingApi {
     * @param xeroTenantId Xero identifier for Tenant
     * @param page Up to 100 linked transactions will be returned in a single API call. Use the page parameter to specify the page to be returned e.g. page&#x3D;1.
     * @param linkedTransactionID The Xero identifier for an Linked Transaction
-    * @param sourceTransactionID Filter by the SourceTransactionID. Get all the linked transactions created from a particular ACCPAY invoice
+    * @param sourceTransactionID Filter by the SourceTransactionID. Get the linked transactions created from a particular ACCPAY invoice
     * @param contactID Filter by the ContactID. Get all the linked transactions that have been assigned to a particular customer.
-    * @param status Filter by the combination of ContactID and Status. Get all the linked transactions that have been assigned to a particular customer and have a particular status e.g. GET /LinkedTransactions?ContactID&#x3D;4bb34b03-3378-4bb2-a0ed-6345abf3224e&amp;Status&#x3D;APPROVED.
+    * @param status Filter by the combination of ContactID and Status. Get  the linked transactions associaed to a  customer and with a status
     * @param targetTransactionID Filter by the TargetTransactionID. Get all the linked transactions allocated to a particular ACCREC invoice
     * @param accessToken Authorization token for user set in header of each request
     * @return LinkedTransactions
@@ -8678,7 +8823,7 @@ public class AccountingApi {
     * Allows you To verify if an organisation is using contruction industry scheme, you can retrieve the CIS settings for the organistaion.
     * <p><b>200</b> - Success - return response of type Organisation array with specified Organisation
     * @param xeroTenantId Xero identifier for Tenant
-    * @param organisationID The organisationID parameter
+    * @param organisationID The unique Xero identifier for an organisation
     * @param accessToken Authorization token for user set in header of each request
     * @return CISOrgSetting
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -8909,7 +9054,7 @@ public class AccountingApi {
     * @param where Filter by an any element
     * @param order Order by an any element
     * @param page e.g. page&#x3D;1 – Up to 100 overpayments will be returned in a single API call with line items shown for each overpayment
-    * @param unitdp e.g. unitdp&#x3D;4 – You can opt in to use four decimal places for unit amounts
+    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal places for unit amounts
     * @param accessToken Authorization token for user set in header of each request
     * @return Overpayments
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -9371,7 +9516,7 @@ public class AccountingApi {
     * @param where Filter by an any element
     * @param order Order by an any element
     * @param page e.g. page&#x3D;1 – Up to 100 prepayments will be returned in a single API call with line items shown for each overpayment
-    * @param unitdp e.g. unitdp&#x3D;4 – You can opt in to use four decimal places for unit amounts
+    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal places for unit amounts
     * @param accessToken Authorization token for user set in header of each request
     * @return Prepayments
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -9730,6 +9875,65 @@ public class AccountingApi {
         headers.setUserAgent(this.getUserAgent());
         
         String correctPath = "/Quotes/{QuoteID}";
+        
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("QuoteID", quoteID);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+  /**
+    * Allows you to retrieve a history records of an quote
+    * <p><b>200</b> - Success - return response of type HistoryRecords array with all HistoryRecord for specific Quote
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param quoteID Unique identifier for an Quote
+    * @param accessToken Authorization token for user set in header of each request
+    * @return HistoryRecords
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public HistoryRecords  getQuoteHistory(String accessToken, String xeroTenantId, UUID quoteID) throws IOException {
+        try {
+            TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
+            HttpResponse response = getQuoteHistoryForHttpResponse(accessToken, xeroTenantId, quoteID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    public HttpResponse getQuoteHistoryForHttpResponse(String accessToken,  String xeroTenantId,  UUID quoteID) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getQuoteHistory");
+        }// verify the required parameter 'quoteID' is set
+        if (quoteID == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'quoteID' when calling getQuoteHistory");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getQuoteHistory");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
+        String correctPath = "/Quotes/{QuoteID}/History";
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -10232,7 +10436,7 @@ public class AccountingApi {
     * @param ifModifiedSince Only records created or modified since this timestamp will be returned
     * @param where Filter by an any element
     * @param order Order by an any element
-    * @param unitdp e.g. unitdp&#x3D;4 – You can opt in to use four decimal places for unit amounts
+    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal places for unit amounts
     * @param accessToken Authorization token for user set in header of each request
     * @return Receipts
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -13256,7 +13460,7 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
     * @param bankTransactions The bankTransactions parameter
-    * @param summarizeErrors response format that shows validation errors for each bank transaction
+    * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any with validation errors
     * @param accessToken Authorization token for user set in header of each request
     * @return BankTransactions
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -13325,7 +13529,7 @@ public class AccountingApi {
     * <p><b>400</b> - Validation Error - some data was incorrect returns response of type Error
     * @param xeroTenantId Xero identifier for Tenant
     * @param contacts The contacts parameter
-    * @param summarizeErrors response format that shows validation errors for each bank transaction
+    * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any with validation errors
     * @param accessToken Authorization token for user set in header of each request
     * @return Contacts
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -13394,7 +13598,7 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
     * @param creditNotes an array of Credit Notes with a single CreditNote object.
-    * @param summarizeErrors shows validation errors for each credit note
+    * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any with validation errors
     * @param accessToken Authorization token for user set in header of each request
     * @return CreditNotes
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -13463,7 +13667,7 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
     * @param invoices The invoices parameter
-    * @param summarizeErrors shows validation errors for each credit note
+    * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any with validation errors
     * @param accessToken Authorization token for user set in header of each request
     * @return Invoices
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -13532,7 +13736,7 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
     * @param items The items parameter
-    * @param summarizeErrors response format that shows validation errors for each bank transaction
+    * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any with validation errors
     * @param accessToken Authorization token for user set in header of each request
     * @return Items
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -13601,7 +13805,7 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
     * @param purchaseOrders The purchaseOrders parameter
-    * @param summarizeErrors shows validation errors for each credit note
+    * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any with validation errors
     * @param accessToken Authorization token for user set in header of each request
     * @return PurchaseOrders
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -13655,6 +13859,75 @@ public class AccountingApi {
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(purchaseOrders);
+        
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+  /**
+    * Allows you to update OR create one or more quotes
+    * <p><b>200</b> - Success - return response of type Quotes array with updated or created Quote
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param quotes The quotes parameter
+    * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any with validation errors
+    * @param accessToken Authorization token for user set in header of each request
+    * @return Quotes
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public Quotes  updateOrCreateQuotes(String accessToken, String xeroTenantId, Quotes quotes, Boolean summarizeErrors) throws IOException {
+        try {
+            TypeReference<Quotes> typeRef = new TypeReference<Quotes>() {};
+            HttpResponse response = updateOrCreateQuotesForHttpResponse(accessToken, xeroTenantId, quotes, summarizeErrors);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    public HttpResponse updateOrCreateQuotesForHttpResponse(String accessToken,  String xeroTenantId,  Quotes quotes,  Boolean summarizeErrors) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling updateOrCreateQuotes");
+        }// verify the required parameter 'quotes' is set
+        if (quotes == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'quotes' when calling updateOrCreateQuotes");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling updateOrCreateQuotes");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
+        String correctPath = "/Quotes";
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        if (summarizeErrors != null) {
+            String key = "summarizeErrors";
+            Object value = summarizeErrors;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
+        String url = uriBuilder.build().toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+
+        
+        HttpContent content = null;
+        content = apiClient.new JacksonJsonHttpContent(quotes);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
         HttpTransport transport = apiClient.getHttpTransport();       
@@ -13721,6 +13994,72 @@ public class AccountingApi {
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(purchaseOrders);
+        
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+  /**
+    * Allows you to update a specified quote
+    * <p><b>200</b> - Success - return response of type Quotes array with updated Quote
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param quoteID Unique identifier for an Quote
+    * @param quotes The quotes parameter
+    * @param accessToken Authorization token for user set in header of each request
+    * @return Quotes
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public Quotes  updateQuote(String accessToken, String xeroTenantId, UUID quoteID, Quotes quotes) throws IOException {
+        try {
+            TypeReference<Quotes> typeRef = new TypeReference<Quotes>() {};
+            HttpResponse response = updateQuoteForHttpResponse(accessToken, xeroTenantId, quoteID, quotes);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    public HttpResponse updateQuoteForHttpResponse(String accessToken,  String xeroTenantId,  UUID quoteID,  Quotes quotes) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling updateQuote");
+        }// verify the required parameter 'quoteID' is set
+        if (quoteID == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'quoteID' when calling updateQuote");
+        }// verify the required parameter 'quotes' is set
+        if (quotes == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'quotes' when calling updateQuote");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling updateQuote");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
+        String correctPath = "/Quotes/{QuoteID}";
+        
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("QuoteID", quoteID);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+
+        
+        HttpContent content = null;
+        content = apiClient.new JacksonJsonHttpContent(quotes);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
         HttpTransport transport = apiClient.getHttpTransport();       

@@ -237,6 +237,20 @@ public class Account {
     
     WAGEPAYABLES("WAGEPAYABLES"),
     
+    CISASSETS("CISASSETS"),
+    
+    CISASSET("CISASSET"),
+    
+    CISLABOUR("CISLABOUR"),
+    
+    CISLABOUREXPENSE("CISLABOUREXPENSE"),
+    
+    CISLABOURINCOME("CISLABOURINCOME"),
+    
+    CISLIABILITY("CISLIABILITY"),
+    
+    CISMATERIALS("CISMATERIALS"),
+    
     EMPTY("");
 
     private String value;
@@ -339,7 +353,7 @@ public class Account {
    * The Xero identifier for an account – specified as a string following  the endpoint name   e.g. /297c2dc5-cc47-4afd-8ec8-74990b8761e9
    * @return accountID
   **/
-  @ApiModelProperty(value = "The Xero identifier for an account – specified as a string following  the endpoint name   e.g. /297c2dc5-cc47-4afd-8ec8-74990b8761e9")
+  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "The Xero identifier for an account – specified as a string following  the endpoint name   e.g. /297c2dc5-cc47-4afd-8ec8-74990b8761e9")
   public UUID getAccountID() {
     return accountID;
   }

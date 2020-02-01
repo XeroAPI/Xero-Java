@@ -133,10 +133,10 @@ public class Quote {
   }
 
    /**
-   * Xero generated unique identifier for quote
+   * QuoteID GUID is automatically generated and is returned after create or GET.
    * @return quoteID
   **/
-  @ApiModelProperty(value = "Xero generated unique identifier for quote")
+  @ApiModelProperty(value = "QuoteID GUID is automatically generated and is returned after create or GET.")
   public UUID getQuoteID() {
     return quoteID;
   }
@@ -151,10 +151,10 @@ public class Quote {
   }
 
    /**
-   * Unique alpha numeric code identifying quote (when missing will auto-generate from your Organisation Invoice Settings)
+   * Unique alpha numeric code identifying a quote (Max Length &#x3D; 255)
    * @return quoteNumber
   **/
-  @ApiModelProperty(value = "Unique alpha numeric code identifying quote (when missing will auto-generate from your Organisation Invoice Settings)")
+  @ApiModelProperty(value = "Unique alpha numeric code identifying a quote (Max Length = 255)")
   public String getQuoteNumber() {
     return quoteNumber;
   }
@@ -223,18 +223,15 @@ public class Quote {
   }
 
   public Quote addLineItemsItem(LineItem lineItemsItem) {
-    if (this.lineItems == null) {
-      this.lineItems = new ArrayList<LineItem>();
-    }
     this.lineItems.add(lineItemsItem);
     return this;
   }
 
    /**
-   * See LineItems
+   * The LineItems collection can contain any number of individual LineItem sub-elements. At minimum, a description is required to create a complete quote.
    * @return lineItems
   **/
-  @ApiModelProperty(value = "See LineItems")
+  @ApiModelProperty(required = true, value = "The LineItems collection can contain any number of individual LineItem sub-elements. At minimum, a description is required to create a complete quote.")
   public List<LineItem> getLineItems() {
     return lineItems;
   }
@@ -252,7 +249,7 @@ public class Quote {
    * Date quote was issued – YYYY-MM-DD. If the Date element is not specified it will default to the current date based on the timezone setting of the organisation
    * @return date
   **/
-  @ApiModelProperty(value = "Date quote was issued – YYYY-MM-DD. If the Date element is not specified it will default to the current date based on the timezone setting of the organisation")
+  @ApiModelProperty(required = true, value = "Date quote was issued – YYYY-MM-DD. If the Date element is not specified it will default to the current date based on the timezone setting of the organisation")
   public LocalDate getDate() {
     return date;
   }
@@ -357,10 +354,10 @@ public class Quote {
   }
 
    /**
-   * The currency rate for a multicurrency quote. If no rate is specified, the XE.com day rate is used.
+   * The currency rate for a multicurrency quote
    * @return currencyRate
   **/
-  @ApiModelProperty(value = "The currency rate for a multicurrency quote. If no rate is specified, the XE.com day rate is used.")
+  @ApiModelProperty(value = "The currency rate for a multicurrency quote")
   public Double getCurrencyRate() {
     return currencyRate;
   }
