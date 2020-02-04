@@ -115,16 +115,6 @@ public class AccountingApiExpenseClaimsTest {
         //System.out.println(response.getExpenseClaims().get(0).toString());
     }
     
-    @Test
-    public void createExpenseClaimHistoryTest() throws IOException {
-        System.out.println("@Test - createExpenseClaimHistory not implemented");
-        UUID expenseClaimID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords historyRecords = new HistoryRecords();
-        //HistoryRecords response = accountingApi.createExpenseClaimHistory(expenseClaimID, historyRecords);
-
-        // TODO: test validations
-        //System.out.println(response.getHistoryRecords().get(0).toString());
-    }
 
     @Test
     public void getExpenseClaimTest() throws IOException {
@@ -151,18 +141,6 @@ public class AccountingApiExpenseClaimsTest {
         assertThat(response.getExpenseClaims().get(0).getAmountPaid(), is(equalTo(0.0)));
         assertThat(response.getExpenseClaims().get(0).getAmountPaid().toString(), is(equalTo("0.0")));
         //System.out.println(response.getExpenseClaims().get(0).toString());
-    }
-
-    @Test
-    public void getExpenseClaimHistoryTest() throws IOException {
-        System.out.println("@Test - getExpenseClaimHistory");
-        UUID expenseClaimID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords response = accountingApi.getExpenseClaimHistory(accessToken,xeroTenantId,expenseClaimID);
-
-        assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("System Generated")));       
-        assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Voided")));     
-        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T09:37:36.747-08:00"))));
-        //System.out.println(response.getHistoryRecords().get(0).toString());
     }
 
     @Test

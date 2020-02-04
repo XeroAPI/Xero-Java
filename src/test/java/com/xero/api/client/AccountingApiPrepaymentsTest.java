@@ -94,15 +94,6 @@ public class AccountingApiPrepaymentsTest {
         //System.out.println(response.getAllocations().get(0).toString());
     }
 
-    @Test
-    public void createPrepaymentHistoryTest() throws IOException {
-        System.out.println("@Test - createPrepaymentHistory");
-        UUID prepaymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords historyRecords = new HistoryRecords();
-        //HistoryRecords response = accountingApi.createPrepaymentHistory(prepaymentID, historyRecords);
-        // TODO: test validations
-        //System.out.println(response.getHistoryRecords().get(0).toString());
-    }
     
     @Test
     public void getPrepaymentTest() throws IOException {
@@ -147,19 +138,6 @@ public class AccountingApiPrepaymentsTest {
         //System.out.println(response.getPrepayments().get(0).toString());
     }    
   
-    @Test
-    public void getPrepaymentHistoryTest() throws IOException {
-        System.out.println("@Test - getPrepaymentHistory");
-        UUID prepaymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords response = accountingApi.getPrepaymentHistory(accessToken,xeroTenantId,prepaymentID);
-
-        assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("Sidney Maestre")));       
-        assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Cash Refunded")));     
-        assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Payment made to Tony Stark on 21 March 2019 for 2,300.00. There is no credit remaining on this prepayment.")));     
-        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-13T06:58:10.407-08:00"))));
-        //System.out.println(response.getHistoryRecords().get(0).toString());
-    }
-    
     @Test
     public void getPrepaymentsTest() throws IOException {
         System.out.println("@Test - getPrepayments");

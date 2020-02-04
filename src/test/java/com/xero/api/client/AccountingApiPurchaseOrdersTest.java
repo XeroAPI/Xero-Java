@@ -119,17 +119,6 @@ public class AccountingApiPurchaseOrdersTest {
         //System.out.println(response.getPurchaseOrders().get(0).toString());
     }
     */
-    @Test
-    public void createPurchaseOrderHistoryTest() throws IOException {
-        System.out.println("@Test - createPurchaseOrderHistory");
-        UUID purchaseOrderID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords historyRecords = new HistoryRecords();
-        HistoryRecords response = accountingApi.createPurchaseOrderHistory(accessToken,xeroTenantId,purchaseOrderID, historyRecords);
-
-        assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Hello World")));     
-        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-13T16:39:39.354-08:00"))));
-        //System.out.println(response.getHistoryRecords().get(0).toString());
-    }
 
     @Test
     public void getPurchaseOrderTest() throws IOException {
@@ -183,18 +172,6 @@ public class AccountingApiPurchaseOrdersTest {
         //System.out.println(response.getPurchaseOrders().get(0).toString());
     }
     
-    @Test
-    public void getPurchaseOrderHistoryTest() throws IOException {
-        System.out.println("@Test - getPurchaseOrderHistory");
-        UUID purchaseOrderID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords response = accountingApi.getPurchaseOrderHistory(accessToken,xeroTenantId,purchaseOrderID);
-
-        assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("System Generated")));       
-        assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Note")));     
-        assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Hello World")));     
-        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-13T16:22:28.670-08:00"))));
-        //System.out.println(response.getHistoryRecords().get(0).toString());
-    }
     
     @Test
     public void getPurchaseOrdersTest() throws IOException {

@@ -125,15 +125,6 @@ public class AccountingApiReceiptsTest {
         //System.out.println(response.getAttachments().get(0).toString());
     }
     
-   
-    @Test
-    public void createReceiptHistoryTest() throws IOException {
-        System.out.println("@Test - createReceiptHistory - not implemented");
-        UUID receiptID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords historyRecords = new HistoryRecords();
-        //HistoryRecords response = accountingApi.createReceiptHistory(receiptID, historyRecords);
-        //System.out.println(response.getHistoryRecords().get(0).toString());
-    }
 
     @Test
     public void getReceiptTest() throws IOException {
@@ -179,19 +170,7 @@ public class AccountingApiReceiptsTest {
         assertThat(response.getAttachments().get(0).getIncludeOnline(), is(equalTo(null)));
         //System.out.println(response.getAttachments().get(0).toString());
     }
-    
-    @Test
-    public void getReceiptHistoryTest() throws IOException {
-        System.out.println("@Test - getReceiptHistory");
-        UUID receiptID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords response = accountingApi.getReceiptHistory(accessToken,xeroTenantId,receiptID);
 
-        assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("System Generated")));       
-        assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Edited")));     
-        assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Received through the Xero API from Java Partner Example")));     
-        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-13T16:49:43.983-08:00"))));
-        //System.out.println(response.getHistoryRecords().get(0).toString());
-    }
     
     @Test
     public void getReceiptsTest() throws IOException {

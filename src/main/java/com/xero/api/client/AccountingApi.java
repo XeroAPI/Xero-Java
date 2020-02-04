@@ -327,7 +327,7 @@ public class AccountingApi {
 
   /**
     * Allows you to create history record for a bank transactions
-    * <p><b>200</b> - Success - return response of HistoryRecords array of 0 to N HistoryRecord
+    * <p><b>200</b> - Success - return response of type HistoryRecords array of HistoryRecord objects
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
     * @param bankTransactionID Xero generated unique identifier for a bank transaction
@@ -588,7 +588,7 @@ public class AccountingApi {
     }
 
   /**
-    * <p><b>200</b> - Success - return response HistoryRecords array with the newly created HistoryRecord for a Bank Transfer
+    * <p><b>200</b> - Success - return response of type HistoryRecords array of HistoryRecord objects
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
     * @param bankTransferID Xero generated unique identifier for a bank transfer
@@ -1048,7 +1048,7 @@ public class AccountingApi {
 
   /**
     * Allows you to retrieve a history records of an Contact
-    * <p><b>200</b> - Success - return response of type History Records array of newly created History Record for a specific Contact
+    * <p><b>200</b> - Success - return response of type HistoryRecords array of HistoryRecord objects
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
     * @param contactID Unique identifier for a Contact
@@ -1325,7 +1325,7 @@ public class AccountingApi {
 
   /**
     * Allows you to retrieve a history records of an CreditNote
-    * <p><b>200</b> - Success - return response of type HistoryRecords array with newly created HistoryRecord for specific Credit Note
+    * <p><b>200</b> - Success - return response of type HistoryRecords array of HistoryRecord objects
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
     * @param creditNoteID Unique identifier for a Credit Note
@@ -1629,7 +1629,7 @@ public class AccountingApi {
 
   /**
     * Allows you to create a history records of an ExpenseClaim
-    * <p><b>200</b> - Unsupported - return response incorrect exception, API is not able to create HistoryRecord for Expense Claims
+    * <p><b>200</b> - Success - return response of type HistoryRecords array of HistoryRecord objects
     * @param xeroTenantId Xero identifier for Tenant
     * @param expenseClaimID Unique identifier for a ExpenseClaim
     * @param historyRecords HistoryRecords containing an array of HistoryRecord objects in body of request
@@ -1827,7 +1827,7 @@ public class AccountingApi {
 
   /**
     * Allows you to retrieve a history records of an invoice
-    * <p><b>200</b> - Success - return response of type HistoryRecords array with newly created HistoryRecord for specific Invoice
+    * <p><b>200</b> - Success - return response of type HistoryRecords array of HistoryRecord objects
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
     * @param invoiceID Unique identifier for an Invoice
@@ -1962,7 +1962,7 @@ public class AccountingApi {
 
   /**
     * Allows you to create a history record for items
-    * <p><b>200</b> - Unsupported - return response incorrect exception, API is not able to create HistoryRecord for Items
+    * <p><b>200</b> - Success - return response of type HistoryRecords array of HistoryRecord objects
     * @param xeroTenantId Xero identifier for Tenant
     * @param itemID Unique identifier for an Item
     * @param historyRecords HistoryRecords containing an array of HistoryRecord objects in body of request
@@ -2470,7 +2470,7 @@ public class AccountingApi {
 
   /**
     * Allows you to create history records of an Overpayment
-    * <p><b>200</b> - Unsupported - return response incorrect exception, API is not able to create HistoryRecord for Overpayments
+    * <p><b>200</b> - Success - return response of type HistoryRecords array of HistoryRecord objects
     * <p><b>400</b> - A failed request due to validation error - API is not able to create HistoryRecord for Overpayments
     * @param xeroTenantId Xero identifier for Tenant
     * @param overpaymentID Unique identifier for a Overpayment
@@ -2593,7 +2593,7 @@ public class AccountingApi {
 
   /**
     * Allows you to create a history record for a payment
-    * <p><b>200</b> - Unsupported - return response incorrect exception, API is not able to create HistoryRecord for Payments
+    * <p><b>200</b> - Success - return response of type HistoryRecords array of HistoryRecord objects
     * <p><b>400</b> - A failed request due to validation error - API is not able to create HistoryRecord for Payments
     * @param xeroTenantId Xero identifier for Tenant
     * @param paymentID Unique identifier for a Payment
@@ -2839,7 +2839,7 @@ public class AccountingApi {
 
   /**
     * Allows you to create a history record for an Prepayment
-    * <p><b>200</b> - Success - return response of type HistoryRecords array for newly created HistoryRecord for PrePayment
+    * <p><b>200</b> - Success - return response of type HistoryRecords array of HistoryRecord objects
     * <p><b>400</b> - Unsupported - return response incorrect exception, API is not able to create HistoryRecord for Expense Claims
     * @param xeroTenantId Xero identifier for Tenant
     * @param prepaymentID Unique identifier for a PrePayment
@@ -2905,7 +2905,7 @@ public class AccountingApi {
 
   /**
     * Allows you to create HistoryRecord for purchase orders
-    * <p><b>200</b> - Success - return response of type HistoryRecords array for newly created HistoryRecord for PurchaseOrder
+    * <p><b>200</b> - Success - return response of type HistoryRecords array of HistoryRecord objects
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
     * @param purchaseOrderID Unique identifier for a PurchaseOrder
@@ -3040,7 +3040,7 @@ public class AccountingApi {
 
   /**
     * Allows you to retrieve a history records of an quote
-    * <p><b>200</b> - Success - return response of type HistoryRecords array with newly created HistoryRecord for specific Quote
+    * <p><b>200</b> - Success - return response of type HistoryRecords array of HistoryRecord objects
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
     * @param quoteID Unique identifier for an Quote
@@ -3303,7 +3303,7 @@ public class AccountingApi {
 
   /**
     * Allows you to retrieve a history records of an Receipt
-    * <p><b>200</b> - Unsupported - return response incorrect exception, API is not able to create HistoryRecord for Receipts
+    * <p><b>200</b> - Success - return response of type HistoryRecords array of HistoryRecord objects
     * <p><b>400</b> - Unsupported - return response incorrect exception, API is not able to create HistoryRecord for Receipts
     * @param xeroTenantId Xero identifier for Tenant
     * @param receiptID Unique identifier for a Receipt
@@ -3440,7 +3440,7 @@ public class AccountingApi {
 
   /**
     * Allows you to create history for a repeating invoice
-    * <p><b>200</b> - Unsupported - return response incorrect exception, API is not able to create HistoryRecord for Repeating Invoice
+    * <p><b>200</b> - Success - return response of type HistoryRecords array of HistoryRecord objects
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
     * @param repeatingInvoiceID Unique identifier for a Repeating Invoice
@@ -5289,7 +5289,7 @@ public class AccountingApi {
 
   /**
     * Allows you to retrieve history from a bank transfers
-    * <p><b>200</b> - Success - return response of HistoryRecords array of 0 to N HistoryRecord for a Bank Transfer
+    * <p><b>200</b> - Success - return response of HistoryRecords array of 0 to N HistoryRecord
     * @param xeroTenantId Xero identifier for Tenant
     * @param bankTransferID Xero generated unique identifier for a bank transfer
     * @param accessToken Authorization token for user set in header of each request
@@ -5425,7 +5425,7 @@ public class AccountingApi {
 
   /**
     * Allows you to retrieve history from a Batch Payment
-    * <p><b>200</b> - Success - return response of type HistoryRecords array of HistoryRecord objects
+    * <p><b>200</b> - Success - return response of HistoryRecords array of 0 to N HistoryRecord
     * @param xeroTenantId Xero identifier for Tenant
     * @param batchPaymentID Unique identifier for BatchPayment
     * @param accessToken Authorization token for user set in header of each request
@@ -6194,7 +6194,7 @@ public class AccountingApi {
 
   /**
     * Allows you to retrieve a history records of an Contact
-    * <p><b>200</b> - Success - return response of type History Records array of 0 to N History Record for a specific Contact
+    * <p><b>200</b> - Success - return response of HistoryRecords array of 0 to N HistoryRecord
     * @param xeroTenantId Xero identifier for Tenant
     * @param contactID Unique identifier for a Contact
     * @param accessToken Authorization token for user set in header of each request
@@ -6710,7 +6710,7 @@ public class AccountingApi {
 
   /**
     * Allows you to retrieve a history records of an CreditNote
-    * <p><b>200</b> - Success - return response of type HistoryRecords array with all HistoryRecord for specific Credit Note
+    * <p><b>200</b> - Success - return response of HistoryRecords array of 0 to N HistoryRecord
     * @param xeroTenantId Xero identifier for Tenant
     * @param creditNoteID Unique identifier for a Credit Note
     * @param accessToken Authorization token for user set in header of each request
@@ -7125,7 +7125,7 @@ public class AccountingApi {
 
   /**
     * Allows you to retrieve a history records of an ExpenseClaim
-    * <p><b>200</b> - Success - return response of type HistoryRecords array with all HistoryRecord for specific ExpenseClaim
+    * <p><b>200</b> - Success - return response of HistoryRecords array of 0 to N HistoryRecord
     * @param xeroTenantId Xero identifier for Tenant
     * @param expenseClaimID Unique identifier for a ExpenseClaim
     * @param accessToken Authorization token for user set in header of each request
@@ -7608,7 +7608,7 @@ public class AccountingApi {
 
   /**
     * Allows you to retrieve a history records of an invoice
-    * <p><b>200</b> - Success - return response of type HistoryRecords array with all HistoryRecord for specific Invoice
+    * <p><b>200</b> - Success - return response of HistoryRecords array of 0 to N HistoryRecord
     * @param xeroTenantId Xero identifier for Tenant
     * @param invoiceID Unique identifier for an Invoice
     * @param accessToken Authorization token for user set in header of each request
@@ -7941,7 +7941,7 @@ public class AccountingApi {
 
   /**
     * Allows you to retrieve history for items
-    * <p><b>200</b> - Success - return response of type HistoryRecords array with all HistoryRecord for specific Item
+    * <p><b>200</b> - Success - return response of HistoryRecords array of 0 to N HistoryRecord
     * @param xeroTenantId Xero identifier for Tenant
     * @param itemID Unique identifier for an Item
     * @param accessToken Authorization token for user set in header of each request
@@ -8989,7 +8989,7 @@ public class AccountingApi {
 
   /**
     * Allows you to retrieve a history records of an Overpayment
-    * <p><b>200</b> - Success - return response of type HistoryRecords array with all HistoryRecord for Overpayments
+    * <p><b>200</b> - Success - return response of HistoryRecords array of 0 to N HistoryRecord
     * @param xeroTenantId Xero identifier for Tenant
     * @param overpaymentID Unique identifier for a Overpayment
     * @param accessToken Authorization token for user set in header of each request
@@ -9206,7 +9206,7 @@ public class AccountingApi {
 
   /**
     * Allows you to retrieve history records of a payment
-    * <p><b>200</b> - Success - return response of type HistoryRecords array with all HistoryRecord for Payments
+    * <p><b>200</b> - Success - return response of HistoryRecords array of 0 to N HistoryRecord
     * @param xeroTenantId Xero identifier for Tenant
     * @param paymentID Unique identifier for a Payment
     * @param accessToken Authorization token for user set in header of each request
@@ -9451,7 +9451,7 @@ public class AccountingApi {
 
   /**
     * Allows you to retrieve a history records of an Prepayment
-    * <p><b>200</b> - Success - return response of type HistoryRecords array with all HistoryRecord for PrePayment
+    * <p><b>200</b> - Success - return response of HistoryRecords array of 0 to N HistoryRecord
     * @param xeroTenantId Xero identifier for Tenant
     * @param prepaymentID Unique identifier for a PrePayment
     * @param accessToken Authorization token for user set in header of each request
@@ -9668,7 +9668,7 @@ public class AccountingApi {
 
   /**
     * Allows you to retrieve history for PurchaseOrder
-    * <p><b>200</b> - Success - return response of type HistoryRecords array for all HistoryRecord for PurchaseOrder
+    * <p><b>200</b> - Success - return response of HistoryRecords array of 0 to N HistoryRecord
     * @param xeroTenantId Xero identifier for Tenant
     * @param purchaseOrderID Unique identifier for a PurchaseOrder
     * @param accessToken Authorization token for user set in header of each request
@@ -9896,7 +9896,7 @@ public class AccountingApi {
 
   /**
     * Allows you to retrieve a history records of an quote
-    * <p><b>200</b> - Success - return response of type HistoryRecords array with all HistoryRecord for specific Quote
+    * <p><b>200</b> - Success - return response of HistoryRecords array of 0 to N HistoryRecord
     * @param xeroTenantId Xero identifier for Tenant
     * @param quoteID Unique identifier for an Quote
     * @param accessToken Authorization token for user set in header of each request
@@ -10372,7 +10372,7 @@ public class AccountingApi {
 
   /**
     * Allows you to retrieve a history records of an Receipt
-    * <p><b>200</b> - Success - return response of type HistoryRecords array of all HistoryRecord for Receipt
+    * <p><b>200</b> - Success - return response of HistoryRecords array of 0 to N HistoryRecord
     * @param xeroTenantId Xero identifier for Tenant
     * @param receiptID Unique identifier for a Receipt
     * @param accessToken Authorization token for user set in header of each request
@@ -10793,7 +10793,7 @@ public class AccountingApi {
 
   /**
     * Allows you to retrieve history for a repeating invoice
-    * <p><b>200</b> - Success - return response of type HistoryRecords array of all HistoryRecord for Repeating Invoice
+    * <p><b>200</b> - Success - return response of HistoryRecords array of 0 to N HistoryRecord
     * @param xeroTenantId Xero identifier for Tenant
     * @param repeatingInvoiceID Unique identifier for a Repeating Invoice
     * @param accessToken Authorization token for user set in header of each request

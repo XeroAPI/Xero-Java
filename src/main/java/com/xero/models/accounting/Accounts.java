@@ -53,7 +53,7 @@ public class Accounts {
    * Get accounts
    * @return accounts
   **/
-  @ApiModelProperty(example = "{ \"Accounts\": [ { \"AccountID\": \"66b262e2-561e-423e-8937-47d558f13442\", \"Code\": \"123456\", \"Name\": \"Foobar\", \"Status\": \"ACTIVE\", \"Type\": \"EXPENSE\", \"TaxType\": \"INPUT\", \"Description\": \"Hello World\", \"Class\": \"EXPENSE\", \"EnablePaymentsToAccount\": false, \"ShowInExpenseClaims\": false, \"ReportingCode\": \"EXP\", \"ReportingCodeName\": \"Expense\", \"UpdatedDateUTC\": \"/Date(1550793549320+0000)/\" } ] }", value = "")
+  @ApiModelProperty(value = "")
   public List<Account> getAccounts() {
     return accounts;
   }

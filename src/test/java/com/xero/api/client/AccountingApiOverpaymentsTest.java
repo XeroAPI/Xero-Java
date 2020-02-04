@@ -99,16 +99,6 @@ public class AccountingApiOverpaymentsTest {
         assertThat(response.getAllocations().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,11))));  
         //System.out.println(response.getAllocations().get(0).toString());
     }
-
-    @Test
-    public void createOverpaymentHistoryTest() throws IOException {
-        System.out.println("@Test - createOverpaymentHistory - this is not implemented");
-        UUID overpaymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords historyRecords = new HistoryRecords();
-        //HistoryRecords response = accountingApi.createOverpaymentHistory(overpaymentID, historyRecords);
-        // TODO: test validations
-        //System.out.println(response.getHistoryRecords().get(0).toString());
-    }
     
     @Test
     public void getOverpaymentTest() throws IOException {
@@ -152,18 +142,6 @@ public class AccountingApiOverpaymentsTest {
         //System.out.println(response.getOverpayments().get(0).toString());
     }
     
-    @Test
-    public void getOverpaymentHistoryTest() throws IOException {
-        System.out.println("@Test - getOverpaymentHistory");
-        UUID overpaymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords response = accountingApi.getOverpaymentHistory(accessToken,xeroTenantId,overpaymentID);
-
-        assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("System Generated")));       
-        assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Applied")));     
-        assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Credit applied on 12 March 2019 for 1.00.")));     
-        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-12T14:15:52.877-08:00"))));
-        //System.out.println(response.getHistoryRecords().get(0).toString());
-    }
     
     @Test
     public void getOverpaymentsTest() throws IOException {

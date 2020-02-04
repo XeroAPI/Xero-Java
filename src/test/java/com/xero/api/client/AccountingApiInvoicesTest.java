@@ -134,17 +134,7 @@ public class AccountingApiInvoicesTest {
         //System.out.println(response.getInvoices().get(0).toString());
     }
 */
-    @Test
-    public void createInvoiceHistoryTest() throws IOException {
-        System.out.println("@Test - createInvoiceHistory");
-        UUID invoiceID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords historyRecords = new HistoryRecords();
-        HistoryRecords response = accountingApi.createInvoiceHistory(accessToken,xeroTenantId,invoiceID, historyRecords);
 
-        assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Hello World")));     
-        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T11:08:03.349-08:00"))));
-       //System.out.println(response.getHistoryRecords().get(0).toString());
-    }
 
     @Test
     public void getInvoiceTest() throws IOException {
@@ -228,18 +218,6 @@ public class AccountingApiInvoicesTest {
         //System.out.println(response.getAttachments().get(0).toString());
     }
     
-    @Test
-    public void getInvoiceHistoryTest() throws IOException {
-        System.out.println("@Test - getInvoiceHistory");
-        UUID invoiceID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords response = accountingApi.getInvoiceHistory(accessToken,xeroTenantId,invoiceID);
-
-        assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("Sidney Maestre")));       
-        assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Paid")));     
-        assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Payment received from Liam Gallagher on 19 March 2019 for 148,062.76. This invoice has been fully paid.")));     
-        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-07T09:59:28.133-08:00"))));  
-        //System.out.println(response.getHistoryRecords().get(0).toString());
-    }
 
     @Test
     public void getInvoicesTest() throws IOException {

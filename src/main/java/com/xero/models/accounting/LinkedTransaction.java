@@ -214,7 +214,7 @@ public class LinkedTransaction {
    * The line item identifier from the source transaction.
    * @return sourceLineItemID
   **/
-  @ApiModelProperty(required = true, value = "The line item identifier from the source transaction.")
+  @ApiModelProperty(value = "The line item identifier from the source transaction.")
   public UUID getSourceLineItemID() {
     return sourceLineItemID;
   }

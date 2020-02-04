@@ -228,10 +228,10 @@ public class Quote {
   }
 
    /**
-   * The LineItems collection can contain any number of individual LineItem sub-elements. At minimum, a description is required to create a complete quote.
+   * See LineItems
    * @return lineItems
   **/
-  @ApiModelProperty(required = true, value = "The LineItems collection can contain any number of individual LineItem sub-elements. At minimum, a description is required to create a complete quote.")
+  @ApiModelProperty(required = true, value = "See LineItems")
   public List<LineItem> getLineItems() {
     return lineItems;
   }

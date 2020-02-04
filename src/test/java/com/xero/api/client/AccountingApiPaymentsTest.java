@@ -106,16 +106,6 @@ public class AccountingApiPaymentsTest {
     }
     
     @Test
-    public void createPaymentHistoryTest() throws IOException {
-        System.out.println("@Test - createPaymentHistory");
-        UUID paymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords historyRecords = new HistoryRecords();
-        //HistoryRecords response = accountingApi.createPaymentHistory(paymentID, historyRecords);
-        // TODO: test validations
-        //System.out.println(response.getHistoryRecords().get(0).toString());
-    }
-    
-    @Test
     public void deletePaymentTest() throws IOException {
         System.out.println("@Test - deletePayment");
         UUID paymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
@@ -161,18 +151,6 @@ public class AccountingApiPaymentsTest {
         assertThat(response.getPayments().get(0).getHasAccount(), is(equalTo(true)));
         assertThat(response.getPayments().get(0).getHasValidationErrors(), is(equalTo(false)));
         //System.out.println(response.getPayments().get(0).toString());
-    }
-   
-    @Test
-    public void getPaymentHistoryTest() throws IOException {
-        System.out.println("@Test - getPaymentHistory");
-        UUID paymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords response = accountingApi.getPaymentHistory(accessToken,xeroTenantId,paymentID);
-
-        assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("Sidney Maestre")));       
-        assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Created")));     
-        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2018-11-02T08:36:32.690-08:00"))));
-        //System.out.println(response.getHistoryRecords().get(0).toString());
     }
     
     @Test

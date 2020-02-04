@@ -99,15 +99,6 @@ public class AccountingApiRepeatingInvoicesTest {
         assertThat(response.getAttachments().get(0).getIncludeOnline(), is(equalTo(null)));
         //System.out.println(response.getAttachments().get(0).toString());
     }
-    
-    @Test
-    public void createRepeatingInvoiceHistoryTest() throws IOException {
-        System.out.println("@Test - createRepeatingInvoiceHistory - not implmented");
-        UUID repeatingInvoiceID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords historyRecords = new HistoryRecords();
-        //HistoryRecords response = accountingApi.createRepeatingInvoiceHistory(repeatingInvoiceID, historyRecords);
-        //System.out.println(response.getHistoryRecords().get(0).toString());
-    }
 
      @Test
     public void getRepeatingInvoiceTest() throws IOException {
@@ -167,19 +158,6 @@ public class AccountingApiRepeatingInvoicesTest {
         assertThat(response.getAttachments().get(0).getContentLength(), is(equalTo(new BigDecimal("2878711"))));
         assertThat(response.getAttachments().get(0).getIncludeOnline(), is(equalTo(null)));
         //System.out.println(response.getAttachments().get(0).toString());
-    }
-    
-    @Test
-    public void getRepeatingInvoiceHistoryTest() throws IOException {
-        System.out.println("@Test - getRepeatingInvoiceHistory");
-        UUID repeatingInvoiceID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords response = accountingApi.getRepeatingInvoiceHistory(accessToken,xeroTenantId,repeatingInvoiceID);
-
-        assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("System Generated")));       
-        assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Attached a file")));     
-        assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Attached the file foobar.jpg through the Xero API using Java Partner Example")));     
-        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-15T14:07:28.587-08:00"))));
-        //System.out.println(response.getHistoryRecords().get(0).toString());
     }
     
     @Test

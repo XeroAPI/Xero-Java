@@ -131,6 +131,7 @@ public class AccountingApiCreditNotesTest {
         //System.out.println(response.getAllocations().get(0).toString());
     }
     
+    /*
     @Test
     public void createCreditNoteAttachmentByFileNameTest() throws IOException {
         System.out.println("@Test - createCreditNoteAttachmentByFileName");
@@ -146,20 +147,7 @@ public class AccountingApiCreditNotesTest {
         assertThat(response.getAttachments().get(0).getIncludeOnline(), is(equalTo(null)));
         //System.out.println(response.getAttachments().get(0).toString());
     }
-    
-
-    @Test
-    public void createCreditNoteHistoryTest() throws IOException {
-        System.out.println("@Test - createCreditNoteHistory");
-        UUID creditNoteID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords historyRecords = new HistoryRecords();
-        HistoryRecords response = accountingApi.createCreditNoteHistory(accessToken,xeroTenantId,creditNoteID, historyRecords);
-        
-        assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Hello World")));     
-        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-05T15:29:04.585-08:00"))));  
-        //System.out.println(response.getHistoryRecords().get(0).toString());
-    }
-
+*/
     @Test
     public void getCreditNoteTest() throws IOException {
         System.out.println("@Test - getCreditNote");
@@ -210,20 +198,6 @@ public class AccountingApiCreditNotesTest {
         assertThat(response.getAttachments().get(0).getIncludeOnline(), is(equalTo(null)));  
         //System.out.println(response.getAttachments().get(0).toString());
     }
-    
-    @Test
-    public void getCreditNoteHistoryTest() throws IOException {
-        System.out.println("@Test - getCreditNoteHistory");
-        UUID creditNoteID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords response = accountingApi.getCreditNoteHistory(accessToken,xeroTenantId,creditNoteID);
-        
-        assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("Sidney Maestre")));       
-        assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Cash Refunded")));     
-        assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Payment made to Liam Gallagher on 14 March 2019 for 2.00. There is 32.50 credit remaining on this credit note.")));     
-        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-05T10:59:06.157-08:00"))));  
-        //System.out.println(response.getHistoryRecords().get(0).toString());
-    }
-    
 
     @Test
     public void getCreditNotesTest() throws IOException {
