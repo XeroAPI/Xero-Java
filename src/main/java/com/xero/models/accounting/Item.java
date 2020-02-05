@@ -126,7 +126,7 @@ public class Item {
    * The inventory asset account for the item. The account must be of type INVENTORY. The  COGSAccountCode in PurchaseDetails is also required to create a tracked item
    * @return inventoryAssetAccountCode
   **/
-  @ApiModelProperty(required = true, value = "The inventory asset account for the item. The account must be of type INVENTORY. The  COGSAccountCode in PurchaseDetails is also required to create a tracked item")
+  @ApiModelProperty(value = "The inventory asset account for the item. The account must be of type INVENTORY. The  COGSAccountCode in PurchaseDetails is also required to create a tracked item")
   public String getInventoryAssetAccountCode() {
     return inventoryAssetAccountCode;
   }

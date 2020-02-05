@@ -57,8 +57,7 @@ public class AccountingApiBankTransactionTest {
         
         // Init AccountingApi client
         // NEW Sandbox for API Mocking
-		//defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
-		defaultClient = new ApiClient("https://twilight-grass-2493.getsandbox.com:443/api.xro/2.0",null,null,null,null);
+		defaultClient = new ApiClient("https://xero-accounting.getsandbox.com:443/api.xro/2.0",null,null,null,null);
         
         accountingApi = AccountingApi.getInstance(defaultClient);	
         
@@ -199,29 +198,5 @@ public class AccountingApiBankTransactionTest {
 
     }
 */
-	@Test
-	public void testGetBankTransactionsHistory() throws Exception {
-		System.out.println("@Test - getBankTransactionsHistory");
-		UUID bankTransactionID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");
-		HistoryRecords hr = accountingApi.getBankTransactionsHistory(accessToken,xeroTenantId,bankTransactionID);
-		assertThat(hr.getHistoryRecords().get(0).getUser(), is(equalTo("System Generated")));		
-		assertThat(hr.getHistoryRecords().get(0).getChanges(), is(equalTo("Attached a file")));		
-		//System.out.println(hr.getHistoryRecords().toString());		
-	}
-
-	@Test
-	public void testCreateBankTransactionHistoryRecord() throws Exception {
-		System.out.println("@Test - createBankTransactionHistoryRecord - not implemented");
-		
-		/*
-		HistoryRecords newHistoryRecords = new  HistoryRecords();
-		HistoryRecord newHistoryRecord = new  HistoryRecord();
-		newHistoryRecord.setDetails("Hello World");
-		newHistoryRecords.addHistoryRecordsItem(newHistoryRecord);
-		HistoryRecords newHistory = accountingApi.createBankTransactionHistoryRecord(bankTransactionID,newHistoryRecords);
-		//assertThat(newHistory.getHistoryRecords().get(0).getDetails(), is(equalTo("Hello World")));		
-		System.out.println(newHistory.getHistoryRecords().toString());	
-		*/	
-	}
 	
 }

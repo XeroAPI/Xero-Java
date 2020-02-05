@@ -57,8 +57,7 @@ public class AccountingApiBankTransferTest {
         xeroTenantId = "xyz";
         
         // NEW Sandbox for API Mocking
-		//defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
-		defaultClient = new ApiClient("https://twilight-grass-2493.getsandbox.com:443/api.xro/2.0",null,null,null,null);
+		defaultClient = new ApiClient("https://xero-accounting.getsandbox.com:443/api.xro/2.0",null,null,null,null);
         
         accountingApi = AccountingApi.getInstance(defaultClient);   
         
@@ -133,26 +132,6 @@ public class AccountingApiBankTransferTest {
         assertThat(response.getBankTransfers().get(0).getFromBankAccount().getName(), is(equalTo("My Savings")));
         assertThat(response.getBankTransfers().get(0).getFromBankAccount().getAccountID(), is(equalTo(UUID.fromString("7e5e243b-9fcd-4aef-8e3a-c70be1e39bfa"))));
         //System.out.println(response.getBankTransfers().get(0).toString());
-    }
-    @Test
-    public void getBankTransferHistoryTest() throws IOException {
-        System.out.println("@Test - getBankTransferHistoryTest");
-
-        UUID bankTransferID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");  
-        HistoryRecords response = accountingApi.getBankTransferHistory(accessToken,xeroTenantId,bankTransferID);
-        assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("System Generated")));       
-        assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Attached a file")));     
-        assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Attached the file sample2.jpg through the Xero API using Xero API Partner")));     
-        //System.out.println(response.getHistoryRecords().get(0).toString());
-    }
-
-    @Test
-    public void createBankTransferHistoryRecordTest() throws IOException {
-    	System.out.println("@Test - createBankTransferHistoryRecordTest - not implemented at this time");
-   
-        //HistoryRecords historyRecords = null;
-        //HistoryRecords response = accountingApi.createBankTransferHistoryRecord(bankTransferID, historyRecords);
-        // TODO: test validations
     }
 
     @Test

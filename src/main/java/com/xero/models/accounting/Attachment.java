@@ -64,7 +64,7 @@ public class Attachment {
    * Unique ID for the file
    * @return attachmentID
   **/
-  @ApiModelProperty(example = "3fa85f64-5717-4562-b3fc-2c963f66afa6", value = "Unique ID for the file")
+  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "Unique ID for the file")
   public UUID getAttachmentID() {
     return attachmentID;
   }
@@ -82,7 +82,7 @@ public class Attachment {
    * Name of the file
    * @return fileName
   **/
-  @ApiModelProperty(example = "sample5.jpg", value = "Name of the file")
+  @ApiModelProperty(example = "xero-dev.jpg", value = "Name of the file")
   public String getFileName() {
     return fileName;
   }

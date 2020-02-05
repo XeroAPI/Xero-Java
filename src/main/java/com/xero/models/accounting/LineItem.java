@@ -94,7 +94,7 @@ public class LineItem {
    * LineItem unique ID
    * @return lineItemID
   **/
-  @ApiModelProperty(value = "LineItem unique ID")
+  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "LineItem unique ID")
   public UUID getLineItemID() {
     return lineItemID;
   }
@@ -315,10 +315,10 @@ public class LineItem {
   }
 
    /**
-   * The Xero identifier for a Repeating Invoicee.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9
+   * The Xero identifier for a Repeating Invoice
    * @return repeatingInvoiceID
   **/
-  @ApiModelProperty(value = "The Xero identifier for a Repeating Invoicee.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9")
+  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "The Xero identifier for a Repeating Invoice")
   public UUID getRepeatingInvoiceID() {
     return repeatingInvoiceID;
   }

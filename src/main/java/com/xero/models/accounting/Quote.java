@@ -20,8 +20,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.accounting.Contact;
 import com.xero.models.accounting.CurrencyCode;
-import com.xero.models.accounting.LineAmountTypes;
 import com.xero.models.accounting.LineItem;
+import com.xero.models.accounting.QuoteLineAmountTypes;
 import com.xero.models.accounting.QuoteStatusCodes;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -126,17 +126,17 @@ public class Quote {
 
   
   @JsonProperty("LineAmountTypes")
-  private LineAmountTypes lineAmountTypes;
+  private QuoteLineAmountTypes lineAmountTypes;
   public Quote quoteID(UUID quoteID) {
     this.quoteID = quoteID;
     return this;
   }
 
    /**
-   * Xero generated unique identifier for quote
+   * QuoteID GUID is automatically generated and is returned after create or GET.
    * @return quoteID
   **/
-  @ApiModelProperty(value = "Xero generated unique identifier for quote")
+  @ApiModelProperty(value = "QuoteID GUID is automatically generated and is returned after create or GET.")
   public UUID getQuoteID() {
     return quoteID;
   }
@@ -151,10 +151,10 @@ public class Quote {
   }
 
    /**
-   * Unique alpha numeric code identifying quote (when missing will auto-generate from your Organisation Invoice Settings)
+   * Unique alpha numeric code identifying a quote (Max Length &#x3D; 255)
    * @return quoteNumber
   **/
-  @ApiModelProperty(value = "Unique alpha numeric code identifying quote (when missing will auto-generate from your Organisation Invoice Settings)")
+  @ApiModelProperty(value = "Unique alpha numeric code identifying a quote (Max Length = 255)")
   public String getQuoteNumber() {
     return quoteNumber;
   }
@@ -208,7 +208,7 @@ public class Quote {
    * Get contact
    * @return contact
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(value = "")
   public Contact getContact() {
     return contact;
   }
@@ -357,10 +357,10 @@ public class Quote {
   }
 
    /**
-   * The currency rate for a multicurrency quote. If no rate is specified, the XE.com day rate is used.
+   * The currency rate for a multicurrency quote
    * @return currencyRate
   **/
-  @ApiModelProperty(value = "The currency rate for a multicurrency quote. If no rate is specified, the XE.com day rate is used.")
+  @ApiModelProperty(value = "The currency rate for a multicurrency quote")
   public Double getCurrencyRate() {
     return currencyRate;
   }
@@ -468,7 +468,7 @@ public class Quote {
     return updatedDateUTC;
   }
 
-  public Quote lineAmountTypes(LineAmountTypes lineAmountTypes) {
+  public Quote lineAmountTypes(QuoteLineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
     return this;
   }
@@ -478,11 +478,11 @@ public class Quote {
    * @return lineAmountTypes
   **/
   @ApiModelProperty(value = "")
-  public LineAmountTypes getLineAmountTypes() {
+  public QuoteLineAmountTypes getLineAmountTypes() {
     return lineAmountTypes;
   }
 
-  public void setLineAmountTypes(LineAmountTypes lineAmountTypes) {
+  public void setLineAmountTypes(QuoteLineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
   }
 

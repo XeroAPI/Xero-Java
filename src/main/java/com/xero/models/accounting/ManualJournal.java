@@ -153,6 +153,9 @@ public class ManualJournal {
   }
 
   public ManualJournal addJournalLinesItem(ManualJournalLine journalLinesItem) {
+    if (this.journalLines == null) {
+      this.journalLines = new ArrayList<ManualJournalLine>();
+    }
     this.journalLines.add(journalLinesItem);
     return this;
   }
@@ -161,7 +164,7 @@ public class ManualJournal {
    * See JournalLines
    * @return journalLines
   **/
-  @ApiModelProperty(required = true, value = "See JournalLines")
+  @ApiModelProperty(value = "See JournalLines")
   public List<ManualJournalLine> getJournalLines() {
     return journalLines;
   }

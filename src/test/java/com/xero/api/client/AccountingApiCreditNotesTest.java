@@ -58,8 +58,7 @@ public class AccountingApiCreditNotesTest {
         xeroTenantId = "xyz";
         
         // NEW Sandbox for API Mocking
-		//defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
-		defaultClient = new ApiClient("https://twilight-grass-2493.getsandbox.com:443/api.xro/2.0",null,null,null,null);
+		defaultClient = new ApiClient("https://xero-accounting.getsandbox.com:443/api.xro/2.0",null,null,null,null);
         accountingApi = AccountingApi.getInstance(defaultClient);  
 
         ClassLoader classLoader = getClass().getClassLoader();
@@ -84,13 +83,13 @@ public class AccountingApiCreditNotesTest {
 		accountingApi = null;
         defaultClient = null;
 	}
-/*
+
 	@Test
     public void createCreditNoteTest() throws IOException {
         System.out.println("@Test - createCreditNote");
-        Boolean summarizeErrors = null;
-        CreditNote creditNote = new CreditNote();
-        CreditNotes response = accountingApi.createCreditNote(accessToken,xeroTenantId,creditNote);
+        Boolean summarizeErrors = false;
+        CreditNotes creditNotes = new CreditNotes();
+        CreditNotes response = accountingApi.createCreditNotes(accessToken,xeroTenantId,creditNotes,summarizeErrors);
         
         assertThat(response.getCreditNotes().get(0).getType(), is(equalTo(com.xero.models.accounting.CreditNote.TypeEnum.ACCPAYCREDIT)));
         assertThat(response.getCreditNotes().get(0).getStatus(), is(equalTo(com.xero.models.accounting.CreditNote.StatusEnum.DRAFT)));
@@ -119,7 +118,7 @@ public class AccountingApiCreditNotesTest {
         
         //System.out.println(response.getCreditNotes().get(0).toString());
     }
-*/
+
     @Test
     public void createCreditNoteAllocationTest() throws IOException {
         System.out.println("@Test - createCreditNoteAllocation");
@@ -132,12 +131,13 @@ public class AccountingApiCreditNotesTest {
         //System.out.println(response.getAllocations().get(0).toString());
     }
     
+    /*
     @Test
     public void createCreditNoteAttachmentByFileNameTest() throws IOException {
         System.out.println("@Test - createCreditNoteAttachmentByFileName");
         UUID creditNoteID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         String fileName = "sample5.jpg";
-        Attachments response = accountingApi.createCreditNoteAttachmentByFileName(accessToken,xeroTenantId,creditNoteID, fileName, body);
+        Attachments response = accountingApi.createCreditNoteAttachmentByFileName(accessToken,xeroTenantId,creditNoteID, fileName, false, body);
         
         assertThat(response.getAttachments().get(0).getAttachmentID(), is(equalTo(UUID.fromString("91bbae3f-5de5-4e3d-875f-8662f25897bd"))));
         assertThat(response.getAttachments().get(0).getFileName(), is(equalTo("sample5.jpg")));
@@ -147,20 +147,7 @@ public class AccountingApiCreditNotesTest {
         assertThat(response.getAttachments().get(0).getIncludeOnline(), is(equalTo(null)));
         //System.out.println(response.getAttachments().get(0).toString());
     }
-    
-
-    @Test
-    public void createCreditNoteHistoryTest() throws IOException {
-        System.out.println("@Test - createCreditNoteHistory");
-        UUID creditNoteID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords historyRecords = new HistoryRecords();
-        HistoryRecords response = accountingApi.createCreditNoteHistory(accessToken,xeroTenantId,creditNoteID, historyRecords);
-        
-        assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Hello World")));     
-        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-05T15:29:04.585-08:00"))));  
-        //System.out.println(response.getHistoryRecords().get(0).toString());
-    }
-
+*/
     @Test
     public void getCreditNoteTest() throws IOException {
         System.out.println("@Test - getCreditNote");
@@ -211,20 +198,6 @@ public class AccountingApiCreditNotesTest {
         assertThat(response.getAttachments().get(0).getIncludeOnline(), is(equalTo(null)));  
         //System.out.println(response.getAttachments().get(0).toString());
     }
-    
-    @Test
-    public void getCreditNoteHistoryTest() throws IOException {
-        System.out.println("@Test - getCreditNoteHistory");
-        UUID creditNoteID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords response = accountingApi.getCreditNoteHistory(accessToken,xeroTenantId,creditNoteID);
-        
-        assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("Sidney Maestre")));       
-        assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Cash Refunded")));     
-        assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Payment made to Liam Gallagher on 14 March 2019 for 2.00. There is 32.50 credit remaining on this credit note.")));     
-        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-05T10:59:06.157-08:00"))));  
-        //System.out.println(response.getHistoryRecords().get(0).toString());
-    }
-    
 
     @Test
     public void getCreditNotesTest() throws IOException {

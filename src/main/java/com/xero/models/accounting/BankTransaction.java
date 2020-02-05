@@ -496,7 +496,7 @@ public class BankTransaction {
    * Xero generated unique identifier for bank transaction
    * @return bankTransactionID
   **/
-  @ApiModelProperty(value = "Xero generated unique identifier for bank transaction")
+  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "Xero generated unique identifier for bank transaction")
   public UUID getBankTransactionID() {
     return bankTransactionID;
   }
@@ -509,7 +509,7 @@ public class BankTransaction {
    * Xero generated unique identifier for a Prepayment. This will be returned on BankTransactions with a Type of SPEND-PREPAYMENT or RECEIVE-PREPAYMENT
    * @return prepaymentID
   **/
-  @ApiModelProperty(value = "Xero generated unique identifier for a Prepayment. This will be returned on BankTransactions with a Type of SPEND-PREPAYMENT or RECEIVE-PREPAYMENT")
+  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "Xero generated unique identifier for a Prepayment. This will be returned on BankTransactions with a Type of SPEND-PREPAYMENT or RECEIVE-PREPAYMENT")
   public UUID getPrepaymentID() {
     return prepaymentID;
   }
@@ -518,7 +518,7 @@ public class BankTransaction {
    * Xero generated unique identifier for an Overpayment. This will be returned on BankTransactions with a Type of SPEND-OVERPAYMENT or RECEIVE-OVERPAYMENT
    * @return overpaymentID
   **/
-  @ApiModelProperty(value = "Xero generated unique identifier for an Overpayment. This will be returned on BankTransactions with a Type of SPEND-OVERPAYMENT or RECEIVE-OVERPAYMENT")
+  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "Xero generated unique identifier for an Overpayment. This will be returned on BankTransactions with a Type of SPEND-OVERPAYMENT or RECEIVE-OVERPAYMENT")
   public UUID getOverpaymentID() {
     return overpaymentID;
   }

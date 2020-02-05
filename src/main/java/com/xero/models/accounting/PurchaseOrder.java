@@ -202,7 +202,7 @@ public class PurchaseOrder {
    * Get contact
    * @return contact
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(value = "")
   public Contact getContact() {
     return contact;
   }
@@ -217,6 +217,9 @@ public class PurchaseOrder {
   }
 
   public PurchaseOrder addLineItemsItem(LineItem lineItemsItem) {
+    if (this.lineItems == null) {
+      this.lineItems = new ArrayList<LineItem>();
+    }
     this.lineItems.add(lineItemsItem);
     return this;
   }
@@ -225,7 +228,7 @@ public class PurchaseOrder {
    * See LineItems
    * @return lineItems
   **/
-  @ApiModelProperty(required = true, value = "See LineItems")
+  @ApiModelProperty(value = "See LineItems")
   public List<LineItem> getLineItems() {
     return lineItems;
   }

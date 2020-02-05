@@ -59,8 +59,7 @@ public class AccountingApiContactsTest {
         
         // Init AccountingApi client
         // NEW Sandbox for API Mocking
-		//defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
-		defaultClient = new ApiClient("https://twilight-grass-2493.getsandbox.com:443/api.xro/2.0",null,null,null,null);
+		defaultClient = new ApiClient("https://xero-accounting.getsandbox.com:443/api.xro/2.0",null,null,null,null);
         
         accountingApi = AccountingApi.getInstance(defaultClient);   
        
@@ -222,31 +221,6 @@ public class AccountingApiContactsTest {
         assertThat(response.getContacts().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-02-28T16:27:11.763-08:00"))));  
         assertThat(response.getContacts().get(0).getHasValidationErrors(), is(equalTo(false))); 
         //System.out.println(response.getContacts().get(0).toString());
-    }
-
-    @Test
-    public void getContactHistoryTest() throws IOException {
-        System.out.println("@Test - getContactHistoryTest");
-
-        UUID contactID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");  
-        HistoryRecords response = accountingApi.getContactHistory(accessToken,xeroTenantId,contactID);
-        assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("System Generated")));       
-        assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Edited")));     
-        assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Name changed from Foo9987 to Bar8156.")));     
-        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-02-28T16:15:22.350-08:00"))));  
-        //System.out.println(response.getHistoryRecords().get(0).toString());
-    }
-
-    @Test
-    public void createContactHistoryTest() throws IOException {
-        System.out.println("@Test - createContactHistoryTest - not implemented at this time");
-
-        UUID contactID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");  
-        HistoryRecords historyRecords = new HistoryRecords();
-        HistoryRecords response = accountingApi.createContactHistory(accessToken,xeroTenantId,contactID, historyRecords);
-        assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Hello World")));     
-        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-02-28T16:15:24.272-08:00"))));  
-        //System.out.println(response.getHistoryRecords().get(0).toString());
     }
 
     @Test

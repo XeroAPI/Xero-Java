@@ -58,8 +58,7 @@ public class AccountingApiItemsTest {
         
         // Init AccountingApi client
         // NEW Sandbox for API Mocking
-		//defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/accounting/2.0.0",null,null,null,null);
-		defaultClient = new ApiClient("https://twilight-grass-2493.getsandbox.com:443/api.xro/2.0",null,null,null,null);
+		defaultClient = new ApiClient("https://xero-accounting.getsandbox.com:443/api.xro/2.0",null,null,null,null);
         accountingApi = AccountingApi.getInstance(defaultClient);   
          
         // ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
@@ -99,16 +98,7 @@ public class AccountingApiItemsTest {
         assertThat(response.getItems().get(0).getValidationErrors().get(0).getMessage(), is(equalTo("Price List Item with Code 'abc' already exists")));
         //System.out.println(response.getItems().get(0).toString());
     }
-    
-    @Test
-    public void createItemHistoryTest() throws IOException {
-        System.out.println("@Test - createItemHistory - not implemented");
-        UUID itemID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords historyRecords = new HistoryRecords();
-        //HistoryRecords response = accountingApi.createItemHistory(itemID, historyRecords);
-        // TODO: test validations
-        //System.out.println(response.getHistoryRecords().get(0).toString());
-    }
+
 
     @Test
     public void getItemTest() throws IOException {
@@ -139,18 +129,6 @@ public class AccountingApiItemsTest {
         //System.out.println(response.getItems().get(0).toString());
     }
 
-    @Test
-    public void getItemHistoryTest() throws IOException {
-        System.out.println("@Test - getItemHistory");
-        UUID itemID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        HistoryRecords response = accountingApi.getItemHistory(accessToken,xeroTenantId,itemID);
-
-        assertThat(response.getHistoryRecords().get(0).getUser(), is(equalTo("Sidney Maestre")));       
-        assertThat(response.getHistoryRecords().get(0).getChanges(), is(equalTo("Created")));     
-        assertThat(response.getHistoryRecords().get(0).getDetails(), is(equalTo("Item 123 - Guitars created.")));     
-        assertThat(response.getHistoryRecords().get(0).getDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-07T09:57:56-08:00"))));  
-        //System.out.println(response.getHistoryRecords().get(0).toString());
-    }
    
     @Test
     public void getItemsTest() throws IOException {
