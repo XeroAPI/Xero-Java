@@ -36,6 +36,10 @@ public class LineItemTracking {
   private UUID trackingCategoryID;
 
   
+  @JsonProperty("TrackingOptionID")
+  private UUID trackingOptionID;
+
+  
   @JsonProperty("Name")
   private String name;
 
@@ -58,6 +62,24 @@ public class LineItemTracking {
 
   public void setTrackingCategoryID(UUID trackingCategoryID) {
     this.trackingCategoryID = trackingCategoryID;
+  }
+
+  public LineItemTracking trackingOptionID(UUID trackingOptionID) {
+    this.trackingOptionID = trackingOptionID;
+    return this;
+  }
+
+   /**
+   * The Xero identifier for a tracking category option
+   * @return trackingOptionID
+  **/
+  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "The Xero identifier for a tracking category option")
+  public UUID getTrackingOptionID() {
+    return trackingOptionID;
+  }
+
+  public void setTrackingOptionID(UUID trackingOptionID) {
+    this.trackingOptionID = trackingOptionID;
   }
 
   public LineItemTracking name(String name) {
@@ -107,13 +129,14 @@ public class LineItemTracking {
     }
     LineItemTracking lineItemTracking = (LineItemTracking) o;
     return Objects.equals(this.trackingCategoryID, lineItemTracking.trackingCategoryID) &&
+        Objects.equals(this.trackingOptionID, lineItemTracking.trackingOptionID) &&
         Objects.equals(this.name, lineItemTracking.name) &&
         Objects.equals(this.option, lineItemTracking.option);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(trackingCategoryID, name, option);
+    return Objects.hash(trackingCategoryID, trackingOptionID, name, option);
   }
 
 
@@ -122,6 +145,7 @@ public class LineItemTracking {
     StringBuilder sb = new StringBuilder();
     sb.append("class LineItemTracking {\n");
     sb.append("    trackingCategoryID: ").append(toIndentedString(trackingCategoryID)).append("\n");
+    sb.append("    trackingOptionID: ").append(toIndentedString(trackingOptionID)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    option: ").append(toIndentedString(option)).append("\n");
     sb.append("}");

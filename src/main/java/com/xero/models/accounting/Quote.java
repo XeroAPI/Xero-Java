@@ -20,8 +20,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.accounting.Contact;
 import com.xero.models.accounting.CurrencyCode;
-import com.xero.models.accounting.LineAmountTypes;
 import com.xero.models.accounting.LineItem;
+import com.xero.models.accounting.QuoteLineAmountTypes;
 import com.xero.models.accounting.QuoteStatusCodes;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -126,7 +126,7 @@ public class Quote {
 
   
   @JsonProperty("LineAmountTypes")
-  private LineAmountTypes lineAmountTypes;
+  private QuoteLineAmountTypes lineAmountTypes;
   public Quote quoteID(UUID quoteID) {
     this.quoteID = quoteID;
     return this;
@@ -208,7 +208,7 @@ public class Quote {
    * Get contact
    * @return contact
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(value = "")
   public Contact getContact() {
     return contact;
   }
@@ -223,6 +223,9 @@ public class Quote {
   }
 
   public Quote addLineItemsItem(LineItem lineItemsItem) {
+    if (this.lineItems == null) {
+      this.lineItems = new ArrayList<LineItem>();
+    }
     this.lineItems.add(lineItemsItem);
     return this;
   }
@@ -231,7 +234,7 @@ public class Quote {
    * See LineItems
    * @return lineItems
   **/
-  @ApiModelProperty(required = true, value = "See LineItems")
+  @ApiModelProperty(value = "See LineItems")
   public List<LineItem> getLineItems() {
     return lineItems;
   }
@@ -249,7 +252,7 @@ public class Quote {
    * Date quote was issued – YYYY-MM-DD. If the Date element is not specified it will default to the current date based on the timezone setting of the organisation
    * @return date
   **/
-  @ApiModelProperty(required = true, value = "Date quote was issued – YYYY-MM-DD. If the Date element is not specified it will default to the current date based on the timezone setting of the organisation")
+  @ApiModelProperty(value = "Date quote was issued – YYYY-MM-DD. If the Date element is not specified it will default to the current date based on the timezone setting of the organisation")
   public LocalDate getDate() {
     return date;
   }
@@ -465,7 +468,7 @@ public class Quote {
     return updatedDateUTC;
   }
 
-  public Quote lineAmountTypes(LineAmountTypes lineAmountTypes) {
+  public Quote lineAmountTypes(QuoteLineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
     return this;
   }
@@ -475,11 +478,11 @@ public class Quote {
    * @return lineAmountTypes
   **/
   @ApiModelProperty(value = "")
-  public LineAmountTypes getLineAmountTypes() {
+  public QuoteLineAmountTypes getLineAmountTypes() {
     return lineAmountTypes;
   }
 
-  public void setLineAmountTypes(LineAmountTypes lineAmountTypes) {
+  public void setLineAmountTypes(QuoteLineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
   }
 
