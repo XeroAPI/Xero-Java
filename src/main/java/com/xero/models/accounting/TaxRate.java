@@ -305,7 +305,7 @@ public class TaxRate {
    * See ReportTaxTypes
    * @return reportTaxType
   **/
-  @ApiModelProperty(required = true, value = "See ReportTaxTypes")
+  @ApiModelProperty(value = "See ReportTaxTypes")
   public ReportTaxTypeEnum getReportTaxType() {
     return reportTaxType;
   }
