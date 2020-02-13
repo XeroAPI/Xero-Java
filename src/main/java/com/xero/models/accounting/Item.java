@@ -82,7 +82,7 @@ public class Item {
 
   
   @JsonProperty("QuantityOnHand")
-  private Double quantityOnHand;
+  private Float quantityOnHand;
 
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
@@ -297,7 +297,7 @@ public class Item {
     this.totalCostPool = totalCostPool;
   }
 
-  public Item quantityOnHand(Double quantityOnHand) {
+  public Item quantityOnHand(Float quantityOnHand) {
     this.quantityOnHand = quantityOnHand;
     return this;
   }
@@ -307,11 +307,11 @@ public class Item {
    * @return quantityOnHand
   **/
   @ApiModelProperty(value = "The quantity of the item on hand")
-  public Double getQuantityOnHand() {
+  public Float getQuantityOnHand() {
     return quantityOnHand;
   }
 
-  public void setQuantityOnHand(Double quantityOnHand) {
+  public void setQuantityOnHand(Float quantityOnHand) {
     this.quantityOnHand = quantityOnHand;
   }
 

@@ -44,7 +44,7 @@ public class AssetApi {
     private ApiClient apiClient;
     private static AssetApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.2.3";
+    private String version = "3.3.0";
 
     public AssetApi() {
         this(new ApiClient());

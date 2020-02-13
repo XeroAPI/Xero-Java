@@ -288,7 +288,9 @@ public class Organisation {
     
     QUARTERLY("QUARTERLY"),
     
-    YEARLY("YEARLY");
+    YEARLY("YEARLY"),
+    
+    NONE("NONE");
 
     private String value;
 

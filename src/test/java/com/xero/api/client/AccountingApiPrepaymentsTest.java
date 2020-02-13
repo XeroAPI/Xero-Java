@@ -107,8 +107,8 @@ public class AccountingApiPrepaymentsTest {
         assertThat(response.getPrepayments().get(0).getStatus(), is(equalTo(com.xero.models.accounting.Prepayment.StatusEnum.AUTHORISED)));
         assertThat(response.getPrepayments().get(0).getLineAmountTypes(), is(equalTo(com.xero.models.accounting.LineAmountTypes.EXCLUSIVE)));
         assertThat(response.getPrepayments().get(0).getLineItems().get(0).getDescription(), is(equalTo("Light Speeder")));
-        assertThat(response.getPrepayments().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0)));
-        assertThat(response.getPrepayments().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(3000.0)));
+        assertThat(response.getPrepayments().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0f)));
+        assertThat(response.getPrepayments().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(3000.0f)));
         assertThat(response.getPrepayments().get(0).getLineItems().get(0).getTaxType(), is(equalTo("OUTPUT2")));
         assertThat(response.getPrepayments().get(0).getLineItems().get(0).getAccountCode(), is(equalTo("200")));
         assertThat(response.getPrepayments().get(0).getLineItems().get(0).getTaxAmount(), is(equalTo(450.0)));

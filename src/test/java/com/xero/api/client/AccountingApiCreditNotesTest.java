@@ -88,8 +88,9 @@ public class AccountingApiCreditNotesTest {
     public void createCreditNoteTest() throws IOException {
         System.out.println("@Test - createCreditNote");
         Boolean summarizeErrors = false;
+        Integer unitdp = null;
         CreditNotes creditNotes = new CreditNotes();
-        CreditNotes response = accountingApi.createCreditNotes(accessToken,xeroTenantId,creditNotes,summarizeErrors);
+        CreditNotes response = accountingApi.createCreditNotes(accessToken,xeroTenantId,creditNotes,summarizeErrors, unitdp);
         
         assertThat(response.getCreditNotes().get(0).getType(), is(equalTo(com.xero.models.accounting.CreditNote.TypeEnum.ACCPAYCREDIT)));
         assertThat(response.getCreditNotes().get(0).getStatus(), is(equalTo(com.xero.models.accounting.CreditNote.StatusEnum.DRAFT)));
@@ -109,13 +110,12 @@ public class AccountingApiCreditNotesTest {
         assertThat(response.getCreditNotes().get(0).getCurrencyCode(), is(equalTo(com.xero.models.accounting.CurrencyCode.NZD)));
         assertThat(response.getCreditNotes().get(0).getLineAmountTypes(), is(equalTo(com.xero.models.accounting.LineAmountTypes.EXCLUSIVE)));
         assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getDescription(), is(equalTo("Foobar")));
-        assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getQuantity(), is(equalTo(2.0)));
-        assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(20.0)));
+        assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getQuantity(), is(equalTo(2.0f)));
+        assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(20.0f)));
         assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getTaxType(), is(equalTo("INPUT2")));
         assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getAccountCode(), is(equalTo("400")));
         assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getTaxAmount(), is(equalTo(6.0)));
         assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getLineAmount(), is(equalTo(40.0)));
-        
         //System.out.println(response.getCreditNotes().get(0).toString());
     }
 
@@ -152,7 +152,8 @@ public class AccountingApiCreditNotesTest {
     public void getCreditNoteTest() throws IOException {
         System.out.println("@Test - getCreditNote");
         UUID creditNoteID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        CreditNotes response = accountingApi.getCreditNote(accessToken,xeroTenantId,creditNoteID);
+        Integer unitdp = null;
+        CreditNotes response = accountingApi.getCreditNote(accessToken,xeroTenantId,creditNoteID,unitdp);
         
         assertThat(response.getCreditNotes().get(0).getType(), is(equalTo(com.xero.models.accounting.CreditNote.TypeEnum.ACCRECCREDIT)));
         assertThat(response.getCreditNotes().get(0).getDate(), is(equalTo(LocalDate.of(2019, 03, 04))));  
@@ -206,7 +207,8 @@ public class AccountingApiCreditNotesTest {
         String where = null;
         String order = null;
         Integer page = null;
-        CreditNotes response = accountingApi.getCreditNotes(accessToken,xeroTenantId,ifModifiedSince, where, order, page);
+        Integer unitdp = null;
+        CreditNotes response = accountingApi.getCreditNotes(accessToken,xeroTenantId,ifModifiedSince, where, order, page,unitdp);
 
         assertThat(response.getCreditNotes().get(0).getType(), is(equalTo(com.xero.models.accounting.CreditNote.TypeEnum.ACCRECCREDIT)));
         assertThat(response.getCreditNotes().get(0).getDate(), is(equalTo(LocalDate.of(2019, 03, 04))));  
@@ -242,16 +244,17 @@ public class AccountingApiCreditNotesTest {
     public void updateCreditNoteTest() throws IOException {
         System.out.println("@Test - updateCreditNote");
         UUID creditNoteID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
+        Integer unitdp = null;
         CreditNotes creditNotes = new CreditNotes();
-        CreditNotes response = accountingApi.updateCreditNote(accessToken,xeroTenantId,creditNoteID, creditNotes);
+        CreditNotes response = accountingApi.updateCreditNote(accessToken,xeroTenantId,creditNoteID, creditNotes, unitdp);
 
         assertThat(response.getCreditNotes().get(0).getType(), is(equalTo(com.xero.models.accounting.CreditNote.TypeEnum.ACCPAYCREDIT)));
         assertThat(response.getCreditNotes().get(0).getDate(), is(equalTo(LocalDate.of(2019, 01, 04))));
         assertThat(response.getCreditNotes().get(0).getStatus(), is(equalTo(com.xero.models.accounting.CreditNote.StatusEnum.AUTHORISED)));
         assertThat(response.getCreditNotes().get(0).getLineAmountTypes(), is(equalTo(com.xero.models.accounting.LineAmountTypes.EXCLUSIVE)));
         assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getDescription(), is(equalTo("Foobar")));
-        assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getQuantity(), is(equalTo(2.0)));
-        assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(20.0)));
+        assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getQuantity(), is(equalTo(2.0f)));
+        assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(20.0f)));
         assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getTaxType(), is(equalTo("INPUT2")));
         assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getAccountCode(), is(equalTo("400")));
         assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getTaxAmount(), is(equalTo(6.0)));

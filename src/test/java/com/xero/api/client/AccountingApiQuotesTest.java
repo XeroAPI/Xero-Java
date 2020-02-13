@@ -107,8 +107,8 @@ public class AccountingApiQuotesTest {
         assertThat(quotes.getQuotes().get(0).getContact().getName(), is(equalTo("Adam")));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getLineItemID(),  is(equalTo(UUID.fromString("ccf5e45c-73b6-4659-83e8-520f4c6126fd"))));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getDescription(), is(equalTo("Fish out of Water")));
-        assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0)));
-        assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(19.95)));
+        assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0f)));
+        assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(19.95f)));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getItemCode(), is(equalTo("BOOK")));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getAccountCode(), is(equalTo("200")));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getTaxType(), is(equalTo("OUTPUT2")));
@@ -156,8 +156,8 @@ public class AccountingApiQuotesTest {
         assertThat(quotes.getQuotes().get(0).getContact().getEmailAddress(), is(equalTo("john.smith@gmail.com")));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getLineItemID(),  is(equalTo(UUID.fromString("09b47d9f-f78d-4bab-b226-957f55bfb1b5"))));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getDescription(), is(equalTo("Half day training - Microsoft Office")));
-        assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0)));
-        assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(500.0)));
+        assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0f)));
+        assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(500.0f)));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getItemCode(), is(equalTo("Train-MS")));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getAccountCode(), is(equalTo("400")));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getTaxType(), is(equalTo("NONE")));
@@ -197,8 +197,8 @@ public class AccountingApiQuotesTest {
 
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getLineItemID(),  is(equalTo(UUID.fromString("26995857-0eea-45fb-b46c-f8ea896ec46e"))));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getDescription(), is(equalTo("Foobar")));
-        assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0)));
-        assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(20.0)));
+        assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0f)));
+        assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(20.0f)));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getAccountCode(), is(equalTo("12775")));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getTaxAmount(), is(equalTo(0.0)));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getLineAmount(), is(equalTo(20.0)));
@@ -232,8 +232,8 @@ public class AccountingApiQuotesTest {
         assertThat(quotes.getQuotes().get(0).getContact().getName(), is(equalTo("Orlena Greenville 35")));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getLineItemID(),  is(equalTo(UUID.fromString("be69f44e-9c72-4fcd-9152-0174867cce49"))));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getDescription(), is(equalTo("Foobar")));
-        assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0)));
-        assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(20.0)));
+        assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0f)));
+        assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(20.0f)));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getAccountCode(), is(equalTo("12775")));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getTaxAmount(), is(equalTo(0.0)));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getLineAmount(), is(equalTo(20.0)));
@@ -265,8 +265,8 @@ public class AccountingApiQuotesTest {
 
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getLineItemID(),  is(equalTo(UUID.fromString("898c7fd6-0d94-4ac0-ace8-87e350a042de"))));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getDescription(), is(equalTo("Foobar")));
-        assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0)));
-        assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(20.0)));
+        assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0f)));
+        assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(20.0f)));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getAccountCode(), is(equalTo("12775")));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getTaxAmount(), is(equalTo(0.0)));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getLineAmount(), is(equalTo(20.0)));

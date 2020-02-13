@@ -105,8 +105,9 @@ public class AccountingApiBankTransactionTest {
 	@Test
 	public void testGetBankTransaction() throws Exception {
 		System.out.println("@Test - getBankTransaction");
-		UUID bankTransactionID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");
-		BankTransactions response = accountingApi.getBankTransaction(accessToken,xeroTenantId,bankTransactionID);
+        UUID bankTransactionID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");
+        Integer unitdp = null;
+		BankTransactions response = accountingApi.getBankTransaction(accessToken,xeroTenantId,bankTransactionID,unitdp);
 		assertThat(response.getBankTransactions().get(0).getBankTransactionID(), is(equalTo(UUID.fromString("db54aab0-ad40-4ced-bcff-0940ba20db2c"))));
 		assertThat(response.getBankTransactions().get(0).getStatus(), is(equalTo(com.xero.models.accounting.BankTransaction.StatusEnum.AUTHORISED)));
 		assertThat(response.getBankTransactions().get(0).getType(), is(equalTo(com.xero.models.accounting.BankTransaction.TypeEnum.RECEIVE)));
@@ -120,9 +121,10 @@ public class AccountingApiBankTransactionTest {
 	@Test
 	public void testUpdateBankTransaction() throws Exception {
 		System.out.println("@Test - updateBankTransaction");
-		UUID bankTransactionID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");
+        UUID bankTransactionID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");
+        Integer unitdp = null;
 		BankTransactions newBankTransactions = new BankTransactions();
-		BankTransactions response = accountingApi.updateBankTransaction(accessToken,xeroTenantId,bankTransactionID,newBankTransactions);
+		BankTransactions response = accountingApi.updateBankTransaction(accessToken,xeroTenantId,bankTransactionID,newBankTransactions,unitdp);
 					
 		assertThat(response.getBankTransactions().get(0).getBankTransactionID(), is(equalTo(UUID.fromString("1289c190-e46d-434b-9628-463ffdb52f00"))));		
 		assertThat(response.getBankTransactions().get(0).getStatus(), is(equalTo(com.xero.models.accounting.BankTransaction.StatusEnum.AUTHORISED)));

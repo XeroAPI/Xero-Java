@@ -117,8 +117,8 @@ public class AccountingApiRepeatingInvoicesTest {
         assertThat(response.getRepeatingInvoices().get(0).getSchedule().getEndDate(), is(equalTo(LocalDate.of(2019,9,29))));         
         assertThat(response.getRepeatingInvoices().get(0).getLineItems().get(0).getLineItemID(), is(equalTo(UUID.fromString("13a8353c-d2af-4d5b-920c-438449f08900"))));
         assertThat(response.getRepeatingInvoices().get(0).getLineItems().get(0).getDescription(), is(equalTo("Guitars Fender Strat")));
-        assertThat(response.getRepeatingInvoices().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0)));
-        assertThat(response.getRepeatingInvoices().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(5000.0)));
+        assertThat(response.getRepeatingInvoices().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0f)));
+        assertThat(response.getRepeatingInvoices().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(5000.0f)));
         assertThat(response.getRepeatingInvoices().get(0).getLineItems().get(0).getTaxType(), is(equalTo("OUTPUT2")));
         assertThat(response.getRepeatingInvoices().get(0).getLineItems().get(0).getAccountCode(), is(equalTo("200")));
         assertThat(response.getRepeatingInvoices().get(0).getLineItems().get(0).getTaxAmount(), is(equalTo(750.0)));
@@ -178,8 +178,8 @@ public class AccountingApiRepeatingInvoicesTest {
         assertThat(response.getRepeatingInvoices().get(0).getSchedule().getEndDate(), is(equalTo(LocalDate.of(2019,9,29))));         
         assertThat(response.getRepeatingInvoices().get(0).getLineItems().get(0).getLineItemID(), is(equalTo(UUID.fromString("13a8353c-d2af-4d5b-920c-438449f08900"))));
         assertThat(response.getRepeatingInvoices().get(0).getLineItems().get(0).getDescription(), is(equalTo("Guitars Fender Strat")));
-        assertThat(response.getRepeatingInvoices().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0)));
-        assertThat(response.getRepeatingInvoices().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(5000.0)));
+        assertThat(response.getRepeatingInvoices().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0f)));
+        assertThat(response.getRepeatingInvoices().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(5000.0f)));
         assertThat(response.getRepeatingInvoices().get(0).getLineItems().get(0).getTaxType(), is(equalTo("OUTPUT2")));
         assertThat(response.getRepeatingInvoices().get(0).getLineItems().get(0).getAccountCode(), is(equalTo("200")));
         assertThat(response.getRepeatingInvoices().get(0).getLineItems().get(0).getTaxAmount(), is(equalTo(750.0)));

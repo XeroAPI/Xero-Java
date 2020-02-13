@@ -5,7 +5,7 @@
     <artifactId>xero-java</artifactId>
     <packaging>jar</packaging>
     <name>xero-java</name>
-    <version>3.2.3</version>
+    <version>3.3.0</version>
     <url>https://github.com/XeroAPI/Xero-Java</url>
     <description>This is the official Java SDK for Xero API</description>
     <licenses>

@@ -119,10 +119,45 @@ public class BatchPayment {
   
   @JsonProperty("Type")
   private TypeEnum type;
+  /**
+   * AUTHORISED or DELETED (read-only). New batch payments will have a status of AUTHORISED. It is not possible to delete batch payments via the API.
+   */
+  public enum StatusEnum {
+    AUTHORISED("AUTHORISED"),
+    
+    DELETED("DELETED");
+
+    private String value;
+
+    StatusEnum(String value) {
+      this.value = value;
+    }
+
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static StatusEnum fromValue(String value) {
+      for (StatusEnum b : StatusEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
 
   
   @JsonProperty("Status")
-  private String status;
+  private StatusEnum status;
 
   
   @JsonProperty("TotalAmount")
@@ -346,7 +381,7 @@ public class BatchPayment {
    * @return status
   **/
   @ApiModelProperty(value = "AUTHORISED or DELETED (read-only). New batch payments will have a status of AUTHORISED. It is not possible to delete batch payments via the API.")
-  public String getStatus() {
+  public StatusEnum getStatus() {
     return status;
   }
 
