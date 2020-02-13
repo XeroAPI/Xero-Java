@@ -133,15 +133,14 @@ public class AccountingApiOverpaymentsTest {
         assertThat(response.getOverpayments().get(0).getAttachments().get(0).getMimeType(), is(equalTo("image/gif")));
         assertThat(response.getOverpayments().get(0).getAttachments().get(0).getContentLength(), is(equalTo(new BigDecimal("495727"))));
         assertThat(response.getOverpayments().get(0).getLineItems().get(0).getDescription(), is(equalTo("Broken TV deposit")));
-        assertThat(response.getOverpayments().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0)));
-        assertThat(response.getOverpayments().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(3000.0)));
+        assertThat(response.getOverpayments().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0f)));
+        assertThat(response.getOverpayments().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(3000.0f)));
         assertThat(response.getOverpayments().get(0).getLineItems().get(0).getAccountCode(), is(equalTo("800")));
         assertThat(response.getOverpayments().get(0).getLineItems().get(0).getTaxType(), is(equalTo("NONE")));
         assertThat(response.getOverpayments().get(0).getLineItems().get(0).getTaxAmount(), is(equalTo(0.0)));
         assertThat(response.getOverpayments().get(0).getLineItems().get(0).getLineAmount(), is(equalTo(3000.0)));
         //System.out.println(response.getOverpayments().get(0).toString());
     }
-    
     
     @Test
     public void getOverpaymentsTest() throws IOException {

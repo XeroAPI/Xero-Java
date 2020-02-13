@@ -83,13 +83,13 @@ public class AccountingApiInvoicesTest {
 		accountingApi = null;
         defaultClient = null;
 	}
-/*
+
     @Test
     public void createInvoiceTest() throws IOException {
-        System.out.println("@Test - createInvoice");
-        Invoice invoice = new Invoice();
-        Invoices response = accountingApi.createInvoice(accessToken,xeroTenantId,invoice);
-
+        System.out.println("@Test - createInvoices");
+        Invoices invoices = new Invoices();
+        Invoices response = accountingApi.createInvoices(accessToken, xeroTenantId, invoices, false, 4);
+     
         assertThat(response.getInvoices().get(0).getType(), is(equalTo(com.xero.models.accounting.Invoice.TypeEnum.ACCREC)));
         assertThat(response.getInvoices().get(0).getDate(), is(equalTo(LocalDate.of(2019, 03, 10))));  
         assertThat(response.getInvoices().get(0).getDueDate(), is(equalTo(LocalDate.of(2018, 12, 9))));  
@@ -113,7 +113,7 @@ public class AccountingApiInvoicesTest {
         assertThat(response.getInvoices().get(0).getAmountDue().toString(), is(equalTo("40.0")));
         assertThat(response.getInvoices().get(0).getAmountPaid(), is(equalTo(0.0)));
         assertThat(response.getInvoices().get(0).getAmountPaid().toString(), is(equalTo("0.0")));
-        assertThat(response.getInvoices().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T10:58:46.117-07:00"))));  
+        assertThat(response.getInvoices().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T09:58:46.117-08:00"))));  
         assertThat(response.getInvoices().get(0).getHasErrors(), is(equalTo(false)));
         assertThat(response.getInvoices().get(0).getContact().getContactID(), is(equalTo(UUID.fromString("430fa14a-f945-44d3-9f97-5df5e28441b8"))));
         assertThat(response.getInvoices().get(0).getContact().getName(), is(equalTo("Liam Gallagher")));
@@ -125,22 +125,20 @@ public class AccountingApiInvoicesTest {
         assertThat(response.getInvoices().get(0).getContact().getContactGroups().get(0).getName(), is(equalTo("Oasis")));
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getLineItemID(), is(equalTo(UUID.fromString("5f7a612b-fdcc-4d33-90fa-a9f6bc6db32f"))));
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getDescription(), is(equalTo("Acme Tires")));
-        assertThat(response.getInvoices().get(0).getLineItems().get(0).getQuantity(), is(equalTo(2.0)));
-        assertThat(response.getInvoices().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(20.0)));
+        assertThat(response.getInvoices().get(0).getLineItems().get(0).getQuantity(), is(equalTo(2.0f)));
+        assertThat(response.getInvoices().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(20.0f)));
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getAccountCode(), is(equalTo("200")));
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getTaxType(), is(equalTo("NONE")));
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getTaxAmount(), is(equalTo(0.)));
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getLineAmount(), is(equalTo(40.0)));
         //System.out.println(response.getInvoices().get(0).toString());
     }
-*/
-
 
     @Test
     public void getInvoiceTest() throws IOException {
         System.out.println("@Test - getInvoiceTest");
         UUID invoiceID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Invoices response = accountingApi.getInvoice(accessToken,xeroTenantId,invoiceID);
+        Invoices response = accountingApi.getInvoice(accessToken,xeroTenantId,invoiceID,4);
 
         assertThat(response.getInvoices().get(0).getType(), is(equalTo(com.xero.models.accounting.Invoice.TypeEnum.ACCREC)));
         assertThat(response.getInvoices().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,06))));  
@@ -177,8 +175,8 @@ public class AccountingApiInvoicesTest {
         assertThat(response.getInvoices().get(0).getContact().getContactGroups().get(0).getName(), is(equalTo("Oasis")));
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getLineItemID(), is(equalTo(UUID.fromString("b18f39d9-7739-4246-9288-72afe939d2d5"))));
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getDescription(), is(equalTo("Guitars Fender Strat")));
-        assertThat(response.getInvoices().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0)));
-        assertThat(response.getInvoices().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(148062.76)));
+        assertThat(response.getInvoices().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0f)));
+        assertThat(response.getInvoices().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(148062.76f)));
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getItemCode(), is(equalTo("123")));
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getAccountCode(), is(equalTo("200")));
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getTaxType(), is(equalTo("NONE")));
@@ -282,7 +280,7 @@ public class AccountingApiInvoicesTest {
         System.out.println("@Test - updateInvoice");
         UUID invoiceID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         Invoices invoices = new Invoices();
-        Invoices response = accountingApi.updateInvoice(accessToken,xeroTenantId,invoiceID, invoices);
+        Invoices response = accountingApi.updateInvoice(accessToken,xeroTenantId,invoiceID, invoices,4);
 
         assertThat(response.getInvoices().get(0).getType(), is(equalTo(com.xero.models.accounting.Invoice.TypeEnum.ACCREC)));
         assertThat(response.getInvoices().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,10))));  
@@ -314,8 +312,8 @@ public class AccountingApiInvoicesTest {
         assertThat(response.getInvoices().get(0).getContact().getContactStatus(), is(equalTo(com.xero.models.accounting.Contact.ContactStatusEnum.ACTIVE)));
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getLineItemID(), is(equalTo(UUID.fromString("6de1bf9f-de95-4c47-9287-37305db758c9"))));
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getDescription(), is(equalTo("Light Saber")));
-        assertThat(response.getInvoices().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0)));
-        assertThat(response.getInvoices().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(500.00)));
+        assertThat(response.getInvoices().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0f)));
+        assertThat(response.getInvoices().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(500.00f)));
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getAccountCode(), is(equalTo("200")));
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getTaxType(), is(equalTo("OUTPUT2")));
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getTaxAmount(), is(equalTo(75.0)));

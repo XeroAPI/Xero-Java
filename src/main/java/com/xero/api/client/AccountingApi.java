@@ -93,7 +93,7 @@ public class AccountingApi {
     private ApiClient apiClient;
     private static AccountingApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.2.3";
+    private String version = "3.3.0";
 
     public AccountingApi() {
         this(new ApiClient());
@@ -398,14 +398,15 @@ public class AccountingApi {
     * @param xeroTenantId Xero identifier for Tenant
     * @param bankTransactions BankTransactions with an array of BankTransaction objects in body of request
     * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any with validation errors
+    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal places for unit amounts
     * @param accessToken Authorization token for user set in header of each request
     * @return BankTransactions
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public BankTransactions  createBankTransactions(String accessToken, String xeroTenantId, BankTransactions bankTransactions, Boolean summarizeErrors) throws IOException {
+    public BankTransactions  createBankTransactions(String accessToken, String xeroTenantId, BankTransactions bankTransactions, Boolean summarizeErrors, Integer unitdp) throws IOException {
         try {
             TypeReference<BankTransactions> typeRef = new TypeReference<BankTransactions>() {};
-            HttpResponse response = createBankTransactionsForHttpResponse(accessToken, xeroTenantId, bankTransactions, summarizeErrors);
+            HttpResponse response = createBankTransactionsForHttpResponse(accessToken, xeroTenantId, bankTransactions, summarizeErrors, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -416,7 +417,7 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse createBankTransactionsForHttpResponse(String accessToken,  String xeroTenantId,  BankTransactions bankTransactions,  Boolean summarizeErrors) throws IOException {
+    public HttpResponse createBankTransactionsForHttpResponse(String accessToken,  String xeroTenantId,  BankTransactions bankTransactions,  Boolean summarizeErrors,  Integer unitdp) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createBankTransactions");
@@ -437,6 +438,16 @@ public class AccountingApi {
         if (summarizeErrors != null) {
             String key = "summarizeErrors";
             Object value = summarizeErrors;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (unitdp != null) {
+            String key = "unitdp";
+            Object value = unitdp;
             if (value instanceof Collection) {
                 uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
             } else if (value instanceof Object[]) {
@@ -1396,14 +1407,15 @@ public class AccountingApi {
     * @param xeroTenantId Xero identifier for Tenant
     * @param creditNotes Credit Notes with array of CreditNote object in body of request
     * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any with validation errors
+    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal places for unit amounts
     * @param accessToken Authorization token for user set in header of each request
     * @return CreditNotes
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public CreditNotes  createCreditNotes(String accessToken, String xeroTenantId, CreditNotes creditNotes, Boolean summarizeErrors) throws IOException {
+    public CreditNotes  createCreditNotes(String accessToken, String xeroTenantId, CreditNotes creditNotes, Boolean summarizeErrors, Integer unitdp) throws IOException {
         try {
             TypeReference<CreditNotes> typeRef = new TypeReference<CreditNotes>() {};
-            HttpResponse response = createCreditNotesForHttpResponse(accessToken, xeroTenantId, creditNotes, summarizeErrors);
+            HttpResponse response = createCreditNotesForHttpResponse(accessToken, xeroTenantId, creditNotes, summarizeErrors, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -1414,7 +1426,7 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse createCreditNotesForHttpResponse(String accessToken,  String xeroTenantId,  CreditNotes creditNotes,  Boolean summarizeErrors) throws IOException {
+    public HttpResponse createCreditNotesForHttpResponse(String accessToken,  String xeroTenantId,  CreditNotes creditNotes,  Boolean summarizeErrors,  Integer unitdp) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createCreditNotes");
@@ -1435,6 +1447,16 @@ public class AccountingApi {
         if (summarizeErrors != null) {
             String key = "summarizeErrors";
             Object value = summarizeErrors;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (unitdp != null) {
+            String key = "unitdp";
+            Object value = unitdp;
             if (value instanceof Collection) {
                 uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
             } else if (value instanceof Object[]) {
@@ -1898,14 +1920,15 @@ public class AccountingApi {
     * @param xeroTenantId Xero identifier for Tenant
     * @param invoices Invoices with an array of invoice objects in body of request
     * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any with validation errors
+    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal places for unit amounts
     * @param accessToken Authorization token for user set in header of each request
     * @return Invoices
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Invoices  createInvoices(String accessToken, String xeroTenantId, Invoices invoices, Boolean summarizeErrors) throws IOException {
+    public Invoices  createInvoices(String accessToken, String xeroTenantId, Invoices invoices, Boolean summarizeErrors, Integer unitdp) throws IOException {
         try {
             TypeReference<Invoices> typeRef = new TypeReference<Invoices>() {};
-            HttpResponse response = createInvoicesForHttpResponse(accessToken, xeroTenantId, invoices, summarizeErrors);
+            HttpResponse response = createInvoicesForHttpResponse(accessToken, xeroTenantId, invoices, summarizeErrors, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -1916,7 +1939,7 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse createInvoicesForHttpResponse(String accessToken,  String xeroTenantId,  Invoices invoices,  Boolean summarizeErrors) throws IOException {
+    public HttpResponse createInvoicesForHttpResponse(String accessToken,  String xeroTenantId,  Invoices invoices,  Boolean summarizeErrors,  Integer unitdp) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createInvoices");
@@ -1937,6 +1960,16 @@ public class AccountingApi {
         if (summarizeErrors != null) {
             String key = "summarizeErrors";
             Object value = summarizeErrors;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (unitdp != null) {
+            String key = "unitdp";
+            Object value = unitdp;
             if (value instanceof Collection) {
                 uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
             } else if (value instanceof Object[]) {
@@ -2032,14 +2065,15 @@ public class AccountingApi {
     * @param xeroTenantId Xero identifier for Tenant
     * @param items Items with an array of Item objects in body of request
     * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any with validation errors
+    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal places for unit amounts
     * @param accessToken Authorization token for user set in header of each request
     * @return Items
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Items  createItems(String accessToken, String xeroTenantId, Items items, Boolean summarizeErrors) throws IOException {
+    public Items  createItems(String accessToken, String xeroTenantId, Items items, Boolean summarizeErrors, Integer unitdp) throws IOException {
         try {
             TypeReference<Items> typeRef = new TypeReference<Items>() {};
-            HttpResponse response = createItemsForHttpResponse(accessToken, xeroTenantId, items, summarizeErrors);
+            HttpResponse response = createItemsForHttpResponse(accessToken, xeroTenantId, items, summarizeErrors, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -2050,7 +2084,7 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse createItemsForHttpResponse(String accessToken,  String xeroTenantId,  Items items,  Boolean summarizeErrors) throws IOException {
+    public HttpResponse createItemsForHttpResponse(String accessToken,  String xeroTenantId,  Items items,  Boolean summarizeErrors,  Integer unitdp) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createItems");
@@ -2071,6 +2105,16 @@ public class AccountingApi {
         if (summarizeErrors != null) {
             String key = "summarizeErrors";
             Object value = summarizeErrors;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (unitdp != null) {
+            String key = "unitdp";
+            Object value = unitdp;
             if (value instanceof Collection) {
                 uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
             } else if (value instanceof Object[]) {
@@ -3179,14 +3223,15 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
     * @param receipts Receipts with an array of Receipt object in body of request
+    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal places for unit amounts
     * @param accessToken Authorization token for user set in header of each request
     * @return Receipts
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Receipts  createReceipt(String accessToken, String xeroTenantId, Receipts receipts) throws IOException {
+    public Receipts  createReceipt(String accessToken, String xeroTenantId, Receipts receipts, Integer unitdp) throws IOException {
         try {
             TypeReference<Receipts> typeRef = new TypeReference<Receipts>() {};
-            HttpResponse response = createReceiptForHttpResponse(accessToken, xeroTenantId, receipts);
+            HttpResponse response = createReceiptForHttpResponse(accessToken, xeroTenantId, receipts, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -3197,7 +3242,7 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse createReceiptForHttpResponse(String accessToken,  String xeroTenantId,  Receipts receipts) throws IOException {
+    public HttpResponse createReceiptForHttpResponse(String accessToken,  String xeroTenantId,  Receipts receipts,  Integer unitdp) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createReceipt");
@@ -3215,6 +3260,17 @@ public class AccountingApi {
         
         String correctPath = "/Receipts";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        if (unitdp != null) {
+            String key = "unitdp";
+            Object value = unitdp;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
@@ -4586,14 +4642,15 @@ public class AccountingApi {
     * <p><b>200</b> - Success - return response of type BankTransactions array with a specific BankTransaction
     * @param xeroTenantId Xero identifier for Tenant
     * @param bankTransactionID Xero generated unique identifier for a bank transaction
+    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal places for unit amounts
     * @param accessToken Authorization token for user set in header of each request
     * @return BankTransactions
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public BankTransactions  getBankTransaction(String accessToken, String xeroTenantId, UUID bankTransactionID) throws IOException {
+    public BankTransactions  getBankTransaction(String accessToken, String xeroTenantId, UUID bankTransactionID, Integer unitdp) throws IOException {
         try {
             TypeReference<BankTransactions> typeRef = new TypeReference<BankTransactions>() {};
-            HttpResponse response = getBankTransactionForHttpResponse(accessToken, xeroTenantId, bankTransactionID);
+            HttpResponse response = getBankTransactionForHttpResponse(accessToken, xeroTenantId, bankTransactionID, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -4604,7 +4661,7 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse getBankTransactionForHttpResponse(String accessToken,  String xeroTenantId,  UUID bankTransactionID) throws IOException {
+    public HttpResponse getBankTransactionForHttpResponse(String accessToken,  String xeroTenantId,  UUID bankTransactionID,  Integer unitdp) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getBankTransaction");
@@ -4627,6 +4684,17 @@ public class AccountingApi {
         uriVariables.put("BankTransactionID", bankTransactionID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        if (unitdp != null) {
+            String key = "unitdp";
+            Object value = unitdp;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
@@ -6366,14 +6434,15 @@ public class AccountingApi {
     * <p><b>200</b> - Success - return response of type Credit Notes array with a unique CreditNote
     * @param xeroTenantId Xero identifier for Tenant
     * @param creditNoteID Unique identifier for a Credit Note
+    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal places for unit amounts
     * @param accessToken Authorization token for user set in header of each request
     * @return CreditNotes
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public CreditNotes  getCreditNote(String accessToken, String xeroTenantId, UUID creditNoteID) throws IOException {
+    public CreditNotes  getCreditNote(String accessToken, String xeroTenantId, UUID creditNoteID, Integer unitdp) throws IOException {
         try {
             TypeReference<CreditNotes> typeRef = new TypeReference<CreditNotes>() {};
-            HttpResponse response = getCreditNoteForHttpResponse(accessToken, xeroTenantId, creditNoteID);
+            HttpResponse response = getCreditNoteForHttpResponse(accessToken, xeroTenantId, creditNoteID, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -6384,7 +6453,7 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse getCreditNoteForHttpResponse(String accessToken,  String xeroTenantId,  UUID creditNoteID) throws IOException {
+    public HttpResponse getCreditNoteForHttpResponse(String accessToken,  String xeroTenantId,  UUID creditNoteID,  Integer unitdp) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getCreditNote");
@@ -6407,6 +6476,17 @@ public class AccountingApi {
         uriVariables.put("CreditNoteID", creditNoteID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        if (unitdp != null) {
+            String key = "unitdp";
+            Object value = unitdp;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
@@ -6775,14 +6855,15 @@ public class AccountingApi {
     * @param where Filter by an any element
     * @param order Order by an any element
     * @param page e.g. page&#x3D;1 – Up to 100 credit notes will be returned in a single API call with line items shown for each credit note
+    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal places for unit amounts
     * @param accessToken Authorization token for user set in header of each request
     * @return CreditNotes
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public CreditNotes  getCreditNotes(String accessToken, String xeroTenantId, OffsetDateTime ifModifiedSince, String where, String order, Integer page) throws IOException {
+    public CreditNotes  getCreditNotes(String accessToken, String xeroTenantId, OffsetDateTime ifModifiedSince, String where, String order, Integer page, Integer unitdp) throws IOException {
         try {
             TypeReference<CreditNotes> typeRef = new TypeReference<CreditNotes>() {};
-            HttpResponse response = getCreditNotesForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order, page);
+            HttpResponse response = getCreditNotesForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order, page, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -6793,7 +6874,7 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse getCreditNotesForHttpResponse(String accessToken,  String xeroTenantId,  OffsetDateTime ifModifiedSince,  String where,  String order,  Integer page) throws IOException {
+    public HttpResponse getCreditNotesForHttpResponse(String accessToken,  String xeroTenantId,  OffsetDateTime ifModifiedSince,  String where,  String order,  Integer page,  Integer unitdp) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getCreditNotes");
@@ -6834,6 +6915,16 @@ public class AccountingApi {
         }        if (page != null) {
             String key = "page";
             Object value = page;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (unitdp != null) {
+            String key = "unitdp";
+            Object value = unitdp;
             if (value instanceof Collection) {
                 uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
             } else if (value instanceof Object[]) {
@@ -7264,14 +7355,15 @@ public class AccountingApi {
     * <p><b>200</b> - Success - return response of type Invoices array with specified Invoices
     * @param xeroTenantId Xero identifier for Tenant
     * @param invoiceID Unique identifier for an Invoice
+    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal places for unit amounts
     * @param accessToken Authorization token for user set in header of each request
     * @return Invoices
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Invoices  getInvoice(String accessToken, String xeroTenantId, UUID invoiceID) throws IOException {
+    public Invoices  getInvoice(String accessToken, String xeroTenantId, UUID invoiceID, Integer unitdp) throws IOException {
         try {
             TypeReference<Invoices> typeRef = new TypeReference<Invoices>() {};
-            HttpResponse response = getInvoiceForHttpResponse(accessToken, xeroTenantId, invoiceID);
+            HttpResponse response = getInvoiceForHttpResponse(accessToken, xeroTenantId, invoiceID, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -7282,7 +7374,7 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse getInvoiceForHttpResponse(String accessToken,  String xeroTenantId,  UUID invoiceID) throws IOException {
+    public HttpResponse getInvoiceForHttpResponse(String accessToken,  String xeroTenantId,  UUID invoiceID,  Integer unitdp) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getInvoice");
@@ -7305,6 +7397,17 @@ public class AccountingApi {
         uriVariables.put("InvoiceID", invoiceID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        if (unitdp != null) {
+            String key = "unitdp";
+            Object value = unitdp;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
@@ -7885,14 +7988,15 @@ public class AccountingApi {
     * <p><b>200</b> - Success - return response of type Items array with specified Item
     * @param xeroTenantId Xero identifier for Tenant
     * @param itemID Unique identifier for an Item
+    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal places for unit amounts
     * @param accessToken Authorization token for user set in header of each request
     * @return Items
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Items  getItem(String accessToken, String xeroTenantId, UUID itemID) throws IOException {
+    public Items  getItem(String accessToken, String xeroTenantId, UUID itemID, Integer unitdp) throws IOException {
         try {
             TypeReference<Items> typeRef = new TypeReference<Items>() {};
-            HttpResponse response = getItemForHttpResponse(accessToken, xeroTenantId, itemID);
+            HttpResponse response = getItemForHttpResponse(accessToken, xeroTenantId, itemID, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -7903,7 +8007,7 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse getItemForHttpResponse(String accessToken,  String xeroTenantId,  UUID itemID) throws IOException {
+    public HttpResponse getItemForHttpResponse(String accessToken,  String xeroTenantId,  UUID itemID,  Integer unitdp) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getItem");
@@ -7926,6 +8030,17 @@ public class AccountingApi {
         uriVariables.put("ItemID", itemID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        if (unitdp != null) {
+            String key = "unitdp";
+            Object value = unitdp;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
@@ -10101,14 +10216,15 @@ public class AccountingApi {
     * <p><b>200</b> - Success - return response of type Receipts array for a specified Receipt
     * @param xeroTenantId Xero identifier for Tenant
     * @param receiptID Unique identifier for a Receipt
+    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal places for unit amounts
     * @param accessToken Authorization token for user set in header of each request
     * @return Receipts
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Receipts  getReceipt(String accessToken, String xeroTenantId, UUID receiptID) throws IOException {
+    public Receipts  getReceipt(String accessToken, String xeroTenantId, UUID receiptID, Integer unitdp) throws IOException {
         try {
             TypeReference<Receipts> typeRef = new TypeReference<Receipts>() {};
-            HttpResponse response = getReceiptForHttpResponse(accessToken, xeroTenantId, receiptID);
+            HttpResponse response = getReceiptForHttpResponse(accessToken, xeroTenantId, receiptID, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -10119,7 +10235,7 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse getReceiptForHttpResponse(String accessToken,  String xeroTenantId,  UUID receiptID) throws IOException {
+    public HttpResponse getReceiptForHttpResponse(String accessToken,  String xeroTenantId,  UUID receiptID,  Integer unitdp) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getReceipt");
@@ -10142,6 +10258,17 @@ public class AccountingApi {
         uriVariables.put("ReceiptID", receiptID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        if (unitdp != null) {
+            String key = "unitdp";
+            Object value = unitdp;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
@@ -12378,14 +12505,15 @@ public class AccountingApi {
     * @param xeroTenantId Xero identifier for Tenant
     * @param bankTransactionID Xero generated unique identifier for a bank transaction
     * @param bankTransactions The bankTransactions parameter
+    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal places for unit amounts
     * @param accessToken Authorization token for user set in header of each request
     * @return BankTransactions
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public BankTransactions  updateBankTransaction(String accessToken, String xeroTenantId, UUID bankTransactionID, BankTransactions bankTransactions) throws IOException {
+    public BankTransactions  updateBankTransaction(String accessToken, String xeroTenantId, UUID bankTransactionID, BankTransactions bankTransactions, Integer unitdp) throws IOException {
         try {
             TypeReference<BankTransactions> typeRef = new TypeReference<BankTransactions>() {};
-            HttpResponse response = updateBankTransactionForHttpResponse(accessToken, xeroTenantId, bankTransactionID, bankTransactions);
+            HttpResponse response = updateBankTransactionForHttpResponse(accessToken, xeroTenantId, bankTransactionID, bankTransactions, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -12396,7 +12524,7 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse updateBankTransactionForHttpResponse(String accessToken,  String xeroTenantId,  UUID bankTransactionID,  BankTransactions bankTransactions) throws IOException {
+    public HttpResponse updateBankTransactionForHttpResponse(String accessToken,  String xeroTenantId,  UUID bankTransactionID,  BankTransactions bankTransactions,  Integer unitdp) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling updateBankTransaction");
@@ -12422,6 +12550,17 @@ public class AccountingApi {
         uriVariables.put("BankTransactionID", bankTransactionID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        if (unitdp != null) {
+            String key = "unitdp";
+            Object value = unitdp;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
@@ -12786,14 +12925,15 @@ public class AccountingApi {
     * @param xeroTenantId Xero identifier for Tenant
     * @param creditNoteID Unique identifier for a Credit Note
     * @param creditNotes an array of Credit Notes containing credit note details to update
+    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal places for unit amounts
     * @param accessToken Authorization token for user set in header of each request
     * @return CreditNotes
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public CreditNotes  updateCreditNote(String accessToken, String xeroTenantId, UUID creditNoteID, CreditNotes creditNotes) throws IOException {
+    public CreditNotes  updateCreditNote(String accessToken, String xeroTenantId, UUID creditNoteID, CreditNotes creditNotes, Integer unitdp) throws IOException {
         try {
             TypeReference<CreditNotes> typeRef = new TypeReference<CreditNotes>() {};
-            HttpResponse response = updateCreditNoteForHttpResponse(accessToken, xeroTenantId, creditNoteID, creditNotes);
+            HttpResponse response = updateCreditNoteForHttpResponse(accessToken, xeroTenantId, creditNoteID, creditNotes, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -12804,7 +12944,7 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse updateCreditNoteForHttpResponse(String accessToken,  String xeroTenantId,  UUID creditNoteID,  CreditNotes creditNotes) throws IOException {
+    public HttpResponse updateCreditNoteForHttpResponse(String accessToken,  String xeroTenantId,  UUID creditNoteID,  CreditNotes creditNotes,  Integer unitdp) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling updateCreditNote");
@@ -12830,6 +12970,17 @@ public class AccountingApi {
         uriVariables.put("CreditNoteID", creditNoteID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        if (unitdp != null) {
+            String key = "unitdp";
+            Object value = unitdp;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
@@ -13055,14 +13206,15 @@ public class AccountingApi {
     * @param xeroTenantId Xero identifier for Tenant
     * @param invoiceID Unique identifier for an Invoice
     * @param invoices The invoices parameter
+    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal places for unit amounts
     * @param accessToken Authorization token for user set in header of each request
     * @return Invoices
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Invoices  updateInvoice(String accessToken, String xeroTenantId, UUID invoiceID, Invoices invoices) throws IOException {
+    public Invoices  updateInvoice(String accessToken, String xeroTenantId, UUID invoiceID, Invoices invoices, Integer unitdp) throws IOException {
         try {
             TypeReference<Invoices> typeRef = new TypeReference<Invoices>() {};
-            HttpResponse response = updateInvoiceForHttpResponse(accessToken, xeroTenantId, invoiceID, invoices);
+            HttpResponse response = updateInvoiceForHttpResponse(accessToken, xeroTenantId, invoiceID, invoices, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -13073,7 +13225,7 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse updateInvoiceForHttpResponse(String accessToken,  String xeroTenantId,  UUID invoiceID,  Invoices invoices) throws IOException {
+    public HttpResponse updateInvoiceForHttpResponse(String accessToken,  String xeroTenantId,  UUID invoiceID,  Invoices invoices,  Integer unitdp) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling updateInvoice");
@@ -13099,6 +13251,17 @@ public class AccountingApi {
         uriVariables.put("InvoiceID", invoiceID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        if (unitdp != null) {
+            String key = "unitdp";
+            Object value = unitdp;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
@@ -13192,14 +13355,15 @@ public class AccountingApi {
     * @param xeroTenantId Xero identifier for Tenant
     * @param itemID Unique identifier for an Item
     * @param items The items parameter
+    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal places for unit amounts
     * @param accessToken Authorization token for user set in header of each request
     * @return Items
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Items  updateItem(String accessToken, String xeroTenantId, UUID itemID, Items items) throws IOException {
+    public Items  updateItem(String accessToken, String xeroTenantId, UUID itemID, Items items, Integer unitdp) throws IOException {
         try {
             TypeReference<Items> typeRef = new TypeReference<Items>() {};
-            HttpResponse response = updateItemForHttpResponse(accessToken, xeroTenantId, itemID, items);
+            HttpResponse response = updateItemForHttpResponse(accessToken, xeroTenantId, itemID, items, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -13210,7 +13374,7 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse updateItemForHttpResponse(String accessToken,  String xeroTenantId,  UUID itemID,  Items items) throws IOException {
+    public HttpResponse updateItemForHttpResponse(String accessToken,  String xeroTenantId,  UUID itemID,  Items items,  Integer unitdp) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling updateItem");
@@ -13236,6 +13400,17 @@ public class AccountingApi {
         uriVariables.put("ItemID", itemID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        if (unitdp != null) {
+            String key = "unitdp";
+            Object value = unitdp;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
@@ -13461,14 +13636,15 @@ public class AccountingApi {
     * @param xeroTenantId Xero identifier for Tenant
     * @param bankTransactions The bankTransactions parameter
     * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any with validation errors
+    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal places for unit amounts
     * @param accessToken Authorization token for user set in header of each request
     * @return BankTransactions
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public BankTransactions  updateOrCreateBankTransactions(String accessToken, String xeroTenantId, BankTransactions bankTransactions, Boolean summarizeErrors) throws IOException {
+    public BankTransactions  updateOrCreateBankTransactions(String accessToken, String xeroTenantId, BankTransactions bankTransactions, Boolean summarizeErrors, Integer unitdp) throws IOException {
         try {
             TypeReference<BankTransactions> typeRef = new TypeReference<BankTransactions>() {};
-            HttpResponse response = updateOrCreateBankTransactionsForHttpResponse(accessToken, xeroTenantId, bankTransactions, summarizeErrors);
+            HttpResponse response = updateOrCreateBankTransactionsForHttpResponse(accessToken, xeroTenantId, bankTransactions, summarizeErrors, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -13479,7 +13655,7 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse updateOrCreateBankTransactionsForHttpResponse(String accessToken,  String xeroTenantId,  BankTransactions bankTransactions,  Boolean summarizeErrors) throws IOException {
+    public HttpResponse updateOrCreateBankTransactionsForHttpResponse(String accessToken,  String xeroTenantId,  BankTransactions bankTransactions,  Boolean summarizeErrors,  Integer unitdp) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling updateOrCreateBankTransactions");
@@ -13500,6 +13676,16 @@ public class AccountingApi {
         if (summarizeErrors != null) {
             String key = "summarizeErrors";
             Object value = summarizeErrors;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (unitdp != null) {
+            String key = "unitdp";
+            Object value = unitdp;
             if (value instanceof Collection) {
                 uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
             } else if (value instanceof Object[]) {
@@ -13599,14 +13785,15 @@ public class AccountingApi {
     * @param xeroTenantId Xero identifier for Tenant
     * @param creditNotes an array of Credit Notes with a single CreditNote object.
     * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any with validation errors
+    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal places for unit amounts
     * @param accessToken Authorization token for user set in header of each request
     * @return CreditNotes
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public CreditNotes  updateOrCreateCreditNotes(String accessToken, String xeroTenantId, CreditNotes creditNotes, Boolean summarizeErrors) throws IOException {
+    public CreditNotes  updateOrCreateCreditNotes(String accessToken, String xeroTenantId, CreditNotes creditNotes, Boolean summarizeErrors, Integer unitdp) throws IOException {
         try {
             TypeReference<CreditNotes> typeRef = new TypeReference<CreditNotes>() {};
-            HttpResponse response = updateOrCreateCreditNotesForHttpResponse(accessToken, xeroTenantId, creditNotes, summarizeErrors);
+            HttpResponse response = updateOrCreateCreditNotesForHttpResponse(accessToken, xeroTenantId, creditNotes, summarizeErrors, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -13617,7 +13804,7 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse updateOrCreateCreditNotesForHttpResponse(String accessToken,  String xeroTenantId,  CreditNotes creditNotes,  Boolean summarizeErrors) throws IOException {
+    public HttpResponse updateOrCreateCreditNotesForHttpResponse(String accessToken,  String xeroTenantId,  CreditNotes creditNotes,  Boolean summarizeErrors,  Integer unitdp) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling updateOrCreateCreditNotes");
@@ -13638,6 +13825,16 @@ public class AccountingApi {
         if (summarizeErrors != null) {
             String key = "summarizeErrors";
             Object value = summarizeErrors;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (unitdp != null) {
+            String key = "unitdp";
+            Object value = unitdp;
             if (value instanceof Collection) {
                 uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
             } else if (value instanceof Object[]) {
@@ -13668,14 +13865,15 @@ public class AccountingApi {
     * @param xeroTenantId Xero identifier for Tenant
     * @param invoices The invoices parameter
     * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any with validation errors
+    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal places for unit amounts
     * @param accessToken Authorization token for user set in header of each request
     * @return Invoices
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Invoices  updateOrCreateInvoices(String accessToken, String xeroTenantId, Invoices invoices, Boolean summarizeErrors) throws IOException {
+    public Invoices  updateOrCreateInvoices(String accessToken, String xeroTenantId, Invoices invoices, Boolean summarizeErrors, Integer unitdp) throws IOException {
         try {
             TypeReference<Invoices> typeRef = new TypeReference<Invoices>() {};
-            HttpResponse response = updateOrCreateInvoicesForHttpResponse(accessToken, xeroTenantId, invoices, summarizeErrors);
+            HttpResponse response = updateOrCreateInvoicesForHttpResponse(accessToken, xeroTenantId, invoices, summarizeErrors, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -13686,7 +13884,7 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse updateOrCreateInvoicesForHttpResponse(String accessToken,  String xeroTenantId,  Invoices invoices,  Boolean summarizeErrors) throws IOException {
+    public HttpResponse updateOrCreateInvoicesForHttpResponse(String accessToken,  String xeroTenantId,  Invoices invoices,  Boolean summarizeErrors,  Integer unitdp) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling updateOrCreateInvoices");
@@ -13707,6 +13905,16 @@ public class AccountingApi {
         if (summarizeErrors != null) {
             String key = "summarizeErrors";
             Object value = summarizeErrors;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (unitdp != null) {
+            String key = "unitdp";
+            Object value = unitdp;
             if (value instanceof Collection) {
                 uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
             } else if (value instanceof Object[]) {
@@ -13737,14 +13945,15 @@ public class AccountingApi {
     * @param xeroTenantId Xero identifier for Tenant
     * @param items The items parameter
     * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any with validation errors
+    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal places for unit amounts
     * @param accessToken Authorization token for user set in header of each request
     * @return Items
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Items  updateOrCreateItems(String accessToken, String xeroTenantId, Items items, Boolean summarizeErrors) throws IOException {
+    public Items  updateOrCreateItems(String accessToken, String xeroTenantId, Items items, Boolean summarizeErrors, Integer unitdp) throws IOException {
         try {
             TypeReference<Items> typeRef = new TypeReference<Items>() {};
-            HttpResponse response = updateOrCreateItemsForHttpResponse(accessToken, xeroTenantId, items, summarizeErrors);
+            HttpResponse response = updateOrCreateItemsForHttpResponse(accessToken, xeroTenantId, items, summarizeErrors, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -13755,7 +13964,7 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse updateOrCreateItemsForHttpResponse(String accessToken,  String xeroTenantId,  Items items,  Boolean summarizeErrors) throws IOException {
+    public HttpResponse updateOrCreateItemsForHttpResponse(String accessToken,  String xeroTenantId,  Items items,  Boolean summarizeErrors,  Integer unitdp) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling updateOrCreateItems");
@@ -13776,6 +13985,16 @@ public class AccountingApi {
         if (summarizeErrors != null) {
             String key = "summarizeErrors";
             Object value = summarizeErrors;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (unitdp != null) {
+            String key = "unitdp";
+            Object value = unitdp;
             if (value instanceof Collection) {
                 uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
             } else if (value instanceof Object[]) {
@@ -14076,14 +14295,15 @@ public class AccountingApi {
     * @param xeroTenantId Xero identifier for Tenant
     * @param receiptID Unique identifier for a Receipt
     * @param receipts The receipts parameter
+    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal places for unit amounts
     * @param accessToken Authorization token for user set in header of each request
     * @return Receipts
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Receipts  updateReceipt(String accessToken, String xeroTenantId, UUID receiptID, Receipts receipts) throws IOException {
+    public Receipts  updateReceipt(String accessToken, String xeroTenantId, UUID receiptID, Receipts receipts, Integer unitdp) throws IOException {
         try {
             TypeReference<Receipts> typeRef = new TypeReference<Receipts>() {};
-            HttpResponse response = updateReceiptForHttpResponse(accessToken, xeroTenantId, receiptID, receipts);
+            HttpResponse response = updateReceiptForHttpResponse(accessToken, xeroTenantId, receiptID, receipts, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -14094,7 +14314,7 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse updateReceiptForHttpResponse(String accessToken,  String xeroTenantId,  UUID receiptID,  Receipts receipts) throws IOException {
+    public HttpResponse updateReceiptForHttpResponse(String accessToken,  String xeroTenantId,  UUID receiptID,  Receipts receipts,  Integer unitdp) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling updateReceipt");
@@ -14120,6 +14340,17 @@ public class AccountingApi {
         uriVariables.put("ReceiptID", receiptID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        if (unitdp != null) {
+            String key = "unitdp";
+            Object value = unitdp;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 

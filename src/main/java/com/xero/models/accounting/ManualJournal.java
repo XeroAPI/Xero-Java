@@ -64,7 +64,9 @@ public class ManualJournal {
     
     DELETED("DELETED"),
     
-    VOIDED("VOIDED");
+    VOIDED("VOIDED"),
+    
+    ARCHIVED("ARCHIVED");
 
     private String value;
 

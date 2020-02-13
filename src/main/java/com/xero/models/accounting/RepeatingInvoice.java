@@ -111,7 +111,9 @@ public class RepeatingInvoice {
   public enum StatusEnum {
     DRAFT("DRAFT"),
     
-    AUTHORISED("AUTHORISED");
+    AUTHORISED("AUTHORISED"),
+    
+    DELETED("DELETED");
 
     private String value;
 

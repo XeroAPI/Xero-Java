@@ -153,6 +153,10 @@ public class Prepayment {
   @JsonProperty("Total")
   private Double total;
 
+  
+  @JsonProperty("Reference")
+  private String reference;
+
   @JsonDeserialize(using = com.xero.api.CustomOffsetDateTimeDeserializer.class)
   @JsonProperty("UpdatedDateUTC")
   private OffsetDateTime updatedDateUTC;
@@ -354,6 +358,15 @@ public class Prepayment {
     this.total = total;
   }
 
+   /**
+   * Returns Invoice number field. Reference field isn&#39;t available.
+   * @return reference
+  **/
+  @ApiModelProperty(value = "Returns Invoice number field. Reference field isn't available.")
+  public String getReference() {
+    return reference;
+  }
+
   public Prepayment updatedDateUTC(OffsetDateTime updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
     return this;
@@ -533,6 +546,7 @@ public class Prepayment {
         Objects.equals(this.subTotal, prepayment.subTotal) &&
         Objects.equals(this.totalTax, prepayment.totalTax) &&
         Objects.equals(this.total, prepayment.total) &&
+        Objects.equals(this.reference, prepayment.reference) &&
         Objects.equals(this.updatedDateUTC, prepayment.updatedDateUTC) &&
         Objects.equals(this.currencyCode, prepayment.currencyCode) &&
         Objects.equals(this.prepaymentID, prepayment.prepaymentID) &&
@@ -545,7 +559,7 @@ public class Prepayment {
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, contact, date, status, lineAmountTypes, lineItems, subTotal, totalTax, total, updatedDateUTC, currencyCode, prepaymentID, currencyRate, remainingCredit, allocations, hasAttachments, attachments);
+    return Objects.hash(type, contact, date, status, lineAmountTypes, lineItems, subTotal, totalTax, total, reference, updatedDateUTC, currencyCode, prepaymentID, currencyRate, remainingCredit, allocations, hasAttachments, attachments);
   }
 
 
@@ -562,6 +576,7 @@ public class Prepayment {
     sb.append("    subTotal: ").append(toIndentedString(subTotal)).append("\n");
     sb.append("    totalTax: ").append(toIndentedString(totalTax)).append("\n");
     sb.append("    total: ").append(toIndentedString(total)).append("\n");
+    sb.append("    reference: ").append(toIndentedString(reference)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
     sb.append("    currencyCode: ").append(toIndentedString(currencyCode)).append("\n");
     sb.append("    prepaymentID: ").append(toIndentedString(prepaymentID)).append("\n");

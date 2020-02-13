@@ -32,7 +32,7 @@ public class Purchase {
 
   
   @JsonProperty("UnitPrice")
-  private Double unitPrice;
+  private Float unitPrice;
 
   
   @JsonProperty("AccountCode")
@@ -45,7 +45,7 @@ public class Purchase {
   
   @JsonProperty("TaxType")
   private String taxType;
-  public Purchase unitPrice(Double unitPrice) {
+  public Purchase unitPrice(Float unitPrice) {
     this.unitPrice = unitPrice;
     return this;
   }
@@ -55,11 +55,11 @@ public class Purchase {
    * @return unitPrice
   **/
   @ApiModelProperty(value = "Unit Price of the item. By default UnitPrice is rounded to two decimal places. You can use 4 decimal places by adding the unitdp=4 querystring parameter to your request.")
-  public Double getUnitPrice() {
+  public Float getUnitPrice() {
     return unitPrice;
   }
 
-  public void setUnitPrice(Double unitPrice) {
+  public void setUnitPrice(Float unitPrice) {
     this.unitPrice = unitPrice;
   }
 

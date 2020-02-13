@@ -44,11 +44,11 @@ public class LineItem {
 
   
   @JsonProperty("Quantity")
-  private Double quantity;
+  private Float quantity;
 
   
   @JsonProperty("UnitAmount")
-  private Double unitAmount;
+  private Float unitAmount;
 
   
   @JsonProperty("ItemCode")
@@ -121,7 +121,7 @@ public class LineItem {
     this.description = description;
   }
 
-  public LineItem quantity(Double quantity) {
+  public LineItem quantity(Float quantity) {
     this.quantity = quantity;
     return this;
   }
@@ -131,15 +131,15 @@ public class LineItem {
    * @return quantity
   **/
   @ApiModelProperty(value = "LineItem Quantity")
-  public Double getQuantity() {
+  public Float getQuantity() {
     return quantity;
   }
 
-  public void setQuantity(Double quantity) {
+  public void setQuantity(Float quantity) {
     this.quantity = quantity;
   }
 
-  public LineItem unitAmount(Double unitAmount) {
+  public LineItem unitAmount(Float unitAmount) {
     this.unitAmount = unitAmount;
     return this;
   }
@@ -149,11 +149,11 @@ public class LineItem {
    * @return unitAmount
   **/
   @ApiModelProperty(value = "LineItem Unit Amount")
-  public Double getUnitAmount() {
+  public Float getUnitAmount() {
     return unitAmount;
   }
 
-  public void setUnitAmount(Double unitAmount) {
+  public void setUnitAmount(Float unitAmount) {
     this.unitAmount = unitAmount;
   }
 

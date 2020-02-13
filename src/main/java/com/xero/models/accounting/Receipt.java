@@ -90,7 +90,9 @@ public class Receipt {
     
     AUTHORISED("AUTHORISED"),
     
-    DECLINED("DECLINED");
+    DECLINED("DECLINED"),
+    
+    VOIDED("VOIDED");
 
     private String value;
 
