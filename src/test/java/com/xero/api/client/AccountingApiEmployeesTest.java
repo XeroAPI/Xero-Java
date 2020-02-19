@@ -84,8 +84,8 @@ public class AccountingApiEmployeesTest {
     @Test
     public void createEmployeeTest() throws IOException {
         System.out.println("@Test - createEmployee");
-        Employee employee = new Employee();
-        Employees response = accountingApi.createEmployee(accessToken,xeroTenantId,employee);
+        Employees employees = new Employees();
+        Employees response = accountingApi.createEmployees(accessToken,xeroTenantId,employees, false);
 
         assertThat(response.getEmployees().get(0).getEmployeeID(), is(equalTo(UUID.fromString("e1ada26b-a10e-4065-a941-af34b53740e3"))));
         assertThat(response.getEmployees().get(0).getStatus(), is(equalTo(com.xero.models.accounting.Employee.StatusEnum.ACTIVE)));

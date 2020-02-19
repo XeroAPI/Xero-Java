@@ -89,7 +89,7 @@ public class AccountingApiManualJournalsTest {
     public void createManualJournalsTest() throws IOException {
         System.out.println("@Test - createManualJournals");
         ManualJournals manualJournals = new ManualJournals();
-        ManualJournals response = accountingApi.createManualJournals(accessToken,xeroTenantId,manualJournals);
+        ManualJournals response = accountingApi.createManualJournals(accessToken,xeroTenantId,manualJournals, false);
 
         assertThat(response.getManualJournals().get(0).getNarration(), is(equalTo("Foo bar")));
         assertThat(response.getManualJournals().get(0).getJournalLines().get(0).getLineAmount(), is(equalTo(100.0)));

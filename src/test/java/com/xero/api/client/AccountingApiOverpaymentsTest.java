@@ -90,7 +90,7 @@ public class AccountingApiOverpaymentsTest {
         System.out.println("@Test - createOverpaymentAllocations");
         UUID overpaymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         Allocations allocations = new Allocations();
-        Allocations response = accountingApi.createOverpaymentAllocations(accessToken,xeroTenantId,overpaymentID, allocations);
+        Allocations response = accountingApi.createOverpaymentAllocations(accessToken,xeroTenantId,overpaymentID, allocations,false);
 
         // TODO: test validations
         assertThat(response.getAllocations().get(0).getInvoice().getInvoiceID(), is(equalTo(UUID.fromString("c45720a1-ade3-4a38-a064-d15489be6841"))));
