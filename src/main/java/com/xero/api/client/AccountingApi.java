@@ -2948,6 +2948,77 @@ public class AccountingApi {
     }
 
   /**
+    * Allows you to create Attachment on Quote
+    * <p><b>200</b> - Success - return response of type Attachments array of Attachment
+    * <p><b>400</b> - A failed request due to validation error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param quoteID Unique identifier for Quote object
+    * @param fileName Name of the attachment
+    * @param body Byte array of file in body of request
+    * @param accessToken Authorization token for user set in header of each request
+    * @return Attachments
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public Attachments  createQuoteAttachmentByFileName(String accessToken, String xeroTenantId, UUID quoteID, String fileName, File body) throws IOException {
+        try {
+            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+            HttpResponse response = createQuoteAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, quoteID, fileName, body);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    public HttpResponse createQuoteAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID quoteID,  String fileName, File  body) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createQuoteAttachmentByFileName");
+        }// verify the required parameter 'quoteID' is set
+        if (quoteID == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'quoteID' when calling createQuoteAttachmentByFileName");
+        }// verify the required parameter 'fileName' is set
+        if (fileName == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'fileName' when calling createQuoteAttachmentByFileName");
+        }// verify the required parameter 'body' is set
+        if (body == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'body' when calling createQuoteAttachmentByFileName");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createQuoteAttachmentByFileName");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
+        String correctPath = "/Quotes/{QuoteID}/Attachments/{FileName}";
+        
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("QuoteID", quoteID);
+        uriVariables.put("FileName", fileName);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+
+        java.nio.file.Path bodyPath = body.toPath();
+        String mimeType = Files.probeContentType(bodyPath);
+        HttpContent content = null;
+        content = new FileContent(mimeType, body);
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+  /**
     * Allows you to retrieve a history records of an quote
     * <p><b>200</b> - Success - return response of type HistoryRecords array of HistoryRecord objects
     * <p><b>400</b> - A failed request due to validation error
@@ -9865,6 +9936,221 @@ public class AccountingApi {
     }
 
   /**
+    * Allows you to retrieve Attachment on Quote by Filename
+    * <p><b>200</b> - Success - return response of attachment for Quote as binary data
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param quoteID Unique identifier for Quote object
+    * @param fileName Name of the attachment
+    * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
+    * @param accessToken Authorization token for user set in header of each request
+    * @return File
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public ByteArrayInputStream  getQuoteAttachmentByFileName(String accessToken, String xeroTenantId, UUID quoteID, String fileName, String contentType) throws IOException {
+        try {
+            TypeReference<File> typeRef = new TypeReference<File>() {};
+            HttpResponse response = getQuoteAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, quoteID, fileName, contentType);
+            InputStream is = response.getContent();
+            return convertInputToByteArray(is);
+
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    public HttpResponse getQuoteAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID quoteID,  String fileName,  String contentType) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getQuoteAttachmentByFileName");
+        }// verify the required parameter 'quoteID' is set
+        if (quoteID == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'quoteID' when calling getQuoteAttachmentByFileName");
+        }// verify the required parameter 'fileName' is set
+        if (fileName == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'fileName' when calling getQuoteAttachmentByFileName");
+        }// verify the required parameter 'contentType' is set
+        if (contentType == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'contentType' when calling getQuoteAttachmentByFileName");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getQuoteAttachmentByFileName");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("contentType", contentType);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
+        String correctPath = "/Quotes/{QuoteID}/Attachments/{FileName}";
+        
+        // Hacky path manipulation to support different return types from same endpoint
+        String path = "/Quotes/{QuoteID}/Attachments/{FileName}";
+        String type = "/pdf";
+        if(path.toLowerCase().contains(type.toLowerCase())) {
+            correctPath = path.replace("/pdf","");
+            headers.setAccept("application/pdf"); 
+        }
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("QuoteID", quoteID);
+        uriVariables.put("FileName", fileName);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+  /**
+    * Allows you to retrieve specific Attachment on Quote
+    * <p><b>200</b> - Success - return response of attachment for Quote as binary data
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param quoteID Unique identifier for Quote object
+    * @param attachmentID Unique identifier for Attachment object
+    * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg, application/pdf
+    * @param accessToken Authorization token for user set in header of each request
+    * @return File
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public ByteArrayInputStream  getQuoteAttachmentById(String accessToken, String xeroTenantId, UUID quoteID, UUID attachmentID, String contentType) throws IOException {
+        try {
+            TypeReference<File> typeRef = new TypeReference<File>() {};
+            HttpResponse response = getQuoteAttachmentByIdForHttpResponse(accessToken, xeroTenantId, quoteID, attachmentID, contentType);
+            InputStream is = response.getContent();
+            return convertInputToByteArray(is);
+
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    public HttpResponse getQuoteAttachmentByIdForHttpResponse(String accessToken,  String xeroTenantId,  UUID quoteID,  UUID attachmentID,  String contentType) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getQuoteAttachmentById");
+        }// verify the required parameter 'quoteID' is set
+        if (quoteID == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'quoteID' when calling getQuoteAttachmentById");
+        }// verify the required parameter 'attachmentID' is set
+        if (attachmentID == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'attachmentID' when calling getQuoteAttachmentById");
+        }// verify the required parameter 'contentType' is set
+        if (contentType == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'contentType' when calling getQuoteAttachmentById");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getQuoteAttachmentById");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.set("contentType", contentType);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
+        String correctPath = "/Quotes/{QuotesID}/Attachments/{AttachmentID}";
+        
+        // Hacky path manipulation to support different return types from same endpoint
+        String path = "/Quotes/{QuotesID}/Attachments/{AttachmentID}";
+        String type = "/pdf";
+        if(path.toLowerCase().contains(type.toLowerCase())) {
+            correctPath = path.replace("/pdf","");
+            headers.setAccept("application/pdf"); 
+        }
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("QuoteID", quoteID);
+        uriVariables.put("AttachmentID", attachmentID);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+  /**
+    * Allows you to retrieve Attachments for Quotes
+    * <p><b>200</b> - Success - return response of type Attachments array of Attachment
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param quoteID Unique identifier for Quote object
+    * @param accessToken Authorization token for user set in header of each request
+    * @return Attachments
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public Attachments  getQuoteAttachments(String accessToken, String xeroTenantId, UUID quoteID) throws IOException {
+        try {
+            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+            HttpResponse response = getQuoteAttachmentsForHttpResponse(accessToken, xeroTenantId, quoteID);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    public HttpResponse getQuoteAttachmentsForHttpResponse(String accessToken,  String xeroTenantId,  UUID quoteID) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getQuoteAttachments");
+        }// verify the required parameter 'quoteID' is set
+        if (quoteID == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'quoteID' when calling getQuoteAttachments");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getQuoteAttachments");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
+        String correctPath = "/Quotes/{QuoteID}/Attachments";
+        
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("QuoteID", quoteID);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+  /**
     * Allows you to retrieve a history records of an quote
     * <p><b>200</b> - Success - return response of HistoryRecords array of 0 to N HistoryRecord
     * @param xeroTenantId Xero identifier for Tenant
@@ -14273,6 +14559,77 @@ public class AccountingApi {
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(quotes);
         
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+  /**
+    * Allows you to update Attachment on Quote by Filename
+    * <p><b>200</b> - Success - return response of type Attachments array of Attachment
+    * <p><b>400</b> - Validation Error - some data was incorrect returns response of type Error
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param quoteID Unique identifier for Quote object
+    * @param fileName Name of the attachment
+    * @param body Byte array of file in body of request
+    * @param accessToken Authorization token for user set in header of each request
+    * @return Attachments
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public Attachments  updateQuoteAttachmentByFileName(String accessToken, String xeroTenantId, UUID quoteID, String fileName, File body) throws IOException {
+        try {
+            TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+            HttpResponse response = updateQuoteAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, quoteID, fileName, body);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    public HttpResponse updateQuoteAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID quoteID,  String fileName, File  body) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling updateQuoteAttachmentByFileName");
+        }// verify the required parameter 'quoteID' is set
+        if (quoteID == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'quoteID' when calling updateQuoteAttachmentByFileName");
+        }// verify the required parameter 'fileName' is set
+        if (fileName == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'fileName' when calling updateQuoteAttachmentByFileName");
+        }// verify the required parameter 'body' is set
+        if (body == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'body' when calling updateQuoteAttachmentByFileName");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling updateQuoteAttachmentByFileName");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
+        String correctPath = "/Quotes/{QuoteID}/Attachments/{FileName}";
+        
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("QuoteID", quoteID);
+        uriVariables.put("FileName", fileName);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+
+        java.nio.file.Path bodyPath = body.toPath();
+        String mimeType = Files.probeContentType(bodyPath);
+        HttpContent content = null;
+        content = new FileContent(mimeType, body);
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
