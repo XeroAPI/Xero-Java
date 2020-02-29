@@ -90,7 +90,7 @@ public class AccountingApi {
     private ApiClient apiClient;
     private static AccountingApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.3.1";
+    private String version = "3.3.2";
 
     public AccountingApi() {
         this(new ApiClient());
@@ -989,7 +989,7 @@ public class AccountingApi {
     }
 
   /**
-    * Allows you to add Contacts to a Contract Group
+    * Allows you to add Contacts to a Contact Group
     * <p><b>200</b> - Success - return response of type Contacts array of added Contacts
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
@@ -3737,7 +3737,7 @@ public class AccountingApi {
     }
 
   /**
-    * Allows you to delete a specific Contact from a Contract Group
+    * Allows you to delete a specific Contact from a Contact Group
     * <p><b>204</b> - Success - return response 204 no content
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
@@ -3799,8 +3799,8 @@ public class AccountingApi {
     }
 
   /**
-    * Allows you to delete  all Contacts from a Contract Group
-    * <p><b>200</b> - Success - return response 204 no content
+    * Allows you to delete  all Contacts from a Contact Group
+    * <p><b>204</b> - Success - return response 204 no content
     * @param xeroTenantId Xero identifier for Tenant
     * @param contactGroupID Unique identifier for a Contact Group
     * @param accessToken Authorization token for user set in header of each request
@@ -6065,7 +6065,7 @@ public class AccountingApi {
     }
 
   /**
-    * Allows you to retrieve a unique Contract Group by ID
+    * Allows you to retrieve a unique Contact Group by ID
     * <p><b>200</b> - Success - return response of type Contact Groups array with a specific Contact Group
     * @param xeroTenantId Xero identifier for Tenant
     * @param contactGroupID Unique identifier for a Contact Group
@@ -10063,10 +10063,10 @@ public class AccountingApi {
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
-        String correctPath = "/Quotes/{QuotesID}/Attachments/{AttachmentID}";
+        String correctPath = "/Quotes/{QuoteID}/Attachments/{AttachmentID}";
         
         // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Quotes/{QuotesID}/Attachments/{AttachmentID}";
+        String path = "/Quotes/{QuoteID}/Attachments/{AttachmentID}";
         String type = "/pdf";
         if(path.toLowerCase().contains(type.toLowerCase())) {
             correctPath = path.replace("/pdf","");
@@ -12994,7 +12994,7 @@ public class AccountingApi {
     }
 
   /**
-    * Allows you to update a Contract Group
+    * Allows you to update a Contact Group
     * <p><b>200</b> - Success - return response of type Contact Groups array of updated Contact Group
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
