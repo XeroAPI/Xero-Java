@@ -8,11 +8,11 @@ Version 3.x of Xero Java SDK only supports oAuth2 authentication and the followi
 * identity
 * bank feeds
 * fixed asset 
+* projects
 * payroll au (beta)
 
 Coming soon 
 * payroll nz/uk
-* projects
 * files 
 * xero hq
 
