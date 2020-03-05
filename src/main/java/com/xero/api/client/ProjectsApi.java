@@ -8,6 +8,7 @@ import com.xero.models.projects.ProjectCreateOrUpdate;
 import com.xero.models.projects.ProjectPatch;
 import com.xero.models.projects.ProjectUsers;
 import com.xero.models.projects.Projects;
+import com.xero.models.projects.Task;
 import com.xero.models.projects.Tasks;
 import com.xero.models.projects.TimeEntries;
 import com.xero.models.projects.TimeEntry;
@@ -51,7 +52,7 @@ public class ProjectsApi {
     private ApiClient apiClient;
     private static ProjectsApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.3.2";
+    private String version = "3.4.0";
 
     public ProjectsApi() {
         this(new ApiClient());
@@ -412,7 +413,7 @@ public class ProjectsApi {
     * @return Projects
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Projects  getProjects(String accessToken, String xeroTenantId, List<UUID> projectIds, UUID contactID, Projects states, Integer page, Integer pageSize) throws IOException {
+    public Projects  getProjects(String accessToken, String xeroTenantId, List<UUID> projectIds, UUID contactID, String states, Integer page, Integer pageSize) throws IOException {
         try {
             TypeReference<Projects> typeRef = new TypeReference<Projects>() {};
             HttpResponse response = getProjectsForHttpResponse(accessToken, xeroTenantId, projectIds, contactID, states, page, pageSize);
@@ -426,7 +427,7 @@ public class ProjectsApi {
         return null;
     }
 
-    public HttpResponse getProjectsForHttpResponse(String accessToken,  String xeroTenantId,  List<UUID> projectIds,  UUID contactID,  Projects states,  Integer page,  Integer pageSize) throws IOException {
+    public HttpResponse getProjectsForHttpResponse(String accessToken,  String xeroTenantId,  List<UUID> projectIds,  UUID contactID,  String states,  Integer page,  Integer pageSize) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getProjects");
@@ -510,9 +511,73 @@ public class ProjectsApi {
     * <p><b>200</b> - OK/success, returns a list of task objects
     * @param xeroTenantId Xero identifier for Tenant
     * @param projectId You can specify an individual project by appending the projectId to the endpoint
+    * @param taskId You can specify an individual task by appending the taskId to the endpoint, i.e. GET https://.../tasks/{taskId}
+    * @param accessToken Authorization token for user set in header of each request
+    * @return Task
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public Task  getTask(String accessToken, String xeroTenantId, UUID projectId, UUID taskId) throws IOException {
+        try {
+            TypeReference<Task> typeRef = new TypeReference<Task>() {};
+            HttpResponse response = getTaskForHttpResponse(accessToken, xeroTenantId, projectId, taskId);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    public HttpResponse getTaskForHttpResponse(String accessToken,  String xeroTenantId,  UUID projectId,  UUID taskId) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getTask");
+        }// verify the required parameter 'projectId' is set
+        if (projectId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'projectId' when calling getTask");
+        }// verify the required parameter 'taskId' is set
+        if (taskId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'taskId' when calling getTask");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getTask");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Xero-Tenant-Id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
+        String correctPath = "/projects/{projectId}/tasks/{taskId}";
+        
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("projectId", projectId);
+        uriVariables.put("taskId", taskId);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();      
+    }
+
+  /**
+    * Allows you to retrieve a single project
+    * Allows you to retrieve a specific project
+    * <p><b>200</b> - OK/success, returns a list of task objects
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param projectId You can specify an individual project by appending the projectId to the endpoint
     * @param page Set to 1 by default. The requested number of the page in paged response - Must be a number greater than 0.
     * @param pageSize Optional, it is set to 50 by default. The number of items to return per page in a paged response - Must be a number between 1 and 500.
-    * @param taskIds taskIdsSearch for all tasks that match a comma separated list of taskIds, i.e. GET https://.../tasks?taskIds&#x3D;{taskId},{taskId}
+    * @param taskIds taskIds Search for all tasks that match a comma separated list of taskIds, i.e. GET https://.../tasks?taskIds&#x3D;{taskId},{taskId}
     * @param accessToken Authorization token for user set in header of each request
     * @return Tasks
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -609,7 +674,7 @@ public class ProjectsApi {
     * @param contactId Finds all time entries for this contact identifier.
     * @param page Set to 1 by default. The requested number of the page in paged response - Must be a number greater than 0.
     * @param pageSize Optional, it is set to 50 by default. The number of items to return per page in a paged response - Must be a number between 1 and 500.
-    * @param states Comma-separated list of states to find. Will find all time entries that are in the status of whatever’s specified.
+    * @param states Comma-separated list of states to find. Will find all time entries that are in the status of whatever’s specified. 
     * @param isChargeable Finds all time entries which relate to tasks with the charge type &#x60;TIME&#x60; or &#x60;FIXED&#x60;.
     * @param dateAfterUtc ISO 8601 UTC date. Finds all time entries on or after this date filtered on the &#x60;dateUtc&#x60; field.
     * @param dateBeforeUtc ISO 8601 UTC date. Finds all time entries on or before this date filtered on the &#x60;dateUtc&#x60; field.
@@ -617,7 +682,7 @@ public class ProjectsApi {
     * @return TimeEntries
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public TimeEntries  getTimeEntries(String accessToken, String xeroTenantId, UUID projectId, UUID userId, UUID taskId, UUID invoiceId, UUID contactId, Integer page, Integer pageSize, String states, Boolean isChargeable, OffsetDateTime dateAfterUtc, OffsetDateTime dateBeforeUtc) throws IOException {
+    public TimeEntries  getTimeEntries(String accessToken, String xeroTenantId, UUID projectId, UUID userId, UUID taskId, UUID invoiceId, UUID contactId, Integer page, Integer pageSize, List<String> states, Boolean isChargeable, OffsetDateTime dateAfterUtc, OffsetDateTime dateBeforeUtc) throws IOException {
         try {
             TypeReference<TimeEntries> typeRef = new TypeReference<TimeEntries>() {};
             HttpResponse response = getTimeEntriesForHttpResponse(accessToken, xeroTenantId, projectId, userId, taskId, invoiceId, contactId, page, pageSize, states, isChargeable, dateAfterUtc, dateBeforeUtc);
@@ -631,7 +696,7 @@ public class ProjectsApi {
         return null;
     }
 
-    public HttpResponse getTimeEntriesForHttpResponse(String accessToken,  String xeroTenantId,  UUID projectId,  UUID userId,  UUID taskId,  UUID invoiceId,  UUID contactId,  Integer page,  Integer pageSize,  String states,  Boolean isChargeable,  OffsetDateTime dateAfterUtc,  OffsetDateTime dateBeforeUtc) throws IOException {
+    public HttpResponse getTimeEntriesForHttpResponse(String accessToken,  String xeroTenantId,  UUID projectId,  UUID userId,  UUID taskId,  UUID invoiceId,  UUID contactId,  Integer page,  Integer pageSize,  List<String> states,  Boolean isChargeable,  OffsetDateTime dateAfterUtc,  OffsetDateTime dateBeforeUtc) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getTimeEntries");

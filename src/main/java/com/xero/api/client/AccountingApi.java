@@ -90,7 +90,7 @@ public class AccountingApi {
     private ApiClient apiClient;
     private static AccountingApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.3.2";
+    private String version = "3.4.0";
 
     public AccountingApi() {
         this(new ApiClient());
@@ -9692,6 +9692,65 @@ public class AccountingApi {
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("PurchaseOrderID", purchaseOrderID);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+  /**
+    * Allows you to retrieve a specified purchase orders
+    * <p><b>200</b> - Success - return response of type PurchaseOrder array for specified PurchaseOrder
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param purchaseOrderNumber Unique identifier for a PurchaseOrder
+    * @param accessToken Authorization token for user set in header of each request
+    * @return PurchaseOrders
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public PurchaseOrders  getPurchaseOrderByNumber(String accessToken, String xeroTenantId, String purchaseOrderNumber) throws IOException {
+        try {
+            TypeReference<PurchaseOrders> typeRef = new TypeReference<PurchaseOrders>() {};
+            HttpResponse response = getPurchaseOrderByNumberForHttpResponse(accessToken, xeroTenantId, purchaseOrderNumber);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    public HttpResponse getPurchaseOrderByNumberForHttpResponse(String accessToken,  String xeroTenantId,  String purchaseOrderNumber) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getPurchaseOrderByNumber");
+        }// verify the required parameter 'purchaseOrderNumber' is set
+        if (purchaseOrderNumber == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'purchaseOrderNumber' when calling getPurchaseOrderByNumber");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getPurchaseOrderByNumber");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
+        String correctPath = "/PurchaseOrders/{PurchaseOrderNumber}";
+        
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("PurchaseOrderNumber", purchaseOrderNumber);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.buildFromMap(uriVariables).toString();
