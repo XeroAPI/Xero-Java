@@ -13,7 +13,7 @@ import static org.hamcrest.core.Every.everyItem;
 
 import com.xero.api.ApiClient;
 import com.xero.api.client.*;
-import com.xero.models.projects.*;
+import com.xero.models.project.*;
 
 import java.io.File;
 import java.net.URL;
@@ -43,7 +43,7 @@ import java.math.BigDecimal;
 public class ProjectsApiProjectUsersTest {
 
 	ApiClient defaultClient; 
-    ProjectsApi projectsApi; 
+    ProjectApi projectApi; 
 	String accessToken;
     String xeroTenantId; 
    
@@ -55,10 +55,10 @@ public class ProjectsApiProjectUsersTest {
         accessToken = "123";
         xeroTenantId = "xyz";
         
-        // Init projectsApi client
+        // Init projectApi client
         // NEW Sandbox for API Mocking
 		defaultClient = new ApiClient("https://xero-projects.getsandbox.com:443/projects.xro/2.0",null,null,null,null);
-        projectsApi = ProjectsApi.getInstance(defaultClient);   
+        projectApi = ProjectApi.getInstance(defaultClient);   
        
         // ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
         if (setUpIsDone) {
@@ -76,7 +76,7 @@ public class ProjectsApiProjectUsersTest {
 	}
 
 	public void tearDown() {
-		projectsApi = null;
+		projectApi = null;
         defaultClient = null;
 	}
 
@@ -86,7 +86,7 @@ public class ProjectsApiProjectUsersTest {
         
         int page = 1;
         int pageSize = 50;
-        ProjectUsers response = projectsApi.getProjectUsers(accessToken, xeroTenantId, page, pageSize);
+        ProjectUsers response = projectApi.getProjectUsers(accessToken, xeroTenantId, page, pageSize);
         
         assertThat(response.getPagination().getPage(), is(equalTo(1)));
         assertThat(response.getPagination().getItemCount(), is(equalTo(2)));

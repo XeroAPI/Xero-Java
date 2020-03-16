@@ -12,6 +12,15 @@
 
 package com.xero.api;
 
+import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.ZoneId;
+
 public class StringUtil {
     /**
      * Check if the given array contains the given value (with case-insensitive
@@ -60,5 +69,43 @@ public class StringUtil {
             out.append(separator).append(array[i]);
         }
         return out.toString();
+    }
+
+    public LocalDate convertStringToDate(String date)
+            throws IOException {
+        LocalDate formattedDate;
+        Pattern datePatt = Pattern.compile("^/Date\\((\\d+)([+-]\\d+)?\\)/$");
+        Pattern datePattNeg = Pattern.compile("^/Date\\(-(\\d+)([+-]\\d+)?\\)/$");
+        Matcher m = datePatt.matcher(date);
+        Matcher matchNeg = datePattNeg.matcher(date);
+        if (m != null && m.matches()) {
+            Long l = Long.parseLong(m.group(1));
+            formattedDate = Instant.ofEpochMilli(l).atZone(ZoneId.systemDefault()).toLocalDate();
+        } else if (matchNeg != null && matchNeg.matches()) {
+            Long l = Long.parseLong(matchNeg.group(1));
+            formattedDate = Instant.ofEpochMilli(-l).atZone(ZoneId.systemDefault()).toLocalDate();
+        } else {
+            throw new IllegalArgumentException("Wrong date format");
+        }
+        return formattedDate;
+    }
+    
+    public OffsetDateTime convertStringToOffsetDateTime(String date)
+            throws IOException {
+        OffsetDateTime formattedDate;
+        Pattern datePatt = Pattern.compile("^/Date\\((\\d+)([+-]\\d+)?\\)/$");
+        Matcher m = datePatt.matcher(date);
+        Pattern datePattNeg = Pattern.compile("^/Date\\(-(\\d+)([+-]\\d+)?\\)/$");
+        Matcher mNeg = datePattNeg.matcher(date);
+        if (m != null && m.matches()) {
+            Long l = Long.parseLong(m.group(1));
+            formattedDate = Instant.ofEpochMilli(l).atZone(ZoneId.systemDefault()).toOffsetDateTime();
+        } else if (mNeg != null && mNeg.matches()) {
+            Long l = Long.parseLong(mNeg.group(1));
+            formattedDate = Instant.ofEpochMilli(-l).atZone(ZoneId.systemDefault()).toOffsetDateTime();
+        } else {
+            throw new IllegalArgumentException("Wrong date format");
+        }
+        return formattedDate;
     }
 }

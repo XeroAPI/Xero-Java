@@ -1,18 +1,18 @@
 package com.xero.api.client;
 import com.xero.api.ApiClient;
 
-import com.xero.models.projects.Error;
+import com.xero.models.project.Error;
 import org.threeten.bp.OffsetDateTime;
-import com.xero.models.projects.Project;
-import com.xero.models.projects.ProjectCreateOrUpdate;
-import com.xero.models.projects.ProjectPatch;
-import com.xero.models.projects.ProjectUsers;
-import com.xero.models.projects.Projects;
-import com.xero.models.projects.Task;
-import com.xero.models.projects.Tasks;
-import com.xero.models.projects.TimeEntries;
-import com.xero.models.projects.TimeEntry;
-import com.xero.models.projects.TimeEntryCreateOrUpdate;
+import com.xero.models.project.Project;
+import com.xero.models.project.ProjectCreateOrUpdate;
+import com.xero.models.project.ProjectPatch;
+import com.xero.models.project.ProjectUsers;
+import com.xero.models.project.Projects;
+import com.xero.models.project.Task;
+import com.xero.models.project.Tasks;
+import com.xero.models.project.TimeEntries;
+import com.xero.models.project.TimeEntry;
+import com.xero.models.project.TimeEntryCreateOrUpdate;
 import java.util.UUID;
 
 import com.xero.api.XeroApiException;
@@ -48,24 +48,24 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
-public class ProjectsApi {
+public class ProjectApi {
     private ApiClient apiClient;
-    private static ProjectsApi instance = null;
+    private static ProjectApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.4.0";
+    private String version = "3.5.0";
 
-    public ProjectsApi() {
+    public ProjectApi() {
         this(new ApiClient());
     }
 
-    public static ProjectsApi getInstance(ApiClient apiClient) {
+    public static ProjectApi getInstance(ApiClient apiClient) {
       if (instance == null) {
-        instance = new ProjectsApi(apiClient);
+        instance = new ProjectApi(apiClient);
       }
       return instance;
     }
 
-    public ProjectsApi(ApiClient apiClient) {
+    public ProjectApi(ApiClient apiClient) {
         this.apiClient = apiClient;
     }
 
@@ -577,7 +577,7 @@ public class ProjectsApi {
     * @param projectId You can specify an individual project by appending the projectId to the endpoint
     * @param page Set to 1 by default. The requested number of the page in paged response - Must be a number greater than 0.
     * @param pageSize Optional, it is set to 50 by default. The number of items to return per page in a paged response - Must be a number between 1 and 500.
-    * @param taskIds taskIds Search for all tasks that match a comma separated list of taskIds, i.e. GET https://.../tasks?taskIds&#x3D;{taskId},{taskId}
+    * @param taskIds taskIdsSearch for all tasks that match a comma separated list of taskIds, i.e. GET https://.../tasks?taskIds&#x3D;{taskId},{taskId}
     * @param accessToken Authorization token for user set in header of each request
     * @return Tasks
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -674,7 +674,7 @@ public class ProjectsApi {
     * @param contactId Finds all time entries for this contact identifier.
     * @param page Set to 1 by default. The requested number of the page in paged response - Must be a number greater than 0.
     * @param pageSize Optional, it is set to 50 by default. The number of items to return per page in a paged response - Must be a number between 1 and 500.
-    * @param states Comma-separated list of states to find. Will find all time entries that are in the status of whatever’s specified. 
+    * @param states Comma-separated list of states to find. Will find all time entries that are in the status of whatever’s specified.
     * @param isChargeable Finds all time entries which relate to tasks with the charge type &#x60;TIME&#x60; or &#x60;FIXED&#x60;.
     * @param dateAfterUtc ISO 8601 UTC date. Finds all time entries on or after this date filtered on the &#x60;dateUtc&#x60; field.
     * @param dateBeforeUtc ISO 8601 UTC date. Finds all time entries on or before this date filtered on the &#x60;dateUtc&#x60; field.

@@ -13,7 +13,7 @@ import static org.hamcrest.core.Every.everyItem;
 
 import com.xero.api.ApiClient;
 import com.xero.api.client.*;
-import com.xero.models.projects.*;
+import com.xero.models.project.*;
 
 import java.io.File;
 import java.net.URL;
@@ -46,7 +46,7 @@ import java.math.BigDecimal;
 public class ProjectsApiTimeEntriesTest {
 
 	ApiClient defaultClient; 
-    ProjectsApi projectsApi; 
+    ProjectApi projectApi; 
 	String accessToken;
     String xeroTenantId; 
    
@@ -61,7 +61,7 @@ public class ProjectsApiTimeEntriesTest {
         // Init projectsApi client
         // NEW Sandbox for API Mocking
 		defaultClient = new ApiClient("https://xero-projects.getsandbox.com:443/projects.xro/2.0",null,null,null,null);
-        projectsApi = ProjectsApi.getInstance(defaultClient);   
+        projectApi = ProjectApi.getInstance(defaultClient);   
        
         // ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
         if (setUpIsDone) {
@@ -79,7 +79,7 @@ public class ProjectsApiTimeEntriesTest {
 	}
 
 	public void tearDown() {
-		projectsApi = null;
+		projectApi = null;
         defaultClient = null;
 	}
 
@@ -98,7 +98,7 @@ public class ProjectsApiTimeEntriesTest {
         int pageSize = 50;
         List<String> states =null;
 
-        TimeEntries response = projectsApi.getTimeEntries(accessToken, xeroTenantId, projectId, userId, taskId, invoiceId, contactId, page, pageSize, states, isChargeable, dateAfterUtc, dateBeforeUtc);
+        TimeEntries response = projectApi.getTimeEntries(accessToken, xeroTenantId, projectId, userId, taskId, invoiceId, contactId, page, pageSize, states, isChargeable, dateAfterUtc, dateBeforeUtc);
         
         assertThat(response.getPagination().getPage(), is(equalTo(1)));
         assertThat(response.getPagination().getItemCount(), is(equalTo(9)));
@@ -111,7 +111,7 @@ public class ProjectsApiTimeEntriesTest {
         assertThat(response.getItems().get(0).getDateUtc(), is(equalTo(OffsetDateTime.parse("2020-02-27T15:00Z"))));
         assertThat(response.getItems().get(0).getDateEnteredUtc(), is(equalTo(OffsetDateTime.parse("2020-02-21T21:41:22.264272700Z"))));
         assertThat(response.getItems().get(0).getDuration(), is(equalTo(45)));
-        assertThat(response.getItems().get(0).getStatus(),is(equalTo(com.xero.models.projects.TimeEntry.StatusEnum.ACTIVE)));
+        assertThat(response.getItems().get(0).getStatus(),is(equalTo(com.xero.models.project.TimeEntry.StatusEnum.ACTIVE)));
         //System.out.println(response.toString());
     }
 
@@ -122,7 +122,7 @@ public class ProjectsApiTimeEntriesTest {
         TimeEntryCreateOrUpdate timeEntryCreateOrUpdate = new TimeEntryCreateOrUpdate();
         UUID projectId = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");
 
-        TimeEntry response = projectsApi.createTimeEntry(accessToken, xeroTenantId, projectId, timeEntryCreateOrUpdate);
+        TimeEntry response = projectApi.createTimeEntry(accessToken, xeroTenantId, projectId, timeEntryCreateOrUpdate);
         assertThat(response.getTimeEntryId(),is(equalTo(UUID.fromString("c6539534-f1d2-43a6-80df-3bd1f8aca24d"))));
         assertThat(response.getUserId(), is(equalTo(UUID.fromString("740add2a-a703-4b8a-a670-1093919c2040"))));
         assertThat(response.getProjectId(), is(equalTo(UUID.fromString("b021e7cb-1903-4292-b48b-5b27b4271e3e"))));
@@ -130,7 +130,7 @@ public class ProjectsApiTimeEntriesTest {
         assertThat(response.getDateUtc(), is(equalTo(OffsetDateTime.parse("2020-02-26T15:00Z"))));
         assertThat(response.getDateEnteredUtc(), is(equalTo(OffsetDateTime.parse("2020-02-28T20:37:42.865283200Z"))));
         assertThat(response.getDuration(), is(equalTo(30)));
-        assertThat(response.getStatus(),is(equalTo(com.xero.models.projects.TimeEntry.StatusEnum.ACTIVE)));
+        assertThat(response.getStatus(),is(equalTo(com.xero.models.project.TimeEntry.StatusEnum.ACTIVE)));
 
        //System.out.println(response.toString());
     }
@@ -141,7 +141,7 @@ public class ProjectsApiTimeEntriesTest {
         UUID projectId = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         UUID timeEntryId = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
 
-        TimeEntry response = projectsApi.getTimeEntry(accessToken, xeroTenantId, projectId, timeEntryId);
+        TimeEntry response = projectApi.getTimeEntry(accessToken, xeroTenantId, projectId, timeEntryId);
         assertThat(response.getTimeEntryId(),is(equalTo(UUID.fromString("3cd35eca-704f-4bca-b258-236028ae8ed1"))));
         assertThat(response.getUserId(), is(equalTo(UUID.fromString("740add2a-a703-4b8a-a670-1093919c2040"))));
         assertThat(response.getProjectId(), is(equalTo(UUID.fromString("b021e7cb-1903-4292-b48b-5b27b4271e3e"))));
@@ -149,7 +149,7 @@ public class ProjectsApiTimeEntriesTest {
         assertThat(response.getDateUtc(), is(equalTo(OffsetDateTime.parse("2020-02-27T15:00Z"))));
         assertThat(response.getDateEnteredUtc(), is(equalTo(OffsetDateTime.parse("2020-02-21T21:41:22.264272700Z"))));
         assertThat(response.getDuration(), is(equalTo(45)));
-        assertThat(response.getStatus(),is(equalTo(com.xero.models.projects.TimeEntry.StatusEnum.ACTIVE)));
+        assertThat(response.getStatus(),is(equalTo(com.xero.models.project.TimeEntry.StatusEnum.ACTIVE)));
         assertThat(response.getDescription(), is(equalTo("My description")));
         
         //System.out.println(response.toString());

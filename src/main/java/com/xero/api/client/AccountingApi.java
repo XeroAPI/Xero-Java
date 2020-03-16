@@ -35,6 +35,7 @@ import com.xero.models.accounting.OnlineInvoices;
 import com.xero.models.accounting.Organisations;
 import com.xero.models.accounting.Overpayments;
 import com.xero.models.accounting.Payment;
+import com.xero.models.accounting.PaymentDelete;
 import com.xero.models.accounting.PaymentService;
 import com.xero.models.accounting.PaymentServices;
 import com.xero.models.accounting.Payments;
@@ -90,7 +91,7 @@ public class AccountingApi {
     private ApiClient apiClient;
     private static AccountingApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.4.0";
+    private String version = "3.5.0";
 
     public AccountingApi() {
         this(new ApiClient());
@@ -3974,15 +3975,15 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
     * @param paymentID Unique identifier for a Payment
-    * @param payments The payments parameter
+    * @param paymentDelete The paymentDelete parameter
     * @param accessToken Authorization token for user set in header of each request
     * @return Payments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Payments  deletePayment(String accessToken, String xeroTenantId, UUID paymentID, Payments payments) throws IOException {
+    public Payments  deletePayment(String accessToken, String xeroTenantId, UUID paymentID, PaymentDelete paymentDelete) throws IOException {
         try {
             TypeReference<Payments> typeRef = new TypeReference<Payments>() {};
-            HttpResponse response = deletePaymentForHttpResponse(accessToken, xeroTenantId, paymentID, payments);
+            HttpResponse response = deletePaymentForHttpResponse(accessToken, xeroTenantId, paymentID, paymentDelete);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -3993,16 +3994,16 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse deletePaymentForHttpResponse(String accessToken,  String xeroTenantId,  UUID paymentID,  Payments payments) throws IOException {
+    public HttpResponse deletePaymentForHttpResponse(String accessToken,  String xeroTenantId,  UUID paymentID,  PaymentDelete paymentDelete) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling deletePayment");
         }// verify the required parameter 'paymentID' is set
         if (paymentID == null) {
             throw new IllegalArgumentException("Missing the required parameter 'paymentID' when calling deletePayment");
-        }// verify the required parameter 'payments' is set
-        if (payments == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'payments' when calling deletePayment");
+        }// verify the required parameter 'paymentDelete' is set
+        if (paymentDelete == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'paymentDelete' when calling deletePayment");
         }
         if (accessToken == null) {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling deletePayment");
@@ -4024,7 +4025,7 @@ public class AccountingApi {
 
         
         HttpContent content = null;
-        content = apiClient.new JacksonJsonHttpContent(payments);
+        content = apiClient.new JacksonJsonHttpContent(paymentDelete);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
         HttpTransport transport = apiClient.getHttpTransport();       
