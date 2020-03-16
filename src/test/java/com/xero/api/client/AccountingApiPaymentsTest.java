@@ -46,9 +46,6 @@ public class AccountingApiPaymentsTest {
     AccountingApi accountingApi; 
 	String accessToken;
     String xeroTenantId; 
-     
-    
-    private static boolean setUpIsDone = false;
 	
 	@Before
 	public void setUp() {
@@ -60,20 +57,6 @@ public class AccountingApiPaymentsTest {
         // NEW Sandbox for API Mocking
 		defaultClient = new ApiClient("https://xero-accounting.getsandbox.com:443/api.xro/2.0",null,null,null,null);
         accountingApi = AccountingApi.getInstance(defaultClient);   
-       
-        // ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
-        if (setUpIsDone) {
-            return;
-        }
-
-        try {
-            System.out.println("Sleep for 60 seconds");
-            Thread.sleep(60);
-        } catch(InterruptedException e) {
-            System.out.println(e);
-        }
-        // do the setup
-        setUpIsDone = true;
 	}
 
 	public void tearDown() {
@@ -109,22 +92,21 @@ public class AccountingApiPaymentsTest {
     public void deletePaymentTest() throws IOException {
         System.out.println("@Test - deletePayment");
         UUID paymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Payments payments = new Payments();
-        Payments response = accountingApi.deletePayment(accessToken,xeroTenantId,paymentID, payments);
+        PaymentDelete paymentDelete = new PaymentDelete();
+        Payments response = accountingApi.deletePayment(accessToken,xeroTenantId,paymentID, paymentDelete);
 
-        assertThat(response.getPayments().get(0).getInvoice().getInvoiceNumber(), is(equalTo("INV-0006")));
-        assertThat(response.getPayments().get(0).getAccount().getCode(), is(equalTo("980")));
-        assertThat(response.getPayments().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,18))));  
+        assertThat(response.getPayments().get(0).getAccount().getCode(), is(equalTo("033")));
+        assertThat(response.getPayments().get(0).getDate(), is(equalTo(LocalDate.of(2019,9,01))));  
         assertThat(response.getPayments().get(0).getCurrencyRate(), is(equalTo(1.0)));
         assertThat(response.getPayments().get(0).getCurrencyRate().toString(), is(equalTo("1.0")));
-        assertThat(response.getPayments().get(0).getAmount(), is(equalTo(148062.76)));
-        assertThat(response.getPayments().get(0).getAmount().toString(), is(equalTo("148062.76")));
-        assertThat(response.getPayments().get(0).getReference(), is(equalTo("Yahoo")));
+        assertThat(response.getPayments().get(0).getAmount(), is(equalTo(2.0)));
+        assertThat(response.getPayments().get(0).getAmount().toString(), is(equalTo("2.0")));
+        assertThat(response.getPayments().get(0).getReference(), is(equalTo("foobar")));
         assertThat(response.getPayments().get(0).getIsReconciled(), is(equalTo(false)));
         assertThat(response.getPayments().get(0).getStatus(), is(equalTo(com.xero.models.accounting.Payment.StatusEnum.DELETED)));
-        assertThat(response.getPayments().get(0).getPaymentType(), is(equalTo(com.xero.models.accounting.Payment.PaymentTypeEnum.ACCRECPAYMENT)));
-        assertThat(response.getPayments().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-12T15:17:21.940-08:00"))));
-        assertThat(response.getPayments().get(0).getPaymentID(), is(equalTo(UUID.fromString("38928000-e9a0-420c-8884-f624bab2a351"))));
+        assertThat(response.getPayments().get(0).getPaymentType(), is(equalTo(com.xero.models.accounting.Payment.PaymentTypeEnum.APCREDITPAYMENT)));
+        assertThat(response.getPayments().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2020-03-11T08:57:32.373-08:00"))));
+        assertThat(response.getPayments().get(0).getPaymentID(), is(equalTo(UUID.fromString("c94c996b-1ab3-4ff3-ad19-1cdc77f30817"))));
         assertThat(response.getPayments().get(0).getHasAccount(), is(equalTo(true)));
         assertThat(response.getPayments().get(0).getHasValidationErrors(), is(equalTo(false)));
         //System.out.println(response.getPayments().get(0).toString());

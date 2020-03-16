@@ -59,7 +59,7 @@ public class PayrollAuApi {
     private ApiClient apiClient;
     private static PayrollAuApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.4.0";
+    private String version = "3.5.0";
 
     public PayrollAuApi() {
         this(new ApiClient());
@@ -1273,20 +1273,18 @@ public class PayrollAuApi {
     }
 
   /**
-    * searches SuperFundProducts
+    * searches for an Superfund by unique id
     * <p><b>200</b> - search results matching criteria
-    * <p><b>400</b> - validation error for a bad request
     * @param xeroTenantId Xero identifier for Tenant
-    * @param ABN The ABN of the Regulated SuperFund
-    * @param USI The USI of the Regulated SuperFund
+    * @param superFundID Superfund id for single object
     * @param accessToken Authorization token for user set in header of each request
-    * @return SuperFundProducts
+    * @return SuperFunds
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public SuperFundProducts  getSuperFundProducts(String accessToken, String xeroTenantId, String ABN, String USI) throws IOException {
+    public SuperFunds  getSuperfund(String accessToken, String xeroTenantId, UUID superFundID) throws IOException {
         try {
-            TypeReference<SuperFundProducts> typeRef = new TypeReference<SuperFundProducts>() {};
-            HttpResponse response = getSuperFundProductsForHttpResponse(accessToken, xeroTenantId, ABN, USI);
+            TypeReference<SuperFunds> typeRef = new TypeReference<SuperFunds>() {};
+            HttpResponse response = getSuperfundForHttpResponse(accessToken, xeroTenantId, superFundID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -1297,13 +1295,74 @@ public class PayrollAuApi {
         return null;
     }
 
-    public HttpResponse getSuperFundProductsForHttpResponse(String accessToken,  String xeroTenantId,  String ABN,  String USI) throws IOException {
+    public HttpResponse getSuperfundForHttpResponse(String accessToken,  String xeroTenantId,  UUID superFundID) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getSuperFundProducts");
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getSuperfund");
+        }// verify the required parameter 'superFundID' is set
+        if (superFundID == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'superFundID' when calling getSuperfund");
         }
         if (accessToken == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getSuperFundProducts");
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getSuperfund");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Xero-Tenant-Id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
+        String correctPath = "/Superfunds/{SuperFundID}";
+        
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("SuperFundID", superFundID);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+  /**
+    * searches SuperfundProducts
+    * <p><b>200</b> - search results matching criteria
+    * <p><b>400</b> - validation error for a bad request
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param ABN The ABN of the Regulated SuperFund
+    * @param USI The USI of the Regulated SuperFund
+    * @param accessToken Authorization token for user set in header of each request
+    * @return SuperFundProducts
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public SuperFundProducts  getSuperfundProducts(String accessToken, String xeroTenantId, String ABN, String USI) throws IOException {
+        try {
+            TypeReference<SuperFundProducts> typeRef = new TypeReference<SuperFundProducts>() {};
+            HttpResponse response = getSuperfundProductsForHttpResponse(accessToken, xeroTenantId, ABN, USI);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    public HttpResponse getSuperfundProductsForHttpResponse(String accessToken,  String xeroTenantId,  String ABN,  String USI) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getSuperfundProducts");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getSuperfundProducts");
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
@@ -1359,10 +1418,10 @@ public class PayrollAuApi {
     * @return SuperFunds
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public SuperFunds  getSuperFunds(String accessToken, String xeroTenantId, String ifModifiedSince, String where, String order, Integer page) throws IOException {
+    public SuperFunds  getSuperfunds(String accessToken, String xeroTenantId, String ifModifiedSince, String where, String order, Integer page) throws IOException {
         try {
             TypeReference<SuperFunds> typeRef = new TypeReference<SuperFunds>() {};
-            HttpResponse response = getSuperFundsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order, page);
+            HttpResponse response = getSuperfundsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order, page);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -1373,13 +1432,13 @@ public class PayrollAuApi {
         return null;
     }
 
-    public HttpResponse getSuperFundsForHttpResponse(String accessToken,  String xeroTenantId,  String ifModifiedSince,  String where,  String order,  Integer page) throws IOException {
+    public HttpResponse getSuperfundsForHttpResponse(String accessToken,  String xeroTenantId,  String ifModifiedSince,  String where,  String order,  Integer page) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getSuperFunds");
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getSuperfunds");
         }
         if (accessToken == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getSuperFunds");
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getSuperfunds");
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
@@ -1421,65 +1480,6 @@ public class PayrollAuApi {
             }
         }
         String url = uriBuilder.build().toString();
-        GenericUrl genericUrl = new GenericUrl(url);
-
-        
-        HttpContent content = null;
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
-            .setConnectTimeout(apiClient.getConnectionTimeout())
-            .setReadTimeout(apiClient.getReadTimeout()).execute();  
-    }
-
-  /**
-    * searches for an Superfund by unique id
-    * <p><b>200</b> - search results matching criteria
-    * @param xeroTenantId Xero identifier for Tenant
-    * @param superFundID Superfund id for single object
-    * @param accessToken Authorization token for user set in header of each request
-    * @return SuperFunds
-    * @throws IOException if an error occurs while attempting to invoke the API
-    **/
-    public SuperFunds  getSuperfund(String accessToken, String xeroTenantId, UUID superFundID) throws IOException {
-        try {
-            TypeReference<SuperFunds> typeRef = new TypeReference<SuperFunds>() {};
-            HttpResponse response = getSuperfundForHttpResponse(accessToken, xeroTenantId, superFundID);
-            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-        } catch (HttpResponseException e) {
-            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
-        } catch (IOException ioe) {
-            throw ioe;
-        }
-        return null;
-    }
-
-    public HttpResponse getSuperfundForHttpResponse(String accessToken,  String xeroTenantId,  UUID superFundID) throws IOException {
-        // verify the required parameter 'xeroTenantId' is set
-        if (xeroTenantId == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getSuperfund");
-        }// verify the required parameter 'superFundID' is set
-        if (superFundID == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'superFundID' when calling getSuperfund");
-        }
-        if (accessToken == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getSuperfund");
-        }
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Xero-Tenant-Id", xeroTenantId);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Superfunds/{SuperFundID}";
-        
-        // create a map of path variables
-        final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("SuperFundID", superFundID);
-
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-        String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
         
