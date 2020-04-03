@@ -132,20 +132,4 @@ public class AccountingApiEmployeesTest {
         //System.out.println(response.getEmployees().get(0).toString());
     }
 
-    @Test
-    public void updateEmployeeTest() throws IOException {
-        System.out.println("@Test - updateEmployee");
-        UUID employeeID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Employees employees = new Employees();
-        Employees response = accountingApi.updateEmployee(accessToken,xeroTenantId,employeeID, employees);
-
-        assertThat(response.getEmployees().get(0).getEmployeeID(), is(equalTo(UUID.fromString("ad3db144-6362-459c-8c36-5d31d196e629"))));
-        assertThat(response.getEmployees().get(0).getStatus(), is(equalTo(com.xero.models.accounting.Employee.StatusEnum.ACTIVE)));
-        assertThat(response.getEmployees().get(0).getFirstName(), is(equalTo("Bruce")));
-        assertThat(response.getEmployees().get(0).getLastName(), is(equalTo("Banner")));
-        assertThat(response.getEmployees().get(0).getExternalLink().getUrl(), is(equalTo("http://twitter.com/#!/search/Nick+Fury")));
-        assertThat(response.getEmployees().get(0).getExternalLink().getDescription(), is(equalTo("Go to external link")));
-        assertThat(response.getEmployees().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T09:24:41.303-08:00"))));
-        //System.out.println(response.getEmployees().get(0).toString());
-    }
 }

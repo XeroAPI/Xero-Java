@@ -91,7 +91,7 @@ public class AccountingApi {
     private ApiClient apiClient;
     private static AccountingApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.5.0";
+    private String version = "3.5.1";
 
     public AccountingApi() {
         this(new ApiClient());
@@ -9996,6 +9996,74 @@ public class AccountingApi {
     }
 
   /**
+    * Allows you to retrieve quotes as PDF files
+    * <p><b>200</b> - Success - return response of byte array pdf version of specified Quotes
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param quoteID Unique identifier for an Quote
+    * @param accessToken Authorization token for user set in header of each request
+    * @return File
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public ByteArrayInputStream  getQuoteAsPdf(String accessToken, String xeroTenantId, UUID quoteID) throws IOException {
+        try {
+            TypeReference<File> typeRef = new TypeReference<File>() {};
+            HttpResponse response = getQuoteAsPdfForHttpResponse(accessToken, xeroTenantId, quoteID);
+            InputStream is = response.getContent();
+            return convertInputToByteArray(is);
+
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    public HttpResponse getQuoteAsPdfForHttpResponse(String accessToken,  String xeroTenantId,  UUID quoteID) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getQuoteAsPdf");
+        }// verify the required parameter 'quoteID' is set
+        if (quoteID == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'quoteID' when calling getQuoteAsPdf");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getQuoteAsPdf");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
+        String correctPath = "/Quotes/{QuotesID}/pdf";
+        
+        // Hacky path manipulation to support different return types from same endpoint
+        String path = "/Quotes/{QuotesID}/pdf";
+        String type = "/pdf";
+        if(path.toLowerCase().contains(type.toLowerCase())) {
+            correctPath = path.replace("/pdf","");
+            headers.setAccept("application/pdf"); 
+        }
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("QuoteID", quoteID);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+  /**
     * Allows you to retrieve Attachment on Quote by Filename
     * <p><b>200</b> - Success - return response of attachment for Quote as binary data
     * @param xeroTenantId Xero identifier for Tenant
@@ -13260,72 +13328,6 @@ public class AccountingApi {
         String mimeType = Files.probeContentType(bodyPath);
         HttpContent content = null;
         content = new FileContent(mimeType, body);
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers)
-            .setConnectTimeout(apiClient.getConnectionTimeout())
-            .setReadTimeout(apiClient.getReadTimeout()).execute();  
-    }
-
-  /**
-    * Allows you to update a specific employee used in Xero payrun
-    * <p><b>200</b> - Success - return response of type Employees array with updated Employee
-    * <p><b>400</b> - A failed request due to validation error
-    * @param xeroTenantId Xero identifier for Tenant
-    * @param employeeID Unique identifier for a Employee
-    * @param employees The employees parameter
-    * @param accessToken Authorization token for user set in header of each request
-    * @return Employees
-    * @throws IOException if an error occurs while attempting to invoke the API
-    **/
-    public Employees  updateEmployee(String accessToken, String xeroTenantId, UUID employeeID, Employees employees) throws IOException {
-        try {
-            TypeReference<Employees> typeRef = new TypeReference<Employees>() {};
-            HttpResponse response = updateEmployeeForHttpResponse(accessToken, xeroTenantId, employeeID, employees);
-            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-        } catch (HttpResponseException e) {
-            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
-        } catch (IOException ioe) {
-            throw ioe;
-        }
-        return null;
-    }
-
-    public HttpResponse updateEmployeeForHttpResponse(String accessToken,  String xeroTenantId,  UUID employeeID,  Employees employees) throws IOException {
-        // verify the required parameter 'xeroTenantId' is set
-        if (xeroTenantId == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling updateEmployee");
-        }// verify the required parameter 'employeeID' is set
-        if (employeeID == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'employeeID' when calling updateEmployee");
-        }// verify the required parameter 'employees' is set
-        if (employees == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'employees' when calling updateEmployee");
-        }
-        if (accessToken == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling updateEmployee");
-        }
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees/{EmployeeID}";
-        
-        // create a map of path variables
-        final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("EmployeeID", employeeID);
-
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-        String url = uriBuilder.buildFromMap(uriVariables).toString();
-        GenericUrl genericUrl = new GenericUrl(url);
-
-        
-        HttpContent content = null;
-        content = apiClient.new JacksonJsonHttpContent(employees);
-        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);

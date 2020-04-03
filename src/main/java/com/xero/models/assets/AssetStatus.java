@@ -1,6 +1,6 @@
 /*
- * Xero Projects API
- * This is the Xero Projects API
+ * Xero Assets API
+ * This is the Xero Assets API
  *
  * The version of the OpenAPI document: 2.0.7
  * Contact: api@xero.com
@@ -11,7 +11,7 @@
  */
 
 
-package com.xero.models.project;
+package com.xero.models.assets;
 
 import java.util.Objects;
 import java.util.Arrays;
@@ -21,17 +21,19 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * Status for project
+ * See Asset Status Codes.
  */
-public enum ProjectStatus {
+public enum AssetStatus {
   
-  INPROGRESS("INPROGRESS"),
+  DRAFT("DRAFT"),
   
-  CLOSED("CLOSED");
+  REGISTERED("REGISTERED"),
+  
+  DISPOSED("DISPOSED");
 
   private String value;
 
-  ProjectStatus(String value) {
+  AssetStatus(String value) {
     this.value = value;
   }
 
@@ -46,8 +48,8 @@ public enum ProjectStatus {
   }
 
   @JsonCreator
-  public static ProjectStatus fromValue(String value) {
-    for (ProjectStatus b : ProjectStatus.values()) {
+  public static AssetStatus fromValue(String value) {
+    for (AssetStatus b : AssetStatus.values()) {
       if (b.value.equals(value)) {
         return b;
       }

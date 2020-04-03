@@ -94,7 +94,7 @@ public class AssetsApiTest {
 		    assertThat(response.getPurchaseDate(), is(equalTo(LocalDate.of(2020,01,01))));
             assertThat(response.getPurchasePrice().toString(), is(equalTo("100.0")));
             assertThat(response.getDisposalPrice().toString(), is(equalTo("23.23")));
-            assertThat(response.getAssetStatus(), is(equalTo(com.xero.models.assets.Asset.AssetStatusEnum.DRAFT)));
+            assertThat(response.getAssetStatus(), is(equalTo(com.xero.models.assets.AssetStatus.DRAFT)));
             assertThat(response.getBookDepreciationSetting().getDepreciationMethod(), is(equalTo(com.xero.models.assets.BookDepreciationSetting.DepreciationMethodEnum.STRAIGHTLINE)));
             assertThat(response.getBookDepreciationSetting().getAveragingMethod(), is(equalTo(com.xero.models.assets.BookDepreciationSetting.AveragingMethodEnum.ACTUALDAYS)));
             assertThat(response.getBookDepreciationSetting().getDepreciationRate().toString(), is(equalTo("0.5")));
@@ -121,7 +121,7 @@ public class AssetsApiTest {
 		System.out.println("@Test - getAssets");
 
         try {
-            String status = "DRAFT";
+            AssetStatus status = com.xero.models.assets.AssetStatus.DRAFT;
             Integer page = null;
             Integer pageSize = null;
             String orderBy = null;
@@ -135,7 +135,7 @@ public class AssetsApiTest {
             assertThat(response.getItems().get(0).getPurchaseDate(), is(equalTo(LocalDate.of(2020,01,01))));
             assertThat(response.getItems().get(0).getPurchasePrice().toString(), is(equalTo("100.0")));
             assertThat(response.getItems().get(0).getDisposalPrice().toString(), is(equalTo("0.0")));
-            assertThat(response.getItems().get(0).getAssetStatus(),  is(equalTo(com.xero.models.assets.Asset.AssetStatusEnum.DRAFT)));
+            assertThat(response.getItems().get(0).getAssetStatus(),  is(equalTo(com.xero.models.assets.AssetStatus.DRAFT)));
             assertThat(response.getItems().get(0).getBookDepreciationSetting().getDepreciationMethod(), is(equalTo(com.xero.models.assets.BookDepreciationSetting.DepreciationMethodEnum.STRAIGHTLINE)));
             assertThat(response.getItems().get(0).getBookDepreciationSetting().getAveragingMethod(), is(equalTo(com.xero.models.assets.BookDepreciationSetting.AveragingMethodEnum.ACTUALDAYS)));
             assertThat(response.getItems().get(0).getBookDepreciationSetting().getDepreciationRate().toString(), is(equalTo("0.5")));
@@ -172,7 +172,7 @@ public class AssetsApiTest {
 		    assertThat(response.getPurchaseDate(), is(equalTo(LocalDate.of(2020,01,01))));
             assertThat(response.getPurchasePrice().toString(), is(equalTo("100.0")));
             assertThat(response.getDisposalPrice().toString(), is(equalTo("23.0")));
-            assertThat(response.getAssetStatus(), is(equalTo(com.xero.models.assets.Asset.AssetStatusEnum.DRAFT)));
+            assertThat(response.getAssetStatus(), is(equalTo(com.xero.models.assets.AssetStatus.DRAFT)));
             assertThat(response.getBookDepreciationSetting().getDepreciationMethod(), is(equalTo(com.xero.models.assets.BookDepreciationSetting.DepreciationMethodEnum.STRAIGHTLINE)));
             assertThat(response.getBookDepreciationSetting().getAveragingMethod(), is(equalTo(com.xero.models.assets.BookDepreciationSetting.AveragingMethodEnum.ACTUALDAYS)));
             assertThat(response.getBookDepreciationSetting().getDepreciationRate().toString(), is(equalTo("0.5")));
