@@ -59,7 +59,7 @@ public class PayrollAuApi {
     private ApiClient apiClient;
     private static PayrollAuApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.5.1";
+    private String version = "3.5.2";
 
     public PayrollAuApi() {
         this(new ApiClient());

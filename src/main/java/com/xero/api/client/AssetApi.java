@@ -2,7 +2,7 @@ package com.xero.api.client;
 import com.xero.api.ApiClient;
 
 import com.xero.models.assets.Asset;
-import com.xero.models.assets.AssetStatus;
+import com.xero.models.assets.AssetStatusQueryParam;
 import com.xero.models.assets.AssetType;
 import com.xero.models.assets.Assets;
 import com.xero.models.assets.Setting;
@@ -45,7 +45,7 @@ public class AssetApi {
     private ApiClient apiClient;
     private static AssetApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.5.1";
+    private String version = "3.5.2";
 
     public AssetApi() {
         this(new ApiClient());
@@ -366,7 +366,7 @@ public class AssetApi {
     * @return Assets
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Assets  getAssets(String accessToken, String xeroTenantId, AssetStatus status, Integer page, Integer pageSize, String orderBy, String sortDirection, String filterBy) throws IOException {
+    public Assets  getAssets(String accessToken, String xeroTenantId, AssetStatusQueryParam status, Integer page, Integer pageSize, String orderBy, String sortDirection, String filterBy) throws IOException {
         try {
             TypeReference<Assets> typeRef = new TypeReference<Assets>() {};
             HttpResponse response = getAssetsForHttpResponse(accessToken, xeroTenantId, status, page, pageSize, orderBy, sortDirection, filterBy);
@@ -380,7 +380,7 @@ public class AssetApi {
         return null;
     }
 
-    public HttpResponse getAssetsForHttpResponse(String accessToken,  String xeroTenantId,  AssetStatus status,  Integer page,  Integer pageSize,  String orderBy,  String sortDirection,  String filterBy) throws IOException {
+    public HttpResponse getAssetsForHttpResponse(String accessToken,  String xeroTenantId,  AssetStatusQueryParam status,  Integer page,  Integer pageSize,  String orderBy,  String sortDirection,  String filterBy) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getAssets");
