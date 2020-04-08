@@ -52,7 +52,7 @@ public class ProjectApi {
     private ApiClient apiClient;
     private static ProjectApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.5.1";
+    private String version = "3.5.2";
 
     public ProjectApi() {
         this(new ApiClient());

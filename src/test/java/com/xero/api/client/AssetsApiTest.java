@@ -121,13 +121,13 @@ public class AssetsApiTest {
 		System.out.println("@Test - getAssets");
 
         try {
-            AssetStatus status = com.xero.models.assets.AssetStatus.DRAFT;
+
             Integer page = null;
             Integer pageSize = null;
             String orderBy = null;
             String sortDirection = null;
             String filterBy = null;
-            Assets response = assetApi.getAssets(accessToken,xeroTenantId,status, page, pageSize, orderBy, sortDirection, filterBy);
+            Assets response = assetApi.getAssets(accessToken,xeroTenantId, com.xero.models.assets.AssetStatusQueryParam.DRAFT, page, pageSize, orderBy, sortDirection, filterBy);
             
             assertThat(response.getItems().get(0).getAssetId().toString(), (equalTo("68f17094-af97-4f1b-b36b-013b45b6ad3c")));
             assertThat(response.getItems().get(0).getAssetName().toString(), (equalTo("Computer47822")));

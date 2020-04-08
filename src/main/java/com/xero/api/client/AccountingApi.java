@@ -91,7 +91,7 @@ public class AccountingApi {
     private ApiClient apiClient;
     private static AccountingApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.5.1";
+    private String version = "3.5.2";
 
     public AccountingApi() {
         this(new ApiClient());
@@ -9690,6 +9690,74 @@ public class AccountingApi {
         
         String correctPath = "/PurchaseOrders/{PurchaseOrderID}";
         
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("PurchaseOrderID", purchaseOrderID);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+  /**
+    * Allows you to retrieve purchase orders as PDF files
+    * <p><b>200</b> - Success - return response of byte array pdf version of specified Purchase Orders
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param purchaseOrderID Unique identifier for an Purchase Order
+    * @param accessToken Authorization token for user set in header of each request
+    * @return File
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public ByteArrayInputStream  getPurchaseOrderAsPdf(String accessToken, String xeroTenantId, UUID purchaseOrderID) throws IOException {
+        try {
+            TypeReference<File> typeRef = new TypeReference<File>() {};
+            HttpResponse response = getPurchaseOrderAsPdfForHttpResponse(accessToken, xeroTenantId, purchaseOrderID);
+            InputStream is = response.getContent();
+            return convertInputToByteArray(is);
+
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    public HttpResponse getPurchaseOrderAsPdfForHttpResponse(String accessToken,  String xeroTenantId,  UUID purchaseOrderID) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getPurchaseOrderAsPdf");
+        }// verify the required parameter 'purchaseOrderID' is set
+        if (purchaseOrderID == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'purchaseOrderID' when calling getPurchaseOrderAsPdf");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getPurchaseOrderAsPdf");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
+        String correctPath = "/PurchaseOrders/{PurchaseOrderID}/pdf";
+        
+        // Hacky path manipulation to support different return types from same endpoint
+        String path = "/PurchaseOrders/{PurchaseOrderID}/pdf";
+        String type = "/pdf";
+        if(path.toLowerCase().contains(type.toLowerCase())) {
+            correctPath = path.replace("/pdf","");
+            headers.setAccept("application/pdf"); 
+        }
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("PurchaseOrderID", purchaseOrderID);
