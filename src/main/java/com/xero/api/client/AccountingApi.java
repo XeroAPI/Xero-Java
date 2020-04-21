@@ -91,7 +91,7 @@ public class AccountingApi {
     private ApiClient apiClient;
     private static AccountingApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.5.2";
+    private String version = "3.6.0";
 
     public AccountingApi() {
         this(new ApiClient());
@@ -1263,16 +1263,16 @@ public class AccountingApi {
     * @param xeroTenantId Xero identifier for Tenant
     * @param creditNoteID Unique identifier for a Credit Note
     * @param fileName Name of the file you are attaching to Credit Note
-    * @param includeOnline Set an attachment to be included with the invoice when viewed online (through Xero)
     * @param body Byte array of file in body of request
+    * @param includeOnline Allows an attachment to be seen by the end customer within their online invoice
     * @param accessToken Authorization token for user set in header of each request
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Attachments  createCreditNoteAttachmentByFileName(String accessToken, String xeroTenantId, UUID creditNoteID, String fileName, Boolean includeOnline, File body) throws IOException {
+    public Attachments  createCreditNoteAttachmentByFileName(String accessToken, String xeroTenantId, UUID creditNoteID, String fileName, File body, Boolean includeOnline) throws IOException {
         try {
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            HttpResponse response = createCreditNoteAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, creditNoteID, fileName, includeOnline, body);
+            HttpResponse response = createCreditNoteAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, creditNoteID, fileName, body, includeOnline);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -1283,7 +1283,7 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse createCreditNoteAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID creditNoteID,  String fileName,  Boolean includeOnline, File  body) throws IOException {
+    public HttpResponse createCreditNoteAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID creditNoteID,  String fileName, File  body,  Boolean includeOnline) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createCreditNoteAttachmentByFileName");
@@ -1293,9 +1293,6 @@ public class AccountingApi {
         }// verify the required parameter 'fileName' is set
         if (fileName == null) {
             throw new IllegalArgumentException("Missing the required parameter 'fileName' when calling createCreditNoteAttachmentByFileName");
-        }// verify the required parameter 'includeOnline' is set
-        if (includeOnline == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'includeOnline' when calling createCreditNoteAttachmentByFileName");
         }// verify the required parameter 'body' is set
         if (body == null) {
             throw new IllegalArgumentException("Missing the required parameter 'body' when calling createCreditNoteAttachmentByFileName");
@@ -1314,9 +1311,19 @@ public class AccountingApi {
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("CreditNoteID", creditNoteID);
         uriVariables.put("FileName", fileName);
-        uriVariables.put("IncludeOnline", includeOnline);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        if (includeOnline != null) {
+            String key = "IncludeOnline";
+            Object value = includeOnline;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
@@ -1731,16 +1738,16 @@ public class AccountingApi {
     * @param xeroTenantId Xero identifier for Tenant
     * @param invoiceID Unique identifier for an Invoice
     * @param fileName Name of the file you are attaching
-    * @param includeOnline Set an attachment to be included with the invoice when viewed online (through Xero)
     * @param body Byte array of file in body of request
+    * @param includeOnline Allows an attachment to be seen by the end customer within their online invoice
     * @param accessToken Authorization token for user set in header of each request
     * @return Attachments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Attachments  createInvoiceAttachmentByFileName(String accessToken, String xeroTenantId, UUID invoiceID, String fileName, Boolean includeOnline, File body) throws IOException {
+    public Attachments  createInvoiceAttachmentByFileName(String accessToken, String xeroTenantId, UUID invoiceID, String fileName, File body, Boolean includeOnline) throws IOException {
         try {
             TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-            HttpResponse response = createInvoiceAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, invoiceID, fileName, includeOnline, body);
+            HttpResponse response = createInvoiceAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, invoiceID, fileName, body, includeOnline);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -1751,7 +1758,7 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse createInvoiceAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID invoiceID,  String fileName,  Boolean includeOnline, File  body) throws IOException {
+    public HttpResponse createInvoiceAttachmentByFileNameForHttpResponse(String accessToken,  String xeroTenantId,  UUID invoiceID,  String fileName, File  body,  Boolean includeOnline) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createInvoiceAttachmentByFileName");
@@ -1761,9 +1768,6 @@ public class AccountingApi {
         }// verify the required parameter 'fileName' is set
         if (fileName == null) {
             throw new IllegalArgumentException("Missing the required parameter 'fileName' when calling createInvoiceAttachmentByFileName");
-        }// verify the required parameter 'includeOnline' is set
-        if (includeOnline == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'includeOnline' when calling createInvoiceAttachmentByFileName");
         }// verify the required parameter 'body' is set
         if (body == null) {
             throw new IllegalArgumentException("Missing the required parameter 'body' when calling createInvoiceAttachmentByFileName");
@@ -1782,9 +1786,19 @@ public class AccountingApi {
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("InvoiceID", invoiceID);
         uriVariables.put("FileName", fileName);
-        uriVariables.put("IncludeOnline", includeOnline);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        if (includeOnline != null) {
+            String key = "IncludeOnline";
+            Object value = includeOnline;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
