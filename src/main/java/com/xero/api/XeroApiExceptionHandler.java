@@ -41,6 +41,8 @@ public class XeroApiExceptionHandler {
             elementsItem.addValidationErrorsItem(ve);
             error.addElementsItem(elementsItem);
             throw new XeroApiException(statusCode, error);
+        } else if (statusCode == 401) {
+            throw new XeroApiException(401, "Unauthorized - check your scopes and confirm access to this resource" );
         } else if (statusCode != 400) {
             throw new XeroApiException(statusCode, e.getStatusMessage());
         } else {
