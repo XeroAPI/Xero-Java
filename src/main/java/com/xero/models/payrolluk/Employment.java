@@ -54,21 +54,21 @@ public class Employment {
    * The NI Category of the employee
    */
   public enum NiCategoryEnum {
-    A_DEFAULT_CATEGORY_FOR_EMPLOYEES_NOT_IN_ANOTHER_CATEGORY_STANDARD_RATES_FOR_EMPLOYEE_AND_EMPLOYER_APPLY("A#Default category for employees not in another category.  Standard rates for employee and employer apply"),
+    A("A"),
     
-    B_MARRIED_WOMEN_AND_WIDOWS_ENTITLED_TO_PAY_REDUCED_NATIONAL_INSURANCE_THIS_IS_NOT_STRAIGHTFORWARD_SEE_HERE_WE_RARELY_SEE_NATIONAL_INSURANCE_CATEGORY_B_EMPLOYEES_("B#Married Women and Widows entitled to pay reduced National Insurance.  This is not straightforward, see here.  We rarely see National Insurance category B employees."),
+    B("B"),
     
-    C_EMPLOYEES_OVER_THE_STATE_PENSION_AGE_NIL_EMPLOYEE_CONTRIBUTIONS_("C#Employees over the state pension age.  Nil employee contributions."),
+    C("C"),
     
-    H_APPRENTICES_UNDER_THE_AGE_OF_25_FOLLOWING_AN_APPROVED_APPRENTICESHIP_FRAMEWORK_REDUCED_NIL_EMPLOYER_CONTRIBUTIONS("H#Apprentices under the age of 25 following an approved apprenticeship framework.  Reduced / Nil Employer contributions"),
+    H("H"),
     
-    J_EMPLOYEES_DEFERRING_NATIONAL_INSURANCE_BECAUSE_THEY_ARE_PAYING_IT_IN_ANOTHER_JOB("J#Employees deferring National Insurance because they are paying it in another job"),
+    J("J"),
     
-    M_EMPLOYEES_UNDER_THE_AGE_OF_21_REDUCED_NIL_EMPLOYER_CONTRIBUTIONS("M#Employees under the age of 21.  Reduced / Nil Employer contributions"),
+    M("M"),
     
-    Z_EMPLOYEES_UNDER_21_DEFERRING_NATIONAL_INSURANCE_BECAUSE_THEY_ARE_PAYING_IT_IN_ANOTHER_JOB("Z#Employees under 21 deferring National Insurance because they are paying it in another job"),
+    Z("Z"),
     
-    X_EMPLOYEES_WHO_DON_T_HAVE_TO_PAY_NATIONAL_INSURANCE_FOR_INSTANCE_UNDER_16S("X#Employees who don’t have to pay National Insurance, for instance under 16s");
+    X("X");
 
     private String value;
 

@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import org.threeten.bp.LocalDate;
+import org.threeten.bp.OffsetDateTime;
 import java.io.IOException;
 
 import org.threeten.bp.OffsetDateTime;
@@ -65,6 +66,10 @@ public class EmployeeLeave {
   
   @JsonProperty("periods")
   private List<LeavePeriod> periods = new ArrayList<LeavePeriod>();
+
+  
+  @JsonProperty("updatedDateUTC")
+  private LocalDateTime updatedDateUTC;
   public EmployeeLeave leaveID(UUID leaveID) {
     this.leaveID = leaveID;
     return this;
@@ -181,6 +186,24 @@ public class EmployeeLeave {
     this.periods = periods;
   }
 
+  public EmployeeLeave updatedDateUTC(LocalDateTime updatedDateUTC) {
+    this.updatedDateUTC = updatedDateUTC;
+    return this;
+  }
+
+   /**
+   * UTC timestamp of last update to the leave type note
+   * @return updatedDateUTC
+  **/
+  @ApiModelProperty(value = "UTC timestamp of last update to the leave type note")
+  public LocalDateTime getUpdatedDateUTC() {
+    return updatedDateUTC;
+  }
+
+  public void setUpdatedDateUTC(LocalDateTime updatedDateUTC) {
+    this.updatedDateUTC = updatedDateUTC;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -196,12 +219,13 @@ public class EmployeeLeave {
         Objects.equals(this.description, employeeLeave.description) &&
         Objects.equals(this.startDate, employeeLeave.startDate) &&
         Objects.equals(this.endDate, employeeLeave.endDate) &&
-        Objects.equals(this.periods, employeeLeave.periods);
+        Objects.equals(this.periods, employeeLeave.periods) &&
+        Objects.equals(this.updatedDateUTC, employeeLeave.updatedDateUTC);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(leaveID, leaveTypeID, description, startDate, endDate, periods);
+    return Objects.hash(leaveID, leaveTypeID, description, startDate, endDate, periods, updatedDateUTC);
   }
 
 
@@ -215,6 +239,7 @@ public class EmployeeLeave {
     sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
     sb.append("    endDate: ").append(toIndentedString(endDate)).append("\n");
     sb.append("    periods: ").append(toIndentedString(periods)).append("\n");
+    sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
     sb.append("}");
     return sb.toString();
   }

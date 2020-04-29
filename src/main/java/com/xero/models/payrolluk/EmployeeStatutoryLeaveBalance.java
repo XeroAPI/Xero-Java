@@ -40,15 +40,15 @@ public class EmployeeStatutoryLeaveBalance {
    * The type of statutory leave
    */
   public enum LeaveTypeEnum {
-    SICK("sick"),
+    SICK("Sick"),
     
-    ADOPTION("adoption"),
+    ADOPTION("Adoption"),
     
-    MATERNITY("maternity"),
+    MATERNITY("Maternity"),
     
-    PATERNITY("paternity"),
+    PATERNITY("Paternity"),
     
-    SHAREDPARENTAL("sharedparental");
+    SHAREDPARENTAL("Sharedparental");
 
     private String value;
 

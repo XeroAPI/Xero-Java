@@ -54,8 +54,8 @@ public class Address {
   private String postCode;
 
   
-  @JsonProperty("country")
-  private String country;
+  @JsonProperty("countryName")
+  private String countryName;
   public Address addressLine1(String addressLine1) {
     this.addressLine1 = addressLine1;
     return this;
@@ -128,22 +128,22 @@ public class Address {
     this.postCode = postCode;
   }
 
-  public Address country(String country) {
-    this.country = country;
+  public Address countryName(String countryName) {
+    this.countryName = countryName;
     return this;
   }
 
    /**
    * Country of HomeAddress
-   * @return country
+   * @return countryName
   **/
   @ApiModelProperty(example = "United Kingdom", value = "Country of HomeAddress")
-  public String getCountry() {
-    return country;
+  public String getCountryName() {
+    return countryName;
   }
 
-  public void setCountry(String country) {
-    this.country = country;
+  public void setCountryName(String countryName) {
+    this.countryName = countryName;
   }
 
 
@@ -160,12 +160,12 @@ public class Address {
         Objects.equals(this.addressLine2, address.addressLine2) &&
         Objects.equals(this.city, address.city) &&
         Objects.equals(this.postCode, address.postCode) &&
-        Objects.equals(this.country, address.country);
+        Objects.equals(this.countryName, address.countryName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(addressLine1, addressLine2, city, postCode, country);
+    return Objects.hash(addressLine1, addressLine2, city, postCode, countryName);
   }
 
 
@@ -177,7 +177,7 @@ public class Address {
     sb.append("    addressLine2: ").append(toIndentedString(addressLine2)).append("\n");
     sb.append("    city: ").append(toIndentedString(city)).append("\n");
     sb.append("    postCode: ").append(toIndentedString(postCode)).append("\n");
-    sb.append("    country: ").append(toIndentedString(country)).append("\n");
+    sb.append("    countryName: ").append(toIndentedString(countryName)).append("\n");
     sb.append("}");
     return sb.toString();
   }

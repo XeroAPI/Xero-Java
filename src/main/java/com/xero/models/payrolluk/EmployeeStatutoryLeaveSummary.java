@@ -50,15 +50,15 @@ public class EmployeeStatutoryLeaveSummary {
    * The category of statutory leave
    */
   public enum TypeEnum {
-    SICK("sick"),
+    SICK("Sick"),
     
-    ADOPTION("adoption"),
+    ADOPTION("Adoption"),
     
-    MATERNITY("maternity"),
+    MATERNITY("Maternity"),
     
-    PATERNITY("paternity"),
+    PATERNITY("Paternity"),
     
-    SHAREDPARENTAL("sharedparental");
+    SHAREDPARENTAL("Sharedparental");
 
     private String value;
 

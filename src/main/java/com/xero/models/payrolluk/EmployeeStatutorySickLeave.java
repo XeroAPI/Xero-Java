@@ -101,7 +101,7 @@ public class EmployeeStatutorySickLeave {
   @JsonProperty("overlapsWithOtherLeave")
   private Boolean overlapsWithOtherLeave;
   /**
-   * If the leave requested was considered \&quot;not entitled\&quot;, the reasons why are listed here.
+   * Gets or Sets entitlementFailureReasons
    */
   public enum EntitlementFailureReasonsEnum {
     UNABLETOCALCULATEAWE("UnableToCalculateAwe"),
@@ -146,7 +146,7 @@ public class EmployeeStatutorySickLeave {
 
   
   @JsonProperty("entitlementFailureReasons")
-  private EntitlementFailureReasonsEnum entitlementFailureReasons;
+  private List<EntitlementFailureReasonsEnum> entitlementFailureReasons = new ArrayList<EntitlementFailureReasonsEnum>();
   public EmployeeStatutorySickLeave statutoryLeaveID(UUID statutoryLeaveID) {
     this.statutoryLeaveID = statutoryLeaveID;
     return this;
@@ -422,8 +422,16 @@ public class EmployeeStatutorySickLeave {
     this.overlapsWithOtherLeave = overlapsWithOtherLeave;
   }
 
-  public EmployeeStatutorySickLeave entitlementFailureReasons(EntitlementFailureReasonsEnum entitlementFailureReasons) {
+  public EmployeeStatutorySickLeave entitlementFailureReasons(List<EntitlementFailureReasonsEnum> entitlementFailureReasons) {
     this.entitlementFailureReasons = entitlementFailureReasons;
+    return this;
+  }
+
+  public EmployeeStatutorySickLeave addEntitlementFailureReasonsItem(EntitlementFailureReasonsEnum entitlementFailureReasonsItem) {
+    if (this.entitlementFailureReasons == null) {
+      this.entitlementFailureReasons = new ArrayList<EntitlementFailureReasonsEnum>();
+    }
+    this.entitlementFailureReasons.add(entitlementFailureReasonsItem);
     return this;
   }
 
@@ -432,11 +440,11 @@ public class EmployeeStatutorySickLeave {
    * @return entitlementFailureReasons
   **/
   @ApiModelProperty(value = "If the leave requested was considered \"not entitled\", the reasons why are listed here.")
-  public EntitlementFailureReasonsEnum getEntitlementFailureReasons() {
+  public List<EntitlementFailureReasonsEnum> getEntitlementFailureReasons() {
     return entitlementFailureReasons;
   }
 
-  public void setEntitlementFailureReasons(EntitlementFailureReasonsEnum entitlementFailureReasons) {
+  public void setEntitlementFailureReasons(List<EntitlementFailureReasonsEnum> entitlementFailureReasons) {
     this.entitlementFailureReasons = entitlementFailureReasons;
   }
 

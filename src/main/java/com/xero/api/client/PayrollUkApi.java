@@ -368,6 +368,63 @@ public class PayrollUkApi {
     }
 
   /**
+    * creates employees
+    * <p><b>200</b> - search results matching criteria
+    * <p><b>400</b> - validation error for a bad request
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param employee The employee parameter
+    * @param accessToken Authorization token for user set in header of each request
+    * @return EmployeeObject
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public EmployeeObject  createEmployee(String accessToken, String xeroTenantId, Employee employee) throws IOException {
+        try {
+            TypeReference<EmployeeObject> typeRef = new TypeReference<EmployeeObject>() {};
+            HttpResponse response = createEmployeeForHttpResponse(accessToken, xeroTenantId, employee);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    public HttpResponse createEmployeeForHttpResponse(String accessToken,  String xeroTenantId,  Employee employee) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createEmployee");
+        }// verify the required parameter 'employee' is set
+        if (employee == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'employee' when calling createEmployee");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createEmployee");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Xero-Tenant-Id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
+        String correctPath = "/Employees";
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        String url = uriBuilder.build().toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+
+        
+        HttpContent content = null;
+        content = apiClient.new JacksonJsonHttpContent(employee);
+        
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+  /**
     * creates employee earnings template records
     * <p><b>200</b> - search results matching criteria
     * <p><b>400</b> - validation error for a bad request
@@ -811,63 +868,6 @@ public class PayrollUkApi {
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(employeeStatutorySickLeave);
-        
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers)
-            .setConnectTimeout(apiClient.getConnectionTimeout())
-            .setReadTimeout(apiClient.getReadTimeout()).execute();  
-    }
-
-  /**
-    * creates employees
-    * <p><b>200</b> - search results matching criteria
-    * <p><b>400</b> - validation error for a bad request
-    * @param xeroTenantId Xero identifier for Tenant
-    * @param employee The employee parameter
-    * @param accessToken Authorization token for user set in header of each request
-    * @return EmployeeObject
-    * @throws IOException if an error occurs while attempting to invoke the API
-    **/
-    public EmployeeObject  createEmployees(String accessToken, String xeroTenantId, Employee employee) throws IOException {
-        try {
-            TypeReference<EmployeeObject> typeRef = new TypeReference<EmployeeObject>() {};
-            HttpResponse response = createEmployeesForHttpResponse(accessToken, xeroTenantId, employee);
-            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-        } catch (HttpResponseException e) {
-            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
-        } catch (IOException ioe) {
-            throw ioe;
-        }
-        return null;
-    }
-
-    public HttpResponse createEmployeesForHttpResponse(String accessToken,  String xeroTenantId,  Employee employee) throws IOException {
-        // verify the required parameter 'xeroTenantId' is set
-        if (xeroTenantId == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createEmployees");
-        }// verify the required parameter 'employee' is set
-        if (employee == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'employee' when calling createEmployees");
-        }
-        if (accessToken == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createEmployees");
-        }
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Xero-Tenant-Id", xeroTenantId);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-        String url = uriBuilder.build().toString();
-        GenericUrl genericUrl = new GenericUrl(url);
-
-        
-        HttpContent content = null;
-        content = apiClient.new JacksonJsonHttpContent(employee);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
         HttpTransport transport = apiClient.getHttpTransport();       
@@ -2158,18 +2158,19 @@ public class PayrollUkApi {
     }
 
   /**
-    * search employee leave records
+    * retrieve a single employee leave record
     * <p><b>200</b> - search results matching criteria
     * @param xeroTenantId Xero identifier for Tenant
     * @param employeeId Employee id for single object
+    * @param leaveID Leave id for single object
     * @param accessToken Authorization token for user set in header of each request
-    * @return EmployeeLeaves
+    * @return EmployeeLeaveObject
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public EmployeeLeaves  getEmployeeLeave(String accessToken, String xeroTenantId, UUID employeeId) throws IOException {
+    public EmployeeLeaveObject  getEmployeeLeave(String accessToken, String xeroTenantId, UUID employeeId, UUID leaveID) throws IOException {
         try {
-            TypeReference<EmployeeLeaves> typeRef = new TypeReference<EmployeeLeaves>() {};
-            HttpResponse response = getEmployeeLeaveForHttpResponse(accessToken, xeroTenantId, employeeId);
+            TypeReference<EmployeeLeaveObject> typeRef = new TypeReference<EmployeeLeaveObject>() {};
+            HttpResponse response = getEmployeeLeaveForHttpResponse(accessToken, xeroTenantId, employeeId, leaveID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -2180,13 +2181,16 @@ public class PayrollUkApi {
         return null;
     }
 
-    public HttpResponse getEmployeeLeaveForHttpResponse(String accessToken,  String xeroTenantId,  UUID employeeId) throws IOException {
+    public HttpResponse getEmployeeLeaveForHttpResponse(String accessToken,  String xeroTenantId,  UUID employeeId,  UUID leaveID) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getEmployeeLeave");
         }// verify the required parameter 'employeeId' is set
         if (employeeId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'employeeId' when calling getEmployeeLeave");
+        }// verify the required parameter 'leaveID' is set
+        if (leaveID == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'leaveID' when calling getEmployeeLeave");
         }
         if (accessToken == null) {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getEmployeeLeave");
@@ -2196,11 +2200,12 @@ public class PayrollUkApi {
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         
-        String correctPath = "/Employees/{EmployeeId}/Leave";
+        String correctPath = "/Employees/{EmployeeId}/Leave/{LeaveID}";
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EmployeeId", employeeId);
+        uriVariables.put("LeaveID", leaveID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.buildFromMap(uriVariables).toString();
@@ -2359,70 +2364,6 @@ public class PayrollUkApi {
     }
 
   /**
-    * retrieve a single employee leave record
-    * <p><b>200</b> - search results matching criteria
-    * @param xeroTenantId Xero identifier for Tenant
-    * @param employeeId Employee id for single object
-    * @param leaveID Leave id for single object
-    * @param accessToken Authorization token for user set in header of each request
-    * @return EmployeeLeaveObject
-    * @throws IOException if an error occurs while attempting to invoke the API
-    **/
-    public EmployeeLeaveObject  getEmployeeLeaveSingle(String accessToken, String xeroTenantId, UUID employeeId, UUID leaveID) throws IOException {
-        try {
-            TypeReference<EmployeeLeaveObject> typeRef = new TypeReference<EmployeeLeaveObject>() {};
-            HttpResponse response = getEmployeeLeaveSingleForHttpResponse(accessToken, xeroTenantId, employeeId, leaveID);
-            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-        } catch (HttpResponseException e) {
-            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
-        } catch (IOException ioe) {
-            throw ioe;
-        }
-        return null;
-    }
-
-    public HttpResponse getEmployeeLeaveSingleForHttpResponse(String accessToken,  String xeroTenantId,  UUID employeeId,  UUID leaveID) throws IOException {
-        // verify the required parameter 'xeroTenantId' is set
-        if (xeroTenantId == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getEmployeeLeaveSingle");
-        }// verify the required parameter 'employeeId' is set
-        if (employeeId == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'employeeId' when calling getEmployeeLeaveSingle");
-        }// verify the required parameter 'leaveID' is set
-        if (leaveID == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'leaveID' when calling getEmployeeLeaveSingle");
-        }
-        if (accessToken == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getEmployeeLeaveSingle");
-        }
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Xero-Tenant-Id", xeroTenantId);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees/{EmployeeId}/Leave/{LeaveID}";
-        
-        // create a map of path variables
-        final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("EmployeeId", employeeId);
-        uriVariables.put("LeaveID", leaveID);
-
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-        String url = uriBuilder.buildFromMap(uriVariables).toString();
-        GenericUrl genericUrl = new GenericUrl(url);
-
-        
-        HttpContent content = null;
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
-            .setConnectTimeout(apiClient.getConnectionTimeout())
-            .setReadTimeout(apiClient.getReadTimeout()).execute();  
-    }
-
-  /**
     * searches employee leave types
     * <p><b>200</b> - search results matching criteria
     * <p><b>400</b> - validation error for a bad request
@@ -2463,6 +2404,65 @@ public class PayrollUkApi {
         headers.setUserAgent(this.getUserAgent());
         
         String correctPath = "/Employees/{EmployeeId}/LeaveTypes";
+        
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("EmployeeId", employeeId);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+  /**
+    * search employee leave records
+    * <p><b>200</b> - search results matching criteria
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param employeeId Employee id for single object
+    * @param accessToken Authorization token for user set in header of each request
+    * @return EmployeeLeaves
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public EmployeeLeaves  getEmployeeLeaves(String accessToken, String xeroTenantId, UUID employeeId) throws IOException {
+        try {
+            TypeReference<EmployeeLeaves> typeRef = new TypeReference<EmployeeLeaves>() {};
+            HttpResponse response = getEmployeeLeavesForHttpResponse(accessToken, xeroTenantId, employeeId);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e,apiClient);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    public HttpResponse getEmployeeLeavesForHttpResponse(String accessToken,  String xeroTenantId,  UUID employeeId) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getEmployeeLeaves");
+        }// verify the required parameter 'employeeId' is set
+        if (employeeId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'employeeId' when calling getEmployeeLeaves");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getEmployeeLeaves");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Xero-Tenant-Id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
+        String correctPath = "/Employees/{EmployeeId}/Leave";
         
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
