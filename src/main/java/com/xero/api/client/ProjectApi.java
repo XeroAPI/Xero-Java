@@ -1,4 +1,5 @@
 package com.xero.api.client;
+
 import com.xero.api.ApiClient;
 
 import com.xero.models.project.Error;
@@ -14,9 +15,9 @@ import com.xero.models.project.TimeEntries;
 import com.xero.models.project.TimeEntry;
 import com.xero.models.project.TimeEntryCreateOrUpdate;
 import java.util.UUID;
-
 import com.xero.api.XeroApiException;
 import com.xero.api.XeroApiExceptionHandler;
+import com.xero.models.bankfeeds.Statements;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.api.client.http.GenericUrl;
@@ -52,7 +53,7 @@ public class ProjectApi {
     private ApiClient apiClient;
     private static ProjectApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.6.0";
+    private String version = "4.0.0";
 
     public ProjectApi() {
         this(new ApiClient());
@@ -82,7 +83,7 @@ public class ProjectApi {
     }
     
     public String getUserAgent() {
-        return this.userAgent +  "[Xero-Java-" + this.version + "]";
+        return this.userAgent +  " [Xero-Java-" + this.version + "]";
     }
 
   /**
@@ -102,7 +103,7 @@ public class ProjectApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -129,15 +130,17 @@ public class ProjectApi {
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
+
+        
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(projectCreateOrUpdate);
+        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-        
         return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers)
             .setConnectTimeout(apiClient.getConnectionTimeout())
-            .setReadTimeout(apiClient.getReadTimeout()).execute();      
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
 
   /**
@@ -158,7 +161,7 @@ public class ProjectApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -193,15 +196,17 @@ public class ProjectApi {
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
+
+        
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(timeEntryCreateOrUpdate);
+        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-        
         return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers)
             .setConnectTimeout(apiClient.getConnectionTimeout())
-            .setReadTimeout(apiClient.getReadTimeout()).execute();      
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
 
   /**
@@ -211,6 +216,7 @@ public class ProjectApi {
     * @param xeroTenantId Xero identifier for Tenant
     * @param projectId You can specify an individual project by appending the projectId to the endpoint
     * @param timeEntryId You can specify an individual task by appending the id to the endpoint
+    * @param accessToken Authorization token for user set in header of each request
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public void deleteTimeEntry(String accessToken, String xeroTenantId, UUID projectId, UUID timeEntryId) throws IOException {
@@ -218,7 +224,7 @@ public class ProjectApi {
             deleteTimeEntryForHttpResponse(accessToken, xeroTenantId, projectId, timeEntryId);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -254,14 +260,15 @@ public class ProjectApi {
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
+
+        
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-        
         return requestFactory.buildRequest(HttpMethods.DELETE, genericUrl, content).setHeaders(headers)
             .setConnectTimeout(apiClient.getConnectionTimeout())
-            .setReadTimeout(apiClient.getReadTimeout()).execute();      
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
 
   /**
@@ -282,7 +289,7 @@ public class ProjectApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -314,14 +321,15 @@ public class ProjectApi {
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
+
+        
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-        
         return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
             .setConnectTimeout(apiClient.getConnectionTimeout())
-            .setReadTimeout(apiClient.getReadTimeout()).execute();      
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
 
   /**
@@ -343,7 +351,7 @@ public class ProjectApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -388,14 +396,15 @@ public class ProjectApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
+
+        
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-        
         return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
             .setConnectTimeout(apiClient.getConnectionTimeout())
-            .setReadTimeout(apiClient.getReadTimeout()).execute();      
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
 
   /**
@@ -420,7 +429,7 @@ public class ProjectApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -495,14 +504,15 @@ public class ProjectApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
+
+        
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-        
         return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
             .setConnectTimeout(apiClient.getConnectionTimeout())
-            .setReadTimeout(apiClient.getReadTimeout()).execute();      
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
 
   /**
@@ -523,7 +533,7 @@ public class ProjectApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -559,14 +569,15 @@ public class ProjectApi {
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
+
+        
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-        
         return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
             .setConnectTimeout(apiClient.getConnectionTimeout())
-            .setReadTimeout(apiClient.getReadTimeout()).execute();      
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
 
   /**
@@ -577,7 +588,7 @@ public class ProjectApi {
     * @param projectId You can specify an individual project by appending the projectId to the endpoint
     * @param page Set to 1 by default. The requested number of the page in paged response - Must be a number greater than 0.
     * @param pageSize Optional, it is set to 50 by default. The number of items to return per page in a paged response - Must be a number between 1 and 500.
-    * @param taskIds taskIdsSearch for all tasks that match a comma separated list of taskIds, i.e. GET https://.../tasks?taskIds&#x3D;{taskId},{taskId}
+    * @param taskIds taskIds Search for all tasks that match a comma separated list of taskIds, i.e. GET https://.../tasks?taskIds&#x3D;{taskId},{taskId}
     * @param accessToken Authorization token for user set in header of each request
     * @return Tasks
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -589,7 +600,7 @@ public class ProjectApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -652,14 +663,15 @@ public class ProjectApi {
         }
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
+
+        
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-        
         return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
             .setConnectTimeout(apiClient.getConnectionTimeout())
-            .setReadTimeout(apiClient.getReadTimeout()).execute();      
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
 
   /**
@@ -674,7 +686,7 @@ public class ProjectApi {
     * @param contactId Finds all time entries for this contact identifier.
     * @param page Set to 1 by default. The requested number of the page in paged response - Must be a number greater than 0.
     * @param pageSize Optional, it is set to 50 by default. The number of items to return per page in a paged response - Must be a number between 1 and 500.
-    * @param states Comma-separated list of states to find. Will find all time entries that are in the status of whatever’s specified.
+    * @param states Comma-separated list of states to find. Will find all time entries that are in the status of whatever’s specified. 
     * @param isChargeable Finds all time entries which relate to tasks with the charge type &#x60;TIME&#x60; or &#x60;FIXED&#x60;.
     * @param dateAfterUtc ISO 8601 UTC date. Finds all time entries on or after this date filtered on the &#x60;dateUtc&#x60; field.
     * @param dateBeforeUtc ISO 8601 UTC date. Finds all time entries on or before this date filtered on the &#x60;dateUtc&#x60; field.
@@ -689,7 +701,7 @@ public class ProjectApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -822,14 +834,15 @@ public class ProjectApi {
         }
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
+
+        
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-        
         return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
             .setConnectTimeout(apiClient.getConnectionTimeout())
-            .setReadTimeout(apiClient.getReadTimeout()).execute();      
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
 
   /**
@@ -850,7 +863,7 @@ public class ProjectApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -886,14 +899,15 @@ public class ProjectApi {
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
+
+        
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-        
         return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
             .setConnectTimeout(apiClient.getConnectionTimeout())
-            .setReadTimeout(apiClient.getReadTimeout()).execute();      
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
 
   /**
@@ -904,6 +918,7 @@ public class ProjectApi {
     * @param xeroTenantId Xero identifier for Tenant
     * @param projectId You can specify an individual project by appending the projectId to the endpoint
     * @param projectPatch Update the status of an existing Project
+    * @param accessToken Authorization token for user set in header of each request
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public void patchProject(String accessToken, String xeroTenantId, UUID projectId, ProjectPatch projectPatch) throws IOException {
@@ -911,7 +926,7 @@ public class ProjectApi {
             patchProjectForHttpResponse(accessToken, xeroTenantId, projectId, projectPatch);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -946,15 +961,17 @@ public class ProjectApi {
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
+
+        
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(projectPatch);
+        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-        
         return requestFactory.buildRequest(HttpMethods.PATCH, genericUrl, content).setHeaders(headers)
             .setConnectTimeout(apiClient.getConnectionTimeout())
-            .setReadTimeout(apiClient.getReadTimeout()).execute();      
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
 
   /**
@@ -965,6 +982,7 @@ public class ProjectApi {
     * @param xeroTenantId Xero identifier for Tenant
     * @param projectId You can specify an individual project by appending the projectId to the endpoint
     * @param projectCreateOrUpdate Request of type ProjectCreateOrUpdate
+    * @param accessToken Authorization token for user set in header of each request
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public void updateProject(String accessToken, String xeroTenantId, UUID projectId, ProjectCreateOrUpdate projectCreateOrUpdate) throws IOException {
@@ -972,7 +990,7 @@ public class ProjectApi {
             updateProjectForHttpResponse(accessToken, xeroTenantId, projectId, projectCreateOrUpdate);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1007,15 +1025,17 @@ public class ProjectApi {
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
+
+        
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(projectCreateOrUpdate);
+        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-        
         return requestFactory.buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers)
             .setConnectTimeout(apiClient.getConnectionTimeout())
-            .setReadTimeout(apiClient.getReadTimeout()).execute();      
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
 
   /**
@@ -1026,6 +1046,7 @@ public class ProjectApi {
     * @param projectId You can specify an individual project by appending the projectId to the endpoint
     * @param timeEntryId You can specify an individual time entry by appending the id to the endpoint
     * @param timeEntryCreateOrUpdate The time entry object you are updating
+    * @param accessToken Authorization token for user set in header of each request
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
     public void updateTimeEntry(String accessToken, String xeroTenantId, UUID projectId, UUID timeEntryId, TimeEntryCreateOrUpdate timeEntryCreateOrUpdate) throws IOException {
@@ -1033,7 +1054,7 @@ public class ProjectApi {
             updateTimeEntryForHttpResponse(accessToken, xeroTenantId, projectId, timeEntryId, timeEntryCreateOrUpdate);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1072,15 +1093,17 @@ public class ProjectApi {
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
+
+        
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(timeEntryCreateOrUpdate);
+        
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
         HttpTransport transport = apiClient.getHttpTransport();       
         HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-        
         return requestFactory.buildRequest(HttpMethods.PUT, genericUrl, content).setHeaders(headers)
             .setConnectTimeout(apiClient.getConnectionTimeout())
-            .setReadTimeout(apiClient.getReadTimeout()).execute();      
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
     }
 
 

@@ -56,6 +56,7 @@ import java.util.UUID;
 import com.xero.models.accounting.Users;
 import com.xero.api.XeroApiException;
 import com.xero.api.XeroApiExceptionHandler;
+import com.xero.models.bankfeeds.Statements;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.api.client.http.GenericUrl;
@@ -91,7 +92,7 @@ public class AccountingApi {
     private ApiClient apiClient;
     private static AccountingApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.6.0";
+    private String version = "4.0.0";
 
     public AccountingApi() {
         this(new ApiClient());
@@ -121,7 +122,7 @@ public class AccountingApi {
     }
     
     public String getUserAgent() {
-        return this.userAgent +  "[Xero-Java-" + this.version + "]";
+        return this.userAgent +  " [Xero-Java-" + this.version + "]";
     }
 
   /**
@@ -141,7 +142,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Accounts",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -200,7 +207,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Attachments",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -271,7 +284,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Attachments",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -341,7 +360,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("HistoryRecords",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -408,7 +433,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("BankTransactions",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -486,7 +517,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("BankTransfers",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -544,7 +581,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Attachments",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -613,7 +656,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("HistoryRecords",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -679,7 +728,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("BatchPayments",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -748,7 +803,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("HistoryRecords",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -814,7 +875,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("PaymentServices",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -880,7 +947,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Attachments",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -949,7 +1022,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("ContactGroups",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1007,7 +1086,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Contacts",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1073,7 +1158,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("HistoryRecords",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1139,7 +1230,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Contacts",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1208,7 +1305,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Allocations",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1276,7 +1379,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Attachments",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1357,7 +1466,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("HistoryRecords",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1424,7 +1539,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("CreditNotes",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1500,7 +1621,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Currencies",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1558,7 +1685,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Employees",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1626,7 +1759,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("HistoryRecords",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1691,7 +1830,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("ExpenseClaims",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1751,7 +1896,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Attachments",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1832,7 +1983,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("HistoryRecords",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1899,7 +2056,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Invoices",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1977,7 +2140,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("HistoryRecords",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2044,7 +2213,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Items",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2122,7 +2297,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("LinkedTransactions",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2181,7 +2362,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Attachments",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2251,7 +2438,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("ManualJournals",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2321,7 +2514,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Allocations",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2398,7 +2597,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("HistoryRecords",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2463,7 +2668,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Payments",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2521,7 +2732,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("HistoryRecords",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2586,7 +2803,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("PaymentServices",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2632,25 +2855,32 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
     * @param payments Payments array with Payment object in body of request
+    * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any with validation errors
     * @param accessToken Authorization token for user set in header of each request
     * @return Payments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Payments  createPayments(String accessToken, String xeroTenantId, Payments payments) throws IOException {
+    public Payments  createPayments(String accessToken, String xeroTenantId, Payments payments, Boolean summarizeErrors) throws IOException {
         try {
             TypeReference<Payments> typeRef = new TypeReference<Payments>() {};
-            HttpResponse response = createPaymentsForHttpResponse(accessToken, xeroTenantId, payments);
+            HttpResponse response = createPaymentsForHttpResponse(accessToken, xeroTenantId, payments, summarizeErrors);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Payments",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
         return null;
     }
 
-    public HttpResponse createPaymentsForHttpResponse(String accessToken,  String xeroTenantId,  Payments payments) throws IOException {
+    public HttpResponse createPaymentsForHttpResponse(String accessToken,  String xeroTenantId,  Payments payments,  Boolean summarizeErrors) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createPayments");
@@ -2668,6 +2898,17 @@ public class AccountingApi {
         
         String correctPath = "/Payments";
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        if (summarizeErrors != null) {
+            String key = "summarizeErrors";
+            Object value = summarizeErrors;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
 
@@ -2702,7 +2943,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Allocations",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2779,7 +3026,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("HistoryRecords",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2845,7 +3098,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("HistoryRecords",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2911,7 +3170,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("PurchaseOrders",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2981,7 +3246,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Attachments",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3051,7 +3322,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("HistoryRecords",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3117,7 +3394,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Quotes",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3186,7 +3469,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Receipts",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3256,7 +3545,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Attachments",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3326,7 +3621,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("HistoryRecords",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3393,7 +3694,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Attachments",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3463,7 +3770,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("HistoryRecords",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3528,7 +3841,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("TaxRates",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3585,7 +3904,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("TrackingCategories",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3643,7 +3968,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("TrackingOptions",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3708,7 +4039,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Accounts",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3766,7 +4103,7 @@ public class AccountingApi {
             deleteContactGroupContactForHttpResponse(accessToken, xeroTenantId, contactGroupID, contactID);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3826,7 +4163,7 @@ public class AccountingApi {
             deleteContactGroupContactsForHttpResponse(accessToken, xeroTenantId, contactGroupID);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3883,7 +4220,7 @@ public class AccountingApi {
             deleteItemForHttpResponse(accessToken, xeroTenantId, itemID);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3940,7 +4277,7 @@ public class AccountingApi {
             deleteLinkedTransactionForHttpResponse(accessToken, xeroTenantId, linkedTransactionID);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4001,7 +4338,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Payments",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4066,7 +4409,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4127,7 +4470,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4189,7 +4532,7 @@ public class AccountingApi {
             emailInvoiceForHttpResponse(accessToken, xeroTenantId, invoiceID, requestEmpty);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4253,7 +4596,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4316,7 +4659,7 @@ public class AccountingApi {
 
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4394,7 +4737,7 @@ public class AccountingApi {
 
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4468,7 +4811,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4529,7 +4872,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4605,7 +4948,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4679,7 +5022,7 @@ public class AccountingApi {
 
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4757,7 +5100,7 @@ public class AccountingApi {
 
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4831,7 +5174,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4894,7 +5237,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4989,7 +5332,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -5048,7 +5391,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -5111,7 +5454,7 @@ public class AccountingApi {
 
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -5189,7 +5532,7 @@ public class AccountingApi {
 
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -5263,7 +5606,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -5322,7 +5665,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -5383,7 +5726,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -5458,7 +5801,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -5519,7 +5862,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -5594,7 +5937,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -5653,7 +5996,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -5711,7 +6054,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -5747,7 +6090,7 @@ public class AccountingApi {
     }
 
   /**
-    * Allows you to retrieve, add and update contacts in a Xero organisation
+    * Allows you to retrieve a single contacts in a Xero organisation
     * <p><b>200</b> - Success - return response of type Contacts array with a unique Contact
     * @param xeroTenantId Xero identifier for Tenant
     * @param contactID Unique identifier for a Contact
@@ -5762,7 +6105,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -5825,7 +6168,7 @@ public class AccountingApi {
 
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -5903,7 +6246,7 @@ public class AccountingApi {
 
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -5977,7 +6320,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Attachments",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -6036,7 +6385,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -6095,7 +6444,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -6155,7 +6504,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -6227,7 +6576,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -6271,7 +6620,7 @@ public class AccountingApi {
     }
 
   /**
-    * Allows you to retrieve, add and update contacts in a Xero organisation
+    * Allows you to retrieve all contacts in a Xero organisation
     * <p><b>200</b> - Success - return response of type Contacts array with 0 to N Contact
     * @param xeroTenantId Xero identifier for Tenant
     * @param ifModifiedSince Only records created or modified since this timestamp will be returned
@@ -6291,7 +6640,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -6397,7 +6746,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -6469,7 +6818,7 @@ public class AccountingApi {
 
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -6539,7 +6888,7 @@ public class AccountingApi {
 
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -6617,7 +6966,7 @@ public class AccountingApi {
 
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -6691,7 +7040,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -6750,7 +7099,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -6813,7 +7162,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -6909,7 +7258,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -6981,7 +7330,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -7042,7 +7391,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -7117,7 +7466,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -7176,7 +7525,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -7237,7 +7586,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -7313,7 +7662,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -7385,7 +7734,7 @@ public class AccountingApi {
 
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -7455,7 +7804,7 @@ public class AccountingApi {
 
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -7533,7 +7882,7 @@ public class AccountingApi {
 
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -7607,7 +7956,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -7666,7 +8015,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -7724,7 +8073,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -7785,7 +8134,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -7941,7 +8290,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -8011,7 +8360,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -8073,7 +8422,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -8158,7 +8507,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -8219,7 +8568,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -8294,7 +8643,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -8358,7 +8707,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -8470,7 +8819,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -8533,7 +8882,7 @@ public class AccountingApi {
 
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -8611,7 +8960,7 @@ public class AccountingApi {
 
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -8685,7 +9034,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -8747,7 +9096,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -8832,7 +9181,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -8891,7 +9240,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -8949,7 +9298,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -9000,7 +9349,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -9059,7 +9408,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -9122,7 +9471,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -9217,7 +9566,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -9276,7 +9625,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -9334,7 +9683,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -9387,7 +9736,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -9462,7 +9811,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -9506,6 +9855,74 @@ public class AccountingApi {
     }
 
   /**
+    * Allows you to retrieve prepayments as PDF files
+    * <p><b>200</b> - Success - return response of byte array pdf version of specified Prepayments
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param prepaymentID Unique identifier for a PrePayment
+    * @param accessToken Authorization token for user set in header of each request
+    * @return File
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public ByteArrayInputStream  getPrepaymentAsPdf(String accessToken, String xeroTenantId, UUID prepaymentID) throws IOException {
+        try {
+            TypeReference<File> typeRef = new TypeReference<File>() {};
+            HttpResponse response = getPrepaymentAsPdfForHttpResponse(accessToken, xeroTenantId, prepaymentID);
+            InputStream is = response.getContent();
+            return convertInputToByteArray(is);
+
+        } catch (HttpResponseException e) {
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    public HttpResponse getPrepaymentAsPdfForHttpResponse(String accessToken,  String xeroTenantId,  UUID prepaymentID) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getPrepaymentAsPdf");
+        }// verify the required parameter 'prepaymentID' is set
+        if (prepaymentID == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'prepaymentID' when calling getPrepaymentAsPdf");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getPrepaymentAsPdf");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        
+        String correctPath = "/Prepayments/{PrepaymentID}/pdf";
+        
+        // Hacky path manipulation to support different return types from same endpoint
+        String path = "/Prepayments/{PrepaymentID}/pdf";
+        String type = "/pdf";
+        if(path.toLowerCase().contains(type.toLowerCase())) {
+            correctPath = path.replace("/pdf","");
+            headers.setAccept("application/pdf"); 
+        }
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("PrepaymentID", prepaymentID);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+  /**
     * Allows you to retrieve a history records of an Prepayment
     * <p><b>200</b> - Success - return response of HistoryRecords array of 0 to N HistoryRecord
     * @param xeroTenantId Xero identifier for Tenant
@@ -9521,7 +9938,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -9584,7 +10001,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -9679,7 +10096,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -9740,7 +10157,7 @@ public class AccountingApi {
 
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -9806,7 +10223,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -9865,7 +10282,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -9929,7 +10346,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -10034,7 +10451,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -10095,7 +10512,7 @@ public class AccountingApi {
 
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -10165,7 +10582,7 @@ public class AccountingApi {
 
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -10243,7 +10660,7 @@ public class AccountingApi {
 
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -10317,7 +10734,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -10376,7 +10793,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -10443,7 +10860,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -10579,7 +10996,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -10653,7 +11070,7 @@ public class AccountingApi {
 
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -10731,7 +11148,7 @@ public class AccountingApi {
 
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -10805,7 +11222,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -10864,7 +11281,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -10926,7 +11343,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -11011,7 +11428,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -11074,7 +11491,7 @@ public class AccountingApi {
 
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -11152,7 +11569,7 @@ public class AccountingApi {
 
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -11226,7 +11643,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -11285,7 +11702,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -11345,7 +11762,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -11420,7 +11837,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -11518,7 +11935,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -11613,7 +12030,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -11671,7 +12088,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -11728,7 +12145,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -11851,7 +12268,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -11925,7 +12342,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -12007,7 +12424,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -12078,7 +12495,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -12230,7 +12647,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -12293,7 +12710,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -12367,7 +12784,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -12451,7 +12868,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -12533,7 +12950,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -12592,7 +13009,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -12653,7 +13070,7 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -12730,7 +13147,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Accounts",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -12797,7 +13220,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Attachments",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -12868,7 +13297,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("BankTransactions",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -12946,7 +13381,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Attachments",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -13016,7 +13457,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Attachments",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -13085,7 +13532,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Contacts",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -13151,7 +13604,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Attachments",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -13221,7 +13680,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("ContactGroups",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -13288,7 +13753,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("CreditNotes",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -13366,7 +13837,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Attachments",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -13436,7 +13913,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("ExpenseClaims",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -13503,7 +13986,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Invoices",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -13581,7 +14070,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Attachments",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -13652,7 +14147,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Items",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -13729,7 +14230,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("LinkedTransactions",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -13795,7 +14302,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("ManualJournals",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -13862,7 +14375,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Attachments",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -13933,7 +14452,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("BankTransactions",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -14012,7 +14537,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Contacts",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -14082,7 +14613,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("CreditNotes",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -14161,7 +14698,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Employees",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -14231,7 +14774,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Invoices",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -14311,7 +14860,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Items",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -14390,7 +14945,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("ManualJournals",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -14459,7 +15020,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("PurchaseOrders",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -14528,7 +15095,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Quotes",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -14597,7 +15170,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("PurchaseOrders",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -14663,7 +15242,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Quotes",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -14730,7 +15315,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Attachments",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -14801,7 +15392,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Receipts",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -14879,7 +15476,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Attachments",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -14950,7 +15553,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Attachments",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -15019,7 +15628,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("TaxRates",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -15077,7 +15692,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("TrackingCategories",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -15144,7 +15765,13 @@ public class AccountingApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("TrackingOptions",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }

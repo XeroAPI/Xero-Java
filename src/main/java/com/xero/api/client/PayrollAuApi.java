@@ -24,6 +24,7 @@ import com.xero.models.payrollau.Timesheets;
 import java.util.UUID;
 import com.xero.api.XeroApiException;
 import com.xero.api.XeroApiExceptionHandler;
+import com.xero.models.bankfeeds.Statements;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.api.client.http.GenericUrl;
@@ -59,7 +60,7 @@ public class PayrollAuApi {
     private ApiClient apiClient;
     private static PayrollAuApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.6.0";
+    private String version = "4.0.0";
 
     public PayrollAuApi() {
         this(new ApiClient());
@@ -89,7 +90,7 @@ public class PayrollAuApi {
     }
     
     public String getUserAgent() {
-        return this.userAgent +  "[Xero-Java-" + this.version + "]";
+        return this.userAgent +  " [Xero-Java-" + this.version + "]";
     }
 
   /**
@@ -109,7 +110,14 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<Employees> errorTypeRef = new TypeReference<Employees>() {};
+                Employees object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Employees",payrollauError);
+             } else {
+                handler.execute(e);
+            }
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -166,7 +174,7 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -223,7 +231,7 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -280,7 +288,7 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -337,7 +345,7 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -394,7 +402,7 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -451,7 +459,7 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -507,7 +515,7 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -570,7 +578,7 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -653,7 +661,7 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -716,7 +724,7 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -803,7 +811,7 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -886,7 +894,7 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -949,7 +957,7 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1033,7 +1041,7 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1096,7 +1104,7 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1179,7 +1187,7 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1237,7 +1245,7 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1288,7 +1296,7 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1349,7 +1357,7 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1425,7 +1433,7 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1508,7 +1516,7 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1571,7 +1579,7 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1656,7 +1664,7 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1719,7 +1727,7 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1785,7 +1793,7 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1848,7 +1856,7 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1911,7 +1919,7 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1974,7 +1982,7 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }

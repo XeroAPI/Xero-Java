@@ -6,6 +6,7 @@ import com.xero.models.identity.Connection;
 import java.util.UUID;
 import com.xero.api.XeroApiException;
 import com.xero.api.XeroApiExceptionHandler;
+import com.xero.models.bankfeeds.Statements;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.api.client.http.GenericUrl;
@@ -41,7 +42,7 @@ public class IdentityApi {
     private ApiClient apiClient;
     private static IdentityApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.6.0";
+    private String version = "4.0.0";
 
     public IdentityApi() {
         this(new ApiClient());
@@ -71,7 +72,7 @@ public class IdentityApi {
     }
     
     public String getUserAgent() {
-        return this.userAgent +  "[Xero-Java-" + this.version + "]";
+        return this.userAgent +  " [Xero-Java-" + this.version + "]";
     }
 
   /**
@@ -88,7 +89,7 @@ public class IdentityApi {
             deleteConnectionForHttpResponse(accessToken, id);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -142,7 +143,7 @@ public class IdentityApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }

@@ -26,7 +26,6 @@ import com.xero.models.payrolluk.EmployeeLeaves;
 import com.xero.models.payrolluk.EmployeeObject;
 import com.xero.models.payrolluk.EmployeeOpeningBalances;
 import com.xero.models.payrolluk.EmployeeOpeningBalancesObject;
-import com.xero.models.payrolluk.EmployeePayTemplate;
 import com.xero.models.payrolluk.EmployeePayTemplateObject;
 import com.xero.models.payrolluk.EmployeeStatutoryLeaveBalanceObject;
 import com.xero.models.payrolluk.EmployeeStatutoryLeavesSummaries;
@@ -68,6 +67,7 @@ import com.xero.models.payrolluk.TrackingCategories;
 import java.util.UUID;
 import com.xero.api.XeroApiException;
 import com.xero.api.XeroApiExceptionHandler;
+import com.xero.models.bankfeeds.Statements;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.api.client.http.GenericUrl;
@@ -103,7 +103,7 @@ public class PayrollUkApi {
     private ApiClient apiClient;
     private static PayrollUkApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.6.0";
+    private String version = "4.0.0";
 
     public PayrollUkApi() {
         this(new ApiClient());
@@ -133,7 +133,7 @@ public class PayrollUkApi {
     }
     
     public String getUserAgent() {
-        return this.userAgent +  "[Xero-Java-" + this.version + "]";
+        return this.userAgent +  " [Xero-Java-" + this.version + "]";
     }
 
   /**
@@ -153,7 +153,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<TimesheetObject> errorTypeRef = new TypeReference<TimesheetObject>() {};
+                TimesheetObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"TimesheetObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -213,7 +219,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<BenefitObject> errorTypeRef = new TypeReference<BenefitObject>() {};
+                BenefitObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"BenefitObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -270,7 +282,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<DeductionObject> errorTypeRef = new TypeReference<DeductionObject>() {};
+                DeductionObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"DeductionObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -327,7 +345,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EarningsRateObject> errorTypeRef = new TypeReference<EarningsRateObject>() {};
+                EarningsRateObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EarningsRateObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -384,7 +408,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeObject> errorTypeRef = new TypeReference<EmployeeObject>() {};
+                EmployeeObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -442,7 +472,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EarningsTemplateObject> errorTypeRef = new TypeReference<EarningsTemplateObject>() {};
+                EarningsTemplateObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EarningsTemplateObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -508,7 +544,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeLeaveObject> errorTypeRef = new TypeReference<EmployeeLeaveObject>() {};
+                EmployeeLeaveObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeLeaveObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -574,7 +616,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeLeaveTypeObject> errorTypeRef = new TypeReference<EmployeeLeaveTypeObject>() {};
+                EmployeeLeaveTypeObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeLeaveTypeObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -640,7 +688,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeOpeningBalancesObject> errorTypeRef = new TypeReference<EmployeeOpeningBalancesObject>() {};
+                EmployeeOpeningBalancesObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeOpeningBalancesObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -706,7 +760,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<PaymentMethodObject> errorTypeRef = new TypeReference<PaymentMethodObject>() {};
+                PaymentMethodObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"PaymentMethodObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -772,7 +832,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<SalaryAndWageObject> errorTypeRef = new TypeReference<SalaryAndWageObject>() {};
+                SalaryAndWageObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"SalaryAndWageObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -837,7 +903,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeStatutorySickLeaveObject> errorTypeRef = new TypeReference<EmployeeStatutorySickLeaveObject>() {};
+                EmployeeStatutorySickLeaveObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeStatutorySickLeaveObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -895,7 +967,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmploymentObject> errorTypeRef = new TypeReference<EmploymentObject>() {};
+                EmploymentObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmploymentObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -960,7 +1038,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<LeaveTypeObject> errorTypeRef = new TypeReference<LeaveTypeObject>() {};
+                LeaveTypeObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"LeaveTypeObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1008,17 +1092,23 @@ public class PayrollUkApi {
     * @param employeeId Employee id for single object
     * @param earningsTemplate The earningsTemplate parameter
     * @param accessToken Authorization token for user set in header of each request
-    * @return EmployeePayTemplate
+    * @return EmployeePayTemplateObject
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public EmployeePayTemplate  createMultipleEmployeeEarningsTemplate(String accessToken, String xeroTenantId, UUID employeeId, List<EarningsTemplate> earningsTemplate) throws IOException {
+    public EmployeePayTemplateObject  createMultipleEmployeeEarningsTemplate(String accessToken, String xeroTenantId, UUID employeeId, List<EarningsTemplate> earningsTemplate) throws IOException {
         try {
-            TypeReference<EmployeePayTemplate> typeRef = new TypeReference<EmployeePayTemplate>() {};
+            TypeReference<EmployeePayTemplateObject> typeRef = new TypeReference<EmployeePayTemplateObject>() {};
             HttpResponse response = createMultipleEmployeeEarningsTemplateForHttpResponse(accessToken, xeroTenantId, employeeId, earningsTemplate);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeePayTemplateObject> errorTypeRef = new TypeReference<EmployeePayTemplateObject>() {};
+                EmployeePayTemplateObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeePayTemplateObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1083,7 +1173,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<PayRunCalendarObject> errorTypeRef = new TypeReference<PayRunCalendarObject>() {};
+                PayRunCalendarObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"PayRunCalendarObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1140,7 +1236,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<ReimbursementObject> errorTypeRef = new TypeReference<ReimbursementObject>() {};
+                ReimbursementObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"ReimbursementObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1197,7 +1299,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<TimesheetObject> errorTypeRef = new TypeReference<TimesheetObject>() {};
+                TimesheetObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"TimesheetObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1255,7 +1363,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<TimesheetLineObject> errorTypeRef = new TypeReference<TimesheetLineObject>() {};
+                TimesheetLineObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"TimesheetLineObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1317,7 +1431,7 @@ public class PayrollUkApi {
             deleteEmployeeEarningsTemplateForHttpResponse(accessToken, xeroTenantId, employeeId, payTemplateEarningID);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1381,7 +1495,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeLeaveObject> errorTypeRef = new TypeReference<EmployeeLeaveObject>() {};
+                EmployeeLeaveObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeLeaveObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1442,7 +1562,7 @@ public class PayrollUkApi {
             deleteEmployeeSalaryAndWageForHttpResponse(accessToken, xeroTenantId, employeeId, salaryAndWagesID);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1506,7 +1626,7 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1567,7 +1687,7 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1630,7 +1750,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<BenefitObject> errorTypeRef = new TypeReference<BenefitObject>() {};
+                BenefitObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"BenefitObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1689,7 +1815,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<Benefits> errorTypeRef = new TypeReference<Benefits>() {};
+                Benefits object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"Benefits",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1751,7 +1883,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<DeductionObject> errorTypeRef = new TypeReference<DeductionObject>() {};
+                DeductionObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"DeductionObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1810,7 +1948,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<Deductions> errorTypeRef = new TypeReference<Deductions>() {};
+                Deductions object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"Deductions",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1872,7 +2016,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EarningsOrderObject> errorTypeRef = new TypeReference<EarningsOrderObject>() {};
+                EarningsOrderObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EarningsOrderObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1931,7 +2081,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EarningsOrders> errorTypeRef = new TypeReference<EarningsOrders>() {};
+                EarningsOrders object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EarningsOrders",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1993,7 +2149,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EarningsRateObject> errorTypeRef = new TypeReference<EarningsRateObject>() {};
+                EarningsRateObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EarningsRateObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2052,7 +2214,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EarningsRates> errorTypeRef = new TypeReference<EarningsRates>() {};
+                EarningsRates object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EarningsRates",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2114,7 +2282,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeObject> errorTypeRef = new TypeReference<EmployeeObject>() {};
+                EmployeeObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2174,7 +2348,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeLeaveObject> errorTypeRef = new TypeReference<EmployeeLeaveObject>() {};
+                EmployeeLeaveObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeLeaveObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2237,7 +2417,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeLeaveBalances> errorTypeRef = new TypeReference<EmployeeLeaveBalances>() {};
+                EmployeeLeaveBalances object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeLeaveBalances",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2299,7 +2485,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<LeavePeriods> errorTypeRef = new TypeReference<LeavePeriods>() {};
+                LeavePeriods object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"LeavePeriods",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2380,7 +2572,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeLeaveTypes> errorTypeRef = new TypeReference<EmployeeLeaveTypes>() {};
+                EmployeeLeaveTypes object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeLeaveTypes",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2439,7 +2637,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeLeaves> errorTypeRef = new TypeReference<EmployeeLeaves>() {};
+                EmployeeLeaves object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeLeaves",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2498,7 +2702,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeOpeningBalancesObject> errorTypeRef = new TypeReference<EmployeeOpeningBalancesObject>() {};
+                EmployeeOpeningBalancesObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeOpeningBalancesObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2558,7 +2768,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeePayTemplateObject> errorTypeRef = new TypeReference<EmployeePayTemplateObject>() {};
+                EmployeePayTemplateObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeePayTemplateObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2618,7 +2834,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<PaymentMethodObject> errorTypeRef = new TypeReference<PaymentMethodObject>() {};
+                PaymentMethodObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"PaymentMethodObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2678,7 +2900,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<SalaryAndWages> errorTypeRef = new TypeReference<SalaryAndWages>() {};
+                SalaryAndWages object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"SalaryAndWages",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2743,7 +2971,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<SalaryAndWages> errorTypeRef = new TypeReference<SalaryAndWages>() {};
+                SalaryAndWages object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"SalaryAndWages",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2815,7 +3049,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeStatutoryLeaveBalanceObject> errorTypeRef = new TypeReference<EmployeeStatutoryLeaveBalanceObject>() {};
+                EmployeeStatutoryLeaveBalanceObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeStatutoryLeaveBalanceObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2895,7 +3135,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeStatutorySickLeaveObject> errorTypeRef = new TypeReference<EmployeeStatutorySickLeaveObject>() {};
+                EmployeeStatutorySickLeaveObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeStatutorySickLeaveObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2954,7 +3200,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeTaxObject> errorTypeRef = new TypeReference<EmployeeTaxObject>() {};
+                EmployeeTaxObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeTaxObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3016,7 +3268,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<Employees> errorTypeRef = new TypeReference<Employees>() {};
+                Employees object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"Employees",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3098,7 +3356,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<LeaveTypeObject> errorTypeRef = new TypeReference<LeaveTypeObject>() {};
+                LeaveTypeObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"LeaveTypeObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3158,7 +3422,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<LeaveTypes> errorTypeRef = new TypeReference<LeaveTypes>() {};
+                LeaveTypes object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"LeaveTypes",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3230,7 +3500,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<PayRunObject> errorTypeRef = new TypeReference<PayRunObject>() {};
+                PayRunObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"PayRunObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3289,7 +3565,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<PayRunCalendarObject> errorTypeRef = new TypeReference<PayRunCalendarObject>() {};
+                PayRunCalendarObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"PayRunCalendarObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3348,7 +3630,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<PayRunCalendars> errorTypeRef = new TypeReference<PayRunCalendars>() {};
+                PayRunCalendars object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"PayRunCalendars",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3411,7 +3699,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<PayRuns> errorTypeRef = new TypeReference<PayRuns>() {};
+                PayRuns object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"PayRuns",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3483,7 +3777,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<PayslipObject> errorTypeRef = new TypeReference<PayslipObject>() {};
+                PayslipObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"PayslipObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3543,7 +3843,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<Payslips> errorTypeRef = new TypeReference<Payslips>() {};
+                Payslips object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"Payslips",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3618,7 +3924,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<ReimbursementObject> errorTypeRef = new TypeReference<ReimbursementObject>() {};
+                ReimbursementObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"ReimbursementObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3677,7 +3989,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<Reimbursements> errorTypeRef = new TypeReference<Reimbursements>() {};
+                Reimbursements object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"Reimbursements",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3738,7 +4056,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<Settings> errorTypeRef = new TypeReference<Settings>() {};
+                Settings object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"Settings",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3790,7 +4114,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeStatutoryLeavesSummaries> errorTypeRef = new TypeReference<EmployeeStatutoryLeavesSummaries>() {};
+                EmployeeStatutoryLeavesSummaries object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeStatutoryLeavesSummaries",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3860,7 +4190,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<TimesheetObject> errorTypeRef = new TypeReference<TimesheetObject>() {};
+                TimesheetObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"TimesheetObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3921,7 +4257,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<Timesheets> errorTypeRef = new TypeReference<Timesheets>() {};
+                Timesheets object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"Timesheets",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4002,7 +4344,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<TrackingCategories> errorTypeRef = new TypeReference<TrackingCategories>() {};
+                TrackingCategories object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"TrackingCategories",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4054,7 +4402,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<TimesheetObject> errorTypeRef = new TypeReference<TimesheetObject>() {};
+                TimesheetObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"TimesheetObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4115,7 +4469,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeObject> errorTypeRef = new TypeReference<EmployeeObject>() {};
+                EmployeeObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4182,7 +4542,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EarningsTemplateObject> errorTypeRef = new TypeReference<EarningsTemplateObject>() {};
+                EarningsTemplateObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EarningsTemplateObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4253,7 +4619,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeLeaveObject> errorTypeRef = new TypeReference<EmployeeLeaveObject>() {};
+                EmployeeLeaveObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeLeaveObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4323,7 +4695,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeOpeningBalancesObject> errorTypeRef = new TypeReference<EmployeeOpeningBalancesObject>() {};
+                EmployeeOpeningBalancesObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeOpeningBalancesObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4390,7 +4768,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<SalaryAndWageObject> errorTypeRef = new TypeReference<SalaryAndWageObject>() {};
+                SalaryAndWageObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"SalaryAndWageObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4460,7 +4844,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<PayRuns> errorTypeRef = new TypeReference<PayRuns>() {};
+                PayRuns object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"PayRuns",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4527,7 +4917,13 @@ public class PayrollUkApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<TimesheetLineObject> errorTypeRef = new TypeReference<TimesheetLineObject>() {};
+                TimesheetLineObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"TimesheetLineObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
