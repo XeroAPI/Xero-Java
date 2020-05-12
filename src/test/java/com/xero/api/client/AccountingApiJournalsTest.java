@@ -87,9 +87,9 @@ public class AccountingApiJournalsTest {
         Journals response = accountingApi.getJournal(accessToken,xeroTenantId,journalID);
 
         assertThat(response.getJournals().get(0).getJournalID(), is(equalTo(UUID.fromString("1b31feeb-aa23-404c-8c19-24c827c53661"))));
-        assertThat(response.getJournals().get(0).getJournalDate(), is(equalTo(LocalDate.of(2018,10,19))));  
-        assertThat(response.getJournals().get(0).getJournalNumber(), is(equalTo("1")));
-        assertThat(response.getJournals().get(0).getCreatedDateUTC(), is(equalTo(OffsetDateTime.parse("2018-11-02T08:30:43.467-08:00"))));
+        assertThat(response.getJournals().get(0).getJournalDateAsDate(), is(equalTo(LocalDate.of(2018,10,20))));  
+        assertThat(response.getJournals().get(0).getJournalNumber(), is(equalTo(1)));
+        assertThat(response.getJournals().get(0).getCreatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2018-11-02T16:30:43.467Z"))));
         assertThat(response.getJournals().get(0).getReference(), is(equalTo("Red Fish, Blue Fish")));
         assertThat(response.getJournals().get(0).getJournalLines().get(0).getJournalLineID(), is(equalTo(UUID.fromString("81e6b1bf-d812-4f87-8dc4-698558ae043e"))));
         assertThat(response.getJournals().get(0).getJournalLines().get(0).getAccountID(), is(equalTo(UUID.fromString("b94495d0-44ab-4199-a1d0-427a4877e100"))));
@@ -129,9 +129,9 @@ public class AccountingApiJournalsTest {
         Journals response = accountingApi.getJournals(accessToken,xeroTenantId,ifModifiedSince, offset, paymentsOnly);
 
         assertThat(response.getJournals().get(0).getJournalID(), is(equalTo(UUID.fromString("1b31feeb-aa23-404c-8c19-24c827c53661"))));
-        assertThat(response.getJournals().get(0).getJournalDate(), is(equalTo(LocalDate.of(2018,10,19))));  
-        assertThat(response.getJournals().get(0).getJournalNumber(), is(equalTo("1")));
-        assertThat(response.getJournals().get(0).getCreatedDateUTC(), is(equalTo(OffsetDateTime.parse("2018-11-02T08:30:43.467-08:00"))));
+        assertThat(response.getJournals().get(0).getJournalDateAsDate(), is(equalTo(LocalDate.of(2018,10,20))));  
+        assertThat(response.getJournals().get(0).getJournalNumber(), is(equalTo(1)));
+        assertThat(response.getJournals().get(0).getCreatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2018-11-02T16:30:43.467Z"))));
         assertThat(response.getJournals().get(0).getReference(), is(equalTo("Red Fish, Blue Fish")));
         assertThat(response.getJournals().get(0).getJournalLines().get(0).getJournalLineID(), is(equalTo(UUID.fromString("81e6b1bf-d812-4f87-8dc4-698558ae043e"))));
         assertThat(response.getJournals().get(0).getJournalLines().get(0).getAccountID(), is(equalTo(UUID.fromString("b94495d0-44ab-4199-a1d0-427a4877e100"))));

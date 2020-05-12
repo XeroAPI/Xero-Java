@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.payrollau.LeavePeriod;
+import com.xero.models.payrollau.ValidationError;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -67,6 +68,9 @@ public class LeaveApplication {
 
   @JsonProperty("UpdatedDateUTC")
   private String updatedDateUTC;
+
+  @JsonProperty("ValidationErrors")
+  private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
   public LeaveApplication leaveApplicationID(UUID leaveApplicationID) {
     this.leaveApplicationID = leaveApplicationID;
     return this;
@@ -274,6 +278,32 @@ public class LeaveApplication {
     return null;        
   }
 
+  public LeaveApplication validationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+    return this;
+  }
+
+  public LeaveApplication addValidationErrorsItem(ValidationError validationErrorsItem) {
+    if (this.validationErrors == null) {
+      this.validationErrors = new ArrayList<ValidationError>();
+    }
+    this.validationErrors.add(validationErrorsItem);
+    return this;
+  }
+
+   /**
+   * Displays array of validation error messages from the API
+   * @return validationErrors
+  **/
+  @ApiModelProperty(value = "Displays array of validation error messages from the API")
+  public List<ValidationError> getValidationErrors() {
+    return validationErrors;
+  }
+
+  public void setValidationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -292,12 +322,13 @@ public class LeaveApplication {
         Objects.equals(this.endDate, leaveApplication.endDate) &&
         Objects.equals(this.description, leaveApplication.description) &&
         Objects.equals(this.leavePeriods, leaveApplication.leavePeriods) &&
-        Objects.equals(this.updatedDateUTC, leaveApplication.updatedDateUTC);
+        Objects.equals(this.updatedDateUTC, leaveApplication.updatedDateUTC) &&
+        Objects.equals(this.validationErrors, leaveApplication.validationErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(leaveApplicationID, employeeID, leaveTypeID, title, startDate, endDate, description, leavePeriods, updatedDateUTC);
+    return Objects.hash(leaveApplicationID, employeeID, leaveTypeID, title, startDate, endDate, description, leavePeriods, updatedDateUTC, validationErrors);
   }
 
 
@@ -314,6 +345,7 @@ public class LeaveApplication {
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    leavePeriods: ").append(toIndentedString(leavePeriods)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
+    sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -38,9 +38,6 @@ public class ApiClient {
         objectMapper.configure(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL, true);
         
         ThreeTenModule module = new ThreeTenModule();
-        module.addDeserializer(Instant.class, CustomInstantDeserializer.INSTANT);
-        module.addDeserializer(OffsetDateTime.class, CustomInstantDeserializer.OFFSET_DATE_TIME);
-        module.addDeserializer(ZonedDateTime.class, CustomInstantDeserializer.ZONED_DATE_TIME);
         objectMapper.registerModule(module);
         return objectMapper;
     }

@@ -4532,7 +4532,13 @@ public class AccountingApi {
             emailInvoiceForHttpResponse(accessToken, xeroTenantId, invoiceID, requestEmpty);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error accountingError = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("",accountingError);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }

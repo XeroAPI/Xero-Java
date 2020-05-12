@@ -19,8 +19,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.payrollau.CalendarType;
+import com.xero.models.payrollau.ValidationError;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.io.IOException;
 
@@ -56,6 +59,9 @@ public class PayrollCalendar {
 
   @JsonProperty("UpdatedDateUTC")
   private String updatedDateUTC;
+
+  @JsonProperty("ValidationErrors")
+  private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
   public PayrollCalendar name(String name) {
     this.name = name;
     return this;
@@ -201,6 +207,32 @@ public class PayrollCalendar {
     return null;        
   }
 
+  public PayrollCalendar validationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+    return this;
+  }
+
+  public PayrollCalendar addValidationErrorsItem(ValidationError validationErrorsItem) {
+    if (this.validationErrors == null) {
+      this.validationErrors = new ArrayList<ValidationError>();
+    }
+    this.validationErrors.add(validationErrorsItem);
+    return this;
+  }
+
+   /**
+   * Displays array of validation error messages from the API
+   * @return validationErrors
+  **/
+  @ApiModelProperty(value = "Displays array of validation error messages from the API")
+  public List<ValidationError> getValidationErrors() {
+    return validationErrors;
+  }
+
+  public void setValidationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -216,12 +248,13 @@ public class PayrollCalendar {
         Objects.equals(this.startDate, payrollCalendar.startDate) &&
         Objects.equals(this.paymentDate, payrollCalendar.paymentDate) &&
         Objects.equals(this.payrollCalendarID, payrollCalendar.payrollCalendarID) &&
-        Objects.equals(this.updatedDateUTC, payrollCalendar.updatedDateUTC);
+        Objects.equals(this.updatedDateUTC, payrollCalendar.updatedDateUTC) &&
+        Objects.equals(this.validationErrors, payrollCalendar.validationErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, calendarType, startDate, paymentDate, payrollCalendarID, updatedDateUTC);
+    return Objects.hash(name, calendarType, startDate, paymentDate, payrollCalendarID, updatedDateUTC, validationErrors);
   }
 
 
@@ -235,6 +268,7 @@ public class PayrollCalendar {
     sb.append("    paymentDate: ").append(toIndentedString(paymentDate)).append("\n");
     sb.append("    payrollCalendarID: ").append(toIndentedString(payrollCalendarID)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
+    sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("}");
     return sb.toString();
   }

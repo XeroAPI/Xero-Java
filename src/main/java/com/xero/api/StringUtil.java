@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
 
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDate;
+import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.OffsetDateTime;
 import org.threeten.bp.ZoneOffset;
 
@@ -103,6 +104,25 @@ public class StringUtil {
         } else if (mNeg != null && mNeg.matches()) {
             Long l = Long.parseLong(mNeg.group(1));
             formattedDate = Instant.ofEpochMilli(-l).atZone(ZoneOffset.UTC).toOffsetDateTime();
+        } else {
+            throw new IllegalArgumentException("Wrong date format");
+        }
+        return formattedDate;
+    }
+
+    public LocalDateTime convertStringToLocalDateTime(String date)
+            throws IOException {
+        LocalDateTime formattedDate;
+        Pattern datePatt = Pattern.compile("^/Date\\((\\d+)([+-]\\d+)?\\)/$");
+        Matcher m = datePatt.matcher(date);
+        Pattern datePattNeg = Pattern.compile("^/Date\\(-(\\d+)([+-]\\d+)?\\)/$");
+        Matcher mNeg = datePattNeg.matcher(date);
+        if (m != null && m.matches()) {
+            Long l = Long.parseLong(m.group(1));
+            formattedDate = Instant.ofEpochMilli(l).atZone(ZoneOffset.UTC).toLocalDateTime();
+        } else if (mNeg != null && mNeg.matches()) {
+            Long l = Long.parseLong(mNeg.group(1));
+            formattedDate = Instant.ofEpochMilli(-l).atZone(ZoneOffset.UTC).toLocalDateTime();
         } else {
             throw new IllegalArgumentException("Wrong date format");
         }

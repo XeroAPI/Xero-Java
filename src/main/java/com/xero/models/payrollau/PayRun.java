@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.payrollau.PayRunStatus;
 import com.xero.models.payrollau.PayslipSummary;
+import com.xero.models.payrollau.ValidationError;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -86,6 +87,9 @@ public class PayRun {
 
   @JsonProperty("NetPay")
   private Float netPay;
+
+  @JsonProperty("ValidationErrors")
+  private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
   public PayRun payrollCalendarID(UUID payrollCalendarID) {
     this.payrollCalendarID = payrollCalendarID;
     return this;
@@ -419,6 +423,32 @@ public class PayRun {
     this.netPay = netPay;
   }
 
+  public PayRun validationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+    return this;
+  }
+
+  public PayRun addValidationErrorsItem(ValidationError validationErrorsItem) {
+    if (this.validationErrors == null) {
+      this.validationErrors = new ArrayList<ValidationError>();
+    }
+    this.validationErrors.add(validationErrorsItem);
+    return this;
+  }
+
+   /**
+   * Displays array of validation error messages from the API
+   * @return validationErrors
+  **/
+  @ApiModelProperty(value = "Displays array of validation error messages from the API")
+  public List<ValidationError> getValidationErrors() {
+    return validationErrors;
+  }
+
+  public void setValidationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -443,12 +473,13 @@ public class PayRun {
         Objects.equals(this.tax, payRun.tax) &&
         Objects.equals(this._super, payRun._super) &&
         Objects.equals(this.reimbursement, payRun.reimbursement) &&
-        Objects.equals(this.netPay, payRun.netPay);
+        Objects.equals(this.netPay, payRun.netPay) &&
+        Objects.equals(this.validationErrors, payRun.validationErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(payrollCalendarID, payRunID, payRunPeriodStartDate, payRunPeriodEndDate, payRunStatus, paymentDate, payslipMessage, updatedDateUTC, payslips, wages, deductions, tax, _super, reimbursement, netPay);
+    return Objects.hash(payrollCalendarID, payRunID, payRunPeriodStartDate, payRunPeriodEndDate, payRunStatus, paymentDate, payslipMessage, updatedDateUTC, payslips, wages, deductions, tax, _super, reimbursement, netPay, validationErrors);
   }
 
 
@@ -471,6 +502,7 @@ public class PayRun {
     sb.append("    _super: ").append(toIndentedString(_super)).append("\n");
     sb.append("    reimbursement: ").append(toIndentedString(reimbursement)).append("\n");
     sb.append("    netPay: ").append(toIndentedString(netPay)).append("\n");
+    sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("}");
     return sb.toString();
   }

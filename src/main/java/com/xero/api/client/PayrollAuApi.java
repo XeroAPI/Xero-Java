@@ -13,6 +13,7 @@ import com.xero.models.payrollau.PayRun;
 import com.xero.models.payrollau.PayRuns;
 import com.xero.models.payrollau.PayrollCalendar;
 import com.xero.models.payrollau.PayrollCalendars;
+import com.xero.models.payrollau.PayslipLines;
 import com.xero.models.payrollau.PayslipObject;
 import com.xero.models.payrollau.SettingsObject;
 import com.xero.models.payrollau.SuperFund;
@@ -110,14 +111,18 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
-                TypeReference<Employees> errorTypeRef = new TypeReference<Employees>() {};
-                Employees object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-                handler.validationError("Employees",payrollauError);
-             } else {
+            if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<Employees> objectTypeRef = new TypeReference<Employees>() {};
+                Employees object = apiClient.getObjectMapper().readValue(e.getContent(), objectTypeRef);      
+                if (object.getEmployees() == null || object.getEmployees().isEmpty()) {
+                    TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                    com.xero.models.accounting.Error error = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                    handler.validationError("Error", error.getMessage());
+                }
+                handler.validationError("Employees",object);
+            } else {
                 handler.execute(e);
             }
-            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -174,7 +179,18 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e);
+            if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<LeaveApplications> objectTypeRef = new TypeReference<LeaveApplications>() {};
+                LeaveApplications object = apiClient.getObjectMapper().readValue(e.getContent(), objectTypeRef);      
+                if (object.getLeaveApplications() == null || object.getLeaveApplications().isEmpty()) {
+                    TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                    com.xero.models.accounting.Error error = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                    handler.validationError("Error", error.getMessage());
+                }
+                handler.validationError("LeaveApplications",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -224,7 +240,7 @@ public class PayrollAuApi {
     * @return PayItems
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public PayItems  createPayItem(String accessToken, String xeroTenantId, List<PayItem> payItem) throws IOException {
+    public PayItems  createPayItem(String accessToken, String xeroTenantId, PayItem payItem) throws IOException {
         try {
             TypeReference<PayItems> typeRef = new TypeReference<PayItems>() {};
             HttpResponse response = createPayItemForHttpResponse(accessToken, xeroTenantId, payItem);
@@ -238,7 +254,7 @@ public class PayrollAuApi {
         return null;
     }
 
-    public HttpResponse createPayItemForHttpResponse(String accessToken,  String xeroTenantId,  List<PayItem> payItem) throws IOException {
+    public HttpResponse createPayItemForHttpResponse(String accessToken,  String xeroTenantId,  PayItem payItem) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createPayItem");
@@ -288,7 +304,18 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e);
+            if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<PayRuns> objectTypeRef = new TypeReference<PayRuns>() {};
+                PayRuns object = apiClient.getObjectMapper().readValue(e.getContent(), objectTypeRef);      
+                if (object.getPayRuns() == null || object.getPayRuns().isEmpty()) {
+                    TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                    com.xero.models.accounting.Error error = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                    handler.validationError("Error", error.getMessage());
+                }
+                handler.validationError("PayRuns",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -345,7 +372,18 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e);
+            if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<PayrollCalendars> objectTypeRef = new TypeReference<PayrollCalendars>() {};
+                PayrollCalendars object = apiClient.getObjectMapper().readValue(e.getContent(), objectTypeRef);      
+                if (object.getPayrollCalendars() == null || object.getPayrollCalendars().isEmpty()) {
+                    TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                    com.xero.models.accounting.Error error = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                    handler.validationError("Error", error.getMessage());
+                }
+                handler.validationError("PayrollCalendars",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -402,7 +440,18 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e);
+            if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<SuperFunds> objectTypeRef = new TypeReference<SuperFunds>() {};
+                SuperFunds object = apiClient.getObjectMapper().readValue(e.getContent(), objectTypeRef);      
+                if (object.getSuperFunds() == null || object.getSuperFunds().isEmpty()) {
+                    TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                    com.xero.models.accounting.Error error = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                    handler.validationError("Error", error.getMessage());
+                }
+                handler.validationError("SuperFunds",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -459,7 +508,18 @@ public class PayrollAuApi {
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e);
+            if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<Timesheets> objectTypeRef = new TypeReference<Timesheets>() {};
+                Timesheets object = apiClient.getObjectMapper().readValue(e.getContent(), objectTypeRef);      
+                if (object.getTimesheets() == null || object.getTimesheets().isEmpty()) {
+                    TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                    com.xero.models.accounting.Error error = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                    handler.validationError("Error", error.getMessage());
+                }
+                handler.validationError("Timesheets",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1844,35 +1904,41 @@ public class PayrollAuApi {
     * <p><b>200</b> - A successful request - currently returns empty array for JSON
     * @param xeroTenantId Xero identifier for Tenant
     * @param payslipID Payslip id for single object
-    * @param payslipObject The payslipObject parameter
+    * @param payslipLines The payslipLines parameter
     * @param accessToken Authorization token for user set in header of each request
     * @return PayslipObject
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public PayslipObject  updatePayslipByID(String accessToken, String xeroTenantId, UUID payslipID, PayslipObject payslipObject) throws IOException {
+    public PayslipObject  updatePayslip(String accessToken, String xeroTenantId, UUID payslipID, List<PayslipLines> payslipLines) throws IOException {
         try {
             TypeReference<PayslipObject> typeRef = new TypeReference<PayslipObject>() {};
-            HttpResponse response = updatePayslipByIDForHttpResponse(accessToken, xeroTenantId, payslipID, payslipObject);
+            HttpResponse response = updatePayslipForHttpResponse(accessToken, xeroTenantId, payslipID, payslipLines);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e);
+            if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error error = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError("Error", error.getMessage());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
         return null;
     }
 
-    public HttpResponse updatePayslipByIDForHttpResponse(String accessToken,  String xeroTenantId,  UUID payslipID,  PayslipObject payslipObject) throws IOException {
+    public HttpResponse updatePayslipForHttpResponse(String accessToken,  String xeroTenantId,  UUID payslipID,  List<PayslipLines> payslipLines) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling updatePayslipByID");
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling updatePayslip");
         }// verify the required parameter 'payslipID' is set
         if (payslipID == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'payslipID' when calling updatePayslipByID");
+            throw new IllegalArgumentException("Missing the required parameter 'payslipID' when calling updatePayslip");
         }
         if (accessToken == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling updatePayslipByID");
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling updatePayslip");
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
@@ -1891,7 +1957,7 @@ public class PayrollAuApi {
 
         
         HttpContent content = null;
-        content = apiClient.new JacksonJsonHttpContent(payslipObject);
+        content = apiClient.new JacksonJsonHttpContent(payslipLines);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
         HttpTransport transport = apiClient.getHttpTransport();       

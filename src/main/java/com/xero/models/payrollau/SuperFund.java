@@ -19,8 +19,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.payrollau.SuperFundType;
+import com.xero.models.payrollau.ValidationError;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.io.IOException;
 
@@ -74,6 +77,9 @@ public class SuperFund {
 
   @JsonProperty("UpdatedDateUTC")
   private String updatedDateUTC;
+
+  @JsonProperty("ValidationErrors")
+  private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
   public SuperFund superFundID(UUID superFundID) {
     this.superFundID = superFundID;
     return this;
@@ -291,6 +297,32 @@ public class SuperFund {
     return null;        
   }
 
+  public SuperFund validationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+    return this;
+  }
+
+  public SuperFund addValidationErrorsItem(ValidationError validationErrorsItem) {
+    if (this.validationErrors == null) {
+      this.validationErrors = new ArrayList<ValidationError>();
+    }
+    this.validationErrors.add(validationErrorsItem);
+    return this;
+  }
+
+   /**
+   * Displays array of validation error messages from the API
+   * @return validationErrors
+  **/
+  @ApiModelProperty(value = "Displays array of validation error messages from the API")
+  public List<ValidationError> getValidationErrors() {
+    return validationErrors;
+  }
+
+  public void setValidationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -312,12 +344,13 @@ public class SuperFund {
         Objects.equals(this.employerNumber, superFund.employerNumber) &&
         Objects.equals(this.SPIN, superFund.SPIN) &&
         Objects.equals(this.USI, superFund.USI) &&
-        Objects.equals(this.updatedDateUTC, superFund.updatedDateUTC);
+        Objects.equals(this.updatedDateUTC, superFund.updatedDateUTC) &&
+        Objects.equals(this.validationErrors, superFund.validationErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(superFundID, type, name, ABN, BSB, accountNumber, accountName, electronicServiceAddress, employerNumber, SPIN, USI, updatedDateUTC);
+    return Objects.hash(superFundID, type, name, ABN, BSB, accountNumber, accountName, electronicServiceAddress, employerNumber, SPIN, USI, updatedDateUTC, validationErrors);
   }
 
 
@@ -337,6 +370,7 @@ public class SuperFund {
     sb.append("    SPIN: ").append(toIndentedString(SPIN)).append("\n");
     sb.append("    USI: ").append(toIndentedString(USI)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
+    sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("}");
     return sb.toString();
   }

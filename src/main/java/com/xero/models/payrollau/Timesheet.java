@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.models.payrollau.TimesheetLine;
 import com.xero.models.payrollau.TimesheetStatus;
+import com.xero.models.payrollau.ValidationError;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -65,6 +66,9 @@ public class Timesheet {
 
   @JsonProperty("UpdatedDateUTC")
   private String updatedDateUTC;
+
+  @JsonProperty("ValidationErrors")
+  private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
   public Timesheet employeeID(UUID employeeID) {
     this.employeeID = employeeID;
     return this;
@@ -254,6 +258,32 @@ public class Timesheet {
     return null;        
   }
 
+  public Timesheet validationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+    return this;
+  }
+
+  public Timesheet addValidationErrorsItem(ValidationError validationErrorsItem) {
+    if (this.validationErrors == null) {
+      this.validationErrors = new ArrayList<ValidationError>();
+    }
+    this.validationErrors.add(validationErrorsItem);
+    return this;
+  }
+
+   /**
+   * Displays array of validation error messages from the API
+   * @return validationErrors
+  **/
+  @ApiModelProperty(value = "Displays array of validation error messages from the API")
+  public List<ValidationError> getValidationErrors() {
+    return validationErrors;
+  }
+
+  public void setValidationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -271,12 +301,13 @@ public class Timesheet {
         Objects.equals(this.hours, timesheet.hours) &&
         Objects.equals(this.timesheetID, timesheet.timesheetID) &&
         Objects.equals(this.timesheetLines, timesheet.timesheetLines) &&
-        Objects.equals(this.updatedDateUTC, timesheet.updatedDateUTC);
+        Objects.equals(this.updatedDateUTC, timesheet.updatedDateUTC) &&
+        Objects.equals(this.validationErrors, timesheet.validationErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(employeeID, startDate, endDate, status, hours, timesheetID, timesheetLines, updatedDateUTC);
+    return Objects.hash(employeeID, startDate, endDate, status, hours, timesheetID, timesheetLines, updatedDateUTC, validationErrors);
   }
 
 
@@ -292,6 +323,7 @@ public class Timesheet {
     sb.append("    timesheetID: ").append(toIndentedString(timesheetID)).append("\n");
     sb.append("    timesheetLines: ").append(toIndentedString(timesheetLines)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
+    sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("}");
     return sb.toString();
   }

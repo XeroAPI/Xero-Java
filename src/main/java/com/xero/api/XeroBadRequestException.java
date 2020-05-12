@@ -28,6 +28,13 @@ public class XeroBadRequestException extends RuntimeException {
     private com.xero.models.payrolluk.Problem payrollUkProblem = new com.xero.models.payrolluk.Problem();
     private List<com.xero.models.payrollau.Employee> employeeItems = new ArrayList<com.xero.models.payrollau.Employee>();
     
+    private List<com.xero.models.payrollau.LeaveApplication> leaveApplicationItems = new ArrayList<com.xero.models.payrollau.LeaveApplication>();
+    private List<com.xero.models.payrollau.PayItem> payItemItems = new ArrayList<com.xero.models.payrollau.PayItem>();
+    private List<com.xero.models.payrollau.PayrollCalendar> payrollCalendarItems = new ArrayList<com.xero.models.payrollau.PayrollCalendar>();
+    private List<com.xero.models.payrollau.SuperFund> superFundItems = new ArrayList<com.xero.models.payrollau.SuperFund>();
+    private List<com.xero.models.payrollau.Timesheet> timesheetItems = new ArrayList<com.xero.models.payrollau.Timesheet>();
+    private List<com.xero.models.payrollau.PayRun> payRunItems = new ArrayList<com.xero.models.payrollau.PayRun>();
+    
     public XeroBadRequestException(String objectType, com.xero.models.accounting.Error error) {
         this.statusCode = 400;
         this.type(objectType);
@@ -64,10 +71,46 @@ public class XeroBadRequestException extends RuntimeException {
         this.employeeItems = employees.getEmployees();
     }
     
+    public XeroBadRequestException(String objectType, com.xero.models.payrollau.LeaveApplications leaveApplications) {
+        this.statusCode = 400;
+        this.type = objectType;
+        this.leaveApplicationItems = leaveApplications.getLeaveApplications();
+    }
+    
+    public XeroBadRequestException(String objectType, com.xero.models.payrollau.PayItems payItems) {
+        this.statusCode = 400;
+        this.type = objectType;
+        //this.payItemItems = payItems.g
+    }
+    
+    public XeroBadRequestException(String objectType, com.xero.models.payrollau.PayrollCalendars payrollCalendars) {
+        this.statusCode = 400;
+        this.type = objectType;
+        this.payrollCalendarItems = payrollCalendars.getPayrollCalendars();
+    }
+    
+    public XeroBadRequestException(String objectType, com.xero.models.payrollau.SuperFunds superFunds) {
+        this.statusCode = 400;
+        this.type = objectType;
+        this.superFundItems = superFunds.getSuperFunds();
+    }
+    
+    public XeroBadRequestException(String objectType, com.xero.models.payrollau.Timesheets timesheets) {
+        this.statusCode = 400;
+        this.type = objectType;
+        this.timesheetItems = timesheets.getTimesheets();
+    }
+    
+    public XeroBadRequestException(String objectType, com.xero.models.payrollau.PayRuns payRuns) {
+        this.statusCode = 400;
+        this.type = objectType;
+        this.payRunItems = payRuns.getPayRuns();
+    }
+    
     public XeroBadRequestException(Integer statusCode, String message) {
         this.statusCode = statusCode;
         this.message = message;
-      }
+    }
     
     public XeroBadRequestException statusCode(Integer statusCode) {
       this.statusCode = statusCode;
@@ -203,36 +246,6 @@ public class XeroBadRequestException extends RuntimeException {
       this.feedConnectionItems = feedConnectionItems;
     }
     
-    
-    // Payroll AU Employee items
-    public XeroBadRequestException employeeItemsItems(List<com.xero.models.payrollau.Employee> employeeItems) {
-      this.employeeItems = employeeItems;
-      return this;
-    }
-    
-    public XeroBadRequestException addEmployeeItems(com.xero.models.payrollau.Employee item) {
-      if (this.employeeItems == null) {
-        this.employeeItems = new ArrayList<com.xero.models.payrollau.Employee>();
-      }
-      this.employeeItems.add(item);
-      return this;
-    }
-    
-    /**
-    * Array of FeedConnection of Errors Array
-    * @return statementItems
-    **/
-    @ApiModelProperty(value = "Array of FeedConnection Items with Errors Array")
-    public List<com.xero.models.payrollau.Employee> getEmployeeItems() {
-      return employeeItems;
-    }
-    
-    public void setEmployeeItems(List<com.xero.models.payrollau.Employee> employeeItems) {
-      this.employeeItems = employeeItems;
-    }
-    
-    
-    
     // Assets field Validation Errors
     public XeroBadRequestException fieldValidationErrorsElements(List<FieldValidationErrorsElement> fieldValidationErrorsElements) {
       this.fieldValidationErrorsElements = fieldValidationErrorsElements;
@@ -279,6 +292,176 @@ public class XeroBadRequestException extends RuntimeException {
     public void setPayrollUkProblem(com.xero.models.payrolluk.Problem problem) {
       this.payrollUkProblem = problem;
     }
+    
+    
+    
+    
+    
+    // Payroll AU Employees
+    public XeroBadRequestException employeeItemsItems(List<com.xero.models.payrollau.Employee> employeeItems) {
+      this.employeeItems = employeeItems;
+      return this;
+    }
+    
+    public XeroBadRequestException addEmployeeItems(com.xero.models.payrollau.Employee item) {
+      if (this.employeeItems == null) {
+        this.employeeItems = new ArrayList<com.xero.models.payrollau.Employee>();
+      }
+      this.employeeItems.add(item);
+      return this;
+    }
+    
+    /**
+    * Array of FeedConnection of Errors Array
+    * @return statementItems
+    **/
+    @ApiModelProperty(value = "Array of FeedConnection Items with Errors Array")
+    public List<com.xero.models.payrollau.Employee> getEmployeeItems() {
+      return employeeItems;
+    }
+    
+    public void setEmployeeItems(List<com.xero.models.payrollau.Employee> employeeItems) {
+      this.employeeItems = employeeItems;
+    }
+    
+    
+    // Payroll AU PayItems
+    public XeroBadRequestException payItemItems(List<com.xero.models.payrollau.PayItem> payItemItems) {
+      this.payItemItems = payItemItems;
+      return this;
+    }
+    
+    public XeroBadRequestException addPayItemItems(com.xero.models.payrollau.PayItem item) {
+      if (this.payItemItems == null) {
+        this.payItemItems = new ArrayList<com.xero.models.payrollau.PayItem>();
+      }
+      this.payItemItems.add(item);
+      return this;
+    }
+    
+    /**
+    * Array of PayItems with Validation Error Array
+    * @return payItems
+    **/
+    @ApiModelProperty(value = "Array of PayItems with Validation Array")
+    public List<com.xero.models.payrollau.PayItem> getPayItemItems() {
+      return payItemItems;
+    }
+    
+    public void setPayItemItems(List<com.xero.models.payrollau.PayItem> payItems) {
+      this.payItemItems = payItems;
+    }
+    
+    
+    // Payroll AU PayRun
+    public XeroBadRequestException payRunItems(List<com.xero.models.payrollau.PayRun> payRunItems) {
+      this.payRunItems = payRunItems;
+      return this;
+    }
+    
+    public XeroBadRequestException addPayRunItems(com.xero.models.payrollau.PayRun item) {
+      if (this.payRunItems == null) {
+        this.payRunItems = new ArrayList<com.xero.models.payrollau.PayRun>();
+      }
+      this.payRunItems.add(item);
+      return this;
+    }
+    
+    /**
+    * Array of PayRun with Validation Error Array
+    * @return payRunItems
+    **/
+    @ApiModelProperty(value = "Array of PayRun with Validation Array")
+    public List<com.xero.models.payrollau.PayRun> getPayRunItems() {
+      return payRunItems;
+    }
+    
+    public void setPayRunItems(List<com.xero.models.payrollau.PayRun> payRunItems) {
+      this.payRunItems = payRunItems;
+    }
+    
+    // Payroll AU PayrollCalendar
+    public XeroBadRequestException payrollCalendarItems(List<com.xero.models.payrollau.PayrollCalendar> payrollCalendarItems) {
+      this.payrollCalendarItems = payrollCalendarItems;
+      return this;
+    }
+    
+    public XeroBadRequestException addPayrollCalendarItems(com.xero.models.payrollau.PayrollCalendar item) {
+      if (this.payrollCalendarItems == null) {
+        this.payrollCalendarItems = new ArrayList<com.xero.models.payrollau.PayrollCalendar>();
+      }
+      this.payrollCalendarItems.add(item);
+      return this;
+    }
+    
+    /**
+    * Array of PayrollCalendar with Validation Error Array
+    * @return payrollCalendarItems
+    **/
+    @ApiModelProperty(value = "Array of PayrollCalendar with Validation Array")
+    public List<com.xero.models.payrollau.PayrollCalendar> getPayrollCalendarItems() {
+      return payrollCalendarItems;
+    }
+    
+    public void setPayrollCalendarItems(List<com.xero.models.payrollau.PayrollCalendar> payrollCalendarItems) {
+      this.payrollCalendarItems = payrollCalendarItems;
+    }
+    
+    
+    // Payroll AU SuperFund
+    public XeroBadRequestException superFundItems(List<com.xero.models.payrollau.SuperFund> superFundItems) {
+      this.superFundItems = superFundItems;
+      return this;
+    }
+    
+    public XeroBadRequestException addSuperFundItems(com.xero.models.payrollau.SuperFund item) {
+      if (this.superFundItems == null) {
+        this.superFundItems = new ArrayList<com.xero.models.payrollau.SuperFund>();
+      }
+      this.superFundItems.add(item);
+      return this;
+    }
+    
+    /**
+    * Array of SuperFund with Validation Error Array
+    * @return superFundItems
+    **/
+    @ApiModelProperty(value = "Array of SuperFund with Validation Array")
+    public List<com.xero.models.payrollau.SuperFund> getSuperFundItems() {
+      return superFundItems;
+    }
+    
+    public void setSuperFundItems(List<com.xero.models.payrollau.SuperFund> superFundItems) {
+      this.superFundItems = superFundItems;
+    }
+    
+    // Payroll AU Timesheet
+    public XeroBadRequestException timesheetItems(List<com.xero.models.payrollau.Timesheet> timesheetItems) {
+      this.timesheetItems = timesheetItems;
+      return this;
+    }
+    
+    public XeroBadRequestException addTimesheetItems(com.xero.models.payrollau.Timesheet item) {
+      if (this.timesheetItems == null) {
+        this.timesheetItems = new ArrayList<com.xero.models.payrollau.Timesheet>();
+      }
+      this.timesheetItems.add(item);
+      return this;
+    }
+    
+    /**
+    * Array of Timesheet with Validation Error Array
+    * @return timesheetItems
+    **/
+    @ApiModelProperty(value = "Array of Timesheet with Validation Array")
+    public List<com.xero.models.payrollau.Timesheet> getTimesheetItems() {
+      return timesheetItems;
+    }
+    
+    public void setTimesheetItems(List<com.xero.models.payrollau.Timesheet> timesheetItems) {
+      this.timesheetItems = timesheetItems;
+    }
+        
       
     @Override
     public boolean equals(java.lang.Object o) {

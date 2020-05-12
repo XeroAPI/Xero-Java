@@ -53,6 +53,34 @@ public class XeroApiExceptionHandler {
         throw new XeroBadRequestException(objectType, employees);
     }
     
+    public void validationError(String objectType, com.xero.models.payrollau.LeaveApplications leaveApplications) {
+        throw new XeroBadRequestException(objectType, leaveApplications);
+    }
+    
+    public void validationError(String objectType, com.xero.models.payrollau.PayItems payItems) {
+        throw new XeroBadRequestException(objectType, payItems);
+    }
+    
+    public void validationError(String objectType, com.xero.models.payrollau.PayRuns payRuns) {
+        throw new XeroBadRequestException(objectType, payRuns);
+    }
+    
+    public void validationError(String objectType, com.xero.models.payrollau.PayrollCalendars payrollCalendars) {
+        throw new XeroBadRequestException(objectType, payrollCalendars);
+    }
+    
+    public void validationError(String objectType, com.xero.models.payrollau.SuperFunds superFunds) {
+        throw new XeroBadRequestException(objectType, superFunds);
+    }
+    
+    public void validationError(String objectType, com.xero.models.payrollau.Timesheets timesheets) {
+        throw new XeroBadRequestException(objectType, timesheets);
+    }
+    
+    public void validationError(String objectType, String msg) {
+        throw new XeroBadRequestException(400, msg);
+    }
+    
     // REFACTOR GENERIC ERROR HANDLER
     public void execute(HttpResponseException e) {
         int statusCode = e.getStatusCode();
