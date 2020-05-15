@@ -100,14 +100,14 @@ public class PayrollAuApiPayslipTest {
         assertThat(response.getPayslip().getSuperannuationLines().get(0).getMinimumMonthlyEarnings(), is(equalTo(450.0f)));        
         assertThat(response.getPayslip().getSuperannuationLines().get(0).getExpenseAccountCode(), is(equalTo("478")));
         assertThat(response.getPayslip().getSuperannuationLines().get(0).getLiabilityAccountCode(), is(equalTo("826")));
-        assertThat(response.getPayslip().getSuperannuationLines().get(0).getPaymentDateForThisPeriodAsDate(), is(equalTo(LocalDate.of(2020,01,27))));
+        assertThat(response.getPayslip().getSuperannuationLines().get(0).getPaymentDateForThisPeriodAsDate(), is(equalTo(LocalDate.of(2020,01,28))));
         assertThat(response.getPayslip().getSuperannuationLines().get(0).getAmount(), is(equalTo(0.0f)));
         assertThat(response.getPayslip().getTaxLines().get(0).getPayslipTaxLineID(), is(equalTo(UUID.fromString("c129696e-36ef-4677-a54c-96095787ca20"))));
         assertThat(response.getPayslip().getTaxLines().get(0).getAmount(), is(equalTo(0.0f)));
         assertThat(response.getPayslip().getTaxLines().get(0).getTaxTypeName(), is(equalTo("PAYG Tax")));
         assertThat(response.getPayslip().getTaxLines().get(0).getDescription(), is(equalTo("No tax file number (Australian resident)")));
         assertThat(response.getPayslip().getTaxLines().get(0).getLiabilityAccount(), is(equalTo("825")));
-        assertThat(response.getPayslip().getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-13T16:42:35-08:00"))));          
+        assertThat(response.getPayslip().getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-14T00:42:35Z"))));          
   
         //System.out.println(response.toString());
     }
@@ -117,8 +117,8 @@ public class PayrollAuApiPayslipTest {
         System.out.println("@Test - updatePayslipByIDTest");
         
         UUID payslipId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
-        PayslipObject payslipObject = new PayslipObject(); 
-        PayslipObject response = payrollAuApi.updatePayslipByID(accessToken, xeroTenantId, payslipId, payslipObject);
+        List<PayslipLines> payslipObject = new ArrayList<>(); 
+        PayslipObject response = payrollAuApi.updatePayslip(accessToken, xeroTenantId, payslipId, payslipObject);
         
 // Can not write test until I can 
 // make the call and get a live response back for the OAS to use
@@ -160,7 +160,7 @@ public class PayrollAuApiPayslipTest {
         // assertThat(response.getPayslip().getTaxLines().get(0).getDescription(), is(equalTo("No tax file number (Australian resident)")));
         // assertThat(response.getPayslip().getTaxLines().get(0).getLiabilityAccount(), is(equalTo("825")));
         // assertThat(response.getPayslip().getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-13T16:42:35-08:00"))));          
-        System.out.println(response.toString());
+//        System.out.println(response.toString());
     }
 
 }

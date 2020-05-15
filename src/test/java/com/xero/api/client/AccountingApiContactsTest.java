@@ -113,7 +113,7 @@ public class AccountingApiContactsTest {
         assertThat(response.getContacts().get(0).getPhones().get(1).getPhoneAreaCode(), is(equalTo("(626)")));
         assertThat(response.getContacts().get(0).getIsSupplier(), is(equalTo(true)));
         assertThat(response.getContacts().get(0).getIsCustomer(), is(equalTo(true)));
-        assertThat(response.getContacts().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2017-08-21T12:49:04.227-08:00"))));
+        assertThat(response.getContacts().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2017-08-21T20:49:04.227Z"))));
         assertThat(response.getContacts().get(0).getBalances().getAccountsReceivable().getOutstanding(), is(equalTo(760.0)));
         assertThat(response.getContacts().get(0).getBalances().getAccountsReceivable().getOverdue(), is(equalTo(920.0)));
         assertThat(response.getContacts().get(0).getBalances().getAccountsPayable().getOutstanding(), is(equalTo(231.6)));
@@ -175,7 +175,7 @@ public class AccountingApiContactsTest {
         assertThat(response.getContacts().get(0).getPaymentTerms().getBills().getType(), is(equalTo(com.xero.models.accounting.PaymentTermType.OFFOLLOWINGMONTH)));
         assertThat(response.getContacts().get(0).getPaymentTerms().getSales().getDay(), is(equalTo(Integer.parseInt("14"))));
         assertThat(response.getContacts().get(0).getPaymentTerms().getSales().getType(), is(equalTo(com.xero.models.accounting.PaymentTermType.OFCURRENTMONTH)));
-        assertThat(response.getContacts().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-01T09:02:57.193-08:00"))));  
+        assertThat(response.getContacts().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-03-01T17:02:57.193Z"))));  
         //System.out.println(response.getContacts().get(0).toString());
     }
     /*
@@ -218,7 +218,7 @@ public class AccountingApiContactsTest {
         assertThat(response.getContacts().get(0).getPaymentTerms().getBills().getType(), is(equalTo(com.xero.models.accounting.PaymentTermType.OFCURRENTMONTH)));
         assertThat(response.getContacts().get(0).getPaymentTerms().getSales().getDay(), is(equalTo(Integer.parseInt("10"))));
         assertThat(response.getContacts().get(0).getPaymentTerms().getSales().getType(), is(equalTo(com.xero.models.accounting.PaymentTermType.DAYSAFTERBILLMONTH)));
-        assertThat(response.getContacts().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-02-28T16:27:11.763-08:00"))));  
+        assertThat(response.getContacts().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-03-01T00:27:11.763Z"))));  
         assertThat(response.getContacts().get(0).getHasValidationErrors(), is(equalTo(false))); 
         //System.out.println(response.getContacts().get(0).toString());
     }

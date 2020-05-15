@@ -76,14 +76,14 @@ public class PayrollAuApiLeaveApplicationTest {
         assertThat(response.getLeaveApplications().get(0).getLeaveApplicationID() , is(equalTo(UUID.fromString("1d4cd583-0107-4386-936b-672eb3d1f624"))));
         assertThat(response.getLeaveApplications().get(0).getEmployeeID(), is(equalTo(UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e"))));
         assertThat(response.getLeaveApplications().get(0).getLeaveTypeID() , is(equalTo(UUID.fromString("184ea8f7-d143-46dd-bef3-0c60e1aa6fca"))));
-        assertThat(response.getLeaveApplications().get(0).getStartDateAsDate(), is(equalTo(LocalDate.of(2019,11,11))));
-        assertThat(response.getLeaveApplications().get(0).getEndDateAsDate(), is(equalTo(LocalDate.of(2019,11,11))));
-        assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getPayPeriodStartDateAsDate() , is(equalTo(LocalDate.of(2019,11,07))));
-        assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getPayPeriodEndDateAsDate() , is(equalTo(LocalDate.of(2019,11,13))));        
+        assertThat(response.getLeaveApplications().get(0).getStartDateAsDate(), is(equalTo(LocalDate.of(2019,11,12))));
+        assertThat(response.getLeaveApplications().get(0).getEndDateAsDate(), is(equalTo(LocalDate.of(2019,11,12))));
+        assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getPayPeriodStartDateAsDate() , is(equalTo(LocalDate.of(2019,11,8))));
+        assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getPayPeriodEndDateAsDate() , is(equalTo(LocalDate.of(2019,11,14))));        
         assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getNumberOfUnits(), is(equalTo(0.0f)));
         assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getLeavePeriodStatus(), is(equalTo(com.xero.models.payrollau.LeavePeriodStatus.SCHEDULED)));
         assertThat(response.getLeaveApplications().get(0).getEmployeeID(), is(equalTo(UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e"))));
-        assertThat(response.getLeaveApplications().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-12T21:30:08-08:00"))));  
+        assertThat(response.getLeaveApplications().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-13T05:30:08Z"))));  
         //System.out.println(response.toString());
     }
 
@@ -98,13 +98,13 @@ public class PayrollAuApiLeaveApplicationTest {
         assertThat(response.getLeaveApplications().get(0).getLeaveApplicationID() , is(equalTo(UUID.fromString("1d4cd583-0107-4386-936b-672eb3d1f624"))));
         assertThat(response.getLeaveApplications().get(0).getEmployeeID(), is(equalTo(UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e"))));
         assertThat(response.getLeaveApplications().get(0).getLeaveTypeID() , is(equalTo(UUID.fromString("184ea8f7-d143-46dd-bef3-0c60e1aa6fca"))));
-        assertThat(response.getLeaveApplications().get(0).getStartDateAsDate(), is(equalTo(LocalDate.of(2019,11,11))));
-        assertThat(response.getLeaveApplications().get(0).getEndDateAsDate(), is(equalTo(LocalDate.of(2019,11,11))));
-        assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getPayPeriodStartDateAsDate() , is(equalTo(LocalDate.of(2019,11,07))));
-        assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getPayPeriodEndDateAsDate() , is(equalTo(LocalDate.of(2019,11,13))));        
+        assertThat(response.getLeaveApplications().get(0).getStartDateAsDate(), is(equalTo(LocalDate.of(2019,11,12))));
+        assertThat(response.getLeaveApplications().get(0).getEndDateAsDate(), is(equalTo(LocalDate.of(2019,11,12))));
+        assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getPayPeriodStartDateAsDate() , is(equalTo(LocalDate.of(2019,11,8))));
+        assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getPayPeriodEndDateAsDate() , is(equalTo(LocalDate.of(2019,11,14))));        
         assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getNumberOfUnits(), is(equalTo(0.0f)));
         assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getLeavePeriodStatus(), is(equalTo(com.xero.models.payrollau.LeavePeriodStatus.SCHEDULED)));
-        assertThat(response.getLeaveApplications().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-12T21:30:08-08:00"))));  
+        assertThat(response.getLeaveApplications().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-13T05:30:08Z"))));  
         //System.out.println(response.toString());
     }
 
@@ -121,11 +121,11 @@ public class PayrollAuApiLeaveApplicationTest {
         assertThat(response.getLeaveApplications().get(0).getLeaveTypeID() , is(equalTo(UUID.fromString("184ea8f7-d143-46dd-bef3-0c60e1aa6fca"))));
         assertThat(response.getLeaveApplications().get(0).getStartDateAsDate(), is(equalTo(LocalDate.of(2019,10,31))));
         assertThat(response.getLeaveApplications().get(0).getEndDateAsDate(), is(equalTo(LocalDate.of(2019,11,01))));
-        assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getPayPeriodStartDateAsDate() , is(equalTo(LocalDate.of(2019,10,31))));
-        assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getPayPeriodEndDateAsDate() , is(equalTo(LocalDate.of(2019,11,06))));        
+        assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getPayPeriodStartDateAsDate() , is(equalTo(LocalDate.of(2019,11,1))));
+        assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getPayPeriodEndDateAsDate() , is(equalTo(LocalDate.of(2019,11,07))));        
         assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getNumberOfUnits(), is(equalTo(0.6f)));
         assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getLeavePeriodStatus(), is(equalTo(com.xero.models.payrollau.LeavePeriodStatus.SCHEDULED)));
-        assertThat(response.getLeaveApplications().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-13T13:16:31.897-08:00"))));  
+        assertThat(response.getLeaveApplications().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-13T21:16:31.897Z"))));  
         //System.out.println(response.toString());
     }
 
@@ -144,11 +144,11 @@ public class PayrollAuApiLeaveApplicationTest {
         assertThat(response.getLeaveApplications().get(0).getStartDateAsDate(), is(equalTo(LocalDate.of(2019,10,31))));
         assertThat(response.getLeaveApplications().get(0).getEndDateAsDate(), is(equalTo(LocalDate.of(2019,11,01))));
         assertThat(response.getLeaveApplications().get(0).getDescription(), is(equalTo("My updated Description")));        
-        assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getPayPeriodStartDateAsDate() , is(equalTo(LocalDate.of(2019,10,31))));
-        assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getPayPeriodEndDateAsDate() , is(equalTo(LocalDate.of(2019,11,06))));        
+        assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getPayPeriodStartDateAsDate() , is(equalTo(LocalDate.of(2019,11,01))));
+        assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getPayPeriodEndDateAsDate() , is(equalTo(LocalDate.of(2019,11,07))));        
         assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getNumberOfUnits(), is(equalTo(0.6f)));
         assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getLeavePeriodStatus(), is(equalTo(com.xero.models.payrollau.LeavePeriodStatus.SCHEDULED)));
-        assertThat(response.getLeaveApplications().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-13T13:16:32.293-08:00"))));  
+        assertThat(response.getLeaveApplications().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-13T21:16:32.293Z"))));  
         //System.out.println(response.toString());
     }
 }

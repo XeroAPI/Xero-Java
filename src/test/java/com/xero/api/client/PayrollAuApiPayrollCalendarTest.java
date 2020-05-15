@@ -74,10 +74,10 @@ public class PayrollAuApiPayrollCalendarTest {
         
         assertThat(response.getPayrollCalendars().get(0).getName(), is(equalTo("Sid Weekly")));
         assertThat(response.getPayrollCalendars().get(0).getCalendarType(), is(equalTo(com.xero.models.payrollau.CalendarType.WEEKLY)));
-        assertThat(response.getPayrollCalendars().get(0).getStartDateAsDate(), is(equalTo(LocalDate.of(2019,11,07))));
-        assertThat(response.getPayrollCalendars().get(0).getPaymentDateAsDate(), is(equalTo(LocalDate.of(2019,11,14))));
+        assertThat(response.getPayrollCalendars().get(0).getStartDateAsDate(), is(equalTo(LocalDate.of(2019,11,8))));
+        assertThat(response.getPayrollCalendars().get(0).getPaymentDateAsDate(), is(equalTo(LocalDate.of(2019,11,15))));
         assertThat(response.getPayrollCalendars().get(0).getPayrollCalendarID() , is(equalTo(UUID.fromString("78bb86b9-e1ea-47ac-b75d-f087a81931de"))));
-        assertThat(response.getPayrollCalendars().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-06T14:01:27-08:00"))));
+        assertThat(response.getPayrollCalendars().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-06T22:01:27Z"))));
         //System.out.println(response.toString());
     }
 
@@ -90,10 +90,10 @@ public class PayrollAuApiPayrollCalendarTest {
         
         assertThat(response.getPayrollCalendars().get(0).getName(), is(equalTo("MyCal37127")));
         assertThat(response.getPayrollCalendars().get(0).getCalendarType(), is(equalTo(com.xero.models.payrollau.CalendarType.WEEKLY)));
-        assertThat(response.getPayrollCalendars().get(0).getStartDateAsDate(), is(equalTo(LocalDate.of(2019,11,05))));
-        assertThat(response.getPayrollCalendars().get(0).getPaymentDateAsDate(), is(equalTo(LocalDate.of(2019,11,11))));
+        assertThat(response.getPayrollCalendars().get(0).getStartDateAsDate(), is(equalTo(LocalDate.of(2019,11,6))));
+        assertThat(response.getPayrollCalendars().get(0).getPaymentDateAsDate(), is(equalTo(LocalDate.of(2019,11,12))));
         assertThat(response.getPayrollCalendars().get(0).getPayrollCalendarID() , is(equalTo(UUID.fromString("57accbfe-f729-4be3-b3cb-8c3445c61d3a"))));      
-        assertThat(response.getPayrollCalendars().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2020-03-13T10:51:58.633-08:00"))));
+        assertThat(response.getPayrollCalendars().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2020-03-13T18:51:58.633Z"))));
         //System.out.println(response.toString());
     }
 
@@ -106,10 +106,10 @@ public class PayrollAuApiPayrollCalendarTest {
         
         assertThat(response.getPayrollCalendars().get(0).getName(), is(equalTo("Sid Weekly")));
         assertThat(response.getPayrollCalendars().get(0).getCalendarType(), is(equalTo(com.xero.models.payrollau.CalendarType.WEEKLY)));
-        assertThat(response.getPayrollCalendars().get(0).getStartDateAsDate(), is(equalTo(LocalDate.of(2019,11,07))));
-        assertThat(response.getPayrollCalendars().get(0).getPaymentDateAsDate(), is(equalTo(LocalDate.of(2019,11,14))));
+        assertThat(response.getPayrollCalendars().get(0).getStartDateAsDate(), is(equalTo(LocalDate.of(2019,11,8))));
+        assertThat(response.getPayrollCalendars().get(0).getPaymentDateAsDate(), is(equalTo(LocalDate.of(2019,11,15))));
         assertThat(response.getPayrollCalendars().get(0).getPayrollCalendarID() , is(equalTo(UUID.fromString("78bb86b9-e1ea-47ac-b75d-f087a81931de")))); 
-        assertThat(response.getPayrollCalendars().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-06T14:01:27-08:00"))));
+        assertThat(response.getPayrollCalendars().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-06T22:01:27Z"))));
         //System.out.println(response.toString());
     }
 }

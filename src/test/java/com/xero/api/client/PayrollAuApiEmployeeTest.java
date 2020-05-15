@@ -74,8 +74,8 @@ public class PayrollAuApiEmployeeTest {
         
         assertThat(response.getEmployees().get(0).getFirstName(), is(equalTo("Jack")));
         assertThat(response.getEmployees().get(0).getLastName(), is(equalTo("Sparrow")));
-        assertThat(response.getEmployees().get(0).getDateOfBirthAsDate(), is(equalTo(LocalDate.of(1988, 2, 19))));
-        assertThat(response.getEmployees().get(0).getStartDateAsDate(), is(equalTo(LocalDate.of(2019,1,10))));
+        assertThat(response.getEmployees().get(0).getDateOfBirthAsDate(), is(equalTo(LocalDate.of(1988, 2, 20))));
+        assertThat(response.getEmployees().get(0).getStartDateAsDate(), is(equalTo(LocalDate.of(2019,1,11))));
         assertThat(response.getEmployees().get(0).getMiddleNames(), is(equalTo("Johnson")));
         assertThat(response.getEmployees().get(0).getEmail(), is(equalTo("jack.sparrow@xero.com")));
         assertThat(response.getEmployees().get(0).getGender(), is(equalTo(com.xero.models.payrollau.Employee.GenderEnum.M)));
@@ -84,7 +84,7 @@ public class PayrollAuApiEmployeeTest {
         assertThat(response.getEmployees().get(0).getOrdinaryEarningsRateID(), is(equalTo(UUID.fromString("ab874dfb-ab09-4c91-954e-43acf6fc23b4"))));
         assertThat(response.getEmployees().get(0).getPayrollCalendarID(), is(equalTo(UUID.fromString("22a05fc5-386d-4950-9842-3e7a6c812135"))));
         assertThat(response.getEmployees().get(0).getEmployeeID(), is(equalTo(UUID.fromString("b34e89ff-770d-4099-b7e5-f968767118bc"))));
-        assertThat(response.getEmployees().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-04T17:03:34-08:00"))));  
+        assertThat(response.getEmployees().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-05T01:03:34Z"))));  
         assertThat(response.getEmployees().get(0).getStatus(), is(equalTo(com.xero.models.payrollau.EmployeeStatus.ACTIVE)));
         //System.out.println(response.toString());
     }
@@ -116,7 +116,7 @@ public class PayrollAuApiEmployeeTest {
         assertThat(response.getEmployees().get(0).getClassification(), is(equalTo("corporate")));
         assertThat(response.getEmployees().get(0).getOrdinaryEarningsRateID(), is(equalTo(UUID.fromString("ab874dfb-ab09-4c91-954e-43acf6fc23b4"))));
         assertThat(response.getEmployees().get(0).getEmployeeID(), is(equalTo(UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e"))));
-        assertThat(response.getEmployees().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-12T21:05:24.458-08:00"))));  
+        assertThat(response.getEmployees().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-13T05:05:24.458Z"))));  
         assertThat(response.getEmployees().get(0).getStatus(), is(equalTo(com.xero.models.payrollau.EmployeeStatus.ACTIVE)));
         
         //System.out.println(response.toString());
@@ -132,13 +132,13 @@ public class PayrollAuApiEmployeeTest {
         assertThat(response.getEmployees().get(0).getEmployeeID(), is(equalTo(UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e"))));
         assertThat(response.getEmployees().get(0).getFirstName(), is(equalTo("Albus")));
         assertThat(response.getEmployees().get(0).getLastName(), is(equalTo("Dumbledore")));
-        assertThat(response.getEmployees().get(0).getDateOfBirthAsDate(), is(equalTo(LocalDate.of(1980, 3, 9))));
+        assertThat(response.getEmployees().get(0).getDateOfBirthAsDate(), is(equalTo(LocalDate.of(1980, 3, 10))));
         assertThat(response.getEmployees().get(0).getHomeAddress().getAddressLine1(), is(equalTo("101 Green St")));
         assertThat(response.getEmployees().get(0).getHomeAddress().getCity(), is(equalTo("Island Bay")));
         assertThat(response.getEmployees().get(0).getHomeAddress().getRegion(), is(equalTo(com.xero.models.payrollau.State.NSW)));
         assertThat(response.getEmployees().get(0).getHomeAddress().getPostalCode(), is(equalTo("6023")));
         assertThat(response.getEmployees().get(0).getHomeAddress().getCountry(), is(equalTo("AUSTRALIA")));
-        assertThat(response.getEmployees().get(0).getStartDateAsDate(), is(equalTo(LocalDate.of(1980,3, 9))));
+        assertThat(response.getEmployees().get(0).getStartDateAsDate(), is(equalTo(LocalDate.of(1980,3, 10))));
         assertThat(response.getEmployees().get(0).getTitle(), is(equalTo("Mr.")));
         assertThat(response.getEmployees().get(0).getMiddleNames(), is(equalTo("Frank")));
         assertThat(response.getEmployees().get(0).getEmail(), is(equalTo("albus39608@hogwarts.edu")));
@@ -176,7 +176,7 @@ public class PayrollAuApiEmployeeTest {
         assertThat(response.getEmployees().get(0).getPayTemplate().getLeaveLines().get(0).getEntitlementFinalPayPayoutType(), is(equalTo(com.xero.models.payrollau.EntitlementFinalPayPayoutType.NOTPAIDOUT)));        
         
         // OPENING BALANCES
-        assertThat(response.getEmployees().get(0).getOpeningBalances().getOpeningBalanceDateAsDate(), is(equalTo(LocalDate.of(2019,11,12))));
+        assertThat(response.getEmployees().get(0).getOpeningBalances().getOpeningBalanceDateAsDate(), is(equalTo(LocalDate.of(2019,11,13))));
         // OPENING BALANCES > LEAVE LINES
         assertThat(response.getEmployees().get(0).getOpeningBalances().getLeaveLines().get(0).getLeaveTypeID(), is(equalTo(UUID.fromString("184ea8f7-d143-46dd-bef3-0c60e1aa6fca"))));
         assertThat(response.getEmployees().get(0).getOpeningBalances().getLeaveLines().get(0).getNumberOfUnits(), is(equalTo(10.0f)));        
@@ -194,11 +194,11 @@ public class PayrollAuApiEmployeeTest {
         assertThat(response.getEmployees().get(0).getTaxDeclaration().getHasHELPDebt(), is(equalTo(false)));
         assertThat(response.getEmployees().get(0).getTaxDeclaration().getHasSFSSDebt(), is(equalTo(false)));
         assertThat(response.getEmployees().get(0).getTaxDeclaration().getEligibleToReceiveLeaveLoading(), is(equalTo(false)));
-        assertThat(response.getEmployees().get(0).getTaxDeclaration().getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-12T21:35:06-08:00"))));
+        assertThat(response.getEmployees().get(0).getTaxDeclaration().getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-13T05:35:06Z"))));
         assertThat(response.getEmployees().get(0).getTaxDeclaration().getHasStudentStartupLoan(), is(equalTo(false)));
         assertThat(response.getEmployees().get(0).getTaxDeclaration().getResidencyStatus(), is(equalTo(com.xero.models.payrollau.ResidencyStatus.AUSTRALIANRESIDENT)));        
         assertThat(response.getEmployees().get(0).getOrdinaryEarningsRateID(), is(equalTo(UUID.fromString("ab874dfb-ab09-4c91-954e-43acf6fc23b4"))));
-        assertThat(response.getEmployees().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-12T21:35:06-08:00"))));  
+        assertThat(response.getEmployees().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-13T05:35:06Z"))));  
         assertThat(response.getEmployees().get(0).getStatus(), is(equalTo(com.xero.models.payrollau.EmployeeStatus.ACTIVE)));
         
         //System.out.println(response.toString());
@@ -232,7 +232,7 @@ public class PayrollAuApiEmployeeTest {
         assertThat(response.getEmployees().get(0).getClassification(), is(equalTo("corporate")));
         assertThat(response.getEmployees().get(0).getOrdinaryEarningsRateID(), is(equalTo(UUID.fromString("ab874dfb-ab09-4c91-954e-43acf6fc23b4"))));
         assertThat(response.getEmployees().get(0).getEmployeeID(), is(equalTo(UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e"))));
-        assertThat(response.getEmployees().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-12T21:05:24.755-08:00"))));  
+        assertThat(response.getEmployees().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-13T05:05:24.755Z"))));  
         assertThat(response.getEmployees().get(0).getStatus(), is(equalTo(com.xero.models.payrollau.EmployeeStatus.ACTIVE)));
         //System.out.println(response.toString());
     }

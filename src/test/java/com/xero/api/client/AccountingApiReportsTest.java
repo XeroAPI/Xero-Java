@@ -313,7 +313,7 @@ public class AccountingApiReportsTest {
         assertThat(response.getReports().get(0).getReportTitles().get(2), is(equalTo("Mind Body Online Test 11")));
         assertThat(response.getReports().get(0).getReportTitles().get(3), is(equalTo("November 2019 to October 2022")));
         assertThat(response.getReports().get(0).getReportDate(), is(equalTo("14 November 2019")));
-        assertThat(response.getReports().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-11-14T10:10:37.865-08:00")))); 
+        assertThat(response.getReports().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-14T18:10:37.865Z")))); 
         assertThat(response.getReports().get(0).getRows().get(0).getRowType(), is(equalTo(com.xero.models.accounting.RowType.HEADER)));
         assertThat(response.getReports().get(0).getRows().get(0).getCells().get(0).getValue(), is(equalTo("Account")));
         assertThat(response.getReports().get(0).getRows().get(0).getCells().get(1).getValue(), is(equalTo("Jan-20")));

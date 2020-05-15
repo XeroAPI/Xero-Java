@@ -26,7 +26,6 @@ import com.xero.models.payrolluk.EmployeeLeaves;
 import com.xero.models.payrolluk.EmployeeObject;
 import com.xero.models.payrolluk.EmployeeOpeningBalances;
 import com.xero.models.payrolluk.EmployeeOpeningBalancesObject;
-import com.xero.models.payrolluk.EmployeePayTemplate;
 import com.xero.models.payrolluk.EmployeePayTemplateObject;
 import com.xero.models.payrolluk.EmployeeStatutoryLeaveBalanceObject;
 import com.xero.models.payrolluk.EmployeeStatutoryLeavesSummaries;
@@ -68,6 +67,7 @@ import com.xero.models.payrolluk.TrackingCategories;
 import java.util.UUID;
 import com.xero.api.XeroApiException;
 import com.xero.api.XeroApiExceptionHandler;
+import com.xero.models.bankfeeds.Statements;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.api.client.http.GenericUrl;
@@ -95,15 +95,17 @@ import java.util.Map;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 
 public class PayrollUkApi {
     private ApiClient apiClient;
     private static PayrollUkApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.6.0";
+    private String version = "4.0.0";
+    final static Logger logger = LoggerFactory.getLogger(PayrollUkApi.class);
 
     public PayrollUkApi() {
         this(new ApiClient());
@@ -133,7 +135,7 @@ public class PayrollUkApi {
     }
     
     public String getUserAgent() {
-        return this.userAgent +  "[Xero-Java-" + this.version + "]";
+        return this.userAgent +  " [Xero-Java-" + this.version + "]";
     }
 
   /**
@@ -152,8 +154,18 @@ public class PayrollUkApi {
             HttpResponse response = approveTimesheetForHttpResponse(accessToken, xeroTenantId, timesheetID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : approveTimesheet -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<TimesheetObject> errorTypeRef = new TypeReference<TimesheetObject>() {};
+                TimesheetObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"TimesheetObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -174,18 +186,17 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Timesheets/{TimesheetID}/Approve";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("TimesheetID", timesheetID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Timesheets/{TimesheetID}/Approve");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -212,8 +223,18 @@ public class PayrollUkApi {
             HttpResponse response = createBenefitForHttpResponse(accessToken, xeroTenantId, benefit);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createBenefit -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<BenefitObject> errorTypeRef = new TypeReference<BenefitObject>() {};
+                BenefitObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"BenefitObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -235,12 +256,12 @@ public class PayrollUkApi {
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Benefits";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Benefits");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(benefit);
@@ -269,8 +290,18 @@ public class PayrollUkApi {
             HttpResponse response = createDeductionForHttpResponse(accessToken, xeroTenantId, deduction);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createDeduction -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<DeductionObject> errorTypeRef = new TypeReference<DeductionObject>() {};
+                DeductionObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"DeductionObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -292,12 +323,12 @@ public class PayrollUkApi {
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Deductions";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Deductions");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(deduction);
@@ -326,8 +357,18 @@ public class PayrollUkApi {
             HttpResponse response = createEarningsRateForHttpResponse(accessToken, xeroTenantId, earningsRate);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createEarningsRate -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EarningsRateObject> errorTypeRef = new TypeReference<EarningsRateObject>() {};
+                EarningsRateObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EarningsRateObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -349,15 +390,82 @@ public class PayrollUkApi {
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/EarningsRates";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/EarningsRates");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(earningsRate);
+        
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+  /**
+    * creates employees
+    * <p><b>200</b> - search results matching criteria
+    * <p><b>400</b> - validation error for a bad request
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param employee The employee parameter
+    * @param accessToken Authorization token for user set in header of each request
+    * @return EmployeeObject
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public EmployeeObject  createEmployee(String accessToken, String xeroTenantId, Employee employee) throws IOException {
+        try {
+            TypeReference<EmployeeObject> typeRef = new TypeReference<EmployeeObject>() {};
+            HttpResponse response = createEmployeeForHttpResponse(accessToken, xeroTenantId, employee);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createEmployee -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeObject> errorTypeRef = new TypeReference<EmployeeObject>() {};
+                EmployeeObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    public HttpResponse createEmployeeForHttpResponse(String accessToken,  String xeroTenantId,  Employee employee) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createEmployee");
+        }// verify the required parameter 'employee' is set
+        if (employee == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'employee' when calling createEmployee");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createEmployee");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Xero-Tenant-Id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent());
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees");
+        String url = uriBuilder.build().toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        content = apiClient.new JacksonJsonHttpContent(employee);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
         HttpTransport transport = apiClient.getHttpTransport();       
@@ -384,8 +492,18 @@ public class PayrollUkApi {
             HttpResponse response = createEmployeeEarningsTemplateForHttpResponse(accessToken, xeroTenantId, employeeId, earningsTemplate);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createEmployeeEarningsTemplate -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EarningsTemplateObject> errorTypeRef = new TypeReference<EarningsTemplateObject>() {};
+                EarningsTemplateObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EarningsTemplateObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -409,18 +527,17 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees/{EmployeeId}/PayTemplates/earnings";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EmployeeId", employeeId);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees/{EmployeeId}/PayTemplates/earnings");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(earningsTemplate);
@@ -450,8 +567,18 @@ public class PayrollUkApi {
             HttpResponse response = createEmployeeLeaveForHttpResponse(accessToken, xeroTenantId, employeeId, employeeLeave);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createEmployeeLeave -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeLeaveObject> errorTypeRef = new TypeReference<EmployeeLeaveObject>() {};
+                EmployeeLeaveObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeLeaveObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -475,18 +602,17 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees/{EmployeeId}/Leave";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EmployeeId", employeeId);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees/{EmployeeId}/Leave");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(employeeLeave);
@@ -516,8 +642,18 @@ public class PayrollUkApi {
             HttpResponse response = createEmployeeLeaveTypeForHttpResponse(accessToken, xeroTenantId, employeeId, employeeLeaveType);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createEmployeeLeaveType -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeLeaveTypeObject> errorTypeRef = new TypeReference<EmployeeLeaveTypeObject>() {};
+                EmployeeLeaveTypeObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeLeaveTypeObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -541,18 +677,17 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees/{EmployeeId}/LeaveTypes";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EmployeeId", employeeId);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees/{EmployeeId}/LeaveTypes");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(employeeLeaveType);
@@ -582,8 +717,18 @@ public class PayrollUkApi {
             HttpResponse response = createEmployeeOpeningBalancesForHttpResponse(accessToken, xeroTenantId, employeeId, employeeOpeningBalances);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createEmployeeOpeningBalances -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeOpeningBalancesObject> errorTypeRef = new TypeReference<EmployeeOpeningBalancesObject>() {};
+                EmployeeOpeningBalancesObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeOpeningBalancesObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -607,18 +752,17 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees/{EmployeeId}/ukopeningbalances";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EmployeeId", employeeId);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees/{EmployeeId}/ukopeningbalances");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(employeeOpeningBalances);
@@ -648,8 +792,18 @@ public class PayrollUkApi {
             HttpResponse response = createEmployeePaymentMethodForHttpResponse(accessToken, xeroTenantId, employeeId, paymentMethod);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createEmployeePaymentMethod -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<PaymentMethodObject> errorTypeRef = new TypeReference<PaymentMethodObject>() {};
+                PaymentMethodObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"PaymentMethodObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -673,18 +827,17 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees/{EmployeeId}/PaymentMethods";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EmployeeId", employeeId);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees/{EmployeeId}/PaymentMethods");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(paymentMethod);
@@ -714,8 +867,18 @@ public class PayrollUkApi {
             HttpResponse response = createEmployeeSalaryAndWageForHttpResponse(accessToken, xeroTenantId, employeeId, salaryAndWage);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createEmployeeSalaryAndWage -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<SalaryAndWageObject> errorTypeRef = new TypeReference<SalaryAndWageObject>() {};
+                SalaryAndWageObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"SalaryAndWageObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -739,18 +902,17 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees/{EmployeeId}/SalaryAndWages";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EmployeeId", employeeId);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees/{EmployeeId}/SalaryAndWages");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(salaryAndWage);
@@ -779,8 +941,18 @@ public class PayrollUkApi {
             HttpResponse response = createEmployeeStatutorySickLeaveForHttpResponse(accessToken, xeroTenantId, employeeStatutorySickLeave);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createEmployeeStatutorySickLeave -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeStatutorySickLeaveObject> errorTypeRef = new TypeReference<EmployeeStatutorySickLeaveObject>() {};
+                EmployeeStatutorySickLeaveObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeStatutorySickLeaveObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -802,72 +974,15 @@ public class PayrollUkApi {
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/StatutoryLeaves/Sick";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/StatutoryLeaves/Sick");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(employeeStatutorySickLeave);
-        
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-        return requestFactory.buildRequest(HttpMethods.POST, genericUrl, content).setHeaders(headers)
-            .setConnectTimeout(apiClient.getConnectionTimeout())
-            .setReadTimeout(apiClient.getReadTimeout()).execute();  
-    }
-
-  /**
-    * creates employees
-    * <p><b>200</b> - search results matching criteria
-    * <p><b>400</b> - validation error for a bad request
-    * @param xeroTenantId Xero identifier for Tenant
-    * @param employee The employee parameter
-    * @param accessToken Authorization token for user set in header of each request
-    * @return EmployeeObject
-    * @throws IOException if an error occurs while attempting to invoke the API
-    **/
-    public EmployeeObject  createEmployees(String accessToken, String xeroTenantId, Employee employee) throws IOException {
-        try {
-            TypeReference<EmployeeObject> typeRef = new TypeReference<EmployeeObject>() {};
-            HttpResponse response = createEmployeesForHttpResponse(accessToken, xeroTenantId, employee);
-            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-        } catch (HttpResponseException e) {
-            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
-        } catch (IOException ioe) {
-            throw ioe;
-        }
-        return null;
-    }
-
-    public HttpResponse createEmployeesForHttpResponse(String accessToken,  String xeroTenantId,  Employee employee) throws IOException {
-        // verify the required parameter 'xeroTenantId' is set
-        if (xeroTenantId == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createEmployees");
-        }// verify the required parameter 'employee' is set
-        if (employee == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'employee' when calling createEmployees");
-        }
-        if (accessToken == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling createEmployees");
-        }
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Xero-Tenant-Id", xeroTenantId);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-        String url = uriBuilder.build().toString();
-        GenericUrl genericUrl = new GenericUrl(url);
-
-        
-        HttpContent content = null;
-        content = apiClient.new JacksonJsonHttpContent(employee);
         
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
         HttpTransport transport = apiClient.getHttpTransport();       
@@ -894,8 +1009,18 @@ public class PayrollUkApi {
             HttpResponse response = createEmploymentForHttpResponse(accessToken, xeroTenantId, employeeId, employment);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createEmployment -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmploymentObject> errorTypeRef = new TypeReference<EmploymentObject>() {};
+                EmploymentObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmploymentObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -919,18 +1044,17 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees/{EmployeeId}/Employment";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EmployeeId", employeeId);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees/{EmployeeId}/Employment");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(employment);
@@ -959,8 +1083,18 @@ public class PayrollUkApi {
             HttpResponse response = createLeaveTypeForHttpResponse(accessToken, xeroTenantId, leaveType);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createLeaveType -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<LeaveTypeObject> errorTypeRef = new TypeReference<LeaveTypeObject>() {};
+                LeaveTypeObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"LeaveTypeObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -982,12 +1116,12 @@ public class PayrollUkApi {
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/LeaveTypes";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/LeaveTypes");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(leaveType);
@@ -1008,17 +1142,27 @@ public class PayrollUkApi {
     * @param employeeId Employee id for single object
     * @param earningsTemplate The earningsTemplate parameter
     * @param accessToken Authorization token for user set in header of each request
-    * @return EmployeePayTemplate
+    * @return EmployeePayTemplateObject
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public EmployeePayTemplate  createMultipleEmployeeEarningsTemplate(String accessToken, String xeroTenantId, UUID employeeId, List<EarningsTemplate> earningsTemplate) throws IOException {
+    public EmployeePayTemplateObject  createMultipleEmployeeEarningsTemplate(String accessToken, String xeroTenantId, UUID employeeId, List<EarningsTemplate> earningsTemplate) throws IOException {
         try {
-            TypeReference<EmployeePayTemplate> typeRef = new TypeReference<EmployeePayTemplate>() {};
+            TypeReference<EmployeePayTemplateObject> typeRef = new TypeReference<EmployeePayTemplateObject>() {};
             HttpResponse response = createMultipleEmployeeEarningsTemplateForHttpResponse(accessToken, xeroTenantId, employeeId, earningsTemplate);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createMultipleEmployeeEarningsTemplate -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeePayTemplateObject> errorTypeRef = new TypeReference<EmployeePayTemplateObject>() {};
+                EmployeePayTemplateObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeePayTemplateObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1042,18 +1186,17 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees/{EmployeeId}/paytemplateearnings";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EmployeeId", employeeId);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees/{EmployeeId}/paytemplateearnings");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(earningsTemplate);
@@ -1082,8 +1225,18 @@ public class PayrollUkApi {
             HttpResponse response = createPayRunCalendarForHttpResponse(accessToken, xeroTenantId, payRunCalendar);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createPayRunCalendar -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<PayRunCalendarObject> errorTypeRef = new TypeReference<PayRunCalendarObject>() {};
+                PayRunCalendarObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"PayRunCalendarObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1105,12 +1258,12 @@ public class PayrollUkApi {
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/PayRunCalendars";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/PayRunCalendars");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(payRunCalendar);
@@ -1139,8 +1292,18 @@ public class PayrollUkApi {
             HttpResponse response = createReimbursementForHttpResponse(accessToken, xeroTenantId, reimbursement);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createReimbursement -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<ReimbursementObject> errorTypeRef = new TypeReference<ReimbursementObject>() {};
+                ReimbursementObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"ReimbursementObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1162,12 +1325,12 @@ public class PayrollUkApi {
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Reimbursements";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Reimbursements");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(reimbursement);
@@ -1196,8 +1359,18 @@ public class PayrollUkApi {
             HttpResponse response = createTimesheetForHttpResponse(accessToken, xeroTenantId, timesheet);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createTimesheet -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<TimesheetObject> errorTypeRef = new TypeReference<TimesheetObject>() {};
+                TimesheetObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"TimesheetObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1219,12 +1392,12 @@ public class PayrollUkApi {
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Timesheets";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Timesheets");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(timesheet);
@@ -1254,8 +1427,18 @@ public class PayrollUkApi {
             HttpResponse response = createTimesheetLineForHttpResponse(accessToken, xeroTenantId, timesheetID, timesheetLine);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createTimesheetLine -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<TimesheetLineObject> errorTypeRef = new TypeReference<TimesheetLineObject>() {};
+                TimesheetLineObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"TimesheetLineObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1279,18 +1462,17 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Timesheets/{TimesheetID}/Lines";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("TimesheetID", timesheetID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Timesheets/{TimesheetID}/Lines");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(timesheetLine);
@@ -1316,8 +1498,12 @@ public class PayrollUkApi {
         try {
             deleteEmployeeEarningsTemplateForHttpResponse(accessToken, xeroTenantId, employeeId, payTemplateEarningID);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : deleteEmployeeEarningsTemplate -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1340,20 +1526,19 @@ public class PayrollUkApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees/{EmployeeId}/PayTemplates/earnings/{PayTemplateEarningID}";
-        
+        headers.setAccept(""); 
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EmployeeId", employeeId);
         uriVariables.put("PayTemplateEarningID", payTemplateEarningID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees/{EmployeeId}/PayTemplates/earnings/{PayTemplateEarningID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("DELETE " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -1380,8 +1565,18 @@ public class PayrollUkApi {
             HttpResponse response = deleteEmployeeLeaveForHttpResponse(accessToken, xeroTenantId, employeeId, leaveID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : deleteEmployeeLeave -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeLeaveObject> errorTypeRef = new TypeReference<EmployeeLeaveObject>() {};
+                EmployeeLeaveObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeLeaveObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1405,19 +1600,18 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees/{EmployeeId}/Leave/{LeaveID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EmployeeId", employeeId);
         uriVariables.put("LeaveID", leaveID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees/{EmployeeId}/Leave/{LeaveID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("DELETE " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -1441,8 +1635,12 @@ public class PayrollUkApi {
         try {
             deleteEmployeeSalaryAndWageForHttpResponse(accessToken, xeroTenantId, employeeId, salaryAndWagesID);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : deleteEmployeeSalaryAndWage -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1465,20 +1663,19 @@ public class PayrollUkApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees/{EmployeeId}/SalaryAndWages/{SalaryAndWagesID}";
-        
+        headers.setAccept(""); 
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EmployeeId", employeeId);
         uriVariables.put("SalaryAndWagesID", salaryAndWagesID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees/{EmployeeId}/SalaryAndWages/{SalaryAndWagesID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("DELETE " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -1505,8 +1702,12 @@ public class PayrollUkApi {
             HttpResponse response = deleteTimesheetForHttpResponse(accessToken, xeroTenantId, timesheetID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : deleteTimesheet -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1527,18 +1728,17 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Timesheets/{TimesheetID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("TimesheetID", timesheetID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Timesheets/{TimesheetID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("DELETE " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -1566,8 +1766,12 @@ public class PayrollUkApi {
             HttpResponse response = deleteTimesheetLineForHttpResponse(accessToken, xeroTenantId, timesheetID, timesheetLineID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : deleteTimesheetLine -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1591,19 +1795,18 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Timesheets/{TimesheetID}/Lines/{TimesheetLineID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("TimesheetID", timesheetID);
         uriVariables.put("TimesheetLineID", timesheetLineID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Timesheets/{TimesheetID}/Lines/{TimesheetLineID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("DELETE " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -1629,8 +1832,18 @@ public class PayrollUkApi {
             HttpResponse response = getBenefitForHttpResponse(accessToken, xeroTenantId, id);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getBenefit -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<BenefitObject> errorTypeRef = new TypeReference<BenefitObject>() {};
+                BenefitObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"BenefitObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1651,18 +1864,17 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Benefits/{id}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("id", id);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Benefits/{id}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -1688,8 +1900,18 @@ public class PayrollUkApi {
             HttpResponse response = getBenefitsForHttpResponse(accessToken, xeroTenantId, page);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getBenefits -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<Benefits> errorTypeRef = new TypeReference<Benefits>() {};
+                Benefits object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"Benefits",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1708,9 +1930,7 @@ public class PayrollUkApi {
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Benefits";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Benefits");
         if (page != null) {
             String key = "page";
             Object value = page;
@@ -1724,7 +1944,9 @@ public class PayrollUkApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -1750,8 +1972,18 @@ public class PayrollUkApi {
             HttpResponse response = getDeductionForHttpResponse(accessToken, xeroTenantId, deductionId);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getDeduction -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<DeductionObject> errorTypeRef = new TypeReference<DeductionObject>() {};
+                DeductionObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"DeductionObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1772,18 +2004,17 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Deductions/{deductionId}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("deductionId", deductionId);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Deductions/{deductionId}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -1809,8 +2040,18 @@ public class PayrollUkApi {
             HttpResponse response = getDeductionsForHttpResponse(accessToken, xeroTenantId, page);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getDeductions -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<Deductions> errorTypeRef = new TypeReference<Deductions>() {};
+                Deductions object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"Deductions",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1829,9 +2070,7 @@ public class PayrollUkApi {
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Deductions";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Deductions");
         if (page != null) {
             String key = "page";
             Object value = page;
@@ -1845,7 +2084,9 @@ public class PayrollUkApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -1871,8 +2112,18 @@ public class PayrollUkApi {
             HttpResponse response = getEarningsOrderForHttpResponse(accessToken, xeroTenantId, id);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getEarningsOrder -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EarningsOrderObject> errorTypeRef = new TypeReference<EarningsOrderObject>() {};
+                EarningsOrderObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EarningsOrderObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1893,18 +2144,17 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/EarningsOrders/{id}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("id", id);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/EarningsOrders/{id}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -1930,8 +2180,18 @@ public class PayrollUkApi {
             HttpResponse response = getEarningsOrdersForHttpResponse(accessToken, xeroTenantId, page);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getEarningsOrders -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EarningsOrders> errorTypeRef = new TypeReference<EarningsOrders>() {};
+                EarningsOrders object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EarningsOrders",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1950,9 +2210,7 @@ public class PayrollUkApi {
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/EarningsOrders";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/EarningsOrders");
         if (page != null) {
             String key = "page";
             Object value = page;
@@ -1966,7 +2224,9 @@ public class PayrollUkApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -1992,8 +2252,18 @@ public class PayrollUkApi {
             HttpResponse response = getEarningsRateForHttpResponse(accessToken, xeroTenantId, earningsRateID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getEarningsRate -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EarningsRateObject> errorTypeRef = new TypeReference<EarningsRateObject>() {};
+                EarningsRateObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EarningsRateObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2014,18 +2284,17 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/EarningsRates/{EarningsRateID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EarningsRateID", earningsRateID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/EarningsRates/{EarningsRateID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -2051,8 +2320,18 @@ public class PayrollUkApi {
             HttpResponse response = getEarningsRatesForHttpResponse(accessToken, xeroTenantId, page);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getEarningsRates -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EarningsRates> errorTypeRef = new TypeReference<EarningsRates>() {};
+                EarningsRates object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EarningsRates",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2071,9 +2350,7 @@ public class PayrollUkApi {
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/EarningsRates";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/EarningsRates");
         if (page != null) {
             String key = "page";
             Object value = page;
@@ -2087,7 +2364,9 @@ public class PayrollUkApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -2113,8 +2392,18 @@ public class PayrollUkApi {
             HttpResponse response = getEmployeeForHttpResponse(accessToken, xeroTenantId, employeeId);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getEmployee -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeObject> errorTypeRef = new TypeReference<EmployeeObject>() {};
+                EmployeeObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2135,18 +2424,17 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees/{EmployeeId}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EmployeeId", employeeId);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees/{EmployeeId}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -2158,35 +2446,49 @@ public class PayrollUkApi {
     }
 
   /**
-    * search employee leave records
+    * retrieve a single employee leave record
     * <p><b>200</b> - search results matching criteria
     * @param xeroTenantId Xero identifier for Tenant
     * @param employeeId Employee id for single object
+    * @param leaveID Leave id for single object
     * @param accessToken Authorization token for user set in header of each request
-    * @return EmployeeLeaves
+    * @return EmployeeLeaveObject
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public EmployeeLeaves  getEmployeeLeave(String accessToken, String xeroTenantId, UUID employeeId) throws IOException {
+    public EmployeeLeaveObject  getEmployeeLeave(String accessToken, String xeroTenantId, UUID employeeId, UUID leaveID) throws IOException {
         try {
-            TypeReference<EmployeeLeaves> typeRef = new TypeReference<EmployeeLeaves>() {};
-            HttpResponse response = getEmployeeLeaveForHttpResponse(accessToken, xeroTenantId, employeeId);
+            TypeReference<EmployeeLeaveObject> typeRef = new TypeReference<EmployeeLeaveObject>() {};
+            HttpResponse response = getEmployeeLeaveForHttpResponse(accessToken, xeroTenantId, employeeId, leaveID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getEmployeeLeave -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeLeaveObject> errorTypeRef = new TypeReference<EmployeeLeaveObject>() {};
+                EmployeeLeaveObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeLeaveObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
         return null;
     }
 
-    public HttpResponse getEmployeeLeaveForHttpResponse(String accessToken,  String xeroTenantId,  UUID employeeId) throws IOException {
+    public HttpResponse getEmployeeLeaveForHttpResponse(String accessToken,  String xeroTenantId,  UUID employeeId,  UUID leaveID) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getEmployeeLeave");
         }// verify the required parameter 'employeeId' is set
         if (employeeId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'employeeId' when calling getEmployeeLeave");
+        }// verify the required parameter 'leaveID' is set
+        if (leaveID == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'leaveID' when calling getEmployeeLeave");
         }
         if (accessToken == null) {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getEmployeeLeave");
@@ -2194,18 +2496,18 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees/{EmployeeId}/Leave";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EmployeeId", employeeId);
+        uriVariables.put("LeaveID", leaveID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees/{EmployeeId}/Leave/{LeaveID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -2231,8 +2533,18 @@ public class PayrollUkApi {
             HttpResponse response = getEmployeeLeaveBalancesForHttpResponse(accessToken, xeroTenantId, employeeId);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getEmployeeLeaveBalances -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeLeaveBalances> errorTypeRef = new TypeReference<EmployeeLeaveBalances>() {};
+                EmployeeLeaveBalances object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeLeaveBalances",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2253,18 +2565,17 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees/{EmployeeId}/LeaveBalances";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EmployeeId", employeeId);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees/{EmployeeId}/LeaveBalances");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -2293,8 +2604,18 @@ public class PayrollUkApi {
             HttpResponse response = getEmployeeLeavePeriodsForHttpResponse(accessToken, xeroTenantId, employeeId, startDate, endDate);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getEmployeeLeavePeriods -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<LeavePeriods> errorTypeRef = new TypeReference<LeavePeriods>() {};
+                LeavePeriods object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"LeavePeriods",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2315,15 +2636,12 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees/{EmployeeId}/LeavePeriods";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EmployeeId", employeeId);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees/{EmployeeId}/LeavePeriods");
         if (startDate != null) {
             String key = "startDate";
             Object value = startDate;
@@ -2347,71 +2665,9 @@ public class PayrollUkApi {
         }
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
-        
-        HttpContent content = null;
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
-            .setConnectTimeout(apiClient.getConnectionTimeout())
-            .setReadTimeout(apiClient.getReadTimeout()).execute();  
-    }
-
-  /**
-    * retrieve a single employee leave record
-    * <p><b>200</b> - search results matching criteria
-    * @param xeroTenantId Xero identifier for Tenant
-    * @param employeeId Employee id for single object
-    * @param leaveID Leave id for single object
-    * @param accessToken Authorization token for user set in header of each request
-    * @return EmployeeLeaveObject
-    * @throws IOException if an error occurs while attempting to invoke the API
-    **/
-    public EmployeeLeaveObject  getEmployeeLeaveSingle(String accessToken, String xeroTenantId, UUID employeeId, UUID leaveID) throws IOException {
-        try {
-            TypeReference<EmployeeLeaveObject> typeRef = new TypeReference<EmployeeLeaveObject>() {};
-            HttpResponse response = getEmployeeLeaveSingleForHttpResponse(accessToken, xeroTenantId, employeeId, leaveID);
-            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-        } catch (HttpResponseException e) {
-            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
-        } catch (IOException ioe) {
-            throw ioe;
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
         }
-        return null;
-    }
-
-    public HttpResponse getEmployeeLeaveSingleForHttpResponse(String accessToken,  String xeroTenantId,  UUID employeeId,  UUID leaveID) throws IOException {
-        // verify the required parameter 'xeroTenantId' is set
-        if (xeroTenantId == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getEmployeeLeaveSingle");
-        }// verify the required parameter 'employeeId' is set
-        if (employeeId == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'employeeId' when calling getEmployeeLeaveSingle");
-        }// verify the required parameter 'leaveID' is set
-        if (leaveID == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'leaveID' when calling getEmployeeLeaveSingle");
-        }
-        if (accessToken == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getEmployeeLeaveSingle");
-        }
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Xero-Tenant-Id", xeroTenantId);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees/{EmployeeId}/Leave/{LeaveID}";
-        
-        // create a map of path variables
-        final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("EmployeeId", employeeId);
-        uriVariables.put("LeaveID", leaveID);
-
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
-        String url = uriBuilder.buildFromMap(uriVariables).toString();
-        GenericUrl genericUrl = new GenericUrl(url);
-
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -2438,8 +2694,18 @@ public class PayrollUkApi {
             HttpResponse response = getEmployeeLeaveTypesForHttpResponse(accessToken, xeroTenantId, employeeId);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getEmployeeLeaveTypes -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeLeaveTypes> errorTypeRef = new TypeReference<EmployeeLeaveTypes>() {};
+                EmployeeLeaveTypes object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeLeaveTypes",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2460,18 +2726,85 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees/{EmployeeId}/LeaveTypes";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EmployeeId", employeeId);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees/{EmployeeId}/LeaveTypes");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
 
+  /**
+    * search employee leave records
+    * <p><b>200</b> - search results matching criteria
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param employeeId Employee id for single object
+    * @param accessToken Authorization token for user set in header of each request
+    * @return EmployeeLeaves
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public EmployeeLeaves  getEmployeeLeaves(String accessToken, String xeroTenantId, UUID employeeId) throws IOException {
+        try {
+            TypeReference<EmployeeLeaves> typeRef = new TypeReference<EmployeeLeaves>() {};
+            HttpResponse response = getEmployeeLeavesForHttpResponse(accessToken, xeroTenantId, employeeId);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getEmployeeLeaves -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeLeaves> errorTypeRef = new TypeReference<EmployeeLeaves>() {};
+                EmployeeLeaves object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeLeaves",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    public HttpResponse getEmployeeLeavesForHttpResponse(String accessToken,  String xeroTenantId,  UUID employeeId) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getEmployeeLeaves");
+        }// verify the required parameter 'employeeId' is set
+        if (employeeId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'employeeId' when calling getEmployeeLeaves");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getEmployeeLeaves");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Xero-Tenant-Id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent()); 
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("EmployeeId", employeeId);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees/{EmployeeId}/Leave");
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -2497,8 +2830,18 @@ public class PayrollUkApi {
             HttpResponse response = getEmployeeOpeningBalancesForHttpResponse(accessToken, xeroTenantId, employeeId);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getEmployeeOpeningBalances -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeOpeningBalancesObject> errorTypeRef = new TypeReference<EmployeeOpeningBalancesObject>() {};
+                EmployeeOpeningBalancesObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeOpeningBalancesObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2519,18 +2862,17 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees/{EmployeeId}/ukopeningbalances";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EmployeeId", employeeId);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees/{EmployeeId}/ukopeningbalances");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -2557,8 +2899,18 @@ public class PayrollUkApi {
             HttpResponse response = getEmployeePayTemplatesForHttpResponse(accessToken, xeroTenantId, employeeId);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getEmployeePayTemplates -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeePayTemplateObject> errorTypeRef = new TypeReference<EmployeePayTemplateObject>() {};
+                EmployeePayTemplateObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeePayTemplateObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2579,18 +2931,17 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees/{EmployeeId}/PayTemplates";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EmployeeId", employeeId);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees/{EmployeeId}/PayTemplates");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -2617,8 +2968,18 @@ public class PayrollUkApi {
             HttpResponse response = getEmployeePaymentMethodForHttpResponse(accessToken, xeroTenantId, employeeId);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getEmployeePaymentMethod -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<PaymentMethodObject> errorTypeRef = new TypeReference<PaymentMethodObject>() {};
+                PaymentMethodObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"PaymentMethodObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2639,18 +3000,17 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees/{EmployeeId}/PaymentMethods";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EmployeeId", employeeId);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees/{EmployeeId}/PaymentMethods");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -2677,8 +3037,18 @@ public class PayrollUkApi {
             HttpResponse response = getEmployeeSalaryAndWageForHttpResponse(accessToken, xeroTenantId, employeeId, salaryAndWagesID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getEmployeeSalaryAndWage -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<SalaryAndWages> errorTypeRef = new TypeReference<SalaryAndWages>() {};
+                SalaryAndWages object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"SalaryAndWages",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2702,19 +3072,18 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees/{EmployeeId}/SalaryAndWages/{SalaryAndWagesID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EmployeeId", employeeId);
         uriVariables.put("SalaryAndWagesID", salaryAndWagesID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees/{EmployeeId}/SalaryAndWages/{SalaryAndWagesID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -2742,8 +3111,18 @@ public class PayrollUkApi {
             HttpResponse response = getEmployeeSalaryAndWagesForHttpResponse(accessToken, xeroTenantId, employeeId, page);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getEmployeeSalaryAndWages -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<SalaryAndWages> errorTypeRef = new TypeReference<SalaryAndWages>() {};
+                SalaryAndWages object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"SalaryAndWages",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2764,15 +3143,12 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees/{EmployeeId}/SalaryAndWages";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EmployeeId", employeeId);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees/{EmployeeId}/SalaryAndWages");
         if (page != null) {
             String key = "page";
             Object value = page;
@@ -2786,7 +3162,9 @@ public class PayrollUkApi {
         }
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -2814,8 +3192,18 @@ public class PayrollUkApi {
             HttpResponse response = getEmployeeStatutoryLeaveBalancesForHttpResponse(accessToken, xeroTenantId, employeeId, leaveType, asOfDate);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getEmployeeStatutoryLeaveBalances -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeStatutoryLeaveBalanceObject> errorTypeRef = new TypeReference<EmployeeStatutoryLeaveBalanceObject>() {};
+                EmployeeStatutoryLeaveBalanceObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeStatutoryLeaveBalanceObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2836,15 +3224,12 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees/{EmployeeId}/StatutoryLeaveBalance";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EmployeeId", employeeId);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees/{EmployeeId}/StatutoryLeaveBalance");
         if (leaveType != null) {
             String key = "LeaveType";
             Object value = leaveType;
@@ -2868,7 +3253,9 @@ public class PayrollUkApi {
         }
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -2894,8 +3281,18 @@ public class PayrollUkApi {
             HttpResponse response = getEmployeeStatutorySickLeaveForHttpResponse(accessToken, xeroTenantId, statutorySickLeaveID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getEmployeeStatutorySickLeave -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeStatutorySickLeaveObject> errorTypeRef = new TypeReference<EmployeeStatutorySickLeaveObject>() {};
+                EmployeeStatutorySickLeaveObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeStatutorySickLeaveObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2916,18 +3313,17 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/StatutoryLeaves/Sick/{StatutorySickLeaveID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("StatutorySickLeaveID", statutorySickLeaveID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/StatutoryLeaves/Sick/{StatutorySickLeaveID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -2953,8 +3349,18 @@ public class PayrollUkApi {
             HttpResponse response = getEmployeeTaxForHttpResponse(accessToken, xeroTenantId, employeeId);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getEmployeeTax -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeTaxObject> errorTypeRef = new TypeReference<EmployeeTaxObject>() {};
+                EmployeeTaxObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeTaxObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2975,18 +3381,17 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees/{EmployeeId}/Tax";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EmployeeId", employeeId);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees/{EmployeeId}/Tax");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -3015,8 +3420,18 @@ public class PayrollUkApi {
             HttpResponse response = getEmployeesForHttpResponse(accessToken, xeroTenantId, firstName, lastName, page);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getEmployees -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<Employees> errorTypeRef = new TypeReference<Employees>() {};
+                Employees object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"Employees",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3035,9 +3450,7 @@ public class PayrollUkApi {
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees");
         if (firstName != null) {
             String key = "firstName";
             Object value = firstName;
@@ -3071,7 +3484,9 @@ public class PayrollUkApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -3097,8 +3512,18 @@ public class PayrollUkApi {
             HttpResponse response = getLeaveTypeForHttpResponse(accessToken, xeroTenantId, leaveTypeID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getLeaveType -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<LeaveTypeObject> errorTypeRef = new TypeReference<LeaveTypeObject>() {};
+                LeaveTypeObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"LeaveTypeObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3119,18 +3544,17 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/LeaveTypes/{LeaveTypeID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("LeaveTypeID", leaveTypeID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/LeaveTypes/{LeaveTypeID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -3157,8 +3581,18 @@ public class PayrollUkApi {
             HttpResponse response = getLeaveTypesForHttpResponse(accessToken, xeroTenantId, page, activeOnly);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getLeaveTypes -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<LeaveTypes> errorTypeRef = new TypeReference<LeaveTypes>() {};
+                LeaveTypes object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"LeaveTypes",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3177,9 +3611,7 @@ public class PayrollUkApi {
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/LeaveTypes";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/LeaveTypes");
         if (page != null) {
             String key = "page";
             Object value = page;
@@ -3203,7 +3635,9 @@ public class PayrollUkApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -3229,8 +3663,18 @@ public class PayrollUkApi {
             HttpResponse response = getPayRunForHttpResponse(accessToken, xeroTenantId, payRunID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getPayRun -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<PayRunObject> errorTypeRef = new TypeReference<PayRunObject>() {};
+                PayRunObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"PayRunObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3251,18 +3695,17 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/PayRuns/{PayRunID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("PayRunID", payRunID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/PayRuns/{PayRunID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -3288,8 +3731,18 @@ public class PayrollUkApi {
             HttpResponse response = getPayRunCalendarForHttpResponse(accessToken, xeroTenantId, payRunCalendarID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getPayRunCalendar -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<PayRunCalendarObject> errorTypeRef = new TypeReference<PayRunCalendarObject>() {};
+                PayRunCalendarObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"PayRunCalendarObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3310,18 +3763,17 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/PayRunCalendars/{PayRunCalendarID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("PayRunCalendarID", payRunCalendarID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/PayRunCalendars/{PayRunCalendarID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -3347,8 +3799,18 @@ public class PayrollUkApi {
             HttpResponse response = getPayRunCalendarsForHttpResponse(accessToken, xeroTenantId, page);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getPayRunCalendars -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<PayRunCalendars> errorTypeRef = new TypeReference<PayRunCalendars>() {};
+                PayRunCalendars object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"PayRunCalendars",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3367,9 +3829,7 @@ public class PayrollUkApi {
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/PayRunCalendars";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/PayRunCalendars");
         if (page != null) {
             String key = "page";
             Object value = page;
@@ -3383,7 +3843,9 @@ public class PayrollUkApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -3410,8 +3872,18 @@ public class PayrollUkApi {
             HttpResponse response = getPayRunsForHttpResponse(accessToken, xeroTenantId, page, status);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getPayRuns -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<PayRuns> errorTypeRef = new TypeReference<PayRuns>() {};
+                PayRuns object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"PayRuns",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3430,9 +3902,7 @@ public class PayrollUkApi {
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/PayRuns";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/PayRuns");
         if (page != null) {
             String key = "page";
             Object value = page;
@@ -3456,7 +3926,9 @@ public class PayrollUkApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -3482,8 +3954,18 @@ public class PayrollUkApi {
             HttpResponse response = getPaySlipForHttpResponse(accessToken, xeroTenantId, payslipID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getPaySlip -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<PayslipObject> errorTypeRef = new TypeReference<PayslipObject>() {};
+                PayslipObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"PayslipObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3504,18 +3986,17 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Payslips/{PayslipID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("PayslipID", payslipID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Payslips/{PayslipID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -3542,8 +4023,18 @@ public class PayrollUkApi {
             HttpResponse response = getPayslipsForHttpResponse(accessToken, xeroTenantId, payRunID, page);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getPayslips -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<Payslips> errorTypeRef = new TypeReference<Payslips>() {};
+                Payslips object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"Payslips",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3565,9 +4056,7 @@ public class PayrollUkApi {
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Payslips";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Payslips");
         if (page != null) {
             String key = "page";
             Object value = page;
@@ -3591,7 +4080,9 @@ public class PayrollUkApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -3617,8 +4108,18 @@ public class PayrollUkApi {
             HttpResponse response = getReimbursementForHttpResponse(accessToken, xeroTenantId, reimbursementID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getReimbursement -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<ReimbursementObject> errorTypeRef = new TypeReference<ReimbursementObject>() {};
+                ReimbursementObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"ReimbursementObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3639,18 +4140,17 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Reimbursements/{ReimbursementID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ReimbursementID", reimbursementID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Reimbursements/{ReimbursementID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -3676,8 +4176,18 @@ public class PayrollUkApi {
             HttpResponse response = getReimbursementsForHttpResponse(accessToken, xeroTenantId, page);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getReimbursements -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<Reimbursements> errorTypeRef = new TypeReference<Reimbursements>() {};
+                Reimbursements object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"Reimbursements",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3696,9 +4206,7 @@ public class PayrollUkApi {
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Reimbursements";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Reimbursements");
         if (page != null) {
             String key = "page";
             Object value = page;
@@ -3712,7 +4220,9 @@ public class PayrollUkApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -3737,8 +4247,18 @@ public class PayrollUkApi {
             HttpResponse response = getSettingsForHttpResponse(accessToken, xeroTenantId);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getSettings -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<Settings> errorTypeRef = new TypeReference<Settings>() {};
+                Settings object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"Settings",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3757,12 +4277,12 @@ public class PayrollUkApi {
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Settings";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Settings");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -3789,8 +4309,18 @@ public class PayrollUkApi {
             HttpResponse response = getStatutoryLeaveSummaryForHttpResponse(accessToken, xeroTenantId, employeeId, activeOnly);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getStatutoryLeaveSummary -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeStatutoryLeavesSummaries> errorTypeRef = new TypeReference<EmployeeStatutoryLeavesSummaries>() {};
+                EmployeeStatutoryLeavesSummaries object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeStatutoryLeavesSummaries",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3811,15 +4341,12 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/statutoryleaves/summary/{EmployeeId}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EmployeeId", employeeId);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/statutoryleaves/summary/{EmployeeId}");
         if (activeOnly != null) {
             String key = "activeOnly";
             Object value = activeOnly;
@@ -3833,7 +4360,9 @@ public class PayrollUkApi {
         }
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -3859,8 +4388,18 @@ public class PayrollUkApi {
             HttpResponse response = getTimesheetForHttpResponse(accessToken, xeroTenantId, timesheetID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getTimesheet -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<TimesheetObject> errorTypeRef = new TypeReference<TimesheetObject>() {};
+                TimesheetObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"TimesheetObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3881,18 +4420,17 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Timesheets/{TimesheetID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("TimesheetID", timesheetID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Timesheets/{TimesheetID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -3920,8 +4458,18 @@ public class PayrollUkApi {
             HttpResponse response = getTimesheetsForHttpResponse(accessToken, xeroTenantId, page, employeeId, payrollCalendarId);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getTimesheets -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<Timesheets> errorTypeRef = new TypeReference<Timesheets>() {};
+                Timesheets object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"Timesheets",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3940,9 +4488,7 @@ public class PayrollUkApi {
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Timesheets";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Timesheets");
         if (page != null) {
             String key = "page";
             Object value = page;
@@ -3976,7 +4522,9 @@ public class PayrollUkApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -4001,8 +4549,18 @@ public class PayrollUkApi {
             HttpResponse response = getTrackingCategoriesForHttpResponse(accessToken, xeroTenantId);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getTrackingCategories -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<TrackingCategories> errorTypeRef = new TypeReference<TrackingCategories>() {};
+                TrackingCategories object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"TrackingCategories",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4021,12 +4579,12 @@ public class PayrollUkApi {
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/settings/trackingCategories";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/settings/trackingCategories");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -4053,8 +4611,18 @@ public class PayrollUkApi {
             HttpResponse response = revertTimesheetForHttpResponse(accessToken, xeroTenantId, timesheetID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : revertTimesheet -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<TimesheetObject> errorTypeRef = new TypeReference<TimesheetObject>() {};
+                TimesheetObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"TimesheetObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4075,18 +4643,17 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Timesheets/{TimesheetID}/RevertToDraft";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("TimesheetID", timesheetID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Timesheets/{TimesheetID}/RevertToDraft");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -4114,8 +4681,18 @@ public class PayrollUkApi {
             HttpResponse response = updateEmployeeForHttpResponse(accessToken, xeroTenantId, employeeId, employee);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateEmployee -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeObject> errorTypeRef = new TypeReference<EmployeeObject>() {};
+                EmployeeObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4139,18 +4716,17 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees/{EmployeeId}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EmployeeId", employeeId);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees/{EmployeeId}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(employee);
@@ -4181,8 +4757,18 @@ public class PayrollUkApi {
             HttpResponse response = updateEmployeeEarningsTemplateForHttpResponse(accessToken, xeroTenantId, employeeId, payTemplateEarningID, earningsTemplate);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateEmployeeEarningsTemplate -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EarningsTemplateObject> errorTypeRef = new TypeReference<EarningsTemplateObject>() {};
+                EarningsTemplateObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EarningsTemplateObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4209,19 +4795,18 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees/{EmployeeId}/PayTemplates/earnings/{PayTemplateEarningID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EmployeeId", employeeId);
         uriVariables.put("PayTemplateEarningID", payTemplateEarningID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees/{EmployeeId}/PayTemplates/earnings/{PayTemplateEarningID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(earningsTemplate);
@@ -4252,8 +4837,18 @@ public class PayrollUkApi {
             HttpResponse response = updateEmployeeLeaveForHttpResponse(accessToken, xeroTenantId, employeeId, leaveID, employeeLeave);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateEmployeeLeave -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeLeaveObject> errorTypeRef = new TypeReference<EmployeeLeaveObject>() {};
+                EmployeeLeaveObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeLeaveObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4280,19 +4875,18 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees/{EmployeeId}/Leave/{LeaveID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EmployeeId", employeeId);
         uriVariables.put("LeaveID", leaveID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees/{EmployeeId}/Leave/{LeaveID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(employeeLeave);
@@ -4322,8 +4916,18 @@ public class PayrollUkApi {
             HttpResponse response = updateEmployeeOpeningBalancesForHttpResponse(accessToken, xeroTenantId, employeeId, employeeOpeningBalances);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateEmployeeOpeningBalances -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<EmployeeOpeningBalancesObject> errorTypeRef = new TypeReference<EmployeeOpeningBalancesObject>() {};
+                EmployeeOpeningBalancesObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeeOpeningBalancesObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4347,18 +4951,17 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees/{EmployeeId}/ukopeningbalances";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EmployeeId", employeeId);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees/{EmployeeId}/ukopeningbalances");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(employeeOpeningBalances);
@@ -4389,8 +4992,18 @@ public class PayrollUkApi {
             HttpResponse response = updateEmployeeSalaryAndWageForHttpResponse(accessToken, xeroTenantId, employeeId, salaryAndWagesID, salaryAndWage);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateEmployeeSalaryAndWage -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<SalaryAndWageObject> errorTypeRef = new TypeReference<SalaryAndWageObject>() {};
+                SalaryAndWageObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"SalaryAndWageObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4417,19 +5030,18 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees/{EmployeeId}/SalaryAndWages/{SalaryAndWagesID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EmployeeId", employeeId);
         uriVariables.put("SalaryAndWagesID", salaryAndWagesID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees/{EmployeeId}/SalaryAndWages/{SalaryAndWagesID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(salaryAndWage);
@@ -4459,8 +5071,18 @@ public class PayrollUkApi {
             HttpResponse response = updatePayRunForHttpResponse(accessToken, xeroTenantId, payRunID, payRun);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updatePayRun -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<PayRuns> errorTypeRef = new TypeReference<PayRuns>() {};
+                PayRuns object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"PayRuns",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4484,18 +5106,17 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/PayRuns/{PayRunID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("PayRunID", payRunID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/PayRuns/{PayRunID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(payRun);
@@ -4526,8 +5147,18 @@ public class PayrollUkApi {
             HttpResponse response = updateTimesheetLineForHttpResponse(accessToken, xeroTenantId, timesheetID, timesheetLineID, timesheetLine);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateTimesheetLine -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+             if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
+                TypeReference<TimesheetLineObject> errorTypeRef = new TypeReference<TimesheetLineObject>() {};
+                TimesheetLineObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"TimesheetLineObject",object.getProblem());
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4554,19 +5185,18 @@ public class PayrollUkApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Timesheets/{TimesheetID}/Lines/{TimesheetLineID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("TimesheetID", timesheetID);
         uriVariables.put("TimesheetLineID", timesheetLineID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Timesheets/{TimesheetID}/Lines/{TimesheetLineID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(timesheetLine);

@@ -119,8 +119,8 @@ public class AccountingApiQuotesTest {
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getTracking().get(0).getTrackingOptionID() ,  is(equalTo(UUID.fromString("ce205173-7387-4651-9726-2cf4c5405ba2"))));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getTracking().get(0).getName() , is(equalTo("Region")));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getTracking().get(0).getOption() , is(equalTo("Eastside")));
-        assertThat(quotes.getQuotes().get(0).getDate(),  is(equalTo(LocalDate.of(2019,10,23))));
-        assertThat(quotes.getQuotes().get(0).getExpiryDate(), is(equalTo(LocalDate.of(2019,10,24))));
+        assertThat(quotes.getQuotes().get(0).getDateAsDate(),  is(equalTo(LocalDate.of(2019,10,24))));
+        assertThat(quotes.getQuotes().get(0).getExpiryDateAsDate(), is(equalTo(LocalDate.of(2019,10,25))));
         assertThat(quotes.getQuotes().get(0).getCurrencyCode(), is(equalTo(com.xero.models.accounting.CurrencyCode.AUD)));
         assertThat(quotes.getQuotes().get(0).getCurrencyRate(), is(equalTo(0.937053)));
         assertThat(quotes.getQuotes().get(0).getSubTotal(), is(equalTo(17.96)));
@@ -130,7 +130,7 @@ public class AccountingApiQuotesTest {
         assertThat(quotes.getQuotes().get(0).getTitle(), is(equalTo("Your Quote")));
         assertThat(quotes.getQuotes().get(0).getSummary(), is(equalTo("Please buy this")));
         assertThat(quotes.getQuotes().get(0).getBrandingThemeID(), is(equalTo(UUID.fromString("4c82c365-35cb-467f-bb11-dce1f2f2f67c"))));
-        assertThat(quotes.getQuotes().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-10-23T14:22:53.890-08:00"))));
+        assertThat(quotes.getQuotes().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-10-23T22:22:53.890Z"))));
 		assertThat(quotes.getQuotes().get(0).getStatus(), is(equalTo(com.xero.models.accounting.QuoteStatusCodes.ACCEPTED)));
         assertThat(quotes.getQuotes().get(0).getLineAmountTypes(), is(equalTo(com.xero.models.accounting.QuoteLineAmountTypes.EXCLUSIVE))); 
 
@@ -167,8 +167,8 @@ public class AccountingApiQuotesTest {
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getTracking().get(0).getTrackingOptionID() ,  is(equalTo(UUID.fromString("d30e2a0d-ae6f-4806-88ca-d8ebdba2af73"))));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getTracking().get(0).getName() , is(equalTo("Avengers")));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getTracking().get(0).getOption() , is(equalTo("IronMan")));        
-        assertThat(quotes.getQuotes().get(0).getDate(),  is(equalTo(LocalDate.of(2020,01,31))));
-        assertThat(quotes.getQuotes().get(0).getExpiryDate(), is(equalTo(LocalDate.of(2020,02,14))));
+        assertThat(quotes.getQuotes().get(0).getDateAsDate(),  is(equalTo(LocalDate.of(2020,02,1))));
+        assertThat(quotes.getQuotes().get(0).getExpiryDateAsDate(), is(equalTo(LocalDate.of(2020,02,15))));
         assertThat(quotes.getQuotes().get(0).getCurrencyCode(), is(equalTo(com.xero.models.accounting.CurrencyCode.NZD)));
         assertThat(quotes.getQuotes().get(0).getCurrencyRate(), is(equalTo(1.54715)));
         assertThat(quotes.getQuotes().get(0).getSubTotal(), is(equalTo(500.0)));
@@ -176,7 +176,7 @@ public class AccountingApiQuotesTest {
         assertThat(quotes.getQuotes().get(0).getTotal(), is(equalTo(500.0)));
         assertThat(quotes.getQuotes().get(0).getTotalDiscount(), is(equalTo(0.0)));
         assertThat(quotes.getQuotes().get(0).getBrandingThemeID(), is(equalTo(UUID.fromString("324587a9-7eed-46c0-ad64-fa941a1b5b3e"))));
-        assertThat(quotes.getQuotes().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2020-02-01T17:42:37.040-08:00"))));
+        assertThat(quotes.getQuotes().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2020-02-02T01:42:37.040Z"))));
 		assertThat(quotes.getQuotes().get(0).getStatus(), is(equalTo(com.xero.models.accounting.QuoteStatusCodes.DRAFT)));
         assertThat(quotes.getQuotes().get(0).getLineAmountTypes(), is(equalTo(com.xero.models.accounting.QuoteLineAmountTypes.EXCLUSIVE))); 
         //System.out.println(quotes.toString());
@@ -194,7 +194,6 @@ public class AccountingApiQuotesTest {
         assertThat(quotes.getQuotes().get(0).getQuoteNumber(), is(equalTo("QU-0008")));
         assertThat(quotes.getQuotes().get(0).getContact().getContactID(),  is(equalTo(UUID.fromString("6a65f055-b0e0-471a-a933-d1ffdd89393f"))));
         assertThat(quotes.getQuotes().get(0).getContact().getName(), is(equalTo("John Smith-82160")));
-
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getLineItemID(),  is(equalTo(UUID.fromString("26995857-0eea-45fb-b46c-f8ea896ec46e"))));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getDescription(), is(equalTo("Foobar")));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0f)));
@@ -202,14 +201,13 @@ public class AccountingApiQuotesTest {
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getAccountCode(), is(equalTo("12775")));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getTaxAmount(), is(equalTo(0.0)));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getLineAmount(), is(equalTo(20.0)));
-
-        assertThat(quotes.getQuotes().get(0).getDate(),  is(equalTo(LocalDate.of(2020,01,31))));
+        assertThat(quotes.getQuotes().get(0).getDateAsDate(),  is(equalTo(LocalDate.of(2020,02,1))));
         assertThat(quotes.getQuotes().get(0).getCurrencyCode(), is(equalTo(com.xero.models.accounting.CurrencyCode.USD)));
         assertThat(quotes.getQuotes().get(0).getCurrencyRate(), is(equalTo(1.0)));
         assertThat(quotes.getQuotes().get(0).getSubTotal(), is(equalTo(20.0)));
         assertThat(quotes.getQuotes().get(0).getTotalTax(), is(equalTo(0.0)));
         assertThat(quotes.getQuotes().get(0).getTotal(), is(equalTo(20.0)));
-        assertThat(quotes.getQuotes().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2020-02-01T17:43:02.913-08:00"))));
+        assertThat(quotes.getQuotes().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2020-02-02T01:43:02.913Z"))));
 		assertThat(quotes.getQuotes().get(0).getStatus(), is(equalTo(com.xero.models.accounting.QuoteStatusCodes.DRAFT)));
         assertThat(quotes.getQuotes().get(0).getLineAmountTypes(), is(equalTo(com.xero.models.accounting.QuoteLineAmountTypes.EXCLUSIVE))); 
        
@@ -237,13 +235,13 @@ public class AccountingApiQuotesTest {
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getAccountCode(), is(equalTo("12775")));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getTaxAmount(), is(equalTo(0.0)));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getLineAmount(), is(equalTo(20.0)));
-        assertThat(quotes.getQuotes().get(0).getDate(),  is(equalTo(LocalDate.of(2020,01,31))));
+        assertThat(quotes.getQuotes().get(0).getDateAsDate(),  is(equalTo(LocalDate.of(2020,2,1))));
         assertThat(quotes.getQuotes().get(0).getCurrencyCode(), is(equalTo(com.xero.models.accounting.CurrencyCode.USD)));
         assertThat(quotes.getQuotes().get(0).getCurrencyRate(), is(equalTo(1.0)));
         assertThat(quotes.getQuotes().get(0).getSubTotal(), is(equalTo(20.0)));
         assertThat(quotes.getQuotes().get(0).getTotalTax(), is(equalTo(0.0)));
         assertThat(quotes.getQuotes().get(0).getTotal(), is(equalTo(20.0)));
-        assertThat(quotes.getQuotes().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2020-02-01T17:07:24.360-08:00"))));
+        assertThat(quotes.getQuotes().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2020-02-02T01:07:24.360Z"))));
 		assertThat(quotes.getQuotes().get(0).getStatus(), is(equalTo(com.xero.models.accounting.QuoteStatusCodes.DRAFT)));
         assertThat(quotes.getQuotes().get(0).getLineAmountTypes(), is(equalTo(com.xero.models.accounting.QuoteLineAmountTypes.EXCLUSIVE))); 
         
@@ -262,7 +260,6 @@ public class AccountingApiQuotesTest {
         assertThat(quotes.getQuotes().get(0).getQuoteNumber(), is(equalTo("QU-0009")));
         assertThat(quotes.getQuotes().get(0).getContact().getContactID(),  is(equalTo(UUID.fromString("6a65f055-b0e0-471a-a933-d1ffdd89393f"))));
         assertThat(quotes.getQuotes().get(0).getContact().getName(), is(equalTo("John Smith-82160")));
-
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getLineItemID(),  is(equalTo(UUID.fromString("898c7fd6-0d94-4ac0-ace8-87e350a042de"))));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getDescription(), is(equalTo("Foobar")));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0f)));
@@ -270,14 +267,13 @@ public class AccountingApiQuotesTest {
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getAccountCode(), is(equalTo("12775")));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getTaxAmount(), is(equalTo(0.0)));
         assertThat(quotes.getQuotes().get(0).getLineItems().get(0).getLineAmount(), is(equalTo(20.0)));
-
-        assertThat(quotes.getQuotes().get(0).getDate(),  is(equalTo(LocalDate.of(2020,01,31))));
+        assertThat(quotes.getQuotes().get(0).getDateAsDate(),  is(equalTo(LocalDate.of(2020,02,01))));
         assertThat(quotes.getQuotes().get(0).getCurrencyCode(), is(equalTo(com.xero.models.accounting.CurrencyCode.USD)));
         assertThat(quotes.getQuotes().get(0).getCurrencyRate(), is(equalTo(1.0)));
         assertThat(quotes.getQuotes().get(0).getSubTotal(), is(equalTo(20.0)));
         assertThat(quotes.getQuotes().get(0).getTotalTax(), is(equalTo(0.0)));
         assertThat(quotes.getQuotes().get(0).getTotal(), is(equalTo(20.0)));
-        assertThat(quotes.getQuotes().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2020-02-01T17:43:03.467-08:00"))));
+        assertThat(quotes.getQuotes().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2020-02-02T01:43:03.467Z"))));
 		assertThat(quotes.getQuotes().get(0).getStatus(), is(equalTo(com.xero.models.accounting.QuoteStatusCodes.DRAFT)));
         assertThat(quotes.getQuotes().get(0).getLineAmountTypes(), is(equalTo(com.xero.models.accounting.QuoteLineAmountTypes.EXCLUSIVE))); 
        

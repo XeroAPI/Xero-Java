@@ -93,7 +93,7 @@ public class AccountingApiEmployeesTest {
         assertThat(response.getEmployees().get(0).getLastName(), is(equalTo("Fury")));
         assertThat(response.getEmployees().get(0).getExternalLink().getUrl(), is(equalTo("http://twitter.com/#!/search/Nick+Fury")));
         assertThat(response.getEmployees().get(0).getExternalLink().getDescription(), is(equalTo("Go to external link")));
-        assertThat(response.getEmployees().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T09:18:56.463-08:00"))));
+        assertThat(response.getEmployees().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-03-11T17:18:56.463Z"))));
         //System.out.println(response.getEmployees().get(0).toString());
     }
 
@@ -109,7 +109,7 @@ public class AccountingApiEmployeesTest {
         assertThat(response.getEmployees().get(0).getLastName(), is(equalTo("Stark")));
         assertThat(response.getEmployees().get(0).getExternalLink().getUrl(), is(equalTo("http://twitter.com/#!/search/Stark+Industries")));
         assertThat(response.getEmployees().get(0).getExternalLink().getDescription(), is(equalTo("Go to external link")));
-        assertThat(response.getEmployees().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T09:18:01.593-08:00"))));
+        assertThat(response.getEmployees().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-03-11T17:18:01.593Z"))));
         //System.out.println(response.getEmployees().get(0).toString());
     }
     
@@ -128,7 +128,7 @@ public class AccountingApiEmployeesTest {
         assertThat(response.getEmployees().get(0).getLastName(), is(equalTo("Stark")));
         assertThat(response.getEmployees().get(0).getExternalLink().getUrl(), is(equalTo("http://twitter.com/#!/search/Stark+Industries")));
         assertThat(response.getEmployees().get(0).getExternalLink().getDescription(), is(equalTo("Go to external link")));
-        assertThat(response.getEmployees().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-11T09:18:01.593-08:00"))));
+        assertThat(response.getEmployees().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-03-11T17:18:01.593Z"))));
         //System.out.println(response.getEmployees().get(0).toString());
     }
 

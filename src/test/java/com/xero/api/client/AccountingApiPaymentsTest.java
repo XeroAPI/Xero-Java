@@ -68,11 +68,11 @@ public class AccountingApiPaymentsTest {
     public void createPaymentsTest() throws IOException {
         System.out.println("@Test - createPayments");
         Payments payments = new Payments();
-        Payments response = accountingApi.createPayments(accessToken,xeroTenantId,payments);
+        Payments response = accountingApi.createPayments(accessToken,xeroTenantId,payments,true);
 
         assertThat(response.getPayments().get(0).getInvoice().getInvoiceNumber(), is(equalTo("INV-0004")));
         assertThat(response.getPayments().get(0).getAccount().getCode(), is(equalTo("970")));
-        assertThat(response.getPayments().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,11))));  
+        assertThat(response.getPayments().get(0).getDateAsDate(), is(equalTo(LocalDate.of(2019,03,12))));  
         assertThat(response.getPayments().get(0).getCurrencyRate(), is(equalTo(1.0)));
         assertThat(response.getPayments().get(0).getCurrencyRate().toString(), is(equalTo("1.0")));
         assertThat(response.getPayments().get(0).getAmount(), is(equalTo(1.0)));
@@ -80,7 +80,7 @@ public class AccountingApiPaymentsTest {
         assertThat(response.getPayments().get(0).getIsReconciled(), is(equalTo(false)));
         assertThat(response.getPayments().get(0).getStatus(), is(equalTo(com.xero.models.accounting.Payment.StatusEnum.AUTHORISED)));
         assertThat(response.getPayments().get(0).getPaymentType(), is(equalTo(com.xero.models.accounting.Payment.PaymentTypeEnum.ACCRECPAYMENT)));
-        assertThat(response.getPayments().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-12T15:10:38.623-08:00"))));
+        assertThat(response.getPayments().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-03-12T23:10:38.623Z"))));
         assertThat(response.getPayments().get(0).getPaymentID(), is(equalTo(UUID.fromString("61ed71fc-01bf-4eb8-8419-8a18789ff45f"))));
         assertThat(response.getPayments().get(0).getHasAccount(), is(equalTo(true)));
         assertThat(response.getPayments().get(0).getHasValidationErrors(), is(equalTo(true)));
@@ -96,7 +96,7 @@ public class AccountingApiPaymentsTest {
         Payments response = accountingApi.deletePayment(accessToken,xeroTenantId,paymentID, paymentDelete);
 
         assertThat(response.getPayments().get(0).getAccount().getCode(), is(equalTo("033")));
-        assertThat(response.getPayments().get(0).getDate(), is(equalTo(LocalDate.of(2019,9,01))));  
+        assertThat(response.getPayments().get(0).getDateAsDate(), is(equalTo(LocalDate.of(2019,9,02))));  
         assertThat(response.getPayments().get(0).getCurrencyRate(), is(equalTo(1.0)));
         assertThat(response.getPayments().get(0).getCurrencyRate().toString(), is(equalTo("1.0")));
         assertThat(response.getPayments().get(0).getAmount(), is(equalTo(2.0)));
@@ -105,7 +105,7 @@ public class AccountingApiPaymentsTest {
         assertThat(response.getPayments().get(0).getIsReconciled(), is(equalTo(false)));
         assertThat(response.getPayments().get(0).getStatus(), is(equalTo(com.xero.models.accounting.Payment.StatusEnum.DELETED)));
         assertThat(response.getPayments().get(0).getPaymentType(), is(equalTo(com.xero.models.accounting.Payment.PaymentTypeEnum.APCREDITPAYMENT)));
-        assertThat(response.getPayments().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2020-03-11T08:57:32.373-08:00"))));
+        assertThat(response.getPayments().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2020-03-11T16:57:32.373Z"))));
         assertThat(response.getPayments().get(0).getPaymentID(), is(equalTo(UUID.fromString("c94c996b-1ab3-4ff3-ad19-1cdc77f30817"))));
         assertThat(response.getPayments().get(0).getHasAccount(), is(equalTo(true)));
         assertThat(response.getPayments().get(0).getHasValidationErrors(), is(equalTo(false)));
@@ -120,7 +120,7 @@ public class AccountingApiPaymentsTest {
 
         assertThat(response.getPayments().get(0).getInvoice().getInvoiceNumber(), is(equalTo("INV-0002")));
         assertThat(response.getPayments().get(0).getAccount().getCode(), is(equalTo("970")));
-        assertThat(response.getPayments().get(0).getDate(), is(equalTo(LocalDate.of(2018,11,28))));  
+        assertThat(response.getPayments().get(0).getDateAsDate(), is(equalTo(LocalDate.of(2018,11,29))));  
         assertThat(response.getPayments().get(0).getCurrencyRate(), is(equalTo(1.0)));
         assertThat(response.getPayments().get(0).getCurrencyRate().toString(), is(equalTo("1.0")));
         assertThat(response.getPayments().get(0).getAmount(), is(equalTo(46.0)));
@@ -128,7 +128,7 @@ public class AccountingApiPaymentsTest {
         assertThat(response.getPayments().get(0).getIsReconciled(), is(equalTo(false)));
         assertThat(response.getPayments().get(0).getStatus(), is(equalTo(com.xero.models.accounting.Payment.StatusEnum.AUTHORISED)));
         assertThat(response.getPayments().get(0).getPaymentType(), is(equalTo(com.xero.models.accounting.Payment.PaymentTypeEnum.ACCRECPAYMENT)));
-        assertThat(response.getPayments().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2018-11-02T08:36:32.690-08:00"))));
+        assertThat(response.getPayments().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2018-11-02T16:36:32.690Z"))));
         assertThat(response.getPayments().get(0).getPaymentID(), is(equalTo(UUID.fromString("99ea7f6b-c513-4066-bc27-b7c65dcd76c2"))));
         assertThat(response.getPayments().get(0).getHasAccount(), is(equalTo(true)));
         assertThat(response.getPayments().get(0).getHasValidationErrors(), is(equalTo(false)));
@@ -145,7 +145,7 @@ public class AccountingApiPaymentsTest {
 
         assertThat(response.getPayments().get(0).getInvoice().getInvoiceNumber(), is(equalTo("INV-0002")));
         assertThat(response.getPayments().get(0).getAccount().getCode(), is(equalTo("970")));
-        assertThat(response.getPayments().get(0).getDate(), is(equalTo(LocalDate.of(2018,11,28))));  
+        assertThat(response.getPayments().get(0).getDateAsDate(), is(equalTo(LocalDate.of(2018,11,29))));  
         assertThat(response.getPayments().get(0).getCurrencyRate(), is(equalTo(1.0)));
         assertThat(response.getPayments().get(0).getCurrencyRate().toString(), is(equalTo("1.0")));
         assertThat(response.getPayments().get(0).getAmount(), is(equalTo(46.0)));
@@ -153,7 +153,7 @@ public class AccountingApiPaymentsTest {
         assertThat(response.getPayments().get(0).getIsReconciled(), is(equalTo(false)));
         assertThat(response.getPayments().get(0).getStatus(), is(equalTo(com.xero.models.accounting.Payment.StatusEnum.AUTHORISED)));
         assertThat(response.getPayments().get(0).getPaymentType(), is(equalTo(com.xero.models.accounting.Payment.PaymentTypeEnum.ACCRECPAYMENT)));
-        assertThat(response.getPayments().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2018-11-02T08:36:32.690-08:00"))));
+        assertThat(response.getPayments().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2018-11-02T16:36:32.690Z"))));
         assertThat(response.getPayments().get(0).getPaymentID(), is(equalTo(UUID.fromString("99ea7f6b-c513-4066-bc27-b7c65dcd76c2"))));
         assertThat(response.getPayments().get(0).getHasAccount(), is(equalTo(true)));
         assertThat(response.getPayments().get(0).getHasValidationErrors(), is(equalTo(false)));

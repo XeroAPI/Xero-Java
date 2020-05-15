@@ -89,7 +89,7 @@ public class AccountingApiPrepaymentsTest {
         Allocations response = accountingApi.createPrepaymentAllocations(accessToken,xeroTenantId,prepaymentID, allocations, false);
 
         assertThat(response.getAllocations().get(0).getAmount(), is(equalTo(1.0)));
-        assertThat(response.getAllocations().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,12))));
+        assertThat(response.getAllocations().get(0).getDateAsDate(), is(equalTo(LocalDate.of(2019,03,13))));
         assertThat(response.getAllocations().get(0).getInvoice().getInvoiceID(), is(equalTo(UUID.fromString("c7c37b83-ac95-45ea-88ba-8ad83a5f22fe"))));
         //System.out.println(response.getAllocations().get(0).toString());
     }
@@ -103,7 +103,7 @@ public class AccountingApiPrepaymentsTest {
 
         assertThat(response.getPrepayments().get(0).getType().toString(), is(equalTo("RECEIVE-PREPAYMENT")));
         assertThat(response.getPrepayments().get(0).getContact().getName(), is(equalTo("Luke Skywalker")));
-        assertThat(response.getPrepayments().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,12))));  
+        assertThat(response.getPrepayments().get(0).getDateAsDate(), is(equalTo(LocalDate.of(2019,03,13))));  
         assertThat(response.getPrepayments().get(0).getStatus(), is(equalTo(com.xero.models.accounting.Prepayment.StatusEnum.AUTHORISED)));
         assertThat(response.getPrepayments().get(0).getLineAmountTypes(), is(equalTo(com.xero.models.accounting.LineAmountTypes.EXCLUSIVE)));
         assertThat(response.getPrepayments().get(0).getLineItems().get(0).getDescription(), is(equalTo("Light Speeder")));
@@ -119,7 +119,7 @@ public class AccountingApiPrepaymentsTest {
         assertThat(response.getPrepayments().get(0).getTotalTax().toString(), is(equalTo("450.0")));
         assertThat(response.getPrepayments().get(0).getTotal(), is(equalTo(3450.0)));
         assertThat(response.getPrepayments().get(0).getTotal().toString(), is(equalTo("3450.0")));
-        assertThat(response.getPrepayments().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-13T16:13:44.850-08:00"))));
+        assertThat(response.getPrepayments().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-03-14T00:13:44.850Z"))));
         assertThat(response.getPrepayments().get(0).getCurrencyCode(), is(equalTo(com.xero.models.accounting.CurrencyCode.NZD)));
         assertThat(response.getPrepayments().get(0).getPrepaymentID(), is(equalTo(UUID.fromString("ce0cddef-cf5a-4e59-b638-f225679115a7"))));
         assertThat(response.getPrepayments().get(0).getCurrencyRate(), is(equalTo(1.0)));
@@ -128,7 +128,7 @@ public class AccountingApiPrepaymentsTest {
         assertThat(response.getPrepayments().get(0).getRemainingCredit().toString(), is(equalTo("3449.0")));
         assertThat(response.getPrepayments().get(0).getHasAttachments(), is(equalTo(true)));
         assertThat(response.getPrepayments().get(0).getAllocations().get(0).getAmount(), is(equalTo(1.0)));
-        assertThat(response.getPrepayments().get(0).getAllocations().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,12))));
+        assertThat(response.getPrepayments().get(0).getAllocations().get(0).getDateAsDate(), is(equalTo(LocalDate.of(2019,03,13))));
         assertThat(response.getPrepayments().get(0).getAllocations().get(0).getInvoice().getInvoiceNumber(), is(equalTo("INV-0004")));
         assertThat(response.getPrepayments().get(0).getAttachments().get(0).getAttachmentID(), is(equalTo(UUID.fromString("2ca06aa0-3629-474a-9401-553d4b7fa9b0"))));        
         assertThat(response.getPrepayments().get(0).getAttachments().get(0).getFileName(), is(equalTo("giphy.gif")));
@@ -150,7 +150,7 @@ public class AccountingApiPrepaymentsTest {
 
         assertThat(response.getPrepayments().get(0).getType().toString(), is(equalTo("RECEIVE-PREPAYMENT")));
         assertThat(response.getPrepayments().get(0).getContact().getName(), is(equalTo("Luke Skywalker")));
-        assertThat(response.getPrepayments().get(0).getDate(), is(equalTo(LocalDate.of(2019,03,12))));  
+        assertThat(response.getPrepayments().get(0).getDateAsDate(), is(equalTo(LocalDate.of(2019,03,13))));  
         assertThat(response.getPrepayments().get(0).getStatus(), is(equalTo(com.xero.models.accounting.Prepayment.StatusEnum.AUTHORISED)));
         assertThat(response.getPrepayments().get(0).getLineAmountTypes(), is(equalTo(com.xero.models.accounting.LineAmountTypes.EXCLUSIVE)));
         assertThat(response.getPrepayments().get(0).getSubTotal(), is(equalTo(3000.0)));
@@ -159,7 +159,7 @@ public class AccountingApiPrepaymentsTest {
         assertThat(response.getPrepayments().get(0).getTotalTax().toString(), is(equalTo("450.0")));
         assertThat(response.getPrepayments().get(0).getTotal(), is(equalTo(3450.0)));
         assertThat(response.getPrepayments().get(0).getTotal().toString(), is(equalTo("3450.0")));
-        assertThat(response.getPrepayments().get(0).getUpdatedDateUTC(), is(equalTo(OffsetDateTime.parse("2019-03-13T06:59:47.730-08:00"))));
+        assertThat(response.getPrepayments().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-03-13T14:59:47.730Z"))));
         assertThat(response.getPrepayments().get(0).getCurrencyCode(), is(equalTo(com.xero.models.accounting.CurrencyCode.NZD)));
         assertThat(response.getPrepayments().get(0).getPrepaymentID(), is(equalTo(UUID.fromString("ce0cddef-cf5a-4e59-b638-f225679115a7"))));
         assertThat(response.getPrepayments().get(0).getRemainingCredit(), is(equalTo(3450.0)));

@@ -56,6 +56,7 @@ import java.util.UUID;
 import com.xero.models.accounting.Users;
 import com.xero.api.XeroApiException;
 import com.xero.api.XeroApiExceptionHandler;
+import com.xero.models.bankfeeds.Statements;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.api.client.http.GenericUrl;
@@ -83,15 +84,17 @@ import java.util.Map;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 
 public class AccountingApi {
     private ApiClient apiClient;
     private static AccountingApi instance = null;
     private String userAgent = "Default";
-    private String version = "3.6.0";
+    private String version = "4.0.0";
+    final static Logger logger = LoggerFactory.getLogger(AccountingApi.class);
 
     public AccountingApi() {
         this(new ApiClient());
@@ -121,7 +124,7 @@ public class AccountingApi {
     }
     
     public String getUserAgent() {
-        return this.userAgent +  "[Xero-Java-" + this.version + "]";
+        return this.userAgent +  " [Xero-Java-" + this.version + "]";
     }
 
   /**
@@ -140,8 +143,21 @@ public class AccountingApi {
             HttpResponse response = createAccountForHttpResponse(accessToken, xeroTenantId, account);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createAccount -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Accounts",object.getMessage());
+                }
+                handler.validationError("Accounts",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -163,12 +179,12 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Accounts";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Accounts");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(account);
@@ -199,8 +215,21 @@ public class AccountingApi {
             HttpResponse response = createAccountAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, accountID, fileName, body);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createAccountAttachmentByFileName -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Attachments",object.getMessage());
+                }
+                handler.validationError("Attachments",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -227,19 +256,18 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Accounts/{AccountID}/Attachments/{FileName}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("AccountID", accountID);
         uriVariables.put("FileName", fileName);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Accounts/{AccountID}/Attachments/{FileName}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
         HttpContent content = null;
@@ -270,8 +298,21 @@ public class AccountingApi {
             HttpResponse response = createBankTransactionAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, bankTransactionID, fileName, body);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createBankTransactionAttachmentByFileName -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Attachments",object.getMessage());
+                }
+                handler.validationError("Attachments",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -298,19 +339,18 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/BankTransactions/{BankTransactionID}/Attachments/{FileName}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BankTransactionID", bankTransactionID);
         uriVariables.put("FileName", fileName);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BankTransactions/{BankTransactionID}/Attachments/{FileName}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
         HttpContent content = null;
@@ -340,8 +380,21 @@ public class AccountingApi {
             HttpResponse response = createBankTransactionHistoryRecordForHttpResponse(accessToken, xeroTenantId, bankTransactionID, historyRecords);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createBankTransactionHistoryRecord -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("HistoryRecords",object.getMessage());
+                }
+                handler.validationError("HistoryRecords",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -365,18 +418,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/BankTransactions/{BankTransactionID}/History";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BankTransactionID", bankTransactionID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BankTransactions/{BankTransactionID}/History");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(historyRecords);
@@ -407,8 +459,21 @@ public class AccountingApi {
             HttpResponse response = createBankTransactionsForHttpResponse(accessToken, xeroTenantId, bankTransactions, summarizeErrors, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createBankTransactions -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("BankTransactions",object.getMessage());
+                }
+                handler.validationError("BankTransactions",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -430,9 +495,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/BankTransactions";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BankTransactions");
         if (summarizeErrors != null) {
             String key = "summarizeErrors";
             Object value = summarizeErrors;
@@ -456,7 +519,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(bankTransactions);
@@ -485,8 +550,21 @@ public class AccountingApi {
             HttpResponse response = createBankTransferForHttpResponse(accessToken, xeroTenantId, bankTransfers);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createBankTransfer -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("BankTransfers",object.getMessage());
+                }
+                handler.validationError("BankTransfers",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -508,12 +586,12 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/BankTransfers";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BankTransfers");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(bankTransfers);
@@ -543,8 +621,21 @@ public class AccountingApi {
             HttpResponse response = createBankTransferAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, bankTransferID, fileName, body);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createBankTransferAttachmentByFileName -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Attachments",object.getMessage());
+                }
+                handler.validationError("Attachments",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -571,19 +662,18 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/BankTransfers/{BankTransferID}/Attachments/{FileName}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BankTransferID", bankTransferID);
         uriVariables.put("FileName", fileName);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BankTransfers/{BankTransferID}/Attachments/{FileName}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
         HttpContent content = null;
@@ -612,8 +702,21 @@ public class AccountingApi {
             HttpResponse response = createBankTransferHistoryRecordForHttpResponse(accessToken, xeroTenantId, bankTransferID, historyRecords);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createBankTransferHistoryRecord -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("HistoryRecords",object.getMessage());
+                }
+                handler.validationError("HistoryRecords",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -637,18 +740,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/BankTransfers/{BankTransferID}/History";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BankTransferID", bankTransferID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BankTransfers/{BankTransferID}/History");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(historyRecords);
@@ -678,8 +780,21 @@ public class AccountingApi {
             HttpResponse response = createBatchPaymentForHttpResponse(accessToken, xeroTenantId, batchPayments, summarizeErrors);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createBatchPayment -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("BatchPayments",object.getMessage());
+                }
+                handler.validationError("BatchPayments",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -701,9 +816,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/BatchPayments";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BatchPayments");
         if (summarizeErrors != null) {
             String key = "summarizeErrors";
             Object value = summarizeErrors;
@@ -717,7 +830,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(batchPayments);
@@ -747,8 +862,21 @@ public class AccountingApi {
             HttpResponse response = createBatchPaymentHistoryRecordForHttpResponse(accessToken, xeroTenantId, batchPaymentID, historyRecords);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createBatchPaymentHistoryRecord -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("HistoryRecords",object.getMessage());
+                }
+                handler.validationError("HistoryRecords",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -772,18 +900,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/BatchPayments/{BatchPaymentID}/History";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BatchPaymentID", batchPaymentID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BatchPayments/{BatchPaymentID}/History");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(historyRecords);
@@ -813,8 +940,21 @@ public class AccountingApi {
             HttpResponse response = createBrandingThemePaymentServicesForHttpResponse(accessToken, xeroTenantId, brandingThemeID, paymentService);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createBrandingThemePaymentServices -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("PaymentServices",object.getMessage());
+                }
+                handler.validationError("PaymentServices",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -838,18 +978,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/BrandingThemes/{BrandingThemeID}/PaymentServices";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BrandingThemeID", brandingThemeID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BrandingThemes/{BrandingThemeID}/PaymentServices");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(paymentService);
@@ -879,8 +1018,21 @@ public class AccountingApi {
             HttpResponse response = createContactAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, contactID, fileName, body);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createContactAttachmentByFileName -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Attachments",object.getMessage());
+                }
+                handler.validationError("Attachments",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -907,19 +1059,18 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Contacts/{ContactID}/Attachments/{FileName}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ContactID", contactID);
         uriVariables.put("FileName", fileName);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Contacts/{ContactID}/Attachments/{FileName}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
         HttpContent content = null;
@@ -948,8 +1099,21 @@ public class AccountingApi {
             HttpResponse response = createContactGroupForHttpResponse(accessToken, xeroTenantId, contactGroups);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createContactGroup -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("ContactGroups",object.getMessage());
+                }
+                handler.validationError("ContactGroups",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -971,12 +1135,12 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/ContactGroups";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/ContactGroups");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(contactGroups);
@@ -1006,8 +1170,21 @@ public class AccountingApi {
             HttpResponse response = createContactGroupContactsForHttpResponse(accessToken, xeroTenantId, contactGroupID, contacts);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createContactGroupContacts -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Contacts",object.getMessage());
+                }
+                handler.validationError("Contacts",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1031,18 +1208,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/ContactGroups/{ContactGroupID}/Contacts";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ContactGroupID", contactGroupID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/ContactGroups/{ContactGroupID}/Contacts");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(contacts);
@@ -1072,8 +1248,21 @@ public class AccountingApi {
             HttpResponse response = createContactHistoryForHttpResponse(accessToken, xeroTenantId, contactID, historyRecords);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createContactHistory -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("HistoryRecords",object.getMessage());
+                }
+                handler.validationError("HistoryRecords",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1097,18 +1286,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Contacts/{ContactID}/History";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ContactID", contactID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Contacts/{ContactID}/History");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(historyRecords);
@@ -1138,8 +1326,21 @@ public class AccountingApi {
             HttpResponse response = createContactsForHttpResponse(accessToken, xeroTenantId, contacts, summarizeErrors);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createContacts -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Contacts",object.getMessage());
+                }
+                handler.validationError("Contacts",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1161,9 +1362,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Contacts";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Contacts");
         if (summarizeErrors != null) {
             String key = "summarizeErrors";
             Object value = summarizeErrors;
@@ -1177,7 +1376,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(contacts);
@@ -1207,8 +1408,21 @@ public class AccountingApi {
             HttpResponse response = createCreditNoteAllocationForHttpResponse(accessToken, xeroTenantId, creditNoteID, allocations);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createCreditNoteAllocation -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Allocations",object.getMessage());
+                }
+                handler.validationError("Allocations",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1232,18 +1446,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/CreditNotes/{CreditNoteID}/Allocations";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("CreditNoteID", creditNoteID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/CreditNotes/{CreditNoteID}/Allocations");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(allocations);
@@ -1275,8 +1488,21 @@ public class AccountingApi {
             HttpResponse response = createCreditNoteAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, creditNoteID, fileName, body, includeOnline);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createCreditNoteAttachmentByFileName -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Attachments",object.getMessage());
+                }
+                handler.validationError("Attachments",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1303,16 +1529,13 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/CreditNotes/{CreditNoteID}/Attachments/{FileName}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("CreditNoteID", creditNoteID);
         uriVariables.put("FileName", fileName);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/CreditNotes/{CreditNoteID}/Attachments/{FileName}");
         if (includeOnline != null) {
             String key = "IncludeOnline";
             Object value = includeOnline;
@@ -1326,7 +1549,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
         HttpContent content = null;
@@ -1356,8 +1581,21 @@ public class AccountingApi {
             HttpResponse response = createCreditNoteHistoryForHttpResponse(accessToken, xeroTenantId, creditNoteID, historyRecords);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createCreditNoteHistory -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("HistoryRecords",object.getMessage());
+                }
+                handler.validationError("HistoryRecords",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1381,18 +1619,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/CreditNotes/{CreditNoteID}/History";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("CreditNoteID", creditNoteID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/CreditNotes/{CreditNoteID}/History");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(historyRecords);
@@ -1423,8 +1660,21 @@ public class AccountingApi {
             HttpResponse response = createCreditNotesForHttpResponse(accessToken, xeroTenantId, creditNotes, summarizeErrors, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createCreditNotes -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("CreditNotes",object.getMessage());
+                }
+                handler.validationError("CreditNotes",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1446,9 +1696,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/CreditNotes";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/CreditNotes");
         if (summarizeErrors != null) {
             String key = "summarizeErrors";
             Object value = summarizeErrors;
@@ -1472,7 +1720,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(creditNotes);
@@ -1499,8 +1749,21 @@ public class AccountingApi {
             HttpResponse response = createCurrencyForHttpResponse(accessToken, xeroTenantId, currency);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createCurrency -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Currencies",object.getMessage());
+                }
+                handler.validationError("Currencies",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1522,12 +1785,12 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Currencies";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Currencies");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(currency);
@@ -1557,8 +1820,21 @@ public class AccountingApi {
             HttpResponse response = createEmployeesForHttpResponse(accessToken, xeroTenantId, employees, summarizeErrors);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createEmployees -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Employees",object.getMessage());
+                }
+                handler.validationError("Employees",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1580,9 +1856,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees");
         if (summarizeErrors != null) {
             String key = "summarizeErrors";
             Object value = summarizeErrors;
@@ -1596,7 +1870,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(employees);
@@ -1625,8 +1901,21 @@ public class AccountingApi {
             HttpResponse response = createExpenseClaimHistoryForHttpResponse(accessToken, xeroTenantId, expenseClaimID, historyRecords);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createExpenseClaimHistory -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("HistoryRecords",object.getMessage());
+                }
+                handler.validationError("HistoryRecords",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1650,18 +1939,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/ExpenseClaims/{ExpenseClaimID}/History";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ExpenseClaimID", expenseClaimID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/ExpenseClaims/{ExpenseClaimID}/History");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(historyRecords);
@@ -1690,8 +1978,21 @@ public class AccountingApi {
             HttpResponse response = createExpenseClaimsForHttpResponse(accessToken, xeroTenantId, expenseClaims);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createExpenseClaims -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("ExpenseClaims",object.getMessage());
+                }
+                handler.validationError("ExpenseClaims",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1713,12 +2014,12 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/ExpenseClaims";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/ExpenseClaims");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(expenseClaims);
@@ -1750,8 +2051,21 @@ public class AccountingApi {
             HttpResponse response = createInvoiceAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, invoiceID, fileName, body, includeOnline);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createInvoiceAttachmentByFileName -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Attachments",object.getMessage());
+                }
+                handler.validationError("Attachments",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1778,16 +2092,13 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Invoices/{InvoiceID}/Attachments/{FileName}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("InvoiceID", invoiceID);
         uriVariables.put("FileName", fileName);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Invoices/{InvoiceID}/Attachments/{FileName}");
         if (includeOnline != null) {
             String key = "IncludeOnline";
             Object value = includeOnline;
@@ -1801,7 +2112,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
         HttpContent content = null;
@@ -1831,8 +2144,21 @@ public class AccountingApi {
             HttpResponse response = createInvoiceHistoryForHttpResponse(accessToken, xeroTenantId, invoiceID, historyRecords);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createInvoiceHistory -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("HistoryRecords",object.getMessage());
+                }
+                handler.validationError("HistoryRecords",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1856,18 +2182,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Invoices/{InvoiceID}/History";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("InvoiceID", invoiceID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Invoices/{InvoiceID}/History");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(historyRecords);
@@ -1898,8 +2223,21 @@ public class AccountingApi {
             HttpResponse response = createInvoicesForHttpResponse(accessToken, xeroTenantId, invoices, summarizeErrors, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createInvoices -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Invoices",object.getMessage());
+                }
+                handler.validationError("Invoices",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -1921,9 +2259,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Invoices";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Invoices");
         if (summarizeErrors != null) {
             String key = "summarizeErrors";
             Object value = summarizeErrors;
@@ -1947,7 +2283,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(invoices);
@@ -1976,8 +2314,21 @@ public class AccountingApi {
             HttpResponse response = createItemHistoryForHttpResponse(accessToken, xeroTenantId, itemID, historyRecords);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createItemHistory -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("HistoryRecords",object.getMessage());
+                }
+                handler.validationError("HistoryRecords",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2001,18 +2352,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Items/{ItemID}/History";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ItemID", itemID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Items/{ItemID}/History");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(historyRecords);
@@ -2043,8 +2393,21 @@ public class AccountingApi {
             HttpResponse response = createItemsForHttpResponse(accessToken, xeroTenantId, items, summarizeErrors, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createItems -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Items",object.getMessage());
+                }
+                handler.validationError("Items",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2066,9 +2429,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Items";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Items");
         if (summarizeErrors != null) {
             String key = "summarizeErrors";
             Object value = summarizeErrors;
@@ -2092,7 +2453,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(items);
@@ -2121,8 +2484,21 @@ public class AccountingApi {
             HttpResponse response = createLinkedTransactionForHttpResponse(accessToken, xeroTenantId, linkedTransaction);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createLinkedTransaction -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("LinkedTransactions",object.getMessage());
+                }
+                handler.validationError("LinkedTransactions",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2144,12 +2520,12 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/LinkedTransactions";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/LinkedTransactions");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(linkedTransaction);
@@ -2180,8 +2556,21 @@ public class AccountingApi {
             HttpResponse response = createManualJournalAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, manualJournalID, fileName, body);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createManualJournalAttachmentByFileName -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Attachments",object.getMessage());
+                }
+                handler.validationError("Attachments",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2208,19 +2597,18 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/ManualJournals/{ManualJournalID}/Attachments/{FileName}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ManualJournalID", manualJournalID);
         uriVariables.put("FileName", fileName);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/ManualJournals/{ManualJournalID}/Attachments/{FileName}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
         HttpContent content = null;
@@ -2250,8 +2638,21 @@ public class AccountingApi {
             HttpResponse response = createManualJournalsForHttpResponse(accessToken, xeroTenantId, manualJournals, summarizeErrors);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createManualJournals -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("ManualJournals",object.getMessage());
+                }
+                handler.validationError("ManualJournals",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2273,9 +2674,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/ManualJournals";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/ManualJournals");
         if (summarizeErrors != null) {
             String key = "summarizeErrors";
             Object value = summarizeErrors;
@@ -2289,7 +2688,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(manualJournals);
@@ -2320,8 +2721,21 @@ public class AccountingApi {
             HttpResponse response = createOverpaymentAllocationsForHttpResponse(accessToken, xeroTenantId, overpaymentID, allocations, summarizeErrors);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createOverpaymentAllocations -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Allocations",object.getMessage());
+                }
+                handler.validationError("Allocations",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2345,15 +2759,12 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Overpayments/{OverpaymentID}/Allocations";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("OverpaymentID", overpaymentID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Overpayments/{OverpaymentID}/Allocations");
         if (summarizeErrors != null) {
             String key = "summarizeErrors";
             Object value = summarizeErrors;
@@ -2367,7 +2778,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(allocations);
@@ -2397,8 +2810,21 @@ public class AccountingApi {
             HttpResponse response = createOverpaymentHistoryForHttpResponse(accessToken, xeroTenantId, overpaymentID, historyRecords);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createOverpaymentHistory -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("HistoryRecords",object.getMessage());
+                }
+                handler.validationError("HistoryRecords",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2422,18 +2848,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Overpayments/{OverpaymentID}/History";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("OverpaymentID", overpaymentID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Overpayments/{OverpaymentID}/History");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(historyRecords);
@@ -2462,8 +2887,21 @@ public class AccountingApi {
             HttpResponse response = createPaymentForHttpResponse(accessToken, xeroTenantId, payment);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createPayment -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Payments",object.getMessage());
+                }
+                handler.validationError("Payments",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2485,12 +2923,12 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Payments";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Payments");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(payment);
@@ -2520,8 +2958,21 @@ public class AccountingApi {
             HttpResponse response = createPaymentHistoryForHttpResponse(accessToken, xeroTenantId, paymentID, historyRecords);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createPaymentHistory -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("HistoryRecords",object.getMessage());
+                }
+                handler.validationError("HistoryRecords",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2545,18 +2996,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Payments/{PaymentID}/History";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("PaymentID", paymentID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Payments/{PaymentID}/History");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(historyRecords);
@@ -2585,8 +3035,21 @@ public class AccountingApi {
             HttpResponse response = createPaymentServiceForHttpResponse(accessToken, xeroTenantId, paymentServices);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createPaymentService -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("PaymentServices",object.getMessage());
+                }
+                handler.validationError("PaymentServices",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2608,12 +3071,12 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/PaymentServices";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/PaymentServices");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(paymentServices);
@@ -2632,25 +3095,39 @@ public class AccountingApi {
     * <p><b>400</b> - A failed request due to validation error
     * @param xeroTenantId Xero identifier for Tenant
     * @param payments Payments array with Payment object in body of request
+    * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any with validation errors
     * @param accessToken Authorization token for user set in header of each request
     * @return Payments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Payments  createPayments(String accessToken, String xeroTenantId, Payments payments) throws IOException {
+    public Payments  createPayments(String accessToken, String xeroTenantId, Payments payments, Boolean summarizeErrors) throws IOException {
         try {
             TypeReference<Payments> typeRef = new TypeReference<Payments>() {};
-            HttpResponse response = createPaymentsForHttpResponse(accessToken, xeroTenantId, payments);
+            HttpResponse response = createPaymentsForHttpResponse(accessToken, xeroTenantId, payments, summarizeErrors);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createPayments -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Payments",object.getMessage());
+                }
+                handler.validationError("Payments",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
         return null;
     }
 
-    public HttpResponse createPaymentsForHttpResponse(String accessToken,  String xeroTenantId,  Payments payments) throws IOException {
+    public HttpResponse createPaymentsForHttpResponse(String accessToken,  String xeroTenantId,  Payments payments,  Boolean summarizeErrors) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createPayments");
@@ -2665,12 +3142,23 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Payments";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Payments");
+        if (summarizeErrors != null) {
+            String key = "summarizeErrors";
+            Object value = summarizeErrors;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(payments);
@@ -2701,8 +3189,21 @@ public class AccountingApi {
             HttpResponse response = createPrepaymentAllocationsForHttpResponse(accessToken, xeroTenantId, prepaymentID, allocations, summarizeErrors);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createPrepaymentAllocations -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Allocations",object.getMessage());
+                }
+                handler.validationError("Allocations",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2726,15 +3227,12 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Prepayments/{PrepaymentID}/Allocations";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("PrepaymentID", prepaymentID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Prepayments/{PrepaymentID}/Allocations");
         if (summarizeErrors != null) {
             String key = "summarizeErrors";
             Object value = summarizeErrors;
@@ -2748,7 +3246,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(allocations);
@@ -2778,8 +3278,21 @@ public class AccountingApi {
             HttpResponse response = createPrepaymentHistoryForHttpResponse(accessToken, xeroTenantId, prepaymentID, historyRecords);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createPrepaymentHistory -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("HistoryRecords",object.getMessage());
+                }
+                handler.validationError("HistoryRecords",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2803,18 +3316,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Prepayments/{PrepaymentID}/History";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("PrepaymentID", prepaymentID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Prepayments/{PrepaymentID}/History");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(historyRecords);
@@ -2844,8 +3356,21 @@ public class AccountingApi {
             HttpResponse response = createPurchaseOrderHistoryForHttpResponse(accessToken, xeroTenantId, purchaseOrderID, historyRecords);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createPurchaseOrderHistory -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("HistoryRecords",object.getMessage());
+                }
+                handler.validationError("HistoryRecords",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2869,18 +3394,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/PurchaseOrders/{PurchaseOrderID}/History";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("PurchaseOrderID", purchaseOrderID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/PurchaseOrders/{PurchaseOrderID}/History");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(historyRecords);
@@ -2910,8 +3434,21 @@ public class AccountingApi {
             HttpResponse response = createPurchaseOrdersForHttpResponse(accessToken, xeroTenantId, purchaseOrders, summarizeErrors);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createPurchaseOrders -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("PurchaseOrders",object.getMessage());
+                }
+                handler.validationError("PurchaseOrders",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -2933,9 +3470,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/PurchaseOrders";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/PurchaseOrders");
         if (summarizeErrors != null) {
             String key = "summarizeErrors";
             Object value = summarizeErrors;
@@ -2949,7 +3484,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(purchaseOrders);
@@ -2980,8 +3517,21 @@ public class AccountingApi {
             HttpResponse response = createQuoteAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, quoteID, fileName, body);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createQuoteAttachmentByFileName -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Attachments",object.getMessage());
+                }
+                handler.validationError("Attachments",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3008,19 +3558,18 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Quotes/{QuoteID}/Attachments/{FileName}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("QuoteID", quoteID);
         uriVariables.put("FileName", fileName);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Quotes/{QuoteID}/Attachments/{FileName}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
         HttpContent content = null;
@@ -3050,8 +3599,21 @@ public class AccountingApi {
             HttpResponse response = createQuoteHistoryForHttpResponse(accessToken, xeroTenantId, quoteID, historyRecords);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createQuoteHistory -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("HistoryRecords",object.getMessage());
+                }
+                handler.validationError("HistoryRecords",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3075,18 +3637,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Quotes/{QuoteID}/History";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("QuoteID", quoteID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Quotes/{QuoteID}/History");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(historyRecords);
@@ -3116,8 +3677,21 @@ public class AccountingApi {
             HttpResponse response = createQuotesForHttpResponse(accessToken, xeroTenantId, quotes, summarizeErrors);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createQuotes -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Quotes",object.getMessage());
+                }
+                handler.validationError("Quotes",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3139,9 +3713,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Quotes";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Quotes");
         if (summarizeErrors != null) {
             String key = "summarizeErrors";
             Object value = summarizeErrors;
@@ -3155,7 +3727,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(quotes);
@@ -3185,8 +3759,21 @@ public class AccountingApi {
             HttpResponse response = createReceiptForHttpResponse(accessToken, xeroTenantId, receipts, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createReceipt -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Receipts",object.getMessage());
+                }
+                handler.validationError("Receipts",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3208,9 +3795,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Receipts";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Receipts");
         if (unitdp != null) {
             String key = "unitdp";
             Object value = unitdp;
@@ -3224,7 +3809,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(receipts);
@@ -3255,8 +3842,21 @@ public class AccountingApi {
             HttpResponse response = createReceiptAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, receiptID, fileName, body);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createReceiptAttachmentByFileName -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Attachments",object.getMessage());
+                }
+                handler.validationError("Attachments",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3283,19 +3883,18 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Receipts/{ReceiptID}/Attachments/{FileName}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ReceiptID", receiptID);
         uriVariables.put("FileName", fileName);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Receipts/{ReceiptID}/Attachments/{FileName}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
         HttpContent content = null;
@@ -3325,8 +3924,21 @@ public class AccountingApi {
             HttpResponse response = createReceiptHistoryForHttpResponse(accessToken, xeroTenantId, receiptID, historyRecords);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createReceiptHistory -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("HistoryRecords",object.getMessage());
+                }
+                handler.validationError("HistoryRecords",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3350,18 +3962,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Receipts/{ReceiptID}/History";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ReceiptID", receiptID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Receipts/{ReceiptID}/History");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(historyRecords);
@@ -3392,8 +4003,21 @@ public class AccountingApi {
             HttpResponse response = createRepeatingInvoiceAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, repeatingInvoiceID, fileName, body);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createRepeatingInvoiceAttachmentByFileName -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Attachments",object.getMessage());
+                }
+                handler.validationError("Attachments",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3420,19 +4044,18 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{FileName}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("RepeatingInvoiceID", repeatingInvoiceID);
         uriVariables.put("FileName", fileName);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{FileName}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
         HttpContent content = null;
@@ -3462,8 +4085,21 @@ public class AccountingApi {
             HttpResponse response = createRepeatingInvoiceHistoryForHttpResponse(accessToken, xeroTenantId, repeatingInvoiceID, historyRecords);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createRepeatingInvoiceHistory -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("HistoryRecords",object.getMessage());
+                }
+                handler.validationError("HistoryRecords",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3487,18 +4123,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/RepeatingInvoices/{RepeatingInvoiceID}/History";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("RepeatingInvoiceID", repeatingInvoiceID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/RepeatingInvoices/{RepeatingInvoiceID}/History");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(historyRecords);
@@ -3527,8 +4162,21 @@ public class AccountingApi {
             HttpResponse response = createTaxRatesForHttpResponse(accessToken, xeroTenantId, taxRates);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createTaxRates -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("TaxRates",object.getMessage());
+                }
+                handler.validationError("TaxRates",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3550,12 +4198,12 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/TaxRates";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/TaxRates");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(taxRates);
@@ -3584,8 +4232,21 @@ public class AccountingApi {
             HttpResponse response = createTrackingCategoryForHttpResponse(accessToken, xeroTenantId, trackingCategory);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createTrackingCategory -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("TrackingCategories",object.getMessage());
+                }
+                handler.validationError("TrackingCategories",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3607,12 +4268,12 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/TrackingCategories";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/TrackingCategories");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(trackingCategory);
@@ -3642,8 +4303,21 @@ public class AccountingApi {
             HttpResponse response = createTrackingOptionsForHttpResponse(accessToken, xeroTenantId, trackingCategoryID, trackingOption);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createTrackingOptions -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("TrackingOptions",object.getMessage());
+                }
+                handler.validationError("TrackingOptions",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3667,18 +4341,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/TrackingCategories/{TrackingCategoryID}/Options";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("TrackingCategoryID", trackingCategoryID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/TrackingCategories/{TrackingCategoryID}/Options");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("PUT " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(trackingOption);
@@ -3707,8 +4380,21 @@ public class AccountingApi {
             HttpResponse response = deleteAccountForHttpResponse(accessToken, xeroTenantId, accountID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : deleteAccount -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Accounts",object.getMessage());
+                }
+                handler.validationError("Accounts",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3729,18 +4415,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Accounts/{AccountID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("AccountID", accountID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Accounts/{AccountID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("DELETE " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -3765,8 +4450,12 @@ public class AccountingApi {
         try {
             deleteContactGroupContactForHttpResponse(accessToken, xeroTenantId, contactGroupID, contactID);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : deleteContactGroupContact -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3790,19 +4479,18 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/ContactGroups/{ContactGroupID}/Contacts/{ContactID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ContactGroupID", contactGroupID);
         uriVariables.put("ContactID", contactID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/ContactGroups/{ContactGroupID}/Contacts/{ContactID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("DELETE " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -3825,8 +4513,12 @@ public class AccountingApi {
         try {
             deleteContactGroupContactsForHttpResponse(accessToken, xeroTenantId, contactGroupID);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : deleteContactGroupContacts -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3846,19 +4538,18 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/ContactGroups/{ContactGroupID}/Contacts";
-        
+        headers.setAccept(""); 
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ContactGroupID", contactGroupID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/ContactGroups/{ContactGroupID}/Contacts");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("DELETE " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -3882,8 +4573,12 @@ public class AccountingApi {
         try {
             deleteItemForHttpResponse(accessToken, xeroTenantId, itemID);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : deleteItem -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3904,18 +4599,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Items/{ItemID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ItemID", itemID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Items/{ItemID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("DELETE " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -3939,8 +4633,12 @@ public class AccountingApi {
         try {
             deleteLinkedTransactionForHttpResponse(accessToken, xeroTenantId, linkedTransactionID);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : deleteLinkedTransaction -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -3961,18 +4659,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/LinkedTransactions/{LinkedTransactionID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("LinkedTransactionID", linkedTransactionID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/LinkedTransactions/{LinkedTransactionID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("DELETE " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -4000,8 +4697,21 @@ public class AccountingApi {
             HttpResponse response = deletePaymentForHttpResponse(accessToken, xeroTenantId, paymentID, paymentDelete);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : deletePayment -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Payments",object.getMessage());
+                }
+                handler.validationError("Payments",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4025,18 +4735,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Payments/{PaymentID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("PaymentID", paymentID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Payments/{PaymentID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(paymentDelete);
@@ -4065,8 +4774,12 @@ public class AccountingApi {
             HttpResponse response = deleteTrackingCategoryForHttpResponse(accessToken, xeroTenantId, trackingCategoryID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : deleteTrackingCategory -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4087,18 +4800,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/TrackingCategories/{TrackingCategoryID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("TrackingCategoryID", trackingCategoryID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/TrackingCategories/{TrackingCategoryID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("DELETE " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -4126,8 +4838,12 @@ public class AccountingApi {
             HttpResponse response = deleteTrackingOptionsForHttpResponse(accessToken, xeroTenantId, trackingCategoryID, trackingOptionID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : deleteTrackingOptions -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4151,19 +4867,18 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/TrackingCategories/{TrackingCategoryID}/Options/{TrackingOptionID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("TrackingCategoryID", trackingCategoryID);
         uriVariables.put("TrackingOptionID", trackingOptionID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/TrackingCategories/{TrackingCategoryID}/Options/{TrackingOptionID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("DELETE " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -4188,8 +4903,21 @@ public class AccountingApi {
         try {
             emailInvoiceForHttpResponse(accessToken, xeroTenantId, invoiceID, requestEmpty);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : emailInvoice -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("",object.getMessage());
+                }
+                handler.validationError("",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4213,18 +4941,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Invoices/{InvoiceID}/Email";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("InvoiceID", invoiceID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Invoices/{InvoiceID}/Email");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(requestEmpty);
@@ -4252,8 +4979,12 @@ public class AccountingApi {
             HttpResponse response = getAccountForHttpResponse(accessToken, xeroTenantId, accountID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getAccount -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4274,18 +5005,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Accounts/{AccountID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("AccountID", accountID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Accounts/{AccountID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -4315,8 +5045,12 @@ public class AccountingApi {
             return convertInputToByteArray(is);
 
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getAccountAttachmentByFileName -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4343,27 +5077,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.set("contentType", contentType);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Accounts/{AccountID}/Attachments/{FileName}";
-        
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Accounts/{AccountID}/Attachments/{FileName}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        }
+        headers.setAccept("application/octet-stream"); 
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("AccountID", accountID);
         uriVariables.put("FileName", fileName);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Accounts/{AccountID}/Attachments/{FileName}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -4393,8 +5119,12 @@ public class AccountingApi {
             return convertInputToByteArray(is);
 
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getAccountAttachmentById -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4421,27 +5151,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.set("contentType", contentType);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Accounts/{AccountID}/Attachments/{AttachmentID}";
-        
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Accounts/{AccountID}/Attachments/{AttachmentID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        }
+        headers.setAccept("application/octet-stream"); 
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("AccountID", accountID);
         uriVariables.put("AttachmentID", attachmentID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Accounts/{AccountID}/Attachments/{AttachmentID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -4467,8 +5189,12 @@ public class AccountingApi {
             HttpResponse response = getAccountAttachmentsForHttpResponse(accessToken, xeroTenantId, accountID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getAccountAttachments -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4489,18 +5215,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Accounts/{AccountID}/Attachments";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("AccountID", accountID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Accounts/{AccountID}/Attachments");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -4528,8 +5253,12 @@ public class AccountingApi {
             HttpResponse response = getAccountsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getAccounts -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4551,9 +5280,7 @@ public class AccountingApi {
         }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Accounts";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Accounts");
         if (where != null) {
             String key = "where";
             Object value = where;
@@ -4577,7 +5304,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -4604,8 +5333,12 @@ public class AccountingApi {
             HttpResponse response = getBankTransactionForHttpResponse(accessToken, xeroTenantId, bankTransactionID, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getBankTransaction -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4626,15 +5359,12 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/BankTransactions/{BankTransactionID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BankTransactionID", bankTransactionID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BankTransactions/{BankTransactionID}");
         if (unitdp != null) {
             String key = "unitdp";
             Object value = unitdp;
@@ -4648,7 +5378,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -4678,8 +5410,12 @@ public class AccountingApi {
             return convertInputToByteArray(is);
 
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getBankTransactionAttachmentByFileName -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4706,27 +5442,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.set("contentType", contentType);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/BankTransactions/{BankTransactionID}/Attachments/{FileName}";
-        
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/BankTransactions/{BankTransactionID}/Attachments/{FileName}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        }
+        headers.setAccept("application/octet-stream"); 
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BankTransactionID", bankTransactionID);
         uriVariables.put("FileName", fileName);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BankTransactions/{BankTransactionID}/Attachments/{FileName}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -4756,8 +5484,12 @@ public class AccountingApi {
             return convertInputToByteArray(is);
 
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getBankTransactionAttachmentById -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4784,27 +5516,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.set("contentType", contentType);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/BankTransactions/{BankTransactionID}/Attachments/{AttachmentID}";
-        
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/BankTransactions/{BankTransactionID}/Attachments/{AttachmentID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        }
+        headers.setAccept("application/octet-stream"); 
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BankTransactionID", bankTransactionID);
         uriVariables.put("AttachmentID", attachmentID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BankTransactions/{BankTransactionID}/Attachments/{AttachmentID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -4830,8 +5554,12 @@ public class AccountingApi {
             HttpResponse response = getBankTransactionAttachmentsForHttpResponse(accessToken, xeroTenantId, bankTransactionID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getBankTransactionAttachments -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4852,18 +5580,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/BankTransactions/{BankTransactionID}/Attachments";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BankTransactionID", bankTransactionID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BankTransactions/{BankTransactionID}/Attachments");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -4893,8 +5620,12 @@ public class AccountingApi {
             HttpResponse response = getBankTransactionsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order, page, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getBankTransactions -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -4916,9 +5647,7 @@ public class AccountingApi {
         }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/BankTransactions";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BankTransactions");
         if (where != null) {
             String key = "where";
             Object value = where;
@@ -4962,7 +5691,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -4988,8 +5719,12 @@ public class AccountingApi {
             HttpResponse response = getBankTransactionsHistoryForHttpResponse(accessToken, xeroTenantId, bankTransactionID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getBankTransactionsHistory -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -5010,18 +5745,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/BankTransactions/{BankTransactionID}/History";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BankTransactionID", bankTransactionID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BankTransactions/{BankTransactionID}/History");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -5047,8 +5781,12 @@ public class AccountingApi {
             HttpResponse response = getBankTransferForHttpResponse(accessToken, xeroTenantId, bankTransferID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getBankTransfer -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -5069,18 +5807,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/BankTransfers/{BankTransferID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BankTransferID", bankTransferID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BankTransfers/{BankTransferID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -5110,8 +5847,12 @@ public class AccountingApi {
             return convertInputToByteArray(is);
 
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getBankTransferAttachmentByFileName -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -5138,27 +5879,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.set("contentType", contentType);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/BankTransfers/{BankTransferID}/Attachments/{FileName}";
-        
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/BankTransfers/{BankTransferID}/Attachments/{FileName}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        }
+        headers.setAccept("application/octet-stream"); 
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BankTransferID", bankTransferID);
         uriVariables.put("FileName", fileName);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BankTransfers/{BankTransferID}/Attachments/{FileName}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -5188,8 +5921,12 @@ public class AccountingApi {
             return convertInputToByteArray(is);
 
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getBankTransferAttachmentById -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -5216,27 +5953,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.set("contentType", contentType);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/BankTransfers/{BankTransferID}/Attachments/{AttachmentID}";
-        
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/BankTransfers/{BankTransferID}/Attachments/{AttachmentID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        }
+        headers.setAccept("application/octet-stream"); 
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BankTransferID", bankTransferID);
         uriVariables.put("AttachmentID", attachmentID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BankTransfers/{BankTransferID}/Attachments/{AttachmentID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -5262,8 +5991,12 @@ public class AccountingApi {
             HttpResponse response = getBankTransferAttachmentsForHttpResponse(accessToken, xeroTenantId, bankTransferID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getBankTransferAttachments -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -5284,18 +6017,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/BankTransfers/{BankTransferID}/Attachments";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BankTransferID", bankTransferID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BankTransfers/{BankTransferID}/Attachments");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -5321,8 +6053,12 @@ public class AccountingApi {
             HttpResponse response = getBankTransferHistoryForHttpResponse(accessToken, xeroTenantId, bankTransferID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getBankTransferHistory -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -5343,18 +6079,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/BankTransfers/{BankTransferID}/History";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BankTransferID", bankTransferID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BankTransfers/{BankTransferID}/History");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -5382,8 +6117,12 @@ public class AccountingApi {
             HttpResponse response = getBankTransfersForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getBankTransfers -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -5405,9 +6144,7 @@ public class AccountingApi {
         }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/BankTransfers";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BankTransfers");
         if (where != null) {
             String key = "where";
             Object value = where;
@@ -5431,7 +6168,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -5457,8 +6196,12 @@ public class AccountingApi {
             HttpResponse response = getBatchPaymentHistoryForHttpResponse(accessToken, xeroTenantId, batchPaymentID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getBatchPaymentHistory -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -5479,18 +6222,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/BatchPayments/{BatchPaymentID}/History";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BatchPaymentID", batchPaymentID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BatchPayments/{BatchPaymentID}/History");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -5518,8 +6260,12 @@ public class AccountingApi {
             HttpResponse response = getBatchPaymentsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getBatchPayments -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -5541,9 +6287,7 @@ public class AccountingApi {
         }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/BatchPayments";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BatchPayments");
         if (where != null) {
             String key = "where";
             Object value = where;
@@ -5567,7 +6311,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -5593,8 +6339,12 @@ public class AccountingApi {
             HttpResponse response = getBrandingThemeForHttpResponse(accessToken, xeroTenantId, brandingThemeID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getBrandingTheme -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -5615,18 +6365,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/BrandingThemes/{BrandingThemeID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BrandingThemeID", brandingThemeID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BrandingThemes/{BrandingThemeID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -5652,8 +6401,12 @@ public class AccountingApi {
             HttpResponse response = getBrandingThemePaymentServicesForHttpResponse(accessToken, xeroTenantId, brandingThemeID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getBrandingThemePaymentServices -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -5674,18 +6427,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/BrandingThemes/{BrandingThemeID}/PaymentServices";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BrandingThemeID", brandingThemeID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BrandingThemes/{BrandingThemeID}/PaymentServices");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -5710,8 +6462,12 @@ public class AccountingApi {
             HttpResponse response = getBrandingThemesForHttpResponse(accessToken, xeroTenantId);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getBrandingThemes -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -5730,12 +6486,12 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/BrandingThemes";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BrandingThemes");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -5747,7 +6503,7 @@ public class AccountingApi {
     }
 
   /**
-    * Allows you to retrieve, add and update contacts in a Xero organisation
+    * Allows you to retrieve a single contacts in a Xero organisation
     * <p><b>200</b> - Success - return response of type Contacts array with a unique Contact
     * @param xeroTenantId Xero identifier for Tenant
     * @param contactID Unique identifier for a Contact
@@ -5761,8 +6517,12 @@ public class AccountingApi {
             HttpResponse response = getContactForHttpResponse(accessToken, xeroTenantId, contactID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getContact -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -5783,18 +6543,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Contacts/{ContactID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ContactID", contactID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Contacts/{ContactID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -5824,8 +6583,12 @@ public class AccountingApi {
             return convertInputToByteArray(is);
 
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getContactAttachmentByFileName -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -5852,27 +6615,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.set("contentType", contentType);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Contacts/{ContactID}/Attachments/{FileName}";
-        
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Contacts/{ContactID}/Attachments/{FileName}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        }
+        headers.setAccept("application/octet-stream"); 
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ContactID", contactID);
         uriVariables.put("FileName", fileName);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Contacts/{ContactID}/Attachments/{FileName}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -5902,8 +6657,12 @@ public class AccountingApi {
             return convertInputToByteArray(is);
 
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getContactAttachmentById -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -5930,27 +6689,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.set("contentType", contentType);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Contacts/{ContactID}/Attachments/{AttachmentID}";
-        
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Contacts/{ContactID}/Attachments/{AttachmentID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        }
+        headers.setAccept("application/octet-stream"); 
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ContactID", contactID);
         uriVariables.put("AttachmentID", attachmentID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Contacts/{ContactID}/Attachments/{AttachmentID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -5976,8 +6727,21 @@ public class AccountingApi {
             HttpResponse response = getContactAttachmentsForHttpResponse(accessToken, xeroTenantId, contactID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getContactAttachments -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Attachments",object.getMessage());
+                }
+                handler.validationError("Attachments",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -5998,18 +6762,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Contacts/{ContactID}/Attachments";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ContactID", contactID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Contacts/{ContactID}/Attachments");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -6035,8 +6798,12 @@ public class AccountingApi {
             HttpResponse response = getContactCISSettingsForHttpResponse(accessToken, xeroTenantId, contactID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getContactCISSettings -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -6057,18 +6824,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Contacts/{ContactID}/CISSettings";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ContactID", contactID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Contacts/{ContactID}/CISSettings");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -6094,8 +6860,12 @@ public class AccountingApi {
             HttpResponse response = getContactGroupForHttpResponse(accessToken, xeroTenantId, contactGroupID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getContactGroup -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -6116,18 +6886,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/ContactGroups/{ContactGroupID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ContactGroupID", contactGroupID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/ContactGroups/{ContactGroupID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -6154,8 +6923,12 @@ public class AccountingApi {
             HttpResponse response = getContactGroupsForHttpResponse(accessToken, xeroTenantId, where, order);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getContactGroups -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -6174,9 +6947,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/ContactGroups";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/ContactGroups");
         if (where != null) {
             String key = "where";
             Object value = where;
@@ -6200,7 +6971,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -6226,8 +6999,12 @@ public class AccountingApi {
             HttpResponse response = getContactHistoryForHttpResponse(accessToken, xeroTenantId, contactID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getContactHistory -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -6248,18 +7025,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Contacts/{ContactID}/History";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ContactID", contactID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Contacts/{ContactID}/History");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -6271,7 +7047,7 @@ public class AccountingApi {
     }
 
   /**
-    * Allows you to retrieve, add and update contacts in a Xero organisation
+    * Allows you to retrieve all contacts in a Xero organisation
     * <p><b>200</b> - Success - return response of type Contacts array with 0 to N Contact
     * @param xeroTenantId Xero identifier for Tenant
     * @param ifModifiedSince Only records created or modified since this timestamp will be returned
@@ -6290,8 +7066,12 @@ public class AccountingApi {
             HttpResponse response = getContactsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order, ids, page, includeArchived);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getContacts -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -6313,9 +7093,7 @@ public class AccountingApi {
         }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Contacts";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Contacts");
         if (where != null) {
             String key = "where";
             Object value = where;
@@ -6369,7 +7147,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -6396,8 +7176,12 @@ public class AccountingApi {
             HttpResponse response = getCreditNoteForHttpResponse(accessToken, xeroTenantId, creditNoteID, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getCreditNote -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -6418,15 +7202,12 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/CreditNotes/{CreditNoteID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("CreditNoteID", creditNoteID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/CreditNotes/{CreditNoteID}");
         if (unitdp != null) {
             String key = "unitdp";
             Object value = unitdp;
@@ -6440,7 +7221,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -6468,8 +7251,12 @@ public class AccountingApi {
             return convertInputToByteArray(is);
 
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getCreditNoteAsPdf -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -6489,26 +7276,18 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/CreditNotes/{CreditNoteID}/pdf";
-        
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/CreditNotes/{CreditNoteID}/pdf";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        }
+        headers.setAccept("application/pdf"); 
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("CreditNoteID", creditNoteID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/CreditNotes/{CreditNoteID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -6538,8 +7317,12 @@ public class AccountingApi {
             return convertInputToByteArray(is);
 
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getCreditNoteAttachmentByFileName -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -6566,27 +7349,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.set("contentType", contentType);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/CreditNotes/{CreditNoteID}/Attachments/{FileName}";
-        
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/CreditNotes/{CreditNoteID}/Attachments/{FileName}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        }
+        headers.setAccept("application/octet-stream"); 
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("CreditNoteID", creditNoteID);
         uriVariables.put("FileName", fileName);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/CreditNotes/{CreditNoteID}/Attachments/{FileName}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -6616,8 +7391,12 @@ public class AccountingApi {
             return convertInputToByteArray(is);
 
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getCreditNoteAttachmentById -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -6644,27 +7423,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.set("contentType", contentType);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/CreditNotes/{CreditNoteID}/Attachments/{AttachmentID}";
-        
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/CreditNotes/{CreditNoteID}/Attachments/{AttachmentID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        }
+        headers.setAccept("application/octet-stream"); 
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("CreditNoteID", creditNoteID);
         uriVariables.put("AttachmentID", attachmentID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/CreditNotes/{CreditNoteID}/Attachments/{AttachmentID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -6690,8 +7461,12 @@ public class AccountingApi {
             HttpResponse response = getCreditNoteAttachmentsForHttpResponse(accessToken, xeroTenantId, creditNoteID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getCreditNoteAttachments -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -6712,18 +7487,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/CreditNotes/{CreditNoteID}/Attachments";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("CreditNoteID", creditNoteID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/CreditNotes/{CreditNoteID}/Attachments");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -6749,8 +7523,12 @@ public class AccountingApi {
             HttpResponse response = getCreditNoteHistoryForHttpResponse(accessToken, xeroTenantId, creditNoteID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getCreditNoteHistory -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -6771,18 +7549,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/CreditNotes/{CreditNoteID}/History";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("CreditNoteID", creditNoteID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/CreditNotes/{CreditNoteID}/History");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -6812,8 +7589,12 @@ public class AccountingApi {
             HttpResponse response = getCreditNotesForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order, page, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getCreditNotes -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -6835,9 +7616,7 @@ public class AccountingApi {
         }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/CreditNotes";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/CreditNotes");
         if (where != null) {
             String key = "where";
             Object value = where;
@@ -6881,7 +7660,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -6908,8 +7689,12 @@ public class AccountingApi {
             HttpResponse response = getCurrenciesForHttpResponse(accessToken, xeroTenantId, where, order);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getCurrencies -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -6928,9 +7713,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Currencies";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Currencies");
         if (where != null) {
             String key = "where";
             Object value = where;
@@ -6954,7 +7737,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -6980,8 +7765,12 @@ public class AccountingApi {
             HttpResponse response = getEmployeeForHttpResponse(accessToken, xeroTenantId, employeeID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getEmployee -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -7002,18 +7791,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees/{EmployeeID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("EmployeeID", employeeID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees/{EmployeeID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -7041,8 +7829,12 @@ public class AccountingApi {
             HttpResponse response = getEmployeesForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getEmployees -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -7064,9 +7856,7 @@ public class AccountingApi {
         }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees");
         if (where != null) {
             String key = "where";
             Object value = where;
@@ -7090,7 +7880,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -7116,8 +7908,12 @@ public class AccountingApi {
             HttpResponse response = getExpenseClaimForHttpResponse(accessToken, xeroTenantId, expenseClaimID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getExpenseClaim -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -7138,18 +7934,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/ExpenseClaims/{ExpenseClaimID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ExpenseClaimID", expenseClaimID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/ExpenseClaims/{ExpenseClaimID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -7175,8 +7970,12 @@ public class AccountingApi {
             HttpResponse response = getExpenseClaimHistoryForHttpResponse(accessToken, xeroTenantId, expenseClaimID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getExpenseClaimHistory -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -7197,18 +7996,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/ExpenseClaims/{ExpenseClaimID}/History";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ExpenseClaimID", expenseClaimID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/ExpenseClaims/{ExpenseClaimID}/History");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -7236,8 +8034,12 @@ public class AccountingApi {
             HttpResponse response = getExpenseClaimsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getExpenseClaims -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -7259,9 +8061,7 @@ public class AccountingApi {
         }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/ExpenseClaims";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/ExpenseClaims");
         if (where != null) {
             String key = "where";
             Object value = where;
@@ -7285,7 +8085,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -7312,8 +8114,12 @@ public class AccountingApi {
             HttpResponse response = getInvoiceForHttpResponse(accessToken, xeroTenantId, invoiceID, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getInvoice -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -7334,15 +8140,12 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Invoices/{InvoiceID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("InvoiceID", invoiceID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Invoices/{InvoiceID}");
         if (unitdp != null) {
             String key = "unitdp";
             Object value = unitdp;
@@ -7356,7 +8159,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -7384,8 +8189,12 @@ public class AccountingApi {
             return convertInputToByteArray(is);
 
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getInvoiceAsPdf -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -7405,26 +8214,18 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Invoices/{InvoiceID}/pdf";
-        
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Invoices/{InvoiceID}/pdf";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        }
+        headers.setAccept("application/pdf"); 
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("InvoiceID", invoiceID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Invoices/{InvoiceID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -7454,8 +8255,12 @@ public class AccountingApi {
             return convertInputToByteArray(is);
 
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getInvoiceAttachmentByFileName -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -7482,27 +8287,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.set("contentType", contentType);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Invoices/{InvoiceID}/Attachments/{FileName}";
-        
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Invoices/{InvoiceID}/Attachments/{FileName}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        }
+        headers.setAccept("application/octet-stream"); 
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("InvoiceID", invoiceID);
         uriVariables.put("FileName", fileName);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Invoices/{InvoiceID}/Attachments/{FileName}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -7532,8 +8329,12 @@ public class AccountingApi {
             return convertInputToByteArray(is);
 
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getInvoiceAttachmentById -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -7560,27 +8361,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.set("contentType", contentType);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Invoices/{InvoiceID}/Attachments/{AttachmentID}";
-        
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Invoices/{InvoiceID}/Attachments/{AttachmentID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        }
+        headers.setAccept("application/octet-stream"); 
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("InvoiceID", invoiceID);
         uriVariables.put("AttachmentID", attachmentID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Invoices/{InvoiceID}/Attachments/{AttachmentID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -7606,8 +8399,12 @@ public class AccountingApi {
             HttpResponse response = getInvoiceAttachmentsForHttpResponse(accessToken, xeroTenantId, invoiceID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getInvoiceAttachments -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -7628,18 +8425,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Invoices/{InvoiceID}/Attachments";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("InvoiceID", invoiceID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Invoices/{InvoiceID}/Attachments");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -7665,8 +8461,12 @@ public class AccountingApi {
             HttpResponse response = getInvoiceHistoryForHttpResponse(accessToken, xeroTenantId, invoiceID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getInvoiceHistory -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -7687,18 +8487,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Invoices/{InvoiceID}/History";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("InvoiceID", invoiceID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Invoices/{InvoiceID}/History");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -7723,8 +8522,12 @@ public class AccountingApi {
             HttpResponse response = getInvoiceRemindersForHttpResponse(accessToken, xeroTenantId);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getInvoiceReminders -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -7743,12 +8546,12 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/InvoiceReminders/Settings";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/InvoiceReminders/Settings");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -7784,8 +8587,12 @@ public class AccountingApi {
             HttpResponse response = getInvoicesForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getInvoices -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -7807,9 +8614,7 @@ public class AccountingApi {
         }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Invoices";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Invoices");
         if (where != null) {
             String key = "where";
             Object value = where;
@@ -7913,7 +8718,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -7940,8 +8747,12 @@ public class AccountingApi {
             HttpResponse response = getItemForHttpResponse(accessToken, xeroTenantId, itemID, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getItem -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -7962,15 +8773,12 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Items/{ItemID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ItemID", itemID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Items/{ItemID}");
         if (unitdp != null) {
             String key = "unitdp";
             Object value = unitdp;
@@ -7984,7 +8792,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -8010,8 +8820,12 @@ public class AccountingApi {
             HttpResponse response = getItemHistoryForHttpResponse(accessToken, xeroTenantId, itemID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getItemHistory -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -8032,18 +8846,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Items/{ItemID}/History";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ItemID", itemID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Items/{ItemID}/History");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -8072,8 +8885,12 @@ public class AccountingApi {
             HttpResponse response = getItemsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getItems -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -8095,9 +8912,7 @@ public class AccountingApi {
         }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Items";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Items");
         if (where != null) {
             String key = "where";
             Object value = where;
@@ -8131,7 +8946,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -8157,8 +8974,12 @@ public class AccountingApi {
             HttpResponse response = getJournalForHttpResponse(accessToken, xeroTenantId, journalID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getJournal -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -8179,18 +9000,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Journals/{JournalID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("JournalID", journalID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Journals/{JournalID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -8218,8 +9038,12 @@ public class AccountingApi {
             HttpResponse response = getJournalsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, offset, paymentsOnly);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getJournals -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -8241,9 +9065,7 @@ public class AccountingApi {
         }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Journals";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Journals");
         if (offset != null) {
             String key = "offset";
             Object value = offset;
@@ -8267,7 +9089,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -8293,8 +9117,12 @@ public class AccountingApi {
             HttpResponse response = getLinkedTransactionForHttpResponse(accessToken, xeroTenantId, linkedTransactionID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getLinkedTransaction -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -8315,18 +9143,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/LinkedTransactions/{LinkedTransactionID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("LinkedTransactionID", linkedTransactionID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/LinkedTransactions/{LinkedTransactionID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -8357,8 +9184,12 @@ public class AccountingApi {
             HttpResponse response = getLinkedTransactionsForHttpResponse(accessToken, xeroTenantId, page, linkedTransactionID, sourceTransactionID, contactID, status, targetTransactionID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getLinkedTransactions -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -8377,9 +9208,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/LinkedTransactions";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/LinkedTransactions");
         if (page != null) {
             String key = "page";
             Object value = page;
@@ -8443,7 +9272,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -8469,8 +9300,12 @@ public class AccountingApi {
             HttpResponse response = getManualJournalForHttpResponse(accessToken, xeroTenantId, manualJournalID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getManualJournal -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -8491,18 +9326,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/ManualJournals/{ManualJournalID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ManualJournalID", manualJournalID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/ManualJournals/{ManualJournalID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -8532,8 +9366,12 @@ public class AccountingApi {
             return convertInputToByteArray(is);
 
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getManualJournalAttachmentByFileName -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -8560,27 +9398,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.set("contentType", contentType);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/ManualJournals/{ManualJournalID}/Attachments/{FileName}";
-        
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/ManualJournals/{ManualJournalID}/Attachments/{FileName}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        }
+        headers.setAccept("application/octet-stream"); 
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ManualJournalID", manualJournalID);
         uriVariables.put("FileName", fileName);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/ManualJournals/{ManualJournalID}/Attachments/{FileName}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -8610,8 +9440,12 @@ public class AccountingApi {
             return convertInputToByteArray(is);
 
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getManualJournalAttachmentById -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -8638,27 +9472,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.set("contentType", contentType);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/ManualJournals/{ManualJournalID}/Attachments/{AttachmentID}";
-        
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/ManualJournals/{ManualJournalID}/Attachments/{AttachmentID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        }
+        headers.setAccept("application/octet-stream"); 
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ManualJournalID", manualJournalID);
         uriVariables.put("AttachmentID", attachmentID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/ManualJournals/{ManualJournalID}/Attachments/{AttachmentID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -8684,8 +9510,12 @@ public class AccountingApi {
             HttpResponse response = getManualJournalAttachmentsForHttpResponse(accessToken, xeroTenantId, manualJournalID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getManualJournalAttachments -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -8706,18 +9536,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/ManualJournals/{ManualJournalID}/Attachments";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ManualJournalID", manualJournalID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/ManualJournals/{ManualJournalID}/Attachments");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -8746,8 +9575,12 @@ public class AccountingApi {
             HttpResponse response = getManualJournalsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order, page);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getManualJournals -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -8769,9 +9602,7 @@ public class AccountingApi {
         }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/ManualJournals";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/ManualJournals");
         if (where != null) {
             String key = "where";
             Object value = where;
@@ -8805,7 +9636,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -8831,8 +9664,12 @@ public class AccountingApi {
             HttpResponse response = getOnlineInvoiceForHttpResponse(accessToken, xeroTenantId, invoiceID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getOnlineInvoice -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -8853,18 +9690,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Invoices/{InvoiceID}/OnlineInvoice";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("InvoiceID", invoiceID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Invoices/{InvoiceID}/OnlineInvoice");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -8890,8 +9726,12 @@ public class AccountingApi {
             HttpResponse response = getOrganisationCISSettingsForHttpResponse(accessToken, xeroTenantId, organisationID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getOrganisationCISSettings -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -8912,18 +9752,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Organisation/{OrganisationID}/CISSettings";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("OrganisationID", organisationID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Organisation/{OrganisationID}/CISSettings");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -8948,8 +9787,12 @@ public class AccountingApi {
             HttpResponse response = getOrganisationsForHttpResponse(accessToken, xeroTenantId);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getOrganisations -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -8968,12 +9811,12 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Organisation";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Organisation");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -8999,8 +9842,12 @@ public class AccountingApi {
             HttpResponse response = getOverpaymentForHttpResponse(accessToken, xeroTenantId, overpaymentID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getOverpayment -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -9021,18 +9868,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Overpayments/{OverpaymentID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("OverpaymentID", overpaymentID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Overpayments/{OverpaymentID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -9058,8 +9904,12 @@ public class AccountingApi {
             HttpResponse response = getOverpaymentHistoryForHttpResponse(accessToken, xeroTenantId, overpaymentID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getOverpaymentHistory -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -9080,18 +9930,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Overpayments/{OverpaymentID}/History";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("OverpaymentID", overpaymentID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Overpayments/{OverpaymentID}/History");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -9121,8 +9970,12 @@ public class AccountingApi {
             HttpResponse response = getOverpaymentsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order, page, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getOverpayments -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -9144,9 +9997,7 @@ public class AccountingApi {
         }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Overpayments";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Overpayments");
         if (where != null) {
             String key = "where";
             Object value = where;
@@ -9190,7 +10041,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -9216,8 +10069,12 @@ public class AccountingApi {
             HttpResponse response = getPaymentForHttpResponse(accessToken, xeroTenantId, paymentID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getPayment -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -9238,18 +10095,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Payments/{PaymentID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("PaymentID", paymentID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Payments/{PaymentID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -9275,8 +10131,12 @@ public class AccountingApi {
             HttpResponse response = getPaymentHistoryForHttpResponse(accessToken, xeroTenantId, paymentID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getPaymentHistory -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -9297,18 +10157,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Payments/{PaymentID}/History";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("PaymentID", paymentID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Payments/{PaymentID}/History");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -9333,8 +10192,12 @@ public class AccountingApi {
             HttpResponse response = getPaymentServicesForHttpResponse(accessToken, xeroTenantId);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getPaymentServices -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -9353,12 +10216,12 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/PaymentServices";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/PaymentServices");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -9386,8 +10249,12 @@ public class AccountingApi {
             HttpResponse response = getPaymentsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getPayments -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -9409,9 +10276,7 @@ public class AccountingApi {
         }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Payments";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Payments");
         if (where != null) {
             String key = "where";
             Object value = where;
@@ -9435,7 +10300,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -9461,8 +10328,12 @@ public class AccountingApi {
             HttpResponse response = getPrepaymentForHttpResponse(accessToken, xeroTenantId, prepaymentID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getPrepayment -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -9483,18 +10354,81 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Prepayments/{PrepaymentID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("PrepaymentID", prepaymentID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Prepayments/{PrepaymentID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
 
+  /**
+    * Allows you to retrieve prepayments as PDF files
+    * <p><b>200</b> - Success - return response of byte array pdf version of specified Prepayments
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param prepaymentID Unique identifier for a PrePayment
+    * @param accessToken Authorization token for user set in header of each request
+    * @return File
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public ByteArrayInputStream  getPrepaymentAsPdf(String accessToken, String xeroTenantId, UUID prepaymentID) throws IOException {
+        try {
+            TypeReference<File> typeRef = new TypeReference<File>() {};
+            HttpResponse response = getPrepaymentAsPdfForHttpResponse(accessToken, xeroTenantId, prepaymentID);
+            InputStream is = response.getContent();
+            return convertInputToByteArray(is);
+
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getPrepaymentAsPdf -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    public HttpResponse getPrepaymentAsPdfForHttpResponse(String accessToken,  String xeroTenantId,  UUID prepaymentID) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getPrepaymentAsPdf");
+        }// verify the required parameter 'prepaymentID' is set
+        if (prepaymentID == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'prepaymentID' when calling getPrepaymentAsPdf");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getPrepaymentAsPdf");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/pdf"); 
+        headers.setUserAgent(this.getUserAgent()); 
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("PrepaymentID", prepaymentID);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Prepayments/{PrepaymentID}");
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -9520,8 +10454,12 @@ public class AccountingApi {
             HttpResponse response = getPrepaymentHistoryForHttpResponse(accessToken, xeroTenantId, prepaymentID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getPrepaymentHistory -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -9542,18 +10480,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Prepayments/{PrepaymentID}/History";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("PrepaymentID", prepaymentID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Prepayments/{PrepaymentID}/History");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -9583,8 +10520,12 @@ public class AccountingApi {
             HttpResponse response = getPrepaymentsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order, page, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getPrepayments -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -9606,9 +10547,7 @@ public class AccountingApi {
         }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Prepayments";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Prepayments");
         if (where != null) {
             String key = "where";
             Object value = where;
@@ -9652,7 +10591,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -9678,8 +10619,12 @@ public class AccountingApi {
             HttpResponse response = getPurchaseOrderForHttpResponse(accessToken, xeroTenantId, purchaseOrderID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getPurchaseOrder -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -9700,18 +10645,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/PurchaseOrders/{PurchaseOrderID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("PurchaseOrderID", purchaseOrderID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/PurchaseOrders/{PurchaseOrderID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -9739,8 +10683,12 @@ public class AccountingApi {
             return convertInputToByteArray(is);
 
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getPurchaseOrderAsPdf -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -9760,26 +10708,18 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/PurchaseOrders/{PurchaseOrderID}/pdf";
-        
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/PurchaseOrders/{PurchaseOrderID}/pdf";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        }
+        headers.setAccept("application/pdf"); 
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("PurchaseOrderID", purchaseOrderID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/PurchaseOrders/{PurchaseOrderID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -9805,8 +10745,12 @@ public class AccountingApi {
             HttpResponse response = getPurchaseOrderByNumberForHttpResponse(accessToken, xeroTenantId, purchaseOrderNumber);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getPurchaseOrderByNumber -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -9827,18 +10771,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/PurchaseOrders/{PurchaseOrderNumber}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("PurchaseOrderNumber", purchaseOrderNumber);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/PurchaseOrders/{PurchaseOrderNumber}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -9864,8 +10807,12 @@ public class AccountingApi {
             HttpResponse response = getPurchaseOrderHistoryForHttpResponse(accessToken, xeroTenantId, purchaseOrderID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getPurchaseOrderHistory -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -9886,18 +10833,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/PurchaseOrders/{PurchaseOrderID}/History";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("PurchaseOrderID", purchaseOrderID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/PurchaseOrders/{PurchaseOrderID}/History");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -9928,8 +10874,12 @@ public class AccountingApi {
             HttpResponse response = getPurchaseOrdersForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, status, dateFrom, dateTo, order, page);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getPurchaseOrders -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -9951,9 +10901,7 @@ public class AccountingApi {
         }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/PurchaseOrders";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/PurchaseOrders");
         if (status != null) {
             String key = "Status";
             Object value = status;
@@ -10007,7 +10955,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -10033,8 +10983,12 @@ public class AccountingApi {
             HttpResponse response = getQuoteForHttpResponse(accessToken, xeroTenantId, quoteID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getQuote -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -10055,18 +11009,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Quotes/{QuoteID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("QuoteID", quoteID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Quotes/{QuoteID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -10094,8 +11047,12 @@ public class AccountingApi {
             return convertInputToByteArray(is);
 
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getQuoteAsPdf -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -10115,26 +11072,18 @@ public class AccountingApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Quotes/{QuotesID}/pdf";
-        
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Quotes/{QuotesID}/pdf";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        }
+        headers.setAccept("application/pdf"); 
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("QuoteID", quoteID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Quotes/{QuoteID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -10164,8 +11113,12 @@ public class AccountingApi {
             return convertInputToByteArray(is);
 
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getQuoteAttachmentByFileName -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -10192,27 +11145,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.set("contentType", contentType);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Quotes/{QuoteID}/Attachments/{FileName}";
-        
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Quotes/{QuoteID}/Attachments/{FileName}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        }
+        headers.setAccept("application/octet-stream"); 
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("QuoteID", quoteID);
         uriVariables.put("FileName", fileName);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Quotes/{QuoteID}/Attachments/{FileName}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -10242,8 +11187,12 @@ public class AccountingApi {
             return convertInputToByteArray(is);
 
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getQuoteAttachmentById -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -10270,27 +11219,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.set("contentType", contentType);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Quotes/{QuoteID}/Attachments/{AttachmentID}";
-        
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Quotes/{QuoteID}/Attachments/{AttachmentID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        }
+        headers.setAccept("application/octet-stream"); 
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("QuoteID", quoteID);
         uriVariables.put("AttachmentID", attachmentID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Quotes/{QuoteID}/Attachments/{AttachmentID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -10316,8 +11257,12 @@ public class AccountingApi {
             HttpResponse response = getQuoteAttachmentsForHttpResponse(accessToken, xeroTenantId, quoteID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getQuoteAttachments -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -10338,18 +11283,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Quotes/{QuoteID}/Attachments";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("QuoteID", quoteID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Quotes/{QuoteID}/Attachments");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -10375,8 +11319,12 @@ public class AccountingApi {
             HttpResponse response = getQuoteHistoryForHttpResponse(accessToken, xeroTenantId, quoteID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getQuoteHistory -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -10397,18 +11345,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Quotes/{QuoteID}/History";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("QuoteID", quoteID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Quotes/{QuoteID}/History");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -10442,8 +11389,12 @@ public class AccountingApi {
             HttpResponse response = getQuotesForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, dateFrom, dateTo, expiryDateFrom, expiryDateTo, contactID, status, page, order);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getQuotes -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -10465,9 +11416,7 @@ public class AccountingApi {
         }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Quotes";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Quotes");
         if (dateFrom != null) {
             String key = "DateFrom";
             Object value = dateFrom;
@@ -10551,7 +11500,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -10578,8 +11529,12 @@ public class AccountingApi {
             HttpResponse response = getReceiptForHttpResponse(accessToken, xeroTenantId, receiptID, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getReceipt -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -10600,15 +11555,12 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Receipts/{ReceiptID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ReceiptID", receiptID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Receipts/{ReceiptID}");
         if (unitdp != null) {
             String key = "unitdp";
             Object value = unitdp;
@@ -10622,7 +11574,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -10652,8 +11606,12 @@ public class AccountingApi {
             return convertInputToByteArray(is);
 
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getReceiptAttachmentByFileName -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -10680,27 +11638,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.set("contentType", contentType);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Receipts/{ReceiptID}/Attachments/{FileName}";
-        
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Receipts/{ReceiptID}/Attachments/{FileName}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        }
+        headers.setAccept("application/octet-stream"); 
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ReceiptID", receiptID);
         uriVariables.put("FileName", fileName);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Receipts/{ReceiptID}/Attachments/{FileName}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -10730,8 +11680,12 @@ public class AccountingApi {
             return convertInputToByteArray(is);
 
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getReceiptAttachmentById -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -10758,27 +11712,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.set("contentType", contentType);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Receipts/{ReceiptID}/Attachments/{AttachmentID}";
-        
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/Receipts/{ReceiptID}/Attachments/{AttachmentID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        }
+        headers.setAccept("application/octet-stream"); 
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ReceiptID", receiptID);
         uriVariables.put("AttachmentID", attachmentID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Receipts/{ReceiptID}/Attachments/{AttachmentID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -10804,8 +11750,12 @@ public class AccountingApi {
             HttpResponse response = getReceiptAttachmentsForHttpResponse(accessToken, xeroTenantId, receiptID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getReceiptAttachments -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -10826,18 +11776,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Receipts/{ReceiptID}/Attachments";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ReceiptID", receiptID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Receipts/{ReceiptID}/Attachments");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -10863,8 +11812,12 @@ public class AccountingApi {
             HttpResponse response = getReceiptHistoryForHttpResponse(accessToken, xeroTenantId, receiptID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getReceiptHistory -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -10885,18 +11838,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Receipts/{ReceiptID}/History";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ReceiptID", receiptID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Receipts/{ReceiptID}/History");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -10925,8 +11877,12 @@ public class AccountingApi {
             HttpResponse response = getReceiptsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getReceipts -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -10948,9 +11904,7 @@ public class AccountingApi {
         }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Receipts";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Receipts");
         if (where != null) {
             String key = "where";
             Object value = where;
@@ -10984,7 +11938,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -11010,8 +11966,12 @@ public class AccountingApi {
             HttpResponse response = getRepeatingInvoiceForHttpResponse(accessToken, xeroTenantId, repeatingInvoiceID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getRepeatingInvoice -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -11032,18 +11992,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/RepeatingInvoices/{RepeatingInvoiceID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("RepeatingInvoiceID", repeatingInvoiceID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/RepeatingInvoices/{RepeatingInvoiceID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -11073,8 +12032,12 @@ public class AccountingApi {
             return convertInputToByteArray(is);
 
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getRepeatingInvoiceAttachmentByFileName -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -11101,27 +12064,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.set("contentType", contentType);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{FileName}";
-        
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{FileName}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        }
+        headers.setAccept("application/octet-stream"); 
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("RepeatingInvoiceID", repeatingInvoiceID);
         uriVariables.put("FileName", fileName);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{FileName}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -11151,8 +12106,12 @@ public class AccountingApi {
             return convertInputToByteArray(is);
 
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getRepeatingInvoiceAttachmentById -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -11179,27 +12138,19 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.set("contentType", contentType);
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{AttachmentID}";
-        
-        // Hacky path manipulation to support different return types from same endpoint
-        String path = "/RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{AttachmentID}";
-        String type = "/pdf";
-        if(path.toLowerCase().contains(type.toLowerCase())) {
-            correctPath = path.replace("/pdf","");
-            headers.setAccept("application/pdf"); 
-        }
+        headers.setAccept("application/octet-stream"); 
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("RepeatingInvoiceID", repeatingInvoiceID);
         uriVariables.put("AttachmentID", attachmentID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{AttachmentID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -11225,8 +12176,12 @@ public class AccountingApi {
             HttpResponse response = getRepeatingInvoiceAttachmentsForHttpResponse(accessToken, xeroTenantId, repeatingInvoiceID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getRepeatingInvoiceAttachments -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -11247,18 +12202,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/RepeatingInvoices/{RepeatingInvoiceID}/Attachments";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("RepeatingInvoiceID", repeatingInvoiceID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/RepeatingInvoices/{RepeatingInvoiceID}/Attachments");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -11284,8 +12238,12 @@ public class AccountingApi {
             HttpResponse response = getRepeatingInvoiceHistoryForHttpResponse(accessToken, xeroTenantId, repeatingInvoiceID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getRepeatingInvoiceHistory -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -11306,18 +12264,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/RepeatingInvoices/{RepeatingInvoiceID}/History";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("RepeatingInvoiceID", repeatingInvoiceID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/RepeatingInvoices/{RepeatingInvoiceID}/History");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -11344,8 +12301,12 @@ public class AccountingApi {
             HttpResponse response = getRepeatingInvoicesForHttpResponse(accessToken, xeroTenantId, where, order);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getRepeatingInvoices -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -11364,9 +12325,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/RepeatingInvoices";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/RepeatingInvoices");
         if (where != null) {
             String key = "where";
             Object value = where;
@@ -11390,7 +12349,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -11419,8 +12380,12 @@ public class AccountingApi {
             HttpResponse response = getReportAgedPayablesByContactForHttpResponse(accessToken, xeroTenantId, contactId, date, fromDate, toDate);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getReportAgedPayablesByContact -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -11442,9 +12407,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Reports/AgedPayablesByContact";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Reports/AgedPayablesByContact");
         if (contactId != null) {
             String key = "contactId";
             Object value = contactId;
@@ -11488,7 +12451,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -11517,8 +12482,12 @@ public class AccountingApi {
             HttpResponse response = getReportAgedReceivablesByContactForHttpResponse(accessToken, xeroTenantId, contactId, date, fromDate, toDate);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getReportAgedReceivablesByContact -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -11540,9 +12509,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Reports/AgedReceivablesByContact";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Reports/AgedReceivablesByContact");
         if (contactId != null) {
             String key = "contactId";
             Object value = contactId;
@@ -11586,7 +12553,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -11612,8 +12581,12 @@ public class AccountingApi {
             HttpResponse response = getReportBASorGSTForHttpResponse(accessToken, xeroTenantId, reportID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getReportBASorGST -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -11634,18 +12607,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Reports/{ReportID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ReportID", reportID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Reports/{ReportID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -11670,8 +12642,12 @@ public class AccountingApi {
             HttpResponse response = getReportBASorGSTListForHttpResponse(accessToken, xeroTenantId);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getReportBASorGSTList -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -11690,12 +12666,12 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Reports";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Reports");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -11727,8 +12703,12 @@ public class AccountingApi {
             HttpResponse response = getReportBalanceSheetForHttpResponse(accessToken, xeroTenantId, date, periods, timeframe, trackingOptionID1, trackingOptionID2, standardLayout, paymentsOnly);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getReportBalanceSheet -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -11747,9 +12727,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Reports/BalanceSheet";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Reports/BalanceSheet");
         if (date != null) {
             String key = "date";
             Object value = date;
@@ -11823,7 +12801,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -11850,8 +12830,12 @@ public class AccountingApi {
             HttpResponse response = getReportBankSummaryForHttpResponse(accessToken, xeroTenantId, fromDate, toDate);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getReportBankSummary -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -11870,9 +12854,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Reports/BankSummary";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Reports/BankSummary");
         if (fromDate != null) {
             String key = "fromDate";
             Object value = fromDate;
@@ -11896,7 +12878,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -11924,8 +12908,12 @@ public class AccountingApi {
             HttpResponse response = getReportBudgetSummaryForHttpResponse(accessToken, xeroTenantId, date, period, timeframe);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getReportBudgetSummary -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -11944,9 +12932,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Reports/BudgetSummary";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Reports/BudgetSummary");
         if (date != null) {
             String key = "date";
             Object value = date;
@@ -11980,7 +12966,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -12006,8 +12994,12 @@ public class AccountingApi {
             HttpResponse response = getReportExecutiveSummaryForHttpResponse(accessToken, xeroTenantId, date);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getReportExecutiveSummary -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -12026,9 +13018,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Reports/ExecutiveSummary";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Reports/ExecutiveSummary");
         if (date != null) {
             String key = "date";
             Object value = date;
@@ -12042,7 +13032,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -12077,8 +13069,12 @@ public class AccountingApi {
             HttpResponse response = getReportProfitAndLossForHttpResponse(accessToken, xeroTenantId, fromDate, toDate, periods, timeframe, trackingCategoryID, trackingCategoryID2, trackingOptionID, trackingOptionID2, standardLayout, paymentsOnly);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getReportProfitAndLoss -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -12097,9 +13093,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Reports/ProfitAndLoss";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Reports/ProfitAndLoss");
         if (fromDate != null) {
             String key = "fromDate";
             Object value = fromDate;
@@ -12203,7 +13197,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -12229,8 +13225,12 @@ public class AccountingApi {
             HttpResponse response = getReportTenNinetyNineForHttpResponse(accessToken, xeroTenantId, reportYear);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getReportTenNinetyNine -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -12249,9 +13249,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Reports/TenNinetyNine";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Reports/TenNinetyNine");
         if (reportYear != null) {
             String key = "reportYear";
             Object value = reportYear;
@@ -12265,7 +13263,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -12292,8 +13292,12 @@ public class AccountingApi {
             HttpResponse response = getReportTrialBalanceForHttpResponse(accessToken, xeroTenantId, date, paymentsOnly);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getReportTrialBalance -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -12312,9 +13316,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Reports/TrialBalance";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Reports/TrialBalance");
         if (date != null) {
             String key = "date";
             Object value = date;
@@ -12338,7 +13340,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -12366,8 +13370,12 @@ public class AccountingApi {
             HttpResponse response = getTaxRatesForHttpResponse(accessToken, xeroTenantId, where, order, taxType);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getTaxRates -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -12386,9 +13394,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/TaxRates";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/TaxRates");
         if (where != null) {
             String key = "where";
             Object value = where;
@@ -12422,7 +13428,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -12450,8 +13458,12 @@ public class AccountingApi {
             HttpResponse response = getTrackingCategoriesForHttpResponse(accessToken, xeroTenantId, where, order, includeArchived);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getTrackingCategories -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -12470,9 +13482,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/TrackingCategories";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/TrackingCategories");
         if (where != null) {
             String key = "where";
             Object value = where;
@@ -12506,7 +13516,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -12532,8 +13544,12 @@ public class AccountingApi {
             HttpResponse response = getTrackingCategoryForHttpResponse(accessToken, xeroTenantId, trackingCategoryID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getTrackingCategory -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -12554,18 +13570,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/TrackingCategories/{TrackingCategoryID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("TrackingCategoryID", trackingCategoryID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/TrackingCategories/{TrackingCategoryID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -12591,8 +13606,12 @@ public class AccountingApi {
             HttpResponse response = getUserForHttpResponse(accessToken, xeroTenantId, userID);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getUser -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -12613,18 +13632,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Users/{UserID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("UserID", userID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Users/{UserID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -12652,8 +13670,12 @@ public class AccountingApi {
             HttpResponse response = getUsersForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getUsers -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            handler.execute(e);
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -12675,9 +13697,7 @@ public class AccountingApi {
         }
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Users";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Users");
         if (where != null) {
             String key = "where";
             Object value = where;
@@ -12701,7 +13721,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -12729,8 +13751,21 @@ public class AccountingApi {
             HttpResponse response = updateAccountForHttpResponse(accessToken, xeroTenantId, accountID, accounts);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateAccount -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Accounts",object.getMessage());
+                }
+                handler.validationError("Accounts",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -12754,18 +13789,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Accounts/{AccountID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("AccountID", accountID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Accounts/{AccountID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(accounts);
@@ -12796,8 +13830,21 @@ public class AccountingApi {
             HttpResponse response = updateAccountAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, accountID, fileName, body);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateAccountAttachmentByFileName -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Attachments",object.getMessage());
+                }
+                handler.validationError("Attachments",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -12824,19 +13871,18 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Accounts/{AccountID}/Attachments/{FileName}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("AccountID", accountID);
         uriVariables.put("FileName", fileName);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Accounts/{AccountID}/Attachments/{FileName}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
         HttpContent content = null;
@@ -12867,8 +13913,21 @@ public class AccountingApi {
             HttpResponse response = updateBankTransactionForHttpResponse(accessToken, xeroTenantId, bankTransactionID, bankTransactions, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateBankTransaction -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("BankTransactions",object.getMessage());
+                }
+                handler.validationError("BankTransactions",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -12892,15 +13951,12 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/BankTransactions/{BankTransactionID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BankTransactionID", bankTransactionID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BankTransactions/{BankTransactionID}");
         if (unitdp != null) {
             String key = "unitdp";
             Object value = unitdp;
@@ -12914,7 +13970,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(bankTransactions);
@@ -12945,8 +14003,21 @@ public class AccountingApi {
             HttpResponse response = updateBankTransactionAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, bankTransactionID, fileName, body);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateBankTransactionAttachmentByFileName -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Attachments",object.getMessage());
+                }
+                handler.validationError("Attachments",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -12973,19 +14044,18 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/BankTransactions/{BankTransactionID}/Attachments/{FileName}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BankTransactionID", bankTransactionID);
         uriVariables.put("FileName", fileName);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BankTransactions/{BankTransactionID}/Attachments/{FileName}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
         HttpContent content = null;
@@ -13015,8 +14085,21 @@ public class AccountingApi {
             HttpResponse response = updateBankTransferAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, bankTransferID, fileName, body);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateBankTransferAttachmentByFileName -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Attachments",object.getMessage());
+                }
+                handler.validationError("Attachments",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -13043,19 +14126,18 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/BankTransfers/{BankTransferID}/Attachments/{FileName}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("BankTransferID", bankTransferID);
         uriVariables.put("FileName", fileName);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BankTransfers/{BankTransferID}/Attachments/{FileName}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
         HttpContent content = null;
@@ -13084,8 +14166,21 @@ public class AccountingApi {
             HttpResponse response = updateContactForHttpResponse(accessToken, xeroTenantId, contactID, contacts);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateContact -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Contacts",object.getMessage());
+                }
+                handler.validationError("Contacts",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -13109,18 +14204,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Contacts/{ContactID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ContactID", contactID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Contacts/{ContactID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(contacts);
@@ -13150,8 +14244,21 @@ public class AccountingApi {
             HttpResponse response = updateContactAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, contactID, fileName, body);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateContactAttachmentByFileName -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Attachments",object.getMessage());
+                }
+                handler.validationError("Attachments",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -13178,19 +14285,18 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Contacts/{ContactID}/Attachments/{FileName}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ContactID", contactID);
         uriVariables.put("FileName", fileName);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Contacts/{ContactID}/Attachments/{FileName}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
         HttpContent content = null;
@@ -13220,8 +14326,21 @@ public class AccountingApi {
             HttpResponse response = updateContactGroupForHttpResponse(accessToken, xeroTenantId, contactGroupID, contactGroups);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateContactGroup -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("ContactGroups",object.getMessage());
+                }
+                handler.validationError("ContactGroups",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -13245,18 +14364,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/ContactGroups/{ContactGroupID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ContactGroupID", contactGroupID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/ContactGroups/{ContactGroupID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(contactGroups);
@@ -13287,8 +14405,21 @@ public class AccountingApi {
             HttpResponse response = updateCreditNoteForHttpResponse(accessToken, xeroTenantId, creditNoteID, creditNotes, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateCreditNote -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("CreditNotes",object.getMessage());
+                }
+                handler.validationError("CreditNotes",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -13312,15 +14443,12 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/CreditNotes/{CreditNoteID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("CreditNoteID", creditNoteID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/CreditNotes/{CreditNoteID}");
         if (unitdp != null) {
             String key = "unitdp";
             Object value = unitdp;
@@ -13334,7 +14462,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(creditNotes);
@@ -13365,8 +14495,21 @@ public class AccountingApi {
             HttpResponse response = updateCreditNoteAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, creditNoteID, fileName, body);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateCreditNoteAttachmentByFileName -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Attachments",object.getMessage());
+                }
+                handler.validationError("Attachments",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -13393,19 +14536,18 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/CreditNotes/{CreditNoteID}/Attachments/{FileName}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("CreditNoteID", creditNoteID);
         uriVariables.put("FileName", fileName);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/CreditNotes/{CreditNoteID}/Attachments/{FileName}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
         HttpContent content = null;
@@ -13435,8 +14577,21 @@ public class AccountingApi {
             HttpResponse response = updateExpenseClaimForHttpResponse(accessToken, xeroTenantId, expenseClaimID, expenseClaims);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateExpenseClaim -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("ExpenseClaims",object.getMessage());
+                }
+                handler.validationError("ExpenseClaims",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -13460,18 +14615,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/ExpenseClaims/{ExpenseClaimID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ExpenseClaimID", expenseClaimID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/ExpenseClaims/{ExpenseClaimID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(expenseClaims);
@@ -13502,8 +14656,21 @@ public class AccountingApi {
             HttpResponse response = updateInvoiceForHttpResponse(accessToken, xeroTenantId, invoiceID, invoices, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateInvoice -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Invoices",object.getMessage());
+                }
+                handler.validationError("Invoices",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -13527,15 +14694,12 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Invoices/{InvoiceID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("InvoiceID", invoiceID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Invoices/{InvoiceID}");
         if (unitdp != null) {
             String key = "unitdp";
             Object value = unitdp;
@@ -13549,7 +14713,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(invoices);
@@ -13580,8 +14746,21 @@ public class AccountingApi {
             HttpResponse response = updateInvoiceAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, invoiceID, fileName, body);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateInvoiceAttachmentByFileName -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Attachments",object.getMessage());
+                }
+                handler.validationError("Attachments",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -13608,19 +14787,18 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Invoices/{InvoiceID}/Attachments/{FileName}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("InvoiceID", invoiceID);
         uriVariables.put("FileName", fileName);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Invoices/{InvoiceID}/Attachments/{FileName}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
         HttpContent content = null;
@@ -13651,8 +14829,21 @@ public class AccountingApi {
             HttpResponse response = updateItemForHttpResponse(accessToken, xeroTenantId, itemID, items, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateItem -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Items",object.getMessage());
+                }
+                handler.validationError("Items",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -13676,15 +14867,12 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Items/{ItemID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ItemID", itemID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Items/{ItemID}");
         if (unitdp != null) {
             String key = "unitdp";
             Object value = unitdp;
@@ -13698,7 +14886,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(items);
@@ -13728,8 +14918,21 @@ public class AccountingApi {
             HttpResponse response = updateLinkedTransactionForHttpResponse(accessToken, xeroTenantId, linkedTransactionID, linkedTransactions);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateLinkedTransaction -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("LinkedTransactions",object.getMessage());
+                }
+                handler.validationError("LinkedTransactions",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -13753,18 +14956,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/LinkedTransactions/{LinkedTransactionID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("LinkedTransactionID", linkedTransactionID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/LinkedTransactions/{LinkedTransactionID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(linkedTransactions);
@@ -13794,8 +14996,21 @@ public class AccountingApi {
             HttpResponse response = updateManualJournalForHttpResponse(accessToken, xeroTenantId, manualJournalID, manualJournals);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateManualJournal -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("ManualJournals",object.getMessage());
+                }
+                handler.validationError("ManualJournals",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -13819,18 +15034,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/ManualJournals/{ManualJournalID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ManualJournalID", manualJournalID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/ManualJournals/{ManualJournalID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(manualJournals);
@@ -13861,8 +15075,21 @@ public class AccountingApi {
             HttpResponse response = updateManualJournalAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, manualJournalID, fileName, body);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateManualJournalAttachmentByFileName -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Attachments",object.getMessage());
+                }
+                handler.validationError("Attachments",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -13889,19 +15116,18 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/ManualJournals/{ManualJournalID}/Attachments/{FileName}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ManualJournalID", manualJournalID);
         uriVariables.put("FileName", fileName);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/ManualJournals/{ManualJournalID}/Attachments/{FileName}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
         HttpContent content = null;
@@ -13932,8 +15158,21 @@ public class AccountingApi {
             HttpResponse response = updateOrCreateBankTransactionsForHttpResponse(accessToken, xeroTenantId, bankTransactions, summarizeErrors, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateOrCreateBankTransactions -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("BankTransactions",object.getMessage());
+                }
+                handler.validationError("BankTransactions",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -13955,9 +15194,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/BankTransactions";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/BankTransactions");
         if (summarizeErrors != null) {
             String key = "summarizeErrors";
             Object value = summarizeErrors;
@@ -13981,7 +15218,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(bankTransactions);
@@ -14011,8 +15250,21 @@ public class AccountingApi {
             HttpResponse response = updateOrCreateContactsForHttpResponse(accessToken, xeroTenantId, contacts, summarizeErrors);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateOrCreateContacts -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Contacts",object.getMessage());
+                }
+                handler.validationError("Contacts",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -14034,9 +15286,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Contacts";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Contacts");
         if (summarizeErrors != null) {
             String key = "summarizeErrors";
             Object value = summarizeErrors;
@@ -14050,7 +15300,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(contacts);
@@ -14081,8 +15333,21 @@ public class AccountingApi {
             HttpResponse response = updateOrCreateCreditNotesForHttpResponse(accessToken, xeroTenantId, creditNotes, summarizeErrors, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateOrCreateCreditNotes -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("CreditNotes",object.getMessage());
+                }
+                handler.validationError("CreditNotes",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -14104,9 +15369,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/CreditNotes";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/CreditNotes");
         if (summarizeErrors != null) {
             String key = "summarizeErrors";
             Object value = summarizeErrors;
@@ -14130,7 +15393,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(creditNotes);
@@ -14160,8 +15425,21 @@ public class AccountingApi {
             HttpResponse response = updateOrCreateEmployeesForHttpResponse(accessToken, xeroTenantId, employees, summarizeErrors);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateOrCreateEmployees -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Employees",object.getMessage());
+                }
+                handler.validationError("Employees",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -14183,9 +15461,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Employees";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Employees");
         if (summarizeErrors != null) {
             String key = "summarizeErrors";
             Object value = summarizeErrors;
@@ -14199,7 +15475,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(employees);
@@ -14230,8 +15508,21 @@ public class AccountingApi {
             HttpResponse response = updateOrCreateInvoicesForHttpResponse(accessToken, xeroTenantId, invoices, summarizeErrors, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateOrCreateInvoices -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Invoices",object.getMessage());
+                }
+                handler.validationError("Invoices",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -14253,9 +15544,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Invoices";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Invoices");
         if (summarizeErrors != null) {
             String key = "summarizeErrors";
             Object value = summarizeErrors;
@@ -14279,7 +15568,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(invoices);
@@ -14310,8 +15601,21 @@ public class AccountingApi {
             HttpResponse response = updateOrCreateItemsForHttpResponse(accessToken, xeroTenantId, items, summarizeErrors, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateOrCreateItems -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Items",object.getMessage());
+                }
+                handler.validationError("Items",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -14333,9 +15637,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Items";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Items");
         if (summarizeErrors != null) {
             String key = "summarizeErrors";
             Object value = summarizeErrors;
@@ -14359,7 +15661,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(items);
@@ -14389,8 +15693,21 @@ public class AccountingApi {
             HttpResponse response = updateOrCreateManualJournalsForHttpResponse(accessToken, xeroTenantId, manualJournals, summarizeErrors);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateOrCreateManualJournals -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("ManualJournals",object.getMessage());
+                }
+                handler.validationError("ManualJournals",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -14412,9 +15729,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/ManualJournals";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/ManualJournals");
         if (summarizeErrors != null) {
             String key = "summarizeErrors";
             Object value = summarizeErrors;
@@ -14428,7 +15743,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(manualJournals);
@@ -14458,8 +15775,21 @@ public class AccountingApi {
             HttpResponse response = updateOrCreatePurchaseOrdersForHttpResponse(accessToken, xeroTenantId, purchaseOrders, summarizeErrors);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateOrCreatePurchaseOrders -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("PurchaseOrders",object.getMessage());
+                }
+                handler.validationError("PurchaseOrders",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -14481,9 +15811,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/PurchaseOrders";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/PurchaseOrders");
         if (summarizeErrors != null) {
             String key = "summarizeErrors";
             Object value = summarizeErrors;
@@ -14497,7 +15825,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(purchaseOrders);
@@ -14527,8 +15857,21 @@ public class AccountingApi {
             HttpResponse response = updateOrCreateQuotesForHttpResponse(accessToken, xeroTenantId, quotes, summarizeErrors);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateOrCreateQuotes -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Quotes",object.getMessage());
+                }
+                handler.validationError("Quotes",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -14550,9 +15893,7 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Quotes";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Quotes");
         if (summarizeErrors != null) {
             String key = "summarizeErrors";
             Object value = summarizeErrors;
@@ -14566,7 +15907,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(quotes);
@@ -14596,8 +15939,21 @@ public class AccountingApi {
             HttpResponse response = updatePurchaseOrderForHttpResponse(accessToken, xeroTenantId, purchaseOrderID, purchaseOrders);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updatePurchaseOrder -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("PurchaseOrders",object.getMessage());
+                }
+                handler.validationError("PurchaseOrders",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -14621,18 +15977,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/PurchaseOrders/{PurchaseOrderID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("PurchaseOrderID", purchaseOrderID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/PurchaseOrders/{PurchaseOrderID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(purchaseOrders);
@@ -14662,8 +16017,21 @@ public class AccountingApi {
             HttpResponse response = updateQuoteForHttpResponse(accessToken, xeroTenantId, quoteID, quotes);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateQuote -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Quotes",object.getMessage());
+                }
+                handler.validationError("Quotes",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -14687,18 +16055,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Quotes/{QuoteID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("QuoteID", quoteID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Quotes/{QuoteID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(quotes);
@@ -14729,8 +16096,21 @@ public class AccountingApi {
             HttpResponse response = updateQuoteAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, quoteID, fileName, body);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateQuoteAttachmentByFileName -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Attachments",object.getMessage());
+                }
+                handler.validationError("Attachments",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -14757,19 +16137,18 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Quotes/{QuoteID}/Attachments/{FileName}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("QuoteID", quoteID);
         uriVariables.put("FileName", fileName);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Quotes/{QuoteID}/Attachments/{FileName}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
         HttpContent content = null;
@@ -14800,8 +16179,21 @@ public class AccountingApi {
             HttpResponse response = updateReceiptForHttpResponse(accessToken, xeroTenantId, receiptID, receipts, unitdp);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateReceipt -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Receipts",object.getMessage());
+                }
+                handler.validationError("Receipts",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -14825,15 +16217,12 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Receipts/{ReceiptID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ReceiptID", receiptID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Receipts/{ReceiptID}");
         if (unitdp != null) {
             String key = "unitdp";
             Object value = unitdp;
@@ -14847,7 +16236,9 @@ public class AccountingApi {
         }
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(receipts);
@@ -14878,8 +16269,21 @@ public class AccountingApi {
             HttpResponse response = updateReceiptAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, receiptID, fileName, body);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateReceiptAttachmentByFileName -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Attachments",object.getMessage());
+                }
+                handler.validationError("Attachments",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -14906,19 +16310,18 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Receipts/{ReceiptID}/Attachments/{FileName}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("ReceiptID", receiptID);
         uriVariables.put("FileName", fileName);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Receipts/{ReceiptID}/Attachments/{FileName}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
         HttpContent content = null;
@@ -14949,8 +16352,21 @@ public class AccountingApi {
             HttpResponse response = updateRepeatingInvoiceAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, repeatingInvoiceID, fileName, body);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateRepeatingInvoiceAttachmentByFileName -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("Attachments",object.getMessage());
+                }
+                handler.validationError("Attachments",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -14977,19 +16393,18 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{FileName}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("RepeatingInvoiceID", repeatingInvoiceID);
         uriVariables.put("FileName", fileName);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{FileName}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         java.nio.file.Path bodyPath = body.toPath();
         String mimeType = Files.probeContentType(bodyPath);
         HttpContent content = null;
@@ -15018,8 +16433,21 @@ public class AccountingApi {
             HttpResponse response = updateTaxRateForHttpResponse(accessToken, xeroTenantId, taxRates);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateTaxRate -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("TaxRates",object.getMessage());
+                }
+                handler.validationError("TaxRates",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -15041,12 +16469,12 @@ public class AccountingApi {
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/TaxRates";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/TaxRates");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(taxRates);
@@ -15076,8 +16504,21 @@ public class AccountingApi {
             HttpResponse response = updateTrackingCategoryForHttpResponse(accessToken, xeroTenantId, trackingCategoryID, trackingCategory);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateTrackingCategory -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("TrackingCategories",object.getMessage());
+                }
+                handler.validationError("TrackingCategories",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -15101,18 +16542,17 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/TrackingCategories/{TrackingCategoryID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("TrackingCategoryID", trackingCategoryID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/TrackingCategories/{TrackingCategoryID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(trackingCategory);
@@ -15143,8 +16583,21 @@ public class AccountingApi {
             HttpResponse response = updateTrackingOptionsForHttpResponse(accessToken, xeroTenantId, trackingCategoryID, trackingOptionID, trackingOption);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : updateTrackingOptions -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e,apiClient);
+            if (e.getStatusCode() == 400) {
+                TypeReference<com.xero.models.accounting.Error> errorTypeRef = new TypeReference<com.xero.models.accounting.Error>() {};
+                com.xero.models.accounting.Error object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                if (object.getElements() == null || object.getElements().isEmpty()) {
+                    handler.validationError("TrackingOptions",object.getMessage());
+                }
+                handler.validationError("TrackingOptions",object);
+            } else {
+                handler.execute(e);
+            }
         } catch (IOException ioe) {
             throw ioe;
         }
@@ -15171,19 +16624,18 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/TrackingCategories/{TrackingCategoryID}/Options/{TrackingOptionID}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("TrackingCategoryID", trackingCategoryID);
         uriVariables.put("TrackingOptionID", trackingOptionID);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/TrackingCategories/{TrackingCategoryID}/Options/{TrackingOptionID}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(trackingOption);
