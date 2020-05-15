@@ -15,6 +15,7 @@ import com.xero.models.payrollau.PayrollCalendar;
 import com.xero.models.payrollau.PayrollCalendars;
 import com.xero.models.payrollau.PayslipLines;
 import com.xero.models.payrollau.PayslipObject;
+import com.xero.models.payrollau.Payslips;
 import com.xero.models.payrollau.SettingsObject;
 import com.xero.models.payrollau.SuperFund;
 import com.xero.models.payrollau.SuperFundProducts;
@@ -2002,12 +2003,12 @@ public class PayrollAuApi {
     * @param payslipID Payslip id for single object
     * @param payslipLines The payslipLines parameter
     * @param accessToken Authorization token for user set in header of each request
-    * @return PayslipObject
+    * @return Payslips
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public PayslipObject  updatePayslip(String accessToken, String xeroTenantId, UUID payslipID, List<PayslipLines> payslipLines) throws IOException {
+    public Payslips  updatePayslip(String accessToken, String xeroTenantId, UUID payslipID, List<PayslipLines> payslipLines) throws IOException {
         try {
-            TypeReference<PayslipObject> typeRef = new TypeReference<PayslipObject>() {};
+            TypeReference<Payslips> typeRef = new TypeReference<Payslips>() {};
             HttpResponse response = updatePayslipForHttpResponse(accessToken, xeroTenantId, payslipID, payslipLines);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {

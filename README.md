@@ -391,7 +391,7 @@ public class Callback extends HttpServlet {
 	    // Init IdentityApi client
 	    ApiClient defaultClient = new ApiClient("https://api.xero.com",null,null,null,requestFactory);
 	    IdentityApi idApi = new IdentityApi(defaultClient);
-	    List<Connection> connection = idApi.getConnections();
+	    List<Connection> connection = idApi.getConnections(tokenResponse.getAccessToken(),null);
 	
 	    TokenStorage store = new TokenStorage();
 	    store.saveItem(response, "access_token", tokenResponse.getAccessToken());
