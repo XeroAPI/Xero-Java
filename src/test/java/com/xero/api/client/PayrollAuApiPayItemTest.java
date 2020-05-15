@@ -81,7 +81,7 @@ public class PayrollAuApiPayItemTest {
         assertThat(response.getPayItems().getEarningsRates().get(0).getEarningsType(), is(equalTo(com.xero.models.payrollau.EarningsType.ORDINARYTIMEEARNINGS)));
         assertThat(response.getPayItems().getEarningsRates().get(0).getEarningsRateID(), is(equalTo(UUID.fromString("ab874dfb-ab09-4c91-954e-43acf6fc23b4"))));
         assertThat(response.getPayItems().getEarningsRates().get(0).getRatePerUnit() , is(equalTo("3")));        
-        assertThat(response.getPayItems().getEarningsRates().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-12T20:53:41-08:00"))));  
+        assertThat(response.getPayItems().getEarningsRates().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-13T04:53:41Z"))));  
         assertThat(response.getPayItems().getEarningsRates().get(0).getRateType(), is(equalTo(com.xero.models.payrollau.RateType.RATEPERUNIT)));
         assertThat(response.getPayItems().getEarningsRates().get(0).getCurrentRecord() , is(equalTo(true))); 
         assertThat(response.getPayItems().getDeductionTypes().get(0).getDeductionTypeID(), is(equalTo(UUID.fromString("727af5e8-b347-4ae7-85fc-9b82266d0aec"))));
@@ -91,12 +91,12 @@ public class PayrollAuApiPayItemTest {
         assertThat(response.getPayItems().getDeductionTypes().get(0).getReducesSuper(), is(equalTo(false)));        
         assertThat(response.getPayItems().getDeductionTypes().get(0).getIsExemptFromW1(), is(equalTo(false)));        
         assertThat(response.getPayItems().getDeductionTypes().get(0).getDeductionCategory(), is(equalTo(com.xero.models.payrollau.DeductionType.DeductionCategoryEnum.UNIONFEES)));  
-        assertThat(response.getPayItems().getDeductionTypes().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-01-14T13:12:10-08:00"))));       
+        assertThat(response.getPayItems().getDeductionTypes().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-01-14T21:12:10Z"))));       
         assertThat(response.getPayItems().getDeductionTypes().get(0).getCurrentRecord(), is(equalTo(true)));      
         assertThat(response.getPayItems().getReimbursementTypes().get(0).getReimbursementTypeID(), is(equalTo(UUID.fromString("98ba33b2-db5b-4204-bcac-5ddd98d63524"))));
         assertThat(response.getPayItems().getReimbursementTypes().get(0).getName(), is(equalTo("Travel Costs")));        
         assertThat(response.getPayItems().getReimbursementTypes().get(0).getAccountCode(), is(equalTo("850")));        
-        assertThat(response.getPayItems().getReimbursementTypes().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-01-14T13:12:10-08:00"))));
+        assertThat(response.getPayItems().getReimbursementTypes().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-01-14T21:12:10Z"))));
         assertThat(response.getPayItems().getReimbursementTypes().get(0).getCurrentRecord(), is(equalTo(true)));      
         assertThat(response.getPayItems().getLeaveTypes().get(0).getLeaveTypeID(), is(equalTo(UUID.fromString("fbcc9dab-6238-43d9-a3f4-d768423fdcfa"))));
         assertThat(response.getPayItems().getLeaveTypes().get(0).getName(), is(equalTo("Annual Leave")));        
@@ -106,7 +106,7 @@ public class PayrollAuApiPayItemTest {
         assertThat(response.getPayItems().getLeaveTypes().get(0).getIsPaidLeave(), is(equalTo(true)));
         assertThat(response.getPayItems().getLeaveTypes().get(0).getShowOnPayslip(), is(equalTo(true)));
         assertThat(response.getPayItems().getLeaveTypes().get(0).getCurrentRecord(), is(equalTo(true)));
-        assertThat(response.getPayItems().getLeaveTypes().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-12T20:54:13-08:00"))));
+        assertThat(response.getPayItems().getLeaveTypes().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-13T04:54:13Z"))));
         // System.out.println(response.toString());
     }
 
@@ -114,7 +114,7 @@ public class PayrollAuApiPayItemTest {
     public void createPayItemTest() throws IOException {
         System.out.println("@Test - createPayItemTest");
         
-        List<PayItem> payItems = new ArrayList<>();        
+        PayItem payItems = new PayItem();        
         PayItems response = payrollAuApi.createPayItem(accessToken, xeroTenantId,payItems);
         
         // CAN NOT TEST response from createPayItem 

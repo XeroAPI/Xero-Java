@@ -38,8 +38,9 @@ import java.util.Map;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 
 public class AssetApi {
@@ -47,6 +48,7 @@ public class AssetApi {
     private static AssetApi instance = null;
     private String userAgent = "Default";
     private String version = "4.0.0";
+    final static Logger logger = LoggerFactory.getLogger(AssetApi.class);
 
     public AssetApi() {
         this(new ApiClient());
@@ -96,6 +98,10 @@ public class AssetApi {
             HttpResponse response = createAssetForHttpResponse(accessToken, xeroTenantId, asset);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createAsset -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
             if (e.getStatusCode() == 400) {
                 TypeReference<com.xero.models.assets.Error> errorTypeRef = new TypeReference<com.xero.models.assets.Error>() {};
@@ -125,12 +131,12 @@ public class AssetApi {
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Assets";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Assets");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(asset);
@@ -161,6 +167,10 @@ public class AssetApi {
             HttpResponse response = createAssetTypeForHttpResponse(accessToken, xeroTenantId, assetType);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createAssetType -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
             if (e.getStatusCode() == 400) {
                 TypeReference<com.xero.models.assets.Error> errorTypeRef = new TypeReference<com.xero.models.assets.Error>() {};
@@ -187,12 +197,12 @@ public class AssetApi {
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/AssetTypes";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/AssetTypes");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(assetType);
@@ -222,6 +232,10 @@ public class AssetApi {
             HttpResponse response = getAssetByIdForHttpResponse(accessToken, xeroTenantId, id);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getAssetById -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
             handler.execute(e);
         } catch (IOException ioe) {
@@ -244,18 +258,17 @@ public class AssetApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Assets/{id}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("id", id);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Assets/{id}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -282,6 +295,10 @@ public class AssetApi {
             HttpResponse response = getAssetSettingsForHttpResponse(accessToken, xeroTenantId);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getAssetSettings -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
             handler.execute(e);
         } catch (IOException ioe) {
@@ -302,12 +319,12 @@ public class AssetApi {
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Settings";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Settings");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -334,6 +351,10 @@ public class AssetApi {
             HttpResponse response = getAssetTypesForHttpResponse(accessToken, xeroTenantId);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getAssetTypes -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
             handler.execute(e);
         } catch (IOException ioe) {
@@ -354,12 +375,12 @@ public class AssetApi {
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/AssetTypes";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/AssetTypes");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -392,6 +413,10 @@ public class AssetApi {
             HttpResponse response = getAssetsForHttpResponse(accessToken, xeroTenantId, status, page, pageSize, orderBy, sortDirection, filterBy);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getAssets -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
             handler.execute(e);
         } catch (IOException ioe) {
@@ -415,9 +440,7 @@ public class AssetApi {
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Assets";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Assets");
         if (status != null) {
             String key = "status";
             Object value = status;
@@ -481,7 +504,9 @@ public class AssetApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);

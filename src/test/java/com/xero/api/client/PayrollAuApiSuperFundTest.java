@@ -76,7 +76,7 @@ public class PayrollAuApiSuperFundTest {
         assertThat(response.getSuperFunds().get(0).getType(), is(equalTo(com.xero.models.payrollau.SuperFundType.REGULATED)));
         assertThat(response.getSuperFunds().get(0).getName(), is(equalTo("Accumulate Plus (Commonwealth Bank Group Super)")));        
         assertThat(response.getSuperFunds().get(0).getUSI(), is(equalTo("OSF0001AU")));     
-        assertThat(response.getSuperFunds().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-11T14:14:28-08:00"))));            
+        assertThat(response.getSuperFunds().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-11T22:14:28Z"))));            
         //System.out.println(response.toString());
     }
 
@@ -96,7 +96,7 @@ public class PayrollAuApiSuperFundTest {
         assertThat(response.getSuperFunds().get(0).getAccountName(), is(equalTo("My Checking")));        
         assertThat(response.getSuperFunds().get(0).getElectronicServiceAddress(), is(equalTo("FG48739")));        
         assertThat(response.getSuperFunds().get(0).getEmployerNumber(), is(equalTo("9876543")));     
-        assertThat(response.getSuperFunds().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-12T07:10:29-08:00"))));  
+        assertThat(response.getSuperFunds().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-12T15:10:29Z"))));  
         //System.out.println(response.toString());
     }
 
@@ -114,7 +114,7 @@ public class PayrollAuApiSuperFundTest {
         assertThat(response.getSuperFunds().get(0).getAccountNumber(), is(equalTo("FB36350")));        
         assertThat(response.getSuperFunds().get(0).getAccountName(), is(equalTo("Foo38428")));        
         assertThat(response.getSuperFunds().get(0).getUSI(), is(equalTo("PTC0133AU")));
-        assertThat(response.getSuperFunds().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-12T10:29:53.009-08:00"))));    
+        assertThat(response.getSuperFunds().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-12T18:29:53.009Z"))));    
         //System.out.println(response.toString());
     }
 
@@ -131,7 +131,7 @@ public class PayrollAuApiSuperFundTest {
         assertThat(response.getSuperFunds().get(0).getName(), is(equalTo("Accumulate Plus (Commonwealth Bank Group Super)")));        
         assertThat(response.getSuperFunds().get(0).getABN(), is(equalTo("24248426878")));        
         assertThat(response.getSuperFunds().get(0).getUSI(), is(equalTo("OSF0001AU")));        
-        assertThat(response.getSuperFunds().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-11T14:14:28-08:00")))); 
+        assertThat(response.getSuperFunds().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-11T22:14:28Z")))); 
         //System.out.println(response.toString());
     }
 }

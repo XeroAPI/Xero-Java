@@ -81,15 +81,15 @@ public class PayrollAuApiTimesheetTest {
         Timesheets response = payrollAuApi.getTimesheets(accessToken, xeroTenantId, null, null, null, null);
         
         assertThat(response.getTimesheets().get(0).getEmployeeID(), is(equalTo(UUID.fromString("b34e89ff-770d-4099-b7e5-f968767118bc"))));       
-        assertThat(response.getTimesheets().get(0).getStartDateAsDate() , is(equalTo(LocalDate.of(2019,01,17))));
-        assertThat(response.getTimesheets().get(0).getEndDateAsDate() , is(equalTo(LocalDate.of(2019,01,23))));  
+        assertThat(response.getTimesheets().get(0).getStartDateAsDate() , is(equalTo(LocalDate.of(2019,01,18))));
+        assertThat(response.getTimesheets().get(0).getEndDateAsDate() , is(equalTo(LocalDate.of(2019,01,24))));  
         assertThat(response.getTimesheets().get(0).getStatus(), is(equalTo(com.xero.models.payrollau.TimesheetStatus.APPROVED)));
         assertThat(response.getTimesheets().get(0).getHours(), is(equalTo(24.0f)));        
         assertThat(response.getTimesheets().get(0).getTimesheetID(), is(equalTo(UUID.fromString("863bbd31-0447-4419-80d5-d733d5e723ba"))));       
         assertThat(response.getTimesheets().get(0).getTimesheetLines().get(0).getEarningsRateID(), is(equalTo(UUID.fromString("ab874dfb-ab09-4c91-954e-43acf6fc23b4"))));       
         assertThat(response.getTimesheets().get(0).getTimesheetLines().get(0).getNumberOfUnits(), is(equalTo(numOfUnitList)));       
-        assertThat(response.getTimesheets().get(0).getTimesheetLines().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-04T17:03:47-08:00"))));   
-        assertThat(response.getTimesheets().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-04T17:03:47-08:00"))));
+        assertThat(response.getTimesheets().get(0).getTimesheetLines().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-05T01:03:47Z"))));   
+        assertThat(response.getTimesheets().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-05T01:03:47Z"))));
         //System.out.println(response.toString());
     }
 
@@ -110,15 +110,15 @@ public class PayrollAuApiTimesheetTest {
         TimesheetObject response = payrollAuApi.getTimesheet(accessToken, xeroTenantId, timesheetId);
         
         assertThat(response.getTimesheet().getEmployeeID(), is(equalTo(UUID.fromString("b34e89ff-770d-4099-b7e5-f968767118bc"))));       
-        assertThat(response.getTimesheet().getStartDateAsDate() , is(equalTo(LocalDate.of(2019,01,10))));
-        assertThat(response.getTimesheet().getEndDateAsDate() , is(equalTo(LocalDate.of(2019,01,16))));  
+        assertThat(response.getTimesheet().getStartDateAsDate() , is(equalTo(LocalDate.of(2019,01,11))));
+        assertThat(response.getTimesheet().getEndDateAsDate() , is(equalTo(LocalDate.of(2019,01,17))));  
         assertThat(response.getTimesheet().getStatus(), is(equalTo(com.xero.models.payrollau.TimesheetStatus.APPROVED)));
         assertThat(response.getTimesheet().getHours(), is(equalTo(15.0f)));
         assertThat(response.getTimesheet().getTimesheetID(), is(equalTo(UUID.fromString("df954ca3-3a70-47e9-9a3e-80711e7c5f90"))));       
         assertThat(response.getTimesheet().getTimesheetLines().get(0).getEarningsRateID(), is(equalTo(UUID.fromString("ab874dfb-ab09-4c91-954e-43acf6fc23b4"))));       
         assertThat(response.getTimesheet().getTimesheetLines().get(0).getNumberOfUnits(), is(equalTo(numOfUnitList)));       
-        assertThat(response.getTimesheet().getTimesheetLines().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-04T17:03:17-08:00"))));   
-        assertThat(response.getTimesheet().getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-04T17:03:17-08:00"))));   
+        assertThat(response.getTimesheet().getTimesheetLines().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-05T01:03:17Z"))));   
+        assertThat(response.getTimesheet().getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-05T01:03:17Z"))));   
 
         //System.out.println(response.toString());
     }
@@ -140,16 +140,16 @@ public class PayrollAuApiTimesheetTest {
         Timesheets response = payrollAuApi.createTimesheet(accessToken, xeroTenantId, timesheets);
         
         assertThat(response.getTimesheets().get(0).getEmployeeID(), is(equalTo(UUID.fromString("b34e89ff-770d-4099-b7e5-f968767118bc"))));       
-        assertThat(response.getTimesheets().get(0).getStartDateAsDate() , is(equalTo(LocalDate.of(2019,11,07))));
-        assertThat(response.getTimesheets().get(0).getEndDateAsDate() , is(equalTo(LocalDate.of(2019,11,13))));  
+        assertThat(response.getTimesheets().get(0).getStartDateAsDate() , is(equalTo(LocalDate.of(2019,11,8))));
+        assertThat(response.getTimesheets().get(0).getEndDateAsDate() , is(equalTo(LocalDate.of(2019,11,14))));  
         assertThat(response.getTimesheets().get(0).getStatus(), is(equalTo(com.xero.models.payrollau.TimesheetStatus.DRAFT)));
         assertThat(response.getTimesheets().get(0).getHours(), is(equalTo(22.0f)));        
         assertThat(response.getTimesheets().get(0).getTimesheetID(), is(equalTo(UUID.fromString("a7eb0a79-8511-4ee7-b473-3a25f28abcb9"))));       
         assertThat(response.getTimesheets().get(0).getTimesheetLines().get(0).getEarningsRateID(), is(equalTo(UUID.fromString("ab874dfb-ab09-4c91-954e-43acf6fc23b4"))));       
         assertThat(response.getTimesheets().get(0).getTimesheetLines().get(0).getTrackingItemID(), is(equalTo(UUID.fromString("af5e9ce2-2349-4136-be99-3561b189f473"))));       
         assertThat(response.getTimesheets().get(0).getTimesheetLines().get(0).getNumberOfUnits(), is(equalTo(numOfUnitList)));
-        assertThat(response.getTimesheets().get(0).getTimesheetLines().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-11T15:49:45.127-08:00"))));
-        assertThat(response.getTimesheets().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-11T15:49:45.127-08:00"))));
+        assertThat(response.getTimesheets().get(0).getTimesheetLines().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-11T23:49:45.127Z"))));
+        assertThat(response.getTimesheets().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-11T23:49:45.127Z"))));
         //System.out.println(response.toString());
     }
 
@@ -170,16 +170,16 @@ public class PayrollAuApiTimesheetTest {
         Timesheets response = payrollAuApi.updateTimesheet(accessToken, xeroTenantId, timesheetId, timesheets);
         
         assertThat(response.getTimesheets().get(0).getEmployeeID(), is(equalTo(UUID.fromString("b34e89ff-770d-4099-b7e5-f968767118bc"))));       
-        assertThat(response.getTimesheets().get(0).getStartDateAsDate() , is(equalTo(LocalDate.of(2019,11,07))));
-        assertThat(response.getTimesheets().get(0).getEndDateAsDate() , is(equalTo(LocalDate.of(2019,11,13))));  
+        assertThat(response.getTimesheets().get(0).getStartDateAsDate() , is(equalTo(LocalDate.of(2019,11,8))));
+        assertThat(response.getTimesheets().get(0).getEndDateAsDate() , is(equalTo(LocalDate.of(2019,11,14))));  
         assertThat(response.getTimesheets().get(0).getStatus(), is(equalTo(com.xero.models.payrollau.TimesheetStatus.APPROVED)));
         assertThat(response.getTimesheets().get(0).getHours(), is(equalTo(22.0f)));        
         assertThat(response.getTimesheets().get(0).getTimesheetID(), is(equalTo(UUID.fromString("a7eb0a79-8511-4ee7-b473-3a25f28abcb9"))));       
         assertThat(response.getTimesheets().get(0).getTimesheetLines().get(0).getEarningsRateID(), is(equalTo(UUID.fromString("ab874dfb-ab09-4c91-954e-43acf6fc23b4"))));       
         assertThat(response.getTimesheets().get(0).getTimesheetLines().get(0).getTrackingItemID(), is(equalTo(UUID.fromString("af5e9ce2-2349-4136-be99-3561b189f473"))));       
         assertThat(response.getTimesheets().get(0).getTimesheetLines().get(0).getNumberOfUnits(), is(equalTo(numOfUnitList)));       
-        assertThat(response.getTimesheets().get(0).getTimesheetLines().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-11T15:49:45.227-08:00"))));
-        assertThat(response.getTimesheets().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-11T15:49:45.227-08:00"))));
+        assertThat(response.getTimesheets().get(0).getTimesheetLines().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-11T23:49:45.227Z"))));
+        assertThat(response.getTimesheets().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-11T23:49:45.227Z"))));
         
         //System.out.println(response.toString());
     }

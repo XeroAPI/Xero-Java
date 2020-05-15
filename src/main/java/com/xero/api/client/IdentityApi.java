@@ -34,8 +34,9 @@ import java.util.Map;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 
 public class IdentityApi {
@@ -43,6 +44,7 @@ public class IdentityApi {
     private static IdentityApi instance = null;
     private String userAgent = "Default";
     private String version = "4.0.0";
+    final static Logger logger = LoggerFactory.getLogger(IdentityApi.class);
 
     public IdentityApi() {
         this(new ApiClient());
@@ -88,6 +90,10 @@ public class IdentityApi {
         try {
             deleteConnectionForHttpResponse(accessToken, id);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : deleteConnection -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
             handler.execute(e);
         } catch (IOException ioe) {
@@ -105,19 +111,18 @@ public class IdentityApi {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling deleteConnection");
         }
         HttpHeaders headers = new HttpHeaders();
-        headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/connections/{id}";
-        
+        headers.setAccept(""); 
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("id", id);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/connections/{id}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("DELETE " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -142,6 +147,10 @@ public class IdentityApi {
             HttpResponse response = getConnectionsForHttpResponse(accessToken);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getConnections -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
             handler.execute(e);
         } catch (IOException ioe) {
@@ -158,12 +167,12 @@ public class IdentityApi {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/connections";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/connections");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);

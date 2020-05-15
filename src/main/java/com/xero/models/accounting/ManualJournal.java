@@ -295,10 +295,10 @@ public class ManualJournal {
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-  public LocalDateTime getUpdatedDateUTCAsDate() {
+  public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
-        return util.convertStringToLocalDateTime(this.updatedDateUTC);
+        return util.convertStringToOffsetDateTime(this.updatedDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
       }  

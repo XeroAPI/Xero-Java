@@ -38,8 +38,9 @@ import java.util.Map;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 
 public class BankFeedsApi {
@@ -47,6 +48,7 @@ public class BankFeedsApi {
     private static BankFeedsApi instance = null;
     private String userAgent = "Default";
     private String version = "4.0.0";
+    final static Logger logger = LoggerFactory.getLogger(BankFeedsApi.class);
 
     public BankFeedsApi() {
         this(new ApiClient());
@@ -97,6 +99,10 @@ public class BankFeedsApi {
             HttpResponse response = createFeedConnectionsForHttpResponse(accessToken, xeroTenantId, feedConnections);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createFeedConnections -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
             if (e.getStatusCode() == 400) {
                 TypeReference<FeedConnections> errorTypeRef = new TypeReference<FeedConnections>() {};
@@ -126,12 +132,12 @@ public class BankFeedsApi {
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/FeedConnections";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/FeedConnections");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(feedConnections);
@@ -164,6 +170,10 @@ public class BankFeedsApi {
             HttpResponse response = createStatementsForHttpResponse(accessToken, xeroTenantId, statements);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : createStatements -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
             if (e.getStatusCode() == 400) {
                 TypeReference<Statements> errorTypeRef = new TypeReference<Statements>() {};
@@ -188,14 +198,14 @@ public class BankFeedsApi {
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
-        headers.setAccept("application/json"); 
+        headers.setAccept("application/jsonapplication/problem+json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Statements";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Statements");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(statements);
@@ -225,6 +235,10 @@ public class BankFeedsApi {
             HttpResponse response = deleteFeedConnectionsForHttpResponse(accessToken, xeroTenantId, feedConnections);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : deleteFeedConnections -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
             handler.execute(e);
         } catch (IOException ioe) {
@@ -248,12 +262,12 @@ public class BankFeedsApi {
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/FeedConnections/DeleteRequests";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/FeedConnections/DeleteRequests");
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("POST " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         content = apiClient.new JacksonJsonHttpContent(feedConnections);
@@ -283,6 +297,10 @@ public class BankFeedsApi {
             HttpResponse response = getFeedConnectionForHttpResponse(accessToken, xeroTenantId, id);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getFeedConnection -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
             handler.execute(e);
         } catch (IOException ioe) {
@@ -305,18 +323,17 @@ public class BankFeedsApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/FeedConnections/{id}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("id", id);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/FeedConnections/{id}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -345,6 +362,10 @@ public class BankFeedsApi {
             HttpResponse response = getFeedConnectionsForHttpResponse(accessToken, xeroTenantId, page, pageSize);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getFeedConnections -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
             handler.execute(e);
         } catch (IOException ioe) {
@@ -365,9 +386,7 @@ public class BankFeedsApi {
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/FeedConnections";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/FeedConnections");
         if (page != null) {
             String key = "page";
             Object value = page;
@@ -391,7 +410,9 @@ public class BankFeedsApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -419,6 +440,10 @@ public class BankFeedsApi {
             HttpResponse response = getStatementForHttpResponse(accessToken, xeroTenantId, statementId);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getStatement -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
             handler.execute(e);
         } catch (IOException ioe) {
@@ -441,18 +466,17 @@ public class BankFeedsApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Statements/{statementId}";
-        
+        headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
         uriVariables.put("statementId", statementId);
 
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Statements/{statementId}");
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
@@ -483,6 +507,10 @@ public class BankFeedsApi {
             HttpResponse response = getStatementsForHttpResponse(accessToken, xeroTenantId, page, pageSize, xeroApplicationId, xeroUserId);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getStatements -------------------");
+                logger.debug(e.toString());
+            }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
             handler.execute(e);
         } catch (IOException ioe) {
@@ -503,11 +531,9 @@ public class BankFeedsApi {
         headers.set("Xero-Tenant-Id", xeroTenantId);
         headers.set("Xero-Application-Id", xeroApplicationId);
         headers.set("Xero-User-Id", xeroUserId);
-        headers.setAccept("application/json"); 
+        headers.setAccept("application/jsonapplication/problem+json"); 
         headers.setUserAgent(this.getUserAgent());
-        
-        String correctPath = "/Statements";
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + correctPath);
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Statements");
         if (page != null) {
             String key = "page";
             Object value = page;
@@ -531,7 +557,9 @@ public class BankFeedsApi {
         }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
-
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
         
         HttpContent content = null;
         Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
