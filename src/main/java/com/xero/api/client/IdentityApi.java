@@ -137,14 +137,15 @@ public class IdentityApi {
     * Allows you to retrieve the connections for this user
     * Override the base server url that include version
     * <p><b>200</b> - Success - return response of type Connections array with 0 to n Connection
+    * @param authEventId Filter by authEventId
     * @param accessToken Authorization token for user set in header of each request
     * @return List&lt;Connection&gt;
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public List<Connection>  getConnections(String accessToken) throws IOException {
+    public List<Connection>  getConnections(String accessToken, UUID authEventId) throws IOException {
         try {
             TypeReference<List<Connection>> typeRef = new TypeReference<List<Connection>>() {};
-            HttpResponse response = getConnectionsForHttpResponse(accessToken);
+            HttpResponse response = getConnectionsForHttpResponse(accessToken, authEventId);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             if (logger.isDebugEnabled()) {
@@ -159,7 +160,7 @@ public class IdentityApi {
         return null;
     }
 
-    public HttpResponse getConnectionsForHttpResponse(String accessToken) throws IOException {
+    public HttpResponse getConnectionsForHttpResponse(String accessToken,  UUID authEventId) throws IOException {
         
         if (accessToken == null) {
             throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getConnections");
@@ -168,6 +169,17 @@ public class IdentityApi {
         headers.setAccept("application/json"); 
         headers.setUserAgent(this.getUserAgent());
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/connections");
+        if (authEventId != null) {
+            String key = "authEventId";
+            Object value = authEventId;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
         String url = uriBuilder.build().toString();
         GenericUrl genericUrl = new GenericUrl(url);
         if (logger.isDebugEnabled()) {
