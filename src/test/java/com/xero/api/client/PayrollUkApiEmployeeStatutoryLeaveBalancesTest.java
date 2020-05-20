@@ -76,7 +76,7 @@ public class PayrollUkApiEmployeeStatutoryLeaveBalancesTest {
         
         assertThat(response.getLeaveBalance().getLeaveType(), is(equalTo(com.xero.models.payrolluk.EmployeeStatutoryLeaveBalance.LeaveTypeEnum.SICK)));
         assertThat(response.getLeaveBalance().getUnits(), is(equalTo(com.xero.models.payrolluk.EmployeeStatutoryLeaveBalance.UnitsEnum.HOURS)));
-        assertThat(response.getLeaveBalance().getBalanceRemaining(), is(equalTo(1120.0f)));
+        assertThat(response.getLeaveBalance().getBalanceRemaining(), is(equalTo(1120.0)));
         
         //System.out.println(response.toString());
     }

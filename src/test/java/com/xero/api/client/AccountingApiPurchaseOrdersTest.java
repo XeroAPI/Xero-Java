@@ -129,8 +129,8 @@ public class AccountingApiPurchaseOrdersTest {
         assertThat(response.getPurchaseOrders().get(0).getContact().getContactID(), is(equalTo(UUID.fromString("430fa14a-f945-44d3-9f97-5df5e28441b8"))));
         assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getLineItemID(), is(equalTo(UUID.fromString("8a9d3eca-e052-43bc-9b87-221d0648c045"))));
         assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getDescription(), is(equalTo("Brand new Fender Strats")));
-        assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0f)));
-        assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(2500.0f)));
+        assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0)));
+        assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(2500.0)));
         assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getItemCode(), is(equalTo("123")));
         assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getTaxType(), is(equalTo("INPUT2")));
         assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getAccountCode(), is(equalTo("630")));
@@ -187,8 +187,8 @@ public class AccountingApiPurchaseOrdersTest {
         assertThat(response.getPurchaseOrders().get(0).getContact().getContactID(), is(equalTo(UUID.fromString("430fa14a-f945-44d3-9f97-5df5e28441b8"))));
         assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getLineItemID(), is(equalTo(UUID.fromString("0f7b54b8-bfa4-4c5d-9c22-73dbd5796e54"))));
         assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getDescription(), is(equalTo("Foobar")));
-        assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0f)));
-        assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(20.0f)));
+        assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0)));
+        assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(20.0)));
         assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getTaxAmount(), is(equalTo(0.0)));
         assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getLineAmount(), is(equalTo(20.0)));
         assertThat(response.getPurchaseOrders().get(0).getDateAsDate(), is(equalTo(LocalDate.of(2019,03,12))));  
@@ -220,8 +220,8 @@ public class AccountingApiPurchaseOrdersTest {
         assertThat(response.getPurchaseOrders().get(0).getContact().getContactID(), is(equalTo(UUID.fromString("430fa14a-f945-44d3-9f97-5df5e28441b8"))));
         assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getLineItemID(), is(equalTo(UUID.fromString("d1d9b2cd-c9f2-4445-8d98-0b8096cf4dae"))));
         assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getDescription(), is(equalTo("Foobar")));
-        assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0f)));
-        assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(20.0f)));
+        assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0)));
+        assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(20.0)));
         assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getTaxType(), is(equalTo("INPUT2")));
         assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getAccountCode(), is(equalTo("710")));
         assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getTaxAmount(), is(equalTo(3.0)));

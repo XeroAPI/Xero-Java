@@ -79,12 +79,12 @@ public class PayrollAuApiPayRunTest {
         assertThat(response.getPayRuns().get(0).getPayRunStatus(), is(equalTo(com.xero.models.payrollau.PayRunStatus.POSTED)));
         assertThat(response.getPayRuns().get(0).getPaymentDateAsDate(), is(equalTo(LocalDate.of(2019,11,8))));
         assertThat(response.getPayRuns().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-13T02:09:30Z"))));    
-        assertThat(response.getPayRuns().get(0).getWages(), is(equalTo(200.0f)));
-        assertThat(response.getPayRuns().get(0).getDeductions(), is(equalTo(33.0f)));
-        assertThat(response.getPayRuns().get(0).getTax(), is(equalTo(78.0f)));
-        assertThat(response.getPayRuns().get(0).getNetPay() , is(equalTo(89.0f)));
-        assertThat(response.getPayRuns().get(0).getSuper() , is(equalTo(0.00f)));
-        assertThat(response.getPayRuns().get(0).getReimbursement() , is(equalTo(22.00f)));
+        assertThat(response.getPayRuns().get(0).getWages(), is(equalTo(200.0)));
+        assertThat(response.getPayRuns().get(0).getDeductions(), is(equalTo(33.0)));
+        assertThat(response.getPayRuns().get(0).getTax(), is(equalTo(78.0)));
+        assertThat(response.getPayRuns().get(0).getNetPay() , is(equalTo(89.0)));
+        assertThat(response.getPayRuns().get(0).getSuper() , is(equalTo(0.00)));
+        assertThat(response.getPayRuns().get(0).getReimbursement() , is(equalTo(22.00)));
         //System.out.println(response.toString());
     }
 
@@ -102,24 +102,24 @@ public class PayrollAuApiPayRunTest {
         assertThat(response.getPayRuns().get(0).getPayRunStatus(), is(equalTo(com.xero.models.payrollau.PayRunStatus.POSTED)));
         assertThat(response.getPayRuns().get(0).getPaymentDateAsDate(), is(equalTo(LocalDate.of(2019,11,8))));
         assertThat(response.getPayRuns().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-14T00:42:35Z"))));    
-        assertThat(response.getPayRuns().get(0).getWages(), is(equalTo(205.4f)));
-        assertThat(response.getPayRuns().get(0).getDeductions(), is(equalTo(37.0f)));
-        assertThat(response.getPayRuns().get(0).getTax(), is(equalTo(0.0f)));
-        assertThat(response.getPayRuns().get(0).getSuper(), is(equalTo(0.0f)));
-        assertThat(response.getPayRuns().get(0).getReimbursement(), is(equalTo(77.0f)));
-        assertThat(response.getPayRuns().get(0).getNetPay(), is(equalTo(168.4f)));
+        assertThat(response.getPayRuns().get(0).getWages(), is(equalTo(205.4)));
+        assertThat(response.getPayRuns().get(0).getDeductions(), is(equalTo(37.0)));
+        assertThat(response.getPayRuns().get(0).getTax(), is(equalTo(0.0)));
+        assertThat(response.getPayRuns().get(0).getSuper(), is(equalTo(0.0)));
+        assertThat(response.getPayRuns().get(0).getReimbursement(), is(equalTo(77.0)));
+        assertThat(response.getPayRuns().get(0).getNetPay(), is(equalTo(168.4)));
         assertThat(response.getPayRuns().get(0).getPayslips().get(0).getEmployeeID(), is(equalTo(UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e"))));
         assertThat(response.getPayRuns().get(0).getPayslips().get(0).getPayslipID(), is(equalTo(UUID.fromString("c81e8bcc-56b0-4740-b46b-767753a6ee45"))));
         assertThat(response.getPayRuns().get(0).getPayslips().get(0).getFirstName(), is(equalTo("Albus")));
         assertThat(response.getPayRuns().get(0).getPayslips().get(0).getLastName(), is(equalTo("Dumbledore")));
         assertThat(response.getPayRuns().get(0).getPayslips().get(0).getEmployeeGroup(), is(equalTo("foo")));
-        assertThat(response.getPayRuns().get(0).getPayslips().get(0).getDeductions(), is(equalTo(4.0f)));
-        assertThat(response.getPayRuns().get(0).getPayslips().get(0).getTax(), is(equalTo(0.0f)));
-        assertThat(response.getPayRuns().get(0).getPayslips().get(0).getReimbursements(), is(equalTo(55.0f)));
-        assertThat(response.getPayRuns().get(0).getPayslips().get(0).getNetPay(), is(equalTo(1.4f)));
-        assertThat(response.getPayRuns().get(0).getPayslips().get(0).getWages(), is(equalTo(5.4f)));
-        assertThat(response.getPayRuns().get(0).getPayslips().get(0).getReimbursements(), is(equalTo(55.0f)));
-        assertThat(response.getPayRuns().get(0).getPayslips().get(0).getSuper(), is(equalTo(0.0f)));
+        assertThat(response.getPayRuns().get(0).getPayslips().get(0).getDeductions(), is(equalTo(4.0)));
+        assertThat(response.getPayRuns().get(0).getPayslips().get(0).getTax(), is(equalTo(0.0)));
+        assertThat(response.getPayRuns().get(0).getPayslips().get(0).getReimbursements(), is(equalTo(55.0)));
+        assertThat(response.getPayRuns().get(0).getPayslips().get(0).getNetPay(), is(equalTo(1.4)));
+        assertThat(response.getPayRuns().get(0).getPayslips().get(0).getWages(), is(equalTo(5.4)));
+        assertThat(response.getPayRuns().get(0).getPayslips().get(0).getReimbursements(), is(equalTo(55.0)));
+        assertThat(response.getPayRuns().get(0).getPayslips().get(0).getSuper(), is(equalTo(0.0)));
         assertThat(response.getPayRuns().get(0).getPayslips().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-14T00:42:35Z")))); 
         
         //System.out.println(response.toString());

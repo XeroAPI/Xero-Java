@@ -73,12 +73,12 @@ public class PayrollUkApiEmployeeOpeningBalancesTest {
         UUID employeeId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
         EmployeeOpeningBalancesObject response = payrollUkApi.getEmployeeOpeningBalances(accessToken, xeroTenantId, employeeId);
         
-        assertThat(response.getOpeningBalances().getStatutoryAdoptionPay() , is(equalTo(10.0f)));
-        assertThat(response.getOpeningBalances().getStatutoryMaternityPay() , is(equalTo(10.0f)));
-        assertThat(response.getOpeningBalances().getStatutoryPaternityPay() , is(equalTo(10.0f)));
-        assertThat(response.getOpeningBalances().getStatutorySharedParentalPay() , is(equalTo(10.0f)));
-        assertThat(response.getOpeningBalances().getStatutorySickPay() , is(equalTo(10.0f)));
-        assertThat(response.getOpeningBalances().getPriorEmployeeNumber() , is(equalTo(10.0f)));
+        assertThat(response.getOpeningBalances().getStatutoryAdoptionPay() , is(equalTo(10.0)));
+        assertThat(response.getOpeningBalances().getStatutoryMaternityPay() , is(equalTo(10.0)));
+        assertThat(response.getOpeningBalances().getStatutoryPaternityPay() , is(equalTo(10.0)));
+        assertThat(response.getOpeningBalances().getStatutorySharedParentalPay() , is(equalTo(10.0)));
+        assertThat(response.getOpeningBalances().getStatutorySickPay() , is(equalTo(10.0)));
+        assertThat(response.getOpeningBalances().getPriorEmployeeNumber() , is(equalTo(10.0)));
         //System.out.println(response.toString());
     }
 

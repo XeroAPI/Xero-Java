@@ -125,8 +125,8 @@ public class AccountingApiInvoicesTest {
         assertThat(response.getInvoices().get(0).getContact().getContactGroups().get(0).getName(), is(equalTo("Oasis")));
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getLineItemID(), is(equalTo(UUID.fromString("5f7a612b-fdcc-4d33-90fa-a9f6bc6db32f"))));
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getDescription(), is(equalTo("Acme Tires")));
-        assertThat(response.getInvoices().get(0).getLineItems().get(0).getQuantity(), is(equalTo(2.0f)));
-        assertThat(response.getInvoices().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(20.0f)));
+        assertThat(response.getInvoices().get(0).getLineItems().get(0).getQuantity(), is(equalTo(2.0)));
+        assertThat(response.getInvoices().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(20.0)));
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getAccountCode(), is(equalTo("200")));
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getTaxType(), is(equalTo("NONE")));
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getTaxAmount(), is(equalTo(0.)));
@@ -175,8 +175,8 @@ public class AccountingApiInvoicesTest {
         assertThat(response.getInvoices().get(0).getContact().getContactGroups().get(0).getName(), is(equalTo("Oasis")));
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getLineItemID(), is(equalTo(UUID.fromString("b18f39d9-7739-4246-9288-72afe939d2d5"))));
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getDescription(), is(equalTo("Guitars Fender Strat")));
-        assertThat(response.getInvoices().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0f)));
-        assertThat(response.getInvoices().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(148062.76f)));
+        assertThat(response.getInvoices().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0)));
+        assertThat(response.getInvoices().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(148062.76)));
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getItemCode(), is(equalTo("123")));
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getAccountCode(), is(equalTo("200")));
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getTaxType(), is(equalTo("NONE")));
@@ -312,8 +312,8 @@ public class AccountingApiInvoicesTest {
         assertThat(response.getInvoices().get(0).getContact().getContactStatus(), is(equalTo(com.xero.models.accounting.Contact.ContactStatusEnum.ACTIVE)));
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getLineItemID(), is(equalTo(UUID.fromString("6de1bf9f-de95-4c47-9287-37305db758c9"))));
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getDescription(), is(equalTo("Light Saber")));
-        assertThat(response.getInvoices().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0f)));
-        assertThat(response.getInvoices().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(500.00f)));
+        assertThat(response.getInvoices().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0)));
+        assertThat(response.getInvoices().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(500.00)));
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getAccountCode(), is(equalTo("200")));
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getTaxType(), is(equalTo("OUTPUT2")));
         assertThat(response.getInvoices().get(0).getLineItems().get(0).getTaxAmount(), is(equalTo(75.0)));

@@ -79,7 +79,7 @@ public class PayrollUkApiEmployeeLeaveBalancesTest {
         assertThat(response.getPagination().getItemCount() , is(equalTo(2)));
         assertThat(response.getLeaveBalances().get(0).getLeaveTypeID(), is(equalTo(UUID.fromString("ed08dffe-788e-4b24-9630-f0fa2f4d164c"))));
         assertThat(response.getLeaveBalances().get(0).getName() , is(equalTo("Holiday")));
-        assertThat(response.getLeaveBalances().get(0).getBalance() , is(equalTo(32.0f)));
+        assertThat(response.getLeaveBalances().get(0).getBalance() , is(equalTo(32.0)));
         assertThat(response.getLeaveBalances().get(0).getTypeOfUnits() , is(equalTo("Hours")));
       
         //System.out.println(response.toString());

@@ -77,8 +77,8 @@ public class PayrollUkApiEmployeeTaxTest {
         assertThat(response.getEmployeeTax().getStarterDeclaration() , is(equalTo("B.) This is currently their only job")));
         assertThat(response.getEmployeeTax().getTaxCode() , is(equalTo("1185L")));
         assertThat(response.getEmployeeTax().getW1M1() , is(equalTo(false)));
-        assertThat(response.getEmployeeTax().getPreviousTaxPaid() , is(equalTo(200.0f)));
-        assertThat(response.getEmployeeTax().getPreviousTaxablePay() , is(equalTo(2000.0f)));
+        assertThat(response.getEmployeeTax().getPreviousTaxPaid() , is(equalTo(200.0)));
+        assertThat(response.getEmployeeTax().getPreviousTaxablePay() , is(equalTo(2000.0)));
         assertThat(response.getEmployeeTax().getHasPostGraduateLoans() , is(equalTo(false)));
         assertThat(response.getEmployeeTax().getIsDirector() , is(equalTo(false)));
         

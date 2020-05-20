@@ -93,7 +93,7 @@ public class AccountingApi {
     private ApiClient apiClient;
     private static AccountingApi instance = null;
     private String userAgent = "Default";
-    private String version = "4.0.1";
+    private String version = "4.0.2";
     final static Logger logger = LoggerFactory.getLogger(AccountingApi.class);
 
     public AccountingApi() {
@@ -6784,6 +6784,68 @@ public class AccountingApi {
     }
 
   /**
+    * Allows you to retrieve a single contact by Contact Number in a Xero organisation
+    * <p><b>200</b> - Success - return response of type Contacts array with a unique Contact
+    * @param xeroTenantId Xero identifier for Tenant
+    * @param contactNumber This field is read only on the Xero contact screen, used to identify contacts in external systems (max length &#x3D; 50).
+    * @param accessToken Authorization token for user set in header of each request
+    * @return Contacts
+    * @throws IOException if an error occurs while attempting to invoke the API
+    **/
+    public Contacts  getContactByContactNumber(String accessToken, String xeroTenantId, String contactNumber) throws IOException {
+        try {
+            TypeReference<Contacts> typeRef = new TypeReference<Contacts>() {};
+            HttpResponse response = getContactByContactNumberForHttpResponse(accessToken, xeroTenantId, contactNumber);
+            return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+        } catch (HttpResponseException e) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getContactByContactNumber -------------------");
+                logger.debug(e.toString());
+            }
+            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+            handler.execute(e);
+        } catch (IOException ioe) {
+            throw ioe;
+        }
+        return null;
+    }
+
+    public HttpResponse getContactByContactNumberForHttpResponse(String accessToken,  String xeroTenantId,  String contactNumber) throws IOException {
+        // verify the required parameter 'xeroTenantId' is set
+        if (xeroTenantId == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getContactByContactNumber");
+        }// verify the required parameter 'contactNumber' is set
+        if (contactNumber == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'contactNumber' when calling getContactByContactNumber");
+        }
+        if (accessToken == null) {
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getContactByContactNumber");
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("xero-tenant-id", xeroTenantId);
+        headers.setAccept("application/json"); 
+        headers.setUserAgent(this.getUserAgent()); 
+        // create a map of path variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("ContactNumber", contactNumber);
+
+        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Contacts/{ContactNumber}");
+        String url = uriBuilder.buildFromMap(uriVariables).toString();
+        GenericUrl genericUrl = new GenericUrl(url);
+        if (logger.isDebugEnabled()) {
+            logger.debug("GET " + genericUrl.toString());
+        }
+        
+        HttpContent content = null;
+        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+        HttpTransport transport = apiClient.getHttpTransport();       
+        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
+            .setConnectTimeout(apiClient.getConnectionTimeout())
+            .setReadTimeout(apiClient.getReadTimeout()).execute();  
+    }
+
+  /**
     * Allows you to retrieve CISSettings for a contact in a Xero organisation
     * <p><b>200</b> - Success - return response of type CISSettings for a specific Contact
     * @param xeroTenantId Xero identifier for Tenant
@@ -10354,70 +10416,6 @@ public class AccountingApi {
         HttpHeaders headers = new HttpHeaders();
         headers.set("xero-tenant-id", xeroTenantId);
         headers.setAccept("application/json"); 
-        headers.setUserAgent(this.getUserAgent()); 
-        // create a map of path variables
-        final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("PrepaymentID", prepaymentID);
-
-        UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Prepayments/{PrepaymentID}");
-        String url = uriBuilder.buildFromMap(uriVariables).toString();
-        GenericUrl genericUrl = new GenericUrl(url);
-        if (logger.isDebugEnabled()) {
-            logger.debug("GET " + genericUrl.toString());
-        }
-        
-        HttpContent content = null;
-        Credential credential = new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
-        HttpTransport transport = apiClient.getHttpTransport();       
-        HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
-        return requestFactory.buildRequest(HttpMethods.GET, genericUrl, content).setHeaders(headers)
-            .setConnectTimeout(apiClient.getConnectionTimeout())
-            .setReadTimeout(apiClient.getReadTimeout()).execute();  
-    }
-
-  /**
-    * Allows you to retrieve prepayments as PDF files
-    * <p><b>200</b> - Success - return response of byte array pdf version of specified Prepayments
-    * @param xeroTenantId Xero identifier for Tenant
-    * @param prepaymentID Unique identifier for a PrePayment
-    * @param accessToken Authorization token for user set in header of each request
-    * @return File
-    * @throws IOException if an error occurs while attempting to invoke the API
-    **/
-    public ByteArrayInputStream  getPrepaymentAsPdf(String accessToken, String xeroTenantId, UUID prepaymentID) throws IOException {
-        try {
-            TypeReference<File> typeRef = new TypeReference<File>() {};
-            HttpResponse response = getPrepaymentAsPdfForHttpResponse(accessToken, xeroTenantId, prepaymentID);
-            InputStream is = response.getContent();
-            return convertInputToByteArray(is);
-
-        } catch (HttpResponseException e) {
-            if (logger.isDebugEnabled()) {
-                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getPrepaymentAsPdf -------------------");
-                logger.debug(e.toString());
-            }
-            XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-            handler.execute(e);
-        } catch (IOException ioe) {
-            throw ioe;
-        }
-        return null;
-    }
-
-    public HttpResponse getPrepaymentAsPdfForHttpResponse(String accessToken,  String xeroTenantId,  UUID prepaymentID) throws IOException {
-        // verify the required parameter 'xeroTenantId' is set
-        if (xeroTenantId == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getPrepaymentAsPdf");
-        }// verify the required parameter 'prepaymentID' is set
-        if (prepaymentID == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'prepaymentID' when calling getPrepaymentAsPdf");
-        }
-        if (accessToken == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getPrepaymentAsPdf");
-        }
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("xero-tenant-id", xeroTenantId);
-        headers.setAccept("application/pdf"); 
         headers.setUserAgent(this.getUserAgent()); 
         // create a map of path variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();

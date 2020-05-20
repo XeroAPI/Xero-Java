@@ -81,7 +81,7 @@ public class PayrollUkApiEmployeeLeaveTest {
         assertThat(response.getLeave().get(0).getEndDate(), is(equalTo(LocalDate.of(2020, 02, 21))));
         assertThat(response.getLeave().get(0).getPeriods().get(0).getPeriodStartDate(), is(equalTo(LocalDate.of(2020, 02, 17))));
         assertThat(response.getLeave().get(0).getPeriods().get(0).getPeriodEndDate(), is(equalTo(LocalDate.of(2020, 02, 23))));
-        assertThat(response.getLeave().get(0).getPeriods().get(0).getNumberOfUnits(), is(equalTo(40.0f)));
+        assertThat(response.getLeave().get(0).getPeriods().get(0).getNumberOfUnits(), is(equalTo(40.0)));
         assertThat(response.getLeave().get(0).getPeriods().get(0).getPeriodStatus(), is(equalTo(com.xero.models.payrolluk.LeavePeriod.PeriodStatusEnum.APPROVED)));
         assertThat(response.getLeave().get(0).getUpdatedDateUTC(), is(equalTo(LocalDateTime.of(2020, 02, 10, 10, 15, 53) )));  
         
@@ -104,7 +104,7 @@ public class PayrollUkApiEmployeeLeaveTest {
         assertThat(response.getLeave().getEndDate(), is(equalTo(LocalDate.of(2020, 03, 26))));
         assertThat(response.getLeave().getPeriods().get(0).getPeriodStartDate(), is(equalTo(LocalDate.of(2020, 03, 23))));
         assertThat(response.getLeave().getPeriods().get(0).getPeriodEndDate(), is(equalTo(LocalDate.of(2020, 03, 29))));
-        assertThat(response.getLeave().getPeriods().get(0).getNumberOfUnits(), is(equalTo(24.0f)));
+        assertThat(response.getLeave().getPeriods().get(0).getNumberOfUnits(), is(equalTo(24.0)));
         assertThat(response.getLeave().getPeriods().get(0).getPeriodStatus(), is(equalTo(com.xero.models.payrolluk.LeavePeriod.PeriodStatusEnum.APPROVED)));
         assertThat(response.getLeave().getUpdatedDateUTC(), is(equalTo(LocalDateTime.of(2020, 03, 31, 04, 32, 56, 953785700) )));  
        
@@ -126,7 +126,7 @@ public class PayrollUkApiEmployeeLeaveTest {
         assertThat(response.getLeave().getEndDate(), is(equalTo(LocalDate.of(2020, 02, 21))));
         assertThat(response.getLeave().getPeriods().get(0).getPeriodStartDate(), is(equalTo(LocalDate.of(2020, 02, 17))));
         assertThat(response.getLeave().getPeriods().get(0).getPeriodEndDate(), is(equalTo(LocalDate.of(2020, 02, 23))));
-        assertThat(response.getLeave().getPeriods().get(0).getNumberOfUnits(), is(equalTo(40.0f)));
+        assertThat(response.getLeave().getPeriods().get(0).getNumberOfUnits(), is(equalTo(40.0)));
         assertThat(response.getLeave().getPeriods().get(0).getPeriodStatus(), is(equalTo(com.xero.models.payrolluk.LeavePeriod.PeriodStatusEnum.APPROVED)));
         assertThat(response.getLeave().getUpdatedDateUTC(), is(equalTo(LocalDateTime.of(2020, 02, 10, 10, 15, 53) )));  
        
@@ -150,7 +150,7 @@ public class PayrollUkApiEmployeeLeaveTest {
         assertThat(response.getLeave().getEndDate(), is(equalTo(LocalDate.of(2020, 04, 26))));
         assertThat(response.getLeave().getPeriods().get(0).getPeriodStartDate(), is(equalTo(LocalDate.of(2020, 04, 20))));
         assertThat(response.getLeave().getPeriods().get(0).getPeriodEndDate(), is(equalTo(LocalDate.of(2020, 04, 26))));
-        assertThat(response.getLeave().getPeriods().get(0).getNumberOfUnits(), is(equalTo(1.0f)));
+        assertThat(response.getLeave().getPeriods().get(0).getNumberOfUnits(), is(equalTo(1.0)));
         assertThat(response.getLeave().getPeriods().get(0).getPeriodStatus(), is(equalTo(com.xero.models.payrolluk.LeavePeriod.PeriodStatusEnum.APPROVED)));
         //assertThat(response.getLeave().getUpdatedDateUTC(), is(equalTo(LocalDateTime.of(2020, 04, 17, 18, 18, 30).plus(614537, ChronoUnit.MICROS) )));  
         
