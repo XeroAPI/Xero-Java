@@ -77,7 +77,7 @@ public class PayrollUkApiEmployeeLeavePeriodsTest {
         
         assertThat(response.getPeriods().get(0).getPeriodStartDate(),  is(equalTo(LocalDate.of(2020, 02, 24))));
         assertThat(response.getPeriods().get(0).getPeriodEndDate(),  is(equalTo(LocalDate.of(2020, 03, 01))));
-        assertThat(response.getPeriods().get(0).getNumberOfUnits() , is(equalTo(40.0f)));
+        assertThat(response.getPeriods().get(0).getNumberOfUnits() , is(equalTo(40.0)));
         
         //System.out.println(response.toString());
     }

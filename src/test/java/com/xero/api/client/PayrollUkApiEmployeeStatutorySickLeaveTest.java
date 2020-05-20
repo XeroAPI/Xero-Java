@@ -83,9 +83,9 @@ public class PayrollUkApiEmployeeStatutorySickLeaveTest {
         assertThat(response.getStatutorySickLeave().getIsPregnancyRelated(),is(equalTo(false)));
         assertThat(response.getStatutorySickLeave().getSufficientNotice(),is(equalTo(true)));
         assertThat(response.getStatutorySickLeave().getIsEntitled(),is(equalTo(false)));
-        assertThat(response.getStatutorySickLeave().getEntitlementWeeksRequested(),is(equalTo(0.8f)));
-        assertThat(response.getStatutorySickLeave().getEntitlementWeeksQualified(),is(equalTo(27.2f)));
-        assertThat(response.getStatutorySickLeave().getEntitlementWeeksRemaining(),is(equalTo(26.4f)));
+        assertThat(response.getStatutorySickLeave().getEntitlementWeeksRequested(),is(equalTo(0.8)));
+        assertThat(response.getStatutorySickLeave().getEntitlementWeeksQualified(),is(equalTo(27.2)));
+        assertThat(response.getStatutorySickLeave().getEntitlementWeeksRemaining(),is(equalTo(26.4)));
         assertThat(response.getStatutorySickLeave().getOverlapsWithOtherLeave(),is(equalTo(false)));
         assertThat(response.getStatutorySickLeave().getEntitlementFailureReasons().get(0),is(equalTo(com.xero.models.payrolluk.EmployeeStatutorySickLeave.EntitlementFailureReasonsEnum.NOTQUALIFIEDINPREVIOUSPIW)));
 
@@ -108,9 +108,9 @@ public class PayrollUkApiEmployeeStatutorySickLeaveTest {
         assertThat(response.getStatutorySickLeave().getIsPregnancyRelated(),is(equalTo(false)));
         assertThat(response.getStatutorySickLeave().getSufficientNotice(),is(equalTo(true)));
         assertThat(response.getStatutorySickLeave().getIsEntitled(),is(equalTo(false)));
-        assertThat(response.getStatutorySickLeave().getEntitlementWeeksRequested(),is(equalTo(0.6f)));
-        assertThat(response.getStatutorySickLeave().getEntitlementWeeksQualified(),is(equalTo(28.0f)));
-        assertThat(response.getStatutorySickLeave().getEntitlementWeeksRemaining(),is(equalTo(0.0f)));
+        assertThat(response.getStatutorySickLeave().getEntitlementWeeksRequested(),is(equalTo(0.6)));
+        assertThat(response.getStatutorySickLeave().getEntitlementWeeksQualified(),is(equalTo(28.0)));
+        assertThat(response.getStatutorySickLeave().getEntitlementWeeksRemaining(),is(equalTo(0.0)));
         assertThat(response.getStatutorySickLeave().getOverlapsWithOtherLeave(),is(equalTo(false)));
         assertThat(response.getStatutorySickLeave().getEntitlementFailureReasons().get(0),is(equalTo(com.xero.models.payrolluk.EmployeeStatutorySickLeave.EntitlementFailureReasonsEnum.AWELOWERTHANLEL)));
         //System.out.println(response.toString());

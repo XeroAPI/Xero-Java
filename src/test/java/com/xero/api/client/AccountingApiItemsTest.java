@@ -113,16 +113,16 @@ public class AccountingApiItemsTest {
         assertThat(response.getItems().get(0).getIsPurchased(), is(equalTo(true)));
         assertThat(response.getItems().get(0).getDescription(), is(equalTo("Guitars Fender Strat")));
         assertThat(response.getItems().get(0).getPurchaseDescription(), is(equalTo("Brand new Fender Strats")));
-        assertThat(response.getItems().get(0).getPurchaseDetails().getUnitPrice(), is(equalTo(2500.0f)));
+        assertThat(response.getItems().get(0).getPurchaseDetails().getUnitPrice(), is(equalTo(2500.0)));
         assertThat(response.getItems().get(0).getPurchaseDetails().getCoGSAccountCode(), is(equalTo("310")));
         assertThat(response.getItems().get(0).getPurchaseDetails().getTaxType(), is(equalTo("INPUT2")));
-        assertThat(response.getItems().get(0).getSalesDetails().getUnitPrice(), is(equalTo(5000.0f)));
+        assertThat(response.getItems().get(0).getSalesDetails().getUnitPrice(), is(equalTo(5000.0)));
         assertThat(response.getItems().get(0).getSalesDetails().getAccountCode(), is(equalTo("200")));
         assertThat(response.getItems().get(0).getSalesDetails().getTaxType(), is(equalTo("OUTPUT2")));
         assertThat(response.getItems().get(0).getIsTrackedAsInventory(), is(equalTo(true)));
         assertThat(response.getItems().get(0).getTotalCostPool(), is(equalTo(25000.0)));
         assertThat(response.getItems().get(0).getTotalCostPool().toString(), is(equalTo("25000.0")));
-        assertThat(response.getItems().get(0).getQuantityOnHand(), is(equalTo(10.0f)));
+        assertThat(response.getItems().get(0).getQuantityOnHand(), is(equalTo(10.0)));
         assertThat(response.getItems().get(0).getQuantityOnHand().toString(), is(equalTo("10.0")));
         assertThat(response.getItems().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-03-11T19:41:49.387Z"))));
         assertThat(response.getItems().get(0).getItemID(), is(equalTo(UUID.fromString("c8c54d65-f3f2-452d-926e-bf450b12fb07"))));
@@ -144,7 +144,7 @@ public class AccountingApiItemsTest {
         assertThat(response.getItems().get(0).getIsSold(), is(equalTo(true)));
         assertThat(response.getItems().get(0).getIsPurchased(), is(equalTo(false)));
         assertThat(response.getItems().get(0).getDescription(), is(equalTo("Guitars Fender Strat")));
-        assertThat(response.getItems().get(0).getSalesDetails().getUnitPrice(), is(equalTo(5000.0f)));
+        assertThat(response.getItems().get(0).getSalesDetails().getUnitPrice(), is(equalTo(5000.0)));
         assertThat(response.getItems().get(0).getSalesDetails().getAccountCode(), is(equalTo("200")));
         assertThat(response.getItems().get(0).getSalesDetails().getTaxType(), is(equalTo("OUTPUT2")));
         assertThat(response.getItems().get(0).getIsTrackedAsInventory(), is(equalTo(false)));

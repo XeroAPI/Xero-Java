@@ -154,20 +154,20 @@ public class PayrollAuApiEmployeeTest {
         // PAY TEMPLATE > EARNINGS LINES
         assertThat(response.getEmployees().get(0).getPayTemplate().getEarningsLines().get(0).getEarningsRateID(), is(equalTo(UUID.fromString("ab874dfb-ab09-4c91-954e-43acf6fc23b4"))));
         assertThat(response.getEmployees().get(0).getPayTemplate().getEarningsLines().get(0).getCalculationType(), is(equalTo(com.xero.models.payrollau.EarningsRateCalculationType.USEEARNINGSRATE)));
-        assertThat(response.getEmployees().get(0).getPayTemplate().getEarningsLines().get(0).getNormalNumberOfUnits(), is(equalTo(3.0f)));
+        assertThat(response.getEmployees().get(0).getPayTemplate().getEarningsLines().get(0).getNormalNumberOfUnits(), is(equalTo(3.0)));
         // PAY TEMPLATE > DEDUCTION LINES
         assertThat(response.getEmployees().get(0).getPayTemplate().getDeductionLines().get(0).getDeductionTypeID(), is(equalTo(UUID.fromString("ed05ea82-e40a-4eb6-9c2e-4b3c03e7e938"))));
         assertThat(response.getEmployees().get(0).getPayTemplate().getDeductionLines().get(0).getCalculationType(), is(equalTo(com.xero.models.payrollau.DeductionTypeCalculationType.FIXEDAMOUNT)));
-        assertThat(response.getEmployees().get(0).getPayTemplate().getDeductionLines().get(0).getAmount(), is(equalTo(4.0f)));
+        assertThat(response.getEmployees().get(0).getPayTemplate().getDeductionLines().get(0).getAmount(), is(equalTo(4.0)));
         //PAY TEMPLATE > SUPERLINES
-        assertThat(response.getEmployees().get(0).getPayTemplate().getSuperLines().get(0).getMinimumMonthlyEarnings(), is(equalTo(450.0f)));
+        assertThat(response.getEmployees().get(0).getPayTemplate().getSuperLines().get(0).getMinimumMonthlyEarnings(), is(equalTo(450.0)));
         assertThat(response.getEmployees().get(0).getPayTemplate().getSuperLines().get(0).getExpenseAccountCode(), is(equalTo("478")));
         assertThat(response.getEmployees().get(0).getPayTemplate().getSuperLines().get(0).getLiabilityAccountCode(), is(equalTo("826")));
         assertThat(response.getEmployees().get(0).getPayTemplate().getSuperLines().get(0).getCalculationType(), is(equalTo(com.xero.models.payrollau.SuperannuationCalculationType.STATUTORY)));
         assertThat(response.getEmployees().get(0).getPayTemplate().getSuperLines().get(0).getContributionType(), is(equalTo(com.xero.models.payrollau.SuperannuationContributionType.SGC)));        
         // PAY TEMPLATE > REMIMBURSEMENT
         assertThat(response.getEmployees().get(0).getPayTemplate().getReimbursementLines().get(0).getReimbursementTypeID(), is(equalTo(UUID.fromString("aa8cfa40-d872-4be0-8a94-bb7f00962f74"))));
-        assertThat(response.getEmployees().get(0).getPayTemplate().getReimbursementLines().get(0).getAmount(), is(equalTo(55.0f)));
+        assertThat(response.getEmployees().get(0).getPayTemplate().getReimbursementLines().get(0).getAmount(), is(equalTo(55.0)));
         assertThat(response.getEmployees().get(0).getPayTemplate().getReimbursementLines().get(0).getDescription(), is(equalTo("boo")));
         
         // PAY TEMPLATE > LEAVE LINES
@@ -179,11 +179,11 @@ public class PayrollAuApiEmployeeTest {
         assertThat(response.getEmployees().get(0).getOpeningBalances().getOpeningBalanceDateAsDate(), is(equalTo(LocalDate.of(2019,11,13))));
         // OPENING BALANCES > LEAVE LINES
         assertThat(response.getEmployees().get(0).getOpeningBalances().getLeaveLines().get(0).getLeaveTypeID(), is(equalTo(UUID.fromString("184ea8f7-d143-46dd-bef3-0c60e1aa6fca"))));
-        assertThat(response.getEmployees().get(0).getOpeningBalances().getLeaveLines().get(0).getNumberOfUnits(), is(equalTo(10.0f)));        
+        assertThat(response.getEmployees().get(0).getOpeningBalances().getLeaveLines().get(0).getNumberOfUnits(), is(equalTo(10.0)));        
         
         // LEAVE BALANCES
         assertThat(response.getEmployees().get(0).getLeaveBalances().get(0).getLeaveName(), is(equalTo("Carer Leave (unpaid)")));
-        assertThat(response.getEmployees().get(0).getLeaveBalances().get(0).getNumberOfUnits(), is(equalTo(10.0f)));
+        assertThat(response.getEmployees().get(0).getLeaveBalances().get(0).getNumberOfUnits(), is(equalTo(10.0)));
         assertThat(response.getEmployees().get(0).getLeaveBalances().get(0).getTypeOfUnits(), is(equalTo("Hours")));
         // UUID showing as Boolean?
         //assertThat(response.getEmployees().get(0).getLeaveBalances().get(0).getLeaveTypeID(), is(equalTo(UUID.fromString("184ea8f7-d143-46dd-bef3-0c60e1aa6fca"))));

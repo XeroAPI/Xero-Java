@@ -110,8 +110,8 @@ public class AccountingApiCreditNotesTest {
         assertThat(response.getCreditNotes().get(0).getCurrencyCode(), is(equalTo(com.xero.models.accounting.CurrencyCode.NZD)));
         assertThat(response.getCreditNotes().get(0).getLineAmountTypes(), is(equalTo(com.xero.models.accounting.LineAmountTypes.EXCLUSIVE)));
         assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getDescription(), is(equalTo("Foobar")));
-        assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getQuantity(), is(equalTo(2.0f)));
-        assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(20.0f)));
+        assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getQuantity(), is(equalTo(2.0)));
+        assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(20.0)));
         assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getTaxType(), is(equalTo("INPUT2")));
         assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getAccountCode(), is(equalTo("400")));
         assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getTaxAmount(), is(equalTo(6.0)));
@@ -253,8 +253,8 @@ public class AccountingApiCreditNotesTest {
         assertThat(response.getCreditNotes().get(0).getStatus(), is(equalTo(com.xero.models.accounting.CreditNote.StatusEnum.AUTHORISED)));
         assertThat(response.getCreditNotes().get(0).getLineAmountTypes(), is(equalTo(com.xero.models.accounting.LineAmountTypes.EXCLUSIVE)));
         assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getDescription(), is(equalTo("Foobar")));
-        assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getQuantity(), is(equalTo(2.0f)));
-        assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(20.0f)));
+        assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getQuantity(), is(equalTo(2.0)));
+        assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(20.0)));
         assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getTaxType(), is(equalTo("INPUT2")));
         assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getAccountCode(), is(equalTo("400")));
         assertThat(response.getCreditNotes().get(0).getLineItems().get(0).getTaxAmount(), is(equalTo(6.0)));
