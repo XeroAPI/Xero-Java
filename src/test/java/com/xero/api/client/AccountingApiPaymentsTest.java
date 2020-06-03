@@ -141,7 +141,7 @@ public class AccountingApiPaymentsTest {
         OffsetDateTime ifModifiedSince = null;
         String where = null;
         String order = null;
-        Payments response = accountingApi.getPayments(accessToken,xeroTenantId,ifModifiedSince, where, order);
+        Payments response = accountingApi.getPayments(accessToken,xeroTenantId,ifModifiedSince, where, order,1);
 
         assertThat(response.getPayments().get(0).getInvoice().getInvoiceNumber(), is(equalTo("INV-0002")));
         assertThat(response.getPayments().get(0).getAccount().getCode(), is(equalTo("970")));

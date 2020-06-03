@@ -54,7 +54,7 @@ public class ProjectApi {
     private ApiClient apiClient;
     private static ProjectApi instance = null;
     private String userAgent = "Default";
-    private String version = "4.0.2";
+    private String version = "4.1.0";
     final static Logger logger = LoggerFactory.getLogger(ProjectApi.class);
 
     public ProjectApi() {
@@ -614,7 +614,7 @@ public class ProjectApi {
     * @param projectId You can specify an individual project by appending the projectId to the endpoint
     * @param page Set to 1 by default. The requested number of the page in paged response - Must be a number greater than 0.
     * @param pageSize Optional, it is set to 50 by default. The number of items to return per page in a paged response - Must be a number between 1 and 500.
-    * @param taskIds taskIds Search for all tasks that match a comma separated list of taskIds, i.e. GET https://.../tasks?taskIds&#x3D;{taskId},{taskId}
+    * @param taskIds taskIdsSearch for all tasks that match a comma separated list of taskIds, i.e. GET https://.../tasks?taskIds&#x3D;{taskId},{taskId}
     * @param accessToken Authorization token for user set in header of each request
     * @return Tasks
     * @throws IOException if an error occurs while attempting to invoke the API
@@ -715,7 +715,7 @@ public class ProjectApi {
     * @param contactId Finds all time entries for this contact identifier.
     * @param page Set to 1 by default. The requested number of the page in paged response - Must be a number greater than 0.
     * @param pageSize Optional, it is set to 50 by default. The number of items to return per page in a paged response - Must be a number between 1 and 500.
-    * @param states Comma-separated list of states to find. Will find all time entries that are in the status of whatever’s specified. 
+    * @param states Comma-separated list of states to find. Will find all time entries that are in the status of whatever’s specified.
     * @param isChargeable Finds all time entries which relate to tasks with the charge type &#x60;TIME&#x60; or &#x60;FIXED&#x60;.
     * @param dateAfterUtc ISO 8601 UTC date. Finds all time entries on or after this date filtered on the &#x60;dateUtc&#x60; field.
     * @param dateBeforeUtc ISO 8601 UTC date. Finds all time entries on or before this date filtered on the &#x60;dateUtc&#x60; field.

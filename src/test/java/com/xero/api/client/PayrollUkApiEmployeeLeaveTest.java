@@ -152,7 +152,7 @@ public class PayrollUkApiEmployeeLeaveTest {
         assertThat(response.getLeave().getPeriods().get(0).getPeriodEndDate(), is(equalTo(LocalDate.of(2020, 04, 26))));
         assertThat(response.getLeave().getPeriods().get(0).getNumberOfUnits(), is(equalTo(1.0)));
         assertThat(response.getLeave().getPeriods().get(0).getPeriodStatus(), is(equalTo(com.xero.models.payrolluk.LeavePeriod.PeriodStatusEnum.APPROVED)));
-        //assertThat(response.getLeave().getUpdatedDateUTC(), is(equalTo(LocalDateTime.of(2020, 04, 17, 18, 18, 30).plus(614537, ChronoUnit.MICROS) )));  
+        assertThat(response.getLeave().getUpdatedDateUTC(), is(equalTo(LocalDateTime.of(2020, 04, 17, 18, 18, 30).plusNanos(614537000) ))); 
         
         //System.out.println(response.toString());
     }
