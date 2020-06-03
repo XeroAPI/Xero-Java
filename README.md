@@ -10,7 +10,7 @@ Version 4.x and higher of Xero Java SDK only supports OAuth2 authentication and 
 * fixed asset 
 * projects
 * payroll au
-* payroll uk - beta
+* payroll uk
 
 Coming soon 
 * payroll nz
@@ -176,7 +176,6 @@ try {
 
 ### Logging
 We've replace a specific logging plugin (org.apache.logging.log4j) with a logging facade org.slf4j. With version 4.x we'll use SLF4J and allow you to plug in the logging library of your choice at deployment time. This [blog post](https://www.baeldung.com/slf4j-with-log4j2-logback) explains how to add log4j2 for logging. To configure, add a log4j.properties file to the Resources directory.
-
 
 
 ## Looking for version 3.x of the SDK?
