@@ -75,10 +75,31 @@ public class PayrollUkApiEmployeeLeaveTypesTest {
         LocalDate endDate = LocalDate.of(2020, Month.MARCH, 30);
         EmployeeLeaveTypes response = payrollUkApi.getEmployeeLeaveTypes(accessToken, xeroTenantId, employeeId);
         
-        // assertThat(response.getLeaveTypes().get(0).getPeriodStartDate(),  is(equalTo(LocalDate.of(2020, 02, 24))));
-        // assertThat(response.getLeaveTypes().get(0).getPeriodEndDate(),  is(equalTo(LocalDate.of(2020, 03, 01))));
-        // assertThat(response.getLeaveTypes().get(0).getNumberOfUnits() , is(equalTo(40.0)));
+        assertThat(response.getLeaveTypes().get(0).getLeaveTypeID(), is(equalTo(UUID.fromString("ed08dffe-788e-4b24-9630-f0fa2f4d164c"))));
+        assertThat(response.getLeaveTypes().get(0).getScheduleOfAccrual(), is(equalTo(com.xero.models.payrolluk.EmployeeLeaveType.ScheduleOfAccrualEnum.ONANNIVERSARYDATE)));
+        assertThat(response.getLeaveTypes().get(0).getHoursAccruedAnnually(), is(equalTo(200.0)));
+        assertThat(response.getLeaveTypes().get(0).getMaximumToAccrue(), is(equalTo(0.0)));
+        assertThat(response.getLeaveTypes().get(0).getOpeningBalance(), is(equalTo(72.0)));
+        assertThat(response.getLeaveTypes().get(0).getRateAccruedHourly(), is(equalTo(0.0)));
+
+        //System.out.println(response.toString());
+    }
+
+    @Test
+    public void createEmployeeLeaveTypesTest() throws IOException {
+        System.out.println("@Test UK Payroll - createEmployeeLeaveTypesTest");
         
-        System.out.println(response.toString());
+        UUID employeeId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
+        EmployeeLeaveType employeeLeaveType  = new EmployeeLeaveType();
+        EmployeeLeaveTypeObject response = payrollUkApi.createEmployeeLeaveType(accessToken, xeroTenantId, employeeId, employeeLeaveType);
+        
+        assertThat(response.getLeaveType().getLeaveTypeID(), is(equalTo(UUID.fromString("4918f233-bd31-43f9-9633-bcc6de1178f2"))));
+        assertThat(response.getLeaveType().getScheduleOfAccrual(), is(equalTo(com.xero.models.payrolluk.EmployeeLeaveType.ScheduleOfAccrualEnum.BEGINNINGOFCALENDARYEAR)));
+        assertThat(response.getLeaveType().getHoursAccruedAnnually(), is(equalTo(10.0)));
+        assertThat(response.getLeaveType().getMaximumToAccrue(), is(equalTo(0.0)));
+        assertThat(response.getLeaveType().getOpeningBalance(), is(equalTo(0.0)));
+        assertThat(response.getLeaveType().getRateAccruedHourly(), is(equalTo(0.0)));
+
+        //System.out.println(response.toString());
     }
 }

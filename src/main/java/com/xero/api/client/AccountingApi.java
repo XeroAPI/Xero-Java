@@ -93,7 +93,7 @@ public class AccountingApi {
     private ApiClient apiClient;
     private static AccountingApi instance = null;
     private String userAgent = "Default";
-    private String version = "4.0.2";
+    private String version = "4.1.0";
     final static Logger logger = LoggerFactory.getLogger(AccountingApi.class);
 
     public AccountingApi() {
@@ -10301,14 +10301,15 @@ public class AccountingApi {
     * @param ifModifiedSince Only records created or modified since this timestamp will be returned
     * @param where Filter by an any element
     * @param order Order by an any element
+    * @param page Up to 100 payments will be returned in a single API call
     * @param accessToken Authorization token for user set in header of each request
     * @return Payments
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Payments  getPayments(String accessToken, String xeroTenantId, OffsetDateTime ifModifiedSince, String where, String order) throws IOException {
+    public Payments  getPayments(String accessToken, String xeroTenantId, OffsetDateTime ifModifiedSince, String where, String order, Integer page) throws IOException {
         try {
             TypeReference<Payments> typeRef = new TypeReference<Payments>() {};
-            HttpResponse response = getPaymentsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order);
+            HttpResponse response = getPaymentsForHttpResponse(accessToken, xeroTenantId, ifModifiedSince, where, order, page);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             if (logger.isDebugEnabled()) {
@@ -10323,7 +10324,7 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse getPaymentsForHttpResponse(String accessToken,  String xeroTenantId,  OffsetDateTime ifModifiedSince,  String where,  String order) throws IOException {
+    public HttpResponse getPaymentsForHttpResponse(String accessToken,  String xeroTenantId,  OffsetDateTime ifModifiedSince,  String where,  String order,  Integer page) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getPayments");
@@ -10352,6 +10353,16 @@ public class AccountingApi {
         }        if (order != null) {
             String key = "order";
             Object value = order;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }        if (page != null) {
+            String key = "page";
+            Object value = page;
             if (value instanceof Collection) {
                 uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
             } else if (value instanceof Object[]) {

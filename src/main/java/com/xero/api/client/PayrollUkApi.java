@@ -27,6 +27,7 @@ import com.xero.models.payrolluk.EmployeeObject;
 import com.xero.models.payrolluk.EmployeeOpeningBalances;
 import com.xero.models.payrolluk.EmployeeOpeningBalancesObject;
 import com.xero.models.payrolluk.EmployeePayTemplateObject;
+import com.xero.models.payrolluk.EmployeePayTemplates;
 import com.xero.models.payrolluk.EmployeeStatutoryLeaveBalanceObject;
 import com.xero.models.payrolluk.EmployeeStatutoryLeavesSummaries;
 import com.xero.models.payrolluk.EmployeeStatutorySickLeave;
@@ -104,7 +105,7 @@ public class PayrollUkApi {
     private ApiClient apiClient;
     private static PayrollUkApi instance = null;
     private String userAgent = "Default";
-    private String version = "4.0.2";
+    private String version = "4.1.0";
     final static Logger logger = LoggerFactory.getLogger(PayrollUkApi.class);
 
     public PayrollUkApi() {
@@ -1142,12 +1143,12 @@ public class PayrollUkApi {
     * @param employeeId Employee id for single object
     * @param earningsTemplate The earningsTemplate parameter
     * @param accessToken Authorization token for user set in header of each request
-    * @return EmployeePayTemplateObject
+    * @return EmployeePayTemplates
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public EmployeePayTemplateObject  createMultipleEmployeeEarningsTemplate(String accessToken, String xeroTenantId, UUID employeeId, List<EarningsTemplate> earningsTemplate) throws IOException {
+    public EmployeePayTemplates  createMultipleEmployeeEarningsTemplate(String accessToken, String xeroTenantId, UUID employeeId, List<EarningsTemplate> earningsTemplate) throws IOException {
         try {
-            TypeReference<EmployeePayTemplateObject> typeRef = new TypeReference<EmployeePayTemplateObject>() {};
+            TypeReference<EmployeePayTemplates> typeRef = new TypeReference<EmployeePayTemplates>() {};
             HttpResponse response = createMultipleEmployeeEarningsTemplateForHttpResponse(accessToken, xeroTenantId, employeeId, earningsTemplate);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
@@ -1157,9 +1158,9 @@ public class PayrollUkApi {
             }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
              if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
-                TypeReference<EmployeePayTemplateObject> errorTypeRef = new TypeReference<EmployeePayTemplateObject>() {};
-                EmployeePayTemplateObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-                handler.validationError(e.getStatusCode(),"EmployeePayTemplateObject",object.getProblem());
+                TypeReference<EmployeePayTemplates> errorTypeRef = new TypeReference<EmployeePayTemplates>() {};
+                EmployeePayTemplates object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"EmployeePayTemplates",object.getProblem());
             } else {
                 handler.execute(e);
             }
@@ -2893,14 +2894,14 @@ public class PayrollUkApi {
     * @return EmployeePayTemplateObject
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public EmployeePayTemplateObject  getEmployeePayTemplates(String accessToken, String xeroTenantId, UUID employeeId) throws IOException {
+    public EmployeePayTemplateObject  getEmployeePayTemplate(String accessToken, String xeroTenantId, UUID employeeId) throws IOException {
         try {
             TypeReference<EmployeePayTemplateObject> typeRef = new TypeReference<EmployeePayTemplateObject>() {};
-            HttpResponse response = getEmployeePayTemplatesForHttpResponse(accessToken, xeroTenantId, employeeId);
+            HttpResponse response = getEmployeePayTemplateForHttpResponse(accessToken, xeroTenantId, employeeId);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             if (logger.isDebugEnabled()) {
-                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getEmployeePayTemplates -------------------");
+                logger.debug("------------------ HttpResponseException " + e.getStatusCode() + " : getEmployeePayTemplate -------------------");
                 logger.debug(e.toString());
             }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -2917,16 +2918,16 @@ public class PayrollUkApi {
         return null;
     }
 
-    public HttpResponse getEmployeePayTemplatesForHttpResponse(String accessToken,  String xeroTenantId,  UUID employeeId) throws IOException {
+    public HttpResponse getEmployeePayTemplateForHttpResponse(String accessToken,  String xeroTenantId,  UUID employeeId) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getEmployeePayTemplates");
+            throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling getEmployeePayTemplate");
         }// verify the required parameter 'employeeId' is set
         if (employeeId == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'employeeId' when calling getEmployeePayTemplates");
+            throw new IllegalArgumentException("Missing the required parameter 'employeeId' when calling getEmployeePayTemplate");
         }
         if (accessToken == null) {
-            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getEmployeePayTemplates");
+            throw new IllegalArgumentException("Missing the required parameter 'accessToken' when calling getEmployeePayTemplate");
         }
         HttpHeaders headers = new HttpHeaders();
         headers.set("Xero-Tenant-Id", xeroTenantId);
@@ -5062,12 +5063,12 @@ public class PayrollUkApi {
     * @param payRunID Identifier for the pay run
     * @param payRun The payRun parameter
     * @param accessToken Authorization token for user set in header of each request
-    * @return PayRuns
+    * @return PayRunObject
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public PayRuns  updatePayRun(String accessToken, String xeroTenantId, UUID payRunID, PayRun payRun) throws IOException {
+    public PayRunObject  updatePayRun(String accessToken, String xeroTenantId, UUID payRunID, PayRun payRun) throws IOException {
         try {
-            TypeReference<PayRuns> typeRef = new TypeReference<PayRuns>() {};
+            TypeReference<PayRunObject> typeRef = new TypeReference<PayRunObject>() {};
             HttpResponse response = updatePayRunForHttpResponse(accessToken, xeroTenantId, payRunID, payRun);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
@@ -5077,9 +5078,9 @@ public class PayrollUkApi {
             }
             XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
              if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
-                TypeReference<PayRuns> errorTypeRef = new TypeReference<PayRuns>() {};
-                PayRuns object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-                handler.validationError(e.getStatusCode(),"PayRuns",object.getProblem());
+                TypeReference<PayRunObject> errorTypeRef = new TypeReference<PayRunObject>() {};
+                PayRunObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+                handler.validationError(e.getStatusCode(),"PayRunObject",object.getProblem());
             } else {
                 handler.execute(e);
             }
