@@ -124,7 +124,7 @@ public class AccountingApiCreditNotesTest {
         System.out.println("@Test - createCreditNoteAllocation");
         UUID creditNoteID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         Allocations allocations = new Allocations();
-        Allocations response = accountingApi.createCreditNoteAllocation(accessToken,xeroTenantId,creditNoteID, allocations);
+        Allocations response = accountingApi.createCreditNoteAllocation(accessToken,xeroTenantId,creditNoteID, allocations, false);
         
         assertThat(response.getAllocations().get(0).getAmount(), is(equalTo(1.0)));
         assertThat(response.getAllocations().get(0).getDateAsDate(), is(equalTo(LocalDate.of(2019, 03, 05))));
