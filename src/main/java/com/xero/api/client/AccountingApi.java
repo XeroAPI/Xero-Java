@@ -93,7 +93,7 @@ public class AccountingApi {
     private ApiClient apiClient;
     private static AccountingApi instance = null;
     private String userAgent = "Default";
-    private String version = "4.1.0";
+    private String version = "4.1.1";
     final static Logger logger = LoggerFactory.getLogger(AccountingApi.class);
 
     public AccountingApi() {
@@ -1398,14 +1398,15 @@ public class AccountingApi {
     * @param xeroTenantId Xero identifier for Tenant
     * @param creditNoteID Unique identifier for a Credit Note
     * @param allocations Allocations with array of Allocation object in body of request.
+    * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any with validation errors
     * @param accessToken Authorization token for user set in header of each request
     * @return Allocations
     * @throws IOException if an error occurs while attempting to invoke the API
     **/
-    public Allocations  createCreditNoteAllocation(String accessToken, String xeroTenantId, UUID creditNoteID, Allocations allocations) throws IOException {
+    public Allocations  createCreditNoteAllocation(String accessToken, String xeroTenantId, UUID creditNoteID, Allocations allocations, Boolean summarizeErrors) throws IOException {
         try {
             TypeReference<Allocations> typeRef = new TypeReference<Allocations>() {};
-            HttpResponse response = createCreditNoteAllocationForHttpResponse(accessToken, xeroTenantId, creditNoteID, allocations);
+            HttpResponse response = createCreditNoteAllocationForHttpResponse(accessToken, xeroTenantId, creditNoteID, allocations, summarizeErrors);
             return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
         } catch (HttpResponseException e) {
             if (logger.isDebugEnabled()) {
@@ -1429,7 +1430,7 @@ public class AccountingApi {
         return null;
     }
 
-    public HttpResponse createCreditNoteAllocationForHttpResponse(String accessToken,  String xeroTenantId,  UUID creditNoteID,  Allocations allocations) throws IOException {
+    public HttpResponse createCreditNoteAllocationForHttpResponse(String accessToken,  String xeroTenantId,  UUID creditNoteID,  Allocations allocations,  Boolean summarizeErrors) throws IOException {
         // verify the required parameter 'xeroTenantId' is set
         if (xeroTenantId == null) {
             throw new IllegalArgumentException("Missing the required parameter 'xeroTenantId' when calling createCreditNoteAllocation");
@@ -1452,6 +1453,17 @@ public class AccountingApi {
         uriVariables.put("CreditNoteID", creditNoteID);
 
         UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/CreditNotes/{CreditNoteID}/Allocations");
+        if (summarizeErrors != null) {
+            String key = "summarizeErrors";
+            Object value = summarizeErrors;
+            if (value instanceof Collection) {
+                uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+            } else if (value instanceof Object[]) {
+                uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+            } else {
+                uriBuilder = uriBuilder.queryParam(key, value);
+            }
+        }
         String url = uriBuilder.buildFromMap(uriVariables).toString();
         GenericUrl genericUrl = new GenericUrl(url);
         if (logger.isDebugEnabled()) {
