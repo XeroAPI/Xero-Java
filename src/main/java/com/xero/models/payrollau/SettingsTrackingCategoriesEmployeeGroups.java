@@ -10,33 +10,18 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrollau;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * The tracking category used for employees
- */
+/** The tracking category used for employees */
 @ApiModel(description = "The tracking category used for employees")
-
 public class SettingsTrackingCategoriesEmployeeGroups {
   StringUtil util = new StringUtil();
 
@@ -45,16 +30,20 @@ public class SettingsTrackingCategoriesEmployeeGroups {
 
   @JsonProperty("TrackingCategoryName")
   private String trackingCategoryName;
+
   public SettingsTrackingCategoriesEmployeeGroups trackingCategoryID(UUID trackingCategoryID) {
     this.trackingCategoryID = trackingCategoryID;
     return this;
   }
 
-   /**
+  /**
    * The identifier for the tracking category
+   *
    * @return trackingCategoryID
-  **/
-  @ApiModelProperty(example = "e0eb6747-7c17-4075-b804-989f8d4e5d39", value = "The identifier for the tracking category")
+   */
+  @ApiModelProperty(
+      example = "e0eb6747-7c17-4075-b804-989f8d4e5d39",
+      value = "The identifier for the tracking category")
   public UUID getTrackingCategoryID() {
     return trackingCategoryID;
   }
@@ -63,15 +52,17 @@ public class SettingsTrackingCategoriesEmployeeGroups {
     this.trackingCategoryID = trackingCategoryID;
   }
 
-  public SettingsTrackingCategoriesEmployeeGroups trackingCategoryName(String trackingCategoryName) {
+  public SettingsTrackingCategoriesEmployeeGroups trackingCategoryName(
+      String trackingCategoryName) {
     this.trackingCategoryName = trackingCategoryName;
     return this;
   }
 
-   /**
+  /**
    * Name of the tracking category
+   *
    * @return trackingCategoryName
-  **/
+   */
   @ApiModelProperty(value = "Name of the tracking category")
   public String getTrackingCategoryName() {
     return trackingCategoryName;
@@ -81,7 +72,6 @@ public class SettingsTrackingCategoriesEmployeeGroups {
     this.trackingCategoryName = trackingCategoryName;
   }
 
-
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -90,9 +80,13 @@ public class SettingsTrackingCategoriesEmployeeGroups {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SettingsTrackingCategoriesEmployeeGroups settingsTrackingCategoriesEmployeeGroups = (SettingsTrackingCategoriesEmployeeGroups) o;
-    return Objects.equals(this.trackingCategoryID, settingsTrackingCategoriesEmployeeGroups.trackingCategoryID) &&
-        Objects.equals(this.trackingCategoryName, settingsTrackingCategoriesEmployeeGroups.trackingCategoryName);
+    SettingsTrackingCategoriesEmployeeGroups settingsTrackingCategoriesEmployeeGroups =
+        (SettingsTrackingCategoriesEmployeeGroups) o;
+    return Objects.equals(
+            this.trackingCategoryID, settingsTrackingCategoriesEmployeeGroups.trackingCategoryID)
+        && Objects.equals(
+            this.trackingCategoryName,
+            settingsTrackingCategoriesEmployeeGroups.trackingCategoryName);
   }
 
   @Override
@@ -100,20 +94,20 @@ public class SettingsTrackingCategoriesEmployeeGroups {
     return Objects.hash(trackingCategoryID, trackingCategoryName);
   }
 
-
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class SettingsTrackingCategoriesEmployeeGroups {\n");
     sb.append("    trackingCategoryID: ").append(toIndentedString(trackingCategoryID)).append("\n");
-    sb.append("    trackingCategoryName: ").append(toIndentedString(trackingCategoryName)).append("\n");
+    sb.append("    trackingCategoryName: ")
+        .append(toIndentedString(trackingCategoryName))
+        .append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -121,6 +115,4 @@ public class SettingsTrackingCategoriesEmployeeGroups {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

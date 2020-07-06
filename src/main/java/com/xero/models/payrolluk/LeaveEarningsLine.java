@@ -10,32 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrolluk;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * LeaveEarningsLine
- */
-
+/** LeaveEarningsLine */
 public class LeaveEarningsLine {
   StringUtil util = new StringUtil();
 
@@ -56,15 +40,17 @@ public class LeaveEarningsLine {
 
   @JsonProperty("isLinkedToTimesheet")
   private Boolean isLinkedToTimesheet;
+
   public LeaveEarningsLine earningsRateID(UUID earningsRateID) {
     this.earningsRateID = earningsRateID;
     return this;
   }
 
-   /**
+  /**
    * Xero identifier for payroll leave earnings rate
+   *
    * @return earningsRateID
-  **/
+   */
   @ApiModelProperty(value = "Xero identifier for payroll leave earnings rate")
   public UUID getEarningsRateID() {
     return earningsRateID;
@@ -79,10 +65,11 @@ public class LeaveEarningsLine {
     return this;
   }
 
-   /**
+  /**
    * Rate per unit for leave earnings line
+   *
    * @return ratePerUnit
-  **/
+   */
   @ApiModelProperty(value = "Rate per unit for leave earnings line")
   public Double getRatePerUnit() {
     return ratePerUnit;
@@ -97,10 +84,11 @@ public class LeaveEarningsLine {
     return this;
   }
 
-   /**
+  /**
    * Leave earnings number of units
+   *
    * @return numberOfUnits
-  **/
+   */
   @ApiModelProperty(value = "Leave earnings number of units")
   public Double getNumberOfUnits() {
     return numberOfUnits;
@@ -115,11 +103,13 @@ public class LeaveEarningsLine {
     return this;
   }
 
-   /**
+  /**
    * Leave earnings fixed amount. Only applicable if the EarningsRate RateType is Fixed
+   *
    * @return fixedAmount
-  **/
-  @ApiModelProperty(value = "Leave earnings fixed amount. Only applicable if the EarningsRate RateType is Fixed")
+   */
+  @ApiModelProperty(
+      value = "Leave earnings fixed amount. Only applicable if the EarningsRate RateType is Fixed")
   public Double getFixedAmount() {
     return fixedAmount;
   }
@@ -133,10 +123,11 @@ public class LeaveEarningsLine {
     return this;
   }
 
-   /**
+  /**
    * The amount of the earnings line.
+   *
    * @return amount
-  **/
+   */
   @ApiModelProperty(value = "The amount of the earnings line.")
   public Double getAmount() {
     return amount;
@@ -151,11 +142,15 @@ public class LeaveEarningsLine {
     return this;
   }
 
-   /**
+  /**
    * Identifies if the leave earnings is taken from the timesheet. False for leave earnings line
+   *
    * @return isLinkedToTimesheet
-  **/
-  @ApiModelProperty(value = "Identifies if the leave earnings is taken from the timesheet. False for leave earnings line")
+   */
+  @ApiModelProperty(
+      value =
+          "Identifies if the leave earnings is taken from the timesheet. False for leave earnings"
+              + " line")
   public Boolean getIsLinkedToTimesheet() {
     return isLinkedToTimesheet;
   }
@@ -163,7 +158,6 @@ public class LeaveEarningsLine {
   public void setIsLinkedToTimesheet(Boolean isLinkedToTimesheet) {
     this.isLinkedToTimesheet = isLinkedToTimesheet;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -174,19 +168,19 @@ public class LeaveEarningsLine {
       return false;
     }
     LeaveEarningsLine leaveEarningsLine = (LeaveEarningsLine) o;
-    return Objects.equals(this.earningsRateID, leaveEarningsLine.earningsRateID) &&
-        Objects.equals(this.ratePerUnit, leaveEarningsLine.ratePerUnit) &&
-        Objects.equals(this.numberOfUnits, leaveEarningsLine.numberOfUnits) &&
-        Objects.equals(this.fixedAmount, leaveEarningsLine.fixedAmount) &&
-        Objects.equals(this.amount, leaveEarningsLine.amount) &&
-        Objects.equals(this.isLinkedToTimesheet, leaveEarningsLine.isLinkedToTimesheet);
+    return Objects.equals(this.earningsRateID, leaveEarningsLine.earningsRateID)
+        && Objects.equals(this.ratePerUnit, leaveEarningsLine.ratePerUnit)
+        && Objects.equals(this.numberOfUnits, leaveEarningsLine.numberOfUnits)
+        && Objects.equals(this.fixedAmount, leaveEarningsLine.fixedAmount)
+        && Objects.equals(this.amount, leaveEarningsLine.amount)
+        && Objects.equals(this.isLinkedToTimesheet, leaveEarningsLine.isLinkedToTimesheet);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(earningsRateID, ratePerUnit, numberOfUnits, fixedAmount, amount, isLinkedToTimesheet);
+    return Objects.hash(
+        earningsRateID, ratePerUnit, numberOfUnits, fixedAmount, amount, isLinkedToTimesheet);
   }
-
 
   @Override
   public String toString() {
@@ -197,14 +191,15 @@ public class LeaveEarningsLine {
     sb.append("    numberOfUnits: ").append(toIndentedString(numberOfUnits)).append("\n");
     sb.append("    fixedAmount: ").append(toIndentedString(fixedAmount)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-    sb.append("    isLinkedToTimesheet: ").append(toIndentedString(isLinkedToTimesheet)).append("\n");
+    sb.append("    isLinkedToTimesheet: ")
+        .append(toIndentedString(isLinkedToTimesheet))
+        .append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -212,6 +207,4 @@ public class LeaveEarningsLine {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

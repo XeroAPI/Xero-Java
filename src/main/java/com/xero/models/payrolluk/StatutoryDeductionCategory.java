@@ -10,54 +10,40 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrolluk;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
-import com.xero.api.StringUtil;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/**
- * Statutory Deduction Category
- */
+/** Statutory Deduction Category */
 public enum StatutoryDeductionCategory {
-  
   ADDITIONALSTUDENTLOAN("AdditionalStudentLoan"),
-  
+
   CHILDSUPPORT("ChildSupport"),
-  
+
   COURTFINES("CourtFines"),
-  
+
   CREDITOR("Creditor"),
-  
+
   FEDERALLEVY("FederalLevy"),
-  
+
   INLANDREVENUEARREARS("InlandRevenueArrears"),
-  
+
   KIWISAVER("KiwiSaver"),
-  
+
   MSDREPAYMENTS("MsdRepayments"),
-  
+
   NONPRIORITYORDER("NonPriorityOrder"),
-  
+
   PRIORITYORDER("PriorityOrder"),
-  
+
   TABLEBASED("TableBased"),
-  
+
   STUDENTLOAN("StudentLoan"),
-  
+
   VOLUNTARYSTUDENTLOAN("VoluntaryStudentLoan"),
-  
+
   USCHILDSUPPORT("USChildSupport");
 
   private String value;
@@ -86,4 +72,3 @@ public enum StatutoryDeductionCategory {
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 }
-

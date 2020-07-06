@@ -10,32 +10,15 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrollau;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.payrollau.State;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * HomeAddress
- */
-
+/** HomeAddress */
 public class HomeAddress {
   StringUtil util = new StringUtil();
 
@@ -56,16 +39,21 @@ public class HomeAddress {
 
   @JsonProperty("Country")
   private String country;
+
   public HomeAddress addressLine1(String addressLine1) {
     this.addressLine1 = addressLine1;
     return this;
   }
 
-   /**
+  /**
    * Address line 1 for employee home address
+   *
    * @return addressLine1
-  **/
-  @ApiModelProperty(example = "123 Main St", required = true, value = "Address line 1 for employee home address")
+   */
+  @ApiModelProperty(
+      example = "123 Main St",
+      required = true,
+      value = "Address line 1 for employee home address")
   public String getAddressLine1() {
     return addressLine1;
   }
@@ -79,10 +67,11 @@ public class HomeAddress {
     return this;
   }
 
-   /**
+  /**
    * Address line 2 for employee home address
+   *
    * @return addressLine2
-  **/
+   */
   @ApiModelProperty(example = "Apt 4", value = "Address line 2 for employee home address")
   public String getAddressLine2() {
     return addressLine2;
@@ -97,10 +86,11 @@ public class HomeAddress {
     return this;
   }
 
-   /**
+  /**
    * Suburb for employee home address
+   *
    * @return city
-  **/
+   */
   @ApiModelProperty(example = "St. Kilda", value = "Suburb for employee home address")
   public String getCity() {
     return city;
@@ -115,10 +105,11 @@ public class HomeAddress {
     return this;
   }
 
-   /**
+  /**
    * Get region
+   *
    * @return region
-  **/
+   */
   @ApiModelProperty(value = "")
   public State getRegion() {
     return region;
@@ -133,10 +124,11 @@ public class HomeAddress {
     return this;
   }
 
-   /**
+  /**
    * PostCode for employee home address
+   *
    * @return postalCode
-  **/
+   */
   @ApiModelProperty(example = "3182", value = "PostCode for employee home address")
   public String getPostalCode() {
     return postalCode;
@@ -151,10 +143,11 @@ public class HomeAddress {
     return this;
   }
 
-   /**
+  /**
    * Country of HomeAddress
+   *
    * @return country
-  **/
+   */
   @ApiModelProperty(example = "AUSTRALIA", value = "Country of HomeAddress")
   public String getCountry() {
     return country;
@@ -163,7 +156,6 @@ public class HomeAddress {
   public void setCountry(String country) {
     this.country = country;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -174,19 +166,18 @@ public class HomeAddress {
       return false;
     }
     HomeAddress homeAddress = (HomeAddress) o;
-    return Objects.equals(this.addressLine1, homeAddress.addressLine1) &&
-        Objects.equals(this.addressLine2, homeAddress.addressLine2) &&
-        Objects.equals(this.city, homeAddress.city) &&
-        Objects.equals(this.region, homeAddress.region) &&
-        Objects.equals(this.postalCode, homeAddress.postalCode) &&
-        Objects.equals(this.country, homeAddress.country);
+    return Objects.equals(this.addressLine1, homeAddress.addressLine1)
+        && Objects.equals(this.addressLine2, homeAddress.addressLine2)
+        && Objects.equals(this.city, homeAddress.city)
+        && Objects.equals(this.region, homeAddress.region)
+        && Objects.equals(this.postalCode, homeAddress.postalCode)
+        && Objects.equals(this.country, homeAddress.country);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(addressLine1, addressLine2, city, region, postalCode, country);
   }
-
 
   @Override
   public String toString() {
@@ -203,8 +194,7 @@ public class HomeAddress {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -212,6 +202,4 @@ public class HomeAddress {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

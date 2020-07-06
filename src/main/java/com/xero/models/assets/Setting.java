@@ -10,33 +10,18 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.assets;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import org.threeten.bp.LocalDate;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * Setting
- */
-
+/** Setting */
 public class Setting {
   StringUtil util = new StringUtil();
 
@@ -63,16 +48,20 @@ public class Setting {
 
   @JsonProperty("optInForTax")
   private Boolean optInForTax;
+
   public Setting assetNumberPrefix(String assetNumberPrefix) {
     this.assetNumberPrefix = assetNumberPrefix;
     return this;
   }
 
-   /**
+  /**
    * The prefix used for fixed asset numbers (“FA-” by default)
+   *
    * @return assetNumberPrefix
-  **/
-  @ApiModelProperty(example = "FA-", value = "The prefix used for fixed asset numbers (“FA-” by default)")
+   */
+  @ApiModelProperty(
+      example = "FA-",
+      value = "The prefix used for fixed asset numbers (“FA-” by default)")
   public String getAssetNumberPrefix() {
     return assetNumberPrefix;
   }
@@ -86,10 +75,11 @@ public class Setting {
     return this;
   }
 
-   /**
+  /**
    * The next available sequence number
+   *
    * @return assetNumberSequence
-  **/
+   */
   @ApiModelProperty(example = "0022", value = "The next available sequence number")
   public String getAssetNumberSequence() {
     return assetNumberSequence;
@@ -104,11 +94,13 @@ public class Setting {
     return this;
   }
 
-   /**
+  /**
    * The date depreciation calculations started on registered fixed assets in Xero
+   *
    * @return assetStartDate
-  **/
-  @ApiModelProperty(value = "The date depreciation calculations started on registered fixed assets in Xero")
+   */
+  @ApiModelProperty(
+      value = "The date depreciation calculations started on registered fixed assets in Xero")
   public LocalDate getAssetStartDate() {
     return assetStartDate;
   }
@@ -122,10 +114,11 @@ public class Setting {
     return this;
   }
 
-   /**
+  /**
    * The last depreciation date
+   *
    * @return lastDepreciationDate
-  **/
+   */
   @ApiModelProperty(value = "The last depreciation date")
   public LocalDate getLastDepreciationDate() {
     return lastDepreciationDate;
@@ -140,11 +133,14 @@ public class Setting {
     return this;
   }
 
-   /**
+  /**
    * Default account that gains are posted to
+   *
    * @return defaultGainOnDisposalAccountId
-  **/
-  @ApiModelProperty(example = "346ddb97-739a-4274-b43b-66aa3218d17c", value = "Default account that gains are posted to")
+   */
+  @ApiModelProperty(
+      example = "346ddb97-739a-4274-b43b-66aa3218d17c",
+      value = "Default account that gains are posted to")
   public UUID getDefaultGainOnDisposalAccountId() {
     return defaultGainOnDisposalAccountId;
   }
@@ -158,11 +154,14 @@ public class Setting {
     return this;
   }
 
-   /**
+  /**
    * Default account that losses are posted to
+   *
    * @return defaultLossOnDisposalAccountId
-  **/
-  @ApiModelProperty(example = "1b798541-24e2-4855-9309-c023a0b576f3", value = "Default account that losses are posted to")
+   */
+  @ApiModelProperty(
+      example = "1b798541-24e2-4855-9309-c023a0b576f3",
+      value = "Default account that losses are posted to")
   public UUID getDefaultLossOnDisposalAccountId() {
     return defaultLossOnDisposalAccountId;
   }
@@ -176,11 +175,14 @@ public class Setting {
     return this;
   }
 
-   /**
+  /**
    * Default account that capital gains are posted to
+   *
    * @return defaultCapitalGainOnDisposalAccountId
-  **/
-  @ApiModelProperty(example = "6d6a0bdb-e118-45d8-a023-2ad617ec1cb7", value = "Default account that capital gains are posted to")
+   */
+  @ApiModelProperty(
+      example = "6d6a0bdb-e118-45d8-a023-2ad617ec1cb7",
+      value = "Default account that capital gains are posted to")
   public UUID getDefaultCapitalGainOnDisposalAccountId() {
     return defaultCapitalGainOnDisposalAccountId;
   }
@@ -194,10 +196,11 @@ public class Setting {
     return this;
   }
 
-   /**
+  /**
    * opt in for tax calculation
+   *
    * @return optInForTax
-  **/
+   */
   @ApiModelProperty(example = "false", value = "opt in for tax calculation")
   public Boolean getOptInForTax() {
     return optInForTax;
@@ -206,7 +209,6 @@ public class Setting {
   public void setOptInForTax(Boolean optInForTax) {
     this.optInForTax = optInForTax;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -217,41 +219,61 @@ public class Setting {
       return false;
     }
     Setting setting = (Setting) o;
-    return Objects.equals(this.assetNumberPrefix, setting.assetNumberPrefix) &&
-        Objects.equals(this.assetNumberSequence, setting.assetNumberSequence) &&
-        Objects.equals(this.assetStartDate, setting.assetStartDate) &&
-        Objects.equals(this.lastDepreciationDate, setting.lastDepreciationDate) &&
-        Objects.equals(this.defaultGainOnDisposalAccountId, setting.defaultGainOnDisposalAccountId) &&
-        Objects.equals(this.defaultLossOnDisposalAccountId, setting.defaultLossOnDisposalAccountId) &&
-        Objects.equals(this.defaultCapitalGainOnDisposalAccountId, setting.defaultCapitalGainOnDisposalAccountId) &&
-        Objects.equals(this.optInForTax, setting.optInForTax);
+    return Objects.equals(this.assetNumberPrefix, setting.assetNumberPrefix)
+        && Objects.equals(this.assetNumberSequence, setting.assetNumberSequence)
+        && Objects.equals(this.assetStartDate, setting.assetStartDate)
+        && Objects.equals(this.lastDepreciationDate, setting.lastDepreciationDate)
+        && Objects.equals(
+            this.defaultGainOnDisposalAccountId, setting.defaultGainOnDisposalAccountId)
+        && Objects.equals(
+            this.defaultLossOnDisposalAccountId, setting.defaultLossOnDisposalAccountId)
+        && Objects.equals(
+            this.defaultCapitalGainOnDisposalAccountId,
+            setting.defaultCapitalGainOnDisposalAccountId)
+        && Objects.equals(this.optInForTax, setting.optInForTax);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(assetNumberPrefix, assetNumberSequence, assetStartDate, lastDepreciationDate, defaultGainOnDisposalAccountId, defaultLossOnDisposalAccountId, defaultCapitalGainOnDisposalAccountId, optInForTax);
+    return Objects.hash(
+        assetNumberPrefix,
+        assetNumberSequence,
+        assetStartDate,
+        lastDepreciationDate,
+        defaultGainOnDisposalAccountId,
+        defaultLossOnDisposalAccountId,
+        defaultCapitalGainOnDisposalAccountId,
+        optInForTax);
   }
-
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Setting {\n");
     sb.append("    assetNumberPrefix: ").append(toIndentedString(assetNumberPrefix)).append("\n");
-    sb.append("    assetNumberSequence: ").append(toIndentedString(assetNumberSequence)).append("\n");
+    sb.append("    assetNumberSequence: ")
+        .append(toIndentedString(assetNumberSequence))
+        .append("\n");
     sb.append("    assetStartDate: ").append(toIndentedString(assetStartDate)).append("\n");
-    sb.append("    lastDepreciationDate: ").append(toIndentedString(lastDepreciationDate)).append("\n");
-    sb.append("    defaultGainOnDisposalAccountId: ").append(toIndentedString(defaultGainOnDisposalAccountId)).append("\n");
-    sb.append("    defaultLossOnDisposalAccountId: ").append(toIndentedString(defaultLossOnDisposalAccountId)).append("\n");
-    sb.append("    defaultCapitalGainOnDisposalAccountId: ").append(toIndentedString(defaultCapitalGainOnDisposalAccountId)).append("\n");
+    sb.append("    lastDepreciationDate: ")
+        .append(toIndentedString(lastDepreciationDate))
+        .append("\n");
+    sb.append("    defaultGainOnDisposalAccountId: ")
+        .append(toIndentedString(defaultGainOnDisposalAccountId))
+        .append("\n");
+    sb.append("    defaultLossOnDisposalAccountId: ")
+        .append(toIndentedString(defaultLossOnDisposalAccountId))
+        .append("\n");
+    sb.append("    defaultCapitalGainOnDisposalAccountId: ")
+        .append(toIndentedString(defaultCapitalGainOnDisposalAccountId))
+        .append("\n");
     sb.append("    optInForTax: ").append(toIndentedString(optInForTax)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -259,6 +281,4 @@ public class Setting {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

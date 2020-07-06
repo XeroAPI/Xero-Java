@@ -10,32 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrolluk;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * ReimbursementLine
- */
-
+/** ReimbursementLine */
 public class ReimbursementLine {
   StringUtil util = new StringUtil();
 
@@ -47,15 +31,17 @@ public class ReimbursementLine {
 
   @JsonProperty("amount")
   private Double amount;
+
   public ReimbursementLine reimbursementTypeID(UUID reimbursementTypeID) {
     this.reimbursementTypeID = reimbursementTypeID;
     return this;
   }
 
-   /**
+  /**
    * Xero identifier for payroll reimbursement
+   *
    * @return reimbursementTypeID
-  **/
+   */
   @ApiModelProperty(value = "Xero identifier for payroll reimbursement")
   public UUID getReimbursementTypeID() {
     return reimbursementTypeID;
@@ -70,10 +56,11 @@ public class ReimbursementLine {
     return this;
   }
 
-   /**
+  /**
    * Reimbursement line description
+   *
    * @return description
-  **/
+   */
   @ApiModelProperty(value = "Reimbursement line description")
   public String getDescription() {
     return description;
@@ -88,10 +75,11 @@ public class ReimbursementLine {
     return this;
   }
 
-   /**
+  /**
    * Reimbursement amount
+   *
    * @return amount
-  **/
+   */
   @ApiModelProperty(value = "Reimbursement amount")
   public Double getAmount() {
     return amount;
@@ -100,7 +88,6 @@ public class ReimbursementLine {
   public void setAmount(Double amount) {
     this.amount = amount;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -111,9 +98,9 @@ public class ReimbursementLine {
       return false;
     }
     ReimbursementLine reimbursementLine = (ReimbursementLine) o;
-    return Objects.equals(this.reimbursementTypeID, reimbursementLine.reimbursementTypeID) &&
-        Objects.equals(this.description, reimbursementLine.description) &&
-        Objects.equals(this.amount, reimbursementLine.amount);
+    return Objects.equals(this.reimbursementTypeID, reimbursementLine.reimbursementTypeID)
+        && Objects.equals(this.description, reimbursementLine.description)
+        && Objects.equals(this.amount, reimbursementLine.amount);
   }
 
   @Override
@@ -121,12 +108,13 @@ public class ReimbursementLine {
     return Objects.hash(reimbursementTypeID, description, amount);
   }
 
-
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ReimbursementLine {\n");
-    sb.append("    reimbursementTypeID: ").append(toIndentedString(reimbursementTypeID)).append("\n");
+    sb.append("    reimbursementTypeID: ")
+        .append(toIndentedString(reimbursementTypeID))
+        .append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
     sb.append("}");
@@ -134,8 +122,7 @@ public class ReimbursementLine {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -143,6 +130,4 @@ public class ReimbursementLine {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

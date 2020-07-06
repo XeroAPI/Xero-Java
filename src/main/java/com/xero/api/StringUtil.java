@@ -23,109 +23,100 @@ import org.threeten.bp.OffsetDateTime;
 import org.threeten.bp.ZoneOffset;
 
 public class StringUtil {
-    /**
-     * Check if the given array contains the given value (with case-insensitive
-     * comparison).
-     *
-     * @param array
-     *            The array
-     * @param value
-     *            The value to search
-     * @return true if the array contains the value
-     */
-    public static boolean containsIgnoreCase(String[] array, String value) {
-        for (String str : array) {
-            if (value == null && str == null) {
-                return true;
-            }
-            if (value != null && value.equalsIgnoreCase(str)) {
-                return true;
-            }
-        }
-        return false;
+  /**
+   * Check if the given array contains the given value (with case-insensitive comparison).
+   *
+   * @param array The array
+   * @param value The value to search
+   * @return true if the array contains the value
+   */
+  public static boolean containsIgnoreCase(String[] array, String value) {
+    for (String str : array) {
+      if (value == null && str == null) {
+        return true;
+      }
+      if (value != null && value.equalsIgnoreCase(str)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * Join an array of strings with the given separator.
+   *
+   * <p>Note: This might be replaced by utility method from commons-lang or guava someday if one of
+   * those libraries is added as dependency.
+   *
+   * @param array The array of strings
+   * @param separator The separator
+   * @return the resulting string
+   */
+  public static String join(String[] array, String separator) {
+    int len = array.length;
+    if (len == 0) {
+      return "";
     }
 
-    /**
-     * Join an array of strings with the given separator.
-     * <p>
-     * Note: This might be replaced by utility method from commons-lang or guava
-     * someday if one of those libraries is added as dependency.
-     * </p>
-     *
-     * @param array
-     *            The array of strings
-     * @param separator
-     *            The separator
-     * @return the resulting string
-     */
-    public static String join(String[] array, String separator) {
-        int len = array.length;
-        if (len == 0) {
-            return "";
-        }
+    StringBuilder out = new StringBuilder();
+    out.append(array[0]);
+    for (int i = 1; i < len; i++) {
+      out.append(separator).append(array[i]);
+    }
+    return out.toString();
+  }
 
-        StringBuilder out = new StringBuilder();
-        out.append(array[0]);
-        for (int i = 1; i < len; i++) {
-            out.append(separator).append(array[i]);
-        }
-        return out.toString();
+  public LocalDate convertStringToDate(String date) throws IOException {
+    LocalDate formattedDate;
+    Pattern datePatt = Pattern.compile("^/Date\\((\\d+)([+-]\\d+)?\\)/$");
+    Pattern datePattNeg = Pattern.compile("^/Date\\(-(\\d+)([+-]\\d+)?\\)/$");
+    Matcher m = datePatt.matcher(date);
+    Matcher matchNeg = datePattNeg.matcher(date);
+    if (m != null && m.matches()) {
+      Long l = Long.parseLong(m.group(1));
+      formattedDate = Instant.ofEpochMilli(l).atZone(ZoneOffset.UTC).toLocalDate();
+    } else if (matchNeg != null && matchNeg.matches()) {
+      Long l = Long.parseLong(matchNeg.group(1));
+      formattedDate = Instant.ofEpochMilli(-l).atZone(ZoneOffset.UTC).toLocalDate();
+    } else {
+      throw new IllegalArgumentException("Wrong date format");
     }
+    return formattedDate;
+  }
 
-    public LocalDate convertStringToDate(String date)
-            throws IOException {
-        LocalDate formattedDate;
-        Pattern datePatt = Pattern.compile("^/Date\\((\\d+)([+-]\\d+)?\\)/$");
-        Pattern datePattNeg = Pattern.compile("^/Date\\(-(\\d+)([+-]\\d+)?\\)/$");
-        Matcher m = datePatt.matcher(date);
-        Matcher matchNeg = datePattNeg.matcher(date);
-        if (m != null && m.matches()) {
-            Long l = Long.parseLong(m.group(1));
-            formattedDate = Instant.ofEpochMilli(l).atZone(ZoneOffset.UTC).toLocalDate();
-        } else if (matchNeg != null && matchNeg.matches()) {
-            Long l = Long.parseLong(matchNeg.group(1));
-            formattedDate = Instant.ofEpochMilli(-l).atZone(ZoneOffset.UTC).toLocalDate();
-        } else {
-            throw new IllegalArgumentException("Wrong date format");
-        }
-        return formattedDate;
+  public OffsetDateTime convertStringToOffsetDateTime(String date) throws IOException {
+    OffsetDateTime formattedDate;
+    Pattern datePatt = Pattern.compile("^/Date\\((\\d+)([+-]\\d+)?\\)/$");
+    Matcher m = datePatt.matcher(date);
+    Pattern datePattNeg = Pattern.compile("^/Date\\(-(\\d+)([+-]\\d+)?\\)/$");
+    Matcher mNeg = datePattNeg.matcher(date);
+    if (m != null && m.matches()) {
+      Long l = Long.parseLong(m.group(1));
+      formattedDate = Instant.ofEpochMilli(l).atZone(ZoneOffset.UTC).toOffsetDateTime();
+    } else if (mNeg != null && mNeg.matches()) {
+      Long l = Long.parseLong(mNeg.group(1));
+      formattedDate = Instant.ofEpochMilli(-l).atZone(ZoneOffset.UTC).toOffsetDateTime();
+    } else {
+      throw new IllegalArgumentException("Wrong date format");
     }
-    
-    public OffsetDateTime convertStringToOffsetDateTime(String date)
-            throws IOException {
-        OffsetDateTime formattedDate;
-        Pattern datePatt = Pattern.compile("^/Date\\((\\d+)([+-]\\d+)?\\)/$");
-        Matcher m = datePatt.matcher(date);
-        Pattern datePattNeg = Pattern.compile("^/Date\\(-(\\d+)([+-]\\d+)?\\)/$");
-        Matcher mNeg = datePattNeg.matcher(date);
-        if (m != null && m.matches()) {
-            Long l = Long.parseLong(m.group(1));
-            formattedDate = Instant.ofEpochMilli(l).atZone(ZoneOffset.UTC).toOffsetDateTime();
-        } else if (mNeg != null && mNeg.matches()) {
-            Long l = Long.parseLong(mNeg.group(1));
-            formattedDate = Instant.ofEpochMilli(-l).atZone(ZoneOffset.UTC).toOffsetDateTime();
-        } else {
-            throw new IllegalArgumentException("Wrong date format");
-        }
-        return formattedDate;
-    }
+    return formattedDate;
+  }
 
-    public LocalDateTime convertStringToLocalDateTime(String date)
-            throws IOException {
-        LocalDateTime formattedDate;
-        Pattern datePatt = Pattern.compile("^/Date\\((\\d+)([+-]\\d+)?\\)/$");
-        Matcher m = datePatt.matcher(date);
-        Pattern datePattNeg = Pattern.compile("^/Date\\(-(\\d+)([+-]\\d+)?\\)/$");
-        Matcher mNeg = datePattNeg.matcher(date);
-        if (m != null && m.matches()) {
-            Long l = Long.parseLong(m.group(1));
-            formattedDate = Instant.ofEpochMilli(l).atZone(ZoneOffset.UTC).toLocalDateTime();
-        } else if (mNeg != null && mNeg.matches()) {
-            Long l = Long.parseLong(mNeg.group(1));
-            formattedDate = Instant.ofEpochMilli(-l).atZone(ZoneOffset.UTC).toLocalDateTime();
-        } else {
-            throw new IllegalArgumentException("Wrong date format");
-        }
-        return formattedDate;
+  public LocalDateTime convertStringToLocalDateTime(String date) throws IOException {
+    LocalDateTime formattedDate;
+    Pattern datePatt = Pattern.compile("^/Date\\((\\d+)([+-]\\d+)?\\)/$");
+    Matcher m = datePatt.matcher(date);
+    Pattern datePattNeg = Pattern.compile("^/Date\\(-(\\d+)([+-]\\d+)?\\)/$");
+    Matcher mNeg = datePattNeg.matcher(date);
+    if (m != null && m.matches()) {
+      Long l = Long.parseLong(m.group(1));
+      formattedDate = Instant.ofEpochMilli(l).atZone(ZoneOffset.UTC).toLocalDateTime();
+    } else if (mNeg != null && mNeg.matches()) {
+      Long l = Long.parseLong(mNeg.group(1));
+      formattedDate = Instant.ofEpochMilli(-l).atZone(ZoneOffset.UTC).toLocalDateTime();
+    } else {
+      throw new IllegalArgumentException("Wrong date format");
     }
+    return formattedDate;
+  }
 }

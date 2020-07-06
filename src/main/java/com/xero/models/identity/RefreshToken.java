@@ -10,31 +10,15 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.identity;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * RefreshToken
- */
-
+/** RefreshToken */
 public class RefreshToken {
   StringUtil util = new StringUtil();
 
@@ -49,15 +33,17 @@ public class RefreshToken {
 
   @JsonProperty("client_secret")
   private String clientSecret;
+
   public RefreshToken grantType(String grantType) {
     this.grantType = grantType;
     return this;
   }
 
-   /**
+  /**
    * Xero grant type
+   *
    * @return grantType
-  **/
+   */
   @ApiModelProperty(value = "Xero grant type")
   public String getGrantType() {
     return grantType;
@@ -72,10 +58,11 @@ public class RefreshToken {
     return this;
   }
 
-   /**
+  /**
    * refresh token provided during authentication flow
+   *
    * @return refreshToken
-  **/
+   */
   @ApiModelProperty(value = "refresh token provided during authentication flow")
   public String getRefreshToken() {
     return refreshToken;
@@ -90,10 +77,11 @@ public class RefreshToken {
     return this;
   }
 
-   /**
+  /**
    * client id for Xero app
+   *
    * @return clientId
-  **/
+   */
   @ApiModelProperty(value = "client id for Xero app")
   public String getClientId() {
     return clientId;
@@ -108,10 +96,11 @@ public class RefreshToken {
     return this;
   }
 
-   /**
+  /**
    * client secret for Xero app 2
+   *
    * @return clientSecret
-  **/
+   */
   @ApiModelProperty(value = "client secret for Xero app 2")
   public String getClientSecret() {
     return clientSecret;
@@ -120,7 +109,6 @@ public class RefreshToken {
   public void setClientSecret(String clientSecret) {
     this.clientSecret = clientSecret;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -131,17 +119,16 @@ public class RefreshToken {
       return false;
     }
     RefreshToken refreshToken = (RefreshToken) o;
-    return Objects.equals(this.grantType, refreshToken.grantType) &&
-        Objects.equals(this.refreshToken, refreshToken.refreshToken) &&
-        Objects.equals(this.clientId, refreshToken.clientId) &&
-        Objects.equals(this.clientSecret, refreshToken.clientSecret);
+    return Objects.equals(this.grantType, refreshToken.grantType)
+        && Objects.equals(this.refreshToken, refreshToken.refreshToken)
+        && Objects.equals(this.clientId, refreshToken.clientId)
+        && Objects.equals(this.clientSecret, refreshToken.clientSecret);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(grantType, refreshToken, clientId, clientSecret);
   }
-
 
   @Override
   public String toString() {
@@ -156,8 +143,7 @@ public class RefreshToken {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -165,6 +151,4 @@ public class RefreshToken {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

@@ -10,31 +10,15 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.accounting;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * AccountsReceivable
- */
-
+/** AccountsReceivable */
 public class AccountsReceivable {
   StringUtil util = new StringUtil();
 
@@ -43,15 +27,17 @@ public class AccountsReceivable {
 
   @JsonProperty("Overdue")
   private Double overdue;
+
   public AccountsReceivable outstanding(Double outstanding) {
     this.outstanding = outstanding;
     return this;
   }
 
-   /**
+  /**
    * Get outstanding
+   *
    * @return outstanding
-  **/
+   */
   @ApiModelProperty(value = "")
   public Double getOutstanding() {
     return outstanding;
@@ -66,10 +52,11 @@ public class AccountsReceivable {
     return this;
   }
 
-   /**
+  /**
    * Get overdue
+   *
    * @return overdue
-  **/
+   */
   @ApiModelProperty(value = "")
   public Double getOverdue() {
     return overdue;
@@ -78,7 +65,6 @@ public class AccountsReceivable {
   public void setOverdue(Double overdue) {
     this.overdue = overdue;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -89,15 +75,14 @@ public class AccountsReceivable {
       return false;
     }
     AccountsReceivable accountsReceivable = (AccountsReceivable) o;
-    return Objects.equals(this.outstanding, accountsReceivable.outstanding) &&
-        Objects.equals(this.overdue, accountsReceivable.overdue);
+    return Objects.equals(this.outstanding, accountsReceivable.outstanding)
+        && Objects.equals(this.overdue, accountsReceivable.overdue);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(outstanding, overdue);
   }
-
 
   @Override
   public String toString() {
@@ -110,8 +95,7 @@ public class AccountsReceivable {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -119,6 +103,4 @@ public class AccountsReceivable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

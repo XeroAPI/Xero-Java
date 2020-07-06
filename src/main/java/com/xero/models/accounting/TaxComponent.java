@@ -10,31 +10,15 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.accounting;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * TaxComponent
- */
-
+/** TaxComponent */
 public class TaxComponent {
   StringUtil util = new StringUtil();
 
@@ -49,15 +33,17 @@ public class TaxComponent {
 
   @JsonProperty("IsNonRecoverable")
   private Boolean isNonRecoverable;
+
   public TaxComponent name(String name) {
     this.name = name;
     return this;
   }
 
-   /**
+  /**
    * Name of Tax Component
+   *
    * @return name
-  **/
+   */
   @ApiModelProperty(value = "Name of Tax Component")
   public String getName() {
     return name;
@@ -72,10 +58,11 @@ public class TaxComponent {
     return this;
   }
 
-   /**
+  /**
    * Tax Rate (up to 4dp)
+   *
    * @return rate
-  **/
+   */
   @ApiModelProperty(value = "Tax Rate (up to 4dp)")
   public Double getRate() {
     return rate;
@@ -90,10 +77,11 @@ public class TaxComponent {
     return this;
   }
 
-   /**
+  /**
    * Boolean to describe if Tax rate is compounded.
+   *
    * @return isCompound
-  **/
+   */
   @ApiModelProperty(value = "Boolean to describe if Tax rate is compounded.")
   public Boolean getIsCompound() {
     return isCompound;
@@ -108,11 +96,16 @@ public class TaxComponent {
     return this;
   }
 
-   /**
-   * Boolean to describe if tax rate is non-recoverable. Non-recoverable rates are only applicable to Canadian organisations
+  /**
+   * Boolean to describe if tax rate is non-recoverable. Non-recoverable rates are only applicable
+   * to Canadian organisations
+   *
    * @return isNonRecoverable
-  **/
-  @ApiModelProperty(value = "Boolean to describe if tax rate is non-recoverable. Non-recoverable rates are only applicable to Canadian organisations")
+   */
+  @ApiModelProperty(
+      value =
+          "Boolean to describe if tax rate is non-recoverable. Non-recoverable rates are only"
+              + " applicable to Canadian organisations")
   public Boolean getIsNonRecoverable() {
     return isNonRecoverable;
   }
@@ -120,7 +113,6 @@ public class TaxComponent {
   public void setIsNonRecoverable(Boolean isNonRecoverable) {
     this.isNonRecoverable = isNonRecoverable;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -131,17 +123,16 @@ public class TaxComponent {
       return false;
     }
     TaxComponent taxComponent = (TaxComponent) o;
-    return Objects.equals(this.name, taxComponent.name) &&
-        Objects.equals(this.rate, taxComponent.rate) &&
-        Objects.equals(this.isCompound, taxComponent.isCompound) &&
-        Objects.equals(this.isNonRecoverable, taxComponent.isNonRecoverable);
+    return Objects.equals(this.name, taxComponent.name)
+        && Objects.equals(this.rate, taxComponent.rate)
+        && Objects.equals(this.isCompound, taxComponent.isCompound)
+        && Objects.equals(this.isNonRecoverable, taxComponent.isNonRecoverable);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(name, rate, isCompound, isNonRecoverable);
   }
-
 
   @Override
   public String toString() {
@@ -156,8 +147,7 @@ public class TaxComponent {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -165,6 +155,4 @@ public class TaxComponent {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

@@ -10,35 +10,18 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.accounting;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.accounting.LineItemTracking;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * LineItem
- */
-
+/** LineItem */
 public class LineItem {
   StringUtil util = new StringUtil();
 
@@ -80,15 +63,17 @@ public class LineItem {
 
   @JsonProperty("RepeatingInvoiceID")
   private UUID repeatingInvoiceID;
+
   public LineItem lineItemID(UUID lineItemID) {
     this.lineItemID = lineItemID;
     return this;
   }
 
-   /**
+  /**
    * LineItem unique ID
+   *
    * @return lineItemID
-  **/
+   */
   @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "LineItem unique ID")
   public UUID getLineItemID() {
     return lineItemID;
@@ -103,11 +88,18 @@ public class LineItem {
     return this;
   }
 
-   /**
-   * Description needs to be at least 1 char long. A line item with just a description (i.e no unit amount or quantity) can be created by specifying just a &lt;Description&gt; element that contains at least 1 character
+  /**
+   * Description needs to be at least 1 char long. A line item with just a description (i.e no unit
+   * amount or quantity) can be created by specifying just a &lt;Description&gt; element that
+   * contains at least 1 character
+   *
    * @return description
-  **/
-  @ApiModelProperty(value = "Description needs to be at least 1 char long. A line item with just a description (i.e no unit amount or quantity) can be created by specifying just a <Description> element that contains at least 1 character")
+   */
+  @ApiModelProperty(
+      value =
+          "Description needs to be at least 1 char long. A line item with just a description (i.e"
+              + " no unit amount or quantity) can be created by specifying just a <Description>"
+              + " element that contains at least 1 character")
   public String getDescription() {
     return description;
   }
@@ -121,10 +113,11 @@ public class LineItem {
     return this;
   }
 
-   /**
+  /**
    * LineItem Quantity
+   *
    * @return quantity
-  **/
+   */
   @ApiModelProperty(value = "LineItem Quantity")
   public Double getQuantity() {
     return quantity;
@@ -139,10 +132,11 @@ public class LineItem {
     return this;
   }
 
-   /**
+  /**
    * LineItem Unit Amount
+   *
    * @return unitAmount
-  **/
+   */
   @ApiModelProperty(value = "LineItem Unit Amount")
   public Double getUnitAmount() {
     return unitAmount;
@@ -157,10 +151,11 @@ public class LineItem {
     return this;
   }
 
-   /**
+  /**
    * See Items
+   *
    * @return itemCode
-  **/
+   */
   @ApiModelProperty(value = "See Items")
   public String getItemCode() {
     return itemCode;
@@ -175,10 +170,11 @@ public class LineItem {
     return this;
   }
 
-   /**
+  /**
    * See Accounts
+   *
    * @return accountCode
-  **/
+   */
   @ApiModelProperty(value = "See Accounts")
   public String getAccountCode() {
     return accountCode;
@@ -193,10 +189,11 @@ public class LineItem {
     return this;
   }
 
-   /**
+  /**
    * The tax type from TaxRates
+   *
    * @return taxType
-  **/
+   */
   @ApiModelProperty(value = "The tax type from TaxRates")
   public String getTaxType() {
     return taxType;
@@ -211,11 +208,17 @@ public class LineItem {
     return this;
   }
 
-   /**
-   * The tax amount is auto calculated as a percentage of the line amount (see below) based on the tax rate. This value can be overriden if the calculated &lt;TaxAmount&gt; is not correct.
+  /**
+   * The tax amount is auto calculated as a percentage of the line amount (see below) based on the
+   * tax rate. This value can be overriden if the calculated &lt;TaxAmount&gt; is not correct.
+   *
    * @return taxAmount
-  **/
-  @ApiModelProperty(value = "The tax amount is auto calculated as a percentage of the line amount (see below) based on the tax rate. This value can be overriden if the calculated <TaxAmount> is not correct.")
+   */
+  @ApiModelProperty(
+      value =
+          "The tax amount is auto calculated as a percentage of the line amount (see below) based"
+              + " on the tax rate. This value can be overriden if the calculated <TaxAmount> is"
+              + " not correct.")
   public Double getTaxAmount() {
     return taxAmount;
   }
@@ -229,11 +232,20 @@ public class LineItem {
     return this;
   }
 
-   /**
-   * If you wish to omit either of the &lt;Quantity&gt; or &lt;UnitAmount&gt; you can provide a LineAmount and Xero will calculate the missing amount for you. The line amount reflects the discounted price if a DiscountRate has been used . i.e LineAmount &#x3D; Quantity * Unit Amount * ((100 – DiscountRate)/100)
+  /**
+   * If you wish to omit either of the &lt;Quantity&gt; or &lt;UnitAmount&gt; you can provide a
+   * LineAmount and Xero will calculate the missing amount for you. The line amount reflects the
+   * discounted price if a DiscountRate has been used . i.e LineAmount &#x3D; Quantity * Unit Amount
+   * * ((100 – DiscountRate)/100)
+   *
    * @return lineAmount
-  **/
-  @ApiModelProperty(value = "If you wish to omit either of the <Quantity> or <UnitAmount> you can provide a LineAmount and Xero will calculate the missing amount for you. The line amount reflects the discounted price if a DiscountRate has been used . i.e LineAmount = Quantity * Unit Amount * ((100 – DiscountRate)/100)")
+   */
+  @ApiModelProperty(
+      value =
+          "If you wish to omit either of the <Quantity> or <UnitAmount> you can provide a"
+              + " LineAmount and Xero will calculate the missing amount for you. The line amount"
+              + " reflects the discounted price if a DiscountRate has been used . i.e LineAmount ="
+              + " Quantity * Unit Amount * ((100 – DiscountRate)/100)")
   public Double getLineAmount() {
     return lineAmount;
   }
@@ -255,11 +267,16 @@ public class LineItem {
     return this;
   }
 
-   /**
-   * Optional Tracking Category – see Tracking.  Any LineItem can have a  maximum of 2 &lt;TrackingCategory&gt; elements.
+  /**
+   * Optional Tracking Category – see Tracking. Any LineItem can have a maximum of 2
+   * &lt;TrackingCategory&gt; elements.
+   *
    * @return tracking
-  **/
-  @ApiModelProperty(value = "Optional Tracking Category – see Tracking.  Any LineItem can have a  maximum of 2 <TrackingCategory> elements.")
+   */
+  @ApiModelProperty(
+      value =
+          "Optional Tracking Category – see Tracking.  Any LineItem can have a  maximum of 2"
+              + " <TrackingCategory> elements.")
   public List<LineItemTracking> getTracking() {
     return tracking;
   }
@@ -273,11 +290,16 @@ public class LineItem {
     return this;
   }
 
-   /**
-   * Percentage discount being applied to a line item (only supported on  ACCREC invoices – ACC PAY invoices and credit notes in Xero do not support discounts
+  /**
+   * Percentage discount being applied to a line item (only supported on ACCREC invoices – ACC PAY
+   * invoices and credit notes in Xero do not support discounts
+   *
    * @return discountRate
-  **/
-  @ApiModelProperty(value = "Percentage discount being applied to a line item (only supported on  ACCREC invoices – ACC PAY invoices and credit notes in Xero do not support discounts")
+   */
+  @ApiModelProperty(
+      value =
+          "Percentage discount being applied to a line item (only supported on  ACCREC invoices –"
+              + " ACC PAY invoices and credit notes in Xero do not support discounts")
   public Double getDiscountRate() {
     return discountRate;
   }
@@ -291,11 +313,16 @@ public class LineItem {
     return this;
   }
 
-   /**
-   * Discount amount being applied to a line item. Only supported on ACCREC invoices - ACCPAY invoices and credit notes in Xero do not support discounts.
+  /**
+   * Discount amount being applied to a line item. Only supported on ACCREC invoices - ACCPAY
+   * invoices and credit notes in Xero do not support discounts.
+   *
    * @return discountAmount
-  **/
-  @ApiModelProperty(value = "Discount amount being applied to a line item. Only supported on ACCREC invoices - ACCPAY invoices and credit notes in Xero do not support discounts.")
+   */
+  @ApiModelProperty(
+      value =
+          "Discount amount being applied to a line item. Only supported on ACCREC invoices -"
+              + " ACCPAY invoices and credit notes in Xero do not support discounts.")
   public Double getDiscountAmount() {
     return discountAmount;
   }
@@ -309,11 +336,14 @@ public class LineItem {
     return this;
   }
 
-   /**
+  /**
    * The Xero identifier for a Repeating Invoice
+   *
    * @return repeatingInvoiceID
-  **/
-  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "The Xero identifier for a Repeating Invoice")
+   */
+  @ApiModelProperty(
+      example = "00000000-0000-0000-0000-000000000000",
+      value = "The Xero identifier for a Repeating Invoice")
   public UUID getRepeatingInvoiceID() {
     return repeatingInvoiceID;
   }
@@ -321,7 +351,6 @@ public class LineItem {
   public void setRepeatingInvoiceID(UUID repeatingInvoiceID) {
     this.repeatingInvoiceID = repeatingInvoiceID;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -332,26 +361,38 @@ public class LineItem {
       return false;
     }
     LineItem lineItem = (LineItem) o;
-    return Objects.equals(this.lineItemID, lineItem.lineItemID) &&
-        Objects.equals(this.description, lineItem.description) &&
-        Objects.equals(this.quantity, lineItem.quantity) &&
-        Objects.equals(this.unitAmount, lineItem.unitAmount) &&
-        Objects.equals(this.itemCode, lineItem.itemCode) &&
-        Objects.equals(this.accountCode, lineItem.accountCode) &&
-        Objects.equals(this.taxType, lineItem.taxType) &&
-        Objects.equals(this.taxAmount, lineItem.taxAmount) &&
-        Objects.equals(this.lineAmount, lineItem.lineAmount) &&
-        Objects.equals(this.tracking, lineItem.tracking) &&
-        Objects.equals(this.discountRate, lineItem.discountRate) &&
-        Objects.equals(this.discountAmount, lineItem.discountAmount) &&
-        Objects.equals(this.repeatingInvoiceID, lineItem.repeatingInvoiceID);
+    return Objects.equals(this.lineItemID, lineItem.lineItemID)
+        && Objects.equals(this.description, lineItem.description)
+        && Objects.equals(this.quantity, lineItem.quantity)
+        && Objects.equals(this.unitAmount, lineItem.unitAmount)
+        && Objects.equals(this.itemCode, lineItem.itemCode)
+        && Objects.equals(this.accountCode, lineItem.accountCode)
+        && Objects.equals(this.taxType, lineItem.taxType)
+        && Objects.equals(this.taxAmount, lineItem.taxAmount)
+        && Objects.equals(this.lineAmount, lineItem.lineAmount)
+        && Objects.equals(this.tracking, lineItem.tracking)
+        && Objects.equals(this.discountRate, lineItem.discountRate)
+        && Objects.equals(this.discountAmount, lineItem.discountAmount)
+        && Objects.equals(this.repeatingInvoiceID, lineItem.repeatingInvoiceID);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(lineItemID, description, quantity, unitAmount, itemCode, accountCode, taxType, taxAmount, lineAmount, tracking, discountRate, discountAmount, repeatingInvoiceID);
+    return Objects.hash(
+        lineItemID,
+        description,
+        quantity,
+        unitAmount,
+        itemCode,
+        accountCode,
+        taxType,
+        taxAmount,
+        lineAmount,
+        tracking,
+        discountRate,
+        discountAmount,
+        repeatingInvoiceID);
   }
-
 
   @Override
   public String toString() {
@@ -375,8 +416,7 @@ public class LineItem {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -384,6 +424,4 @@ public class LineItem {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

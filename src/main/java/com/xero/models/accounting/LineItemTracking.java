@@ -10,32 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.accounting;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * LineItemTracking
- */
-
+/** LineItemTracking */
 public class LineItemTracking {
   StringUtil util = new StringUtil();
 
@@ -50,16 +34,20 @@ public class LineItemTracking {
 
   @JsonProperty("Option")
   private String option;
+
   public LineItemTracking trackingCategoryID(UUID trackingCategoryID) {
     this.trackingCategoryID = trackingCategoryID;
     return this;
   }
 
-   /**
+  /**
    * The Xero identifier for a tracking category
+   *
    * @return trackingCategoryID
-  **/
-  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "The Xero identifier for a tracking category")
+   */
+  @ApiModelProperty(
+      example = "00000000-0000-0000-0000-000000000000",
+      value = "The Xero identifier for a tracking category")
   public UUID getTrackingCategoryID() {
     return trackingCategoryID;
   }
@@ -73,11 +61,14 @@ public class LineItemTracking {
     return this;
   }
 
-   /**
+  /**
    * The Xero identifier for a tracking category option
+   *
    * @return trackingOptionID
-  **/
-  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "The Xero identifier for a tracking category option")
+   */
+  @ApiModelProperty(
+      example = "00000000-0000-0000-0000-000000000000",
+      value = "The Xero identifier for a tracking category option")
   public UUID getTrackingOptionID() {
     return trackingOptionID;
   }
@@ -91,10 +82,11 @@ public class LineItemTracking {
     return this;
   }
 
-   /**
+  /**
    * The name of the tracking category
+   *
    * @return name
-  **/
+   */
   @ApiModelProperty(example = "Region", value = "The name of the tracking category")
   public String getName() {
     return name;
@@ -109,10 +101,11 @@ public class LineItemTracking {
     return this;
   }
 
-   /**
+  /**
    * See Tracking Options
+   *
    * @return option
-  **/
+   */
   @ApiModelProperty(example = "North", value = "See Tracking Options")
   public String getOption() {
     return option;
@@ -121,7 +114,6 @@ public class LineItemTracking {
   public void setOption(String option) {
     this.option = option;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -132,17 +124,16 @@ public class LineItemTracking {
       return false;
     }
     LineItemTracking lineItemTracking = (LineItemTracking) o;
-    return Objects.equals(this.trackingCategoryID, lineItemTracking.trackingCategoryID) &&
-        Objects.equals(this.trackingOptionID, lineItemTracking.trackingOptionID) &&
-        Objects.equals(this.name, lineItemTracking.name) &&
-        Objects.equals(this.option, lineItemTracking.option);
+    return Objects.equals(this.trackingCategoryID, lineItemTracking.trackingCategoryID)
+        && Objects.equals(this.trackingOptionID, lineItemTracking.trackingOptionID)
+        && Objects.equals(this.name, lineItemTracking.name)
+        && Objects.equals(this.option, lineItemTracking.option);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(trackingCategoryID, trackingOptionID, name, option);
   }
-
 
   @Override
   public String toString() {
@@ -157,8 +148,7 @@ public class LineItemTracking {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -166,6 +156,4 @@ public class LineItemTracking {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

@@ -10,32 +10,20 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrollau;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import java.io.IOException;
 
 import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * DeductionType
- */
-
+/** DeductionType */
 public class DeductionType {
   StringUtil util = new StringUtil();
 
@@ -59,14 +47,12 @@ public class DeductionType {
 
   @JsonProperty("UpdatedDateUTC")
   private String updatedDateUTC;
-  /**
-   * Gets or Sets deductionCategory
-   */
+  /** Gets or Sets deductionCategory */
   public enum DeductionCategoryEnum {
     NONE("NONE"),
-    
+
     UNIONFEES("UNIONFEES"),
-    
+
     WORKPLACEGIVING("WORKPLACEGIVING");
 
     private String value;
@@ -96,21 +82,22 @@ public class DeductionType {
     }
   }
 
-
   @JsonProperty("DeductionCategory")
   private DeductionCategoryEnum deductionCategory;
 
   @JsonProperty("CurrentRecord")
   private Boolean currentRecord;
+
   public DeductionType name(String name) {
     this.name = name;
     return this;
   }
 
-   /**
+  /**
    * Name of the earnings rate (max length &#x3D; 100)
+   *
    * @return name
-  **/
+   */
   @ApiModelProperty(example = "PTO", value = "Name of the earnings rate (max length = 100)")
   public String getName() {
     return name;
@@ -125,10 +112,11 @@ public class DeductionType {
     return this;
   }
 
-   /**
+  /**
    * See Accounts
+   *
    * @return accountCode
-  **/
+   */
   @ApiModelProperty(example = "720", value = "See Accounts")
   public String getAccountCode() {
     return accountCode;
@@ -143,11 +131,17 @@ public class DeductionType {
     return this;
   }
 
-   /**
-   * Indicates that this is a pre-tax deduction that will reduce the amount of tax you withhold from an employee.
+  /**
+   * Indicates that this is a pre-tax deduction that will reduce the amount of tax you withhold from
+   * an employee.
+   *
    * @return reducesTax
-  **/
-  @ApiModelProperty(example = "false", value = "Indicates that this is a pre-tax deduction that will reduce the amount of tax you withhold from an employee.")
+   */
+  @ApiModelProperty(
+      example = "false",
+      value =
+          "Indicates that this is a pre-tax deduction that will reduce the amount of tax you"
+              + " withhold from an employee.")
   public Boolean getReducesTax() {
     return reducesTax;
   }
@@ -161,11 +155,17 @@ public class DeductionType {
     return this;
   }
 
-   /**
-   * Most deductions don’t reduce your superannuation guarantee contribution liability, so typically you will not set any value for this.
+  /**
+   * Most deductions don’t reduce your superannuation guarantee contribution liability, so typically
+   * you will not set any value for this.
+   *
    * @return reducesSuper
-  **/
-  @ApiModelProperty(example = "false", value = "Most deductions don’t reduce your superannuation guarantee contribution liability, so typically you will not set any value for this.")
+   */
+  @ApiModelProperty(
+      example = "false",
+      value =
+          "Most deductions don’t reduce your superannuation guarantee contribution liability, so"
+              + " typically you will not set any value for this.")
   public Boolean getReducesSuper() {
     return reducesSuper;
   }
@@ -179,11 +179,14 @@ public class DeductionType {
     return this;
   }
 
-   /**
+  /**
    * Boolean to determine if the deduction type is reportable or exempt from W1
+   *
    * @return isExemptFromW1
-  **/
-  @ApiModelProperty(example = "false", value = "Boolean to determine if the deduction type is reportable or exempt from W1")
+   */
+  @ApiModelProperty(
+      example = "false",
+      value = "Boolean to determine if the deduction type is reportable or exempt from W1")
   public Boolean getIsExemptFromW1() {
     return isExemptFromW1;
   }
@@ -197,10 +200,11 @@ public class DeductionType {
     return this;
   }
 
-   /**
+  /**
    * Xero identifier
+   *
    * @return deductionTypeID
-  **/
+   */
   @ApiModelProperty(example = "e0eb6747-7c17-4075-b804-989f8d4e5d39", value = "Xero identifier")
   public UUID getDeductionTypeID() {
     return deductionTypeID;
@@ -210,23 +214,25 @@ public class DeductionType {
     this.deductionTypeID = deductionTypeID;
   }
 
-   /**
+  /**
    * Last modified timestamp
+   *
    * @return updatedDateUTC
-  **/
+   */
   @ApiModelProperty(example = "/Date(1583967733054+0000)/", value = "Last modified timestamp")
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.updatedDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
   public DeductionType deductionCategory(DeductionCategoryEnum deductionCategory) {
@@ -234,10 +240,11 @@ public class DeductionType {
     return this;
   }
 
-   /**
+  /**
    * Get deductionCategory
+   *
    * @return deductionCategory
-  **/
+   */
   @ApiModelProperty(value = "")
   public DeductionCategoryEnum getDeductionCategory() {
     return deductionCategory;
@@ -252,10 +259,11 @@ public class DeductionType {
     return this;
   }
 
-   /**
+  /**
    * Is the current record
+   *
    * @return currentRecord
-  **/
+   */
   @ApiModelProperty(example = "true", value = "Is the current record")
   public Boolean getCurrentRecord() {
     return currentRecord;
@@ -264,7 +272,6 @@ public class DeductionType {
   public void setCurrentRecord(Boolean currentRecord) {
     this.currentRecord = currentRecord;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -275,22 +282,30 @@ public class DeductionType {
       return false;
     }
     DeductionType deductionType = (DeductionType) o;
-    return Objects.equals(this.name, deductionType.name) &&
-        Objects.equals(this.accountCode, deductionType.accountCode) &&
-        Objects.equals(this.reducesTax, deductionType.reducesTax) &&
-        Objects.equals(this.reducesSuper, deductionType.reducesSuper) &&
-        Objects.equals(this.isExemptFromW1, deductionType.isExemptFromW1) &&
-        Objects.equals(this.deductionTypeID, deductionType.deductionTypeID) &&
-        Objects.equals(this.updatedDateUTC, deductionType.updatedDateUTC) &&
-        Objects.equals(this.deductionCategory, deductionType.deductionCategory) &&
-        Objects.equals(this.currentRecord, deductionType.currentRecord);
+    return Objects.equals(this.name, deductionType.name)
+        && Objects.equals(this.accountCode, deductionType.accountCode)
+        && Objects.equals(this.reducesTax, deductionType.reducesTax)
+        && Objects.equals(this.reducesSuper, deductionType.reducesSuper)
+        && Objects.equals(this.isExemptFromW1, deductionType.isExemptFromW1)
+        && Objects.equals(this.deductionTypeID, deductionType.deductionTypeID)
+        && Objects.equals(this.updatedDateUTC, deductionType.updatedDateUTC)
+        && Objects.equals(this.deductionCategory, deductionType.deductionCategory)
+        && Objects.equals(this.currentRecord, deductionType.currentRecord);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, accountCode, reducesTax, reducesSuper, isExemptFromW1, deductionTypeID, updatedDateUTC, deductionCategory, currentRecord);
+    return Objects.hash(
+        name,
+        accountCode,
+        reducesTax,
+        reducesSuper,
+        isExemptFromW1,
+        deductionTypeID,
+        updatedDateUTC,
+        deductionCategory,
+        currentRecord);
   }
-
 
   @Override
   public String toString() {
@@ -310,8 +325,7 @@ public class DeductionType {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -319,6 +333,4 @@ public class DeductionType {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

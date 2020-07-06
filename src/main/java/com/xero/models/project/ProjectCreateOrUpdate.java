@@ -10,33 +10,18 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.project;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import org.threeten.bp.OffsetDateTime;
-import java.io.IOException;
 
 import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * ProjectCreateOrUpdate
- */
-
+/** ProjectCreateOrUpdate */
 public class ProjectCreateOrUpdate {
   StringUtil util = new StringUtil();
 
@@ -51,16 +36,20 @@ public class ProjectCreateOrUpdate {
 
   @JsonProperty("deadlineUtc")
   private OffsetDateTime deadlineUtc;
+
   public ProjectCreateOrUpdate contactId(UUID contactId) {
     this.contactId = contactId;
     return this;
   }
 
-   /**
+  /**
    * Identifier of the contact this project was created for.
+   *
    * @return contactId
-  **/
-  @ApiModelProperty(example = "01234567-89ab-cdef-0123-456789abcdef", value = "Identifier of the contact this project was created for.")
+   */
+  @ApiModelProperty(
+      example = "01234567-89ab-cdef-0123-456789abcdef",
+      value = "Identifier of the contact this project was created for.")
   public UUID getContactId() {
     return contactId;
   }
@@ -74,10 +63,11 @@ public class ProjectCreateOrUpdate {
     return this;
   }
 
-   /**
+  /**
    * Name of the project.
+   *
    * @return name
-  **/
+   */
   @ApiModelProperty(example = "New Kitchen", required = true, value = "Name of the project.")
   public String getName() {
     return name;
@@ -92,10 +82,11 @@ public class ProjectCreateOrUpdate {
     return this;
   }
 
-   /**
+  /**
    * Get estimateAmount
+   *
    * @return estimateAmount
-  **/
+   */
   @ApiModelProperty(example = "1.0", value = "")
   public Double getEstimateAmount() {
     return estimateAmount;
@@ -110,11 +101,14 @@ public class ProjectCreateOrUpdate {
     return this;
   }
 
-   /**
+  /**
    * Deadline for the project. UTC Date Time in ISO-8601 format.
+   *
    * @return deadlineUtc
-  **/
-  @ApiModelProperty(example = "2019-12-10T12:59:59Z", value = "Deadline for the project. UTC Date Time in ISO-8601 format.")
+   */
+  @ApiModelProperty(
+      example = "2019-12-10T12:59:59Z",
+      value = "Deadline for the project. UTC Date Time in ISO-8601 format.")
   public OffsetDateTime getDeadlineUtc() {
     return deadlineUtc;
   }
@@ -122,7 +116,6 @@ public class ProjectCreateOrUpdate {
   public void setDeadlineUtc(OffsetDateTime deadlineUtc) {
     this.deadlineUtc = deadlineUtc;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -133,17 +126,16 @@ public class ProjectCreateOrUpdate {
       return false;
     }
     ProjectCreateOrUpdate projectCreateOrUpdate = (ProjectCreateOrUpdate) o;
-    return Objects.equals(this.contactId, projectCreateOrUpdate.contactId) &&
-        Objects.equals(this.name, projectCreateOrUpdate.name) &&
-        Objects.equals(this.estimateAmount, projectCreateOrUpdate.estimateAmount) &&
-        Objects.equals(this.deadlineUtc, projectCreateOrUpdate.deadlineUtc);
+    return Objects.equals(this.contactId, projectCreateOrUpdate.contactId)
+        && Objects.equals(this.name, projectCreateOrUpdate.name)
+        && Objects.equals(this.estimateAmount, projectCreateOrUpdate.estimateAmount)
+        && Objects.equals(this.deadlineUtc, projectCreateOrUpdate.deadlineUtc);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(contactId, name, estimateAmount, deadlineUtc);
   }
-
 
   @Override
   public String toString() {
@@ -158,8 +150,7 @@ public class ProjectCreateOrUpdate {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -167,6 +158,4 @@ public class ProjectCreateOrUpdate {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

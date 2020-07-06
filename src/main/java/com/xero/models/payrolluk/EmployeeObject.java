@@ -10,34 +10,15 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrolluk;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.payrolluk.Employee;
-import com.xero.models.payrolluk.Pagination;
-import com.xero.models.payrolluk.Problem;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * EmployeeObject
- */
-
+/** EmployeeObject */
 public class EmployeeObject {
   StringUtil util = new StringUtil();
 
@@ -49,15 +30,17 @@ public class EmployeeObject {
 
   @JsonProperty("problem")
   private Problem problem;
+
   public EmployeeObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-   /**
+  /**
    * Get pagination
+   *
    * @return pagination
-  **/
+   */
   @ApiModelProperty(value = "")
   public Pagination getPagination() {
     return pagination;
@@ -72,10 +55,11 @@ public class EmployeeObject {
     return this;
   }
 
-   /**
+  /**
    * Get employee
+   *
    * @return employee
-  **/
+   */
   @ApiModelProperty(value = "")
   public Employee getEmployee() {
     return employee;
@@ -90,10 +74,11 @@ public class EmployeeObject {
     return this;
   }
 
-   /**
+  /**
    * Get problem
+   *
    * @return problem
-  **/
+   */
   @ApiModelProperty(value = "")
   public Problem getProblem() {
     return problem;
@@ -102,7 +87,6 @@ public class EmployeeObject {
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -113,16 +97,15 @@ public class EmployeeObject {
       return false;
     }
     EmployeeObject employeeObject = (EmployeeObject) o;
-    return Objects.equals(this.pagination, employeeObject.pagination) &&
-        Objects.equals(this.employee, employeeObject.employee) &&
-        Objects.equals(this.problem, employeeObject.problem);
+    return Objects.equals(this.pagination, employeeObject.pagination)
+        && Objects.equals(this.employee, employeeObject.employee)
+        && Objects.equals(this.problem, employeeObject.problem);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(pagination, employee, problem);
   }
-
 
   @Override
   public String toString() {
@@ -136,8 +119,7 @@ public class EmployeeObject {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -145,6 +127,4 @@ public class EmployeeObject {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

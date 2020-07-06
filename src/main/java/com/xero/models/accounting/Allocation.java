@@ -10,38 +10,21 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.accounting;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.accounting.CreditNote;
-import com.xero.models.accounting.Invoice;
-import com.xero.models.accounting.Overpayment;
-import com.xero.models.accounting.Prepayment;
-import com.xero.models.accounting.ValidationError;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneId;
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * Allocation
- */
-
+/** Allocation */
 public class Allocation {
   StringUtil util = new StringUtil();
 
@@ -68,15 +51,17 @@ public class Allocation {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
+
   public Allocation invoice(Invoice invoice) {
     this.invoice = invoice;
     return this;
   }
 
-   /**
+  /**
    * Get invoice
+   *
    * @return invoice
-  **/
+   */
   @ApiModelProperty(required = true, value = "")
   public Invoice getInvoice() {
     return invoice;
@@ -91,10 +76,11 @@ public class Allocation {
     return this;
   }
 
-   /**
+  /**
    * Get overpayment
+   *
    * @return overpayment
-  **/
+   */
   @ApiModelProperty(value = "")
   public Overpayment getOverpayment() {
     return overpayment;
@@ -109,10 +95,11 @@ public class Allocation {
     return this;
   }
 
-   /**
+  /**
    * Get prepayment
+   *
    * @return prepayment
-  **/
+   */
   @ApiModelProperty(value = "")
   public Prepayment getPrepayment() {
     return prepayment;
@@ -127,10 +114,11 @@ public class Allocation {
     return this;
   }
 
-   /**
+  /**
    * Get creditNote
+   *
    * @return creditNote
-  **/
+   */
   @ApiModelProperty(value = "")
   public CreditNote getCreditNote() {
     return creditNote;
@@ -145,10 +133,11 @@ public class Allocation {
     return this;
   }
 
-   /**
+  /**
    * the amount being applied to the invoice
+   *
    * @return amount
-  **/
+   */
   @ApiModelProperty(required = true, value = "the amount being applied to the invoice")
   public Double getAmount() {
     return amount;
@@ -163,23 +152,25 @@ public class Allocation {
     return this;
   }
 
-   /**
+  /**
    * the date the allocation is applied YYYY-MM-DD.
+   *
    * @return date
-  **/
+   */
   @ApiModelProperty(required = true, value = "the date the allocation is applied YYYY-MM-DD.")
   public String getDate() {
     return date;
   }
+
   public LocalDate getDateAsDate() {
     if (this.date != null) {
       try {
         return util.convertStringToDate(this.date);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
   public void setDate(String date) {
@@ -187,8 +178,8 @@ public class Allocation {
   }
 
   public void setDate(LocalDate date) {
-    //CONVERT LocalDate args into MS DateFromat String
-    Instant instant =  date.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();  
+    // CONVERT LocalDate args into MS DateFromat String
+    Instant instant = date.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
     long timeInMillis = instant.toEpochMilli();
 
     this.date = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
@@ -199,10 +190,11 @@ public class Allocation {
     return this;
   }
 
-   /**
+  /**
    * A string to indicate if a invoice status
+   *
    * @return statusAttributeString
-  **/
+   */
   @ApiModelProperty(value = "A string to indicate if a invoice status")
   public String getStatusAttributeString() {
     return statusAttributeString;
@@ -225,10 +217,11 @@ public class Allocation {
     return this;
   }
 
-   /**
+  /**
    * Displays array of validation error messages from the API
+   *
    * @return validationErrors
-  **/
+   */
   @ApiModelProperty(value = "Displays array of validation error messages from the API")
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
@@ -237,7 +230,6 @@ public class Allocation {
   public void setValidationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -248,21 +240,28 @@ public class Allocation {
       return false;
     }
     Allocation allocation = (Allocation) o;
-    return Objects.equals(this.invoice, allocation.invoice) &&
-        Objects.equals(this.overpayment, allocation.overpayment) &&
-        Objects.equals(this.prepayment, allocation.prepayment) &&
-        Objects.equals(this.creditNote, allocation.creditNote) &&
-        Objects.equals(this.amount, allocation.amount) &&
-        Objects.equals(this.date, allocation.date) &&
-        Objects.equals(this.statusAttributeString, allocation.statusAttributeString) &&
-        Objects.equals(this.validationErrors, allocation.validationErrors);
+    return Objects.equals(this.invoice, allocation.invoice)
+        && Objects.equals(this.overpayment, allocation.overpayment)
+        && Objects.equals(this.prepayment, allocation.prepayment)
+        && Objects.equals(this.creditNote, allocation.creditNote)
+        && Objects.equals(this.amount, allocation.amount)
+        && Objects.equals(this.date, allocation.date)
+        && Objects.equals(this.statusAttributeString, allocation.statusAttributeString)
+        && Objects.equals(this.validationErrors, allocation.validationErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(invoice, overpayment, prepayment, creditNote, amount, date, statusAttributeString, validationErrors);
+    return Objects.hash(
+        invoice,
+        overpayment,
+        prepayment,
+        creditNote,
+        amount,
+        date,
+        statusAttributeString,
+        validationErrors);
   }
-
 
   @Override
   public String toString() {
@@ -274,15 +273,16 @@ public class Allocation {
     sb.append("    creditNote: ").append(toIndentedString(creditNote)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
     sb.append("    date: ").append(toIndentedString(date)).append("\n");
-    sb.append("    statusAttributeString: ").append(toIndentedString(statusAttributeString)).append("\n");
+    sb.append("    statusAttributeString: ")
+        .append(toIndentedString(statusAttributeString))
+        .append("\n");
     sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -290,6 +290,4 @@ public class Allocation {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

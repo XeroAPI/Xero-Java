@@ -10,39 +10,23 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.accounting;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.accounting.BankTransfer;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * BankTransfers
- */
-
+/** BankTransfers */
 public class BankTransfers {
   StringUtil util = new StringUtil();
 
   @JsonProperty("BankTransfers")
   private List<BankTransfer> bankTransfers = new ArrayList<BankTransfer>();
+
   public BankTransfers bankTransfers(List<BankTransfer> bankTransfers) {
     this.bankTransfers = bankTransfers;
     return this;
@@ -56,10 +40,11 @@ public class BankTransfers {
     return this;
   }
 
-   /**
+  /**
    * Get bankTransfers
+   *
    * @return bankTransfers
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<BankTransfer> getBankTransfers() {
     return bankTransfers;
@@ -68,7 +53,6 @@ public class BankTransfers {
   public void setBankTransfers(List<BankTransfer> bankTransfers) {
     this.bankTransfers = bankTransfers;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -87,7 +71,6 @@ public class BankTransfers {
     return Objects.hash(bankTransfers);
   }
 
-
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -98,8 +81,7 @@ public class BankTransfers {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -107,6 +89,4 @@ public class BankTransfers {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

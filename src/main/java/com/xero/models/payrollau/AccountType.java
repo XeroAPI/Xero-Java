@@ -10,70 +10,56 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrollau;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
-import com.xero.api.StringUtil;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/**
- * See Account Types
- */
+/** See Account Types */
 public enum AccountType {
-  
   BANK("BANK"),
-  
+
   CURRENT("CURRENT"),
-  
+
   CURRLIAB("CURRLIAB"),
-  
+
   DEPRECIATN("DEPRECIATN"),
-  
+
   DIRECTCOSTS("DIRECTCOSTS"),
-  
+
   EQUITY("EQUITY"),
-  
+
   EXPENSE("EXPENSE"),
-  
+
   FIXED("FIXED"),
-  
+
   INVENTORY("INVENTORY"),
-  
+
   LIABILITY("LIABILITY"),
-  
+
   NONCURRENT("NONCURRENT"),
-  
+
   OTHERINCOME("OTHERINCOME"),
-  
+
   OVERHEADS("OVERHEADS"),
-  
+
   PREPAYMENT("PREPAYMENT"),
-  
+
   REVENUE("REVENUE"),
-  
+
   SALES("SALES"),
-  
+
   TERMLIAB("TERMLIAB"),
-  
+
   PAYGLIABILITY("PAYGLIABILITY"),
-  
+
   PAYG("PAYG"),
-  
+
   SUPERANNUATIONEXPENSE("SUPERANNUATIONEXPENSE"),
-  
+
   SUPERANNUATIONLIABILITY("SUPERANNUATIONLIABILITY"),
-  
+
   WAGESEXPENSE("WAGESEXPENSE");
 
   private String value;
@@ -102,4 +88,3 @@ public enum AccountType {
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 }
-

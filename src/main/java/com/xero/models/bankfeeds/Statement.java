@@ -10,39 +10,22 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.bankfeeds;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.bankfeeds.EndBalance;
-import com.xero.models.bankfeeds.Error;
-import com.xero.models.bankfeeds.StartBalance;
-import com.xero.models.bankfeeds.StatementLine;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import org.threeten.bp.LocalDate;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * Statement
- */
-
+/** Statement */
 public class Statement {
   StringUtil util = new StringUtil();
 
@@ -51,14 +34,12 @@ public class Statement {
 
   @JsonProperty("feedConnectionId")
   private UUID feedConnectionId;
-  /**
-   * Current status of statements
-   */
+  /** Current status of statements */
   public enum StatusEnum {
     PENDING("PENDING"),
-    
+
     REJECTED("REJECTED"),
-    
+
     DELIVERED("DELIVERED");
 
     private String value;
@@ -88,7 +69,6 @@ public class Statement {
     }
   }
 
-
   @JsonProperty("status")
   private StatusEnum status;
 
@@ -112,16 +92,20 @@ public class Statement {
 
   @JsonProperty("statementLineCount")
   private Integer statementLineCount;
+
   public Statement id(UUID id) {
     this.id = id;
     return this;
   }
 
-   /**
+  /**
    * GUID used to identify the Statement.
+   *
    * @return id
-  **/
-  @ApiModelProperty(example = "ba4f3127-5e46-427d-80ea-dea2fcd26afe", value = "GUID used to identify the Statement.")
+   */
+  @ApiModelProperty(
+      example = "ba4f3127-5e46-427d-80ea-dea2fcd26afe",
+      value = "GUID used to identify the Statement.")
   public UUID getId() {
     return id;
   }
@@ -135,11 +119,18 @@ public class Statement {
     return this;
   }
 
-   /**
-   * The Xero generated feed connection Id that identifies the Xero Bank Account Container into which the statement should be delivered. This is obtained by calling GET FeedConnections.
+  /**
+   * The Xero generated feed connection Id that identifies the Xero Bank Account Container into
+   * which the statement should be delivered. This is obtained by calling GET FeedConnections.
+   *
    * @return feedConnectionId
-  **/
-  @ApiModelProperty(example = "87cb0dc8-fa32-409c-b622-19f8de8dcc83", value = "The Xero generated feed connection Id that identifies the Xero Bank Account Container into which the statement should be delivered. This is obtained by calling GET FeedConnections.")
+   */
+  @ApiModelProperty(
+      example = "87cb0dc8-fa32-409c-b622-19f8de8dcc83",
+      value =
+          "The Xero generated feed connection Id that identifies the Xero Bank Account Container"
+              + " into which the statement should be delivered. This is obtained by calling GET"
+              + " FeedConnections.")
   public UUID getFeedConnectionId() {
     return feedConnectionId;
   }
@@ -153,10 +144,11 @@ public class Statement {
     return this;
   }
 
-   /**
+  /**
    * Current status of statements
+   *
    * @return status
-  **/
+   */
   @ApiModelProperty(example = "PENDING", value = "Current status of statements")
   public StatusEnum getStatus() {
     return status;
@@ -171,11 +163,16 @@ public class Statement {
     return this;
   }
 
-   /**
+  /**
    * Opening balance date (can be no older than one year from the current date) ISO-8601 YYYY-MM-DD
+   *
    * @return startDate
-  **/
-  @ApiModelProperty(example = "Fri Jul 27 00:00:00 GMT 2018", value = "Opening balance date (can be no older than one year from the current date) ISO-8601 YYYY-MM-DD")
+   */
+  @ApiModelProperty(
+      example = "Fri Jul 27 00:00:00 GMT 2018",
+      value =
+          "Opening balance date (can be no older than one year from the current date) ISO-8601"
+              + " YYYY-MM-DD")
   public LocalDate getStartDate() {
     return startDate;
   }
@@ -189,11 +186,14 @@ public class Statement {
     return this;
   }
 
-   /**
+  /**
    * Closing balance date ISO-8601 YYYY-MM-DD
+   *
    * @return endDate
-  **/
-  @ApiModelProperty(example = "Fri Jul 27 00:00:00 GMT 2018", value = "Closing balance date ISO-8601 YYYY-MM-DD")
+   */
+  @ApiModelProperty(
+      example = "Fri Jul 27 00:00:00 GMT 2018",
+      value = "Closing balance date ISO-8601 YYYY-MM-DD")
   public LocalDate getEndDate() {
     return endDate;
   }
@@ -207,10 +207,11 @@ public class Statement {
     return this;
   }
 
-   /**
+  /**
    * Get startBalance
+   *
    * @return startBalance
-  **/
+   */
   @ApiModelProperty(value = "")
   public StartBalance getStartBalance() {
     return startBalance;
@@ -225,10 +226,11 @@ public class Statement {
     return this;
   }
 
-   /**
+  /**
    * Get endBalance
+   *
    * @return endBalance
-  **/
+   */
   @ApiModelProperty(value = "")
   public EndBalance getEndBalance() {
     return endBalance;
@@ -251,10 +253,11 @@ public class Statement {
     return this;
   }
 
-   /**
+  /**
    * Get statementLines
+   *
    * @return statementLines
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<StatementLine> getStatementLines() {
     return statementLines;
@@ -277,10 +280,11 @@ public class Statement {
     return this;
   }
 
-   /**
+  /**
    * Get errors
+   *
    * @return errors
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<Error> getErrors() {
     return errors;
@@ -295,10 +299,11 @@ public class Statement {
     return this;
   }
 
-   /**
+  /**
    * Get statementLineCount
+   *
    * @return statementLineCount
-  **/
+   */
   @ApiModelProperty(example = "1", value = "")
   public Integer getStatementLineCount() {
     return statementLineCount;
@@ -307,7 +312,6 @@ public class Statement {
   public void setStatementLineCount(Integer statementLineCount) {
     this.statementLineCount = statementLineCount;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -318,23 +322,32 @@ public class Statement {
       return false;
     }
     Statement statement = (Statement) o;
-    return Objects.equals(this.id, statement.id) &&
-        Objects.equals(this.feedConnectionId, statement.feedConnectionId) &&
-        Objects.equals(this.status, statement.status) &&
-        Objects.equals(this.startDate, statement.startDate) &&
-        Objects.equals(this.endDate, statement.endDate) &&
-        Objects.equals(this.startBalance, statement.startBalance) &&
-        Objects.equals(this.endBalance, statement.endBalance) &&
-        Objects.equals(this.statementLines, statement.statementLines) &&
-        Objects.equals(this.errors, statement.errors) &&
-        Objects.equals(this.statementLineCount, statement.statementLineCount);
+    return Objects.equals(this.id, statement.id)
+        && Objects.equals(this.feedConnectionId, statement.feedConnectionId)
+        && Objects.equals(this.status, statement.status)
+        && Objects.equals(this.startDate, statement.startDate)
+        && Objects.equals(this.endDate, statement.endDate)
+        && Objects.equals(this.startBalance, statement.startBalance)
+        && Objects.equals(this.endBalance, statement.endBalance)
+        && Objects.equals(this.statementLines, statement.statementLines)
+        && Objects.equals(this.errors, statement.errors)
+        && Objects.equals(this.statementLineCount, statement.statementLineCount);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, feedConnectionId, status, startDate, endDate, startBalance, endBalance, statementLines, errors, statementLineCount);
+    return Objects.hash(
+        id,
+        feedConnectionId,
+        status,
+        startDate,
+        endDate,
+        startBalance,
+        endBalance,
+        statementLines,
+        errors,
+        statementLineCount);
   }
-
 
   @Override
   public String toString() {
@@ -355,8 +368,7 @@ public class Statement {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -364,6 +376,4 @@ public class Statement {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

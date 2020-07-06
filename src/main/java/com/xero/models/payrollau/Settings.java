@@ -10,35 +10,17 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrollau;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.payrollau.Account;
-import com.xero.models.payrollau.SettingsTrackingCategories;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * Settings
- */
-
+/** Settings */
 public class Settings {
   StringUtil util = new StringUtil();
 
@@ -50,6 +32,7 @@ public class Settings {
 
   @JsonProperty("DaysInPayrollYear")
   private Integer daysInPayrollYear;
+
   public Settings accounts(List<Account> accounts) {
     this.accounts = accounts;
     return this;
@@ -63,11 +46,16 @@ public class Settings {
     return this;
   }
 
-   /**
-   * Payroll Account details for SuperExpense, SuperLiabilty, WagesExpense, PAYGLiability &amp; WagesPayable.
+  /**
+   * Payroll Account details for SuperExpense, SuperLiabilty, WagesExpense, PAYGLiability &amp;
+   * WagesPayable.
+   *
    * @return accounts
-  **/
-  @ApiModelProperty(value = "Payroll Account details for SuperExpense, SuperLiabilty, WagesExpense, PAYGLiability & WagesPayable.")
+   */
+  @ApiModelProperty(
+      value =
+          "Payroll Account details for SuperExpense, SuperLiabilty, WagesExpense, PAYGLiability &"
+              + " WagesPayable.")
   public List<Account> getAccounts() {
     return accounts;
   }
@@ -81,10 +69,11 @@ public class Settings {
     return this;
   }
 
-   /**
+  /**
    * Get trackingCategories
+   *
    * @return trackingCategories
-  **/
+   */
   @ApiModelProperty(value = "")
   public SettingsTrackingCategories getTrackingCategories() {
     return trackingCategories;
@@ -99,10 +88,11 @@ public class Settings {
     return this;
   }
 
-   /**
+  /**
    * Number of days in the Payroll year
+   *
    * @return daysInPayrollYear
-  **/
+   */
   @ApiModelProperty(example = "365", value = "Number of days in the Payroll year")
   public Integer getDaysInPayrollYear() {
     return daysInPayrollYear;
@@ -111,7 +101,6 @@ public class Settings {
   public void setDaysInPayrollYear(Integer daysInPayrollYear) {
     this.daysInPayrollYear = daysInPayrollYear;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -122,16 +111,15 @@ public class Settings {
       return false;
     }
     Settings settings = (Settings) o;
-    return Objects.equals(this.accounts, settings.accounts) &&
-        Objects.equals(this.trackingCategories, settings.trackingCategories) &&
-        Objects.equals(this.daysInPayrollYear, settings.daysInPayrollYear);
+    return Objects.equals(this.accounts, settings.accounts)
+        && Objects.equals(this.trackingCategories, settings.trackingCategories)
+        && Objects.equals(this.daysInPayrollYear, settings.daysInPayrollYear);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(accounts, trackingCategories, daysInPayrollYear);
   }
-
 
   @Override
   public String toString() {
@@ -145,8 +133,7 @@ public class Settings {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -154,6 +141,4 @@ public class Settings {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

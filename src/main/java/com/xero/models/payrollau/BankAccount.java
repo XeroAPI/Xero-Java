@@ -10,31 +10,15 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrollau;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * BankAccount
- */
-
+/** BankAccount */
 public class BankAccount {
   StringUtil util = new StringUtil();
 
@@ -55,16 +39,21 @@ public class BankAccount {
 
   @JsonProperty("Amount")
   private Double amount;
+
   public BankAccount statementText(String statementText) {
     this.statementText = statementText;
     return this;
   }
 
-   /**
+  /**
    * The text that will appear on your employee&#39;s bank statement when they receive payment
+   *
    * @return statementText
-  **/
-  @ApiModelProperty(example = "Salary", value = "The text that will appear on your employee's bank statement when they receive payment")
+   */
+  @ApiModelProperty(
+      example = "Salary",
+      value =
+          "The text that will appear on your employee's bank statement when they receive payment")
   public String getStatementText() {
     return statementText;
   }
@@ -78,10 +67,11 @@ public class BankAccount {
     return this;
   }
 
-   /**
+  /**
    * The name of the account
+   *
    * @return accountName
-  **/
+   */
   @ApiModelProperty(example = "James Lebron Savings", value = "The name of the account")
   public String getAccountName() {
     return accountName;
@@ -96,10 +86,11 @@ public class BankAccount {
     return this;
   }
 
-   /**
+  /**
    * The BSB number of the account
+   *
    * @return BSB
-  **/
+   */
   @ApiModelProperty(example = "122344", value = "The BSB number of the account")
   public String getBSB() {
     return BSB;
@@ -114,10 +105,11 @@ public class BankAccount {
     return this;
   }
 
-   /**
+  /**
    * The account number
+   *
    * @return accountNumber
-  **/
+   */
   @ApiModelProperty(example = "345678", value = "The account number")
   public String getAccountNumber() {
     return accountNumber;
@@ -132,10 +124,11 @@ public class BankAccount {
     return this;
   }
 
-   /**
+  /**
    * If this account is the Remaining bank account
+   *
    * @return remainder
-  **/
+   */
   @ApiModelProperty(example = "false", value = "If this account is the Remaining bank account")
   public Boolean getRemainder() {
     return remainder;
@@ -150,11 +143,17 @@ public class BankAccount {
     return this;
   }
 
-   /**
-   * Fixed amounts (for example, if an employee wants to have $100 of their salary transferred to one account, and the remaining amount to another)
+  /**
+   * Fixed amounts (for example, if an employee wants to have $100 of their salary transferred to
+   * one account, and the remaining amount to another)
+   *
    * @return amount
-  **/
-  @ApiModelProperty(example = "200.0", value = "Fixed amounts (for example, if an employee wants to have $100 of their salary transferred to one account, and the remaining amount to another)")
+   */
+  @ApiModelProperty(
+      example = "200.0",
+      value =
+          "Fixed amounts (for example, if an employee wants to have $100 of their salary"
+              + " transferred to one account, and the remaining amount to another)")
   public Double getAmount() {
     return amount;
   }
@@ -162,7 +161,6 @@ public class BankAccount {
   public void setAmount(Double amount) {
     this.amount = amount;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -173,19 +171,18 @@ public class BankAccount {
       return false;
     }
     BankAccount bankAccount = (BankAccount) o;
-    return Objects.equals(this.statementText, bankAccount.statementText) &&
-        Objects.equals(this.accountName, bankAccount.accountName) &&
-        Objects.equals(this.BSB, bankAccount.BSB) &&
-        Objects.equals(this.accountNumber, bankAccount.accountNumber) &&
-        Objects.equals(this.remainder, bankAccount.remainder) &&
-        Objects.equals(this.amount, bankAccount.amount);
+    return Objects.equals(this.statementText, bankAccount.statementText)
+        && Objects.equals(this.accountName, bankAccount.accountName)
+        && Objects.equals(this.BSB, bankAccount.BSB)
+        && Objects.equals(this.accountNumber, bankAccount.accountNumber)
+        && Objects.equals(this.remainder, bankAccount.remainder)
+        && Objects.equals(this.amount, bankAccount.amount);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(statementText, accountName, BSB, accountNumber, remainder, amount);
   }
-
 
   @Override
   public String toString() {
@@ -202,8 +199,7 @@ public class BankAccount {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -211,6 +207,4 @@ public class BankAccount {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

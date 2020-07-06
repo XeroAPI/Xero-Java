@@ -10,32 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.accounting;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * ReportFields
- */
-
+/** ReportFields */
 public class ReportFields {
   StringUtil util = new StringUtil();
 
@@ -47,15 +31,17 @@ public class ReportFields {
 
   @JsonProperty("Value")
   private String value;
+
   public ReportFields fieldID(UUID fieldID) {
     this.fieldID = fieldID;
     return this;
   }
 
-   /**
+  /**
    * Get fieldID
+   *
    * @return fieldID
-  **/
+   */
   @ApiModelProperty(value = "")
   public UUID getFieldID() {
     return fieldID;
@@ -70,10 +56,11 @@ public class ReportFields {
     return this;
   }
 
-   /**
+  /**
    * Get description
+   *
    * @return description
-  **/
+   */
   @ApiModelProperty(value = "")
   public String getDescription() {
     return description;
@@ -88,10 +75,11 @@ public class ReportFields {
     return this;
   }
 
-   /**
+  /**
    * Get value
+   *
    * @return value
-  **/
+   */
   @ApiModelProperty(value = "")
   public String getValue() {
     return value;
@@ -100,7 +88,6 @@ public class ReportFields {
   public void setValue(String value) {
     this.value = value;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -111,16 +98,15 @@ public class ReportFields {
       return false;
     }
     ReportFields reportFields = (ReportFields) o;
-    return Objects.equals(this.fieldID, reportFields.fieldID) &&
-        Objects.equals(this.description, reportFields.description) &&
-        Objects.equals(this.value, reportFields.value);
+    return Objects.equals(this.fieldID, reportFields.fieldID)
+        && Objects.equals(this.description, reportFields.description)
+        && Objects.equals(this.value, reportFields.value);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(fieldID, description, value);
   }
-
 
   @Override
   public String toString() {
@@ -134,8 +120,7 @@ public class ReportFields {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -143,6 +128,4 @@ public class ReportFields {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

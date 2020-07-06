@@ -10,38 +10,17 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrollau;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.payrollau.DeductionLine;
-import com.xero.models.payrollau.EarningsLine;
-import com.xero.models.payrollau.LeaveLine;
-import com.xero.models.payrollau.ReimbursementLine;
-import com.xero.models.payrollau.SuperLine;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * PayTemplate
- */
-
+/** PayTemplate */
 public class PayTemplate {
   StringUtil util = new StringUtil();
 
@@ -59,6 +38,7 @@ public class PayTemplate {
 
   @JsonProperty("LeaveLines")
   private List<LeaveLine> leaveLines = new ArrayList<LeaveLine>();
+
   public PayTemplate earningsLines(List<EarningsLine> earningsLines) {
     this.earningsLines = earningsLines;
     return this;
@@ -72,10 +52,11 @@ public class PayTemplate {
     return this;
   }
 
-   /**
+  /**
    * Get earningsLines
+   *
    * @return earningsLines
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<EarningsLine> getEarningsLines() {
     return earningsLines;
@@ -98,10 +79,11 @@ public class PayTemplate {
     return this;
   }
 
-   /**
+  /**
    * Get deductionLines
+   *
    * @return deductionLines
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<DeductionLine> getDeductionLines() {
     return deductionLines;
@@ -124,10 +106,11 @@ public class PayTemplate {
     return this;
   }
 
-   /**
+  /**
    * Get superLines
+   *
    * @return superLines
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<SuperLine> getSuperLines() {
     return superLines;
@@ -150,10 +133,11 @@ public class PayTemplate {
     return this;
   }
 
-   /**
+  /**
    * Get reimbursementLines
+   *
    * @return reimbursementLines
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<ReimbursementLine> getReimbursementLines() {
     return reimbursementLines;
@@ -176,10 +160,11 @@ public class PayTemplate {
     return this;
   }
 
-   /**
+  /**
    * Get leaveLines
+   *
    * @return leaveLines
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<LeaveLine> getLeaveLines() {
     return leaveLines;
@@ -188,7 +173,6 @@ public class PayTemplate {
   public void setLeaveLines(List<LeaveLine> leaveLines) {
     this.leaveLines = leaveLines;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -199,18 +183,17 @@ public class PayTemplate {
       return false;
     }
     PayTemplate payTemplate = (PayTemplate) o;
-    return Objects.equals(this.earningsLines, payTemplate.earningsLines) &&
-        Objects.equals(this.deductionLines, payTemplate.deductionLines) &&
-        Objects.equals(this.superLines, payTemplate.superLines) &&
-        Objects.equals(this.reimbursementLines, payTemplate.reimbursementLines) &&
-        Objects.equals(this.leaveLines, payTemplate.leaveLines);
+    return Objects.equals(this.earningsLines, payTemplate.earningsLines)
+        && Objects.equals(this.deductionLines, payTemplate.deductionLines)
+        && Objects.equals(this.superLines, payTemplate.superLines)
+        && Objects.equals(this.reimbursementLines, payTemplate.reimbursementLines)
+        && Objects.equals(this.leaveLines, payTemplate.leaveLines);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(earningsLines, deductionLines, superLines, reimbursementLines, leaveLines);
   }
-
 
   @Override
   public String toString() {
@@ -226,8 +209,7 @@ public class PayTemplate {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -235,6 +217,4 @@ public class PayTemplate {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

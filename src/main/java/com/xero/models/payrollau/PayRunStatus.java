@@ -10,29 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrollau;
 
-import java.util.Objects;
-import java.util.Arrays;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
-import com.xero.api.StringUtil;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/**
- * Gets or Sets PayRunStatus
- */
+/** Gets or Sets PayRunStatus */
 public enum PayRunStatus {
-  
   DRAFT("DRAFT"),
-  
+
   POSTED("POSTED");
 
   private String value;
@@ -61,4 +48,3 @@ public enum PayRunStatus {
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 }
-

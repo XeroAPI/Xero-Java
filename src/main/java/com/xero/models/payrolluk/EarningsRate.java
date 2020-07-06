@@ -10,32 +10,18 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrolluk;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * EarningsRate
- */
-
+/** EarningsRate */
 public class EarningsRate {
   StringUtil util = new StringUtil();
 
@@ -44,28 +30,26 @@ public class EarningsRate {
 
   @JsonProperty("name")
   private String name;
-  /**
-   * Indicates how an employee will be paid when taking this type of earning
-   */
+  /** Indicates how an employee will be paid when taking this type of earning */
   public enum EarningsTypeEnum {
     OVERTIMEEARNINGS("OvertimeEarnings"),
-    
+
     ALLOWANCE("Allowance"),
-    
+
     REGULAREARNINGS("RegularEarnings"),
-    
+
     COMMISSION("Commission"),
-    
+
     BONUS("Bonus"),
-    
+
     TIPS_DIRECT_("Tips(Direct)"),
-    
+
     TIPS_NON_DIRECT_("Tips(Non-Direct)"),
-    
+
     BACKPAY("Backpay"),
-    
+
     OTHEREARNINGS("OtherEarnings"),
-    
+
     LUMPSUM("LumpSum");
 
     private String value;
@@ -95,17 +79,14 @@ public class EarningsRate {
     }
   }
 
-
   @JsonProperty("earningsType")
   private EarningsTypeEnum earningsType;
-  /**
-   * Indicates the type of the earning rate
-   */
+  /** Indicates the type of the earning rate */
   public enum RateTypeEnum {
     RATEPERUNIT("RatePerUnit"),
-    
+
     MULTIPLEOFORDINARYEARNINGSRATE("MultipleOfOrdinaryEarningsRate"),
-    
+
     FIXEDAMOUNT("FixedAmount");
 
     private String value;
@@ -135,7 +116,6 @@ public class EarningsRate {
     }
   }
 
-
   @JsonProperty("rateType")
   private RateTypeEnum rateType;
 
@@ -156,15 +136,17 @@ public class EarningsRate {
 
   @JsonProperty("fixedAmount")
   private Double fixedAmount;
+
   public EarningsRate earningsRateID(UUID earningsRateID) {
     this.earningsRateID = earningsRateID;
     return this;
   }
 
-   /**
+  /**
    * Xero unique identifier for an earning rate
+   *
    * @return earningsRateID
-  **/
+   */
   @ApiModelProperty(value = "Xero unique identifier for an earning rate")
   public UUID getEarningsRateID() {
     return earningsRateID;
@@ -179,10 +161,11 @@ public class EarningsRate {
     return this;
   }
 
-   /**
+  /**
    * Name of the earning rate
+   *
    * @return name
-  **/
+   */
   @ApiModelProperty(required = true, value = "Name of the earning rate")
   public String getName() {
     return name;
@@ -197,11 +180,14 @@ public class EarningsRate {
     return this;
   }
 
-   /**
+  /**
    * Indicates how an employee will be paid when taking this type of earning
+   *
    * @return earningsType
-  **/
-  @ApiModelProperty(required = true, value = "Indicates how an employee will be paid when taking this type of earning")
+   */
+  @ApiModelProperty(
+      required = true,
+      value = "Indicates how an employee will be paid when taking this type of earning")
   public EarningsTypeEnum getEarningsType() {
     return earningsType;
   }
@@ -215,10 +201,11 @@ public class EarningsRate {
     return this;
   }
 
-   /**
+  /**
    * Indicates the type of the earning rate
+   *
    * @return rateType
-  **/
+   */
   @ApiModelProperty(required = true, value = "Indicates the type of the earning rate")
   public RateTypeEnum getRateType() {
     return rateType;
@@ -233,10 +220,11 @@ public class EarningsRate {
     return this;
   }
 
-   /**
+  /**
    * The type of units used to record earnings
+   *
    * @return typeOfUnits
-  **/
+   */
   @ApiModelProperty(required = true, value = "The type of units used to record earnings")
   public String getTypeOfUnits() {
     return typeOfUnits;
@@ -251,10 +239,11 @@ public class EarningsRate {
     return this;
   }
 
-   /**
+  /**
    * Indicates whether an earning type is active
+   *
    * @return currentRecord
-  **/
+   */
   @ApiModelProperty(value = "Indicates whether an earning type is active")
   public Boolean getCurrentRecord() {
     return currentRecord;
@@ -269,10 +258,11 @@ public class EarningsRate {
     return this;
   }
 
-   /**
+  /**
    * The account that will be used for the earnings rate
+   *
    * @return expenseAccountID
-  **/
+   */
   @ApiModelProperty(required = true, value = "The account that will be used for the earnings rate")
   public UUID getExpenseAccountID() {
     return expenseAccountID;
@@ -287,11 +277,13 @@ public class EarningsRate {
     return this;
   }
 
-   /**
+  /**
    * Default rate per unit (optional). Only applicable if RateType is RatePerUnit
+   *
    * @return ratePerUnit
-  **/
-  @ApiModelProperty(value = "Default rate per unit (optional). Only applicable if RateType is RatePerUnit")
+   */
+  @ApiModelProperty(
+      value = "Default rate per unit (optional). Only applicable if RateType is RatePerUnit")
   public Double getRatePerUnit() {
     return ratePerUnit;
   }
@@ -305,11 +297,18 @@ public class EarningsRate {
     return this;
   }
 
-   /**
-   * This is the multiplier used to calculate the rate per unit, based on the employee’s ordinary earnings rate. For example, for time and a half enter 1.5. Only applicable if RateType is MultipleOfOrdinaryEarningsRate
+  /**
+   * This is the multiplier used to calculate the rate per unit, based on the employee’s ordinary
+   * earnings rate. For example, for time and a half enter 1.5. Only applicable if RateType is
+   * MultipleOfOrdinaryEarningsRate
+   *
    * @return multipleOfOrdinaryEarningsRate
-  **/
-  @ApiModelProperty(value = "This is the multiplier used to calculate the rate per unit, based on the employee’s ordinary earnings rate. For example, for time and a half enter 1.5. Only applicable if RateType is MultipleOfOrdinaryEarningsRate")
+   */
+  @ApiModelProperty(
+      value =
+          "This is the multiplier used to calculate the rate per unit, based on the employee’s"
+              + " ordinary earnings rate. For example, for time and a half enter 1.5. Only"
+              + " applicable if RateType is MultipleOfOrdinaryEarningsRate")
   public Double getMultipleOfOrdinaryEarningsRate() {
     return multipleOfOrdinaryEarningsRate;
   }
@@ -323,10 +322,11 @@ public class EarningsRate {
     return this;
   }
 
-   /**
+  /**
    * Optional Fixed Rate Amount. Applicable for FixedAmount Rate
+   *
    * @return fixedAmount
-  **/
+   */
   @ApiModelProperty(value = "Optional Fixed Rate Amount. Applicable for FixedAmount Rate")
   public Double getFixedAmount() {
     return fixedAmount;
@@ -335,7 +335,6 @@ public class EarningsRate {
   public void setFixedAmount(Double fixedAmount) {
     this.fixedAmount = fixedAmount;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -346,23 +345,33 @@ public class EarningsRate {
       return false;
     }
     EarningsRate earningsRate = (EarningsRate) o;
-    return Objects.equals(this.earningsRateID, earningsRate.earningsRateID) &&
-        Objects.equals(this.name, earningsRate.name) &&
-        Objects.equals(this.earningsType, earningsRate.earningsType) &&
-        Objects.equals(this.rateType, earningsRate.rateType) &&
-        Objects.equals(this.typeOfUnits, earningsRate.typeOfUnits) &&
-        Objects.equals(this.currentRecord, earningsRate.currentRecord) &&
-        Objects.equals(this.expenseAccountID, earningsRate.expenseAccountID) &&
-        Objects.equals(this.ratePerUnit, earningsRate.ratePerUnit) &&
-        Objects.equals(this.multipleOfOrdinaryEarningsRate, earningsRate.multipleOfOrdinaryEarningsRate) &&
-        Objects.equals(this.fixedAmount, earningsRate.fixedAmount);
+    return Objects.equals(this.earningsRateID, earningsRate.earningsRateID)
+        && Objects.equals(this.name, earningsRate.name)
+        && Objects.equals(this.earningsType, earningsRate.earningsType)
+        && Objects.equals(this.rateType, earningsRate.rateType)
+        && Objects.equals(this.typeOfUnits, earningsRate.typeOfUnits)
+        && Objects.equals(this.currentRecord, earningsRate.currentRecord)
+        && Objects.equals(this.expenseAccountID, earningsRate.expenseAccountID)
+        && Objects.equals(this.ratePerUnit, earningsRate.ratePerUnit)
+        && Objects.equals(
+            this.multipleOfOrdinaryEarningsRate, earningsRate.multipleOfOrdinaryEarningsRate)
+        && Objects.equals(this.fixedAmount, earningsRate.fixedAmount);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(earningsRateID, name, earningsType, rateType, typeOfUnits, currentRecord, expenseAccountID, ratePerUnit, multipleOfOrdinaryEarningsRate, fixedAmount);
+    return Objects.hash(
+        earningsRateID,
+        name,
+        earningsType,
+        rateType,
+        typeOfUnits,
+        currentRecord,
+        expenseAccountID,
+        ratePerUnit,
+        multipleOfOrdinaryEarningsRate,
+        fixedAmount);
   }
-
 
   @Override
   public String toString() {
@@ -376,15 +385,16 @@ public class EarningsRate {
     sb.append("    currentRecord: ").append(toIndentedString(currentRecord)).append("\n");
     sb.append("    expenseAccountID: ").append(toIndentedString(expenseAccountID)).append("\n");
     sb.append("    ratePerUnit: ").append(toIndentedString(ratePerUnit)).append("\n");
-    sb.append("    multipleOfOrdinaryEarningsRate: ").append(toIndentedString(multipleOfOrdinaryEarningsRate)).append("\n");
+    sb.append("    multipleOfOrdinaryEarningsRate: ")
+        .append(toIndentedString(multipleOfOrdinaryEarningsRate))
+        .append("\n");
     sb.append("    fixedAmount: ").append(toIndentedString(fixedAmount)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -392,6 +402,4 @@ public class EarningsRate {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

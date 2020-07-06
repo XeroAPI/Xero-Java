@@ -10,33 +10,18 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrolluk;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import org.threeten.bp.LocalDate;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * TimesheetLine
- */
-
+/** TimesheetLine */
 public class TimesheetLine {
   StringUtil util = new StringUtil();
 
@@ -54,15 +39,17 @@ public class TimesheetLine {
 
   @JsonProperty("numberOfUnits")
   private Double numberOfUnits;
+
   public TimesheetLine timesheetLineID(UUID timesheetLineID) {
     this.timesheetLineID = timesheetLineID;
     return this;
   }
 
-   /**
+  /**
    * The Xero identifier for a Timesheet Line
+   *
    * @return timesheetLineID
-  **/
+   */
   @ApiModelProperty(value = "The Xero identifier for a Timesheet Line")
   public UUID getTimesheetLineID() {
     return timesheetLineID;
@@ -77,11 +64,14 @@ public class TimesheetLine {
     return this;
   }
 
-   /**
+  /**
    * The Date that this Timesheet Line is for (YYYY-MM-DD)
+   *
    * @return date
-  **/
-  @ApiModelProperty(required = true, value = "The Date that this Timesheet Line is for (YYYY-MM-DD)")
+   */
+  @ApiModelProperty(
+      required = true,
+      value = "The Date that this Timesheet Line is for (YYYY-MM-DD)")
   public LocalDate getDate() {
     return date;
   }
@@ -95,11 +85,14 @@ public class TimesheetLine {
     return this;
   }
 
-   /**
+  /**
    * The Xero identifier for the Earnings Rate that the Timesheet is for
+   *
    * @return earningsRateID
-  **/
-  @ApiModelProperty(required = true, value = "The Xero identifier for the Earnings Rate that the Timesheet is for")
+   */
+  @ApiModelProperty(
+      required = true,
+      value = "The Xero identifier for the Earnings Rate that the Timesheet is for")
   public UUID getEarningsRateID() {
     return earningsRateID;
   }
@@ -113,10 +106,11 @@ public class TimesheetLine {
     return this;
   }
 
-   /**
+  /**
    * The Xero identifier for the Tracking Item that the Timesheet is for
+   *
    * @return trackingItemID
-  **/
+   */
   @ApiModelProperty(value = "The Xero identifier for the Tracking Item that the Timesheet is for")
   public UUID getTrackingItemID() {
     return trackingItemID;
@@ -131,10 +125,11 @@ public class TimesheetLine {
     return this;
   }
 
-   /**
+  /**
    * The Number of Units of the Timesheet Line
+   *
    * @return numberOfUnits
-  **/
+   */
   @ApiModelProperty(required = true, value = "The Number of Units of the Timesheet Line")
   public Double getNumberOfUnits() {
     return numberOfUnits;
@@ -143,7 +138,6 @@ public class TimesheetLine {
   public void setNumberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -154,18 +148,17 @@ public class TimesheetLine {
       return false;
     }
     TimesheetLine timesheetLine = (TimesheetLine) o;
-    return Objects.equals(this.timesheetLineID, timesheetLine.timesheetLineID) &&
-        Objects.equals(this.date, timesheetLine.date) &&
-        Objects.equals(this.earningsRateID, timesheetLine.earningsRateID) &&
-        Objects.equals(this.trackingItemID, timesheetLine.trackingItemID) &&
-        Objects.equals(this.numberOfUnits, timesheetLine.numberOfUnits);
+    return Objects.equals(this.timesheetLineID, timesheetLine.timesheetLineID)
+        && Objects.equals(this.date, timesheetLine.date)
+        && Objects.equals(this.earningsRateID, timesheetLine.earningsRateID)
+        && Objects.equals(this.trackingItemID, timesheetLine.trackingItemID)
+        && Objects.equals(this.numberOfUnits, timesheetLine.numberOfUnits);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(timesheetLineID, date, earningsRateID, trackingItemID, numberOfUnits);
   }
-
 
   @Override
   public String toString() {
@@ -181,8 +174,7 @@ public class TimesheetLine {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -190,6 +182,4 @@ public class TimesheetLine {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

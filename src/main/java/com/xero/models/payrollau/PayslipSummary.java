@@ -10,32 +10,18 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrollau;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import java.io.IOException;
 
 import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * PayslipSummary
- */
-
+/** PayslipSummary */
 public class PayslipSummary {
   StringUtil util = new StringUtil();
 
@@ -74,16 +60,20 @@ public class PayslipSummary {
 
   @JsonProperty("UpdatedDateUTC")
   private String updatedDateUTC;
+
   public PayslipSummary employeeID(UUID employeeID) {
     this.employeeID = employeeID;
     return this;
   }
 
-   /**
+  /**
    * The Xero identifier for an employee
+   *
    * @return employeeID
-  **/
-  @ApiModelProperty(example = "4729f087-8eec-49c1-8294-4d11a5a0a37c", value = "The Xero identifier for an employee")
+   */
+  @ApiModelProperty(
+      example = "4729f087-8eec-49c1-8294-4d11a5a0a37c",
+      value = "The Xero identifier for an employee")
   public UUID getEmployeeID() {
     return employeeID;
   }
@@ -97,11 +87,14 @@ public class PayslipSummary {
     return this;
   }
 
-   /**
+  /**
    * Xero identifier for the payslip
+   *
    * @return payslipID
-  **/
-  @ApiModelProperty(example = "f3c0874d-7cdd-459a-a95c-d90d51decc42", value = "Xero identifier for the payslip")
+   */
+  @ApiModelProperty(
+      example = "f3c0874d-7cdd-459a-a95c-d90d51decc42",
+      value = "Xero identifier for the payslip")
   public UUID getPayslipID() {
     return payslipID;
   }
@@ -115,10 +108,11 @@ public class PayslipSummary {
     return this;
   }
 
-   /**
+  /**
    * First name of employee
+   *
    * @return firstName
-  **/
+   */
   @ApiModelProperty(example = "Karen", value = "First name of employee")
   public String getFirstName() {
     return firstName;
@@ -133,10 +127,11 @@ public class PayslipSummary {
     return this;
   }
 
-   /**
+  /**
    * Last name of employee
+   *
    * @return lastName
-  **/
+   */
   @ApiModelProperty(example = "Jones", value = "Last name of employee")
   public String getLastName() {
     return lastName;
@@ -151,10 +146,11 @@ public class PayslipSummary {
     return this;
   }
 
-   /**
+  /**
    * Employee group name
+   *
    * @return employeeGroup
-  **/
+   */
   @ApiModelProperty(example = "Marketing", value = "Employee group name")
   public String getEmployeeGroup() {
     return employeeGroup;
@@ -169,10 +165,11 @@ public class PayslipSummary {
     return this;
   }
 
-   /**
+  /**
    * The Wages for the Payslip
+   *
    * @return wages
-  **/
+   */
   @ApiModelProperty(example = "1060.5", value = "The Wages for the Payslip")
   public Double getWages() {
     return wages;
@@ -187,10 +184,11 @@ public class PayslipSummary {
     return this;
   }
 
-   /**
+  /**
    * The Deductions for the Payslip
+   *
    * @return deductions
-  **/
+   */
   @ApiModelProperty(example = "0.0", value = "The Deductions for the Payslip")
   public Double getDeductions() {
     return deductions;
@@ -205,10 +203,11 @@ public class PayslipSummary {
     return this;
   }
 
-   /**
+  /**
    * The Tax for the Payslip
+   *
    * @return tax
-  **/
+   */
   @ApiModelProperty(example = "198.0", value = "The Tax for the Payslip")
   public Double getTax() {
     return tax;
@@ -223,10 +222,11 @@ public class PayslipSummary {
     return this;
   }
 
-   /**
+  /**
    * The Super for the Payslip
+   *
    * @return _super
-  **/
+   */
   @ApiModelProperty(example = "75.6", value = "The Super for the Payslip")
   public Double getSuper() {
     return _super;
@@ -241,10 +241,11 @@ public class PayslipSummary {
     return this;
   }
 
-   /**
+  /**
    * The Reimbursements for the Payslip
+   *
    * @return reimbursements
-  **/
+   */
   @ApiModelProperty(example = "0.0", value = "The Reimbursements for the Payslip")
   public Double getReimbursements() {
     return reimbursements;
@@ -259,10 +260,11 @@ public class PayslipSummary {
     return this;
   }
 
-   /**
+  /**
    * The NetPay for the Payslip
+   *
    * @return netPay
-  **/
+   */
   @ApiModelProperty(example = "862.5", value = "The NetPay for the Payslip")
   public Double getNetPay() {
     return netPay;
@@ -272,25 +274,26 @@ public class PayslipSummary {
     this.netPay = netPay;
   }
 
-   /**
+  /**
    * Last modified timestamp
+   *
    * @return updatedDateUTC
-  **/
+   */
   @ApiModelProperty(example = "/Date(1583967733054+0000)/", value = "Last modified timestamp")
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.updatedDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -301,25 +304,36 @@ public class PayslipSummary {
       return false;
     }
     PayslipSummary payslipSummary = (PayslipSummary) o;
-    return Objects.equals(this.employeeID, payslipSummary.employeeID) &&
-        Objects.equals(this.payslipID, payslipSummary.payslipID) &&
-        Objects.equals(this.firstName, payslipSummary.firstName) &&
-        Objects.equals(this.lastName, payslipSummary.lastName) &&
-        Objects.equals(this.employeeGroup, payslipSummary.employeeGroup) &&
-        Objects.equals(this.wages, payslipSummary.wages) &&
-        Objects.equals(this.deductions, payslipSummary.deductions) &&
-        Objects.equals(this.tax, payslipSummary.tax) &&
-        Objects.equals(this._super, payslipSummary._super) &&
-        Objects.equals(this.reimbursements, payslipSummary.reimbursements) &&
-        Objects.equals(this.netPay, payslipSummary.netPay) &&
-        Objects.equals(this.updatedDateUTC, payslipSummary.updatedDateUTC);
+    return Objects.equals(this.employeeID, payslipSummary.employeeID)
+        && Objects.equals(this.payslipID, payslipSummary.payslipID)
+        && Objects.equals(this.firstName, payslipSummary.firstName)
+        && Objects.equals(this.lastName, payslipSummary.lastName)
+        && Objects.equals(this.employeeGroup, payslipSummary.employeeGroup)
+        && Objects.equals(this.wages, payslipSummary.wages)
+        && Objects.equals(this.deductions, payslipSummary.deductions)
+        && Objects.equals(this.tax, payslipSummary.tax)
+        && Objects.equals(this._super, payslipSummary._super)
+        && Objects.equals(this.reimbursements, payslipSummary.reimbursements)
+        && Objects.equals(this.netPay, payslipSummary.netPay)
+        && Objects.equals(this.updatedDateUTC, payslipSummary.updatedDateUTC);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(employeeID, payslipID, firstName, lastName, employeeGroup, wages, deductions, tax, _super, reimbursements, netPay, updatedDateUTC);
+    return Objects.hash(
+        employeeID,
+        payslipID,
+        firstName,
+        lastName,
+        employeeGroup,
+        wages,
+        deductions,
+        tax,
+        _super,
+        reimbursements,
+        netPay,
+        updatedDateUTC);
   }
-
 
   @Override
   public String toString() {
@@ -342,8 +356,7 @@ public class PayslipSummary {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -351,6 +364,4 @@ public class PayslipSummary {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

@@ -10,18 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.accounting;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.accounting.ExternalLink;
-import com.xero.models.accounting.ValidationError;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,30 +23,20 @@ import java.util.UUID;
 import java.io.IOException;
 
 import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * Employee
- */
-
+/** Employee */
 public class Employee {
   StringUtil util = new StringUtil();
 
   @JsonProperty("EmployeeID")
   private UUID employeeID;
-  /**
-   * Current status of an employee – see contact status types
-   */
+  /** Current status of an employee – see contact status types */
   public enum StatusEnum {
     ACTIVE("ACTIVE"),
-    
+
     ARCHIVED("ARCHIVED"),
-    
+
     GDPRREQUEST("GDPRREQUEST");
 
     private String value;
@@ -82,7 +66,6 @@ public class Employee {
     }
   }
 
-
   @JsonProperty("Status")
   private StatusEnum status;
 
@@ -103,16 +86,19 @@ public class Employee {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
+
   public Employee employeeID(UUID employeeID) {
     this.employeeID = employeeID;
     return this;
   }
 
-   /**
+  /**
    * The Xero identifier for an employee e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9
+   *
    * @return employeeID
-  **/
-  @ApiModelProperty(value = "The Xero identifier for an employee e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9")
+   */
+  @ApiModelProperty(
+      value = "The Xero identifier for an employee e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9")
   public UUID getEmployeeID() {
     return employeeID;
   }
@@ -126,10 +112,11 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * Current status of an employee – see contact status types
+   *
    * @return status
-  **/
+   */
   @ApiModelProperty(value = "Current status of an employee – see contact status types")
   public StatusEnum getStatus() {
     return status;
@@ -144,10 +131,11 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * First name of an employee (max length &#x3D; 255)
+   *
    * @return firstName
-  **/
+   */
   @ApiModelProperty(value = "First name of an employee (max length = 255)")
   public String getFirstName() {
     return firstName;
@@ -162,10 +150,11 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * Last name of an employee (max length &#x3D; 255)
+   *
    * @return lastName
-  **/
+   */
   @ApiModelProperty(value = "Last name of an employee (max length = 255)")
   public String getLastName() {
     return lastName;
@@ -180,10 +169,11 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * Get externalLink
+   *
    * @return externalLink
-  **/
+   */
   @ApiModelProperty(value = "")
   public ExternalLink getExternalLink() {
     return externalLink;
@@ -193,23 +183,25 @@ public class Employee {
     this.externalLink = externalLink;
   }
 
-   /**
+  /**
    * Get updatedDateUTC
+   *
    * @return updatedDateUTC
-  **/
+   */
   @ApiModelProperty(example = "/Date(1573755038314)/", value = "")
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.updatedDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
   public Employee statusAttributeString(String statusAttributeString) {
@@ -217,10 +209,11 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * A string to indicate if a invoice status
+   *
    * @return statusAttributeString
-  **/
+   */
   @ApiModelProperty(example = "ERROR", value = "A string to indicate if a invoice status")
   public String getStatusAttributeString() {
     return statusAttributeString;
@@ -243,10 +236,11 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * Displays array of validation error messages from the API
+   *
    * @return validationErrors
-  **/
+   */
   @ApiModelProperty(value = "Displays array of validation error messages from the API")
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
@@ -255,7 +249,6 @@ public class Employee {
   public void setValidationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -266,21 +259,28 @@ public class Employee {
       return false;
     }
     Employee employee = (Employee) o;
-    return Objects.equals(this.employeeID, employee.employeeID) &&
-        Objects.equals(this.status, employee.status) &&
-        Objects.equals(this.firstName, employee.firstName) &&
-        Objects.equals(this.lastName, employee.lastName) &&
-        Objects.equals(this.externalLink, employee.externalLink) &&
-        Objects.equals(this.updatedDateUTC, employee.updatedDateUTC) &&
-        Objects.equals(this.statusAttributeString, employee.statusAttributeString) &&
-        Objects.equals(this.validationErrors, employee.validationErrors);
+    return Objects.equals(this.employeeID, employee.employeeID)
+        && Objects.equals(this.status, employee.status)
+        && Objects.equals(this.firstName, employee.firstName)
+        && Objects.equals(this.lastName, employee.lastName)
+        && Objects.equals(this.externalLink, employee.externalLink)
+        && Objects.equals(this.updatedDateUTC, employee.updatedDateUTC)
+        && Objects.equals(this.statusAttributeString, employee.statusAttributeString)
+        && Objects.equals(this.validationErrors, employee.validationErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(employeeID, status, firstName, lastName, externalLink, updatedDateUTC, statusAttributeString, validationErrors);
+    return Objects.hash(
+        employeeID,
+        status,
+        firstName,
+        lastName,
+        externalLink,
+        updatedDateUTC,
+        statusAttributeString,
+        validationErrors);
   }
-
 
   @Override
   public String toString() {
@@ -292,15 +292,16 @@ public class Employee {
     sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
     sb.append("    externalLink: ").append(toIndentedString(externalLink)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
-    sb.append("    statusAttributeString: ").append(toIndentedString(statusAttributeString)).append("\n");
+    sb.append("    statusAttributeString: ")
+        .append(toIndentedString(statusAttributeString))
+        .append("\n");
     sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -308,6 +309,4 @@ public class Employee {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

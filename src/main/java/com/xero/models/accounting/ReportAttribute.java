@@ -10,31 +10,15 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.accounting;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * ReportAttribute
- */
-
+/** ReportAttribute */
 public class ReportAttribute {
   StringUtil util = new StringUtil();
 
@@ -43,15 +27,17 @@ public class ReportAttribute {
 
   @JsonProperty("Value")
   private String value;
+
   public ReportAttribute id(String id) {
     this.id = id;
     return this;
   }
 
-   /**
+  /**
    * Get id
+   *
    * @return id
-  **/
+   */
   @ApiModelProperty(value = "")
   public String getId() {
     return id;
@@ -66,10 +52,11 @@ public class ReportAttribute {
     return this;
   }
 
-   /**
+  /**
    * Get value
+   *
    * @return value
-  **/
+   */
   @ApiModelProperty(value = "")
   public String getValue() {
     return value;
@@ -78,7 +65,6 @@ public class ReportAttribute {
   public void setValue(String value) {
     this.value = value;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -89,15 +75,14 @@ public class ReportAttribute {
       return false;
     }
     ReportAttribute reportAttribute = (ReportAttribute) o;
-    return Objects.equals(this.id, reportAttribute.id) &&
-        Objects.equals(this.value, reportAttribute.value);
+    return Objects.equals(this.id, reportAttribute.id)
+        && Objects.equals(this.value, reportAttribute.value);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(id, value);
   }
-
 
   @Override
   public String toString() {
@@ -110,8 +95,7 @@ public class ReportAttribute {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -119,6 +103,4 @@ public class ReportAttribute {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

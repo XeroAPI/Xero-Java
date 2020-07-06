@@ -10,31 +10,15 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.accounting;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * CISOrgSetting
- */
-
+/** CISOrgSetting */
 public class CISOrgSetting {
   StringUtil util = new StringUtil();
 
@@ -46,16 +30,19 @@ public class CISOrgSetting {
 
   @JsonProperty("Rate")
   private Integer rate;
+
   public CISOrgSetting ciSContractorEnabled(Boolean ciSContractorEnabled) {
     this.ciSContractorEnabled = ciSContractorEnabled;
     return this;
   }
 
-   /**
+  /**
    * true or false - Boolean that describes if the organisation is a CIS Contractor
+   *
    * @return ciSContractorEnabled
-  **/
-  @ApiModelProperty(value = "true or false - Boolean that describes if the organisation is a CIS Contractor")
+   */
+  @ApiModelProperty(
+      value = "true or false - Boolean that describes if the organisation is a CIS Contractor")
   public Boolean getCiSContractorEnabled() {
     return ciSContractorEnabled;
   }
@@ -69,11 +56,13 @@ public class CISOrgSetting {
     return this;
   }
 
-   /**
+  /**
    * true or false - Boolean that describes if the organisation is a CIS SubContractor
+   *
    * @return ciSSubContractorEnabled
-  **/
-  @ApiModelProperty(value = "true or false - Boolean that describes if the organisation is a CIS SubContractor")
+   */
+  @ApiModelProperty(
+      value = "true or false - Boolean that describes if the organisation is a CIS SubContractor")
   public Boolean getCiSSubContractorEnabled() {
     return ciSSubContractorEnabled;
   }
@@ -87,10 +76,11 @@ public class CISOrgSetting {
     return this;
   }
 
-   /**
+  /**
    * CIS Deduction rate for the organisation
+   *
    * @return rate
-  **/
+   */
   @ApiModelProperty(value = "CIS Deduction rate for the organisation")
   public Integer getRate() {
     return rate;
@@ -99,7 +89,6 @@ public class CISOrgSetting {
   public void setRate(Integer rate) {
     this.rate = rate;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -110,9 +99,9 @@ public class CISOrgSetting {
       return false;
     }
     CISOrgSetting ciSOrgSetting = (CISOrgSetting) o;
-    return Objects.equals(this.ciSContractorEnabled, ciSOrgSetting.ciSContractorEnabled) &&
-        Objects.equals(this.ciSSubContractorEnabled, ciSOrgSetting.ciSSubContractorEnabled) &&
-        Objects.equals(this.rate, ciSOrgSetting.rate);
+    return Objects.equals(this.ciSContractorEnabled, ciSOrgSetting.ciSContractorEnabled)
+        && Objects.equals(this.ciSSubContractorEnabled, ciSOrgSetting.ciSSubContractorEnabled)
+        && Objects.equals(this.rate, ciSOrgSetting.rate);
   }
 
   @Override
@@ -120,21 +109,23 @@ public class CISOrgSetting {
     return Objects.hash(ciSContractorEnabled, ciSSubContractorEnabled, rate);
   }
 
-
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CISOrgSetting {\n");
-    sb.append("    ciSContractorEnabled: ").append(toIndentedString(ciSContractorEnabled)).append("\n");
-    sb.append("    ciSSubContractorEnabled: ").append(toIndentedString(ciSSubContractorEnabled)).append("\n");
+    sb.append("    ciSContractorEnabled: ")
+        .append(toIndentedString(ciSContractorEnabled))
+        .append("\n");
+    sb.append("    ciSSubContractorEnabled: ")
+        .append(toIndentedString(ciSSubContractorEnabled))
+        .append("\n");
     sb.append("    rate: ").append(toIndentedString(rate)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -142,6 +133,4 @@ public class CISOrgSetting {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

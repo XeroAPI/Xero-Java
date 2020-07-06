@@ -10,22 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.accounting;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.accounting.Account;
-import com.xero.models.accounting.Contact;
-import com.xero.models.accounting.CurrencyCode;
-import com.xero.models.accounting.LineAmountTypes;
-import com.xero.models.accounting.LineItem;
-import com.xero.models.accounting.ValidationError;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,37 +23,30 @@ import java.util.UUID;
 import java.io.IOException;
 
 import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneId;
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * BankTransaction
- */
-
+/** BankTransaction */
 public class BankTransaction {
   StringUtil util = new StringUtil();
-  /**
-   * See Bank Transaction Types
-   */
+  /** See Bank Transaction Types */
   public enum TypeEnum {
     RECEIVE("RECEIVE"),
-    
+
     RECEIVE_OVERPAYMENT("RECEIVE-OVERPAYMENT"),
-    
+
     RECEIVE_PREPAYMENT("RECEIVE-PREPAYMENT"),
-    
+
     SPEND("SPEND"),
-    
+
     SPEND_OVERPAYMENT("SPEND-OVERPAYMENT"),
-    
+
     SPEND_PREPAYMENT("SPEND-PREPAYMENT"),
-    
+
     RECEIVE_TRANSFER("RECEIVE-TRANSFER"),
-    
+
     SPEND_TRANSFER("SPEND-TRANSFER");
 
     private String value;
@@ -92,7 +75,6 @@ public class BankTransaction {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
-
 
   @JsonProperty("Type")
   private TypeEnum type;
@@ -123,14 +105,12 @@ public class BankTransaction {
 
   @JsonProperty("Url")
   private String url;
-  /**
-   * See Bank Transaction Status Codes
-   */
+  /** See Bank Transaction Status Codes */
   public enum StatusEnum {
     AUTHORISED("AUTHORISED"),
-    
+
     DELETED("DELETED"),
-    
+
     VOIDED("VOIDED");
 
     private String value;
@@ -159,7 +139,6 @@ public class BankTransaction {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
-
 
   @JsonProperty("Status")
   private StatusEnum status;
@@ -196,15 +175,17 @@ public class BankTransaction {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
+
   public BankTransaction type(TypeEnum type) {
     this.type = type;
     return this;
   }
 
-   /**
+  /**
    * See Bank Transaction Types
+   *
    * @return type
-  **/
+   */
   @ApiModelProperty(required = true, value = "See Bank Transaction Types")
   public TypeEnum getType() {
     return type;
@@ -219,10 +200,11 @@ public class BankTransaction {
     return this;
   }
 
-   /**
+  /**
    * Get contact
+   *
    * @return contact
-  **/
+   */
   @ApiModelProperty(required = true, value = "")
   public Contact getContact() {
     return contact;
@@ -242,10 +224,11 @@ public class BankTransaction {
     return this;
   }
 
-   /**
+  /**
    * See LineItems
+   *
    * @return lineItems
-  **/
+   */
   @ApiModelProperty(required = true, value = "See LineItems")
   public List<LineItem> getLineItems() {
     return lineItems;
@@ -260,10 +243,11 @@ public class BankTransaction {
     return this;
   }
 
-   /**
+  /**
    * Get bankAccount
+   *
    * @return bankAccount
-  **/
+   */
   @ApiModelProperty(required = true, value = "")
   public Account getBankAccount() {
     return bankAccount;
@@ -278,10 +262,11 @@ public class BankTransaction {
     return this;
   }
 
-   /**
+  /**
    * Boolean to show if transaction is reconciled
+   *
    * @return isReconciled
-  **/
+   */
   @ApiModelProperty(value = "Boolean to show if transaction is reconciled")
   public Boolean getIsReconciled() {
     return isReconciled;
@@ -296,23 +281,25 @@ public class BankTransaction {
     return this;
   }
 
-   /**
+  /**
    * Date of transaction – YYYY-MM-DD
+   *
    * @return date
-  **/
+   */
   @ApiModelProperty(value = "Date of transaction – YYYY-MM-DD")
   public String getDate() {
     return date;
   }
+
   public LocalDate getDateAsDate() {
     if (this.date != null) {
       try {
         return util.convertStringToDate(this.date);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
   public void setDate(String date) {
@@ -320,8 +307,8 @@ public class BankTransaction {
   }
 
   public void setDate(LocalDate date) {
-    //CONVERT LocalDate args into MS DateFromat String
-    Instant instant =  date.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();  
+    // CONVERT LocalDate args into MS DateFromat String
+    Instant instant = date.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
     long timeInMillis = instant.toEpochMilli();
 
     this.date = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
@@ -332,11 +319,13 @@ public class BankTransaction {
     return this;
   }
 
-   /**
+  /**
    * Reference for the transaction. Only supported for SPEND and RECEIVE transactions.
+   *
    * @return reference
-  **/
-  @ApiModelProperty(value = "Reference for the transaction. Only supported for SPEND and RECEIVE transactions.")
+   */
+  @ApiModelProperty(
+      value = "Reference for the transaction. Only supported for SPEND and RECEIVE transactions.")
   public String getReference() {
     return reference;
   }
@@ -350,10 +339,11 @@ public class BankTransaction {
     return this;
   }
 
-   /**
+  /**
    * Get currencyCode
+   *
    * @return currencyCode
-  **/
+   */
   @ApiModelProperty(value = "")
   public CurrencyCode getCurrencyCode() {
     return currencyCode;
@@ -368,11 +358,20 @@ public class BankTransaction {
     return this;
   }
 
-   /**
-   * Exchange rate to base currency when money is spent or received. e.g.0.7500 Only used for bank transactions in non base currency. If this isn’t specified for non base currency accounts then either the user-defined rate (preference) or the XE.com day rate will be used. Setting currency is only supported on overpayments.
+  /**
+   * Exchange rate to base currency when money is spent or received. e.g.0.7500 Only used for bank
+   * transactions in non base currency. If this isn’t specified for non base currency accounts then
+   * either the user-defined rate (preference) or the XE.com day rate will be used. Setting currency
+   * is only supported on overpayments.
+   *
    * @return currencyRate
-  **/
-  @ApiModelProperty(value = "Exchange rate to base currency when money is spent or received. e.g.0.7500 Only used for bank transactions in non base currency. If this isn’t specified for non base currency accounts then either the user-defined rate (preference) or the XE.com day rate will be used. Setting currency is only supported on overpayments.")
+   */
+  @ApiModelProperty(
+      value =
+          "Exchange rate to base currency when money is spent or received. e.g.0.7500 Only used"
+              + " for bank transactions in non base currency. If this isn’t specified for non base"
+              + " currency accounts then either the user-defined rate (preference) or the XE.com"
+              + " day rate will be used. Setting currency is only supported on overpayments.")
   public Double getCurrencyRate() {
     return currencyRate;
   }
@@ -386,10 +385,11 @@ public class BankTransaction {
     return this;
   }
 
-   /**
+  /**
    * URL link to a source document – shown as “Go to App Name”
+   *
    * @return url
-  **/
+   */
   @ApiModelProperty(value = "URL link to a source document – shown as “Go to App Name”")
   public String getUrl() {
     return url;
@@ -404,10 +404,11 @@ public class BankTransaction {
     return this;
   }
 
-   /**
+  /**
    * See Bank Transaction Status Codes
+   *
    * @return status
-  **/
+   */
   @ApiModelProperty(value = "See Bank Transaction Status Codes")
   public StatusEnum getStatus() {
     return status;
@@ -422,10 +423,11 @@ public class BankTransaction {
     return this;
   }
 
-   /**
+  /**
    * Get lineAmountTypes
+   *
    * @return lineAmountTypes
-  **/
+   */
   @ApiModelProperty(value = "")
   public LineAmountTypes getLineAmountTypes() {
     return lineAmountTypes;
@@ -440,10 +442,11 @@ public class BankTransaction {
     return this;
   }
 
-   /**
+  /**
    * Total of bank transaction excluding taxes
+   *
    * @return subTotal
-  **/
+   */
   @ApiModelProperty(value = "Total of bank transaction excluding taxes")
   public Double getSubTotal() {
     return subTotal;
@@ -458,10 +461,11 @@ public class BankTransaction {
     return this;
   }
 
-   /**
+  /**
    * Total tax on bank transaction
+   *
    * @return totalTax
-  **/
+   */
   @ApiModelProperty(value = "Total tax on bank transaction")
   public Double getTotalTax() {
     return totalTax;
@@ -476,10 +480,11 @@ public class BankTransaction {
     return this;
   }
 
-   /**
+  /**
    * Total of bank transaction tax inclusive
+   *
    * @return total
-  **/
+   */
   @ApiModelProperty(value = "Total of bank transaction tax inclusive")
   public Double getTotal() {
     return total;
@@ -494,11 +499,14 @@ public class BankTransaction {
     return this;
   }
 
-   /**
+  /**
    * Xero generated unique identifier for bank transaction
+   *
    * @return bankTransactionID
-  **/
-  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "Xero generated unique identifier for bank transaction")
+   */
+  @ApiModelProperty(
+      example = "00000000-0000-0000-0000-000000000000",
+      value = "Xero generated unique identifier for bank transaction")
   public UUID getBankTransactionID() {
     return bankTransactionID;
   }
@@ -507,48 +515,65 @@ public class BankTransaction {
     this.bankTransactionID = bankTransactionID;
   }
 
-   /**
-   * Xero generated unique identifier for a Prepayment. This will be returned on BankTransactions with a Type of SPEND-PREPAYMENT or RECEIVE-PREPAYMENT
+  /**
+   * Xero generated unique identifier for a Prepayment. This will be returned on BankTransactions
+   * with a Type of SPEND-PREPAYMENT or RECEIVE-PREPAYMENT
+   *
    * @return prepaymentID
-  **/
-  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "Xero generated unique identifier for a Prepayment. This will be returned on BankTransactions with a Type of SPEND-PREPAYMENT or RECEIVE-PREPAYMENT")
+   */
+  @ApiModelProperty(
+      example = "00000000-0000-0000-0000-000000000000",
+      value =
+          "Xero generated unique identifier for a Prepayment. This will be returned on"
+              + " BankTransactions with a Type of SPEND-PREPAYMENT or RECEIVE-PREPAYMENT")
   public UUID getPrepaymentID() {
     return prepaymentID;
   }
 
-   /**
-   * Xero generated unique identifier for an Overpayment. This will be returned on BankTransactions with a Type of SPEND-OVERPAYMENT or RECEIVE-OVERPAYMENT
+  /**
+   * Xero generated unique identifier for an Overpayment. This will be returned on BankTransactions
+   * with a Type of SPEND-OVERPAYMENT or RECEIVE-OVERPAYMENT
+   *
    * @return overpaymentID
-  **/
-  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "Xero generated unique identifier for an Overpayment. This will be returned on BankTransactions with a Type of SPEND-OVERPAYMENT or RECEIVE-OVERPAYMENT")
+   */
+  @ApiModelProperty(
+      example = "00000000-0000-0000-0000-000000000000",
+      value =
+          "Xero generated unique identifier for an Overpayment. This will be returned on"
+              + " BankTransactions with a Type of SPEND-OVERPAYMENT or RECEIVE-OVERPAYMENT")
   public UUID getOverpaymentID() {
     return overpaymentID;
   }
 
-   /**
+  /**
    * Last modified date UTC format
+   *
    * @return updatedDateUTC
-  **/
+   */
   @ApiModelProperty(example = "/Date(1573755038314)/", value = "Last modified date UTC format")
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.updatedDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
-   /**
+  /**
    * Boolean to indicate if a bank transaction has an attachment
+   *
    * @return hasAttachments
-  **/
-  @ApiModelProperty(example = "false", value = "Boolean to indicate if a bank transaction has an attachment")
+   */
+  @ApiModelProperty(
+      example = "false",
+      value = "Boolean to indicate if a bank transaction has an attachment")
   public Boolean getHasAttachments() {
     return hasAttachments;
   }
@@ -558,10 +583,11 @@ public class BankTransaction {
     return this;
   }
 
-   /**
+  /**
    * A string to indicate if a invoice status
+   *
    * @return statusAttributeString
-  **/
+   */
   @ApiModelProperty(value = "A string to indicate if a invoice status")
   public String getStatusAttributeString() {
     return statusAttributeString;
@@ -584,10 +610,11 @@ public class BankTransaction {
     return this;
   }
 
-   /**
+  /**
    * Displays array of validation error messages from the API
+   *
    * @return validationErrors
-  **/
+   */
   @ApiModelProperty(value = "Displays array of validation error messages from the API")
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
@@ -596,7 +623,6 @@ public class BankTransaction {
   public void setValidationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -607,35 +633,56 @@ public class BankTransaction {
       return false;
     }
     BankTransaction bankTransaction = (BankTransaction) o;
-    return Objects.equals(this.type, bankTransaction.type) &&
-        Objects.equals(this.contact, bankTransaction.contact) &&
-        Objects.equals(this.lineItems, bankTransaction.lineItems) &&
-        Objects.equals(this.bankAccount, bankTransaction.bankAccount) &&
-        Objects.equals(this.isReconciled, bankTransaction.isReconciled) &&
-        Objects.equals(this.date, bankTransaction.date) &&
-        Objects.equals(this.reference, bankTransaction.reference) &&
-        Objects.equals(this.currencyCode, bankTransaction.currencyCode) &&
-        Objects.equals(this.currencyRate, bankTransaction.currencyRate) &&
-        Objects.equals(this.url, bankTransaction.url) &&
-        Objects.equals(this.status, bankTransaction.status) &&
-        Objects.equals(this.lineAmountTypes, bankTransaction.lineAmountTypes) &&
-        Objects.equals(this.subTotal, bankTransaction.subTotal) &&
-        Objects.equals(this.totalTax, bankTransaction.totalTax) &&
-        Objects.equals(this.total, bankTransaction.total) &&
-        Objects.equals(this.bankTransactionID, bankTransaction.bankTransactionID) &&
-        Objects.equals(this.prepaymentID, bankTransaction.prepaymentID) &&
-        Objects.equals(this.overpaymentID, bankTransaction.overpaymentID) &&
-        Objects.equals(this.updatedDateUTC, bankTransaction.updatedDateUTC) &&
-        Objects.equals(this.hasAttachments, bankTransaction.hasAttachments) &&
-        Objects.equals(this.statusAttributeString, bankTransaction.statusAttributeString) &&
-        Objects.equals(this.validationErrors, bankTransaction.validationErrors);
+    return Objects.equals(this.type, bankTransaction.type)
+        && Objects.equals(this.contact, bankTransaction.contact)
+        && Objects.equals(this.lineItems, bankTransaction.lineItems)
+        && Objects.equals(this.bankAccount, bankTransaction.bankAccount)
+        && Objects.equals(this.isReconciled, bankTransaction.isReconciled)
+        && Objects.equals(this.date, bankTransaction.date)
+        && Objects.equals(this.reference, bankTransaction.reference)
+        && Objects.equals(this.currencyCode, bankTransaction.currencyCode)
+        && Objects.equals(this.currencyRate, bankTransaction.currencyRate)
+        && Objects.equals(this.url, bankTransaction.url)
+        && Objects.equals(this.status, bankTransaction.status)
+        && Objects.equals(this.lineAmountTypes, bankTransaction.lineAmountTypes)
+        && Objects.equals(this.subTotal, bankTransaction.subTotal)
+        && Objects.equals(this.totalTax, bankTransaction.totalTax)
+        && Objects.equals(this.total, bankTransaction.total)
+        && Objects.equals(this.bankTransactionID, bankTransaction.bankTransactionID)
+        && Objects.equals(this.prepaymentID, bankTransaction.prepaymentID)
+        && Objects.equals(this.overpaymentID, bankTransaction.overpaymentID)
+        && Objects.equals(this.updatedDateUTC, bankTransaction.updatedDateUTC)
+        && Objects.equals(this.hasAttachments, bankTransaction.hasAttachments)
+        && Objects.equals(this.statusAttributeString, bankTransaction.statusAttributeString)
+        && Objects.equals(this.validationErrors, bankTransaction.validationErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, contact, lineItems, bankAccount, isReconciled, date, reference, currencyCode, currencyRate, url, status, lineAmountTypes, subTotal, totalTax, total, bankTransactionID, prepaymentID, overpaymentID, updatedDateUTC, hasAttachments, statusAttributeString, validationErrors);
+    return Objects.hash(
+        type,
+        contact,
+        lineItems,
+        bankAccount,
+        isReconciled,
+        date,
+        reference,
+        currencyCode,
+        currencyRate,
+        url,
+        status,
+        lineAmountTypes,
+        subTotal,
+        totalTax,
+        total,
+        bankTransactionID,
+        prepaymentID,
+        overpaymentID,
+        updatedDateUTC,
+        hasAttachments,
+        statusAttributeString,
+        validationErrors);
   }
-
 
   @Override
   public String toString() {
@@ -661,15 +708,16 @@ public class BankTransaction {
     sb.append("    overpaymentID: ").append(toIndentedString(overpaymentID)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
     sb.append("    hasAttachments: ").append(toIndentedString(hasAttachments)).append("\n");
-    sb.append("    statusAttributeString: ").append(toIndentedString(statusAttributeString)).append("\n");
+    sb.append("    statusAttributeString: ")
+        .append(toIndentedString(statusAttributeString))
+        .append("\n");
     sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -677,6 +725,4 @@ public class BankTransaction {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

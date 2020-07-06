@@ -10,34 +10,17 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.accounting;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.accounting.TrackingCategory;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * ManualJournalLine
- */
-
+/** ManualJournalLine */
 public class ManualJournalLine {
   StringUtil util = new StringUtil();
 
@@ -61,16 +44,20 @@ public class ManualJournalLine {
 
   @JsonProperty("IsBlank")
   private Boolean isBlank;
+
   public ManualJournalLine lineAmount(Double lineAmount) {
     this.lineAmount = lineAmount;
     return this;
   }
 
-   /**
+  /**
    * total for line. Debits are positive, credits are negative value
+   *
    * @return lineAmount
-  **/
-  @ApiModelProperty(example = "-2569.0", value = "total for line. Debits are positive, credits are negative value")
+   */
+  @ApiModelProperty(
+      example = "-2569.0",
+      value = "total for line. Debits are positive, credits are negative value")
   public Double getLineAmount() {
     return lineAmount;
   }
@@ -84,10 +71,11 @@ public class ManualJournalLine {
     return this;
   }
 
-   /**
+  /**
    * See Accounts
+   *
    * @return accountCode
-  **/
+   */
   @ApiModelProperty(example = "720", value = "See Accounts")
   public String getAccountCode() {
     return accountCode;
@@ -102,11 +90,14 @@ public class ManualJournalLine {
     return this;
   }
 
-   /**
+  /**
    * Description for journal line
+   *
    * @return description
-  **/
-  @ApiModelProperty(example = "Coded incorrectly Office Equipment should be Computer Equipment", value = "Description for journal line")
+   */
+  @ApiModelProperty(
+      example = "Coded incorrectly Office Equipment should be Computer Equipment",
+      value = "Description for journal line")
   public String getDescription() {
     return description;
   }
@@ -120,10 +111,11 @@ public class ManualJournalLine {
     return this;
   }
 
-   /**
+  /**
    * The tax type from TaxRates
+   *
    * @return taxType
-  **/
+   */
   @ApiModelProperty(value = "The tax type from TaxRates")
   public String getTaxType() {
     return taxType;
@@ -146,11 +138,16 @@ public class ManualJournalLine {
     return this;
   }
 
-   /**
-   * Optional Tracking Category – see Tracking. Any JournalLine can have a maximum of 2 &lt;TrackingCategory&gt; elements.
+  /**
+   * Optional Tracking Category – see Tracking. Any JournalLine can have a maximum of 2
+   * &lt;TrackingCategory&gt; elements.
+   *
    * @return tracking
-  **/
-  @ApiModelProperty(value = "Optional Tracking Category – see Tracking. Any JournalLine can have a maximum of 2 <TrackingCategory> elements.")
+   */
+  @ApiModelProperty(
+      value =
+          "Optional Tracking Category – see Tracking. Any JournalLine can have a maximum of 2"
+              + " <TrackingCategory> elements.")
   public List<TrackingCategory> getTracking() {
     return tracking;
   }
@@ -159,11 +156,14 @@ public class ManualJournalLine {
     this.tracking = tracking;
   }
 
-   /**
+  /**
    * The calculated tax amount based on the TaxType and LineAmount
+   *
    * @return taxAmount
-  **/
-  @ApiModelProperty(example = "0.0", value = "The calculated tax amount based on the TaxType and LineAmount")
+   */
+  @ApiModelProperty(
+      example = "0.0",
+      value = "The calculated tax amount based on the TaxType and LineAmount")
   public Double getTaxAmount() {
     return taxAmount;
   }
@@ -173,10 +173,11 @@ public class ManualJournalLine {
     return this;
   }
 
-   /**
+  /**
    * is the line blank
+   *
    * @return isBlank
-  **/
+   */
   @ApiModelProperty(example = "false", value = "is the line blank")
   public Boolean getIsBlank() {
     return isBlank;
@@ -185,7 +186,6 @@ public class ManualJournalLine {
   public void setIsBlank(Boolean isBlank) {
     this.isBlank = isBlank;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -196,20 +196,20 @@ public class ManualJournalLine {
       return false;
     }
     ManualJournalLine manualJournalLine = (ManualJournalLine) o;
-    return Objects.equals(this.lineAmount, manualJournalLine.lineAmount) &&
-        Objects.equals(this.accountCode, manualJournalLine.accountCode) &&
-        Objects.equals(this.description, manualJournalLine.description) &&
-        Objects.equals(this.taxType, manualJournalLine.taxType) &&
-        Objects.equals(this.tracking, manualJournalLine.tracking) &&
-        Objects.equals(this.taxAmount, manualJournalLine.taxAmount) &&
-        Objects.equals(this.isBlank, manualJournalLine.isBlank);
+    return Objects.equals(this.lineAmount, manualJournalLine.lineAmount)
+        && Objects.equals(this.accountCode, manualJournalLine.accountCode)
+        && Objects.equals(this.description, manualJournalLine.description)
+        && Objects.equals(this.taxType, manualJournalLine.taxType)
+        && Objects.equals(this.tracking, manualJournalLine.tracking)
+        && Objects.equals(this.taxAmount, manualJournalLine.taxAmount)
+        && Objects.equals(this.isBlank, manualJournalLine.isBlank);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(lineAmount, accountCode, description, taxType, tracking, taxAmount, isBlank);
+    return Objects.hash(
+        lineAmount, accountCode, description, taxType, tracking, taxAmount, isBlank);
   }
-
 
   @Override
   public String toString() {
@@ -227,8 +227,7 @@ public class ManualJournalLine {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -236,6 +235,4 @@ public class ManualJournalLine {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

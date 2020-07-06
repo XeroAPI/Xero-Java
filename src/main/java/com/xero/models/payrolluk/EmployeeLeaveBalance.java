@@ -10,32 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrolluk;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * EmployeeLeaveBalance
- */
-
+/** EmployeeLeaveBalance */
 public class EmployeeLeaveBalance {
   StringUtil util = new StringUtil();
 
@@ -50,15 +34,17 @@ public class EmployeeLeaveBalance {
 
   @JsonProperty("typeOfUnits")
   private String typeOfUnits;
+
   public EmployeeLeaveBalance name(String name) {
     this.name = name;
     return this;
   }
 
-   /**
+  /**
    * Name of the leave type.
+   *
    * @return name
-  **/
+   */
   @ApiModelProperty(example = "Holiday", value = "Name of the leave type.")
   public String getName() {
     return name;
@@ -73,10 +59,11 @@ public class EmployeeLeaveBalance {
     return this;
   }
 
-   /**
+  /**
    * The Xero identifier for leave type
+   *
    * @return leaveTypeID
-  **/
+   */
   @ApiModelProperty(value = "The Xero identifier for leave type")
   public UUID getLeaveTypeID() {
     return leaveTypeID;
@@ -91,10 +78,11 @@ public class EmployeeLeaveBalance {
     return this;
   }
 
-   /**
+  /**
    * The employees current balance for the corresponding leave type.
+   *
    * @return balance
-  **/
+   */
   @ApiModelProperty(value = "The employees current balance for the corresponding leave type.")
   public Double getBalance() {
     return balance;
@@ -109,10 +97,11 @@ public class EmployeeLeaveBalance {
     return this;
   }
 
-   /**
+  /**
    * The type of the units of the leave.
+   *
    * @return typeOfUnits
-  **/
+   */
   @ApiModelProperty(example = "hours", value = "The type of the units of the leave.")
   public String getTypeOfUnits() {
     return typeOfUnits;
@@ -121,7 +110,6 @@ public class EmployeeLeaveBalance {
   public void setTypeOfUnits(String typeOfUnits) {
     this.typeOfUnits = typeOfUnits;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -132,17 +120,16 @@ public class EmployeeLeaveBalance {
       return false;
     }
     EmployeeLeaveBalance employeeLeaveBalance = (EmployeeLeaveBalance) o;
-    return Objects.equals(this.name, employeeLeaveBalance.name) &&
-        Objects.equals(this.leaveTypeID, employeeLeaveBalance.leaveTypeID) &&
-        Objects.equals(this.balance, employeeLeaveBalance.balance) &&
-        Objects.equals(this.typeOfUnits, employeeLeaveBalance.typeOfUnits);
+    return Objects.equals(this.name, employeeLeaveBalance.name)
+        && Objects.equals(this.leaveTypeID, employeeLeaveBalance.leaveTypeID)
+        && Objects.equals(this.balance, employeeLeaveBalance.balance)
+        && Objects.equals(this.typeOfUnits, employeeLeaveBalance.typeOfUnits);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(name, leaveTypeID, balance, typeOfUnits);
   }
-
 
   @Override
   public String toString() {
@@ -157,8 +144,7 @@ public class EmployeeLeaveBalance {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -166,6 +152,4 @@ public class EmployeeLeaveBalance {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

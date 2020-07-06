@@ -10,41 +10,25 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.accounting;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * Address
- */
-
+/** Address */
 public class Address {
   StringUtil util = new StringUtil();
-  /**
-   * define the type of address
-   */
+  /** define the type of address */
   public enum AddressTypeEnum {
     POBOX("POBOX"),
-    
+
     STREET("STREET"),
-    
+
     DELIVERY("DELIVERY");
 
     private String value;
@@ -73,7 +57,6 @@ public class Address {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
-
 
   @JsonProperty("AddressType")
   private AddressTypeEnum addressType;
@@ -104,15 +87,17 @@ public class Address {
 
   @JsonProperty("AttentionTo")
   private String attentionTo;
+
   public Address addressType(AddressTypeEnum addressType) {
     this.addressType = addressType;
     return this;
   }
 
-   /**
+  /**
    * define the type of address
+   *
    * @return addressType
-  **/
+   */
   @ApiModelProperty(value = "define the type of address")
   public AddressTypeEnum getAddressType() {
     return addressType;
@@ -127,10 +112,11 @@ public class Address {
     return this;
   }
 
-   /**
+  /**
    * max length &#x3D; 500
+   *
    * @return addressLine1
-  **/
+   */
   @ApiModelProperty(value = "max length = 500")
   public String getAddressLine1() {
     return addressLine1;
@@ -145,10 +131,11 @@ public class Address {
     return this;
   }
 
-   /**
+  /**
    * max length &#x3D; 500
+   *
    * @return addressLine2
-  **/
+   */
   @ApiModelProperty(value = "max length = 500")
   public String getAddressLine2() {
     return addressLine2;
@@ -163,10 +150,11 @@ public class Address {
     return this;
   }
 
-   /**
+  /**
    * max length &#x3D; 500
+   *
    * @return addressLine3
-  **/
+   */
   @ApiModelProperty(value = "max length = 500")
   public String getAddressLine3() {
     return addressLine3;
@@ -181,10 +169,11 @@ public class Address {
     return this;
   }
 
-   /**
+  /**
    * max length &#x3D; 500
+   *
    * @return addressLine4
-  **/
+   */
   @ApiModelProperty(value = "max length = 500")
   public String getAddressLine4() {
     return addressLine4;
@@ -199,10 +188,11 @@ public class Address {
     return this;
   }
 
-   /**
+  /**
    * max length &#x3D; 255
+   *
    * @return city
-  **/
+   */
   @ApiModelProperty(value = "max length = 255")
   public String getCity() {
     return city;
@@ -217,10 +207,11 @@ public class Address {
     return this;
   }
 
-   /**
+  /**
    * max length &#x3D; 255
+   *
    * @return region
-  **/
+   */
   @ApiModelProperty(value = "max length = 255")
   public String getRegion() {
     return region;
@@ -235,10 +226,11 @@ public class Address {
     return this;
   }
 
-   /**
+  /**
    * max length &#x3D; 50
+   *
    * @return postalCode
-  **/
+   */
   @ApiModelProperty(value = "max length = 50")
   public String getPostalCode() {
     return postalCode;
@@ -253,10 +245,11 @@ public class Address {
     return this;
   }
 
-   /**
+  /**
    * max length &#x3D; 50, [A-Z], [a-z] only
+   *
    * @return country
-  **/
+   */
   @ApiModelProperty(value = "max length = 50, [A-Z], [a-z] only")
   public String getCountry() {
     return country;
@@ -271,10 +264,11 @@ public class Address {
     return this;
   }
 
-   /**
+  /**
    * max length &#x3D; 255
+   *
    * @return attentionTo
-  **/
+   */
   @ApiModelProperty(value = "max length = 255")
   public String getAttentionTo() {
     return attentionTo;
@@ -283,7 +277,6 @@ public class Address {
   public void setAttentionTo(String attentionTo) {
     this.attentionTo = attentionTo;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -294,23 +287,32 @@ public class Address {
       return false;
     }
     Address address = (Address) o;
-    return Objects.equals(this.addressType, address.addressType) &&
-        Objects.equals(this.addressLine1, address.addressLine1) &&
-        Objects.equals(this.addressLine2, address.addressLine2) &&
-        Objects.equals(this.addressLine3, address.addressLine3) &&
-        Objects.equals(this.addressLine4, address.addressLine4) &&
-        Objects.equals(this.city, address.city) &&
-        Objects.equals(this.region, address.region) &&
-        Objects.equals(this.postalCode, address.postalCode) &&
-        Objects.equals(this.country, address.country) &&
-        Objects.equals(this.attentionTo, address.attentionTo);
+    return Objects.equals(this.addressType, address.addressType)
+        && Objects.equals(this.addressLine1, address.addressLine1)
+        && Objects.equals(this.addressLine2, address.addressLine2)
+        && Objects.equals(this.addressLine3, address.addressLine3)
+        && Objects.equals(this.addressLine4, address.addressLine4)
+        && Objects.equals(this.city, address.city)
+        && Objects.equals(this.region, address.region)
+        && Objects.equals(this.postalCode, address.postalCode)
+        && Objects.equals(this.country, address.country)
+        && Objects.equals(this.attentionTo, address.attentionTo);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(addressType, addressLine1, addressLine2, addressLine3, addressLine4, city, region, postalCode, country, attentionTo);
+    return Objects.hash(
+        addressType,
+        addressLine1,
+        addressLine2,
+        addressLine3,
+        addressLine4,
+        city,
+        region,
+        postalCode,
+        country,
+        attentionTo);
   }
-
 
   @Override
   public String toString() {
@@ -331,8 +333,7 @@ public class Address {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -340,6 +341,4 @@ public class Address {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

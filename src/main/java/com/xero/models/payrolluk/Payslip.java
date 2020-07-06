@@ -10,45 +10,21 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrolluk;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.payrolluk.BenefitLine;
-import com.xero.models.payrolluk.CourtOrderLine;
-import com.xero.models.payrolluk.DeductionLine;
-import com.xero.models.payrolluk.EarningsLine;
-import com.xero.models.payrolluk.LeaveAccrualLine;
-import com.xero.models.payrolluk.LeaveEarningsLine;
-import com.xero.models.payrolluk.PaymentLine;
-import com.xero.models.payrolluk.ReimbursementLine;
-import com.xero.models.payrolluk.TaxLine;
-import com.xero.models.payrolluk.TimesheetEarningsLine;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import org.threeten.bp.LocalDate;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
 import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * Payslip
- */
-
+/** Payslip */
 public class Payslip {
   StringUtil util = new StringUtil();
 
@@ -99,14 +75,12 @@ public class Payslip {
 
   @JsonProperty("bacsHash")
   private String bacsHash;
-  /**
-   * The payment method code
-   */
+  /** The payment method code */
   public enum PaymentMethodEnum {
     CHEQUE("Cheque"),
-    
+
     ELECTRONICALLY("Electronically"),
-    
+
     MANUAL("Manual");
 
     private String value;
@@ -136,7 +110,6 @@ public class Payslip {
     }
   }
 
-
   @JsonProperty("paymentMethod")
   private PaymentMethodEnum paymentMethod;
 
@@ -147,7 +120,8 @@ public class Payslip {
   private List<LeaveEarningsLine> leaveEarningsLines = new ArrayList<LeaveEarningsLine>();
 
   @JsonProperty("timesheetEarningsLines")
-  private List<TimesheetEarningsLine> timesheetEarningsLines = new ArrayList<TimesheetEarningsLine>();
+  private List<TimesheetEarningsLine> timesheetEarningsLines =
+      new ArrayList<TimesheetEarningsLine>();
 
   @JsonProperty("deductionLines")
   private List<DeductionLine> deductionLines = new ArrayList<DeductionLine>();
@@ -169,15 +143,17 @@ public class Payslip {
 
   @JsonProperty("courtOrderLines")
   private List<CourtOrderLine> courtOrderLines = new ArrayList<CourtOrderLine>();
+
   public Payslip paySlipID(UUID paySlipID) {
     this.paySlipID = paySlipID;
     return this;
   }
 
-   /**
+  /**
    * The Xero identifier for a Payslip
+   *
    * @return paySlipID
-  **/
+   */
   @ApiModelProperty(value = "The Xero identifier for a Payslip")
   public UUID getPaySlipID() {
     return paySlipID;
@@ -192,10 +168,11 @@ public class Payslip {
     return this;
   }
 
-   /**
+  /**
    * The Xero identifier for payroll employee
+   *
    * @return employeeID
-  **/
+   */
   @ApiModelProperty(value = "The Xero identifier for payroll employee")
   public UUID getEmployeeID() {
     return employeeID;
@@ -210,10 +187,11 @@ public class Payslip {
     return this;
   }
 
-   /**
+  /**
    * The Xero identifier for the associated payrun
+   *
    * @return payRunID
-  **/
+   */
   @ApiModelProperty(value = "The Xero identifier for the associated payrun")
   public UUID getPayRunID() {
     return payRunID;
@@ -228,10 +206,11 @@ public class Payslip {
     return this;
   }
 
-   /**
+  /**
    * The date payslip was last updated
+   *
    * @return lastEdited
-  **/
+   */
   @ApiModelProperty(value = "The date payslip was last updated")
   public LocalDateTime getLastEdited() {
     return lastEdited;
@@ -246,10 +225,11 @@ public class Payslip {
     return this;
   }
 
-   /**
+  /**
    * Employee first name
+   *
    * @return firstName
-  **/
+   */
   @ApiModelProperty(value = "Employee first name")
   public String getFirstName() {
     return firstName;
@@ -264,10 +244,11 @@ public class Payslip {
     return this;
   }
 
-   /**
+  /**
    * Employee last name
+   *
    * @return lastName
-  **/
+   */
   @ApiModelProperty(value = "Employee last name")
   public String getLastName() {
     return lastName;
@@ -282,10 +263,11 @@ public class Payslip {
     return this;
   }
 
-   /**
+  /**
    * Total earnings before any deductions. Same as gross earnings for UK.
+   *
    * @return totalEarnings
-  **/
+   */
   @ApiModelProperty(value = "Total earnings before any deductions. Same as gross earnings for UK.")
   public Double getTotalEarnings() {
     return totalEarnings;
@@ -300,10 +282,11 @@ public class Payslip {
     return this;
   }
 
-   /**
+  /**
    * Total earnings before any deductions. Same as total earnings for UK.
+   *
    * @return grossEarnings
-  **/
+   */
   @ApiModelProperty(value = "Total earnings before any deductions. Same as total earnings for UK.")
   public Double getGrossEarnings() {
     return grossEarnings;
@@ -318,10 +301,11 @@ public class Payslip {
     return this;
   }
 
-   /**
+  /**
    * The employee net pay
+   *
    * @return totalPay
-  **/
+   */
   @ApiModelProperty(value = "The employee net pay")
   public Double getTotalPay() {
     return totalPay;
@@ -336,10 +320,11 @@ public class Payslip {
     return this;
   }
 
-   /**
+  /**
    * The employer&#39;s tax obligation
+   *
    * @return totalEmployerTaxes
-  **/
+   */
   @ApiModelProperty(value = "The employer's tax obligation")
   public Double getTotalEmployerTaxes() {
     return totalEmployerTaxes;
@@ -354,10 +339,11 @@ public class Payslip {
     return this;
   }
 
-   /**
+  /**
    * The part of an employee&#39;s earnings that is deducted for tax purposes
+   *
    * @return totalEmployeeTaxes
-  **/
+   */
   @ApiModelProperty(value = "The part of an employee's earnings that is deducted for tax purposes")
   public Double getTotalEmployeeTaxes() {
     return totalEmployeeTaxes;
@@ -372,11 +358,13 @@ public class Payslip {
     return this;
   }
 
-   /**
+  /**
    * Total amount subtracted from an employee&#39;s earnings to reach total pay
+   *
    * @return totalDeductions
-  **/
-  @ApiModelProperty(value = "Total amount subtracted from an employee's earnings to reach total pay")
+   */
+  @ApiModelProperty(
+      value = "Total amount subtracted from an employee's earnings to reach total pay")
   public Double getTotalDeductions() {
     return totalDeductions;
   }
@@ -390,11 +378,16 @@ public class Payslip {
     return this;
   }
 
-   /**
-   * Total reimbursements are nontaxable payments to an employee used to repay out-of-pocket expenses when the person incurs those expenses through employment
+  /**
+   * Total reimbursements are nontaxable payments to an employee used to repay out-of-pocket
+   * expenses when the person incurs those expenses through employment
+   *
    * @return totalReimbursements
-  **/
-  @ApiModelProperty(value = "Total reimbursements are nontaxable payments to an employee used to repay out-of-pocket expenses when the person incurs those expenses through employment")
+   */
+  @ApiModelProperty(
+      value =
+          "Total reimbursements are nontaxable payments to an employee used to repay out-of-pocket"
+              + " expenses when the person incurs those expenses through employment")
   public Double getTotalReimbursements() {
     return totalReimbursements;
   }
@@ -408,11 +401,13 @@ public class Payslip {
     return this;
   }
 
-   /**
+  /**
    * Total amounts required by law to subtract from the employee&#39;s earnings
+   *
    * @return totalCourtOrders
-  **/
-  @ApiModelProperty(value = "Total amounts required by law to subtract from the employee's earnings")
+   */
+  @ApiModelProperty(
+      value = "Total amounts required by law to subtract from the employee's earnings")
   public Double getTotalCourtOrders() {
     return totalCourtOrders;
   }
@@ -426,11 +421,17 @@ public class Payslip {
     return this;
   }
 
-   /**
-   * Benefits (also called fringe benefits, perquisites or perks) are various non-earnings compensations provided to employees in addition to their normal earnings or salaries
+  /**
+   * Benefits (also called fringe benefits, perquisites or perks) are various non-earnings
+   * compensations provided to employees in addition to their normal earnings or salaries
+   *
    * @return totalBenefits
-  **/
-  @ApiModelProperty(value = "Benefits (also called fringe benefits, perquisites or perks) are various non-earnings compensations provided to employees in addition to their normal earnings or salaries")
+   */
+  @ApiModelProperty(
+      value =
+          "Benefits (also called fringe benefits, perquisites or perks) are various non-earnings"
+              + " compensations provided to employees in addition to their normal earnings or"
+              + " salaries")
   public Double getTotalBenefits() {
     return totalBenefits;
   }
@@ -444,10 +445,11 @@ public class Payslip {
     return this;
   }
 
-   /**
+  /**
    * BACS Service User Number
+   *
    * @return bacsHash
-  **/
+   */
   @ApiModelProperty(value = "BACS Service User Number")
   public String getBacsHash() {
     return bacsHash;
@@ -462,10 +464,11 @@ public class Payslip {
     return this;
   }
 
-   /**
+  /**
    * The payment method code
+   *
    * @return paymentMethod
-  **/
+   */
   @ApiModelProperty(value = "The payment method code")
   public PaymentMethodEnum getPaymentMethod() {
     return paymentMethod;
@@ -488,10 +491,11 @@ public class Payslip {
     return this;
   }
 
-   /**
+  /**
    * Get earningsLines
+   *
    * @return earningsLines
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<EarningsLine> getEarningsLines() {
     return earningsLines;
@@ -514,10 +518,11 @@ public class Payslip {
     return this;
   }
 
-   /**
+  /**
    * Get leaveEarningsLines
+   *
    * @return leaveEarningsLines
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<LeaveEarningsLine> getLeaveEarningsLines() {
     return leaveEarningsLines;
@@ -540,10 +545,11 @@ public class Payslip {
     return this;
   }
 
-   /**
+  /**
    * Get timesheetEarningsLines
+   *
    * @return timesheetEarningsLines
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<TimesheetEarningsLine> getTimesheetEarningsLines() {
     return timesheetEarningsLines;
@@ -566,10 +572,11 @@ public class Payslip {
     return this;
   }
 
-   /**
+  /**
    * Get deductionLines
+   *
    * @return deductionLines
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<DeductionLine> getDeductionLines() {
     return deductionLines;
@@ -592,10 +599,11 @@ public class Payslip {
     return this;
   }
 
-   /**
+  /**
    * Get reimbursementLines
+   *
    * @return reimbursementLines
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<ReimbursementLine> getReimbursementLines() {
     return reimbursementLines;
@@ -618,10 +626,11 @@ public class Payslip {
     return this;
   }
 
-   /**
+  /**
    * Get leaveAccrualLines
+   *
    * @return leaveAccrualLines
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<LeaveAccrualLine> getLeaveAccrualLines() {
     return leaveAccrualLines;
@@ -644,10 +653,11 @@ public class Payslip {
     return this;
   }
 
-   /**
+  /**
    * Get benefitLines
+   *
    * @return benefitLines
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<BenefitLine> getBenefitLines() {
     return benefitLines;
@@ -670,10 +680,11 @@ public class Payslip {
     return this;
   }
 
-   /**
+  /**
    * Get paymentLines
+   *
    * @return paymentLines
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<PaymentLine> getPaymentLines() {
     return paymentLines;
@@ -696,10 +707,11 @@ public class Payslip {
     return this;
   }
 
-   /**
+  /**
    * Get employeeTaxLines
+   *
    * @return employeeTaxLines
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<TaxLine> getEmployeeTaxLines() {
     return employeeTaxLines;
@@ -722,10 +734,11 @@ public class Payslip {
     return this;
   }
 
-   /**
+  /**
    * Get courtOrderLines
+   *
    * @return courtOrderLines
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<CourtOrderLine> getCourtOrderLines() {
     return courtOrderLines;
@@ -734,7 +747,6 @@ public class Payslip {
   public void setCourtOrderLines(List<CourtOrderLine> courtOrderLines) {
     this.courtOrderLines = courtOrderLines;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -745,40 +757,66 @@ public class Payslip {
       return false;
     }
     Payslip payslip = (Payslip) o;
-    return Objects.equals(this.paySlipID, payslip.paySlipID) &&
-        Objects.equals(this.employeeID, payslip.employeeID) &&
-        Objects.equals(this.payRunID, payslip.payRunID) &&
-        Objects.equals(this.lastEdited, payslip.lastEdited) &&
-        Objects.equals(this.firstName, payslip.firstName) &&
-        Objects.equals(this.lastName, payslip.lastName) &&
-        Objects.equals(this.totalEarnings, payslip.totalEarnings) &&
-        Objects.equals(this.grossEarnings, payslip.grossEarnings) &&
-        Objects.equals(this.totalPay, payslip.totalPay) &&
-        Objects.equals(this.totalEmployerTaxes, payslip.totalEmployerTaxes) &&
-        Objects.equals(this.totalEmployeeTaxes, payslip.totalEmployeeTaxes) &&
-        Objects.equals(this.totalDeductions, payslip.totalDeductions) &&
-        Objects.equals(this.totalReimbursements, payslip.totalReimbursements) &&
-        Objects.equals(this.totalCourtOrders, payslip.totalCourtOrders) &&
-        Objects.equals(this.totalBenefits, payslip.totalBenefits) &&
-        Objects.equals(this.bacsHash, payslip.bacsHash) &&
-        Objects.equals(this.paymentMethod, payslip.paymentMethod) &&
-        Objects.equals(this.earningsLines, payslip.earningsLines) &&
-        Objects.equals(this.leaveEarningsLines, payslip.leaveEarningsLines) &&
-        Objects.equals(this.timesheetEarningsLines, payslip.timesheetEarningsLines) &&
-        Objects.equals(this.deductionLines, payslip.deductionLines) &&
-        Objects.equals(this.reimbursementLines, payslip.reimbursementLines) &&
-        Objects.equals(this.leaveAccrualLines, payslip.leaveAccrualLines) &&
-        Objects.equals(this.benefitLines, payslip.benefitLines) &&
-        Objects.equals(this.paymentLines, payslip.paymentLines) &&
-        Objects.equals(this.employeeTaxLines, payslip.employeeTaxLines) &&
-        Objects.equals(this.courtOrderLines, payslip.courtOrderLines);
+    return Objects.equals(this.paySlipID, payslip.paySlipID)
+        && Objects.equals(this.employeeID, payslip.employeeID)
+        && Objects.equals(this.payRunID, payslip.payRunID)
+        && Objects.equals(this.lastEdited, payslip.lastEdited)
+        && Objects.equals(this.firstName, payslip.firstName)
+        && Objects.equals(this.lastName, payslip.lastName)
+        && Objects.equals(this.totalEarnings, payslip.totalEarnings)
+        && Objects.equals(this.grossEarnings, payslip.grossEarnings)
+        && Objects.equals(this.totalPay, payslip.totalPay)
+        && Objects.equals(this.totalEmployerTaxes, payslip.totalEmployerTaxes)
+        && Objects.equals(this.totalEmployeeTaxes, payslip.totalEmployeeTaxes)
+        && Objects.equals(this.totalDeductions, payslip.totalDeductions)
+        && Objects.equals(this.totalReimbursements, payslip.totalReimbursements)
+        && Objects.equals(this.totalCourtOrders, payslip.totalCourtOrders)
+        && Objects.equals(this.totalBenefits, payslip.totalBenefits)
+        && Objects.equals(this.bacsHash, payslip.bacsHash)
+        && Objects.equals(this.paymentMethod, payslip.paymentMethod)
+        && Objects.equals(this.earningsLines, payslip.earningsLines)
+        && Objects.equals(this.leaveEarningsLines, payslip.leaveEarningsLines)
+        && Objects.equals(this.timesheetEarningsLines, payslip.timesheetEarningsLines)
+        && Objects.equals(this.deductionLines, payslip.deductionLines)
+        && Objects.equals(this.reimbursementLines, payslip.reimbursementLines)
+        && Objects.equals(this.leaveAccrualLines, payslip.leaveAccrualLines)
+        && Objects.equals(this.benefitLines, payslip.benefitLines)
+        && Objects.equals(this.paymentLines, payslip.paymentLines)
+        && Objects.equals(this.employeeTaxLines, payslip.employeeTaxLines)
+        && Objects.equals(this.courtOrderLines, payslip.courtOrderLines);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(paySlipID, employeeID, payRunID, lastEdited, firstName, lastName, totalEarnings, grossEarnings, totalPay, totalEmployerTaxes, totalEmployeeTaxes, totalDeductions, totalReimbursements, totalCourtOrders, totalBenefits, bacsHash, paymentMethod, earningsLines, leaveEarningsLines, timesheetEarningsLines, deductionLines, reimbursementLines, leaveAccrualLines, benefitLines, paymentLines, employeeTaxLines, courtOrderLines);
+    return Objects.hash(
+        paySlipID,
+        employeeID,
+        payRunID,
+        lastEdited,
+        firstName,
+        lastName,
+        totalEarnings,
+        grossEarnings,
+        totalPay,
+        totalEmployerTaxes,
+        totalEmployeeTaxes,
+        totalDeductions,
+        totalReimbursements,
+        totalCourtOrders,
+        totalBenefits,
+        bacsHash,
+        paymentMethod,
+        earningsLines,
+        leaveEarningsLines,
+        timesheetEarningsLines,
+        deductionLines,
+        reimbursementLines,
+        leaveAccrualLines,
+        benefitLines,
+        paymentLines,
+        employeeTaxLines,
+        courtOrderLines);
   }
-
 
   @Override
   public String toString() {
@@ -796,14 +834,18 @@ public class Payslip {
     sb.append("    totalEmployerTaxes: ").append(toIndentedString(totalEmployerTaxes)).append("\n");
     sb.append("    totalEmployeeTaxes: ").append(toIndentedString(totalEmployeeTaxes)).append("\n");
     sb.append("    totalDeductions: ").append(toIndentedString(totalDeductions)).append("\n");
-    sb.append("    totalReimbursements: ").append(toIndentedString(totalReimbursements)).append("\n");
+    sb.append("    totalReimbursements: ")
+        .append(toIndentedString(totalReimbursements))
+        .append("\n");
     sb.append("    totalCourtOrders: ").append(toIndentedString(totalCourtOrders)).append("\n");
     sb.append("    totalBenefits: ").append(toIndentedString(totalBenefits)).append("\n");
     sb.append("    bacsHash: ").append(toIndentedString(bacsHash)).append("\n");
     sb.append("    paymentMethod: ").append(toIndentedString(paymentMethod)).append("\n");
     sb.append("    earningsLines: ").append(toIndentedString(earningsLines)).append("\n");
     sb.append("    leaveEarningsLines: ").append(toIndentedString(leaveEarningsLines)).append("\n");
-    sb.append("    timesheetEarningsLines: ").append(toIndentedString(timesheetEarningsLines)).append("\n");
+    sb.append("    timesheetEarningsLines: ")
+        .append(toIndentedString(timesheetEarningsLines))
+        .append("\n");
     sb.append("    deductionLines: ").append(toIndentedString(deductionLines)).append("\n");
     sb.append("    reimbursementLines: ").append(toIndentedString(reimbursementLines)).append("\n");
     sb.append("    leaveAccrualLines: ").append(toIndentedString(leaveAccrualLines)).append("\n");
@@ -816,8 +858,7 @@ public class Payslip {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -825,6 +866,4 @@ public class Payslip {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

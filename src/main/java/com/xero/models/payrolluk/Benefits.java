@@ -10,36 +10,17 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrolluk;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.payrolluk.Benefit;
-import com.xero.models.payrolluk.Pagination;
-import com.xero.models.payrolluk.Problem;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * Benefits
- */
-
+/** Benefits */
 public class Benefits {
   StringUtil util = new StringUtil();
 
@@ -51,15 +32,17 @@ public class Benefits {
 
   @JsonProperty("benefits")
   private List<Benefit> benefits = new ArrayList<Benefit>();
+
   public Benefits pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-   /**
+  /**
    * Get pagination
+   *
    * @return pagination
-  **/
+   */
   @ApiModelProperty(value = "")
   public Pagination getPagination() {
     return pagination;
@@ -74,10 +57,11 @@ public class Benefits {
     return this;
   }
 
-   /**
+  /**
    * Get problem
+   *
    * @return problem
-  **/
+   */
   @ApiModelProperty(value = "")
   public Problem getProblem() {
     return problem;
@@ -100,10 +84,11 @@ public class Benefits {
     return this;
   }
 
-   /**
+  /**
    * Get benefits
+   *
    * @return benefits
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<Benefit> getBenefits() {
     return benefits;
@@ -112,7 +97,6 @@ public class Benefits {
   public void setBenefits(List<Benefit> benefits) {
     this.benefits = benefits;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -123,16 +107,15 @@ public class Benefits {
       return false;
     }
     Benefits benefits = (Benefits) o;
-    return Objects.equals(this.pagination, benefits.pagination) &&
-        Objects.equals(this.problem, benefits.problem) &&
-        Objects.equals(this.benefits, benefits.benefits);
+    return Objects.equals(this.pagination, benefits.pagination)
+        && Objects.equals(this.problem, benefits.problem)
+        && Objects.equals(this.benefits, benefits.benefits);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(pagination, problem, benefits);
   }
-
 
   @Override
   public String toString() {
@@ -146,8 +129,7 @@ public class Benefits {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -155,6 +137,4 @@ public class Benefits {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

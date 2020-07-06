@@ -10,34 +10,20 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrollau;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.payrollau.SuperannuationCalculationType;
-import com.xero.models.payrollau.SuperannuationContributionType;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneId;
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * SuperannuationLine
- */
-
+/** SuperannuationLine */
 public class SuperannuationLine {
   StringUtil util = new StringUtil();
 
@@ -67,16 +53,20 @@ public class SuperannuationLine {
 
   @JsonProperty("Amount")
   private Double amount;
+
   public SuperannuationLine superMembershipID(UUID superMembershipID) {
     this.superMembershipID = superMembershipID;
     return this;
   }
 
-   /**
+  /**
    * Xero identifier for payroll super fund membership ID.
+   *
    * @return superMembershipID
-  **/
-  @ApiModelProperty(example = "e0eb6747-7c17-4075-b804-989f8d4e5d39", value = "Xero identifier for payroll super fund membership ID.")
+   */
+  @ApiModelProperty(
+      example = "e0eb6747-7c17-4075-b804-989f8d4e5d39",
+      value = "Xero identifier for payroll super fund membership ID.")
   public UUID getSuperMembershipID() {
     return superMembershipID;
   }
@@ -90,10 +80,11 @@ public class SuperannuationLine {
     return this;
   }
 
-   /**
+  /**
    * Get contributionType
+   *
    * @return contributionType
-  **/
+   */
   @ApiModelProperty(value = "")
   public SuperannuationContributionType getContributionType() {
     return contributionType;
@@ -108,10 +99,11 @@ public class SuperannuationLine {
     return this;
   }
 
-   /**
+  /**
    * Get calculationType
+   *
    * @return calculationType
-  **/
+   */
   @ApiModelProperty(value = "")
   public SuperannuationCalculationType getCalculationType() {
     return calculationType;
@@ -126,10 +118,11 @@ public class SuperannuationLine {
     return this;
   }
 
-   /**
+  /**
    * Superannuation minimum monthly earnings.
+   *
    * @return minimumMonthlyEarnings
-  **/
+   */
   @ApiModelProperty(example = "100.5", value = "Superannuation minimum monthly earnings.")
   public Double getMinimumMonthlyEarnings() {
     return minimumMonthlyEarnings;
@@ -144,10 +137,11 @@ public class SuperannuationLine {
     return this;
   }
 
-   /**
+  /**
    * Superannuation expense account code.
+   *
    * @return expenseAccountCode
-  **/
+   */
   @ApiModelProperty(example = "450", value = "Superannuation expense account code.")
   public String getExpenseAccountCode() {
     return expenseAccountCode;
@@ -162,10 +156,11 @@ public class SuperannuationLine {
     return this;
   }
 
-   /**
+  /**
    * Superannuation liability account code
+   *
    * @return liabilityAccountCode
-  **/
+   */
   @ApiModelProperty(example = "650", value = "Superannuation liability account code")
   public String getLiabilityAccountCode() {
     return liabilityAccountCode;
@@ -180,23 +175,27 @@ public class SuperannuationLine {
     return this;
   }
 
-   /**
+  /**
    * Superannuation payment date for the current period (YYYY-MM-DD)
+   *
    * @return paymentDateForThisPeriod
-  **/
-  @ApiModelProperty(example = "/Date(322560000000+0000)/", value = "Superannuation payment date for the current period (YYYY-MM-DD)")
+   */
+  @ApiModelProperty(
+      example = "/Date(322560000000+0000)/",
+      value = "Superannuation payment date for the current period (YYYY-MM-DD)")
   public String getPaymentDateForThisPeriod() {
     return paymentDateForThisPeriod;
   }
+
   public LocalDate getPaymentDateForThisPeriodAsDate() {
     if (this.paymentDateForThisPeriod != null) {
       try {
         return util.convertStringToDate(this.paymentDateForThisPeriod);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
   public void setPaymentDateForThisPeriod(String paymentDateForThisPeriod) {
@@ -204,8 +203,9 @@ public class SuperannuationLine {
   }
 
   public void setPaymentDateForThisPeriod(LocalDate paymentDateForThisPeriod) {
-    //CONVERT LocalDate args into MS DateFromat String
-    Instant instant =  paymentDateForThisPeriod.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();  
+    // CONVERT LocalDate args into MS DateFromat String
+    Instant instant =
+        paymentDateForThisPeriod.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
     long timeInMillis = instant.toEpochMilli();
 
     this.paymentDateForThisPeriod = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
@@ -216,10 +216,11 @@ public class SuperannuationLine {
     return this;
   }
 
-   /**
+  /**
    * Superannuation percentage
+   *
    * @return percentage
-  **/
+   */
   @ApiModelProperty(example = "4.0", value = "Superannuation percentage")
   public Double getPercentage() {
     return percentage;
@@ -234,10 +235,11 @@ public class SuperannuationLine {
     return this;
   }
 
-   /**
+  /**
    * Superannuation amount
+   *
    * @return amount
-  **/
+   */
   @ApiModelProperty(example = "10.5", value = "Superannuation amount")
   public Double getAmount() {
     return amount;
@@ -246,7 +248,6 @@ public class SuperannuationLine {
   public void setAmount(Double amount) {
     this.amount = amount;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -257,22 +258,31 @@ public class SuperannuationLine {
       return false;
     }
     SuperannuationLine superannuationLine = (SuperannuationLine) o;
-    return Objects.equals(this.superMembershipID, superannuationLine.superMembershipID) &&
-        Objects.equals(this.contributionType, superannuationLine.contributionType) &&
-        Objects.equals(this.calculationType, superannuationLine.calculationType) &&
-        Objects.equals(this.minimumMonthlyEarnings, superannuationLine.minimumMonthlyEarnings) &&
-        Objects.equals(this.expenseAccountCode, superannuationLine.expenseAccountCode) &&
-        Objects.equals(this.liabilityAccountCode, superannuationLine.liabilityAccountCode) &&
-        Objects.equals(this.paymentDateForThisPeriod, superannuationLine.paymentDateForThisPeriod) &&
-        Objects.equals(this.percentage, superannuationLine.percentage) &&
-        Objects.equals(this.amount, superannuationLine.amount);
+    return Objects.equals(this.superMembershipID, superannuationLine.superMembershipID)
+        && Objects.equals(this.contributionType, superannuationLine.contributionType)
+        && Objects.equals(this.calculationType, superannuationLine.calculationType)
+        && Objects.equals(this.minimumMonthlyEarnings, superannuationLine.minimumMonthlyEarnings)
+        && Objects.equals(this.expenseAccountCode, superannuationLine.expenseAccountCode)
+        && Objects.equals(this.liabilityAccountCode, superannuationLine.liabilityAccountCode)
+        && Objects.equals(
+            this.paymentDateForThisPeriod, superannuationLine.paymentDateForThisPeriod)
+        && Objects.equals(this.percentage, superannuationLine.percentage)
+        && Objects.equals(this.amount, superannuationLine.amount);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(superMembershipID, contributionType, calculationType, minimumMonthlyEarnings, expenseAccountCode, liabilityAccountCode, paymentDateForThisPeriod, percentage, amount);
+    return Objects.hash(
+        superMembershipID,
+        contributionType,
+        calculationType,
+        minimumMonthlyEarnings,
+        expenseAccountCode,
+        liabilityAccountCode,
+        paymentDateForThisPeriod,
+        percentage,
+        amount);
   }
-
 
   @Override
   public String toString() {
@@ -281,10 +291,16 @@ public class SuperannuationLine {
     sb.append("    superMembershipID: ").append(toIndentedString(superMembershipID)).append("\n");
     sb.append("    contributionType: ").append(toIndentedString(contributionType)).append("\n");
     sb.append("    calculationType: ").append(toIndentedString(calculationType)).append("\n");
-    sb.append("    minimumMonthlyEarnings: ").append(toIndentedString(minimumMonthlyEarnings)).append("\n");
+    sb.append("    minimumMonthlyEarnings: ")
+        .append(toIndentedString(minimumMonthlyEarnings))
+        .append("\n");
     sb.append("    expenseAccountCode: ").append(toIndentedString(expenseAccountCode)).append("\n");
-    sb.append("    liabilityAccountCode: ").append(toIndentedString(liabilityAccountCode)).append("\n");
-    sb.append("    paymentDateForThisPeriod: ").append(toIndentedString(paymentDateForThisPeriod)).append("\n");
+    sb.append("    liabilityAccountCode: ")
+        .append(toIndentedString(liabilityAccountCode))
+        .append("\n");
+    sb.append("    paymentDateForThisPeriod: ")
+        .append(toIndentedString(paymentDateForThisPeriod))
+        .append("\n");
     sb.append("    percentage: ").append(toIndentedString(percentage)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
     sb.append("}");
@@ -292,8 +308,7 @@ public class SuperannuationLine {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -301,6 +316,4 @@ public class SuperannuationLine {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

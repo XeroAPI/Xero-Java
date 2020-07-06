@@ -10,35 +10,19 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrolluk;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.payrolluk.InvalidField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * The object returned for a bad request
- */
+/** The object returned for a bad request */
 @ApiModel(description = "The object returned for a bad request")
-
 public class Problem {
   StringUtil util = new StringUtil();
 
@@ -59,15 +43,17 @@ public class Problem {
 
   @JsonProperty("invalidFields")
   private List<InvalidField> invalidFields = new ArrayList<InvalidField>();
+
   public Problem type(String type) {
     this.type = type;
     return this;
   }
 
-   /**
+  /**
    * The type of error format
+   *
    * @return type
-  **/
+   */
   @ApiModelProperty(example = "application/problem+json", value = "The type of error format")
   public String getType() {
     return type;
@@ -82,10 +68,11 @@ public class Problem {
     return this;
   }
 
-   /**
+  /**
    * The type of the error
+   *
    * @return title
-  **/
+   */
   @ApiModelProperty(example = "BadRequest", value = "The type of the error")
   public String getTitle() {
     return title;
@@ -100,10 +87,11 @@ public class Problem {
     return this;
   }
 
-   /**
+  /**
    * The error status code
+   *
    * @return status
-  **/
+   */
   @ApiModelProperty(example = "400", value = "The error status code")
   public String getStatus() {
     return status;
@@ -118,10 +106,11 @@ public class Problem {
     return this;
   }
 
-   /**
+  /**
    * A description of the error
+   *
    * @return detail
-  **/
+   */
   @ApiModelProperty(example = "Validation error occurred.", value = "A description of the error")
   public String getDetail() {
     return detail;
@@ -136,10 +125,11 @@ public class Problem {
     return this;
   }
 
-   /**
+  /**
    * Get instance
+   *
    * @return instance
-  **/
+   */
   @ApiModelProperty(value = "")
   public String getInstance() {
     return instance;
@@ -162,10 +152,11 @@ public class Problem {
     return this;
   }
 
-   /**
+  /**
    * Get invalidFields
+   *
    * @return invalidFields
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<InvalidField> getInvalidFields() {
     return invalidFields;
@@ -174,7 +165,6 @@ public class Problem {
   public void setInvalidFields(List<InvalidField> invalidFields) {
     this.invalidFields = invalidFields;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -185,19 +175,18 @@ public class Problem {
       return false;
     }
     Problem problem = (Problem) o;
-    return Objects.equals(this.type, problem.type) &&
-        Objects.equals(this.title, problem.title) &&
-        Objects.equals(this.status, problem.status) &&
-        Objects.equals(this.detail, problem.detail) &&
-        Objects.equals(this.instance, problem.instance) &&
-        Objects.equals(this.invalidFields, problem.invalidFields);
+    return Objects.equals(this.type, problem.type)
+        && Objects.equals(this.title, problem.title)
+        && Objects.equals(this.status, problem.status)
+        && Objects.equals(this.detail, problem.detail)
+        && Objects.equals(this.instance, problem.instance)
+        && Objects.equals(this.invalidFields, problem.invalidFields);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(type, title, status, detail, instance, invalidFields);
   }
-
 
   @Override
   public String toString() {
@@ -214,8 +203,7 @@ public class Problem {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -223,6 +211,4 @@ public class Problem {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

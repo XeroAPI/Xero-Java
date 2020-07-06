@@ -10,31 +10,15 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrollau;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * SuperFundProduct
- */
-
+/** SuperFundProduct */
 public class SuperFundProduct {
   StringUtil util = new StringUtil();
 
@@ -49,15 +33,17 @@ public class SuperFundProduct {
 
   @JsonProperty("ProductName")
   private String productName;
+
   public SuperFundProduct ABN(String ABN) {
     this.ABN = ABN;
     return this;
   }
 
-   /**
+  /**
    * The ABN of the Regulated SuperFund
+   *
    * @return ABN
-  **/
+   */
   @ApiModelProperty(example = "839182848805", value = "The ABN of the Regulated SuperFund")
   public String getABN() {
     return ABN;
@@ -72,10 +58,11 @@ public class SuperFundProduct {
     return this;
   }
 
-   /**
+  /**
    * The USI of the Regulated SuperFund
+   *
    * @return USI
-  **/
+   */
   @ApiModelProperty(example = "839182848805001", value = "The USI of the Regulated SuperFund")
   public String getUSI() {
     return USI;
@@ -90,11 +77,17 @@ public class SuperFundProduct {
     return this;
   }
 
-   /**
-   * The SPIN of the Regulated SuperFund. This field has been deprecated. New superfunds will not have a SPIN value. The USI field should be used instead of SPIN
+  /**
+   * The SPIN of the Regulated SuperFund. This field has been deprecated. New superfunds will not
+   * have a SPIN value. The USI field should be used instead of SPIN
+   *
    * @return SPIN
-  **/
-  @ApiModelProperty(example = "NML0117AU", value = "The SPIN of the Regulated SuperFund. This field has been deprecated. New superfunds will not have a SPIN value. The USI field should be used instead of SPIN")
+   */
+  @ApiModelProperty(
+      example = "NML0117AU",
+      value =
+          "The SPIN of the Regulated SuperFund. This field has been deprecated. New superfunds"
+              + " will not have a SPIN value. The USI field should be used instead of SPIN")
   public String getSPIN() {
     return SPIN;
   }
@@ -108,11 +101,16 @@ public class SuperFundProduct {
     return this;
   }
 
-   /**
+  /**
    * The name of the Regulated SuperFund
+   *
    * @return productName
-  **/
-  @ApiModelProperty(example = "MLC Navigator Retirement Plan - Superannuation Service (including Series 2) (MLC Superannuation Fund)", value = "The name of the Regulated SuperFund")
+   */
+  @ApiModelProperty(
+      example =
+          "MLC Navigator Retirement Plan - Superannuation Service (including Series 2) (MLC"
+              + " Superannuation Fund)",
+      value = "The name of the Regulated SuperFund")
   public String getProductName() {
     return productName;
   }
@@ -120,7 +118,6 @@ public class SuperFundProduct {
   public void setProductName(String productName) {
     this.productName = productName;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -131,17 +128,16 @@ public class SuperFundProduct {
       return false;
     }
     SuperFundProduct superFundProduct = (SuperFundProduct) o;
-    return Objects.equals(this.ABN, superFundProduct.ABN) &&
-        Objects.equals(this.USI, superFundProduct.USI) &&
-        Objects.equals(this.SPIN, superFundProduct.SPIN) &&
-        Objects.equals(this.productName, superFundProduct.productName);
+    return Objects.equals(this.ABN, superFundProduct.ABN)
+        && Objects.equals(this.USI, superFundProduct.USI)
+        && Objects.equals(this.SPIN, superFundProduct.SPIN)
+        && Objects.equals(this.productName, superFundProduct.productName);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(ABN, USI, SPIN, productName);
   }
-
 
   @Override
   public String toString() {
@@ -156,8 +152,7 @@ public class SuperFundProduct {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -165,6 +160,4 @@ public class SuperFundProduct {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

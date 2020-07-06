@@ -10,26 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrollau;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.payrollau.BankAccount;
-import com.xero.models.payrollau.EmployeeStatus;
-import com.xero.models.payrollau.HomeAddress;
-import com.xero.models.payrollau.LeaveBalance;
-import com.xero.models.payrollau.LeaveLine;
-import com.xero.models.payrollau.OpeningBalances;
-import com.xero.models.payrollau.PayTemplate;
-import com.xero.models.payrollau.SuperMembership;
-import com.xero.models.payrollau.TaxDeclaration;
-import com.xero.models.payrollau.ValidationError;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,17 +23,12 @@ import java.util.UUID;
 import java.io.IOException;
 
 import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneId;
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * Employee
- */
-
+/** Employee */
 public class Employee {
   StringUtil util = new StringUtil();
 
@@ -74,16 +55,14 @@ public class Employee {
 
   @JsonProperty("Email")
   private String email;
-  /**
-   * The employee’s gender. See Employee Gender
-   */
+  /** The employee’s gender. See Employee Gender */
   public enum GenderEnum {
     N("N"),
-    
+
     M("M"),
-    
+
     F("F"),
-    
+
     I("I");
 
     private String value;
@@ -112,7 +91,6 @@ public class Employee {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
-
 
   @JsonProperty("Gender")
   private GenderEnum gender;
@@ -182,15 +160,17 @@ public class Employee {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
+
   public Employee firstName(String firstName) {
     this.firstName = firstName;
     return this;
   }
 
-   /**
+  /**
    * First name of employee
+   *
    * @return firstName
-  **/
+   */
   @ApiModelProperty(example = "Karen", required = true, value = "First name of employee")
   public String getFirstName() {
     return firstName;
@@ -205,10 +185,11 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * Last name of employee
+   *
    * @return lastName
-  **/
+   */
   @ApiModelProperty(example = "Jones", required = true, value = "Last name of employee")
   public String getLastName() {
     return lastName;
@@ -223,23 +204,28 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * Date of birth of the employee (YYYY-MM-DD)
+   *
    * @return dateOfBirth
-  **/
-  @ApiModelProperty(example = "/Date(322560000000+0000)/", required = true, value = "Date of birth of the employee (YYYY-MM-DD)")
+   */
+  @ApiModelProperty(
+      example = "/Date(322560000000+0000)/",
+      required = true,
+      value = "Date of birth of the employee (YYYY-MM-DD)")
   public String getDateOfBirth() {
     return dateOfBirth;
   }
+
   public LocalDate getDateOfBirthAsDate() {
     if (this.dateOfBirth != null) {
       try {
         return util.convertStringToDate(this.dateOfBirth);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
   public void setDateOfBirth(String dateOfBirth) {
@@ -247,8 +233,8 @@ public class Employee {
   }
 
   public void setDateOfBirth(LocalDate dateOfBirth) {
-    //CONVERT LocalDate args into MS DateFromat String
-    Instant instant =  dateOfBirth.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();  
+    // CONVERT LocalDate args into MS DateFromat String
+    Instant instant = dateOfBirth.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
     long timeInMillis = instant.toEpochMilli();
 
     this.dateOfBirth = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
@@ -259,10 +245,11 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * Get homeAddress
+   *
    * @return homeAddress
-  **/
+   */
   @ApiModelProperty(required = true, value = "")
   public HomeAddress getHomeAddress() {
     return homeAddress;
@@ -277,23 +264,27 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * Start date for an employee (YYYY-MM-DD)
+   *
    * @return startDate
-  **/
-  @ApiModelProperty(example = "/Date(320284900000+0000)/", value = "Start date for an employee (YYYY-MM-DD)")
+   */
+  @ApiModelProperty(
+      example = "/Date(320284900000+0000)/",
+      value = "Start date for an employee (YYYY-MM-DD)")
   public String getStartDate() {
     return startDate;
   }
+
   public LocalDate getStartDateAsDate() {
     if (this.startDate != null) {
       try {
         return util.convertStringToDate(this.startDate);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
   public void setStartDate(String startDate) {
@@ -301,8 +292,8 @@ public class Employee {
   }
 
   public void setStartDate(LocalDate startDate) {
-    //CONVERT LocalDate args into MS DateFromat String
-    Instant instant =  startDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();  
+    // CONVERT LocalDate args into MS DateFromat String
+    Instant instant = startDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
     long timeInMillis = instant.toEpochMilli();
 
     this.startDate = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
@@ -313,10 +304,11 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * Title of the employee
+   *
    * @return title
-  **/
+   */
   @ApiModelProperty(example = "Mrs", value = "Title of the employee")
   public String getTitle() {
     return title;
@@ -331,10 +323,11 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * Middle name(s) of the employee
+   *
    * @return middleNames
-  **/
+   */
   @ApiModelProperty(example = "Adena", value = "Middle name(s) of the employee")
   public String getMiddleNames() {
     return middleNames;
@@ -349,10 +342,11 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * The email address for the employee
+   *
    * @return email
-  **/
+   */
   @ApiModelProperty(example = "developer@me.com", value = "The email address for the employee")
   public String getEmail() {
     return email;
@@ -367,10 +361,11 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * The employee’s gender. See Employee Gender
+   *
    * @return gender
-  **/
+   */
   @ApiModelProperty(example = "F", value = "The employee’s gender. See Employee Gender")
   public GenderEnum getGender() {
     return gender;
@@ -385,10 +380,11 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * Employee phone number
+   *
    * @return phone
-  **/
+   */
   @ApiModelProperty(example = "415-555-1212", value = "Employee phone number")
   public String getPhone() {
     return phone;
@@ -403,10 +399,11 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * Employee mobile number
+   *
    * @return mobile
-  **/
+   */
   @ApiModelProperty(example = "415-234-5678", value = "Employee mobile number")
   public String getMobile() {
     return mobile;
@@ -421,10 +418,11 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * Employee’s twitter name
+   *
    * @return twitterUserName
-  **/
+   */
   @ApiModelProperty(example = "xeroapi", value = "Employee’s twitter name")
   public String getTwitterUserName() {
     return twitterUserName;
@@ -439,11 +437,14 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * Authorised to approve other employees&#39; leave requests
+   *
    * @return isAuthorisedToApproveLeave
-  **/
-  @ApiModelProperty(example = "false", value = "Authorised to approve other employees' leave requests")
+   */
+  @ApiModelProperty(
+      example = "false",
+      value = "Authorised to approve other employees' leave requests")
   public Boolean getIsAuthorisedToApproveLeave() {
     return isAuthorisedToApproveLeave;
   }
@@ -457,10 +458,11 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * Authorised to approve timesheets
+   *
    * @return isAuthorisedToApproveTimesheets
-  **/
+   */
   @ApiModelProperty(example = "true", value = "Authorised to approve timesheets")
   public Boolean getIsAuthorisedToApproveTimesheets() {
     return isAuthorisedToApproveTimesheets;
@@ -475,10 +477,11 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * JobTitle of the employee
+   *
    * @return jobTitle
-  **/
+   */
   @ApiModelProperty(example = "Manager", value = "JobTitle of the employee")
   public String getJobTitle() {
     return jobTitle;
@@ -493,10 +496,11 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * Employees classification
+   *
    * @return classification
-  **/
+   */
   @ApiModelProperty(example = "99383", value = "Employees classification")
   public String getClassification() {
     return classification;
@@ -511,10 +515,11 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * Xero unique identifier for earnings rate
+   *
    * @return ordinaryEarningsRateID
-  **/
+   */
   @ApiModelProperty(value = "Xero unique identifier for earnings rate")
   public UUID getOrdinaryEarningsRateID() {
     return ordinaryEarningsRateID;
@@ -529,11 +534,14 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * Xero unique identifier for payroll calendar for the employee
+   *
    * @return payrollCalendarID
-  **/
-  @ApiModelProperty(example = "2ee8e5cc-9835-40d5-bb18-09fdb118db9c", value = "Xero unique identifier for payroll calendar for the employee")
+   */
+  @ApiModelProperty(
+      example = "2ee8e5cc-9835-40d5-bb18-09fdb118db9c",
+      value = "Xero unique identifier for payroll calendar for the employee")
   public UUID getPayrollCalendarID() {
     return payrollCalendarID;
   }
@@ -547,11 +555,17 @@ public class Employee {
     return this;
   }
 
-   /**
-   * The Employee Group allows you to report on payroll expenses and liabilities for each group of employees
+  /**
+   * The Employee Group allows you to report on payroll expenses and liabilities for each group of
+   * employees
+   *
    * @return employeeGroupName
-  **/
-  @ApiModelProperty(example = "marketing", value = "The Employee Group allows you to report on payroll expenses and liabilities for each group of employees")
+   */
+  @ApiModelProperty(
+      example = "marketing",
+      value =
+          "The Employee Group allows you to report on payroll expenses and liabilities for each"
+              + " group of employees")
   public String getEmployeeGroupName() {
     return employeeGroupName;
   }
@@ -565,11 +579,14 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * Xero unique identifier for an Employee
+   *
    * @return employeeID
-  **/
-  @ApiModelProperty(example = "4ff1e5cc-9835-40d5-bb18-09fdb118db9c", value = "Xero unique identifier for an Employee")
+   */
+  @ApiModelProperty(
+      example = "4ff1e5cc-9835-40d5-bb18-09fdb118db9c",
+      value = "Xero unique identifier for an Employee")
   public UUID getEmployeeID() {
     return employeeID;
   }
@@ -583,23 +600,27 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * Employee Termination Date (YYYY-MM-DD)
+   *
    * @return terminationDate
-  **/
-  @ApiModelProperty(example = "/Date(1584662400000+0000)/", value = "Employee Termination Date (YYYY-MM-DD)")
+   */
+  @ApiModelProperty(
+      example = "/Date(1584662400000+0000)/",
+      value = "Employee Termination Date (YYYY-MM-DD)")
   public String getTerminationDate() {
     return terminationDate;
   }
+
   public LocalDate getTerminationDateAsDate() {
     if (this.terminationDate != null) {
       try {
         return util.convertStringToDate(this.terminationDate);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
   public void setTerminationDate(String terminationDate) {
@@ -607,8 +628,8 @@ public class Employee {
   }
 
   public void setTerminationDate(LocalDate terminationDate) {
-    //CONVERT LocalDate args into MS DateFromat String
-    Instant instant =  terminationDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();  
+    // CONVERT LocalDate args into MS DateFromat String
+    Instant instant = terminationDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
     long timeInMillis = instant.toEpochMilli();
 
     this.terminationDate = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
@@ -627,10 +648,11 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * Get bankAccounts
+   *
    * @return bankAccounts
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<BankAccount> getBankAccounts() {
     return bankAccounts;
@@ -645,10 +667,11 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * Get payTemplate
+   *
    * @return payTemplate
-  **/
+   */
   @ApiModelProperty(value = "")
   public PayTemplate getPayTemplate() {
     return payTemplate;
@@ -663,10 +686,11 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * Get openingBalances
+   *
    * @return openingBalances
-  **/
+   */
   @ApiModelProperty(value = "")
   public OpeningBalances getOpeningBalances() {
     return openingBalances;
@@ -681,10 +705,11 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * Get taxDeclaration
+   *
    * @return taxDeclaration
-  **/
+   */
   @ApiModelProperty(value = "")
   public TaxDeclaration getTaxDeclaration() {
     return taxDeclaration;
@@ -707,10 +732,11 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * Get leaveBalances
+   *
    * @return leaveBalances
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<LeaveBalance> getLeaveBalances() {
     return leaveBalances;
@@ -733,10 +759,11 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * Get leaveLines
+   *
    * @return leaveLines
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<LeaveLine> getLeaveLines() {
     return leaveLines;
@@ -759,10 +786,11 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * Get superMemberships
+   *
    * @return superMemberships
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<SuperMembership> getSuperMemberships() {
     return superMemberships;
@@ -777,10 +805,11 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * Get status
+   *
    * @return status
-  **/
+   */
   @ApiModelProperty(value = "")
   public EmployeeStatus getStatus() {
     return status;
@@ -790,23 +819,25 @@ public class Employee {
     this.status = status;
   }
 
-   /**
+  /**
    * Last modified timestamp
+   *
    * @return updatedDateUTC
-  **/
+   */
   @ApiModelProperty(example = "/Date(1583967733054+0000)/", value = "Last modified timestamp")
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.updatedDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
   public Employee validationErrors(List<ValidationError> validationErrors) {
@@ -822,10 +853,11 @@ public class Employee {
     return this;
   }
 
-   /**
+  /**
    * Displays array of validation error messages from the API
+   *
    * @return validationErrors
-  **/
+   */
   @ApiModelProperty(value = "Displays array of validation error messages from the API")
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
@@ -834,7 +866,6 @@ public class Employee {
   public void setValidationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -845,44 +876,75 @@ public class Employee {
       return false;
     }
     Employee employee = (Employee) o;
-    return Objects.equals(this.firstName, employee.firstName) &&
-        Objects.equals(this.lastName, employee.lastName) &&
-        Objects.equals(this.dateOfBirth, employee.dateOfBirth) &&
-        Objects.equals(this.homeAddress, employee.homeAddress) &&
-        Objects.equals(this.startDate, employee.startDate) &&
-        Objects.equals(this.title, employee.title) &&
-        Objects.equals(this.middleNames, employee.middleNames) &&
-        Objects.equals(this.email, employee.email) &&
-        Objects.equals(this.gender, employee.gender) &&
-        Objects.equals(this.phone, employee.phone) &&
-        Objects.equals(this.mobile, employee.mobile) &&
-        Objects.equals(this.twitterUserName, employee.twitterUserName) &&
-        Objects.equals(this.isAuthorisedToApproveLeave, employee.isAuthorisedToApproveLeave) &&
-        Objects.equals(this.isAuthorisedToApproveTimesheets, employee.isAuthorisedToApproveTimesheets) &&
-        Objects.equals(this.jobTitle, employee.jobTitle) &&
-        Objects.equals(this.classification, employee.classification) &&
-        Objects.equals(this.ordinaryEarningsRateID, employee.ordinaryEarningsRateID) &&
-        Objects.equals(this.payrollCalendarID, employee.payrollCalendarID) &&
-        Objects.equals(this.employeeGroupName, employee.employeeGroupName) &&
-        Objects.equals(this.employeeID, employee.employeeID) &&
-        Objects.equals(this.terminationDate, employee.terminationDate) &&
-        Objects.equals(this.bankAccounts, employee.bankAccounts) &&
-        Objects.equals(this.payTemplate, employee.payTemplate) &&
-        Objects.equals(this.openingBalances, employee.openingBalances) &&
-        Objects.equals(this.taxDeclaration, employee.taxDeclaration) &&
-        Objects.equals(this.leaveBalances, employee.leaveBalances) &&
-        Objects.equals(this.leaveLines, employee.leaveLines) &&
-        Objects.equals(this.superMemberships, employee.superMemberships) &&
-        Objects.equals(this.status, employee.status) &&
-        Objects.equals(this.updatedDateUTC, employee.updatedDateUTC) &&
-        Objects.equals(this.validationErrors, employee.validationErrors);
+    return Objects.equals(this.firstName, employee.firstName)
+        && Objects.equals(this.lastName, employee.lastName)
+        && Objects.equals(this.dateOfBirth, employee.dateOfBirth)
+        && Objects.equals(this.homeAddress, employee.homeAddress)
+        && Objects.equals(this.startDate, employee.startDate)
+        && Objects.equals(this.title, employee.title)
+        && Objects.equals(this.middleNames, employee.middleNames)
+        && Objects.equals(this.email, employee.email)
+        && Objects.equals(this.gender, employee.gender)
+        && Objects.equals(this.phone, employee.phone)
+        && Objects.equals(this.mobile, employee.mobile)
+        && Objects.equals(this.twitterUserName, employee.twitterUserName)
+        && Objects.equals(this.isAuthorisedToApproveLeave, employee.isAuthorisedToApproveLeave)
+        && Objects.equals(
+            this.isAuthorisedToApproveTimesheets, employee.isAuthorisedToApproveTimesheets)
+        && Objects.equals(this.jobTitle, employee.jobTitle)
+        && Objects.equals(this.classification, employee.classification)
+        && Objects.equals(this.ordinaryEarningsRateID, employee.ordinaryEarningsRateID)
+        && Objects.equals(this.payrollCalendarID, employee.payrollCalendarID)
+        && Objects.equals(this.employeeGroupName, employee.employeeGroupName)
+        && Objects.equals(this.employeeID, employee.employeeID)
+        && Objects.equals(this.terminationDate, employee.terminationDate)
+        && Objects.equals(this.bankAccounts, employee.bankAccounts)
+        && Objects.equals(this.payTemplate, employee.payTemplate)
+        && Objects.equals(this.openingBalances, employee.openingBalances)
+        && Objects.equals(this.taxDeclaration, employee.taxDeclaration)
+        && Objects.equals(this.leaveBalances, employee.leaveBalances)
+        && Objects.equals(this.leaveLines, employee.leaveLines)
+        && Objects.equals(this.superMemberships, employee.superMemberships)
+        && Objects.equals(this.status, employee.status)
+        && Objects.equals(this.updatedDateUTC, employee.updatedDateUTC)
+        && Objects.equals(this.validationErrors, employee.validationErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(firstName, lastName, dateOfBirth, homeAddress, startDate, title, middleNames, email, gender, phone, mobile, twitterUserName, isAuthorisedToApproveLeave, isAuthorisedToApproveTimesheets, jobTitle, classification, ordinaryEarningsRateID, payrollCalendarID, employeeGroupName, employeeID, terminationDate, bankAccounts, payTemplate, openingBalances, taxDeclaration, leaveBalances, leaveLines, superMemberships, status, updatedDateUTC, validationErrors);
+    return Objects.hash(
+        firstName,
+        lastName,
+        dateOfBirth,
+        homeAddress,
+        startDate,
+        title,
+        middleNames,
+        email,
+        gender,
+        phone,
+        mobile,
+        twitterUserName,
+        isAuthorisedToApproveLeave,
+        isAuthorisedToApproveTimesheets,
+        jobTitle,
+        classification,
+        ordinaryEarningsRateID,
+        payrollCalendarID,
+        employeeGroupName,
+        employeeID,
+        terminationDate,
+        bankAccounts,
+        payTemplate,
+        openingBalances,
+        taxDeclaration,
+        leaveBalances,
+        leaveLines,
+        superMemberships,
+        status,
+        updatedDateUTC,
+        validationErrors);
   }
-
 
   @Override
   public String toString() {
@@ -900,11 +962,17 @@ public class Employee {
     sb.append("    phone: ").append(toIndentedString(phone)).append("\n");
     sb.append("    mobile: ").append(toIndentedString(mobile)).append("\n");
     sb.append("    twitterUserName: ").append(toIndentedString(twitterUserName)).append("\n");
-    sb.append("    isAuthorisedToApproveLeave: ").append(toIndentedString(isAuthorisedToApproveLeave)).append("\n");
-    sb.append("    isAuthorisedToApproveTimesheets: ").append(toIndentedString(isAuthorisedToApproveTimesheets)).append("\n");
+    sb.append("    isAuthorisedToApproveLeave: ")
+        .append(toIndentedString(isAuthorisedToApproveLeave))
+        .append("\n");
+    sb.append("    isAuthorisedToApproveTimesheets: ")
+        .append(toIndentedString(isAuthorisedToApproveTimesheets))
+        .append("\n");
     sb.append("    jobTitle: ").append(toIndentedString(jobTitle)).append("\n");
     sb.append("    classification: ").append(toIndentedString(classification)).append("\n");
-    sb.append("    ordinaryEarningsRateID: ").append(toIndentedString(ordinaryEarningsRateID)).append("\n");
+    sb.append("    ordinaryEarningsRateID: ")
+        .append(toIndentedString(ordinaryEarningsRateID))
+        .append("\n");
     sb.append("    payrollCalendarID: ").append(toIndentedString(payrollCalendarID)).append("\n");
     sb.append("    employeeGroupName: ").append(toIndentedString(employeeGroupName)).append("\n");
     sb.append("    employeeID: ").append(toIndentedString(employeeID)).append("\n");
@@ -924,8 +992,7 @@ public class Employee {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -933,6 +1000,4 @@ public class Employee {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

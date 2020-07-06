@@ -10,33 +10,17 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.accounting;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.UUID;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * Attachment
- */
-
+/** Attachment */
 public class Attachment {
   StringUtil util = new StringUtil();
 
@@ -57,16 +41,20 @@ public class Attachment {
 
   @JsonProperty("IncludeOnline")
   private Boolean includeOnline;
+
   public Attachment attachmentID(UUID attachmentID) {
     this.attachmentID = attachmentID;
     return this;
   }
 
-   /**
+  /**
    * Unique ID for the file
+   *
    * @return attachmentID
-  **/
-  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "Unique ID for the file")
+   */
+  @ApiModelProperty(
+      example = "00000000-0000-0000-0000-000000000000",
+      value = "Unique ID for the file")
   public UUID getAttachmentID() {
     return attachmentID;
   }
@@ -80,10 +68,11 @@ public class Attachment {
     return this;
   }
 
-   /**
+  /**
    * Name of the file
+   *
    * @return fileName
-  **/
+   */
   @ApiModelProperty(example = "xero-dev.jpg", value = "Name of the file")
   public String getFileName() {
     return fileName;
@@ -98,11 +87,15 @@ public class Attachment {
     return this;
   }
 
-   /**
+  /**
    * URL to the file on xero.com
+   *
    * @return url
-  **/
-  @ApiModelProperty(example = "https://api.xero.com/api.xro/2.0/Accounts/da962997-a8bd-4dff-9616-01cdc199283f/Attachments/sample5.jpg", value = "URL to the file on xero.com")
+   */
+  @ApiModelProperty(
+      example =
+          "https://api.xero.com/api.xro/2.0/Accounts/da962997-a8bd-4dff-9616-01cdc199283f/Attachments/sample5.jpg",
+      value = "URL to the file on xero.com")
   public String getUrl() {
     return url;
   }
@@ -116,10 +109,11 @@ public class Attachment {
     return this;
   }
 
-   /**
+  /**
    * Type of file
+   *
    * @return mimeType
-  **/
+   */
   @ApiModelProperty(example = "image/jpg", value = "Type of file")
   public String getMimeType() {
     return mimeType;
@@ -134,10 +128,11 @@ public class Attachment {
     return this;
   }
 
-   /**
+  /**
    * Length of the file content
+   *
    * @return contentLength
-  **/
+   */
   @ApiModelProperty(value = "Length of the file content")
   public BigDecimal getContentLength() {
     return contentLength;
@@ -152,10 +147,11 @@ public class Attachment {
     return this;
   }
 
-   /**
+  /**
    * Include the file with the online invoice
+   *
    * @return includeOnline
-  **/
+   */
   @ApiModelProperty(value = "Include the file with the online invoice")
   public Boolean getIncludeOnline() {
     return includeOnline;
@@ -164,7 +160,6 @@ public class Attachment {
   public void setIncludeOnline(Boolean includeOnline) {
     this.includeOnline = includeOnline;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -175,19 +170,18 @@ public class Attachment {
       return false;
     }
     Attachment attachment = (Attachment) o;
-    return Objects.equals(this.attachmentID, attachment.attachmentID) &&
-        Objects.equals(this.fileName, attachment.fileName) &&
-        Objects.equals(this.url, attachment.url) &&
-        Objects.equals(this.mimeType, attachment.mimeType) &&
-        Objects.equals(this.contentLength, attachment.contentLength) &&
-        Objects.equals(this.includeOnline, attachment.includeOnline);
+    return Objects.equals(this.attachmentID, attachment.attachmentID)
+        && Objects.equals(this.fileName, attachment.fileName)
+        && Objects.equals(this.url, attachment.url)
+        && Objects.equals(this.mimeType, attachment.mimeType)
+        && Objects.equals(this.contentLength, attachment.contentLength)
+        && Objects.equals(this.includeOnline, attachment.includeOnline);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(attachmentID, fileName, url, mimeType, contentLength, includeOnline);
   }
-
 
   @Override
   public String toString() {
@@ -204,8 +198,7 @@ public class Attachment {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -213,6 +206,4 @@ public class Attachment {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

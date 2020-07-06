@@ -10,35 +10,17 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.project;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.project.Pagination;
-import com.xero.models.project.ProjectUser;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * ProjectUsers
- */
-
+/** ProjectUsers */
 public class ProjectUsers {
   StringUtil util = new StringUtil();
 
@@ -47,15 +29,17 @@ public class ProjectUsers {
 
   @JsonProperty("items")
   private List<ProjectUser> items = new ArrayList<ProjectUser>();
+
   public ProjectUsers pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-   /**
+  /**
    * Get pagination
+   *
    * @return pagination
-  **/
+   */
   @ApiModelProperty(value = "")
   public Pagination getPagination() {
     return pagination;
@@ -78,10 +62,11 @@ public class ProjectUsers {
     return this;
   }
 
-   /**
+  /**
    * Get items
+   *
    * @return items
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<ProjectUser> getItems() {
     return items;
@@ -90,7 +75,6 @@ public class ProjectUsers {
   public void setItems(List<ProjectUser> items) {
     this.items = items;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -101,15 +85,14 @@ public class ProjectUsers {
       return false;
     }
     ProjectUsers projectUsers = (ProjectUsers) o;
-    return Objects.equals(this.pagination, projectUsers.pagination) &&
-        Objects.equals(this.items, projectUsers.items);
+    return Objects.equals(this.pagination, projectUsers.pagination)
+        && Objects.equals(this.items, projectUsers.items);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(pagination, items);
   }
-
 
   @Override
   public String toString() {
@@ -122,8 +105,7 @@ public class ProjectUsers {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -131,6 +113,4 @@ public class ProjectUsers {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

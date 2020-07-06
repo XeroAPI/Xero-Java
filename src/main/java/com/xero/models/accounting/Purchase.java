@@ -10,31 +10,15 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.accounting;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * Purchase
- */
-
+/** Purchase */
 public class Purchase {
   StringUtil util = new StringUtil();
 
@@ -49,16 +33,23 @@ public class Purchase {
 
   @JsonProperty("TaxType")
   private String taxType;
+
   public Purchase unitPrice(Double unitPrice) {
     this.unitPrice = unitPrice;
     return this;
   }
 
-   /**
-   * Unit Price of the item. By default UnitPrice is rounded to two decimal places. You can use 4 decimal places by adding the unitdp&#x3D;4 querystring parameter to your request.
+  /**
+   * Unit Price of the item. By default UnitPrice is rounded to two decimal places. You can use 4
+   * decimal places by adding the unitdp&#x3D;4 querystring parameter to your request.
+   *
    * @return unitPrice
-  **/
-  @ApiModelProperty(value = "Unit Price of the item. By default UnitPrice is rounded to two decimal places. You can use 4 decimal places by adding the unitdp=4 querystring parameter to your request.")
+   */
+  @ApiModelProperty(
+      value =
+          "Unit Price of the item. By default UnitPrice is rounded to two decimal places. You can"
+              + " use 4 decimal places by adding the unitdp=4 querystring parameter to your"
+              + " request.")
   public Double getUnitPrice() {
     return unitPrice;
   }
@@ -72,11 +63,16 @@ public class Purchase {
     return this;
   }
 
-   /**
-   * Default account code to be used for purchased/sale. Not applicable to the purchase details of tracked items
+  /**
+   * Default account code to be used for purchased/sale. Not applicable to the purchase details of
+   * tracked items
+   *
    * @return accountCode
-  **/
-  @ApiModelProperty(value = "Default account code to be used for purchased/sale. Not applicable to the purchase details of tracked items")
+   */
+  @ApiModelProperty(
+      value =
+          "Default account code to be used for purchased/sale. Not applicable to the purchase"
+              + " details of tracked items")
   public String getAccountCode() {
     return accountCode;
   }
@@ -90,11 +86,14 @@ public class Purchase {
     return this;
   }
 
-   /**
+  /**
    * Cost of goods sold account. Only applicable to the purchase details of tracked items.
+   *
    * @return coGSAccountCode
-  **/
-  @ApiModelProperty(value = "Cost of goods sold account. Only applicable to the purchase details of tracked items.")
+   */
+  @ApiModelProperty(
+      value =
+          "Cost of goods sold account. Only applicable to the purchase details of tracked items.")
   public String getCoGSAccountCode() {
     return coGSAccountCode;
   }
@@ -108,10 +107,11 @@ public class Purchase {
     return this;
   }
 
-   /**
+  /**
    * The tax type from TaxRates
+   *
    * @return taxType
-  **/
+   */
   @ApiModelProperty(value = "The tax type from TaxRates")
   public String getTaxType() {
     return taxType;
@@ -120,7 +120,6 @@ public class Purchase {
   public void setTaxType(String taxType) {
     this.taxType = taxType;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -131,17 +130,16 @@ public class Purchase {
       return false;
     }
     Purchase purchase = (Purchase) o;
-    return Objects.equals(this.unitPrice, purchase.unitPrice) &&
-        Objects.equals(this.accountCode, purchase.accountCode) &&
-        Objects.equals(this.coGSAccountCode, purchase.coGSAccountCode) &&
-        Objects.equals(this.taxType, purchase.taxType);
+    return Objects.equals(this.unitPrice, purchase.unitPrice)
+        && Objects.equals(this.accountCode, purchase.accountCode)
+        && Objects.equals(this.coGSAccountCode, purchase.coGSAccountCode)
+        && Objects.equals(this.taxType, purchase.taxType);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(unitPrice, accountCode, coGSAccountCode, taxType);
   }
-
 
   @Override
   public String toString() {
@@ -156,8 +154,7 @@ public class Purchase {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -165,6 +162,4 @@ public class Purchase {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

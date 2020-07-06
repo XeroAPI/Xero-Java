@@ -10,18 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.accounting;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.accounting.Account;
-import com.xero.models.accounting.Payment;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,17 +23,12 @@ import java.util.UUID;
 import java.io.IOException;
 
 import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneId;
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * BatchPayment
- */
-
+/** BatchPayment */
 public class BatchPayment {
   StringUtil util = new StringUtil();
 
@@ -75,12 +64,10 @@ public class BatchPayment {
 
   @JsonProperty("Payments")
   private List<Payment> payments = new ArrayList<Payment>();
-  /**
-   * PAYBATCH for bill payments or RECBATCH for sales invoice payments (read-only)
-   */
+  /** PAYBATCH for bill payments or RECBATCH for sales invoice payments (read-only) */
   public enum TypeEnum {
     PAYBATCH("PAYBATCH"),
-    
+
     RECBATCH("RECBATCH");
 
     private String value;
@@ -110,15 +97,15 @@ public class BatchPayment {
     }
   }
 
-
   @JsonProperty("Type")
   private TypeEnum type;
   /**
-   * AUTHORISED or DELETED (read-only). New batch payments will have a status of AUTHORISED. It is not possible to delete batch payments via the API.
+   * AUTHORISED or DELETED (read-only). New batch payments will have a status of AUTHORISED. It is
+   * not possible to delete batch payments via the API.
    */
   public enum StatusEnum {
     AUTHORISED("AUTHORISED"),
-    
+
     DELETED("DELETED");
 
     private String value;
@@ -148,7 +135,6 @@ public class BatchPayment {
     }
   }
 
-
   @JsonProperty("Status")
   private StatusEnum status;
 
@@ -160,15 +146,17 @@ public class BatchPayment {
 
   @JsonProperty("IsReconciled")
   private String isReconciled;
+
   public BatchPayment account(Account account) {
     this.account = account;
     return this;
   }
 
-   /**
+  /**
    * Get account
+   *
    * @return account
-  **/
+   */
   @ApiModelProperty(value = "")
   public Account getAccount() {
     return account;
@@ -183,11 +171,19 @@ public class BatchPayment {
     return this;
   }
 
-   /**
-   * (NZ Only) Optional references for the batch payment transaction. It will also show with the batch payment transaction in the bank reconciliation Find &amp; Match screen. Depending on your individual bank, the detail may also show on the bank statement you import into Xero.
+  /**
+   * (NZ Only) Optional references for the batch payment transaction. It will also show with the
+   * batch payment transaction in the bank reconciliation Find &amp; Match screen. Depending on your
+   * individual bank, the detail may also show on the bank statement you import into Xero.
+   *
    * @return reference
-  **/
-  @ApiModelProperty(value = "(NZ Only) Optional references for the batch payment transaction. It will also show with the batch payment transaction in the bank reconciliation Find & Match screen. Depending on your individual bank, the detail may also show on the bank statement you import into Xero.")
+   */
+  @ApiModelProperty(
+      value =
+          "(NZ Only) Optional references for the batch payment transaction. It will also show with"
+              + " the batch payment transaction in the bank reconciliation Find & Match screen."
+              + " Depending on your individual bank, the detail may also show on the bank"
+              + " statement you import into Xero.")
   public String getReference() {
     return reference;
   }
@@ -201,11 +197,19 @@ public class BatchPayment {
     return this;
   }
 
-   /**
-   * (NZ Only) Optional references for the batch payment transaction. It will also show with the batch payment transaction in the bank reconciliation Find &amp; Match screen. Depending on your individual bank, the detail may also show on the bank statement you import into Xero.
+  /**
+   * (NZ Only) Optional references for the batch payment transaction. It will also show with the
+   * batch payment transaction in the bank reconciliation Find &amp; Match screen. Depending on your
+   * individual bank, the detail may also show on the bank statement you import into Xero.
+   *
    * @return particulars
-  **/
-  @ApiModelProperty(value = "(NZ Only) Optional references for the batch payment transaction. It will also show with the batch payment transaction in the bank reconciliation Find & Match screen. Depending on your individual bank, the detail may also show on the bank statement you import into Xero.")
+   */
+  @ApiModelProperty(
+      value =
+          "(NZ Only) Optional references for the batch payment transaction. It will also show with"
+              + " the batch payment transaction in the bank reconciliation Find & Match screen."
+              + " Depending on your individual bank, the detail may also show on the bank"
+              + " statement you import into Xero.")
   public String getParticulars() {
     return particulars;
   }
@@ -219,11 +223,19 @@ public class BatchPayment {
     return this;
   }
 
-   /**
-   * (NZ Only) Optional references for the batch payment transaction. It will also show with the batch payment transaction in the bank reconciliation Find &amp; Match screen. Depending on your individual bank, the detail may also show on the bank statement you import into Xero.
+  /**
+   * (NZ Only) Optional references for the batch payment transaction. It will also show with the
+   * batch payment transaction in the bank reconciliation Find &amp; Match screen. Depending on your
+   * individual bank, the detail may also show on the bank statement you import into Xero.
+   *
    * @return code
-  **/
-  @ApiModelProperty(value = "(NZ Only) Optional references for the batch payment transaction. It will also show with the batch payment transaction in the bank reconciliation Find & Match screen. Depending on your individual bank, the detail may also show on the bank statement you import into Xero.")
+   */
+  @ApiModelProperty(
+      value =
+          "(NZ Only) Optional references for the batch payment transaction. It will also show with"
+              + " the batch payment transaction in the bank reconciliation Find & Match screen."
+              + " Depending on your individual bank, the detail may also show on the bank"
+              + " statement you import into Xero.")
   public String getCode() {
     return code;
   }
@@ -237,11 +249,21 @@ public class BatchPayment {
     return this;
   }
 
-   /**
-   * (Non-NZ Only) These details are sent to the org’s bank as a reference for the batch payment transaction. They will also show with the batch payment transaction in the bank reconciliation Find &amp; Match screen. Depending on your individual bank, the detail may also show on the bank statement imported into Xero. Maximum field length &#x3D; 18
+  /**
+   * (Non-NZ Only) These details are sent to the org’s bank as a reference for the batch payment
+   * transaction. They will also show with the batch payment transaction in the bank reconciliation
+   * Find &amp; Match screen. Depending on your individual bank, the detail may also show on the
+   * bank statement imported into Xero. Maximum field length &#x3D; 18
+   *
    * @return details
-  **/
-  @ApiModelProperty(value = "(Non-NZ Only) These details are sent to the org’s bank as a reference for the batch payment transaction. They will also show with the batch payment transaction in the bank reconciliation Find & Match screen. Depending on your individual bank, the detail may also show on the bank statement imported into Xero. Maximum field length = 18")
+   */
+  @ApiModelProperty(
+      value =
+          "(Non-NZ Only) These details are sent to the org’s bank as a reference for the batch"
+              + " payment transaction. They will also show with the batch payment transaction in"
+              + " the bank reconciliation Find & Match screen. Depending on your individual bank,"
+              + " the detail may also show on the bank statement imported into Xero. Maximum field"
+              + " length = 18")
   public String getDetails() {
     return details;
   }
@@ -255,10 +277,11 @@ public class BatchPayment {
     return this;
   }
 
-   /**
+  /**
    * (UK Only) Only shows on the statement line in Xero. Max length &#x3D;18
+   *
    * @return narrative
-  **/
+   */
   @ApiModelProperty(value = "(UK Only) Only shows on the statement line in Xero. Max length =18")
   public String getNarrative() {
     return narrative;
@@ -268,11 +291,13 @@ public class BatchPayment {
     this.narrative = narrative;
   }
 
-   /**
+  /**
    * The Xero generated unique identifier for the bank transaction (read-only)
+   *
    * @return batchPaymentID
-  **/
-  @ApiModelProperty(value = "The Xero generated unique identifier for the bank transaction (read-only)")
+   */
+  @ApiModelProperty(
+      value = "The Xero generated unique identifier for the bank transaction (read-only)")
   public UUID getBatchPaymentID() {
     return batchPaymentID;
   }
@@ -282,10 +307,11 @@ public class BatchPayment {
     return this;
   }
 
-   /**
+  /**
    * Date the payment is being made (YYYY-MM-DD) e.g. 2009-09-06
+   *
    * @return dateString
-  **/
+   */
   @ApiModelProperty(value = "Date the payment is being made (YYYY-MM-DD) e.g. 2009-09-06")
   public String getDateString() {
     return dateString;
@@ -300,23 +326,25 @@ public class BatchPayment {
     return this;
   }
 
-   /**
+  /**
    * Date the payment is being made (YYYY-MM-DD) e.g. 2009-09-06
+   *
    * @return date
-  **/
+   */
   @ApiModelProperty(value = "Date the payment is being made (YYYY-MM-DD) e.g. 2009-09-06")
   public String getDate() {
     return date;
   }
+
   public LocalDate getDateAsDate() {
     if (this.date != null) {
       try {
         return util.convertStringToDate(this.date);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
   public void setDate(String date) {
@@ -324,8 +352,8 @@ public class BatchPayment {
   }
 
   public void setDate(LocalDate date) {
-    //CONVERT LocalDate args into MS DateFromat String
-    Instant instant =  date.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();  
+    // CONVERT LocalDate args into MS DateFromat String
+    Instant instant = date.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
     long timeInMillis = instant.toEpochMilli();
 
     this.date = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
@@ -336,11 +364,16 @@ public class BatchPayment {
     return this;
   }
 
-   /**
-   * The amount of the payment. Must be less than or equal to the outstanding amount owing on the invoice e.g. 200.00
+  /**
+   * The amount of the payment. Must be less than or equal to the outstanding amount owing on the
+   * invoice e.g. 200.00
+   *
    * @return amount
-  **/
-  @ApiModelProperty(value = "The amount of the payment. Must be less than or equal to the outstanding amount owing on the invoice e.g. 200.00")
+   */
+  @ApiModelProperty(
+      value =
+          "The amount of the payment. Must be less than or equal to the outstanding amount owing"
+              + " on the invoice e.g. 200.00")
   public Double getAmount() {
     return amount;
   }
@@ -362,10 +395,11 @@ public class BatchPayment {
     return this;
   }
 
-   /**
+  /**
    * Get payments
+   *
    * @return payments
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<Payment> getPayments() {
     return payments;
@@ -375,61 +409,74 @@ public class BatchPayment {
     this.payments = payments;
   }
 
-   /**
+  /**
    * PAYBATCH for bill payments or RECBATCH for sales invoice payments (read-only)
+   *
    * @return type
-  **/
-  @ApiModelProperty(value = "PAYBATCH for bill payments or RECBATCH for sales invoice payments (read-only)")
+   */
+  @ApiModelProperty(
+      value = "PAYBATCH for bill payments or RECBATCH for sales invoice payments (read-only)")
   public TypeEnum getType() {
     return type;
   }
 
-   /**
-   * AUTHORISED or DELETED (read-only). New batch payments will have a status of AUTHORISED. It is not possible to delete batch payments via the API.
+  /**
+   * AUTHORISED or DELETED (read-only). New batch payments will have a status of AUTHORISED. It is
+   * not possible to delete batch payments via the API.
+   *
    * @return status
-  **/
-  @ApiModelProperty(value = "AUTHORISED or DELETED (read-only). New batch payments will have a status of AUTHORISED. It is not possible to delete batch payments via the API.")
+   */
+  @ApiModelProperty(
+      value =
+          "AUTHORISED or DELETED (read-only). New batch payments will have a status of AUTHORISED."
+              + " It is not possible to delete batch payments via the API.")
   public StatusEnum getStatus() {
     return status;
   }
 
-   /**
+  /**
    * The total of the payments that make up the batch (read-only)
+   *
    * @return totalAmount
-  **/
+   */
   @ApiModelProperty(value = "The total of the payments that make up the batch (read-only)")
   public String getTotalAmount() {
     return totalAmount;
   }
 
-   /**
+  /**
    * UTC timestamp of last update to the payment
+   *
    * @return updatedDateUTC
-  **/
-  @ApiModelProperty(example = "/Date(1573755038314)/", value = "UTC timestamp of last update to the payment")
+   */
+  @ApiModelProperty(
+      example = "/Date(1573755038314)/",
+      value = "UTC timestamp of last update to the payment")
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.updatedDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
-   /**
+  /**
    * Booelan that tells you if the batch payment has been reconciled (read-only)
+   *
    * @return isReconciled
-  **/
-  @ApiModelProperty(value = "Booelan that tells you if the batch payment has been reconciled (read-only)")
+   */
+  @ApiModelProperty(
+      value = "Booelan that tells you if the batch payment has been reconciled (read-only)")
   public String getIsReconciled() {
     return isReconciled;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -440,29 +487,44 @@ public class BatchPayment {
       return false;
     }
     BatchPayment batchPayment = (BatchPayment) o;
-    return Objects.equals(this.account, batchPayment.account) &&
-        Objects.equals(this.reference, batchPayment.reference) &&
-        Objects.equals(this.particulars, batchPayment.particulars) &&
-        Objects.equals(this.code, batchPayment.code) &&
-        Objects.equals(this.details, batchPayment.details) &&
-        Objects.equals(this.narrative, batchPayment.narrative) &&
-        Objects.equals(this.batchPaymentID, batchPayment.batchPaymentID) &&
-        Objects.equals(this.dateString, batchPayment.dateString) &&
-        Objects.equals(this.date, batchPayment.date) &&
-        Objects.equals(this.amount, batchPayment.amount) &&
-        Objects.equals(this.payments, batchPayment.payments) &&
-        Objects.equals(this.type, batchPayment.type) &&
-        Objects.equals(this.status, batchPayment.status) &&
-        Objects.equals(this.totalAmount, batchPayment.totalAmount) &&
-        Objects.equals(this.updatedDateUTC, batchPayment.updatedDateUTC) &&
-        Objects.equals(this.isReconciled, batchPayment.isReconciled);
+    return Objects.equals(this.account, batchPayment.account)
+        && Objects.equals(this.reference, batchPayment.reference)
+        && Objects.equals(this.particulars, batchPayment.particulars)
+        && Objects.equals(this.code, batchPayment.code)
+        && Objects.equals(this.details, batchPayment.details)
+        && Objects.equals(this.narrative, batchPayment.narrative)
+        && Objects.equals(this.batchPaymentID, batchPayment.batchPaymentID)
+        && Objects.equals(this.dateString, batchPayment.dateString)
+        && Objects.equals(this.date, batchPayment.date)
+        && Objects.equals(this.amount, batchPayment.amount)
+        && Objects.equals(this.payments, batchPayment.payments)
+        && Objects.equals(this.type, batchPayment.type)
+        && Objects.equals(this.status, batchPayment.status)
+        && Objects.equals(this.totalAmount, batchPayment.totalAmount)
+        && Objects.equals(this.updatedDateUTC, batchPayment.updatedDateUTC)
+        && Objects.equals(this.isReconciled, batchPayment.isReconciled);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(account, reference, particulars, code, details, narrative, batchPaymentID, dateString, date, amount, payments, type, status, totalAmount, updatedDateUTC, isReconciled);
+    return Objects.hash(
+        account,
+        reference,
+        particulars,
+        code,
+        details,
+        narrative,
+        batchPaymentID,
+        dateString,
+        date,
+        amount,
+        payments,
+        type,
+        status,
+        totalAmount,
+        updatedDateUTC,
+        isReconciled);
   }
-
 
   @Override
   public String toString() {
@@ -489,8 +551,7 @@ public class BatchPayment {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -498,6 +559,4 @@ public class BatchPayment {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

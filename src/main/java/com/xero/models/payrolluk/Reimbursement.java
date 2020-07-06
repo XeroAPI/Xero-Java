@@ -10,32 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrolluk;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * Reimbursement
- */
-
+/** Reimbursement */
 public class Reimbursement {
   StringUtil util = new StringUtil();
 
@@ -50,15 +34,17 @@ public class Reimbursement {
 
   @JsonProperty("currentRecord")
   private Boolean currentRecord;
+
   public Reimbursement reimbursementID(UUID reimbursementID) {
     this.reimbursementID = reimbursementID;
     return this;
   }
 
-   /**
+  /**
    * Xero unique identifier for a reimbursement
+   *
    * @return reimbursementID
-  **/
+   */
   @ApiModelProperty(value = "Xero unique identifier for a reimbursement")
   public UUID getReimbursementID() {
     return reimbursementID;
@@ -73,10 +59,11 @@ public class Reimbursement {
     return this;
   }
 
-   /**
+  /**
    * Name of the reimbursement
+   *
    * @return name
-  **/
+   */
   @ApiModelProperty(required = true, value = "Name of the reimbursement")
   public String getName() {
     return name;
@@ -91,11 +78,14 @@ public class Reimbursement {
     return this;
   }
 
-   /**
+  /**
    * Xero unique identifier for the account used for the reimbursement
+   *
    * @return accountID
-  **/
-  @ApiModelProperty(required = true, value = "Xero unique identifier for the account used for the reimbursement")
+   */
+  @ApiModelProperty(
+      required = true,
+      value = "Xero unique identifier for the account used for the reimbursement")
   public UUID getAccountID() {
     return accountID;
   }
@@ -109,10 +99,11 @@ public class Reimbursement {
     return this;
   }
 
-   /**
+  /**
    * Indicates that whether the reimbursement is active
+   *
    * @return currentRecord
-  **/
+   */
   @ApiModelProperty(value = "Indicates that whether the reimbursement is active")
   public Boolean getCurrentRecord() {
     return currentRecord;
@@ -121,7 +112,6 @@ public class Reimbursement {
   public void setCurrentRecord(Boolean currentRecord) {
     this.currentRecord = currentRecord;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -132,17 +122,16 @@ public class Reimbursement {
       return false;
     }
     Reimbursement reimbursement = (Reimbursement) o;
-    return Objects.equals(this.reimbursementID, reimbursement.reimbursementID) &&
-        Objects.equals(this.name, reimbursement.name) &&
-        Objects.equals(this.accountID, reimbursement.accountID) &&
-        Objects.equals(this.currentRecord, reimbursement.currentRecord);
+    return Objects.equals(this.reimbursementID, reimbursement.reimbursementID)
+        && Objects.equals(this.name, reimbursement.name)
+        && Objects.equals(this.accountID, reimbursement.accountID)
+        && Objects.equals(this.currentRecord, reimbursement.currentRecord);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(reimbursementID, name, accountID, currentRecord);
   }
-
 
   @Override
   public String toString() {
@@ -157,8 +146,7 @@ public class Reimbursement {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -166,6 +154,4 @@ public class Reimbursement {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

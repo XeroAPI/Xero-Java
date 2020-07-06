@@ -10,35 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrollau;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.payrollau.EmploymentTerminationPaymentType;
-import com.xero.models.payrollau.EntitlementFinalPayPayoutType;
-import com.xero.models.payrollau.LeaveLineCalculationType;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * LeaveLine
- */
-
+/** LeaveLine */
 public class LeaveLine {
   StringUtil util = new StringUtil();
 
@@ -59,16 +40,20 @@ public class LeaveLine {
 
   @JsonProperty("NumberOfUnits")
   private Double numberOfUnits;
+
   public LeaveLine leaveTypeID(UUID leaveTypeID) {
     this.leaveTypeID = leaveTypeID;
     return this;
   }
 
-   /**
+  /**
    * Xero leave type identifier
+   *
    * @return leaveTypeID
-  **/
-  @ApiModelProperty(example = "742998cb-7584-4ecf-aa88-d694f59c50f9", value = "Xero leave type identifier")
+   */
+  @ApiModelProperty(
+      example = "742998cb-7584-4ecf-aa88-d694f59c50f9",
+      value = "Xero leave type identifier")
   public UUID getLeaveTypeID() {
     return leaveTypeID;
   }
@@ -82,10 +67,11 @@ public class LeaveLine {
     return this;
   }
 
-   /**
+  /**
    * Get calculationType
+   *
    * @return calculationType
-  **/
+   */
   @ApiModelProperty(value = "")
   public LeaveLineCalculationType getCalculationType() {
     return calculationType;
@@ -95,57 +81,66 @@ public class LeaveLine {
     this.calculationType = calculationType;
   }
 
-  public LeaveLine entitlementFinalPayPayoutType(EntitlementFinalPayPayoutType entitlementFinalPayPayoutType) {
+  public LeaveLine entitlementFinalPayPayoutType(
+      EntitlementFinalPayPayoutType entitlementFinalPayPayoutType) {
     this.entitlementFinalPayPayoutType = entitlementFinalPayPayoutType;
     return this;
   }
 
-   /**
+  /**
    * Get entitlementFinalPayPayoutType
+   *
    * @return entitlementFinalPayPayoutType
-  **/
+   */
   @ApiModelProperty(value = "")
   public EntitlementFinalPayPayoutType getEntitlementFinalPayPayoutType() {
     return entitlementFinalPayPayoutType;
   }
 
-  public void setEntitlementFinalPayPayoutType(EntitlementFinalPayPayoutType entitlementFinalPayPayoutType) {
+  public void setEntitlementFinalPayPayoutType(
+      EntitlementFinalPayPayoutType entitlementFinalPayPayoutType) {
     this.entitlementFinalPayPayoutType = entitlementFinalPayPayoutType;
   }
 
-  public LeaveLine employmentTerminationPaymentType(EmploymentTerminationPaymentType employmentTerminationPaymentType) {
+  public LeaveLine employmentTerminationPaymentType(
+      EmploymentTerminationPaymentType employmentTerminationPaymentType) {
     this.employmentTerminationPaymentType = employmentTerminationPaymentType;
     return this;
   }
 
-   /**
+  /**
    * Get employmentTerminationPaymentType
+   *
    * @return employmentTerminationPaymentType
-  **/
+   */
   @ApiModelProperty(value = "")
   public EmploymentTerminationPaymentType getEmploymentTerminationPaymentType() {
     return employmentTerminationPaymentType;
   }
 
-  public void setEmploymentTerminationPaymentType(EmploymentTerminationPaymentType employmentTerminationPaymentType) {
+  public void setEmploymentTerminationPaymentType(
+      EmploymentTerminationPaymentType employmentTerminationPaymentType) {
     this.employmentTerminationPaymentType = employmentTerminationPaymentType;
   }
 
-  public LeaveLine includeSuperannuationGuaranteeContribution(Boolean includeSuperannuationGuaranteeContribution) {
+  public LeaveLine includeSuperannuationGuaranteeContribution(
+      Boolean includeSuperannuationGuaranteeContribution) {
     this.includeSuperannuationGuaranteeContribution = includeSuperannuationGuaranteeContribution;
     return this;
   }
 
-   /**
+  /**
    * amount of leave line
+   *
    * @return includeSuperannuationGuaranteeContribution
-  **/
+   */
   @ApiModelProperty(example = "true", value = "amount of leave line")
   public Boolean getIncludeSuperannuationGuaranteeContribution() {
     return includeSuperannuationGuaranteeContribution;
   }
 
-  public void setIncludeSuperannuationGuaranteeContribution(Boolean includeSuperannuationGuaranteeContribution) {
+  public void setIncludeSuperannuationGuaranteeContribution(
+      Boolean includeSuperannuationGuaranteeContribution) {
     this.includeSuperannuationGuaranteeContribution = includeSuperannuationGuaranteeContribution;
   }
 
@@ -154,10 +149,11 @@ public class LeaveLine {
     return this;
   }
 
-   /**
+  /**
    * Leave number of units
+   *
    * @return numberOfUnits
-  **/
+   */
   @ApiModelProperty(example = "2.5", value = "Leave number of units")
   public Double getNumberOfUnits() {
     return numberOfUnits;
@@ -166,7 +162,6 @@ public class LeaveLine {
   public void setNumberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -177,19 +172,28 @@ public class LeaveLine {
       return false;
     }
     LeaveLine leaveLine = (LeaveLine) o;
-    return Objects.equals(this.leaveTypeID, leaveLine.leaveTypeID) &&
-        Objects.equals(this.calculationType, leaveLine.calculationType) &&
-        Objects.equals(this.entitlementFinalPayPayoutType, leaveLine.entitlementFinalPayPayoutType) &&
-        Objects.equals(this.employmentTerminationPaymentType, leaveLine.employmentTerminationPaymentType) &&
-        Objects.equals(this.includeSuperannuationGuaranteeContribution, leaveLine.includeSuperannuationGuaranteeContribution) &&
-        Objects.equals(this.numberOfUnits, leaveLine.numberOfUnits);
+    return Objects.equals(this.leaveTypeID, leaveLine.leaveTypeID)
+        && Objects.equals(this.calculationType, leaveLine.calculationType)
+        && Objects.equals(
+            this.entitlementFinalPayPayoutType, leaveLine.entitlementFinalPayPayoutType)
+        && Objects.equals(
+            this.employmentTerminationPaymentType, leaveLine.employmentTerminationPaymentType)
+        && Objects.equals(
+            this.includeSuperannuationGuaranteeContribution,
+            leaveLine.includeSuperannuationGuaranteeContribution)
+        && Objects.equals(this.numberOfUnits, leaveLine.numberOfUnits);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(leaveTypeID, calculationType, entitlementFinalPayPayoutType, employmentTerminationPaymentType, includeSuperannuationGuaranteeContribution, numberOfUnits);
+    return Objects.hash(
+        leaveTypeID,
+        calculationType,
+        entitlementFinalPayPayoutType,
+        employmentTerminationPaymentType,
+        includeSuperannuationGuaranteeContribution,
+        numberOfUnits);
   }
-
 
   @Override
   public String toString() {
@@ -197,17 +201,22 @@ public class LeaveLine {
     sb.append("class LeaveLine {\n");
     sb.append("    leaveTypeID: ").append(toIndentedString(leaveTypeID)).append("\n");
     sb.append("    calculationType: ").append(toIndentedString(calculationType)).append("\n");
-    sb.append("    entitlementFinalPayPayoutType: ").append(toIndentedString(entitlementFinalPayPayoutType)).append("\n");
-    sb.append("    employmentTerminationPaymentType: ").append(toIndentedString(employmentTerminationPaymentType)).append("\n");
-    sb.append("    includeSuperannuationGuaranteeContribution: ").append(toIndentedString(includeSuperannuationGuaranteeContribution)).append("\n");
+    sb.append("    entitlementFinalPayPayoutType: ")
+        .append(toIndentedString(entitlementFinalPayPayoutType))
+        .append("\n");
+    sb.append("    employmentTerminationPaymentType: ")
+        .append(toIndentedString(employmentTerminationPaymentType))
+        .append("\n");
+    sb.append("    includeSuperannuationGuaranteeContribution: ")
+        .append(toIndentedString(includeSuperannuationGuaranteeContribution))
+        .append("\n");
     sb.append("    numberOfUnits: ").append(toIndentedString(numberOfUnits)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -215,6 +224,4 @@ public class LeaveLine {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

@@ -10,33 +10,17 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.bankfeeds;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.bankfeeds.CreditDebitIndicator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * The starting balance of the statement
- */
+/** The starting balance of the statement */
 @ApiModel(description = "The starting balance of the statement")
-
 public class StartBalance {
   StringUtil util = new StringUtil();
 
@@ -45,16 +29,20 @@ public class StartBalance {
 
   @JsonProperty("creditDebitIndicator")
   private CreditDebitIndicator creditDebitIndicator;
+
   public StartBalance amount(Double amount) {
     this.amount = amount;
     return this;
   }
 
-   /**
+  /**
    * decimal(19,4) unsigned Opening/closing balance amount.
+   *
    * @return amount
-  **/
-  @ApiModelProperty(example = "9.0000", value = "decimal(19,4) unsigned Opening/closing balance amount.")
+   */
+  @ApiModelProperty(
+      example = "9.0000",
+      value = "decimal(19,4) unsigned Opening/closing balance amount.")
   public Double getAmount() {
     return amount;
   }
@@ -68,10 +56,11 @@ public class StartBalance {
     return this;
   }
 
-   /**
+  /**
    * Get creditDebitIndicator
+   *
    * @return creditDebitIndicator
-  **/
+   */
   @ApiModelProperty(value = "")
   public CreditDebitIndicator getCreditDebitIndicator() {
     return creditDebitIndicator;
@@ -80,7 +69,6 @@ public class StartBalance {
   public void setCreditDebitIndicator(CreditDebitIndicator creditDebitIndicator) {
     this.creditDebitIndicator = creditDebitIndicator;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -91,8 +79,8 @@ public class StartBalance {
       return false;
     }
     StartBalance startBalance = (StartBalance) o;
-    return Objects.equals(this.amount, startBalance.amount) &&
-        Objects.equals(this.creditDebitIndicator, startBalance.creditDebitIndicator);
+    return Objects.equals(this.amount, startBalance.amount)
+        && Objects.equals(this.creditDebitIndicator, startBalance.creditDebitIndicator);
   }
 
   @Override
@@ -100,20 +88,20 @@ public class StartBalance {
     return Objects.hash(amount, creditDebitIndicator);
   }
 
-
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class StartBalance {\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-    sb.append("    creditDebitIndicator: ").append(toIndentedString(creditDebitIndicator)).append("\n");
+    sb.append("    creditDebitIndicator: ")
+        .append(toIndentedString(creditDebitIndicator))
+        .append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -121,6 +109,4 @@ public class StartBalance {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

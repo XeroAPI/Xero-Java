@@ -10,30 +10,19 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.bankfeeds;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
-import com.xero.api.StringUtil;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * If the statement balances are credit or debit, the CreditDebitIndicator should be specified from the perspective of the Customer.
+ * If the statement balances are credit or debit, the CreditDebitIndicator should be specified from
+ * the perspective of the Customer.
  */
 public enum CreditDebitIndicator {
-  
   CREDIT("CREDIT"),
-  
+
   DEBIT("DEBIT");
 
   private String value;
@@ -62,4 +51,3 @@ public enum CreditDebitIndicator {
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 }
-

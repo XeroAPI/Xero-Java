@@ -10,36 +10,18 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.assets;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.assets.AssetStatus;
-import com.xero.models.assets.BookDepreciationDetail;
-import com.xero.models.assets.BookDepreciationSetting;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import org.threeten.bp.LocalDate;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * Asset
- */
-
+/** Asset */
 public class Asset {
   StringUtil util = new StringUtil();
 
@@ -87,16 +69,20 @@ public class Asset {
 
   @JsonProperty("isDeleteEnabledForDate")
   private Boolean isDeleteEnabledForDate;
+
   public Asset assetId(UUID assetId) {
     this.assetId = assetId;
     return this;
   }
 
-   /**
+  /**
    * The Xero-generated Id for the asset
+   *
    * @return assetId
-  **/
-  @ApiModelProperty(example = "3b5b3a38-5649-495f-87a1-14a4e5918634", value = "The Xero-generated Id for the asset")
+   */
+  @ApiModelProperty(
+      example = "3b5b3a38-5649-495f-87a1-14a4e5918634",
+      value = "The Xero-generated Id for the asset")
   public UUID getAssetId() {
     return assetId;
   }
@@ -110,10 +96,11 @@ public class Asset {
     return this;
   }
 
-   /**
+  /**
    * The name of the asset
+   *
    * @return assetName
-  **/
+   */
   @ApiModelProperty(example = "Awesome Truck 3", required = true, value = "The name of the asset")
   public String getAssetName() {
     return assetName;
@@ -128,11 +115,14 @@ public class Asset {
     return this;
   }
 
-   /**
+  /**
    * The Xero-generated Id for the asset type
+   *
    * @return assetTypeId
-  **/
-  @ApiModelProperty(example = "3b5b3a38-5649-495f-87a1-14a4e5918634", value = "The Xero-generated Id for the asset type")
+   */
+  @ApiModelProperty(
+      example = "3b5b3a38-5649-495f-87a1-14a4e5918634",
+      value = "The Xero-generated Id for the asset type")
   public UUID getAssetTypeId() {
     return assetTypeId;
   }
@@ -146,10 +136,11 @@ public class Asset {
     return this;
   }
 
-   /**
+  /**
    * Must be unique.
+   *
    * @return assetNumber
-  **/
+   */
   @ApiModelProperty(example = "FA-0013", value = "Must be unique.")
   public String getAssetNumber() {
     return assetNumber;
@@ -164,10 +155,11 @@ public class Asset {
     return this;
   }
 
-   /**
+  /**
    * The date the asset was purchased YYYY-MM-DD
+   *
    * @return purchaseDate
-  **/
+   */
   @ApiModelProperty(value = "The date the asset was purchased YYYY-MM-DD")
   public LocalDate getPurchaseDate() {
     return purchaseDate;
@@ -182,10 +174,11 @@ public class Asset {
     return this;
   }
 
-   /**
+  /**
    * The purchase price of the asset
+   *
    * @return purchasePrice
-  **/
+   */
   @ApiModelProperty(example = "1000.0000", value = "The purchase price of the asset")
   public Double getPurchasePrice() {
     return purchasePrice;
@@ -200,10 +193,11 @@ public class Asset {
     return this;
   }
 
-   /**
+  /**
    * The price the asset was disposed at
+   *
    * @return disposalPrice
-  **/
+   */
   @ApiModelProperty(example = "1.0000", value = "The price the asset was disposed at")
   public Double getDisposalPrice() {
     return disposalPrice;
@@ -218,10 +212,11 @@ public class Asset {
     return this;
   }
 
-   /**
+  /**
    * Get assetStatus
+   *
    * @return assetStatus
-  **/
+   */
   @ApiModelProperty(value = "")
   public AssetStatus getAssetStatus() {
     return assetStatus;
@@ -236,11 +231,14 @@ public class Asset {
     return this;
   }
 
-   /**
+  /**
    * The date the asset’s warranty expires (if needed) YYYY-MM-DD
+   *
    * @return warrantyExpiryDate
-  **/
-  @ApiModelProperty(example = "ca4c6b39-4f4f-43e8-98da-5e1f350a6694", value = "The date the asset’s warranty expires (if needed) YYYY-MM-DD")
+   */
+  @ApiModelProperty(
+      example = "ca4c6b39-4f4f-43e8-98da-5e1f350a6694",
+      value = "The date the asset’s warranty expires (if needed) YYYY-MM-DD")
   public String getWarrantyExpiryDate() {
     return warrantyExpiryDate;
   }
@@ -254,11 +252,14 @@ public class Asset {
     return this;
   }
 
-   /**
+  /**
    * The asset&#39;s serial number
+   *
    * @return serialNumber
-  **/
-  @ApiModelProperty(example = "ca4c6b39-4f4f-43e8-98da-5e1f350a6694", value = "The asset's serial number")
+   */
+  @ApiModelProperty(
+      example = "ca4c6b39-4f4f-43e8-98da-5e1f350a6694",
+      value = "The asset's serial number")
   public String getSerialNumber() {
     return serialNumber;
   }
@@ -272,10 +273,11 @@ public class Asset {
     return this;
   }
 
-   /**
+  /**
    * Get bookDepreciationSetting
+   *
    * @return bookDepreciationSetting
-  **/
+   */
   @ApiModelProperty(value = "")
   public BookDepreciationSetting getBookDepreciationSetting() {
     return bookDepreciationSetting;
@@ -290,10 +292,11 @@ public class Asset {
     return this;
   }
 
-   /**
+  /**
    * Get bookDepreciationDetail
+   *
    * @return bookDepreciationDetail
-  **/
+   */
   @ApiModelProperty(value = "")
   public BookDepreciationDetail getBookDepreciationDetail() {
     return bookDepreciationDetail;
@@ -308,11 +311,19 @@ public class Asset {
     return this;
   }
 
-   /**
-   * Boolean to indicate whether depreciation can be rolled back for this asset individually. This is true if it doesn&#39;t have &#39;legacy&#39; journal entries and if there is no lock period that would prevent this asset from rolling back.
+  /**
+   * Boolean to indicate whether depreciation can be rolled back for this asset individually. This
+   * is true if it doesn&#39;t have &#39;legacy&#39; journal entries and if there is no lock period
+   * that would prevent this asset from rolling back.
+   *
    * @return canRollback
-  **/
-  @ApiModelProperty(example = "true", value = "Boolean to indicate whether depreciation can be rolled back for this asset individually. This is true if it doesn't have 'legacy' journal entries and if there is no lock period that would prevent this asset from rolling back.")
+   */
+  @ApiModelProperty(
+      example = "true",
+      value =
+          "Boolean to indicate whether depreciation can be rolled back for this asset"
+              + " individually. This is true if it doesn't have 'legacy' journal entries and if"
+              + " there is no lock period that would prevent this asset from rolling back.")
   public Boolean getCanRollback() {
     return canRollback;
   }
@@ -326,10 +337,11 @@ public class Asset {
     return this;
   }
 
-   /**
+  /**
    * The accounting value of the asset
+   *
    * @return accountingBookValue
-  **/
+   */
   @ApiModelProperty(example = "0", value = "The accounting value of the asset")
   public Double getAccountingBookValue() {
     return accountingBookValue;
@@ -344,10 +356,11 @@ public class Asset {
     return this;
   }
 
-   /**
+  /**
    * Boolean to indicate whether delete is enabled
+   *
    * @return isDeleteEnabledForDate
-  **/
+   */
   @ApiModelProperty(example = "true", value = "Boolean to indicate whether delete is enabled")
   public Boolean getIsDeleteEnabledForDate() {
     return isDeleteEnabledForDate;
@@ -356,7 +369,6 @@ public class Asset {
   public void setIsDeleteEnabledForDate(Boolean isDeleteEnabledForDate) {
     this.isDeleteEnabledForDate = isDeleteEnabledForDate;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -367,28 +379,42 @@ public class Asset {
       return false;
     }
     Asset asset = (Asset) o;
-    return Objects.equals(this.assetId, asset.assetId) &&
-        Objects.equals(this.assetName, asset.assetName) &&
-        Objects.equals(this.assetTypeId, asset.assetTypeId) &&
-        Objects.equals(this.assetNumber, asset.assetNumber) &&
-        Objects.equals(this.purchaseDate, asset.purchaseDate) &&
-        Objects.equals(this.purchasePrice, asset.purchasePrice) &&
-        Objects.equals(this.disposalPrice, asset.disposalPrice) &&
-        Objects.equals(this.assetStatus, asset.assetStatus) &&
-        Objects.equals(this.warrantyExpiryDate, asset.warrantyExpiryDate) &&
-        Objects.equals(this.serialNumber, asset.serialNumber) &&
-        Objects.equals(this.bookDepreciationSetting, asset.bookDepreciationSetting) &&
-        Objects.equals(this.bookDepreciationDetail, asset.bookDepreciationDetail) &&
-        Objects.equals(this.canRollback, asset.canRollback) &&
-        Objects.equals(this.accountingBookValue, asset.accountingBookValue) &&
-        Objects.equals(this.isDeleteEnabledForDate, asset.isDeleteEnabledForDate);
+    return Objects.equals(this.assetId, asset.assetId)
+        && Objects.equals(this.assetName, asset.assetName)
+        && Objects.equals(this.assetTypeId, asset.assetTypeId)
+        && Objects.equals(this.assetNumber, asset.assetNumber)
+        && Objects.equals(this.purchaseDate, asset.purchaseDate)
+        && Objects.equals(this.purchasePrice, asset.purchasePrice)
+        && Objects.equals(this.disposalPrice, asset.disposalPrice)
+        && Objects.equals(this.assetStatus, asset.assetStatus)
+        && Objects.equals(this.warrantyExpiryDate, asset.warrantyExpiryDate)
+        && Objects.equals(this.serialNumber, asset.serialNumber)
+        && Objects.equals(this.bookDepreciationSetting, asset.bookDepreciationSetting)
+        && Objects.equals(this.bookDepreciationDetail, asset.bookDepreciationDetail)
+        && Objects.equals(this.canRollback, asset.canRollback)
+        && Objects.equals(this.accountingBookValue, asset.accountingBookValue)
+        && Objects.equals(this.isDeleteEnabledForDate, asset.isDeleteEnabledForDate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(assetId, assetName, assetTypeId, assetNumber, purchaseDate, purchasePrice, disposalPrice, assetStatus, warrantyExpiryDate, serialNumber, bookDepreciationSetting, bookDepreciationDetail, canRollback, accountingBookValue, isDeleteEnabledForDate);
+    return Objects.hash(
+        assetId,
+        assetName,
+        assetTypeId,
+        assetNumber,
+        purchaseDate,
+        purchasePrice,
+        disposalPrice,
+        assetStatus,
+        warrantyExpiryDate,
+        serialNumber,
+        bookDepreciationSetting,
+        bookDepreciationDetail,
+        canRollback,
+        accountingBookValue,
+        isDeleteEnabledForDate);
   }
-
 
   @Override
   public String toString() {
@@ -404,18 +430,25 @@ public class Asset {
     sb.append("    assetStatus: ").append(toIndentedString(assetStatus)).append("\n");
     sb.append("    warrantyExpiryDate: ").append(toIndentedString(warrantyExpiryDate)).append("\n");
     sb.append("    serialNumber: ").append(toIndentedString(serialNumber)).append("\n");
-    sb.append("    bookDepreciationSetting: ").append(toIndentedString(bookDepreciationSetting)).append("\n");
-    sb.append("    bookDepreciationDetail: ").append(toIndentedString(bookDepreciationDetail)).append("\n");
+    sb.append("    bookDepreciationSetting: ")
+        .append(toIndentedString(bookDepreciationSetting))
+        .append("\n");
+    sb.append("    bookDepreciationDetail: ")
+        .append(toIndentedString(bookDepreciationDetail))
+        .append("\n");
     sb.append("    canRollback: ").append(toIndentedString(canRollback)).append("\n");
-    sb.append("    accountingBookValue: ").append(toIndentedString(accountingBookValue)).append("\n");
-    sb.append("    isDeleteEnabledForDate: ").append(toIndentedString(isDeleteEnabledForDate)).append("\n");
+    sb.append("    accountingBookValue: ")
+        .append(toIndentedString(accountingBookValue))
+        .append("\n");
+    sb.append("    isDeleteEnabledForDate: ")
+        .append(toIndentedString(isDeleteEnabledForDate))
+        .append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -423,6 +456,4 @@ public class Asset {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

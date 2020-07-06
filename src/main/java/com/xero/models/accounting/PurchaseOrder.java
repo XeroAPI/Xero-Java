@@ -10,22 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.accounting;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.accounting.Attachment;
-import com.xero.models.accounting.Contact;
-import com.xero.models.accounting.CurrencyCode;
-import com.xero.models.accounting.LineAmountTypes;
-import com.xero.models.accounting.LineItem;
-import com.xero.models.accounting.ValidationError;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,17 +23,12 @@ import java.util.UUID;
 import java.io.IOException;
 
 import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneId;
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * PurchaseOrder
- */
-
+/** PurchaseOrder */
 public class PurchaseOrder {
   StringUtil util = new StringUtil();
 
@@ -73,18 +58,16 @@ public class PurchaseOrder {
 
   @JsonProperty("CurrencyCode")
   private CurrencyCode currencyCode;
-  /**
-   * See Purchase Order Status Codes
-   */
+  /** See Purchase Order Status Codes */
   public enum StatusEnum {
     DRAFT("DRAFT"),
-    
+
     SUBMITTED("SUBMITTED"),
-    
+
     AUTHORISED("AUTHORISED"),
-    
+
     BILLED("BILLED"),
-    
+
     DELETED("DELETED");
 
     private String value;
@@ -113,7 +96,6 @@ public class PurchaseOrder {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
-
 
   @JsonProperty("Status")
   private StatusEnum status;
@@ -171,15 +153,17 @@ public class PurchaseOrder {
 
   @JsonProperty("Attachments")
   private List<Attachment> attachments = new ArrayList<Attachment>();
+
   public PurchaseOrder contact(Contact contact) {
     this.contact = contact;
     return this;
   }
 
-   /**
+  /**
    * Get contact
+   *
    * @return contact
-  **/
+   */
   @ApiModelProperty(value = "")
   public Contact getContact() {
     return contact;
@@ -202,10 +186,11 @@ public class PurchaseOrder {
     return this;
   }
 
-   /**
+  /**
    * See LineItems
+   *
    * @return lineItems
-  **/
+   */
   @ApiModelProperty(value = "See LineItems")
   public List<LineItem> getLineItems() {
     return lineItems;
@@ -220,23 +205,30 @@ public class PurchaseOrder {
     return this;
   }
 
-   /**
-   * Date purchase order was issued – YYYY-MM-DD. If the Date element is not specified then it will default to the current date based on the timezone setting of the organisation
+  /**
+   * Date purchase order was issued – YYYY-MM-DD. If the Date element is not specified then it will
+   * default to the current date based on the timezone setting of the organisation
+   *
    * @return date
-  **/
-  @ApiModelProperty(value = "Date purchase order was issued – YYYY-MM-DD. If the Date element is not specified then it will default to the current date based on the timezone setting of the organisation")
+   */
+  @ApiModelProperty(
+      value =
+          "Date purchase order was issued – YYYY-MM-DD. If the Date element is not specified then"
+              + " it will default to the current date based on the timezone setting of the"
+              + " organisation")
   public String getDate() {
     return date;
   }
+
   public LocalDate getDateAsDate() {
     if (this.date != null) {
       try {
         return util.convertStringToDate(this.date);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
   public void setDate(String date) {
@@ -244,8 +236,8 @@ public class PurchaseOrder {
   }
 
   public void setDate(LocalDate date) {
-    //CONVERT LocalDate args into MS DateFromat String
-    Instant instant =  date.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();  
+    // CONVERT LocalDate args into MS DateFromat String
+    Instant instant = date.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
     long timeInMillis = instant.toEpochMilli();
 
     this.date = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
@@ -256,23 +248,25 @@ public class PurchaseOrder {
     return this;
   }
 
-   /**
+  /**
    * Date the goods are to be delivered – YYYY-MM-DD
+   *
    * @return deliveryDate
-  **/
+   */
   @ApiModelProperty(value = "Date the goods are to be delivered – YYYY-MM-DD")
   public String getDeliveryDate() {
     return deliveryDate;
   }
+
   public LocalDate getDeliveryDateAsDate() {
     if (this.deliveryDate != null) {
       try {
         return util.convertStringToDate(this.deliveryDate);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
   public void setDeliveryDate(String deliveryDate) {
@@ -280,8 +274,8 @@ public class PurchaseOrder {
   }
 
   public void setDeliveryDate(LocalDate deliveryDate) {
-    //CONVERT LocalDate args into MS DateFromat String
-    Instant instant =  deliveryDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();  
+    // CONVERT LocalDate args into MS DateFromat String
+    Instant instant = deliveryDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
     long timeInMillis = instant.toEpochMilli();
 
     this.deliveryDate = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
@@ -292,10 +286,11 @@ public class PurchaseOrder {
     return this;
   }
 
-   /**
+  /**
    * Get lineAmountTypes
+   *
    * @return lineAmountTypes
-  **/
+   */
   @ApiModelProperty(value = "")
   public LineAmountTypes getLineAmountTypes() {
     return lineAmountTypes;
@@ -310,11 +305,16 @@ public class PurchaseOrder {
     return this;
   }
 
-   /**
-   * Unique alpha numeric code identifying purchase order (when missing will auto-generate from your Organisation Invoice Settings)
+  /**
+   * Unique alpha numeric code identifying purchase order (when missing will auto-generate from your
+   * Organisation Invoice Settings)
+   *
    * @return purchaseOrderNumber
-  **/
-  @ApiModelProperty(value = "Unique alpha numeric code identifying purchase order (when missing will auto-generate from your Organisation Invoice Settings)")
+   */
+  @ApiModelProperty(
+      value =
+          "Unique alpha numeric code identifying purchase order (when missing will auto-generate"
+              + " from your Organisation Invoice Settings)")
   public String getPurchaseOrderNumber() {
     return purchaseOrderNumber;
   }
@@ -328,10 +328,11 @@ public class PurchaseOrder {
     return this;
   }
 
-   /**
+  /**
    * Additional reference number
+   *
    * @return reference
-  **/
+   */
   @ApiModelProperty(value = "Additional reference number")
   public String getReference() {
     return reference;
@@ -346,10 +347,11 @@ public class PurchaseOrder {
     return this;
   }
 
-   /**
+  /**
    * See BrandingThemes
+   *
    * @return brandingThemeID
-  **/
+   */
   @ApiModelProperty(value = "See BrandingThemes")
   public UUID getBrandingThemeID() {
     return brandingThemeID;
@@ -364,10 +366,11 @@ public class PurchaseOrder {
     return this;
   }
 
-   /**
+  /**
    * Get currencyCode
+   *
    * @return currencyCode
-  **/
+   */
   @ApiModelProperty(value = "")
   public CurrencyCode getCurrencyCode() {
     return currencyCode;
@@ -382,10 +385,11 @@ public class PurchaseOrder {
     return this;
   }
 
-   /**
+  /**
    * See Purchase Order Status Codes
+   *
    * @return status
-  **/
+   */
   @ApiModelProperty(value = "See Purchase Order Status Codes")
   public StatusEnum getStatus() {
     return status;
@@ -400,11 +404,16 @@ public class PurchaseOrder {
     return this;
   }
 
-   /**
-   * Boolean to set whether the purchase order should be marked as “sent”. This can be set only on purchase orders that have been approved or billed
+  /**
+   * Boolean to set whether the purchase order should be marked as “sent”. This can be set only on
+   * purchase orders that have been approved or billed
+   *
    * @return sentToContact
-  **/
-  @ApiModelProperty(value = "Boolean to set whether the purchase order should be marked as “sent”. This can be set only on purchase orders that have been approved or billed")
+   */
+  @ApiModelProperty(
+      value =
+          "Boolean to set whether the purchase order should be marked as “sent”. This can be set"
+              + " only on purchase orders that have been approved or billed")
   public Boolean getSentToContact() {
     return sentToContact;
   }
@@ -418,10 +427,11 @@ public class PurchaseOrder {
     return this;
   }
 
-   /**
+  /**
    * The address the goods are to be delivered to
+   *
    * @return deliveryAddress
-  **/
+   */
   @ApiModelProperty(value = "The address the goods are to be delivered to")
   public String getDeliveryAddress() {
     return deliveryAddress;
@@ -436,10 +446,11 @@ public class PurchaseOrder {
     return this;
   }
 
-   /**
+  /**
    * The person that the delivery is going to
+   *
    * @return attentionTo
-  **/
+   */
   @ApiModelProperty(value = "The person that the delivery is going to")
   public String getAttentionTo() {
     return attentionTo;
@@ -454,10 +465,11 @@ public class PurchaseOrder {
     return this;
   }
 
-   /**
+  /**
    * The phone number for the person accepting the delivery
+   *
    * @return telephone
-  **/
+   */
   @ApiModelProperty(value = "The phone number for the person accepting the delivery")
   public String getTelephone() {
     return telephone;
@@ -472,10 +484,11 @@ public class PurchaseOrder {
     return this;
   }
 
-   /**
+  /**
    * A free text feild for instructions (500 characters max)
+   *
    * @return deliveryInstructions
-  **/
+   */
   @ApiModelProperty(value = "A free text feild for instructions (500 characters max)")
   public String getDeliveryInstructions() {
     return deliveryInstructions;
@@ -490,23 +503,25 @@ public class PurchaseOrder {
     return this;
   }
 
-   /**
+  /**
    * The date the goods are expected to arrive.
+   *
    * @return expectedArrivalDate
-  **/
+   */
   @ApiModelProperty(value = "The date the goods are expected to arrive.")
   public String getExpectedArrivalDate() {
     return expectedArrivalDate;
   }
+
   public LocalDate getExpectedArrivalDateAsDate() {
     if (this.expectedArrivalDate != null) {
       try {
         return util.convertStringToDate(this.expectedArrivalDate);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
   public void setExpectedArrivalDate(String expectedArrivalDate) {
@@ -514,8 +529,8 @@ public class PurchaseOrder {
   }
 
   public void setExpectedArrivalDate(LocalDate expectedArrivalDate) {
-    //CONVERT LocalDate args into MS DateFromat String
-    Instant instant =  expectedArrivalDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();  
+    // CONVERT LocalDate args into MS DateFromat String
+    Instant instant = expectedArrivalDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
     long timeInMillis = instant.toEpochMilli();
 
     this.expectedArrivalDate = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
@@ -526,10 +541,11 @@ public class PurchaseOrder {
     return this;
   }
 
-   /**
+  /**
    * Xero generated unique identifier for purchase order
+   *
    * @return purchaseOrderID
-  **/
+   */
   @ApiModelProperty(value = "Xero generated unique identifier for purchase order")
   public UUID getPurchaseOrderID() {
     return purchaseOrderID;
@@ -544,11 +560,16 @@ public class PurchaseOrder {
     return this;
   }
 
-   /**
-   * The currency rate for a multicurrency purchase order. If no rate is specified, the XE.com day rate is used.
+  /**
+   * The currency rate for a multicurrency purchase order. If no rate is specified, the XE.com day
+   * rate is used.
+   *
    * @return currencyRate
-  **/
-  @ApiModelProperty(value = "The currency rate for a multicurrency purchase order. If no rate is specified, the XE.com day rate is used.")
+   */
+  @ApiModelProperty(
+      value =
+          "The currency rate for a multicurrency purchase order. If no rate is specified, the"
+              + " XE.com day rate is used.")
   public Double getCurrencyRate() {
     return currencyRate;
   }
@@ -557,68 +578,77 @@ public class PurchaseOrder {
     this.currencyRate = currencyRate;
   }
 
-   /**
+  /**
    * Total of purchase order excluding taxes
+   *
    * @return subTotal
-  **/
+   */
   @ApiModelProperty(value = "Total of purchase order excluding taxes")
   public Double getSubTotal() {
     return subTotal;
   }
 
-   /**
+  /**
    * Total tax on purchase order
+   *
    * @return totalTax
-  **/
+   */
   @ApiModelProperty(value = "Total tax on purchase order")
   public Double getTotalTax() {
     return totalTax;
   }
 
-   /**
+  /**
    * Total of Purchase Order tax inclusive (i.e. SubTotal + TotalTax)
+   *
    * @return total
-  **/
+   */
   @ApiModelProperty(value = "Total of Purchase Order tax inclusive (i.e. SubTotal + TotalTax)")
   public Double getTotal() {
     return total;
   }
 
-   /**
+  /**
    * Total of discounts applied on the purchase order line items
+   *
    * @return totalDiscount
-  **/
+   */
   @ApiModelProperty(value = "Total of discounts applied on the purchase order line items")
   public Double getTotalDiscount() {
     return totalDiscount;
   }
 
-   /**
+  /**
    * boolean to indicate if a purchase order has an attachment
+   *
    * @return hasAttachments
-  **/
-  @ApiModelProperty(example = "false", value = "boolean to indicate if a purchase order has an attachment")
+   */
+  @ApiModelProperty(
+      example = "false",
+      value = "boolean to indicate if a purchase order has an attachment")
   public Boolean getHasAttachments() {
     return hasAttachments;
   }
 
-   /**
+  /**
    * Last modified date UTC format
+   *
    * @return updatedDateUTC
-  **/
+   */
   @ApiModelProperty(example = "/Date(1573755038314)/", value = "Last modified date UTC format")
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.updatedDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
   public PurchaseOrder statusAttributeString(String statusAttributeString) {
@@ -626,10 +656,11 @@ public class PurchaseOrder {
     return this;
   }
 
-   /**
+  /**
    * A string to indicate if a invoice status
+   *
    * @return statusAttributeString
-  **/
+   */
   @ApiModelProperty(value = "A string to indicate if a invoice status")
   public String getStatusAttributeString() {
     return statusAttributeString;
@@ -652,10 +683,11 @@ public class PurchaseOrder {
     return this;
   }
 
-   /**
+  /**
    * Displays array of validation error messages from the API
+   *
    * @return validationErrors
-  **/
+   */
   @ApiModelProperty(value = "Displays array of validation error messages from the API")
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
@@ -678,10 +710,11 @@ public class PurchaseOrder {
     return this;
   }
 
-   /**
+  /**
    * Displays array of warning messages from the API
+   *
    * @return warnings
-  **/
+   */
   @ApiModelProperty(value = "Displays array of warning messages from the API")
   public List<ValidationError> getWarnings() {
     return warnings;
@@ -704,10 +737,11 @@ public class PurchaseOrder {
     return this;
   }
 
-   /**
+  /**
    * Displays array of attachments from the API
+   *
    * @return attachments
-  **/
+   */
   @ApiModelProperty(value = "Displays array of attachments from the API")
   public List<Attachment> getAttachments() {
     return attachments;
@@ -716,7 +750,6 @@ public class PurchaseOrder {
   public void setAttachments(List<Attachment> attachments) {
     this.attachments = attachments;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -727,41 +760,68 @@ public class PurchaseOrder {
       return false;
     }
     PurchaseOrder purchaseOrder = (PurchaseOrder) o;
-    return Objects.equals(this.contact, purchaseOrder.contact) &&
-        Objects.equals(this.lineItems, purchaseOrder.lineItems) &&
-        Objects.equals(this.date, purchaseOrder.date) &&
-        Objects.equals(this.deliveryDate, purchaseOrder.deliveryDate) &&
-        Objects.equals(this.lineAmountTypes, purchaseOrder.lineAmountTypes) &&
-        Objects.equals(this.purchaseOrderNumber, purchaseOrder.purchaseOrderNumber) &&
-        Objects.equals(this.reference, purchaseOrder.reference) &&
-        Objects.equals(this.brandingThemeID, purchaseOrder.brandingThemeID) &&
-        Objects.equals(this.currencyCode, purchaseOrder.currencyCode) &&
-        Objects.equals(this.status, purchaseOrder.status) &&
-        Objects.equals(this.sentToContact, purchaseOrder.sentToContact) &&
-        Objects.equals(this.deliveryAddress, purchaseOrder.deliveryAddress) &&
-        Objects.equals(this.attentionTo, purchaseOrder.attentionTo) &&
-        Objects.equals(this.telephone, purchaseOrder.telephone) &&
-        Objects.equals(this.deliveryInstructions, purchaseOrder.deliveryInstructions) &&
-        Objects.equals(this.expectedArrivalDate, purchaseOrder.expectedArrivalDate) &&
-        Objects.equals(this.purchaseOrderID, purchaseOrder.purchaseOrderID) &&
-        Objects.equals(this.currencyRate, purchaseOrder.currencyRate) &&
-        Objects.equals(this.subTotal, purchaseOrder.subTotal) &&
-        Objects.equals(this.totalTax, purchaseOrder.totalTax) &&
-        Objects.equals(this.total, purchaseOrder.total) &&
-        Objects.equals(this.totalDiscount, purchaseOrder.totalDiscount) &&
-        Objects.equals(this.hasAttachments, purchaseOrder.hasAttachments) &&
-        Objects.equals(this.updatedDateUTC, purchaseOrder.updatedDateUTC) &&
-        Objects.equals(this.statusAttributeString, purchaseOrder.statusAttributeString) &&
-        Objects.equals(this.validationErrors, purchaseOrder.validationErrors) &&
-        Objects.equals(this.warnings, purchaseOrder.warnings) &&
-        Objects.equals(this.attachments, purchaseOrder.attachments);
+    return Objects.equals(this.contact, purchaseOrder.contact)
+        && Objects.equals(this.lineItems, purchaseOrder.lineItems)
+        && Objects.equals(this.date, purchaseOrder.date)
+        && Objects.equals(this.deliveryDate, purchaseOrder.deliveryDate)
+        && Objects.equals(this.lineAmountTypes, purchaseOrder.lineAmountTypes)
+        && Objects.equals(this.purchaseOrderNumber, purchaseOrder.purchaseOrderNumber)
+        && Objects.equals(this.reference, purchaseOrder.reference)
+        && Objects.equals(this.brandingThemeID, purchaseOrder.brandingThemeID)
+        && Objects.equals(this.currencyCode, purchaseOrder.currencyCode)
+        && Objects.equals(this.status, purchaseOrder.status)
+        && Objects.equals(this.sentToContact, purchaseOrder.sentToContact)
+        && Objects.equals(this.deliveryAddress, purchaseOrder.deliveryAddress)
+        && Objects.equals(this.attentionTo, purchaseOrder.attentionTo)
+        && Objects.equals(this.telephone, purchaseOrder.telephone)
+        && Objects.equals(this.deliveryInstructions, purchaseOrder.deliveryInstructions)
+        && Objects.equals(this.expectedArrivalDate, purchaseOrder.expectedArrivalDate)
+        && Objects.equals(this.purchaseOrderID, purchaseOrder.purchaseOrderID)
+        && Objects.equals(this.currencyRate, purchaseOrder.currencyRate)
+        && Objects.equals(this.subTotal, purchaseOrder.subTotal)
+        && Objects.equals(this.totalTax, purchaseOrder.totalTax)
+        && Objects.equals(this.total, purchaseOrder.total)
+        && Objects.equals(this.totalDiscount, purchaseOrder.totalDiscount)
+        && Objects.equals(this.hasAttachments, purchaseOrder.hasAttachments)
+        && Objects.equals(this.updatedDateUTC, purchaseOrder.updatedDateUTC)
+        && Objects.equals(this.statusAttributeString, purchaseOrder.statusAttributeString)
+        && Objects.equals(this.validationErrors, purchaseOrder.validationErrors)
+        && Objects.equals(this.warnings, purchaseOrder.warnings)
+        && Objects.equals(this.attachments, purchaseOrder.attachments);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(contact, lineItems, date, deliveryDate, lineAmountTypes, purchaseOrderNumber, reference, brandingThemeID, currencyCode, status, sentToContact, deliveryAddress, attentionTo, telephone, deliveryInstructions, expectedArrivalDate, purchaseOrderID, currencyRate, subTotal, totalTax, total, totalDiscount, hasAttachments, updatedDateUTC, statusAttributeString, validationErrors, warnings, attachments);
+    return Objects.hash(
+        contact,
+        lineItems,
+        date,
+        deliveryDate,
+        lineAmountTypes,
+        purchaseOrderNumber,
+        reference,
+        brandingThemeID,
+        currencyCode,
+        status,
+        sentToContact,
+        deliveryAddress,
+        attentionTo,
+        telephone,
+        deliveryInstructions,
+        expectedArrivalDate,
+        purchaseOrderID,
+        currencyRate,
+        subTotal,
+        totalTax,
+        total,
+        totalDiscount,
+        hasAttachments,
+        updatedDateUTC,
+        statusAttributeString,
+        validationErrors,
+        warnings,
+        attachments);
   }
-
 
   @Override
   public String toString() {
@@ -772,7 +832,9 @@ public class PurchaseOrder {
     sb.append("    date: ").append(toIndentedString(date)).append("\n");
     sb.append("    deliveryDate: ").append(toIndentedString(deliveryDate)).append("\n");
     sb.append("    lineAmountTypes: ").append(toIndentedString(lineAmountTypes)).append("\n");
-    sb.append("    purchaseOrderNumber: ").append(toIndentedString(purchaseOrderNumber)).append("\n");
+    sb.append("    purchaseOrderNumber: ")
+        .append(toIndentedString(purchaseOrderNumber))
+        .append("\n");
     sb.append("    reference: ").append(toIndentedString(reference)).append("\n");
     sb.append("    brandingThemeID: ").append(toIndentedString(brandingThemeID)).append("\n");
     sb.append("    currencyCode: ").append(toIndentedString(currencyCode)).append("\n");
@@ -781,8 +843,12 @@ public class PurchaseOrder {
     sb.append("    deliveryAddress: ").append(toIndentedString(deliveryAddress)).append("\n");
     sb.append("    attentionTo: ").append(toIndentedString(attentionTo)).append("\n");
     sb.append("    telephone: ").append(toIndentedString(telephone)).append("\n");
-    sb.append("    deliveryInstructions: ").append(toIndentedString(deliveryInstructions)).append("\n");
-    sb.append("    expectedArrivalDate: ").append(toIndentedString(expectedArrivalDate)).append("\n");
+    sb.append("    deliveryInstructions: ")
+        .append(toIndentedString(deliveryInstructions))
+        .append("\n");
+    sb.append("    expectedArrivalDate: ")
+        .append(toIndentedString(expectedArrivalDate))
+        .append("\n");
     sb.append("    purchaseOrderID: ").append(toIndentedString(purchaseOrderID)).append("\n");
     sb.append("    currencyRate: ").append(toIndentedString(currencyRate)).append("\n");
     sb.append("    subTotal: ").append(toIndentedString(subTotal)).append("\n");
@@ -791,7 +857,9 @@ public class PurchaseOrder {
     sb.append("    totalDiscount: ").append(toIndentedString(totalDiscount)).append("\n");
     sb.append("    hasAttachments: ").append(toIndentedString(hasAttachments)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
-    sb.append("    statusAttributeString: ").append(toIndentedString(statusAttributeString)).append("\n");
+    sb.append("    statusAttributeString: ")
+        .append(toIndentedString(statusAttributeString))
+        .append("\n");
     sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("    warnings: ").append(toIndentedString(warnings)).append("\n");
     sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
@@ -800,8 +868,7 @@ public class PurchaseOrder {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -809,6 +876,4 @@ public class PurchaseOrder {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

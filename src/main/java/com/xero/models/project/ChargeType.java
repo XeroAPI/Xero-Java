@@ -10,32 +10,22 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.project;
 
-import java.util.Objects;
-import java.util.Arrays;
-import io.swagger.annotations.ApiModel;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
-import com.xero.api.StringUtil;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
- * Can be &#x60;TIME&#x60;, &#x60;FIXED&#x60; or &#x60;NON_CHARGEABLE&#x60;, defines how the task will be charged. Use &#x60;TIME&#x60; when you want to charge per hour and &#x60;FIXED&#x60; to charge as a fixed amount. If the task will not be charged use &#x60;NON_CHARGEABLE&#x60;.
+ * Can be &#x60;TIME&#x60;, &#x60;FIXED&#x60; or &#x60;NON_CHARGEABLE&#x60;, defines how the task
+ * will be charged. Use &#x60;TIME&#x60; when you want to charge per hour and &#x60;FIXED&#x60; to
+ * charge as a fixed amount. If the task will not be charged use &#x60;NON_CHARGEABLE&#x60;.
  */
 public enum ChargeType {
-  
   TIME("TIME"),
-  
+
   FIXED("FIXED"),
-  
+
   NON_CHARGEABLE("NON_CHARGEABLE");
 
   private String value;
@@ -64,4 +54,3 @@ public enum ChargeType {
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 }
-

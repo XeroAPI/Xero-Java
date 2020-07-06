@@ -10,36 +10,19 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrollau;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.payrollau.EmploymentBasis;
-import com.xero.models.payrollau.ResidencyStatus;
-import com.xero.models.payrollau.TFNExemptionType;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.UUID;
 import java.io.IOException;
 
 import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * TaxDeclaration
- */
-
+/** TaxDeclaration */
 public class TaxDeclaration {
   StringUtil util = new StringUtil();
 
@@ -90,15 +73,17 @@ public class TaxDeclaration {
 
   @JsonProperty("UpdatedDateUTC")
   private String updatedDateUTC;
+
   public TaxDeclaration employeeID(UUID employeeID) {
     this.employeeID = employeeID;
     return this;
   }
 
-   /**
+  /**
    * Address line 1 for employee home address
+   *
    * @return employeeID
-  **/
+   */
   @ApiModelProperty(required = true, value = "Address line 1 for employee home address")
   public UUID getEmployeeID() {
     return employeeID;
@@ -113,10 +98,11 @@ public class TaxDeclaration {
     return this;
   }
 
-   /**
+  /**
    * Get employmentBasis
+   *
    * @return employmentBasis
-  **/
+   */
   @ApiModelProperty(required = true, value = "")
   public EmploymentBasis getEmploymentBasis() {
     return employmentBasis;
@@ -131,10 +117,11 @@ public class TaxDeclaration {
     return this;
   }
 
-   /**
+  /**
    * Get tfNExemptionType
+   *
    * @return tfNExemptionType
-  **/
+   */
   @ApiModelProperty(value = "")
   public TFNExemptionType getTfNExemptionType() {
     return tfNExemptionType;
@@ -149,10 +136,11 @@ public class TaxDeclaration {
     return this;
   }
 
-   /**
+  /**
    * The tax file number e.g 123123123.
+   *
    * @return taxFileNumber
-  **/
+   */
   @ApiModelProperty(example = "123123123", value = "The tax file number e.g 123123123.")
   public String getTaxFileNumber() {
     return taxFileNumber;
@@ -167,11 +155,14 @@ public class TaxDeclaration {
     return this;
   }
 
-   /**
+  /**
    * If the employee is Australian resident for tax purposes. e.g true or false
+   *
    * @return australianResidentForTaxPurposes
-  **/
-  @ApiModelProperty(example = "true", value = "If the employee is Australian resident for tax purposes. e.g true or false")
+   */
+  @ApiModelProperty(
+      example = "true",
+      value = "If the employee is Australian resident for tax purposes. e.g true or false")
   public Boolean getAustralianResidentForTaxPurposes() {
     return australianResidentForTaxPurposes;
   }
@@ -185,10 +176,11 @@ public class TaxDeclaration {
     return this;
   }
 
-   /**
+  /**
    * Get residencyStatus
+   *
    * @return residencyStatus
-  **/
+   */
   @ApiModelProperty(value = "")
   public ResidencyStatus getResidencyStatus() {
     return residencyStatus;
@@ -203,10 +195,11 @@ public class TaxDeclaration {
     return this;
   }
 
-   /**
+  /**
    * If tax free threshold claimed. e.g true or false
+   *
    * @return taxFreeThresholdClaimed
-  **/
+   */
   @ApiModelProperty(example = "false", value = "If tax free threshold claimed. e.g true or false")
   public Boolean getTaxFreeThresholdClaimed() {
     return taxFreeThresholdClaimed;
@@ -221,11 +214,14 @@ public class TaxDeclaration {
     return this;
   }
 
-   /**
+  /**
    * If has tax offset estimated then the tax offset estimated amount. e.g 100
+   *
    * @return taxOffsetEstimatedAmount
-  **/
-  @ApiModelProperty(example = "100", value = "If has tax offset estimated then the tax offset estimated amount. e.g 100")
+   */
+  @ApiModelProperty(
+      example = "100",
+      value = "If has tax offset estimated then the tax offset estimated amount. e.g 100")
   public BigDecimal getTaxOffsetEstimatedAmount() {
     return taxOffsetEstimatedAmount;
   }
@@ -239,11 +235,14 @@ public class TaxDeclaration {
     return this;
   }
 
-   /**
+  /**
    * If employee has HECS or HELP debt. e.g true or false
+   *
    * @return hasHELPDebt
-  **/
-  @ApiModelProperty(example = "false", value = "If employee has HECS or HELP debt. e.g true or false")
+   */
+  @ApiModelProperty(
+      example = "false",
+      value = "If employee has HECS or HELP debt. e.g true or false")
   public Boolean getHasHELPDebt() {
     return hasHELPDebt;
   }
@@ -257,11 +256,14 @@ public class TaxDeclaration {
     return this;
   }
 
-   /**
+  /**
    * If employee has financial supplement debt. e.g true or false
+   *
    * @return hasSFSSDebt
-  **/
-  @ApiModelProperty(example = "false", value = "If employee has financial supplement debt. e.g true or false")
+   */
+  @ApiModelProperty(
+      example = "false",
+      value = "If employee has financial supplement debt. e.g true or false")
   public Boolean getHasSFSSDebt() {
     return hasSFSSDebt;
   }
@@ -275,11 +277,14 @@ public class TaxDeclaration {
     return this;
   }
 
-   /**
+  /**
    * If employee has trade support loan. e.g true or false
+   *
    * @return hasTradeSupportLoanDebt
-  **/
-  @ApiModelProperty(example = "false", value = "If employee has trade support loan. e.g true or false")
+   */
+  @ApiModelProperty(
+      example = "false",
+      value = "If employee has trade support loan. e.g true or false")
   public Boolean getHasTradeSupportLoanDebt() {
     return hasTradeSupportLoanDebt;
   }
@@ -288,21 +293,26 @@ public class TaxDeclaration {
     this.hasTradeSupportLoanDebt = hasTradeSupportLoanDebt;
   }
 
-  public TaxDeclaration upwardVariationTaxWithholdingAmount(BigDecimal upwardVariationTaxWithholdingAmount) {
+  public TaxDeclaration upwardVariationTaxWithholdingAmount(
+      BigDecimal upwardVariationTaxWithholdingAmount) {
     this.upwardVariationTaxWithholdingAmount = upwardVariationTaxWithholdingAmount;
     return this;
   }
 
-   /**
+  /**
    * If the employee has requested that additional tax be withheld each pay run. e.g 50
+   *
    * @return upwardVariationTaxWithholdingAmount
-  **/
-  @ApiModelProperty(example = "50", value = "If the employee has requested that additional tax be withheld each pay run. e.g 50")
+   */
+  @ApiModelProperty(
+      example = "50",
+      value = "If the employee has requested that additional tax be withheld each pay run. e.g 50")
   public BigDecimal getUpwardVariationTaxWithholdingAmount() {
     return upwardVariationTaxWithholdingAmount;
   }
 
-  public void setUpwardVariationTaxWithholdingAmount(BigDecimal upwardVariationTaxWithholdingAmount) {
+  public void setUpwardVariationTaxWithholdingAmount(
+      BigDecimal upwardVariationTaxWithholdingAmount) {
     this.upwardVariationTaxWithholdingAmount = upwardVariationTaxWithholdingAmount;
   }
 
@@ -311,11 +321,17 @@ public class TaxDeclaration {
     return this;
   }
 
-   /**
-   * If the employee is eligible to receive an additional percentage on top of ordinary earnings when they take leave (typically 17.5%). e.g true or false
+  /**
+   * If the employee is eligible to receive an additional percentage on top of ordinary earnings
+   * when they take leave (typically 17.5%). e.g true or false
+   *
    * @return eligibleToReceiveLeaveLoading
-  **/
-  @ApiModelProperty(example = "false", value = "If the employee is eligible to receive an additional percentage on top of ordinary earnings when they take leave (typically 17.5%). e.g true or false")
+   */
+  @ApiModelProperty(
+      example = "false",
+      value =
+          "If the employee is eligible to receive an additional percentage on top of ordinary"
+              + " earnings when they take leave (typically 17.5%). e.g true or false")
   public Boolean getEligibleToReceiveLeaveLoading() {
     return eligibleToReceiveLeaveLoading;
   }
@@ -324,21 +340,26 @@ public class TaxDeclaration {
     this.eligibleToReceiveLeaveLoading = eligibleToReceiveLeaveLoading;
   }
 
-  public TaxDeclaration approvedWithholdingVariationPercentage(BigDecimal approvedWithholdingVariationPercentage) {
+  public TaxDeclaration approvedWithholdingVariationPercentage(
+      BigDecimal approvedWithholdingVariationPercentage) {
     this.approvedWithholdingVariationPercentage = approvedWithholdingVariationPercentage;
     return this;
   }
 
-   /**
+  /**
    * If the employee has approved withholding variation. e.g (0 - 100)
+   *
    * @return approvedWithholdingVariationPercentage
-  **/
-  @ApiModelProperty(example = "75", value = "If the employee has approved withholding variation. e.g (0 - 100)")
+   */
+  @ApiModelProperty(
+      example = "75",
+      value = "If the employee has approved withholding variation. e.g (0 - 100)")
   public BigDecimal getApprovedWithholdingVariationPercentage() {
     return approvedWithholdingVariationPercentage;
   }
 
-  public void setApprovedWithholdingVariationPercentage(BigDecimal approvedWithholdingVariationPercentage) {
+  public void setApprovedWithholdingVariationPercentage(
+      BigDecimal approvedWithholdingVariationPercentage) {
     this.approvedWithholdingVariationPercentage = approvedWithholdingVariationPercentage;
   }
 
@@ -347,11 +368,14 @@ public class TaxDeclaration {
     return this;
   }
 
-   /**
+  /**
    * If the employee is eligible for student startup loan rules
+   *
    * @return hasStudentStartupLoan
-  **/
-  @ApiModelProperty(example = "true", value = "If the employee is eligible for student startup loan rules")
+   */
+  @ApiModelProperty(
+      example = "true",
+      value = "If the employee is eligible for student startup loan rules")
   public Boolean getHasStudentStartupLoan() {
     return hasStudentStartupLoan;
   }
@@ -360,25 +384,26 @@ public class TaxDeclaration {
     this.hasStudentStartupLoan = hasStudentStartupLoan;
   }
 
-   /**
+  /**
    * Last modified timestamp
+   *
    * @return updatedDateUTC
-  **/
+   */
   @ApiModelProperty(example = "/Date(1583967733054+0000)/", value = "Last modified timestamp")
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.updatedDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -389,29 +414,50 @@ public class TaxDeclaration {
       return false;
     }
     TaxDeclaration taxDeclaration = (TaxDeclaration) o;
-    return Objects.equals(this.employeeID, taxDeclaration.employeeID) &&
-        Objects.equals(this.employmentBasis, taxDeclaration.employmentBasis) &&
-        Objects.equals(this.tfNExemptionType, taxDeclaration.tfNExemptionType) &&
-        Objects.equals(this.taxFileNumber, taxDeclaration.taxFileNumber) &&
-        Objects.equals(this.australianResidentForTaxPurposes, taxDeclaration.australianResidentForTaxPurposes) &&
-        Objects.equals(this.residencyStatus, taxDeclaration.residencyStatus) &&
-        Objects.equals(this.taxFreeThresholdClaimed, taxDeclaration.taxFreeThresholdClaimed) &&
-        Objects.equals(this.taxOffsetEstimatedAmount, taxDeclaration.taxOffsetEstimatedAmount) &&
-        Objects.equals(this.hasHELPDebt, taxDeclaration.hasHELPDebt) &&
-        Objects.equals(this.hasSFSSDebt, taxDeclaration.hasSFSSDebt) &&
-        Objects.equals(this.hasTradeSupportLoanDebt, taxDeclaration.hasTradeSupportLoanDebt) &&
-        Objects.equals(this.upwardVariationTaxWithholdingAmount, taxDeclaration.upwardVariationTaxWithholdingAmount) &&
-        Objects.equals(this.eligibleToReceiveLeaveLoading, taxDeclaration.eligibleToReceiveLeaveLoading) &&
-        Objects.equals(this.approvedWithholdingVariationPercentage, taxDeclaration.approvedWithholdingVariationPercentage) &&
-        Objects.equals(this.hasStudentStartupLoan, taxDeclaration.hasStudentStartupLoan) &&
-        Objects.equals(this.updatedDateUTC, taxDeclaration.updatedDateUTC);
+    return Objects.equals(this.employeeID, taxDeclaration.employeeID)
+        && Objects.equals(this.employmentBasis, taxDeclaration.employmentBasis)
+        && Objects.equals(this.tfNExemptionType, taxDeclaration.tfNExemptionType)
+        && Objects.equals(this.taxFileNumber, taxDeclaration.taxFileNumber)
+        && Objects.equals(
+            this.australianResidentForTaxPurposes, taxDeclaration.australianResidentForTaxPurposes)
+        && Objects.equals(this.residencyStatus, taxDeclaration.residencyStatus)
+        && Objects.equals(this.taxFreeThresholdClaimed, taxDeclaration.taxFreeThresholdClaimed)
+        && Objects.equals(this.taxOffsetEstimatedAmount, taxDeclaration.taxOffsetEstimatedAmount)
+        && Objects.equals(this.hasHELPDebt, taxDeclaration.hasHELPDebt)
+        && Objects.equals(this.hasSFSSDebt, taxDeclaration.hasSFSSDebt)
+        && Objects.equals(this.hasTradeSupportLoanDebt, taxDeclaration.hasTradeSupportLoanDebt)
+        && Objects.equals(
+            this.upwardVariationTaxWithholdingAmount,
+            taxDeclaration.upwardVariationTaxWithholdingAmount)
+        && Objects.equals(
+            this.eligibleToReceiveLeaveLoading, taxDeclaration.eligibleToReceiveLeaveLoading)
+        && Objects.equals(
+            this.approvedWithholdingVariationPercentage,
+            taxDeclaration.approvedWithholdingVariationPercentage)
+        && Objects.equals(this.hasStudentStartupLoan, taxDeclaration.hasStudentStartupLoan)
+        && Objects.equals(this.updatedDateUTC, taxDeclaration.updatedDateUTC);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(employeeID, employmentBasis, tfNExemptionType, taxFileNumber, australianResidentForTaxPurposes, residencyStatus, taxFreeThresholdClaimed, taxOffsetEstimatedAmount, hasHELPDebt, hasSFSSDebt, hasTradeSupportLoanDebt, upwardVariationTaxWithholdingAmount, eligibleToReceiveLeaveLoading, approvedWithholdingVariationPercentage, hasStudentStartupLoan, updatedDateUTC);
+    return Objects.hash(
+        employeeID,
+        employmentBasis,
+        tfNExemptionType,
+        taxFileNumber,
+        australianResidentForTaxPurposes,
+        residencyStatus,
+        taxFreeThresholdClaimed,
+        taxOffsetEstimatedAmount,
+        hasHELPDebt,
+        hasSFSSDebt,
+        hasTradeSupportLoanDebt,
+        upwardVariationTaxWithholdingAmount,
+        eligibleToReceiveLeaveLoading,
+        approvedWithholdingVariationPercentage,
+        hasStudentStartupLoan,
+        updatedDateUTC);
   }
-
 
   @Override
   public String toString() {
@@ -421,25 +467,40 @@ public class TaxDeclaration {
     sb.append("    employmentBasis: ").append(toIndentedString(employmentBasis)).append("\n");
     sb.append("    tfNExemptionType: ").append(toIndentedString(tfNExemptionType)).append("\n");
     sb.append("    taxFileNumber: ").append(toIndentedString(taxFileNumber)).append("\n");
-    sb.append("    australianResidentForTaxPurposes: ").append(toIndentedString(australianResidentForTaxPurposes)).append("\n");
+    sb.append("    australianResidentForTaxPurposes: ")
+        .append(toIndentedString(australianResidentForTaxPurposes))
+        .append("\n");
     sb.append("    residencyStatus: ").append(toIndentedString(residencyStatus)).append("\n");
-    sb.append("    taxFreeThresholdClaimed: ").append(toIndentedString(taxFreeThresholdClaimed)).append("\n");
-    sb.append("    taxOffsetEstimatedAmount: ").append(toIndentedString(taxOffsetEstimatedAmount)).append("\n");
+    sb.append("    taxFreeThresholdClaimed: ")
+        .append(toIndentedString(taxFreeThresholdClaimed))
+        .append("\n");
+    sb.append("    taxOffsetEstimatedAmount: ")
+        .append(toIndentedString(taxOffsetEstimatedAmount))
+        .append("\n");
     sb.append("    hasHELPDebt: ").append(toIndentedString(hasHELPDebt)).append("\n");
     sb.append("    hasSFSSDebt: ").append(toIndentedString(hasSFSSDebt)).append("\n");
-    sb.append("    hasTradeSupportLoanDebt: ").append(toIndentedString(hasTradeSupportLoanDebt)).append("\n");
-    sb.append("    upwardVariationTaxWithholdingAmount: ").append(toIndentedString(upwardVariationTaxWithholdingAmount)).append("\n");
-    sb.append("    eligibleToReceiveLeaveLoading: ").append(toIndentedString(eligibleToReceiveLeaveLoading)).append("\n");
-    sb.append("    approvedWithholdingVariationPercentage: ").append(toIndentedString(approvedWithholdingVariationPercentage)).append("\n");
-    sb.append("    hasStudentStartupLoan: ").append(toIndentedString(hasStudentStartupLoan)).append("\n");
+    sb.append("    hasTradeSupportLoanDebt: ")
+        .append(toIndentedString(hasTradeSupportLoanDebt))
+        .append("\n");
+    sb.append("    upwardVariationTaxWithholdingAmount: ")
+        .append(toIndentedString(upwardVariationTaxWithholdingAmount))
+        .append("\n");
+    sb.append("    eligibleToReceiveLeaveLoading: ")
+        .append(toIndentedString(eligibleToReceiveLeaveLoading))
+        .append("\n");
+    sb.append("    approvedWithholdingVariationPercentage: ")
+        .append(toIndentedString(approvedWithholdingVariationPercentage))
+        .append("\n");
+    sb.append("    hasStudentStartupLoan: ")
+        .append(toIndentedString(hasStudentStartupLoan))
+        .append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -447,6 +508,4 @@ public class TaxDeclaration {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

@@ -10,46 +10,31 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrollau;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.payrollau.Payslip;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * PayslipObject
- */
-
+/** PayslipObject */
 public class PayslipObject {
   StringUtil util = new StringUtil();
 
   @JsonProperty("Payslip")
   private Payslip payslip;
+
   public PayslipObject payslip(Payslip payslip) {
     this.payslip = payslip;
     return this;
   }
 
-   /**
+  /**
    * Get payslip
+   *
    * @return payslip
-  **/
+   */
   @ApiModelProperty(value = "")
   public Payslip getPayslip() {
     return payslip;
@@ -58,7 +43,6 @@ public class PayslipObject {
   public void setPayslip(Payslip payslip) {
     this.payslip = payslip;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -77,7 +61,6 @@ public class PayslipObject {
     return Objects.hash(payslip);
   }
 
-
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -88,8 +71,7 @@ public class PayslipObject {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -97,6 +79,4 @@ public class PayslipObject {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

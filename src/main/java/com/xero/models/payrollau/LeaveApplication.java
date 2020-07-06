@@ -10,18 +10,10 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrollau;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.payrollau.LeavePeriod;
-import com.xero.models.payrollau.ValidationError;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,17 +21,12 @@ import java.util.UUID;
 import java.io.IOException;
 
 import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneId;
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * LeaveApplication
- */
-
+/** LeaveApplication */
 public class LeaveApplication {
   StringUtil util = new StringUtil();
 
@@ -72,16 +59,20 @@ public class LeaveApplication {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
+
   public LeaveApplication leaveApplicationID(UUID leaveApplicationID) {
     this.leaveApplicationID = leaveApplicationID;
     return this;
   }
 
-   /**
+  /**
    * The Xero identifier for Payroll Employee
+   *
    * @return leaveApplicationID
-  **/
-  @ApiModelProperty(example = "e0eb6747-7c17-4075-b804-989f8d4e5d39", value = "The Xero identifier for Payroll Employee")
+   */
+  @ApiModelProperty(
+      example = "e0eb6747-7c17-4075-b804-989f8d4e5d39",
+      value = "The Xero identifier for Payroll Employee")
   public UUID getLeaveApplicationID() {
     return leaveApplicationID;
   }
@@ -95,11 +86,14 @@ public class LeaveApplication {
     return this;
   }
 
-   /**
+  /**
    * The Xero identifier for Payroll Employee
+   *
    * @return employeeID
-  **/
-  @ApiModelProperty(example = "fb4ebd68-6568-41eb-96ab-628a0f54b4b8", value = "The Xero identifier for Payroll Employee")
+   */
+  @ApiModelProperty(
+      example = "fb4ebd68-6568-41eb-96ab-628a0f54b4b8",
+      value = "The Xero identifier for Payroll Employee")
   public UUID getEmployeeID() {
     return employeeID;
   }
@@ -113,11 +107,14 @@ public class LeaveApplication {
     return this;
   }
 
-   /**
+  /**
    * The Xero identifier for Leave Type
+   *
    * @return leaveTypeID
-  **/
-  @ApiModelProperty(example = "742998cb-7584-4ecf-aa88-d694f59c50f9", value = "The Xero identifier for Leave Type")
+   */
+  @ApiModelProperty(
+      example = "742998cb-7584-4ecf-aa88-d694f59c50f9",
+      value = "The Xero identifier for Leave Type")
   public UUID getLeaveTypeID() {
     return leaveTypeID;
   }
@@ -131,10 +128,11 @@ public class LeaveApplication {
     return this;
   }
 
-   /**
+  /**
    * The title of the leave
+   *
    * @return title
-  **/
+   */
   @ApiModelProperty(example = "Annual Leave", value = "The title of the leave")
   public String getTitle() {
     return title;
@@ -149,23 +147,27 @@ public class LeaveApplication {
     return this;
   }
 
-   /**
+  /**
    * Start date of the leave (YYYY-MM-DD)
+   *
    * @return startDate
-  **/
-  @ApiModelProperty(example = "/Date(322560000000+0000)/", value = "Start date of the leave (YYYY-MM-DD)")
+   */
+  @ApiModelProperty(
+      example = "/Date(322560000000+0000)/",
+      value = "Start date of the leave (YYYY-MM-DD)")
   public String getStartDate() {
     return startDate;
   }
+
   public LocalDate getStartDateAsDate() {
     if (this.startDate != null) {
       try {
         return util.convertStringToDate(this.startDate);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
   public void setStartDate(String startDate) {
@@ -173,8 +175,8 @@ public class LeaveApplication {
   }
 
   public void setStartDate(LocalDate startDate) {
-    //CONVERT LocalDate args into MS DateFromat String
-    Instant instant =  startDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();  
+    // CONVERT LocalDate args into MS DateFromat String
+    Instant instant = startDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
     long timeInMillis = instant.toEpochMilli();
 
     this.startDate = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
@@ -185,23 +187,27 @@ public class LeaveApplication {
     return this;
   }
 
-   /**
+  /**
    * End date of the leave (YYYY-MM-DD)
+   *
    * @return endDate
-  **/
-  @ApiModelProperty(example = "/Date(322560000000+0000)/", value = "End date of the leave (YYYY-MM-DD)")
+   */
+  @ApiModelProperty(
+      example = "/Date(322560000000+0000)/",
+      value = "End date of the leave (YYYY-MM-DD)")
   public String getEndDate() {
     return endDate;
   }
+
   public LocalDate getEndDateAsDate() {
     if (this.endDate != null) {
       try {
         return util.convertStringToDate(this.endDate);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
   public void setEndDate(String endDate) {
@@ -209,8 +215,8 @@ public class LeaveApplication {
   }
 
   public void setEndDate(LocalDate endDate) {
-    //CONVERT LocalDate args into MS DateFromat String
-    Instant instant =  endDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();  
+    // CONVERT LocalDate args into MS DateFromat String
+    Instant instant = endDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
     long timeInMillis = instant.toEpochMilli();
 
     this.endDate = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
@@ -221,10 +227,11 @@ public class LeaveApplication {
     return this;
   }
 
-   /**
+  /**
    * The Description of the Leave
+   *
    * @return description
-  **/
+   */
   @ApiModelProperty(example = "My leave", value = "The Description of the Leave")
   public String getDescription() {
     return description;
@@ -247,10 +254,11 @@ public class LeaveApplication {
     return this;
   }
 
-   /**
+  /**
    * Get leavePeriods
+   *
    * @return leavePeriods
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<LeavePeriod> getLeavePeriods() {
     return leavePeriods;
@@ -260,23 +268,25 @@ public class LeaveApplication {
     this.leavePeriods = leavePeriods;
   }
 
-   /**
+  /**
    * Last modified timestamp
+   *
    * @return updatedDateUTC
-  **/
+   */
   @ApiModelProperty(example = "/Date(1583967733054+0000)/", value = "Last modified timestamp")
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.updatedDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
   public LeaveApplication validationErrors(List<ValidationError> validationErrors) {
@@ -292,10 +302,11 @@ public class LeaveApplication {
     return this;
   }
 
-   /**
+  /**
    * Displays array of validation error messages from the API
+   *
    * @return validationErrors
-  **/
+   */
   @ApiModelProperty(value = "Displays array of validation error messages from the API")
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
@@ -304,7 +315,6 @@ public class LeaveApplication {
   public void setValidationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -315,23 +325,32 @@ public class LeaveApplication {
       return false;
     }
     LeaveApplication leaveApplication = (LeaveApplication) o;
-    return Objects.equals(this.leaveApplicationID, leaveApplication.leaveApplicationID) &&
-        Objects.equals(this.employeeID, leaveApplication.employeeID) &&
-        Objects.equals(this.leaveTypeID, leaveApplication.leaveTypeID) &&
-        Objects.equals(this.title, leaveApplication.title) &&
-        Objects.equals(this.startDate, leaveApplication.startDate) &&
-        Objects.equals(this.endDate, leaveApplication.endDate) &&
-        Objects.equals(this.description, leaveApplication.description) &&
-        Objects.equals(this.leavePeriods, leaveApplication.leavePeriods) &&
-        Objects.equals(this.updatedDateUTC, leaveApplication.updatedDateUTC) &&
-        Objects.equals(this.validationErrors, leaveApplication.validationErrors);
+    return Objects.equals(this.leaveApplicationID, leaveApplication.leaveApplicationID)
+        && Objects.equals(this.employeeID, leaveApplication.employeeID)
+        && Objects.equals(this.leaveTypeID, leaveApplication.leaveTypeID)
+        && Objects.equals(this.title, leaveApplication.title)
+        && Objects.equals(this.startDate, leaveApplication.startDate)
+        && Objects.equals(this.endDate, leaveApplication.endDate)
+        && Objects.equals(this.description, leaveApplication.description)
+        && Objects.equals(this.leavePeriods, leaveApplication.leavePeriods)
+        && Objects.equals(this.updatedDateUTC, leaveApplication.updatedDateUTC)
+        && Objects.equals(this.validationErrors, leaveApplication.validationErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(leaveApplicationID, employeeID, leaveTypeID, title, startDate, endDate, description, leavePeriods, updatedDateUTC, validationErrors);
+    return Objects.hash(
+        leaveApplicationID,
+        employeeID,
+        leaveTypeID,
+        title,
+        startDate,
+        endDate,
+        description,
+        leavePeriods,
+        updatedDateUTC,
+        validationErrors);
   }
-
 
   @Override
   public String toString() {
@@ -352,8 +371,7 @@ public class LeaveApplication {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -361,6 +379,4 @@ public class LeaveApplication {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

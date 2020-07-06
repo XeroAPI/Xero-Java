@@ -10,22 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.accounting;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.accounting.Account;
-import com.xero.models.accounting.CreditNote;
-import com.xero.models.accounting.Invoice;
-import com.xero.models.accounting.Overpayment;
-import com.xero.models.accounting.Prepayment;
-import com.xero.models.accounting.ValidationError;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,17 +23,12 @@ import java.util.UUID;
 import java.io.IOException;
 
 import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneId;
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * Payment
- */
-
+/** Payment */
 public class Payment {
   StringUtil util = new StringUtil();
 
@@ -85,12 +70,10 @@ public class Payment {
 
   @JsonProperty("IsReconciled")
   private Boolean isReconciled;
-  /**
-   * The status of the payment.
-   */
+  /** The status of the payment. */
   public enum StatusEnum {
     AUTHORISED("AUTHORISED"),
-    
+
     DELETED("DELETED");
 
     private String value;
@@ -120,27 +103,24 @@ public class Payment {
     }
   }
 
-
   @JsonProperty("Status")
   private StatusEnum status;
-  /**
-   * See Payment Types.
-   */
+  /** See Payment Types. */
   public enum PaymentTypeEnum {
     ACCRECPAYMENT("ACCRECPAYMENT"),
-    
+
     ACCPAYPAYMENT("ACCPAYPAYMENT"),
-    
+
     ARCREDITPAYMENT("ARCREDITPAYMENT"),
-    
+
     APCREDITPAYMENT("APCREDITPAYMENT"),
-    
+
     AROVERPAYMENTPAYMENT("AROVERPAYMENTPAYMENT"),
-    
+
     ARPREPAYMENTPAYMENT("ARPREPAYMENTPAYMENT"),
-    
+
     APPREPAYMENTPAYMENT("APPREPAYMENTPAYMENT"),
-    
+
     APOVERPAYMENTPAYMENT("APOVERPAYMENTPAYMENT");
 
     private String value;
@@ -169,7 +149,6 @@ public class Payment {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
-
 
   @JsonProperty("PaymentType")
   private PaymentTypeEnum paymentType;
@@ -200,15 +179,17 @@ public class Payment {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
+
   public Payment invoice(Invoice invoice) {
     this.invoice = invoice;
     return this;
   }
 
-   /**
+  /**
    * Get invoice
+   *
    * @return invoice
-  **/
+   */
   @ApiModelProperty(value = "")
   public Invoice getInvoice() {
     return invoice;
@@ -223,10 +204,11 @@ public class Payment {
     return this;
   }
 
-   /**
+  /**
    * Get creditNote
+   *
    * @return creditNote
-  **/
+   */
   @ApiModelProperty(value = "")
   public CreditNote getCreditNote() {
     return creditNote;
@@ -241,10 +223,11 @@ public class Payment {
     return this;
   }
 
-   /**
+  /**
    * Get prepayment
+   *
    * @return prepayment
-  **/
+   */
   @ApiModelProperty(value = "")
   public Prepayment getPrepayment() {
     return prepayment;
@@ -259,10 +242,11 @@ public class Payment {
     return this;
   }
 
-   /**
+  /**
    * Get overpayment
+   *
    * @return overpayment
-  **/
+   */
   @ApiModelProperty(value = "")
   public Overpayment getOverpayment() {
     return overpayment;
@@ -277,11 +261,13 @@ public class Payment {
     return this;
   }
 
-   /**
+  /**
    * Number of invoice or credit note you are applying payment to e.g.INV-4003
+   *
    * @return invoiceNumber
-  **/
-  @ApiModelProperty(value = "Number of invoice or credit note you are applying payment to e.g.INV-4003")
+   */
+  @ApiModelProperty(
+      value = "Number of invoice or credit note you are applying payment to e.g.INV-4003")
   public String getInvoiceNumber() {
     return invoiceNumber;
   }
@@ -295,11 +281,13 @@ public class Payment {
     return this;
   }
 
-   /**
+  /**
    * Number of invoice or credit note you are applying payment to e.g. INV-4003
+   *
    * @return creditNoteNumber
-  **/
-  @ApiModelProperty(value = "Number of invoice or credit note you are applying payment to e.g. INV-4003")
+   */
+  @ApiModelProperty(
+      value = "Number of invoice or credit note you are applying payment to e.g. INV-4003")
   public String getCreditNoteNumber() {
     return creditNoteNumber;
   }
@@ -313,10 +301,11 @@ public class Payment {
     return this;
   }
 
-   /**
+  /**
    * Get account
+   *
    * @return account
-  **/
+   */
   @ApiModelProperty(value = "")
   public Account getAccount() {
     return account;
@@ -331,11 +320,16 @@ public class Payment {
     return this;
   }
 
-   /**
-   * Code of account you are using to make the payment e.g. 001 (note- not all accounts have a code value)
+  /**
+   * Code of account you are using to make the payment e.g. 001 (note- not all accounts have a code
+   * value)
+   *
    * @return code
-  **/
-  @ApiModelProperty(value = "Code of account you are using to make the payment e.g. 001 (note- not all accounts have a code value)")
+   */
+  @ApiModelProperty(
+      value =
+          "Code of account you are using to make the payment e.g. 001 (note- not all accounts have"
+              + " a code value)")
   public String getCode() {
     return code;
   }
@@ -349,23 +343,25 @@ public class Payment {
     return this;
   }
 
-   /**
+  /**
    * Date the payment is being made (YYYY-MM-DD) e.g. 2009-09-06
+   *
    * @return date
-  **/
+   */
   @ApiModelProperty(value = "Date the payment is being made (YYYY-MM-DD) e.g. 2009-09-06")
   public String getDate() {
     return date;
   }
+
   public LocalDate getDateAsDate() {
     if (this.date != null) {
       try {
         return util.convertStringToDate(this.date);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
   public void setDate(String date) {
@@ -373,8 +369,8 @@ public class Payment {
   }
 
   public void setDate(LocalDate date) {
-    //CONVERT LocalDate args into MS DateFromat String
-    Instant instant =  date.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();  
+    // CONVERT LocalDate args into MS DateFromat String
+    Instant instant = date.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
     long timeInMillis = instant.toEpochMilli();
 
     this.date = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
@@ -385,11 +381,16 @@ public class Payment {
     return this;
   }
 
-   /**
-   * Exchange rate when payment is received. Only used for non base currency invoices and credit notes e.g. 0.7500
+  /**
+   * Exchange rate when payment is received. Only used for non base currency invoices and credit
+   * notes e.g. 0.7500
+   *
    * @return currencyRate
-  **/
-  @ApiModelProperty(value = "Exchange rate when payment is received. Only used for non base currency invoices and credit notes e.g. 0.7500")
+   */
+  @ApiModelProperty(
+      value =
+          "Exchange rate when payment is received. Only used for non base currency invoices and"
+              + " credit notes e.g. 0.7500")
   public Double getCurrencyRate() {
     return currencyRate;
   }
@@ -403,11 +404,16 @@ public class Payment {
     return this;
   }
 
-   /**
-   * The amount of the payment. Must be less than or equal to the outstanding amount owing on the invoice e.g. 200.00
+  /**
+   * The amount of the payment. Must be less than or equal to the outstanding amount owing on the
+   * invoice e.g. 200.00
+   *
    * @return amount
-  **/
-  @ApiModelProperty(value = "The amount of the payment. Must be less than or equal to the outstanding amount owing on the invoice e.g. 200.00")
+   */
+  @ApiModelProperty(
+      value =
+          "The amount of the payment. Must be less than or equal to the outstanding amount owing"
+              + " on the invoice e.g. 200.00")
   public Double getAmount() {
     return amount;
   }
@@ -421,10 +427,11 @@ public class Payment {
     return this;
   }
 
-   /**
+  /**
    * An optional description for the payment e.g. Direct Debit
+   *
    * @return reference
-  **/
+   */
   @ApiModelProperty(value = "An optional description for the payment e.g. Direct Debit")
   public String getReference() {
     return reference;
@@ -439,11 +446,18 @@ public class Payment {
     return this;
   }
 
-   /**
-   * An optional parameter for the payment. A boolean indicating whether you would like the payment to be created as reconciled when using PUT, or whether a payment has been reconciled when using GET
+  /**
+   * An optional parameter for the payment. A boolean indicating whether you would like the payment
+   * to be created as reconciled when using PUT, or whether a payment has been reconciled when using
+   * GET
+   *
    * @return isReconciled
-  **/
-  @ApiModelProperty(value = "An optional parameter for the payment. A boolean indicating whether you would like the payment to be created as reconciled when using PUT, or whether a payment has been reconciled when using GET")
+   */
+  @ApiModelProperty(
+      value =
+          "An optional parameter for the payment. A boolean indicating whether you would like the"
+              + " payment to be created as reconciled when using PUT, or whether a payment has"
+              + " been reconciled when using GET")
   public Boolean getIsReconciled() {
     return isReconciled;
   }
@@ -457,10 +471,11 @@ public class Payment {
     return this;
   }
 
-   /**
+  /**
    * The status of the payment.
+   *
    * @return status
-  **/
+   */
   @ApiModelProperty(value = "The status of the payment.")
   public StatusEnum getStatus() {
     return status;
@@ -470,32 +485,37 @@ public class Payment {
     this.status = status;
   }
 
-   /**
+  /**
    * See Payment Types.
+   *
    * @return paymentType
-  **/
+   */
   @ApiModelProperty(value = "See Payment Types.")
   public PaymentTypeEnum getPaymentType() {
     return paymentType;
   }
 
-   /**
+  /**
    * UTC timestamp of last update to the payment
+   *
    * @return updatedDateUTC
-  **/
-  @ApiModelProperty(example = "/Date(1573755038314)/", value = "UTC timestamp of last update to the payment")
+   */
+  @ApiModelProperty(
+      example = "/Date(1573755038314)/",
+      value = "UTC timestamp of last update to the payment")
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.updatedDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
   public Payment paymentID(UUID paymentID) {
@@ -503,11 +523,13 @@ public class Payment {
     return this;
   }
 
-   /**
+  /**
    * The Xero identifier for an Payment e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9
+   *
    * @return paymentID
-  **/
-  @ApiModelProperty(value = "The Xero identifier for an Payment e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9")
+   */
+  @ApiModelProperty(
+      value = "The Xero identifier for an Payment e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9")
   public UUID getPaymentID() {
     return paymentID;
   }
@@ -521,10 +543,11 @@ public class Payment {
     return this;
   }
 
-   /**
+  /**
    * The suppliers bank account number the payment is being made to
+   *
    * @return bankAccountNumber
-  **/
+   */
   @ApiModelProperty(value = "The suppliers bank account number the payment is being made to")
   public String getBankAccountNumber() {
     return bankAccountNumber;
@@ -539,10 +562,11 @@ public class Payment {
     return this;
   }
 
-   /**
+  /**
    * The suppliers bank account number the payment is being made to
+   *
    * @return particulars
-  **/
+   */
   @ApiModelProperty(value = "The suppliers bank account number the payment is being made to")
   public String getParticulars() {
     return particulars;
@@ -557,10 +581,11 @@ public class Payment {
     return this;
   }
 
-   /**
+  /**
    * The information to appear on the supplier&#39;s bank account
+   *
    * @return details
-  **/
+   */
   @ApiModelProperty(value = "The information to appear on the supplier's bank account")
   public String getDetails() {
     return details;
@@ -575,11 +600,14 @@ public class Payment {
     return this;
   }
 
-   /**
+  /**
    * A boolean to indicate if a contact has an validation errors
+   *
    * @return hasAccount
-  **/
-  @ApiModelProperty(example = "false", value = "A boolean to indicate if a contact has an validation errors")
+   */
+  @ApiModelProperty(
+      example = "false",
+      value = "A boolean to indicate if a contact has an validation errors")
   public Boolean getHasAccount() {
     return hasAccount;
   }
@@ -593,11 +621,14 @@ public class Payment {
     return this;
   }
 
-   /**
+  /**
    * A boolean to indicate if a contact has an validation errors
+   *
    * @return hasValidationErrors
-  **/
-  @ApiModelProperty(example = "false", value = "A boolean to indicate if a contact has an validation errors")
+   */
+  @ApiModelProperty(
+      example = "false",
+      value = "A boolean to indicate if a contact has an validation errors")
   public Boolean getHasValidationErrors() {
     return hasValidationErrors;
   }
@@ -611,10 +642,11 @@ public class Payment {
     return this;
   }
 
-   /**
+  /**
    * A string to indicate if a invoice status
+   *
    * @return statusAttributeString
-  **/
+   */
   @ApiModelProperty(value = "A string to indicate if a invoice status")
   public String getStatusAttributeString() {
     return statusAttributeString;
@@ -637,10 +669,11 @@ public class Payment {
     return this;
   }
 
-   /**
+  /**
    * Displays array of validation error messages from the API
+   *
    * @return validationErrors
-  **/
+   */
   @ApiModelProperty(value = "Displays array of validation error messages from the API")
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
@@ -649,7 +682,6 @@ public class Payment {
   public void setValidationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -660,37 +692,60 @@ public class Payment {
       return false;
     }
     Payment payment = (Payment) o;
-    return Objects.equals(this.invoice, payment.invoice) &&
-        Objects.equals(this.creditNote, payment.creditNote) &&
-        Objects.equals(this.prepayment, payment.prepayment) &&
-        Objects.equals(this.overpayment, payment.overpayment) &&
-        Objects.equals(this.invoiceNumber, payment.invoiceNumber) &&
-        Objects.equals(this.creditNoteNumber, payment.creditNoteNumber) &&
-        Objects.equals(this.account, payment.account) &&
-        Objects.equals(this.code, payment.code) &&
-        Objects.equals(this.date, payment.date) &&
-        Objects.equals(this.currencyRate, payment.currencyRate) &&
-        Objects.equals(this.amount, payment.amount) &&
-        Objects.equals(this.reference, payment.reference) &&
-        Objects.equals(this.isReconciled, payment.isReconciled) &&
-        Objects.equals(this.status, payment.status) &&
-        Objects.equals(this.paymentType, payment.paymentType) &&
-        Objects.equals(this.updatedDateUTC, payment.updatedDateUTC) &&
-        Objects.equals(this.paymentID, payment.paymentID) &&
-        Objects.equals(this.bankAccountNumber, payment.bankAccountNumber) &&
-        Objects.equals(this.particulars, payment.particulars) &&
-        Objects.equals(this.details, payment.details) &&
-        Objects.equals(this.hasAccount, payment.hasAccount) &&
-        Objects.equals(this.hasValidationErrors, payment.hasValidationErrors) &&
-        Objects.equals(this.statusAttributeString, payment.statusAttributeString) &&
-        Objects.equals(this.validationErrors, payment.validationErrors);
+    return Objects.equals(this.invoice, payment.invoice)
+        && Objects.equals(this.creditNote, payment.creditNote)
+        && Objects.equals(this.prepayment, payment.prepayment)
+        && Objects.equals(this.overpayment, payment.overpayment)
+        && Objects.equals(this.invoiceNumber, payment.invoiceNumber)
+        && Objects.equals(this.creditNoteNumber, payment.creditNoteNumber)
+        && Objects.equals(this.account, payment.account)
+        && Objects.equals(this.code, payment.code)
+        && Objects.equals(this.date, payment.date)
+        && Objects.equals(this.currencyRate, payment.currencyRate)
+        && Objects.equals(this.amount, payment.amount)
+        && Objects.equals(this.reference, payment.reference)
+        && Objects.equals(this.isReconciled, payment.isReconciled)
+        && Objects.equals(this.status, payment.status)
+        && Objects.equals(this.paymentType, payment.paymentType)
+        && Objects.equals(this.updatedDateUTC, payment.updatedDateUTC)
+        && Objects.equals(this.paymentID, payment.paymentID)
+        && Objects.equals(this.bankAccountNumber, payment.bankAccountNumber)
+        && Objects.equals(this.particulars, payment.particulars)
+        && Objects.equals(this.details, payment.details)
+        && Objects.equals(this.hasAccount, payment.hasAccount)
+        && Objects.equals(this.hasValidationErrors, payment.hasValidationErrors)
+        && Objects.equals(this.statusAttributeString, payment.statusAttributeString)
+        && Objects.equals(this.validationErrors, payment.validationErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(invoice, creditNote, prepayment, overpayment, invoiceNumber, creditNoteNumber, account, code, date, currencyRate, amount, reference, isReconciled, status, paymentType, updatedDateUTC, paymentID, bankAccountNumber, particulars, details, hasAccount, hasValidationErrors, statusAttributeString, validationErrors);
+    return Objects.hash(
+        invoice,
+        creditNote,
+        prepayment,
+        overpayment,
+        invoiceNumber,
+        creditNoteNumber,
+        account,
+        code,
+        date,
+        currencyRate,
+        amount,
+        reference,
+        isReconciled,
+        status,
+        paymentType,
+        updatedDateUTC,
+        paymentID,
+        bankAccountNumber,
+        particulars,
+        details,
+        hasAccount,
+        hasValidationErrors,
+        statusAttributeString,
+        validationErrors);
   }
-
 
   @Override
   public String toString() {
@@ -717,16 +772,19 @@ public class Payment {
     sb.append("    particulars: ").append(toIndentedString(particulars)).append("\n");
     sb.append("    details: ").append(toIndentedString(details)).append("\n");
     sb.append("    hasAccount: ").append(toIndentedString(hasAccount)).append("\n");
-    sb.append("    hasValidationErrors: ").append(toIndentedString(hasValidationErrors)).append("\n");
-    sb.append("    statusAttributeString: ").append(toIndentedString(statusAttributeString)).append("\n");
+    sb.append("    hasValidationErrors: ")
+        .append(toIndentedString(hasValidationErrors))
+        .append("\n");
+    sb.append("    statusAttributeString: ")
+        .append(toIndentedString(statusAttributeString))
+        .append("\n");
     sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -734,6 +792,4 @@ public class Payment {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

@@ -10,39 +10,23 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrollau;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.payrollau.SuperFund;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * SuperFunds
- */
-
+/** SuperFunds */
 public class SuperFunds {
   StringUtil util = new StringUtil();
 
   @JsonProperty("SuperFunds")
   private List<SuperFund> superFunds = new ArrayList<SuperFund>();
+
   public SuperFunds superFunds(List<SuperFund> superFunds) {
     this.superFunds = superFunds;
     return this;
@@ -56,10 +40,11 @@ public class SuperFunds {
     return this;
   }
 
-   /**
+  /**
    * Get superFunds
+   *
    * @return superFunds
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<SuperFund> getSuperFunds() {
     return superFunds;
@@ -68,7 +53,6 @@ public class SuperFunds {
   public void setSuperFunds(List<SuperFund> superFunds) {
     this.superFunds = superFunds;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -87,7 +71,6 @@ public class SuperFunds {
     return Objects.hash(superFunds);
   }
 
-
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -98,8 +81,7 @@ public class SuperFunds {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -107,6 +89,4 @@ public class SuperFunds {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

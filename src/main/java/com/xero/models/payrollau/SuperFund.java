@@ -10,18 +10,10 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrollau;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.payrollau.SuperFundType;
-import com.xero.models.payrollau.ValidationError;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,17 +21,9 @@ import java.util.UUID;
 import java.io.IOException;
 
 import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * SuperFund
- */
-
+/** SuperFund */
 public class SuperFund {
   StringUtil util = new StringUtil();
 
@@ -81,16 +65,20 @@ public class SuperFund {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
+
   public SuperFund superFundID(UUID superFundID) {
     this.superFundID = superFundID;
     return this;
   }
 
-   /**
+  /**
    * Xero identifier for a super fund
+   *
    * @return superFundID
-  **/
-  @ApiModelProperty(example = "bfac31bd-ea62-4fc8-a5e7-7965d9504b15", value = "Xero identifier for a super fund")
+   */
+  @ApiModelProperty(
+      example = "bfac31bd-ea62-4fc8-a5e7-7965d9504b15",
+      value = "Xero identifier for a super fund")
   public UUID getSuperFundID() {
     return superFundID;
   }
@@ -104,10 +92,11 @@ public class SuperFund {
     return this;
   }
 
-   /**
+  /**
    * Get type
+   *
    * @return type
-  **/
+   */
   @ApiModelProperty(required = true, value = "")
   public SuperFundType getType() {
     return type;
@@ -122,11 +111,16 @@ public class SuperFund {
     return this;
   }
 
-   /**
+  /**
    * Name of the super fund
+   *
    * @return name
-  **/
-  @ApiModelProperty(example = "MLC Navigator Retirement Plan - Superannuation Service (including Series 2) (MLC Superannuation Fund)", value = "Name of the super fund")
+   */
+  @ApiModelProperty(
+      example =
+          "MLC Navigator Retirement Plan - Superannuation Service (including Series 2) (MLC"
+              + " Superannuation Fund)",
+      value = "Name of the super fund")
   public String getName() {
     return name;
   }
@@ -140,10 +134,11 @@ public class SuperFund {
     return this;
   }
 
-   /**
+  /**
    * ABN of the self managed super fund
+   *
    * @return ABN
-  **/
+   */
   @ApiModelProperty(example = "40022701955", value = "ABN of the self managed super fund")
   public String getABN() {
     return ABN;
@@ -158,10 +153,11 @@ public class SuperFund {
     return this;
   }
 
-   /**
+  /**
    * BSB of the self managed super fund
+   *
    * @return BSB
-  **/
+   */
   @ApiModelProperty(example = "234324", value = "BSB of the self managed super fund")
   public String getBSB() {
     return BSB;
@@ -176,11 +172,14 @@ public class SuperFund {
     return this;
   }
 
-   /**
+  /**
    * The account number for the self managed super fund.
+   *
    * @return accountNumber
-  **/
-  @ApiModelProperty(example = "234234234", value = "The account number for the self managed super fund.")
+   */
+  @ApiModelProperty(
+      example = "234234234",
+      value = "The account number for the self managed super fund.")
   public String getAccountNumber() {
     return accountNumber;
   }
@@ -194,11 +193,14 @@ public class SuperFund {
     return this;
   }
 
-   /**
+  /**
    * The account name for the self managed super fund.
+   *
    * @return accountName
-  **/
-  @ApiModelProperty(example = "Money account", value = "The account name for the self managed super fund.")
+   */
+  @ApiModelProperty(
+      example = "Money account",
+      value = "The account name for the self managed super fund.")
   public String getAccountName() {
     return accountName;
   }
@@ -212,11 +214,14 @@ public class SuperFund {
     return this;
   }
 
-   /**
+  /**
    * The electronic service address for the self managed super fund.
+   *
    * @return electronicServiceAddress
-  **/
-  @ApiModelProperty(example = "12345678", value = "The electronic service address for the self managed super fund.")
+   */
+  @ApiModelProperty(
+      example = "12345678",
+      value = "The electronic service address for the self managed super fund.")
   public String getElectronicServiceAddress() {
     return electronicServiceAddress;
   }
@@ -230,11 +235,14 @@ public class SuperFund {
     return this;
   }
 
-   /**
+  /**
    * Some funds assign a unique number to each employer
+   *
    * @return employerNumber
-  **/
-  @ApiModelProperty(example = "324324", value = "Some funds assign a unique number to each employer")
+   */
+  @ApiModelProperty(
+      example = "324324",
+      value = "Some funds assign a unique number to each employer")
   public String getEmployerNumber() {
     return employerNumber;
   }
@@ -248,11 +256,19 @@ public class SuperFund {
     return this;
   }
 
-   /**
-   * The SPIN of the Regulated SuperFund. This field has been deprecated. It will only be present for legacy superfunds. New superfunds will not have a SPIN value. The USI field should be used instead of SPIN.
+  /**
+   * The SPIN of the Regulated SuperFund. This field has been deprecated. It will only be present
+   * for legacy superfunds. New superfunds will not have a SPIN value. The USI field should be used
+   * instead of SPIN.
+   *
    * @return SPIN
-  **/
-  @ApiModelProperty(example = "4545445454", value = "The SPIN of the Regulated SuperFund. This field has been deprecated. It will only be present for legacy superfunds. New superfunds will not have a SPIN value. The USI field should be used instead of SPIN.")
+   */
+  @ApiModelProperty(
+      example = "4545445454",
+      value =
+          "The SPIN of the Regulated SuperFund. This field has been deprecated. It will only be"
+              + " present for legacy superfunds. New superfunds will not have a SPIN value. The"
+              + " USI field should be used instead of SPIN.")
   public String getSPIN() {
     return SPIN;
   }
@@ -266,10 +282,11 @@ public class SuperFund {
     return this;
   }
 
-   /**
+  /**
    * The USI of the Regulated SuperFund
+   *
    * @return USI
-  **/
+   */
   @ApiModelProperty(example = "40022701955001", value = "The USI of the Regulated SuperFund")
   public String getUSI() {
     return USI;
@@ -279,23 +296,25 @@ public class SuperFund {
     this.USI = USI;
   }
 
-   /**
+  /**
    * Last modified timestamp
+   *
    * @return updatedDateUTC
-  **/
+   */
   @ApiModelProperty(example = "/Date(1583967733054+0000)/", value = "Last modified timestamp")
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.updatedDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
   public SuperFund validationErrors(List<ValidationError> validationErrors) {
@@ -311,10 +330,11 @@ public class SuperFund {
     return this;
   }
 
-   /**
+  /**
    * Displays array of validation error messages from the API
+   *
    * @return validationErrors
-  **/
+   */
   @ApiModelProperty(value = "Displays array of validation error messages from the API")
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
@@ -323,7 +343,6 @@ public class SuperFund {
   public void setValidationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -334,26 +353,38 @@ public class SuperFund {
       return false;
     }
     SuperFund superFund = (SuperFund) o;
-    return Objects.equals(this.superFundID, superFund.superFundID) &&
-        Objects.equals(this.type, superFund.type) &&
-        Objects.equals(this.name, superFund.name) &&
-        Objects.equals(this.ABN, superFund.ABN) &&
-        Objects.equals(this.BSB, superFund.BSB) &&
-        Objects.equals(this.accountNumber, superFund.accountNumber) &&
-        Objects.equals(this.accountName, superFund.accountName) &&
-        Objects.equals(this.electronicServiceAddress, superFund.electronicServiceAddress) &&
-        Objects.equals(this.employerNumber, superFund.employerNumber) &&
-        Objects.equals(this.SPIN, superFund.SPIN) &&
-        Objects.equals(this.USI, superFund.USI) &&
-        Objects.equals(this.updatedDateUTC, superFund.updatedDateUTC) &&
-        Objects.equals(this.validationErrors, superFund.validationErrors);
+    return Objects.equals(this.superFundID, superFund.superFundID)
+        && Objects.equals(this.type, superFund.type)
+        && Objects.equals(this.name, superFund.name)
+        && Objects.equals(this.ABN, superFund.ABN)
+        && Objects.equals(this.BSB, superFund.BSB)
+        && Objects.equals(this.accountNumber, superFund.accountNumber)
+        && Objects.equals(this.accountName, superFund.accountName)
+        && Objects.equals(this.electronicServiceAddress, superFund.electronicServiceAddress)
+        && Objects.equals(this.employerNumber, superFund.employerNumber)
+        && Objects.equals(this.SPIN, superFund.SPIN)
+        && Objects.equals(this.USI, superFund.USI)
+        && Objects.equals(this.updatedDateUTC, superFund.updatedDateUTC)
+        && Objects.equals(this.validationErrors, superFund.validationErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(superFundID, type, name, ABN, BSB, accountNumber, accountName, electronicServiceAddress, employerNumber, SPIN, USI, updatedDateUTC, validationErrors);
+    return Objects.hash(
+        superFundID,
+        type,
+        name,
+        ABN,
+        BSB,
+        accountNumber,
+        accountName,
+        electronicServiceAddress,
+        employerNumber,
+        SPIN,
+        USI,
+        updatedDateUTC,
+        validationErrors);
   }
-
 
   @Override
   public String toString() {
@@ -366,7 +397,9 @@ public class SuperFund {
     sb.append("    BSB: ").append(toIndentedString(BSB)).append("\n");
     sb.append("    accountNumber: ").append(toIndentedString(accountNumber)).append("\n");
     sb.append("    accountName: ").append(toIndentedString(accountName)).append("\n");
-    sb.append("    electronicServiceAddress: ").append(toIndentedString(electronicServiceAddress)).append("\n");
+    sb.append("    electronicServiceAddress: ")
+        .append(toIndentedString(electronicServiceAddress))
+        .append("\n");
     sb.append("    employerNumber: ").append(toIndentedString(employerNumber)).append("\n");
     sb.append("    SPIN: ").append(toIndentedString(SPIN)).append("\n");
     sb.append("    USI: ").append(toIndentedString(USI)).append("\n");
@@ -377,8 +410,7 @@ public class SuperFund {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -386,6 +418,4 @@ public class SuperFund {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

@@ -10,32 +10,15 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.accounting;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.accounting.CurrencyCode;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * Currency
- */
-
+/** Currency */
 public class Currency {
   StringUtil util = new StringUtil();
 
@@ -44,15 +27,17 @@ public class Currency {
 
   @JsonProperty("Description")
   private String description;
+
   public Currency code(CurrencyCode code) {
     this.code = code;
     return this;
   }
 
-   /**
+  /**
    * Get code
+   *
    * @return code
-  **/
+   */
   @ApiModelProperty(value = "")
   public CurrencyCode getCode() {
     return code;
@@ -67,10 +52,11 @@ public class Currency {
     return this;
   }
 
-   /**
+  /**
    * Name of Currency
+   *
    * @return description
-  **/
+   */
   @ApiModelProperty(value = "Name of Currency")
   public String getDescription() {
     return description;
@@ -79,7 +65,6 @@ public class Currency {
   public void setDescription(String description) {
     this.description = description;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -90,15 +75,14 @@ public class Currency {
       return false;
     }
     Currency currency = (Currency) o;
-    return Objects.equals(this.code, currency.code) &&
-        Objects.equals(this.description, currency.description);
+    return Objects.equals(this.code, currency.code)
+        && Objects.equals(this.description, currency.description);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(code, description);
   }
-
 
   @Override
   public String toString() {
@@ -111,8 +95,7 @@ public class Currency {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -120,6 +103,4 @@ public class Currency {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

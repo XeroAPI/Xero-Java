@@ -10,34 +10,21 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.accounting;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.accounting.TenNinteyNineContact;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
 
 import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * Report
- */
-
+/** Report */
 public class Report {
   StringUtil util = new StringUtil();
 
@@ -46,9 +33,7 @@ public class Report {
 
   @JsonProperty("ReportName")
   private String reportName;
-  /**
-   * See Prepayment Types
-   */
+  /** See Prepayment Types */
   public enum ReportTypeEnum {
     AGEDPAYABLESBYCONTACT("AgedPayablesByContact");
 
@@ -79,7 +64,6 @@ public class Report {
     }
   }
 
-
   @JsonProperty("ReportType")
   private ReportTypeEnum reportType;
 
@@ -94,15 +78,17 @@ public class Report {
 
   @JsonProperty("Contacts")
   private List<TenNinteyNineContact> contacts = new ArrayList<TenNinteyNineContact>();
+
   public Report reportID(String reportID) {
     this.reportID = reportID;
     return this;
   }
 
-   /**
+  /**
    * See Prepayment Types
+   *
    * @return reportID
-  **/
+   */
   @ApiModelProperty(value = "See Prepayment Types")
   public String getReportID() {
     return reportID;
@@ -117,10 +103,11 @@ public class Report {
     return this;
   }
 
-   /**
+  /**
    * See Prepayment Types
+   *
    * @return reportName
-  **/
+   */
   @ApiModelProperty(value = "See Prepayment Types")
   public String getReportName() {
     return reportName;
@@ -135,10 +122,11 @@ public class Report {
     return this;
   }
 
-   /**
+  /**
    * See Prepayment Types
+   *
    * @return reportType
-  **/
+   */
   @ApiModelProperty(value = "See Prepayment Types")
   public ReportTypeEnum getReportType() {
     return reportType;
@@ -153,10 +141,11 @@ public class Report {
     return this;
   }
 
-   /**
+  /**
    * See Prepayment Types
+   *
    * @return reportTitle
-  **/
+   */
   @ApiModelProperty(value = "See Prepayment Types")
   public String getReportTitle() {
     return reportTitle;
@@ -171,10 +160,11 @@ public class Report {
     return this;
   }
 
-   /**
+  /**
    * Date of report
+   *
    * @return reportDate
-  **/
+   */
   @ApiModelProperty(value = "Date of report")
   public String getReportDate() {
     return reportDate;
@@ -184,23 +174,25 @@ public class Report {
     this.reportDate = reportDate;
   }
 
-   /**
+  /**
    * Updated Date
+   *
    * @return updatedDateUTC
-  **/
+   */
   @ApiModelProperty(example = "/Date(1573755038314)/", value = "Updated Date")
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.updatedDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
   public Report contacts(List<TenNinteyNineContact> contacts) {
@@ -216,10 +208,11 @@ public class Report {
     return this;
   }
 
-   /**
+  /**
    * Get contacts
+   *
    * @return contacts
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<TenNinteyNineContact> getContacts() {
     return contacts;
@@ -228,7 +221,6 @@ public class Report {
   public void setContacts(List<TenNinteyNineContact> contacts) {
     this.contacts = contacts;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -239,20 +231,20 @@ public class Report {
       return false;
     }
     Report report = (Report) o;
-    return Objects.equals(this.reportID, report.reportID) &&
-        Objects.equals(this.reportName, report.reportName) &&
-        Objects.equals(this.reportType, report.reportType) &&
-        Objects.equals(this.reportTitle, report.reportTitle) &&
-        Objects.equals(this.reportDate, report.reportDate) &&
-        Objects.equals(this.updatedDateUTC, report.updatedDateUTC) &&
-        Objects.equals(this.contacts, report.contacts);
+    return Objects.equals(this.reportID, report.reportID)
+        && Objects.equals(this.reportName, report.reportName)
+        && Objects.equals(this.reportType, report.reportType)
+        && Objects.equals(this.reportTitle, report.reportTitle)
+        && Objects.equals(this.reportDate, report.reportDate)
+        && Objects.equals(this.updatedDateUTC, report.updatedDateUTC)
+        && Objects.equals(this.contacts, report.contacts);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(reportID, reportName, reportType, reportTitle, reportDate, updatedDateUTC, contacts);
+    return Objects.hash(
+        reportID, reportName, reportType, reportTitle, reportDate, updatedDateUTC, contacts);
   }
-
 
   @Override
   public String toString() {
@@ -270,8 +262,7 @@ public class Report {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -279,6 +270,4 @@ public class Report {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

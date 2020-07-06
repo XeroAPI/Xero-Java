@@ -10,46 +10,32 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.accounting;
 
 import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.accounting.Contact;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * ContactGroup
- */
-
+/** ContactGroup */
 public class ContactGroup {
   StringUtil util = new StringUtil();
 
   @JsonProperty("Name")
   private String name;
   /**
-   * The Status of a contact group. To delete a contact group update the status to DELETED. Only contact groups with a status of ACTIVE are returned on GETs.
+   * The Status of a contact group. To delete a contact group update the status to DELETED. Only
+   * contact groups with a status of ACTIVE are returned on GETs.
    */
   public enum StatusEnum {
     ACTIVE("ACTIVE"),
-    
+
     DELETED("DELETED");
 
     private String value;
@@ -79,7 +65,6 @@ public class ContactGroup {
     }
   }
 
-
   @JsonProperty("Status")
   private StatusEnum status;
 
@@ -88,16 +73,19 @@ public class ContactGroup {
 
   @JsonProperty("Contacts")
   private List<Contact> contacts = new ArrayList<Contact>();
+
   public ContactGroup name(String name) {
     this.name = name;
     return this;
   }
 
-   /**
-   * The Name of the contact group. Required when creating a new contact  group
+  /**
+   * The Name of the contact group. Required when creating a new contact group
+   *
    * @return name
-  **/
-  @ApiModelProperty(value = "The Name of the contact group. Required when creating a new contact  group")
+   */
+  @ApiModelProperty(
+      value = "The Name of the contact group. Required when creating a new contact  group")
   public String getName() {
     return name;
   }
@@ -111,11 +99,16 @@ public class ContactGroup {
     return this;
   }
 
-   /**
-   * The Status of a contact group. To delete a contact group update the status to DELETED. Only contact groups with a status of ACTIVE are returned on GETs.
+  /**
+   * The Status of a contact group. To delete a contact group update the status to DELETED. Only
+   * contact groups with a status of ACTIVE are returned on GETs.
+   *
    * @return status
-  **/
-  @ApiModelProperty(value = "The Status of a contact group. To delete a contact group update the status to DELETED. Only contact groups with a status of ACTIVE are returned on GETs.")
+   */
+  @ApiModelProperty(
+      value =
+          "The Status of a contact group. To delete a contact group update the status to DELETED."
+              + " Only contact groups with a status of ACTIVE are returned on GETs.")
   public StatusEnum getStatus() {
     return status;
   }
@@ -129,11 +122,16 @@ public class ContactGroup {
     return this;
   }
 
-   /**
-   * The Xero identifier for an contact group – specified as a string following the endpoint name. e.g. /297c2dc5-cc47-4afd-8ec8-74990b8761e9
+  /**
+   * The Xero identifier for an contact group – specified as a string following the endpoint name.
+   * e.g. /297c2dc5-cc47-4afd-8ec8-74990b8761e9
+   *
    * @return contactGroupID
-  **/
-  @ApiModelProperty(value = "The Xero identifier for an contact group – specified as a string following the endpoint name. e.g. /297c2dc5-cc47-4afd-8ec8-74990b8761e9")
+   */
+  @ApiModelProperty(
+      value =
+          "The Xero identifier for an contact group – specified as a string following the endpoint"
+              + " name. e.g. /297c2dc5-cc47-4afd-8ec8-74990b8761e9")
   public UUID getContactGroupID() {
     return contactGroupID;
   }
@@ -155,11 +153,16 @@ public class ContactGroup {
     return this;
   }
 
-   /**
-   * The ContactID and Name of Contacts in a contact group. Returned on GETs when the ContactGroupID is supplied in the URL.
+  /**
+   * The ContactID and Name of Contacts in a contact group. Returned on GETs when the ContactGroupID
+   * is supplied in the URL.
+   *
    * @return contacts
-  **/
-  @ApiModelProperty(value = "The ContactID and Name of Contacts in a contact group. Returned on GETs when the ContactGroupID is supplied in the URL.")
+   */
+  @ApiModelProperty(
+      value =
+          "The ContactID and Name of Contacts in a contact group. Returned on GETs when the"
+              + " ContactGroupID is supplied in the URL.")
   public List<Contact> getContacts() {
     return contacts;
   }
@@ -167,7 +170,6 @@ public class ContactGroup {
   public void setContacts(List<Contact> contacts) {
     this.contacts = contacts;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -178,17 +180,16 @@ public class ContactGroup {
       return false;
     }
     ContactGroup contactGroup = (ContactGroup) o;
-    return Objects.equals(this.name, contactGroup.name) &&
-        Objects.equals(this.status, contactGroup.status) &&
-        Objects.equals(this.contactGroupID, contactGroup.contactGroupID) &&
-        Objects.equals(this.contacts, contactGroup.contacts);
+    return Objects.equals(this.name, contactGroup.name)
+        && Objects.equals(this.status, contactGroup.status)
+        && Objects.equals(this.contactGroupID, contactGroup.contactGroupID)
+        && Objects.equals(this.contacts, contactGroup.contacts);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(name, status, contactGroupID, contacts);
   }
-
 
   @Override
   public String toString() {
@@ -203,8 +204,7 @@ public class ContactGroup {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -212,6 +212,4 @@ public class ContactGroup {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-
