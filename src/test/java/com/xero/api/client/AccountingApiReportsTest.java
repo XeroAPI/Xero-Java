@@ -251,6 +251,7 @@ public class AccountingApiReportsTest {
     public void getReportTenNinetyNineTest() throws IOException {
         System.out.println("@Test - getReportTenNinetyNine");
         String reportYear = null;
+
         Reports response = accountingApi.getReportTenNinetyNine(accessToken,xeroTenantId,reportYear);
 
         assertThat(response.getReports().get(0).getReportName(), is(equalTo("1099 report")));
@@ -265,6 +266,7 @@ public class AccountingApiReportsTest {
         assertThat(response.getReports().get(0).getContacts().get(0).getTaxID(), is(equalTo("234-22-2223")));
         assertThat(response.getReports().get(0).getContacts().get(0).getContactId(), is(equalTo(UUID.fromString("81d5706a-8057-4338-8511-747cd85f4c68"))));
         assertThat(response.getReports().get(0).getContacts().get(2).getBox1(), is(equalTo(5543.75)));  
+
         //System.out.println(response.getReports().toString());
     }
 
