@@ -10,12 +10,22 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.accounting;
 
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.Attachment;
+import com.xero.models.accounting.Contact;
+import com.xero.models.accounting.LineAmountTypes;
+import com.xero.models.accounting.LineItem;
+import com.xero.models.accounting.User;
+import com.xero.models.accounting.ValidationError;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +33,17 @@ import java.util.UUID;
 import java.io.IOException;
 
 import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneId;
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/** Receipt */
+/**
+ * Receipt
+ */
+
 public class Receipt {
   StringUtil util = new StringUtil();
 
@@ -61,16 +76,18 @@ public class Receipt {
 
   @JsonProperty("ReceiptID")
   private UUID receiptID;
-  /** Current status of receipt – see status types */
+  /**
+   * Current status of receipt – see status types
+   */
   public enum StatusEnum {
     DRAFT("DRAFT"),
-
+    
     SUBMITTED("SUBMITTED"),
-
+    
     AUTHORISED("AUTHORISED"),
-
+    
     DECLINED("DECLINED"),
-
+    
     VOIDED("VOIDED");
 
     private String value;
@@ -100,6 +117,7 @@ public class Receipt {
     }
   }
 
+
   @JsonProperty("Status")
   private StatusEnum status;
 
@@ -123,31 +141,28 @@ public class Receipt {
 
   @JsonProperty("Attachments")
   private List<Attachment> attachments = new ArrayList<Attachment>();
-
   public Receipt date(String date) {
     this.date = date;
     return this;
   }
 
-  /**
+   /**
    * Date of receipt – YYYY-MM-DD
-   *
    * @return date
-   */
+  **/
   @ApiModelProperty(value = "Date of receipt – YYYY-MM-DD")
   public String getDate() {
     return date;
   }
-
   public LocalDate getDateAsDate() {
     if (this.date != null) {
       try {
         return util.convertStringToDate(this.date);
       } catch (IOException e) {
         e.printStackTrace();
-      }
+      }  
     }
-    return null;
+    return null;        
   }
 
   public void setDate(String date) {
@@ -155,8 +170,8 @@ public class Receipt {
   }
 
   public void setDate(LocalDate date) {
-    // CONVERT LocalDate args into MS DateFromat String
-    Instant instant = date.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
+    //CONVERT LocalDate args into MS DateFromat String
+    Instant instant =  date.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();  
     long timeInMillis = instant.toEpochMilli();
 
     this.date = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
@@ -167,11 +182,10 @@ public class Receipt {
     return this;
   }
 
-  /**
+   /**
    * Get contact
-   *
    * @return contact
-   */
+  **/
   @ApiModelProperty(value = "")
   public Contact getContact() {
     return contact;
@@ -194,11 +208,10 @@ public class Receipt {
     return this;
   }
 
-  /**
+   /**
    * Get lineItems
-   *
    * @return lineItems
-   */
+  **/
   @ApiModelProperty(value = "")
   public List<LineItem> getLineItems() {
     return lineItems;
@@ -213,11 +226,10 @@ public class Receipt {
     return this;
   }
 
-  /**
+   /**
    * Get user
-   *
    * @return user
-   */
+  **/
   @ApiModelProperty(value = "")
   public User getUser() {
     return user;
@@ -232,11 +244,10 @@ public class Receipt {
     return this;
   }
 
-  /**
+   /**
    * Additional reference number
-   *
    * @return reference
-   */
+  **/
   @ApiModelProperty(value = "Additional reference number")
   public String getReference() {
     return reference;
@@ -251,11 +262,10 @@ public class Receipt {
     return this;
   }
 
-  /**
+   /**
    * Get lineAmountTypes
-   *
    * @return lineAmountTypes
-   */
+  **/
   @ApiModelProperty(value = "")
   public LineAmountTypes getLineAmountTypes() {
     return lineAmountTypes;
@@ -270,11 +280,10 @@ public class Receipt {
     return this;
   }
 
-  /**
+   /**
    * Total of receipt excluding taxes
-   *
    * @return subTotal
-   */
+  **/
   @ApiModelProperty(value = "Total of receipt excluding taxes")
   public Double getSubTotal() {
     return subTotal;
@@ -289,11 +298,10 @@ public class Receipt {
     return this;
   }
 
-  /**
+   /**
    * Total tax on receipt
-   *
    * @return totalTax
-   */
+  **/
   @ApiModelProperty(value = "Total tax on receipt")
   public Double getTotalTax() {
     return totalTax;
@@ -308,11 +316,10 @@ public class Receipt {
     return this;
   }
 
-  /**
+   /**
    * Total of receipt tax inclusive (i.e. SubTotal + TotalTax)
-   *
    * @return total
-   */
+  **/
   @ApiModelProperty(value = "Total of receipt tax inclusive (i.e. SubTotal + TotalTax)")
   public Double getTotal() {
     return total;
@@ -327,11 +334,10 @@ public class Receipt {
     return this;
   }
 
-  /**
+   /**
    * Xero generated unique identifier for receipt
-   *
    * @return receiptID
-   */
+  **/
   @ApiModelProperty(value = "Xero generated unique identifier for receipt")
   public UUID getReceiptID() {
     return receiptID;
@@ -346,11 +352,10 @@ public class Receipt {
     return this;
   }
 
-  /**
+   /**
    * Current status of receipt – see status types
-   *
    * @return status
-   */
+  **/
   @ApiModelProperty(value = "Current status of receipt – see status types")
   public StatusEnum getStatus() {
     return status;
@@ -360,55 +365,48 @@ public class Receipt {
     this.status = status;
   }
 
-  /**
+   /**
    * Xero generated sequence number for receipt in current claim for a given user
-   *
    * @return receiptNumber
-   */
-  @ApiModelProperty(
-      value = "Xero generated sequence number for receipt in current claim for a given user")
+  **/
+  @ApiModelProperty(value = "Xero generated sequence number for receipt in current claim for a given user")
   public String getReceiptNumber() {
     return receiptNumber;
   }
 
-  /**
+   /**
    * Last modified date UTC format
-   *
    * @return updatedDateUTC
-   */
+  **/
   @ApiModelProperty(example = "/Date(1573755038314)/", value = "Last modified date UTC format")
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.updatedDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }
+      }  
     }
-    return null;
+    return null;        
   }
 
-  /**
+   /**
    * boolean to indicate if a receipt has an attachment
-   *
    * @return hasAttachments
-   */
+  **/
   @ApiModelProperty(example = "false", value = "boolean to indicate if a receipt has an attachment")
   public Boolean getHasAttachments() {
     return hasAttachments;
   }
 
-  /**
+   /**
    * URL link to a source document – shown as “Go to [appName]” in the Xero app
-   *
    * @return url
-   */
-  @ApiModelProperty(
-      value = "URL link to a source document – shown as “Go to [appName]” in the Xero app")
+  **/
+  @ApiModelProperty(value = "URL link to a source document – shown as “Go to [appName]” in the Xero app")
   public String getUrl() {
     return url;
   }
@@ -426,11 +424,10 @@ public class Receipt {
     return this;
   }
 
-  /**
+   /**
    * Displays array of validation error messages from the API
-   *
    * @return validationErrors
-   */
+  **/
   @ApiModelProperty(value = "Displays array of validation error messages from the API")
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
@@ -453,11 +450,10 @@ public class Receipt {
     return this;
   }
 
-  /**
+   /**
    * Displays array of warning messages from the API
-   *
    * @return warnings
-   */
+  **/
   @ApiModelProperty(value = "Displays array of warning messages from the API")
   public List<ValidationError> getWarnings() {
     return warnings;
@@ -480,11 +476,10 @@ public class Receipt {
     return this;
   }
 
-  /**
+   /**
    * Displays array of attachments from the API
-   *
    * @return attachments
-   */
+  **/
   @ApiModelProperty(value = "Displays array of attachments from the API")
   public List<Attachment> getAttachments() {
     return attachments;
@@ -493,6 +488,7 @@ public class Receipt {
   public void setAttachments(List<Attachment> attachments) {
     this.attachments = attachments;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -503,48 +499,31 @@ public class Receipt {
       return false;
     }
     Receipt receipt = (Receipt) o;
-    return Objects.equals(this.date, receipt.date)
-        && Objects.equals(this.contact, receipt.contact)
-        && Objects.equals(this.lineItems, receipt.lineItems)
-        && Objects.equals(this.user, receipt.user)
-        && Objects.equals(this.reference, receipt.reference)
-        && Objects.equals(this.lineAmountTypes, receipt.lineAmountTypes)
-        && Objects.equals(this.subTotal, receipt.subTotal)
-        && Objects.equals(this.totalTax, receipt.totalTax)
-        && Objects.equals(this.total, receipt.total)
-        && Objects.equals(this.receiptID, receipt.receiptID)
-        && Objects.equals(this.status, receipt.status)
-        && Objects.equals(this.receiptNumber, receipt.receiptNumber)
-        && Objects.equals(this.updatedDateUTC, receipt.updatedDateUTC)
-        && Objects.equals(this.hasAttachments, receipt.hasAttachments)
-        && Objects.equals(this.url, receipt.url)
-        && Objects.equals(this.validationErrors, receipt.validationErrors)
-        && Objects.equals(this.warnings, receipt.warnings)
-        && Objects.equals(this.attachments, receipt.attachments);
+    return Objects.equals(this.date, receipt.date) &&
+        Objects.equals(this.contact, receipt.contact) &&
+        Objects.equals(this.lineItems, receipt.lineItems) &&
+        Objects.equals(this.user, receipt.user) &&
+        Objects.equals(this.reference, receipt.reference) &&
+        Objects.equals(this.lineAmountTypes, receipt.lineAmountTypes) &&
+        Objects.equals(this.subTotal, receipt.subTotal) &&
+        Objects.equals(this.totalTax, receipt.totalTax) &&
+        Objects.equals(this.total, receipt.total) &&
+        Objects.equals(this.receiptID, receipt.receiptID) &&
+        Objects.equals(this.status, receipt.status) &&
+        Objects.equals(this.receiptNumber, receipt.receiptNumber) &&
+        Objects.equals(this.updatedDateUTC, receipt.updatedDateUTC) &&
+        Objects.equals(this.hasAttachments, receipt.hasAttachments) &&
+        Objects.equals(this.url, receipt.url) &&
+        Objects.equals(this.validationErrors, receipt.validationErrors) &&
+        Objects.equals(this.warnings, receipt.warnings) &&
+        Objects.equals(this.attachments, receipt.attachments);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        date,
-        contact,
-        lineItems,
-        user,
-        reference,
-        lineAmountTypes,
-        subTotal,
-        totalTax,
-        total,
-        receiptID,
-        status,
-        receiptNumber,
-        updatedDateUTC,
-        hasAttachments,
-        url,
-        validationErrors,
-        warnings,
-        attachments);
+    return Objects.hash(date, contact, lineItems, user, reference, lineAmountTypes, subTotal, totalTax, total, receiptID, status, receiptNumber, updatedDateUTC, hasAttachments, url, validationErrors, warnings, attachments);
   }
+
 
   @Override
   public String toString() {
@@ -573,7 +552,8 @@ public class Receipt {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -581,4 +561,6 @@ public class Receipt {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

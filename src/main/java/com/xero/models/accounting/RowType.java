@@ -10,20 +10,33 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.accounting;
 
+import java.util.Objects;
+import java.util.Arrays;
+import java.io.IOException;
 
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
+import com.xero.api.StringUtil;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Gets or Sets RowType */
+/**
+ * Gets or Sets RowType
+ */
 public enum RowType {
+  
   HEADER("Header"),
-
+  
   SECTION("Section"),
-
+  
   ROW("Row"),
-
+  
   SUMMARYROW("SummaryRow");
 
   private String value;
@@ -52,3 +65,4 @@ public enum RowType {
     throw new IllegalArgumentException("Unexpected value '" + value + "'");
   }
 }
+

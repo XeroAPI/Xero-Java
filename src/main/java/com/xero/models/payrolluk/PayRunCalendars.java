@@ -10,17 +10,36 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrolluk;
 
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrolluk.Pagination;
+import com.xero.models.payrolluk.PayRunCalendar;
+import com.xero.models.payrolluk.Problem;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.IOException;
 
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/** PayRunCalendars */
+/**
+ * PayRunCalendars
+ */
+
 public class PayRunCalendars {
   StringUtil util = new StringUtil();
 
@@ -32,17 +51,15 @@ public class PayRunCalendars {
 
   @JsonProperty("payRunCalendars")
   private List<PayRunCalendar> payRunCalendars = new ArrayList<PayRunCalendar>();
-
   public PayRunCalendars pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-  /**
+   /**
    * Get pagination
-   *
    * @return pagination
-   */
+  **/
   @ApiModelProperty(value = "")
   public Pagination getPagination() {
     return pagination;
@@ -57,11 +74,10 @@ public class PayRunCalendars {
     return this;
   }
 
-  /**
+   /**
    * Get problem
-   *
    * @return problem
-   */
+  **/
   @ApiModelProperty(value = "")
   public Problem getProblem() {
     return problem;
@@ -84,11 +100,10 @@ public class PayRunCalendars {
     return this;
   }
 
-  /**
+   /**
    * Get payRunCalendars
-   *
    * @return payRunCalendars
-   */
+  **/
   @ApiModelProperty(value = "")
   public List<PayRunCalendar> getPayRunCalendars() {
     return payRunCalendars;
@@ -97,6 +112,7 @@ public class PayRunCalendars {
   public void setPayRunCalendars(List<PayRunCalendar> payRunCalendars) {
     this.payRunCalendars = payRunCalendars;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -107,15 +123,16 @@ public class PayRunCalendars {
       return false;
     }
     PayRunCalendars payRunCalendars = (PayRunCalendars) o;
-    return Objects.equals(this.pagination, payRunCalendars.pagination)
-        && Objects.equals(this.problem, payRunCalendars.problem)
-        && Objects.equals(this.payRunCalendars, payRunCalendars.payRunCalendars);
+    return Objects.equals(this.pagination, payRunCalendars.pagination) &&
+        Objects.equals(this.problem, payRunCalendars.problem) &&
+        Objects.equals(this.payRunCalendars, payRunCalendars.payRunCalendars);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(pagination, problem, payRunCalendars);
   }
+
 
   @Override
   public String toString() {
@@ -129,7 +146,8 @@ public class PayRunCalendars {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -137,4 +155,6 @@ public class PayRunCalendars {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

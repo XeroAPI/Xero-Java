@@ -10,18 +10,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrolluk;
 
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/** Benefit */
+/**
+ * Benefit
+ */
+
 public class Benefit {
   StringUtil util = new StringUtil();
 
@@ -30,10 +44,12 @@ public class Benefit {
 
   @JsonProperty("name")
   private String name;
-  /** Category type of the employer pension */
+  /**
+   * Category type of the employer pension
+   */
   public enum CategoryEnum {
     STAKEHOLDERPENSION("StakeholderPension"),
-
+    
     OTHER("Other");
 
     private String value;
@@ -63,6 +79,7 @@ public class Benefit {
     }
   }
 
+
   @JsonProperty("category")
   private CategoryEnum category;
 
@@ -77,10 +94,12 @@ public class Benefit {
 
   @JsonProperty("percentage")
   private Double percentage;
-  /** Calculation Type of the employer pension (FixedAmount or PercentageOfGross). */
+  /**
+   * Calculation Type of the employer pension (FixedAmount or PercentageOfGross).
+   */
   public enum CalculationTypeEnum {
     FIXEDAMOUNT("FixedAmount"),
-
+    
     PERCENTAGEOFGROSS("PercentageOfGross");
 
     private String value;
@@ -110,6 +129,7 @@ public class Benefit {
     }
   }
 
+
   @JsonProperty("calculationType")
   private CalculationTypeEnum calculationType;
 
@@ -130,17 +150,15 @@ public class Benefit {
 
   @JsonProperty("showBalanceToEmployee")
   private Boolean showBalanceToEmployee;
-
   public Benefit id(UUID id) {
     this.id = id;
     return this;
   }
 
-  /**
+   /**
    * unique identifier in Xero
-   *
    * @return id
-   */
+  **/
   @ApiModelProperty(value = "unique identifier in Xero")
   public UUID getId() {
     return id;
@@ -155,11 +173,10 @@ public class Benefit {
     return this;
   }
 
-  /**
+   /**
    * Name of the employer pension
-   *
    * @return name
-   */
+  **/
   @ApiModelProperty(required = true, value = "Name of the employer pension")
   public String getName() {
     return name;
@@ -174,11 +191,10 @@ public class Benefit {
     return this;
   }
 
-  /**
+   /**
    * Category type of the employer pension
-   *
    * @return category
-   */
+  **/
   @ApiModelProperty(required = true, value = "Category type of the employer pension")
   public CategoryEnum getCategory() {
     return category;
@@ -193,11 +209,10 @@ public class Benefit {
     return this;
   }
 
-  /**
+   /**
    * Xero identifier for Liability Account
-   *
    * @return liabilityAccountId
-   */
+  **/
   @ApiModelProperty(required = true, value = "Xero identifier for Liability Account")
   public UUID getLiabilityAccountId() {
     return liabilityAccountId;
@@ -212,11 +227,10 @@ public class Benefit {
     return this;
   }
 
-  /**
+   /**
    * Xero identifier for Expense Account
-   *
    * @return expenseAccountId
-   */
+  **/
   @ApiModelProperty(required = true, value = "Xero identifier for Expense Account")
   public UUID getExpenseAccountId() {
     return expenseAccountId;
@@ -231,11 +245,10 @@ public class Benefit {
     return this;
   }
 
-  /**
+   /**
    * Standard amount of the employer pension
-   *
    * @return standardAmount
-   */
+  **/
   @ApiModelProperty(required = true, value = "Standard amount of the employer pension")
   public Double getStandardAmount() {
     return standardAmount;
@@ -250,11 +263,10 @@ public class Benefit {
     return this;
   }
 
-  /**
+   /**
    * Percentage of gross of the employer pension
-   *
    * @return percentage
-   */
+  **/
   @ApiModelProperty(required = true, value = "Percentage of gross of the employer pension")
   public Double getPercentage() {
     return percentage;
@@ -269,14 +281,11 @@ public class Benefit {
     return this;
   }
 
-  /**
+   /**
    * Calculation Type of the employer pension (FixedAmount or PercentageOfGross).
-   *
    * @return calculationType
-   */
-  @ApiModelProperty(
-      required = true,
-      value = "Calculation Type of the employer pension (FixedAmount or PercentageOfGross).")
+  **/
+  @ApiModelProperty(required = true, value = "Calculation Type of the employer pension (FixedAmount or PercentageOfGross).")
   public CalculationTypeEnum getCalculationType() {
     return calculationType;
   }
@@ -290,11 +299,10 @@ public class Benefit {
     return this;
   }
 
-  /**
+   /**
    * Identifier of a record is active or not.
-   *
    * @return currentRecord
-   */
+  **/
   @ApiModelProperty(value = "Identifier of a record is active or not.")
   public Boolean getCurrentRecord() {
     return currentRecord;
@@ -309,11 +317,10 @@ public class Benefit {
     return this;
   }
 
-  /**
+   /**
    * Identifier of subject To NIC
-   *
    * @return subjectToNIC
-   */
+  **/
   @ApiModelProperty(value = "Identifier of subject To NIC")
   public Boolean getSubjectToNIC() {
     return subjectToNIC;
@@ -328,11 +335,10 @@ public class Benefit {
     return this;
   }
 
-  /**
+   /**
    * Identifier of subject To pension
-   *
    * @return subjectToPension
-   */
+  **/
   @ApiModelProperty(value = "Identifier of subject To pension")
   public Boolean getSubjectToPension() {
     return subjectToPension;
@@ -347,11 +353,10 @@ public class Benefit {
     return this;
   }
 
-  /**
+   /**
    * Identifier of subject To Tax
-   *
    * @return subjectToTax
-   */
+  **/
   @ApiModelProperty(value = "Identifier of subject To Tax")
   public Boolean getSubjectToTax() {
     return subjectToTax;
@@ -366,11 +371,10 @@ public class Benefit {
     return this;
   }
 
-  /**
+   /**
    * Identifier of calculating on qualifying earnings
-   *
    * @return isCalculatingOnQualifyingEarnings
-   */
+  **/
   @ApiModelProperty(value = "Identifier of calculating on qualifying earnings")
   public Boolean getIsCalculatingOnQualifyingEarnings() {
     return isCalculatingOnQualifyingEarnings;
@@ -385,11 +389,10 @@ public class Benefit {
     return this;
   }
 
-  /**
+   /**
    * display the balance to employee
-   *
    * @return showBalanceToEmployee
-   */
+  **/
   @ApiModelProperty(value = "display the balance to employee")
   public Boolean getShowBalanceToEmployee() {
     return showBalanceToEmployee;
@@ -398,6 +401,7 @@ public class Benefit {
   public void setShowBalanceToEmployee(Boolean showBalanceToEmployee) {
     this.showBalanceToEmployee = showBalanceToEmployee;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -408,41 +412,27 @@ public class Benefit {
       return false;
     }
     Benefit benefit = (Benefit) o;
-    return Objects.equals(this.id, benefit.id)
-        && Objects.equals(this.name, benefit.name)
-        && Objects.equals(this.category, benefit.category)
-        && Objects.equals(this.liabilityAccountId, benefit.liabilityAccountId)
-        && Objects.equals(this.expenseAccountId, benefit.expenseAccountId)
-        && Objects.equals(this.standardAmount, benefit.standardAmount)
-        && Objects.equals(this.percentage, benefit.percentage)
-        && Objects.equals(this.calculationType, benefit.calculationType)
-        && Objects.equals(this.currentRecord, benefit.currentRecord)
-        && Objects.equals(this.subjectToNIC, benefit.subjectToNIC)
-        && Objects.equals(this.subjectToPension, benefit.subjectToPension)
-        && Objects.equals(this.subjectToTax, benefit.subjectToTax)
-        && Objects.equals(
-            this.isCalculatingOnQualifyingEarnings, benefit.isCalculatingOnQualifyingEarnings)
-        && Objects.equals(this.showBalanceToEmployee, benefit.showBalanceToEmployee);
+    return Objects.equals(this.id, benefit.id) &&
+        Objects.equals(this.name, benefit.name) &&
+        Objects.equals(this.category, benefit.category) &&
+        Objects.equals(this.liabilityAccountId, benefit.liabilityAccountId) &&
+        Objects.equals(this.expenseAccountId, benefit.expenseAccountId) &&
+        Objects.equals(this.standardAmount, benefit.standardAmount) &&
+        Objects.equals(this.percentage, benefit.percentage) &&
+        Objects.equals(this.calculationType, benefit.calculationType) &&
+        Objects.equals(this.currentRecord, benefit.currentRecord) &&
+        Objects.equals(this.subjectToNIC, benefit.subjectToNIC) &&
+        Objects.equals(this.subjectToPension, benefit.subjectToPension) &&
+        Objects.equals(this.subjectToTax, benefit.subjectToTax) &&
+        Objects.equals(this.isCalculatingOnQualifyingEarnings, benefit.isCalculatingOnQualifyingEarnings) &&
+        Objects.equals(this.showBalanceToEmployee, benefit.showBalanceToEmployee);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        id,
-        name,
-        category,
-        liabilityAccountId,
-        expenseAccountId,
-        standardAmount,
-        percentage,
-        calculationType,
-        currentRecord,
-        subjectToNIC,
-        subjectToPension,
-        subjectToTax,
-        isCalculatingOnQualifyingEarnings,
-        showBalanceToEmployee);
+    return Objects.hash(id, name, category, liabilityAccountId, expenseAccountId, standardAmount, percentage, calculationType, currentRecord, subjectToNIC, subjectToPension, subjectToTax, isCalculatingOnQualifyingEarnings, showBalanceToEmployee);
   }
+
 
   @Override
   public String toString() {
@@ -460,18 +450,15 @@ public class Benefit {
     sb.append("    subjectToNIC: ").append(toIndentedString(subjectToNIC)).append("\n");
     sb.append("    subjectToPension: ").append(toIndentedString(subjectToPension)).append("\n");
     sb.append("    subjectToTax: ").append(toIndentedString(subjectToTax)).append("\n");
-    sb.append("    isCalculatingOnQualifyingEarnings: ")
-        .append(toIndentedString(isCalculatingOnQualifyingEarnings))
-        .append("\n");
-    sb.append("    showBalanceToEmployee: ")
-        .append(toIndentedString(showBalanceToEmployee))
-        .append("\n");
+    sb.append("    isCalculatingOnQualifyingEarnings: ").append(toIndentedString(isCalculatingOnQualifyingEarnings)).append("\n");
+    sb.append("    showBalanceToEmployee: ").append(toIndentedString(showBalanceToEmployee)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -479,4 +466,6 @@ public class Benefit {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

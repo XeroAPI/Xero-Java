@@ -10,16 +10,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.accounting;
 
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/** TenNinteyNineContact */
+/**
+ * TenNinteyNineContact
+ */
+
 public class TenNinteyNineContact {
   StringUtil util = new StringUtil();
 
@@ -88,17 +104,15 @@ public class TenNinteyNineContact {
 
   @JsonProperty("ContactId")
   private UUID contactId;
-
   public TenNinteyNineContact box1(Double box1) {
     this.box1 = box1;
     return this;
   }
 
-  /**
+   /**
    * Box 1 on 1099 Form
-   *
    * @return box1
-   */
+  **/
   @ApiModelProperty(value = "Box 1 on 1099 Form")
   public Double getBox1() {
     return box1;
@@ -113,11 +127,10 @@ public class TenNinteyNineContact {
     return this;
   }
 
-  /**
+   /**
    * Box 2 on 1099 Form
-   *
    * @return box2
-   */
+  **/
   @ApiModelProperty(value = "Box 2 on 1099 Form")
   public Double getBox2() {
     return box2;
@@ -132,11 +145,10 @@ public class TenNinteyNineContact {
     return this;
   }
 
-  /**
+   /**
    * Box 3 on 1099 Form
-   *
    * @return box3
-   */
+  **/
   @ApiModelProperty(value = "Box 3 on 1099 Form")
   public Double getBox3() {
     return box3;
@@ -151,11 +163,10 @@ public class TenNinteyNineContact {
     return this;
   }
 
-  /**
+   /**
    * Box 4 on 1099 Form
-   *
    * @return box4
-   */
+  **/
   @ApiModelProperty(value = "Box 4 on 1099 Form")
   public Double getBox4() {
     return box4;
@@ -170,11 +181,10 @@ public class TenNinteyNineContact {
     return this;
   }
 
-  /**
+   /**
    * Box 5 on 1099 Form
-   *
    * @return box5
-   */
+  **/
   @ApiModelProperty(value = "Box 5 on 1099 Form")
   public Double getBox5() {
     return box5;
@@ -189,11 +199,10 @@ public class TenNinteyNineContact {
     return this;
   }
 
-  /**
+   /**
    * Box 6 on 1099 Form
-   *
    * @return box6
-   */
+  **/
   @ApiModelProperty(value = "Box 6 on 1099 Form")
   public Double getBox6() {
     return box6;
@@ -208,11 +217,10 @@ public class TenNinteyNineContact {
     return this;
   }
 
-  /**
+   /**
    * Box 7 on 1099 Form
-   *
    * @return box7
-   */
+  **/
   @ApiModelProperty(value = "Box 7 on 1099 Form")
   public Double getBox7() {
     return box7;
@@ -227,11 +235,10 @@ public class TenNinteyNineContact {
     return this;
   }
 
-  /**
+   /**
    * Box 8 on 1099 Form
-   *
    * @return box8
-   */
+  **/
   @ApiModelProperty(value = "Box 8 on 1099 Form")
   public Double getBox8() {
     return box8;
@@ -246,11 +253,10 @@ public class TenNinteyNineContact {
     return this;
   }
 
-  /**
+   /**
    * Box 9 on 1099 Form
-   *
    * @return box9
-   */
+  **/
   @ApiModelProperty(value = "Box 9 on 1099 Form")
   public Double getBox9() {
     return box9;
@@ -265,11 +271,10 @@ public class TenNinteyNineContact {
     return this;
   }
 
-  /**
+   /**
    * Box 10 on 1099 Form
-   *
    * @return box10
-   */
+  **/
   @ApiModelProperty(value = "Box 10 on 1099 Form")
   public Double getBox10() {
     return box10;
@@ -284,11 +289,10 @@ public class TenNinteyNineContact {
     return this;
   }
 
-  /**
+   /**
    * Box 11 on 1099 Form
-   *
    * @return box11
-   */
+  **/
   @ApiModelProperty(value = "Box 11 on 1099 Form")
   public Double getBox11() {
     return box11;
@@ -303,11 +307,10 @@ public class TenNinteyNineContact {
     return this;
   }
 
-  /**
+   /**
    * Box 13 on 1099 Form
-   *
    * @return box13
-   */
+  **/
   @ApiModelProperty(value = "Box 13 on 1099 Form")
   public Double getBox13() {
     return box13;
@@ -322,11 +325,10 @@ public class TenNinteyNineContact {
     return this;
   }
 
-  /**
+   /**
    * Box 14 on 1099 Form
-   *
    * @return box14
-   */
+  **/
   @ApiModelProperty(value = "Box 14 on 1099 Form")
   public Double getBox14() {
     return box14;
@@ -341,11 +343,10 @@ public class TenNinteyNineContact {
     return this;
   }
 
-  /**
+   /**
    * Contact name on 1099 Form
-   *
    * @return name
-   */
+  **/
   @ApiModelProperty(value = "Contact name on 1099 Form")
   public String getName() {
     return name;
@@ -360,11 +361,10 @@ public class TenNinteyNineContact {
     return this;
   }
 
-  /**
+   /**
    * Contact Fed Tax ID type
-   *
    * @return federalTaxIDType
-   */
+  **/
   @ApiModelProperty(value = "Contact Fed Tax ID type")
   public String getFederalTaxIDType() {
     return federalTaxIDType;
@@ -379,11 +379,10 @@ public class TenNinteyNineContact {
     return this;
   }
 
-  /**
+   /**
    * Contact city on 1099 Form
-   *
    * @return city
-   */
+  **/
   @ApiModelProperty(value = "Contact city on 1099 Form")
   public String getCity() {
     return city;
@@ -398,11 +397,10 @@ public class TenNinteyNineContact {
     return this;
   }
 
-  /**
+   /**
    * Contact zip on 1099 Form
-   *
    * @return zip
-   */
+  **/
   @ApiModelProperty(value = "Contact zip on 1099 Form")
   public String getZip() {
     return zip;
@@ -417,11 +415,10 @@ public class TenNinteyNineContact {
     return this;
   }
 
-  /**
+   /**
    * Contact State on 1099 Form
-   *
    * @return state
-   */
+  **/
   @ApiModelProperty(value = "Contact State on 1099 Form")
   public String getState() {
     return state;
@@ -436,11 +433,10 @@ public class TenNinteyNineContact {
     return this;
   }
 
-  /**
+   /**
    * Contact email on 1099 Form
-   *
    * @return email
-   */
+  **/
   @ApiModelProperty(value = "Contact email on 1099 Form")
   public String getEmail() {
     return email;
@@ -455,11 +451,10 @@ public class TenNinteyNineContact {
     return this;
   }
 
-  /**
+   /**
    * Contact address on 1099 Form
-   *
    * @return streetAddress
-   */
+  **/
   @ApiModelProperty(value = "Contact address on 1099 Form")
   public String getStreetAddress() {
     return streetAddress;
@@ -474,11 +469,10 @@ public class TenNinteyNineContact {
     return this;
   }
 
-  /**
+   /**
    * Contact tax id on 1099 Form
-   *
    * @return taxID
-   */
+  **/
   @ApiModelProperty(value = "Contact tax id on 1099 Form")
   public String getTaxID() {
     return taxID;
@@ -493,11 +487,10 @@ public class TenNinteyNineContact {
     return this;
   }
 
-  /**
+   /**
    * Contact contact id
-   *
    * @return contactId
-   */
+  **/
   @ApiModelProperty(value = "Contact contact id")
   public UUID getContactId() {
     return contactId;
@@ -506,6 +499,7 @@ public class TenNinteyNineContact {
   public void setContactId(UUID contactId) {
     this.contactId = contactId;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -516,56 +510,35 @@ public class TenNinteyNineContact {
       return false;
     }
     TenNinteyNineContact tenNinteyNineContact = (TenNinteyNineContact) o;
-    return Objects.equals(this.box1, tenNinteyNineContact.box1)
-        && Objects.equals(this.box2, tenNinteyNineContact.box2)
-        && Objects.equals(this.box3, tenNinteyNineContact.box3)
-        && Objects.equals(this.box4, tenNinteyNineContact.box4)
-        && Objects.equals(this.box5, tenNinteyNineContact.box5)
-        && Objects.equals(this.box6, tenNinteyNineContact.box6)
-        && Objects.equals(this.box7, tenNinteyNineContact.box7)
-        && Objects.equals(this.box8, tenNinteyNineContact.box8)
-        && Objects.equals(this.box9, tenNinteyNineContact.box9)
-        && Objects.equals(this.box10, tenNinteyNineContact.box10)
-        && Objects.equals(this.box11, tenNinteyNineContact.box11)
-        && Objects.equals(this.box13, tenNinteyNineContact.box13)
-        && Objects.equals(this.box14, tenNinteyNineContact.box14)
-        && Objects.equals(this.name, tenNinteyNineContact.name)
-        && Objects.equals(this.federalTaxIDType, tenNinteyNineContact.federalTaxIDType)
-        && Objects.equals(this.city, tenNinteyNineContact.city)
-        && Objects.equals(this.zip, tenNinteyNineContact.zip)
-        && Objects.equals(this.state, tenNinteyNineContact.state)
-        && Objects.equals(this.email, tenNinteyNineContact.email)
-        && Objects.equals(this.streetAddress, tenNinteyNineContact.streetAddress)
-        && Objects.equals(this.taxID, tenNinteyNineContact.taxID)
-        && Objects.equals(this.contactId, tenNinteyNineContact.contactId);
+    return Objects.equals(this.box1, tenNinteyNineContact.box1) &&
+        Objects.equals(this.box2, tenNinteyNineContact.box2) &&
+        Objects.equals(this.box3, tenNinteyNineContact.box3) &&
+        Objects.equals(this.box4, tenNinteyNineContact.box4) &&
+        Objects.equals(this.box5, tenNinteyNineContact.box5) &&
+        Objects.equals(this.box6, tenNinteyNineContact.box6) &&
+        Objects.equals(this.box7, tenNinteyNineContact.box7) &&
+        Objects.equals(this.box8, tenNinteyNineContact.box8) &&
+        Objects.equals(this.box9, tenNinteyNineContact.box9) &&
+        Objects.equals(this.box10, tenNinteyNineContact.box10) &&
+        Objects.equals(this.box11, tenNinteyNineContact.box11) &&
+        Objects.equals(this.box13, tenNinteyNineContact.box13) &&
+        Objects.equals(this.box14, tenNinteyNineContact.box14) &&
+        Objects.equals(this.name, tenNinteyNineContact.name) &&
+        Objects.equals(this.federalTaxIDType, tenNinteyNineContact.federalTaxIDType) &&
+        Objects.equals(this.city, tenNinteyNineContact.city) &&
+        Objects.equals(this.zip, tenNinteyNineContact.zip) &&
+        Objects.equals(this.state, tenNinteyNineContact.state) &&
+        Objects.equals(this.email, tenNinteyNineContact.email) &&
+        Objects.equals(this.streetAddress, tenNinteyNineContact.streetAddress) &&
+        Objects.equals(this.taxID, tenNinteyNineContact.taxID) &&
+        Objects.equals(this.contactId, tenNinteyNineContact.contactId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        box1,
-        box2,
-        box3,
-        box4,
-        box5,
-        box6,
-        box7,
-        box8,
-        box9,
-        box10,
-        box11,
-        box13,
-        box14,
-        name,
-        federalTaxIDType,
-        city,
-        zip,
-        state,
-        email,
-        streetAddress,
-        taxID,
-        contactId);
+    return Objects.hash(box1, box2, box3, box4, box5, box6, box7, box8, box9, box10, box11, box13, box14, name, federalTaxIDType, city, zip, state, email, streetAddress, taxID, contactId);
   }
+
 
   @Override
   public String toString() {
@@ -598,7 +571,8 @@ public class TenNinteyNineContact {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -606,4 +580,6 @@ public class TenNinteyNineContact {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

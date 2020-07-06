@@ -10,16 +10,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrolluk;
 
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/** EarningsLine */
+/**
+ * EarningsLine
+ */
+
 public class EarningsLine {
   StringUtil util = new StringUtil();
 
@@ -49,17 +65,15 @@ public class EarningsLine {
 
   @JsonProperty("isAverageDailyPayRate")
   private Boolean isAverageDailyPayRate;
-
   public EarningsLine earningsLineID(UUID earningsLineID) {
     this.earningsLineID = earningsLineID;
     return this;
   }
 
-  /**
+   /**
    * Xero identifier for payroll earnings line
-   *
    * @return earningsLineID
-   */
+  **/
   @ApiModelProperty(value = "Xero identifier for payroll earnings line")
   public UUID getEarningsLineID() {
     return earningsLineID;
@@ -74,11 +88,10 @@ public class EarningsLine {
     return this;
   }
 
-  /**
+   /**
    * Xero identifier for payroll earnings rate
-   *
    * @return earningsRateID
-   */
+  **/
   @ApiModelProperty(value = "Xero identifier for payroll earnings rate")
   public UUID getEarningsRateID() {
     return earningsRateID;
@@ -93,11 +106,10 @@ public class EarningsLine {
     return this;
   }
 
-  /**
+   /**
    * name of earnings rate for display in UI
-   *
    * @return displayName
-   */
+  **/
   @ApiModelProperty(value = "name of earnings rate for display in UI")
   public String getDisplayName() {
     return displayName;
@@ -112,11 +124,10 @@ public class EarningsLine {
     return this;
   }
 
-  /**
+   /**
    * Rate per unit for earnings line
-   *
    * @return ratePerUnit
-   */
+  **/
   @ApiModelProperty(value = "Rate per unit for earnings line")
   public Double getRatePerUnit() {
     return ratePerUnit;
@@ -131,11 +142,10 @@ public class EarningsLine {
     return this;
   }
 
-  /**
+   /**
    * Earnings number of units
-   *
    * @return numberOfUnits
-   */
+  **/
   @ApiModelProperty(value = "Earnings number of units")
   public Double getNumberOfUnits() {
     return numberOfUnits;
@@ -150,13 +160,11 @@ public class EarningsLine {
     return this;
   }
 
-  /**
+   /**
    * Earnings fixed amount. Only applicable if the EarningsRate RateType is Fixed
-   *
    * @return fixedAmount
-   */
-  @ApiModelProperty(
-      value = "Earnings fixed amount. Only applicable if the EarningsRate RateType is Fixed")
+  **/
+  @ApiModelProperty(value = "Earnings fixed amount. Only applicable if the EarningsRate RateType is Fixed")
   public Double getFixedAmount() {
     return fixedAmount;
   }
@@ -170,11 +178,10 @@ public class EarningsLine {
     return this;
   }
 
-  /**
+   /**
    * The amount of the earnings line.
-   *
    * @return amount
-   */
+  **/
   @ApiModelProperty(value = "The amount of the earnings line.")
   public Double getAmount() {
     return amount;
@@ -189,13 +196,11 @@ public class EarningsLine {
     return this;
   }
 
-  /**
+   /**
    * Identifies if the earnings is taken from the timesheet. False for earnings line
-   *
    * @return isLinkedToTimesheet
-   */
-  @ApiModelProperty(
-      value = "Identifies if the earnings is taken from the timesheet. False for earnings line")
+  **/
+  @ApiModelProperty(value = "Identifies if the earnings is taken from the timesheet. False for earnings line")
   public Boolean getIsLinkedToTimesheet() {
     return isLinkedToTimesheet;
   }
@@ -209,11 +214,10 @@ public class EarningsLine {
     return this;
   }
 
-  /**
+   /**
    * Identifies if the earnings is using an average daily pay rate
-   *
    * @return isAverageDailyPayRate
-   */
+  **/
   @ApiModelProperty(value = "Identifies if the earnings is using an average daily pay rate")
   public Boolean getIsAverageDailyPayRate() {
     return isAverageDailyPayRate;
@@ -222,6 +226,7 @@ public class EarningsLine {
   public void setIsAverageDailyPayRate(Boolean isAverageDailyPayRate) {
     this.isAverageDailyPayRate = isAverageDailyPayRate;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -232,30 +237,22 @@ public class EarningsLine {
       return false;
     }
     EarningsLine earningsLine = (EarningsLine) o;
-    return Objects.equals(this.earningsLineID, earningsLine.earningsLineID)
-        && Objects.equals(this.earningsRateID, earningsLine.earningsRateID)
-        && Objects.equals(this.displayName, earningsLine.displayName)
-        && Objects.equals(this.ratePerUnit, earningsLine.ratePerUnit)
-        && Objects.equals(this.numberOfUnits, earningsLine.numberOfUnits)
-        && Objects.equals(this.fixedAmount, earningsLine.fixedAmount)
-        && Objects.equals(this.amount, earningsLine.amount)
-        && Objects.equals(this.isLinkedToTimesheet, earningsLine.isLinkedToTimesheet)
-        && Objects.equals(this.isAverageDailyPayRate, earningsLine.isAverageDailyPayRate);
+    return Objects.equals(this.earningsLineID, earningsLine.earningsLineID) &&
+        Objects.equals(this.earningsRateID, earningsLine.earningsRateID) &&
+        Objects.equals(this.displayName, earningsLine.displayName) &&
+        Objects.equals(this.ratePerUnit, earningsLine.ratePerUnit) &&
+        Objects.equals(this.numberOfUnits, earningsLine.numberOfUnits) &&
+        Objects.equals(this.fixedAmount, earningsLine.fixedAmount) &&
+        Objects.equals(this.amount, earningsLine.amount) &&
+        Objects.equals(this.isLinkedToTimesheet, earningsLine.isLinkedToTimesheet) &&
+        Objects.equals(this.isAverageDailyPayRate, earningsLine.isAverageDailyPayRate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        earningsLineID,
-        earningsRateID,
-        displayName,
-        ratePerUnit,
-        numberOfUnits,
-        fixedAmount,
-        amount,
-        isLinkedToTimesheet,
-        isAverageDailyPayRate);
+    return Objects.hash(earningsLineID, earningsRateID, displayName, ratePerUnit, numberOfUnits, fixedAmount, amount, isLinkedToTimesheet, isAverageDailyPayRate);
   }
+
 
   @Override
   public String toString() {
@@ -268,18 +265,15 @@ public class EarningsLine {
     sb.append("    numberOfUnits: ").append(toIndentedString(numberOfUnits)).append("\n");
     sb.append("    fixedAmount: ").append(toIndentedString(fixedAmount)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-    sb.append("    isLinkedToTimesheet: ")
-        .append(toIndentedString(isLinkedToTimesheet))
-        .append("\n");
-    sb.append("    isAverageDailyPayRate: ")
-        .append(toIndentedString(isAverageDailyPayRate))
-        .append("\n");
+    sb.append("    isLinkedToTimesheet: ").append(toIndentedString(isLinkedToTimesheet)).append("\n");
+    sb.append("    isAverageDailyPayRate: ").append(toIndentedString(isAverageDailyPayRate)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -287,4 +281,6 @@ public class EarningsLine {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

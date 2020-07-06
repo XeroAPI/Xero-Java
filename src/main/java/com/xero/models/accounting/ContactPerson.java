@@ -10,15 +10,31 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.accounting;
 
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/** ContactPerson */
+/**
+ * ContactPerson
+ */
+
 public class ContactPerson {
   StringUtil util = new StringUtil();
 
@@ -33,17 +49,15 @@ public class ContactPerson {
 
   @JsonProperty("IncludeInEmails")
   private Boolean includeInEmails;
-
   public ContactPerson firstName(String firstName) {
     this.firstName = firstName;
     return this;
   }
 
-  /**
+   /**
    * First name of person
-   *
    * @return firstName
-   */
+  **/
   @ApiModelProperty(value = "First name of person")
   public String getFirstName() {
     return firstName;
@@ -58,11 +72,10 @@ public class ContactPerson {
     return this;
   }
 
-  /**
+   /**
    * Last name of person
-   *
    * @return lastName
-   */
+  **/
   @ApiModelProperty(value = "Last name of person")
   public String getLastName() {
     return lastName;
@@ -77,11 +90,10 @@ public class ContactPerson {
     return this;
   }
 
-  /**
+   /**
    * Email address of person
-   *
    * @return emailAddress
-   */
+  **/
   @ApiModelProperty(value = "Email address of person")
   public String getEmailAddress() {
     return emailAddress;
@@ -96,13 +108,11 @@ public class ContactPerson {
     return this;
   }
 
-  /**
+   /**
    * boolean to indicate whether contact should be included on emails with invoices etc.
-   *
    * @return includeInEmails
-   */
-  @ApiModelProperty(
-      value = "boolean to indicate whether contact should be included on emails with invoices etc.")
+  **/
+  @ApiModelProperty(value = "boolean to indicate whether contact should be included on emails with invoices etc.")
   public Boolean getIncludeInEmails() {
     return includeInEmails;
   }
@@ -110,6 +120,7 @@ public class ContactPerson {
   public void setIncludeInEmails(Boolean includeInEmails) {
     this.includeInEmails = includeInEmails;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -120,16 +131,17 @@ public class ContactPerson {
       return false;
     }
     ContactPerson contactPerson = (ContactPerson) o;
-    return Objects.equals(this.firstName, contactPerson.firstName)
-        && Objects.equals(this.lastName, contactPerson.lastName)
-        && Objects.equals(this.emailAddress, contactPerson.emailAddress)
-        && Objects.equals(this.includeInEmails, contactPerson.includeInEmails);
+    return Objects.equals(this.firstName, contactPerson.firstName) &&
+        Objects.equals(this.lastName, contactPerson.lastName) &&
+        Objects.equals(this.emailAddress, contactPerson.emailAddress) &&
+        Objects.equals(this.includeInEmails, contactPerson.includeInEmails);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(firstName, lastName, emailAddress, includeInEmails);
   }
+
 
   @Override
   public String toString() {
@@ -144,7 +156,8 @@ public class ContactPerson {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -152,4 +165,6 @@ public class ContactPerson {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -10,12 +10,22 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.accounting;
 
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.accounting.Allocation;
+import com.xero.models.accounting.Attachment;
+import com.xero.models.accounting.Contact;
+import com.xero.models.accounting.CurrencyCode;
+import com.xero.models.accounting.LineAmountTypes;
+import com.xero.models.accounting.LineItem;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,22 +33,29 @@ import java.util.UUID;
 import java.io.IOException;
 
 import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneId;
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/** Prepayment */
+/**
+ * Prepayment
+ */
+
 public class Prepayment {
   StringUtil util = new StringUtil();
-  /** See Prepayment Types */
+  /**
+   * See Prepayment Types
+   */
   public enum TypeEnum {
     RECEIVE_PREPAYMENT("RECEIVE-PREPAYMENT"),
-
+    
     SPEND_PREPAYMENT("SPEND-PREPAYMENT"),
-
+    
     ARPREPAYMENT("ARPREPAYMENT"),
-
+    
     APPREPAYMENT("APPREPAYMENT");
 
     private String value;
@@ -68,6 +85,7 @@ public class Prepayment {
     }
   }
 
+
   @JsonProperty("Type")
   private TypeEnum type;
 
@@ -76,12 +94,14 @@ public class Prepayment {
 
   @JsonProperty("Date")
   private String date;
-  /** See Prepayment Status Codes */
+  /**
+   * See Prepayment Status Codes
+   */
   public enum StatusEnum {
     AUTHORISED("AUTHORISED"),
-
+    
     PAID("PAID"),
-
+    
     VOIDED("VOIDED");
 
     private String value;
@@ -110,6 +130,7 @@ public class Prepayment {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
+
 
   @JsonProperty("Status")
   private StatusEnum status;
@@ -158,17 +179,15 @@ public class Prepayment {
 
   @JsonProperty("Attachments")
   private List<Attachment> attachments = new ArrayList<Attachment>();
-
   public Prepayment type(TypeEnum type) {
     this.type = type;
     return this;
   }
 
-  /**
+   /**
    * See Prepayment Types
-   *
    * @return type
-   */
+  **/
   @ApiModelProperty(value = "See Prepayment Types")
   public TypeEnum getType() {
     return type;
@@ -183,11 +202,10 @@ public class Prepayment {
     return this;
   }
 
-  /**
+   /**
    * Get contact
-   *
    * @return contact
-   */
+  **/
   @ApiModelProperty(value = "")
   public Contact getContact() {
     return contact;
@@ -202,25 +220,23 @@ public class Prepayment {
     return this;
   }
 
-  /**
+   /**
    * The date the prepayment is created YYYY-MM-DD
-   *
    * @return date
-   */
+  **/
   @ApiModelProperty(value = "The date the prepayment is created YYYY-MM-DD")
   public String getDate() {
     return date;
   }
-
   public LocalDate getDateAsDate() {
     if (this.date != null) {
       try {
         return util.convertStringToDate(this.date);
       } catch (IOException e) {
         e.printStackTrace();
-      }
+      }  
     }
-    return null;
+    return null;        
   }
 
   public void setDate(String date) {
@@ -228,8 +244,8 @@ public class Prepayment {
   }
 
   public void setDate(LocalDate date) {
-    // CONVERT LocalDate args into MS DateFromat String
-    Instant instant = date.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
+    //CONVERT LocalDate args into MS DateFromat String
+    Instant instant =  date.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();  
     long timeInMillis = instant.toEpochMilli();
 
     this.date = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
@@ -240,11 +256,10 @@ public class Prepayment {
     return this;
   }
 
-  /**
+   /**
    * See Prepayment Status Codes
-   *
    * @return status
-   */
+  **/
   @ApiModelProperty(value = "See Prepayment Status Codes")
   public StatusEnum getStatus() {
     return status;
@@ -259,11 +274,10 @@ public class Prepayment {
     return this;
   }
 
-  /**
+   /**
    * Get lineAmountTypes
-   *
    * @return lineAmountTypes
-   */
+  **/
   @ApiModelProperty(value = "")
   public LineAmountTypes getLineAmountTypes() {
     return lineAmountTypes;
@@ -286,11 +300,10 @@ public class Prepayment {
     return this;
   }
 
-  /**
+   /**
    * See Prepayment Line Items
-   *
    * @return lineItems
-   */
+  **/
   @ApiModelProperty(value = "See Prepayment Line Items")
   public List<LineItem> getLineItems() {
     return lineItems;
@@ -305,11 +318,10 @@ public class Prepayment {
     return this;
   }
 
-  /**
+   /**
    * The subtotal of the prepayment excluding taxes
-   *
    * @return subTotal
-   */
+  **/
   @ApiModelProperty(value = "The subtotal of the prepayment excluding taxes")
   public Double getSubTotal() {
     return subTotal;
@@ -324,11 +336,10 @@ public class Prepayment {
     return this;
   }
 
-  /**
+   /**
    * The total tax on the prepayment
-   *
    * @return totalTax
-   */
+  **/
   @ApiModelProperty(value = "The total tax on the prepayment")
   public Double getTotalTax() {
     return totalTax;
@@ -343,11 +354,10 @@ public class Prepayment {
     return this;
   }
 
-  /**
+   /**
    * The total of the prepayment(subtotal + total tax)
-   *
    * @return total
-   */
+  **/
   @ApiModelProperty(value = "The total of the prepayment(subtotal + total tax)")
   public Double getTotal() {
     return total;
@@ -357,37 +367,32 @@ public class Prepayment {
     this.total = total;
   }
 
-  /**
+   /**
    * Returns Invoice number field. Reference field isn&#39;t available.
-   *
    * @return reference
-   */
+  **/
   @ApiModelProperty(value = "Returns Invoice number field. Reference field isn't available.")
   public String getReference() {
     return reference;
   }
 
-  /**
+   /**
    * UTC timestamp of last update to the prepayment
-   *
    * @return updatedDateUTC
-   */
-  @ApiModelProperty(
-      example = "/Date(1573755038314)/",
-      value = "UTC timestamp of last update to the prepayment")
+  **/
+  @ApiModelProperty(example = "/Date(1573755038314)/", value = "UTC timestamp of last update to the prepayment")
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.updatedDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }
+      }  
     }
-    return null;
+    return null;        
   }
 
   public Prepayment currencyCode(CurrencyCode currencyCode) {
@@ -395,11 +400,10 @@ public class Prepayment {
     return this;
   }
 
-  /**
+   /**
    * Get currencyCode
-   *
    * @return currencyCode
-   */
+  **/
   @ApiModelProperty(value = "")
   public CurrencyCode getCurrencyCode() {
     return currencyCode;
@@ -414,11 +418,10 @@ public class Prepayment {
     return this;
   }
 
-  /**
+   /**
    * Xero generated unique identifier
-   *
    * @return prepaymentID
-   */
+  **/
   @ApiModelProperty(value = "Xero generated unique identifier")
   public UUID getPrepaymentID() {
     return prepaymentID;
@@ -433,16 +436,11 @@ public class Prepayment {
     return this;
   }
 
-  /**
-   * The currency rate for a multicurrency prepayment. If no rate is specified, the XE.com day rate
-   * is used
-   *
+   /**
+   * The currency rate for a multicurrency prepayment. If no rate is specified, the XE.com day rate is used
    * @return currencyRate
-   */
-  @ApiModelProperty(
-      value =
-          "The currency rate for a multicurrency prepayment. If no rate is specified, the XE.com"
-              + " day rate is used")
+  **/
+  @ApiModelProperty(value = "The currency rate for a multicurrency prepayment. If no rate is specified, the XE.com day rate is used")
   public Double getCurrencyRate() {
     return currencyRate;
   }
@@ -456,11 +454,10 @@ public class Prepayment {
     return this;
   }
 
-  /**
+   /**
    * The remaining credit balance on the prepayment
-   *
    * @return remainingCredit
-   */
+  **/
   @ApiModelProperty(value = "The remaining credit balance on the prepayment")
   public Double getRemainingCredit() {
     return remainingCredit;
@@ -483,11 +480,10 @@ public class Prepayment {
     return this;
   }
 
-  /**
+   /**
    * See Allocations
-   *
    * @return allocations
-   */
+  **/
   @ApiModelProperty(value = "See Allocations")
   public List<Allocation> getAllocations() {
     return allocations;
@@ -502,11 +498,10 @@ public class Prepayment {
     return this;
   }
 
-  /**
+   /**
    * The amount of applied to an invoice
-   *
    * @return appliedAmount
-   */
+  **/
   @ApiModelProperty(example = "2.0", value = "The amount of applied to an invoice")
   public Double getAppliedAmount() {
     return appliedAmount;
@@ -516,14 +511,11 @@ public class Prepayment {
     this.appliedAmount = appliedAmount;
   }
 
-  /**
+   /**
    * boolean to indicate if a prepayment has an attachment
-   *
    * @return hasAttachments
-   */
-  @ApiModelProperty(
-      example = "false",
-      value = "boolean to indicate if a prepayment has an attachment")
+  **/
+  @ApiModelProperty(example = "false", value = "boolean to indicate if a prepayment has an attachment")
   public Boolean getHasAttachments() {
     return hasAttachments;
   }
@@ -541,11 +533,10 @@ public class Prepayment {
     return this;
   }
 
-  /**
+   /**
    * See Attachments
-   *
    * @return attachments
-   */
+  **/
   @ApiModelProperty(value = "See Attachments")
   public List<Attachment> getAttachments() {
     return attachments;
@@ -554,6 +545,7 @@ public class Prepayment {
   public void setAttachments(List<Attachment> attachments) {
     this.attachments = attachments;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -564,50 +556,32 @@ public class Prepayment {
       return false;
     }
     Prepayment prepayment = (Prepayment) o;
-    return Objects.equals(this.type, prepayment.type)
-        && Objects.equals(this.contact, prepayment.contact)
-        && Objects.equals(this.date, prepayment.date)
-        && Objects.equals(this.status, prepayment.status)
-        && Objects.equals(this.lineAmountTypes, prepayment.lineAmountTypes)
-        && Objects.equals(this.lineItems, prepayment.lineItems)
-        && Objects.equals(this.subTotal, prepayment.subTotal)
-        && Objects.equals(this.totalTax, prepayment.totalTax)
-        && Objects.equals(this.total, prepayment.total)
-        && Objects.equals(this.reference, prepayment.reference)
-        && Objects.equals(this.updatedDateUTC, prepayment.updatedDateUTC)
-        && Objects.equals(this.currencyCode, prepayment.currencyCode)
-        && Objects.equals(this.prepaymentID, prepayment.prepaymentID)
-        && Objects.equals(this.currencyRate, prepayment.currencyRate)
-        && Objects.equals(this.remainingCredit, prepayment.remainingCredit)
-        && Objects.equals(this.allocations, prepayment.allocations)
-        && Objects.equals(this.appliedAmount, prepayment.appliedAmount)
-        && Objects.equals(this.hasAttachments, prepayment.hasAttachments)
-        && Objects.equals(this.attachments, prepayment.attachments);
+    return Objects.equals(this.type, prepayment.type) &&
+        Objects.equals(this.contact, prepayment.contact) &&
+        Objects.equals(this.date, prepayment.date) &&
+        Objects.equals(this.status, prepayment.status) &&
+        Objects.equals(this.lineAmountTypes, prepayment.lineAmountTypes) &&
+        Objects.equals(this.lineItems, prepayment.lineItems) &&
+        Objects.equals(this.subTotal, prepayment.subTotal) &&
+        Objects.equals(this.totalTax, prepayment.totalTax) &&
+        Objects.equals(this.total, prepayment.total) &&
+        Objects.equals(this.reference, prepayment.reference) &&
+        Objects.equals(this.updatedDateUTC, prepayment.updatedDateUTC) &&
+        Objects.equals(this.currencyCode, prepayment.currencyCode) &&
+        Objects.equals(this.prepaymentID, prepayment.prepaymentID) &&
+        Objects.equals(this.currencyRate, prepayment.currencyRate) &&
+        Objects.equals(this.remainingCredit, prepayment.remainingCredit) &&
+        Objects.equals(this.allocations, prepayment.allocations) &&
+        Objects.equals(this.appliedAmount, prepayment.appliedAmount) &&
+        Objects.equals(this.hasAttachments, prepayment.hasAttachments) &&
+        Objects.equals(this.attachments, prepayment.attachments);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        type,
-        contact,
-        date,
-        status,
-        lineAmountTypes,
-        lineItems,
-        subTotal,
-        totalTax,
-        total,
-        reference,
-        updatedDateUTC,
-        currencyCode,
-        prepaymentID,
-        currencyRate,
-        remainingCredit,
-        allocations,
-        appliedAmount,
-        hasAttachments,
-        attachments);
+    return Objects.hash(type, contact, date, status, lineAmountTypes, lineItems, subTotal, totalTax, total, reference, updatedDateUTC, currencyCode, prepaymentID, currencyRate, remainingCredit, allocations, appliedAmount, hasAttachments, attachments);
   }
+
 
   @Override
   public String toString() {
@@ -637,7 +611,8 @@ public class Prepayment {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -645,4 +620,6 @@ public class Prepayment {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

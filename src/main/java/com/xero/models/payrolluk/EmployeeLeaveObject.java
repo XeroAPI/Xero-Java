@@ -10,15 +10,34 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrolluk;
 
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrolluk.EmployeeLeave;
+import com.xero.models.payrolluk.Pagination;
+import com.xero.models.payrolluk.Problem;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/** EmployeeLeaveObject */
+/**
+ * EmployeeLeaveObject
+ */
+
 public class EmployeeLeaveObject {
   StringUtil util = new StringUtil();
 
@@ -30,17 +49,15 @@ public class EmployeeLeaveObject {
 
   @JsonProperty("leave")
   private EmployeeLeave leave;
-
   public EmployeeLeaveObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-  /**
+   /**
    * Get pagination
-   *
    * @return pagination
-   */
+  **/
   @ApiModelProperty(value = "")
   public Pagination getPagination() {
     return pagination;
@@ -55,11 +72,10 @@ public class EmployeeLeaveObject {
     return this;
   }
 
-  /**
+   /**
    * Get problem
-   *
    * @return problem
-   */
+  **/
   @ApiModelProperty(value = "")
   public Problem getProblem() {
     return problem;
@@ -74,11 +90,10 @@ public class EmployeeLeaveObject {
     return this;
   }
 
-  /**
+   /**
    * Get leave
-   *
    * @return leave
-   */
+  **/
   @ApiModelProperty(value = "")
   public EmployeeLeave getLeave() {
     return leave;
@@ -87,6 +102,7 @@ public class EmployeeLeaveObject {
   public void setLeave(EmployeeLeave leave) {
     this.leave = leave;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -97,15 +113,16 @@ public class EmployeeLeaveObject {
       return false;
     }
     EmployeeLeaveObject employeeLeaveObject = (EmployeeLeaveObject) o;
-    return Objects.equals(this.pagination, employeeLeaveObject.pagination)
-        && Objects.equals(this.problem, employeeLeaveObject.problem)
-        && Objects.equals(this.leave, employeeLeaveObject.leave);
+    return Objects.equals(this.pagination, employeeLeaveObject.pagination) &&
+        Objects.equals(this.problem, employeeLeaveObject.problem) &&
+        Objects.equals(this.leave, employeeLeaveObject.leave);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(pagination, problem, leave);
   }
+
 
   @Override
   public String toString() {
@@ -119,7 +136,8 @@ public class EmployeeLeaveObject {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -127,4 +145,6 @@ public class EmployeeLeaveObject {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

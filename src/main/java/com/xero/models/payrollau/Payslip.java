@@ -10,10 +10,23 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollau;
 
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollau.DeductionLine;
+import com.xero.models.payrollau.EarningsLine;
+import com.xero.models.payrollau.LeaveAccrualLine;
+import com.xero.models.payrollau.LeaveEarningsLine;
+import com.xero.models.payrollau.ReimbursementLine;
+import com.xero.models.payrollau.SuperannuationLine;
+import com.xero.models.payrollau.TaxLine;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +34,17 @@ import java.util.UUID;
 import java.io.IOException;
 
 import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/** Payslip */
+/**
+ * Payslip
+ */
+
 public class Payslip {
   StringUtil util = new StringUtil();
 
@@ -83,20 +104,16 @@ public class Payslip {
 
   @JsonProperty("UpdatedDateUTC")
   private String updatedDateUTC;
-
   public Payslip employeeID(UUID employeeID) {
     this.employeeID = employeeID;
     return this;
   }
 
-  /**
+   /**
    * The Xero identifier for an employee
-   *
    * @return employeeID
-   */
-  @ApiModelProperty(
-      example = "4729f087-8eec-49c1-8294-4d11a5a0a37c",
-      value = "The Xero identifier for an employee")
+  **/
+  @ApiModelProperty(example = "4729f087-8eec-49c1-8294-4d11a5a0a37c", value = "The Xero identifier for an employee")
   public UUID getEmployeeID() {
     return employeeID;
   }
@@ -110,14 +127,11 @@ public class Payslip {
     return this;
   }
 
-  /**
+   /**
    * Xero identifier for the payslip
-   *
    * @return payslipID
-   */
-  @ApiModelProperty(
-      example = "f3c0874d-7cdd-459a-a95c-d90d51decc42",
-      value = "Xero identifier for the payslip")
+  **/
+  @ApiModelProperty(example = "f3c0874d-7cdd-459a-a95c-d90d51decc42", value = "Xero identifier for the payslip")
   public UUID getPayslipID() {
     return payslipID;
   }
@@ -131,11 +145,10 @@ public class Payslip {
     return this;
   }
 
-  /**
+   /**
    * First name of employee
-   *
    * @return firstName
-   */
+  **/
   @ApiModelProperty(example = "Karen", value = "First name of employee")
   public String getFirstName() {
     return firstName;
@@ -150,11 +163,10 @@ public class Payslip {
     return this;
   }
 
-  /**
+   /**
    * Last name of employee
-   *
    * @return lastName
-   */
+  **/
   @ApiModelProperty(example = "Jones", value = "Last name of employee")
   public String getLastName() {
     return lastName;
@@ -169,11 +181,10 @@ public class Payslip {
     return this;
   }
 
-  /**
+   /**
    * The Wages for the Payslip
-   *
    * @return wages
-   */
+  **/
   @ApiModelProperty(example = "1060.5", value = "The Wages for the Payslip")
   public Double getWages() {
     return wages;
@@ -188,11 +199,10 @@ public class Payslip {
     return this;
   }
 
-  /**
+   /**
    * The Deductions for the Payslip
-   *
    * @return deductions
-   */
+  **/
   @ApiModelProperty(example = "0.0", value = "The Deductions for the Payslip")
   public Double getDeductions() {
     return deductions;
@@ -207,11 +217,10 @@ public class Payslip {
     return this;
   }
 
-  /**
+   /**
    * The Tax for the Payslip
-   *
    * @return tax
-   */
+  **/
   @ApiModelProperty(example = "198.0", value = "The Tax for the Payslip")
   public Double getTax() {
     return tax;
@@ -226,11 +235,10 @@ public class Payslip {
     return this;
   }
 
-  /**
+   /**
    * The Super for the Payslip
-   *
    * @return _super
-   */
+  **/
   @ApiModelProperty(example = "75.6", value = "The Super for the Payslip")
   public Double getSuper() {
     return _super;
@@ -245,11 +253,10 @@ public class Payslip {
     return this;
   }
 
-  /**
+   /**
    * The Reimbursements for the Payslip
-   *
    * @return reimbursements
-   */
+  **/
   @ApiModelProperty(example = "0.0", value = "The Reimbursements for the Payslip")
   public Double getReimbursements() {
     return reimbursements;
@@ -264,11 +271,10 @@ public class Payslip {
     return this;
   }
 
-  /**
+   /**
    * The NetPay for the Payslip
-   *
    * @return netPay
-   */
+  **/
   @ApiModelProperty(example = "862.5", value = "The NetPay for the Payslip")
   public Double getNetPay() {
     return netPay;
@@ -291,11 +297,10 @@ public class Payslip {
     return this;
   }
 
-  /**
+   /**
    * Get earningsLines
-   *
    * @return earningsLines
-   */
+  **/
   @ApiModelProperty(value = "")
   public List<EarningsLine> getEarningsLines() {
     return earningsLines;
@@ -318,11 +323,10 @@ public class Payslip {
     return this;
   }
 
-  /**
+   /**
    * Get leaveEarningsLines
-   *
    * @return leaveEarningsLines
-   */
+  **/
   @ApiModelProperty(value = "")
   public List<LeaveEarningsLine> getLeaveEarningsLines() {
     return leaveEarningsLines;
@@ -345,11 +349,10 @@ public class Payslip {
     return this;
   }
 
-  /**
+   /**
    * Get timesheetEarningsLines
-   *
    * @return timesheetEarningsLines
-   */
+  **/
   @ApiModelProperty(value = "")
   public List<EarningsLine> getTimesheetEarningsLines() {
     return timesheetEarningsLines;
@@ -372,11 +375,10 @@ public class Payslip {
     return this;
   }
 
-  /**
+   /**
    * Get deductionLines
-   *
    * @return deductionLines
-   */
+  **/
   @ApiModelProperty(value = "")
   public List<DeductionLine> getDeductionLines() {
     return deductionLines;
@@ -399,11 +401,10 @@ public class Payslip {
     return this;
   }
 
-  /**
+   /**
    * Get leaveAccrualLines
-   *
    * @return leaveAccrualLines
-   */
+  **/
   @ApiModelProperty(value = "")
   public List<LeaveAccrualLine> getLeaveAccrualLines() {
     return leaveAccrualLines;
@@ -426,11 +427,10 @@ public class Payslip {
     return this;
   }
 
-  /**
+   /**
    * Get reimbursementLines
-   *
    * @return reimbursementLines
-   */
+  **/
   @ApiModelProperty(value = "")
   public List<ReimbursementLine> getReimbursementLines() {
     return reimbursementLines;
@@ -453,11 +453,10 @@ public class Payslip {
     return this;
   }
 
-  /**
+   /**
    * Get superannuationLines
-   *
    * @return superannuationLines
-   */
+  **/
   @ApiModelProperty(value = "")
   public List<SuperannuationLine> getSuperannuationLines() {
     return superannuationLines;
@@ -480,11 +479,10 @@ public class Payslip {
     return this;
   }
 
-  /**
+   /**
    * Get taxLines
-   *
    * @return taxLines
-   */
+  **/
   @ApiModelProperty(value = "")
   public List<TaxLine> getTaxLines() {
     return taxLines;
@@ -494,26 +492,25 @@ public class Payslip {
     this.taxLines = taxLines;
   }
 
-  /**
+   /**
    * Last modified timestamp
-   *
    * @return updatedDateUTC
-   */
+  **/
   @ApiModelProperty(example = "/Date(1583967733054+0000)/", value = "Last modified timestamp")
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.updatedDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }
+      }  
     }
-    return null;
+    return null;        
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -524,50 +521,32 @@ public class Payslip {
       return false;
     }
     Payslip payslip = (Payslip) o;
-    return Objects.equals(this.employeeID, payslip.employeeID)
-        && Objects.equals(this.payslipID, payslip.payslipID)
-        && Objects.equals(this.firstName, payslip.firstName)
-        && Objects.equals(this.lastName, payslip.lastName)
-        && Objects.equals(this.wages, payslip.wages)
-        && Objects.equals(this.deductions, payslip.deductions)
-        && Objects.equals(this.tax, payslip.tax)
-        && Objects.equals(this._super, payslip._super)
-        && Objects.equals(this.reimbursements, payslip.reimbursements)
-        && Objects.equals(this.netPay, payslip.netPay)
-        && Objects.equals(this.earningsLines, payslip.earningsLines)
-        && Objects.equals(this.leaveEarningsLines, payslip.leaveEarningsLines)
-        && Objects.equals(this.timesheetEarningsLines, payslip.timesheetEarningsLines)
-        && Objects.equals(this.deductionLines, payslip.deductionLines)
-        && Objects.equals(this.leaveAccrualLines, payslip.leaveAccrualLines)
-        && Objects.equals(this.reimbursementLines, payslip.reimbursementLines)
-        && Objects.equals(this.superannuationLines, payslip.superannuationLines)
-        && Objects.equals(this.taxLines, payslip.taxLines)
-        && Objects.equals(this.updatedDateUTC, payslip.updatedDateUTC);
+    return Objects.equals(this.employeeID, payslip.employeeID) &&
+        Objects.equals(this.payslipID, payslip.payslipID) &&
+        Objects.equals(this.firstName, payslip.firstName) &&
+        Objects.equals(this.lastName, payslip.lastName) &&
+        Objects.equals(this.wages, payslip.wages) &&
+        Objects.equals(this.deductions, payslip.deductions) &&
+        Objects.equals(this.tax, payslip.tax) &&
+        Objects.equals(this._super, payslip._super) &&
+        Objects.equals(this.reimbursements, payslip.reimbursements) &&
+        Objects.equals(this.netPay, payslip.netPay) &&
+        Objects.equals(this.earningsLines, payslip.earningsLines) &&
+        Objects.equals(this.leaveEarningsLines, payslip.leaveEarningsLines) &&
+        Objects.equals(this.timesheetEarningsLines, payslip.timesheetEarningsLines) &&
+        Objects.equals(this.deductionLines, payslip.deductionLines) &&
+        Objects.equals(this.leaveAccrualLines, payslip.leaveAccrualLines) &&
+        Objects.equals(this.reimbursementLines, payslip.reimbursementLines) &&
+        Objects.equals(this.superannuationLines, payslip.superannuationLines) &&
+        Objects.equals(this.taxLines, payslip.taxLines) &&
+        Objects.equals(this.updatedDateUTC, payslip.updatedDateUTC);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        employeeID,
-        payslipID,
-        firstName,
-        lastName,
-        wages,
-        deductions,
-        tax,
-        _super,
-        reimbursements,
-        netPay,
-        earningsLines,
-        leaveEarningsLines,
-        timesheetEarningsLines,
-        deductionLines,
-        leaveAccrualLines,
-        reimbursementLines,
-        superannuationLines,
-        taxLines,
-        updatedDateUTC);
+    return Objects.hash(employeeID, payslipID, firstName, lastName, wages, deductions, tax, _super, reimbursements, netPay, earningsLines, leaveEarningsLines, timesheetEarningsLines, deductionLines, leaveAccrualLines, reimbursementLines, superannuationLines, taxLines, updatedDateUTC);
   }
+
 
   @Override
   public String toString() {
@@ -585,15 +564,11 @@ public class Payslip {
     sb.append("    netPay: ").append(toIndentedString(netPay)).append("\n");
     sb.append("    earningsLines: ").append(toIndentedString(earningsLines)).append("\n");
     sb.append("    leaveEarningsLines: ").append(toIndentedString(leaveEarningsLines)).append("\n");
-    sb.append("    timesheetEarningsLines: ")
-        .append(toIndentedString(timesheetEarningsLines))
-        .append("\n");
+    sb.append("    timesheetEarningsLines: ").append(toIndentedString(timesheetEarningsLines)).append("\n");
     sb.append("    deductionLines: ").append(toIndentedString(deductionLines)).append("\n");
     sb.append("    leaveAccrualLines: ").append(toIndentedString(leaveAccrualLines)).append("\n");
     sb.append("    reimbursementLines: ").append(toIndentedString(reimbursementLines)).append("\n");
-    sb.append("    superannuationLines: ")
-        .append(toIndentedString(superannuationLines))
-        .append("\n");
+    sb.append("    superannuationLines: ").append(toIndentedString(superannuationLines)).append("\n");
     sb.append("    taxLines: ").append(toIndentedString(taxLines)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
     sb.append("}");
@@ -601,7 +576,8 @@ public class Payslip {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -609,4 +585,6 @@ public class Payslip {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

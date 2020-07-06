@@ -10,17 +10,33 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrolluk;
 
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import org.threeten.bp.OffsetDateTime;
+import java.io.IOException;
 
+import org.threeten.bp.OffsetDateTime;
 import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/** LeaveType */
+/**
+ * LeaveType
+ */
+
 public class LeaveType {
   StringUtil util = new StringUtil();
 
@@ -47,17 +63,15 @@ public class LeaveType {
 
   @JsonProperty("isStatutoryLeave")
   private Boolean isStatutoryLeave;
-
   public LeaveType leaveID(UUID leaveID) {
     this.leaveID = leaveID;
     return this;
   }
 
-  /**
+   /**
    * Xero unique identifier for the leave
-   *
    * @return leaveID
-   */
+  **/
   @ApiModelProperty(value = "Xero unique identifier for the leave")
   public UUID getLeaveID() {
     return leaveID;
@@ -72,11 +86,10 @@ public class LeaveType {
     return this;
   }
 
-  /**
+   /**
    * Xero unique identifier for the leave type
-   *
    * @return leaveTypeID
-   */
+  **/
   @ApiModelProperty(value = "Xero unique identifier for the leave type")
   public UUID getLeaveTypeID() {
     return leaveTypeID;
@@ -91,11 +104,10 @@ public class LeaveType {
     return this;
   }
 
-  /**
+   /**
    * Name of the leave type
-   *
    * @return name
-   */
+  **/
   @ApiModelProperty(required = true, value = "Name of the leave type")
   public String getName() {
     return name;
@@ -110,14 +122,11 @@ public class LeaveType {
     return this;
   }
 
-  /**
+   /**
    * Indicate that an employee will be paid when taking this type of leave
-   *
    * @return isPaidLeave
-   */
-  @ApiModelProperty(
-      required = true,
-      value = "Indicate that an employee will be paid when taking this type of leave")
+  **/
+  @ApiModelProperty(required = true, value = "Indicate that an employee will be paid when taking this type of leave")
   public Boolean getIsPaidLeave() {
     return isPaidLeave;
   }
@@ -131,14 +140,11 @@ public class LeaveType {
     return this;
   }
 
-  /**
+   /**
    * Indicate that a balance for this leave type to be shown on the employee’s payslips
-   *
    * @return showOnPayslip
-   */
-  @ApiModelProperty(
-      required = true,
-      value = "Indicate that a balance for this leave type to be shown on the employee’s payslips")
+  **/
+  @ApiModelProperty(required = true, value = "Indicate that a balance for this leave type to be shown on the employee’s payslips")
   public Boolean getShowOnPayslip() {
     return showOnPayslip;
   }
@@ -152,11 +158,10 @@ public class LeaveType {
     return this;
   }
 
-  /**
+   /**
    * UTC timestamp of last update to the leave type note
-   *
    * @return updatedDateUTC
-   */
+  **/
   @ApiModelProperty(value = "UTC timestamp of last update to the leave type note")
   public LocalDateTime getUpdatedDateUTC() {
     return updatedDateUTC;
@@ -171,11 +176,10 @@ public class LeaveType {
     return this;
   }
 
-  /**
+   /**
    * Shows whether the leave type is active or not
-   *
    * @return isActive
-   */
+  **/
   @ApiModelProperty(value = "Shows whether the leave type is active or not")
   public Boolean getIsActive() {
     return isActive;
@@ -190,11 +194,10 @@ public class LeaveType {
     return this;
   }
 
-  /**
+   /**
    * Shows whether the leave type is a statutory leave type or not
-   *
    * @return isStatutoryLeave
-   */
+  **/
   @ApiModelProperty(value = "Shows whether the leave type is a statutory leave type or not")
   public Boolean getIsStatutoryLeave() {
     return isStatutoryLeave;
@@ -203,6 +206,7 @@ public class LeaveType {
   public void setIsStatutoryLeave(Boolean isStatutoryLeave) {
     this.isStatutoryLeave = isStatutoryLeave;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -213,28 +217,21 @@ public class LeaveType {
       return false;
     }
     LeaveType leaveType = (LeaveType) o;
-    return Objects.equals(this.leaveID, leaveType.leaveID)
-        && Objects.equals(this.leaveTypeID, leaveType.leaveTypeID)
-        && Objects.equals(this.name, leaveType.name)
-        && Objects.equals(this.isPaidLeave, leaveType.isPaidLeave)
-        && Objects.equals(this.showOnPayslip, leaveType.showOnPayslip)
-        && Objects.equals(this.updatedDateUTC, leaveType.updatedDateUTC)
-        && Objects.equals(this.isActive, leaveType.isActive)
-        && Objects.equals(this.isStatutoryLeave, leaveType.isStatutoryLeave);
+    return Objects.equals(this.leaveID, leaveType.leaveID) &&
+        Objects.equals(this.leaveTypeID, leaveType.leaveTypeID) &&
+        Objects.equals(this.name, leaveType.name) &&
+        Objects.equals(this.isPaidLeave, leaveType.isPaidLeave) &&
+        Objects.equals(this.showOnPayslip, leaveType.showOnPayslip) &&
+        Objects.equals(this.updatedDateUTC, leaveType.updatedDateUTC) &&
+        Objects.equals(this.isActive, leaveType.isActive) &&
+        Objects.equals(this.isStatutoryLeave, leaveType.isStatutoryLeave);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        leaveID,
-        leaveTypeID,
-        name,
-        isPaidLeave,
-        showOnPayslip,
-        updatedDateUTC,
-        isActive,
-        isStatutoryLeave);
+    return Objects.hash(leaveID, leaveTypeID, name, isPaidLeave, showOnPayslip, updatedDateUTC, isActive, isStatutoryLeave);
   }
+
 
   @Override
   public String toString() {
@@ -253,7 +250,8 @@ public class LeaveType {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -261,4 +259,6 @@ public class LeaveType {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

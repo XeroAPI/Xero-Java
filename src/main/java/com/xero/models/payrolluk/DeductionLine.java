@@ -10,16 +10,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrolluk;
 
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
+import java.io.IOException;
 
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/** DeductionLine */
+/**
+ * DeductionLine
+ */
+
 public class DeductionLine {
   StringUtil util = new StringUtil();
 
@@ -34,17 +50,15 @@ public class DeductionLine {
 
   @JsonProperty("percentage")
   private Double percentage;
-
   public DeductionLine deductionTypeID(UUID deductionTypeID) {
     this.deductionTypeID = deductionTypeID;
     return this;
   }
 
-  /**
+   /**
    * Xero identifier for payroll deduction
-   *
    * @return deductionTypeID
-   */
+  **/
   @ApiModelProperty(value = "Xero identifier for payroll deduction")
   public UUID getDeductionTypeID() {
     return deductionTypeID;
@@ -59,11 +73,10 @@ public class DeductionLine {
     return this;
   }
 
-  /**
+   /**
    * The amount of the deduction line
-   *
    * @return amount
-   */
+  **/
   @ApiModelProperty(value = "The amount of the deduction line")
   public Double getAmount() {
     return amount;
@@ -78,11 +91,10 @@ public class DeductionLine {
     return this;
   }
 
-  /**
+   /**
    * Identifies if the deduction is subject to tax
-   *
    * @return subjectToTax
-   */
+  **/
   @ApiModelProperty(value = "Identifies if the deduction is subject to tax")
   public Boolean getSubjectToTax() {
     return subjectToTax;
@@ -97,11 +109,10 @@ public class DeductionLine {
     return this;
   }
 
-  /**
+   /**
    * Deduction rate percentage
-   *
    * @return percentage
-   */
+  **/
   @ApiModelProperty(value = "Deduction rate percentage")
   public Double getPercentage() {
     return percentage;
@@ -110,6 +121,7 @@ public class DeductionLine {
   public void setPercentage(Double percentage) {
     this.percentage = percentage;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -120,16 +132,17 @@ public class DeductionLine {
       return false;
     }
     DeductionLine deductionLine = (DeductionLine) o;
-    return Objects.equals(this.deductionTypeID, deductionLine.deductionTypeID)
-        && Objects.equals(this.amount, deductionLine.amount)
-        && Objects.equals(this.subjectToTax, deductionLine.subjectToTax)
-        && Objects.equals(this.percentage, deductionLine.percentage);
+    return Objects.equals(this.deductionTypeID, deductionLine.deductionTypeID) &&
+        Objects.equals(this.amount, deductionLine.amount) &&
+        Objects.equals(this.subjectToTax, deductionLine.subjectToTax) &&
+        Objects.equals(this.percentage, deductionLine.percentage);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(deductionTypeID, amount, subjectToTax, percentage);
   }
+
 
   @Override
   public String toString() {
@@ -144,7 +157,8 @@ public class DeductionLine {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -152,4 +166,6 @@ public class DeductionLine {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

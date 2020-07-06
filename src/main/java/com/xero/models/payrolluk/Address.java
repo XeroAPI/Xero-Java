@@ -10,15 +10,31 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrolluk;
 
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/** Address */
+/**
+ * Address
+ */
+
 public class Address {
   StringUtil util = new StringUtil();
 
@@ -36,21 +52,16 @@ public class Address {
 
   @JsonProperty("countryName")
   private String countryName;
-
   public Address addressLine1(String addressLine1) {
     this.addressLine1 = addressLine1;
     return this;
   }
 
-  /**
+   /**
    * Address line 1 for employee home address
-   *
    * @return addressLine1
-   */
-  @ApiModelProperty(
-      example = "123 Main St",
-      required = true,
-      value = "Address line 1 for employee home address")
+  **/
+  @ApiModelProperty(example = "123 Main St", required = true, value = "Address line 1 for employee home address")
   public String getAddressLine1() {
     return addressLine1;
   }
@@ -64,11 +75,10 @@ public class Address {
     return this;
   }
 
-  /**
+   /**
    * Address line 2 for employee home address
-   *
    * @return addressLine2
-   */
+  **/
   @ApiModelProperty(example = "Apt 4", value = "Address line 2 for employee home address")
   public String getAddressLine2() {
     return addressLine2;
@@ -83,11 +93,10 @@ public class Address {
     return this;
   }
 
-  /**
+   /**
    * Suburb for employee home address
-   *
    * @return city
-   */
+  **/
   @ApiModelProperty(example = "Fulham", required = true, value = "Suburb for employee home address")
   public String getCity() {
     return city;
@@ -102,15 +111,11 @@ public class Address {
     return this;
   }
 
-  /**
+   /**
    * PostCode for employee home address
-   *
    * @return postCode
-   */
-  @ApiModelProperty(
-      example = "SW6 6EY",
-      required = true,
-      value = "PostCode for employee home address")
+  **/
+  @ApiModelProperty(example = "SW6 6EY", required = true, value = "PostCode for employee home address")
   public String getPostCode() {
     return postCode;
   }
@@ -124,11 +129,10 @@ public class Address {
     return this;
   }
 
-  /**
+   /**
    * Country of HomeAddress
-   *
    * @return countryName
-   */
+  **/
   @ApiModelProperty(example = "United Kingdom", value = "Country of HomeAddress")
   public String getCountryName() {
     return countryName;
@@ -137,6 +141,7 @@ public class Address {
   public void setCountryName(String countryName) {
     this.countryName = countryName;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -147,17 +152,18 @@ public class Address {
       return false;
     }
     Address address = (Address) o;
-    return Objects.equals(this.addressLine1, address.addressLine1)
-        && Objects.equals(this.addressLine2, address.addressLine2)
-        && Objects.equals(this.city, address.city)
-        && Objects.equals(this.postCode, address.postCode)
-        && Objects.equals(this.countryName, address.countryName);
+    return Objects.equals(this.addressLine1, address.addressLine1) &&
+        Objects.equals(this.addressLine2, address.addressLine2) &&
+        Objects.equals(this.city, address.city) &&
+        Objects.equals(this.postCode, address.postCode) &&
+        Objects.equals(this.countryName, address.countryName);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(addressLine1, addressLine2, city, postCode, countryName);
   }
+
 
   @Override
   public String toString() {
@@ -173,7 +179,8 @@ public class Address {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -181,4 +188,6 @@ public class Address {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

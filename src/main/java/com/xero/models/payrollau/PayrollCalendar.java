@@ -10,10 +10,18 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrollau;
 
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import com.xero.models.payrollau.CalendarType;
+import com.xero.models.payrollau.ValidationError;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +29,17 @@ import java.util.UUID;
 import java.io.IOException;
 
 import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneId;
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/** PayrollCalendar */
+/**
+ * PayrollCalendar
+ */
+
 public class PayrollCalendar {
   StringUtil util = new StringUtil();
 
@@ -50,17 +63,15 @@ public class PayrollCalendar {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
-
   public PayrollCalendar name(String name) {
     this.name = name;
     return this;
   }
 
-  /**
+   /**
    * Name of the Payroll Calendar
-   *
    * @return name
-   */
+  **/
   @ApiModelProperty(example = "Fortnightly Calendar", value = "Name of the Payroll Calendar")
   public String getName() {
     return name;
@@ -75,11 +86,10 @@ public class PayrollCalendar {
     return this;
   }
 
-  /**
+   /**
    * Get calendarType
-   *
    * @return calendarType
-   */
+  **/
   @ApiModelProperty(value = "")
   public CalendarType getCalendarType() {
     return calendarType;
@@ -94,30 +104,23 @@ public class PayrollCalendar {
     return this;
   }
 
-  /**
-   * The start date of the upcoming pay period. The end date will be calculated based upon this
-   * date, and the calendar type selected (YYYY-MM-DD)
-   *
+   /**
+   * The start date of the upcoming pay period. The end date will be calculated based upon this date, and the calendar type selected (YYYY-MM-DD)
    * @return startDate
-   */
-  @ApiModelProperty(
-      example = "/Date(322560000000+0000)/",
-      value =
-          "The start date of the upcoming pay period. The end date will be calculated based upon"
-              + " this date, and the calendar type selected (YYYY-MM-DD)")
+  **/
+  @ApiModelProperty(example = "/Date(322560000000+0000)/", value = "The start date of the upcoming pay period. The end date will be calculated based upon this date, and the calendar type selected (YYYY-MM-DD)")
   public String getStartDate() {
     return startDate;
   }
-
   public LocalDate getStartDateAsDate() {
     if (this.startDate != null) {
       try {
         return util.convertStringToDate(this.startDate);
       } catch (IOException e) {
         e.printStackTrace();
-      }
+      }  
     }
-    return null;
+    return null;        
   }
 
   public void setStartDate(String startDate) {
@@ -125,8 +128,8 @@ public class PayrollCalendar {
   }
 
   public void setStartDate(LocalDate startDate) {
-    // CONVERT LocalDate args into MS DateFromat String
-    Instant instant = startDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
+    //CONVERT LocalDate args into MS DateFromat String
+    Instant instant =  startDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();  
     long timeInMillis = instant.toEpochMilli();
 
     this.startDate = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
@@ -137,27 +140,23 @@ public class PayrollCalendar {
     return this;
   }
 
-  /**
+   /**
    * The date on which employees will be paid for the upcoming pay period (YYYY-MM-DD)
-   *
    * @return paymentDate
-   */
-  @ApiModelProperty(
-      example = "/Date(322560000000+0000)/",
-      value = "The date on which employees will be paid for the upcoming pay period (YYYY-MM-DD)")
+  **/
+  @ApiModelProperty(example = "/Date(322560000000+0000)/", value = "The date on which employees will be paid for the upcoming pay period (YYYY-MM-DD)")
   public String getPaymentDate() {
     return paymentDate;
   }
-
   public LocalDate getPaymentDateAsDate() {
     if (this.paymentDate != null) {
       try {
         return util.convertStringToDate(this.paymentDate);
       } catch (IOException e) {
         e.printStackTrace();
-      }
+      }  
     }
-    return null;
+    return null;        
   }
 
   public void setPaymentDate(String paymentDate) {
@@ -165,8 +164,8 @@ public class PayrollCalendar {
   }
 
   public void setPaymentDate(LocalDate paymentDate) {
-    // CONVERT LocalDate args into MS DateFromat String
-    Instant instant = paymentDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
+    //CONVERT LocalDate args into MS DateFromat String
+    Instant instant =  paymentDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();  
     long timeInMillis = instant.toEpochMilli();
 
     this.paymentDate = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
@@ -177,11 +176,10 @@ public class PayrollCalendar {
     return this;
   }
 
-  /**
+   /**
    * Xero identifier
-   *
    * @return payrollCalendarID
-   */
+  **/
   @ApiModelProperty(example = "e0eb6747-7c17-4075-b804-989f8d4e5d39", value = "Xero identifier")
   public UUID getPayrollCalendarID() {
     return payrollCalendarID;
@@ -191,25 +189,23 @@ public class PayrollCalendar {
     this.payrollCalendarID = payrollCalendarID;
   }
 
-  /**
+   /**
    * Last modified timestamp
-   *
    * @return updatedDateUTC
-   */
+  **/
   @ApiModelProperty(example = "/Date(1583967733054+0000)/", value = "Last modified timestamp")
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.updatedDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }
+      }  
     }
-    return null;
+    return null;        
   }
 
   public PayrollCalendar validationErrors(List<ValidationError> validationErrors) {
@@ -225,11 +221,10 @@ public class PayrollCalendar {
     return this;
   }
 
-  /**
+   /**
    * Displays array of validation error messages from the API
-   *
    * @return validationErrors
-   */
+  **/
   @ApiModelProperty(value = "Displays array of validation error messages from the API")
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
@@ -238,6 +233,7 @@ public class PayrollCalendar {
   public void setValidationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -248,26 +244,20 @@ public class PayrollCalendar {
       return false;
     }
     PayrollCalendar payrollCalendar = (PayrollCalendar) o;
-    return Objects.equals(this.name, payrollCalendar.name)
-        && Objects.equals(this.calendarType, payrollCalendar.calendarType)
-        && Objects.equals(this.startDate, payrollCalendar.startDate)
-        && Objects.equals(this.paymentDate, payrollCalendar.paymentDate)
-        && Objects.equals(this.payrollCalendarID, payrollCalendar.payrollCalendarID)
-        && Objects.equals(this.updatedDateUTC, payrollCalendar.updatedDateUTC)
-        && Objects.equals(this.validationErrors, payrollCalendar.validationErrors);
+    return Objects.equals(this.name, payrollCalendar.name) &&
+        Objects.equals(this.calendarType, payrollCalendar.calendarType) &&
+        Objects.equals(this.startDate, payrollCalendar.startDate) &&
+        Objects.equals(this.paymentDate, payrollCalendar.paymentDate) &&
+        Objects.equals(this.payrollCalendarID, payrollCalendar.payrollCalendarID) &&
+        Objects.equals(this.updatedDateUTC, payrollCalendar.updatedDateUTC) &&
+        Objects.equals(this.validationErrors, payrollCalendar.validationErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        name,
-        calendarType,
-        startDate,
-        paymentDate,
-        payrollCalendarID,
-        updatedDateUTC,
-        validationErrors);
+    return Objects.hash(name, calendarType, startDate, paymentDate, payrollCalendarID, updatedDateUTC, validationErrors);
   }
+
 
   @Override
   public String toString() {
@@ -285,7 +275,8 @@ public class PayrollCalendar {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -293,4 +284,6 @@ public class PayrollCalendar {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

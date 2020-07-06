@@ -10,20 +10,32 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.accounting;
 
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.UUID;
 import java.io.IOException;
 
 import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/** User */
+/**
+ * User
+ */
+
 public class User {
   StringUtil util = new StringUtil();
 
@@ -45,22 +57,21 @@ public class User {
   @JsonProperty("IsSubscriber")
   private Boolean isSubscriber;
   /**
-   * User role that defines permissions in Xero and via API (READONLY, INVOICEONLY, STANDARD,
-   * FINANCIALADVISER, etc)
+   * User role that defines permissions in Xero and via API (READONLY, INVOICEONLY, STANDARD, FINANCIALADVISER, etc)
    */
   public enum OrganisationRoleEnum {
     READONLY("READONLY"),
-
+    
     INVOICEONLY("INVOICEONLY"),
-
+    
     STANDARD("STANDARD"),
-
+    
     FINANCIALADVISER("FINANCIALADVISER"),
-
+    
     MANAGEDCLIENT("MANAGEDCLIENT"),
-
+    
     CASHBOOKCLIENT("CASHBOOKCLIENT"),
-
+    
     UNKNOWN("UNKNOWN");
 
     private String value;
@@ -90,19 +101,18 @@ public class User {
     }
   }
 
+
   @JsonProperty("OrganisationRole")
   private OrganisationRoleEnum organisationRole;
-
   public User userID(UUID userID) {
     this.userID = userID;
     return this;
   }
 
-  /**
+   /**
    * Xero identifier
-   *
    * @return userID
-   */
+  **/
   @ApiModelProperty(value = "Xero identifier")
   public UUID getUserID() {
     return userID;
@@ -117,11 +127,10 @@ public class User {
     return this;
   }
 
-  /**
+   /**
    * Email address of user
-   *
    * @return emailAddress
-   */
+  **/
   @ApiModelProperty(value = "Email address of user")
   public String getEmailAddress() {
     return emailAddress;
@@ -136,11 +145,10 @@ public class User {
     return this;
   }
 
-  /**
+   /**
    * First name of user
-   *
    * @return firstName
-   */
+  **/
   @ApiModelProperty(value = "First name of user")
   public String getFirstName() {
     return firstName;
@@ -155,11 +163,10 @@ public class User {
     return this;
   }
 
-  /**
+   /**
    * Last name of user
-   *
    * @return lastName
-   */
+  **/
   @ApiModelProperty(value = "Last name of user")
   public String getLastName() {
     return lastName;
@@ -169,25 +176,23 @@ public class User {
     this.lastName = lastName;
   }
 
-  /**
+   /**
    * Timestamp of last change to user
-   *
    * @return updatedDateUTC
-   */
+  **/
   @ApiModelProperty(example = "/Date(1573755038314)/", value = "Timestamp of last change to user")
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.updatedDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }
+      }  
     }
-    return null;
+    return null;        
   }
 
   public User isSubscriber(Boolean isSubscriber) {
@@ -195,11 +200,10 @@ public class User {
     return this;
   }
 
-  /**
+   /**
    * Boolean to indicate if user is the subscriber
-   *
    * @return isSubscriber
-   */
+  **/
   @ApiModelProperty(value = "Boolean to indicate if user is the subscriber")
   public Boolean getIsSubscriber() {
     return isSubscriber;
@@ -214,16 +218,11 @@ public class User {
     return this;
   }
 
-  /**
-   * User role that defines permissions in Xero and via API (READONLY, INVOICEONLY, STANDARD,
-   * FINANCIALADVISER, etc)
-   *
+   /**
+   * User role that defines permissions in Xero and via API (READONLY, INVOICEONLY, STANDARD, FINANCIALADVISER, etc)
    * @return organisationRole
-   */
-  @ApiModelProperty(
-      value =
-          "User role that defines permissions in Xero and via API (READONLY, INVOICEONLY,"
-              + " STANDARD, FINANCIALADVISER, etc)")
+  **/
+  @ApiModelProperty(value = "User role that defines permissions in Xero and via API (READONLY, INVOICEONLY, STANDARD, FINANCIALADVISER, etc)")
   public OrganisationRoleEnum getOrganisationRole() {
     return organisationRole;
   }
@@ -231,6 +230,7 @@ public class User {
   public void setOrganisationRole(OrganisationRoleEnum organisationRole) {
     this.organisationRole = organisationRole;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -241,20 +241,20 @@ public class User {
       return false;
     }
     User user = (User) o;
-    return Objects.equals(this.userID, user.userID)
-        && Objects.equals(this.emailAddress, user.emailAddress)
-        && Objects.equals(this.firstName, user.firstName)
-        && Objects.equals(this.lastName, user.lastName)
-        && Objects.equals(this.updatedDateUTC, user.updatedDateUTC)
-        && Objects.equals(this.isSubscriber, user.isSubscriber)
-        && Objects.equals(this.organisationRole, user.organisationRole);
+    return Objects.equals(this.userID, user.userID) &&
+        Objects.equals(this.emailAddress, user.emailAddress) &&
+        Objects.equals(this.firstName, user.firstName) &&
+        Objects.equals(this.lastName, user.lastName) &&
+        Objects.equals(this.updatedDateUTC, user.updatedDateUTC) &&
+        Objects.equals(this.isSubscriber, user.isSubscriber) &&
+        Objects.equals(this.organisationRole, user.organisationRole);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        userID, emailAddress, firstName, lastName, updatedDateUTC, isSubscriber, organisationRole);
+    return Objects.hash(userID, emailAddress, firstName, lastName, updatedDateUTC, isSubscriber, organisationRole);
   }
+
 
   @Override
   public String toString() {
@@ -272,7 +272,8 @@ public class User {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -280,4 +281,6 @@ public class User {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+

@@ -10,15 +10,31 @@
  * Do not edit the class manually.
  */
 
+
 package com.xero.models.payrolluk;
 
 import java.util.Objects;
+import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.Instant;
+import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/** Pagination */
+/**
+ * Pagination
+ */
+
 public class Pagination {
   StringUtil util = new StringUtil();
 
@@ -33,17 +49,15 @@ public class Pagination {
 
   @JsonProperty("itemCount")
   private Integer itemCount;
-
   public Pagination page(Integer page) {
     this.page = page;
     return this;
   }
 
-  /**
+   /**
    * Get page
-   *
    * @return page
-   */
+  **/
   @ApiModelProperty(example = "1", value = "")
   public Integer getPage() {
     return page;
@@ -58,11 +72,10 @@ public class Pagination {
     return this;
   }
 
-  /**
+   /**
    * Get pageSize
-   *
    * @return pageSize
-   */
+  **/
   @ApiModelProperty(example = "10", value = "")
   public Integer getPageSize() {
     return pageSize;
@@ -77,11 +90,10 @@ public class Pagination {
     return this;
   }
 
-  /**
+   /**
    * Get pageCount
-   *
    * @return pageCount
-   */
+  **/
   @ApiModelProperty(example = "1", value = "")
   public Integer getPageCount() {
     return pageCount;
@@ -96,11 +108,10 @@ public class Pagination {
     return this;
   }
 
-  /**
+   /**
    * Get itemCount
-   *
    * @return itemCount
-   */
+  **/
   @ApiModelProperty(example = "2", value = "")
   public Integer getItemCount() {
     return itemCount;
@@ -109,6 +120,7 @@ public class Pagination {
   public void setItemCount(Integer itemCount) {
     this.itemCount = itemCount;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -119,16 +131,17 @@ public class Pagination {
       return false;
     }
     Pagination pagination = (Pagination) o;
-    return Objects.equals(this.page, pagination.page)
-        && Objects.equals(this.pageSize, pagination.pageSize)
-        && Objects.equals(this.pageCount, pagination.pageCount)
-        && Objects.equals(this.itemCount, pagination.itemCount);
+    return Objects.equals(this.page, pagination.page) &&
+        Objects.equals(this.pageSize, pagination.pageSize) &&
+        Objects.equals(this.pageCount, pagination.pageCount) &&
+        Objects.equals(this.itemCount, pagination.itemCount);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(page, pageSize, pageCount, itemCount);
   }
+
 
   @Override
   public String toString() {
@@ -143,7 +156,8 @@ public class Pagination {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -151,4 +165,6 @@ public class Pagination {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
 }
+
