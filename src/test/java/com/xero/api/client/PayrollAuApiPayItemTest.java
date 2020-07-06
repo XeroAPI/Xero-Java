@@ -101,7 +101,7 @@ public class PayrollAuApiPayItemTest {
         assertThat(response.getPayItems().getLeaveTypes().get(0).getLeaveTypeID(), is(equalTo(UUID.fromString("fbcc9dab-6238-43d9-a3f4-d768423fdcfa"))));
         assertThat(response.getPayItems().getLeaveTypes().get(0).getName(), is(equalTo("Annual Leave")));        
         assertThat(response.getPayItems().getLeaveTypes().get(0).getTypeOfUnits(), is(equalTo("Hours")));
-        assertThat(response.getPayItems().getLeaveTypes().get(0).getNormalEntitlement(), is(equalTo(152)));
+        assertThat(response.getPayItems().getLeaveTypes().get(0).getNormalEntitlement(), is(equalTo(152.00)));
         assertThat(response.getPayItems().getLeaveTypes().get(0).getLeaveLoadingRate(), is(equalTo(1)));
         assertThat(response.getPayItems().getLeaveTypes().get(0).getIsPaidLeave(), is(equalTo(true)));
         assertThat(response.getPayItems().getLeaveTypes().get(0).getShowOnPayslip(), is(equalTo(true)));
