@@ -10,35 +10,19 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.accounting;
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.accounting.Purchase;
-import com.xero.models.accounting.ValidationError;
-import io.swagger.annotations.ApiModel;
+import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
-import java.io.IOException;
-
 import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
-import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * Item
- */
-
+/** Item */
 public class Item {
   StringUtil util = new StringUtil();
 
@@ -89,15 +73,17 @@ public class Item {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
+
   public Item code(String code) {
     this.code = code;
     return this;
   }
 
-   /**
+  /**
    * User defined item code (max length &#x3D; 30)
+   *
    * @return code
-  **/
+   */
   @ApiModelProperty(required = true, value = "User defined item code (max length = 30)")
   public String getCode() {
     return code;
@@ -112,11 +98,16 @@ public class Item {
     return this;
   }
 
-   /**
-   * The inventory asset account for the item. The account must be of type INVENTORY. The  COGSAccountCode in PurchaseDetails is also required to create a tracked item
+  /**
+   * The inventory asset account for the item. The account must be of type INVENTORY. The
+   * COGSAccountCode in PurchaseDetails is also required to create a tracked item
+   *
    * @return inventoryAssetAccountCode
-  **/
-  @ApiModelProperty(value = "The inventory asset account for the item. The account must be of type INVENTORY. The  COGSAccountCode in PurchaseDetails is also required to create a tracked item")
+   */
+  @ApiModelProperty(
+      value =
+          "The inventory asset account for the item. The account must be of type INVENTORY. The "
+              + " COGSAccountCode in PurchaseDetails is also required to create a tracked item")
   public String getInventoryAssetAccountCode() {
     return inventoryAssetAccountCode;
   }
@@ -130,10 +121,11 @@ public class Item {
     return this;
   }
 
-   /**
+  /**
    * The name of the item (max length &#x3D; 50)
+   *
    * @return name
-  **/
+   */
   @ApiModelProperty(value = "The name of the item (max length = 50)")
   public String getName() {
     return name;
@@ -148,11 +140,18 @@ public class Item {
     return this;
   }
 
-   /**
-   * Boolean value, defaults to true. When IsSold is true the item will be available on sales transactions in the Xero UI. If IsSold is updated to false then Description and SalesDetails values will be nulled.
+  /**
+   * Boolean value, defaults to true. When IsSold is true the item will be available on sales
+   * transactions in the Xero UI. If IsSold is updated to false then Description and SalesDetails
+   * values will be nulled.
+   *
    * @return isSold
-  **/
-  @ApiModelProperty(value = "Boolean value, defaults to true. When IsSold is true the item will be available on sales transactions in the Xero UI. If IsSold is updated to false then Description and SalesDetails values will be nulled.")
+   */
+  @ApiModelProperty(
+      value =
+          "Boolean value, defaults to true. When IsSold is true the item will be available on"
+              + " sales transactions in the Xero UI. If IsSold is updated to false then"
+              + " Description and SalesDetails values will be nulled.")
   public Boolean getIsSold() {
     return isSold;
   }
@@ -166,11 +165,18 @@ public class Item {
     return this;
   }
 
-   /**
-   * Boolean value, defaults to true. When IsPurchased is true the item is available for purchase transactions in the Xero UI. If IsPurchased is updated to false then PurchaseDescription and PurchaseDetails values will be nulled.
+  /**
+   * Boolean value, defaults to true. When IsPurchased is true the item is available for purchase
+   * transactions in the Xero UI. If IsPurchased is updated to false then PurchaseDescription and
+   * PurchaseDetails values will be nulled.
+   *
    * @return isPurchased
-  **/
-  @ApiModelProperty(value = "Boolean value, defaults to true. When IsPurchased is true the item is available for purchase transactions in the Xero UI. If IsPurchased is updated to false then PurchaseDescription and PurchaseDetails values will be nulled.")
+   */
+  @ApiModelProperty(
+      value =
+          "Boolean value, defaults to true. When IsPurchased is true the item is available for"
+              + " purchase transactions in the Xero UI. If IsPurchased is updated to false then"
+              + " PurchaseDescription and PurchaseDetails values will be nulled.")
   public Boolean getIsPurchased() {
     return isPurchased;
   }
@@ -184,10 +190,11 @@ public class Item {
     return this;
   }
 
-   /**
+  /**
    * The sales description of the item (max length &#x3D; 4000)
+   *
    * @return description
-  **/
+   */
   @ApiModelProperty(value = "The sales description of the item (max length = 4000)")
   public String getDescription() {
     return description;
@@ -202,10 +209,11 @@ public class Item {
     return this;
   }
 
-   /**
+  /**
    * The purchase description of the item (max length &#x3D; 4000)
+   *
    * @return purchaseDescription
-  **/
+   */
   @ApiModelProperty(value = "The purchase description of the item (max length = 4000)")
   public String getPurchaseDescription() {
     return purchaseDescription;
@@ -220,10 +228,11 @@ public class Item {
     return this;
   }
 
-   /**
+  /**
    * Get purchaseDetails
+   *
    * @return purchaseDetails
-  **/
+   */
   @ApiModelProperty(value = "")
   public Purchase getPurchaseDetails() {
     return purchaseDetails;
@@ -238,10 +247,11 @@ public class Item {
     return this;
   }
 
-   /**
+  /**
    * Get salesDetails
+   *
    * @return salesDetails
-  **/
+   */
   @ApiModelProperty(value = "")
   public Purchase getSalesDetails() {
     return salesDetails;
@@ -256,11 +266,16 @@ public class Item {
     return this;
   }
 
-   /**
-   * True for items that are tracked as inventory. An item will be tracked as inventory if the InventoryAssetAccountCode and COGSAccountCode are set.
+  /**
+   * True for items that are tracked as inventory. An item will be tracked as inventory if the
+   * InventoryAssetAccountCode and COGSAccountCode are set.
+   *
    * @return isTrackedAsInventory
-  **/
-  @ApiModelProperty(value = "True for items that are tracked as inventory. An item will be tracked as inventory if the InventoryAssetAccountCode and COGSAccountCode are set.")
+   */
+  @ApiModelProperty(
+      value =
+          "True for items that are tracked as inventory. An item will be tracked as inventory if"
+              + " the InventoryAssetAccountCode and COGSAccountCode are set.")
   public Boolean getIsTrackedAsInventory() {
     return isTrackedAsInventory;
   }
@@ -274,11 +289,13 @@ public class Item {
     return this;
   }
 
-   /**
+  /**
    * The value of the item on hand. Calculated using average cost accounting.
+   *
    * @return totalCostPool
-  **/
-  @ApiModelProperty(value = "The value of the item on hand. Calculated using average cost accounting.")
+   */
+  @ApiModelProperty(
+      value = "The value of the item on hand. Calculated using average cost accounting.")
   public Double getTotalCostPool() {
     return totalCostPool;
   }
@@ -292,10 +309,11 @@ public class Item {
     return this;
   }
 
-   /**
+  /**
    * The quantity of the item on hand
+   *
    * @return quantityOnHand
-  **/
+   */
   @ApiModelProperty(value = "The quantity of the item on hand")
   public Double getQuantityOnHand() {
     return quantityOnHand;
@@ -305,23 +323,25 @@ public class Item {
     this.quantityOnHand = quantityOnHand;
   }
 
-   /**
+  /**
    * Last modified date in UTC format
+   *
    * @return updatedDateUTC
-  **/
+   */
   @ApiModelProperty(example = "/Date(1573755038314)/", value = "Last modified date in UTC format")
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.updatedDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
   public Item itemID(UUID itemID) {
@@ -329,10 +349,11 @@ public class Item {
     return this;
   }
 
-   /**
+  /**
    * The Xero identifier for an Item
+   *
    * @return itemID
-  **/
+   */
   @ApiModelProperty(value = "The Xero identifier for an Item")
   public UUID getItemID() {
     return itemID;
@@ -347,10 +368,11 @@ public class Item {
     return this;
   }
 
-   /**
+  /**
    * Status of object
+   *
    * @return statusAttributeString
-  **/
+   */
   @ApiModelProperty(value = "Status of object")
   public String getStatusAttributeString() {
     return statusAttributeString;
@@ -373,10 +395,11 @@ public class Item {
     return this;
   }
 
-   /**
+  /**
    * Displays array of validation error messages from the API
+   *
    * @return validationErrors
-  **/
+   */
   @ApiModelProperty(value = "Displays array of validation error messages from the API")
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
@@ -385,7 +408,6 @@ public class Item {
   public void setValidationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -396,57 +418,79 @@ public class Item {
       return false;
     }
     Item item = (Item) o;
-    return Objects.equals(this.code, item.code) &&
-        Objects.equals(this.inventoryAssetAccountCode, item.inventoryAssetAccountCode) &&
-        Objects.equals(this.name, item.name) &&
-        Objects.equals(this.isSold, item.isSold) &&
-        Objects.equals(this.isPurchased, item.isPurchased) &&
-        Objects.equals(this.description, item.description) &&
-        Objects.equals(this.purchaseDescription, item.purchaseDescription) &&
-        Objects.equals(this.purchaseDetails, item.purchaseDetails) &&
-        Objects.equals(this.salesDetails, item.salesDetails) &&
-        Objects.equals(this.isTrackedAsInventory, item.isTrackedAsInventory) &&
-        Objects.equals(this.totalCostPool, item.totalCostPool) &&
-        Objects.equals(this.quantityOnHand, item.quantityOnHand) &&
-        Objects.equals(this.updatedDateUTC, item.updatedDateUTC) &&
-        Objects.equals(this.itemID, item.itemID) &&
-        Objects.equals(this.statusAttributeString, item.statusAttributeString) &&
-        Objects.equals(this.validationErrors, item.validationErrors);
+    return Objects.equals(this.code, item.code)
+        && Objects.equals(this.inventoryAssetAccountCode, item.inventoryAssetAccountCode)
+        && Objects.equals(this.name, item.name)
+        && Objects.equals(this.isSold, item.isSold)
+        && Objects.equals(this.isPurchased, item.isPurchased)
+        && Objects.equals(this.description, item.description)
+        && Objects.equals(this.purchaseDescription, item.purchaseDescription)
+        && Objects.equals(this.purchaseDetails, item.purchaseDetails)
+        && Objects.equals(this.salesDetails, item.salesDetails)
+        && Objects.equals(this.isTrackedAsInventory, item.isTrackedAsInventory)
+        && Objects.equals(this.totalCostPool, item.totalCostPool)
+        && Objects.equals(this.quantityOnHand, item.quantityOnHand)
+        && Objects.equals(this.updatedDateUTC, item.updatedDateUTC)
+        && Objects.equals(this.itemID, item.itemID)
+        && Objects.equals(this.statusAttributeString, item.statusAttributeString)
+        && Objects.equals(this.validationErrors, item.validationErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, inventoryAssetAccountCode, name, isSold, isPurchased, description, purchaseDescription, purchaseDetails, salesDetails, isTrackedAsInventory, totalCostPool, quantityOnHand, updatedDateUTC, itemID, statusAttributeString, validationErrors);
+    return Objects.hash(
+        code,
+        inventoryAssetAccountCode,
+        name,
+        isSold,
+        isPurchased,
+        description,
+        purchaseDescription,
+        purchaseDetails,
+        salesDetails,
+        isTrackedAsInventory,
+        totalCostPool,
+        quantityOnHand,
+        updatedDateUTC,
+        itemID,
+        statusAttributeString,
+        validationErrors);
   }
-
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Item {\n");
     sb.append("    code: ").append(toIndentedString(code)).append("\n");
-    sb.append("    inventoryAssetAccountCode: ").append(toIndentedString(inventoryAssetAccountCode)).append("\n");
+    sb.append("    inventoryAssetAccountCode: ")
+        .append(toIndentedString(inventoryAssetAccountCode))
+        .append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    isSold: ").append(toIndentedString(isSold)).append("\n");
     sb.append("    isPurchased: ").append(toIndentedString(isPurchased)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    purchaseDescription: ").append(toIndentedString(purchaseDescription)).append("\n");
+    sb.append("    purchaseDescription: ")
+        .append(toIndentedString(purchaseDescription))
+        .append("\n");
     sb.append("    purchaseDetails: ").append(toIndentedString(purchaseDetails)).append("\n");
     sb.append("    salesDetails: ").append(toIndentedString(salesDetails)).append("\n");
-    sb.append("    isTrackedAsInventory: ").append(toIndentedString(isTrackedAsInventory)).append("\n");
+    sb.append("    isTrackedAsInventory: ")
+        .append(toIndentedString(isTrackedAsInventory))
+        .append("\n");
     sb.append("    totalCostPool: ").append(toIndentedString(totalCostPool)).append("\n");
     sb.append("    quantityOnHand: ").append(toIndentedString(quantityOnHand)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
     sb.append("    itemID: ").append(toIndentedString(itemID)).append("\n");
-    sb.append("    statusAttributeString: ").append(toIndentedString(statusAttributeString)).append("\n");
+    sb.append("    statusAttributeString: ")
+        .append(toIndentedString(statusAttributeString))
+        .append("\n");
     sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -454,6 +498,4 @@ public class Item {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

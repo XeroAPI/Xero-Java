@@ -10,34 +10,19 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.accounting;
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.accounting.TrackingOption;
-import io.swagger.annotations.ApiModel;
+import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
-import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
-/**
- * TrackingCategory
- */
-
+/** TrackingCategory */
 public class TrackingCategory {
   StringUtil util = new StringUtil();
 
@@ -52,14 +37,12 @@ public class TrackingCategory {
 
   @JsonProperty("Option")
   private String option;
-  /**
-   * The status of a tracking category
-   */
+  /** The status of a tracking category */
   public enum StatusEnum {
     ACTIVE("ACTIVE"),
-    
+
     ARCHIVED("ARCHIVED"),
-    
+
     DELETED("DELETED");
 
     private String value;
@@ -89,22 +72,25 @@ public class TrackingCategory {
     }
   }
 
-
   @JsonProperty("Status")
   private StatusEnum status;
 
   @JsonProperty("Options")
   private List<TrackingOption> options = new ArrayList<TrackingOption>();
+
   public TrackingCategory trackingCategoryID(UUID trackingCategoryID) {
     this.trackingCategoryID = trackingCategoryID;
     return this;
   }
 
-   /**
+  /**
    * The Xero identifier for a tracking category e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9
+   *
    * @return trackingCategoryID
-  **/
-  @ApiModelProperty(value = "The Xero identifier for a tracking category e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9")
+   */
+  @ApiModelProperty(
+      value =
+          "The Xero identifier for a tracking category e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9")
   public UUID getTrackingCategoryID() {
     return trackingCategoryID;
   }
@@ -118,11 +104,13 @@ public class TrackingCategory {
     return this;
   }
 
-   /**
+  /**
    * The Xero identifier for a tracking option e.g. dc54c220-0140-495a-b925-3246adc0075f
+   *
    * @return trackingOptionID
-  **/
-  @ApiModelProperty(value = "The Xero identifier for a tracking option e.g. dc54c220-0140-495a-b925-3246adc0075f")
+   */
+  @ApiModelProperty(
+      value = "The Xero identifier for a tracking option e.g. dc54c220-0140-495a-b925-3246adc0075f")
   public UUID getTrackingOptionID() {
     return trackingOptionID;
   }
@@ -136,11 +124,13 @@ public class TrackingCategory {
     return this;
   }
 
-   /**
+  /**
    * The name of the tracking category e.g. Department, Region (max length &#x3D; 100)
+   *
    * @return name
-  **/
-  @ApiModelProperty(value = "The name of the tracking category e.g. Department, Region (max length = 100)")
+   */
+  @ApiModelProperty(
+      value = "The name of the tracking category e.g. Department, Region (max length = 100)")
   public String getName() {
     return name;
   }
@@ -154,11 +144,13 @@ public class TrackingCategory {
     return this;
   }
 
-   /**
+  /**
    * The option name of the tracking option e.g. East, West (max length &#x3D; 100)
+   *
    * @return option
-  **/
-  @ApiModelProperty(value = "The option name of the tracking option e.g. East, West (max length = 100)")
+   */
+  @ApiModelProperty(
+      value = "The option name of the tracking option e.g. East, West (max length = 100)")
   public String getOption() {
     return option;
   }
@@ -172,10 +164,11 @@ public class TrackingCategory {
     return this;
   }
 
-   /**
+  /**
    * The status of a tracking category
+   *
    * @return status
-  **/
+   */
   @ApiModelProperty(value = "The status of a tracking category")
   public StatusEnum getStatus() {
     return status;
@@ -198,10 +191,11 @@ public class TrackingCategory {
     return this;
   }
 
-   /**
+  /**
    * See Tracking Options
+   *
    * @return options
-  **/
+   */
   @ApiModelProperty(value = "See Tracking Options")
   public List<TrackingOption> getOptions() {
     return options;
@@ -210,7 +204,6 @@ public class TrackingCategory {
   public void setOptions(List<TrackingOption> options) {
     this.options = options;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -221,19 +214,18 @@ public class TrackingCategory {
       return false;
     }
     TrackingCategory trackingCategory = (TrackingCategory) o;
-    return Objects.equals(this.trackingCategoryID, trackingCategory.trackingCategoryID) &&
-        Objects.equals(this.trackingOptionID, trackingCategory.trackingOptionID) &&
-        Objects.equals(this.name, trackingCategory.name) &&
-        Objects.equals(this.option, trackingCategory.option) &&
-        Objects.equals(this.status, trackingCategory.status) &&
-        Objects.equals(this.options, trackingCategory.options);
+    return Objects.equals(this.trackingCategoryID, trackingCategory.trackingCategoryID)
+        && Objects.equals(this.trackingOptionID, trackingCategory.trackingOptionID)
+        && Objects.equals(this.name, trackingCategory.name)
+        && Objects.equals(this.option, trackingCategory.option)
+        && Objects.equals(this.status, trackingCategory.status)
+        && Objects.equals(this.options, trackingCategory.options);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(trackingCategoryID, trackingOptionID, name, option, status, options);
   }
-
 
   @Override
   public String toString() {
@@ -250,8 +242,7 @@ public class TrackingCategory {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -259,6 +250,4 @@ public class TrackingCategory {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

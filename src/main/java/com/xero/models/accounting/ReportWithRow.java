@@ -10,34 +10,18 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.accounting;
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.accounting.ReportFields;
-import com.xero.models.accounting.ReportRows;
-import io.swagger.annotations.ApiModel;
+import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.IOException;
-
+import java.util.Objects;
 import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
-import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * ReportWithRow
- */
-
+/** ReportWithRow */
 public class ReportWithRow {
   StringUtil util = new StringUtil();
 
@@ -67,15 +51,17 @@ public class ReportWithRow {
 
   @JsonProperty("Fields")
   private List<ReportFields> fields = new ArrayList<ReportFields>();
+
   public ReportWithRow reportID(String reportID) {
     this.reportID = reportID;
     return this;
   }
 
-   /**
+  /**
    * Report id
+   *
    * @return reportID
-  **/
+   */
   @ApiModelProperty(value = "Report id")
   public String getReportID() {
     return reportID;
@@ -90,10 +76,11 @@ public class ReportWithRow {
     return this;
   }
 
-   /**
+  /**
    * Name of the report
+   *
    * @return reportName
-  **/
+   */
   @ApiModelProperty(value = "Name of the report")
   public String getReportName() {
     return reportName;
@@ -108,10 +95,11 @@ public class ReportWithRow {
     return this;
   }
 
-   /**
+  /**
    * Title of the report
+   *
    * @return reportTitle
-  **/
+   */
   @ApiModelProperty(value = "Title of the report")
   public String getReportTitle() {
     return reportTitle;
@@ -126,10 +114,11 @@ public class ReportWithRow {
     return this;
   }
 
-   /**
+  /**
    * The type of report (BalanceSheet,ProfitLoss, etc)
+   *
    * @return reportType
-  **/
+   */
   @ApiModelProperty(value = "The type of report (BalanceSheet,ProfitLoss, etc)")
   public String getReportType() {
     return reportType;
@@ -152,11 +141,16 @@ public class ReportWithRow {
     return this;
   }
 
-   /**
-   * Report titles array (3 to 4 strings with the report name, orgnisation name and time frame of report)
+  /**
+   * Report titles array (3 to 4 strings with the report name, orgnisation name and time frame of
+   * report)
+   *
    * @return reportTitles
-  **/
-  @ApiModelProperty(value = "Report titles array (3 to 4 strings with the report name, orgnisation name and time frame of report)")
+   */
+  @ApiModelProperty(
+      value =
+          "Report titles array (3 to 4 strings with the report name, orgnisation name and time"
+              + " frame of report)")
   public List<String> getReportTitles() {
     return reportTitles;
   }
@@ -170,10 +164,11 @@ public class ReportWithRow {
     return this;
   }
 
-   /**
+  /**
    * Date of report
+   *
    * @return reportDate
-  **/
+   */
   @ApiModelProperty(value = "Date of report")
   public String getReportDate() {
     return reportDate;
@@ -196,10 +191,11 @@ public class ReportWithRow {
     return this;
   }
 
-   /**
+  /**
    * Get rows
+   *
    * @return rows
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<ReportRows> getRows() {
     return rows;
@@ -209,23 +205,25 @@ public class ReportWithRow {
     this.rows = rows;
   }
 
-   /**
+  /**
    * Updated Date
+   *
    * @return updatedDateUTC
-  **/
+   */
   @ApiModelProperty(example = "/Date(1573755038314)/", value = "Updated Date")
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.updatedDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
   public ReportWithRow fields(List<ReportFields> fields) {
@@ -241,10 +239,11 @@ public class ReportWithRow {
     return this;
   }
 
-   /**
+  /**
    * Get fields
+   *
    * @return fields
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<ReportFields> getFields() {
     return fields;
@@ -253,7 +252,6 @@ public class ReportWithRow {
   public void setFields(List<ReportFields> fields) {
     this.fields = fields;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -264,22 +262,30 @@ public class ReportWithRow {
       return false;
     }
     ReportWithRow reportWithRow = (ReportWithRow) o;
-    return Objects.equals(this.reportID, reportWithRow.reportID) &&
-        Objects.equals(this.reportName, reportWithRow.reportName) &&
-        Objects.equals(this.reportTitle, reportWithRow.reportTitle) &&
-        Objects.equals(this.reportType, reportWithRow.reportType) &&
-        Objects.equals(this.reportTitles, reportWithRow.reportTitles) &&
-        Objects.equals(this.reportDate, reportWithRow.reportDate) &&
-        Objects.equals(this.rows, reportWithRow.rows) &&
-        Objects.equals(this.updatedDateUTC, reportWithRow.updatedDateUTC) &&
-        Objects.equals(this.fields, reportWithRow.fields);
+    return Objects.equals(this.reportID, reportWithRow.reportID)
+        && Objects.equals(this.reportName, reportWithRow.reportName)
+        && Objects.equals(this.reportTitle, reportWithRow.reportTitle)
+        && Objects.equals(this.reportType, reportWithRow.reportType)
+        && Objects.equals(this.reportTitles, reportWithRow.reportTitles)
+        && Objects.equals(this.reportDate, reportWithRow.reportDate)
+        && Objects.equals(this.rows, reportWithRow.rows)
+        && Objects.equals(this.updatedDateUTC, reportWithRow.updatedDateUTC)
+        && Objects.equals(this.fields, reportWithRow.fields);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(reportID, reportName, reportTitle, reportType, reportTitles, reportDate, rows, updatedDateUTC, fields);
+    return Objects.hash(
+        reportID,
+        reportName,
+        reportTitle,
+        reportType,
+        reportTitles,
+        reportDate,
+        rows,
+        updatedDateUTC,
+        fields);
   }
-
 
   @Override
   public String toString() {
@@ -299,8 +305,7 @@ public class ReportWithRow {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -308,6 +313,4 @@ public class ReportWithRow {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

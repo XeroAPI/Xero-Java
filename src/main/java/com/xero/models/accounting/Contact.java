@@ -10,45 +10,21 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.accounting;
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.accounting.Address;
-import com.xero.models.accounting.Attachment;
-import com.xero.models.accounting.Balances;
-import com.xero.models.accounting.BatchPaymentDetails;
-import com.xero.models.accounting.BrandingTheme;
-import com.xero.models.accounting.ContactGroup;
-import com.xero.models.accounting.ContactPerson;
-import com.xero.models.accounting.CurrencyCode;
-import com.xero.models.accounting.PaymentTerm;
-import com.xero.models.accounting.Phone;
-import com.xero.models.accounting.SalesTrackingCategory;
-import com.xero.models.accounting.ValidationError;
-import io.swagger.annotations.ApiModel;
+import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
-import java.io.IOException;
-
 import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
-import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * Contact
- */
-
+/** Contact */
 public class Contact {
   StringUtil util = new StringUtil();
 
@@ -60,14 +36,12 @@ public class Contact {
 
   @JsonProperty("AccountNumber")
   private String accountNumber;
-  /**
-   * Current status of a contact – see contact status types
-   */
+  /** Current status of a contact – see contact status types */
   public enum ContactStatusEnum {
     ACTIVE("ACTIVE"),
-    
+
     ARCHIVED("ARCHIVED"),
-    
+
     GDPRREQUEST("GDPRREQUEST");
 
     private String value;
@@ -96,7 +70,6 @@ public class Contact {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
-
 
   @JsonProperty("ContactStatus")
   private ContactStatusEnum contactStatus;
@@ -156,10 +129,12 @@ public class Contact {
   private String purchasesDefaultAccountCode;
 
   @JsonProperty("SalesTrackingCategories")
-  private List<SalesTrackingCategory> salesTrackingCategories = new ArrayList<SalesTrackingCategory>();
+  private List<SalesTrackingCategory> salesTrackingCategories =
+      new ArrayList<SalesTrackingCategory>();
 
   @JsonProperty("PurchasesTrackingCategories")
-  private List<SalesTrackingCategory> purchasesTrackingCategories = new ArrayList<SalesTrackingCategory>();
+  private List<SalesTrackingCategory> purchasesTrackingCategories =
+      new ArrayList<SalesTrackingCategory>();
 
   @JsonProperty("TrackingCategoryName")
   private String trackingCategoryName;
@@ -205,15 +180,17 @@ public class Contact {
 
   @JsonProperty("StatusAttributeString")
   private String statusAttributeString;
+
   public Contact contactID(UUID contactID) {
     this.contactID = contactID;
     return this;
   }
 
-   /**
+  /**
    * Xero identifier
+   *
    * @return contactID
-  **/
+   */
   @ApiModelProperty(value = "Xero identifier")
   public UUID getContactID() {
     return contactID;
@@ -228,11 +205,19 @@ public class Contact {
     return this;
   }
 
-   /**
-   * This can be updated via the API only i.e. This field is read only on the Xero contact screen, used to identify contacts in external systems (max length &#x3D; 50). If the Contact Number is used, this is displayed as Contact Code in the Contacts UI in Xero.
+  /**
+   * This can be updated via the API only i.e. This field is read only on the Xero contact screen,
+   * used to identify contacts in external systems (max length &#x3D; 50). If the Contact Number is
+   * used, this is displayed as Contact Code in the Contacts UI in Xero.
+   *
    * @return contactNumber
-  **/
-  @ApiModelProperty(value = "This can be updated via the API only i.e. This field is read only on the Xero contact screen, used to identify contacts in external systems (max length = 50). If the Contact Number is used, this is displayed as Contact Code in the Contacts UI in Xero.")
+   */
+  @ApiModelProperty(
+      value =
+          "This can be updated via the API only i.e. This field is read only on the Xero contact"
+              + " screen, used to identify contacts in external systems (max length = 50). If the"
+              + " Contact Number is used, this is displayed as Contact Code in the Contacts UI in"
+              + " Xero.")
   public String getContactNumber() {
     return contactNumber;
   }
@@ -246,11 +231,16 @@ public class Contact {
     return this;
   }
 
-   /**
-   * A user defined account number. This can be updated via the API and the Xero UI (max length &#x3D; 50)
+  /**
+   * A user defined account number. This can be updated via the API and the Xero UI (max length
+   * &#x3D; 50)
+   *
    * @return accountNumber
-  **/
-  @ApiModelProperty(value = "A user defined account number. This can be updated via the API and the Xero UI (max length = 50)")
+   */
+  @ApiModelProperty(
+      value =
+          "A user defined account number. This can be updated via the API and the Xero UI (max"
+              + " length = 50)")
   public String getAccountNumber() {
     return accountNumber;
   }
@@ -264,10 +254,11 @@ public class Contact {
     return this;
   }
 
-   /**
+  /**
    * Current status of a contact – see contact status types
+   *
    * @return contactStatus
-  **/
+   */
   @ApiModelProperty(value = "Current status of a contact – see contact status types")
   public ContactStatusEnum getContactStatus() {
     return contactStatus;
@@ -282,10 +273,11 @@ public class Contact {
     return this;
   }
 
-   /**
+  /**
    * Full name of contact/organisation (max length &#x3D; 255)
+   *
    * @return name
-  **/
+   */
   @ApiModelProperty(value = "Full name of contact/organisation (max length = 255)")
   public String getName() {
     return name;
@@ -300,10 +292,11 @@ public class Contact {
     return this;
   }
 
-   /**
+  /**
    * First name of contact person (max length &#x3D; 255)
+   *
    * @return firstName
-  **/
+   */
   @ApiModelProperty(value = "First name of contact person (max length = 255)")
   public String getFirstName() {
     return firstName;
@@ -318,10 +311,11 @@ public class Contact {
     return this;
   }
 
-   /**
+  /**
    * Last name of contact person (max length &#x3D; 255)
+   *
    * @return lastName
-  **/
+   */
   @ApiModelProperty(value = "Last name of contact person (max length = 255)")
   public String getLastName() {
     return lastName;
@@ -336,11 +330,13 @@ public class Contact {
     return this;
   }
 
-   /**
-   * Email address of contact person (umlauts not supported) (max length  &#x3D; 255)
+  /**
+   * Email address of contact person (umlauts not supported) (max length &#x3D; 255)
+   *
    * @return emailAddress
-  **/
-  @ApiModelProperty(value = "Email address of contact person (umlauts not supported) (max length  = 255)")
+   */
+  @ApiModelProperty(
+      value = "Email address of contact person (umlauts not supported) (max length  = 255)")
   public String getEmailAddress() {
     return emailAddress;
   }
@@ -354,10 +350,11 @@ public class Contact {
     return this;
   }
 
-   /**
+  /**
    * Skype user name of contact
+   *
    * @return skypeUserName
-  **/
+   */
   @ApiModelProperty(value = "Skype user name of contact")
   public String getSkypeUserName() {
     return skypeUserName;
@@ -380,10 +377,11 @@ public class Contact {
     return this;
   }
 
-   /**
+  /**
    * See contact persons
+   *
    * @return contactPersons
-  **/
+   */
   @ApiModelProperty(value = "See contact persons")
   public List<ContactPerson> getContactPersons() {
     return contactPersons;
@@ -398,10 +396,11 @@ public class Contact {
     return this;
   }
 
-   /**
+  /**
    * Bank account number of contact
+   *
    * @return bankAccountDetails
-  **/
+   */
   @ApiModelProperty(value = "Bank account number of contact")
   public String getBankAccountDetails() {
     return bankAccountDetails;
@@ -416,11 +415,18 @@ public class Contact {
     return this;
   }
 
-   /**
-   * Tax number of contact – this is also known as the ABN (Australia), GST Number (New Zealand), VAT Number (UK) or Tax ID Number (US and global) in the Xero UI depending on which regionalized version of Xero you are using (max length &#x3D; 50)
+  /**
+   * Tax number of contact – this is also known as the ABN (Australia), GST Number (New Zealand),
+   * VAT Number (UK) or Tax ID Number (US and global) in the Xero UI depending on which regionalized
+   * version of Xero you are using (max length &#x3D; 50)
+   *
    * @return taxNumber
-  **/
-  @ApiModelProperty(value = "Tax number of contact – this is also known as the ABN (Australia), GST Number (New Zealand), VAT Number (UK) or Tax ID Number (US and global) in the Xero UI depending on which regionalized version of Xero you are using (max length = 50)")
+   */
+  @ApiModelProperty(
+      value =
+          "Tax number of contact – this is also known as the ABN (Australia), GST Number (New"
+              + " Zealand), VAT Number (UK) or Tax ID Number (US and global) in the Xero UI"
+              + " depending on which regionalized version of Xero you are using (max length = 50)")
   public String getTaxNumber() {
     return taxNumber;
   }
@@ -434,10 +440,11 @@ public class Contact {
     return this;
   }
 
-   /**
+  /**
    * The tax type from TaxRates
+   *
    * @return accountsReceivableTaxType
-  **/
+   */
   @ApiModelProperty(value = "The tax type from TaxRates")
   public String getAccountsReceivableTaxType() {
     return accountsReceivableTaxType;
@@ -452,10 +459,11 @@ public class Contact {
     return this;
   }
 
-   /**
+  /**
    * The tax type from TaxRates
+   *
    * @return accountsPayableTaxType
-  **/
+   */
   @ApiModelProperty(value = "The tax type from TaxRates")
   public String getAccountsPayableTaxType() {
     return accountsPayableTaxType;
@@ -478,10 +486,11 @@ public class Contact {
     return this;
   }
 
-   /**
+  /**
    * Store certain address types for a contact – see address types
+   *
    * @return addresses
-  **/
+   */
   @ApiModelProperty(value = "Store certain address types for a contact – see address types")
   public List<Address> getAddresses() {
     return addresses;
@@ -504,10 +513,11 @@ public class Contact {
     return this;
   }
 
-   /**
+  /**
    * Store certain phone types for a contact – see phone types
+   *
    * @return phones
-  **/
+   */
   @ApiModelProperty(value = "Store certain phone types for a contact – see phone types")
   public List<Phone> getPhones() {
     return phones;
@@ -522,11 +532,18 @@ public class Contact {
     return this;
   }
 
-   /**
-   * true or false – Boolean that describes if a contact that has any AP  invoices entered against them. Cannot be set via PUT or POST – it is automatically set when an accounts payable invoice is generated against this contact.
+  /**
+   * true or false – Boolean that describes if a contact that has any AP invoices entered against
+   * them. Cannot be set via PUT or POST – it is automatically set when an accounts payable invoice
+   * is generated against this contact.
+   *
    * @return isSupplier
-  **/
-  @ApiModelProperty(value = "true or false – Boolean that describes if a contact that has any AP  invoices entered against them. Cannot be set via PUT or POST – it is automatically set when an accounts payable invoice is generated against this contact.")
+   */
+  @ApiModelProperty(
+      value =
+          "true or false – Boolean that describes if a contact that has any AP  invoices entered"
+              + " against them. Cannot be set via PUT or POST – it is automatically set when an"
+              + " accounts payable invoice is generated against this contact.")
   public Boolean getIsSupplier() {
     return isSupplier;
   }
@@ -540,11 +557,18 @@ public class Contact {
     return this;
   }
 
-   /**
-   * true or false – Boolean that describes if a contact has any AR invoices entered against them. Cannot be set via PUT or POST – it is automatically set when an accounts receivable invoice is generated against this contact.
+  /**
+   * true or false – Boolean that describes if a contact has any AR invoices entered against them.
+   * Cannot be set via PUT or POST – it is automatically set when an accounts receivable invoice is
+   * generated against this contact.
+   *
    * @return isCustomer
-  **/
-  @ApiModelProperty(value = "true or false – Boolean that describes if a contact has any AR invoices entered against them. Cannot be set via PUT or POST – it is automatically set when an accounts receivable invoice is generated against this contact.")
+   */
+  @ApiModelProperty(
+      value =
+          "true or false – Boolean that describes if a contact has any AR invoices entered against"
+              + " them. Cannot be set via PUT or POST – it is automatically set when an accounts"
+              + " receivable invoice is generated against this contact.")
   public Boolean getIsCustomer() {
     return isCustomer;
   }
@@ -558,10 +582,11 @@ public class Contact {
     return this;
   }
 
-   /**
+  /**
    * Get defaultCurrency
+   *
    * @return defaultCurrency
-  **/
+   */
   @ApiModelProperty(value = "")
   public CurrencyCode getDefaultCurrency() {
     return defaultCurrency;
@@ -576,10 +601,11 @@ public class Contact {
     return this;
   }
 
-   /**
+  /**
    * Store XeroNetworkKey for contacts.
+   *
    * @return xeroNetworkKey
-  **/
+   */
   @ApiModelProperty(value = "Store XeroNetworkKey for contacts.")
   public String getXeroNetworkKey() {
     return xeroNetworkKey;
@@ -594,10 +620,11 @@ public class Contact {
     return this;
   }
 
-   /**
+  /**
    * The default sales account code for contacts
+   *
    * @return salesDefaultAccountCode
-  **/
+   */
   @ApiModelProperty(value = "The default sales account code for contacts")
   public String getSalesDefaultAccountCode() {
     return salesDefaultAccountCode;
@@ -612,10 +639,11 @@ public class Contact {
     return this;
   }
 
-   /**
+  /**
    * The default purchases account code for contacts
+   *
    * @return purchasesDefaultAccountCode
-  **/
+   */
   @ApiModelProperty(value = "The default purchases account code for contacts")
   public String getPurchasesDefaultAccountCode() {
     return purchasesDefaultAccountCode;
@@ -638,10 +666,11 @@ public class Contact {
     return this;
   }
 
-   /**
+  /**
    * The default sales tracking categories for contacts
+   *
    * @return salesTrackingCategories
-  **/
+   */
   @ApiModelProperty(value = "The default sales tracking categories for contacts")
   public List<SalesTrackingCategory> getSalesTrackingCategories() {
     return salesTrackingCategories;
@@ -651,12 +680,14 @@ public class Contact {
     this.salesTrackingCategories = salesTrackingCategories;
   }
 
-  public Contact purchasesTrackingCategories(List<SalesTrackingCategory> purchasesTrackingCategories) {
+  public Contact purchasesTrackingCategories(
+      List<SalesTrackingCategory> purchasesTrackingCategories) {
     this.purchasesTrackingCategories = purchasesTrackingCategories;
     return this;
   }
 
-  public Contact addPurchasesTrackingCategoriesItem(SalesTrackingCategory purchasesTrackingCategoriesItem) {
+  public Contact addPurchasesTrackingCategoriesItem(
+      SalesTrackingCategory purchasesTrackingCategoriesItem) {
     if (this.purchasesTrackingCategories == null) {
       this.purchasesTrackingCategories = new ArrayList<SalesTrackingCategory>();
     }
@@ -664,16 +695,18 @@ public class Contact {
     return this;
   }
 
-   /**
+  /**
    * The default purchases tracking categories for contacts
+   *
    * @return purchasesTrackingCategories
-  **/
+   */
   @ApiModelProperty(value = "The default purchases tracking categories for contacts")
   public List<SalesTrackingCategory> getPurchasesTrackingCategories() {
     return purchasesTrackingCategories;
   }
 
-  public void setPurchasesTrackingCategories(List<SalesTrackingCategory> purchasesTrackingCategories) {
+  public void setPurchasesTrackingCategories(
+      List<SalesTrackingCategory> purchasesTrackingCategories) {
     this.purchasesTrackingCategories = purchasesTrackingCategories;
   }
 
@@ -682,11 +715,16 @@ public class Contact {
     return this;
   }
 
-   /**
-   * The name of the Tracking Category assigned to the contact under SalesTrackingCategories and PurchasesTrackingCategories
+  /**
+   * The name of the Tracking Category assigned to the contact under SalesTrackingCategories and
+   * PurchasesTrackingCategories
+   *
    * @return trackingCategoryName
-  **/
-  @ApiModelProperty(value = "The name of the Tracking Category assigned to the contact under SalesTrackingCategories and PurchasesTrackingCategories")
+   */
+  @ApiModelProperty(
+      value =
+          "The name of the Tracking Category assigned to the contact under SalesTrackingCategories"
+              + " and PurchasesTrackingCategories")
   public String getTrackingCategoryName() {
     return trackingCategoryName;
   }
@@ -700,11 +738,16 @@ public class Contact {
     return this;
   }
 
-   /**
-   * The name of the Tracking Option assigned to the contact under SalesTrackingCategories and PurchasesTrackingCategories
+  /**
+   * The name of the Tracking Option assigned to the contact under SalesTrackingCategories and
+   * PurchasesTrackingCategories
+   *
    * @return trackingCategoryOption
-  **/
-  @ApiModelProperty(value = "The name of the Tracking Option assigned to the contact under SalesTrackingCategories and PurchasesTrackingCategories")
+   */
+  @ApiModelProperty(
+      value =
+          "The name of the Tracking Option assigned to the contact under SalesTrackingCategories"
+              + " and PurchasesTrackingCategories")
   public String getTrackingCategoryOption() {
     return trackingCategoryOption;
   }
@@ -718,10 +761,11 @@ public class Contact {
     return this;
   }
 
-   /**
+  /**
    * Get paymentTerms
+   *
    * @return paymentTerms
-  **/
+   */
   @ApiModelProperty(value = "")
   public PaymentTerm getPaymentTerms() {
     return paymentTerms;
@@ -731,23 +775,27 @@ public class Contact {
     this.paymentTerms = paymentTerms;
   }
 
-   /**
+  /**
    * UTC timestamp of last update to contact
+   *
    * @return updatedDateUTC
-  **/
-  @ApiModelProperty(example = "/Date(1573755038314)/", value = "UTC timestamp of last update to contact")
+   */
+  @ApiModelProperty(
+      example = "/Date(1573755038314)/",
+      value = "UTC timestamp of last update to contact")
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.updatedDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
   public Contact contactGroups(List<ContactGroup> contactGroups) {
@@ -763,10 +811,11 @@ public class Contact {
     return this;
   }
 
-   /**
+  /**
    * Displays which contact groups a contact is included in
+   *
    * @return contactGroups
-  **/
+   */
   @ApiModelProperty(value = "Displays which contact groups a contact is included in")
   public List<ContactGroup> getContactGroups() {
     return contactGroups;
@@ -776,10 +825,11 @@ public class Contact {
     this.contactGroups = contactGroups;
   }
 
-   /**
+  /**
    * Website address for contact (read only)
+   *
    * @return website
-  **/
+   */
   @ApiModelProperty(value = "Website address for contact (read only)")
   public String getWebsite() {
     return website;
@@ -790,10 +840,11 @@ public class Contact {
     return this;
   }
 
-   /**
+  /**
    * Get brandingTheme
+   *
    * @return brandingTheme
-  **/
+   */
   @ApiModelProperty(value = "")
   public BrandingTheme getBrandingTheme() {
     return brandingTheme;
@@ -808,10 +859,11 @@ public class Contact {
     return this;
   }
 
-   /**
+  /**
    * Get batchPayments
+   *
    * @return batchPayments
-  **/
+   */
   @ApiModelProperty(value = "")
   public BatchPaymentDetails getBatchPayments() {
     return batchPayments;
@@ -821,10 +873,11 @@ public class Contact {
     this.batchPayments = batchPayments;
   }
 
-   /**
+  /**
    * The default discount rate for the contact (read only)
+   *
    * @return discount
-  **/
+   */
   @ApiModelProperty(value = "The default discount rate for the contact (read only)")
   public Double getDiscount() {
     return discount;
@@ -835,10 +888,11 @@ public class Contact {
     return this;
   }
 
-   /**
+  /**
    * Get balances
+   *
    * @return balances
-  **/
+   */
   @ApiModelProperty(value = "")
   public Balances getBalances() {
     return balances;
@@ -861,10 +915,11 @@ public class Contact {
     return this;
   }
 
-   /**
+  /**
    * Displays array of attachments from the API
+   *
    * @return attachments
-  **/
+   */
   @ApiModelProperty(value = "Displays array of attachments from the API")
   public List<Attachment> getAttachments() {
     return attachments;
@@ -879,11 +934,14 @@ public class Contact {
     return this;
   }
 
-   /**
+  /**
    * A boolean to indicate if a contact has an attachment
+   *
    * @return hasAttachments
-  **/
-  @ApiModelProperty(example = "false", value = "A boolean to indicate if a contact has an attachment")
+   */
+  @ApiModelProperty(
+      example = "false",
+      value = "A boolean to indicate if a contact has an attachment")
   public Boolean getHasAttachments() {
     return hasAttachments;
   }
@@ -905,10 +963,11 @@ public class Contact {
     return this;
   }
 
-   /**
+  /**
    * Displays validation errors returned from the API
+   *
    * @return validationErrors
-  **/
+   */
   @ApiModelProperty(value = "Displays validation errors returned from the API")
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
@@ -923,11 +982,14 @@ public class Contact {
     return this;
   }
 
-   /**
+  /**
    * A boolean to indicate if a contact has an validation errors
+   *
    * @return hasValidationErrors
-  **/
-  @ApiModelProperty(example = "false", value = "A boolean to indicate if a contact has an validation errors")
+   */
+  @ApiModelProperty(
+      example = "false",
+      value = "A boolean to indicate if a contact has an validation errors")
   public Boolean getHasValidationErrors() {
     return hasValidationErrors;
   }
@@ -941,10 +1003,11 @@ public class Contact {
     return this;
   }
 
-   /**
+  /**
    * Status of object
+   *
    * @return statusAttributeString
-  **/
+   */
   @ApiModelProperty(value = "Status of object")
   public String getStatusAttributeString() {
     return statusAttributeString;
@@ -953,7 +1016,6 @@ public class Contact {
   public void setStatusAttributeString(String statusAttributeString) {
     this.statusAttributeString = statusAttributeString;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -964,52 +1026,90 @@ public class Contact {
       return false;
     }
     Contact contact = (Contact) o;
-    return Objects.equals(this.contactID, contact.contactID) &&
-        Objects.equals(this.contactNumber, contact.contactNumber) &&
-        Objects.equals(this.accountNumber, contact.accountNumber) &&
-        Objects.equals(this.contactStatus, contact.contactStatus) &&
-        Objects.equals(this.name, contact.name) &&
-        Objects.equals(this.firstName, contact.firstName) &&
-        Objects.equals(this.lastName, contact.lastName) &&
-        Objects.equals(this.emailAddress, contact.emailAddress) &&
-        Objects.equals(this.skypeUserName, contact.skypeUserName) &&
-        Objects.equals(this.contactPersons, contact.contactPersons) &&
-        Objects.equals(this.bankAccountDetails, contact.bankAccountDetails) &&
-        Objects.equals(this.taxNumber, contact.taxNumber) &&
-        Objects.equals(this.accountsReceivableTaxType, contact.accountsReceivableTaxType) &&
-        Objects.equals(this.accountsPayableTaxType, contact.accountsPayableTaxType) &&
-        Objects.equals(this.addresses, contact.addresses) &&
-        Objects.equals(this.phones, contact.phones) &&
-        Objects.equals(this.isSupplier, contact.isSupplier) &&
-        Objects.equals(this.isCustomer, contact.isCustomer) &&
-        Objects.equals(this.defaultCurrency, contact.defaultCurrency) &&
-        Objects.equals(this.xeroNetworkKey, contact.xeroNetworkKey) &&
-        Objects.equals(this.salesDefaultAccountCode, contact.salesDefaultAccountCode) &&
-        Objects.equals(this.purchasesDefaultAccountCode, contact.purchasesDefaultAccountCode) &&
-        Objects.equals(this.salesTrackingCategories, contact.salesTrackingCategories) &&
-        Objects.equals(this.purchasesTrackingCategories, contact.purchasesTrackingCategories) &&
-        Objects.equals(this.trackingCategoryName, contact.trackingCategoryName) &&
-        Objects.equals(this.trackingCategoryOption, contact.trackingCategoryOption) &&
-        Objects.equals(this.paymentTerms, contact.paymentTerms) &&
-        Objects.equals(this.updatedDateUTC, contact.updatedDateUTC) &&
-        Objects.equals(this.contactGroups, contact.contactGroups) &&
-        Objects.equals(this.website, contact.website) &&
-        Objects.equals(this.brandingTheme, contact.brandingTheme) &&
-        Objects.equals(this.batchPayments, contact.batchPayments) &&
-        Objects.equals(this.discount, contact.discount) &&
-        Objects.equals(this.balances, contact.balances) &&
-        Objects.equals(this.attachments, contact.attachments) &&
-        Objects.equals(this.hasAttachments, contact.hasAttachments) &&
-        Objects.equals(this.validationErrors, contact.validationErrors) &&
-        Objects.equals(this.hasValidationErrors, contact.hasValidationErrors) &&
-        Objects.equals(this.statusAttributeString, contact.statusAttributeString);
+    return Objects.equals(this.contactID, contact.contactID)
+        && Objects.equals(this.contactNumber, contact.contactNumber)
+        && Objects.equals(this.accountNumber, contact.accountNumber)
+        && Objects.equals(this.contactStatus, contact.contactStatus)
+        && Objects.equals(this.name, contact.name)
+        && Objects.equals(this.firstName, contact.firstName)
+        && Objects.equals(this.lastName, contact.lastName)
+        && Objects.equals(this.emailAddress, contact.emailAddress)
+        && Objects.equals(this.skypeUserName, contact.skypeUserName)
+        && Objects.equals(this.contactPersons, contact.contactPersons)
+        && Objects.equals(this.bankAccountDetails, contact.bankAccountDetails)
+        && Objects.equals(this.taxNumber, contact.taxNumber)
+        && Objects.equals(this.accountsReceivableTaxType, contact.accountsReceivableTaxType)
+        && Objects.equals(this.accountsPayableTaxType, contact.accountsPayableTaxType)
+        && Objects.equals(this.addresses, contact.addresses)
+        && Objects.equals(this.phones, contact.phones)
+        && Objects.equals(this.isSupplier, contact.isSupplier)
+        && Objects.equals(this.isCustomer, contact.isCustomer)
+        && Objects.equals(this.defaultCurrency, contact.defaultCurrency)
+        && Objects.equals(this.xeroNetworkKey, contact.xeroNetworkKey)
+        && Objects.equals(this.salesDefaultAccountCode, contact.salesDefaultAccountCode)
+        && Objects.equals(this.purchasesDefaultAccountCode, contact.purchasesDefaultAccountCode)
+        && Objects.equals(this.salesTrackingCategories, contact.salesTrackingCategories)
+        && Objects.equals(this.purchasesTrackingCategories, contact.purchasesTrackingCategories)
+        && Objects.equals(this.trackingCategoryName, contact.trackingCategoryName)
+        && Objects.equals(this.trackingCategoryOption, contact.trackingCategoryOption)
+        && Objects.equals(this.paymentTerms, contact.paymentTerms)
+        && Objects.equals(this.updatedDateUTC, contact.updatedDateUTC)
+        && Objects.equals(this.contactGroups, contact.contactGroups)
+        && Objects.equals(this.website, contact.website)
+        && Objects.equals(this.brandingTheme, contact.brandingTheme)
+        && Objects.equals(this.batchPayments, contact.batchPayments)
+        && Objects.equals(this.discount, contact.discount)
+        && Objects.equals(this.balances, contact.balances)
+        && Objects.equals(this.attachments, contact.attachments)
+        && Objects.equals(this.hasAttachments, contact.hasAttachments)
+        && Objects.equals(this.validationErrors, contact.validationErrors)
+        && Objects.equals(this.hasValidationErrors, contact.hasValidationErrors)
+        && Objects.equals(this.statusAttributeString, contact.statusAttributeString);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(contactID, contactNumber, accountNumber, contactStatus, name, firstName, lastName, emailAddress, skypeUserName, contactPersons, bankAccountDetails, taxNumber, accountsReceivableTaxType, accountsPayableTaxType, addresses, phones, isSupplier, isCustomer, defaultCurrency, xeroNetworkKey, salesDefaultAccountCode, purchasesDefaultAccountCode, salesTrackingCategories, purchasesTrackingCategories, trackingCategoryName, trackingCategoryOption, paymentTerms, updatedDateUTC, contactGroups, website, brandingTheme, batchPayments, discount, balances, attachments, hasAttachments, validationErrors, hasValidationErrors, statusAttributeString);
+    return Objects.hash(
+        contactID,
+        contactNumber,
+        accountNumber,
+        contactStatus,
+        name,
+        firstName,
+        lastName,
+        emailAddress,
+        skypeUserName,
+        contactPersons,
+        bankAccountDetails,
+        taxNumber,
+        accountsReceivableTaxType,
+        accountsPayableTaxType,
+        addresses,
+        phones,
+        isSupplier,
+        isCustomer,
+        defaultCurrency,
+        xeroNetworkKey,
+        salesDefaultAccountCode,
+        purchasesDefaultAccountCode,
+        salesTrackingCategories,
+        purchasesTrackingCategories,
+        trackingCategoryName,
+        trackingCategoryOption,
+        paymentTerms,
+        updatedDateUTC,
+        contactGroups,
+        website,
+        brandingTheme,
+        batchPayments,
+        discount,
+        balances,
+        attachments,
+        hasAttachments,
+        validationErrors,
+        hasValidationErrors,
+        statusAttributeString);
   }
-
 
   @Override
   public String toString() {
@@ -1027,20 +1127,36 @@ public class Contact {
     sb.append("    contactPersons: ").append(toIndentedString(contactPersons)).append("\n");
     sb.append("    bankAccountDetails: ").append(toIndentedString(bankAccountDetails)).append("\n");
     sb.append("    taxNumber: ").append(toIndentedString(taxNumber)).append("\n");
-    sb.append("    accountsReceivableTaxType: ").append(toIndentedString(accountsReceivableTaxType)).append("\n");
-    sb.append("    accountsPayableTaxType: ").append(toIndentedString(accountsPayableTaxType)).append("\n");
+    sb.append("    accountsReceivableTaxType: ")
+        .append(toIndentedString(accountsReceivableTaxType))
+        .append("\n");
+    sb.append("    accountsPayableTaxType: ")
+        .append(toIndentedString(accountsPayableTaxType))
+        .append("\n");
     sb.append("    addresses: ").append(toIndentedString(addresses)).append("\n");
     sb.append("    phones: ").append(toIndentedString(phones)).append("\n");
     sb.append("    isSupplier: ").append(toIndentedString(isSupplier)).append("\n");
     sb.append("    isCustomer: ").append(toIndentedString(isCustomer)).append("\n");
     sb.append("    defaultCurrency: ").append(toIndentedString(defaultCurrency)).append("\n");
     sb.append("    xeroNetworkKey: ").append(toIndentedString(xeroNetworkKey)).append("\n");
-    sb.append("    salesDefaultAccountCode: ").append(toIndentedString(salesDefaultAccountCode)).append("\n");
-    sb.append("    purchasesDefaultAccountCode: ").append(toIndentedString(purchasesDefaultAccountCode)).append("\n");
-    sb.append("    salesTrackingCategories: ").append(toIndentedString(salesTrackingCategories)).append("\n");
-    sb.append("    purchasesTrackingCategories: ").append(toIndentedString(purchasesTrackingCategories)).append("\n");
-    sb.append("    trackingCategoryName: ").append(toIndentedString(trackingCategoryName)).append("\n");
-    sb.append("    trackingCategoryOption: ").append(toIndentedString(trackingCategoryOption)).append("\n");
+    sb.append("    salesDefaultAccountCode: ")
+        .append(toIndentedString(salesDefaultAccountCode))
+        .append("\n");
+    sb.append("    purchasesDefaultAccountCode: ")
+        .append(toIndentedString(purchasesDefaultAccountCode))
+        .append("\n");
+    sb.append("    salesTrackingCategories: ")
+        .append(toIndentedString(salesTrackingCategories))
+        .append("\n");
+    sb.append("    purchasesTrackingCategories: ")
+        .append(toIndentedString(purchasesTrackingCategories))
+        .append("\n");
+    sb.append("    trackingCategoryName: ")
+        .append(toIndentedString(trackingCategoryName))
+        .append("\n");
+    sb.append("    trackingCategoryOption: ")
+        .append(toIndentedString(trackingCategoryOption))
+        .append("\n");
     sb.append("    paymentTerms: ").append(toIndentedString(paymentTerms)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
     sb.append("    contactGroups: ").append(toIndentedString(contactGroups)).append("\n");
@@ -1052,15 +1168,18 @@ public class Contact {
     sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
     sb.append("    hasAttachments: ").append(toIndentedString(hasAttachments)).append("\n");
     sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
-    sb.append("    hasValidationErrors: ").append(toIndentedString(hasValidationErrors)).append("\n");
-    sb.append("    statusAttributeString: ").append(toIndentedString(statusAttributeString)).append("\n");
+    sb.append("    hasValidationErrors: ")
+        .append(toIndentedString(hasValidationErrors))
+        .append("\n");
+    sb.append("    statusAttributeString: ")
+        .append(toIndentedString(statusAttributeString))
+        .append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -1068,6 +1187,4 @@ public class Contact {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

@@ -10,36 +10,22 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrollau;
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.payrollau.TimesheetLine;
-import com.xero.models.payrollau.TimesheetStatus;
-import com.xero.models.payrollau.ValidationError;
-import io.swagger.annotations.ApiModel;
+import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
-import java.io.IOException;
-
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDate;
-import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.ZoneId;
 
-/**
- * Timesheet
- */
-
+/** Timesheet */
 public class Timesheet {
   StringUtil util = new StringUtil();
 
@@ -69,16 +55,21 @@ public class Timesheet {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
+
   public Timesheet employeeID(UUID employeeID) {
     this.employeeID = employeeID;
     return this;
   }
 
-   /**
+  /**
    * The Xero identifier for an employee
+   *
    * @return employeeID
-  **/
-  @ApiModelProperty(example = "72a0d0c2-0cf8-4f0b-ade1-33231f47b41b", required = true, value = "The Xero identifier for an employee")
+   */
+  @ApiModelProperty(
+      example = "72a0d0c2-0cf8-4f0b-ade1-33231f47b41b",
+      required = true,
+      value = "The Xero identifier for an employee")
   public UUID getEmployeeID() {
     return employeeID;
   }
@@ -92,23 +83,28 @@ public class Timesheet {
     return this;
   }
 
-   /**
+  /**
    * Period start date (YYYY-MM-DD)
+   *
    * @return startDate
-  **/
-  @ApiModelProperty(example = "/Date(322560000000+0000)/", required = true, value = "Period start date (YYYY-MM-DD)")
+   */
+  @ApiModelProperty(
+      example = "/Date(322560000000+0000)/",
+      required = true,
+      value = "Period start date (YYYY-MM-DD)")
   public String getStartDate() {
     return startDate;
   }
+
   public LocalDate getStartDateAsDate() {
     if (this.startDate != null) {
       try {
         return util.convertStringToDate(this.startDate);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
   public void setStartDate(String startDate) {
@@ -116,8 +112,8 @@ public class Timesheet {
   }
 
   public void setStartDate(LocalDate startDate) {
-    //CONVERT LocalDate args into MS DateFromat String
-    Instant instant =  startDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();  
+    // CONVERT LocalDate args into MS DateFromat String
+    Instant instant = startDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
     long timeInMillis = instant.toEpochMilli();
 
     this.startDate = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
@@ -128,23 +124,28 @@ public class Timesheet {
     return this;
   }
 
-   /**
+  /**
    * Period end date (YYYY-MM-DD)
+   *
    * @return endDate
-  **/
-  @ApiModelProperty(example = "/Date(322560000000+0000)/", required = true, value = "Period end date (YYYY-MM-DD)")
+   */
+  @ApiModelProperty(
+      example = "/Date(322560000000+0000)/",
+      required = true,
+      value = "Period end date (YYYY-MM-DD)")
   public String getEndDate() {
     return endDate;
   }
+
   public LocalDate getEndDateAsDate() {
     if (this.endDate != null) {
       try {
         return util.convertStringToDate(this.endDate);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
   public void setEndDate(String endDate) {
@@ -152,8 +153,8 @@ public class Timesheet {
   }
 
   public void setEndDate(LocalDate endDate) {
-    //CONVERT LocalDate args into MS DateFromat String
-    Instant instant =  endDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();  
+    // CONVERT LocalDate args into MS DateFromat String
+    Instant instant = endDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
     long timeInMillis = instant.toEpochMilli();
 
     this.endDate = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
@@ -164,10 +165,11 @@ public class Timesheet {
     return this;
   }
 
-   /**
+  /**
    * Get status
+   *
    * @return status
-  **/
+   */
   @ApiModelProperty(value = "")
   public TimesheetStatus getStatus() {
     return status;
@@ -182,10 +184,11 @@ public class Timesheet {
     return this;
   }
 
-   /**
+  /**
    * Timesheet total hours
+   *
    * @return hours
-  **/
+   */
   @ApiModelProperty(example = "31.0", value = "Timesheet total hours")
   public Double getHours() {
     return hours;
@@ -200,11 +203,14 @@ public class Timesheet {
     return this;
   }
 
-   /**
+  /**
    * The Xero identifier for a Payroll Timesheet
+   *
    * @return timesheetID
-  **/
-  @ApiModelProperty(example = "049765fc-4506-48fb-bf88-3578dec0ec47", value = "The Xero identifier for a Payroll Timesheet")
+   */
+  @ApiModelProperty(
+      example = "049765fc-4506-48fb-bf88-3578dec0ec47",
+      value = "The Xero identifier for a Payroll Timesheet")
   public UUID getTimesheetID() {
     return timesheetID;
   }
@@ -226,10 +232,11 @@ public class Timesheet {
     return this;
   }
 
-   /**
+  /**
    * Get timesheetLines
+   *
    * @return timesheetLines
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<TimesheetLine> getTimesheetLines() {
     return timesheetLines;
@@ -239,23 +246,25 @@ public class Timesheet {
     this.timesheetLines = timesheetLines;
   }
 
-   /**
+  /**
    * Last modified timestamp
+   *
    * @return updatedDateUTC
-  **/
+   */
   @ApiModelProperty(example = "/Date(1583967733054+0000)/", value = "Last modified timestamp")
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.updatedDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
   public Timesheet validationErrors(List<ValidationError> validationErrors) {
@@ -271,10 +280,11 @@ public class Timesheet {
     return this;
   }
 
-   /**
+  /**
    * Displays array of validation error messages from the API
+   *
    * @return validationErrors
-  **/
+   */
   @ApiModelProperty(value = "Displays array of validation error messages from the API")
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
@@ -283,7 +293,6 @@ public class Timesheet {
   public void setValidationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -294,22 +303,30 @@ public class Timesheet {
       return false;
     }
     Timesheet timesheet = (Timesheet) o;
-    return Objects.equals(this.employeeID, timesheet.employeeID) &&
-        Objects.equals(this.startDate, timesheet.startDate) &&
-        Objects.equals(this.endDate, timesheet.endDate) &&
-        Objects.equals(this.status, timesheet.status) &&
-        Objects.equals(this.hours, timesheet.hours) &&
-        Objects.equals(this.timesheetID, timesheet.timesheetID) &&
-        Objects.equals(this.timesheetLines, timesheet.timesheetLines) &&
-        Objects.equals(this.updatedDateUTC, timesheet.updatedDateUTC) &&
-        Objects.equals(this.validationErrors, timesheet.validationErrors);
+    return Objects.equals(this.employeeID, timesheet.employeeID)
+        && Objects.equals(this.startDate, timesheet.startDate)
+        && Objects.equals(this.endDate, timesheet.endDate)
+        && Objects.equals(this.status, timesheet.status)
+        && Objects.equals(this.hours, timesheet.hours)
+        && Objects.equals(this.timesheetID, timesheet.timesheetID)
+        && Objects.equals(this.timesheetLines, timesheet.timesheetLines)
+        && Objects.equals(this.updatedDateUTC, timesheet.updatedDateUTC)
+        && Objects.equals(this.validationErrors, timesheet.validationErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(employeeID, startDate, endDate, status, hours, timesheetID, timesheetLines, updatedDateUTC, validationErrors);
+    return Objects.hash(
+        employeeID,
+        startDate,
+        endDate,
+        status,
+        hours,
+        timesheetID,
+        timesheetLines,
+        updatedDateUTC,
+        validationErrors);
   }
-
 
   @Override
   public String toString() {
@@ -329,8 +346,7 @@ public class Timesheet {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -338,6 +354,4 @@ public class Timesheet {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

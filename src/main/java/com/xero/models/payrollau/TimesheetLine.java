@@ -10,33 +10,19 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrollau;
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
+import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
-import java.io.IOException;
-
 import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
-import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-/**
- * TimesheetLine
- */
-
+/** TimesheetLine */
 public class TimesheetLine {
   StringUtil util = new StringUtil();
 
@@ -51,16 +37,20 @@ public class TimesheetLine {
 
   @JsonProperty("UpdatedDateUTC")
   private String updatedDateUTC;
+
   public TimesheetLine earningsRateID(UUID earningsRateID) {
     this.earningsRateID = earningsRateID;
     return this;
   }
 
-   /**
+  /**
    * The Xero identifier for an Earnings Rate
+   *
    * @return earningsRateID
-  **/
-  @ApiModelProperty(example = "966c5c77-2ef0-4320-b6a9-6c27b080ecc5", value = "The Xero identifier for an Earnings Rate")
+   */
+  @ApiModelProperty(
+      example = "966c5c77-2ef0-4320-b6a9-6c27b080ecc5",
+      value = "The Xero identifier for an Earnings Rate")
   public UUID getEarningsRateID() {
     return earningsRateID;
   }
@@ -74,11 +64,17 @@ public class TimesheetLine {
     return this;
   }
 
-   /**
-   * The Xero identifier for a Tracking Category. The TrackingOptionID must belong to the TrackingCategory selected as TimesheetCategories under Payroll Settings.
+  /**
+   * The Xero identifier for a Tracking Category. The TrackingOptionID must belong to the
+   * TrackingCategory selected as TimesheetCategories under Payroll Settings.
+   *
    * @return trackingItemID
-  **/
-  @ApiModelProperty(example = "ae777a87-5ef3-4fa0-a4f0-d10e1f13073a", value = "The Xero identifier for a Tracking Category. The TrackingOptionID must belong to the TrackingCategory selected as TimesheetCategories under Payroll Settings.")
+   */
+  @ApiModelProperty(
+      example = "ae777a87-5ef3-4fa0-a4f0-d10e1f13073a",
+      value =
+          "The Xero identifier for a Tracking Category. The TrackingOptionID must belong to the"
+              + " TrackingCategory selected as TimesheetCategories under Payroll Settings.")
   public UUID getTrackingItemID() {
     return trackingItemID;
   }
@@ -100,10 +96,11 @@ public class TimesheetLine {
     return this;
   }
 
-   /**
+  /**
    * The number of units on a timesheet line
+   *
    * @return numberOfUnits
-  **/
+   */
   @ApiModelProperty(value = "The number of units on a timesheet line")
   public List<Double> getNumberOfUnits() {
     return numberOfUnits;
@@ -113,25 +110,26 @@ public class TimesheetLine {
     this.numberOfUnits = numberOfUnits;
   }
 
-   /**
+  /**
    * Last modified timestamp
+   *
    * @return updatedDateUTC
-  **/
+   */
   @ApiModelProperty(example = "/Date(1583967733054+0000)/", value = "Last modified timestamp")
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.updatedDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -142,17 +140,16 @@ public class TimesheetLine {
       return false;
     }
     TimesheetLine timesheetLine = (TimesheetLine) o;
-    return Objects.equals(this.earningsRateID, timesheetLine.earningsRateID) &&
-        Objects.equals(this.trackingItemID, timesheetLine.trackingItemID) &&
-        Objects.equals(this.numberOfUnits, timesheetLine.numberOfUnits) &&
-        Objects.equals(this.updatedDateUTC, timesheetLine.updatedDateUTC);
+    return Objects.equals(this.earningsRateID, timesheetLine.earningsRateID)
+        && Objects.equals(this.trackingItemID, timesheetLine.trackingItemID)
+        && Objects.equals(this.numberOfUnits, timesheetLine.numberOfUnits)
+        && Objects.equals(this.updatedDateUTC, timesheetLine.updatedDateUTC);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(earningsRateID, trackingItemID, numberOfUnits, updatedDateUTC);
   }
-
 
   @Override
   public String toString() {
@@ -167,8 +164,7 @@ public class TimesheetLine {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -176,6 +172,4 @@ public class TimesheetLine {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

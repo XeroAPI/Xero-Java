@@ -10,31 +10,15 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrolluk;
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.UUID;
-import java.io.IOException;
-
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Objects;
+import java.util.UUID;
 
-/**
- * EarningsTemplate
- */
-
+/** EarningsTemplate */
 public class EarningsTemplate {
   StringUtil util = new StringUtil();
 
@@ -55,15 +39,17 @@ public class EarningsTemplate {
 
   @JsonProperty("name")
   private String name;
+
   public EarningsTemplate payTemplateEarningID(UUID payTemplateEarningID) {
     this.payTemplateEarningID = payTemplateEarningID;
     return this;
   }
 
-   /**
+  /**
    * The Xero identifier for the earnings template
+   *
    * @return payTemplateEarningID
-  **/
+   */
   @ApiModelProperty(value = "The Xero identifier for the earnings template")
   public UUID getPayTemplateEarningID() {
     return payTemplateEarningID;
@@ -78,10 +64,11 @@ public class EarningsTemplate {
     return this;
   }
 
-   /**
+  /**
    * The rate per unit
+   *
    * @return ratePerUnit
-  **/
+   */
   @ApiModelProperty(value = "The rate per unit")
   public Double getRatePerUnit() {
     return ratePerUnit;
@@ -96,10 +83,11 @@ public class EarningsTemplate {
     return this;
   }
 
-   /**
+  /**
    * The rate per unit
+   *
    * @return numberOfUnits
-  **/
+   */
   @ApiModelProperty(value = "The rate per unit")
   public Double getNumberOfUnits() {
     return numberOfUnits;
@@ -114,10 +102,11 @@ public class EarningsTemplate {
     return this;
   }
 
-   /**
+  /**
    * The fixed amount per period
+   *
    * @return fixedAmount
-  **/
+   */
   @ApiModelProperty(value = "The fixed amount per period")
   public Double getFixedAmount() {
     return fixedAmount;
@@ -132,10 +121,11 @@ public class EarningsTemplate {
     return this;
   }
 
-   /**
+  /**
    * The corresponding earnings rate identifier
+   *
    * @return earningsRateID
-  **/
+   */
   @ApiModelProperty(value = "The corresponding earnings rate identifier")
   public UUID getEarningsRateID() {
     return earningsRateID;
@@ -150,10 +140,11 @@ public class EarningsTemplate {
     return this;
   }
 
-   /**
+  /**
    * The read-only name of the Earning Template.
+   *
    * @return name
-  **/
+   */
   @ApiModelProperty(value = "The read-only name of the Earning Template.")
   public String getName() {
     return name;
@@ -162,7 +153,6 @@ public class EarningsTemplate {
   public void setName(String name) {
     this.name = name;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -173,25 +163,27 @@ public class EarningsTemplate {
       return false;
     }
     EarningsTemplate earningsTemplate = (EarningsTemplate) o;
-    return Objects.equals(this.payTemplateEarningID, earningsTemplate.payTemplateEarningID) &&
-        Objects.equals(this.ratePerUnit, earningsTemplate.ratePerUnit) &&
-        Objects.equals(this.numberOfUnits, earningsTemplate.numberOfUnits) &&
-        Objects.equals(this.fixedAmount, earningsTemplate.fixedAmount) &&
-        Objects.equals(this.earningsRateID, earningsTemplate.earningsRateID) &&
-        Objects.equals(this.name, earningsTemplate.name);
+    return Objects.equals(this.payTemplateEarningID, earningsTemplate.payTemplateEarningID)
+        && Objects.equals(this.ratePerUnit, earningsTemplate.ratePerUnit)
+        && Objects.equals(this.numberOfUnits, earningsTemplate.numberOfUnits)
+        && Objects.equals(this.fixedAmount, earningsTemplate.fixedAmount)
+        && Objects.equals(this.earningsRateID, earningsTemplate.earningsRateID)
+        && Objects.equals(this.name, earningsTemplate.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(payTemplateEarningID, ratePerUnit, numberOfUnits, fixedAmount, earningsRateID, name);
+    return Objects.hash(
+        payTemplateEarningID, ratePerUnit, numberOfUnits, fixedAmount, earningsRateID, name);
   }
-
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class EarningsTemplate {\n");
-    sb.append("    payTemplateEarningID: ").append(toIndentedString(payTemplateEarningID)).append("\n");
+    sb.append("    payTemplateEarningID: ")
+        .append(toIndentedString(payTemplateEarningID))
+        .append("\n");
     sb.append("    ratePerUnit: ").append(toIndentedString(ratePerUnit)).append("\n");
     sb.append("    numberOfUnits: ").append(toIndentedString(numberOfUnits)).append("\n");
     sb.append("    fixedAmount: ").append(toIndentedString(fixedAmount)).append("\n");
@@ -202,8 +194,7 @@ public class EarningsTemplate {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -211,6 +202,4 @@ public class EarningsTemplate {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

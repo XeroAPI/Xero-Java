@@ -10,31 +10,17 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrolluk;
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import org.threeten.bp.LocalDate;
-import java.io.IOException;
-
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Objects;
+import org.threeten.bp.LocalDate;
 
-/**
- * LeavePeriod
- */
-
+/** LeavePeriod */
 public class LeavePeriod {
   StringUtil util = new StringUtil();
 
@@ -46,12 +32,10 @@ public class LeavePeriod {
 
   @JsonProperty("numberOfUnits")
   private Double numberOfUnits;
-  /**
-   * Period Status
-   */
+  /** Period Status */
   public enum PeriodStatusEnum {
     APPROVED("Approved"),
-    
+
     COMPLETED("Completed");
 
     private String value;
@@ -81,18 +65,19 @@ public class LeavePeriod {
     }
   }
 
-
   @JsonProperty("periodStatus")
   private PeriodStatusEnum periodStatus;
+
   public LeavePeriod periodStartDate(LocalDate periodStartDate) {
     this.periodStartDate = periodStartDate;
     return this;
   }
 
-   /**
+  /**
    * The Pay Period Start Date (YYYY-MM-DD)
+   *
    * @return periodStartDate
-  **/
+   */
   @ApiModelProperty(value = "The Pay Period Start Date (YYYY-MM-DD)")
   public LocalDate getPeriodStartDate() {
     return periodStartDate;
@@ -107,10 +92,11 @@ public class LeavePeriod {
     return this;
   }
 
-   /**
+  /**
    * The Pay Period End Date (YYYY-MM-DD)
+   *
    * @return periodEndDate
-  **/
+   */
   @ApiModelProperty(value = "The Pay Period End Date (YYYY-MM-DD)")
   public LocalDate getPeriodEndDate() {
     return periodEndDate;
@@ -125,10 +111,11 @@ public class LeavePeriod {
     return this;
   }
 
-   /**
+  /**
    * The Number of Units for the leave
+   *
    * @return numberOfUnits
-  **/
+   */
   @ApiModelProperty(value = "The Number of Units for the leave")
   public Double getNumberOfUnits() {
     return numberOfUnits;
@@ -143,10 +130,11 @@ public class LeavePeriod {
     return this;
   }
 
-   /**
+  /**
    * Period Status
+   *
    * @return periodStatus
-  **/
+   */
   @ApiModelProperty(value = "Period Status")
   public PeriodStatusEnum getPeriodStatus() {
     return periodStatus;
@@ -155,7 +143,6 @@ public class LeavePeriod {
   public void setPeriodStatus(PeriodStatusEnum periodStatus) {
     this.periodStatus = periodStatus;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -166,17 +153,16 @@ public class LeavePeriod {
       return false;
     }
     LeavePeriod leavePeriod = (LeavePeriod) o;
-    return Objects.equals(this.periodStartDate, leavePeriod.periodStartDate) &&
-        Objects.equals(this.periodEndDate, leavePeriod.periodEndDate) &&
-        Objects.equals(this.numberOfUnits, leavePeriod.numberOfUnits) &&
-        Objects.equals(this.periodStatus, leavePeriod.periodStatus);
+    return Objects.equals(this.periodStartDate, leavePeriod.periodStartDate)
+        && Objects.equals(this.periodEndDate, leavePeriod.periodEndDate)
+        && Objects.equals(this.numberOfUnits, leavePeriod.numberOfUnits)
+        && Objects.equals(this.periodStatus, leavePeriod.periodStatus);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(periodStartDate, periodEndDate, numberOfUnits, periodStatus);
   }
-
 
   @Override
   public String toString() {
@@ -191,8 +177,7 @@ public class LeavePeriod {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -200,6 +185,4 @@ public class LeavePeriod {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

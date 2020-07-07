@@ -10,38 +10,22 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.accounting;
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.accounting.ExpenseClaim;
-import io.swagger.annotations.ApiModel;
+import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.IOException;
+import java.util.Objects;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
-import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
-/**
- * ExpenseClaims
- */
-
+/** ExpenseClaims */
 public class ExpenseClaims {
   StringUtil util = new StringUtil();
 
   @JsonProperty("ExpenseClaims")
   private List<ExpenseClaim> expenseClaims = new ArrayList<ExpenseClaim>();
+
   public ExpenseClaims expenseClaims(List<ExpenseClaim> expenseClaims) {
     this.expenseClaims = expenseClaims;
     return this;
@@ -55,10 +39,11 @@ public class ExpenseClaims {
     return this;
   }
 
-   /**
+  /**
    * Get expenseClaims
+   *
    * @return expenseClaims
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<ExpenseClaim> getExpenseClaims() {
     return expenseClaims;
@@ -67,7 +52,6 @@ public class ExpenseClaims {
   public void setExpenseClaims(List<ExpenseClaim> expenseClaims) {
     this.expenseClaims = expenseClaims;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -86,7 +70,6 @@ public class ExpenseClaims {
     return Objects.hash(expenseClaims);
   }
 
-
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -97,8 +80,7 @@ public class ExpenseClaims {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -106,6 +88,4 @@ public class ExpenseClaims {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

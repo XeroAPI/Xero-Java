@@ -10,32 +10,18 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrolluk;
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
+import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.Objects;
 import java.util.UUID;
 import org.threeten.bp.LocalDate;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
-import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
-/**
- * SalaryAndWage
- */
-
+/** SalaryAndWage */
 public class SalaryAndWage {
   StringUtil util = new StringUtil();
 
@@ -59,12 +45,10 @@ public class SalaryAndWage {
 
   @JsonProperty("annualSalary")
   private Double annualSalary;
-  /**
-   * The current status of the corresponding salary and wages
-   */
+  /** The current status of the corresponding salary and wages */
   public enum StatusEnum {
     ACTIVE("Active"),
-    
+
     PENDING("Pending");
 
     private String value;
@@ -94,12 +78,9 @@ public class SalaryAndWage {
     }
   }
 
-
   @JsonProperty("status")
   private StatusEnum status;
-  /**
-   * The type of the payment of the corresponding salary and wages
-   */
+  /** The type of the payment of the corresponding salary and wages */
   public enum PaymentTypeEnum {
     SALARY("Salary");
 
@@ -130,18 +111,19 @@ public class SalaryAndWage {
     }
   }
 
-
   @JsonProperty("paymentType")
   private PaymentTypeEnum paymentType;
+
   public SalaryAndWage salaryAndWagesID(UUID salaryAndWagesID) {
     this.salaryAndWagesID = salaryAndWagesID;
     return this;
   }
 
-   /**
+  /**
    * Xero unique identifier for a salary and wages record
+   *
    * @return salaryAndWagesID
-  **/
+   */
   @ApiModelProperty(value = "Xero unique identifier for a salary and wages record")
   public UUID getSalaryAndWagesID() {
     return salaryAndWagesID;
@@ -156,10 +138,11 @@ public class SalaryAndWage {
     return this;
   }
 
-   /**
+  /**
    * Xero unique identifier for an earnings rate
+   *
    * @return earningsRateID
-  **/
+   */
   @ApiModelProperty(required = true, value = "Xero unique identifier for an earnings rate")
   public UUID getEarningsRateID() {
     return earningsRateID;
@@ -174,11 +157,14 @@ public class SalaryAndWage {
     return this;
   }
 
-   /**
+  /**
    * The Number of Units per week for the corresponding salary and wages
+   *
    * @return numberOfUnitsPerWeek
-  **/
-  @ApiModelProperty(required = true, value = "The Number of Units per week for the corresponding salary and wages")
+   */
+  @ApiModelProperty(
+      required = true,
+      value = "The Number of Units per week for the corresponding salary and wages")
   public Double getNumberOfUnitsPerWeek() {
     return numberOfUnitsPerWeek;
   }
@@ -192,11 +178,14 @@ public class SalaryAndWage {
     return this;
   }
 
-   /**
+  /**
    * The rate of each unit for the corresponding salary and wages
+   *
    * @return ratePerUnit
-  **/
-  @ApiModelProperty(required = true, value = "The rate of each unit for the corresponding salary and wages")
+   */
+  @ApiModelProperty(
+      required = true,
+      value = "The rate of each unit for the corresponding salary and wages")
   public Double getRatePerUnit() {
     return ratePerUnit;
   }
@@ -210,11 +199,14 @@ public class SalaryAndWage {
     return this;
   }
 
-   /**
+  /**
    * The Number of Units per day for the corresponding salary and wages
+   *
    * @return numberOfUnitsPerDay
-  **/
-  @ApiModelProperty(required = true, value = "The Number of Units per day for the corresponding salary and wages")
+   */
+  @ApiModelProperty(
+      required = true,
+      value = "The Number of Units per day for the corresponding salary and wages")
   public Double getNumberOfUnitsPerDay() {
     return numberOfUnitsPerDay;
   }
@@ -228,11 +220,14 @@ public class SalaryAndWage {
     return this;
   }
 
-   /**
+  /**
    * The effective date of the corresponding salary and wages
+   *
    * @return effectiveFrom
-  **/
-  @ApiModelProperty(required = true, value = "The effective date of the corresponding salary and wages")
+   */
+  @ApiModelProperty(
+      required = true,
+      value = "The effective date of the corresponding salary and wages")
   public LocalDate getEffectiveFrom() {
     return effectiveFrom;
   }
@@ -246,10 +241,11 @@ public class SalaryAndWage {
     return this;
   }
 
-   /**
+  /**
    * The annual salary
+   *
    * @return annualSalary
-  **/
+   */
   @ApiModelProperty(required = true, value = "The annual salary")
   public Double getAnnualSalary() {
     return annualSalary;
@@ -264,11 +260,14 @@ public class SalaryAndWage {
     return this;
   }
 
-   /**
+  /**
    * The current status of the corresponding salary and wages
+   *
    * @return status
-  **/
-  @ApiModelProperty(required = true, value = "The current status of the corresponding salary and wages")
+   */
+  @ApiModelProperty(
+      required = true,
+      value = "The current status of the corresponding salary and wages")
   public StatusEnum getStatus() {
     return status;
   }
@@ -282,11 +281,14 @@ public class SalaryAndWage {
     return this;
   }
 
-   /**
+  /**
    * The type of the payment of the corresponding salary and wages
+   *
    * @return paymentType
-  **/
-  @ApiModelProperty(required = true, value = "The type of the payment of the corresponding salary and wages")
+   */
+  @ApiModelProperty(
+      required = true,
+      value = "The type of the payment of the corresponding salary and wages")
   public PaymentTypeEnum getPaymentType() {
     return paymentType;
   }
@@ -294,7 +296,6 @@ public class SalaryAndWage {
   public void setPaymentType(PaymentTypeEnum paymentType) {
     this.paymentType = paymentType;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -305,22 +306,30 @@ public class SalaryAndWage {
       return false;
     }
     SalaryAndWage salaryAndWage = (SalaryAndWage) o;
-    return Objects.equals(this.salaryAndWagesID, salaryAndWage.salaryAndWagesID) &&
-        Objects.equals(this.earningsRateID, salaryAndWage.earningsRateID) &&
-        Objects.equals(this.numberOfUnitsPerWeek, salaryAndWage.numberOfUnitsPerWeek) &&
-        Objects.equals(this.ratePerUnit, salaryAndWage.ratePerUnit) &&
-        Objects.equals(this.numberOfUnitsPerDay, salaryAndWage.numberOfUnitsPerDay) &&
-        Objects.equals(this.effectiveFrom, salaryAndWage.effectiveFrom) &&
-        Objects.equals(this.annualSalary, salaryAndWage.annualSalary) &&
-        Objects.equals(this.status, salaryAndWage.status) &&
-        Objects.equals(this.paymentType, salaryAndWage.paymentType);
+    return Objects.equals(this.salaryAndWagesID, salaryAndWage.salaryAndWagesID)
+        && Objects.equals(this.earningsRateID, salaryAndWage.earningsRateID)
+        && Objects.equals(this.numberOfUnitsPerWeek, salaryAndWage.numberOfUnitsPerWeek)
+        && Objects.equals(this.ratePerUnit, salaryAndWage.ratePerUnit)
+        && Objects.equals(this.numberOfUnitsPerDay, salaryAndWage.numberOfUnitsPerDay)
+        && Objects.equals(this.effectiveFrom, salaryAndWage.effectiveFrom)
+        && Objects.equals(this.annualSalary, salaryAndWage.annualSalary)
+        && Objects.equals(this.status, salaryAndWage.status)
+        && Objects.equals(this.paymentType, salaryAndWage.paymentType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(salaryAndWagesID, earningsRateID, numberOfUnitsPerWeek, ratePerUnit, numberOfUnitsPerDay, effectiveFrom, annualSalary, status, paymentType);
+    return Objects.hash(
+        salaryAndWagesID,
+        earningsRateID,
+        numberOfUnitsPerWeek,
+        ratePerUnit,
+        numberOfUnitsPerDay,
+        effectiveFrom,
+        annualSalary,
+        status,
+        paymentType);
   }
-
 
   @Override
   public String toString() {
@@ -328,9 +337,13 @@ public class SalaryAndWage {
     sb.append("class SalaryAndWage {\n");
     sb.append("    salaryAndWagesID: ").append(toIndentedString(salaryAndWagesID)).append("\n");
     sb.append("    earningsRateID: ").append(toIndentedString(earningsRateID)).append("\n");
-    sb.append("    numberOfUnitsPerWeek: ").append(toIndentedString(numberOfUnitsPerWeek)).append("\n");
+    sb.append("    numberOfUnitsPerWeek: ")
+        .append(toIndentedString(numberOfUnitsPerWeek))
+        .append("\n");
     sb.append("    ratePerUnit: ").append(toIndentedString(ratePerUnit)).append("\n");
-    sb.append("    numberOfUnitsPerDay: ").append(toIndentedString(numberOfUnitsPerDay)).append("\n");
+    sb.append("    numberOfUnitsPerDay: ")
+        .append(toIndentedString(numberOfUnitsPerDay))
+        .append("\n");
     sb.append("    effectiveFrom: ").append(toIndentedString(effectiveFrom)).append("\n");
     sb.append("    annualSalary: ").append(toIndentedString(annualSalary)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
@@ -340,8 +353,7 @@ public class SalaryAndWage {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -349,6 +361,4 @@ public class SalaryAndWage {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

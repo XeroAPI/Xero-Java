@@ -10,35 +10,20 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrolluk;
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.payrolluk.Payslip;
-import io.swagger.annotations.ApiModel;
+import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import org.threeten.bp.LocalDate;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
-import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
-/**
- * PayRun
- */
-
+/** PayRun */
 public class PayRun {
   StringUtil util = new StringUtil();
 
@@ -62,12 +47,10 @@ public class PayRun {
 
   @JsonProperty("totalPay")
   private Double totalPay;
-  /**
-   * Pay run status
-   */
+  /** Pay run status */
   public enum PayRunStatusEnum {
     DRAFT("Draft"),
-    
+
     POSTED("Posted");
 
     private String value;
@@ -97,17 +80,14 @@ public class PayRun {
     }
   }
 
-
   @JsonProperty("payRunStatus")
   private PayRunStatusEnum payRunStatus;
-  /**
-   * Pay run type
-   */
+  /** Pay run type */
   public enum PayRunTypeEnum {
     SCHEDULED("Scheduled"),
-    
+
     UNSCHEDULED("Unscheduled"),
-    
+
     EARLIERYEARUPDATE("EarlierYearUpdate");
 
     private String value;
@@ -137,23 +117,20 @@ public class PayRun {
     }
   }
 
-
   @JsonProperty("payRunType")
   private PayRunTypeEnum payRunType;
-  /**
-   * Calendar type of the pay run
-   */
+  /** Calendar type of the pay run */
   public enum CalendarTypeEnum {
     WEEKLY("Weekly"),
-    
+
     FORTNIGHTLY("Fortnightly"),
-    
+
     FOURWEEKLY("FourWeekly"),
-    
+
     MONTHLY("Monthly"),
-    
+
     ANNUAL("Annual"),
-    
+
     QUARTERLY("Quarterly");
 
     private String value;
@@ -183,7 +160,6 @@ public class PayRun {
     }
   }
 
-
   @JsonProperty("calendarType")
   private CalendarTypeEnum calendarType;
 
@@ -192,15 +168,17 @@ public class PayRun {
 
   @JsonProperty("paySlips")
   private List<Payslip> paySlips = new ArrayList<Payslip>();
+
   public PayRun payRunID(UUID payRunID) {
     this.payRunID = payRunID;
     return this;
   }
 
-   /**
+  /**
    * Xero unique identifier for the pay run
+   *
    * @return payRunID
-  **/
+   */
   @ApiModelProperty(value = "Xero unique identifier for the pay run")
   public UUID getPayRunID() {
     return payRunID;
@@ -215,10 +193,11 @@ public class PayRun {
     return this;
   }
 
-   /**
+  /**
    * Xero unique identifier for the payroll calendar
+   *
    * @return payrollCalendarID
-  **/
+   */
   @ApiModelProperty(value = "Xero unique identifier for the payroll calendar")
   public UUID getPayrollCalendarID() {
     return payrollCalendarID;
@@ -233,10 +212,11 @@ public class PayRun {
     return this;
   }
 
-   /**
+  /**
    * Period start date of the payroll calendar
+   *
    * @return periodStartDate
-  **/
+   */
   @ApiModelProperty(value = "Period start date of the payroll calendar")
   public LocalDate getPeriodStartDate() {
     return periodStartDate;
@@ -251,10 +231,11 @@ public class PayRun {
     return this;
   }
 
-   /**
+  /**
    * Period end date of the payroll calendar
+   *
    * @return periodEndDate
-  **/
+   */
   @ApiModelProperty(value = "Period end date of the payroll calendar")
   public LocalDate getPeriodEndDate() {
     return periodEndDate;
@@ -269,10 +250,11 @@ public class PayRun {
     return this;
   }
 
-   /**
+  /**
    * Payment date of the pay run
+   *
    * @return paymentDate
-  **/
+   */
   @ApiModelProperty(value = "Payment date of the pay run")
   public LocalDate getPaymentDate() {
     return paymentDate;
@@ -287,10 +269,11 @@ public class PayRun {
     return this;
   }
 
-   /**
+  /**
    * Total cost of the pay run
+   *
    * @return totalCost
-  **/
+   */
   @ApiModelProperty(value = "Total cost of the pay run")
   public Double getTotalCost() {
     return totalCost;
@@ -305,10 +288,11 @@ public class PayRun {
     return this;
   }
 
-   /**
+  /**
    * Total pay of the pay run
+   *
    * @return totalPay
-  **/
+   */
   @ApiModelProperty(value = "Total pay of the pay run")
   public Double getTotalPay() {
     return totalPay;
@@ -323,10 +307,11 @@ public class PayRun {
     return this;
   }
 
-   /**
+  /**
    * Pay run status
+   *
    * @return payRunStatus
-  **/
+   */
   @ApiModelProperty(value = "Pay run status")
   public PayRunStatusEnum getPayRunStatus() {
     return payRunStatus;
@@ -341,10 +326,11 @@ public class PayRun {
     return this;
   }
 
-   /**
+  /**
    * Pay run type
+   *
    * @return payRunType
-  **/
+   */
   @ApiModelProperty(value = "Pay run type")
   public PayRunTypeEnum getPayRunType() {
     return payRunType;
@@ -359,10 +345,11 @@ public class PayRun {
     return this;
   }
 
-   /**
+  /**
    * Calendar type of the pay run
+   *
    * @return calendarType
-  **/
+   */
   @ApiModelProperty(value = "Calendar type of the pay run")
   public CalendarTypeEnum getCalendarType() {
     return calendarType;
@@ -377,10 +364,11 @@ public class PayRun {
     return this;
   }
 
-   /**
+  /**
    * Posted date time of the pay run
+   *
    * @return postedDateTime
-  **/
+   */
   @ApiModelProperty(value = "Posted date time of the pay run")
   public LocalDate getPostedDateTime() {
     return postedDateTime;
@@ -403,10 +391,11 @@ public class PayRun {
     return this;
   }
 
-   /**
+  /**
    * Get paySlips
+   *
    * @return paySlips
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<Payslip> getPaySlips() {
     return paySlips;
@@ -415,7 +404,6 @@ public class PayRun {
   public void setPaySlips(List<Payslip> paySlips) {
     this.paySlips = paySlips;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -426,25 +414,36 @@ public class PayRun {
       return false;
     }
     PayRun payRun = (PayRun) o;
-    return Objects.equals(this.payRunID, payRun.payRunID) &&
-        Objects.equals(this.payrollCalendarID, payRun.payrollCalendarID) &&
-        Objects.equals(this.periodStartDate, payRun.periodStartDate) &&
-        Objects.equals(this.periodEndDate, payRun.periodEndDate) &&
-        Objects.equals(this.paymentDate, payRun.paymentDate) &&
-        Objects.equals(this.totalCost, payRun.totalCost) &&
-        Objects.equals(this.totalPay, payRun.totalPay) &&
-        Objects.equals(this.payRunStatus, payRun.payRunStatus) &&
-        Objects.equals(this.payRunType, payRun.payRunType) &&
-        Objects.equals(this.calendarType, payRun.calendarType) &&
-        Objects.equals(this.postedDateTime, payRun.postedDateTime) &&
-        Objects.equals(this.paySlips, payRun.paySlips);
+    return Objects.equals(this.payRunID, payRun.payRunID)
+        && Objects.equals(this.payrollCalendarID, payRun.payrollCalendarID)
+        && Objects.equals(this.periodStartDate, payRun.periodStartDate)
+        && Objects.equals(this.periodEndDate, payRun.periodEndDate)
+        && Objects.equals(this.paymentDate, payRun.paymentDate)
+        && Objects.equals(this.totalCost, payRun.totalCost)
+        && Objects.equals(this.totalPay, payRun.totalPay)
+        && Objects.equals(this.payRunStatus, payRun.payRunStatus)
+        && Objects.equals(this.payRunType, payRun.payRunType)
+        && Objects.equals(this.calendarType, payRun.calendarType)
+        && Objects.equals(this.postedDateTime, payRun.postedDateTime)
+        && Objects.equals(this.paySlips, payRun.paySlips);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(payRunID, payrollCalendarID, periodStartDate, periodEndDate, paymentDate, totalCost, totalPay, payRunStatus, payRunType, calendarType, postedDateTime, paySlips);
+    return Objects.hash(
+        payRunID,
+        payrollCalendarID,
+        periodStartDate,
+        periodEndDate,
+        paymentDate,
+        totalCost,
+        totalPay,
+        payRunStatus,
+        payRunType,
+        calendarType,
+        postedDateTime,
+        paySlips);
   }
-
 
   @Override
   public String toString() {
@@ -467,8 +466,7 @@ public class PayRun {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -476,6 +474,4 @@ public class PayRun {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

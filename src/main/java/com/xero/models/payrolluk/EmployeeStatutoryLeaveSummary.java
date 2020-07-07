@@ -10,32 +10,18 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrolluk;
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
+import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.Objects;
 import java.util.UUID;
 import org.threeten.bp.LocalDate;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
-import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
-/**
- * EmployeeStatutoryLeaveSummary
- */
-
+/** EmployeeStatutoryLeaveSummary */
 public class EmployeeStatutoryLeaveSummary {
   StringUtil util = new StringUtil();
 
@@ -44,18 +30,16 @@ public class EmployeeStatutoryLeaveSummary {
 
   @JsonProperty("employeeID")
   private UUID employeeID;
-  /**
-   * The category of statutory leave
-   */
+  /** The category of statutory leave */
   public enum TypeEnum {
     SICK("Sick"),
-    
+
     ADOPTION("Adoption"),
-    
+
     MATERNITY("Maternity"),
-    
+
     PATERNITY("Paternity"),
-    
+
     SHAREDPARENTAL("Sharedparental");
 
     private String value;
@@ -85,7 +69,6 @@ public class EmployeeStatutoryLeaveSummary {
     }
   }
 
-
   @JsonProperty("type")
   private TypeEnum type;
 
@@ -97,14 +80,12 @@ public class EmployeeStatutoryLeaveSummary {
 
   @JsonProperty("isEntitled")
   private Boolean isEntitled;
-  /**
-   * The status of the leave
-   */
+  /** The status of the leave */
   public enum StatusEnum {
     PENDING("Pending"),
-    
+
     IN_PROGRESS("In-Progress"),
-    
+
     COMPLETED("Completed");
 
     private String value;
@@ -134,18 +115,19 @@ public class EmployeeStatutoryLeaveSummary {
     }
   }
 
-
   @JsonProperty("status")
   private StatusEnum status;
+
   public EmployeeStatutoryLeaveSummary statutoryLeaveID(UUID statutoryLeaveID) {
     this.statutoryLeaveID = statutoryLeaveID;
     return this;
   }
 
-   /**
+  /**
    * The unique identifier (guid) of a statutory leave.
+   *
    * @return statutoryLeaveID
-  **/
+   */
   @ApiModelProperty(value = "The unique identifier (guid) of a statutory leave.")
   public UUID getStatutoryLeaveID() {
     return statutoryLeaveID;
@@ -160,10 +142,11 @@ public class EmployeeStatutoryLeaveSummary {
     return this;
   }
 
-   /**
+  /**
    * The unique identifier (guid) of the employee
+   *
    * @return employeeID
-  **/
+   */
   @ApiModelProperty(value = "The unique identifier (guid) of the employee")
   public UUID getEmployeeID() {
     return employeeID;
@@ -178,10 +161,11 @@ public class EmployeeStatutoryLeaveSummary {
     return this;
   }
 
-   /**
+  /**
    * The category of statutory leave
+   *
    * @return type
-  **/
+   */
   @ApiModelProperty(value = "The category of statutory leave")
   public TypeEnum getType() {
     return type;
@@ -196,10 +180,11 @@ public class EmployeeStatutoryLeaveSummary {
     return this;
   }
 
-   /**
+  /**
    * The date when the leave starts
+   *
    * @return startDate
-  **/
+   */
   @ApiModelProperty(value = "The date when the leave starts")
   public LocalDate getStartDate() {
     return startDate;
@@ -214,10 +199,11 @@ public class EmployeeStatutoryLeaveSummary {
     return this;
   }
 
-   /**
+  /**
    * The date when the leave ends
+   *
    * @return endDate
-  **/
+   */
   @ApiModelProperty(value = "The date when the leave ends")
   public LocalDate getEndDate() {
     return endDate;
@@ -232,10 +218,11 @@ public class EmployeeStatutoryLeaveSummary {
     return this;
   }
 
-   /**
+  /**
    * Whether the leave was entitled to receive payment
+   *
    * @return isEntitled
-  **/
+   */
   @ApiModelProperty(value = "Whether the leave was entitled to receive payment")
   public Boolean getIsEntitled() {
     return isEntitled;
@@ -250,10 +237,11 @@ public class EmployeeStatutoryLeaveSummary {
     return this;
   }
 
-   /**
+  /**
    * The status of the leave
+   *
    * @return status
-  **/
+   */
   @ApiModelProperty(value = "The status of the leave")
   public StatusEnum getStatus() {
     return status;
@@ -262,7 +250,6 @@ public class EmployeeStatutoryLeaveSummary {
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -273,20 +260,19 @@ public class EmployeeStatutoryLeaveSummary {
       return false;
     }
     EmployeeStatutoryLeaveSummary employeeStatutoryLeaveSummary = (EmployeeStatutoryLeaveSummary) o;
-    return Objects.equals(this.statutoryLeaveID, employeeStatutoryLeaveSummary.statutoryLeaveID) &&
-        Objects.equals(this.employeeID, employeeStatutoryLeaveSummary.employeeID) &&
-        Objects.equals(this.type, employeeStatutoryLeaveSummary.type) &&
-        Objects.equals(this.startDate, employeeStatutoryLeaveSummary.startDate) &&
-        Objects.equals(this.endDate, employeeStatutoryLeaveSummary.endDate) &&
-        Objects.equals(this.isEntitled, employeeStatutoryLeaveSummary.isEntitled) &&
-        Objects.equals(this.status, employeeStatutoryLeaveSummary.status);
+    return Objects.equals(this.statutoryLeaveID, employeeStatutoryLeaveSummary.statutoryLeaveID)
+        && Objects.equals(this.employeeID, employeeStatutoryLeaveSummary.employeeID)
+        && Objects.equals(this.type, employeeStatutoryLeaveSummary.type)
+        && Objects.equals(this.startDate, employeeStatutoryLeaveSummary.startDate)
+        && Objects.equals(this.endDate, employeeStatutoryLeaveSummary.endDate)
+        && Objects.equals(this.isEntitled, employeeStatutoryLeaveSummary.isEntitled)
+        && Objects.equals(this.status, employeeStatutoryLeaveSummary.status);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(statutoryLeaveID, employeeID, type, startDate, endDate, isEntitled, status);
   }
-
 
   @Override
   public String toString() {
@@ -304,8 +290,7 @@ public class EmployeeStatutoryLeaveSummary {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -313,6 +298,4 @@ public class EmployeeStatutoryLeaveSummary {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

@@ -10,48 +10,30 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.accounting;
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.accounting.Allocation;
-import com.xero.models.accounting.Contact;
-import com.xero.models.accounting.CurrencyCode;
-import com.xero.models.accounting.LineAmountTypes;
-import com.xero.models.accounting.LineItem;
-import com.xero.models.accounting.Payment;
-import com.xero.models.accounting.ValidationError;
-import io.swagger.annotations.ApiModel;
+import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
-import java.io.IOException;
-
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDate;
-import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.ZoneId;
 
-/**
- * CreditNote
- */
-
+/** CreditNote */
 public class CreditNote {
   StringUtil util = new StringUtil();
-  /**
-   * See Credit Note Types
-   */
+  /** See Credit Note Types */
   public enum TypeEnum {
     ACCPAYCREDIT("ACCPAYCREDIT"),
-    
+
     ACCRECCREDIT("ACCRECCREDIT");
 
     private String value;
@@ -81,7 +63,6 @@ public class CreditNote {
     }
   }
 
-
   @JsonProperty("Type")
   private TypeEnum type;
 
@@ -90,20 +71,18 @@ public class CreditNote {
 
   @JsonProperty("Date")
   private String date;
-  /**
-   * See Credit Note Status Codes
-   */
+  /** See Credit Note Status Codes */
   public enum StatusEnum {
     DRAFT("DRAFT"),
-    
+
     SUBMITTED("SUBMITTED"),
-    
+
     DELETED("DELETED"),
-    
+
     AUTHORISED("AUTHORISED"),
-    
+
     PAID("PAID"),
-    
+
     VOIDED("VOIDED");
 
     private String value;
@@ -132,7 +111,6 @@ public class CreditNote {
       throw new IllegalArgumentException("Unexpected value '" + value + "'");
     }
   }
-
 
   @JsonProperty("Status")
   private StatusEnum status;
@@ -202,15 +180,17 @@ public class CreditNote {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
+
   public CreditNote type(TypeEnum type) {
     this.type = type;
     return this;
   }
 
-   /**
+  /**
    * See Credit Note Types
+   *
    * @return type
-  **/
+   */
   @ApiModelProperty(value = "See Credit Note Types")
   public TypeEnum getType() {
     return type;
@@ -225,10 +205,11 @@ public class CreditNote {
     return this;
   }
 
-   /**
+  /**
    * Get contact
+   *
    * @return contact
-  **/
+   */
   @ApiModelProperty(value = "")
   public Contact getContact() {
     return contact;
@@ -243,23 +224,30 @@ public class CreditNote {
     return this;
   }
 
-   /**
-   * The date the credit note is issued YYYY-MM-DD. If the Date element is not specified then it will default to the current date based on the timezone setting of the organisation
+  /**
+   * The date the credit note is issued YYYY-MM-DD. If the Date element is not specified then it
+   * will default to the current date based on the timezone setting of the organisation
+   *
    * @return date
-  **/
-  @ApiModelProperty(value = "The date the credit note is issued YYYY-MM-DD. If the Date element is not specified then it will default to the current date based on the timezone setting of the organisation")
+   */
+  @ApiModelProperty(
+      value =
+          "The date the credit note is issued YYYY-MM-DD. If the Date element is not specified"
+              + " then it will default to the current date based on the timezone setting of the"
+              + " organisation")
   public String getDate() {
     return date;
   }
+
   public LocalDate getDateAsDate() {
     if (this.date != null) {
       try {
         return util.convertStringToDate(this.date);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
   public void setDate(String date) {
@@ -267,8 +255,8 @@ public class CreditNote {
   }
 
   public void setDate(LocalDate date) {
-    //CONVERT LocalDate args into MS DateFromat String
-    Instant instant =  date.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();  
+    // CONVERT LocalDate args into MS DateFromat String
+    Instant instant = date.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
     long timeInMillis = instant.toEpochMilli();
 
     this.date = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
@@ -279,10 +267,11 @@ public class CreditNote {
     return this;
   }
 
-   /**
+  /**
    * See Credit Note Status Codes
+   *
    * @return status
-  **/
+   */
   @ApiModelProperty(value = "See Credit Note Status Codes")
   public StatusEnum getStatus() {
     return status;
@@ -297,10 +286,11 @@ public class CreditNote {
     return this;
   }
 
-   /**
+  /**
    * Get lineAmountTypes
+   *
    * @return lineAmountTypes
-  **/
+   */
   @ApiModelProperty(value = "")
   public LineAmountTypes getLineAmountTypes() {
     return lineAmountTypes;
@@ -323,10 +313,11 @@ public class CreditNote {
     return this;
   }
 
-   /**
+  /**
    * See Invoice Line Items
+   *
    * @return lineItems
-  **/
+   */
   @ApiModelProperty(value = "See Invoice Line Items")
   public List<LineItem> getLineItems() {
     return lineItems;
@@ -341,10 +332,11 @@ public class CreditNote {
     return this;
   }
 
-   /**
+  /**
    * The subtotal of the credit note excluding taxes
+   *
    * @return subTotal
-  **/
+   */
   @ApiModelProperty(value = "The subtotal of the credit note excluding taxes")
   public Double getSubTotal() {
     return subTotal;
@@ -359,10 +351,11 @@ public class CreditNote {
     return this;
   }
 
-   /**
+  /**
    * The total tax on the credit note
+   *
    * @return totalTax
-  **/
+   */
   @ApiModelProperty(value = "The total tax on the credit note")
   public Double getTotalTax() {
     return totalTax;
@@ -377,10 +370,11 @@ public class CreditNote {
     return this;
   }
 
-   /**
+  /**
    * The total of the Credit Note(subtotal + total tax)
+   *
    * @return total
-  **/
+   */
   @ApiModelProperty(value = "The total of the Credit Note(subtotal + total tax)")
   public Double getTotal() {
     return total;
@@ -390,23 +384,27 @@ public class CreditNote {
     this.total = total;
   }
 
-   /**
+  /**
    * UTC timestamp of last update to the credit note
+   *
    * @return updatedDateUTC
-  **/
-  @ApiModelProperty(example = "/Date(1573755038314)/", value = "UTC timestamp of last update to the credit note")
+   */
+  @ApiModelProperty(
+      example = "/Date(1573755038314)/",
+      value = "UTC timestamp of last update to the credit note")
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
+
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.updatedDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
   public CreditNote currencyCode(CurrencyCode currencyCode) {
@@ -414,10 +412,11 @@ public class CreditNote {
     return this;
   }
 
-   /**
+  /**
    * Get currencyCode
+   *
    * @return currencyCode
-  **/
+   */
   @ApiModelProperty(value = "")
   public CurrencyCode getCurrencyCode() {
     return currencyCode;
@@ -432,23 +431,25 @@ public class CreditNote {
     return this;
   }
 
-   /**
+  /**
    * Date when credit note was fully paid(UTC format)
+   *
    * @return fullyPaidOnDate
-  **/
+   */
   @ApiModelProperty(value = "Date when credit note was fully paid(UTC format)")
   public String getFullyPaidOnDate() {
     return fullyPaidOnDate;
   }
+
   public LocalDate getFullyPaidOnDateAsDate() {
     if (this.fullyPaidOnDate != null) {
       try {
         return util.convertStringToDate(this.fullyPaidOnDate);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
   public void setFullyPaidOnDate(String fullyPaidOnDate) {
@@ -456,8 +457,8 @@ public class CreditNote {
   }
 
   public void setFullyPaidOnDate(LocalDate fullyPaidOnDate) {
-    //CONVERT LocalDate args into MS DateFromat String
-    Instant instant =  fullyPaidOnDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();  
+    // CONVERT LocalDate args into MS DateFromat String
+    Instant instant = fullyPaidOnDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
     long timeInMillis = instant.toEpochMilli();
 
     this.fullyPaidOnDate = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
@@ -468,10 +469,11 @@ public class CreditNote {
     return this;
   }
 
-   /**
+  /**
    * Xero generated unique identifier
+   *
    * @return creditNoteID
-  **/
+   */
   @ApiModelProperty(value = "Xero generated unique identifier")
   public UUID getCreditNoteID() {
     return creditNoteID;
@@ -486,11 +488,16 @@ public class CreditNote {
     return this;
   }
 
-   /**
-   * ACCRECCREDIT – Unique alpha numeric code identifying credit note (when missing will auto-generate from your Organisation Invoice Settings)
+  /**
+   * ACCRECCREDIT – Unique alpha numeric code identifying credit note (when missing will
+   * auto-generate from your Organisation Invoice Settings)
+   *
    * @return creditNoteNumber
-  **/
-  @ApiModelProperty(value = "ACCRECCREDIT – Unique alpha numeric code identifying credit note (when missing will auto-generate from your Organisation Invoice Settings)")
+   */
+  @ApiModelProperty(
+      value =
+          "ACCRECCREDIT – Unique alpha numeric code identifying credit note (when missing will"
+              + " auto-generate from your Organisation Invoice Settings)")
   public String getCreditNoteNumber() {
     return creditNoteNumber;
   }
@@ -504,10 +511,11 @@ public class CreditNote {
     return this;
   }
 
-   /**
+  /**
    * ACCRECCREDIT only – additional reference number
+   *
    * @return reference
-  **/
+   */
   @ApiModelProperty(value = "ACCRECCREDIT only – additional reference number")
   public String getReference() {
     return reference;
@@ -517,11 +525,16 @@ public class CreditNote {
     this.reference = reference;
   }
 
-   /**
-   * boolean to indicate if a credit note has been sent to a contact via  the Xero app (currently read only)
+  /**
+   * boolean to indicate if a credit note has been sent to a contact via the Xero app (currently
+   * read only)
+   *
    * @return sentToContact
-  **/
-  @ApiModelProperty(value = "boolean to indicate if a credit note has been sent to a contact via  the Xero app (currently read only)")
+   */
+  @ApiModelProperty(
+      value =
+          "boolean to indicate if a credit note has been sent to a contact via  the Xero app"
+              + " (currently read only)")
   public Boolean getSentToContact() {
     return sentToContact;
   }
@@ -531,11 +544,16 @@ public class CreditNote {
     return this;
   }
 
-   /**
-   * The currency rate for a multicurrency invoice. If no rate is specified, the XE.com day rate is used
+  /**
+   * The currency rate for a multicurrency invoice. If no rate is specified, the XE.com day rate is
+   * used
+   *
    * @return currencyRate
-  **/
-  @ApiModelProperty(value = "The currency rate for a multicurrency invoice. If no rate is specified, the XE.com day rate is used")
+   */
+  @ApiModelProperty(
+      value =
+          "The currency rate for a multicurrency invoice. If no rate is specified, the XE.com day"
+              + " rate is used")
   public Double getCurrencyRate() {
     return currencyRate;
   }
@@ -549,10 +567,11 @@ public class CreditNote {
     return this;
   }
 
-   /**
+  /**
    * The remaining credit balance on the Credit Note
+   *
    * @return remainingCredit
-  **/
+   */
   @ApiModelProperty(value = "The remaining credit balance on the Credit Note")
   public Double getRemainingCredit() {
     return remainingCredit;
@@ -575,10 +594,11 @@ public class CreditNote {
     return this;
   }
 
-   /**
+  /**
    * See Allocations
+   *
    * @return allocations
-  **/
+   */
   @ApiModelProperty(value = "See Allocations")
   public List<Allocation> getAllocations() {
     return allocations;
@@ -593,10 +613,11 @@ public class CreditNote {
     return this;
   }
 
-   /**
+  /**
    * The amount of applied to an invoice
+   *
    * @return appliedAmount
-  **/
+   */
   @ApiModelProperty(example = "2.0", value = "The amount of applied to an invoice")
   public Double getAppliedAmount() {
     return appliedAmount;
@@ -619,10 +640,11 @@ public class CreditNote {
     return this;
   }
 
-   /**
+  /**
    * See Payments
+   *
    * @return payments
-  **/
+   */
   @ApiModelProperty(value = "See Payments")
   public List<Payment> getPayments() {
     return payments;
@@ -637,10 +659,11 @@ public class CreditNote {
     return this;
   }
 
-   /**
+  /**
    * See BrandingThemes
+   *
    * @return brandingThemeID
-  **/
+   */
   @ApiModelProperty(value = "See BrandingThemes")
   public UUID getBrandingThemeID() {
     return brandingThemeID;
@@ -655,10 +678,11 @@ public class CreditNote {
     return this;
   }
 
-   /**
+  /**
    * A string to indicate if a invoice status
+   *
    * @return statusAttributeString
-  **/
+   */
   @ApiModelProperty(value = "A string to indicate if a invoice status")
   public String getStatusAttributeString() {
     return statusAttributeString;
@@ -673,11 +697,14 @@ public class CreditNote {
     return this;
   }
 
-   /**
+  /**
    * boolean to indicate if a credit note has an attachment
+   *
    * @return hasAttachments
-  **/
-  @ApiModelProperty(example = "false", value = "boolean to indicate if a credit note has an attachment")
+   */
+  @ApiModelProperty(
+      example = "false",
+      value = "boolean to indicate if a credit note has an attachment")
   public Boolean getHasAttachments() {
     return hasAttachments;
   }
@@ -691,11 +718,14 @@ public class CreditNote {
     return this;
   }
 
-   /**
+  /**
    * A boolean to indicate if a credit note has an validation errors
+   *
    * @return hasErrors
-  **/
-  @ApiModelProperty(example = "false", value = "A boolean to indicate if a credit note has an validation errors")
+   */
+  @ApiModelProperty(
+      example = "false",
+      value = "A boolean to indicate if a credit note has an validation errors")
   public Boolean getHasErrors() {
     return hasErrors;
   }
@@ -717,10 +747,11 @@ public class CreditNote {
     return this;
   }
 
-   /**
+  /**
    * Displays array of validation error messages from the API
+   *
    * @return validationErrors
-  **/
+   */
   @ApiModelProperty(value = "Displays array of validation error messages from the API")
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
@@ -729,7 +760,6 @@ public class CreditNote {
   public void setValidationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -740,39 +770,64 @@ public class CreditNote {
       return false;
     }
     CreditNote creditNote = (CreditNote) o;
-    return Objects.equals(this.type, creditNote.type) &&
-        Objects.equals(this.contact, creditNote.contact) &&
-        Objects.equals(this.date, creditNote.date) &&
-        Objects.equals(this.status, creditNote.status) &&
-        Objects.equals(this.lineAmountTypes, creditNote.lineAmountTypes) &&
-        Objects.equals(this.lineItems, creditNote.lineItems) &&
-        Objects.equals(this.subTotal, creditNote.subTotal) &&
-        Objects.equals(this.totalTax, creditNote.totalTax) &&
-        Objects.equals(this.total, creditNote.total) &&
-        Objects.equals(this.updatedDateUTC, creditNote.updatedDateUTC) &&
-        Objects.equals(this.currencyCode, creditNote.currencyCode) &&
-        Objects.equals(this.fullyPaidOnDate, creditNote.fullyPaidOnDate) &&
-        Objects.equals(this.creditNoteID, creditNote.creditNoteID) &&
-        Objects.equals(this.creditNoteNumber, creditNote.creditNoteNumber) &&
-        Objects.equals(this.reference, creditNote.reference) &&
-        Objects.equals(this.sentToContact, creditNote.sentToContact) &&
-        Objects.equals(this.currencyRate, creditNote.currencyRate) &&
-        Objects.equals(this.remainingCredit, creditNote.remainingCredit) &&
-        Objects.equals(this.allocations, creditNote.allocations) &&
-        Objects.equals(this.appliedAmount, creditNote.appliedAmount) &&
-        Objects.equals(this.payments, creditNote.payments) &&
-        Objects.equals(this.brandingThemeID, creditNote.brandingThemeID) &&
-        Objects.equals(this.statusAttributeString, creditNote.statusAttributeString) &&
-        Objects.equals(this.hasAttachments, creditNote.hasAttachments) &&
-        Objects.equals(this.hasErrors, creditNote.hasErrors) &&
-        Objects.equals(this.validationErrors, creditNote.validationErrors);
+    return Objects.equals(this.type, creditNote.type)
+        && Objects.equals(this.contact, creditNote.contact)
+        && Objects.equals(this.date, creditNote.date)
+        && Objects.equals(this.status, creditNote.status)
+        && Objects.equals(this.lineAmountTypes, creditNote.lineAmountTypes)
+        && Objects.equals(this.lineItems, creditNote.lineItems)
+        && Objects.equals(this.subTotal, creditNote.subTotal)
+        && Objects.equals(this.totalTax, creditNote.totalTax)
+        && Objects.equals(this.total, creditNote.total)
+        && Objects.equals(this.updatedDateUTC, creditNote.updatedDateUTC)
+        && Objects.equals(this.currencyCode, creditNote.currencyCode)
+        && Objects.equals(this.fullyPaidOnDate, creditNote.fullyPaidOnDate)
+        && Objects.equals(this.creditNoteID, creditNote.creditNoteID)
+        && Objects.equals(this.creditNoteNumber, creditNote.creditNoteNumber)
+        && Objects.equals(this.reference, creditNote.reference)
+        && Objects.equals(this.sentToContact, creditNote.sentToContact)
+        && Objects.equals(this.currencyRate, creditNote.currencyRate)
+        && Objects.equals(this.remainingCredit, creditNote.remainingCredit)
+        && Objects.equals(this.allocations, creditNote.allocations)
+        && Objects.equals(this.appliedAmount, creditNote.appliedAmount)
+        && Objects.equals(this.payments, creditNote.payments)
+        && Objects.equals(this.brandingThemeID, creditNote.brandingThemeID)
+        && Objects.equals(this.statusAttributeString, creditNote.statusAttributeString)
+        && Objects.equals(this.hasAttachments, creditNote.hasAttachments)
+        && Objects.equals(this.hasErrors, creditNote.hasErrors)
+        && Objects.equals(this.validationErrors, creditNote.validationErrors);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, contact, date, status, lineAmountTypes, lineItems, subTotal, totalTax, total, updatedDateUTC, currencyCode, fullyPaidOnDate, creditNoteID, creditNoteNumber, reference, sentToContact, currencyRate, remainingCredit, allocations, appliedAmount, payments, brandingThemeID, statusAttributeString, hasAttachments, hasErrors, validationErrors);
+    return Objects.hash(
+        type,
+        contact,
+        date,
+        status,
+        lineAmountTypes,
+        lineItems,
+        subTotal,
+        totalTax,
+        total,
+        updatedDateUTC,
+        currencyCode,
+        fullyPaidOnDate,
+        creditNoteID,
+        creditNoteNumber,
+        reference,
+        sentToContact,
+        currencyRate,
+        remainingCredit,
+        allocations,
+        appliedAmount,
+        payments,
+        brandingThemeID,
+        statusAttributeString,
+        hasAttachments,
+        hasErrors,
+        validationErrors);
   }
-
 
   @Override
   public String toString() {
@@ -800,7 +855,9 @@ public class CreditNote {
     sb.append("    appliedAmount: ").append(toIndentedString(appliedAmount)).append("\n");
     sb.append("    payments: ").append(toIndentedString(payments)).append("\n");
     sb.append("    brandingThemeID: ").append(toIndentedString(brandingThemeID)).append("\n");
-    sb.append("    statusAttributeString: ").append(toIndentedString(statusAttributeString)).append("\n");
+    sb.append("    statusAttributeString: ")
+        .append(toIndentedString(statusAttributeString))
+        .append("\n");
     sb.append("    hasAttachments: ").append(toIndentedString(hasAttachments)).append("\n");
     sb.append("    hasErrors: ").append(toIndentedString(hasErrors)).append("\n");
     sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
@@ -809,8 +866,7 @@ public class CreditNote {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -818,6 +874,4 @@ public class CreditNote {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-
