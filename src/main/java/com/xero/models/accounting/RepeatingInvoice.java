@@ -10,47 +10,25 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.accounting;
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.accounting.Attachment;
-import com.xero.models.accounting.Contact;
-import com.xero.models.accounting.CurrencyCode;
-import com.xero.models.accounting.LineAmountTypes;
-import com.xero.models.accounting.LineItem;
-import com.xero.models.accounting.Schedule;
-import io.swagger.annotations.ApiModel;
+import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
-import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
-/**
- * RepeatingInvoice
- */
-
+/** RepeatingInvoice */
 public class RepeatingInvoice {
   StringUtil util = new StringUtil();
-  /**
-   * See Invoice Types
-   */
+  /** See Invoice Types */
   public enum TypeEnum {
     ACCPAY("ACCPAY"),
-    
+
     ACCREC("ACCREC");
 
     private String value;
@@ -80,7 +58,6 @@ public class RepeatingInvoice {
     }
   }
 
-
   @JsonProperty("Type")
   private TypeEnum type;
 
@@ -104,14 +81,12 @@ public class RepeatingInvoice {
 
   @JsonProperty("CurrencyCode")
   private CurrencyCode currencyCode;
-  /**
-   * One of the following - DRAFT or AUTHORISED – See Invoice Status Codes
-   */
+  /** One of the following - DRAFT or AUTHORISED – See Invoice Status Codes */
   public enum StatusEnum {
     DRAFT("DRAFT"),
-    
+
     AUTHORISED("AUTHORISED"),
-    
+
     DELETED("DELETED");
 
     private String value;
@@ -141,7 +116,6 @@ public class RepeatingInvoice {
     }
   }
 
-
   @JsonProperty("Status")
   private StatusEnum status;
 
@@ -165,15 +139,17 @@ public class RepeatingInvoice {
 
   @JsonProperty("Attachments")
   private List<Attachment> attachments = new ArrayList<Attachment>();
+
   public RepeatingInvoice type(TypeEnum type) {
     this.type = type;
     return this;
   }
 
-   /**
+  /**
    * See Invoice Types
+   *
    * @return type
-  **/
+   */
   @ApiModelProperty(value = "See Invoice Types")
   public TypeEnum getType() {
     return type;
@@ -188,10 +164,11 @@ public class RepeatingInvoice {
     return this;
   }
 
-   /**
+  /**
    * Get contact
+   *
    * @return contact
-  **/
+   */
   @ApiModelProperty(value = "")
   public Contact getContact() {
     return contact;
@@ -206,10 +183,11 @@ public class RepeatingInvoice {
     return this;
   }
 
-   /**
+  /**
    * Get schedule
+   *
    * @return schedule
-  **/
+   */
   @ApiModelProperty(value = "")
   public Schedule getSchedule() {
     return schedule;
@@ -232,10 +210,11 @@ public class RepeatingInvoice {
     return this;
   }
 
-   /**
+  /**
    * See LineItems
+   *
    * @return lineItems
-  **/
+   */
   @ApiModelProperty(value = "See LineItems")
   public List<LineItem> getLineItems() {
     return lineItems;
@@ -250,10 +229,11 @@ public class RepeatingInvoice {
     return this;
   }
 
-   /**
+  /**
    * Get lineAmountTypes
+   *
    * @return lineAmountTypes
-  **/
+   */
   @ApiModelProperty(value = "")
   public LineAmountTypes getLineAmountTypes() {
     return lineAmountTypes;
@@ -268,10 +248,11 @@ public class RepeatingInvoice {
     return this;
   }
 
-   /**
+  /**
    * ACCREC only – additional reference number
+   *
    * @return reference
-  **/
+   */
   @ApiModelProperty(value = "ACCREC only – additional reference number")
   public String getReference() {
     return reference;
@@ -286,10 +267,11 @@ public class RepeatingInvoice {
     return this;
   }
 
-   /**
+  /**
    * See BrandingThemes
+   *
    * @return brandingThemeID
-  **/
+   */
   @ApiModelProperty(value = "See BrandingThemes")
   public UUID getBrandingThemeID() {
     return brandingThemeID;
@@ -304,10 +286,11 @@ public class RepeatingInvoice {
     return this;
   }
 
-   /**
+  /**
    * Get currencyCode
+   *
    * @return currencyCode
-  **/
+   */
   @ApiModelProperty(value = "")
   public CurrencyCode getCurrencyCode() {
     return currencyCode;
@@ -322,10 +305,11 @@ public class RepeatingInvoice {
     return this;
   }
 
-   /**
+  /**
    * One of the following - DRAFT or AUTHORISED – See Invoice Status Codes
+   *
    * @return status
-  **/
+   */
   @ApiModelProperty(value = "One of the following - DRAFT or AUTHORISED – See Invoice Status Codes")
   public StatusEnum getStatus() {
     return status;
@@ -340,10 +324,11 @@ public class RepeatingInvoice {
     return this;
   }
 
-   /**
+  /**
    * Total of invoice excluding taxes
+   *
    * @return subTotal
-  **/
+   */
   @ApiModelProperty(value = "Total of invoice excluding taxes")
   public Double getSubTotal() {
     return subTotal;
@@ -358,10 +343,11 @@ public class RepeatingInvoice {
     return this;
   }
 
-   /**
+  /**
    * Total tax on invoice
+   *
    * @return totalTax
-  **/
+   */
   @ApiModelProperty(value = "Total tax on invoice")
   public Double getTotalTax() {
     return totalTax;
@@ -376,10 +362,11 @@ public class RepeatingInvoice {
     return this;
   }
 
-   /**
+  /**
    * Total of Invoice tax inclusive (i.e. SubTotal + TotalTax)
+   *
    * @return total
-  **/
+   */
   @ApiModelProperty(value = "Total of Invoice tax inclusive (i.e. SubTotal + TotalTax)")
   public Double getTotal() {
     return total;
@@ -394,10 +381,11 @@ public class RepeatingInvoice {
     return this;
   }
 
-   /**
+  /**
    * Xero generated unique identifier for repeating invoice template
+   *
    * @return repeatingInvoiceID
-  **/
+   */
   @ApiModelProperty(value = "Xero generated unique identifier for repeating invoice template")
   public UUID getRepeatingInvoiceID() {
     return repeatingInvoiceID;
@@ -412,10 +400,11 @@ public class RepeatingInvoice {
     return this;
   }
 
-   /**
+  /**
    * Xero generated unique identifier for repeating invoice template
+   *
    * @return ID
-  **/
+   */
   @ApiModelProperty(value = "Xero generated unique identifier for repeating invoice template")
   public UUID getID() {
     return ID;
@@ -425,11 +414,14 @@ public class RepeatingInvoice {
     this.ID = ID;
   }
 
-   /**
+  /**
    * boolean to indicate if an invoice has an attachment
+   *
    * @return hasAttachments
-  **/
-  @ApiModelProperty(example = "false", value = "boolean to indicate if an invoice has an attachment")
+   */
+  @ApiModelProperty(
+      example = "false",
+      value = "boolean to indicate if an invoice has an attachment")
   public Boolean getHasAttachments() {
     return hasAttachments;
   }
@@ -447,10 +439,11 @@ public class RepeatingInvoice {
     return this;
   }
 
-   /**
+  /**
    * Displays array of attachments from the API
+   *
    * @return attachments
-  **/
+   */
   @ApiModelProperty(value = "Displays array of attachments from the API")
   public List<Attachment> getAttachments() {
     return attachments;
@@ -459,7 +452,6 @@ public class RepeatingInvoice {
   public void setAttachments(List<Attachment> attachments) {
     this.attachments = attachments;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -470,29 +462,44 @@ public class RepeatingInvoice {
       return false;
     }
     RepeatingInvoice repeatingInvoice = (RepeatingInvoice) o;
-    return Objects.equals(this.type, repeatingInvoice.type) &&
-        Objects.equals(this.contact, repeatingInvoice.contact) &&
-        Objects.equals(this.schedule, repeatingInvoice.schedule) &&
-        Objects.equals(this.lineItems, repeatingInvoice.lineItems) &&
-        Objects.equals(this.lineAmountTypes, repeatingInvoice.lineAmountTypes) &&
-        Objects.equals(this.reference, repeatingInvoice.reference) &&
-        Objects.equals(this.brandingThemeID, repeatingInvoice.brandingThemeID) &&
-        Objects.equals(this.currencyCode, repeatingInvoice.currencyCode) &&
-        Objects.equals(this.status, repeatingInvoice.status) &&
-        Objects.equals(this.subTotal, repeatingInvoice.subTotal) &&
-        Objects.equals(this.totalTax, repeatingInvoice.totalTax) &&
-        Objects.equals(this.total, repeatingInvoice.total) &&
-        Objects.equals(this.repeatingInvoiceID, repeatingInvoice.repeatingInvoiceID) &&
-        Objects.equals(this.ID, repeatingInvoice.ID) &&
-        Objects.equals(this.hasAttachments, repeatingInvoice.hasAttachments) &&
-        Objects.equals(this.attachments, repeatingInvoice.attachments);
+    return Objects.equals(this.type, repeatingInvoice.type)
+        && Objects.equals(this.contact, repeatingInvoice.contact)
+        && Objects.equals(this.schedule, repeatingInvoice.schedule)
+        && Objects.equals(this.lineItems, repeatingInvoice.lineItems)
+        && Objects.equals(this.lineAmountTypes, repeatingInvoice.lineAmountTypes)
+        && Objects.equals(this.reference, repeatingInvoice.reference)
+        && Objects.equals(this.brandingThemeID, repeatingInvoice.brandingThemeID)
+        && Objects.equals(this.currencyCode, repeatingInvoice.currencyCode)
+        && Objects.equals(this.status, repeatingInvoice.status)
+        && Objects.equals(this.subTotal, repeatingInvoice.subTotal)
+        && Objects.equals(this.totalTax, repeatingInvoice.totalTax)
+        && Objects.equals(this.total, repeatingInvoice.total)
+        && Objects.equals(this.repeatingInvoiceID, repeatingInvoice.repeatingInvoiceID)
+        && Objects.equals(this.ID, repeatingInvoice.ID)
+        && Objects.equals(this.hasAttachments, repeatingInvoice.hasAttachments)
+        && Objects.equals(this.attachments, repeatingInvoice.attachments);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, contact, schedule, lineItems, lineAmountTypes, reference, brandingThemeID, currencyCode, status, subTotal, totalTax, total, repeatingInvoiceID, ID, hasAttachments, attachments);
+    return Objects.hash(
+        type,
+        contact,
+        schedule,
+        lineItems,
+        lineAmountTypes,
+        reference,
+        brandingThemeID,
+        currencyCode,
+        status,
+        subTotal,
+        totalTax,
+        total,
+        repeatingInvoiceID,
+        ID,
+        hasAttachments,
+        attachments);
   }
-
 
   @Override
   public String toString() {
@@ -519,8 +526,7 @@ public class RepeatingInvoice {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -528,6 +534,4 @@ public class RepeatingInvoice {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

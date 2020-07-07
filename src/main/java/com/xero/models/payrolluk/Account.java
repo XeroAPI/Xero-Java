@@ -10,52 +10,36 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrolluk;
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.UUID;
-import java.io.IOException;
-
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Objects;
+import java.util.UUID;
 
-/**
- * Account
- */
-
+/** Account */
 public class Account {
   StringUtil util = new StringUtil();
 
   @JsonProperty("accountID")
   private UUID accountID;
-  /**
-   * The assigned AccountType
-   */
+  /** The assigned AccountType */
   public enum TypeEnum {
     BANK("BANK"),
-    
+
     EMPLOYERSNIC("EMPLOYERSNIC"),
-    
+
     NICLIABILITY("NICLIABILITY"),
-    
+
     PAYEECONTRIBUTION("PAYEECONTRIBUTION"),
-    
+
     PAYELIABILITY("PAYELIABILITY"),
-    
+
     WAGESPAYABLE("WAGESPAYABLE"),
-    
+
     WAGESEXPENSE("WAGESEXPENSE");
 
     private String value;
@@ -85,7 +69,6 @@ public class Account {
     }
   }
 
-
   @JsonProperty("type")
   private TypeEnum type;
 
@@ -94,15 +77,17 @@ public class Account {
 
   @JsonProperty("name")
   private String name;
+
   public Account accountID(UUID accountID) {
     this.accountID = accountID;
     return this;
   }
 
-   /**
+  /**
    * The Xero identifier for Settings.
+   *
    * @return accountID
-  **/
+   */
   @ApiModelProperty(value = "The Xero identifier for Settings.")
   public UUID getAccountID() {
     return accountID;
@@ -117,10 +102,11 @@ public class Account {
     return this;
   }
 
-   /**
+  /**
    * The assigned AccountType
+   *
    * @return type
-  **/
+   */
   @ApiModelProperty(value = "The assigned AccountType")
   public TypeEnum getType() {
     return type;
@@ -135,10 +121,11 @@ public class Account {
     return this;
   }
 
-   /**
+  /**
    * A unique 3 digit number for each Account
+   *
    * @return code
-  **/
+   */
   @ApiModelProperty(value = "A unique 3 digit number for each Account")
   public String getCode() {
     return code;
@@ -153,10 +140,11 @@ public class Account {
     return this;
   }
 
-   /**
+  /**
    * Name of the Account.
+   *
    * @return name
-  **/
+   */
   @ApiModelProperty(value = "Name of the Account.")
   public String getName() {
     return name;
@@ -165,7 +153,6 @@ public class Account {
   public void setName(String name) {
     this.name = name;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -176,17 +163,16 @@ public class Account {
       return false;
     }
     Account account = (Account) o;
-    return Objects.equals(this.accountID, account.accountID) &&
-        Objects.equals(this.type, account.type) &&
-        Objects.equals(this.code, account.code) &&
-        Objects.equals(this.name, account.name);
+    return Objects.equals(this.accountID, account.accountID)
+        && Objects.equals(this.type, account.type)
+        && Objects.equals(this.code, account.code)
+        && Objects.equals(this.name, account.name);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(accountID, type, code, name);
   }
-
 
   @Override
   public String toString() {
@@ -201,8 +187,7 @@ public class Account {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -210,6 +195,4 @@ public class Account {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

@@ -10,32 +10,15 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrolluk;
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.payrolluk.StatutoryDeductionCategory;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.UUID;
-import java.io.IOException;
-
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Objects;
+import java.util.UUID;
 
-/**
- * StatutoryDeduction
- */
-
+/** StatutoryDeduction */
 public class StatutoryDeduction {
   StringUtil util = new StringUtil();
 
@@ -53,15 +36,17 @@ public class StatutoryDeduction {
 
   @JsonProperty("currentRecord")
   private Boolean currentRecord;
+
   public StatutoryDeduction id(UUID id) {
     this.id = id;
     return this;
   }
 
-   /**
+  /**
    * The Xero identifier for earnings order
+   *
    * @return id
-  **/
+   */
   @ApiModelProperty(value = "The Xero identifier for earnings order")
   public UUID getId() {
     return id;
@@ -76,10 +61,11 @@ public class StatutoryDeduction {
     return this;
   }
 
-   /**
+  /**
    * Name of the earnings order
+   *
    * @return name
-  **/
+   */
   @ApiModelProperty(value = "Name of the earnings order")
   public String getName() {
     return name;
@@ -89,15 +75,17 @@ public class StatutoryDeduction {
     this.name = name;
   }
 
-  public StatutoryDeduction statutoryDeductionCategory(StatutoryDeductionCategory statutoryDeductionCategory) {
+  public StatutoryDeduction statutoryDeductionCategory(
+      StatutoryDeductionCategory statutoryDeductionCategory) {
     this.statutoryDeductionCategory = statutoryDeductionCategory;
     return this;
   }
 
-   /**
+  /**
    * Get statutoryDeductionCategory
+   *
    * @return statutoryDeductionCategory
-  **/
+   */
   @ApiModelProperty(value = "")
   public StatutoryDeductionCategory getStatutoryDeductionCategory() {
     return statutoryDeductionCategory;
@@ -112,10 +100,11 @@ public class StatutoryDeduction {
     return this;
   }
 
-   /**
+  /**
    * Xero identifier for Liability Account
+   *
    * @return liabilityAccountId
-  **/
+   */
   @ApiModelProperty(value = "Xero identifier for Liability Account")
   public UUID getLiabilityAccountId() {
     return liabilityAccountId;
@@ -130,10 +119,11 @@ public class StatutoryDeduction {
     return this;
   }
 
-   /**
+  /**
    * Identifier of a record is active or not.
+   *
    * @return currentRecord
-  **/
+   */
   @ApiModelProperty(value = "Identifier of a record is active or not.")
   public Boolean getCurrentRecord() {
     return currentRecord;
@@ -142,7 +132,6 @@ public class StatutoryDeduction {
   public void setCurrentRecord(Boolean currentRecord) {
     this.currentRecord = currentRecord;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -153,11 +142,12 @@ public class StatutoryDeduction {
       return false;
     }
     StatutoryDeduction statutoryDeduction = (StatutoryDeduction) o;
-    return Objects.equals(this.id, statutoryDeduction.id) &&
-        Objects.equals(this.name, statutoryDeduction.name) &&
-        Objects.equals(this.statutoryDeductionCategory, statutoryDeduction.statutoryDeductionCategory) &&
-        Objects.equals(this.liabilityAccountId, statutoryDeduction.liabilityAccountId) &&
-        Objects.equals(this.currentRecord, statutoryDeduction.currentRecord);
+    return Objects.equals(this.id, statutoryDeduction.id)
+        && Objects.equals(this.name, statutoryDeduction.name)
+        && Objects.equals(
+            this.statutoryDeductionCategory, statutoryDeduction.statutoryDeductionCategory)
+        && Objects.equals(this.liabilityAccountId, statutoryDeduction.liabilityAccountId)
+        && Objects.equals(this.currentRecord, statutoryDeduction.currentRecord);
   }
 
   @Override
@@ -165,14 +155,15 @@ public class StatutoryDeduction {
     return Objects.hash(id, name, statutoryDeductionCategory, liabilityAccountId, currentRecord);
   }
 
-
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class StatutoryDeduction {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    statutoryDeductionCategory: ").append(toIndentedString(statutoryDeductionCategory)).append("\n");
+    sb.append("    statutoryDeductionCategory: ")
+        .append(toIndentedString(statutoryDeductionCategory))
+        .append("\n");
     sb.append("    liabilityAccountId: ").append(toIndentedString(liabilityAccountId)).append("\n");
     sb.append("    currentRecord: ").append(toIndentedString(currentRecord)).append("\n");
     sb.append("}");
@@ -180,8 +171,7 @@ public class StatutoryDeduction {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -189,6 +179,4 @@ public class StatutoryDeduction {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

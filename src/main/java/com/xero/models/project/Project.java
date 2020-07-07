@@ -10,35 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.project;
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.project.Amount;
-import com.xero.models.project.CurrencyCode;
-import com.xero.models.project.ProjectStatus;
-import io.swagger.annotations.ApiModel;
+import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.Objects;
 import java.util.UUID;
 import org.threeten.bp.OffsetDateTime;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
-import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
-/**
- * Project
- */
-
+/** Project */
 public class Project {
   StringUtil util = new StringUtil();
 
@@ -107,16 +88,20 @@ public class Project {
 
   @JsonProperty("status")
   private ProjectStatus status;
+
   public Project projectId(UUID projectId) {
     this.projectId = projectId;
     return this;
   }
 
-   /**
+  /**
    * Identifier of the project.
+   *
    * @return projectId
-  **/
-  @ApiModelProperty(example = "254553fa-2be8-4991-bd5e-70a97ea12ef8", value = "Identifier of the project.")
+   */
+  @ApiModelProperty(
+      example = "254553fa-2be8-4991-bd5e-70a97ea12ef8",
+      value = "Identifier of the project.")
   public UUID getProjectId() {
     return projectId;
   }
@@ -130,11 +115,14 @@ public class Project {
     return this;
   }
 
-   /**
+  /**
    * Identifier of the contact this project was created for.
+   *
    * @return contactId
-  **/
-  @ApiModelProperty(example = "01234567-89ab-cdef-0123-456789abcdef", value = "Identifier of the contact this project was created for.")
+   */
+  @ApiModelProperty(
+      example = "01234567-89ab-cdef-0123-456789abcdef",
+      value = "Identifier of the contact this project was created for.")
   public UUID getContactId() {
     return contactId;
   }
@@ -148,10 +136,11 @@ public class Project {
     return this;
   }
 
-   /**
+  /**
    * Name of the project.
+   *
    * @return name
-  **/
+   */
   @ApiModelProperty(example = "New Kitchen", required = true, value = "Name of the project.")
   public String getName() {
     return name;
@@ -166,10 +155,11 @@ public class Project {
     return this;
   }
 
-   /**
+  /**
    * Get currencyCode
+   *
    * @return currencyCode
-  **/
+   */
   @ApiModelProperty(value = "")
   public CurrencyCode getCurrencyCode() {
     return currencyCode;
@@ -184,11 +174,14 @@ public class Project {
     return this;
   }
 
-   /**
+  /**
    * A total of minutes logged against all tasks on the Project.
+   *
    * @return minutesLogged
-  **/
-  @ApiModelProperty(example = "0", value = "A total of minutes logged against all tasks on the Project.")
+   */
+  @ApiModelProperty(
+      example = "0",
+      value = "A total of minutes logged against all tasks on the Project.")
   public Integer getMinutesLogged() {
     return minutesLogged;
   }
@@ -202,10 +195,11 @@ public class Project {
     return this;
   }
 
-   /**
+  /**
    * Get totalTaskAmount
+   *
    * @return totalTaskAmount
-  **/
+   */
   @ApiModelProperty(value = "")
   public Amount getTotalTaskAmount() {
     return totalTaskAmount;
@@ -220,10 +214,11 @@ public class Project {
     return this;
   }
 
-   /**
+  /**
    * Get totalExpenseAmount
+   *
    * @return totalExpenseAmount
-  **/
+   */
   @ApiModelProperty(value = "")
   public Amount getTotalExpenseAmount() {
     return totalExpenseAmount;
@@ -238,10 +233,11 @@ public class Project {
     return this;
   }
 
-   /**
+  /**
    * Get estimateAmount
+   *
    * @return estimateAmount
-  **/
+   */
   @ApiModelProperty(value = "")
   public Amount getEstimateAmount() {
     return estimateAmount;
@@ -256,11 +252,14 @@ public class Project {
     return this;
   }
 
-   /**
+  /**
    * Minutes which have not been invoiced across all chargeable tasks in the project.
+   *
    * @return minutesToBeInvoiced
-  **/
-  @ApiModelProperty(example = "0", value = "Minutes which have not been invoiced across all chargeable tasks in the project.")
+   */
+  @ApiModelProperty(
+      example = "0",
+      value = "Minutes which have not been invoiced across all chargeable tasks in the project.")
   public Integer getMinutesToBeInvoiced() {
     return minutesToBeInvoiced;
   }
@@ -274,10 +273,11 @@ public class Project {
     return this;
   }
 
-   /**
+  /**
    * Get taskAmountToBeInvoiced
+   *
    * @return taskAmountToBeInvoiced
-  **/
+   */
   @ApiModelProperty(value = "")
   public Amount getTaskAmountToBeInvoiced() {
     return taskAmountToBeInvoiced;
@@ -292,10 +292,11 @@ public class Project {
     return this;
   }
 
-   /**
+  /**
    * Get taskAmountInvoiced
+   *
    * @return taskAmountInvoiced
-  **/
+   */
   @ApiModelProperty(value = "")
   public Amount getTaskAmountInvoiced() {
     return taskAmountInvoiced;
@@ -310,10 +311,11 @@ public class Project {
     return this;
   }
 
-   /**
+  /**
    * Get expenseAmountToBeInvoiced
+   *
    * @return expenseAmountToBeInvoiced
-  **/
+   */
   @ApiModelProperty(value = "")
   public Amount getExpenseAmountToBeInvoiced() {
     return expenseAmountToBeInvoiced;
@@ -328,10 +330,11 @@ public class Project {
     return this;
   }
 
-   /**
+  /**
    * Get expenseAmountInvoiced
+   *
    * @return expenseAmountInvoiced
-  **/
+   */
   @ApiModelProperty(value = "")
   public Amount getExpenseAmountInvoiced() {
     return expenseAmountInvoiced;
@@ -346,10 +349,11 @@ public class Project {
     return this;
   }
 
-   /**
+  /**
    * Get projectAmountInvoiced
+   *
    * @return projectAmountInvoiced
-  **/
+   */
   @ApiModelProperty(value = "")
   public Amount getProjectAmountInvoiced() {
     return projectAmountInvoiced;
@@ -364,10 +368,11 @@ public class Project {
     return this;
   }
 
-   /**
+  /**
    * Get deposit
+   *
    * @return deposit
-  **/
+   */
   @ApiModelProperty(value = "")
   public Amount getDeposit() {
     return deposit;
@@ -382,10 +387,11 @@ public class Project {
     return this;
   }
 
-   /**
+  /**
    * Get depositApplied
+   *
    * @return depositApplied
-  **/
+   */
   @ApiModelProperty(value = "")
   public Amount getDepositApplied() {
     return depositApplied;
@@ -400,10 +406,11 @@ public class Project {
     return this;
   }
 
-   /**
+  /**
    * Get creditNoteAmount
+   *
    * @return creditNoteAmount
-  **/
+   */
   @ApiModelProperty(value = "")
   public Amount getCreditNoteAmount() {
     return creditNoteAmount;
@@ -418,11 +425,14 @@ public class Project {
     return this;
   }
 
-   /**
+  /**
    * Deadline for the project. UTC Date Time in ISO-8601 format.
+   *
    * @return deadlineUtc
-  **/
-  @ApiModelProperty(example = "2019-12-10T12:59:59Z", value = "Deadline for the project. UTC Date Time in ISO-8601 format.")
+   */
+  @ApiModelProperty(
+      example = "2019-12-10T12:59:59Z",
+      value = "Deadline for the project. UTC Date Time in ISO-8601 format.")
   public OffsetDateTime getDeadlineUtc() {
     return deadlineUtc;
   }
@@ -436,10 +446,11 @@ public class Project {
     return this;
   }
 
-   /**
+  /**
    * Get totalInvoiced
+   *
    * @return totalInvoiced
-  **/
+   */
   @ApiModelProperty(value = "")
   public Amount getTotalInvoiced() {
     return totalInvoiced;
@@ -454,10 +465,11 @@ public class Project {
     return this;
   }
 
-   /**
+  /**
    * Get totalToBeInvoiced
+   *
    * @return totalToBeInvoiced
-  **/
+   */
   @ApiModelProperty(value = "")
   public Amount getTotalToBeInvoiced() {
     return totalToBeInvoiced;
@@ -472,10 +484,11 @@ public class Project {
     return this;
   }
 
-   /**
+  /**
    * Get estimate
+   *
    * @return estimate
-  **/
+   */
   @ApiModelProperty(value = "")
   public Amount getEstimate() {
     return estimate;
@@ -490,10 +503,11 @@ public class Project {
     return this;
   }
 
-   /**
+  /**
    * Get status
+   *
    * @return status
-  **/
+   */
   @ApiModelProperty(value = "")
   public ProjectStatus getStatus() {
     return status;
@@ -502,7 +516,6 @@ public class Project {
   public void setStatus(ProjectStatus status) {
     this.status = status;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -513,35 +526,56 @@ public class Project {
       return false;
     }
     Project project = (Project) o;
-    return Objects.equals(this.projectId, project.projectId) &&
-        Objects.equals(this.contactId, project.contactId) &&
-        Objects.equals(this.name, project.name) &&
-        Objects.equals(this.currencyCode, project.currencyCode) &&
-        Objects.equals(this.minutesLogged, project.minutesLogged) &&
-        Objects.equals(this.totalTaskAmount, project.totalTaskAmount) &&
-        Objects.equals(this.totalExpenseAmount, project.totalExpenseAmount) &&
-        Objects.equals(this.estimateAmount, project.estimateAmount) &&
-        Objects.equals(this.minutesToBeInvoiced, project.minutesToBeInvoiced) &&
-        Objects.equals(this.taskAmountToBeInvoiced, project.taskAmountToBeInvoiced) &&
-        Objects.equals(this.taskAmountInvoiced, project.taskAmountInvoiced) &&
-        Objects.equals(this.expenseAmountToBeInvoiced, project.expenseAmountToBeInvoiced) &&
-        Objects.equals(this.expenseAmountInvoiced, project.expenseAmountInvoiced) &&
-        Objects.equals(this.projectAmountInvoiced, project.projectAmountInvoiced) &&
-        Objects.equals(this.deposit, project.deposit) &&
-        Objects.equals(this.depositApplied, project.depositApplied) &&
-        Objects.equals(this.creditNoteAmount, project.creditNoteAmount) &&
-        Objects.equals(this.deadlineUtc, project.deadlineUtc) &&
-        Objects.equals(this.totalInvoiced, project.totalInvoiced) &&
-        Objects.equals(this.totalToBeInvoiced, project.totalToBeInvoiced) &&
-        Objects.equals(this.estimate, project.estimate) &&
-        Objects.equals(this.status, project.status);
+    return Objects.equals(this.projectId, project.projectId)
+        && Objects.equals(this.contactId, project.contactId)
+        && Objects.equals(this.name, project.name)
+        && Objects.equals(this.currencyCode, project.currencyCode)
+        && Objects.equals(this.minutesLogged, project.minutesLogged)
+        && Objects.equals(this.totalTaskAmount, project.totalTaskAmount)
+        && Objects.equals(this.totalExpenseAmount, project.totalExpenseAmount)
+        && Objects.equals(this.estimateAmount, project.estimateAmount)
+        && Objects.equals(this.minutesToBeInvoiced, project.minutesToBeInvoiced)
+        && Objects.equals(this.taskAmountToBeInvoiced, project.taskAmountToBeInvoiced)
+        && Objects.equals(this.taskAmountInvoiced, project.taskAmountInvoiced)
+        && Objects.equals(this.expenseAmountToBeInvoiced, project.expenseAmountToBeInvoiced)
+        && Objects.equals(this.expenseAmountInvoiced, project.expenseAmountInvoiced)
+        && Objects.equals(this.projectAmountInvoiced, project.projectAmountInvoiced)
+        && Objects.equals(this.deposit, project.deposit)
+        && Objects.equals(this.depositApplied, project.depositApplied)
+        && Objects.equals(this.creditNoteAmount, project.creditNoteAmount)
+        && Objects.equals(this.deadlineUtc, project.deadlineUtc)
+        && Objects.equals(this.totalInvoiced, project.totalInvoiced)
+        && Objects.equals(this.totalToBeInvoiced, project.totalToBeInvoiced)
+        && Objects.equals(this.estimate, project.estimate)
+        && Objects.equals(this.status, project.status);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(projectId, contactId, name, currencyCode, minutesLogged, totalTaskAmount, totalExpenseAmount, estimateAmount, minutesToBeInvoiced, taskAmountToBeInvoiced, taskAmountInvoiced, expenseAmountToBeInvoiced, expenseAmountInvoiced, projectAmountInvoiced, deposit, depositApplied, creditNoteAmount, deadlineUtc, totalInvoiced, totalToBeInvoiced, estimate, status);
+    return Objects.hash(
+        projectId,
+        contactId,
+        name,
+        currencyCode,
+        minutesLogged,
+        totalTaskAmount,
+        totalExpenseAmount,
+        estimateAmount,
+        minutesToBeInvoiced,
+        taskAmountToBeInvoiced,
+        taskAmountInvoiced,
+        expenseAmountToBeInvoiced,
+        expenseAmountInvoiced,
+        projectAmountInvoiced,
+        deposit,
+        depositApplied,
+        creditNoteAmount,
+        deadlineUtc,
+        totalInvoiced,
+        totalToBeInvoiced,
+        estimate,
+        status);
   }
-
 
   @Override
   public String toString() {
@@ -555,12 +589,22 @@ public class Project {
     sb.append("    totalTaskAmount: ").append(toIndentedString(totalTaskAmount)).append("\n");
     sb.append("    totalExpenseAmount: ").append(toIndentedString(totalExpenseAmount)).append("\n");
     sb.append("    estimateAmount: ").append(toIndentedString(estimateAmount)).append("\n");
-    sb.append("    minutesToBeInvoiced: ").append(toIndentedString(minutesToBeInvoiced)).append("\n");
-    sb.append("    taskAmountToBeInvoiced: ").append(toIndentedString(taskAmountToBeInvoiced)).append("\n");
+    sb.append("    minutesToBeInvoiced: ")
+        .append(toIndentedString(minutesToBeInvoiced))
+        .append("\n");
+    sb.append("    taskAmountToBeInvoiced: ")
+        .append(toIndentedString(taskAmountToBeInvoiced))
+        .append("\n");
     sb.append("    taskAmountInvoiced: ").append(toIndentedString(taskAmountInvoiced)).append("\n");
-    sb.append("    expenseAmountToBeInvoiced: ").append(toIndentedString(expenseAmountToBeInvoiced)).append("\n");
-    sb.append("    expenseAmountInvoiced: ").append(toIndentedString(expenseAmountInvoiced)).append("\n");
-    sb.append("    projectAmountInvoiced: ").append(toIndentedString(projectAmountInvoiced)).append("\n");
+    sb.append("    expenseAmountToBeInvoiced: ")
+        .append(toIndentedString(expenseAmountToBeInvoiced))
+        .append("\n");
+    sb.append("    expenseAmountInvoiced: ")
+        .append(toIndentedString(expenseAmountInvoiced))
+        .append("\n");
+    sb.append("    projectAmountInvoiced: ")
+        .append(toIndentedString(projectAmountInvoiced))
+        .append("\n");
     sb.append("    deposit: ").append(toIndentedString(deposit)).append("\n");
     sb.append("    depositApplied: ").append(toIndentedString(depositApplied)).append("\n");
     sb.append("    creditNoteAmount: ").append(toIndentedString(creditNoteAmount)).append("\n");
@@ -574,8 +618,7 @@ public class Project {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -583,6 +626,4 @@ public class Project {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

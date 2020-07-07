@@ -10,35 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.accounting;
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.accounting.ReportCell;
-import com.xero.models.accounting.ReportRow;
-import com.xero.models.accounting.RowType;
-import io.swagger.annotations.ApiModel;
+import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.IOException;
+import java.util.Objects;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
-import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
-/**
- * ReportRows
- */
-
+/** ReportRows */
 public class ReportRows {
   StringUtil util = new StringUtil();
 
@@ -53,15 +34,17 @@ public class ReportRows {
 
   @JsonProperty("Rows")
   private List<ReportRow> rows = new ArrayList<ReportRow>();
+
   public ReportRows rowType(RowType rowType) {
     this.rowType = rowType;
     return this;
   }
 
-   /**
+  /**
    * Get rowType
+   *
    * @return rowType
-  **/
+   */
   @ApiModelProperty(value = "")
   public RowType getRowType() {
     return rowType;
@@ -76,10 +59,11 @@ public class ReportRows {
     return this;
   }
 
-   /**
+  /**
    * Get title
+   *
    * @return title
-  **/
+   */
   @ApiModelProperty(value = "")
   public String getTitle() {
     return title;
@@ -102,10 +86,11 @@ public class ReportRows {
     return this;
   }
 
-   /**
+  /**
    * Get cells
+   *
    * @return cells
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<ReportCell> getCells() {
     return cells;
@@ -128,10 +113,11 @@ public class ReportRows {
     return this;
   }
 
-   /**
+  /**
    * Get rows
+   *
    * @return rows
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<ReportRow> getRows() {
     return rows;
@@ -140,7 +126,6 @@ public class ReportRows {
   public void setRows(List<ReportRow> rows) {
     this.rows = rows;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -151,17 +136,16 @@ public class ReportRows {
       return false;
     }
     ReportRows reportRows = (ReportRows) o;
-    return Objects.equals(this.rowType, reportRows.rowType) &&
-        Objects.equals(this.title, reportRows.title) &&
-        Objects.equals(this.cells, reportRows.cells) &&
-        Objects.equals(this.rows, reportRows.rows);
+    return Objects.equals(this.rowType, reportRows.rowType)
+        && Objects.equals(this.title, reportRows.title)
+        && Objects.equals(this.cells, reportRows.cells)
+        && Objects.equals(this.rows, reportRows.rows);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(rowType, title, cells, rows);
   }
-
 
   @Override
   public String toString() {
@@ -176,8 +160,7 @@ public class ReportRows {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -185,6 +168,4 @@ public class ReportRows {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

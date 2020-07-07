@@ -10,30 +10,14 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrolluk;
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
-
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Objects;
 
-/**
- * InvalidField
- */
-
+/** InvalidField */
 public class InvalidField {
   StringUtil util = new StringUtil();
 
@@ -42,15 +26,17 @@ public class InvalidField {
 
   @JsonProperty("reason")
   private String reason;
+
   public InvalidField name(String name) {
     this.name = name;
     return this;
   }
 
-   /**
+  /**
    * The name of the field that caused the error
+   *
    * @return name
-  **/
+   */
   @ApiModelProperty(example = "DateOfBirth", value = "The name of the field that caused the error")
   public String getName() {
     return name;
@@ -65,11 +51,14 @@ public class InvalidField {
     return this;
   }
 
-   /**
+  /**
    * The reason the error occurred
+   *
    * @return reason
-  **/
-  @ApiModelProperty(example = "The Date of Birth is required.", value = "The reason the error occurred")
+   */
+  @ApiModelProperty(
+      example = "The Date of Birth is required.",
+      value = "The reason the error occurred")
   public String getReason() {
     return reason;
   }
@@ -77,7 +66,6 @@ public class InvalidField {
   public void setReason(String reason) {
     this.reason = reason;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -88,15 +76,14 @@ public class InvalidField {
       return false;
     }
     InvalidField invalidField = (InvalidField) o;
-    return Objects.equals(this.name, invalidField.name) &&
-        Objects.equals(this.reason, invalidField.reason);
+    return Objects.equals(this.name, invalidField.name)
+        && Objects.equals(this.reason, invalidField.reason);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(name, reason);
   }
-
 
   @Override
   public String toString() {
@@ -109,8 +96,7 @@ public class InvalidField {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -118,6 +104,4 @@ public class InvalidField {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

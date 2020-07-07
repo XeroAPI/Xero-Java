@@ -10,38 +10,22 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.accounting;
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.accounting.OnlineInvoice;
-import io.swagger.annotations.ApiModel;
+import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.IOException;
+import java.util.Objects;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
-import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
-/**
- * OnlineInvoices
- */
-
+/** OnlineInvoices */
 public class OnlineInvoices {
   StringUtil util = new StringUtil();
 
   @JsonProperty("OnlineInvoices")
   private List<OnlineInvoice> onlineInvoices = new ArrayList<OnlineInvoice>();
+
   public OnlineInvoices onlineInvoices(List<OnlineInvoice> onlineInvoices) {
     this.onlineInvoices = onlineInvoices;
     return this;
@@ -55,10 +39,11 @@ public class OnlineInvoices {
     return this;
   }
 
-   /**
+  /**
    * Get onlineInvoices
+   *
    * @return onlineInvoices
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<OnlineInvoice> getOnlineInvoices() {
     return onlineInvoices;
@@ -67,7 +52,6 @@ public class OnlineInvoices {
   public void setOnlineInvoices(List<OnlineInvoice> onlineInvoices) {
     this.onlineInvoices = onlineInvoices;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -86,7 +70,6 @@ public class OnlineInvoices {
     return Objects.hash(onlineInvoices);
   }
 
-
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
@@ -97,8 +80,7 @@ public class OnlineInvoices {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -106,6 +88,4 @@ public class OnlineInvoices {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

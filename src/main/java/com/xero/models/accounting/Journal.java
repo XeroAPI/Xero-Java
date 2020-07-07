@@ -10,34 +10,24 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.accounting;
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.accounting.JournalLine;
-import io.swagger.annotations.ApiModel;
+import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
-import java.io.IOException;
-
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDate;
-import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.ZoneId;
 
-/**
- * Journal
- */
-
+/** Journal */
 public class Journal {
   StringUtil util = new StringUtil();
 
@@ -58,58 +48,56 @@ public class Journal {
 
   @JsonProperty("SourceID")
   private UUID sourceID;
-  /**
-   * The journal source type. The type of transaction that created the journal
-   */
+  /** The journal source type. The type of transaction that created the journal */
   public enum SourceTypeEnum {
     ACCREC("ACCREC"),
-    
+
     ACCPAY("ACCPAY"),
-    
+
     ACCRECCREDIT("ACCRECCREDIT"),
-    
+
     ACCPAYCREDIT("ACCPAYCREDIT"),
-    
+
     ACCRECPAYMENT("ACCRECPAYMENT"),
-    
+
     ACCPAYPAYMENT("ACCPAYPAYMENT"),
-    
+
     ARCREDITPAYMENT("ARCREDITPAYMENT"),
-    
+
     APCREDITPAYMENT("APCREDITPAYMENT"),
-    
+
     CASHREC("CASHREC"),
-    
+
     CASHPAID("CASHPAID"),
-    
+
     TRANSFER("TRANSFER"),
-    
+
     ARPREPAYMENT("ARPREPAYMENT"),
-    
+
     APPREPAYMENT("APPREPAYMENT"),
-    
+
     AROVERPAYMENT("AROVERPAYMENT"),
-    
+
     APOVERPAYMENT("APOVERPAYMENT"),
-    
+
     EXPCLAIM("EXPCLAIM"),
-    
+
     EXPPAYMENT("EXPPAYMENT"),
-    
+
     MANJOURNAL("MANJOURNAL"),
-    
+
     PAYSLIP("PAYSLIP"),
-    
+
     WAGEPAYABLE("WAGEPAYABLE"),
-    
+
     INTEGRATEDPAYROLLPE("INTEGRATEDPAYROLLPE"),
-    
+
     INTEGRATEDPAYROLLPT("INTEGRATEDPAYROLLPT"),
-    
+
     EXTERNALSPENDMONEY("EXTERNALSPENDMONEY"),
-    
+
     INTEGRATEDPAYROLLPTPAYMENT("INTEGRATEDPAYROLLPTPAYMENT"),
-    
+
     INTEGRATEDPAYROLLCN("INTEGRATEDPAYROLLCN");
 
     private String value;
@@ -139,21 +127,22 @@ public class Journal {
     }
   }
 
-
   @JsonProperty("SourceType")
   private SourceTypeEnum sourceType;
 
   @JsonProperty("JournalLines")
   private List<JournalLine> journalLines = new ArrayList<JournalLine>();
+
   public Journal journalID(UUID journalID) {
     this.journalID = journalID;
     return this;
   }
 
-   /**
+  /**
    * Xero identifier
+   *
    * @return journalID
-  **/
+   */
   @ApiModelProperty(value = "Xero identifier")
   public UUID getJournalID() {
     return journalID;
@@ -168,23 +157,25 @@ public class Journal {
     return this;
   }
 
-   /**
+  /**
    * Date the journal was posted
+   *
    * @return journalDate
-  **/
+   */
   @ApiModelProperty(value = "Date the journal was posted")
   public String getJournalDate() {
     return journalDate;
   }
+
   public LocalDate getJournalDateAsDate() {
     if (this.journalDate != null) {
       try {
         return util.convertStringToDate(this.journalDate);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
   public void setJournalDate(String journalDate) {
@@ -192,8 +183,8 @@ public class Journal {
   }
 
   public void setJournalDate(LocalDate journalDate) {
-    //CONVERT LocalDate args into MS DateFromat String
-    Instant instant =  journalDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();  
+    // CONVERT LocalDate args into MS DateFromat String
+    Instant instant = journalDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
     long timeInMillis = instant.toEpochMilli();
 
     this.journalDate = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
@@ -204,10 +195,11 @@ public class Journal {
     return this;
   }
 
-   /**
+  /**
    * Xero generated journal number
+   *
    * @return journalNumber
-  **/
+   */
   @ApiModelProperty(value = "Xero generated journal number")
   public Integer getJournalNumber() {
     return journalNumber;
@@ -217,23 +209,25 @@ public class Journal {
     this.journalNumber = journalNumber;
   }
 
-   /**
+  /**
    * Created date UTC format
+   *
    * @return createdDateUTC
-  **/
+   */
   @ApiModelProperty(example = "/Date(1573755038314)/", value = "Created date UTC format")
   public String getCreatedDateUTC() {
     return createdDateUTC;
   }
+
   public OffsetDateTime getCreatedDateUTCAsDate() {
     if (this.createdDateUTC != null) {
       try {
         return util.convertStringToOffsetDateTime(this.createdDateUTC);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
   public Journal reference(String reference) {
@@ -241,10 +235,11 @@ public class Journal {
     return this;
   }
 
-   /**
+  /**
    * reference field for additional indetifying information
+   *
    * @return reference
-  **/
+   */
   @ApiModelProperty(value = "reference field for additional indetifying information")
   public String getReference() {
     return reference;
@@ -259,10 +254,11 @@ public class Journal {
     return this;
   }
 
-   /**
+  /**
    * The identifier for the source transaction (e.g. InvoiceID)
+   *
    * @return sourceID
-  **/
+   */
   @ApiModelProperty(value = "The identifier for the source transaction (e.g. InvoiceID)")
   public UUID getSourceID() {
     return sourceID;
@@ -277,11 +273,13 @@ public class Journal {
     return this;
   }
 
-   /**
+  /**
    * The journal source type. The type of transaction that created the journal
+   *
    * @return sourceType
-  **/
-  @ApiModelProperty(value = "The journal source type. The type of transaction that created the journal")
+   */
+  @ApiModelProperty(
+      value = "The journal source type. The type of transaction that created the journal")
   public SourceTypeEnum getSourceType() {
     return sourceType;
   }
@@ -303,10 +301,11 @@ public class Journal {
     return this;
   }
 
-   /**
+  /**
    * See JournalLines
+   *
    * @return journalLines
-  **/
+   */
   @ApiModelProperty(value = "See JournalLines")
   public List<JournalLine> getJournalLines() {
     return journalLines;
@@ -315,7 +314,6 @@ public class Journal {
   public void setJournalLines(List<JournalLine> journalLines) {
     this.journalLines = journalLines;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -326,21 +324,28 @@ public class Journal {
       return false;
     }
     Journal journal = (Journal) o;
-    return Objects.equals(this.journalID, journal.journalID) &&
-        Objects.equals(this.journalDate, journal.journalDate) &&
-        Objects.equals(this.journalNumber, journal.journalNumber) &&
-        Objects.equals(this.createdDateUTC, journal.createdDateUTC) &&
-        Objects.equals(this.reference, journal.reference) &&
-        Objects.equals(this.sourceID, journal.sourceID) &&
-        Objects.equals(this.sourceType, journal.sourceType) &&
-        Objects.equals(this.journalLines, journal.journalLines);
+    return Objects.equals(this.journalID, journal.journalID)
+        && Objects.equals(this.journalDate, journal.journalDate)
+        && Objects.equals(this.journalNumber, journal.journalNumber)
+        && Objects.equals(this.createdDateUTC, journal.createdDateUTC)
+        && Objects.equals(this.reference, journal.reference)
+        && Objects.equals(this.sourceID, journal.sourceID)
+        && Objects.equals(this.sourceType, journal.sourceType)
+        && Objects.equals(this.journalLines, journal.journalLines);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(journalID, journalDate, journalNumber, createdDateUTC, reference, sourceID, sourceType, journalLines);
+    return Objects.hash(
+        journalID,
+        journalDate,
+        journalNumber,
+        createdDateUTC,
+        reference,
+        sourceID,
+        sourceType,
+        journalLines);
   }
-
 
   @Override
   public String toString() {
@@ -359,8 +364,7 @@ public class Journal {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -368,6 +372,4 @@ public class Journal {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

@@ -10,31 +10,15 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.identity;
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
+import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
-import java.io.IOException;
+import java.util.Objects;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
-import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
-/**
- * AccessToken
- */
-
+/** AccessToken */
 public class AccessToken {
   StringUtil util = new StringUtil();
 
@@ -52,15 +36,17 @@ public class AccessToken {
 
   @JsonProperty("refresh_token")
   private String refreshToken;
+
   public AccessToken idToken(String idToken) {
     this.idToken = idToken;
     return this;
   }
 
-   /**
+  /**
    * Xero unique identifier
+   *
    * @return idToken
-  **/
+   */
   @ApiModelProperty(value = "Xero unique identifier")
   public String getIdToken() {
     return idToken;
@@ -75,10 +61,11 @@ public class AccessToken {
     return this;
   }
 
-   /**
+  /**
    * access token provided during authentication flow
+   *
    * @return accessToken
-  **/
+   */
   @ApiModelProperty(value = "access token provided during authentication flow")
   public String getAccessToken() {
     return accessToken;
@@ -93,10 +80,11 @@ public class AccessToken {
     return this;
   }
 
-   /**
+  /**
    * time in milliseconds until access token expires.
+   *
    * @return expiresIn
-  **/
+   */
   @ApiModelProperty(value = "time in milliseconds until access token expires.")
   public BigDecimal getExpiresIn() {
     return expiresIn;
@@ -111,10 +99,11 @@ public class AccessToken {
     return this;
   }
 
-   /**
+  /**
    * type of token i.e. Bearer
+   *
    * @return tokenType
-  **/
+   */
   @ApiModelProperty(value = "type of token i.e. Bearer")
   public String getTokenType() {
     return tokenType;
@@ -129,10 +118,11 @@ public class AccessToken {
     return this;
   }
 
-   /**
+  /**
    * token used to refresh an expired access token
+   *
    * @return refreshToken
-  **/
+   */
   @ApiModelProperty(value = "token used to refresh an expired access token")
   public String getRefreshToken() {
     return refreshToken;
@@ -141,7 +131,6 @@ public class AccessToken {
   public void setRefreshToken(String refreshToken) {
     this.refreshToken = refreshToken;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -152,18 +141,17 @@ public class AccessToken {
       return false;
     }
     AccessToken accessToken = (AccessToken) o;
-    return Objects.equals(this.idToken, accessToken.idToken) &&
-        Objects.equals(this.accessToken, accessToken.accessToken) &&
-        Objects.equals(this.expiresIn, accessToken.expiresIn) &&
-        Objects.equals(this.tokenType, accessToken.tokenType) &&
-        Objects.equals(this.refreshToken, accessToken.refreshToken);
+    return Objects.equals(this.idToken, accessToken.idToken)
+        && Objects.equals(this.accessToken, accessToken.accessToken)
+        && Objects.equals(this.expiresIn, accessToken.expiresIn)
+        && Objects.equals(this.tokenType, accessToken.tokenType)
+        && Objects.equals(this.refreshToken, accessToken.refreshToken);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(idToken, accessToken, expiresIn, tokenType, refreshToken);
   }
-
 
   @Override
   public String toString() {
@@ -179,8 +167,7 @@ public class AccessToken {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -188,6 +175,4 @@ public class AccessToken {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

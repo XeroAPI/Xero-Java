@@ -10,30 +10,14 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrolluk;
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
-
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Objects;
 
-/**
- * EmployeeOpeningBalances
- */
-
+/** EmployeeOpeningBalances */
 public class EmployeeOpeningBalances {
   StringUtil util = new StringUtil();
 
@@ -54,16 +38,22 @@ public class EmployeeOpeningBalances {
 
   @JsonProperty("priorEmployeeNumber")
   private Double priorEmployeeNumber;
+
   public EmployeeOpeningBalances statutoryAdoptionPay(Double statutoryAdoptionPay) {
     this.statutoryAdoptionPay = statutoryAdoptionPay;
     return this;
   }
 
-   /**
-   * The total accumulated statutory adoption pay amount received by the employee for current fiscal year to date
+  /**
+   * The total accumulated statutory adoption pay amount received by the employee for current fiscal
+   * year to date
+   *
    * @return statutoryAdoptionPay
-  **/
-  @ApiModelProperty(value = "The total accumulated statutory adoption pay amount received by the employee for current fiscal year to date")
+   */
+  @ApiModelProperty(
+      value =
+          "The total accumulated statutory adoption pay amount received by the employee for"
+              + " current fiscal year to date")
   public Double getStatutoryAdoptionPay() {
     return statutoryAdoptionPay;
   }
@@ -77,11 +67,16 @@ public class EmployeeOpeningBalances {
     return this;
   }
 
-   /**
-   * The total accumulated statutory maternity pay amount received by the employee for current fiscal year to date
+  /**
+   * The total accumulated statutory maternity pay amount received by the employee for current
+   * fiscal year to date
+   *
    * @return statutoryMaternityPay
-  **/
-  @ApiModelProperty(value = "The total accumulated statutory maternity pay amount received by the employee for current fiscal year to date")
+   */
+  @ApiModelProperty(
+      value =
+          "The total accumulated statutory maternity pay amount received by the employee for"
+              + " current fiscal year to date")
   public Double getStatutoryMaternityPay() {
     return statutoryMaternityPay;
   }
@@ -95,11 +90,16 @@ public class EmployeeOpeningBalances {
     return this;
   }
 
-   /**
-   * The total accumulated statutory paternity pay amount received by the employee for current fiscal year to date
+  /**
+   * The total accumulated statutory paternity pay amount received by the employee for current
+   * fiscal year to date
+   *
    * @return statutoryPaternityPay
-  **/
-  @ApiModelProperty(value = "The total accumulated statutory paternity pay amount received by the employee for current fiscal year to date")
+   */
+  @ApiModelProperty(
+      value =
+          "The total accumulated statutory paternity pay amount received by the employee for"
+              + " current fiscal year to date")
   public Double getStatutoryPaternityPay() {
     return statutoryPaternityPay;
   }
@@ -113,11 +113,16 @@ public class EmployeeOpeningBalances {
     return this;
   }
 
-   /**
-   * The total accumulated statutory shared parental pay amount received by the employee for current fiscal year to date
+  /**
+   * The total accumulated statutory shared parental pay amount received by the employee for current
+   * fiscal year to date
+   *
    * @return statutorySharedParentalPay
-  **/
-  @ApiModelProperty(value = "The total accumulated statutory shared parental pay amount received by the employee for current fiscal year to date")
+   */
+  @ApiModelProperty(
+      value =
+          "The total accumulated statutory shared parental pay amount received by the employee for"
+              + " current fiscal year to date")
   public Double getStatutorySharedParentalPay() {
     return statutorySharedParentalPay;
   }
@@ -131,11 +136,16 @@ public class EmployeeOpeningBalances {
     return this;
   }
 
-   /**
-   * The total accumulated statutory sick pay amount received by the employee for current fiscal year to date
+  /**
+   * The total accumulated statutory sick pay amount received by the employee for current fiscal
+   * year to date
+   *
    * @return statutorySickPay
-  **/
-  @ApiModelProperty(value = "The total accumulated statutory sick pay amount received by the employee for current fiscal year to date")
+   */
+  @ApiModelProperty(
+      value =
+          "The total accumulated statutory sick pay amount received by the employee for current"
+              + " fiscal year to date")
   public Double getStatutorySickPay() {
     return statutorySickPay;
   }
@@ -149,10 +159,11 @@ public class EmployeeOpeningBalances {
     return this;
   }
 
-   /**
+  /**
    * The unique employee number issued by the employee&#39;s former employer
+   *
    * @return priorEmployeeNumber
-  **/
+   */
   @ApiModelProperty(value = "The unique employee number issued by the employee's former employer")
   public Double getPriorEmployeeNumber() {
     return priorEmployeeNumber;
@@ -161,7 +172,6 @@ public class EmployeeOpeningBalances {
   public void setPriorEmployeeNumber(Double priorEmployeeNumber) {
     this.priorEmployeeNumber = priorEmployeeNumber;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -172,37 +182,52 @@ public class EmployeeOpeningBalances {
       return false;
     }
     EmployeeOpeningBalances employeeOpeningBalances = (EmployeeOpeningBalances) o;
-    return Objects.equals(this.statutoryAdoptionPay, employeeOpeningBalances.statutoryAdoptionPay) &&
-        Objects.equals(this.statutoryMaternityPay, employeeOpeningBalances.statutoryMaternityPay) &&
-        Objects.equals(this.statutoryPaternityPay, employeeOpeningBalances.statutoryPaternityPay) &&
-        Objects.equals(this.statutorySharedParentalPay, employeeOpeningBalances.statutorySharedParentalPay) &&
-        Objects.equals(this.statutorySickPay, employeeOpeningBalances.statutorySickPay) &&
-        Objects.equals(this.priorEmployeeNumber, employeeOpeningBalances.priorEmployeeNumber);
+    return Objects.equals(this.statutoryAdoptionPay, employeeOpeningBalances.statutoryAdoptionPay)
+        && Objects.equals(this.statutoryMaternityPay, employeeOpeningBalances.statutoryMaternityPay)
+        && Objects.equals(this.statutoryPaternityPay, employeeOpeningBalances.statutoryPaternityPay)
+        && Objects.equals(
+            this.statutorySharedParentalPay, employeeOpeningBalances.statutorySharedParentalPay)
+        && Objects.equals(this.statutorySickPay, employeeOpeningBalances.statutorySickPay)
+        && Objects.equals(this.priorEmployeeNumber, employeeOpeningBalances.priorEmployeeNumber);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(statutoryAdoptionPay, statutoryMaternityPay, statutoryPaternityPay, statutorySharedParentalPay, statutorySickPay, priorEmployeeNumber);
+    return Objects.hash(
+        statutoryAdoptionPay,
+        statutoryMaternityPay,
+        statutoryPaternityPay,
+        statutorySharedParentalPay,
+        statutorySickPay,
+        priorEmployeeNumber);
   }
-
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class EmployeeOpeningBalances {\n");
-    sb.append("    statutoryAdoptionPay: ").append(toIndentedString(statutoryAdoptionPay)).append("\n");
-    sb.append("    statutoryMaternityPay: ").append(toIndentedString(statutoryMaternityPay)).append("\n");
-    sb.append("    statutoryPaternityPay: ").append(toIndentedString(statutoryPaternityPay)).append("\n");
-    sb.append("    statutorySharedParentalPay: ").append(toIndentedString(statutorySharedParentalPay)).append("\n");
+    sb.append("    statutoryAdoptionPay: ")
+        .append(toIndentedString(statutoryAdoptionPay))
+        .append("\n");
+    sb.append("    statutoryMaternityPay: ")
+        .append(toIndentedString(statutoryMaternityPay))
+        .append("\n");
+    sb.append("    statutoryPaternityPay: ")
+        .append(toIndentedString(statutoryPaternityPay))
+        .append("\n");
+    sb.append("    statutorySharedParentalPay: ")
+        .append(toIndentedString(statutorySharedParentalPay))
+        .append("\n");
     sb.append("    statutorySickPay: ").append(toIndentedString(statutorySickPay)).append("\n");
-    sb.append("    priorEmployeeNumber: ").append(toIndentedString(priorEmployeeNumber)).append("\n");
+    sb.append("    priorEmployeeNumber: ")
+        .append(toIndentedString(priorEmployeeNumber))
+        .append("\n");
     sb.append("}");
     return sb.toString();
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -210,6 +235,4 @@ public class EmployeeOpeningBalances {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

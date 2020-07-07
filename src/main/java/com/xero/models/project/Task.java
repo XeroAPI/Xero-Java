@@ -10,33 +10,17 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.project;
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.project.Amount;
-import com.xero.models.project.ChargeType;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.UUID;
-import java.io.IOException;
-
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Objects;
+import java.util.UUID;
 
-/**
- * Task
- */
-
+/** Task */
 public class Task {
   StringUtil util = new StringUtil();
 
@@ -82,13 +66,17 @@ public class Task {
   @JsonProperty("amountInvoiced")
   private Amount amountInvoiced;
   /**
-   * Status of the task. When a task of ChargeType is &#x60;FIXED&#x60; and the rate amount is invoiced the status will be set to &#x60;INVOICED&#x60; and can&#39;t be modified. A task with ChargeType of &#x60;TIME&#x60; or &#x60;NON_CHARGEABLE&#x60; cannot have a status of &#x60;INVOICED&#x60;. A &#x60;LOCKED&#x60; state indicates that the task is currently changing state (for example being invoiced) and can&#39;t be modified.
+   * Status of the task. When a task of ChargeType is &#x60;FIXED&#x60; and the rate amount is
+   * invoiced the status will be set to &#x60;INVOICED&#x60; and can&#39;t be modified. A task with
+   * ChargeType of &#x60;TIME&#x60; or &#x60;NON_CHARGEABLE&#x60; cannot have a status of
+   * &#x60;INVOICED&#x60;. A &#x60;LOCKED&#x60; state indicates that the task is currently changing
+   * state (for example being invoiced) and can&#39;t be modified.
    */
   public enum StatusEnum {
     ACTIVE("ACTIVE"),
-    
+
     INVOICED("INVOICED"),
-    
+
     LOCKED("LOCKED");
 
     private String value;
@@ -118,19 +106,22 @@ public class Task {
     }
   }
 
-
   @JsonProperty("status")
   private StatusEnum status;
+
   public Task taskId(UUID taskId) {
     this.taskId = taskId;
     return this;
   }
 
-   /**
+  /**
    * Identifier of the task.
+   *
    * @return taskId
-  **/
-  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "Identifier of the task.")
+   */
+  @ApiModelProperty(
+      example = "00000000-0000-0000-0000-000000000000",
+      value = "Identifier of the task.")
   public UUID getTaskId() {
     return taskId;
   }
@@ -144,10 +135,11 @@ public class Task {
     return this;
   }
 
-   /**
+  /**
    * Name of the task.
+   *
    * @return name
-  **/
+   */
   @ApiModelProperty(value = "Name of the task.")
   public String getName() {
     return name;
@@ -162,10 +154,11 @@ public class Task {
     return this;
   }
 
-   /**
+  /**
    * Get rate
+   *
    * @return rate
-  **/
+   */
   @ApiModelProperty(value = "")
   public Amount getRate() {
     return rate;
@@ -180,10 +173,11 @@ public class Task {
     return this;
   }
 
-   /**
+  /**
    * Get chargeType
+   *
    * @return chargeType
-  **/
+   */
   @ApiModelProperty(value = "")
   public ChargeType getChargeType() {
     return chargeType;
@@ -198,10 +192,11 @@ public class Task {
     return this;
   }
 
-   /**
+  /**
    * An estimated time to perform the task
+   *
    * @return estimateMinutes
-  **/
+   */
   @ApiModelProperty(value = "An estimated time to perform the task")
   public Double getEstimateMinutes() {
     return estimateMinutes;
@@ -216,11 +211,14 @@ public class Task {
     return this;
   }
 
-   /**
+  /**
    * Identifier of the project task belongs to.
+   *
    * @return projectId
-  **/
-  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "Identifier of the project task belongs to.")
+   */
+  @ApiModelProperty(
+      example = "00000000-0000-0000-0000-000000000000",
+      value = "Identifier of the project task belongs to.")
   public UUID getProjectId() {
     return projectId;
   }
@@ -234,11 +232,16 @@ public class Task {
     return this;
   }
 
-   /**
-   * Total minutes which have been logged against the task. Logged by assigning a time entry to a task
+  /**
+   * Total minutes which have been logged against the task. Logged by assigning a time entry to a
+   * task
+   *
    * @return totalMinutes
-  **/
-  @ApiModelProperty(value = "Total minutes which have been logged against the task. Logged by assigning a time entry to a task")
+   */
+  @ApiModelProperty(
+      value =
+          "Total minutes which have been logged against the task. Logged by assigning a time entry"
+              + " to a task")
   public Double getTotalMinutes() {
     return totalMinutes;
   }
@@ -252,10 +255,11 @@ public class Task {
     return this;
   }
 
-   /**
+  /**
    * Get totalAmount
+   *
    * @return totalAmount
-  **/
+   */
   @ApiModelProperty(value = "")
   public Amount getTotalAmount() {
     return totalAmount;
@@ -270,10 +274,11 @@ public class Task {
     return this;
   }
 
-   /**
+  /**
    * Minutes on this task which have been invoiced.
+   *
    * @return minutesInvoiced
-  **/
+   */
   @ApiModelProperty(value = "Minutes on this task which have been invoiced.")
   public Double getMinutesInvoiced() {
     return minutesInvoiced;
@@ -288,10 +293,11 @@ public class Task {
     return this;
   }
 
-   /**
+  /**
    * Minutes on this task which have not been invoiced.
+   *
    * @return minutesToBeInvoiced
-  **/
+   */
   @ApiModelProperty(value = "Minutes on this task which have not been invoiced.")
   public Double getMinutesToBeInvoiced() {
     return minutesToBeInvoiced;
@@ -306,10 +312,11 @@ public class Task {
     return this;
   }
 
-   /**
+  /**
    * Minutes logged against this task if its charge type is &#x60;FIXED&#x60;.
+   *
    * @return fixedMinutes
-  **/
+   */
   @ApiModelProperty(value = "Minutes logged against this task if its charge type is `FIXED`.")
   public Double getFixedMinutes() {
     return fixedMinutes;
@@ -324,11 +331,13 @@ public class Task {
     return this;
   }
 
-   /**
+  /**
    * Minutes logged against this task if its charge type is &#x60;NON_CHARGEABLE&#x60;.
+   *
    * @return nonChargeableMinutes
-  **/
-  @ApiModelProperty(value = "Minutes logged against this task if its charge type is `NON_CHARGEABLE`.")
+   */
+  @ApiModelProperty(
+      value = "Minutes logged against this task if its charge type is `NON_CHARGEABLE`.")
   public Double getNonChargeableMinutes() {
     return nonChargeableMinutes;
   }
@@ -342,10 +351,11 @@ public class Task {
     return this;
   }
 
-   /**
+  /**
    * Get amountToBeInvoiced
+   *
    * @return amountToBeInvoiced
-  **/
+   */
   @ApiModelProperty(value = "")
   public Amount getAmountToBeInvoiced() {
     return amountToBeInvoiced;
@@ -360,10 +370,11 @@ public class Task {
     return this;
   }
 
-   /**
+  /**
    * Get amountInvoiced
+   *
    * @return amountInvoiced
-  **/
+   */
   @ApiModelProperty(value = "")
   public Amount getAmountInvoiced() {
     return amountInvoiced;
@@ -378,11 +389,22 @@ public class Task {
     return this;
   }
 
-   /**
-   * Status of the task. When a task of ChargeType is &#x60;FIXED&#x60; and the rate amount is invoiced the status will be set to &#x60;INVOICED&#x60; and can&#39;t be modified. A task with ChargeType of &#x60;TIME&#x60; or &#x60;NON_CHARGEABLE&#x60; cannot have a status of &#x60;INVOICED&#x60;. A &#x60;LOCKED&#x60; state indicates that the task is currently changing state (for example being invoiced) and can&#39;t be modified.
+  /**
+   * Status of the task. When a task of ChargeType is &#x60;FIXED&#x60; and the rate amount is
+   * invoiced the status will be set to &#x60;INVOICED&#x60; and can&#39;t be modified. A task with
+   * ChargeType of &#x60;TIME&#x60; or &#x60;NON_CHARGEABLE&#x60; cannot have a status of
+   * &#x60;INVOICED&#x60;. A &#x60;LOCKED&#x60; state indicates that the task is currently changing
+   * state (for example being invoiced) and can&#39;t be modified.
+   *
    * @return status
-  **/
-  @ApiModelProperty(value = "Status of the task. When a task of ChargeType is `FIXED` and the rate amount is invoiced the status will be set to `INVOICED` and can't be modified. A task with ChargeType of `TIME` or `NON_CHARGEABLE` cannot have a status of `INVOICED`. A `LOCKED` state indicates that the task is currently changing state (for example being invoiced) and can't be modified.")
+   */
+  @ApiModelProperty(
+      value =
+          "Status of the task. When a task of ChargeType is `FIXED` and the rate amount is"
+              + " invoiced the status will be set to `INVOICED` and can't be modified. A task with"
+              + " ChargeType of `TIME` or `NON_CHARGEABLE` cannot have a status of `INVOICED`. A"
+              + " `LOCKED` state indicates that the task is currently changing state (for example"
+              + " being invoiced) and can't be modified.")
   public StatusEnum getStatus() {
     return status;
   }
@@ -390,7 +412,6 @@ public class Task {
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -401,28 +422,42 @@ public class Task {
       return false;
     }
     Task task = (Task) o;
-    return Objects.equals(this.taskId, task.taskId) &&
-        Objects.equals(this.name, task.name) &&
-        Objects.equals(this.rate, task.rate) &&
-        Objects.equals(this.chargeType, task.chargeType) &&
-        Objects.equals(this.estimateMinutes, task.estimateMinutes) &&
-        Objects.equals(this.projectId, task.projectId) &&
-        Objects.equals(this.totalMinutes, task.totalMinutes) &&
-        Objects.equals(this.totalAmount, task.totalAmount) &&
-        Objects.equals(this.minutesInvoiced, task.minutesInvoiced) &&
-        Objects.equals(this.minutesToBeInvoiced, task.minutesToBeInvoiced) &&
-        Objects.equals(this.fixedMinutes, task.fixedMinutes) &&
-        Objects.equals(this.nonChargeableMinutes, task.nonChargeableMinutes) &&
-        Objects.equals(this.amountToBeInvoiced, task.amountToBeInvoiced) &&
-        Objects.equals(this.amountInvoiced, task.amountInvoiced) &&
-        Objects.equals(this.status, task.status);
+    return Objects.equals(this.taskId, task.taskId)
+        && Objects.equals(this.name, task.name)
+        && Objects.equals(this.rate, task.rate)
+        && Objects.equals(this.chargeType, task.chargeType)
+        && Objects.equals(this.estimateMinutes, task.estimateMinutes)
+        && Objects.equals(this.projectId, task.projectId)
+        && Objects.equals(this.totalMinutes, task.totalMinutes)
+        && Objects.equals(this.totalAmount, task.totalAmount)
+        && Objects.equals(this.minutesInvoiced, task.minutesInvoiced)
+        && Objects.equals(this.minutesToBeInvoiced, task.minutesToBeInvoiced)
+        && Objects.equals(this.fixedMinutes, task.fixedMinutes)
+        && Objects.equals(this.nonChargeableMinutes, task.nonChargeableMinutes)
+        && Objects.equals(this.amountToBeInvoiced, task.amountToBeInvoiced)
+        && Objects.equals(this.amountInvoiced, task.amountInvoiced)
+        && Objects.equals(this.status, task.status);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(taskId, name, rate, chargeType, estimateMinutes, projectId, totalMinutes, totalAmount, minutesInvoiced, minutesToBeInvoiced, fixedMinutes, nonChargeableMinutes, amountToBeInvoiced, amountInvoiced, status);
+    return Objects.hash(
+        taskId,
+        name,
+        rate,
+        chargeType,
+        estimateMinutes,
+        projectId,
+        totalMinutes,
+        totalAmount,
+        minutesInvoiced,
+        minutesToBeInvoiced,
+        fixedMinutes,
+        nonChargeableMinutes,
+        amountToBeInvoiced,
+        amountInvoiced,
+        status);
   }
-
 
   @Override
   public String toString() {
@@ -437,9 +472,13 @@ public class Task {
     sb.append("    totalMinutes: ").append(toIndentedString(totalMinutes)).append("\n");
     sb.append("    totalAmount: ").append(toIndentedString(totalAmount)).append("\n");
     sb.append("    minutesInvoiced: ").append(toIndentedString(minutesInvoiced)).append("\n");
-    sb.append("    minutesToBeInvoiced: ").append(toIndentedString(minutesToBeInvoiced)).append("\n");
+    sb.append("    minutesToBeInvoiced: ")
+        .append(toIndentedString(minutesToBeInvoiced))
+        .append("\n");
     sb.append("    fixedMinutes: ").append(toIndentedString(fixedMinutes)).append("\n");
-    sb.append("    nonChargeableMinutes: ").append(toIndentedString(nonChargeableMinutes)).append("\n");
+    sb.append("    nonChargeableMinutes: ")
+        .append(toIndentedString(nonChargeableMinutes))
+        .append("\n");
     sb.append("    amountToBeInvoiced: ").append(toIndentedString(amountToBeInvoiced)).append("\n");
     sb.append("    amountInvoiced: ").append(toIndentedString(amountInvoiced)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
@@ -448,8 +487,7 @@ public class Task {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -457,6 +495,4 @@ public class Task {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

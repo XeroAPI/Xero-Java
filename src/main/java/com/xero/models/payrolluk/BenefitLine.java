@@ -10,31 +10,15 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrolluk;
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.util.UUID;
-import java.io.IOException;
-
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Objects;
+import java.util.UUID;
 
-/**
- * BenefitLine
- */
-
+/** BenefitLine */
 public class BenefitLine {
   StringUtil util = new StringUtil();
 
@@ -52,15 +36,17 @@ public class BenefitLine {
 
   @JsonProperty("percentage")
   private Double percentage;
+
   public BenefitLine benefitTypeID(UUID benefitTypeID) {
     this.benefitTypeID = benefitTypeID;
     return this;
   }
 
-   /**
+  /**
    * Xero identifier for payroll benefit type
+   *
    * @return benefitTypeID
-  **/
+   */
   @ApiModelProperty(value = "Xero identifier for payroll benefit type")
   public UUID getBenefitTypeID() {
     return benefitTypeID;
@@ -75,10 +61,11 @@ public class BenefitLine {
     return this;
   }
 
-   /**
+  /**
    * Benefit display name
+   *
    * @return displayName
-  **/
+   */
   @ApiModelProperty(value = "Benefit display name")
   public String getDisplayName() {
     return displayName;
@@ -93,10 +80,11 @@ public class BenefitLine {
     return this;
   }
 
-   /**
+  /**
    * The amount of the benefit line.
+   *
    * @return amount
-  **/
+   */
   @ApiModelProperty(value = "The amount of the benefit line.")
   public Double getAmount() {
     return amount;
@@ -111,10 +99,11 @@ public class BenefitLine {
     return this;
   }
 
-   /**
+  /**
    * Benefit fixed amount
+   *
    * @return fixedAmount
-  **/
+   */
   @ApiModelProperty(value = "Benefit fixed amount")
   public Double getFixedAmount() {
     return fixedAmount;
@@ -129,10 +118,11 @@ public class BenefitLine {
     return this;
   }
 
-   /**
+  /**
    * Benefit rate percentage
+   *
    * @return percentage
-  **/
+   */
   @ApiModelProperty(value = "Benefit rate percentage")
   public Double getPercentage() {
     return percentage;
@@ -141,7 +131,6 @@ public class BenefitLine {
   public void setPercentage(Double percentage) {
     this.percentage = percentage;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -152,18 +141,17 @@ public class BenefitLine {
       return false;
     }
     BenefitLine benefitLine = (BenefitLine) o;
-    return Objects.equals(this.benefitTypeID, benefitLine.benefitTypeID) &&
-        Objects.equals(this.displayName, benefitLine.displayName) &&
-        Objects.equals(this.amount, benefitLine.amount) &&
-        Objects.equals(this.fixedAmount, benefitLine.fixedAmount) &&
-        Objects.equals(this.percentage, benefitLine.percentage);
+    return Objects.equals(this.benefitTypeID, benefitLine.benefitTypeID)
+        && Objects.equals(this.displayName, benefitLine.displayName)
+        && Objects.equals(this.amount, benefitLine.amount)
+        && Objects.equals(this.fixedAmount, benefitLine.fixedAmount)
+        && Objects.equals(this.percentage, benefitLine.percentage);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(benefitTypeID, displayName, amount, fixedAmount, percentage);
   }
-
 
   @Override
   public String toString() {
@@ -179,8 +167,7 @@ public class BenefitLine {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -188,6 +175,4 @@ public class BenefitLine {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

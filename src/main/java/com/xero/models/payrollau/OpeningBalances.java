@@ -10,37 +10,20 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrollau;
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.payrollau.DeductionLine;
-import com.xero.models.payrollau.EarningsLine;
-import com.xero.models.payrollau.LeaveLine;
-import com.xero.models.payrollau.ReimbursementLine;
-import com.xero.models.payrollau.SuperLine;
-import io.swagger.annotations.ApiModel;
+import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.IOException;
-
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
+import java.util.Objects;
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDate;
-import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.threeten.bp.ZoneId;
 
-/**
- * OpeningBalances
- */
-
+/** OpeningBalances */
 public class OpeningBalances {
   StringUtil util = new StringUtil();
 
@@ -64,28 +47,33 @@ public class OpeningBalances {
 
   @JsonProperty("LeaveLines")
   private List<LeaveLine> leaveLines = new ArrayList<LeaveLine>();
+
   public OpeningBalances openingBalanceDate(String openingBalanceDate) {
     this.openingBalanceDate = openingBalanceDate;
     return this;
   }
 
-   /**
+  /**
    * Opening Balance Date. (YYYY-MM-DD)
+   *
    * @return openingBalanceDate
-  **/
-  @ApiModelProperty(example = "/Date(322560000000+0000)/", value = "Opening Balance Date. (YYYY-MM-DD)")
+   */
+  @ApiModelProperty(
+      example = "/Date(322560000000+0000)/",
+      value = "Opening Balance Date. (YYYY-MM-DD)")
   public String getOpeningBalanceDate() {
     return openingBalanceDate;
   }
+
   public LocalDate getOpeningBalanceDateAsDate() {
     if (this.openingBalanceDate != null) {
       try {
         return util.convertStringToDate(this.openingBalanceDate);
       } catch (IOException e) {
         e.printStackTrace();
-      }  
+      }
     }
-    return null;        
+    return null;
   }
 
   public void setOpeningBalanceDate(String openingBalanceDate) {
@@ -93,8 +81,8 @@ public class OpeningBalances {
   }
 
   public void setOpeningBalanceDate(LocalDate openingBalanceDate) {
-    //CONVERT LocalDate args into MS DateFromat String
-    Instant instant =  openingBalanceDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();  
+    // CONVERT LocalDate args into MS DateFromat String
+    Instant instant = openingBalanceDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
     long timeInMillis = instant.toEpochMilli();
 
     this.openingBalanceDate = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
@@ -105,10 +93,11 @@ public class OpeningBalances {
     return this;
   }
 
-   /**
+  /**
    * Opening Balance tax
+   *
    * @return tax
-  **/
+   */
   @ApiModelProperty(example = "4333d5cd-53a5-4c31-98e5-a8b4e5676b0b", value = "Opening Balance tax")
   public String getTax() {
     return tax;
@@ -131,10 +120,11 @@ public class OpeningBalances {
     return this;
   }
 
-   /**
+  /**
    * Get earningsLines
+   *
    * @return earningsLines
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<EarningsLine> getEarningsLines() {
     return earningsLines;
@@ -157,10 +147,11 @@ public class OpeningBalances {
     return this;
   }
 
-   /**
+  /**
    * Get deductionLines
+   *
    * @return deductionLines
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<DeductionLine> getDeductionLines() {
     return deductionLines;
@@ -183,10 +174,11 @@ public class OpeningBalances {
     return this;
   }
 
-   /**
+  /**
    * Get superLines
+   *
    * @return superLines
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<SuperLine> getSuperLines() {
     return superLines;
@@ -209,10 +201,11 @@ public class OpeningBalances {
     return this;
   }
 
-   /**
+  /**
    * Get reimbursementLines
+   *
    * @return reimbursementLines
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<ReimbursementLine> getReimbursementLines() {
     return reimbursementLines;
@@ -235,10 +228,11 @@ public class OpeningBalances {
     return this;
   }
 
-   /**
+  /**
    * Get leaveLines
+   *
    * @return leaveLines
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<LeaveLine> getLeaveLines() {
     return leaveLines;
@@ -247,7 +241,6 @@ public class OpeningBalances {
   public void setLeaveLines(List<LeaveLine> leaveLines) {
     this.leaveLines = leaveLines;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -258,20 +251,26 @@ public class OpeningBalances {
       return false;
     }
     OpeningBalances openingBalances = (OpeningBalances) o;
-    return Objects.equals(this.openingBalanceDate, openingBalances.openingBalanceDate) &&
-        Objects.equals(this.tax, openingBalances.tax) &&
-        Objects.equals(this.earningsLines, openingBalances.earningsLines) &&
-        Objects.equals(this.deductionLines, openingBalances.deductionLines) &&
-        Objects.equals(this.superLines, openingBalances.superLines) &&
-        Objects.equals(this.reimbursementLines, openingBalances.reimbursementLines) &&
-        Objects.equals(this.leaveLines, openingBalances.leaveLines);
+    return Objects.equals(this.openingBalanceDate, openingBalances.openingBalanceDate)
+        && Objects.equals(this.tax, openingBalances.tax)
+        && Objects.equals(this.earningsLines, openingBalances.earningsLines)
+        && Objects.equals(this.deductionLines, openingBalances.deductionLines)
+        && Objects.equals(this.superLines, openingBalances.superLines)
+        && Objects.equals(this.reimbursementLines, openingBalances.reimbursementLines)
+        && Objects.equals(this.leaveLines, openingBalances.leaveLines);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(openingBalanceDate, tax, earningsLines, deductionLines, superLines, reimbursementLines, leaveLines);
+    return Objects.hash(
+        openingBalanceDate,
+        tax,
+        earningsLines,
+        deductionLines,
+        superLines,
+        reimbursementLines,
+        leaveLines);
   }
-
 
   @Override
   public String toString() {
@@ -289,8 +288,7 @@ public class OpeningBalances {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -298,6 +296,4 @@ public class OpeningBalances {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

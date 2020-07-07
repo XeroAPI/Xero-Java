@@ -10,33 +10,17 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.bankfeeds;
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.bankfeeds.CreditDebitIndicator;
+import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.Objects;
 import org.threeten.bp.LocalDate;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
-import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
-/**
- * the lines details for a statement
- */
+/** the lines details for a statement */
 @ApiModel(description = "the lines details for a statement")
-
 public class StatementLine {
   StringUtil util = new StringUtil();
 
@@ -63,16 +47,23 @@ public class StatementLine {
 
   @JsonProperty("chequeNumber")
   private String chequeNumber;
+
   public StatementLine postedDate(LocalDate postedDate) {
     this.postedDate = postedDate;
     return this;
   }
 
-   /**
-   * The date that the transaction was processed or cleared as seen in internet banking ISO-8601 YYYY-MM-DD
+  /**
+   * The date that the transaction was processed or cleared as seen in internet banking ISO-8601
+   * YYYY-MM-DD
+   *
    * @return postedDate
-  **/
-  @ApiModelProperty(example = "Sun Jun 10 00:00:00 GMT 2018", value = "The date that the transaction was processed or cleared as seen in internet banking ISO-8601 YYYY-MM-DD")
+   */
+  @ApiModelProperty(
+      example = "Sun Jun 10 00:00:00 GMT 2018",
+      value =
+          "The date that the transaction was processed or cleared as seen in internet banking"
+              + " ISO-8601 YYYY-MM-DD")
   public LocalDate getPostedDate() {
     return postedDate;
   }
@@ -86,11 +77,11 @@ public class StatementLine {
     return this;
   }
 
-   /**
-   * Transaction description
-   * maximum: 2000
+  /**
+   * Transaction description maximum: 2000
+   *
    * @return description
-  **/
+   */
   @ApiModelProperty(example = "Description for statement line 2", value = "Transaction description")
   public String getDescription() {
     return description;
@@ -105,10 +96,11 @@ public class StatementLine {
     return this;
   }
 
-   /**
+  /**
    * Transaction amount
+   *
    * @return amount
-  **/
+   */
   @ApiModelProperty(example = "5.00", value = "Transaction amount")
   public Double getAmount() {
     return amount;
@@ -123,10 +115,11 @@ public class StatementLine {
     return this;
   }
 
-   /**
+  /**
    * Get creditDebitIndicator
+   *
    * @return creditDebitIndicator
-  **/
+   */
   @ApiModelProperty(value = "")
   public CreditDebitIndicator getCreditDebitIndicator() {
     return creditDebitIndicator;
@@ -141,11 +134,17 @@ public class StatementLine {
     return this;
   }
 
-   /**
-   * Financial institute&#39;s internal transaction identifier. If provided this field is factored into duplicate detection.
+  /**
+   * Financial institute&#39;s internal transaction identifier. If provided this field is factored
+   * into duplicate detection.
+   *
    * @return transactionId
-  **/
-  @ApiModelProperty(example = "transaction-id-2", value = "Financial institute's internal transaction identifier. If provided this field is factored into duplicate detection.")
+   */
+  @ApiModelProperty(
+      example = "transaction-id-2",
+      value =
+          "Financial institute's internal transaction identifier. If provided this field is"
+              + " factored into duplicate detection.")
   public String getTransactionId() {
     return transactionId;
   }
@@ -159,12 +158,14 @@ public class StatementLine {
     return this;
   }
 
-   /**
-   * Typically the merchant or payee name
-   * maximum: 255
+  /**
+   * Typically the merchant or payee name maximum: 255
+   *
    * @return payeeName
-  **/
-  @ApiModelProperty(example = "Payee name for statement line 2", value = "Typically the merchant or payee name")
+   */
+  @ApiModelProperty(
+      example = "Payee name for statement line 2",
+      value = "Typically the merchant or payee name")
   public String getPayeeName() {
     return payeeName;
   }
@@ -178,12 +179,14 @@ public class StatementLine {
     return this;
   }
 
-   /**
-   * Optional field to enhance the Description
-   * maximum: 255
+  /**
+   * Optional field to enhance the Description maximum: 255
+   *
    * @return reference
-  **/
-  @ApiModelProperty(example = "Reference for statement line 2", value = "Optional field to enhance the Description")
+   */
+  @ApiModelProperty(
+      example = "Reference for statement line 2",
+      value = "Optional field to enhance the Description")
   public String getReference() {
     return reference;
   }
@@ -197,11 +200,11 @@ public class StatementLine {
     return this;
   }
 
-   /**
-   * The cheque/check number
-   * maximum: 20
+  /**
+   * The cheque/check number maximum: 20
+   *
    * @return chequeNumber
-  **/
+   */
   @ApiModelProperty(example = "021", value = "The cheque/check number")
   public String getChequeNumber() {
     return chequeNumber;
@@ -210,7 +213,6 @@ public class StatementLine {
   public void setChequeNumber(String chequeNumber) {
     this.chequeNumber = chequeNumber;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -221,21 +223,28 @@ public class StatementLine {
       return false;
     }
     StatementLine statementLine = (StatementLine) o;
-    return Objects.equals(this.postedDate, statementLine.postedDate) &&
-        Objects.equals(this.description, statementLine.description) &&
-        Objects.equals(this.amount, statementLine.amount) &&
-        Objects.equals(this.creditDebitIndicator, statementLine.creditDebitIndicator) &&
-        Objects.equals(this.transactionId, statementLine.transactionId) &&
-        Objects.equals(this.payeeName, statementLine.payeeName) &&
-        Objects.equals(this.reference, statementLine.reference) &&
-        Objects.equals(this.chequeNumber, statementLine.chequeNumber);
+    return Objects.equals(this.postedDate, statementLine.postedDate)
+        && Objects.equals(this.description, statementLine.description)
+        && Objects.equals(this.amount, statementLine.amount)
+        && Objects.equals(this.creditDebitIndicator, statementLine.creditDebitIndicator)
+        && Objects.equals(this.transactionId, statementLine.transactionId)
+        && Objects.equals(this.payeeName, statementLine.payeeName)
+        && Objects.equals(this.reference, statementLine.reference)
+        && Objects.equals(this.chequeNumber, statementLine.chequeNumber);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(postedDate, description, amount, creditDebitIndicator, transactionId, payeeName, reference, chequeNumber);
+    return Objects.hash(
+        postedDate,
+        description,
+        amount,
+        creditDebitIndicator,
+        transactionId,
+        payeeName,
+        reference,
+        chequeNumber);
   }
-
 
   @Override
   public String toString() {
@@ -244,7 +253,9 @@ public class StatementLine {
     sb.append("    postedDate: ").append(toIndentedString(postedDate)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
-    sb.append("    creditDebitIndicator: ").append(toIndentedString(creditDebitIndicator)).append("\n");
+    sb.append("    creditDebitIndicator: ")
+        .append(toIndentedString(creditDebitIndicator))
+        .append("\n");
     sb.append("    transactionId: ").append(toIndentedString(transactionId)).append("\n");
     sb.append("    payeeName: ").append(toIndentedString(payeeName)).append("\n");
     sb.append("    reference: ").append(toIndentedString(reference)).append("\n");
@@ -254,8 +265,7 @@ public class StatementLine {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -263,6 +273,4 @@ public class StatementLine {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

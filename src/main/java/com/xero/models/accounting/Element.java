@@ -10,34 +10,17 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.accounting;
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.accounting.ValidationError;
-import io.swagger.annotations.ApiModel;
+import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
-import java.io.IOException;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
-import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
-/**
- * Element
- */
-
+/** Element */
 public class Element {
   StringUtil util = new StringUtil();
 
@@ -64,6 +47,7 @@ public class Element {
 
   @JsonProperty("PurchaseOrderID")
   private UUID purchaseOrderID;
+
   public Element validationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
     return this;
@@ -77,10 +61,11 @@ public class Element {
     return this;
   }
 
-   /**
+  /**
    * Array of Validation Error message
+   *
    * @return validationErrors
-  **/
+   */
   @ApiModelProperty(value = "Array of Validation Error message")
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
@@ -95,10 +80,11 @@ public class Element {
     return this;
   }
 
-   /**
+  /**
    * Unique ID for batch payment object with validation error
+   *
    * @return batchPaymentID
-  **/
+   */
   @ApiModelProperty(value = "Unique ID for batch payment object with validation error")
   public UUID getBatchPaymentID() {
     return batchPaymentID;
@@ -113,10 +99,11 @@ public class Element {
     return this;
   }
 
-   /**
+  /**
    * Get bankTransactionID
+   *
    * @return bankTransactionID
-  **/
+   */
   @ApiModelProperty(value = "")
   public UUID getBankTransactionID() {
     return bankTransactionID;
@@ -131,10 +118,11 @@ public class Element {
     return this;
   }
 
-   /**
+  /**
    * Get creditNoteID
+   *
    * @return creditNoteID
-  **/
+   */
   @ApiModelProperty(value = "")
   public UUID getCreditNoteID() {
     return creditNoteID;
@@ -149,10 +137,11 @@ public class Element {
     return this;
   }
 
-   /**
+  /**
    * Get contactID
+   *
    * @return contactID
-  **/
+   */
   @ApiModelProperty(value = "")
   public UUID getContactID() {
     return contactID;
@@ -167,10 +156,11 @@ public class Element {
     return this;
   }
 
-   /**
+  /**
    * Get invoiceID
+   *
    * @return invoiceID
-  **/
+   */
   @ApiModelProperty(value = "")
   public UUID getInvoiceID() {
     return invoiceID;
@@ -185,10 +175,11 @@ public class Element {
     return this;
   }
 
-   /**
+  /**
    * Get itemID
+   *
    * @return itemID
-  **/
+   */
   @ApiModelProperty(value = "")
   public UUID getItemID() {
     return itemID;
@@ -203,10 +194,11 @@ public class Element {
     return this;
   }
 
-   /**
+  /**
    * Get purchaseOrderID
+   *
    * @return purchaseOrderID
-  **/
+   */
   @ApiModelProperty(value = "")
   public UUID getPurchaseOrderID() {
     return purchaseOrderID;
@@ -215,7 +207,6 @@ public class Element {
   public void setPurchaseOrderID(UUID purchaseOrderID) {
     this.purchaseOrderID = purchaseOrderID;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -226,21 +217,28 @@ public class Element {
       return false;
     }
     Element element = (Element) o;
-    return Objects.equals(this.validationErrors, element.validationErrors) &&
-        Objects.equals(this.batchPaymentID, element.batchPaymentID) &&
-        Objects.equals(this.bankTransactionID, element.bankTransactionID) &&
-        Objects.equals(this.creditNoteID, element.creditNoteID) &&
-        Objects.equals(this.contactID, element.contactID) &&
-        Objects.equals(this.invoiceID, element.invoiceID) &&
-        Objects.equals(this.itemID, element.itemID) &&
-        Objects.equals(this.purchaseOrderID, element.purchaseOrderID);
+    return Objects.equals(this.validationErrors, element.validationErrors)
+        && Objects.equals(this.batchPaymentID, element.batchPaymentID)
+        && Objects.equals(this.bankTransactionID, element.bankTransactionID)
+        && Objects.equals(this.creditNoteID, element.creditNoteID)
+        && Objects.equals(this.contactID, element.contactID)
+        && Objects.equals(this.invoiceID, element.invoiceID)
+        && Objects.equals(this.itemID, element.itemID)
+        && Objects.equals(this.purchaseOrderID, element.purchaseOrderID);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(validationErrors, batchPaymentID, bankTransactionID, creditNoteID, contactID, invoiceID, itemID, purchaseOrderID);
+    return Objects.hash(
+        validationErrors,
+        batchPaymentID,
+        bankTransactionID,
+        creditNoteID,
+        contactID,
+        invoiceID,
+        itemID,
+        purchaseOrderID);
   }
-
 
   @Override
   public String toString() {
@@ -259,8 +257,7 @@ public class Element {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -268,6 +265,4 @@ public class Element {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

@@ -10,35 +10,16 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.payrolluk;
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.payrolluk.Pagination;
-import com.xero.models.payrolluk.Problem;
-import com.xero.models.payrolluk.Reimbursement;
-import io.swagger.annotations.ApiModel;
+import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.IOException;
+import java.util.Objects;
 
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
-import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
-/**
- * Reimbursements
- */
-
+/** Reimbursements */
 public class Reimbursements {
   StringUtil util = new StringUtil();
 
@@ -50,15 +31,17 @@ public class Reimbursements {
 
   @JsonProperty("reimbursements")
   private List<Reimbursement> reimbursements = new ArrayList<Reimbursement>();
+
   public Reimbursements pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
 
-   /**
+  /**
    * Get pagination
+   *
    * @return pagination
-  **/
+   */
   @ApiModelProperty(value = "")
   public Pagination getPagination() {
     return pagination;
@@ -73,10 +56,11 @@ public class Reimbursements {
     return this;
   }
 
-   /**
+  /**
    * Get problem
+   *
    * @return problem
-  **/
+   */
   @ApiModelProperty(value = "")
   public Problem getProblem() {
     return problem;
@@ -99,10 +83,11 @@ public class Reimbursements {
     return this;
   }
 
-   /**
+  /**
    * Get reimbursements
+   *
    * @return reimbursements
-  **/
+   */
   @ApiModelProperty(value = "")
   public List<Reimbursement> getReimbursements() {
     return reimbursements;
@@ -111,7 +96,6 @@ public class Reimbursements {
   public void setReimbursements(List<Reimbursement> reimbursements) {
     this.reimbursements = reimbursements;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -122,16 +106,15 @@ public class Reimbursements {
       return false;
     }
     Reimbursements reimbursements = (Reimbursements) o;
-    return Objects.equals(this.pagination, reimbursements.pagination) &&
-        Objects.equals(this.problem, reimbursements.problem) &&
-        Objects.equals(this.reimbursements, reimbursements.reimbursements);
+    return Objects.equals(this.pagination, reimbursements.pagination)
+        && Objects.equals(this.problem, reimbursements.problem)
+        && Objects.equals(this.reimbursements, reimbursements.reimbursements);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(pagination, problem, reimbursements);
   }
-
 
   @Override
   public String toString() {
@@ -145,8 +128,7 @@ public class Reimbursements {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -154,6 +136,4 @@ public class Reimbursements {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-

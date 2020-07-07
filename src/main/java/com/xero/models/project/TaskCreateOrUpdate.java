@@ -10,32 +10,14 @@
  * Do not edit the class manually.
  */
 
-
 package com.xero.models.project;
-import java.util.Objects;
-import java.util.Arrays;
-import com.fasterxml.jackson.annotation.JsonInclude;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.xero.models.project.Amount;
-import com.xero.models.project.ChargeType;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
-
-import org.threeten.bp.OffsetDateTime;
-import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.ZoneId;
-import org.threeten.bp.Instant;
-import org.threeten.bp.LocalDate;
 import com.xero.api.StringUtil;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.Objects;
 
-/**
- * TaskCreateOrUpdate
- */
-
+/** TaskCreateOrUpdate */
 public class TaskCreateOrUpdate {
   StringUtil util = new StringUtil();
 
@@ -50,16 +32,17 @@ public class TaskCreateOrUpdate {
 
   @JsonProperty("estimateMinutes")
   private Integer estimateMinutes;
+
   public TaskCreateOrUpdate name(String name) {
     this.name = name;
     return this;
   }
 
-   /**
-   * Name of the task. Max length 100 characters.
-   * maximum: 100
+  /**
+   * Name of the task. Max length 100 characters. maximum: 100
+   *
    * @return name
-  **/
+   */
   @ApiModelProperty(required = true, value = "Name of the task. Max length 100 characters.")
   public String getName() {
     return name;
@@ -74,10 +57,11 @@ public class TaskCreateOrUpdate {
     return this;
   }
 
-   /**
+  /**
    * Get rate
+   *
    * @return rate
-  **/
+   */
   @ApiModelProperty(required = true, value = "")
   public Amount getRate() {
     return rate;
@@ -92,10 +76,11 @@ public class TaskCreateOrUpdate {
     return this;
   }
 
-   /**
+  /**
    * Get chargeType
+   *
    * @return chargeType
-  **/
+   */
   @ApiModelProperty(required = true, value = "")
   public ChargeType getChargeType() {
     return chargeType;
@@ -110,11 +95,15 @@ public class TaskCreateOrUpdate {
     return this;
   }
 
-   /**
+  /**
    * Estimated time to perform the task. EstimateMinutes has to be greater than 0 if provided.
+   *
    * @return estimateMinutes
-  **/
-  @ApiModelProperty(value = "Estimated time to perform the task. EstimateMinutes has to be greater than 0 if provided.")
+   */
+  @ApiModelProperty(
+      value =
+          "Estimated time to perform the task. EstimateMinutes has to be greater than 0 if"
+              + " provided.")
   public Integer getEstimateMinutes() {
     return estimateMinutes;
   }
@@ -122,7 +111,6 @@ public class TaskCreateOrUpdate {
   public void setEstimateMinutes(Integer estimateMinutes) {
     this.estimateMinutes = estimateMinutes;
   }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -133,17 +121,16 @@ public class TaskCreateOrUpdate {
       return false;
     }
     TaskCreateOrUpdate taskCreateOrUpdate = (TaskCreateOrUpdate) o;
-    return Objects.equals(this.name, taskCreateOrUpdate.name) &&
-        Objects.equals(this.rate, taskCreateOrUpdate.rate) &&
-        Objects.equals(this.chargeType, taskCreateOrUpdate.chargeType) &&
-        Objects.equals(this.estimateMinutes, taskCreateOrUpdate.estimateMinutes);
+    return Objects.equals(this.name, taskCreateOrUpdate.name)
+        && Objects.equals(this.rate, taskCreateOrUpdate.rate)
+        && Objects.equals(this.chargeType, taskCreateOrUpdate.chargeType)
+        && Objects.equals(this.estimateMinutes, taskCreateOrUpdate.estimateMinutes);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(name, rate, chargeType, estimateMinutes);
   }
-
 
   @Override
   public String toString() {
@@ -158,8 +145,7 @@ public class TaskCreateOrUpdate {
   }
 
   /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
+   * Convert the given object to string with each line indented by 4 spaces (except the first line).
    */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
@@ -167,6 +153,4 @@ public class TaskCreateOrUpdate {
     }
     return o.toString().replace("\n", "\n    ");
   }
-
 }
-
