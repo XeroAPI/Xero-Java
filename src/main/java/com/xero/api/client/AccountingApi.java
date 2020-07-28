@@ -3,6 +3,7 @@ package com.xero.api.client;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.google.api.client.auth.oauth2.BearerToken;
 import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.http.ByteArrayContent;
 import com.google.api.client.http.FileContent;
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpContent;
@@ -222,11 +223,74 @@ public class AccountingApi {
   public Attachments createAccountAttachmentByFileName(
       String accessToken, String xeroTenantId, UUID accountID, String fileName, File body)
       throws IOException {
+
+    java.nio.file.Path bodyPath = body.toPath();
+    String mimeType = Files.probeContentType(bodyPath);
+
+    byte[] bytes = Files.readAllBytes(bodyPath);
+    return createAccountAttachmentByFileName(accessToken, xeroTenantId, accountID, fileName, mimeType, bytes);
+  }
+
+  public HttpResponse createAccountAttachmentByFileNameForHttpResponse(
+      String accessToken, String xeroTenantId, UUID accountID, String fileName, File body)
+      throws IOException {
+    // verify the required parameter 'xeroTenantId' is set
+    if (xeroTenantId == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'xeroTenantId' when calling"
+              + " createAccountAttachmentByFileName");
+    } // verify the required parameter 'accountID' is set
+    if (accountID == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'accountID' when calling"
+              + " createAccountAttachmentByFileName");
+    } // verify the required parameter 'fileName' is set
+    if (fileName == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'fileName' when calling"
+              + " createAccountAttachmentByFileName");
+    } // verify the required parameter 'body' is set
+    if (body == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'body' when calling createAccountAttachmentByFileName");
+    }
+    if (accessToken == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'accessToken' when calling"
+              + " createAccountAttachmentByFileName");
+    }
+
+    java.nio.file.Path bodyPath = body.toPath();
+    String mimeType = Files.probeContentType(bodyPath);
+
+    byte[] bytes = Files.readAllBytes(bodyPath);
+    return createAccountAttachmentByFileNameForHttpResponse(accessToken, xeroTenantId, accountID, fileName, mimeType, bytes);
+  }
+
+  /**
+   * Allows you to create Attachment on Account
+   *
+   * <p><b>200</b> - Success - return response of type Attachments array of Attachment
+   *
+   * <p><b>400</b> - A failed request due to validation error
+   *
+   * @param xeroTenantId Xero identifier for Tenant
+   * @param accountID Unique identifier for Account object
+   * @param fileName Name of the attachment
+   * @param mimeType the files content type
+   * @param body Byte array of file in body of request
+   * @param accessToken Authorization token for user set in header of each request
+   * @return Attachments
+   * @throws IOException if an error occurs while attempting to invoke the API
+   */
+  public Attachments createAccountAttachmentByFileName(
+      String accessToken, String xeroTenantId, UUID accountID, String fileName, String mimeType, byte[] body)
+      throws IOException {
     try {
       TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
       HttpResponse response =
           createAccountAttachmentByFileNameForHttpResponse(
-              accessToken, xeroTenantId, accountID, fileName, body);
+              accessToken, xeroTenantId, accountID, fileName, mimeType, body);
       return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
     } catch (HttpResponseException e) {
       if (logger.isDebugEnabled()) {
@@ -256,7 +320,7 @@ public class AccountingApi {
   }
 
   public HttpResponse createAccountAttachmentByFileNameForHttpResponse(
-      String accessToken, String xeroTenantId, UUID accountID, String fileName, File body)
+      String accessToken, String xeroTenantId, UUID accountID, String fileName, String mimeType, byte[] body)
       throws IOException {
     // verify the required parameter 'xeroTenantId' is set
     if (xeroTenantId == null) {
@@ -300,10 +364,8 @@ public class AccountingApi {
     if (logger.isDebugEnabled()) {
       logger.debug("PUT " + genericUrl.toString());
     }
-    java.nio.file.Path bodyPath = body.toPath();
-    String mimeType = Files.probeContentType(bodyPath);
     HttpContent content = null;
-    content = new FileContent(mimeType, body);
+    content = new ByteArrayContent(mimeType, body);
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -334,37 +396,12 @@ public class AccountingApi {
   public Attachments createBankTransactionAttachmentByFileName(
       String accessToken, String xeroTenantId, UUID bankTransactionID, String fileName, File body)
       throws IOException {
-    try {
-      TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
-      HttpResponse response =
-          createBankTransactionAttachmentByFileNameForHttpResponse(
-              accessToken, xeroTenantId, bankTransactionID, fileName, body);
-      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
-    } catch (HttpResponseException e) {
-      if (logger.isDebugEnabled()) {
-        logger.debug(
-            "------------------ HttpResponseException "
-                + e.getStatusCode()
-                + " : createBankTransactionAttachmentByFileName -------------------");
-        logger.debug(e.toString());
-      }
-      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
-      if (e.getStatusCode() == 400) {
-        TypeReference<com.xero.models.accounting.Error> errorTypeRef =
-            new TypeReference<com.xero.models.accounting.Error>() {};
-        com.xero.models.accounting.Error object =
-            apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Attachments", object.getMessage());
-        }
-        handler.validationError("Attachments", object);
-      } else {
-        handler.execute(e);
-      }
-    } catch (IOException ioe) {
-      throw ioe;
-    }
-    return null;
+
+      java.nio.file.Path bodyPath = body.toPath();
+      String mimeType = Files.probeContentType(bodyPath);
+
+      byte[] bytes = Files.readAllBytes(bodyPath);
+      return createBankTransactionAttachmentByFileName(accessToken, xeroTenantId, bankTransactionID, fileName, mimeType, bytes);
   }
 
   public HttpResponse createBankTransactionAttachmentByFileNameForHttpResponse(
@@ -418,6 +455,118 @@ public class AccountingApi {
     String mimeType = Files.probeContentType(bodyPath);
     HttpContent content = null;
     content = new FileContent(mimeType, body);
+    Credential credential =
+        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+    HttpTransport transport = apiClient.getHttpTransport();
+    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+    return requestFactory
+        .buildRequest(HttpMethods.PUT, genericUrl, content)
+        .setHeaders(headers)
+        .setConnectTimeout(apiClient.getConnectionTimeout())
+        .setReadTimeout(apiClient.getReadTimeout())
+        .execute();
+  }
+
+  /**
+   * Allows you to createa an Attachment on BankTransaction by Filename
+   *
+   * <p><b>200</b> - Success - return response of Attachments array of Attachment
+   *
+   * <p><b>400</b> - A failed request due to validation error
+   *
+   * @param xeroTenantId Xero identifier for Tenant
+   * @param bankTransactionID Xero generated unique identifier for a bank transaction
+   * @param fileName The name of the file being attached
+   * @param body Byte array of file in body of request
+   * @param accessToken Authorization token for user set in header of each request
+   * @return Attachments
+   * @throws IOException if an error occurs while attempting to invoke the API
+   */
+  public Attachments createBankTransactionAttachmentByFileName(
+      String accessToken, String xeroTenantId, UUID bankTransactionID, String fileName, String mimeType, byte[] body)
+      throws IOException {
+    try {
+      TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+      HttpResponse response =
+          createBankTransactionAttachmentByFileNameForHttpResponse(
+              accessToken, xeroTenantId, bankTransactionID, fileName, mimeType, body);
+      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+    } catch (HttpResponseException e) {
+      if (logger.isDebugEnabled()) {
+        logger.debug(
+            "------------------ HttpResponseException "
+                + e.getStatusCode()
+                + " : createBankTransactionAttachmentByFileName -------------------");
+        logger.debug(e.toString());
+      }
+      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+      if (e.getStatusCode() == 400) {
+        TypeReference<com.xero.models.accounting.Error> errorTypeRef =
+            new TypeReference<com.xero.models.accounting.Error>() {};
+        com.xero.models.accounting.Error object =
+            apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+        if (object.getElements() == null || object.getElements().isEmpty()) {
+          handler.validationError("Attachments", object.getMessage());
+        }
+        handler.validationError("Attachments", object);
+      } else {
+        handler.execute(e);
+      }
+    } catch (IOException ioe) {
+      throw ioe;
+    }
+    return null;
+  }
+
+  public HttpResponse createBankTransactionAttachmentByFileNameForHttpResponse(
+      String accessToken, String xeroTenantId, UUID bankTransactionID, String fileName, String mimeType, byte[] body)
+      throws IOException {
+    // verify the required parameter 'xeroTenantId' is set
+    if (xeroTenantId == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'xeroTenantId' when calling"
+              + " createBankTransactionAttachmentByFileName");
+    } // verify the required parameter 'bankTransactionID' is set
+    if (bankTransactionID == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'bankTransactionID' when calling"
+              + " createBankTransactionAttachmentByFileName");
+    } // verify the required parameter 'fileName' is set
+    if (fileName == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'fileName' when calling"
+              + " createBankTransactionAttachmentByFileName");
+    } // verify the required parameter 'body' is set
+    if (body == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'body' when calling"
+              + " createBankTransactionAttachmentByFileName");
+    }
+    if (accessToken == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'accessToken' when calling"
+              + " createBankTransactionAttachmentByFileName");
+    }
+    HttpHeaders headers = new HttpHeaders();
+    headers.set("xero-tenant-id", xeroTenantId);
+    headers.setAccept("application/json");
+    headers.setUserAgent(this.getUserAgent());
+    // create a map of path variables
+    final Map<String, Object> uriVariables = new HashMap<String, Object>();
+    uriVariables.put("BankTransactionID", bankTransactionID);
+    uriVariables.put("FileName", fileName);
+
+    UriBuilder uriBuilder =
+        UriBuilder.fromUri(
+            apiClient.getBasePath()
+                + "/BankTransactions/{BankTransactionID}/Attachments/{FileName}");
+    String url = uriBuilder.buildFromMap(uriVariables).toString();
+    GenericUrl genericUrl = new GenericUrl(url);
+    if (logger.isDebugEnabled()) {
+      logger.debug("PUT " + genericUrl.toString());
+    }
+    HttpContent content = null;
+    content = new ByteArrayContent(mimeType, body);
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
