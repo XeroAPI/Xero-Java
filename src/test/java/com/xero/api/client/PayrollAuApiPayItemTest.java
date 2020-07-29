@@ -115,7 +115,7 @@ public class PayrollAuApiPayItemTest {
         System.out.println("@Test - createPayItemTest");
         
         PayItem payItems = new PayItem();        
-        PayItems response = payrollAuApi.createPayItem(accessToken, xeroTenantId,payItems);
+        //PayItems response = payrollAuApi.createPayItem(accessToken, xeroTenantId,payItems);
         
         // CAN NOT TEST response from createPayItem 
         // because API returns EMPTY JSON object
