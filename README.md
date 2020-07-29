@@ -26,7 +26,7 @@ Both our Accounting and AU Payroll APIs use [Microsoft .NET JSON format](https:/
 
 For this reason, we've decided dates in MS .NET JSON format will be  strings with NO date or date-time format in our OpenAPI specs. This means developers wanting to use our OpenAPI specs with code generators won't run into deserialization issues trying to handle MS .NET JSON format dates.
 
-The side effect is accounting and AU payroll models now have two getter methods. For example, getDateOfBirth() returns the string "\/Date(1439434356790)\/" while getDateOfBirthAsDate() return a standard date "2020-05-14". Since you can override methods in Java setDateOfBirth() can accept a String or a LocalDate. 
+The side effect is accounting and AU payroll models now have two getter methods. For example, getDateOfBirth() returns the string "\/Date(1439434356790)\/" while getDateOfBirthAsDate() return a standard date "2020-05-14". Since you can overload methods in Java setDateOfBirth() can accept a String or a LocalDate. 
 
 **This is a breaking change between version 3.x and 4.x.**
 
