@@ -14,7 +14,7 @@ import com.xero.models.bankfeeds.Statements;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class XeroMethodNotAllowedException extends RuntimeException {
+public class XeroMethodNotAllowedException extends XeroException {
 
     private static final long serialVersionUID = 1L;
     private Integer statusCode;
