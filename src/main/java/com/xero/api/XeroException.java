@@ -1,7 +1,7 @@
 package com.xero.api;
 
 /**
- * Base application exceptions all other Xero exceptions should extend.
+ * Base application exception all other Xero exceptions should extend.
  */
 public class XeroException extends RuntimeException {
 
