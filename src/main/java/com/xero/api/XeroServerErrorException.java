@@ -1,6 +1,6 @@
 package com.xero.api;
 
-public class XeroServerErrorException extends RuntimeException {
+public class XeroServerErrorException extends XeroException {
 
     private static final long serialVersionUID = 1L;
     private int statusCode = 0;

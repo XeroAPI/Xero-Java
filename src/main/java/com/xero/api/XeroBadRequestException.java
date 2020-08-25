@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.xero.models.accounting.Element;
-import com.xero.models.accounting.Employees;
 import com.xero.models.assets.FieldValidationErrorsElement;
 import com.xero.models.bankfeeds.FeedConnection;
 import com.xero.models.bankfeeds.FeedConnections;
@@ -15,7 +13,7 @@ import com.xero.models.bankfeeds.Statements;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class XeroBadRequestException extends RuntimeException {
+public class XeroBadRequestException extends XeroException {
 
     private static final long serialVersionUID = 1L;
     private Integer statusCode;
