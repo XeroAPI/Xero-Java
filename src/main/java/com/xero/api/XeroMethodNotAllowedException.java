@@ -25,6 +25,7 @@ public class XeroMethodNotAllowedException extends RuntimeException {
     private List<FeedConnection> feedConnectionItems = new ArrayList<FeedConnection>();
     private List<FieldValidationErrorsElement> fieldValidationErrorsElements = new ArrayList<FieldValidationErrorsElement>();
     private com.xero.models.payrolluk.Problem payrollUkProblem = new com.xero.models.payrolluk.Problem();
+    private com.xero.models.payrollnz.Problem payrollNzProblem = new com.xero.models.payrollnz.Problem();
     
     
     public XeroMethodNotAllowedException(String objectType, com.xero.models.accounting.Error error) {
@@ -55,6 +56,12 @@ public class XeroMethodNotAllowedException extends RuntimeException {
         this.statusCode = 405;
         this.type = objectType;
         this.payrollUkProblem = problem;
+    }
+    
+    public XeroMethodNotAllowedException(String objectType, com.xero.models.payrollnz.Problem problem) {
+        this.statusCode = 405;
+        this.type = objectType;
+        this.payrollNzProblem = problem;
     }
     
     public XeroMethodNotAllowedException(Integer statusCode, String message) {
@@ -221,6 +228,26 @@ public class XeroMethodNotAllowedException extends RuntimeException {
     
     public void setFieldValidationErrorsElements(List<FieldValidationErrorsElement> fieldValidationErrorsElements) {
       this.fieldValidationErrorsElements = fieldValidationErrorsElements;
+    }
+    
+    
+    // NZ Payroll Problems Errors
+    public XeroMethodNotAllowedException payrollNzProblem(com.xero.models.payrollnz.Problem problem) {
+      this.payrollNzProblem = problem;
+      return this;
+    }
+    
+     /**
+     * Exception type
+     * @return com.xero.models.payrolluk.Problem
+    **/
+    @ApiModelProperty(value = "NZ Payroll problem")
+    public com.xero.models.payrollnz.Problem getPayrollNzProblem() {
+      return payrollNzProblem;
+    }
+    
+    public void setPayrollNzProblem(com.xero.models.payrollnz.Problem problem) {
+      this.payrollNzProblem = problem;
     }
     
     
