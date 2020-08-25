@@ -92,7 +92,7 @@ public class PayrollUkApi {
   private ApiClient apiClient;
   private static PayrollUkApi instance = null;
   private String userAgent = "Default";
-  private String version = "4.1.4";
+  private String version = "4.2.0";
   static final Logger logger = LoggerFactory.getLogger(PayrollUkApi.class);
 
   public PayrollUkApi() {
@@ -5068,18 +5068,18 @@ public class PayrollUkApi {
    * @return Payslips
    * @throws IOException if an error occurs while attempting to invoke the API
    */
-  public Payslips getPayslips(String accessToken, String xeroTenantId, UUID payRunID, Integer page)
+  public Payslips getPaySlips(String accessToken, String xeroTenantId, UUID payRunID, Integer page)
       throws IOException {
     try {
       TypeReference<Payslips> typeRef = new TypeReference<Payslips>() {};
-      HttpResponse response = getPayslipsForHttpResponse(accessToken, xeroTenantId, payRunID, page);
+      HttpResponse response = getPaySlipsForHttpResponse(accessToken, xeroTenantId, payRunID, page);
       return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
     } catch (HttpResponseException e) {
       if (logger.isDebugEnabled()) {
         logger.debug(
             "------------------ HttpResponseException "
                 + e.getStatusCode()
-                + " : getPayslips -------------------");
+                + " : getPaySlips -------------------");
         logger.debug(e.toString());
       }
       XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
@@ -5096,20 +5096,20 @@ public class PayrollUkApi {
     return null;
   }
 
-  public HttpResponse getPayslipsForHttpResponse(
+  public HttpResponse getPaySlipsForHttpResponse(
       String accessToken, String xeroTenantId, UUID payRunID, Integer page) throws IOException {
     // verify the required parameter 'xeroTenantId' is set
     if (xeroTenantId == null) {
       throw new IllegalArgumentException(
-          "Missing the required parameter 'xeroTenantId' when calling getPayslips");
+          "Missing the required parameter 'xeroTenantId' when calling getPaySlips");
     } // verify the required parameter 'payRunID' is set
     if (payRunID == null) {
       throw new IllegalArgumentException(
-          "Missing the required parameter 'payRunID' when calling getPayslips");
+          "Missing the required parameter 'payRunID' when calling getPaySlips");
     }
     if (accessToken == null) {
       throw new IllegalArgumentException(
-          "Missing the required parameter 'accessToken' when calling getPayslips");
+          "Missing the required parameter 'accessToken' when calling getPaySlips");
     }
     HttpHeaders headers = new HttpHeaders();
     headers.set("Xero-Tenant-Id", xeroTenantId);
