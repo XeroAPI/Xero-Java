@@ -13,7 +13,7 @@ import com.xero.models.bankfeeds.Statements;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class XeroBadRequestException extends RuntimeException {
+public class XeroBadRequestException extends XeroException {
 
     private static final long serialVersionUID = 1L;
     private Integer statusCode;

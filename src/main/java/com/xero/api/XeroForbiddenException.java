@@ -1,6 +1,6 @@
 package com.xero.api;
 
-public class XeroForbiddenException extends RuntimeException {
+public class XeroForbiddenException extends XeroAuthenticationException {
 
     private static final long serialVersionUID = 1L;
     private int statusCode = 0;

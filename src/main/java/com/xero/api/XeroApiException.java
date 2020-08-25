@@ -5,14 +5,14 @@ import com.xero.models.accounting.Error;
 import java.util.HashMap;
 import java.util.Map;
 
-public class XeroApiException extends RuntimeException {
+public class XeroApiException extends XeroException {
 
     private static final long serialVersionUID = 1L;
     private final int responseCode;
     private String message;
     private Map<String, String> messageMap = new HashMap<String, String>();
     private Error error;
-    
+
     // LEGACY ERROR HANDLER
     public XeroApiException(int responseCode) {
         super(responseCode + " response.");
