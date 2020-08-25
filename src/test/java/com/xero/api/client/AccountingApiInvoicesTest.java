@@ -194,7 +194,7 @@ public class AccountingApiInvoicesTest {
         assertThat(response.getInvoices().get(0).getAttachments().get(0).getAttachmentID(), is(equalTo(UUID.fromString("3a2fe7e0-fac7-4ea2-afb2-31cedaabd294"))));
         assertThat(response.getInvoices().get(0).getAttachments().get(0).getFileName(), is(equalTo("helo-heros.jpg")));
         assertThat(response.getInvoices().get(0).getAttachments().get(0).getUrl(), is(equalTo("https://api.xero.com/api.xro/2.0/Invoices/a03ffcd2-5d91-4c7e-b483-318584e9e439/Attachments/helo-heros.jpg")));
-        assertThat(response.getInvoices().get(0).getAttachments().get(0).getContentLength(), is(equalTo(new BigDecimal("2878711"))));
+        assertThat(response.getInvoices().get(0).getAttachments().get(0).getContentLength(), is(equalTo(2878711)));
         assertThat(response.getInvoices().get(0).getAttachments().get(0).getMimeType(), is(equalTo("image/jpeg")));
         assertThat(response.getInvoices().get(0).getStatusAttributeString(), is(equalTo("ERROR")));
         assertThat(response.getInvoices().get(0).getValidationErrors().get(0).getMessage(), is(equalTo("Invoice # must be unique.")));     
@@ -211,7 +211,7 @@ public class AccountingApiInvoicesTest {
         assertThat(response.getAttachments().get(0).getFileName(), is(equalTo("foobar.jpg")));
         assertThat(response.getAttachments().get(0).getMimeType(), is(equalTo("image/jpg")));
         assertThat(response.getAttachments().get(0).getUrl(), is(equalTo("https://api.xero.com/api.xro/2.0/Invoices/4074292c-09b3-456d-84e7-add864c6c39b/Attachments/foobar.jpg")));
-        assertThat(response.getAttachments().get(0).getContentLength(), is(equalTo(new BigDecimal("2878711"))));
+        assertThat(response.getAttachments().get(0).getContentLength(), is(equalTo(2878711)));
         assertThat(response.getAttachments().get(0).getIncludeOnline(), is(equalTo(null)));  
         //System.out.println(response.getAttachments().get(0).toString());
     }
