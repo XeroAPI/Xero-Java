@@ -40,9 +40,11 @@ To address this we've refactored exception handling and we are deprecating the g
 
 | code | class                         | description                                                                                                                             |
 |------|-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| N/A  | XeroException                 | All Xero exceptions extend from XeroException                                                                                           |
+| N/A  | XeroAuthenticationException   | XeroUnauthorizedException and XeroUnauthorizedException extend from XeroAuthenticationException                                         |
 | 400  | XeroBadRequestException       | A validation exception has occurred - typical cause invalid data.  Look at data returned for error details                              |
-| 401  | XeroUnauthorizedException     | Invalid authorization credentials                                                                                                       |
-| 403  | XeroForbiddenException        | Not authorized to access a resource - typical cause is problem with scopes                                                              |
+| 401  | XeroUnauthorizedException     | Invalid authorization credentials. Extends XeroAuthenticationException                                                                    |
+| 403  | XeroForbiddenException        | Not authorized to access a resource - typical cause is problem with scopes. Extends XeroAuthenticationException                          |
 | 404  | XeroNotFoundException         | The resource you have specified cannot be found                                                                                         |
 | 405  | XeroMethodNotAllowedException | Method not allowed on the organisation - typical cause the API is not  available in the organisation i.e. UK Payroll on Australian org. |
 | 429  | XeroRateLimitException        | The API rate limit for your organisation/application pairing has been exceeded.                                                         |
