@@ -54,6 +54,8 @@ public class XeroApiExceptionHandler {
             throw new XeroBadRequestException(objectType, error);
         } else if(statusCode == 405) {
             throw new XeroMethodNotAllowedException(objectType, error);
+        } else if(statusCode == 409) {
+            throw new XeroConflictException(objectType, error);
         }
     }
     
