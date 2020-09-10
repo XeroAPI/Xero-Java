@@ -235,7 +235,7 @@ public class AccountingApiContactsTest {
         assertThat(response.getAttachments().get(0).getFileName(), is(equalTo("sample5.jpg")));
         assertThat(response.getAttachments().get(0).getMimeType(), is(equalTo("image/jpg")));
         assertThat(response.getAttachments().get(0).getUrl(), is(equalTo("https://api.xero.com/api.xro/2.0/Contacts/8138a266-fb42-49b2-a104-014b7045753d/Attachments/sample5.jpg")));
-        assertThat(response.getAttachments().get(0).getContentLength(), is(equalTo(new BigDecimal("2878711"))));
+        assertThat(response.getAttachments().get(0).getContentLength(), is(equalTo(2878711)));
         assertThat(response.getAttachments().get(0).getIncludeOnline(), is(equalTo(null)));
         //System.out.println(response.getAttachments().get(0).toString());	
     }
@@ -252,7 +252,7 @@ public class AccountingApiContactsTest {
         assertThat(response.getAttachments().get(0).getFileName(), is(equalTo("sample5.jpg")));
         assertThat(response.getAttachments().get(0).getMimeType(), is(equalTo("image/jpg")));
         assertThat(response.getAttachments().get(0).getUrl(), is(equalTo("https://api.xero.com/api.xro/2.0/Contacts/8138a266-fb42-49b2-a104-014b7045753d/Attachments/sample5.jpg")));
-        assertThat(response.getAttachments().get(0).getContentLength(), is(equalTo(new BigDecimal("2878711"))));
+        assertThat(response.getAttachments().get(0).getContentLength(), is(equalTo(2878711)));
         assertThat(response.getAttachments().get(0).getIncludeOnline(), is(equalTo(null)));
         //System.out.println(response.getAttachments().get(0).toString());
     }

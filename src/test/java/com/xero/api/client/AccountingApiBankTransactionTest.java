@@ -180,7 +180,7 @@ public class AccountingApiBankTransactionTest {
 		assertThat(response.getAttachments().get(0).getFileName(), is(equalTo("sample5.jpg")));
 		assertThat(response.getAttachments().get(0).getMimeType(), is(equalTo("image/jpg")));
 		assertThat(response.getAttachments().get(0).getUrl(), is(equalTo("https://api.xero.com/api.xro/2.0/BankTransactions/db54aab0-ad40-4ced-bcff-0940ba20db2c/Attachments/sample5.jpg")));
-		assertThat(response.getAttachments().get(0).getContentLength(), is(equalTo(new BigDecimal(2878711))));
+		assertThat(response.getAttachments().get(0).getContentLength(), is(equalTo(2878711)));
 		//System.out.println(response.getAttachments().get(0).toString());
     }
 /*

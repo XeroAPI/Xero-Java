@@ -195,7 +195,7 @@ public class AccountingApiCreditNotesTest {
         assertThat(response.getAttachments().get(0).getFileName(), is(equalTo("HelloWorld.png")));
         assertThat(response.getAttachments().get(0).getMimeType(), is(equalTo("image/png")));
         assertThat(response.getAttachments().get(0).getUrl(), is(equalTo("https://api.xero.com/api.xro/2.0/CreditNotes/249f15fa-f2a7-4acc-8769-0984103f2225/Attachments/HelloWorld.png")));
-        assertThat(response.getAttachments().get(0).getContentLength(), is(equalTo(new BigDecimal("76091"))));
+        assertThat(response.getAttachments().get(0).getContentLength(), is(equalTo(76091)));
         assertThat(response.getAttachments().get(0).getIncludeOnline(), is(equalTo(null)));  
         //System.out.println(response.getAttachments().get(0).toString());
     }
