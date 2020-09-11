@@ -15,10 +15,12 @@ package com.xero.models.payrollnz;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-/** PayRunObject */
-public class PayRunObject {
+/** StatutoryDeductions */
+public class StatutoryDeductions {
   StringUtil util = new StringUtil();
 
   @JsonProperty("pagination")
@@ -27,10 +29,10 @@ public class PayRunObject {
   @JsonProperty("problem")
   private Problem problem;
 
-  @JsonProperty("payRun")
-  private PayRun payRun;
+  @JsonProperty("statutoryDeductions")
+  private List<StatutoryDeduction> statutoryDeductions = new ArrayList<StatutoryDeduction>();
 
-  public PayRunObject pagination(Pagination pagination) {
+  public StatutoryDeductions pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
   }
@@ -49,7 +51,7 @@ public class PayRunObject {
     this.pagination = pagination;
   }
 
-  public PayRunObject problem(Problem problem) {
+  public StatutoryDeductions problem(Problem problem) {
     this.problem = problem;
     return this;
   }
@@ -68,23 +70,32 @@ public class PayRunObject {
     this.problem = problem;
   }
 
-  public PayRunObject payRun(PayRun payRun) {
-    this.payRun = payRun;
+  public StatutoryDeductions statutoryDeductions(List<StatutoryDeduction> statutoryDeductions) {
+    this.statutoryDeductions = statutoryDeductions;
+    return this;
+  }
+
+  public StatutoryDeductions addStatutoryDeductionsItem(
+      StatutoryDeduction statutoryDeductionsItem) {
+    if (this.statutoryDeductions == null) {
+      this.statutoryDeductions = new ArrayList<StatutoryDeduction>();
+    }
+    this.statutoryDeductions.add(statutoryDeductionsItem);
     return this;
   }
 
   /**
-   * Get payRun
+   * Get statutoryDeductions
    *
-   * @return payRun
+   * @return statutoryDeductions
    */
   @ApiModelProperty(value = "")
-  public PayRun getPayRun() {
-    return payRun;
+  public List<StatutoryDeduction> getStatutoryDeductions() {
+    return statutoryDeductions;
   }
 
-  public void setPayRun(PayRun payRun) {
-    this.payRun = payRun;
+  public void setStatutoryDeductions(List<StatutoryDeduction> statutoryDeductions) {
+    this.statutoryDeductions = statutoryDeductions;
   }
 
   @Override
@@ -95,24 +106,26 @@ public class PayRunObject {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PayRunObject payRunObject = (PayRunObject) o;
-    return Objects.equals(this.pagination, payRunObject.pagination)
-        && Objects.equals(this.problem, payRunObject.problem)
-        && Objects.equals(this.payRun, payRunObject.payRun);
+    StatutoryDeductions statutoryDeductions = (StatutoryDeductions) o;
+    return Objects.equals(this.pagination, statutoryDeductions.pagination)
+        && Objects.equals(this.problem, statutoryDeductions.problem)
+        && Objects.equals(this.statutoryDeductions, statutoryDeductions.statutoryDeductions);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pagination, problem, payRun);
+    return Objects.hash(pagination, problem, statutoryDeductions);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PayRunObject {\n");
+    sb.append("class StatutoryDeductions {\n");
     sb.append("    pagination: ").append(toIndentedString(pagination)).append("\n");
     sb.append("    problem: ").append(toIndentedString(problem)).append("\n");
-    sb.append("    payRun: ").append(toIndentedString(payRun)).append("\n");
+    sb.append("    statutoryDeductions: ")
+        .append(toIndentedString(statutoryDeductions))
+        .append("\n");
     sb.append("}");
     return sb.toString();
   }
