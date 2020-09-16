@@ -114,7 +114,9 @@ public class Reimbursement {
   private String standardAmount;
   /** Optional Type Of Units. Applicable when calculation type is Rate Per Unit */
   public enum StandardTypeOfUnitsEnum {
-    HOURS("Hours");
+    HOURS("Hours"),
+
+    KM("km");
 
     private String value;
 
@@ -146,8 +148,8 @@ public class Reimbursement {
   @JsonProperty("standardTypeOfUnits")
   private StandardTypeOfUnitsEnum standardTypeOfUnits;
 
-  @JsonProperty("standardRatePerUnits")
-  private String standardRatePerUnits;
+  @JsonProperty("standardRatePerUnit")
+  private Double standardRatePerUnit;
 
   public Reimbursement reimbursementID(UUID reimbursementID) {
     this.reimbursementID = reimbursementID;
@@ -305,24 +307,24 @@ public class Reimbursement {
     this.standardTypeOfUnits = standardTypeOfUnits;
   }
 
-  public Reimbursement standardRatePerUnits(String standardRatePerUnits) {
-    this.standardRatePerUnits = standardRatePerUnits;
+  public Reimbursement standardRatePerUnit(Double standardRatePerUnit) {
+    this.standardRatePerUnit = standardRatePerUnit;
     return this;
   }
 
   /**
    * Optional Rate Per Unit. Applicable when calculation type is Rate Per Unit
    *
-   * @return standardRatePerUnits
+   * @return standardRatePerUnit
    */
   @ApiModelProperty(
       value = "Optional Rate Per Unit. Applicable when calculation type is Rate Per Unit")
-  public String getStandardRatePerUnits() {
-    return standardRatePerUnits;
+  public Double getStandardRatePerUnit() {
+    return standardRatePerUnit;
   }
 
-  public void setStandardRatePerUnits(String standardRatePerUnits) {
-    this.standardRatePerUnits = standardRatePerUnits;
+  public void setStandardRatePerUnit(Double standardRatePerUnit) {
+    this.standardRatePerUnit = standardRatePerUnit;
   }
 
   @Override
@@ -342,7 +344,7 @@ public class Reimbursement {
         && Objects.equals(this.calculationType, reimbursement.calculationType)
         && Objects.equals(this.standardAmount, reimbursement.standardAmount)
         && Objects.equals(this.standardTypeOfUnits, reimbursement.standardTypeOfUnits)
-        && Objects.equals(this.standardRatePerUnits, reimbursement.standardRatePerUnits);
+        && Objects.equals(this.standardRatePerUnit, reimbursement.standardRatePerUnit);
   }
 
   @Override
@@ -356,7 +358,7 @@ public class Reimbursement {
         calculationType,
         standardAmount,
         standardTypeOfUnits,
-        standardRatePerUnits);
+        standardRatePerUnit);
   }
 
   @Override
@@ -375,8 +377,8 @@ public class Reimbursement {
     sb.append("    standardTypeOfUnits: ")
         .append(toIndentedString(standardTypeOfUnits))
         .append("\n");
-    sb.append("    standardRatePerUnits: ")
-        .append(toIndentedString(standardRatePerUnits))
+    sb.append("    standardRatePerUnit: ")
+        .append(toIndentedString(standardRatePerUnit))
         .append("\n");
     sb.append("}");
     return sb.toString();

@@ -105,7 +105,7 @@ public class Benefit {
     }
   }
 
-  @JsonProperty("CalculationTypeNZ")
+  @JsonProperty("calculationTypeNZ")
   private CalculationTypeNZEnum calculationTypeNZ;
 
   @JsonProperty("standardAmount")

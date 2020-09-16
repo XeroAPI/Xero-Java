@@ -13,7 +13,7 @@ import static org.hamcrest.core.Every.everyItem;
 
 import com.xero.api.ApiClient;
 import com.xero.api.client.*;
-import com.xero.models.payrolluk.*;
+import com.xero.models.payrollnz.*;
 
 import java.io.File;
 import java.net.URL;
@@ -40,10 +40,10 @@ import java.util.List;
 import java.util.ArrayList;
 import java.math.BigDecimal;
 
-public class PayrollUkApiEmployeePayTemplatesTest {
+public class PayrollNzApiEmployeePayTemplatesTest {
 
 	ApiClient defaultClient; 
-    PayrollUkApi payrollUkApi;
+    PayrollNzApi payrollNzApi;
      
 	String accessToken;
     String xeroTenantId; 
@@ -56,71 +56,82 @@ public class PayrollUkApiEmployeePayTemplatesTest {
         
         // Init projectApi client
         // NEW Sandbox for API Mocking
-		defaultClient = new ApiClient("https://xero-payroll-uk.getsandbox.com:443/payroll.xro/2.0",null,null,null,null);
-        payrollUkApi = PayrollUkApi.getInstance(defaultClient);   
+		defaultClient = new ApiClient("https://xero-payroll-nz.getsandbox.com:443/payroll.xro/2.0",null,null,null,null);
+        payrollNzApi = PayrollNzApi.getInstance(defaultClient);   
        
 	}
 
 	public void tearDown() {
-		payrollUkApi = null;
+		payrollNzApi = null;
         defaultClient = null;
 	}
 
     @Test
     public void getEmployeePayTemplateTest() throws IOException {
-        System.out.println("@Test UK Payroll - getEmployeePayTemplateTest");
+        System.out.println("@Test NZ Payroll - getEmployeePayTemplateTest");
         
         UUID employeeId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
-        EmployeePayTemplateObject response = payrollUkApi.getEmployeePayTemplate(accessToken, xeroTenantId, employeeId);
+        EmployeePayTemplates response = payrollNzApi.getEmployeePayTemplates(accessToken, xeroTenantId, employeeId);
         
-        assertThat(response.getPayTemplate().getEmployeeID(), is(equalTo(UUID.fromString("aad6b292-7b94-408b-93f6-e489867e3fb0"))));
-        assertThat(response.getPayTemplate().getEarningTemplates().get(0).getPayTemplateEarningID(), is(equalTo(UUID.fromString("4e2a0753-56b9-423d-8068-624473bd1c00"))));
-        assertThat(response.getPayTemplate().getEarningTemplates().get(0).getEarningsRateID(), is(equalTo(UUID.fromString("87f5b43a-cf51-4b74-92de-94c819e82d27"))));        
-        assertThat(response.getPayTemplate().getEarningTemplates().get(0).getRatePerUnit(), is(equalTo(25.0)));
-        assertThat(response.getPayTemplate().getEarningTemplates().get(0).getNumberOfUnits(), is(equalTo(10.0)));
-        assertThat(response.getPayTemplate().getEarningTemplates().get(0).getName(), is(equalTo("Regular Hours")));
+        assertThat(response.getPayTemplate().getEmployeeID(), is(equalTo(UUID.fromString("68342973-c405-4b86-b5d3-d7b877c27995"))));
+        assertThat(response.getPayTemplate().getEarningTemplates().get(0).getPayTemplateEarningID(), is(equalTo(UUID.fromString("1527cf6c-93db-41bf-aba2-9d6af1d3c499"))));
+        assertThat(response.getPayTemplate().getEarningTemplates().get(0).getEarningsRateID(), is(equalTo(UUID.fromString("f9d8f5b5-9049-47f4-8541-35e200f750a5"))));        
+        assertThat(response.getPayTemplate().getEarningTemplates().get(0).getRatePerUnit(), is(equalTo(20.0)));
+        assertThat(response.getPayTemplate().getEarningTemplates().get(0).getNumberOfUnits(), is(equalTo(8.0)));
+        assertThat(response.getPayTemplate().getEarningTemplates().get(0).getName(), is(equalTo("Ordinary Time")));
 
         //System.out.println(response.toString());
     }
 
     @Test
     public void updateEmployeePayTemplateTest() throws IOException {
-        System.out.println("@Test UK Payroll - updateEmployeePayTemplateTest");
+        System.out.println("@Test NZ Payroll - updateEmployeePayTemplateTest");
         
         UUID employeeId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
         UUID payTemplateEarningID = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
         EarningsTemplate earningsTemplate = new EarningsTemplate();
-        EarningsTemplateObject response = payrollUkApi.updateEmployeeEarningsTemplate(accessToken, xeroTenantId, employeeId, payTemplateEarningID, earningsTemplate);
+        EarningsTemplateObject response = payrollNzApi.updateEmployeeEarningsTemplate(accessToken, xeroTenantId, employeeId, payTemplateEarningID, earningsTemplate);
          
-        assertThat(response.getEarningTemplate().getEarningsRateID(), is(equalTo(UUID.fromString("87f5b43a-cf51-4b74-92de-94c819e82d27"))));
-        assertThat(response.getEarningTemplate().getPayTemplateEarningID(), is(equalTo(UUID.fromString("4e2a0753-56b9-423d-8068-624473bd1c00"))));
-        assertThat(response.getEarningTemplate().getRatePerUnit(), is(equalTo(30.0)));
+        assertThat(response.getEarningTemplate().getEarningsRateID(), is(equalTo(UUID.fromString("f9d8f5b5-9049-47f4-8541-35e200f750a5"))));
+        assertThat(response.getEarningTemplate().getPayTemplateEarningID(), is(equalTo(UUID.fromString("1527cf6c-93db-41bf-aba2-9d6af1d3c499"))));
+        assertThat(response.getEarningTemplate().getRatePerUnit(), is(equalTo(25.0)));
         assertThat(response.getEarningTemplate().getNumberOfUnits(), is(equalTo(4.0)));
-        assertThat(response.getEarningTemplate().getName(), is(equalTo("Regular Hours")));
+        assertThat(response.getEarningTemplate().getName(), is(equalTo("Ordinary Time")));
 
         //System.out.println(response.toString());
     }
 
     @Test
-    public void createMultipleEmployeeEarningsTemplateTest() throws IOException {
-        System.out.println("@Test UK Payroll - createMultipleEmployeeEarningsTemplateTest");
+    public void createEmployeeEarningsTemplateTest() throws IOException {
+        System.out.println("@Test NZ Payroll - createEmployeeEarningsTemplateTest");
         
         UUID employeeId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
-        List<EarningsTemplate> earningsTemplate = new ArrayList<>();
-        EmployeePayTemplates response = payrollUkApi.createMultipleEmployeeEarningsTemplate(accessToken, xeroTenantId, employeeId, earningsTemplate);
+        EarningsTemplate earningsTemplate = new EarningsTemplate();
+        EarningsTemplateObject response = payrollNzApi.createEmployeeEarningsTemplate(accessToken, xeroTenantId, employeeId, earningsTemplate);
          
-        assertThat(response.getEarningTemplates().get(0).getPayTemplateEarningID(), is(equalTo(UUID.fromString("6b32533d-1111-4a92-ac52-7641315a1719"))));
-        assertThat(response.getEarningTemplates().get(0).getEarningsRateID(), is(equalTo(UUID.fromString("87f5b43a-cf51-4b74-92de-94c819e82d27"))));
-        assertThat(response.getEarningTemplates().get(0).getRatePerUnit(), is(equalTo(20.0)));
-        assertThat(response.getEarningTemplates().get(0).getNumberOfUnits(), is(equalTo(8.0)));
-        assertThat(response.getEarningTemplates().get(0).getName(), is(equalTo("Regular Hours")));
-        assertThat(response.getEarningTemplates().get(1).getPayTemplateEarningID(), is(equalTo(UUID.fromString("b8b16366-6a60-4b72-97c1-57af555da375"))));
-        assertThat(response.getEarningTemplates().get(1).getEarningsRateID(), is(equalTo(UUID.fromString("973365f3-66b2-4c33-8ae6-14b75f78f68b"))));
-        assertThat(response.getEarningTemplates().get(1).getRatePerUnit(), is(equalTo(20.0)));
-        assertThat(response.getEarningTemplates().get(1).getNumberOfUnits(), is(equalTo(8.0)));
-        assertThat(response.getEarningTemplates().get(1).getName(), is(equalTo("Overtime Hours")));
-
+        assertThat(response.getEarningTemplate().getPayTemplateEarningID(), is(equalTo(UUID.fromString("11b4e492-5d56-4eac-a9ce-687d7b9a4a84"))));
+        assertThat(response.getEarningTemplate().getEarningsRateID(), is(equalTo(UUID.fromString("f9d8f5b5-9049-47f4-8541-35e200f750a5"))));
+        assertThat(response.getEarningTemplate().getRatePerUnit(), is(equalTo(20.0)));
+        assertThat(response.getEarningTemplate().getNumberOfUnits(), is(equalTo(8.0)));
+        assertThat(response.getEarningTemplate().getName(), is(equalTo("Ordinary Time")));
+    
         //System.out.println(response.toString());
     }
 
+    @Test
+    public void createMultipleEmployeeEarningsTemplateTest() throws IOException {
+        System.out.println("@Test NZ Payroll - createMultipleEmployeeEarningsTemplateTest");
+        
+        UUID employeeId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
+        List<EarningsTemplate> earningsTemplate = new ArrayList<>();
+        EmployeeEarningsTemplates response = payrollNzApi.createMultipleEmployeeEarningsTemplate(accessToken, xeroTenantId, employeeId, earningsTemplate);
+         
+        assertThat(response.getEarningTemplates().get(0).getPayTemplateEarningID(), is(equalTo(UUID.fromString("1527cf6c-93db-41bf-aba2-9d6af1d3c499"))));
+        assertThat(response.getEarningTemplates().get(0).getEarningsRateID(), is(equalTo(UUID.fromString("f9d8f5b5-9049-47f4-8541-35e200f750a5"))));
+        assertThat(response.getEarningTemplates().get(0).getRatePerUnit(), is(equalTo(20.0)));
+        assertThat(response.getEarningTemplates().get(0).getNumberOfUnits(), is(equalTo(8.0)));
+        assertThat(response.getEarningTemplates().get(0).getName(), is(equalTo("Ordinary Time")));
+       
+        //System.out.println(response.toString());
+    }
 }

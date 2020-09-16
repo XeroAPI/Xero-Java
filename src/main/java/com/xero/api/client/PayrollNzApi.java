@@ -23,6 +23,7 @@ import com.xero.models.payrollnz.EarningsRates;
 import com.xero.models.payrollnz.EarningsTemplate;
 import com.xero.models.payrollnz.EarningsTemplateObject;
 import com.xero.models.payrollnz.Employee;
+import com.xero.models.payrollnz.EmployeeEarningsTemplates;
 import com.xero.models.payrollnz.EmployeeLeave;
 import com.xero.models.payrollnz.EmployeeLeaveBalances;
 import com.xero.models.payrollnz.EmployeeLeaveObject;
@@ -1366,17 +1367,18 @@ public class PayrollNzApi {
    * @param employeeId Employee id for single object
    * @param earningsTemplate The earningsTemplate parameter
    * @param accessToken Authorization token for user set in header of each request
-   * @return EmployeePayTemplates
+   * @return EmployeeEarningsTemplates
    * @throws IOException if an error occurs while attempting to invoke the API
    */
-  public EmployeePayTemplates createMultipleEmployeeEarningsTemplate(
+  public EmployeeEarningsTemplates createMultipleEmployeeEarningsTemplate(
       String accessToken,
       String xeroTenantId,
       UUID employeeId,
       List<EarningsTemplate> earningsTemplate)
       throws IOException {
     try {
-      TypeReference<EmployeePayTemplates> typeRef = new TypeReference<EmployeePayTemplates>() {};
+      TypeReference<EmployeeEarningsTemplates> typeRef =
+          new TypeReference<EmployeeEarningsTemplates>() {};
       HttpResponse response =
           createMultipleEmployeeEarningsTemplateForHttpResponse(
               accessToken, xeroTenantId, employeeId, earningsTemplate);
@@ -1391,11 +1393,12 @@ public class PayrollNzApi {
       }
       XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
       if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
-        TypeReference<EmployeePayTemplates> errorTypeRef =
-            new TypeReference<EmployeePayTemplates>() {};
-        EmployeePayTemplates object =
+        TypeReference<EmployeeEarningsTemplates> errorTypeRef =
+            new TypeReference<EmployeeEarningsTemplates>() {};
+        EmployeeEarningsTemplates object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "EmployeePayTemplates", object.getProblem());
+        handler.validationError(
+            e.getStatusCode(), "EmployeeEarningsTemplates", object.getProblem());
       } else {
         handler.execute(e);
       }
