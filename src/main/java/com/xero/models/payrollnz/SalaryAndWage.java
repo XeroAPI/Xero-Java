@@ -85,7 +85,9 @@ public class SalaryAndWage {
   private StatusEnum status;
   /** The type of the payment of the corresponding salary and wages */
   public enum PaymentTypeEnum {
-    SALARY("Salary");
+    SALARY("Salary"),
+
+    HOURLY("Hourly");
 
     private String value;
 

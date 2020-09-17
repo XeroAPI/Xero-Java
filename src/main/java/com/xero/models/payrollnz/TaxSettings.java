@@ -17,7 +17,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
-import java.math.BigDecimal;
 import java.util.Objects;
 
 /** TaxSettings */
@@ -25,7 +24,7 @@ public class TaxSettings {
   StringUtil util = new StringUtil();
 
   @JsonProperty("periodUnits")
-  private BigDecimal periodUnits;
+  private Integer periodUnits;
   /** The type of period (\&quot;weeks\&quot; or \&quot;months\&quot;) */
   public enum PeriodTypeEnum {
     WEEKS("weeks"),
@@ -74,7 +73,7 @@ public class TaxSettings {
   @JsonProperty("lumpSumAmount")
   private String lumpSumAmount;
 
-  public TaxSettings periodUnits(BigDecimal periodUnits) {
+  public TaxSettings periodUnits(Integer periodUnits) {
     this.periodUnits = periodUnits;
     return this;
   }
@@ -85,11 +84,11 @@ public class TaxSettings {
    * @return periodUnits
    */
   @ApiModelProperty(value = "The number of units for the period type")
-  public BigDecimal getPeriodUnits() {
+  public Integer getPeriodUnits() {
     return periodUnits;
   }
 
-  public void setPeriodUnits(BigDecimal periodUnits) {
+  public void setPeriodUnits(Integer periodUnits) {
     this.periodUnits = periodUnits;
   }
 
