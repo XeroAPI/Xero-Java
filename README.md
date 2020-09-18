@@ -11,9 +11,9 @@ Version 4.x and higher of Xero Java SDK only supports OAuth2 authentication and 
 * projects
 * payroll au
 * payroll uk
+* payroll nz
 
 Coming soon 
-* payroll nz
 * files 
 * xero hq
 
