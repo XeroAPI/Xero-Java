@@ -6,7 +6,7 @@ package com.xero.api;
 public class XeroAuthenticationException extends XeroException {
     private static final long serialVersionUID = -6292824871010327632L;
 
-    public XeroAuthenticationException(final String message) {
-        super(message);
+    public XeroAuthenticationException(final String message, final Exception e) {
+        super(message, e);
     }
 }

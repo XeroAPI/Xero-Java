@@ -37,20 +37,22 @@ public class XeroExceptionsTest {
 
     @Test
     public void testXeroBadRequestException() {
+        Exception e = new Exception();
         // XeroBadRequestException extends XeroException so we can catch either
         expectedException.expect(XeroException.class);
-        expectedException.expect(is(new XeroBadRequestException(objectType, error)));
+        expectedException.expect(is(new XeroBadRequestException(objectType, error, e)));
 
-        xeroApiExceptionHandler.validationError(objectType, error);
+        xeroApiExceptionHandler.validationError(objectType, error, e);
     }
 
     @Test
     public void testXeroMethodNotAllowedException() {
+        Exception e = new Exception();
         // XeroMethodNotAllowedException extends XeroException so we can catch either
         expectedException.expect(XeroException.class);
-        expectedException.expect(is(new XeroMethodNotAllowedException(objectType, problem)));
+        expectedException.expect(is(new XeroMethodNotAllowedException(objectType, problem, e)));
 
-        xeroApiExceptionHandler.validationError(405, objectType, problem);
+        xeroApiExceptionHandler.validationError(405, objectType, problem, e);
     }
 
     @Test

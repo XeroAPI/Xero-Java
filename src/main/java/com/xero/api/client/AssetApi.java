@@ -102,7 +102,7 @@ public class AssetApi {
             new TypeReference<com.xero.models.assets.Error>() {};
         com.xero.models.assets.Error assetError =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError("Asset", assetError);
+        handler.validationError("Asset", assetError, e);
       } else {
         handler.execute(e);
       }
@@ -188,7 +188,7 @@ public class AssetApi {
             new TypeReference<com.xero.models.assets.Error>() {};
         com.xero.models.assets.Error assetError =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError("AssetType", assetError);
+        handler.validationError("AssetType", assetError, e);
       } else {
         handler.execute(e);
       }

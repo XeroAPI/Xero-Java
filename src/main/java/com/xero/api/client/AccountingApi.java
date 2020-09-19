@@ -152,9 +152,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Accounts", object.getMessage());
+          handler.validationError("Accounts", object.getMessage(), e);
         }
-        handler.validationError("Accounts", object);
+        handler.validationError("Accounts", object, e);
       } else {
         handler.execute(e);
       }
@@ -358,9 +358,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Attachments", object.getMessage());
+          handler.validationError("Attachments", object.getMessage(), e);
         }
-        handler.validationError("Attachments", object);
+        handler.validationError("Attachments", object, e);
       } else {
         handler.execute(e);
       }
@@ -586,9 +586,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Attachments", object.getMessage());
+          handler.validationError("Attachments", object.getMessage(), e);
         }
-        handler.validationError("Attachments", object);
+        handler.validationError("Attachments", object, e);
       } else {
         handler.execute(e);
       }
@@ -703,9 +703,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("HistoryRecords", object.getMessage());
+          handler.validationError("HistoryRecords", object.getMessage(), e);
         }
-        handler.validationError("HistoryRecords", object);
+        handler.validationError("HistoryRecords", object, e);
       } else {
         handler.execute(e);
       }
@@ -821,9 +821,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("BankTransactions", object.getMessage());
+          handler.validationError("BankTransactions", object.getMessage(), e);
         }
-        handler.validationError("BankTransactions", object);
+        handler.validationError("BankTransactions", object, e);
       } else {
         handler.execute(e);
       }
@@ -936,9 +936,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("BankTransfers", object.getMessage());
+          handler.validationError("BankTransfers", object.getMessage(), e);
         }
-        handler.validationError("BankTransfers", object);
+        handler.validationError("BankTransfers", object, e);
       } else {
         handler.execute(e);
       }
@@ -1141,9 +1141,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Attachments", object.getMessage());
+          handler.validationError("Attachments", object.getMessage(), e);
         }
-        handler.validationError("Attachments", object);
+        handler.validationError("Attachments", object, e);
       } else {
         handler.execute(e);
       }
@@ -1252,9 +1252,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("HistoryRecords", object.getMessage());
+          handler.validationError("HistoryRecords", object.getMessage(), e);
         }
-        handler.validationError("HistoryRecords", object);
+        handler.validationError("HistoryRecords", object, e);
       } else {
         handler.execute(e);
       }
@@ -1358,9 +1358,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("BatchPayments", object.getMessage());
+          handler.validationError("BatchPayments", object.getMessage(), e);
         }
-        handler.validationError("BatchPayments", object);
+        handler.validationError("BatchPayments", object, e);
       } else {
         handler.execute(e);
       }
@@ -1462,9 +1462,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("HistoryRecords", object.getMessage());
+          handler.validationError("HistoryRecords", object.getMessage(), e);
         }
-        handler.validationError("HistoryRecords", object);
+        handler.validationError("HistoryRecords", object, e);
       } else {
         handler.execute(e);
       }
@@ -1568,9 +1568,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("PaymentServices", object.getMessage());
+          handler.validationError("PaymentServices", object.getMessage(), e);
         }
-        handler.validationError("PaymentServices", object);
+        handler.validationError("PaymentServices", object, e);
       } else {
         handler.execute(e);
       }
@@ -1787,9 +1787,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Attachments", object.getMessage());
+          handler.validationError("Attachments", object.getMessage(), e);
         }
-        handler.validationError("Attachments", object);
+        handler.validationError("Attachments", object, e);
       } else {
         handler.execute(e);
       }
@@ -1896,9 +1896,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("ContactGroups", object.getMessage());
+          handler.validationError("ContactGroups", object.getMessage(), e);
         }
-        handler.validationError("ContactGroups", object);
+        handler.validationError("ContactGroups", object, e);
       } else {
         handler.execute(e);
       }
@@ -1988,9 +1988,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Contacts", object.getMessage());
+          handler.validationError("Contacts", object.getMessage(), e);
         }
-        handler.validationError("Contacts", object);
+        handler.validationError("Contacts", object, e);
       } else {
         handler.execute(e);
       }
@@ -2090,9 +2090,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("HistoryRecords", object.getMessage());
+          handler.validationError("HistoryRecords", object.getMessage(), e);
         }
-        handler.validationError("HistoryRecords", object);
+        handler.validationError("HistoryRecords", object, e);
       } else {
         handler.execute(e);
       }
@@ -2191,9 +2191,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Contacts", object.getMessage());
+          handler.validationError("Contacts", object.getMessage(), e);
         }
-        handler.validationError("Contacts", object);
+        handler.validationError("Contacts", object, e);
       } else {
         handler.execute(e);
       }
@@ -2301,9 +2301,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Allocations", object.getMessage());
+          handler.validationError("Allocations", object.getMessage(), e);
         }
-        handler.validationError("Allocations", object);
+        handler.validationError("Allocations", object, e);
       } else {
         handler.execute(e);
       }
@@ -2557,9 +2557,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Attachments", object.getMessage());
+          handler.validationError("Attachments", object.getMessage(), e);
         }
-        handler.validationError("Attachments", object);
+        handler.validationError("Attachments", object, e);
       } else {
         handler.execute(e);
       }
@@ -2686,9 +2686,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("HistoryRecords", object.getMessage());
+          handler.validationError("HistoryRecords", object.getMessage(), e);
         }
-        handler.validationError("HistoryRecords", object);
+        handler.validationError("HistoryRecords", object, e);
       } else {
         handler.execute(e);
       }
@@ -2795,9 +2795,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("CreditNotes", object.getMessage());
+          handler.validationError("CreditNotes", object.getMessage(), e);
         }
-        handler.validationError("CreditNotes", object);
+        handler.validationError("CreditNotes", object, e);
       } else {
         handler.execute(e);
       }
@@ -2906,9 +2906,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Currencies", object.getMessage());
+          handler.validationError("Currencies", object.getMessage(), e);
         }
-        handler.validationError("Currencies", object);
+        handler.validationError("Currencies", object, e);
       } else {
         handler.execute(e);
       }
@@ -2997,9 +2997,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Employees", object.getMessage());
+          handler.validationError("Employees", object.getMessage(), e);
         }
-        handler.validationError("Employees", object);
+        handler.validationError("Employees", object, e);
       } else {
         handler.execute(e);
       }
@@ -3099,9 +3099,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("HistoryRecords", object.getMessage());
+          handler.validationError("HistoryRecords", object.getMessage(), e);
         }
-        handler.validationError("HistoryRecords", object);
+        handler.validationError("HistoryRecords", object, e);
       } else {
         handler.execute(e);
       }
@@ -3198,9 +3198,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("ExpenseClaims", object.getMessage());
+          handler.validationError("ExpenseClaims", object.getMessage(), e);
         }
-        handler.validationError("ExpenseClaims", object);
+        handler.validationError("ExpenseClaims", object, e);
       } else {
         handler.execute(e);
       }
@@ -3428,9 +3428,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Attachments", object.getMessage());
+          handler.validationError("Attachments", object.getMessage(), e);
         }
-        handler.validationError("Attachments", object);
+        handler.validationError("Attachments", object, e);
       } else {
         handler.execute(e);
       }
@@ -3555,9 +3555,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("HistoryRecords", object.getMessage());
+          handler.validationError("HistoryRecords", object.getMessage(), e);
         }
-        handler.validationError("HistoryRecords", object);
+        handler.validationError("HistoryRecords", object, e);
       } else {
         handler.execute(e);
       }
@@ -3663,9 +3663,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Invoices", object.getMessage());
+          handler.validationError("Invoices", object.getMessage(), e);
         }
-        handler.validationError("Invoices", object);
+        handler.validationError("Invoices", object, e);
       } else {
         handler.execute(e);
       }
@@ -3779,9 +3779,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("HistoryRecords", object.getMessage());
+          handler.validationError("HistoryRecords", object.getMessage(), e);
         }
-        handler.validationError("HistoryRecords", object);
+        handler.validationError("HistoryRecords", object, e);
       } else {
         handler.execute(e);
       }
@@ -3881,9 +3881,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Items", object.getMessage());
+          handler.validationError("Items", object.getMessage(), e);
         }
-        handler.validationError("Items", object);
+        handler.validationError("Items", object, e);
       } else {
         handler.execute(e);
       }
@@ -3994,9 +3994,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("LinkedTransactions", object.getMessage());
+          handler.validationError("LinkedTransactions", object.getMessage(), e);
         }
-        handler.validationError("LinkedTransactions", object);
+        handler.validationError("LinkedTransactions", object, e);
       } else {
         handler.execute(e);
       }
@@ -4205,9 +4205,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Attachments", object.getMessage());
+          handler.validationError("Attachments", object.getMessage(), e);
         }
-        handler.validationError("Attachments", object);
+        handler.validationError("Attachments", object, e);
       } else {
         handler.execute(e);
       }
@@ -4322,9 +4322,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("ManualJournals", object.getMessage());
+          handler.validationError("ManualJournals", object.getMessage(), e);
         }
-        handler.validationError("ManualJournals", object);
+        handler.validationError("ManualJournals", object, e);
       } else {
         handler.execute(e);
       }
@@ -4435,9 +4435,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Allocations", object.getMessage());
+          handler.validationError("Allocations", object.getMessage(), e);
         }
-        handler.validationError("Allocations", object);
+        handler.validationError("Allocations", object, e);
       } else {
         handler.execute(e);
       }
@@ -4555,9 +4555,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("HistoryRecords", object.getMessage());
+          handler.validationError("HistoryRecords", object.getMessage(), e);
         }
-        handler.validationError("HistoryRecords", object);
+        handler.validationError("HistoryRecords", object, e);
       } else {
         handler.execute(e);
       }
@@ -4652,9 +4652,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Payments", object.getMessage());
+          handler.validationError("Payments", object.getMessage(), e);
         }
-        handler.validationError("Payments", object);
+        handler.validationError("Payments", object, e);
       } else {
         handler.execute(e);
       }
@@ -4744,9 +4744,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("HistoryRecords", object.getMessage());
+          handler.validationError("HistoryRecords", object.getMessage(), e);
         }
-        handler.validationError("HistoryRecords", object);
+        handler.validationError("HistoryRecords", object, e);
       } else {
         handler.execute(e);
       }
@@ -4843,9 +4843,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("PaymentServices", object.getMessage());
+          handler.validationError("PaymentServices", object.getMessage(), e);
         }
-        handler.validationError("PaymentServices", object);
+        handler.validationError("PaymentServices", object, e);
       } else {
         handler.execute(e);
       }
@@ -4934,9 +4934,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Payments", object.getMessage());
+          handler.validationError("Payments", object.getMessage(), e);
         }
-        handler.validationError("Payments", object);
+        handler.validationError("Payments", object, e);
       } else {
         handler.execute(e);
       }
@@ -5044,9 +5044,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Allocations", object.getMessage());
+          handler.validationError("Allocations", object.getMessage(), e);
         }
-        handler.validationError("Allocations", object);
+        handler.validationError("Allocations", object, e);
       } else {
         handler.execute(e);
       }
@@ -5162,9 +5162,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("HistoryRecords", object.getMessage());
+          handler.validationError("HistoryRecords", object.getMessage(), e);
         }
-        handler.validationError("HistoryRecords", object);
+        handler.validationError("HistoryRecords", object, e);
       } else {
         handler.execute(e);
       }
@@ -5264,9 +5264,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("HistoryRecords", object.getMessage());
+          handler.validationError("HistoryRecords", object.getMessage(), e);
         }
-        handler.validationError("HistoryRecords", object);
+        handler.validationError("HistoryRecords", object, e);
       } else {
         handler.execute(e);
       }
@@ -5372,9 +5372,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("PurchaseOrders", object.getMessage());
+          handler.validationError("PurchaseOrders", object.getMessage(), e);
         }
-        handler.validationError("PurchaseOrders", object);
+        handler.validationError("PurchaseOrders", object, e);
       } else {
         handler.execute(e);
       }
@@ -5590,9 +5590,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Attachments", object.getMessage());
+          handler.validationError("Attachments", object.getMessage(), e);
         }
-        handler.validationError("Attachments", object);
+        handler.validationError("Attachments", object, e);
       } else {
         handler.execute(e);
       }
@@ -5698,9 +5698,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("HistoryRecords", object.getMessage());
+          handler.validationError("HistoryRecords", object.getMessage(), e);
         }
-        handler.validationError("HistoryRecords", object);
+        handler.validationError("HistoryRecords", object, e);
       } else {
         handler.execute(e);
       }
@@ -5799,9 +5799,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Quotes", object.getMessage());
+          handler.validationError("Quotes", object.getMessage(), e);
         }
-        handler.validationError("Quotes", object);
+        handler.validationError("Quotes", object, e);
       } else {
         handler.execute(e);
       }
@@ -5902,9 +5902,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Receipts", object.getMessage());
+          handler.validationError("Receipts", object.getMessage(), e);
         }
-        handler.validationError("Receipts", object);
+        handler.validationError("Receipts", object, e);
       } else {
         handler.execute(e);
       }
@@ -6122,9 +6122,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Attachments", object.getMessage());
+          handler.validationError("Attachments", object.getMessage(), e);
         }
-        handler.validationError("Attachments", object);
+        handler.validationError("Attachments", object, e);
       } else {
         handler.execute(e);
       }
@@ -6234,9 +6234,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("HistoryRecords", object.getMessage());
+          handler.validationError("HistoryRecords", object.getMessage(), e);
         }
-        handler.validationError("HistoryRecords", object);
+        handler.validationError("HistoryRecords", object, e);
       } else {
         handler.execute(e);
       }
@@ -6454,9 +6454,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Attachments", object.getMessage());
+          handler.validationError("Attachments", object.getMessage(), e);
         }
-        handler.validationError("Attachments", object);
+        handler.validationError("Attachments", object, e);
       } else {
         handler.execute(e);
       }
@@ -6571,9 +6571,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("HistoryRecords", object.getMessage());
+          handler.validationError("HistoryRecords", object.getMessage(), e);
         }
-        handler.validationError("HistoryRecords", object);
+        handler.validationError("HistoryRecords", object, e);
       } else {
         handler.execute(e);
       }
@@ -6676,9 +6676,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("TaxRates", object.getMessage());
+          handler.validationError("TaxRates", object.getMessage(), e);
         }
-        handler.validationError("TaxRates", object);
+        handler.validationError("TaxRates", object, e);
       } else {
         handler.execute(e);
       }
@@ -6766,9 +6766,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("TrackingCategories", object.getMessage());
+          handler.validationError("TrackingCategories", object.getMessage(), e);
         }
-        handler.validationError("TrackingCategories", object);
+        handler.validationError("TrackingCategories", object, e);
       } else {
         handler.execute(e);
       }
@@ -6862,9 +6862,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("TrackingOptions", object.getMessage());
+          handler.validationError("TrackingOptions", object.getMessage(), e);
         }
-        handler.validationError("TrackingOptions", object);
+        handler.validationError("TrackingOptions", object, e);
       } else {
         handler.execute(e);
       }
@@ -6964,9 +6964,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Accounts", object.getMessage());
+          handler.validationError("Accounts", object.getMessage(), e);
         }
-        handler.validationError("Accounts", object);
+        handler.validationError("Accounts", object, e);
       } else {
         handler.execute(e);
       }
@@ -7364,9 +7364,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Payments", object.getMessage());
+          handler.validationError("Payments", object.getMessage(), e);
         }
-        handler.validationError("Payments", object);
+        handler.validationError("Payments", object, e);
       } else {
         handler.execute(e);
       }
@@ -7633,9 +7633,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("", object.getMessage());
+          handler.validationError("", object.getMessage(), e);
         }
-        handler.validationError("", object);
+        handler.validationError("", object, e);
       } else {
         handler.execute(e);
       }
@@ -10066,9 +10066,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Attachments", object.getMessage());
+          handler.validationError("Attachments", object.getMessage(), e);
         }
-        handler.validationError("Attachments", object);
+        handler.validationError("Attachments", object, e);
       } else {
         handler.execute(e);
       }
@@ -19202,9 +19202,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Accounts", object.getMessage());
+          handler.validationError("Accounts", object.getMessage(), e);
         }
-        handler.validationError("Accounts", object);
+        handler.validationError("Accounts", object, e);
       } else {
         handler.execute(e);
       }
@@ -19417,9 +19417,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Attachments", object.getMessage());
+          handler.validationError("Attachments", object.getMessage(), e);
         }
-        handler.validationError("Attachments", object);
+        handler.validationError("Attachments", object, e);
       } else {
         handler.execute(e);
       }
@@ -19535,9 +19535,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("BankTransactions", object.getMessage());
+          handler.validationError("BankTransactions", object.getMessage(), e);
         }
-        handler.validationError("BankTransactions", object);
+        handler.validationError("BankTransactions", object, e);
       } else {
         handler.execute(e);
       }
@@ -19768,9 +19768,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Attachments", object.getMessage());
+          handler.validationError("Attachments", object.getMessage(), e);
         }
-        handler.validationError("Attachments", object);
+        handler.validationError("Attachments", object, e);
       } else {
         handler.execute(e);
       }
@@ -19995,9 +19995,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Attachments", object.getMessage());
+          handler.validationError("Attachments", object.getMessage(), e);
         }
-        handler.validationError("Attachments", object);
+        handler.validationError("Attachments", object, e);
       } else {
         handler.execute(e);
       }
@@ -20104,9 +20104,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Contacts", object.getMessage());
+          handler.validationError("Contacts", object.getMessage(), e);
         }
-        handler.validationError("Contacts", object);
+        handler.validationError("Contacts", object, e);
       } else {
         handler.execute(e);
       }
@@ -20315,9 +20315,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Attachments", object.getMessage());
+          handler.validationError("Attachments", object.getMessage(), e);
         }
-        handler.validationError("Attachments", object);
+        handler.validationError("Attachments", object, e);
       } else {
         handler.execute(e);
       }
@@ -20426,9 +20426,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("ContactGroups", object.getMessage());
+          handler.validationError("ContactGroups", object.getMessage(), e);
         }
-        handler.validationError("ContactGroups", object);
+        handler.validationError("ContactGroups", object, e);
       } else {
         handler.execute(e);
       }
@@ -20533,9 +20533,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("CreditNotes", object.getMessage());
+          handler.validationError("CreditNotes", object.getMessage(), e);
         }
-        handler.validationError("CreditNotes", object);
+        handler.validationError("CreditNotes", object, e);
       } else {
         handler.execute(e);
       }
@@ -20767,9 +20767,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Attachments", object.getMessage());
+          handler.validationError("Attachments", object.getMessage(), e);
         }
-        handler.validationError("Attachments", object);
+        handler.validationError("Attachments", object, e);
       } else {
         handler.execute(e);
       }
@@ -20879,9 +20879,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("ExpenseClaims", object.getMessage());
+          handler.validationError("ExpenseClaims", object.getMessage(), e);
         }
-        handler.validationError("ExpenseClaims", object);
+        handler.validationError("ExpenseClaims", object, e);
       } else {
         handler.execute(e);
       }
@@ -20981,9 +20981,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Invoices", object.getMessage());
+          handler.validationError("Invoices", object.getMessage(), e);
         }
-        handler.validationError("Invoices", object);
+        handler.validationError("Invoices", object, e);
       } else {
         handler.execute(e);
       }
@@ -21207,9 +21207,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Attachments", object.getMessage());
+          handler.validationError("Attachments", object.getMessage(), e);
         }
-        handler.validationError("Attachments", object);
+        handler.validationError("Attachments", object, e);
       } else {
         handler.execute(e);
       }
@@ -21319,9 +21319,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Items", object.getMessage());
+          handler.validationError("Items", object.getMessage(), e);
         }
-        handler.validationError("Items", object);
+        handler.validationError("Items", object, e);
       } else {
         handler.execute(e);
       }
@@ -21435,9 +21435,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("LinkedTransactions", object.getMessage());
+          handler.validationError("LinkedTransactions", object.getMessage(), e);
         }
-        handler.validationError("LinkedTransactions", object);
+        handler.validationError("LinkedTransactions", object, e);
       } else {
         handler.execute(e);
       }
@@ -21542,9 +21542,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("ManualJournals", object.getMessage());
+          handler.validationError("ManualJournals", object.getMessage(), e);
         }
-        handler.validationError("ManualJournals", object);
+        handler.validationError("ManualJournals", object, e);
       } else {
         handler.execute(e);
       }
@@ -21761,9 +21761,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Attachments", object.getMessage());
+          handler.validationError("Attachments", object.getMessage(), e);
         }
-        handler.validationError("Attachments", object);
+        handler.validationError("Attachments", object, e);
       } else {
         handler.execute(e);
       }
@@ -21881,9 +21881,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("BankTransactions", object.getMessage());
+          handler.validationError("BankTransactions", object.getMessage(), e);
         }
-        handler.validationError("BankTransactions", object);
+        handler.validationError("BankTransactions", object, e);
       } else {
         handler.execute(e);
       }
@@ -22003,9 +22003,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Contacts", object.getMessage());
+          handler.validationError("Contacts", object.getMessage(), e);
         }
-        handler.validationError("Contacts", object);
+        handler.validationError("Contacts", object, e);
       } else {
         handler.execute(e);
       }
@@ -22114,9 +22114,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("CreditNotes", object.getMessage());
+          handler.validationError("CreditNotes", object.getMessage(), e);
         }
-        handler.validationError("CreditNotes", object);
+        handler.validationError("CreditNotes", object, e);
       } else {
         handler.execute(e);
       }
@@ -22233,9 +22233,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Employees", object.getMessage());
+          handler.validationError("Employees", object.getMessage(), e);
         }
-        handler.validationError("Employees", object);
+        handler.validationError("Employees", object, e);
       } else {
         handler.execute(e);
       }
@@ -22343,9 +22343,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Invoices", object.getMessage());
+          handler.validationError("Invoices", object.getMessage(), e);
         }
-        handler.validationError("Invoices", object);
+        handler.validationError("Invoices", object, e);
       } else {
         handler.execute(e);
       }
@@ -22464,9 +22464,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Items", object.getMessage());
+          handler.validationError("Items", object.getMessage(), e);
         }
-        handler.validationError("Items", object);
+        handler.validationError("Items", object, e);
       } else {
         handler.execute(e);
       }
@@ -22583,9 +22583,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("ManualJournals", object.getMessage());
+          handler.validationError("ManualJournals", object.getMessage(), e);
         }
-        handler.validationError("ManualJournals", object);
+        handler.validationError("ManualJournals", object, e);
       } else {
         handler.execute(e);
       }
@@ -22696,9 +22696,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("PurchaseOrders", object.getMessage());
+          handler.validationError("PurchaseOrders", object.getMessage(), e);
         }
-        handler.validationError("PurchaseOrders", object);
+        handler.validationError("PurchaseOrders", object, e);
       } else {
         handler.execute(e);
       }
@@ -22804,9 +22804,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Quotes", object.getMessage());
+          handler.validationError("Quotes", object.getMessage(), e);
         }
-        handler.validationError("Quotes", object);
+        handler.validationError("Quotes", object, e);
       } else {
         handler.execute(e);
       }
@@ -22907,9 +22907,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("PurchaseOrders", object.getMessage());
+          handler.validationError("PurchaseOrders", object.getMessage(), e);
         }
-        handler.validationError("PurchaseOrders", object);
+        handler.validationError("PurchaseOrders", object, e);
       } else {
         handler.execute(e);
       }
@@ -23006,9 +23006,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Quotes", object.getMessage());
+          handler.validationError("Quotes", object.getMessage(), e);
         }
-        handler.validationError("Quotes", object);
+        handler.validationError("Quotes", object, e);
       } else {
         handler.execute(e);
       }
@@ -23217,9 +23217,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Attachments", object.getMessage());
+          handler.validationError("Attachments", object.getMessage(), e);
         }
-        handler.validationError("Attachments", object);
+        handler.validationError("Attachments", object, e);
       } else {
         handler.execute(e);
       }
@@ -23326,9 +23326,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Receipts", object.getMessage());
+          handler.validationError("Receipts", object.getMessage(), e);
         }
-        handler.validationError("Receipts", object);
+        handler.validationError("Receipts", object, e);
       } else {
         handler.execute(e);
       }
@@ -23554,9 +23554,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Attachments", object.getMessage());
+          handler.validationError("Attachments", object.getMessage(), e);
         }
-        handler.validationError("Attachments", object);
+        handler.validationError("Attachments", object, e);
       } else {
         handler.execute(e);
       }
@@ -23784,9 +23784,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("Attachments", object.getMessage());
+          handler.validationError("Attachments", object.getMessage(), e);
         }
-        handler.validationError("Attachments", object);
+        handler.validationError("Attachments", object, e);
       } else {
         handler.execute(e);
       }
@@ -23893,9 +23893,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("TaxRates", object.getMessage());
+          handler.validationError("TaxRates", object.getMessage(), e);
         }
-        handler.validationError("TaxRates", object);
+        handler.validationError("TaxRates", object, e);
       } else {
         handler.execute(e);
       }
@@ -23988,9 +23988,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("TrackingCategories", object.getMessage());
+          handler.validationError("TrackingCategories", object.getMessage(), e);
         }
-        handler.validationError("TrackingCategories", object);
+        handler.validationError("TrackingCategories", object, e);
       } else {
         handler.execute(e);
       }
@@ -24099,9 +24099,9 @@ public class AccountingApi {
         com.xero.models.accounting.Error object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         if (object.getElements() == null || object.getElements().isEmpty()) {
-          handler.validationError("TrackingOptions", object.getMessage());
+          handler.validationError("TrackingOptions", object.getMessage(), e);
         }
-        handler.validationError("TrackingOptions", object);
+        handler.validationError("TrackingOptions", object, e);
       } else {
         handler.execute(e);
       }

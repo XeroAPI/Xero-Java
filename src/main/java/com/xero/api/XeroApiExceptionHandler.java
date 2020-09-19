@@ -20,65 +20,65 @@ public class XeroApiExceptionHandler {
 
     // REFACTOR ERROR HANDLER
     // ACCOUNTING Validation Errors (400)
-    public void validationError(String objectType, com.xero.models.accounting.Error error) {
-        throw new XeroBadRequestException(objectType, error);
+    public void validationError(String objectType, com.xero.models.accounting.Error error, Exception e) {
+        throw new XeroBadRequestException(objectType, error, e);
     }
 
     // ASSETS Validation Errors (400)
-    public void validationError(String objectType, com.xero.models.assets.Error error) {
-        throw new XeroBadRequestException(objectType, error);
+    public void validationError(String objectType, com.xero.models.assets.Error error, Exception e) {
+        throw new XeroBadRequestException(objectType, error, e);
     }
 
     // BANKFEED Statements Validation Errors (400)
-    public void validationError(String objectType, Statements error) {
-        throw new XeroBadRequestException(objectType, error);
+    public void validationError(String objectType, Statements error, Exception e) {
+        throw new XeroBadRequestException(objectType, error, e);
     }
     
     // BANKFEED Connections Validation Errors (400)
-    public void validationError(String objectType, FeedConnections error) {
-        throw new XeroBadRequestException(objectType, error);
+    public void validationError(String objectType, FeedConnections error, Exception e) {
+        throw new XeroBadRequestException(objectType, error, e);
     }
     
     // PAYROLL UK Validation Errors 
-    public void validationError(Integer statusCode, String objectType, com.xero.models.payrolluk.Problem error) {
+    public void validationError(Integer statusCode, String objectType, com.xero.models.payrolluk.Problem error, Exception e) {
         if (statusCode == 400 ) {
-            throw new XeroBadRequestException(objectType, error);
+            throw new XeroBadRequestException(objectType, error, e);
         } else if(statusCode == 405) {
-            throw new XeroMethodNotAllowedException(objectType, error);
+            throw new XeroMethodNotAllowedException(objectType, error, e);
         }
     }
     
     // PAYROLL AU Employees Validation Errors (400)
-    public void validationError(String objectType, com.xero.models.payrollau.Employees employees) {
-        throw new XeroBadRequestException(objectType, employees);
+    public void validationError(String objectType, com.xero.models.payrollau.Employees employees, Exception e) {
+        throw new XeroBadRequestException(objectType, employees, e);
     }
     
-    public void validationError(String objectType, com.xero.models.payrollau.LeaveApplications leaveApplications) {
-        throw new XeroBadRequestException(objectType, leaveApplications);
+    public void validationError(String objectType, com.xero.models.payrollau.LeaveApplications leaveApplications, Exception e) {
+        throw new XeroBadRequestException(objectType, leaveApplications, e);
     }
     
-    public void validationError(String objectType, com.xero.models.payrollau.PayItems payItems) {
-        throw new XeroBadRequestException(objectType, payItems);
+    public void validationError(String objectType, com.xero.models.payrollau.PayItems payItems, Exception e) {
+        throw new XeroBadRequestException(objectType, payItems, e);
     }
     
-    public void validationError(String objectType, com.xero.models.payrollau.PayRuns payRuns) {
-        throw new XeroBadRequestException(objectType, payRuns);
+    public void validationError(String objectType, com.xero.models.payrollau.PayRuns payRuns, Exception e) {
+        throw new XeroBadRequestException(objectType, payRuns, e);
     }
     
-    public void validationError(String objectType, com.xero.models.payrollau.PayrollCalendars payrollCalendars) {
-        throw new XeroBadRequestException(objectType, payrollCalendars);
+    public void validationError(String objectType, com.xero.models.payrollau.PayrollCalendars payrollCalendars, Exception e) {
+        throw new XeroBadRequestException(objectType, payrollCalendars, e);
     }
     
-    public void validationError(String objectType, com.xero.models.payrollau.SuperFunds superFunds) {
-        throw new XeroBadRequestException(objectType, superFunds);
+    public void validationError(String objectType, com.xero.models.payrollau.SuperFunds superFunds, Exception e) {
+        throw new XeroBadRequestException(objectType, superFunds, e);
     }
     
-    public void validationError(String objectType, com.xero.models.payrollau.Timesheets timesheets) {
-        throw new XeroBadRequestException(objectType, timesheets);
+    public void validationError(String objectType, com.xero.models.payrollau.Timesheets timesheets, Exception e) {
+        throw new XeroBadRequestException(objectType, timesheets, e);
     }
     
-    public void validationError(String objectType, String msg) {
-        throw new XeroBadRequestException(400, msg);
+    public void validationError(String objectType, String msg, Exception e) {
+        throw new XeroBadRequestException(400, msg, e);
     }
     
     // REFACTOR GENERIC ERROR HANDLER
@@ -87,34 +87,34 @@ public class XeroApiExceptionHandler {
         
         if (statusCode == 400) {
             String message = e.getMessage();
-            throw new XeroBadRequestException(statusCode,message);
-        
+            throw new XeroBadRequestException(statusCode, message, e);
+
         } else if (statusCode == 401) {
             String message = "Unauthorized - check your scopes and confirm access to this resource";
-            throw new XeroUnauthorizedException(statusCode, message);
+            throw new XeroUnauthorizedException(statusCode, message, e);
             
         } else if (statusCode == 403) {
             String message = "Forbidden - authentication unsuccessful";
-            throw new XeroForbiddenException(statusCode, message);
+            throw new XeroForbiddenException(statusCode, message, e);
             
         } else if (statusCode == 404) {
             String message = "The resource you're looking for cannot be found";
-            throw new XeroNotFoundException(statusCode, message);
+            throw new XeroNotFoundException(statusCode, message, e);
                    
         } else if (statusCode == 429) {
             String message = "You've exceeded the per " + e.getHeaders().get("x-rate-limit-problem") + " rate limit";
-            throw new XeroRateLimitException(statusCode, message);        
+            throw new XeroRateLimitException(statusCode, message, e);
         
         } else if (statusCode == 500) {
             String message = "An error occurred in Xero. Check the API Status page http://status.developer.xero.com for current service status.";
-            throw new XeroServerErrorException(statusCode, message);
+            throw new XeroServerErrorException(statusCode, message, e);
 
         } else if (statusCode > 500) {
             String message = "Internal Server Error";
-            throw new XeroServerErrorException(statusCode, message);
+            throw new XeroServerErrorException(statusCode, message, e);
             
         } else {
-            throw new XeroApiException(statusCode, e.getStatusMessage());
+            throw new XeroApiException(statusCode, e.getStatusMessage(), e);
         }
     }
     
@@ -128,7 +128,7 @@ public class XeroApiExceptionHandler {
             TypeReference<Error> errorTypeRef = new TypeReference<Error>() {
             };
             error = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-            throw new XeroApiException(statusCode, e.getStatusMessage(), error);
+            throw new XeroApiException(statusCode, e.getStatusMessage(), error, e);
         } else if (statusCode == 404) {
             error = new Error();
             Element elementsItem = new Element();
@@ -136,7 +136,7 @@ public class XeroApiExceptionHandler {
             ve.setMessage("The resource you're looking for cannot be found");
             elementsItem.addValidationErrorsItem(ve);
             error.addElementsItem(elementsItem);
-            throw new XeroApiException(statusCode, error);
+            throw new XeroApiException(statusCode, error, e);
         } else if (statusCode == 429) {
             error = new Error();
             Element elementsItem = new Element();
@@ -144,11 +144,11 @@ public class XeroApiExceptionHandler {
             ve.setMessage("You've exceeded the per " + e.getHeaders().get("x-rate-limit-problem") + " rate limit");
             elementsItem.addValidationErrorsItem(ve);
             error.addElementsItem(elementsItem);
-            throw new XeroApiException(statusCode, error);
+            throw new XeroApiException(statusCode, error, e);
         } else if (statusCode == 401) {
-            throw new XeroApiException(401, "Unauthorized - check your scopes and confirm access to this resource" );
+            throw new XeroApiException(statusCode, "Unauthorized - check your scopes and confirm access to this resource", e);
         } else if (statusCode != 400) {
-            throw new XeroApiException(statusCode, e.getStatusMessage());
+            throw new XeroApiException(statusCode, e.getStatusMessage(), e);
         } else {
             throw e;
         }

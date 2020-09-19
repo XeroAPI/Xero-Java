@@ -1,5 +1,6 @@
 package com.xero.api;
 
+import com.xero.models.payrollau.Timesheets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -33,73 +34,84 @@ public class XeroBadRequestException extends XeroException {
     private List<com.xero.models.payrollau.Timesheet> timesheetItems = new ArrayList<com.xero.models.payrollau.Timesheet>();
     private List<com.xero.models.payrollau.PayRun> payRunItems = new ArrayList<com.xero.models.payrollau.PayRun>();
     
-    public XeroBadRequestException(String objectType, com.xero.models.accounting.Error error) {
+    public XeroBadRequestException(String objectType, com.xero.models.accounting.Error error, Exception e) {
+        super(e);
         this.statusCode = 400;
         this.type(objectType);
         this.elements(error.getElements());
     }
     
-    public XeroBadRequestException(String objectType, com.xero.models.assets.Error error) {
+    public XeroBadRequestException(String objectType, com.xero.models.assets.Error error, Exception e) {
+        super(e);
         this.statusCode = 400;
         this.type = objectType;
         this.fieldValidationErrorsElements = error.getFieldValidationErrors();
     }
     
-    public XeroBadRequestException(String objectType, Statements error) {
+    public XeroBadRequestException(String objectType, Statements error, Exception e) {
+        super(e);
         this.statusCode = 400;
         this.type = objectType;
         this.statementItems = error.getItems();
     }
     
-    public XeroBadRequestException(String objectType, FeedConnections error) {
+    public XeroBadRequestException(String objectType, FeedConnections error, Exception e) {
+        super(e);
         this.statusCode = 400;
         this.type = objectType;
         this.feedConnectionItems = error.getItems();
     }
     
-    public XeroBadRequestException(String objectType, com.xero.models.payrolluk.Problem problem) {
+    public XeroBadRequestException(String objectType, com.xero.models.payrolluk.Problem problem, Exception e) {
+        super(e);
         this.statusCode = 400;
         this.type = objectType;
         this.payrollUkProblem = problem;
     }
     
-    public XeroBadRequestException(String objectType, com.xero.models.payrollau.Employees employees) {
+    public XeroBadRequestException(String objectType, com.xero.models.payrollau.Employees employees, Exception e) {
+        super(e);
         this.statusCode = 400;
         this.type = objectType;
         this.employeeItems = employees.getEmployees();
     }
     
-    public XeroBadRequestException(String objectType, com.xero.models.payrollau.LeaveApplications leaveApplications) {
+    public XeroBadRequestException(String objectType, com.xero.models.payrollau.LeaveApplications leaveApplications, Exception e) {
+        super(e);
         this.statusCode = 400;
         this.type = objectType;
         this.leaveApplicationItems = leaveApplications.getLeaveApplications();
     }
     
-    public XeroBadRequestException(String objectType, com.xero.models.payrollau.PayItems payItems) {
+    public XeroBadRequestException(String objectType, com.xero.models.payrollau.PayItems payItems, Exception e) {
+        super(e);
         this.statusCode = 400;
         this.type = objectType;
         //this.payItemItems = payItems.g
     }
     
-    public XeroBadRequestException(String objectType, com.xero.models.payrollau.PayrollCalendars payrollCalendars) {
+    public XeroBadRequestException(String objectType, com.xero.models.payrollau.PayrollCalendars payrollCalendars, Exception e) {
+        super(e);
         this.statusCode = 400;
         this.type = objectType;
         this.payrollCalendarItems = payrollCalendars.getPayrollCalendars();
     }
     
-    public XeroBadRequestException(String objectType, com.xero.models.payrollau.SuperFunds superFunds) {
+    public XeroBadRequestException(String objectType, com.xero.models.payrollau.SuperFunds superFunds, Exception e) {
         this.statusCode = 400;
         this.type = objectType;
         this.superFundItems = superFunds.getSuperFunds();
     }
     
-    public XeroBadRequestException(String objectType, com.xero.models.payrollau.Timesheets timesheets) {
+    public XeroBadRequestException(String objectType, com.xero.models.payrollau.Timesheets timesheets, Exception e) {
+        super(e);
         this.statusCode = 400;
         this.type = objectType;
         this.timesheetItems = timesheets.getTimesheets();
     }
     
-    public XeroBadRequestException(String objectType, com.xero.models.payrollau.PayRuns payRuns) {
+    public XeroBadRequestException(String objectType, com.xero.models.payrollau.PayRuns payRuns, Exception e) {
+        super(e);
         this.statusCode = 400;
         this.type = objectType;
         this.payRunItems = payRuns.getPayRuns();
@@ -109,7 +121,13 @@ public class XeroBadRequestException extends XeroException {
         this.statusCode = statusCode;
         this.message = message;
     }
-    
+
+    public XeroBadRequestException(Integer statusCode, String message, Exception e) {
+        super(message, e);
+        this.statusCode = statusCode;
+        this.message = message;
+    }
+
     public XeroBadRequestException statusCode(Integer statusCode) {
       this.statusCode = statusCode;
       return this;
