@@ -134,7 +134,7 @@ public class AccountingApiPrepaymentsTest {
         assertThat(response.getPrepayments().get(0).getAttachments().get(0).getFileName(), is(equalTo("giphy.gif")));
         assertThat(response.getPrepayments().get(0).getAttachments().get(0).getUrl(), is(equalTo("https://api.xero.com/api.xro/2.0/banktransaction/ce0cddef-cf5a-4e59-b638-f225679115a7/Attachments/giphy.gif")));
         assertThat(response.getPrepayments().get(0).getAttachments().get(0).getMimeType(), is(equalTo("image/gif")));
-        assertThat(response.getPrepayments().get(0).getAttachments().get(0).getContentLength(), is(equalTo(new BigDecimal(495727))));
+        assertThat(response.getPrepayments().get(0).getAttachments().get(0).getContentLength(), is(equalTo(495727)));
         //System.out.println(response.getPrepayments().get(0).toString());
     }    
   

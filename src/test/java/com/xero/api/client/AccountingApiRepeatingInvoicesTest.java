@@ -95,7 +95,7 @@ public class AccountingApiRepeatingInvoicesTest {
         assertThat(response.getAttachments().get(0).getFileName(), is(equalTo("foobar.jpg")));
         assertThat(response.getAttachments().get(0).getMimeType(), is(equalTo("image/jpg")));
         assertThat(response.getAttachments().get(0).getUrl(), is(equalTo("https://api.xero.com/api.xro/2.0/RepeatingInvoices/428c0d75-909f-4b04-8403-a48dc27283b0/Attachments/foobar.jpg")));
-        assertThat(response.getAttachments().get(0).getContentLength(), is(equalTo(new BigDecimal("2878711"))));
+        assertThat(response.getAttachments().get(0).getContentLength(), is(equalTo(2878711)));
         assertThat(response.getAttachments().get(0).getIncludeOnline(), is(equalTo(null)));
         //System.out.println(response.getAttachments().get(0).toString());
     }
@@ -140,7 +140,7 @@ public class AccountingApiRepeatingInvoicesTest {
         assertThat(response.getRepeatingInvoices().get(0).getAttachments().get(0).getFileName(), is(equalTo("HelloWorld.jpg")));
         assertThat(response.getRepeatingInvoices().get(0).getAttachments().get(0).getMimeType(), is(equalTo("image/jpg")));
         assertThat(response.getRepeatingInvoices().get(0).getAttachments().get(0).getUrl(), is(equalTo("https://api.xero.com/api.xro/2.0/Invoices/428c0d75-909f-4b04-8403-a48dc27283b0/Attachments/HelloWorld.jpg")));
-        assertThat(response.getRepeatingInvoices().get(0).getAttachments().get(0).getContentLength(), is(equalTo(new BigDecimal("2878711"))));
+        assertThat(response.getRepeatingInvoices().get(0).getAttachments().get(0).getContentLength(), is(equalTo(2878711)));
         assertThat(response.getRepeatingInvoices().get(0).getAttachments().get(0).getIncludeOnline(), is(equalTo(null)));
         //System.out.println(response.getRepeatingInvoices().get(0).toString());
     }
@@ -155,7 +155,7 @@ public class AccountingApiRepeatingInvoicesTest {
         assertThat(response.getAttachments().get(0).getFileName(), is(equalTo("HelloWorld.jpg")));
         assertThat(response.getAttachments().get(0).getMimeType(), is(equalTo("image/jpg")));
         assertThat(response.getAttachments().get(0).getUrl(), is(equalTo("https://api.xero.com/api.xro/2.0/RepeatingInvoices/428c0d75-909f-4b04-8403-a48dc27283b0/Attachments/HelloWorld.jpg")));
-        assertThat(response.getAttachments().get(0).getContentLength(), is(equalTo(new BigDecimal("2878711"))));
+        assertThat(response.getAttachments().get(0).getContentLength(), is(equalTo(2878711)));
         assertThat(response.getAttachments().get(0).getIncludeOnline(), is(equalTo(null)));
         //System.out.println(response.getAttachments().get(0).toString());
     }

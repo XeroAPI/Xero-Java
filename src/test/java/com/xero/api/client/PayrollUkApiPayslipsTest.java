@@ -74,7 +74,7 @@ public class PayrollUkApiPayslipsTest {
         System.out.println("@Test UK Payroll - getPayslipsTest");
        
         UUID payRunId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
-        Payslips response = payrollUkApi.getPayslips(accessToken, xeroTenantId, payRunId, 1);
+        Payslips response = payrollUkApi.getPaySlips(accessToken, xeroTenantId, payRunId, 1);
         
         assertThat(response.getPaySlips().get(0).getPaySlipID(),is(equalTo(UUID.fromString("ed3fb9b3-e9a1-44fa-a224-8be49facbbe8"))));
         assertThat(response.getPaySlips().get(0).getEmployeeID(),is(equalTo(UUID.fromString("aad6b292-7b94-408b-93f6-e489867e3fb0"))));

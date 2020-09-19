@@ -131,7 +131,7 @@ public class AccountingApiManualJournalsTest {
         assertThat(response.getAttachments().get(0).getFileName(), is(equalTo("foobar.jpg")));
         assertThat(response.getAttachments().get(0).getMimeType(), is(equalTo("image/jpg")));
         assertThat(response.getAttachments().get(0).getUrl(), is(equalTo("https://api.xero.com/api.xro/2.0/ManualJournals/0b159335-606b-485f-b51b-97b3b32bad32/Attachments/foobar.jpg")));
-        assertThat(response.getAttachments().get(0).getContentLength(), is(equalTo(new BigDecimal("2878711"))));
+        assertThat(response.getAttachments().get(0).getContentLength(), is(equalTo(2878711)));
         assertThat(response.getAttachments().get(0).getIncludeOnline(), is(equalTo(null)));
         //System.out.println(response.getAttachments().get(0).toString());
     }
@@ -166,7 +166,7 @@ public class AccountingApiManualJournalsTest {
         assertThat(response.getManualJournals().get(0).getAttachments().get(0).getFileName(), is(equalTo("giphy.gif")));
         assertThat(response.getManualJournals().get(0).getAttachments().get(0).getUrl(), is(equalTo("https://api.xero.com/api.xro/2.0/manualjournal/99cb8353-ce73-4a5d-8e0d-8b0edf86cfc4/Attachments/giphy.gif")));
         assertThat(response.getManualJournals().get(0).getAttachments().get(0).getMimeType(), is(equalTo("image/gif")));
-        assertThat(response.getManualJournals().get(0).getAttachments().get(0).getContentLength(), is(equalTo(new BigDecimal("495727"))));
+        assertThat(response.getManualJournals().get(0).getAttachments().get(0).getContentLength(), is(equalTo(495727)));
         //System.out.println(response.getManualJournals().get(0).toString());
     }
 
@@ -180,7 +180,7 @@ public class AccountingApiManualJournalsTest {
         assertThat(response.getAttachments().get(0).getFileName(), is(equalTo("HelloWorld.jpg")));
         assertThat(response.getAttachments().get(0).getMimeType(), is(equalTo("image/jpg")));
         assertThat(response.getAttachments().get(0).getUrl(), is(equalTo("https://api.xero.com/api.xro/2.0/ManualJournals/0b159335-606b-485f-b51b-97b3b32bad32/Attachments/HelloWorld.jpg")));
-        assertThat(response.getAttachments().get(0).getContentLength(), is(equalTo(new BigDecimal("2878711"))));
+        assertThat(response.getAttachments().get(0).getContentLength(), is(equalTo(2878711)));
         assertThat(response.getAttachments().get(0).getIncludeOnline(), is(equalTo(null)));
         //System.out.println(response.getAttachments().get(0).toString());
     }

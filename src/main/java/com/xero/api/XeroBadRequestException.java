@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.xero.models.accounting.Element;
-import com.xero.models.accounting.Employees;
 import com.xero.models.assets.FieldValidationErrorsElement;
 import com.xero.models.bankfeeds.FeedConnection;
 import com.xero.models.bankfeeds.FeedConnections;
@@ -15,7 +13,7 @@ import com.xero.models.bankfeeds.Statements;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class XeroBadRequestException extends RuntimeException {
+public class XeroBadRequestException extends XeroException {
 
     private static final long serialVersionUID = 1L;
     private Integer statusCode;
@@ -26,6 +24,7 @@ public class XeroBadRequestException extends RuntimeException {
     private List<FeedConnection> feedConnectionItems = new ArrayList<FeedConnection>();
     private List<FieldValidationErrorsElement> fieldValidationErrorsElements = new ArrayList<FieldValidationErrorsElement>();
     private com.xero.models.payrolluk.Problem payrollUkProblem = new com.xero.models.payrolluk.Problem();
+    private com.xero.models.payrollnz.Problem payrollNzProblem = new com.xero.models.payrollnz.Problem();
     private List<com.xero.models.payrollau.Employee> employeeItems = new ArrayList<com.xero.models.payrollau.Employee>();
     
     private List<com.xero.models.payrollau.LeaveApplication> leaveApplicationItems = new ArrayList<com.xero.models.payrollau.LeaveApplication>();
@@ -63,6 +62,12 @@ public class XeroBadRequestException extends RuntimeException {
         this.statusCode = 400;
         this.type = objectType;
         this.payrollUkProblem = problem;
+    }
+    
+    public XeroBadRequestException(String objectType, com.xero.models.payrollnz.Problem problem) {
+        this.statusCode = 400;
+        this.type = objectType;
+        this.payrollNzProblem = problem;
     }
     
     public XeroBadRequestException(String objectType, com.xero.models.payrollau.Employees employees) {
@@ -294,7 +299,24 @@ public class XeroBadRequestException extends RuntimeException {
     }
     
     
+    // NZ Payroll Problems Errors
+    public XeroBadRequestException payrollNzProblem(com.xero.models.payrollnz.Problem problem) {
+      this.payrollNzProblem = problem;
+      return this;
+    }
     
+    /**
+     * Exception type
+     * @return com.xero.models.payrollnz.Problem
+    **/
+    @ApiModelProperty(value = "NZ Payroll problem")
+    public com.xero.models.payrollnz.Problem getPayrollNzProblem() {
+      return payrollNzProblem;
+    }
+    
+    public void setPayrollNzProblem(com.xero.models.payrollnz.Problem problem) {
+      this.payrollNzProblem = problem;
+    }
     
     
     // Payroll AU Employees

@@ -48,6 +48,17 @@ public class XeroApiExceptionHandler {
         }
     }
     
+    // PAYROLL NZ Validation Errors 
+    public void validationError(Integer statusCode, String objectType, com.xero.models.payrollnz.Problem error) {
+        if (statusCode == 400 ) {
+            throw new XeroBadRequestException(objectType, error);
+        } else if(statusCode == 405) {
+            throw new XeroMethodNotAllowedException(objectType, error);
+        } else if(statusCode == 409) {
+            throw new XeroConflictException(objectType, error);
+        }
+    }
+    
     // PAYROLL AU Employees Validation Errors (400)
     public void validationError(String objectType, com.xero.models.payrollau.Employees employees) {
         throw new XeroBadRequestException(objectType, employees);
