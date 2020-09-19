@@ -120,7 +120,7 @@ public class AccountingApiReceiptsTest {
         assertThat(response.getAttachments().get(0).getFileName(), is(equalTo("foobar.jpg")));
         assertThat(response.getAttachments().get(0).getMimeType(), is(equalTo("image/jpg")));
         assertThat(response.getAttachments().get(0).getUrl(), is(equalTo("https://api.xero.com/api.xro/2.0/Receipts/a44fd147-af4e-4fe8-a09a-55332df74162/Attachments/foobar.jpg")));
-        assertThat(response.getAttachments().get(0).getContentLength(), is(equalTo(new BigDecimal("2878711"))));
+        assertThat(response.getAttachments().get(0).getContentLength(), is(equalTo(2878711)));
         assertThat(response.getAttachments().get(0).getIncludeOnline(), is(equalTo(null)));
         //System.out.println(response.getAttachments().get(0).toString());
     }
@@ -151,7 +151,7 @@ public class AccountingApiReceiptsTest {
         assertThat(response.getReceipts().get(0).getAttachments().get(0).getFileName(), is(equalTo("HelloWorld.jpg")));
         assertThat(response.getReceipts().get(0).getAttachments().get(0).getMimeType(), is(equalTo("image/jpg")));
         assertThat(response.getReceipts().get(0).getAttachments().get(0).getUrl(), is(equalTo("https://api.xero.com/api.xro/2.0/receipts/a44fd147-af4e-4fe8-a09a-55332df74162/Attachments/HelloWorld.jpg")));
-        assertThat(response.getReceipts().get(0).getAttachments().get(0).getContentLength(), is(equalTo(new BigDecimal("2878711"))));
+        assertThat(response.getReceipts().get(0).getAttachments().get(0).getContentLength(), is(equalTo(2878711)));
         assertThat(response.getReceipts().get(0).getAttachments().get(0).getIncludeOnline(), is(equalTo(null)));
         //System.out.println(response.getReceipts().get(0).toString());
     }
@@ -166,7 +166,7 @@ public class AccountingApiReceiptsTest {
         assertThat(response.getAttachments().get(0).getFileName(), is(equalTo("giphy.gif")));
         assertThat(response.getAttachments().get(0).getMimeType(), is(equalTo("image/gif")));
         assertThat(response.getAttachments().get(0).getUrl(), is(equalTo("https://api.xero.com/api.xro/2.0/Receipts/7923c00d-163d-404c-a608-af3de333db29/Attachments/giphy.gif")));
-        assertThat(response.getAttachments().get(0).getContentLength(), is(equalTo(new BigDecimal("495727"))));
+        assertThat(response.getAttachments().get(0).getContentLength(), is(equalTo(495727)));
         assertThat(response.getAttachments().get(0).getIncludeOnline(), is(equalTo(null)));
         //System.out.println(response.getAttachments().get(0).toString());
     }

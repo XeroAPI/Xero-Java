@@ -25,6 +25,7 @@ public class XeroBadRequestException extends XeroException {
     private List<FeedConnection> feedConnectionItems = new ArrayList<FeedConnection>();
     private List<FieldValidationErrorsElement> fieldValidationErrorsElements = new ArrayList<FieldValidationErrorsElement>();
     private com.xero.models.payrolluk.Problem payrollUkProblem = new com.xero.models.payrolluk.Problem();
+    private com.xero.models.payrollnz.Problem payrollNzProblem = new com.xero.models.payrollnz.Problem();
     private List<com.xero.models.payrollau.Employee> employeeItems = new ArrayList<com.xero.models.payrollau.Employee>();
     
     private List<com.xero.models.payrollau.LeaveApplication> leaveApplicationItems = new ArrayList<com.xero.models.payrollau.LeaveApplication>();
@@ -69,6 +70,12 @@ public class XeroBadRequestException extends XeroException {
         this.payrollUkProblem = problem;
     }
     
+    public XeroBadRequestException(String objectType, com.xero.models.payrollnz.Problem problem) {
+        this.statusCode = 400;
+        this.type = objectType;
+        this.payrollNzProblem = problem;
+    }
+
     public XeroBadRequestException(String objectType, com.xero.models.payrollau.Employees employees, Exception e) {
         super(e);
         this.statusCode = 400;
@@ -310,8 +317,25 @@ public class XeroBadRequestException extends XeroException {
     }
     
     
-    
-    
+    // NZ Payroll Problems Errors
+    public XeroBadRequestException payrollNzProblem(com.xero.models.payrollnz.Problem problem) {
+      this.payrollNzProblem = problem;
+      return this;
+    }
+
+    /**
+     * Exception type
+     * @return com.xero.models.payrollnz.Problem
+    **/
+    @ApiModelProperty(value = "NZ Payroll problem")
+    public com.xero.models.payrollnz.Problem getPayrollNzProblem() {
+      return payrollNzProblem;
+    }
+
+    public void setPayrollNzProblem(com.xero.models.payrollnz.Problem problem) {
+      this.payrollNzProblem = problem;
+    }
+
     
     // Payroll AU Employees
     public XeroBadRequestException employeeItemsItems(List<com.xero.models.payrollau.Employee> employeeItems) {

@@ -131,7 +131,7 @@ public class AccountingApiOverpaymentsTest {
         assertThat(response.getOverpayments().get(0).getAttachments().get(0).getFileName(), is(equalTo("giphy.gif")));
         assertThat(response.getOverpayments().get(0).getAttachments().get(0).getUrl(), is(equalTo("https://api.xero.com/api.xro/2.0/banktransaction/ed7f6041-c915-4667-bd1d-54c48e92161e/Attachments/giphy.gif")));
         assertThat(response.getOverpayments().get(0).getAttachments().get(0).getMimeType(), is(equalTo("image/gif")));
-        assertThat(response.getOverpayments().get(0).getAttachments().get(0).getContentLength(), is(equalTo(new BigDecimal("495727"))));
+        assertThat(response.getOverpayments().get(0).getAttachments().get(0).getContentLength(), is(equalTo(495727)));
         assertThat(response.getOverpayments().get(0).getLineItems().get(0).getDescription(), is(equalTo("Broken TV deposit")));
         assertThat(response.getOverpayments().get(0).getLineItems().get(0).getQuantity(), is(equalTo(1.0)));
         assertThat(response.getOverpayments().get(0).getLineItems().get(0).getUnitAmount(), is(equalTo(3000.0)));
