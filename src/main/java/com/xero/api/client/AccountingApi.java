@@ -16098,6 +16098,8 @@ public class AccountingApi {
    * @param page e.g. page&#x3D;1 – Up to 100 Quotes will be returned in a single API call with line
    *     items shown for each quote
    * @param order Order by an any element
+   * @param quoteNumber Filter by quote number (e.g. GET
+   *     https://.../Quotes?QuoteNumber&#x3D;QU-0001)
    * @param accessToken Authorization token for user set in header of each request
    * @return Quotes
    * @throws IOException if an error occurs while attempting to invoke the API
@@ -16113,7 +16115,8 @@ public class AccountingApi {
       UUID contactID,
       String status,
       Integer page,
-      String order)
+      String order,
+      String quoteNumber)
       throws IOException {
     try {
       TypeReference<Quotes> typeRef = new TypeReference<Quotes>() {};
@@ -16129,7 +16132,8 @@ public class AccountingApi {
               contactID,
               status,
               page,
-              order);
+              order,
+              quoteNumber);
       return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
     } catch (HttpResponseException e) {
       if (logger.isDebugEnabled()) {
@@ -16158,7 +16162,8 @@ public class AccountingApi {
       UUID contactID,
       String status,
       Integer page,
-      String order)
+      String order,
+      String quoteNumber)
       throws IOException {
     // verify the required parameter 'xeroTenantId' is set
     if (xeroTenantId == null) {
@@ -16257,6 +16262,17 @@ public class AccountingApi {
     if (order != null) {
       String key = "order";
       Object value = order;
+      if (value instanceof Collection) {
+        uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+      } else if (value instanceof Object[]) {
+        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+      } else {
+        uriBuilder = uriBuilder.queryParam(key, value);
+      }
+    }
+    if (quoteNumber != null) {
+      String key = "QuoteNumber";
+      Object value = quoteNumber;
       if (value instanceof Collection) {
         uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
       } else if (value instanceof Object[]) {

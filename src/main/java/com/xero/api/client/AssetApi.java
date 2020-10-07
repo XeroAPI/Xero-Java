@@ -128,7 +128,7 @@ public class AssetApi {
           "Missing the required parameter 'accessToken' when calling createAsset");
     }
     HttpHeaders headers = new HttpHeaders();
-    headers.set("Xero-Tenant-Id", xeroTenantId);
+    headers.set("xero-tenant-id", xeroTenantId);
     headers.setAccept("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Assets");
@@ -210,7 +210,7 @@ public class AssetApi {
           "Missing the required parameter 'accessToken' when calling createAssetType");
     }
     HttpHeaders headers = new HttpHeaders();
-    headers.set("Xero-Tenant-Id", xeroTenantId);
+    headers.set("xero-tenant-id", xeroTenantId);
     headers.setAccept("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/AssetTypes");
@@ -286,7 +286,7 @@ public class AssetApi {
           "Missing the required parameter 'accessToken' when calling getAssetById");
     }
     HttpHeaders headers = new HttpHeaders();
-    headers.set("Xero-Tenant-Id", xeroTenantId);
+    headers.set("xero-tenant-id", xeroTenantId);
     headers.setAccept("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
@@ -359,7 +359,7 @@ public class AssetApi {
           "Missing the required parameter 'accessToken' when calling getAssetSettings");
     }
     HttpHeaders headers = new HttpHeaders();
-    headers.set("Xero-Tenant-Id", xeroTenantId);
+    headers.set("xero-tenant-id", xeroTenantId);
     headers.setAccept("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Settings");
@@ -428,7 +428,7 @@ public class AssetApi {
           "Missing the required parameter 'accessToken' when calling getAssetTypes");
     }
     HttpHeaders headers = new HttpHeaders();
-    headers.set("Xero-Tenant-Id", xeroTenantId);
+    headers.set("xero-tenant-id", xeroTenantId);
     headers.setAccept("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/AssetTypes");
@@ -532,7 +532,7 @@ public class AssetApi {
           "Missing the required parameter 'accessToken' when calling getAssets");
     }
     HttpHeaders headers = new HttpHeaders();
-    headers.set("Xero-Tenant-Id", xeroTenantId);
+    headers.set("xero-tenant-id", xeroTenantId);
     headers.setAccept("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Assets");
