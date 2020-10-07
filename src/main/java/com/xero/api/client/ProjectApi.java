@@ -41,7 +41,7 @@ public class ProjectApi {
   private ApiClient apiClient;
   private static ProjectApi instance = null;
   private String userAgent = "Default";
-  private String version = "4.3.0";
+  private String version = "4.3.1";
   static final Logger logger = LoggerFactory.getLogger(ProjectApi.class);
 
   public ProjectApi() {
