@@ -96,7 +96,7 @@ public class AccountingApiQuotesTest {
         String status = null;
         Integer page = null;
 
-        Quotes quotes = accountingApi.getQuotes(accessToken, xeroTenantId, ifModifiedSince, dateFrom, dateTo, expiryDateFrom, expiryDateTo, contactID, status, page, order);
+        Quotes quotes = accountingApi.getQuotes(accessToken, xeroTenantId, ifModifiedSince, dateFrom, dateTo, expiryDateFrom, expiryDateTo, contactID, status, page, order, null);
         
         assert(quotes.getQuotes().size() == 1);
 		assertThat(quotes.getQuotes().get(0).getQuoteID(), is(equalTo(UUID.fromString("be59294f-2a9c-4cee-8c64-0f0ddbc1883a"))));
