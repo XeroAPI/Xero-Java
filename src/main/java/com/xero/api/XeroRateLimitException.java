@@ -6,8 +6,8 @@ public class XeroRateLimitException extends XeroException {
     private int statusCode = 0;
     private String message;
     
-    public XeroRateLimitException(int statusCode, String message) {
-        super(statusCode + " : " + message);
+    public XeroRateLimitException(int statusCode, String message, Exception e) {
+        super(statusCode + " : " + message, e);
         this.statusCode = statusCode;
         this.message = message;
     }

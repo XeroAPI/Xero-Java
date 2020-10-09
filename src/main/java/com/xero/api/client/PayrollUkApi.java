@@ -159,7 +159,7 @@ public class PayrollUkApi {
         TypeReference<TimesheetObject> errorTypeRef = new TypeReference<TimesheetObject>() {};
         TimesheetObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "TimesheetObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "TimesheetObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -244,7 +244,7 @@ public class PayrollUkApi {
       if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
         TypeReference<BenefitObject> errorTypeRef = new TypeReference<BenefitObject>() {};
         BenefitObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "BenefitObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "BenefitObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -327,7 +327,7 @@ public class PayrollUkApi {
         TypeReference<DeductionObject> errorTypeRef = new TypeReference<DeductionObject>() {};
         DeductionObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "DeductionObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "DeductionObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -411,7 +411,7 @@ public class PayrollUkApi {
         TypeReference<EarningsRateObject> errorTypeRef = new TypeReference<EarningsRateObject>() {};
         EarningsRateObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "EarningsRateObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "EarningsRateObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -493,7 +493,7 @@ public class PayrollUkApi {
       if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
         TypeReference<EmployeeObject> errorTypeRef = new TypeReference<EmployeeObject>() {};
         EmployeeObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "EmployeeObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "EmployeeObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -582,7 +582,7 @@ public class PayrollUkApi {
             new TypeReference<EarningsTemplateObject>() {};
         EarningsTemplateObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "EarningsTemplateObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "EarningsTemplateObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -684,7 +684,7 @@ public class PayrollUkApi {
             new TypeReference<EmployeeLeaveObject>() {};
         EmployeeLeaveObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "EmployeeLeaveObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "EmployeeLeaveObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -783,7 +783,8 @@ public class PayrollUkApi {
             new TypeReference<EmployeeLeaveTypeObject>() {};
         EmployeeLeaveTypeObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "EmployeeLeaveTypeObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "EmployeeLeaveTypeObject", object.getProblem(),
+            e);
       } else {
         handler.execute(e);
       }
@@ -887,7 +888,7 @@ public class PayrollUkApi {
         EmployeeOpeningBalancesObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         handler.validationError(
-            e.getStatusCode(), "EmployeeOpeningBalancesObject", object.getProblem());
+            e.getStatusCode(), "EmployeeOpeningBalancesObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -991,7 +992,7 @@ public class PayrollUkApi {
             new TypeReference<PaymentMethodObject>() {};
         PaymentMethodObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "PaymentMethodObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "PaymentMethodObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -1090,7 +1091,7 @@ public class PayrollUkApi {
             new TypeReference<SalaryAndWageObject>() {};
         SalaryAndWageObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "SalaryAndWageObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "SalaryAndWageObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -1192,7 +1193,7 @@ public class PayrollUkApi {
         EmployeeStatutorySickLeaveObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         handler.validationError(
-            e.getStatusCode(), "EmployeeStatutorySickLeaveObject", object.getProblem());
+            e.getStatusCode(), "EmployeeStatutorySickLeaveObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -1284,7 +1285,7 @@ public class PayrollUkApi {
         TypeReference<EmploymentObject> errorTypeRef = new TypeReference<EmploymentObject>() {};
         EmploymentObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "EmploymentObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "EmploymentObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -1377,7 +1378,7 @@ public class PayrollUkApi {
         TypeReference<LeaveTypeObject> errorTypeRef = new TypeReference<LeaveTypeObject>() {};
         LeaveTypeObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "LeaveTypeObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "LeaveTypeObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -1468,7 +1469,7 @@ public class PayrollUkApi {
             new TypeReference<EmployeePayTemplates>() {};
         EmployeePayTemplates object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "EmployeePayTemplates", object.getProblem());
+        handler.validationError(e.getStatusCode(), "EmployeePayTemplates", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -1570,7 +1571,7 @@ public class PayrollUkApi {
             new TypeReference<PayRunCalendarObject>() {};
         PayRunCalendarObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "PayRunCalendarObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "PayRunCalendarObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -1655,7 +1656,7 @@ public class PayrollUkApi {
             new TypeReference<ReimbursementObject>() {};
         ReimbursementObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "ReimbursementObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "ReimbursementObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -1738,7 +1739,7 @@ public class PayrollUkApi {
         TypeReference<TimesheetObject> errorTypeRef = new TypeReference<TimesheetObject>() {};
         TimesheetObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "TimesheetObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "TimesheetObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -1825,7 +1826,7 @@ public class PayrollUkApi {
             new TypeReference<TimesheetLineObject>() {};
         TimesheetLineObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "TimesheetLineObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "TimesheetLineObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -2007,7 +2008,7 @@ public class PayrollUkApi {
             new TypeReference<EmployeeLeaveObject>() {};
         EmployeeLeaveObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "EmployeeLeaveObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "EmployeeLeaveObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -2349,7 +2350,7 @@ public class PayrollUkApi {
       if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
         TypeReference<BenefitObject> errorTypeRef = new TypeReference<BenefitObject>() {};
         BenefitObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "BenefitObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "BenefitObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -2432,7 +2433,7 @@ public class PayrollUkApi {
       if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
         TypeReference<Benefits> errorTypeRef = new TypeReference<Benefits>() {};
         Benefits object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "Benefits", object.getProblem());
+        handler.validationError(e.getStatusCode(), "Benefits", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -2518,7 +2519,7 @@ public class PayrollUkApi {
         TypeReference<DeductionObject> errorTypeRef = new TypeReference<DeductionObject>() {};
         DeductionObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "DeductionObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "DeductionObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -2602,7 +2603,7 @@ public class PayrollUkApi {
       if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
         TypeReference<Deductions> errorTypeRef = new TypeReference<Deductions>() {};
         Deductions object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "Deductions", object.getProblem());
+        handler.validationError(e.getStatusCode(), "Deductions", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -2689,7 +2690,7 @@ public class PayrollUkApi {
             new TypeReference<EarningsOrderObject>() {};
         EarningsOrderObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "EarningsOrderObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "EarningsOrderObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -2772,7 +2773,7 @@ public class PayrollUkApi {
       if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
         TypeReference<EarningsOrders> errorTypeRef = new TypeReference<EarningsOrders>() {};
         EarningsOrders object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "EarningsOrders", object.getProblem());
+        handler.validationError(e.getStatusCode(), "EarningsOrders", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -2859,7 +2860,7 @@ public class PayrollUkApi {
         TypeReference<EarningsRateObject> errorTypeRef = new TypeReference<EarningsRateObject>() {};
         EarningsRateObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "EarningsRateObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "EarningsRateObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -2943,7 +2944,7 @@ public class PayrollUkApi {
       if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
         TypeReference<EarningsRates> errorTypeRef = new TypeReference<EarningsRates>() {};
         EarningsRates object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "EarningsRates", object.getProblem());
+        handler.validationError(e.getStatusCode(), "EarningsRates", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -3028,7 +3029,7 @@ public class PayrollUkApi {
       if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
         TypeReference<EmployeeObject> errorTypeRef = new TypeReference<EmployeeObject>() {};
         EmployeeObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "EmployeeObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "EmployeeObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -3114,7 +3115,7 @@ public class PayrollUkApi {
             new TypeReference<EmployeeLeaveObject>() {};
         EmployeeLeaveObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "EmployeeLeaveObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "EmployeeLeaveObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -3205,7 +3206,7 @@ public class PayrollUkApi {
             new TypeReference<EmployeeLeaveBalances>() {};
         EmployeeLeaveBalances object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "EmployeeLeaveBalances", object.getProblem());
+        handler.validationError(e.getStatusCode(), "EmployeeLeaveBalances", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -3299,7 +3300,7 @@ public class PayrollUkApi {
       if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
         TypeReference<LeavePeriods> errorTypeRef = new TypeReference<LeavePeriods>() {};
         LeavePeriods object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "LeavePeriods", object.getProblem());
+        handler.validationError(e.getStatusCode(), "LeavePeriods", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -3413,7 +3414,7 @@ public class PayrollUkApi {
         TypeReference<EmployeeLeaveTypes> errorTypeRef = new TypeReference<EmployeeLeaveTypes>() {};
         EmployeeLeaveTypes object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "EmployeeLeaveTypes", object.getProblem());
+        handler.validationError(e.getStatusCode(), "EmployeeLeaveTypes", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -3497,7 +3498,7 @@ public class PayrollUkApi {
       if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
         TypeReference<EmployeeLeaves> errorTypeRef = new TypeReference<EmployeeLeaves>() {};
         EmployeeLeaves object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "EmployeeLeaves", object.getProblem());
+        handler.validationError(e.getStatusCode(), "EmployeeLeaves", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -3585,7 +3586,7 @@ public class PayrollUkApi {
         EmployeeOpeningBalancesObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         handler.validationError(
-            e.getStatusCode(), "EmployeeOpeningBalancesObject", object.getProblem());
+            e.getStatusCode(), "EmployeeOpeningBalancesObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -3675,7 +3676,7 @@ public class PayrollUkApi {
         EmployeePayTemplateObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         handler.validationError(
-            e.getStatusCode(), "EmployeePayTemplateObject", object.getProblem());
+            e.getStatusCode(), "EmployeePayTemplateObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -3763,7 +3764,7 @@ public class PayrollUkApi {
             new TypeReference<PaymentMethodObject>() {};
         PaymentMethodObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "PaymentMethodObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "PaymentMethodObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -3850,7 +3851,7 @@ public class PayrollUkApi {
       if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
         TypeReference<SalaryAndWages> errorTypeRef = new TypeReference<SalaryAndWages>() {};
         SalaryAndWages object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "SalaryAndWages", object.getProblem());
+        handler.validationError(e.getStatusCode(), "SalaryAndWages", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -3946,7 +3947,7 @@ public class PayrollUkApi {
       if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
         TypeReference<SalaryAndWages> errorTypeRef = new TypeReference<SalaryAndWages>() {};
         SalaryAndWages object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "SalaryAndWages", object.getProblem());
+        handler.validationError(e.getStatusCode(), "SalaryAndWages", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -4054,7 +4055,7 @@ public class PayrollUkApi {
         EmployeeStatutoryLeaveBalanceObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         handler.validationError(
-            e.getStatusCode(), "EmployeeStatutoryLeaveBalanceObject", object.getProblem());
+            e.getStatusCode(), "EmployeeStatutoryLeaveBalanceObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -4174,7 +4175,7 @@ public class PayrollUkApi {
         EmployeeStatutorySickLeaveObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         handler.validationError(
-            e.getStatusCode(), "EmployeeStatutorySickLeaveObject", object.getProblem());
+            e.getStatusCode(), "EmployeeStatutorySickLeaveObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -4262,7 +4263,7 @@ public class PayrollUkApi {
         TypeReference<EmployeeTaxObject> errorTypeRef = new TypeReference<EmployeeTaxObject>() {};
         EmployeeTaxObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "EmployeeTaxObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "EmployeeTaxObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -4352,7 +4353,7 @@ public class PayrollUkApi {
       if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
         TypeReference<Employees> errorTypeRef = new TypeReference<Employees>() {};
         Employees object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "Employees", object.getProblem());
+        handler.validationError(e.getStatusCode(), "Employees", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -4461,7 +4462,7 @@ public class PayrollUkApi {
         TypeReference<LeaveTypeObject> errorTypeRef = new TypeReference<LeaveTypeObject>() {};
         LeaveTypeObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "LeaveTypeObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "LeaveTypeObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -4549,7 +4550,7 @@ public class PayrollUkApi {
       if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
         TypeReference<LeaveTypes> errorTypeRef = new TypeReference<LeaveTypes>() {};
         LeaveTypes object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "LeaveTypes", object.getProblem());
+        handler.validationError(e.getStatusCode(), "LeaveTypes", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -4646,7 +4647,7 @@ public class PayrollUkApi {
       if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
         TypeReference<PayRunObject> errorTypeRef = new TypeReference<PayRunObject>() {};
         PayRunObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "PayRunObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "PayRunObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -4731,7 +4732,7 @@ public class PayrollUkApi {
             new TypeReference<PayRunCalendarObject>() {};
         PayRunCalendarObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "PayRunCalendarObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "PayRunCalendarObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -4816,7 +4817,7 @@ public class PayrollUkApi {
         TypeReference<PayRunCalendars> errorTypeRef = new TypeReference<PayRunCalendars>() {};
         PayRunCalendars object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "PayRunCalendars", object.getProblem());
+        handler.validationError(e.getStatusCode(), "PayRunCalendars", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -4905,7 +4906,7 @@ public class PayrollUkApi {
       if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
         TypeReference<PayRuns> errorTypeRef = new TypeReference<PayRuns>() {};
         PayRuns object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "PayRuns", object.getProblem());
+        handler.validationError(e.getStatusCode(), "PayRuns", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -5001,7 +5002,7 @@ public class PayrollUkApi {
       if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
         TypeReference<PayslipObject> errorTypeRef = new TypeReference<PayslipObject>() {};
         PayslipObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "PayslipObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "PayslipObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -5086,7 +5087,7 @@ public class PayrollUkApi {
       if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
         TypeReference<Payslips> errorTypeRef = new TypeReference<Payslips>() {};
         Payslips object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "Payslips", object.getProblem());
+        handler.validationError(e.getStatusCode(), "Payslips", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -5189,7 +5190,7 @@ public class PayrollUkApi {
             new TypeReference<ReimbursementObject>() {};
         ReimbursementObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "ReimbursementObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "ReimbursementObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -5273,7 +5274,7 @@ public class PayrollUkApi {
       if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
         TypeReference<Reimbursements> errorTypeRef = new TypeReference<Reimbursements>() {};
         Reimbursements object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "Reimbursements", object.getProblem());
+        handler.validationError(e.getStatusCode(), "Reimbursements", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -5356,7 +5357,7 @@ public class PayrollUkApi {
       if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
         TypeReference<Settings> errorTypeRef = new TypeReference<Settings>() {};
         Settings object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "Settings", object.getProblem());
+        handler.validationError(e.getStatusCode(), "Settings", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -5439,7 +5440,7 @@ public class PayrollUkApi {
         EmployeeStatutoryLeavesSummaries object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         handler.validationError(
-            e.getStatusCode(), "EmployeeStatutoryLeavesSummaries", object.getProblem());
+            e.getStatusCode(), "EmployeeStatutoryLeavesSummaries", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -5535,7 +5536,7 @@ public class PayrollUkApi {
         TypeReference<TimesheetObject> errorTypeRef = new TypeReference<TimesheetObject>() {};
         TimesheetObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "TimesheetObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "TimesheetObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -5634,7 +5635,7 @@ public class PayrollUkApi {
       if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
         TypeReference<Timesheets> errorTypeRef = new TypeReference<Timesheets>() {};
         Timesheets object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "Timesheets", object.getProblem());
+        handler.validationError(e.getStatusCode(), "Timesheets", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -5746,7 +5747,7 @@ public class PayrollUkApi {
         TypeReference<TrackingCategories> errorTypeRef = new TypeReference<TrackingCategories>() {};
         TrackingCategories object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "TrackingCategories", object.getProblem());
+        handler.validationError(e.getStatusCode(), "TrackingCategories", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -5825,7 +5826,7 @@ public class PayrollUkApi {
         TypeReference<TimesheetObject> errorTypeRef = new TypeReference<TimesheetObject>() {};
         TimesheetObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "TimesheetObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "TimesheetObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -5913,7 +5914,7 @@ public class PayrollUkApi {
       if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
         TypeReference<EmployeeObject> errorTypeRef = new TypeReference<EmployeeObject>() {};
         EmployeeObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "EmployeeObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "EmployeeObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -6016,7 +6017,7 @@ public class PayrollUkApi {
             new TypeReference<EarningsTemplateObject>() {};
         EarningsTemplateObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "EarningsTemplateObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "EarningsTemplateObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -6135,7 +6136,7 @@ public class PayrollUkApi {
             new TypeReference<EmployeeLeaveObject>() {};
         EmployeeLeaveObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "EmployeeLeaveObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "EmployeeLeaveObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -6247,7 +6248,7 @@ public class PayrollUkApi {
         EmployeeOpeningBalancesObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
         handler.validationError(
-            e.getStatusCode(), "EmployeeOpeningBalancesObject", object.getProblem());
+            e.getStatusCode(), "EmployeeOpeningBalancesObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -6356,7 +6357,7 @@ public class PayrollUkApi {
             new TypeReference<SalaryAndWageObject>() {};
         SalaryAndWageObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "SalaryAndWageObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "SalaryAndWageObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -6462,7 +6463,7 @@ public class PayrollUkApi {
       if (e.getStatusCode() == 400 || e.getStatusCode() == 405) {
         TypeReference<PayRunObject> errorTypeRef = new TypeReference<PayRunObject>() {};
         PayRunObject object = apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "PayRunObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "PayRunObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -6563,7 +6564,7 @@ public class PayrollUkApi {
             new TypeReference<TimesheetLineObject>() {};
         TimesheetLineObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "TimesheetLineObject", object.getProblem());
+        handler.validationError(e.getStatusCode(), "TimesheetLineObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }

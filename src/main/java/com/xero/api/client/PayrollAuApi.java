@@ -120,9 +120,9 @@ public class PayrollAuApi {
               new TypeReference<com.xero.models.accounting.Error>() {};
           com.xero.models.accounting.Error error =
               apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-          handler.validationError("Error", error.getMessage());
+          handler.validationError("Error", error.getMessage(), e);
         }
-        handler.validationError("Employees", object);
+        handler.validationError("Employees", object, e);
       } else {
         handler.execute(e);
       }
@@ -212,9 +212,9 @@ public class PayrollAuApi {
               new TypeReference<com.xero.models.accounting.Error>() {};
           com.xero.models.accounting.Error error =
               apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-          handler.validationError("Error", error.getMessage());
+          handler.validationError("Error", error.getMessage(), e);
         }
-        handler.validationError("LeaveApplications", object);
+        handler.validationError("LeaveApplications", object, e);
       } else {
         handler.execute(e);
       }
@@ -378,9 +378,9 @@ public class PayrollAuApi {
               new TypeReference<com.xero.models.accounting.Error>() {};
           com.xero.models.accounting.Error error =
               apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-          handler.validationError("Error", error.getMessage());
+          handler.validationError("Error", error.getMessage(), e);
         }
-        handler.validationError("PayRuns", object);
+        handler.validationError("PayRuns", object, e);
       } else {
         handler.execute(e);
       }
@@ -470,9 +470,9 @@ public class PayrollAuApi {
               new TypeReference<com.xero.models.accounting.Error>() {};
           com.xero.models.accounting.Error error =
               apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-          handler.validationError("Error", error.getMessage());
+          handler.validationError("Error", error.getMessage(), e);
         }
-        handler.validationError("PayrollCalendars", object);
+        handler.validationError("PayrollCalendars", object, e);
       } else {
         handler.execute(e);
       }
@@ -560,9 +560,9 @@ public class PayrollAuApi {
               new TypeReference<com.xero.models.accounting.Error>() {};
           com.xero.models.accounting.Error error =
               apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-          handler.validationError("Error", error.getMessage());
+          handler.validationError("Error", error.getMessage(), e);
         }
-        handler.validationError("SuperFunds", object);
+        handler.validationError("SuperFunds", object, e);
       } else {
         handler.execute(e);
       }
@@ -649,9 +649,9 @@ public class PayrollAuApi {
               new TypeReference<com.xero.models.accounting.Error>() {};
           com.xero.models.accounting.Error error =
               apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-          handler.validationError("Error", error.getMessage());
+          handler.validationError("Error", error.getMessage(), e);
         }
-        handler.validationError("Timesheets", object);
+        handler.validationError("Timesheets", object, e);
       } else {
         handler.execute(e);
       }
@@ -2543,7 +2543,7 @@ public class PayrollAuApi {
             new TypeReference<com.xero.models.accounting.Error>() {};
         com.xero.models.accounting.Error error =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError("Error", error.getMessage());
+        handler.validationError("Error", error.getMessage(), e);
       } else {
         handler.execute(e);
       }

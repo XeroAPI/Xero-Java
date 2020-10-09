@@ -6,8 +6,8 @@ public class XeroForbiddenException extends XeroAuthenticationException {
     private int statusCode = 0;
     private String message;
     
-    public XeroForbiddenException(int statusCode, String message) {
-        super(statusCode + " : " + message);
+    public XeroForbiddenException(int statusCode, String message, Exception e) {
+        super(statusCode + " : " + message, e);
         this.statusCode = statusCode;
         this.message = message;
     }

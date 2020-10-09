@@ -19,8 +19,8 @@ public class XeroApiException extends XeroException {
         this.responseCode = responseCode;
     }
 
-    public XeroApiException(int responseCode, String message) {
-        super(responseCode + " response: " + message);
+    public XeroApiException(int responseCode, String message, Exception e) {
+        super(responseCode + " response: " + message, e);
         this.responseCode = responseCode;
         this.message = message;
     }
@@ -38,14 +38,14 @@ public class XeroApiException extends XeroException {
         this.messageMap = map;
     }
 
-    public XeroApiException(int responseCode, Error error) {
-        super(responseCode + " response: none");
+    public XeroApiException(int responseCode, Error error, Exception e) {
+        super(responseCode + " response: none", e);
         this.responseCode = responseCode;
         this.error = error;
     }
 
-    public XeroApiException(int responseCode, String message, Error error) {
-        super(responseCode + " response: " + message);
+    public XeroApiException(int responseCode, String message, Error error, Exception e) {
+        super(responseCode + " response: " + message, e);
         this.responseCode = responseCode;
         this.message = message;
         this.error = error;
