@@ -582,7 +582,8 @@ public class PayrollUkApi {
             new TypeReference<EarningsTemplateObject>() {};
         EarningsTemplateObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "EarningsTemplateObject", object.getProblem(), e);
+        handler.validationError(
+            e.getStatusCode(), "EarningsTemplateObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -783,8 +784,8 @@ public class PayrollUkApi {
             new TypeReference<EmployeeLeaveTypeObject>() {};
         EmployeeLeaveTypeObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "EmployeeLeaveTypeObject", object.getProblem(),
-            e);
+        handler.validationError(
+            e.getStatusCode(), "EmployeeLeaveTypeObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
@@ -6017,7 +6018,8 @@ public class PayrollUkApi {
             new TypeReference<EarningsTemplateObject>() {};
         EarningsTemplateObject object =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError(e.getStatusCode(), "EarningsTemplateObject", object.getProblem(), e);
+        handler.validationError(
+            e.getStatusCode(), "EarningsTemplateObject", object.getProblem(), e);
       } else {
         handler.execute(e);
       }
