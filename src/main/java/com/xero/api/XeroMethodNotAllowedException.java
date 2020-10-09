@@ -59,7 +59,8 @@ public class XeroMethodNotAllowedException extends XeroException {
         this.payrollUkProblem = problem;
     }
     
-    public XeroMethodNotAllowedException(String objectType, com.xero.models.payrollnz.Problem problem) {
+    public XeroMethodNotAllowedException(String objectType, com.xero.models.payrollnz.Problem problem,  Exception e) {
+        super(e);
         this.statusCode = 405;
         this.type = objectType;
         this.payrollNzProblem = problem;

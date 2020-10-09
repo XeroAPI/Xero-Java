@@ -58,7 +58,8 @@ public class XeroConflictException extends XeroException {
         this.payrollUkProblem = problem;
     }
     
-    public XeroConflictException(String objectType, com.xero.models.payrollnz.Problem problem) {
+    public XeroConflictException(String objectType, com.xero.models.payrollnz.Problem problem, Exception e) {
+        super(e);
         this.statusCode = 409;
         this.type = objectType;
         this.payrollNzProblem = problem;

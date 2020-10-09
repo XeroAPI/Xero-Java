@@ -70,7 +70,8 @@ public class XeroBadRequestException extends XeroException {
         this.payrollUkProblem = problem;
     }
     
-    public XeroBadRequestException(String objectType, com.xero.models.payrollnz.Problem problem) {
+    public XeroBadRequestException(String objectType, com.xero.models.payrollnz.Problem problem, Exception e)  {
+        super(e);
         this.statusCode = 400;
         this.type = objectType;
         this.payrollNzProblem = problem;

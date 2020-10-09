@@ -49,13 +49,13 @@ public class XeroApiExceptionHandler {
     }
     
     // PAYROLL NZ Validation Errors 
-    public void validationError(Integer statusCode, String objectType, com.xero.models.payrollnz.Problem error) {
+    public void validationError(Integer statusCode, String objectType, com.xero.models.payrollnz.Problem error, Exception e) {
         if (statusCode == 400 ) {
-            throw new XeroBadRequestException(objectType, error);
+            throw new XeroBadRequestException(objectType, error, e);
         } else if(statusCode == 405) {
-            throw new XeroMethodNotAllowedException(objectType, error);
+            throw new XeroMethodNotAllowedException(objectType, error, e);
         } else if(statusCode == 409) {
-            throw new XeroConflictException(objectType, error);
+            throw new XeroConflictException(objectType, error, e);
         }
     }
     
