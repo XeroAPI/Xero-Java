@@ -35,7 +35,7 @@ public class AssetApi {
   private ApiClient apiClient;
   private static AssetApi instance = null;
   private String userAgent = "Default";
-  private String version = "4.3.1";
+  private String version = "4.3.2";
   static final Logger logger = LoggerFactory.getLogger(AssetApi.class);
 
   public AssetApi() {
@@ -102,7 +102,7 @@ public class AssetApi {
             new TypeReference<com.xero.models.assets.Error>() {};
         com.xero.models.assets.Error assetError =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError("Asset", assetError);
+        handler.validationError("Asset", assetError, e);
       } else {
         handler.execute(e);
       }
@@ -188,7 +188,7 @@ public class AssetApi {
             new TypeReference<com.xero.models.assets.Error>() {};
         com.xero.models.assets.Error assetError =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError("AssetType", assetError);
+        handler.validationError("AssetType", assetError, e);
       } else {
         handler.execute(e);
       }

@@ -1,10 +1,10 @@
 package com.xero.api;
 
+import com.xero.models.payrolluk.Problem;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.xero.models.accounting.Element;
 import com.xero.models.assets.FieldValidationErrorsElement;
 import com.xero.models.bankfeeds.FeedConnection;
@@ -52,13 +52,15 @@ public class XeroMethodNotAllowedException extends XeroException {
         this.feedConnectionItems = error.getItems();
     }
     
-    public XeroMethodNotAllowedException(String objectType, com.xero.models.payrolluk.Problem problem) {
+    public XeroMethodNotAllowedException(String objectType, com.xero.models.payrolluk.Problem problem, Exception e) {
+        super(e);
         this.statusCode = 405;
         this.type = objectType;
         this.payrollUkProblem = problem;
     }
     
-    public XeroMethodNotAllowedException(String objectType, com.xero.models.payrollnz.Problem problem) {
+    public XeroMethodNotAllowedException(String objectType, com.xero.models.payrollnz.Problem problem,  Exception e) {
+        super(e);
         this.statusCode = 405;
         this.type = objectType;
         this.payrollNzProblem = problem;

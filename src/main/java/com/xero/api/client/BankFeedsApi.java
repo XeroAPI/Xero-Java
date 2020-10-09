@@ -33,7 +33,7 @@ public class BankFeedsApi {
   private ApiClient apiClient;
   private static BankFeedsApi instance = null;
   private String userAgent = "Default";
-  private String version = "4.3.1";
+  private String version = "4.3.2";
   static final Logger logger = LoggerFactory.getLogger(BankFeedsApi.class);
 
   public BankFeedsApi() {
@@ -103,7 +103,7 @@ public class BankFeedsApi {
         TypeReference<FeedConnections> errorTypeRef = new TypeReference<FeedConnections>() {};
         FeedConnections bankFeedError =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError("FeedConnections", bankFeedError);
+        handler.validationError("FeedConnections", bankFeedError, e);
       } else {
         handler.execute(e);
       }
@@ -195,7 +195,7 @@ public class BankFeedsApi {
         TypeReference<Statements> errorTypeRef = new TypeReference<Statements>() {};
         Statements bankFeedError =
             apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
-        handler.validationError("Statements", bankFeedError);
+        handler.validationError("Statements", bankFeedError, e);
       } else {
         handler.execute(e);
       }
