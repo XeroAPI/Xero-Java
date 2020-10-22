@@ -18,24 +18,18 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
-import java.util.UUID;
 
-/** TrackingOption */
-public class TrackingOption {
+/** Action */
+public class Action {
   StringUtil util = new StringUtil();
-
-  @JsonProperty("TrackingOptionID")
-  private UUID trackingOptionID;
 
   @JsonProperty("Name")
   private String name;
-  /** The status of a tracking option */
+  /** Status of the action for this organisation */
   public enum StatusEnum {
-    ACTIVE("ACTIVE"),
+    ALLOWED("ALLOWED"),
 
-    ARCHIVED("ARCHIVED"),
-
-    DELETED("DELETED");
+    NOT_ALLOWED("NOT-ALLOWED");
 
     private String value;
 
@@ -67,41 +61,19 @@ public class TrackingOption {
   @JsonProperty("Status")
   private StatusEnum status;
 
-  @JsonProperty("TrackingCategoryID")
-  private UUID trackingCategoryID;
-
-  public TrackingOption trackingOptionID(UUID trackingOptionID) {
-    this.trackingOptionID = trackingOptionID;
-    return this;
-  }
-
-  /**
-   * The Xero identifier for a tracking option e.g. ae777a87-5ef3-4fa0-a4f0-d10e1f13073a
-   *
-   * @return trackingOptionID
-   */
-  @ApiModelProperty(
-      value = "The Xero identifier for a tracking option e.g. ae777a87-5ef3-4fa0-a4f0-d10e1f13073a")
-  public UUID getTrackingOptionID() {
-    return trackingOptionID;
-  }
-
-  public void setTrackingOptionID(UUID trackingOptionID) {
-    this.trackingOptionID = trackingOptionID;
-  }
-
-  public TrackingOption name(String name) {
+  public Action name(String name) {
     this.name = name;
     return this;
   }
 
   /**
-   * The name of the tracking option e.g. Marketing, East (max length &#x3D; 100)
+   * Name of the actions for this organisation
    *
    * @return name
    */
   @ApiModelProperty(
-      value = "The name of the tracking option e.g. Marketing, East (max length = 100)")
+      example = "UseMulticurrency",
+      value = "Name of the actions for this organisation")
   public String getName() {
     return name;
   }
@@ -110,43 +82,23 @@ public class TrackingOption {
     this.name = name;
   }
 
-  public TrackingOption status(StatusEnum status) {
+  public Action status(StatusEnum status) {
     this.status = status;
     return this;
   }
 
   /**
-   * The status of a tracking option
+   * Status of the action for this organisation
    *
    * @return status
    */
-  @ApiModelProperty(value = "The status of a tracking option")
+  @ApiModelProperty(value = "Status of the action for this organisation")
   public StatusEnum getStatus() {
     return status;
   }
 
   public void setStatus(StatusEnum status) {
     this.status = status;
-  }
-
-  public TrackingOption trackingCategoryID(UUID trackingCategoryID) {
-    this.trackingCategoryID = trackingCategoryID;
-    return this;
-  }
-
-  /**
-   * Filter by a tracking category e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9
-   *
-   * @return trackingCategoryID
-   */
-  @ApiModelProperty(
-      value = "Filter by a tracking category e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9")
-  public UUID getTrackingCategoryID() {
-    return trackingCategoryID;
-  }
-
-  public void setTrackingCategoryID(UUID trackingCategoryID) {
-    this.trackingCategoryID = trackingCategoryID;
   }
 
   @Override
@@ -157,26 +109,21 @@ public class TrackingOption {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    TrackingOption trackingOption = (TrackingOption) o;
-    return Objects.equals(this.trackingOptionID, trackingOption.trackingOptionID)
-        && Objects.equals(this.name, trackingOption.name)
-        && Objects.equals(this.status, trackingOption.status)
-        && Objects.equals(this.trackingCategoryID, trackingOption.trackingCategoryID);
+    Action action = (Action) o;
+    return Objects.equals(this.name, action.name) && Objects.equals(this.status, action.status);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(trackingOptionID, name, status, trackingCategoryID);
+    return Objects.hash(name, status);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class TrackingOption {\n");
-    sb.append("    trackingOptionID: ").append(toIndentedString(trackingOptionID)).append("\n");
+    sb.append("class Action {\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    trackingCategoryID: ").append(toIndentedString(trackingCategoryID)).append("\n");
     sb.append("}");
     return sb.toString();
   }
