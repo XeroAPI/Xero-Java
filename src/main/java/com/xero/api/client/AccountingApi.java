@@ -17,6 +17,7 @@ import com.xero.api.ApiClient;
 import com.xero.api.XeroApiExceptionHandler;
 import com.xero.models.accounting.Account;
 import com.xero.models.accounting.Accounts;
+import com.xero.models.accounting.Actions;
 import com.xero.models.accounting.Allocations;
 import com.xero.models.accounting.Attachments;
 import com.xero.models.accounting.BankTransactions;
@@ -83,7 +84,7 @@ public class AccountingApi {
   private ApiClient apiClient;
   private static AccountingApi instance = null;
   private String userAgent = "Default";
-  private String version = "4.3.2";
+  private String version = "4.3.3";
   static final Logger logger = LoggerFactory.getLogger(AccountingApi.class);
 
   public AccountingApi() {
@@ -4280,6 +4281,112 @@ public class AccountingApi {
   }
 
   /**
+   * Allows you to create history record for a manual journal
+   *
+   * <p><b>200</b> - Success - return response of type HistoryRecords array of HistoryRecord objects
+   *
+   * <p><b>400</b> - A failed request due to validation error
+   *
+   * @param xeroTenantId Xero identifier for Tenant
+   * @param manualJournalID Xero generated unique identifier for a manual journal
+   * @param historyRecords HistoryRecords containing an array of HistoryRecord objects in body of
+   *     request
+   * @param accessToken Authorization token for user set in header of each request
+   * @return HistoryRecords
+   * @throws IOException if an error occurs while attempting to invoke the API
+   */
+  public HistoryRecords createManualJournalHistoryRecord(
+      String accessToken, String xeroTenantId, UUID manualJournalID, HistoryRecords historyRecords)
+      throws IOException {
+    try {
+      TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
+      HttpResponse response =
+          createManualJournalHistoryRecordForHttpResponse(
+              accessToken, xeroTenantId, manualJournalID, historyRecords);
+      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+    } catch (HttpResponseException e) {
+      if (logger.isDebugEnabled()) {
+        logger.debug(
+            "------------------ HttpResponseException "
+                + e.getStatusCode()
+                + " : createManualJournalHistoryRecord -------------------");
+        logger.debug(e.toString());
+      }
+      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+      if (e.getStatusCode() == 400) {
+        TypeReference<com.xero.models.accounting.Error> errorTypeRef =
+            new TypeReference<com.xero.models.accounting.Error>() {};
+        com.xero.models.accounting.Error object =
+            apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+        if (object.getElements() == null || object.getElements().isEmpty()) {
+          handler.validationError("HistoryRecords", object.getMessage(), e);
+        }
+        handler.validationError("HistoryRecords", object, e);
+      } else {
+        handler.execute(e);
+      }
+    } catch (IOException ioe) {
+      throw ioe;
+    }
+    return null;
+  }
+
+  public HttpResponse createManualJournalHistoryRecordForHttpResponse(
+      String accessToken, String xeroTenantId, UUID manualJournalID, HistoryRecords historyRecords)
+      throws IOException {
+    // verify the required parameter 'xeroTenantId' is set
+    if (xeroTenantId == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'xeroTenantId' when calling"
+              + " createManualJournalHistoryRecord");
+    } // verify the required parameter 'manualJournalID' is set
+    if (manualJournalID == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'manualJournalID' when calling"
+              + " createManualJournalHistoryRecord");
+    } // verify the required parameter 'historyRecords' is set
+    if (historyRecords == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'historyRecords' when calling"
+              + " createManualJournalHistoryRecord");
+    }
+    if (accessToken == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'accessToken' when calling"
+              + " createManualJournalHistoryRecord");
+    }
+    HttpHeaders headers = new HttpHeaders();
+    headers.set("xero-tenant-id", xeroTenantId);
+    headers.setAccept("application/json");
+    headers.setUserAgent(this.getUserAgent());
+    // create a map of path variables
+    final Map<String, Object> uriVariables = new HashMap<String, Object>();
+    uriVariables.put("ManualJournalID", manualJournalID);
+
+    UriBuilder uriBuilder =
+        UriBuilder.fromUri(apiClient.getBasePath() + "/ManualJournals/{ManualJournalID}/History");
+    String url = uriBuilder.buildFromMap(uriVariables).toString();
+    GenericUrl genericUrl = new GenericUrl(url);
+    if (logger.isDebugEnabled()) {
+      logger.debug("PUT " + genericUrl.toString());
+    }
+
+    HttpContent content = null;
+    content = apiClient.new JacksonJsonHttpContent(historyRecords);
+
+    Credential credential =
+        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+    HttpTransport transport = apiClient.getHttpTransport();
+    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+    return requestFactory
+        .buildRequest(HttpMethods.PUT, genericUrl, content)
+        .setHeaders(headers)
+        .setConnectTimeout(apiClient.getConnectionTimeout())
+        .setReadTimeout(apiClient.getReadTimeout())
+        .execute();
+  }
+
+  /**
    * Allows you to create one or more manual journals
    *
    * <p><b>200</b> - Success - return response of type ManualJournals array with newly created
@@ -5213,6 +5320,234 @@ public class AccountingApi {
     HttpContent content = null;
     content = apiClient.new JacksonJsonHttpContent(historyRecords);
 
+    Credential credential =
+        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+    HttpTransport transport = apiClient.getHttpTransport();
+    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+    return requestFactory
+        .buildRequest(HttpMethods.PUT, genericUrl, content)
+        .setHeaders(headers)
+        .setConnectTimeout(apiClient.getConnectionTimeout())
+        .setReadTimeout(apiClient.getReadTimeout())
+        .execute();
+  }
+
+  // Overload params for createPurchaseOrderAttachmentByFileName to allow byte[] or File type to be
+  // passed as body
+  /**
+   * Allows you to create Attachment on Purchase Order
+   *
+   * <p><b>200</b> - Success - return response of type Attachments array of Attachment
+   *
+   * <p><b>400</b> - A failed request due to validation error
+   *
+   * @param xeroTenantId Xero identifier for Tenant
+   * @param purchaseOrderID Unique identifier for Purchase Order object
+   * @param fileName Name of the attachment
+   * @param body Byte array of file in body of request
+   * @param mimeType The type of file being attached
+   * @param accessToken Authorization token for user set in header of each request
+   * @return Attachments
+   * @throws IOException if an error occurs while attempting to invoke the API
+   */
+  public Attachments createPurchaseOrderAttachmentByFileName(
+      String accessToken,
+      String xeroTenantId,
+      UUID purchaseOrderID,
+      String fileName,
+      byte[] body,
+      String mimeType)
+      throws IOException {
+    try {
+      TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+      HttpResponse response =
+          createPurchaseOrderAttachmentByFileNameForHttpResponse(
+              accessToken, xeroTenantId, purchaseOrderID, fileName, body, mimeType);
+      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+    } catch (HttpResponseException e) {
+      if (logger.isDebugEnabled()) {
+        logger.debug(
+            "------------------ HttpResponseException "
+                + e.getStatusCode()
+                + " : createPurchaseOrderAttachmentByFileName -------------------");
+        logger.debug(e.toString());
+      }
+      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+      handler.execute(e);
+    } catch (IOException ioe) {
+      throw ioe;
+    }
+    return null;
+  }
+
+  public HttpResponse createPurchaseOrderAttachmentByFileNameForHttpResponse(
+      String accessToken,
+      String xeroTenantId,
+      UUID purchaseOrderID,
+      String fileName,
+      byte[] body,
+      String mimeType)
+      throws IOException {
+    // verify the required parameter 'xeroTenantId' is set
+    if (xeroTenantId == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'xeroTenantId' when calling"
+              + " createPurchaseOrderAttachmentByFileName");
+    } // verify the required parameter 'purchaseOrderID' is set
+    if (purchaseOrderID == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'purchaseOrderID' when calling"
+              + " createPurchaseOrderAttachmentByFileName");
+    } // verify the required parameter 'fileName' is set
+    if (fileName == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'fileName' when calling"
+              + " createPurchaseOrderAttachmentByFileName");
+    } // verify the required parameter 'body' is set
+    if (body == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'body' when calling"
+              + " createPurchaseOrderAttachmentByFileName");
+    }
+    if (accessToken == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'accessToken' when calling"
+              + " createPurchaseOrderAttachmentByFileName");
+    }
+    HttpHeaders headers = new HttpHeaders();
+    headers.set("xero-tenant-id", xeroTenantId);
+    headers.setAccept("application/json");
+    headers.setUserAgent(this.getUserAgent());
+    // create a map of path variables
+    final Map<String, Object> uriVariables = new HashMap<String, Object>();
+    uriVariables.put("PurchaseOrderID", purchaseOrderID);
+    uriVariables.put("FileName", fileName);
+
+    UriBuilder uriBuilder =
+        UriBuilder.fromUri(
+            apiClient.getBasePath() + "/PurchaseOrders/{PurchaseOrderID}/Attachments/{FileName}");
+    String url = uriBuilder.buildFromMap(uriVariables).toString();
+    GenericUrl genericUrl = new GenericUrl(url);
+    if (logger.isDebugEnabled()) {
+      logger.debug("PUT " + genericUrl.toString());
+    }
+
+    ByteArrayContent content = null;
+
+    content = new ByteArrayContent(mimeType, body);
+    Credential credential =
+        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+    HttpTransport transport = apiClient.getHttpTransport();
+    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+    return requestFactory
+        .buildRequest(HttpMethods.PUT, genericUrl, content)
+        .setHeaders(headers)
+        .setConnectTimeout(apiClient.getConnectionTimeout())
+        .setReadTimeout(apiClient.getReadTimeout())
+        .execute();
+  }
+
+  /**
+   * Allows you to create Attachment on Purchase Order
+   *
+   * <p><b>200</b> - Success - return response of type Attachments array of Attachment
+   *
+   * <p><b>400</b> - A failed request due to validation error
+   *
+   * @param xeroTenantId Xero identifier for Tenant
+   * @param purchaseOrderID Unique identifier for Purchase Order object
+   * @param fileName Name of the attachment
+   * @param body Byte array of file in body of request
+   * @param accessToken Authorization token for user set in header of each request
+   * @return Attachments
+   * @throws IOException if an error occurs while attempting to invoke the API
+   */
+  public Attachments createPurchaseOrderAttachmentByFileName(
+      String accessToken, String xeroTenantId, UUID purchaseOrderID, String fileName, File body)
+      throws IOException {
+    try {
+      TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+      HttpResponse response =
+          createPurchaseOrderAttachmentByFileNameForHttpResponse(
+              accessToken, xeroTenantId, purchaseOrderID, fileName, body);
+      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+    } catch (HttpResponseException e) {
+      if (logger.isDebugEnabled()) {
+        logger.debug(
+            "------------------ HttpResponseException "
+                + e.getStatusCode()
+                + " : createPurchaseOrderAttachmentByFileName -------------------");
+        logger.debug(e.toString());
+      }
+      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+      if (e.getStatusCode() == 400) {
+        TypeReference<com.xero.models.accounting.Error> errorTypeRef =
+            new TypeReference<com.xero.models.accounting.Error>() {};
+        com.xero.models.accounting.Error object =
+            apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+        if (object.getElements() == null || object.getElements().isEmpty()) {
+          handler.validationError("Attachments", object.getMessage(), e);
+        }
+        handler.validationError("Attachments", object, e);
+      } else {
+        handler.execute(e);
+      }
+    } catch (IOException ioe) {
+      throw ioe;
+    }
+    return null;
+  }
+
+  public HttpResponse createPurchaseOrderAttachmentByFileNameForHttpResponse(
+      String accessToken, String xeroTenantId, UUID purchaseOrderID, String fileName, File body)
+      throws IOException {
+    // verify the required parameter 'xeroTenantId' is set
+    if (xeroTenantId == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'xeroTenantId' when calling"
+              + " createPurchaseOrderAttachmentByFileName");
+    } // verify the required parameter 'purchaseOrderID' is set
+    if (purchaseOrderID == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'purchaseOrderID' when calling"
+              + " createPurchaseOrderAttachmentByFileName");
+    } // verify the required parameter 'fileName' is set
+    if (fileName == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'fileName' when calling"
+              + " createPurchaseOrderAttachmentByFileName");
+    } // verify the required parameter 'body' is set
+    if (body == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'body' when calling"
+              + " createPurchaseOrderAttachmentByFileName");
+    }
+    if (accessToken == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'accessToken' when calling"
+              + " createPurchaseOrderAttachmentByFileName");
+    }
+    HttpHeaders headers = new HttpHeaders();
+    headers.set("xero-tenant-id", xeroTenantId);
+    headers.setAccept("application/json");
+    headers.setUserAgent(this.getUserAgent());
+    // create a map of path variables
+    final Map<String, Object> uriVariables = new HashMap<String, Object>();
+    uriVariables.put("PurchaseOrderID", purchaseOrderID);
+    uriVariables.put("FileName", fileName);
+
+    UriBuilder uriBuilder =
+        UriBuilder.fromUri(
+            apiClient.getBasePath() + "/PurchaseOrders/{PurchaseOrderID}/Attachments/{FileName}");
+    String url = uriBuilder.buildFromMap(uriVariables).toString();
+    GenericUrl genericUrl = new GenericUrl(url);
+    if (logger.isDebugEnabled()) {
+      logger.debug("PUT " + genericUrl.toString());
+    }
+    java.nio.file.Path bodyPath = body.toPath();
+    String mimeType = Files.probeContentType(bodyPath);
+    HttpContent content = null;
+    content = new FileContent(mimeType, body);
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();
@@ -13956,6 +14291,84 @@ public class AccountingApi {
   }
 
   /**
+   * Allows you to retrieve history from a manual journal
+   *
+   * <p><b>200</b> - Success - return response of HistoryRecords array of 0 to N HistoryRecord
+   *
+   * @param xeroTenantId Xero identifier for Tenant
+   * @param manualJournalID Xero generated unique identifier for a manual journal
+   * @param accessToken Authorization token for user set in header of each request
+   * @return HistoryRecords
+   * @throws IOException if an error occurs while attempting to invoke the API
+   */
+  public HistoryRecords getManualJournalsHistory(
+      String accessToken, String xeroTenantId, UUID manualJournalID) throws IOException {
+    try {
+      TypeReference<HistoryRecords> typeRef = new TypeReference<HistoryRecords>() {};
+      HttpResponse response =
+          getManualJournalsHistoryForHttpResponse(accessToken, xeroTenantId, manualJournalID);
+      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+    } catch (HttpResponseException e) {
+      if (logger.isDebugEnabled()) {
+        logger.debug(
+            "------------------ HttpResponseException "
+                + e.getStatusCode()
+                + " : getManualJournalsHistory -------------------");
+        logger.debug(e.toString());
+      }
+      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+      handler.execute(e);
+    } catch (IOException ioe) {
+      throw ioe;
+    }
+    return null;
+  }
+
+  public HttpResponse getManualJournalsHistoryForHttpResponse(
+      String accessToken, String xeroTenantId, UUID manualJournalID) throws IOException {
+    // verify the required parameter 'xeroTenantId' is set
+    if (xeroTenantId == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'xeroTenantId' when calling getManualJournalsHistory");
+    } // verify the required parameter 'manualJournalID' is set
+    if (manualJournalID == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'manualJournalID' when calling getManualJournalsHistory");
+    }
+    if (accessToken == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'accessToken' when calling getManualJournalsHistory");
+    }
+    HttpHeaders headers = new HttpHeaders();
+    headers.set("xero-tenant-id", xeroTenantId);
+    headers.setAccept("application/json");
+    headers.setUserAgent(this.getUserAgent());
+    // create a map of path variables
+    final Map<String, Object> uriVariables = new HashMap<String, Object>();
+    uriVariables.put("ManualJournalID", manualJournalID);
+
+    UriBuilder uriBuilder =
+        UriBuilder.fromUri(apiClient.getBasePath() + "/ManualJournals/{ManualJournalID}/History");
+    String url = uriBuilder.buildFromMap(uriVariables).toString();
+    GenericUrl genericUrl = new GenericUrl(url);
+    if (logger.isDebugEnabled()) {
+      logger.debug("GET " + genericUrl.toString());
+    }
+
+    HttpContent content = null;
+    Credential credential =
+        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+    HttpTransport transport = apiClient.getHttpTransport();
+    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+    return requestFactory
+        .buildRequest(HttpMethods.GET, genericUrl, content)
+        .setHeaders(headers)
+        .setConnectTimeout(apiClient.getConnectionTimeout())
+        .setReadTimeout(apiClient.getReadTimeout())
+        .execute();
+  }
+
+  /**
    * Allows you to retrieve a URL to an online invoice
    *
    * <p><b>200</b> - Success - return response of type OnlineInvoice array with one OnlineInvoice
@@ -14014,6 +14427,74 @@ public class AccountingApi {
     UriBuilder uriBuilder =
         UriBuilder.fromUri(apiClient.getBasePath() + "/Invoices/{InvoiceID}/OnlineInvoice");
     String url = uriBuilder.buildFromMap(uriVariables).toString();
+    GenericUrl genericUrl = new GenericUrl(url);
+    if (logger.isDebugEnabled()) {
+      logger.debug("GET " + genericUrl.toString());
+    }
+
+    HttpContent content = null;
+    Credential credential =
+        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+    HttpTransport transport = apiClient.getHttpTransport();
+    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+    return requestFactory
+        .buildRequest(HttpMethods.GET, genericUrl, content)
+        .setHeaders(headers)
+        .setConnectTimeout(apiClient.getConnectionTimeout())
+        .setReadTimeout(apiClient.getReadTimeout())
+        .execute();
+  }
+
+  /**
+   * Retrieve a list of the key actions your app has permission to perform in the connected
+   * organisation.
+   *
+   * <p><b>200</b> - Success - return response of type Actions array with all key actions
+   *
+   * @param xeroTenantId Xero identifier for Tenant
+   * @param accessToken Authorization token for user set in header of each request
+   * @return Actions
+   * @throws IOException if an error occurs while attempting to invoke the API
+   */
+  public Actions getOrganisationActions(String accessToken, String xeroTenantId)
+      throws IOException {
+    try {
+      TypeReference<Actions> typeRef = new TypeReference<Actions>() {};
+      HttpResponse response = getOrganisationActionsForHttpResponse(accessToken, xeroTenantId);
+      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+    } catch (HttpResponseException e) {
+      if (logger.isDebugEnabled()) {
+        logger.debug(
+            "------------------ HttpResponseException "
+                + e.getStatusCode()
+                + " : getOrganisationActions -------------------");
+        logger.debug(e.toString());
+      }
+      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+      handler.execute(e);
+    } catch (IOException ioe) {
+      throw ioe;
+    }
+    return null;
+  }
+
+  public HttpResponse getOrganisationActionsForHttpResponse(String accessToken, String xeroTenantId)
+      throws IOException {
+    // verify the required parameter 'xeroTenantId' is set
+    if (xeroTenantId == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'xeroTenantId' when calling getOrganisationActions");
+    }
+    if (accessToken == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'accessToken' when calling getOrganisationActions");
+    }
+    HttpHeaders headers = new HttpHeaders();
+    headers.set("xero-tenant-id", xeroTenantId);
+    headers.setAccept("application/json");
+    headers.setUserAgent(this.getUserAgent());
+    UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Organisation/Actions");
+    String url = uriBuilder.build().toString();
     GenericUrl genericUrl = new GenericUrl(url);
     if (logger.isDebugEnabled()) {
       logger.debug("GET " + genericUrl.toString());
@@ -15249,6 +15730,307 @@ public class AccountingApi {
 
     UriBuilder uriBuilder =
         UriBuilder.fromUri(apiClient.getBasePath() + "/PurchaseOrders/{PurchaseOrderID}");
+    String url = uriBuilder.buildFromMap(uriVariables).toString();
+    GenericUrl genericUrl = new GenericUrl(url);
+    if (logger.isDebugEnabled()) {
+      logger.debug("GET " + genericUrl.toString());
+    }
+
+    HttpContent content = null;
+    Credential credential =
+        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+    HttpTransport transport = apiClient.getHttpTransport();
+    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+    return requestFactory
+        .buildRequest(HttpMethods.GET, genericUrl, content)
+        .setHeaders(headers)
+        .setConnectTimeout(apiClient.getConnectionTimeout())
+        .setReadTimeout(apiClient.getReadTimeout())
+        .execute();
+  }
+
+  /**
+   * Allows you to retrieve Attachment on a Purchase Order by Filename
+   *
+   * <p><b>200</b> - Success - return response of attachment for Purchase Order as binary data
+   *
+   * @param xeroTenantId Xero identifier for Tenant
+   * @param purchaseOrderID Unique identifier for Purchase Order object
+   * @param fileName Name of the attachment
+   * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg,
+   *     application/pdf
+   * @param accessToken Authorization token for user set in header of each request
+   * @return File
+   * @throws IOException if an error occurs while attempting to invoke the API
+   */
+  public ByteArrayInputStream getPurchaseOrderAttachmentByFileName(
+      String accessToken,
+      String xeroTenantId,
+      UUID purchaseOrderID,
+      String fileName,
+      String contentType)
+      throws IOException {
+    try {
+      TypeReference<File> typeRef = new TypeReference<File>() {};
+      HttpResponse response =
+          getPurchaseOrderAttachmentByFileNameForHttpResponse(
+              accessToken, xeroTenantId, purchaseOrderID, fileName, contentType);
+      InputStream is = response.getContent();
+      return convertInputToByteArray(is);
+
+    } catch (HttpResponseException e) {
+      if (logger.isDebugEnabled()) {
+        logger.debug(
+            "------------------ HttpResponseException "
+                + e.getStatusCode()
+                + " : getPurchaseOrderAttachmentByFileName -------------------");
+        logger.debug(e.toString());
+      }
+      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+      handler.execute(e);
+    } catch (IOException ioe) {
+      throw ioe;
+    }
+    return null;
+  }
+
+  public HttpResponse getPurchaseOrderAttachmentByFileNameForHttpResponse(
+      String accessToken,
+      String xeroTenantId,
+      UUID purchaseOrderID,
+      String fileName,
+      String contentType)
+      throws IOException {
+    // verify the required parameter 'xeroTenantId' is set
+    if (xeroTenantId == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'xeroTenantId' when calling"
+              + " getPurchaseOrderAttachmentByFileName");
+    } // verify the required parameter 'purchaseOrderID' is set
+    if (purchaseOrderID == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'purchaseOrderID' when calling"
+              + " getPurchaseOrderAttachmentByFileName");
+    } // verify the required parameter 'fileName' is set
+    if (fileName == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'fileName' when calling"
+              + " getPurchaseOrderAttachmentByFileName");
+    } // verify the required parameter 'contentType' is set
+    if (contentType == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'contentType' when calling"
+              + " getPurchaseOrderAttachmentByFileName");
+    }
+    if (accessToken == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'accessToken' when calling"
+              + " getPurchaseOrderAttachmentByFileName");
+    }
+    HttpHeaders headers = new HttpHeaders();
+    headers.set("xero-tenant-id", xeroTenantId);
+    headers.set("contentType", contentType);
+    headers.setAccept("application/octet-stream");
+    headers.setUserAgent(this.getUserAgent());
+    // create a map of path variables
+    final Map<String, Object> uriVariables = new HashMap<String, Object>();
+    uriVariables.put("PurchaseOrderID", purchaseOrderID);
+    uriVariables.put("FileName", fileName);
+
+    UriBuilder uriBuilder =
+        UriBuilder.fromUri(
+            apiClient.getBasePath() + "/PurchaseOrders/{PurchaseOrderID}/Attachments/{FileName}");
+    String url = uriBuilder.buildFromMap(uriVariables).toString();
+    GenericUrl genericUrl = new GenericUrl(url);
+    if (logger.isDebugEnabled()) {
+      logger.debug("GET " + genericUrl.toString());
+    }
+
+    HttpContent content = null;
+    Credential credential =
+        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+    HttpTransport transport = apiClient.getHttpTransport();
+    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+    return requestFactory
+        .buildRequest(HttpMethods.GET, genericUrl, content)
+        .setHeaders(headers)
+        .setConnectTimeout(apiClient.getConnectionTimeout())
+        .setReadTimeout(apiClient.getReadTimeout())
+        .execute();
+  }
+
+  /**
+   * Allows you to retrieve specific Attachment on purchase order
+   *
+   * <p><b>200</b> - Success - return response of attachment for Account as binary data
+   *
+   * @param xeroTenantId Xero identifier for Tenant
+   * @param purchaseOrderID Unique identifier for Purchase Order object
+   * @param attachmentID Unique identifier for Attachment object
+   * @param contentType The mime type of the attachment file you are retrieving i.e image/jpg,
+   *     application/pdf
+   * @param accessToken Authorization token for user set in header of each request
+   * @return File
+   * @throws IOException if an error occurs while attempting to invoke the API
+   */
+  public ByteArrayInputStream getPurchaseOrderAttachmentById(
+      String accessToken,
+      String xeroTenantId,
+      UUID purchaseOrderID,
+      UUID attachmentID,
+      String contentType)
+      throws IOException {
+    try {
+      TypeReference<File> typeRef = new TypeReference<File>() {};
+      HttpResponse response =
+          getPurchaseOrderAttachmentByIdForHttpResponse(
+              accessToken, xeroTenantId, purchaseOrderID, attachmentID, contentType);
+      InputStream is = response.getContent();
+      return convertInputToByteArray(is);
+
+    } catch (HttpResponseException e) {
+      if (logger.isDebugEnabled()) {
+        logger.debug(
+            "------------------ HttpResponseException "
+                + e.getStatusCode()
+                + " : getPurchaseOrderAttachmentById -------------------");
+        logger.debug(e.toString());
+      }
+      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+      handler.execute(e);
+    } catch (IOException ioe) {
+      throw ioe;
+    }
+    return null;
+  }
+
+  public HttpResponse getPurchaseOrderAttachmentByIdForHttpResponse(
+      String accessToken,
+      String xeroTenantId,
+      UUID purchaseOrderID,
+      UUID attachmentID,
+      String contentType)
+      throws IOException {
+    // verify the required parameter 'xeroTenantId' is set
+    if (xeroTenantId == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'xeroTenantId' when calling"
+              + " getPurchaseOrderAttachmentById");
+    } // verify the required parameter 'purchaseOrderID' is set
+    if (purchaseOrderID == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'purchaseOrderID' when calling"
+              + " getPurchaseOrderAttachmentById");
+    } // verify the required parameter 'attachmentID' is set
+    if (attachmentID == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'attachmentID' when calling"
+              + " getPurchaseOrderAttachmentById");
+    } // verify the required parameter 'contentType' is set
+    if (contentType == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'contentType' when calling"
+              + " getPurchaseOrderAttachmentById");
+    }
+    if (accessToken == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'accessToken' when calling"
+              + " getPurchaseOrderAttachmentById");
+    }
+    HttpHeaders headers = new HttpHeaders();
+    headers.set("xero-tenant-id", xeroTenantId);
+    headers.set("contentType", contentType);
+    headers.setAccept("application/octet-stream");
+    headers.setUserAgent(this.getUserAgent());
+    // create a map of path variables
+    final Map<String, Object> uriVariables = new HashMap<String, Object>();
+    uriVariables.put("PurchaseOrderID", purchaseOrderID);
+    uriVariables.put("AttachmentID", attachmentID);
+
+    UriBuilder uriBuilder =
+        UriBuilder.fromUri(
+            apiClient.getBasePath()
+                + "/PurchaseOrders/{PurchaseOrderID}/Attachments/{AttachmentID}");
+    String url = uriBuilder.buildFromMap(uriVariables).toString();
+    GenericUrl genericUrl = new GenericUrl(url);
+    if (logger.isDebugEnabled()) {
+      logger.debug("GET " + genericUrl.toString());
+    }
+
+    HttpContent content = null;
+    Credential credential =
+        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+    HttpTransport transport = apiClient.getHttpTransport();
+    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+    return requestFactory
+        .buildRequest(HttpMethods.GET, genericUrl, content)
+        .setHeaders(headers)
+        .setConnectTimeout(apiClient.getConnectionTimeout())
+        .setReadTimeout(apiClient.getReadTimeout())
+        .execute();
+  }
+
+  /**
+   * Allows you to retrieve attachments for purchase orders
+   *
+   * <p><b>200</b> - Success - return response of type Attachments array of Purchase Orders
+   *
+   * @param xeroTenantId Xero identifier for Tenant
+   * @param purchaseOrderID Unique identifier for Purchase Orders object
+   * @param accessToken Authorization token for user set in header of each request
+   * @return Attachments
+   * @throws IOException if an error occurs while attempting to invoke the API
+   */
+  public Attachments getPurchaseOrderAttachments(
+      String accessToken, String xeroTenantId, UUID purchaseOrderID) throws IOException {
+    try {
+      TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+      HttpResponse response =
+          getPurchaseOrderAttachmentsForHttpResponse(accessToken, xeroTenantId, purchaseOrderID);
+      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+    } catch (HttpResponseException e) {
+      if (logger.isDebugEnabled()) {
+        logger.debug(
+            "------------------ HttpResponseException "
+                + e.getStatusCode()
+                + " : getPurchaseOrderAttachments -------------------");
+        logger.debug(e.toString());
+      }
+      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+      handler.execute(e);
+    } catch (IOException ioe) {
+      throw ioe;
+    }
+    return null;
+  }
+
+  public HttpResponse getPurchaseOrderAttachmentsForHttpResponse(
+      String accessToken, String xeroTenantId, UUID purchaseOrderID) throws IOException {
+    // verify the required parameter 'xeroTenantId' is set
+    if (xeroTenantId == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'xeroTenantId' when calling getPurchaseOrderAttachments");
+    } // verify the required parameter 'purchaseOrderID' is set
+    if (purchaseOrderID == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'purchaseOrderID' when calling"
+              + " getPurchaseOrderAttachments");
+    }
+    if (accessToken == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'accessToken' when calling getPurchaseOrderAttachments");
+    }
+    HttpHeaders headers = new HttpHeaders();
+    headers.set("xero-tenant-id", xeroTenantId);
+    headers.setAccept("application/json");
+    headers.setUserAgent(this.getUserAgent());
+    // create a map of path variables
+    final Map<String, Object> uriVariables = new HashMap<String, Object>();
+    uriVariables.put("PurchaseOrderID", purchaseOrderID);
+
+    UriBuilder uriBuilder =
+        UriBuilder.fromUri(
+            apiClient.getBasePath() + "/PurchaseOrders/{PurchaseOrderID}/Attachments");
     String url = uriBuilder.buildFromMap(uriVariables).toString();
     GenericUrl genericUrl = new GenericUrl(url);
     if (logger.isDebugEnabled()) {
@@ -22974,6 +23756,234 @@ public class AccountingApi {
     HttpContent content = null;
     content = apiClient.new JacksonJsonHttpContent(purchaseOrders);
 
+    Credential credential =
+        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+    HttpTransport transport = apiClient.getHttpTransport();
+    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+    return requestFactory
+        .buildRequest(HttpMethods.POST, genericUrl, content)
+        .setHeaders(headers)
+        .setConnectTimeout(apiClient.getConnectionTimeout())
+        .setReadTimeout(apiClient.getReadTimeout())
+        .execute();
+  }
+
+  // Overload params for updatePurchaseOrderAttachmentByFileName to allow byte[] or File type to be
+  // passed as body
+  /**
+   * Allows you to update Attachment on Purchase Order by Filename
+   *
+   * <p><b>200</b> - Success - return response of type Attachments array of Attachment
+   *
+   * <p><b>400</b> - Validation Error - some data was incorrect returns response of type Error
+   *
+   * @param xeroTenantId Xero identifier for Tenant
+   * @param purchaseOrderID Unique identifier for Purchase Order object
+   * @param fileName Name of the attachment
+   * @param body Byte array of file in body of request
+   * @param mimeType The type of file being attached
+   * @param accessToken Authorization token for user set in header of each request
+   * @return Attachments
+   * @throws IOException if an error occurs while attempting to invoke the API
+   */
+  public Attachments updatePurchaseOrderAttachmentByFileName(
+      String accessToken,
+      String xeroTenantId,
+      UUID purchaseOrderID,
+      String fileName,
+      byte[] body,
+      String mimeType)
+      throws IOException {
+    try {
+      TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+      HttpResponse response =
+          updatePurchaseOrderAttachmentByFileNameForHttpResponse(
+              accessToken, xeroTenantId, purchaseOrderID, fileName, body, mimeType);
+      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+    } catch (HttpResponseException e) {
+      if (logger.isDebugEnabled()) {
+        logger.debug(
+            "------------------ HttpResponseException "
+                + e.getStatusCode()
+                + " : updatePurchaseOrderAttachmentByFileName -------------------");
+        logger.debug(e.toString());
+      }
+      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+      handler.execute(e);
+    } catch (IOException ioe) {
+      throw ioe;
+    }
+    return null;
+  }
+
+  public HttpResponse updatePurchaseOrderAttachmentByFileNameForHttpResponse(
+      String accessToken,
+      String xeroTenantId,
+      UUID purchaseOrderID,
+      String fileName,
+      byte[] body,
+      String mimeType)
+      throws IOException {
+    // verify the required parameter 'xeroTenantId' is set
+    if (xeroTenantId == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'xeroTenantId' when calling"
+              + " updatePurchaseOrderAttachmentByFileName");
+    } // verify the required parameter 'purchaseOrderID' is set
+    if (purchaseOrderID == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'purchaseOrderID' when calling"
+              + " updatePurchaseOrderAttachmentByFileName");
+    } // verify the required parameter 'fileName' is set
+    if (fileName == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'fileName' when calling"
+              + " updatePurchaseOrderAttachmentByFileName");
+    } // verify the required parameter 'body' is set
+    if (body == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'body' when calling"
+              + " updatePurchaseOrderAttachmentByFileName");
+    }
+    if (accessToken == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'accessToken' when calling"
+              + " updatePurchaseOrderAttachmentByFileName");
+    }
+    HttpHeaders headers = new HttpHeaders();
+    headers.set("xero-tenant-id", xeroTenantId);
+    headers.setAccept("application/json");
+    headers.setUserAgent(this.getUserAgent());
+    // create a map of path variables
+    final Map<String, Object> uriVariables = new HashMap<String, Object>();
+    uriVariables.put("PurchaseOrderID", purchaseOrderID);
+    uriVariables.put("FileName", fileName);
+
+    UriBuilder uriBuilder =
+        UriBuilder.fromUri(
+            apiClient.getBasePath() + "/PurchaseOrders/{PurchaseOrderID}/Attachments/{FileName}");
+    String url = uriBuilder.buildFromMap(uriVariables).toString();
+    GenericUrl genericUrl = new GenericUrl(url);
+    if (logger.isDebugEnabled()) {
+      logger.debug("POST " + genericUrl.toString());
+    }
+
+    ByteArrayContent content = null;
+
+    content = new ByteArrayContent(mimeType, body);
+    Credential credential =
+        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+    HttpTransport transport = apiClient.getHttpTransport();
+    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+    return requestFactory
+        .buildRequest(HttpMethods.POST, genericUrl, content)
+        .setHeaders(headers)
+        .setConnectTimeout(apiClient.getConnectionTimeout())
+        .setReadTimeout(apiClient.getReadTimeout())
+        .execute();
+  }
+
+  /**
+   * Allows you to update Attachment on Purchase Order by Filename
+   *
+   * <p><b>200</b> - Success - return response of type Attachments array of Attachment
+   *
+   * <p><b>400</b> - Validation Error - some data was incorrect returns response of type Error
+   *
+   * @param xeroTenantId Xero identifier for Tenant
+   * @param purchaseOrderID Unique identifier for Purchase Order object
+   * @param fileName Name of the attachment
+   * @param body Byte array of file in body of request
+   * @param accessToken Authorization token for user set in header of each request
+   * @return Attachments
+   * @throws IOException if an error occurs while attempting to invoke the API
+   */
+  public Attachments updatePurchaseOrderAttachmentByFileName(
+      String accessToken, String xeroTenantId, UUID purchaseOrderID, String fileName, File body)
+      throws IOException {
+    try {
+      TypeReference<Attachments> typeRef = new TypeReference<Attachments>() {};
+      HttpResponse response =
+          updatePurchaseOrderAttachmentByFileNameForHttpResponse(
+              accessToken, xeroTenantId, purchaseOrderID, fileName, body);
+      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+    } catch (HttpResponseException e) {
+      if (logger.isDebugEnabled()) {
+        logger.debug(
+            "------------------ HttpResponseException "
+                + e.getStatusCode()
+                + " : updatePurchaseOrderAttachmentByFileName -------------------");
+        logger.debug(e.toString());
+      }
+      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+      if (e.getStatusCode() == 400) {
+        TypeReference<com.xero.models.accounting.Error> errorTypeRef =
+            new TypeReference<com.xero.models.accounting.Error>() {};
+        com.xero.models.accounting.Error object =
+            apiClient.getObjectMapper().readValue(e.getContent(), errorTypeRef);
+        if (object.getElements() == null || object.getElements().isEmpty()) {
+          handler.validationError("Attachments", object.getMessage(), e);
+        }
+        handler.validationError("Attachments", object, e);
+      } else {
+        handler.execute(e);
+      }
+    } catch (IOException ioe) {
+      throw ioe;
+    }
+    return null;
+  }
+
+  public HttpResponse updatePurchaseOrderAttachmentByFileNameForHttpResponse(
+      String accessToken, String xeroTenantId, UUID purchaseOrderID, String fileName, File body)
+      throws IOException {
+    // verify the required parameter 'xeroTenantId' is set
+    if (xeroTenantId == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'xeroTenantId' when calling"
+              + " updatePurchaseOrderAttachmentByFileName");
+    } // verify the required parameter 'purchaseOrderID' is set
+    if (purchaseOrderID == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'purchaseOrderID' when calling"
+              + " updatePurchaseOrderAttachmentByFileName");
+    } // verify the required parameter 'fileName' is set
+    if (fileName == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'fileName' when calling"
+              + " updatePurchaseOrderAttachmentByFileName");
+    } // verify the required parameter 'body' is set
+    if (body == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'body' when calling"
+              + " updatePurchaseOrderAttachmentByFileName");
+    }
+    if (accessToken == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'accessToken' when calling"
+              + " updatePurchaseOrderAttachmentByFileName");
+    }
+    HttpHeaders headers = new HttpHeaders();
+    headers.set("xero-tenant-id", xeroTenantId);
+    headers.setAccept("application/json");
+    headers.setUserAgent(this.getUserAgent());
+    // create a map of path variables
+    final Map<String, Object> uriVariables = new HashMap<String, Object>();
+    uriVariables.put("PurchaseOrderID", purchaseOrderID);
+    uriVariables.put("FileName", fileName);
+
+    UriBuilder uriBuilder =
+        UriBuilder.fromUri(
+            apiClient.getBasePath() + "/PurchaseOrders/{PurchaseOrderID}/Attachments/{FileName}");
+    String url = uriBuilder.buildFromMap(uriVariables).toString();
+    GenericUrl genericUrl = new GenericUrl(url);
+    if (logger.isDebugEnabled()) {
+      logger.debug("POST " + genericUrl.toString());
+    }
+    java.nio.file.Path bodyPath = body.toPath();
+    String mimeType = Files.probeContentType(bodyPath);
+    HttpContent content = null;
+    content = new FileContent(mimeType, body);
     Credential credential =
         new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
     HttpTransport transport = apiClient.getHttpTransport();

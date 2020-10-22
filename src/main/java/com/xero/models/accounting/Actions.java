@@ -19,38 +19,38 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/** Journals */
-public class Journals {
+/** Actions */
+public class Actions {
   StringUtil util = new StringUtil();
 
-  @JsonProperty("Journals")
-  private List<Journal> journals = new ArrayList<Journal>();
+  @JsonProperty("Actions")
+  private List<Action> actions = new ArrayList<Action>();
 
-  public Journals journals(List<Journal> journals) {
-    this.journals = journals;
+  public Actions actions(List<Action> actions) {
+    this.actions = actions;
     return this;
   }
 
-  public Journals addJournalsItem(Journal journalsItem) {
-    if (this.journals == null) {
-      this.journals = new ArrayList<Journal>();
+  public Actions addActionsItem(Action actionsItem) {
+    if (this.actions == null) {
+      this.actions = new ArrayList<Action>();
     }
-    this.journals.add(journalsItem);
+    this.actions.add(actionsItem);
     return this;
   }
 
   /**
-   * Get journals
+   * Get actions
    *
-   * @return journals
+   * @return actions
    */
   @ApiModelProperty(value = "")
-  public List<Journal> getJournals() {
-    return journals;
+  public List<Action> getActions() {
+    return actions;
   }
 
-  public void setJournals(List<Journal> journals) {
-    this.journals = journals;
+  public void setActions(List<Action> actions) {
+    this.actions = actions;
   }
 
   @Override
@@ -61,20 +61,20 @@ public class Journals {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Journals journals = (Journals) o;
-    return Objects.equals(this.journals, journals.journals);
+    Actions actions = (Actions) o;
+    return Objects.equals(this.actions, actions.actions);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(journals);
+    return Objects.hash(actions);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Journals {\n");
-    sb.append("    journals: ").append(toIndentedString(journals)).append("\n");
+    sb.append("class Actions {\n");
+    sb.append("    actions: ").append(toIndentedString(actions)).append("\n");
     sb.append("}");
     return sb.toString();
   }
