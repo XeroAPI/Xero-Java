@@ -13,6 +13,7 @@ import com.google.api.client.http.HttpResponseException;
 import com.google.api.client.http.HttpTransport;
 import com.xero.api.ApiClient;
 import com.xero.api.XeroApiExceptionHandler;
+import com.xero.models.project.ChargeType;
 import com.xero.models.project.Project;
 import com.xero.models.project.ProjectCreateOrUpdate;
 import com.xero.models.project.ProjectPatch;
@@ -41,7 +42,7 @@ public class ProjectApi {
   private ApiClient apiClient;
   private static ProjectApi instance = null;
   private String userAgent = "Default";
-  private String version = "4.3.3";
+  private String version = "4.3.4";
   static final Logger logger = LoggerFactory.getLogger(ProjectApi.class);
 
   public ProjectApi() {
@@ -752,6 +753,7 @@ public class ProjectApi {
    *     a paged response - Must be a number between 1 and 500.
    * @param taskIds taskIdsSearch for all tasks that match a comma separated list of taskIds, i.e.
    *     GET https://.../tasks?taskIds&#x3D;{taskId},{taskId}
+   * @param chargeType The chargeType parameter
    * @param accessToken Authorization token for user set in header of each request
    * @return Tasks
    * @throws IOException if an error occurs while attempting to invoke the API
@@ -762,12 +764,14 @@ public class ProjectApi {
       UUID projectId,
       Integer page,
       Integer pageSize,
-      String taskIds)
+      String taskIds,
+      ChargeType chargeType)
       throws IOException {
     try {
       TypeReference<Tasks> typeRef = new TypeReference<Tasks>() {};
       HttpResponse response =
-          getTasksForHttpResponse(accessToken, xeroTenantId, projectId, page, pageSize, taskIds);
+          getTasksForHttpResponse(
+              accessToken, xeroTenantId, projectId, page, pageSize, taskIds, chargeType);
       return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
     } catch (HttpResponseException e) {
       if (logger.isDebugEnabled()) {
@@ -791,7 +795,8 @@ public class ProjectApi {
       UUID projectId,
       Integer page,
       Integer pageSize,
-      String taskIds)
+      String taskIds,
+      ChargeType chargeType)
       throws IOException {
     // verify the required parameter 'xeroTenantId' is set
     if (xeroTenantId == null) {
@@ -841,6 +846,17 @@ public class ProjectApi {
     if (taskIds != null) {
       String key = "taskIds";
       Object value = taskIds;
+      if (value instanceof Collection) {
+        uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+      } else if (value instanceof Object[]) {
+        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
+      } else {
+        uriBuilder = uriBuilder.queryParam(key, value);
+      }
+    }
+    if (chargeType != null) {
+      String key = "chargeType";
+      Object value = chargeType;
       if (value instanceof Collection) {
         uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
       } else if (value instanceof Object[]) {

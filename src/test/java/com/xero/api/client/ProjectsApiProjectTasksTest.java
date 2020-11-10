@@ -87,7 +87,7 @@ public class ProjectsApiProjectTasksTest {
         String taskIds = null;        
         int page = 1;
         int pageSize = 50;
-        Tasks response = projectApi.getTasks(accessToken, xeroTenantId, projectId, page, pageSize, taskIds);
+        Tasks response = projectApi.getTasks(accessToken, xeroTenantId, projectId, page, pageSize, taskIds, null);
         
         assertThat(response.getPagination().getPage(), is(equalTo(1)));
         assertThat(response.getPagination().getItemCount(), is(equalTo(1)));
