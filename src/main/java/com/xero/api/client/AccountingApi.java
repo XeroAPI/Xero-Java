@@ -34,6 +34,7 @@ import com.xero.models.accounting.Currency;
 import com.xero.models.accounting.Employees;
 import com.xero.models.accounting.ExpenseClaims;
 import com.xero.models.accounting.HistoryRecords;
+import com.xero.models.accounting.ImportSummary;
 import com.xero.models.accounting.InvoiceReminders;
 import com.xero.models.accounting.Invoices;
 import com.xero.models.accounting.Items;
@@ -57,6 +58,7 @@ import com.xero.models.accounting.RepeatingInvoices;
 import com.xero.models.accounting.ReportWithRows;
 import com.xero.models.accounting.Reports;
 import com.xero.models.accounting.RequestEmpty;
+import com.xero.models.accounting.Setup;
 import com.xero.models.accounting.TaxRates;
 import com.xero.models.accounting.TrackingCategories;
 import com.xero.models.accounting.TrackingCategory;
@@ -84,7 +86,7 @@ public class AccountingApi {
   private ApiClient apiClient;
   private static AccountingApi instance = null;
   private String userAgent = "Default";
-  private String version = "4.3.3";
+  private String version = "4.3.4";
   static final Logger logger = LoggerFactory.getLogger(AccountingApi.class);
 
   public AccountingApi() {
@@ -786,7 +788,7 @@ public class AccountingApi {
    * @param xeroTenantId Xero identifier for Tenant
    * @param bankTransactions BankTransactions with an array of BankTransaction objects in body of
    *     request
-   * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any
+   * @param summarizeErrors If false return 200 OK and mix of successfully created objects and any
    *     with validation errors
    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal
    *     places for unit amounts
@@ -1329,7 +1331,7 @@ public class AccountingApi {
    *
    * @param xeroTenantId Xero identifier for Tenant
    * @param batchPayments BatchPayments with an array of Payments in body of request
-   * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any
+   * @param summarizeErrors If false return 200 OK and mix of successfully created objects and any
    *     with validation errors
    * @param accessToken Authorization token for user set in header of each request
    * @return BatchPayments
@@ -2163,7 +2165,7 @@ public class AccountingApi {
    *
    * @param xeroTenantId Xero identifier for Tenant
    * @param contacts Contacts with an array of Contact objects to create in body of request
-   * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any
+   * @param summarizeErrors If false return 200 OK and mix of successfully created objects and any
    *     with validation errors
    * @param accessToken Authorization token for user set in header of each request
    * @return Contacts
@@ -2268,7 +2270,7 @@ public class AccountingApi {
    * @param xeroTenantId Xero identifier for Tenant
    * @param creditNoteID Unique identifier for a Credit Note
    * @param allocations Allocations with array of Allocation object in body of request.
-   * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any
+   * @param summarizeErrors If false return 200 OK and mix of successfully created objects and any
    *     with validation errors
    * @param accessToken Authorization token for user set in header of each request
    * @return Allocations
@@ -2760,7 +2762,7 @@ public class AccountingApi {
    *
    * @param xeroTenantId Xero identifier for Tenant
    * @param creditNotes Credit Notes with array of CreditNote object in body of request
-   * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any
+   * @param summarizeErrors If false return 200 OK and mix of successfully created objects and any
    *     with validation errors
    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal
    *     places for unit amounts
@@ -2969,7 +2971,7 @@ public class AccountingApi {
    *
    * @param xeroTenantId Xero identifier for Tenant
    * @param employees Employees with array of Employee object in body of request
-   * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any
+   * @param summarizeErrors If false return 200 OK and mix of successfully created objects and any
    *     with validation errors
    * @param accessToken Authorization token for user set in header of each request
    * @return Employees
@@ -3628,7 +3630,7 @@ public class AccountingApi {
    *
    * @param xeroTenantId Xero identifier for Tenant
    * @param invoices Invoices with an array of invoice objects in body of request
-   * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any
+   * @param summarizeErrors If false return 200 OK and mix of successfully created objects and any
    *     with validation errors
    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal
    *     places for unit amounts
@@ -3851,7 +3853,7 @@ public class AccountingApi {
    *
    * @param xeroTenantId Xero identifier for Tenant
    * @param items Items with an array of Item objects in body of request
-   * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any
+   * @param summarizeErrors If false return 200 OK and mix of successfully created objects and any
    *     with validation errors
    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal
    *     places for unit amounts
@@ -4396,7 +4398,7 @@ public class AccountingApi {
    *
    * @param xeroTenantId Xero identifier for Tenant
    * @param manualJournals ManualJournals array with ManualJournal object in body of request
-   * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any
+   * @param summarizeErrors If false return 200 OK and mix of successfully created objects and any
    *     with validation errors
    * @param accessToken Authorization token for user set in header of each request
    * @return ManualJournals
@@ -4508,7 +4510,7 @@ public class AccountingApi {
    * @param xeroTenantId Xero identifier for Tenant
    * @param overpaymentID Unique identifier for a Overpayment
    * @param allocations Allocations array with Allocation object in body of request
-   * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any
+   * @param summarizeErrors If false return 200 OK and mix of successfully created objects and any
    *     with validation errors
    * @param accessToken Authorization token for user set in header of each request
    * @return Allocations
@@ -5012,7 +5014,7 @@ public class AccountingApi {
    *
    * @param xeroTenantId Xero identifier for Tenant
    * @param payments Payments array with Payment object in body of request
-   * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any
+   * @param summarizeErrors If false return 200 OK and mix of successfully created objects and any
    *     with validation errors
    * @param accessToken Authorization token for user set in header of each request
    * @return Payments
@@ -5117,7 +5119,7 @@ public class AccountingApi {
    * @param xeroTenantId Xero identifier for Tenant
    * @param prepaymentID Unique identifier for Prepayment
    * @param allocations Allocations with an array of Allocation object in body of request
-   * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any
+   * @param summarizeErrors If false return 200 OK and mix of successfully created objects and any
    *     with validation errors
    * @param accessToken Authorization token for user set in header of each request
    * @return Allocations
@@ -5674,7 +5676,7 @@ public class AccountingApi {
    *
    * @param xeroTenantId Xero identifier for Tenant
    * @param purchaseOrders PurchaseOrders with an array of PurchaseOrder object in body of request
-   * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any
+   * @param summarizeErrors If false return 200 OK and mix of successfully created objects and any
    *     with validation errors
    * @param accessToken Authorization token for user set in header of each request
    * @return PurchaseOrders
@@ -6105,7 +6107,7 @@ public class AccountingApi {
    *
    * @param xeroTenantId Xero identifier for Tenant
    * @param quotes Quotes with an array of Quote object in body of request
-   * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any
+   * @param summarizeErrors If false return 200 OK and mix of successfully created objects and any
    *     with validation errors
    * @param accessToken Authorization token for user set in header of each request
    * @return Quotes
@@ -19963,6 +19965,81 @@ public class AccountingApi {
   }
 
   /**
+   * Allows you to set the chart of accounts, the conversion date and conversion balances
+   *
+   * <p><b>200</b> - Success - returns a summary of the chart of accounts updates
+   *
+   * @param xeroTenantId Xero identifier for Tenant
+   * @param setup Object including an accounts array, a conversion balances array and a conversion
+   *     date object in body of request
+   * @param accessToken Authorization token for user set in header of each request
+   * @return ImportSummary
+   * @throws IOException if an error occurs while attempting to invoke the API
+   */
+  public ImportSummary postSetup(String accessToken, String xeroTenantId, Setup setup)
+      throws IOException {
+    try {
+      TypeReference<ImportSummary> typeRef = new TypeReference<ImportSummary>() {};
+      HttpResponse response = postSetupForHttpResponse(accessToken, xeroTenantId, setup);
+      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+    } catch (HttpResponseException e) {
+      if (logger.isDebugEnabled()) {
+        logger.debug(
+            "------------------ HttpResponseException "
+                + e.getStatusCode()
+                + " : postSetup -------------------");
+        logger.debug(e.toString());
+      }
+      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+      handler.execute(e);
+    } catch (IOException ioe) {
+      throw ioe;
+    }
+    return null;
+  }
+
+  public HttpResponse postSetupForHttpResponse(String accessToken, String xeroTenantId, Setup setup)
+      throws IOException {
+    // verify the required parameter 'xeroTenantId' is set
+    if (xeroTenantId == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'xeroTenantId' when calling postSetup");
+    } // verify the required parameter 'setup' is set
+    if (setup == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'setup' when calling postSetup");
+    }
+    if (accessToken == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'accessToken' when calling postSetup");
+    }
+    HttpHeaders headers = new HttpHeaders();
+    headers.set("xero-tenant-id", xeroTenantId);
+    headers.setAccept("application/json");
+    headers.setUserAgent(this.getUserAgent());
+    UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Setup");
+    String url = uriBuilder.build().toString();
+    GenericUrl genericUrl = new GenericUrl(url);
+    if (logger.isDebugEnabled()) {
+      logger.debug("POST " + genericUrl.toString());
+    }
+
+    HttpContent content = null;
+    content = apiClient.new JacksonJsonHttpContent(setup);
+
+    Credential credential =
+        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+    HttpTransport transport = apiClient.getHttpTransport();
+    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+    return requestFactory
+        .buildRequest(HttpMethods.POST, genericUrl, content)
+        .setHeaders(headers)
+        .setConnectTimeout(apiClient.getConnectionTimeout())
+        .setReadTimeout(apiClient.getReadTimeout())
+        .execute();
+  }
+
+  /**
    * Allows you to update a chart of accounts
    *
    * <p><b>200</b> - Success - update existing Account and return response of type Accounts array
@@ -22643,7 +22720,7 @@ public class AccountingApi {
    *
    * @param xeroTenantId Xero identifier for Tenant
    * @param bankTransactions The bankTransactions parameter
-   * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any
+   * @param summarizeErrors If false return 200 OK and mix of successfully created objects and any
    *     with validation errors
    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal
    *     places for unit amounts
@@ -22771,7 +22848,7 @@ public class AccountingApi {
    *
    * @param xeroTenantId Xero identifier for Tenant
    * @param contacts The contacts parameter
-   * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any
+   * @param summarizeErrors If false return 200 OK and mix of successfully created objects and any
    *     with validation errors
    * @param accessToken Authorization token for user set in header of each request
    * @return Contacts
@@ -22876,7 +22953,7 @@ public class AccountingApi {
    *
    * @param xeroTenantId Xero identifier for Tenant
    * @param creditNotes an array of Credit Notes with a single CreditNote object.
-   * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any
+   * @param summarizeErrors If false return 200 OK and mix of successfully created objects and any
    *     with validation errors
    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal
    *     places for unit amounts
@@ -23001,7 +23078,7 @@ public class AccountingApi {
    *
    * @param xeroTenantId Xero identifier for Tenant
    * @param employees Employees with array of Employee object in body of request
-   * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any
+   * @param summarizeErrors If false return 200 OK and mix of successfully created objects and any
    *     with validation errors
    * @param accessToken Authorization token for user set in header of each request
    * @return Employees
@@ -23105,7 +23182,7 @@ public class AccountingApi {
    *
    * @param xeroTenantId Xero identifier for Tenant
    * @param invoices The invoices parameter
-   * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any
+   * @param summarizeErrors If false return 200 OK and mix of successfully created objects and any
    *     with validation errors
    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal
    *     places for unit amounts
@@ -23230,7 +23307,7 @@ public class AccountingApi {
    *
    * @param xeroTenantId Xero identifier for Tenant
    * @param items The items parameter
-   * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any
+   * @param summarizeErrors If false return 200 OK and mix of successfully created objects and any
    *     with validation errors
    * @param unitdp e.g. unitdp&#x3D;4 – (Unit Decimal Places) You can opt in to use four decimal
    *     places for unit amounts
@@ -23348,7 +23425,7 @@ public class AccountingApi {
    *
    * @param xeroTenantId Xero identifier for Tenant
    * @param manualJournals ManualJournals array with ManualJournal object in body of request
-   * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any
+   * @param summarizeErrors If false return 200 OK and mix of successfully created objects and any
    *     with validation errors
    * @param accessToken Authorization token for user set in header of each request
    * @return ManualJournals
@@ -23461,7 +23538,7 @@ public class AccountingApi {
    *
    * @param xeroTenantId Xero identifier for Tenant
    * @param purchaseOrders The purchaseOrders parameter
-   * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any
+   * @param summarizeErrors If false return 200 OK and mix of successfully created objects and any
    *     with validation errors
    * @param accessToken Authorization token for user set in header of each request
    * @return PurchaseOrders
@@ -23573,7 +23650,7 @@ public class AccountingApi {
    *
    * @param xeroTenantId Xero identifier for Tenant
    * @param quotes The quotes parameter
-   * @param summarizeErrors If false return 200 OK and mix of successfully created obejcts and any
+   * @param summarizeErrors If false return 200 OK and mix of successfully created objects and any
    *     with validation errors
    * @param accessToken Authorization token for user set in header of each request
    * @return Quotes

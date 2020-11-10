@@ -33,7 +33,7 @@ public class BankFeedsApi {
   private ApiClient apiClient;
   private static BankFeedsApi instance = null;
   private String userAgent = "Default";
-  private String version = "4.3.3";
+  private String version = "4.3.4";
   static final Logger logger = LoggerFactory.getLogger(BankFeedsApi.class);
 
   public BankFeedsApi() {
