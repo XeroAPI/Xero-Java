@@ -17,30 +17,30 @@ import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
 
-/** ValidationError */
-public class ValidationError {
+/** ImportSummaryObject */
+public class ImportSummaryObject {
   StringUtil util = new StringUtil();
 
-  @JsonProperty("Message")
-  private String message;
+  @JsonProperty("ImportSummary")
+  private ImportSummary importSummary;
 
-  public ValidationError message(String message) {
-    this.message = message;
+  public ImportSummaryObject importSummary(ImportSummary importSummary) {
+    this.importSummary = importSummary;
     return this;
   }
 
   /**
-   * Validation error message
+   * Get importSummary
    *
-   * @return message
+   * @return importSummary
    */
-  @ApiModelProperty(value = "Validation error message")
-  public String getMessage() {
-    return message;
+  @ApiModelProperty(value = "")
+  public ImportSummary getImportSummary() {
+    return importSummary;
   }
 
-  public void setMessage(String message) {
-    this.message = message;
+  public void setImportSummary(ImportSummary importSummary) {
+    this.importSummary = importSummary;
   }
 
   @Override
@@ -51,20 +51,20 @@ public class ValidationError {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ValidationError validationError = (ValidationError) o;
-    return Objects.equals(this.message, validationError.message);
+    ImportSummaryObject importSummaryObject = (ImportSummaryObject) o;
+    return Objects.equals(this.importSummary, importSummaryObject.importSummary);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(message);
+    return Objects.hash(importSummary);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ValidationError {\n");
-    sb.append("    message: ").append(toIndentedString(message)).append("\n");
+    sb.append("class ImportSummaryObject {\n");
+    sb.append("    importSummary: ").append(toIndentedString(importSummary)).append("\n");
     sb.append("}");
     return sb.toString();
   }
