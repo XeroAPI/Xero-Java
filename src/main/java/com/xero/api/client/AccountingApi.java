@@ -34,7 +34,7 @@ import com.xero.models.accounting.Currency;
 import com.xero.models.accounting.Employees;
 import com.xero.models.accounting.ExpenseClaims;
 import com.xero.models.accounting.HistoryRecords;
-import com.xero.models.accounting.ImportSummary;
+import com.xero.models.accounting.ImportSummaryObject;
 import com.xero.models.accounting.InvoiceReminders;
 import com.xero.models.accounting.Invoices;
 import com.xero.models.accounting.Items;
@@ -86,7 +86,7 @@ public class AccountingApi {
   private ApiClient apiClient;
   private static AccountingApi instance = null;
   private String userAgent = "Default";
-  private String version = "4.3.4";
+  private String version = "4.3.5";
   static final Logger logger = LoggerFactory.getLogger(AccountingApi.class);
 
   public AccountingApi() {
@@ -19973,13 +19973,13 @@ public class AccountingApi {
    * @param setup Object including an accounts array, a conversion balances array and a conversion
    *     date object in body of request
    * @param accessToken Authorization token for user set in header of each request
-   * @return ImportSummary
+   * @return ImportSummaryObject
    * @throws IOException if an error occurs while attempting to invoke the API
    */
-  public ImportSummary postSetup(String accessToken, String xeroTenantId, Setup setup)
+  public ImportSummaryObject postSetup(String accessToken, String xeroTenantId, Setup setup)
       throws IOException {
     try {
-      TypeReference<ImportSummary> typeRef = new TypeReference<ImportSummary>() {};
+      TypeReference<ImportSummaryObject> typeRef = new TypeReference<ImportSummaryObject>() {};
       HttpResponse response = postSetupForHttpResponse(accessToken, xeroTenantId, setup);
       return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
     } catch (HttpResponseException e) {
