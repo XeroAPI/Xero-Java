@@ -159,7 +159,7 @@ public class AccountingApiReportsTest {
     @Test
     public void getReportBalanceSheetTest() throws IOException {
         System.out.println("@Test - getReportBalanceSheet");
-        String date = null;
+        LocalDate date = null;
         Integer periods = null;
         String timeframe = null;
         String trackingOptionID1 = null;
