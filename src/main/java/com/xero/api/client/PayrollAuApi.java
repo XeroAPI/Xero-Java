@@ -50,7 +50,7 @@ public class PayrollAuApi {
   private ApiClient apiClient;
   private static PayrollAuApi instance = null;
   private String userAgent = "Default";
-  private String version = "4.3.5";
+  private String version = "4.4.0";
   static final Logger logger = LoggerFactory.getLogger(PayrollAuApi.class);
 
   public PayrollAuApi() {

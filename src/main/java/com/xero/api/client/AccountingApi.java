@@ -86,7 +86,7 @@ public class AccountingApi {
   private ApiClient apiClient;
   private static AccountingApi instance = null;
   private String userAgent = "Default";
-  private String version = "4.3.5";
+  private String version = "4.4.0";
   static final Logger logger = LoggerFactory.getLogger(AccountingApi.class);
 
   public AccountingApi() {
@@ -18652,7 +18652,7 @@ public class AccountingApi {
   public ReportWithRows getReportBalanceSheet(
       String accessToken,
       String xeroTenantId,
-      String date,
+      LocalDate date,
       Integer periods,
       String timeframe,
       String trackingOptionID1,
@@ -18693,7 +18693,7 @@ public class AccountingApi {
   public HttpResponse getReportBalanceSheetForHttpResponse(
       String accessToken,
       String xeroTenantId,
-      String date,
+      LocalDate date,
       Integer periods,
       String timeframe,
       String trackingOptionID1,
