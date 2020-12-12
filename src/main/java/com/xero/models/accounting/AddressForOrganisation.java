@@ -19,14 +19,16 @@ import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
 
-/** Address */
-public class Address {
+/** AddressForOrganisation */
+public class AddressForOrganisation {
   StringUtil util = new StringUtil();
   /** define the type of address */
   public enum AddressTypeEnum {
     POBOX("POBOX"),
 
-    STREET("STREET");
+    STREET("STREET"),
+
+    DELIVERY("DELIVERY");
 
     private String value;
 
@@ -85,7 +87,7 @@ public class Address {
   @JsonProperty("AttentionTo")
   private String attentionTo;
 
-  public Address addressType(AddressTypeEnum addressType) {
+  public AddressForOrganisation addressType(AddressTypeEnum addressType) {
     this.addressType = addressType;
     return this;
   }
@@ -104,7 +106,7 @@ public class Address {
     this.addressType = addressType;
   }
 
-  public Address addressLine1(String addressLine1) {
+  public AddressForOrganisation addressLine1(String addressLine1) {
     this.addressLine1 = addressLine1;
     return this;
   }
@@ -123,7 +125,7 @@ public class Address {
     this.addressLine1 = addressLine1;
   }
 
-  public Address addressLine2(String addressLine2) {
+  public AddressForOrganisation addressLine2(String addressLine2) {
     this.addressLine2 = addressLine2;
     return this;
   }
@@ -142,7 +144,7 @@ public class Address {
     this.addressLine2 = addressLine2;
   }
 
-  public Address addressLine3(String addressLine3) {
+  public AddressForOrganisation addressLine3(String addressLine3) {
     this.addressLine3 = addressLine3;
     return this;
   }
@@ -161,7 +163,7 @@ public class Address {
     this.addressLine3 = addressLine3;
   }
 
-  public Address addressLine4(String addressLine4) {
+  public AddressForOrganisation addressLine4(String addressLine4) {
     this.addressLine4 = addressLine4;
     return this;
   }
@@ -180,7 +182,7 @@ public class Address {
     this.addressLine4 = addressLine4;
   }
 
-  public Address city(String city) {
+  public AddressForOrganisation city(String city) {
     this.city = city;
     return this;
   }
@@ -199,7 +201,7 @@ public class Address {
     this.city = city;
   }
 
-  public Address region(String region) {
+  public AddressForOrganisation region(String region) {
     this.region = region;
     return this;
   }
@@ -218,7 +220,7 @@ public class Address {
     this.region = region;
   }
 
-  public Address postalCode(String postalCode) {
+  public AddressForOrganisation postalCode(String postalCode) {
     this.postalCode = postalCode;
     return this;
   }
@@ -237,7 +239,7 @@ public class Address {
     this.postalCode = postalCode;
   }
 
-  public Address country(String country) {
+  public AddressForOrganisation country(String country) {
     this.country = country;
     return this;
   }
@@ -256,7 +258,7 @@ public class Address {
     this.country = country;
   }
 
-  public Address attentionTo(String attentionTo) {
+  public AddressForOrganisation attentionTo(String attentionTo) {
     this.attentionTo = attentionTo;
     return this;
   }
@@ -283,17 +285,17 @@ public class Address {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Address address = (Address) o;
-    return Objects.equals(this.addressType, address.addressType)
-        && Objects.equals(this.addressLine1, address.addressLine1)
-        && Objects.equals(this.addressLine2, address.addressLine2)
-        && Objects.equals(this.addressLine3, address.addressLine3)
-        && Objects.equals(this.addressLine4, address.addressLine4)
-        && Objects.equals(this.city, address.city)
-        && Objects.equals(this.region, address.region)
-        && Objects.equals(this.postalCode, address.postalCode)
-        && Objects.equals(this.country, address.country)
-        && Objects.equals(this.attentionTo, address.attentionTo);
+    AddressForOrganisation addressForOrganisation = (AddressForOrganisation) o;
+    return Objects.equals(this.addressType, addressForOrganisation.addressType)
+        && Objects.equals(this.addressLine1, addressForOrganisation.addressLine1)
+        && Objects.equals(this.addressLine2, addressForOrganisation.addressLine2)
+        && Objects.equals(this.addressLine3, addressForOrganisation.addressLine3)
+        && Objects.equals(this.addressLine4, addressForOrganisation.addressLine4)
+        && Objects.equals(this.city, addressForOrganisation.city)
+        && Objects.equals(this.region, addressForOrganisation.region)
+        && Objects.equals(this.postalCode, addressForOrganisation.postalCode)
+        && Objects.equals(this.country, addressForOrganisation.country)
+        && Objects.equals(this.attentionTo, addressForOrganisation.attentionTo);
   }
 
   @Override
@@ -314,7 +316,7 @@ public class Address {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Address {\n");
+    sb.append("class AddressForOrganisation {\n");
     sb.append("    addressType: ").append(toIndentedString(addressType)).append("\n");
     sb.append("    addressLine1: ").append(toIndentedString(addressLine1)).append("\n");
     sb.append("    addressLine2: ").append(toIndentedString(addressLine2)).append("\n");

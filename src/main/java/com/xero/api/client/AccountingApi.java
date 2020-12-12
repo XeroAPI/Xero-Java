@@ -86,7 +86,7 @@ public class AccountingApi {
   private ApiClient apiClient;
   private static AccountingApi instance = null;
   private String userAgent = "Default";
-  private String version = "4.4.0";
+  private String version = "4.5.0";
   static final Logger logger = LoggerFactory.getLogger(AccountingApi.class);
 
   public AccountingApi() {
@@ -13644,11 +13644,11 @@ public class AccountingApi {
       String accessToken,
       String xeroTenantId,
       Integer page,
-      String linkedTransactionID,
-      String sourceTransactionID,
-      String contactID,
+      UUID linkedTransactionID,
+      UUID sourceTransactionID,
+      UUID contactID,
       String status,
-      String targetTransactionID)
+      UUID targetTransactionID)
       throws IOException {
     try {
       TypeReference<LinkedTransactions> typeRef = new TypeReference<LinkedTransactions>() {};
@@ -13683,11 +13683,11 @@ public class AccountingApi {
       String accessToken,
       String xeroTenantId,
       Integer page,
-      String linkedTransactionID,
-      String sourceTransactionID,
-      String contactID,
+      UUID linkedTransactionID,
+      UUID sourceTransactionID,
+      UUID contactID,
       String status,
-      String targetTransactionID)
+      UUID targetTransactionID)
       throws IOException {
     // verify the required parameter 'xeroTenantId' is set
     if (xeroTenantId == null) {
