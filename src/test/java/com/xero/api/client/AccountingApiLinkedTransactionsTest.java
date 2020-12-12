@@ -128,11 +128,11 @@ public class AccountingApiLinkedTransactionsTest {
     public void getLinkedTransactionsTest() throws IOException {
         System.out.println("@Test - getLinkedTransactions");
         Integer page = null;
-        String linkedTransactionID = null;
-        String sourceTransactionID = null;
-        String contactID = null;
+        UUID linkedTransactionID =  UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");
+        UUID sourceTransactionID =  UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");
+        UUID contactID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");
         String status = null;
-        String targetTransactionID = null;
+        UUID targetTransactionID =  UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");
         LinkedTransactions response = accountingApi.getLinkedTransactions(accessToken,xeroTenantId,page, linkedTransactionID, sourceTransactionID, contactID, status, targetTransactionID);
 
         assertThat(response.getLinkedTransactions().get(0).getSourceTransactionID(), is(equalTo(UUID.fromString("aec416dd-38ea-40dc-9f0b-813c8c71f87f"))));

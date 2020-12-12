@@ -1,6 +1,6 @@
 /*
- * Bank Feeds API
- * This specifing endpoints Xero Bank feeds API
+ * Xero Payroll NZ
+ * This is the Xero Payroll API for orgs in the NZ region.
  *
  * The version of the OpenAPI document: 2.7.0
  * Contact: api@xero.com
@@ -10,24 +10,31 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.bankfeeds;
+package com.xero.models.payrollnz;
 
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/**
- * If the statement balances are credit or debit, the CreditDebitIndicator should be specified from
- * the perspective of the Customer.
- */
-public enum CreditDebitIndicator {
-  CREDIT("CREDIT"),
+/** Calendar type of the pay run */
+public enum CalendarType {
+  WEEKLY("Weekly"),
 
-  DEBIT("DEBIT");
+  FORTNIGHTLY("Fortnightly"),
+
+  FOURWEEKLY("FourWeekly"),
+
+  MONTHLY("Monthly"),
+
+  ANNUAL("Annual"),
+
+  QUARTERLY("Quarterly"),
+
+  TWICEMONTHLY("TwiceMonthly");
 
   private String value;
 
-  CreditDebitIndicator(String value) {
+  CalendarType(String value) {
     this.value = value;
   }
 
@@ -42,8 +49,8 @@ public enum CreditDebitIndicator {
   }
 
   @JsonCreator
-  public static CreditDebitIndicator fromValue(String value) {
-    for (CreditDebitIndicator b : CreditDebitIndicator.values()) {
+  public static CalendarType fromValue(String value) {
+    for (CalendarType b : CalendarType.values()) {
       if (b.value.equals(value)) {
         return b;
       }

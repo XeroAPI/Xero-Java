@@ -92,7 +92,7 @@ public class PayrollNzApi {
   private ApiClient apiClient;
   private static PayrollNzApi instance = null;
   private String userAgent = "Default";
-  private String version = "4.4.0";
+  private String version = "4.5.0";
   static final Logger logger = LoggerFactory.getLogger(PayrollNzApi.class);
 
   public PayrollNzApi() {

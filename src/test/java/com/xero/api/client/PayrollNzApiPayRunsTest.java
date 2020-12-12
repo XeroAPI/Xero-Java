@@ -83,7 +83,7 @@ public class PayrollNzApiPayRunsTest {
         assertThat(response.getPayRuns().get(0).getTotalCost(),  is(equalTo(6735.81)));
         assertThat(response.getPayRuns().get(0).getTotalPay(),  is(equalTo(4524.81)));
         assertThat(response.getPayRuns().get(0).getPayRunStatus(), is(equalTo(com.xero.models.payrollnz.PayRun.PayRunStatusEnum.DRAFT)));
-        assertThat(response.getPayRuns().get(0).getCalendarType(), is(equalTo(com.xero.models.payrollnz.PayRun.CalendarTypeEnum.WEEKLY)));
+        assertThat(response.getPayRuns().get(0).getCalendarType(), is(equalTo(com.xero.models.payrollnz.CalendarType.WEEKLY)));
     
         //System.out.println(response.toString());
     }
@@ -104,7 +104,7 @@ public class PayrollNzApiPayRunsTest {
         assertThat(response.getPayRun().getTotalCost(),  is(equalTo(6735.81)));
         assertThat(response.getPayRun().getTotalPay(),  is(equalTo(4524.81)));
         assertThat(response.getPayRun().getPayRunStatus(), is(equalTo(com.xero.models.payrollnz.PayRun.PayRunStatusEnum.DRAFT)));
-        assertThat(response.getPayRun().getCalendarType(), is(equalTo(com.xero.models.payrollnz.PayRun.CalendarTypeEnum.WEEKLY)));
+        assertThat(response.getPayRun().getCalendarType(), is(equalTo(com.xero.models.payrollnz.CalendarType.WEEKLY)));
         assertThat(response.getPayRun().getPaySlips().get(0).getPaySlipID(), is(equalTo(UUID.fromString("51a01760-cf9d-4ba1-bf3a-2065d4f8e073"))));
         assertThat(response.getPayRun().getPaySlips().get(0).getEmployeeID(), is(equalTo(UUID.fromString("68342973-c405-4b86-b5d3-d7b877c27995"))));
         assertThat(response.getPayRun().getPaySlips().get(0).getFirstName(), is(equalTo("Tony")));
@@ -140,7 +140,7 @@ public class PayrollNzApiPayRunsTest {
         assertThat(response.getPayRun().getTotalCost(),  is(equalTo(9416.7)));
         assertThat(response.getPayRun().getTotalPay(),  is(equalTo(6137.2)));
         assertThat(response.getPayRun().getPayRunStatus(), is(equalTo(com.xero.models.payrollnz.PayRun.PayRunStatusEnum.DRAFT)));
-        assertThat(response.getPayRun().getCalendarType(), is(equalTo(com.xero.models.payrollnz.PayRun.CalendarTypeEnum.WEEKLY)));
+        assertThat(response.getPayRun().getCalendarType(), is(equalTo(com.xero.models.payrollnz.CalendarType.WEEKLY)));
         assertThat(response.getPayRun().getPaySlips().get(0).getPaySlipID(), is(equalTo(UUID.fromString("8b3a099c-2309-480a-a6ee-1dc4f4b2668b"))));
         assertThat(response.getPayRun().getPaySlips().get(0).getEmployeeID(), is(equalTo(UUID.fromString("68342973-c405-4b86-b5d3-d7b877c27995"))));
         assertThat(response.getPayRun().getPaySlips().get(0).getFirstName(), is(equalTo("Tony")));
@@ -177,7 +177,7 @@ public class PayrollNzApiPayRunsTest {
         assertThat(response.getPayRun().getTotalCost(),  is(equalTo(9806.03)));
         assertThat(response.getPayRun().getTotalPay(),  is(equalTo(6362.53)));
         assertThat(response.getPayRun().getPayRunStatus(), is(equalTo(com.xero.models.payrollnz.PayRun.PayRunStatusEnum.DRAFT)));
-        assertThat(response.getPayRun().getCalendarType(), is(equalTo(com.xero.models.payrollnz.PayRun.CalendarTypeEnum.WEEKLY)));
+        assertThat(response.getPayRun().getCalendarType(), is(equalTo(com.xero.models.payrollnz.CalendarType.WEEKLY)));
         assertThat(response.getPayRun().getPaySlips().get(0).getPaySlipID(), is(equalTo(UUID.fromString("51a01760-cf9d-4ba1-bf3a-2065d4f8e073"))));
         assertThat(response.getPayRun().getPaySlips().get(0).getEmployeeID(), is(equalTo(UUID.fromString("68342973-c405-4b86-b5d3-d7b877c27995"))));
         assertThat(response.getPayRun().getPaySlips().get(0).getFirstName(), is(equalTo("Tony")));

@@ -126,7 +126,7 @@ public class PayrollNzApiPaySlipsTest {
         assertThat(response.getPaySlips().get(0).getEmployerTaxLines().get(0).getManualAdjustment(),is(equalTo(false)));
         assertThat(response.getPaySlips().get(0).getStatutoryDeductionLines().get(0).getStatutoryDeductionTypeID(),is(equalTo(UUID.fromString("b5efd8d1-0c93-4a14-a314-b5cba4a4e6b3"))));
         assertThat(response.getPaySlips().get(0).getStatutoryDeductionLines().get(0).getAmount(),is(equalTo(4.86)));
-        assertThat(response.getPaySlips().get(0).getTaxSettings().getPeriodUnits(),is(equalTo(1)));
+        assertThat(response.getPaySlips().get(0).getTaxSettings().getPeriodUnits(),is(equalTo(1.0)));
         assertThat(response.getPaySlips().get(0).getTaxSettings().getPeriodType(), is(equalTo(com.xero.models.payrollnz.TaxSettings.PeriodTypeEnum.WEEKS)));
         assertThat(response.getPaySlips().get(0).getTaxSettings().getTaxCode(), is(equalTo(com.xero.models.payrollnz.TaxCode.M)));
         assertThat(response.getPaySlips().get(0).getTaxSettings().getLumpSumTaxCode(),is(equalTo("SB")));
@@ -195,7 +195,7 @@ public class PayrollNzApiPaySlipsTest {
         assertThat(response.getPaySlip().getEmployerTaxLines().get(0).getManualAdjustment(),is(equalTo(false)));
         assertThat(response.getPaySlip().getStatutoryDeductionLines().get(0).getStatutoryDeductionTypeID(),is(equalTo(UUID.fromString("b5efd8d1-0c93-4a14-a314-b5cba4a4e6b3"))));
         assertThat(response.getPaySlip().getStatutoryDeductionLines().get(0).getAmount(),is(equalTo(4.86)));
-        assertThat(response.getPaySlip().getTaxSettings().getPeriodUnits(),is(equalTo(1)));
+        assertThat(response.getPaySlip().getTaxSettings().getPeriodUnits(),is(equalTo(1.0)));
         assertThat(response.getPaySlip().getTaxSettings().getPeriodType(), is(equalTo(com.xero.models.payrollnz.TaxSettings.PeriodTypeEnum.WEEKS)));
         assertThat(response.getPaySlip().getTaxSettings().getTaxCode(), is(equalTo(com.xero.models.payrollnz.TaxCode.M)));
         assertThat(response.getPaySlip().getTaxSettings().getLumpSumTaxCode(),is(equalTo("SB")));
@@ -266,7 +266,7 @@ public class PayrollNzApiPaySlipsTest {
         assertThat(response.getPaySlip().getEmployerTaxLines().get(0).getManualAdjustment(),is(equalTo(false)));
         assertThat(response.getPaySlip().getStatutoryDeductionLines().get(0).getStatutoryDeductionTypeID(),is(equalTo(UUID.fromString("b5efd8d1-0c93-4a14-a314-b5cba4a4e6b3"))));
         assertThat(response.getPaySlip().getStatutoryDeductionLines().get(0).getAmount(),is(equalTo(108.86)));
-        assertThat(response.getPaySlip().getTaxSettings().getPeriodUnits(),is(equalTo(1)));
+        assertThat(response.getPaySlip().getTaxSettings().getPeriodUnits(),is(equalTo(1.0)));
         assertThat(response.getPaySlip().getTaxSettings().getPeriodType(), is(equalTo(com.xero.models.payrollnz.TaxSettings.PeriodTypeEnum.WEEKS)));
         assertThat(response.getPaySlip().getTaxSettings().getTaxCode(), is(equalTo(com.xero.models.payrollnz.TaxCode.M)));
         assertThat(response.getPaySlip().getTaxSettings().getLumpSumTaxCode(),is(equalTo("SB")));
