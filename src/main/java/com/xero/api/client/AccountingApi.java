@@ -86,7 +86,7 @@ public class AccountingApi {
   private ApiClient apiClient;
   private static AccountingApi instance = null;
   private String userAgent = "Default";
-  private String version = "4.5.0";
+  private String version = "4.5.1";
   static final Logger logger = LoggerFactory.getLogger(AccountingApi.class);
 
   public AccountingApi() {
@@ -1219,7 +1219,9 @@ public class AccountingApi {
   }
 
   /**
-   * <b>200</b> - Success - return response of type HistoryRecords array of HistoryRecord objects
+   * Allows you to create history record for a bank transfers
+   *
+   * <p><b>200</b> - Success - return response of type HistoryRecords array of HistoryRecord objects
    *
    * <p><b>400</b> - A failed request due to validation error
    *
@@ -2879,8 +2881,10 @@ public class AccountingApi {
   }
 
   /**
-   * <b>200</b> - Unsupported - return response incorrect exception, API is not able to create new
-   * Currency
+   * Allows you to create a new currency for an org
+   *
+   * <p><b>200</b> - Unsupported - return response incorrect exception, API is not able to create
+   * new Currency
    *
    * @param xeroTenantId Xero identifier for Tenant
    * @param currency Currency obejct in the body of request
@@ -20945,7 +20949,9 @@ public class AccountingApi {
   }
 
   /**
-   * <b>200</b> - Success - return response of type Contacts array with an updated Contact
+   * Allows you to update one contact in a Xero organisation
+   *
+   * <p><b>200</b> - Success - return response of type Contacts array with an updated Contact
    *
    * <p><b>400</b> - A failed request due to validation error
    *

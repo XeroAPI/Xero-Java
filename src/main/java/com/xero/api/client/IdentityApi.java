@@ -31,7 +31,7 @@ public class IdentityApi {
   private ApiClient apiClient;
   private static IdentityApi instance = null;
   private String userAgent = "Default";
-  private String version = "4.5.0";
+  private String version = "4.5.1";
   static final Logger logger = LoggerFactory.getLogger(IdentityApi.class);
 
   public IdentityApi() {
