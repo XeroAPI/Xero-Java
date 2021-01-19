@@ -78,7 +78,7 @@ public class PayrollNzApiSalaryAndWagesTest {
         assertThat(response.getSalaryAndWages().get(0).getNumberOfUnitsPerWeek(), is(equalTo(0.0)));
         assertThat(response.getSalaryAndWages().get(0).getRatePerUnit(), is(equalTo(25.0)));
         assertThat(response.getSalaryAndWages().get(0).getNumberOfUnitsPerDay(), is(equalTo(0.0)));
-        assertThat(response.getSalaryAndWages().get(0).getDaysPerWeek(), is(equalTo(0)));
+        assertThat(response.getSalaryAndWages().get(0).getDaysPerWeek(), is(equalTo(0.0)));
         assertThat(response.getSalaryAndWages().get(0).getEffectiveFrom(), is(equalTo(LocalDate.of(2019, 02, 07))));        
         assertThat(response.getSalaryAndWages().get(0).getAnnualSalary(), is(equalTo(25.0)));
         assertThat(response.getSalaryAndWages().get(0).getStatus() , is(equalTo(com.xero.models.payrollnz.SalaryAndWage.StatusEnum.ACTIVE)));
@@ -99,7 +99,7 @@ public class PayrollNzApiSalaryAndWagesTest {
         assertThat(response.getSalaryAndWages().getEarningsRateID(), is(equalTo(UUID.fromString("f9d8f5b5-9049-47f4-8541-35e200f750a5"))));
         assertThat(response.getSalaryAndWages().getNumberOfUnitsPerWeek(), is(equalTo(2.0)));
         assertThat(response.getSalaryAndWages().getNumberOfUnitsPerDay(), is(equalTo(2.0)));
-        assertThat(response.getSalaryAndWages().getDaysPerWeek(), is(equalTo(1)));
+        assertThat(response.getSalaryAndWages().getDaysPerWeek(), is(equalTo(1.0)));
         assertThat(response.getSalaryAndWages().getEffectiveFrom(), is(equalTo(LocalDate.of(2020, 05, 01))));        
         assertThat(response.getSalaryAndWages().getAnnualSalary(), is(equalTo(100.0)));
         assertThat(response.getSalaryAndWages().getStatus() , is(equalTo(com.xero.models.payrollnz.SalaryAndWage.StatusEnum.ACTIVE)));
@@ -121,7 +121,7 @@ public class PayrollNzApiSalaryAndWagesTest {
         assertThat(response.getSalaryAndWages().get(0).getNumberOfUnitsPerWeek(), is(equalTo(0.0)));
         assertThat(response.getSalaryAndWages().get(0).getRatePerUnit(), is(equalTo(25.0)));
         assertThat(response.getSalaryAndWages().get(0).getNumberOfUnitsPerDay(), is(equalTo(0.0)));
-        assertThat(response.getSalaryAndWages().get(0).getDaysPerWeek(), is(equalTo(0)));
+        assertThat(response.getSalaryAndWages().get(0).getDaysPerWeek(), is(equalTo(0.0)));
         assertThat(response.getSalaryAndWages().get(0).getEffectiveFrom(), is(equalTo(LocalDate.of(2019, 02, 07))));        
         assertThat(response.getSalaryAndWages().get(0).getAnnualSalary(), is(equalTo(25.0)));
         assertThat(response.getSalaryAndWages().get(0).getStatus() , is(equalTo(com.xero.models.payrollnz.SalaryAndWage.StatusEnum.ACTIVE)));
@@ -143,7 +143,7 @@ public class PayrollNzApiSalaryAndWagesTest {
         assertThat(response.getSalaryAndWages().getEarningsRateID(), is(equalTo(UUID.fromString("f9d8f5b5-9049-47f4-8541-35e200f750a5"))));
         assertThat(response.getSalaryAndWages().getNumberOfUnitsPerWeek(), is(equalTo(3.0)));
         assertThat(response.getSalaryAndWages().getNumberOfUnitsPerDay(), is(equalTo(3.0)));
-        assertThat(response.getSalaryAndWages().getDaysPerWeek(), is(equalTo(1)));
+        assertThat(response.getSalaryAndWages().getDaysPerWeek(), is(equalTo(1.0)));
         assertThat(response.getSalaryAndWages().getEffectiveFrom(), is(equalTo(LocalDate.of(2020, 05, 15))));        
         assertThat(response.getSalaryAndWages().getAnnualSalary(), is(equalTo(101.0)));
         assertThat(response.getSalaryAndWages().getStatus() , is(equalTo(com.xero.models.payrollnz.SalaryAndWage.StatusEnum.ACTIVE)));
