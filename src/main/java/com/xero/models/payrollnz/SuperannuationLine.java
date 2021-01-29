@@ -45,11 +45,11 @@ public class SuperannuationLine {
   }
 
   /**
-   * Xero identifier for payroll superannucation type
+   * Xero identifier for payroll superannuation type
    *
    * @return superannuationTypeID
    */
-  @ApiModelProperty(value = "Xero identifier for payroll superannucation type")
+  @ApiModelProperty(value = "Xero identifier for payroll superannuation type")
   public UUID getSuperannuationTypeID() {
     return superannuationTypeID;
   }

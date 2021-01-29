@@ -1,5 +1,5 @@
 /*
- * Xero Payroll AU
+ * Xero Payroll AU API
  * This is the Xero Payroll API for orgs in Australia region.
  *
  * Contact: api@xero.com
@@ -110,11 +110,11 @@ public class SuperLine {
   }
 
   /**
-   * amount of mimimum earnings
+   * amount of minimum earnings
    *
    * @return minimumMonthlyEarnings
    */
-  @ApiModelProperty(example = "450.0", value = "amount of mimimum earnings")
+  @ApiModelProperty(example = "450.0", value = "amount of minimum earnings")
   public Double getMinimumMonthlyEarnings() {
     return minimumMonthlyEarnings;
   }

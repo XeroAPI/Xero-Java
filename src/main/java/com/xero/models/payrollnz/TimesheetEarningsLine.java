@@ -232,12 +232,12 @@ public class TimesheetEarningsLine {
   }
 
   /**
-   * Flag to indentify whether the earnings line is system generated or not.
+   * Flag to identify whether the earnings line is system generated or not.
    *
    * @return isSystemGenerated
    */
   @ApiModelProperty(
-      value = "Flag to indentify whether the earnings line is system generated or not.")
+      value = "Flag to identify whether the earnings line is system generated or not.")
   public Boolean getIsSystemGenerated() {
     return isSystemGenerated;
   }
