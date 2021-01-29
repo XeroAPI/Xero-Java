@@ -305,7 +305,7 @@ public class EmployeeStatutorySickLeave {
   }
 
   /**
-   * Whether the employee provided sufficient notice and documentation as required by the employer
+   * Whether the employee provided sufficent notice and documentation as required by the employer
    * supporting the sick leave request
    *
    * @return sufficientNotice
@@ -313,7 +313,7 @@ public class EmployeeStatutorySickLeave {
   @ApiModelProperty(
       required = true,
       value =
-          "Whether the employee provided sufficient notice and documentation as required by the"
+          "Whether the employee provided sufficent notice and documentation as required by the"
               + " employer supporting the sick leave request")
   public Boolean getSufficientNotice() {
     return sufficientNotice;

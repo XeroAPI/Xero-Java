@@ -230,12 +230,12 @@ public class EarningsLine {
   }
 
   /**
-   * Flag to identify whether the earnings line is system generated or not.
+   * Flag to indentify whether the earnings line is system generated or not.
    *
    * @return isSystemGenerated
    */
   @ApiModelProperty(
-      value = "Flag to identify whether the earnings line is system generated or not.")
+      value = "Flag to indentify whether the earnings line is system generated or not.")
   public Boolean getIsSystemGenerated() {
     return isSystemGenerated;
   }

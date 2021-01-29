@@ -1,6 +1,6 @@
 /*
  * Xero Assets API
- * The Assets API exposes fixed asset related functions of the Xero Accounting application and can be used for a variety of purposes such as creating assets, retrieving asset valuations etc.
+ * This is the Xero Assets API
  *
  * Contact: api@xero.com
  *
@@ -60,11 +60,11 @@ public class ResourceValidationErrorsElement {
   }
 
   /**
-   * Explanation of the resource validation error
+   * Explaination of the resource validation error
    *
    * @return localisedMessage
    */
-  @ApiModelProperty(value = "Explanation of the resource validation error")
+  @ApiModelProperty(value = "Explaination of the resource validation error")
   public String getLocalisedMessage() {
     return localisedMessage;
   }

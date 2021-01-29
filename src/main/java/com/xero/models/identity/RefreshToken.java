@@ -1,6 +1,6 @@
 /*
- * Xero OAuth 2 Identity Service API
- * These endpoints are related to managing authentication tokens and identity for Xero API
+ * Xero oAuth 2 identity service
+ * This specifing endpoints related to managing authentication tokens and identity for Xero API
  *
  * Contact: api@xero.com
  *

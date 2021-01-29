@@ -1,5 +1,5 @@
 /*
- * Xero Payroll AU API
+ * Xero Payroll AU
  * This is the Xero Payroll API for orgs in Australia region.
  *
  * Contact: api@xero.com
