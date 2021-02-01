@@ -19,7 +19,7 @@ Coming soon
 ## SDK Documentation
 We've begun generating SDK documentation with code examples for each method.
 
-* [Accounting](docs/v4/accounting/index.html) 
+* [Accounting](http://xeroapi.github.io/Xero-Java/docs/v4/accounting/index.html) 
 
 Coming Soon
 * identity
