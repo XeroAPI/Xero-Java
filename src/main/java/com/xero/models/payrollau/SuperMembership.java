@@ -1,5 +1,5 @@
 /*
- * Xero Payroll AU
+ * Xero Payroll AU API
  * This is the Xero Payroll API for orgs in Australia region.
  *
  * Contact: api@xero.com
@@ -79,14 +79,14 @@ public class SuperMembership {
   }
 
   /**
-   * The memberhsip number assigned to the employee by the super fund.
+   * The membership number assigned to the employee by the super fund.
    *
    * @return employeeNumber
    */
   @ApiModelProperty(
       example = "1234",
       required = true,
-      value = "The memberhsip number assigned to the employee by the super fund.")
+      value = "The membership number assigned to the employee by the super fund.")
   public String getEmployeeNumber() {
     return employeeNumber;
   }

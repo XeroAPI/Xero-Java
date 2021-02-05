@@ -18,38 +18,38 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/** Reports */
-public class Reports {
+/** CISOrgSettings */
+public class CISOrgSettings {
   StringUtil util = new StringUtil();
 
-  @JsonProperty("Reports")
-  private List<Report> reports = new ArrayList<Report>();
+  @JsonProperty("CISSettings")
+  private List<CISOrgSetting> ciSSettings = new ArrayList<CISOrgSetting>();
 
-  public Reports reports(List<Report> reports) {
-    this.reports = reports;
+  public CISOrgSettings ciSSettings(List<CISOrgSetting> ciSSettings) {
+    this.ciSSettings = ciSSettings;
     return this;
   }
 
-  public Reports addReportsItem(Report reportsItem) {
-    if (this.reports == null) {
-      this.reports = new ArrayList<Report>();
+  public CISOrgSettings addCiSSettingsItem(CISOrgSetting ciSSettingsItem) {
+    if (this.ciSSettings == null) {
+      this.ciSSettings = new ArrayList<CISOrgSetting>();
     }
-    this.reports.add(reportsItem);
+    this.ciSSettings.add(ciSSettingsItem);
     return this;
   }
 
   /**
-   * Get reports
+   * Get ciSSettings
    *
-   * @return reports
+   * @return ciSSettings
    */
   @ApiModelProperty(value = "")
-  public List<Report> getReports() {
-    return reports;
+  public List<CISOrgSetting> getCiSSettings() {
+    return ciSSettings;
   }
 
-  public void setReports(List<Report> reports) {
-    this.reports = reports;
+  public void setCiSSettings(List<CISOrgSetting> ciSSettings) {
+    this.ciSSettings = ciSSettings;
   }
 
   @Override
@@ -60,20 +60,20 @@ public class Reports {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Reports reports = (Reports) o;
-    return Objects.equals(this.reports, reports.reports);
+    CISOrgSettings ciSOrgSettings = (CISOrgSettings) o;
+    return Objects.equals(this.ciSSettings, ciSOrgSettings.ciSSettings);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(reports);
+    return Objects.hash(ciSSettings);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Reports {\n");
-    sb.append("    reports: ").append(toIndentedString(reports)).append("\n");
+    sb.append("class CISOrgSettings {\n");
+    sb.append("    ciSSettings: ").append(toIndentedString(ciSSettings)).append("\n");
     sb.append("}");
     return sb.toString();
   }

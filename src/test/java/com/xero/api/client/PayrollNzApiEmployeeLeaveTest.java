@@ -99,7 +99,7 @@ public class PayrollNzApiEmployeeLeaveTest {
         
         assertThat(response.getLeave().getLeaveID(), is(equalTo(UUID.fromString("82a04ba6-a5cc-4e7d-86d4-b9f381a494e8"))));
         assertThat(response.getLeave().getLeaveTypeID(), is(equalTo(UUID.fromString("b0b1b79e-2a25-46c2-ad08-ca25ef48d7e4"))));
-        assertThat(response.getLeave().getDescription(), is(equalTo("Creating a Desription")));
+        assertThat(response.getLeave().getDescription(), is(equalTo("Creating a Description")));
         assertThat(response.getLeave().getStartDate(), is(equalTo(LocalDate.of(2020, 04, 24))));
         assertThat(response.getLeave().getEndDate(), is(equalTo(LocalDate.of(2020, 04, 26))));
         assertThat(response.getLeave().getPeriods().get(0).getPeriodStartDate(), is(equalTo(LocalDate.of(2020, 04, 20))));
@@ -123,7 +123,7 @@ public class PayrollNzApiEmployeeLeaveTest {
         
         assertThat(response.getLeave().getLeaveID(), is(equalTo(UUID.fromString("82a04ba6-a5cc-4e7d-86d4-b9f381a494e8"))));
         assertThat(response.getLeave().getLeaveTypeID(), is(equalTo(UUID.fromString("b0b1b79e-2a25-46c2-ad08-ca25ef48d7e4"))));
-        assertThat(response.getLeave().getDescription(), is(equalTo("Creating a Desription")));
+        assertThat(response.getLeave().getDescription(), is(equalTo("Creating a Description")));
         assertThat(response.getLeave().getStartDate(), is(equalTo(LocalDate.of(2020, 04, 24))));
         assertThat(response.getLeave().getEndDate(), is(equalTo(LocalDate.of(2020, 04, 26))));
         assertThat(response.getLeave().getPeriods().get(0).getPeriodStartDate(), is(equalTo(LocalDate.of(2020, 04, 20))));

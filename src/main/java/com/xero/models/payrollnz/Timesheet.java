@@ -113,13 +113,13 @@ public class Timesheet {
   }
 
   /**
-   * The Xero identifier for the Payroll Calandar that the Timesheet applies to
+   * The Xero identifier for the Payroll Calendar that the Timesheet applies to
    *
    * @return payrollCalendarID
    */
   @ApiModelProperty(
       required = true,
-      value = "The Xero identifier for the Payroll Calandar that the Timesheet applies to")
+      value = "The Xero identifier for the Payroll Calendar that the Timesheet applies to")
   public UUID getPayrollCalendarID() {
     return payrollCalendarID;
   }
