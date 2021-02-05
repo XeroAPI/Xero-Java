@@ -108,7 +108,7 @@ public class PayrollNzApiDeductionsTest {
         
         assertThat(response.getDeduction().getDeductionId(), is(equalTo(UUID.fromString("0ee805eb-f5b0-4061-9b35-d9ea550da04e"))));
         assertThat(response.getDeduction().getLiabilityAccountId(), is(equalTo(UUID.fromString("568f2e9a-0870-46cc-8678-f83f132ed4e3"))));
-        assertThat(response.getDeduction().getDeductionName(), is(equalTo("My new deducation")));
+        assertThat(response.getDeduction().getDeductionName(), is(equalTo("My new deduction")));
         assertThat(response.getDeduction().getDeductionCategory(), is(equalTo(com.xero.models.payrollnz.Deduction.DeductionCategoryEnum.NZOTHER)));
         assertThat(response.getDeduction().getCurrentRecord(), is(equalTo(true)));
      

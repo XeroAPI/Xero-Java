@@ -99,7 +99,7 @@ public class PayrollUkApiEmployeeLeaveTest {
         
         assertThat(response.getLeave().getLeaveID(), is(equalTo(UUID.fromString("bdfedc6b-363b-4801-8ba6-9a074d400b31"))));
         assertThat(response.getLeave().getLeaveTypeID(), is(equalTo(UUID.fromString("1d2778ee-86ea-45c0-bbf8-1045485f6b3f"))));
-        assertThat(response.getLeave().getDescription(), is(equalTo("Creating a Desription")));
+        assertThat(response.getLeave().getDescription(), is(equalTo("Creating a Description")));
         assertThat(response.getLeave().getStartDate(), is(equalTo(LocalDate.of(2020, 03, 24))));
         assertThat(response.getLeave().getEndDate(), is(equalTo(LocalDate.of(2020, 03, 26))));
         assertThat(response.getLeave().getPeriods().get(0).getPeriodStartDate(), is(equalTo(LocalDate.of(2020, 03, 23))));
