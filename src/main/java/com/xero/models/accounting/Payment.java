@@ -157,6 +157,9 @@ public class Payment {
   @JsonProperty("PaymentID")
   private UUID paymentID;
 
+  @JsonProperty("BatchPaymentID")
+  private UUID batchPaymentID;
+
   @JsonProperty("BankAccountNumber")
   private String bankAccountNumber;
 
@@ -527,6 +530,7 @@ public class Payment {
    * @return paymentID
    */
   @ApiModelProperty(
+      example = "00000000-0000-0000-0000-000000000000",
       value = "The Xero identifier for an Payment e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9")
   public UUID getPaymentID() {
     return paymentID;
@@ -534,6 +538,27 @@ public class Payment {
 
   public void setPaymentID(UUID paymentID) {
     this.paymentID = paymentID;
+  }
+
+  public Payment batchPaymentID(UUID batchPaymentID) {
+    this.batchPaymentID = batchPaymentID;
+    return this;
+  }
+
+  /**
+   * Present if the payment was created as part of a batch.
+   *
+   * @return batchPaymentID
+   */
+  @ApiModelProperty(
+      example = "00000000-0000-0000-0000-000000000000",
+      value = "Present if the payment was created as part of a batch.")
+  public UUID getBatchPaymentID() {
+    return batchPaymentID;
+  }
+
+  public void setBatchPaymentID(UUID batchPaymentID) {
+    this.batchPaymentID = batchPaymentID;
   }
 
   public Payment bankAccountNumber(String bankAccountNumber) {
@@ -707,6 +732,7 @@ public class Payment {
         && Objects.equals(this.paymentType, payment.paymentType)
         && Objects.equals(this.updatedDateUTC, payment.updatedDateUTC)
         && Objects.equals(this.paymentID, payment.paymentID)
+        && Objects.equals(this.batchPaymentID, payment.batchPaymentID)
         && Objects.equals(this.bankAccountNumber, payment.bankAccountNumber)
         && Objects.equals(this.particulars, payment.particulars)
         && Objects.equals(this.details, payment.details)
@@ -736,6 +762,7 @@ public class Payment {
         paymentType,
         updatedDateUTC,
         paymentID,
+        batchPaymentID,
         bankAccountNumber,
         particulars,
         details,
@@ -766,6 +793,7 @@ public class Payment {
     sb.append("    paymentType: ").append(toIndentedString(paymentType)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
     sb.append("    paymentID: ").append(toIndentedString(paymentID)).append("\n");
+    sb.append("    batchPaymentID: ").append(toIndentedString(batchPaymentID)).append("\n");
     sb.append("    bankAccountNumber: ").append(toIndentedString(bankAccountNumber)).append("\n");
     sb.append("    particulars: ").append(toIndentedString(particulars)).append("\n");
     sb.append("    details: ").append(toIndentedString(details)).append("\n");
