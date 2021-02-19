@@ -48,13 +48,27 @@ public class EarningsRate {
 
     STATUTORYADOPTIONPAY("StatutoryAdoptionPay"),
 
+    STATUTORYADOPTIONPAYNONPENSIONABLE("StatutoryAdoptionPayNonPensionable"),
+
+    STATUTORYBEREAVEMENTPAY("StatutoryBereavementPay"),
+
     STATUTORYMATERNITYPAY("StatutoryMaternityPay"),
+
+    STATUTORYMATERNITYPAYNONPENSIONABLE("StatutoryMaternityPayNonPensionable"),
 
     STATUTORYPATERNITYPAY("StatutoryPaternityPay"),
 
+    STATUTORYPATERNITYPAYNONPENSIONABLE("StatutoryPaternityPayNonPensionable"),
+
+    STATUTORYPARENTALBEREAVEMENTPAYNONPENSIONABLE("StatutoryParentalBereavementPayNonPensionable"),
+
     STATUTORYSHAREDPARENTALPAY("StatutorySharedParentalPay"),
 
+    STATUTORYSHAREDPARENTALPAYNONPENSIONABLE("StatutorySharedParentalPayNonPensionable"),
+
     STATUTORYSICKPAY("StatutorySickPay"),
+
+    STATUTORYSICKPAYNONPENSIONABLE("StatutorySickPayNonPensionable"),
 
     TIPS_DIRECT_("Tips(Direct)"),
 
