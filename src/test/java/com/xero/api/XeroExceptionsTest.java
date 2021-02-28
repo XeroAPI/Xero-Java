@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 
 import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpResponseException;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -15,6 +16,7 @@ import org.mockito.MockitoAnnotations;
 
 public class XeroExceptionsTest {
 
+    private AutoCloseable closeable;
     @InjectMocks
     private static XeroApiExceptionHandler xeroApiExceptionHandler;
     @Rule
@@ -32,7 +34,12 @@ public class XeroExceptionsTest {
 
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        closeable = MockitoAnnotations.openMocks(this);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        closeable.close();
     }
 
     @Test
@@ -102,7 +109,7 @@ public class XeroExceptionsTest {
     @Test
     public void testXeroRateLimitException() {
         int statusCode = 429;
-        String message = "You've exceeded the per 100 rate limit";
+        String message = "You've exceeded the per [any] rate limit";
 
         // XeroRateLimitException extends XeroException so we can catch either
         expectedException.expect(XeroException.class);
@@ -111,7 +118,67 @@ public class XeroExceptionsTest {
 
         when(httpResponseException.getStatusCode()).thenReturn(statusCode);
         when(httpResponseException.getHeaders()).thenReturn(httpHeaders);
-        when(httpHeaders.get("x-rate-limit-problem")).thenReturn(100);
+        when(httpHeaders.getFirstHeaderStringValue("X-Rate-Limit-Problem")).thenReturn("[any]");
+        xeroApiExceptionHandler.execute(httpResponseException);
+    }
+
+    @Test
+    public void testXeroMinuteRateLimitException() {
+        int statusCode = 429;
+        String message = "You've exceeded the per [minute] rate limit";
+
+        // XeroMinuteRateLimitException extends XeroRateLimitException so we can catch either
+        expectedException.expect(XeroException.class);
+        expectedException.expect(XeroMinuteRateLimitException.class);
+        expectedException.expect(XeroRateLimitException.class);
+        expectedException.expectMessage(message);
+
+        when(httpResponseException.getStatusCode()).thenReturn(statusCode);
+        when(httpResponseException.getHeaders()).thenReturn(httpHeaders);
+        when(httpHeaders.getFirstHeaderStringValue("X-Rate-Limit-Problem")).thenReturn("[minute]");
+        when(httpHeaders.getFirstHeaderStringValue("X-MinLimit-Remaining")).thenReturn("0");
+        when(httpHeaders.getFirstHeaderStringValue("X-DayLimit-Remaining")).thenReturn("10");
+        when(httpHeaders.getFirstHeaderStringValue("X-AppMinLimit-Remaining")).thenReturn("10");
+        xeroApiExceptionHandler.execute(httpResponseException);
+    }
+
+    @Test
+    public void testXeroDailyRateLimitException() {
+        int statusCode = 429;
+        String message = "You've exceeded the per [day] rate limit";
+
+        // XeroDailyRateLimitException extends XeroRateLimitException so we can catch either
+        expectedException.expect(XeroException.class);
+        expectedException.expect(XeroDailyRateLimitException.class);
+        expectedException.expect(XeroRateLimitException.class);
+        expectedException.expectMessage(message);
+
+        when(httpResponseException.getStatusCode()).thenReturn(statusCode);
+        when(httpResponseException.getHeaders()).thenReturn(httpHeaders);
+        when(httpHeaders.getFirstHeaderStringValue("X-Rate-Limit-Problem")).thenReturn("[day]");
+        when(httpHeaders.getFirstHeaderStringValue("X-MinLimit-Remaining")).thenReturn("10");
+        when(httpHeaders.getFirstHeaderStringValue("X-DayLimit-Remaining")).thenReturn("0");
+        when(httpHeaders.getFirstHeaderStringValue("X-AppMinLimit-Remaining")).thenReturn("10");
+        xeroApiExceptionHandler.execute(httpResponseException);
+    }
+
+    @Test
+    public void testXeroAppMinuteRateLimitException() {
+        int statusCode = 429;
+        String message = "You've exceeded the per [app] rate limit";
+
+        // XeroAppMinuteRateLimitException extends XeroRateLimitException so we can catch either
+        expectedException.expect(XeroException.class);
+        expectedException.expect(XeroAppMinuteRateLimitException.class);
+        expectedException.expect(XeroRateLimitException.class);
+        expectedException.expectMessage(message);
+
+        when(httpResponseException.getStatusCode()).thenReturn(statusCode);
+        when(httpResponseException.getHeaders()).thenReturn(httpHeaders);
+        when(httpHeaders.getFirstHeaderStringValue("X-Rate-Limit-Problem")).thenReturn("[app]");
+        when(httpHeaders.getFirstHeaderStringValue("X-MinLimit-Remaining")).thenReturn("10");
+        when(httpHeaders.getFirstHeaderStringValue("X-DayLimit-Remaining")).thenReturn("10");
+        when(httpHeaders.getFirstHeaderStringValue("X-AppMinLimit-Remaining")).thenReturn("0");
         xeroApiExceptionHandler.execute(httpResponseException);
     }
 
