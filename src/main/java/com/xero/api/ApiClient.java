@@ -16,6 +16,17 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.Json;
 import java.io.IOException;
 import java.io.OutputStream;
+import com.auth0.jwk.Jwk;
+import com.auth0.jwk.JwkException;
+import com.auth0.jwk.JwkProvider;
+import com.auth0.jwk.UrlJwkProvider;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.security.interfaces.RSAPublicKey;
 
 
 public class ApiClient {
@@ -115,9 +126,24 @@ public class ApiClient {
     }
 
     // Builder pattern to get API instances for this client.
-    
     public AccountingApi accountingApi() {
         return new AccountingApi(this);
+    }
+
+    public DecodedJWT verify(String accessToken) throws MalformedURLException, JwkException {
+		
+    	DecodedJWT unverifiedJWT = JWT.decode(accessToken);        
+    	JwkProvider provider = new UrlJwkProvider(new URL("https://identity.xero.com/.well-known/openid-configuration/jwks"));
+		Jwk jwk = provider.get(unverifiedJWT.getKeyId());
+	
+		Algorithm algorithm = Algorithm.RSA256((RSAPublicKey) jwk.getPublicKey(),null);
+		 
+		JWTVerifier verifier = JWT.require(algorithm)
+				 .withIssuer("https://identity.xero.com")
+				 .build();
+		DecodedJWT verifiedJWT = verifier.verify(accessToken);
+		 
+    	return verifiedJWT;
     }
     
 }
