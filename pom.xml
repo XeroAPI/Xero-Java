@@ -5,7 +5,7 @@
     <artifactId>xero-java</artifactId>
     <packaging>jar</packaging>
     <name>xero-java</name>
-    <version>4.7.1</version>
+    <version>4.7.2</version>
     <url>https://github.com/XeroAPI/Xero-Java</url>
     <description>This is the official Java SDK for Xero API</description>
     <licenses>
@@ -42,6 +42,11 @@
 		    <groupId>com.auth0</groupId>
 		    <artifactId>java-jwt</artifactId>
 		    <version>3.8.1</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.auth0</groupId>
+		    <artifactId>jwks-rsa</artifactId>
+		    <version>0.17.0</version>
 		</dependency>
 		<dependency>
             <groupId>com.google.api-client</groupId>

@@ -97,7 +97,7 @@ public class AccountingApi {
   private ApiClient apiClient;
   private static AccountingApi instance = null;
   private String userAgent = "Default";
-  private String version = "4.7.1";
+  private String version = "4.7.2";
   static final Logger logger = LoggerFactory.getLogger(AccountingApi.class);
 
   public AccountingApi() {
