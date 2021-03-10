@@ -113,9 +113,31 @@ public class XeroApiExceptionHandler {
             throw new XeroNotFoundException(statusCode, message, e);
                    
         } else if (statusCode == 429) {
-            String message = "You've exceeded the per " + e.getHeaders().get("x-rate-limit-problem") + " rate limit";
-            throw new XeroRateLimitException(statusCode, message, e);
-        
+            String minuteLimitRemainingStr = e.getHeaders().getFirstHeaderStringValue("X-MinLimit-Remaining");
+            Integer minuteLimitRemaining = minuteLimitRemainingStr == null ? null : Integer.parseInt(minuteLimitRemainingStr);
+
+            String dayLimitRemainingStr = e.getHeaders().getFirstHeaderStringValue("X-DayLimit-Remaining");
+            Integer dayLimitRemaining = dayLimitRemainingStr == null ? null : Integer.parseInt(dayLimitRemainingStr);
+
+            String appMinuteLimitRemainingStr = e.getHeaders().getFirstHeaderStringValue("X-AppMinLimit-Remaining");
+            Integer appMinuteLimitRemaining = appMinuteLimitRemainingStr == null ? null : Integer.parseInt(appMinuteLimitRemainingStr);
+
+            String retryAfterSecondsStr = e.getHeaders().getRetryAfter();
+            Long retryAfterSeconds = retryAfterSecondsStr == null ? null : Long.parseLong(retryAfterSecondsStr);
+
+            String rateLimitProblem = e.getHeaders().getFirstHeaderStringValue("X-Rate-Limit-Problem");
+            String message = "You've exceeded the per " + rateLimitProblem + " rate limit";
+
+            if (minuteLimitRemaining != null && minuteLimitRemaining <= 0) {
+                throw new XeroMinuteRateLimitException(statusCode, appMinuteLimitRemaining, dayLimitRemaining, minuteLimitRemaining, retryAfterSeconds, message, e);
+            } else if (dayLimitRemaining != null && dayLimitRemaining <= 0) {
+                throw new XeroDailyRateLimitException(statusCode, appMinuteLimitRemaining, dayLimitRemaining, minuteLimitRemaining, retryAfterSeconds, message, e);
+            } else if (appMinuteLimitRemaining != null && appMinuteLimitRemaining <= 0) {
+                throw new XeroAppMinuteRateLimitException(statusCode, appMinuteLimitRemaining, dayLimitRemaining, minuteLimitRemaining, retryAfterSeconds, message, e);
+            } else {
+                throw new XeroRateLimitException(statusCode, appMinuteLimitRemaining, dayLimitRemaining, minuteLimitRemaining, retryAfterSeconds, message, e);
+            }
+
         } else if (statusCode == 500) {
             String message = "An error occurred in Xero. Check the API Status page http://status.developer.xero.com for current service status.";
             throw new XeroServerErrorException(statusCode, message, e);

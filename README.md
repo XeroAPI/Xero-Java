@@ -51,141 +51,164 @@ To address this we've refactored exception handling and we are deprecating the g
 
 **This is a breaking change between version 3.x and 4.x.**
 
-| code | class                         | description                                                                                                                             |
-|------|-------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
-| N/A  | XeroException                 | All Xero exceptions extend from XeroException                                                                                           |
-| N/A  | XeroAuthenticationException   | XeroUnauthorizedException and XeroUnauthorizedException extend from XeroAuthenticationException                                         |
-| 400  | XeroBadRequestException       | A validation exception has occurred - typical cause invalid data.  Look at data returned for error details                              |
-| 401  | XeroUnauthorizedException     | Invalid authorization credentials. Extends XeroAuthenticationException                                                                    |
-| 403  | XeroForbiddenException        | Not authorized to access a resource - typical cause is problem with scopes. Extends XeroAuthenticationException                          |
-| 404  | XeroNotFoundException         | The resource you have specified cannot be found                                                                                         |
-| 405  | XeroMethodNotAllowedException | Method not allowed on the organisation - typical cause the API is not  available in the organisation i.e. UK Payroll on Australian org. |
-| 429  | XeroRateLimitException        | The API rate limit for your organisation/application pairing has been exceeded.                                                         |
-| 500  | XeroServerErrorException      | An unhandled error with the Xero API                                                                                                    |
+| code | class                                  | description                                                                                                                             |
+|------|----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| N/A  | XeroException                          | All Xero exceptions extend from XeroException                                                                                           |
+| N/A  | XeroAuthenticationException            | XeroUnauthorizedException and XeroUnauthorizedException extend from XeroAuthenticationException                                         |
+| 400  | XeroBadRequestException                | A validation exception has occurred - typical cause invalid data.  Look at data returned for error details                              |
+| 401  | XeroUnauthorizedException              | Invalid authorization credentials. Extends XeroAuthenticationException                                                                  |
+| 403  | XeroForbiddenException                 | Not authorized to access a resource - typical cause is problem with scopes. Extends XeroAuthenticationException                         |
+| 404  | XeroNotFoundException                  | The resource you have specified cannot be found                                                                                         |
+| 405  | XeroMethodNotAllowedException          | Method not allowed on the organisation - typical cause the API is not  available in the organisation i.e. UK Payroll on Australian org. |
+| 429  | XeroRateLimitException                 | All Xero rate limit exceptions extend XeroRateLimitException.                                                                           |
+| 429  | XeroAppMinuteRateLimitException        | The API app minute rate limit for your organisation/application pairing has been exceeded.                                              |
+| 429  | XeroDailyRateLimitException            | The API daily rate limit for your organisation/application pairing has been exceeded.                                                   |
+| 429  | XeroMinuteRateLimitException           | The API minute rate limit for your organisation/application pairing has been exceeded.                                                  |
+| 500  | XeroServerErrorException               | An unhandled error with the Xero API                                                                                                    |
 
 Below is a try/catch example
 
 ```java
-try {
-  // Create contact with the same name as an existing contact will generate a validation error.
-  Contact contact = new Contact();
-  contact.setName("Sidney Maestre");
-  Contacts createContact1 = accountingApi.createContact(accessToken,xeroTenantId, contact);
-  Contacts createContact2 = accountingApi.createContact(accessToken,xeroTenantId, contact);
-} catch (XeroBadRequestException e) {
-  // 400
-  // ACCOUNTING VALIDATION ERROR
-  if (e.getElements() != null && e.getElements().size() > 0) {
-    System.out.println("Xero Exception: " + e.getStatusCode());
-    for (Element item : e.getElements()) {
-      for (ValidationError err : item.getValidationErrors()) {
-        System.out.println("Accounting Validation Error Msg: " + err.getMessage());
+class TryCatchExample {
+  
+  void someOperation() {
+    try {
+      // Create contact with the same name as an existing contact will generate a validation error.
+      Contact contact = new Contact();
+      contact.setName("Sidney Maestre");
+      Contacts createContact1 = accountingApi.createContact(accessToken, xeroTenantId, contact);
+      Contacts createContact2 = accountingApi.createContact(accessToken, xeroTenantId, contact);
+    } catch (XeroBadRequestException e) {
+      // 400
+      // ACCOUNTING VALIDATION ERROR
+      if (e.getElements() != null && e.getElements().size() > 0) {
+        System.out.println("Xero Exception: " + e.getStatusCode());
+        for (Element item : e.getElements()) {
+          for (ValidationError err : item.getValidationErrors()) {
+            System.out.println("Accounting Validation Error Msg: " + err.getMessage());
+          }
+        }
+        // FIXED ASSETS VALIDATION ERROR
+      } else if (e.getFieldValidationErrorsElements() != null && e.getFieldValidationErrorsElements().size() > 0) {
+        System.out.println("Xero Exception: " + e.getStatusCode());
+        for (FieldValidationErrorsElement ele : e.getFieldValidationErrorsElements()) {
+          System.out.println("Asset Field Validation Error Msg: " + ele.getDetail());
+        }
+        // BANKFEEDS - Statement VALIDATION ERROR
+      } else if (e.getStatementItems() != null && e.getStatementItems().size() > 0) {
+        System.out.println("Xero Exception: " + e.getStatusCode());
+        for (Statement statement : e.getStatementItems()) {
+          System.out.println("Bank Feed - Statement Msg: " + statement.getFeedConnectionId());
+          for (com.xero.models.bankfeeds.Error statementError : statement.getErrors()) {
+            System.out.println("Bank Feed - Statement Error Msg: " + statementError.getDetail());
+          }
+        }
+        // AU PAYROLL - Employee VALIDATION ERROR
+      } else if (e.getEmployeeItems() != null && e.getEmployeeItems().size() > 0) {
+        System.out.println("Xero Exception: " + e.getStatusCode());
+        for (com.xero.models.payrollau.Employee emp : e.getEmployeeItems()) {
+          for (com.xero.models.payrollau.ValidationError err : emp.getValidationErrors()) {
+            System.out.println("Payroll AU Employee Validation Error Msg: " + err.getMessage());
+          }
+        }
+        // AU PAYROLL - Payroll Calendar VALIDATION ERROR
+      } else if (e.getPayrollCalendarItems() != null && e.getPayrollCalendarItems().size() > 0) {
+        System.out.println("Xero Exception: " + e.getStatusCode());
+        for (com.xero.models.payrollau.PayrollCalendar item : e.getPayrollCalendarItems()) {
+          for (com.xero.models.payrollau.ValidationError err : item.getValidationErrors()) {
+            System.out.println("Payroll AU Payroll Calendar Validation Error Msg: " + err.getMessage());
+          }
+        }
+        // AU PAYROLL - PayRun VALIDATION ERROR
+      } else if (e.getPayRunItems() != null && e.getPayRunItems().size() > 0) {
+        System.out.println("Xero Exception: " + e.getStatusCode());
+        for (com.xero.models.payrollau.PayRun item : e.getPayRunItems()) {
+          for (com.xero.models.payrollau.ValidationError err : item.getValidationErrors()) {
+            System.out.println("Payroll AU Payroll Calendar Validation Error Msg: " + err.getMessage());
+          }
+        }
+        // AU PAYROLL - SuperFund VALIDATION ERROR
+      } else if (e.getSuperFundItems() != null && e.getSuperFundItems().size() > 0) {
+        System.out.println("Xero Exception: " + e.getStatusCode());
+        for (com.xero.models.payrollau.SuperFund item : e.getSuperFundItems()) {
+          for (com.xero.models.payrollau.ValidationError err : item.getValidationErrors()) {
+            System.out.println("Payroll AU SuperFund Validation Error Msg: " + err.getMessage());
+          }
+        }
+        // AU PAYROLL - Timesheet VALIDATION ERROR
+      } else if (e.getTimesheetItems() != null && e.getTimesheetItems().size() > 0) {
+        System.out.println("Xero Exception: " + e.getStatusCode());
+        for (com.xero.models.payrollau.Timesheet item : e.getTimesheetItems()) {
+          for (com.xero.models.payrollau.ValidationError err : item.getValidationErrors()) {
+            System.out.println("Payroll AU Timesheet Validation Error Msg: " + err.getMessage());
+          }
+        }
+        // UK PAYROLL - PROBLEM ERROR
+      } else if (e.getPayrollUkProblem() != null &&
+          ((e.getPayrollUkProblem().getDetail() != null && e.getPayrollUkProblem().getTitle() != null) ||
+              (e.getPayrollUkProblem().getInvalidFields() != null &&
+                  e.getPayrollUkProblem().getInvalidFields().size() > 0))) {
+        System.out.println("Xero Exception: " + e.getStatusCode());
+        System.out.println("Problem title: " + e.getPayrollUkProblem().getTitle());
+        System.out.println("Problem detail: " + e.getPayrollUkProblem().getDetail());
+        if (e.getPayrollUkProblem().getInvalidFields() != null && e.getPayrollUkProblem().getInvalidFields().size() > 0) {
+          for (com.xero.models.payrolluk.InvalidField field : e.getPayrollUkProblem().getInvalidFields()) {
+            System.out.println("Invalid Field name: " + field.getName());
+            System.out.println("Invalid Field reason: " + field.getReason());
+          }
+        }
+      } else {
+        System.out.println("Error Msg: " + e.getMessage());
       }
-    }
-  // FIXED ASSETS VALIDATION ERROR
-  } else if (e.getFieldValidationErrorsElements()  != null && e.getFieldValidationErrorsElements().size() > 0) {
-    System.out.println("Xero Exception: " + e.getStatusCode());
-    for (FieldValidationErrorsElement ele : e.getFieldValidationErrorsElements()) {
-      System.out.println("Asset Field Validation Error Msg: " + ele.getDetail());
-    }
-  // BANKFEEDS - Statement VALIDATION ERROR
-  } else if (e.getStatementItems()  != null && e.getStatementItems().size() > 0) {
-    System.out.println("Xero Exception: " + e.getStatusCode());
-    for (Statement statement : e.getStatementItems()) {
-      System.out.println("Bank Feed - Statement Msg: " + statement.getFeedConnectionId());
-      for (com.xero.models.bankfeeds.Error statementError : statement.getErrors()) {
-        System.out.println("Bank Feed - Statement Error Msg: " + statementError.getDetail());
+    } catch (XeroUnauthorizedException e) {
+      // 401
+      System.out.println("Exception status code: " + e.getStatusCode());
+      System.out.println("Exception message: " + e.getMessage());
+    } catch (XeroForbiddenException e) {
+      // 403
+      System.out.println("Exception status code: " + e.getStatusCode());
+      System.out.println("Exception message: " + e.getMessage());
+    } catch (XeroNotFoundException e) {
+      // 404
+      System.out.println("Exception status code: " + e.getStatusCode());
+      System.out.println("Exception message: " + e.getMessage());
+    } catch (XeroMethodNotAllowedException e) {
+      // 405
+      if (e.getPayrollUkProblem() != null) {
+        System.out.println("Xero Exception: " + e.getStatusCode());
+        System.out.println("Problem title: " + e.getPayrollUkProblem().getTitle());
+        System.out.println("Problem detail: " + e.getPayrollUkProblem().getDetail());
+        if (e.getPayrollUkProblem().getInvalidFields() != null && e.getPayrollUkProblem().getInvalidFields().size() > 0) {
+          for (com.xero.models.payrolluk.InvalidField field : e.getPayrollUkProblem().getInvalidFields()) {
+            System.out.println("Invalid Field name: " + field.getName());
+            System.out.println("Invalid Field reason: " + field.getReason());
+          }
+        }
       }
+    } catch (XeroAppMinuteRateLimitException | XeroDailyRateLimitException | XeroMinuteRateLimitException e) {
+      // 429
+      System.out.println("Exception status code: " + e.getStatusCode());
+      System.out.println("Exception message: " + e.getMessage());
+      System.out.println("Remaining app minute limit: " + e.getAppLimitRemaining());
+      System.out.println("Remaining daily limit: " + e.getDayLimitRemaining());
+      System.out.println("Remaining minute limit: " + e.getMinuteLimitRemaining());
+      System.out.println("Retry after seconds: " + e.getRetryAfterSeconds());
+    } catch (XeroRateLimitException e) {
+      // 429
+      System.out.println("Exception status code: " + e.getStatusCode());
+      System.out.println("Exception message: " + e.getMessage());
+      System.out.println("Remaining app minute limit: " + e.getAppLimitRemaining());
+      System.out.println("Remaining daily limit: " + e.getDayLimitRemaining());
+      System.out.println("Remaining minute limit: " + e.getMinuteLimitRemaining());
+      System.out.println("Retry after seconds: " + e.getRetryAfterSeconds());
+    } catch (XeroServerErrorException e) {
+      // 500
+      System.out.println("Exception status code: " + e.getStatusCode());
+      System.out.println("Exception message: " + e.getMessage());
+    } catch (Exception e) {
+      // other Exceptions 
     }
-  // AU PAYROLL - Employee VALIDATION ERROR
-  } else if (e.getEmployeeItems() != null && e.getEmployeeItems().size() > 0) {             
-    System.out.println("Xero Exception: " + e.getStatusCode());
-    for (com.xero.models.payrollau.Employee emp : e.getEmployeeItems()) {
-      for (com.xero.models.payrollau.ValidationError err : emp.getValidationErrors()) {
-        System.out.println("Payroll AU Employee Validation Error Msg: " + err.getMessage());
-      }
-    }
-  // AU PAYROLL - Payroll Calendar VALIDATION ERROR
-  } else if (e.getPayrollCalendarItems() != null && e.getPayrollCalendarItems().size() > 0) {             
-    System.out.println("Xero Exception: " + e.getStatusCode());
-    for (com.xero.models.payrollau.PayrollCalendar item : e.getPayrollCalendarItems()) {
-      for (com.xero.models.payrollau.ValidationError err : item.getValidationErrors()) {
-        System.out.println("Payroll AU Payroll Calendar Validation Error Msg: " + err.getMessage());
-      }
-    }
-  // AU PAYROLL - PayRun VALIDATION ERROR
-  } else if (e.getPayRunItems() != null && e.getPayRunItems().size() > 0) {             
-    System.out.println("Xero Exception: " + e.getStatusCode());
-    for (com.xero.models.payrollau.PayRun item : e.getPayRunItems()) {
-      for (com.xero.models.payrollau.ValidationError err : item.getValidationErrors()) {
-        System.out.println("Payroll AU Payroll Calendar Validation Error Msg: " + err.getMessage());
-      }
-    }
-  // AU PAYROLL - SuperFund VALIDATION ERROR
-  } else if (e.getSuperFundItems() != null && e.getSuperFundItems().size() > 0) {             
-    System.out.println("Xero Exception: " + e.getStatusCode());
-    for (com.xero.models.payrollau.SuperFund item : e.getSuperFundItems()) {
-      for (com.xero.models.payrollau.ValidationError err : item.getValidationErrors()) {
-        System.out.println("Payroll AU SuperFund Validation Error Msg: " + err.getMessage());
-      }
-    }
-  // AU PAYROLL - Timesheet VALIDATION ERROR
-  } else if (e.getTimesheetItems() != null && e.getTimesheetItems().size() > 0) {             
-    System.out.println("Xero Exception: " + e.getStatusCode());
-    for (com.xero.models.payrollau.Timesheet item : e.getTimesheetItems()) {
-      for (com.xero.models.payrollau.ValidationError err : item.getValidationErrors()) {
-        System.out.println("Payroll AU Timesheet Validation Error Msg: " + err.getMessage());
-      }
-    }
-  // UK PAYROLL - PROBLEM ERROR
-  } else if (e.getPayrollUkProblem() != null && ((e.getPayrollUkProblem().getDetail() != null && e.getPayrollUkProblem().getTitle() != null) || (e.getPayrollUkProblem().getInvalidFields() != null && e.getPayrollUkProblem().getInvalidFields().size() > 0)) ) {
-    System.out.println("Xero Exception: " + e.getStatusCode());
-    System.out.println("Problem title: " + e.getPayrollUkProblem().getTitle());
-    System.out.println("Problem detail: " + e.getPayrollUkProblem().getDetail());
-    if (e.getPayrollUkProblem().getInvalidFields() != null && e.getPayrollUkProblem().getInvalidFields().size() > 0) {
-      for (com.xero.models.payrolluk.InvalidField field : e.getPayrollUkProblem().getInvalidFields()) {
-        System.out.println("Invalid Field name: " + field.getName());
-        System.out.println("Invalid Field reason: " + field.getReason());
-      }
-    }
-  } else {
-    System.out.println("Error Msg: " + e.getMessage());
   }
-} catch (XeroUnauthorizedException e) {
-  // 401
-  System.out.println("Exception status code: " + e.getStatusCode() );
-  System.out.println("Exception message: " + e.getMessage());           
-} catch (XeroForbiddenException e) {
-  // 403
-  System.out.println("Exception status code: " + e.getStatusCode() );
-  System.out.println("Exception message: " + e.getMessage());           
-} catch (XeroNotFoundException e) {
-  // 404
-  System.out.println("Exception status code: " + e.getStatusCode() );
-  System.out.println("Exception message: " + e.getMessage());           
-} catch (XeroMethodNotAllowedException e) {
-  // 405
-  if (e.getPayrollUkProblem()  != null) {
-    System.out.println("Xero Exception: " + e.getStatusCode());
-    System.out.println("Problem title: " + e.getPayrollUkProblem().getTitle());
-    System.out.println("Problem detail: " + e.getPayrollUkProblem().getDetail());
-    if (e.getPayrollUkProblem().getInvalidFields() != null && e.getPayrollUkProblem().getInvalidFields().size() > 0) {
-      for (com.xero.models.payrolluk.InvalidField field : e.getPayrollUkProblem().getInvalidFields()) {
-        System.out.println("Invalid Field name: " + field.getName());
-        System.out.println("Invalid Field reason: " + field.getReason());
-      }
-    }
-  }
-} catch (XeroRateLimitException e) {
-  // 429
-  System.out.println("Exception status code: " + e.getStatusCode() );
-  System.out.println("Exception message: " + e.getMessage());             
-} catch (XeroServerErrorException e) {
-  // 500
-  System.out.println("Exception status code: " + e.getStatusCode() );
-  System.out.println("Exception message: " + e.getMessage());           
-} catch (Exception e) {
-  // other Exceptions 
 }
 ```
 
