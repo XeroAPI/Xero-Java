@@ -24,12 +24,23 @@ public class ManualJournals {
 
   @JsonProperty("ManualJournals")
   private List<ManualJournal> manualJournals = new ArrayList<ManualJournal>();
-
+  /**
+   * manualJournals
+   *
+   * @param manualJournals List&lt;ManualJournal&gt;
+   * @return ManualJournals
+   */
   public ManualJournals manualJournals(List<ManualJournal> manualJournals) {
     this.manualJournals = manualJournals;
     return this;
   }
 
+  /**
+   * manualJournals
+   *
+   * @param manualJournalsItem ManualJournal
+   * @return ManualJournals
+   */
   public ManualJournals addManualJournalsItem(ManualJournal manualJournalsItem) {
     if (this.manualJournals == null) {
       this.manualJournals = new ArrayList<ManualJournal>();
@@ -44,10 +55,20 @@ public class ManualJournals {
    * @return manualJournals
    */
   @ApiModelProperty(value = "")
+  /**
+   * manualJournals
+   *
+   * @return manualJournals List<ManualJournal>
+   */
   public List<ManualJournal> getManualJournals() {
     return manualJournals;
   }
 
+  /**
+   * manualJournals
+   *
+   * @param manualJournals List&lt;ManualJournal&gt;
+   */
   public void setManualJournals(List<ManualJournal> manualJournals) {
     this.manualJournals = manualJournals;
   }

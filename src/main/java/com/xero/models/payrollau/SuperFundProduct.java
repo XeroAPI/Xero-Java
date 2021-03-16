@@ -31,7 +31,12 @@ public class SuperFundProduct {
 
   @JsonProperty("ProductName")
   private String productName;
-
+  /**
+   * The ABN of the Regulated SuperFund
+   *
+   * @param ABN String
+   * @return SuperFundProduct
+   */
   public SuperFundProduct ABN(String ABN) {
     this.ABN = ABN;
     return this;
@@ -43,14 +48,30 @@ public class SuperFundProduct {
    * @return ABN
    */
   @ApiModelProperty(example = "839182848805", value = "The ABN of the Regulated SuperFund")
+  /**
+   * The ABN of the Regulated SuperFund
+   *
+   * @return ABN String
+   */
   public String getABN() {
     return ABN;
   }
 
+  /**
+   * The ABN of the Regulated SuperFund
+   *
+   * @param ABN String
+   */
   public void setABN(String ABN) {
     this.ABN = ABN;
   }
 
+  /**
+   * The USI of the Regulated SuperFund
+   *
+   * @param USI String
+   * @return SuperFundProduct
+   */
   public SuperFundProduct USI(String USI) {
     this.USI = USI;
     return this;
@@ -62,14 +83,31 @@ public class SuperFundProduct {
    * @return USI
    */
   @ApiModelProperty(example = "839182848805001", value = "The USI of the Regulated SuperFund")
+  /**
+   * The USI of the Regulated SuperFund
+   *
+   * @return USI String
+   */
   public String getUSI() {
     return USI;
   }
 
+  /**
+   * The USI of the Regulated SuperFund
+   *
+   * @param USI String
+   */
   public void setUSI(String USI) {
     this.USI = USI;
   }
 
+  /**
+   * The SPIN of the Regulated SuperFund. This field has been deprecated. New superfunds will not
+   * have a SPIN value. The USI field should be used instead of SPIN
+   *
+   * @param SPIN String
+   * @return SuperFundProduct
+   */
   public SuperFundProduct SPIN(String SPIN) {
     this.SPIN = SPIN;
     return this;
@@ -86,14 +124,32 @@ public class SuperFundProduct {
       value =
           "The SPIN of the Regulated SuperFund. This field has been deprecated. New superfunds"
               + " will not have a SPIN value. The USI field should be used instead of SPIN")
+  /**
+   * The SPIN of the Regulated SuperFund. This field has been deprecated. New superfunds will not
+   * have a SPIN value. The USI field should be used instead of SPIN
+   *
+   * @return SPIN String
+   */
   public String getSPIN() {
     return SPIN;
   }
 
+  /**
+   * The SPIN of the Regulated SuperFund. This field has been deprecated. New superfunds will not
+   * have a SPIN value. The USI field should be used instead of SPIN
+   *
+   * @param SPIN String
+   */
   public void setSPIN(String SPIN) {
     this.SPIN = SPIN;
   }
 
+  /**
+   * The name of the Regulated SuperFund
+   *
+   * @param productName String
+   * @return SuperFundProduct
+   */
   public SuperFundProduct productName(String productName) {
     this.productName = productName;
     return this;
@@ -109,10 +165,20 @@ public class SuperFundProduct {
           "MLC Navigator Retirement Plan - Superannuation Service (including Series 2) (MLC"
               + " Superannuation Fund)",
       value = "The name of the Regulated SuperFund")
+  /**
+   * The name of the Regulated SuperFund
+   *
+   * @return productName String
+   */
   public String getProductName() {
     return productName;
   }
 
+  /**
+   * The name of the Regulated SuperFund
+   *
+   * @param productName String
+   */
   public void setProductName(String productName) {
     this.productName = productName;
   }

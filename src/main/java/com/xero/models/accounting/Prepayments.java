@@ -24,12 +24,23 @@ public class Prepayments {
 
   @JsonProperty("Prepayments")
   private List<Prepayment> prepayments = new ArrayList<Prepayment>();
-
+  /**
+   * prepayments
+   *
+   * @param prepayments List&lt;Prepayment&gt;
+   * @return Prepayments
+   */
   public Prepayments prepayments(List<Prepayment> prepayments) {
     this.prepayments = prepayments;
     return this;
   }
 
+  /**
+   * prepayments
+   *
+   * @param prepaymentsItem Prepayment
+   * @return Prepayments
+   */
   public Prepayments addPrepaymentsItem(Prepayment prepaymentsItem) {
     if (this.prepayments == null) {
       this.prepayments = new ArrayList<Prepayment>();
@@ -44,10 +55,20 @@ public class Prepayments {
    * @return prepayments
    */
   @ApiModelProperty(value = "")
+  /**
+   * prepayments
+   *
+   * @return prepayments List<Prepayment>
+   */
   public List<Prepayment> getPrepayments() {
     return prepayments;
   }
 
+  /**
+   * prepayments
+   *
+   * @param prepayments List&lt;Prepayment&gt;
+   */
   public void setPrepayments(List<Prepayment> prepayments) {
     this.prepayments = prepayments;
   }

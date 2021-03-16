@@ -30,10 +30,13 @@ public class TrackingOption {
   private String name;
   /** The status of a tracking option */
   public enum StatusEnum {
+    /** ACTIVE */
     ACTIVE("ACTIVE"),
 
+    /** ARCHIVED */
     ARCHIVED("ARCHIVED"),
 
+    /** DELETED */
     DELETED("DELETED");
 
     private String value;
@@ -42,16 +45,31 @@ public class TrackingOption {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
@@ -68,7 +86,12 @@ public class TrackingOption {
 
   @JsonProperty("TrackingCategoryID")
   private UUID trackingCategoryID;
-
+  /**
+   * The Xero identifier for a tracking option e.g. ae777a87-5ef3-4fa0-a4f0-d10e1f13073a
+   *
+   * @param trackingOptionID UUID
+   * @return TrackingOption
+   */
   public TrackingOption trackingOptionID(UUID trackingOptionID) {
     this.trackingOptionID = trackingOptionID;
     return this;
@@ -81,14 +104,30 @@ public class TrackingOption {
    */
   @ApiModelProperty(
       value = "The Xero identifier for a tracking option e.g. ae777a87-5ef3-4fa0-a4f0-d10e1f13073a")
+  /**
+   * The Xero identifier for a tracking option e.g. ae777a87-5ef3-4fa0-a4f0-d10e1f13073a
+   *
+   * @return trackingOptionID UUID
+   */
   public UUID getTrackingOptionID() {
     return trackingOptionID;
   }
 
+  /**
+   * The Xero identifier for a tracking option e.g. ae777a87-5ef3-4fa0-a4f0-d10e1f13073a
+   *
+   * @param trackingOptionID UUID
+   */
   public void setTrackingOptionID(UUID trackingOptionID) {
     this.trackingOptionID = trackingOptionID;
   }
 
+  /**
+   * The name of the tracking option e.g. Marketing, East (max length &#x3D; 100)
+   *
+   * @param name String
+   * @return TrackingOption
+   */
   public TrackingOption name(String name) {
     this.name = name;
     return this;
@@ -101,14 +140,30 @@ public class TrackingOption {
    */
   @ApiModelProperty(
       value = "The name of the tracking option e.g. Marketing, East (max length = 100)")
+  /**
+   * The name of the tracking option e.g. Marketing, East (max length &#x3D; 100)
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * The name of the tracking option e.g. Marketing, East (max length &#x3D; 100)
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * The status of a tracking option
+   *
+   * @param status StatusEnum
+   * @return TrackingOption
+   */
   public TrackingOption status(StatusEnum status) {
     this.status = status;
     return this;
@@ -120,14 +175,30 @@ public class TrackingOption {
    * @return status
    */
   @ApiModelProperty(value = "The status of a tracking option")
+  /**
+   * The status of a tracking option
+   *
+   * @return status StatusEnum
+   */
   public StatusEnum getStatus() {
     return status;
   }
 
+  /**
+   * The status of a tracking option
+   *
+   * @param status StatusEnum
+   */
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
+  /**
+   * Filter by a tracking category e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9
+   *
+   * @param trackingCategoryID UUID
+   * @return TrackingOption
+   */
   public TrackingOption trackingCategoryID(UUID trackingCategoryID) {
     this.trackingCategoryID = trackingCategoryID;
     return this;
@@ -140,10 +211,20 @@ public class TrackingOption {
    */
   @ApiModelProperty(
       value = "Filter by a tracking category e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9")
+  /**
+   * Filter by a tracking category e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9
+   *
+   * @return trackingCategoryID UUID
+   */
   public UUID getTrackingCategoryID() {
     return trackingCategoryID;
   }
 
+  /**
+   * Filter by a tracking category e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9
+   *
+   * @param trackingCategoryID UUID
+   */
   public void setTrackingCategoryID(UUID trackingCategoryID) {
     this.trackingCategoryID = trackingCategoryID;
   }

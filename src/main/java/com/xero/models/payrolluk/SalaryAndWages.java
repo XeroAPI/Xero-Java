@@ -30,7 +30,12 @@ public class SalaryAndWages {
 
   @JsonProperty("salaryAndWages")
   private List<SalaryAndWage> salaryAndWages = new ArrayList<SalaryAndWage>();
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return SalaryAndWages
+   */
   public SalaryAndWages pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -42,14 +47,30 @@ public class SalaryAndWages {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return SalaryAndWages
+   */
   public SalaryAndWages problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -61,19 +82,41 @@ public class SalaryAndWages {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * salaryAndWages
+   *
+   * @param salaryAndWages List&lt;SalaryAndWage&gt;
+   * @return SalaryAndWages
+   */
   public SalaryAndWages salaryAndWages(List<SalaryAndWage> salaryAndWages) {
     this.salaryAndWages = salaryAndWages;
     return this;
   }
 
+  /**
+   * salaryAndWages
+   *
+   * @param salaryAndWagesItem SalaryAndWage
+   * @return SalaryAndWages
+   */
   public SalaryAndWages addSalaryAndWagesItem(SalaryAndWage salaryAndWagesItem) {
     if (this.salaryAndWages == null) {
       this.salaryAndWages = new ArrayList<SalaryAndWage>();
@@ -88,10 +131,20 @@ public class SalaryAndWages {
    * @return salaryAndWages
    */
   @ApiModelProperty(value = "")
+  /**
+   * salaryAndWages
+   *
+   * @return salaryAndWages List<SalaryAndWage>
+   */
   public List<SalaryAndWage> getSalaryAndWages() {
     return salaryAndWages;
   }
 
+  /**
+   * salaryAndWages
+   *
+   * @param salaryAndWages List&lt;SalaryAndWage&gt;
+   */
   public void setSalaryAndWages(List<SalaryAndWage> salaryAndWages) {
     this.salaryAndWages = salaryAndWages;
   }

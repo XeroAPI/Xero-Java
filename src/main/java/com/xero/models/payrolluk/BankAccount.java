@@ -28,7 +28,12 @@ public class BankAccount {
 
   @JsonProperty("sortCode")
   private String sortCode;
-
+  /**
+   * Bank account name (max length &#x3D; 32)
+   *
+   * @param accountName String
+   * @return BankAccount
+   */
   public BankAccount accountName(String accountName) {
     this.accountName = accountName;
     return this;
@@ -40,14 +45,30 @@ public class BankAccount {
    * @return accountName
    */
   @ApiModelProperty(required = true, value = "Bank account name (max length = 32)")
+  /**
+   * Bank account name (max length &#x3D; 32)
+   *
+   * @return accountName String
+   */
   public String getAccountName() {
     return accountName;
   }
 
+  /**
+   * Bank account name (max length &#x3D; 32)
+   *
+   * @param accountName String
+   */
   public void setAccountName(String accountName) {
     this.accountName = accountName;
   }
 
+  /**
+   * Bank account number (digits only; max length &#x3D; 8)
+   *
+   * @param accountNumber String
+   * @return BankAccount
+   */
   public BankAccount accountNumber(String accountNumber) {
     this.accountNumber = accountNumber;
     return this;
@@ -59,14 +80,30 @@ public class BankAccount {
    * @return accountNumber
    */
   @ApiModelProperty(required = true, value = "Bank account number (digits only; max length = 8)")
+  /**
+   * Bank account number (digits only; max length &#x3D; 8)
+   *
+   * @return accountNumber String
+   */
   public String getAccountNumber() {
     return accountNumber;
   }
 
+  /**
+   * Bank account number (digits only; max length &#x3D; 8)
+   *
+   * @param accountNumber String
+   */
   public void setAccountNumber(String accountNumber) {
     this.accountNumber = accountNumber;
   }
 
+  /**
+   * Bank account sort code (6 digits)
+   *
+   * @param sortCode String
+   * @return BankAccount
+   */
   public BankAccount sortCode(String sortCode) {
     this.sortCode = sortCode;
     return this;
@@ -78,10 +115,20 @@ public class BankAccount {
    * @return sortCode
    */
   @ApiModelProperty(required = true, value = "Bank account sort code (6 digits)")
+  /**
+   * Bank account sort code (6 digits)
+   *
+   * @return sortCode String
+   */
   public String getSortCode() {
     return sortCode;
   }
 
+  /**
+   * Bank account sort code (6 digits)
+   *
+   * @param sortCode String
+   */
   public void setSortCode(String sortCode) {
     this.sortCode = sortCode;
   }

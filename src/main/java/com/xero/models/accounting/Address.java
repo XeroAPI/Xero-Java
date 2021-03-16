@@ -23,8 +23,10 @@ public class Address {
   StringUtil util = new StringUtil();
   /** define the type of address */
   public enum AddressTypeEnum {
+    /** POBOX */
     POBOX("POBOX"),
 
+    /** STREET */
     STREET("STREET");
 
     private String value;
@@ -33,16 +35,31 @@ public class Address {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static AddressTypeEnum fromValue(String value) {
       for (AddressTypeEnum b : AddressTypeEnum.values()) {
@@ -83,7 +100,12 @@ public class Address {
 
   @JsonProperty("AttentionTo")
   private String attentionTo;
-
+  /**
+   * define the type of address
+   *
+   * @param addressType AddressTypeEnum
+   * @return Address
+   */
   public Address addressType(AddressTypeEnum addressType) {
     this.addressType = addressType;
     return this;
@@ -95,14 +117,30 @@ public class Address {
    * @return addressType
    */
   @ApiModelProperty(value = "define the type of address")
+  /**
+   * define the type of address
+   *
+   * @return addressType AddressTypeEnum
+   */
   public AddressTypeEnum getAddressType() {
     return addressType;
   }
 
+  /**
+   * define the type of address
+   *
+   * @param addressType AddressTypeEnum
+   */
   public void setAddressType(AddressTypeEnum addressType) {
     this.addressType = addressType;
   }
 
+  /**
+   * max length &#x3D; 500
+   *
+   * @param addressLine1 String
+   * @return Address
+   */
   public Address addressLine1(String addressLine1) {
     this.addressLine1 = addressLine1;
     return this;
@@ -114,14 +152,30 @@ public class Address {
    * @return addressLine1
    */
   @ApiModelProperty(value = "max length = 500")
+  /**
+   * max length &#x3D; 500
+   *
+   * @return addressLine1 String
+   */
   public String getAddressLine1() {
     return addressLine1;
   }
 
+  /**
+   * max length &#x3D; 500
+   *
+   * @param addressLine1 String
+   */
   public void setAddressLine1(String addressLine1) {
     this.addressLine1 = addressLine1;
   }
 
+  /**
+   * max length &#x3D; 500
+   *
+   * @param addressLine2 String
+   * @return Address
+   */
   public Address addressLine2(String addressLine2) {
     this.addressLine2 = addressLine2;
     return this;
@@ -133,14 +187,30 @@ public class Address {
    * @return addressLine2
    */
   @ApiModelProperty(value = "max length = 500")
+  /**
+   * max length &#x3D; 500
+   *
+   * @return addressLine2 String
+   */
   public String getAddressLine2() {
     return addressLine2;
   }
 
+  /**
+   * max length &#x3D; 500
+   *
+   * @param addressLine2 String
+   */
   public void setAddressLine2(String addressLine2) {
     this.addressLine2 = addressLine2;
   }
 
+  /**
+   * max length &#x3D; 500
+   *
+   * @param addressLine3 String
+   * @return Address
+   */
   public Address addressLine3(String addressLine3) {
     this.addressLine3 = addressLine3;
     return this;
@@ -152,14 +222,30 @@ public class Address {
    * @return addressLine3
    */
   @ApiModelProperty(value = "max length = 500")
+  /**
+   * max length &#x3D; 500
+   *
+   * @return addressLine3 String
+   */
   public String getAddressLine3() {
     return addressLine3;
   }
 
+  /**
+   * max length &#x3D; 500
+   *
+   * @param addressLine3 String
+   */
   public void setAddressLine3(String addressLine3) {
     this.addressLine3 = addressLine3;
   }
 
+  /**
+   * max length &#x3D; 500
+   *
+   * @param addressLine4 String
+   * @return Address
+   */
   public Address addressLine4(String addressLine4) {
     this.addressLine4 = addressLine4;
     return this;
@@ -171,14 +257,30 @@ public class Address {
    * @return addressLine4
    */
   @ApiModelProperty(value = "max length = 500")
+  /**
+   * max length &#x3D; 500
+   *
+   * @return addressLine4 String
+   */
   public String getAddressLine4() {
     return addressLine4;
   }
 
+  /**
+   * max length &#x3D; 500
+   *
+   * @param addressLine4 String
+   */
   public void setAddressLine4(String addressLine4) {
     this.addressLine4 = addressLine4;
   }
 
+  /**
+   * max length &#x3D; 255
+   *
+   * @param city String
+   * @return Address
+   */
   public Address city(String city) {
     this.city = city;
     return this;
@@ -190,14 +292,30 @@ public class Address {
    * @return city
    */
   @ApiModelProperty(value = "max length = 255")
+  /**
+   * max length &#x3D; 255
+   *
+   * @return city String
+   */
   public String getCity() {
     return city;
   }
 
+  /**
+   * max length &#x3D; 255
+   *
+   * @param city String
+   */
   public void setCity(String city) {
     this.city = city;
   }
 
+  /**
+   * max length &#x3D; 255
+   *
+   * @param region String
+   * @return Address
+   */
   public Address region(String region) {
     this.region = region;
     return this;
@@ -209,14 +327,30 @@ public class Address {
    * @return region
    */
   @ApiModelProperty(value = "max length = 255")
+  /**
+   * max length &#x3D; 255
+   *
+   * @return region String
+   */
   public String getRegion() {
     return region;
   }
 
+  /**
+   * max length &#x3D; 255
+   *
+   * @param region String
+   */
   public void setRegion(String region) {
     this.region = region;
   }
 
+  /**
+   * max length &#x3D; 50
+   *
+   * @param postalCode String
+   * @return Address
+   */
   public Address postalCode(String postalCode) {
     this.postalCode = postalCode;
     return this;
@@ -228,14 +362,30 @@ public class Address {
    * @return postalCode
    */
   @ApiModelProperty(value = "max length = 50")
+  /**
+   * max length &#x3D; 50
+   *
+   * @return postalCode String
+   */
   public String getPostalCode() {
     return postalCode;
   }
 
+  /**
+   * max length &#x3D; 50
+   *
+   * @param postalCode String
+   */
   public void setPostalCode(String postalCode) {
     this.postalCode = postalCode;
   }
 
+  /**
+   * max length &#x3D; 50, [A-Z], [a-z] only
+   *
+   * @param country String
+   * @return Address
+   */
   public Address country(String country) {
     this.country = country;
     return this;
@@ -247,14 +397,30 @@ public class Address {
    * @return country
    */
   @ApiModelProperty(value = "max length = 50, [A-Z], [a-z] only")
+  /**
+   * max length &#x3D; 50, [A-Z], [a-z] only
+   *
+   * @return country String
+   */
   public String getCountry() {
     return country;
   }
 
+  /**
+   * max length &#x3D; 50, [A-Z], [a-z] only
+   *
+   * @param country String
+   */
   public void setCountry(String country) {
     this.country = country;
   }
 
+  /**
+   * max length &#x3D; 255
+   *
+   * @param attentionTo String
+   * @return Address
+   */
   public Address attentionTo(String attentionTo) {
     this.attentionTo = attentionTo;
     return this;
@@ -266,10 +432,20 @@ public class Address {
    * @return attentionTo
    */
   @ApiModelProperty(value = "max length = 255")
+  /**
+   * max length &#x3D; 255
+   *
+   * @return attentionTo String
+   */
   public String getAttentionTo() {
     return attentionTo;
   }
 
+  /**
+   * max length &#x3D; 255
+   *
+   * @param attentionTo String
+   */
   public void setAttentionTo(String attentionTo) {
     this.attentionTo = attentionTo;
   }

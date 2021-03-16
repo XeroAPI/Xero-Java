@@ -30,7 +30,12 @@ public class PayRunCalendars {
 
   @JsonProperty("payRunCalendars")
   private List<PayRunCalendar> payRunCalendars = new ArrayList<PayRunCalendar>();
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return PayRunCalendars
+   */
   public PayRunCalendars pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -42,14 +47,30 @@ public class PayRunCalendars {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return PayRunCalendars
+   */
   public PayRunCalendars problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -61,19 +82,41 @@ public class PayRunCalendars {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * payRunCalendars
+   *
+   * @param payRunCalendars List&lt;PayRunCalendar&gt;
+   * @return PayRunCalendars
+   */
   public PayRunCalendars payRunCalendars(List<PayRunCalendar> payRunCalendars) {
     this.payRunCalendars = payRunCalendars;
     return this;
   }
 
+  /**
+   * payRunCalendars
+   *
+   * @param payRunCalendarsItem PayRunCalendar
+   * @return PayRunCalendars
+   */
   public PayRunCalendars addPayRunCalendarsItem(PayRunCalendar payRunCalendarsItem) {
     if (this.payRunCalendars == null) {
       this.payRunCalendars = new ArrayList<PayRunCalendar>();
@@ -88,10 +131,20 @@ public class PayRunCalendars {
    * @return payRunCalendars
    */
   @ApiModelProperty(value = "")
+  /**
+   * payRunCalendars
+   *
+   * @return payRunCalendars List<PayRunCalendar>
+   */
   public List<PayRunCalendar> getPayRunCalendars() {
     return payRunCalendars;
   }
 
+  /**
+   * payRunCalendars
+   *
+   * @param payRunCalendars List&lt;PayRunCalendar&gt;
+   */
   public void setPayRunCalendars(List<PayRunCalendar> payRunCalendars) {
     this.payRunCalendars = payRunCalendars;
   }

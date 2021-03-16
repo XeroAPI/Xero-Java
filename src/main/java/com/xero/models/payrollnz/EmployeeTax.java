@@ -49,14 +49,19 @@ public class EmployeeTax {
    * &#39;NotCurrentlyAKiwiSaverMember&#39; for employees without a KiwiSaver membership
    */
   public enum KiwiSaverContributionsEnum {
+    /** MAKECONTRIBUTIONS */
     MAKECONTRIBUTIONS("MakeContributions"),
 
+    /** OPTOUT */
     OPTOUT("OptOut"),
 
+    /** ONACONTRIBUTIONSHOLIDAY */
     ONACONTRIBUTIONSHOLIDAY("OnAContributionsHoliday"),
 
+    /** ONASAVINGSSUSPENSION */
     ONASAVINGSSUSPENSION("OnASavingsSuspension"),
 
+    /** NOTCURRENTLYAKIWISAVERMEMBER */
     NOTCURRENTLYAKIWISAVERMEMBER("NotCurrentlyAKiwiSaverMember");
 
     private String value;
@@ -65,16 +70,31 @@ public class EmployeeTax {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static KiwiSaverContributionsEnum fromValue(String value) {
       for (KiwiSaverContributionsEnum b : KiwiSaverContributionsEnum.values()) {
@@ -112,7 +132,12 @@ public class EmployeeTax {
 
   @JsonProperty("studentLoanAsAt")
   private LocalDate studentLoanAsAt;
-
+  /**
+   * The IRD Number.
+   *
+   * @param irdNumber String
+   * @return EmployeeTax
+   */
   public EmployeeTax irdNumber(String irdNumber) {
     this.irdNumber = irdNumber;
     return this;
@@ -124,14 +149,30 @@ public class EmployeeTax {
    * @return irdNumber
    */
   @ApiModelProperty(example = "111111111", value = "The IRD Number.")
+  /**
+   * The IRD Number.
+   *
+   * @return irdNumber String
+   */
   public String getIrdNumber() {
     return irdNumber;
   }
 
+  /**
+   * The IRD Number.
+   *
+   * @param irdNumber String
+   */
   public void setIrdNumber(String irdNumber) {
     this.irdNumber = irdNumber;
   }
 
+  /**
+   * taxCode
+   *
+   * @param taxCode TaxCode
+   * @return EmployeeTax
+   */
   public EmployeeTax taxCode(TaxCode taxCode) {
     this.taxCode = taxCode;
     return this;
@@ -143,14 +184,30 @@ public class EmployeeTax {
    * @return taxCode
    */
   @ApiModelProperty(value = "")
+  /**
+   * taxCode
+   *
+   * @return taxCode TaxCode
+   */
   public TaxCode getTaxCode() {
     return taxCode;
   }
 
+  /**
+   * taxCode
+   *
+   * @param taxCode TaxCode
+   */
   public void setTaxCode(TaxCode taxCode) {
     this.taxCode = taxCode;
   }
 
+  /**
+   * Special tax rate percentage.
+   *
+   * @param specialTaxRatePercentage Double
+   * @return EmployeeTax
+   */
   public EmployeeTax specialTaxRatePercentage(Double specialTaxRatePercentage) {
     this.specialTaxRatePercentage = specialTaxRatePercentage;
     return this;
@@ -162,14 +219,30 @@ public class EmployeeTax {
    * @return specialTaxRatePercentage
    */
   @ApiModelProperty(example = "17.5", value = "Special tax rate percentage.")
+  /**
+   * Special tax rate percentage.
+   *
+   * @return specialTaxRatePercentage Double
+   */
   public Double getSpecialTaxRatePercentage() {
     return specialTaxRatePercentage;
   }
 
+  /**
+   * Special tax rate percentage.
+   *
+   * @param specialTaxRatePercentage Double
+   */
   public void setSpecialTaxRatePercentage(Double specialTaxRatePercentage) {
     this.specialTaxRatePercentage = specialTaxRatePercentage;
   }
 
+  /**
+   * Does the employee has a special student loan rate?
+   *
+   * @param hasSpecialStudentLoanRate Boolean
+   * @return EmployeeTax
+   */
   public EmployeeTax hasSpecialStudentLoanRate(Boolean hasSpecialStudentLoanRate) {
     this.hasSpecialStudentLoanRate = hasSpecialStudentLoanRate;
     return this;
@@ -181,14 +254,30 @@ public class EmployeeTax {
    * @return hasSpecialStudentLoanRate
    */
   @ApiModelProperty(example = "true", value = "Does the employee has a special student loan rate?")
+  /**
+   * Does the employee has a special student loan rate?
+   *
+   * @return hasSpecialStudentLoanRate Boolean
+   */
   public Boolean getHasSpecialStudentLoanRate() {
     return hasSpecialStudentLoanRate;
   }
 
+  /**
+   * Does the employee has a special student loan rate?
+   *
+   * @param hasSpecialStudentLoanRate Boolean
+   */
   public void setHasSpecialStudentLoanRate(Boolean hasSpecialStudentLoanRate) {
     this.hasSpecialStudentLoanRate = hasSpecialStudentLoanRate;
   }
 
+  /**
+   * The employee student loan rate percentage.
+   *
+   * @param specialStudentLoanRatePercentage Double
+   * @return EmployeeTax
+   */
   public EmployeeTax specialStudentLoanRatePercentage(Double specialStudentLoanRatePercentage) {
     this.specialStudentLoanRatePercentage = specialStudentLoanRatePercentage;
     return this;
@@ -200,14 +289,30 @@ public class EmployeeTax {
    * @return specialStudentLoanRatePercentage
    */
   @ApiModelProperty(example = "2.0", value = "The employee student loan rate percentage.")
+  /**
+   * The employee student loan rate percentage.
+   *
+   * @return specialStudentLoanRatePercentage Double
+   */
   public Double getSpecialStudentLoanRatePercentage() {
     return specialStudentLoanRatePercentage;
   }
 
+  /**
+   * The employee student loan rate percentage.
+   *
+   * @param specialStudentLoanRatePercentage Double
+   */
   public void setSpecialStudentLoanRatePercentage(Double specialStudentLoanRatePercentage) {
     this.specialStudentLoanRatePercentage = specialStudentLoanRatePercentage;
   }
 
+  /**
+   * The employee eligibility for KiwiSaver.
+   *
+   * @param isEligibleForKiwiSaver Boolean
+   * @return EmployeeTax
+   */
   public EmployeeTax isEligibleForKiwiSaver(Boolean isEligibleForKiwiSaver) {
     this.isEligibleForKiwiSaver = isEligibleForKiwiSaver;
     return this;
@@ -219,14 +324,30 @@ public class EmployeeTax {
    * @return isEligibleForKiwiSaver
    */
   @ApiModelProperty(example = "true", value = "The employee eligibility for KiwiSaver.")
+  /**
+   * The employee eligibility for KiwiSaver.
+   *
+   * @return isEligibleForKiwiSaver Boolean
+   */
   public Boolean getIsEligibleForKiwiSaver() {
     return isEligibleForKiwiSaver;
   }
 
+  /**
+   * The employee eligibility for KiwiSaver.
+   *
+   * @param isEligibleForKiwiSaver Boolean
+   */
   public void setIsEligibleForKiwiSaver(Boolean isEligibleForKiwiSaver) {
     this.isEligibleForKiwiSaver = isEligibleForKiwiSaver;
   }
 
+  /**
+   * Employer superannuation contribution tax rate.
+   *
+   * @param esctRatePercentage Double
+   * @return EmployeeTax
+   */
   public EmployeeTax esctRatePercentage(Double esctRatePercentage) {
     this.esctRatePercentage = esctRatePercentage;
     return this;
@@ -238,14 +359,32 @@ public class EmployeeTax {
    * @return esctRatePercentage
    */
   @ApiModelProperty(example = "1.0", value = "Employer superannuation contribution tax rate.")
+  /**
+   * Employer superannuation contribution tax rate.
+   *
+   * @return esctRatePercentage Double
+   */
   public Double getEsctRatePercentage() {
     return esctRatePercentage;
   }
 
+  /**
+   * Employer superannuation contribution tax rate.
+   *
+   * @param esctRatePercentage Double
+   */
   public void setEsctRatePercentage(Double esctRatePercentage) {
     this.esctRatePercentage = esctRatePercentage;
   }
 
+  /**
+   * Contribution Option which can be &#39;MakeContributions&#39; &#39;OptOut&#39;,
+   * &#39;OnAContributionsHoliday&#39;, &#39;OnASavingsSuspension&#39;,
+   * &#39;NotCurrentlyAKiwiSaverMember&#39; for employees without a KiwiSaver membership
+   *
+   * @param kiwiSaverContributions KiwiSaverContributionsEnum
+   * @return EmployeeTax
+   */
   public EmployeeTax kiwiSaverContributions(KiwiSaverContributionsEnum kiwiSaverContributions) {
     this.kiwiSaverContributions = kiwiSaverContributions;
     return this;
@@ -264,14 +403,34 @@ public class EmployeeTax {
           "Contribution Option which can be 'MakeContributions' 'OptOut',"
               + " 'OnAContributionsHoliday', 'OnASavingsSuspension',"
               + " 'NotCurrentlyAKiwiSaverMember' for employees without a KiwiSaver membership")
+  /**
+   * Contribution Option which can be &#39;MakeContributions&#39; &#39;OptOut&#39;,
+   * &#39;OnAContributionsHoliday&#39;, &#39;OnASavingsSuspension&#39;,
+   * &#39;NotCurrentlyAKiwiSaverMember&#39; for employees without a KiwiSaver membership
+   *
+   * @return kiwiSaverContributions KiwiSaverContributionsEnum
+   */
   public KiwiSaverContributionsEnum getKiwiSaverContributions() {
     return kiwiSaverContributions;
   }
 
+  /**
+   * Contribution Option which can be &#39;MakeContributions&#39; &#39;OptOut&#39;,
+   * &#39;OnAContributionsHoliday&#39;, &#39;OnASavingsSuspension&#39;,
+   * &#39;NotCurrentlyAKiwiSaverMember&#39; for employees without a KiwiSaver membership
+   *
+   * @param kiwiSaverContributions KiwiSaverContributionsEnum
+   */
   public void setKiwiSaverContributions(KiwiSaverContributionsEnum kiwiSaverContributions) {
     this.kiwiSaverContributions = kiwiSaverContributions;
   }
 
+  /**
+   * Employee Contribution percentage.
+   *
+   * @param kiwiSaverEmployeeContributionRatePercentage Double
+   * @return EmployeeTax
+   */
   public EmployeeTax kiwiSaverEmployeeContributionRatePercentage(
       Double kiwiSaverEmployeeContributionRatePercentage) {
     this.kiwiSaverEmployeeContributionRatePercentage = kiwiSaverEmployeeContributionRatePercentage;
@@ -284,15 +443,31 @@ public class EmployeeTax {
    * @return kiwiSaverEmployeeContributionRatePercentage
    */
   @ApiModelProperty(example = "4.0", value = "Employee Contribution percentage.")
+  /**
+   * Employee Contribution percentage.
+   *
+   * @return kiwiSaverEmployeeContributionRatePercentage Double
+   */
   public Double getKiwiSaverEmployeeContributionRatePercentage() {
     return kiwiSaverEmployeeContributionRatePercentage;
   }
 
+  /**
+   * Employee Contribution percentage.
+   *
+   * @param kiwiSaverEmployeeContributionRatePercentage Double
+   */
   public void setKiwiSaverEmployeeContributionRatePercentage(
       Double kiwiSaverEmployeeContributionRatePercentage) {
     this.kiwiSaverEmployeeContributionRatePercentage = kiwiSaverEmployeeContributionRatePercentage;
   }
 
+  /**
+   * Employer Contribution percentage.
+   *
+   * @param kiwiSaverEmployerContributionRatePercentage Double
+   * @return EmployeeTax
+   */
   public EmployeeTax kiwiSaverEmployerContributionRatePercentage(
       Double kiwiSaverEmployerContributionRatePercentage) {
     this.kiwiSaverEmployerContributionRatePercentage = kiwiSaverEmployerContributionRatePercentage;
@@ -305,15 +480,31 @@ public class EmployeeTax {
    * @return kiwiSaverEmployerContributionRatePercentage
    */
   @ApiModelProperty(example = "10.0", value = "Employer Contribution percentage.")
+  /**
+   * Employer Contribution percentage.
+   *
+   * @return kiwiSaverEmployerContributionRatePercentage Double
+   */
   public Double getKiwiSaverEmployerContributionRatePercentage() {
     return kiwiSaverEmployerContributionRatePercentage;
   }
 
+  /**
+   * Employer Contribution percentage.
+   *
+   * @param kiwiSaverEmployerContributionRatePercentage Double
+   */
   public void setKiwiSaverEmployerContributionRatePercentage(
       Double kiwiSaverEmployerContributionRatePercentage) {
     this.kiwiSaverEmployerContributionRatePercentage = kiwiSaverEmployerContributionRatePercentage;
   }
 
+  /**
+   * Employer Contribution through Salary Sacrifice percentage.
+   *
+   * @param kiwiSaverEmployerSalarySacrificeContributionRatePercentage Double
+   * @return EmployeeTax
+   */
   public EmployeeTax kiwiSaverEmployerSalarySacrificeContributionRatePercentage(
       Double kiwiSaverEmployerSalarySacrificeContributionRatePercentage) {
     this.kiwiSaverEmployerSalarySacrificeContributionRatePercentage =
@@ -329,16 +520,32 @@ public class EmployeeTax {
   @ApiModelProperty(
       example = "2.0",
       value = "Employer Contribution through Salary Sacrifice percentage.")
+  /**
+   * Employer Contribution through Salary Sacrifice percentage.
+   *
+   * @return kiwiSaverEmployerSalarySacrificeContributionRatePercentage Double
+   */
   public Double getKiwiSaverEmployerSalarySacrificeContributionRatePercentage() {
     return kiwiSaverEmployerSalarySacrificeContributionRatePercentage;
   }
 
+  /**
+   * Employer Contribution through Salary Sacrifice percentage.
+   *
+   * @param kiwiSaverEmployerSalarySacrificeContributionRatePercentage Double
+   */
   public void setKiwiSaverEmployerSalarySacrificeContributionRatePercentage(
       Double kiwiSaverEmployerSalarySacrificeContributionRatePercentage) {
     this.kiwiSaverEmployerSalarySacrificeContributionRatePercentage =
         kiwiSaverEmployerSalarySacrificeContributionRatePercentage;
   }
 
+  /**
+   * Opt Out Date.
+   *
+   * @param kiwiSaverOptOutDate LocalDate
+   * @return EmployeeTax
+   */
   public EmployeeTax kiwiSaverOptOutDate(LocalDate kiwiSaverOptOutDate) {
     this.kiwiSaverOptOutDate = kiwiSaverOptOutDate;
     return this;
@@ -350,14 +557,30 @@ public class EmployeeTax {
    * @return kiwiSaverOptOutDate
    */
   @ApiModelProperty(value = "Opt Out Date.")
+  /**
+   * Opt Out Date.
+   *
+   * @return kiwiSaverOptOutDate LocalDate
+   */
   public LocalDate getKiwiSaverOptOutDate() {
     return kiwiSaverOptOutDate;
   }
 
+  /**
+   * Opt Out Date.
+   *
+   * @param kiwiSaverOptOutDate LocalDate
+   */
   public void setKiwiSaverOptOutDate(LocalDate kiwiSaverOptOutDate) {
     this.kiwiSaverOptOutDate = kiwiSaverOptOutDate;
   }
 
+  /**
+   * Contribution holiday expiry date or end date.
+   *
+   * @param kiwiSaverContributionHolidayEndDate LocalDate
+   * @return EmployeeTax
+   */
   public EmployeeTax kiwiSaverContributionHolidayEndDate(
       LocalDate kiwiSaverContributionHolidayEndDate) {
     this.kiwiSaverContributionHolidayEndDate = kiwiSaverContributionHolidayEndDate;
@@ -370,15 +593,32 @@ public class EmployeeTax {
    * @return kiwiSaverContributionHolidayEndDate
    */
   @ApiModelProperty(value = "Contribution holiday expiry date or end date.")
+  /**
+   * Contribution holiday expiry date or end date.
+   *
+   * @return kiwiSaverContributionHolidayEndDate LocalDate
+   */
   public LocalDate getKiwiSaverContributionHolidayEndDate() {
     return kiwiSaverContributionHolidayEndDate;
   }
 
+  /**
+   * Contribution holiday expiry date or end date.
+   *
+   * @param kiwiSaverContributionHolidayEndDate LocalDate
+   */
   public void setKiwiSaverContributionHolidayEndDate(
       LocalDate kiwiSaverContributionHolidayEndDate) {
     this.kiwiSaverContributionHolidayEndDate = kiwiSaverContributionHolidayEndDate;
   }
 
+  /**
+   * Does the employee have a remaining student loan balance? Set a remaining balance if you have
+   * received a letter from IR.
+   *
+   * @param hasStudentLoanBalance Boolean
+   * @return EmployeeTax
+   */
   public EmployeeTax hasStudentLoanBalance(Boolean hasStudentLoanBalance) {
     this.hasStudentLoanBalance = hasStudentLoanBalance;
     return this;
@@ -395,14 +635,32 @@ public class EmployeeTax {
       value =
           "Does the employee have a remaining student loan balance? Set a remaining balance if you"
               + " have received a letter from IR.")
+  /**
+   * Does the employee have a remaining student loan balance? Set a remaining balance if you have
+   * received a letter from IR.
+   *
+   * @return hasStudentLoanBalance Boolean
+   */
   public Boolean getHasStudentLoanBalance() {
     return hasStudentLoanBalance;
   }
 
+  /**
+   * Does the employee have a remaining student loan balance? Set a remaining balance if you have
+   * received a letter from IR.
+   *
+   * @param hasStudentLoanBalance Boolean
+   */
   public void setHasStudentLoanBalance(Boolean hasStudentLoanBalance) {
     this.hasStudentLoanBalance = hasStudentLoanBalance;
   }
 
+  /**
+   * The employee&#39;s student loan balance shown on the letter from IR.
+   *
+   * @param studentLoanBalance Double
+   * @return EmployeeTax
+   */
   public EmployeeTax studentLoanBalance(Double studentLoanBalance) {
     this.studentLoanBalance = studentLoanBalance;
     return this;
@@ -416,14 +674,30 @@ public class EmployeeTax {
   @ApiModelProperty(
       example = "30.0",
       value = "The employee's student loan balance shown on the letter from IR.")
+  /**
+   * The employee&#39;s student loan balance shown on the letter from IR.
+   *
+   * @return studentLoanBalance Double
+   */
   public Double getStudentLoanBalance() {
     return studentLoanBalance;
   }
 
+  /**
+   * The employee&#39;s student loan balance shown on the letter from IR.
+   *
+   * @param studentLoanBalance Double
+   */
   public void setStudentLoanBalance(Double studentLoanBalance) {
     this.studentLoanBalance = studentLoanBalance;
   }
 
+  /**
+   * The date of the letter from IR.
+   *
+   * @param studentLoanAsAt LocalDate
+   * @return EmployeeTax
+   */
   public EmployeeTax studentLoanAsAt(LocalDate studentLoanAsAt) {
     this.studentLoanAsAt = studentLoanAsAt;
     return this;
@@ -435,10 +709,20 @@ public class EmployeeTax {
    * @return studentLoanAsAt
    */
   @ApiModelProperty(value = "The date of the letter from IR.")
+  /**
+   * The date of the letter from IR.
+   *
+   * @return studentLoanAsAt LocalDate
+   */
   public LocalDate getStudentLoanAsAt() {
     return studentLoanAsAt;
   }
 
+  /**
+   * The date of the letter from IR.
+   *
+   * @param studentLoanAsAt LocalDate
+   */
   public void setStudentLoanAsAt(LocalDate studentLoanAsAt) {
     this.studentLoanAsAt = studentLoanAsAt;
   }

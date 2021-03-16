@@ -25,7 +25,12 @@ public class Amount {
 
   @JsonProperty("value")
   private Double value;
-
+  /**
+   * currency
+   *
+   * @param currency CurrencyCode
+   * @return Amount
+   */
   public Amount currency(CurrencyCode currency) {
     this.currency = currency;
     return this;
@@ -37,14 +42,30 @@ public class Amount {
    * @return currency
    */
   @ApiModelProperty(value = "")
+  /**
+   * currency
+   *
+   * @return currency CurrencyCode
+   */
   public CurrencyCode getCurrency() {
     return currency;
   }
 
+  /**
+   * currency
+   *
+   * @param currency CurrencyCode
+   */
   public void setCurrency(CurrencyCode currency) {
     this.currency = currency;
   }
 
+  /**
+   * value
+   *
+   * @param value Double
+   * @return Amount
+   */
   public Amount value(Double value) {
     this.value = value;
     return this;
@@ -56,10 +77,20 @@ public class Amount {
    * @return value
    */
   @ApiModelProperty(example = "1.0", value = "")
+  /**
+   * value
+   *
+   * @return value Double
+   */
   public Double getValue() {
     return value;
   }
 
+  /**
+   * value
+   *
+   * @param value Double
+   */
   public void setValue(Double value) {
     this.value = value;
   }

@@ -24,12 +24,23 @@ public class Folders {
 
   @JsonProperty("Folders")
   private List<Folder> folders = new ArrayList<Folder>();
-
+  /**
+   * folders
+   *
+   * @param folders List&lt;Folder&gt;
+   * @return Folders
+   */
   public Folders folders(List<Folder> folders) {
     this.folders = folders;
     return this;
   }
 
+  /**
+   * folders
+   *
+   * @param foldersItem Folder
+   * @return Folders
+   */
   public Folders addFoldersItem(Folder foldersItem) {
     if (this.folders == null) {
       this.folders = new ArrayList<Folder>();
@@ -44,10 +55,20 @@ public class Folders {
    * @return folders
    */
   @ApiModelProperty(value = "")
+  /**
+   * folders
+   *
+   * @return folders List<Folder>
+   */
   public List<Folder> getFolders() {
     return folders;
   }
 
+  /**
+   * folders
+   *
+   * @param folders List&lt;Folder&gt;
+   */
   public void setFolders(List<Folder> folders) {
     this.folders = folders;
   }

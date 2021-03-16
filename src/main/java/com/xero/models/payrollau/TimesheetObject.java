@@ -22,7 +22,12 @@ public class TimesheetObject {
 
   @JsonProperty("Timesheet")
   private Timesheet timesheet;
-
+  /**
+   * timesheet
+   *
+   * @param timesheet Timesheet
+   * @return TimesheetObject
+   */
   public TimesheetObject timesheet(Timesheet timesheet) {
     this.timesheet = timesheet;
     return this;
@@ -34,10 +39,20 @@ public class TimesheetObject {
    * @return timesheet
    */
   @ApiModelProperty(value = "")
+  /**
+   * timesheet
+   *
+   * @return timesheet Timesheet
+   */
   public Timesheet getTimesheet() {
     return timesheet;
   }
 
+  /**
+   * timesheet
+   *
+   * @param timesheet Timesheet
+   */
   public void setTimesheet(Timesheet timesheet) {
     this.timesheet = timesheet;
   }

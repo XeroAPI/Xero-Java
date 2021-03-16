@@ -30,7 +30,12 @@ public class Reimbursements {
 
   @JsonProperty("reimbursements")
   private List<Reimbursement> reimbursements = new ArrayList<Reimbursement>();
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return Reimbursements
+   */
   public Reimbursements pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -42,14 +47,30 @@ public class Reimbursements {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return Reimbursements
+   */
   public Reimbursements problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -61,19 +82,41 @@ public class Reimbursements {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * reimbursements
+   *
+   * @param reimbursements List&lt;Reimbursement&gt;
+   * @return Reimbursements
+   */
   public Reimbursements reimbursements(List<Reimbursement> reimbursements) {
     this.reimbursements = reimbursements;
     return this;
   }
 
+  /**
+   * reimbursements
+   *
+   * @param reimbursementsItem Reimbursement
+   * @return Reimbursements
+   */
   public Reimbursements addReimbursementsItem(Reimbursement reimbursementsItem) {
     if (this.reimbursements == null) {
       this.reimbursements = new ArrayList<Reimbursement>();
@@ -88,10 +131,20 @@ public class Reimbursements {
    * @return reimbursements
    */
   @ApiModelProperty(value = "")
+  /**
+   * reimbursements
+   *
+   * @return reimbursements List<Reimbursement>
+   */
   public List<Reimbursement> getReimbursements() {
     return reimbursements;
   }
 
+  /**
+   * reimbursements
+   *
+   * @param reimbursements List&lt;Reimbursement&gt;
+   */
   public void setReimbursements(List<Reimbursement> reimbursements) {
     this.reimbursements = reimbursements;
   }

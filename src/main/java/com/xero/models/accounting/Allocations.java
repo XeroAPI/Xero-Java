@@ -24,12 +24,23 @@ public class Allocations {
 
   @JsonProperty("Allocations")
   private List<Allocation> allocations = new ArrayList<Allocation>();
-
+  /**
+   * allocations
+   *
+   * @param allocations List&lt;Allocation&gt;
+   * @return Allocations
+   */
   public Allocations allocations(List<Allocation> allocations) {
     this.allocations = allocations;
     return this;
   }
 
+  /**
+   * allocations
+   *
+   * @param allocationsItem Allocation
+   * @return Allocations
+   */
   public Allocations addAllocationsItem(Allocation allocationsItem) {
     if (this.allocations == null) {
       this.allocations = new ArrayList<Allocation>();
@@ -44,10 +55,20 @@ public class Allocations {
    * @return allocations
    */
   @ApiModelProperty(value = "")
+  /**
+   * allocations
+   *
+   * @return allocations List<Allocation>
+   */
   public List<Allocation> getAllocations() {
     return allocations;
   }
 
+  /**
+   * allocations
+   *
+   * @param allocations List&lt;Allocation&gt;
+   */
   public void setAllocations(List<Allocation> allocations) {
     this.allocations = allocations;
   }

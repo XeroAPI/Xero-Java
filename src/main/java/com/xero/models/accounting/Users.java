@@ -24,12 +24,23 @@ public class Users {
 
   @JsonProperty("Users")
   private List<User> users = new ArrayList<User>();
-
+  /**
+   * users
+   *
+   * @param users List&lt;User&gt;
+   * @return Users
+   */
   public Users users(List<User> users) {
     this.users = users;
     return this;
   }
 
+  /**
+   * users
+   *
+   * @param usersItem User
+   * @return Users
+   */
   public Users addUsersItem(User usersItem) {
     if (this.users == null) {
       this.users = new ArrayList<User>();
@@ -44,10 +55,20 @@ public class Users {
    * @return users
    */
   @ApiModelProperty(value = "")
+  /**
+   * users
+   *
+   * @return users List<User>
+   */
   public List<User> getUsers() {
     return users;
   }
 
+  /**
+   * users
+   *
+   * @param users List&lt;User&gt;
+   */
   public void setUsers(List<User> users) {
     this.users = users;
   }

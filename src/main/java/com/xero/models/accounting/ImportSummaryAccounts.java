@@ -15,7 +15,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.math.BigDecimal;
 import java.util.Objects;
 
 /** A summary of the accounts changes */
@@ -24,33 +23,38 @@ public class ImportSummaryAccounts {
   StringUtil util = new StringUtil();
 
   @JsonProperty("Total")
-  private BigDecimal total;
+  private Integer total;
 
   @JsonProperty("New")
-  private BigDecimal _new;
+  private Integer _new;
 
   @JsonProperty("Updated")
-  private BigDecimal updated;
+  private Integer updated;
 
   @JsonProperty("Deleted")
-  private BigDecimal deleted;
+  private Integer deleted;
 
   @JsonProperty("Locked")
-  private BigDecimal locked;
+  private Integer locked;
 
   @JsonProperty("System")
-  private BigDecimal system;
+  private Integer system;
 
   @JsonProperty("Errored")
-  private BigDecimal errored;
+  private Integer errored;
 
   @JsonProperty("Present")
   private Boolean present;
 
   @JsonProperty("NewOrUpdated")
-  private BigDecimal newOrUpdated;
-
-  public ImportSummaryAccounts total(BigDecimal total) {
+  private Integer newOrUpdated;
+  /**
+   * The total number of accounts in the org
+   *
+   * @param total Integer
+   * @return ImportSummaryAccounts
+   */
+  public ImportSummaryAccounts total(Integer total) {
     this.total = total;
     return this;
   }
@@ -61,15 +65,31 @@ public class ImportSummaryAccounts {
    * @return total
    */
   @ApiModelProperty(value = "The total number of accounts in the org")
-  public BigDecimal getTotal() {
+  /**
+   * The total number of accounts in the org
+   *
+   * @return total Integer
+   */
+  public Integer getTotal() {
     return total;
   }
 
-  public void setTotal(BigDecimal total) {
+  /**
+   * The total number of accounts in the org
+   *
+   * @param total Integer
+   */
+  public void setTotal(Integer total) {
     this.total = total;
   }
 
-  public ImportSummaryAccounts _new(BigDecimal _new) {
+  /**
+   * The number of new accounts created
+   *
+   * @param _new Integer
+   * @return ImportSummaryAccounts
+   */
+  public ImportSummaryAccounts _new(Integer _new) {
     this._new = _new;
     return this;
   }
@@ -80,15 +100,31 @@ public class ImportSummaryAccounts {
    * @return _new
    */
   @ApiModelProperty(value = "The number of new accounts created")
-  public BigDecimal getNew() {
+  /**
+   * The number of new accounts created
+   *
+   * @return _new Integer
+   */
+  public Integer getNew() {
     return _new;
   }
 
-  public void setNew(BigDecimal _new) {
+  /**
+   * The number of new accounts created
+   *
+   * @param _new Integer
+   */
+  public void setNew(Integer _new) {
     this._new = _new;
   }
 
-  public ImportSummaryAccounts updated(BigDecimal updated) {
+  /**
+   * The number of accounts updated
+   *
+   * @param updated Integer
+   * @return ImportSummaryAccounts
+   */
+  public ImportSummaryAccounts updated(Integer updated) {
     this.updated = updated;
     return this;
   }
@@ -99,15 +135,31 @@ public class ImportSummaryAccounts {
    * @return updated
    */
   @ApiModelProperty(value = "The number of accounts updated")
-  public BigDecimal getUpdated() {
+  /**
+   * The number of accounts updated
+   *
+   * @return updated Integer
+   */
+  public Integer getUpdated() {
     return updated;
   }
 
-  public void setUpdated(BigDecimal updated) {
+  /**
+   * The number of accounts updated
+   *
+   * @param updated Integer
+   */
+  public void setUpdated(Integer updated) {
     this.updated = updated;
   }
 
-  public ImportSummaryAccounts deleted(BigDecimal deleted) {
+  /**
+   * The number of accounts deleted
+   *
+   * @param deleted Integer
+   * @return ImportSummaryAccounts
+   */
+  public ImportSummaryAccounts deleted(Integer deleted) {
     this.deleted = deleted;
     return this;
   }
@@ -118,15 +170,31 @@ public class ImportSummaryAccounts {
    * @return deleted
    */
   @ApiModelProperty(value = "The number of accounts deleted")
-  public BigDecimal getDeleted() {
+  /**
+   * The number of accounts deleted
+   *
+   * @return deleted Integer
+   */
+  public Integer getDeleted() {
     return deleted;
   }
 
-  public void setDeleted(BigDecimal deleted) {
+  /**
+   * The number of accounts deleted
+   *
+   * @param deleted Integer
+   */
+  public void setDeleted(Integer deleted) {
     this.deleted = deleted;
   }
 
-  public ImportSummaryAccounts locked(BigDecimal locked) {
+  /**
+   * The number of locked accounts
+   *
+   * @param locked Integer
+   * @return ImportSummaryAccounts
+   */
+  public ImportSummaryAccounts locked(Integer locked) {
     this.locked = locked;
     return this;
   }
@@ -137,15 +205,31 @@ public class ImportSummaryAccounts {
    * @return locked
    */
   @ApiModelProperty(value = "The number of locked accounts")
-  public BigDecimal getLocked() {
+  /**
+   * The number of locked accounts
+   *
+   * @return locked Integer
+   */
+  public Integer getLocked() {
     return locked;
   }
 
-  public void setLocked(BigDecimal locked) {
+  /**
+   * The number of locked accounts
+   *
+   * @param locked Integer
+   */
+  public void setLocked(Integer locked) {
     this.locked = locked;
   }
 
-  public ImportSummaryAccounts system(BigDecimal system) {
+  /**
+   * The number of system accounts
+   *
+   * @param system Integer
+   * @return ImportSummaryAccounts
+   */
+  public ImportSummaryAccounts system(Integer system) {
     this.system = system;
     return this;
   }
@@ -156,15 +240,31 @@ public class ImportSummaryAccounts {
    * @return system
    */
   @ApiModelProperty(value = "The number of system accounts")
-  public BigDecimal getSystem() {
+  /**
+   * The number of system accounts
+   *
+   * @return system Integer
+   */
+  public Integer getSystem() {
     return system;
   }
 
-  public void setSystem(BigDecimal system) {
+  /**
+   * The number of system accounts
+   *
+   * @param system Integer
+   */
+  public void setSystem(Integer system) {
     this.system = system;
   }
 
-  public ImportSummaryAccounts errored(BigDecimal errored) {
+  /**
+   * The number of accounts that had an error
+   *
+   * @param errored Integer
+   * @return ImportSummaryAccounts
+   */
+  public ImportSummaryAccounts errored(Integer errored) {
     this.errored = errored;
     return this;
   }
@@ -175,14 +275,30 @@ public class ImportSummaryAccounts {
    * @return errored
    */
   @ApiModelProperty(value = "The number of accounts that had an error")
-  public BigDecimal getErrored() {
+  /**
+   * The number of accounts that had an error
+   *
+   * @return errored Integer
+   */
+  public Integer getErrored() {
     return errored;
   }
 
-  public void setErrored(BigDecimal errored) {
+  /**
+   * The number of accounts that had an error
+   *
+   * @param errored Integer
+   */
+  public void setErrored(Integer errored) {
     this.errored = errored;
   }
 
+  /**
+   * present
+   *
+   * @param present Boolean
+   * @return ImportSummaryAccounts
+   */
   public ImportSummaryAccounts present(Boolean present) {
     this.present = present;
     return this;
@@ -194,15 +310,31 @@ public class ImportSummaryAccounts {
    * @return present
    */
   @ApiModelProperty(value = "")
+  /**
+   * present
+   *
+   * @return present Boolean
+   */
   public Boolean getPresent() {
     return present;
   }
 
+  /**
+   * present
+   *
+   * @param present Boolean
+   */
   public void setPresent(Boolean present) {
     this.present = present;
   }
 
-  public ImportSummaryAccounts newOrUpdated(BigDecimal newOrUpdated) {
+  /**
+   * The number of new or updated accounts
+   *
+   * @param newOrUpdated Integer
+   * @return ImportSummaryAccounts
+   */
+  public ImportSummaryAccounts newOrUpdated(Integer newOrUpdated) {
     this.newOrUpdated = newOrUpdated;
     return this;
   }
@@ -213,11 +345,21 @@ public class ImportSummaryAccounts {
    * @return newOrUpdated
    */
   @ApiModelProperty(value = "The number of new or updated accounts")
-  public BigDecimal getNewOrUpdated() {
+  /**
+   * The number of new or updated accounts
+   *
+   * @return newOrUpdated Integer
+   */
+  public Integer getNewOrUpdated() {
     return newOrUpdated;
   }
 
-  public void setNewOrUpdated(BigDecimal newOrUpdated) {
+  /**
+   * The number of new or updated accounts
+   *
+   * @param newOrUpdated Integer
+   */
+  public void setNewOrUpdated(Integer newOrUpdated) {
     this.newOrUpdated = newOrUpdated;
   }
 

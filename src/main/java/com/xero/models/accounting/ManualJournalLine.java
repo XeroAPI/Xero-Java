@@ -46,7 +46,12 @@ public class ManualJournalLine {
 
   @JsonProperty("IsBlank")
   private Boolean isBlank;
-
+  /**
+   * total for line. Debits are positive, credits are negative value
+   *
+   * @param lineAmount Double
+   * @return ManualJournalLine
+   */
   public ManualJournalLine lineAmount(Double lineAmount) {
     this.lineAmount = lineAmount;
     return this;
@@ -60,14 +65,30 @@ public class ManualJournalLine {
   @ApiModelProperty(
       example = "-2569.0",
       value = "total for line. Debits are positive, credits are negative value")
+  /**
+   * total for line. Debits are positive, credits are negative value
+   *
+   * @return lineAmount Double
+   */
   public Double getLineAmount() {
     return lineAmount;
   }
 
+  /**
+   * total for line. Debits are positive, credits are negative value
+   *
+   * @param lineAmount Double
+   */
   public void setLineAmount(Double lineAmount) {
     this.lineAmount = lineAmount;
   }
 
+  /**
+   * See Accounts
+   *
+   * @param accountCode String
+   * @return ManualJournalLine
+   */
   public ManualJournalLine accountCode(String accountCode) {
     this.accountCode = accountCode;
     return this;
@@ -79,14 +100,30 @@ public class ManualJournalLine {
    * @return accountCode
    */
   @ApiModelProperty(example = "720", value = "See Accounts")
+  /**
+   * See Accounts
+   *
+   * @return accountCode String
+   */
   public String getAccountCode() {
     return accountCode;
   }
 
+  /**
+   * See Accounts
+   *
+   * @param accountCode String
+   */
   public void setAccountCode(String accountCode) {
     this.accountCode = accountCode;
   }
 
+  /**
+   * See Accounts
+   *
+   * @param accountID UUID
+   * @return ManualJournalLine
+   */
   public ManualJournalLine accountID(UUID accountID) {
     this.accountID = accountID;
     return this;
@@ -98,14 +135,30 @@ public class ManualJournalLine {
    * @return accountID
    */
   @ApiModelProperty(value = "See Accounts")
+  /**
+   * See Accounts
+   *
+   * @return accountID UUID
+   */
   public UUID getAccountID() {
     return accountID;
   }
 
+  /**
+   * See Accounts
+   *
+   * @param accountID UUID
+   */
   public void setAccountID(UUID accountID) {
     this.accountID = accountID;
   }
 
+  /**
+   * Description for journal line
+   *
+   * @param description String
+   * @return ManualJournalLine
+   */
   public ManualJournalLine description(String description) {
     this.description = description;
     return this;
@@ -119,14 +172,30 @@ public class ManualJournalLine {
   @ApiModelProperty(
       example = "Coded incorrectly Office Equipment should be Computer Equipment",
       value = "Description for journal line")
+  /**
+   * Description for journal line
+   *
+   * @return description String
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * Description for journal line
+   *
+   * @param description String
+   */
   public void setDescription(String description) {
     this.description = description;
   }
 
+  /**
+   * The tax type from TaxRates
+   *
+   * @param taxType String
+   * @return ManualJournalLine
+   */
   public ManualJournalLine taxType(String taxType) {
     this.taxType = taxType;
     return this;
@@ -138,19 +207,43 @@ public class ManualJournalLine {
    * @return taxType
    */
   @ApiModelProperty(value = "The tax type from TaxRates")
+  /**
+   * The tax type from TaxRates
+   *
+   * @return taxType String
+   */
   public String getTaxType() {
     return taxType;
   }
 
+  /**
+   * The tax type from TaxRates
+   *
+   * @param taxType String
+   */
   public void setTaxType(String taxType) {
     this.taxType = taxType;
   }
 
+  /**
+   * Optional Tracking Category – see Tracking. Any JournalLine can have a maximum of 2
+   * &lt;TrackingCategory&gt; elements.
+   *
+   * @param tracking List&lt;TrackingCategory&gt;
+   * @return ManualJournalLine
+   */
   public ManualJournalLine tracking(List<TrackingCategory> tracking) {
     this.tracking = tracking;
     return this;
   }
 
+  /**
+   * Optional Tracking Category – see Tracking. Any JournalLine can have a maximum of 2
+   * &lt;TrackingCategory&gt; elements.
+   *
+   * @param trackingItem TrackingCategory
+   * @return ManualJournalLine
+   */
   public ManualJournalLine addTrackingItem(TrackingCategory trackingItem) {
     if (this.tracking == null) {
       this.tracking = new ArrayList<TrackingCategory>();
@@ -169,10 +262,22 @@ public class ManualJournalLine {
       value =
           "Optional Tracking Category – see Tracking. Any JournalLine can have a maximum of 2"
               + " <TrackingCategory> elements.")
+  /**
+   * Optional Tracking Category – see Tracking. Any JournalLine can have a maximum of 2
+   * &lt;TrackingCategory&gt; elements.
+   *
+   * @return tracking List<TrackingCategory>
+   */
   public List<TrackingCategory> getTracking() {
     return tracking;
   }
 
+  /**
+   * Optional Tracking Category – see Tracking. Any JournalLine can have a maximum of 2
+   * &lt;TrackingCategory&gt; elements.
+   *
+   * @param tracking List&lt;TrackingCategory&gt;
+   */
   public void setTracking(List<TrackingCategory> tracking) {
     this.tracking = tracking;
   }
@@ -185,10 +290,21 @@ public class ManualJournalLine {
   @ApiModelProperty(
       example = "0.0",
       value = "The calculated tax amount based on the TaxType and LineAmount")
+  /**
+   * The calculated tax amount based on the TaxType and LineAmount
+   *
+   * @return taxAmount Double
+   */
   public Double getTaxAmount() {
     return taxAmount;
   }
 
+  /**
+   * is the line blank
+   *
+   * @param isBlank Boolean
+   * @return ManualJournalLine
+   */
   public ManualJournalLine isBlank(Boolean isBlank) {
     this.isBlank = isBlank;
     return this;
@@ -200,10 +316,20 @@ public class ManualJournalLine {
    * @return isBlank
    */
   @ApiModelProperty(example = "false", value = "is the line blank")
+  /**
+   * is the line blank
+   *
+   * @return isBlank Boolean
+   */
   public Boolean getIsBlank() {
     return isBlank;
   }
 
+  /**
+   * is the line blank
+   *
+   * @param isBlank Boolean
+   */
   public void setIsBlank(Boolean isBlank) {
     this.isBlank = isBlank;
   }

@@ -37,7 +37,12 @@ public class ReimbursementType {
 
   @JsonProperty("CurrentRecord")
   private Boolean currentRecord;
-
+  /**
+   * Name of the earnings rate (max length &#x3D; 100)
+   *
+   * @param name String
+   * @return ReimbursementType
+   */
   public ReimbursementType name(String name) {
     this.name = name;
     return this;
@@ -49,14 +54,30 @@ public class ReimbursementType {
    * @return name
    */
   @ApiModelProperty(example = "PTO", value = "Name of the earnings rate (max length = 100)")
+  /**
+   * Name of the earnings rate (max length &#x3D; 100)
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Name of the earnings rate (max length &#x3D; 100)
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * See Accounts
+   *
+   * @param accountCode String
+   * @return ReimbursementType
+   */
   public ReimbursementType accountCode(String accountCode) {
     this.accountCode = accountCode;
     return this;
@@ -68,14 +89,30 @@ public class ReimbursementType {
    * @return accountCode
    */
   @ApiModelProperty(example = "720", value = "See Accounts")
+  /**
+   * See Accounts
+   *
+   * @return accountCode String
+   */
   public String getAccountCode() {
     return accountCode;
   }
 
+  /**
+   * See Accounts
+   *
+   * @param accountCode String
+   */
   public void setAccountCode(String accountCode) {
     this.accountCode = accountCode;
   }
 
+  /**
+   * Xero identifier
+   *
+   * @param reimbursementTypeID UUID
+   * @return ReimbursementType
+   */
   public ReimbursementType reimbursementTypeID(UUID reimbursementTypeID) {
     this.reimbursementTypeID = reimbursementTypeID;
     return this;
@@ -87,10 +124,20 @@ public class ReimbursementType {
    * @return reimbursementTypeID
    */
   @ApiModelProperty(example = "e0eb6747-7c17-4075-b804-989f8d4e5d39", value = "Xero identifier")
+  /**
+   * Xero identifier
+   *
+   * @return reimbursementTypeID UUID
+   */
   public UUID getReimbursementTypeID() {
     return reimbursementTypeID;
   }
 
+  /**
+   * Xero identifier
+   *
+   * @param reimbursementTypeID UUID
+   */
   public void setReimbursementTypeID(UUID reimbursementTypeID) {
     this.reimbursementTypeID = reimbursementTypeID;
   }
@@ -101,10 +148,19 @@ public class ReimbursementType {
    * @return updatedDateUTC
    */
   @ApiModelProperty(example = "/Date(1583967733054+0000)/", value = "Last modified timestamp")
+  /**
+   * Last modified timestamp
+   *
+   * @return updatedDateUTC String
+   */
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-
+  /**
+   * Last modified timestamp
+   *
+   * @return OffsetDateTime
+   */
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
@@ -116,6 +172,12 @@ public class ReimbursementType {
     return null;
   }
 
+  /**
+   * Is the current record
+   *
+   * @param currentRecord Boolean
+   * @return ReimbursementType
+   */
   public ReimbursementType currentRecord(Boolean currentRecord) {
     this.currentRecord = currentRecord;
     return this;
@@ -127,10 +189,20 @@ public class ReimbursementType {
    * @return currentRecord
    */
   @ApiModelProperty(example = "true", value = "Is the current record")
+  /**
+   * Is the current record
+   *
+   * @return currentRecord Boolean
+   */
   public Boolean getCurrentRecord() {
     return currentRecord;
   }
 
+  /**
+   * Is the current record
+   *
+   * @param currentRecord Boolean
+   */
   public void setCurrentRecord(Boolean currentRecord) {
     this.currentRecord = currentRecord;
   }

@@ -24,12 +24,23 @@ public class TrackingCategories {
 
   @JsonProperty("TrackingCategories")
   private List<TrackingCategory> trackingCategories = new ArrayList<TrackingCategory>();
-
+  /**
+   * trackingCategories
+   *
+   * @param trackingCategories List&lt;TrackingCategory&gt;
+   * @return TrackingCategories
+   */
   public TrackingCategories trackingCategories(List<TrackingCategory> trackingCategories) {
     this.trackingCategories = trackingCategories;
     return this;
   }
 
+  /**
+   * trackingCategories
+   *
+   * @param trackingCategoriesItem TrackingCategory
+   * @return TrackingCategories
+   */
   public TrackingCategories addTrackingCategoriesItem(TrackingCategory trackingCategoriesItem) {
     if (this.trackingCategories == null) {
       this.trackingCategories = new ArrayList<TrackingCategory>();
@@ -44,10 +55,20 @@ public class TrackingCategories {
    * @return trackingCategories
    */
   @ApiModelProperty(value = "")
+  /**
+   * trackingCategories
+   *
+   * @return trackingCategories List<TrackingCategory>
+   */
   public List<TrackingCategory> getTrackingCategories() {
     return trackingCategories;
   }
 
+  /**
+   * trackingCategories
+   *
+   * @param trackingCategories List&lt;TrackingCategory&gt;
+   */
   public void setTrackingCategories(List<TrackingCategory> trackingCategories) {
     this.trackingCategories = trackingCategories;
   }

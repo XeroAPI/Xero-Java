@@ -22,7 +22,12 @@ public class RequestEmpty {
 
   @JsonProperty("Status")
   private String status;
-
+  /**
+   * Need at least one field to create an empty JSON payload
+   *
+   * @param status String
+   * @return RequestEmpty
+   */
   public RequestEmpty status(String status) {
     this.status = status;
     return this;
@@ -34,10 +39,20 @@ public class RequestEmpty {
    * @return status
    */
   @ApiModelProperty(value = "Need at least one field to create an empty JSON payload")
+  /**
+   * Need at least one field to create an empty JSON payload
+   *
+   * @return status String
+   */
   public String getStatus() {
     return status;
   }
 
+  /**
+   * Need at least one field to create an empty JSON payload
+   *
+   * @param status String
+   */
   public void setStatus(String status) {
     this.status = status;
   }

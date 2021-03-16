@@ -24,12 +24,23 @@ public class Items {
 
   @JsonProperty("Items")
   private List<Item> items = new ArrayList<Item>();
-
+  /**
+   * items
+   *
+   * @param items List&lt;Item&gt;
+   * @return Items
+   */
   public Items items(List<Item> items) {
     this.items = items;
     return this;
   }
 
+  /**
+   * items
+   *
+   * @param itemsItem Item
+   * @return Items
+   */
   public Items addItemsItem(Item itemsItem) {
     if (this.items == null) {
       this.items = new ArrayList<Item>();
@@ -44,10 +55,20 @@ public class Items {
    * @return items
    */
   @ApiModelProperty(value = "")
+  /**
+   * items
+   *
+   * @return items List<Item>
+   */
   public List<Item> getItems() {
     return items;
   }
 
+  /**
+   * items
+   *
+   * @param items List&lt;Item&gt;
+   */
   public void setItems(List<Item> items) {
     this.items = items;
   }

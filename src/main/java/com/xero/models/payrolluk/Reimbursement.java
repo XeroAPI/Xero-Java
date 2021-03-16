@@ -32,7 +32,12 @@ public class Reimbursement {
 
   @JsonProperty("currentRecord")
   private Boolean currentRecord;
-
+  /**
+   * Xero unique identifier for a reimbursement
+   *
+   * @param reimbursementID UUID
+   * @return Reimbursement
+   */
   public Reimbursement reimbursementID(UUID reimbursementID) {
     this.reimbursementID = reimbursementID;
     return this;
@@ -44,14 +49,30 @@ public class Reimbursement {
    * @return reimbursementID
    */
   @ApiModelProperty(value = "Xero unique identifier for a reimbursement")
+  /**
+   * Xero unique identifier for a reimbursement
+   *
+   * @return reimbursementID UUID
+   */
   public UUID getReimbursementID() {
     return reimbursementID;
   }
 
+  /**
+   * Xero unique identifier for a reimbursement
+   *
+   * @param reimbursementID UUID
+   */
   public void setReimbursementID(UUID reimbursementID) {
     this.reimbursementID = reimbursementID;
   }
 
+  /**
+   * Name of the reimbursement
+   *
+   * @param name String
+   * @return Reimbursement
+   */
   public Reimbursement name(String name) {
     this.name = name;
     return this;
@@ -63,14 +84,30 @@ public class Reimbursement {
    * @return name
    */
   @ApiModelProperty(required = true, value = "Name of the reimbursement")
+  /**
+   * Name of the reimbursement
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Name of the reimbursement
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * Xero unique identifier for the account used for the reimbursement
+   *
+   * @param accountID UUID
+   * @return Reimbursement
+   */
   public Reimbursement accountID(UUID accountID) {
     this.accountID = accountID;
     return this;
@@ -84,14 +121,30 @@ public class Reimbursement {
   @ApiModelProperty(
       required = true,
       value = "Xero unique identifier for the account used for the reimbursement")
+  /**
+   * Xero unique identifier for the account used for the reimbursement
+   *
+   * @return accountID UUID
+   */
   public UUID getAccountID() {
     return accountID;
   }
 
+  /**
+   * Xero unique identifier for the account used for the reimbursement
+   *
+   * @param accountID UUID
+   */
   public void setAccountID(UUID accountID) {
     this.accountID = accountID;
   }
 
+  /**
+   * Indicates that whether the reimbursement is active
+   *
+   * @param currentRecord Boolean
+   * @return Reimbursement
+   */
   public Reimbursement currentRecord(Boolean currentRecord) {
     this.currentRecord = currentRecord;
     return this;
@@ -103,10 +156,20 @@ public class Reimbursement {
    * @return currentRecord
    */
   @ApiModelProperty(value = "Indicates that whether the reimbursement is active")
+  /**
+   * Indicates that whether the reimbursement is active
+   *
+   * @return currentRecord Boolean
+   */
   public Boolean getCurrentRecord() {
     return currentRecord;
   }
 
+  /**
+   * Indicates that whether the reimbursement is active
+   *
+   * @param currentRecord Boolean
+   */
   public void setCurrentRecord(Boolean currentRecord) {
     this.currentRecord = currentRecord;
   }

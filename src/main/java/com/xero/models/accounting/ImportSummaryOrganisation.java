@@ -22,7 +22,12 @@ public class ImportSummaryOrganisation {
 
   @JsonProperty("Present")
   private Boolean present;
-
+  /**
+   * present
+   *
+   * @param present Boolean
+   * @return ImportSummaryOrganisation
+   */
   public ImportSummaryOrganisation present(Boolean present) {
     this.present = present;
     return this;
@@ -34,10 +39,20 @@ public class ImportSummaryOrganisation {
    * @return present
    */
   @ApiModelProperty(value = "")
+  /**
+   * present
+   *
+   * @return present Boolean
+   */
   public Boolean getPresent() {
     return present;
   }
 
+  /**
+   * present
+   *
+   * @param present Boolean
+   */
   public void setPresent(Boolean present) {
     this.present = present;
   }

@@ -50,14 +50,19 @@ public class LinkedTransaction {
    * /LinkedTransactions?ContactID&#x3D;4bb34b03-3378-4bb2-a0ed-6345abf3224e&amp;Status&#x3D;APPROVED.
    */
   public enum StatusEnum {
+    /** APPROVED */
     APPROVED("APPROVED"),
 
+    /** DRAFT */
     DRAFT("DRAFT"),
 
+    /** ONDRAFT */
     ONDRAFT("ONDRAFT"),
 
+    /** BILLED */
     BILLED("BILLED"),
 
+    /** VOIDED */
     VOIDED("VOIDED");
 
     private String value;
@@ -66,16 +71,31 @@ public class LinkedTransaction {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
@@ -91,6 +111,7 @@ public class LinkedTransaction {
   private StatusEnum status;
   /** This will always be BILLABLEEXPENSE. More types may be added in future. */
   public enum TypeEnum {
+    /** BILLABLEEXPENSE */
     BILLABLEEXPENSE("BILLABLEEXPENSE");
 
     private String value;
@@ -99,16 +120,31 @@ public class LinkedTransaction {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static TypeEnum fromValue(String value) {
       for (TypeEnum b : TypeEnum.values()) {
@@ -130,8 +166,10 @@ public class LinkedTransaction {
    * from an invoice and SPEND if it was created from a bank transaction.
    */
   public enum SourceTransactionTypeCodeEnum {
+    /** ACCPAY */
     ACCPAY("ACCPAY"),
 
+    /** SPEND */
     SPEND("SPEND");
 
     private String value;
@@ -140,16 +178,31 @@ public class LinkedTransaction {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static SourceTransactionTypeCodeEnum fromValue(String value) {
       for (SourceTransactionTypeCodeEnum b : SourceTransactionTypeCodeEnum.values()) {
@@ -166,7 +219,13 @@ public class LinkedTransaction {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
-
+  /**
+   * Filter by the SourceTransactionID. Get all the linked transactions created from a particular
+   * ACCPAY invoice
+   *
+   * @param sourceTransactionID UUID
+   * @return LinkedTransaction
+   */
   public LinkedTransaction sourceTransactionID(UUID sourceTransactionID) {
     this.sourceTransactionID = sourceTransactionID;
     return this;
@@ -182,14 +241,32 @@ public class LinkedTransaction {
       value =
           "Filter by the SourceTransactionID. Get all the linked transactions created from a"
               + " particular ACCPAY invoice")
+  /**
+   * Filter by the SourceTransactionID. Get all the linked transactions created from a particular
+   * ACCPAY invoice
+   *
+   * @return sourceTransactionID UUID
+   */
   public UUID getSourceTransactionID() {
     return sourceTransactionID;
   }
 
+  /**
+   * Filter by the SourceTransactionID. Get all the linked transactions created from a particular
+   * ACCPAY invoice
+   *
+   * @param sourceTransactionID UUID
+   */
   public void setSourceTransactionID(UUID sourceTransactionID) {
     this.sourceTransactionID = sourceTransactionID;
   }
 
+  /**
+   * The line item identifier from the source transaction.
+   *
+   * @param sourceLineItemID UUID
+   * @return LinkedTransaction
+   */
   public LinkedTransaction sourceLineItemID(UUID sourceLineItemID) {
     this.sourceLineItemID = sourceLineItemID;
     return this;
@@ -201,14 +278,32 @@ public class LinkedTransaction {
    * @return sourceLineItemID
    */
   @ApiModelProperty(value = "The line item identifier from the source transaction.")
+  /**
+   * The line item identifier from the source transaction.
+   *
+   * @return sourceLineItemID UUID
+   */
   public UUID getSourceLineItemID() {
     return sourceLineItemID;
   }
 
+  /**
+   * The line item identifier from the source transaction.
+   *
+   * @param sourceLineItemID UUID
+   */
   public void setSourceLineItemID(UUID sourceLineItemID) {
     this.sourceLineItemID = sourceLineItemID;
   }
 
+  /**
+   * Filter by the combination of ContactID and Status. Get all the linked transactions that have
+   * been assigned to a particular customer and have a particular status e.g. GET
+   * /LinkedTransactions?ContactID&#x3D;4bb34b03-3378-4bb2-a0ed-6345abf3224e&amp;Status&#x3D;APPROVED.
+   *
+   * @param contactID UUID
+   * @return LinkedTransaction
+   */
   public LinkedTransaction contactID(UUID contactID) {
     this.contactID = contactID;
     return this;
@@ -226,14 +321,35 @@ public class LinkedTransaction {
           "Filter by the combination of ContactID and Status. Get all the linked transactions that"
               + " have been assigned to a particular customer and have a particular status e.g."
               + " GET /LinkedTransactions?ContactID=4bb34b03-3378-4bb2-a0ed-6345abf3224e&Status=APPROVED.")
+  /**
+   * Filter by the combination of ContactID and Status. Get all the linked transactions that have
+   * been assigned to a particular customer and have a particular status e.g. GET
+   * /LinkedTransactions?ContactID&#x3D;4bb34b03-3378-4bb2-a0ed-6345abf3224e&amp;Status&#x3D;APPROVED.
+   *
+   * @return contactID UUID
+   */
   public UUID getContactID() {
     return contactID;
   }
 
+  /**
+   * Filter by the combination of ContactID and Status. Get all the linked transactions that have
+   * been assigned to a particular customer and have a particular status e.g. GET
+   * /LinkedTransactions?ContactID&#x3D;4bb34b03-3378-4bb2-a0ed-6345abf3224e&amp;Status&#x3D;APPROVED.
+   *
+   * @param contactID UUID
+   */
   public void setContactID(UUID contactID) {
     this.contactID = contactID;
   }
 
+  /**
+   * Filter by the TargetTransactionID. Get all the linked transactions allocated to a particular
+   * ACCREC invoice
+   *
+   * @param targetTransactionID UUID
+   * @return LinkedTransaction
+   */
   public LinkedTransaction targetTransactionID(UUID targetTransactionID) {
     this.targetTransactionID = targetTransactionID;
     return this;
@@ -249,14 +365,33 @@ public class LinkedTransaction {
       value =
           "Filter by the TargetTransactionID. Get all the linked transactions  allocated to a"
               + " particular ACCREC invoice")
+  /**
+   * Filter by the TargetTransactionID. Get all the linked transactions allocated to a particular
+   * ACCREC invoice
+   *
+   * @return targetTransactionID UUID
+   */
   public UUID getTargetTransactionID() {
     return targetTransactionID;
   }
 
+  /**
+   * Filter by the TargetTransactionID. Get all the linked transactions allocated to a particular
+   * ACCREC invoice
+   *
+   * @param targetTransactionID UUID
+   */
   public void setTargetTransactionID(UUID targetTransactionID) {
     this.targetTransactionID = targetTransactionID;
   }
 
+  /**
+   * The line item identifier from the target transaction. It is possible to link multiple billable
+   * expenses to the same TargetLineItemID.
+   *
+   * @param targetLineItemID UUID
+   * @return LinkedTransaction
+   */
   public LinkedTransaction targetLineItemID(UUID targetLineItemID) {
     this.targetLineItemID = targetLineItemID;
     return this;
@@ -272,14 +407,33 @@ public class LinkedTransaction {
       value =
           "The line item identifier from the target transaction. It is possible  to link multiple"
               + " billable expenses to the same TargetLineItemID.")
+  /**
+   * The line item identifier from the target transaction. It is possible to link multiple billable
+   * expenses to the same TargetLineItemID.
+   *
+   * @return targetLineItemID UUID
+   */
   public UUID getTargetLineItemID() {
     return targetLineItemID;
   }
 
+  /**
+   * The line item identifier from the target transaction. It is possible to link multiple billable
+   * expenses to the same TargetLineItemID.
+   *
+   * @param targetLineItemID UUID
+   */
   public void setTargetLineItemID(UUID targetLineItemID) {
     this.targetLineItemID = targetLineItemID;
   }
 
+  /**
+   * The Xero identifier for an Linked Transaction
+   * e.g./LinkedTransactions/297c2dc5-cc47-4afd-8ec8-74990b8761e9
+   *
+   * @param linkedTransactionID UUID
+   * @return LinkedTransaction
+   */
   public LinkedTransaction linkedTransactionID(UUID linkedTransactionID) {
     this.linkedTransactionID = linkedTransactionID;
     return this;
@@ -295,14 +449,34 @@ public class LinkedTransaction {
       value =
           "The Xero identifier for an Linked Transaction"
               + " e.g./LinkedTransactions/297c2dc5-cc47-4afd-8ec8-74990b8761e9")
+  /**
+   * The Xero identifier for an Linked Transaction
+   * e.g./LinkedTransactions/297c2dc5-cc47-4afd-8ec8-74990b8761e9
+   *
+   * @return linkedTransactionID UUID
+   */
   public UUID getLinkedTransactionID() {
     return linkedTransactionID;
   }
 
+  /**
+   * The Xero identifier for an Linked Transaction
+   * e.g./LinkedTransactions/297c2dc5-cc47-4afd-8ec8-74990b8761e9
+   *
+   * @param linkedTransactionID UUID
+   */
   public void setLinkedTransactionID(UUID linkedTransactionID) {
     this.linkedTransactionID = linkedTransactionID;
   }
 
+  /**
+   * Filter by the combination of ContactID and Status. Get all the linked transactions that have
+   * been assigned to a particular customer and have a particular status e.g. GET
+   * /LinkedTransactions?ContactID&#x3D;4bb34b03-3378-4bb2-a0ed-6345abf3224e&amp;Status&#x3D;APPROVED.
+   *
+   * @param status StatusEnum
+   * @return LinkedTransaction
+   */
   public LinkedTransaction status(StatusEnum status) {
     this.status = status;
     return this;
@@ -320,14 +494,34 @@ public class LinkedTransaction {
           "Filter by the combination of ContactID and Status. Get all the linked transactions that"
               + " have been assigned to a particular customer and have a particular status e.g."
               + " GET /LinkedTransactions?ContactID=4bb34b03-3378-4bb2-a0ed-6345abf3224e&Status=APPROVED.")
+  /**
+   * Filter by the combination of ContactID and Status. Get all the linked transactions that have
+   * been assigned to a particular customer and have a particular status e.g. GET
+   * /LinkedTransactions?ContactID&#x3D;4bb34b03-3378-4bb2-a0ed-6345abf3224e&amp;Status&#x3D;APPROVED.
+   *
+   * @return status StatusEnum
+   */
   public StatusEnum getStatus() {
     return status;
   }
 
+  /**
+   * Filter by the combination of ContactID and Status. Get all the linked transactions that have
+   * been assigned to a particular customer and have a particular status e.g. GET
+   * /LinkedTransactions?ContactID&#x3D;4bb34b03-3378-4bb2-a0ed-6345abf3224e&amp;Status&#x3D;APPROVED.
+   *
+   * @param status StatusEnum
+   */
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
+  /**
+   * This will always be BILLABLEEXPENSE. More types may be added in future.
+   *
+   * @param type TypeEnum
+   * @return LinkedTransaction
+   */
   public LinkedTransaction type(TypeEnum type) {
     this.type = type;
     return this;
@@ -340,10 +534,20 @@ public class LinkedTransaction {
    */
   @ApiModelProperty(
       value = "This will always be BILLABLEEXPENSE. More types may be added in future.")
+  /**
+   * This will always be BILLABLEEXPENSE. More types may be added in future.
+   *
+   * @return type TypeEnum
+   */
   public TypeEnum getType() {
     return type;
   }
 
+  /**
+   * This will always be BILLABLEEXPENSE. More types may be added in future.
+   *
+   * @param type TypeEnum
+   */
   public void setType(TypeEnum type) {
     this.type = type;
   }
@@ -356,10 +560,19 @@ public class LinkedTransaction {
   @ApiModelProperty(
       example = "/Date(1573755038314)/",
       value = "The last modified date in UTC format")
+  /**
+   * The last modified date in UTC format
+   *
+   * @return updatedDateUTC String
+   */
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-
+  /**
+   * The last modified date in UTC format
+   *
+   * @return OffsetDateTime
+   */
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
@@ -371,6 +584,13 @@ public class LinkedTransaction {
     return null;
   }
 
+  /**
+   * The Type of the source tranasction. This will be ACCPAY if the linked transaction was created
+   * from an invoice and SPEND if it was created from a bank transaction.
+   *
+   * @param sourceTransactionTypeCode SourceTransactionTypeCodeEnum
+   * @return LinkedTransaction
+   */
   public LinkedTransaction sourceTransactionTypeCode(
       SourceTransactionTypeCodeEnum sourceTransactionTypeCode) {
     this.sourceTransactionTypeCode = sourceTransactionTypeCode;
@@ -387,20 +607,44 @@ public class LinkedTransaction {
       value =
           "The Type of the source tranasction. This will be ACCPAY if the linked transaction was"
               + " created from an invoice and SPEND if it was created from a bank transaction.")
+  /**
+   * The Type of the source tranasction. This will be ACCPAY if the linked transaction was created
+   * from an invoice and SPEND if it was created from a bank transaction.
+   *
+   * @return sourceTransactionTypeCode SourceTransactionTypeCodeEnum
+   */
   public SourceTransactionTypeCodeEnum getSourceTransactionTypeCode() {
     return sourceTransactionTypeCode;
   }
 
+  /**
+   * The Type of the source tranasction. This will be ACCPAY if the linked transaction was created
+   * from an invoice and SPEND if it was created from a bank transaction.
+   *
+   * @param sourceTransactionTypeCode SourceTransactionTypeCodeEnum
+   */
   public void setSourceTransactionTypeCode(
       SourceTransactionTypeCodeEnum sourceTransactionTypeCode) {
     this.sourceTransactionTypeCode = sourceTransactionTypeCode;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrors List&lt;ValidationError&gt;
+   * @return LinkedTransaction
+   */
   public LinkedTransaction validationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
     return this;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrorsItem ValidationError
+   * @return LinkedTransaction
+   */
   public LinkedTransaction addValidationErrorsItem(ValidationError validationErrorsItem) {
     if (this.validationErrors == null) {
       this.validationErrors = new ArrayList<ValidationError>();
@@ -415,10 +659,20 @@ public class LinkedTransaction {
    * @return validationErrors
    */
   @ApiModelProperty(value = "Displays array of validation error messages from the API")
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @return validationErrors List<ValidationError>
+   */
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrors List&lt;ValidationError&gt;
+   */
   public void setValidationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
   }

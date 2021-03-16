@@ -47,18 +47,25 @@ public class User {
    * FINANCIALADVISER, etc)
    */
   public enum OrganisationRoleEnum {
+    /** READONLY */
     READONLY("READONLY"),
 
+    /** INVOICEONLY */
     INVOICEONLY("INVOICEONLY"),
 
+    /** STANDARD */
     STANDARD("STANDARD"),
 
+    /** FINANCIALADVISER */
     FINANCIALADVISER("FINANCIALADVISER"),
 
+    /** MANAGEDCLIENT */
     MANAGEDCLIENT("MANAGEDCLIENT"),
 
+    /** CASHBOOKCLIENT */
     CASHBOOKCLIENT("CASHBOOKCLIENT"),
 
+    /** UNKNOWN */
     UNKNOWN("UNKNOWN");
 
     private String value;
@@ -67,16 +74,31 @@ public class User {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static OrganisationRoleEnum fromValue(String value) {
       for (OrganisationRoleEnum b : OrganisationRoleEnum.values()) {
@@ -90,7 +112,12 @@ public class User {
 
   @JsonProperty("OrganisationRole")
   private OrganisationRoleEnum organisationRole;
-
+  /**
+   * Xero identifier
+   *
+   * @param userID UUID
+   * @return User
+   */
   public User userID(UUID userID) {
     this.userID = userID;
     return this;
@@ -102,14 +129,30 @@ public class User {
    * @return userID
    */
   @ApiModelProperty(value = "Xero identifier")
+  /**
+   * Xero identifier
+   *
+   * @return userID UUID
+   */
   public UUID getUserID() {
     return userID;
   }
 
+  /**
+   * Xero identifier
+   *
+   * @param userID UUID
+   */
   public void setUserID(UUID userID) {
     this.userID = userID;
   }
 
+  /**
+   * Email address of user
+   *
+   * @param emailAddress String
+   * @return User
+   */
   public User emailAddress(String emailAddress) {
     this.emailAddress = emailAddress;
     return this;
@@ -121,14 +164,30 @@ public class User {
    * @return emailAddress
    */
   @ApiModelProperty(value = "Email address of user")
+  /**
+   * Email address of user
+   *
+   * @return emailAddress String
+   */
   public String getEmailAddress() {
     return emailAddress;
   }
 
+  /**
+   * Email address of user
+   *
+   * @param emailAddress String
+   */
   public void setEmailAddress(String emailAddress) {
     this.emailAddress = emailAddress;
   }
 
+  /**
+   * First name of user
+   *
+   * @param firstName String
+   * @return User
+   */
   public User firstName(String firstName) {
     this.firstName = firstName;
     return this;
@@ -140,14 +199,30 @@ public class User {
    * @return firstName
    */
   @ApiModelProperty(value = "First name of user")
+  /**
+   * First name of user
+   *
+   * @return firstName String
+   */
   public String getFirstName() {
     return firstName;
   }
 
+  /**
+   * First name of user
+   *
+   * @param firstName String
+   */
   public void setFirstName(String firstName) {
     this.firstName = firstName;
   }
 
+  /**
+   * Last name of user
+   *
+   * @param lastName String
+   * @return User
+   */
   public User lastName(String lastName) {
     this.lastName = lastName;
     return this;
@@ -159,10 +234,20 @@ public class User {
    * @return lastName
    */
   @ApiModelProperty(value = "Last name of user")
+  /**
+   * Last name of user
+   *
+   * @return lastName String
+   */
   public String getLastName() {
     return lastName;
   }
 
+  /**
+   * Last name of user
+   *
+   * @param lastName String
+   */
   public void setLastName(String lastName) {
     this.lastName = lastName;
   }
@@ -173,10 +258,19 @@ public class User {
    * @return updatedDateUTC
    */
   @ApiModelProperty(example = "/Date(1573755038314)/", value = "Timestamp of last change to user")
+  /**
+   * Timestamp of last change to user
+   *
+   * @return updatedDateUTC String
+   */
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-
+  /**
+   * Timestamp of last change to user
+   *
+   * @return OffsetDateTime
+   */
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
@@ -188,6 +282,12 @@ public class User {
     return null;
   }
 
+  /**
+   * Boolean to indicate if user is the subscriber
+   *
+   * @param isSubscriber Boolean
+   * @return User
+   */
   public User isSubscriber(Boolean isSubscriber) {
     this.isSubscriber = isSubscriber;
     return this;
@@ -199,14 +299,31 @@ public class User {
    * @return isSubscriber
    */
   @ApiModelProperty(value = "Boolean to indicate if user is the subscriber")
+  /**
+   * Boolean to indicate if user is the subscriber
+   *
+   * @return isSubscriber Boolean
+   */
   public Boolean getIsSubscriber() {
     return isSubscriber;
   }
 
+  /**
+   * Boolean to indicate if user is the subscriber
+   *
+   * @param isSubscriber Boolean
+   */
   public void setIsSubscriber(Boolean isSubscriber) {
     this.isSubscriber = isSubscriber;
   }
 
+  /**
+   * User role that defines permissions in Xero and via API (READONLY, INVOICEONLY, STANDARD,
+   * FINANCIALADVISER, etc)
+   *
+   * @param organisationRole OrganisationRoleEnum
+   * @return User
+   */
   public User organisationRole(OrganisationRoleEnum organisationRole) {
     this.organisationRole = organisationRole;
     return this;
@@ -222,10 +339,22 @@ public class User {
       value =
           "User role that defines permissions in Xero and via API (READONLY, INVOICEONLY,"
               + " STANDARD, FINANCIALADVISER, etc)")
+  /**
+   * User role that defines permissions in Xero and via API (READONLY, INVOICEONLY, STANDARD,
+   * FINANCIALADVISER, etc)
+   *
+   * @return organisationRole OrganisationRoleEnum
+   */
   public OrganisationRoleEnum getOrganisationRole() {
     return organisationRole;
   }
 
+  /**
+   * User role that defines permissions in Xero and via API (READONLY, INVOICEONLY, STANDARD,
+   * FINANCIALADVISER, etc)
+   *
+   * @param organisationRole OrganisationRoleEnum
+   */
   public void setOrganisationRole(OrganisationRoleEnum organisationRole) {
     this.organisationRole = organisationRole;
   }

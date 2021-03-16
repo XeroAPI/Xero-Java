@@ -28,7 +28,12 @@ public class EmployeePayTemplates {
 
   @JsonProperty("payTemplate")
   private EmployeePayTemplate payTemplate;
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return EmployeePayTemplates
+   */
   public EmployeePayTemplates pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -40,14 +45,30 @@ public class EmployeePayTemplates {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return EmployeePayTemplates
+   */
   public EmployeePayTemplates problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -59,14 +80,30 @@ public class EmployeePayTemplates {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * payTemplate
+   *
+   * @param payTemplate EmployeePayTemplate
+   * @return EmployeePayTemplates
+   */
   public EmployeePayTemplates payTemplate(EmployeePayTemplate payTemplate) {
     this.payTemplate = payTemplate;
     return this;
@@ -78,10 +115,20 @@ public class EmployeePayTemplates {
    * @return payTemplate
    */
   @ApiModelProperty(value = "")
+  /**
+   * payTemplate
+   *
+   * @return payTemplate EmployeePayTemplate
+   */
   public EmployeePayTemplate getPayTemplate() {
     return payTemplate;
   }
 
+  /**
+   * payTemplate
+   *
+   * @param payTemplate EmployeePayTemplate
+   */
   public void setPayTemplate(EmployeePayTemplate payTemplate) {
     this.payTemplate = payTemplate;
   }

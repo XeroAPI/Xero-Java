@@ -28,7 +28,12 @@ public class EarningsRateObject {
 
   @JsonProperty("earningsRate")
   private EarningsRate earningsRate;
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return EarningsRateObject
+   */
   public EarningsRateObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -40,14 +45,30 @@ public class EarningsRateObject {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return EarningsRateObject
+   */
   public EarningsRateObject problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -59,14 +80,30 @@ public class EarningsRateObject {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * earningsRate
+   *
+   * @param earningsRate EarningsRate
+   * @return EarningsRateObject
+   */
   public EarningsRateObject earningsRate(EarningsRate earningsRate) {
     this.earningsRate = earningsRate;
     return this;
@@ -78,10 +115,20 @@ public class EarningsRateObject {
    * @return earningsRate
    */
   @ApiModelProperty(value = "")
+  /**
+   * earningsRate
+   *
+   * @return earningsRate EarningsRate
+   */
   public EarningsRate getEarningsRate() {
     return earningsRate;
   }
 
+  /**
+   * earningsRate
+   *
+   * @param earningsRate EarningsRate
+   */
   public void setEarningsRate(EarningsRate earningsRate) {
     this.earningsRate = earningsRate;
   }

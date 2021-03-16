@@ -43,10 +43,13 @@ public class Account {
   private String bankAccountNumber;
   /** Accounts with a status of ACTIVE can be updated to ARCHIVED. See Account Status Codes */
   public enum StatusEnum {
+    /** ACTIVE */
     ACTIVE("ACTIVE"),
 
+    /** ARCHIVED */
     ARCHIVED("ARCHIVED"),
 
+    /** DELETED */
     DELETED("DELETED");
 
     private String value;
@@ -55,16 +58,31 @@ public class Account {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
@@ -83,14 +101,19 @@ public class Account {
   private String description;
   /** For bank accounts only. See Bank Account types */
   public enum BankAccountTypeEnum {
+    /** BANK */
     BANK("BANK"),
 
+    /** CREDITCARD */
     CREDITCARD("CREDITCARD"),
 
+    /** PAYPAL */
     PAYPAL("PAYPAL"),
 
+    /** NONE */
     NONE("NONE"),
 
+    /** EMPTY */
     EMPTY("");
 
     private String value;
@@ -99,16 +122,31 @@ public class Account {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static BankAccountTypeEnum fromValue(String value) {
       for (BankAccountTypeEnum b : BankAccountTypeEnum.values()) {
@@ -136,14 +174,19 @@ public class Account {
   private Boolean showInExpenseClaims;
   /** See Account Class Types */
   public enum PropertyClassEnum {
+    /** ASSET */
     ASSET("ASSET"),
 
+    /** EQUITY */
     EQUITY("EQUITY"),
 
+    /** EXPENSE */
     EXPENSE("EXPENSE"),
 
+    /** LIABILITY */
     LIABILITY("LIABILITY"),
 
+    /** REVENUE */
     REVENUE("REVENUE");
 
     private String value;
@@ -152,16 +195,31 @@ public class Account {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static PropertyClassEnum fromValue(String value) {
       for (PropertyClassEnum b : PropertyClassEnum.values()) {
@@ -180,46 +238,67 @@ public class Account {
    * non-system accounts may have this element set as either “” or null.
    */
   public enum SystemAccountEnum {
+    /** DEBTORS */
     DEBTORS("DEBTORS"),
 
+    /** CREDITORS */
     CREDITORS("CREDITORS"),
 
+    /** BANKCURRENCYGAIN */
     BANKCURRENCYGAIN("BANKCURRENCYGAIN"),
 
+    /** GST */
     GST("GST"),
 
+    /** GSTONIMPORTS */
     GSTONIMPORTS("GSTONIMPORTS"),
 
+    /** HISTORICAL */
     HISTORICAL("HISTORICAL"),
 
+    /** REALISEDCURRENCYGAIN */
     REALISEDCURRENCYGAIN("REALISEDCURRENCYGAIN"),
 
+    /** RETAINEDEARNINGS */
     RETAINEDEARNINGS("RETAINEDEARNINGS"),
 
+    /** ROUNDING */
     ROUNDING("ROUNDING"),
 
+    /** TRACKINGTRANSFERS */
     TRACKINGTRANSFERS("TRACKINGTRANSFERS"),
 
+    /** UNPAIDEXPCLM */
     UNPAIDEXPCLM("UNPAIDEXPCLM"),
 
+    /** UNREALISEDCURRENCYGAIN */
     UNREALISEDCURRENCYGAIN("UNREALISEDCURRENCYGAIN"),
 
+    /** WAGEPAYABLES */
     WAGEPAYABLES("WAGEPAYABLES"),
 
+    /** CISASSETS */
     CISASSETS("CISASSETS"),
 
+    /** CISASSET */
     CISASSET("CISASSET"),
 
+    /** CISLABOUR */
     CISLABOUR("CISLABOUR"),
 
+    /** CISLABOUREXPENSE */
     CISLABOUREXPENSE("CISLABOUREXPENSE"),
 
+    /** CISLABOURINCOME */
     CISLABOURINCOME("CISLABOURINCOME"),
 
+    /** CISLIABILITY */
     CISLIABILITY("CISLIABILITY"),
 
+    /** CISMATERIALS */
     CISMATERIALS("CISMATERIALS"),
 
+    /** EMPTY */
     EMPTY("");
 
     private String value;
@@ -228,16 +307,31 @@ public class Account {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static SystemAccountEnum fromValue(String value) {
       for (SystemAccountEnum b : SystemAccountEnum.values()) {
@@ -269,7 +363,12 @@ public class Account {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
-
+  /**
+   * Customer defined alpha numeric account code e.g 200 or SALES (max length &#x3D; 10)
+   *
+   * @param code String
+   * @return Account
+   */
   public Account code(String code) {
     this.code = code;
     return this;
@@ -283,14 +382,30 @@ public class Account {
   @ApiModelProperty(
       example = "4400",
       value = "Customer defined alpha numeric account code e.g 200 or SALES (max length = 10)")
+  /**
+   * Customer defined alpha numeric account code e.g 200 or SALES (max length &#x3D; 10)
+   *
+   * @return code String
+   */
   public String getCode() {
     return code;
   }
 
+  /**
+   * Customer defined alpha numeric account code e.g 200 or SALES (max length &#x3D; 10)
+   *
+   * @param code String
+   */
   public void setCode(String code) {
     this.code = code;
   }
 
+  /**
+   * Name of account (max length &#x3D; 150)
+   *
+   * @param name String
+   * @return Account
+   */
   public Account name(String name) {
     this.name = name;
     return this;
@@ -302,14 +417,31 @@ public class Account {
    * @return name
    */
   @ApiModelProperty(example = "Food Sales", value = "Name of account (max length = 150)")
+  /**
+   * Name of account (max length &#x3D; 150)
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Name of account (max length &#x3D; 150)
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * The Xero identifier for an account – specified as a string following the endpoint name e.g.
+   * /297c2dc5-cc47-4afd-8ec8-74990b8761e9
+   *
+   * @param accountID UUID
+   * @return Account
+   */
   public Account accountID(UUID accountID) {
     this.accountID = accountID;
     return this;
@@ -326,14 +458,32 @@ public class Account {
       value =
           "The Xero identifier for an account – specified as a string following  the endpoint name"
               + "   e.g. /297c2dc5-cc47-4afd-8ec8-74990b8761e9")
+  /**
+   * The Xero identifier for an account – specified as a string following the endpoint name e.g.
+   * /297c2dc5-cc47-4afd-8ec8-74990b8761e9
+   *
+   * @return accountID UUID
+   */
   public UUID getAccountID() {
     return accountID;
   }
 
+  /**
+   * The Xero identifier for an account – specified as a string following the endpoint name e.g.
+   * /297c2dc5-cc47-4afd-8ec8-74990b8761e9
+   *
+   * @param accountID UUID
+   */
   public void setAccountID(UUID accountID) {
     this.accountID = accountID;
   }
 
+  /**
+   * type
+   *
+   * @param type AccountType
+   * @return Account
+   */
   public Account type(AccountType type) {
     this.type = type;
     return this;
@@ -345,14 +495,30 @@ public class Account {
    * @return type
    */
   @ApiModelProperty(value = "")
+  /**
+   * type
+   *
+   * @return type AccountType
+   */
   public AccountType getType() {
     return type;
   }
 
+  /**
+   * type
+   *
+   * @param type AccountType
+   */
   public void setType(AccountType type) {
     this.type = type;
   }
 
+  /**
+   * For bank accounts only (Account Type BANK)
+   *
+   * @param bankAccountNumber String
+   * @return Account
+   */
   public Account bankAccountNumber(String bankAccountNumber) {
     this.bankAccountNumber = bankAccountNumber;
     return this;
@@ -364,14 +530,30 @@ public class Account {
    * @return bankAccountNumber
    */
   @ApiModelProperty(value = "For bank accounts only (Account Type BANK)")
+  /**
+   * For bank accounts only (Account Type BANK)
+   *
+   * @return bankAccountNumber String
+   */
   public String getBankAccountNumber() {
     return bankAccountNumber;
   }
 
+  /**
+   * For bank accounts only (Account Type BANK)
+   *
+   * @param bankAccountNumber String
+   */
   public void setBankAccountNumber(String bankAccountNumber) {
     this.bankAccountNumber = bankAccountNumber;
   }
 
+  /**
+   * Accounts with a status of ACTIVE can be updated to ARCHIVED. See Account Status Codes
+   *
+   * @param status StatusEnum
+   * @return Account
+   */
   public Account status(StatusEnum status) {
     this.status = status;
     return this;
@@ -385,14 +567,31 @@ public class Account {
   @ApiModelProperty(
       value =
           "Accounts with a status of ACTIVE can be updated to ARCHIVED. See Account Status Codes")
+  /**
+   * Accounts with a status of ACTIVE can be updated to ARCHIVED. See Account Status Codes
+   *
+   * @return status StatusEnum
+   */
   public StatusEnum getStatus() {
     return status;
   }
 
+  /**
+   * Accounts with a status of ACTIVE can be updated to ARCHIVED. See Account Status Codes
+   *
+   * @param status StatusEnum
+   */
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
+  /**
+   * Description of the Account. Valid for all types of accounts except bank accounts (max length
+   * &#x3D; 4000)
+   *
+   * @param description String
+   * @return Account
+   */
   public Account description(String description) {
     this.description = description;
     return this;
@@ -408,14 +607,32 @@ public class Account {
       value =
           "Description of the Account. Valid for all types of accounts except bank accounts (max"
               + " length = 4000)")
+  /**
+   * Description of the Account. Valid for all types of accounts except bank accounts (max length
+   * &#x3D; 4000)
+   *
+   * @return description String
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * Description of the Account. Valid for all types of accounts except bank accounts (max length
+   * &#x3D; 4000)
+   *
+   * @param description String
+   */
   public void setDescription(String description) {
     this.description = description;
   }
 
+  /**
+   * For bank accounts only. See Bank Account types
+   *
+   * @param bankAccountType BankAccountTypeEnum
+   * @return Account
+   */
   public Account bankAccountType(BankAccountTypeEnum bankAccountType) {
     this.bankAccountType = bankAccountType;
     return this;
@@ -427,14 +644,30 @@ public class Account {
    * @return bankAccountType
    */
   @ApiModelProperty(value = "For bank accounts only. See Bank Account types")
+  /**
+   * For bank accounts only. See Bank Account types
+   *
+   * @return bankAccountType BankAccountTypeEnum
+   */
   public BankAccountTypeEnum getBankAccountType() {
     return bankAccountType;
   }
 
+  /**
+   * For bank accounts only. See Bank Account types
+   *
+   * @param bankAccountType BankAccountTypeEnum
+   */
   public void setBankAccountType(BankAccountTypeEnum bankAccountType) {
     this.bankAccountType = bankAccountType;
   }
 
+  /**
+   * currencyCode
+   *
+   * @param currencyCode CurrencyCode
+   * @return Account
+   */
   public Account currencyCode(CurrencyCode currencyCode) {
     this.currencyCode = currencyCode;
     return this;
@@ -446,14 +679,30 @@ public class Account {
    * @return currencyCode
    */
   @ApiModelProperty(value = "")
+  /**
+   * currencyCode
+   *
+   * @return currencyCode CurrencyCode
+   */
   public CurrencyCode getCurrencyCode() {
     return currencyCode;
   }
 
+  /**
+   * currencyCode
+   *
+   * @param currencyCode CurrencyCode
+   */
   public void setCurrencyCode(CurrencyCode currencyCode) {
     this.currencyCode = currencyCode;
   }
 
+  /**
+   * The tax type from TaxRates
+   *
+   * @param taxType String
+   * @return Account
+   */
   public Account taxType(String taxType) {
     this.taxType = taxType;
     return this;
@@ -465,14 +714,30 @@ public class Account {
    * @return taxType
    */
   @ApiModelProperty(value = "The tax type from TaxRates")
+  /**
+   * The tax type from TaxRates
+   *
+   * @return taxType String
+   */
   public String getTaxType() {
     return taxType;
   }
 
+  /**
+   * The tax type from TaxRates
+   *
+   * @param taxType String
+   */
   public void setTaxType(String taxType) {
     this.taxType = taxType;
   }
 
+  /**
+   * Boolean – describes whether account can have payments applied to it
+   *
+   * @param enablePaymentsToAccount Boolean
+   * @return Account
+   */
   public Account enablePaymentsToAccount(Boolean enablePaymentsToAccount) {
     this.enablePaymentsToAccount = enablePaymentsToAccount;
     return this;
@@ -484,14 +749,30 @@ public class Account {
    * @return enablePaymentsToAccount
    */
   @ApiModelProperty(value = "Boolean – describes whether account can have payments applied to it")
+  /**
+   * Boolean – describes whether account can have payments applied to it
+   *
+   * @return enablePaymentsToAccount Boolean
+   */
   public Boolean getEnablePaymentsToAccount() {
     return enablePaymentsToAccount;
   }
 
+  /**
+   * Boolean – describes whether account can have payments applied to it
+   *
+   * @param enablePaymentsToAccount Boolean
+   */
   public void setEnablePaymentsToAccount(Boolean enablePaymentsToAccount) {
     this.enablePaymentsToAccount = enablePaymentsToAccount;
   }
 
+  /**
+   * Boolean – describes whether account code is available for use with expense claims
+   *
+   * @param showInExpenseClaims Boolean
+   * @return Account
+   */
   public Account showInExpenseClaims(Boolean showInExpenseClaims) {
     this.showInExpenseClaims = showInExpenseClaims;
     return this;
@@ -504,10 +785,20 @@ public class Account {
    */
   @ApiModelProperty(
       value = "Boolean – describes whether account code is available for use with expense claims")
+  /**
+   * Boolean – describes whether account code is available for use with expense claims
+   *
+   * @return showInExpenseClaims Boolean
+   */
   public Boolean getShowInExpenseClaims() {
     return showInExpenseClaims;
   }
 
+  /**
+   * Boolean – describes whether account code is available for use with expense claims
+   *
+   * @param showInExpenseClaims Boolean
+   */
   public void setShowInExpenseClaims(Boolean showInExpenseClaims) {
     this.showInExpenseClaims = showInExpenseClaims;
   }
@@ -518,6 +809,11 @@ public class Account {
    * @return propertyClass
    */
   @ApiModelProperty(value = "See Account Class Types")
+  /**
+   * See Account Class Types
+   *
+   * @return propertyClass PropertyClassEnum
+   */
   public PropertyClassEnum getPropertyClass() {
     return propertyClass;
   }
@@ -532,10 +828,22 @@ public class Account {
       value =
           "If this is a system account then this element is returned. See System Account types."
               + " Note that non-system accounts may have this element set as either “” or null.")
+  /**
+   * If this is a system account then this element is returned. See System Account types. Note that
+   * non-system accounts may have this element set as either “” or null.
+   *
+   * @return systemAccount SystemAccountEnum
+   */
   public SystemAccountEnum getSystemAccount() {
     return systemAccount;
   }
 
+  /**
+   * Shown if set
+   *
+   * @param reportingCode String
+   * @return Account
+   */
   public Account reportingCode(String reportingCode) {
     this.reportingCode = reportingCode;
     return this;
@@ -547,10 +855,20 @@ public class Account {
    * @return reportingCode
    */
   @ApiModelProperty(value = "Shown if set")
+  /**
+   * Shown if set
+   *
+   * @return reportingCode String
+   */
   public String getReportingCode() {
     return reportingCode;
   }
 
+  /**
+   * Shown if set
+   *
+   * @param reportingCode String
+   */
   public void setReportingCode(String reportingCode) {
     this.reportingCode = reportingCode;
   }
@@ -561,6 +879,11 @@ public class Account {
    * @return reportingCodeName
    */
   @ApiModelProperty(value = "Shown if set")
+  /**
+   * Shown if set
+   *
+   * @return reportingCodeName String
+   */
   public String getReportingCodeName() {
     return reportingCodeName;
   }
@@ -573,6 +896,11 @@ public class Account {
   @ApiModelProperty(
       example = "false",
       value = "boolean to indicate if an account has an attachment (read only)")
+  /**
+   * boolean to indicate if an account has an attachment (read only)
+   *
+   * @return hasAttachments Boolean
+   */
   public Boolean getHasAttachments() {
     return hasAttachments;
   }
@@ -583,10 +911,19 @@ public class Account {
    * @return updatedDateUTC
    */
   @ApiModelProperty(example = "/Date(1573755038314)/", value = "Last modified date UTC format")
+  /**
+   * Last modified date UTC format
+   *
+   * @return updatedDateUTC String
+   */
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-
+  /**
+   * Last modified date UTC format
+   *
+   * @return OffsetDateTime
+   */
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
@@ -598,6 +935,12 @@ public class Account {
     return null;
   }
 
+  /**
+   * Boolean – describes whether the account is shown in the watchlist widget on the dashboard
+   *
+   * @param addToWatchlist Boolean
+   * @return Account
+   */
   public Account addToWatchlist(Boolean addToWatchlist) {
     this.addToWatchlist = addToWatchlist;
     return this;
@@ -612,19 +955,41 @@ public class Account {
       value =
           "Boolean – describes whether the account is shown in the watchlist widget on the"
               + " dashboard")
+  /**
+   * Boolean – describes whether the account is shown in the watchlist widget on the dashboard
+   *
+   * @return addToWatchlist Boolean
+   */
   public Boolean getAddToWatchlist() {
     return addToWatchlist;
   }
 
+  /**
+   * Boolean – describes whether the account is shown in the watchlist widget on the dashboard
+   *
+   * @param addToWatchlist Boolean
+   */
   public void setAddToWatchlist(Boolean addToWatchlist) {
     this.addToWatchlist = addToWatchlist;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrors List&lt;ValidationError&gt;
+   * @return Account
+   */
   public Account validationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
     return this;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrorsItem ValidationError
+   * @return Account
+   */
   public Account addValidationErrorsItem(ValidationError validationErrorsItem) {
     if (this.validationErrors == null) {
       this.validationErrors = new ArrayList<ValidationError>();
@@ -639,10 +1004,20 @@ public class Account {
    * @return validationErrors
    */
   @ApiModelProperty(value = "Displays array of validation error messages from the API")
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @return validationErrors List<ValidationError>
+   */
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrors List&lt;ValidationError&gt;
+   */
   public void setValidationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
   }

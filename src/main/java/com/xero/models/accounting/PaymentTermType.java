@@ -17,12 +17,17 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Gets or Sets PaymentTermType */
 public enum PaymentTermType {
+
+  /** DAYSAFTERBILLDATE */
   DAYSAFTERBILLDATE("DAYSAFTERBILLDATE"),
 
+  /** DAYSAFTERBILLMONTH */
   DAYSAFTERBILLMONTH("DAYSAFTERBILLMONTH"),
 
+  /** OFCURRENTMONTH */
   OFCURRENTMONTH("OFCURRENTMONTH"),
 
+  /** OFFOLLOWINGMONTH */
   OFFOLLOWINGMONTH("OFFOLLOWINGMONTH");
 
   private String value;
@@ -31,16 +36,27 @@ public enum PaymentTermType {
     this.value = value;
   }
 
+  /** @return String value */
   @JsonValue
   public String getValue() {
     return value;
   }
 
+  /**
+   * toString
+   *
+   * @return String value
+   */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
+  /**
+   * fromValue
+   *
+   * @param value String
+   */
   @JsonCreator
   public static PaymentTermType fromValue(String value) {
     for (PaymentTermType b : PaymentTermType.values()) {

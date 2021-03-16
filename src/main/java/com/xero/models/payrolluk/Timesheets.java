@@ -30,7 +30,12 @@ public class Timesheets {
 
   @JsonProperty("timesheets")
   private List<Timesheet> timesheets = new ArrayList<Timesheet>();
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return Timesheets
+   */
   public Timesheets pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -42,14 +47,30 @@ public class Timesheets {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return Timesheets
+   */
   public Timesheets problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -61,19 +82,41 @@ public class Timesheets {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * timesheets
+   *
+   * @param timesheets List&lt;Timesheet&gt;
+   * @return Timesheets
+   */
   public Timesheets timesheets(List<Timesheet> timesheets) {
     this.timesheets = timesheets;
     return this;
   }
 
+  /**
+   * timesheets
+   *
+   * @param timesheetsItem Timesheet
+   * @return Timesheets
+   */
   public Timesheets addTimesheetsItem(Timesheet timesheetsItem) {
     if (this.timesheets == null) {
       this.timesheets = new ArrayList<Timesheet>();
@@ -88,10 +131,20 @@ public class Timesheets {
    * @return timesheets
    */
   @ApiModelProperty(value = "")
+  /**
+   * timesheets
+   *
+   * @return timesheets List<Timesheet>
+   */
   public List<Timesheet> getTimesheets() {
     return timesheets;
   }
 
+  /**
+   * timesheets
+   *
+   * @param timesheets List&lt;Timesheet&gt;
+   */
   public void setTimesheets(List<Timesheet> timesheets) {
     this.timesheets = timesheets;
   }

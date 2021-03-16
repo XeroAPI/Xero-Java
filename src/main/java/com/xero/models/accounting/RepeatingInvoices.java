@@ -24,12 +24,23 @@ public class RepeatingInvoices {
 
   @JsonProperty("RepeatingInvoices")
   private List<RepeatingInvoice> repeatingInvoices = new ArrayList<RepeatingInvoice>();
-
+  /**
+   * repeatingInvoices
+   *
+   * @param repeatingInvoices List&lt;RepeatingInvoice&gt;
+   * @return RepeatingInvoices
+   */
   public RepeatingInvoices repeatingInvoices(List<RepeatingInvoice> repeatingInvoices) {
     this.repeatingInvoices = repeatingInvoices;
     return this;
   }
 
+  /**
+   * repeatingInvoices
+   *
+   * @param repeatingInvoicesItem RepeatingInvoice
+   * @return RepeatingInvoices
+   */
   public RepeatingInvoices addRepeatingInvoicesItem(RepeatingInvoice repeatingInvoicesItem) {
     if (this.repeatingInvoices == null) {
       this.repeatingInvoices = new ArrayList<RepeatingInvoice>();
@@ -44,10 +55,20 @@ public class RepeatingInvoices {
    * @return repeatingInvoices
    */
   @ApiModelProperty(value = "")
+  /**
+   * repeatingInvoices
+   *
+   * @return repeatingInvoices List<RepeatingInvoice>
+   */
   public List<RepeatingInvoice> getRepeatingInvoices() {
     return repeatingInvoices;
   }
 
+  /**
+   * repeatingInvoices
+   *
+   * @param repeatingInvoices List&lt;RepeatingInvoice&gt;
+   */
   public void setRepeatingInvoices(List<RepeatingInvoice> repeatingInvoices) {
     this.repeatingInvoices = repeatingInvoices;
   }

@@ -24,12 +24,23 @@ public class PayRuns {
 
   @JsonProperty("PayRuns")
   private List<PayRun> payRuns = new ArrayList<PayRun>();
-
+  /**
+   * payRuns
+   *
+   * @param payRuns List&lt;PayRun&gt;
+   * @return PayRuns
+   */
   public PayRuns payRuns(List<PayRun> payRuns) {
     this.payRuns = payRuns;
     return this;
   }
 
+  /**
+   * payRuns
+   *
+   * @param payRunsItem PayRun
+   * @return PayRuns
+   */
   public PayRuns addPayRunsItem(PayRun payRunsItem) {
     if (this.payRuns == null) {
       this.payRuns = new ArrayList<PayRun>();
@@ -44,10 +55,20 @@ public class PayRuns {
    * @return payRuns
    */
   @ApiModelProperty(value = "")
+  /**
+   * payRuns
+   *
+   * @return payRuns List<PayRun>
+   */
   public List<PayRun> getPayRuns() {
     return payRuns;
   }
 
+  /**
+   * payRuns
+   *
+   * @param payRuns List&lt;PayRun&gt;
+   */
   public void setPayRuns(List<PayRun> payRuns) {
     this.payRuns = payRuns;
   }

@@ -23,14 +23,19 @@ public class Phone {
   StringUtil util = new StringUtil();
   /** Gets or Sets phoneType */
   public enum PhoneTypeEnum {
+    /** DEFAULT */
     DEFAULT("DEFAULT"),
 
+    /** DDI */
     DDI("DDI"),
 
+    /** MOBILE */
     MOBILE("MOBILE"),
 
+    /** FAX */
     FAX("FAX"),
 
+    /** OFFICE */
     OFFICE("OFFICE");
 
     private String value;
@@ -39,16 +44,31 @@ public class Phone {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static PhoneTypeEnum fromValue(String value) {
       for (PhoneTypeEnum b : PhoneTypeEnum.values()) {
@@ -71,7 +91,12 @@ public class Phone {
 
   @JsonProperty("PhoneCountryCode")
   private String phoneCountryCode;
-
+  /**
+   * phoneType
+   *
+   * @param phoneType PhoneTypeEnum
+   * @return Phone
+   */
   public Phone phoneType(PhoneTypeEnum phoneType) {
     this.phoneType = phoneType;
     return this;
@@ -83,14 +108,30 @@ public class Phone {
    * @return phoneType
    */
   @ApiModelProperty(value = "")
+  /**
+   * phoneType
+   *
+   * @return phoneType PhoneTypeEnum
+   */
   public PhoneTypeEnum getPhoneType() {
     return phoneType;
   }
 
+  /**
+   * phoneType
+   *
+   * @param phoneType PhoneTypeEnum
+   */
   public void setPhoneType(PhoneTypeEnum phoneType) {
     this.phoneType = phoneType;
   }
 
+  /**
+   * max length &#x3D; 50
+   *
+   * @param phoneNumber String
+   * @return Phone
+   */
   public Phone phoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
     return this;
@@ -102,14 +143,30 @@ public class Phone {
    * @return phoneNumber
    */
   @ApiModelProperty(value = "max length = 50")
+  /**
+   * max length &#x3D; 50
+   *
+   * @return phoneNumber String
+   */
   public String getPhoneNumber() {
     return phoneNumber;
   }
 
+  /**
+   * max length &#x3D; 50
+   *
+   * @param phoneNumber String
+   */
   public void setPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
   }
 
+  /**
+   * max length &#x3D; 10
+   *
+   * @param phoneAreaCode String
+   * @return Phone
+   */
   public Phone phoneAreaCode(String phoneAreaCode) {
     this.phoneAreaCode = phoneAreaCode;
     return this;
@@ -121,14 +178,30 @@ public class Phone {
    * @return phoneAreaCode
    */
   @ApiModelProperty(value = "max length = 10")
+  /**
+   * max length &#x3D; 10
+   *
+   * @return phoneAreaCode String
+   */
   public String getPhoneAreaCode() {
     return phoneAreaCode;
   }
 
+  /**
+   * max length &#x3D; 10
+   *
+   * @param phoneAreaCode String
+   */
   public void setPhoneAreaCode(String phoneAreaCode) {
     this.phoneAreaCode = phoneAreaCode;
   }
 
+  /**
+   * max length &#x3D; 20
+   *
+   * @param phoneCountryCode String
+   * @return Phone
+   */
   public Phone phoneCountryCode(String phoneCountryCode) {
     this.phoneCountryCode = phoneCountryCode;
     return this;
@@ -140,10 +213,20 @@ public class Phone {
    * @return phoneCountryCode
    */
   @ApiModelProperty(value = "max length = 20")
+  /**
+   * max length &#x3D; 20
+   *
+   * @return phoneCountryCode String
+   */
   public String getPhoneCountryCode() {
     return phoneCountryCode;
   }
 
+  /**
+   * max length &#x3D; 20
+   *
+   * @param phoneCountryCode String
+   */
   public void setPhoneCountryCode(String phoneCountryCode) {
     this.phoneCountryCode = phoneCountryCode;
   }

@@ -24,12 +24,23 @@ public class CISOrgSettings {
 
   @JsonProperty("CISSettings")
   private List<CISOrgSetting> ciSSettings = new ArrayList<CISOrgSetting>();
-
+  /**
+   * ciSSettings
+   *
+   * @param ciSSettings List&lt;CISOrgSetting&gt;
+   * @return CISOrgSettings
+   */
   public CISOrgSettings ciSSettings(List<CISOrgSetting> ciSSettings) {
     this.ciSSettings = ciSSettings;
     return this;
   }
 
+  /**
+   * ciSSettings
+   *
+   * @param ciSSettingsItem CISOrgSetting
+   * @return CISOrgSettings
+   */
   public CISOrgSettings addCiSSettingsItem(CISOrgSetting ciSSettingsItem) {
     if (this.ciSSettings == null) {
       this.ciSSettings = new ArrayList<CISOrgSetting>();
@@ -44,10 +55,20 @@ public class CISOrgSettings {
    * @return ciSSettings
    */
   @ApiModelProperty(value = "")
+  /**
+   * ciSSettings
+   *
+   * @return ciSSettings List<CISOrgSetting>
+   */
   public List<CISOrgSetting> getCiSSettings() {
     return ciSSettings;
   }
 
+  /**
+   * ciSSettings
+   *
+   * @param ciSSettings List&lt;CISOrgSetting&gt;
+   */
   public void setCiSSettings(List<CISOrgSetting> ciSSettings) {
     this.ciSSettings = ciSSettings;
   }

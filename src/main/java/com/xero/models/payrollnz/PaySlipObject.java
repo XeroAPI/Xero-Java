@@ -28,7 +28,12 @@ public class PaySlipObject {
 
   @JsonProperty("paySlip")
   private PaySlip paySlip;
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return PaySlipObject
+   */
   public PaySlipObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -40,14 +45,30 @@ public class PaySlipObject {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return PaySlipObject
+   */
   public PaySlipObject problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -59,14 +80,30 @@ public class PaySlipObject {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * paySlip
+   *
+   * @param paySlip PaySlip
+   * @return PaySlipObject
+   */
   public PaySlipObject paySlip(PaySlip paySlip) {
     this.paySlip = paySlip;
     return this;
@@ -78,10 +115,20 @@ public class PaySlipObject {
    * @return paySlip
    */
   @ApiModelProperty(value = "")
+  /**
+   * paySlip
+   *
+   * @return paySlip PaySlip
+   */
   public PaySlip getPaySlip() {
     return paySlip;
   }
 
+  /**
+   * paySlip
+   *
+   * @param paySlip PaySlip
+   */
   public void setPaySlip(PaySlip paySlip) {
     this.paySlip = paySlip;
   }

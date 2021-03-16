@@ -17,14 +17,20 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Gets or Sets TimesheetStatus */
 public enum TimesheetStatus {
+
+  /** DRAFT */
   DRAFT("DRAFT"),
 
+  /** PROCESSED */
   PROCESSED("PROCESSED"),
 
+  /** APPROVED */
   APPROVED("APPROVED"),
 
+  /** REJECTED */
   REJECTED("REJECTED"),
 
+  /** REQUESTED */
   REQUESTED("REQUESTED");
 
   private String value;
@@ -33,16 +39,27 @@ public enum TimesheetStatus {
     this.value = value;
   }
 
+  /** @return String value */
   @JsonValue
   public String getValue() {
     return value;
   }
 
+  /**
+   * toString
+   *
+   * @return String value
+   */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
+  /**
+   * fromValue
+   *
+   * @param value String
+   */
   @JsonCreator
   public static TimesheetStatus fromValue(String value) {
     for (TimesheetStatus b : TimesheetStatus.values()) {

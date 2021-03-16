@@ -24,12 +24,23 @@ public class LinkedTransactions {
 
   @JsonProperty("LinkedTransactions")
   private List<LinkedTransaction> linkedTransactions = new ArrayList<LinkedTransaction>();
-
+  /**
+   * linkedTransactions
+   *
+   * @param linkedTransactions List&lt;LinkedTransaction&gt;
+   * @return LinkedTransactions
+   */
   public LinkedTransactions linkedTransactions(List<LinkedTransaction> linkedTransactions) {
     this.linkedTransactions = linkedTransactions;
     return this;
   }
 
+  /**
+   * linkedTransactions
+   *
+   * @param linkedTransactionsItem LinkedTransaction
+   * @return LinkedTransactions
+   */
   public LinkedTransactions addLinkedTransactionsItem(LinkedTransaction linkedTransactionsItem) {
     if (this.linkedTransactions == null) {
       this.linkedTransactions = new ArrayList<LinkedTransaction>();
@@ -44,10 +55,20 @@ public class LinkedTransactions {
    * @return linkedTransactions
    */
   @ApiModelProperty(value = "")
+  /**
+   * linkedTransactions
+   *
+   * @return linkedTransactions List<LinkedTransaction>
+   */
   public List<LinkedTransaction> getLinkedTransactions() {
     return linkedTransactions;
   }
 
+  /**
+   * linkedTransactions
+   *
+   * @param linkedTransactions List&lt;LinkedTransaction&gt;
+   */
   public void setLinkedTransactions(List<LinkedTransaction> linkedTransactions) {
     this.linkedTransactions = linkedTransactions;
   }

@@ -32,7 +32,12 @@ public class LineItemTracking {
 
   @JsonProperty("Option")
   private String option;
-
+  /**
+   * The Xero identifier for a tracking category
+   *
+   * @param trackingCategoryID UUID
+   * @return LineItemTracking
+   */
   public LineItemTracking trackingCategoryID(UUID trackingCategoryID) {
     this.trackingCategoryID = trackingCategoryID;
     return this;
@@ -46,14 +51,30 @@ public class LineItemTracking {
   @ApiModelProperty(
       example = "00000000-0000-0000-0000-000000000000",
       value = "The Xero identifier for a tracking category")
+  /**
+   * The Xero identifier for a tracking category
+   *
+   * @return trackingCategoryID UUID
+   */
   public UUID getTrackingCategoryID() {
     return trackingCategoryID;
   }
 
+  /**
+   * The Xero identifier for a tracking category
+   *
+   * @param trackingCategoryID UUID
+   */
   public void setTrackingCategoryID(UUID trackingCategoryID) {
     this.trackingCategoryID = trackingCategoryID;
   }
 
+  /**
+   * The Xero identifier for a tracking category option
+   *
+   * @param trackingOptionID UUID
+   * @return LineItemTracking
+   */
   public LineItemTracking trackingOptionID(UUID trackingOptionID) {
     this.trackingOptionID = trackingOptionID;
     return this;
@@ -67,14 +88,30 @@ public class LineItemTracking {
   @ApiModelProperty(
       example = "00000000-0000-0000-0000-000000000000",
       value = "The Xero identifier for a tracking category option")
+  /**
+   * The Xero identifier for a tracking category option
+   *
+   * @return trackingOptionID UUID
+   */
   public UUID getTrackingOptionID() {
     return trackingOptionID;
   }
 
+  /**
+   * The Xero identifier for a tracking category option
+   *
+   * @param trackingOptionID UUID
+   */
   public void setTrackingOptionID(UUID trackingOptionID) {
     this.trackingOptionID = trackingOptionID;
   }
 
+  /**
+   * The name of the tracking category
+   *
+   * @param name String
+   * @return LineItemTracking
+   */
   public LineItemTracking name(String name) {
     this.name = name;
     return this;
@@ -86,14 +123,30 @@ public class LineItemTracking {
    * @return name
    */
   @ApiModelProperty(example = "Region", value = "The name of the tracking category")
+  /**
+   * The name of the tracking category
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * The name of the tracking category
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * See Tracking Options
+   *
+   * @param option String
+   * @return LineItemTracking
+   */
   public LineItemTracking option(String option) {
     this.option = option;
     return this;
@@ -105,10 +158,20 @@ public class LineItemTracking {
    * @return option
    */
   @ApiModelProperty(example = "North", value = "See Tracking Options")
+  /**
+   * See Tracking Options
+   *
+   * @return option String
+   */
   public String getOption() {
     return option;
   }
 
+  /**
+   * See Tracking Options
+   *
+   * @param option String
+   */
   public void setOption(String option) {
     this.option = option;
   }

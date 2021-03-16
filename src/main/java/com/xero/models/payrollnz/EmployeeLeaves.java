@@ -30,7 +30,12 @@ public class EmployeeLeaves {
 
   @JsonProperty("leave")
   private List<EmployeeLeave> leave = new ArrayList<EmployeeLeave>();
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return EmployeeLeaves
+   */
   public EmployeeLeaves pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -42,14 +47,30 @@ public class EmployeeLeaves {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return EmployeeLeaves
+   */
   public EmployeeLeaves problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -61,19 +82,41 @@ public class EmployeeLeaves {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * leave
+   *
+   * @param leave List&lt;EmployeeLeave&gt;
+   * @return EmployeeLeaves
+   */
   public EmployeeLeaves leave(List<EmployeeLeave> leave) {
     this.leave = leave;
     return this;
   }
 
+  /**
+   * leave
+   *
+   * @param leaveItem EmployeeLeave
+   * @return EmployeeLeaves
+   */
   public EmployeeLeaves addLeaveItem(EmployeeLeave leaveItem) {
     if (this.leave == null) {
       this.leave = new ArrayList<EmployeeLeave>();
@@ -88,10 +131,20 @@ public class EmployeeLeaves {
    * @return leave
    */
   @ApiModelProperty(value = "")
+  /**
+   * leave
+   *
+   * @return leave List<EmployeeLeave>
+   */
   public List<EmployeeLeave> getLeave() {
     return leave;
   }
 
+  /**
+   * leave
+   *
+   * @param leave List&lt;EmployeeLeave&gt;
+   */
   public void setLeave(List<EmployeeLeave> leave) {
     this.leave = leave;
   }

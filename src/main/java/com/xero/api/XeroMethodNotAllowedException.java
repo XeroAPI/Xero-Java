@@ -14,6 +14,7 @@ import com.xero.models.bankfeeds.Statements;
 
 import io.swagger.annotations.ApiModelProperty;
 
+/** handle method not allowed exception  */
 public class XeroMethodNotAllowedException extends XeroException {
 
     private static final long serialVersionUID = 1L;
@@ -27,31 +28,51 @@ public class XeroMethodNotAllowedException extends XeroException {
     private com.xero.models.payrolluk.Problem payrollUkProblem = new com.xero.models.payrolluk.Problem();
     private com.xero.models.payrollnz.Problem payrollNzProblem = new com.xero.models.payrollnz.Problem();
     
-    
+    /** XeroMethodNotAllowedException
+    * @param objectType String object type being interacted with when the error was returned.
+    * @param error Error object with details specific to accounting API
+    */
     public XeroMethodNotAllowedException(String objectType, com.xero.models.accounting.Error error) {
         this.statusCode = 405;
         this.type(objectType);
         this.elements(error.getElements());
     }
-    
+
+    /** XeroMethodNotAllowedException 
+    * @param objectType String object type being interacted with when the error was returned.
+    * @param error Error object with details specific to assets API
+    */
     public XeroMethodNotAllowedException(String objectType, com.xero.models.assets.Error error) {
         this.statusCode = 405;
         this.type = objectType;
         this.fieldValidationErrorsElements = error.getFieldValidationErrors();
     }
-    
+
+    /** XeroMethodNotAllowedException 
+    * @param objectType String object type being interacted with when the error was returned.
+    * @param error Statements object with details specific to Bank Feeds API
+    */
     public XeroMethodNotAllowedException(String objectType, Statements error) {
         this.statusCode = 405;
         this.type = objectType;
         this.statementItems = error.getItems();
     }
     
+    /** XeroMethodNotAllowedException 
+    * @param objectType String object type being interacted with when the error was returned.
+    * @param error FeedConnections object with details specific to Bank Feeds API
+    */
     public XeroMethodNotAllowedException(String objectType, FeedConnections error) {
         this.statusCode = 405;
         this.type = objectType;
         this.feedConnectionItems = error.getItems();
     }
     
+    /** XeroMethodNotAllowedException 
+    * @param objectType String object type being interacted with when the error was returned.
+    * @param problem Problem object with details specific to UK Payroll API
+    * @param e Exception object with details about the original exception
+    */
     public XeroMethodNotAllowedException(String objectType, com.xero.models.payrolluk.Problem problem, Exception e) {
         super(e);
         this.statusCode = 405;
@@ -59,6 +80,11 @@ public class XeroMethodNotAllowedException extends XeroException {
         this.payrollUkProblem = problem;
     }
     
+    /** XeroMethodNotAllowedException 
+    * @param objectType String object type being interacted with when the error was returned.
+    * @param problem Problem object with details specific to UK Payroll API
+    * @param e Exception object with details about the original exception
+    */
     public XeroMethodNotAllowedException(String objectType, com.xero.models.payrollnz.Problem problem,  Exception e) {
         super(e);
         this.statusCode = 405;
@@ -66,11 +92,19 @@ public class XeroMethodNotAllowedException extends XeroException {
         this.payrollNzProblem = problem;
     }
     
+    /** XeroMethodNotAllowedException 
+    * @param statusCode Integer the server status code returned.
+    * @param message String with details about the exception
+    */
     public XeroMethodNotAllowedException(Integer statusCode, String message) {
         this.statusCode = statusCode;
         this.message = message;
     }
     
+    /** XeroMethodNotAllowedException   
+    * @param statusCode Integer the server status code returned
+    * @return XeroMethodNotAllowedException an instance the bad request exception  
+    */
     public XeroMethodNotAllowedException statusCode(Integer statusCode) {
       this.statusCode = statusCode;
       return this;
@@ -85,10 +119,17 @@ public class XeroMethodNotAllowedException extends XeroException {
       return statusCode;
     }
 
+    /** XeroMethodNotAllowedException 
+    * @param statusCode Integer the server status code returned
+    */
     public void setStatusCode(Integer statusCode) {
       this.statusCode = statusCode;
     }
 
+    /** XeroMethodNotAllowedException 
+    * @param type String the server status code returned
+    * @return XeroMethodNotAllowedException an instance the bad request exception  
+    */
     public XeroMethodNotAllowedException type(String type) {
       this.type = type;
       return this;
@@ -103,10 +144,17 @@ public class XeroMethodNotAllowedException extends XeroException {
       return type;
     }
 
+    /** XeroMethodNotAllowedException 
+    * @param type String the server status code returned
+    */
     public void setType(String type) {
       this.type = type;
     }
 
+    /** XeroMethodNotAllowedException 
+    * @param message String with the details about the exception
+    * @return XeroMethodNotAllowedException an instance the bad request exception  
+    */
     public XeroMethodNotAllowedException message(String message) {
       this.message = message;
       return this;
@@ -121,15 +169,26 @@ public class XeroMethodNotAllowedException extends XeroException {
       return message;
     }
 
+    /** XeroMethodNotAllowedException 
+    * @param message String with the details about the exception
+    */
     public void setMessage(String message) {
       this.message = message;
     }
 
+    /** XeroMethodNotAllowedException 
+    * @param elements List&lt;Element&gt; with the details about the exception
+    * @return XeroMethodNotAllowedException an instance the bad request exception  
+    */
     public XeroMethodNotAllowedException elements(List<Element> elements) {
       this.elements = elements;
       return this;
     }
 
+    /** XeroMethodNotAllowedException 
+    * @param elementsItem Element object with the details about the exception
+    * @return XeroMethodNotAllowedException an instance the bad request exception  
+    */
     public XeroMethodNotAllowedException addElementsItem(Element elementsItem) {
       if (this.elements == null) {
         this.elements = new ArrayList<Element>();
@@ -147,16 +206,26 @@ public class XeroMethodNotAllowedException extends XeroException {
       return elements;
     }
 
+    /** XeroMethodNotAllowedException 
+    * @param elements List&lt;Element&gt; with the details about the exception
+    */
     public void setElements(List<Element> elements) {
       this.elements = elements;
     }
     
-    // Bank Feed Statement items
+    /** XeroMethodNotAllowedException 
+    * @param statementItems List &lt;Statement&gt; a list of bank statements
+    * @return XeroMethodNotAllowedException an instance the bad request exception  
+    */
     public XeroMethodNotAllowedException statementItems(List<Statement> statementItems) {
       this.statementItems = statementItems;
       return this;
     }
     
+    /** XeroMethodNotAllowedException 
+    * @param item Statement object containing bank statement details
+    * @return XeroMethodNotAllowedException an instance the bad request exception  
+    */
     public XeroMethodNotAllowedException addStatementItem(Statement item) {
       if (this.statementItems == null) {
         this.statementItems = new ArrayList<Statement>();
@@ -174,16 +243,26 @@ public class XeroMethodNotAllowedException extends XeroException {
       return statementItems;
     }
     
+    /** XeroMethodNotAllowedException 
+    * @param statementItems List &lt;Statement&gt; a list of bank statements
+    */
     public void setStatementItems(List<Statement> statementItems) {
       this.statementItems = statementItems;
     }
     
-    // Bank Feed FeedConnection items
+    /** XeroMethodNotAllowedException  
+    * @param feedConnectionItems List &lt;FeedConnection&gt; a list of feed connections
+    * @return XeroMethodNotAllowedException an instance the bad request exception  
+    */
     public XeroMethodNotAllowedException feedConnectionItems(List<FeedConnection> feedConnectionItems) {
       this.feedConnectionItems = feedConnectionItems;
       return this;
     }
     
+    /** XeroMethodNotAllowedException 
+    * @param item FeedConnection a list of feed connections
+    * @return XeroMethodNotAllowedException an instance the bad request exception  
+    */
     public XeroMethodNotAllowedException addFeedConnectionItems(FeedConnection item) {
       if (this.feedConnectionItems == null) {
         this.feedConnectionItems = new ArrayList<FeedConnection>();
@@ -201,16 +280,26 @@ public class XeroMethodNotAllowedException extends XeroException {
       return feedConnectionItems;
     }
     
+    /** XeroMethodNotAllowedException 
+    * @param feedConnectionItems List &lt;FeedConnection&gt; a list of feed connections
+    */
     public void setFeedConnectionItems(List<FeedConnection> feedConnectionItems) {
       this.feedConnectionItems = feedConnectionItems;
     }
     
-    // Assets field Validation Errors
+    /** XeroMethodNotAllowedException 
+    * @param fieldValidationErrorsElements List &lt;FieldValidationErrorsElement&gt; a list of field validation errors
+    * @return XeroMethodNotAllowedException an instance the bad request exception  
+    */
     public XeroMethodNotAllowedException fieldValidationErrorsElements(List<FieldValidationErrorsElement> fieldValidationErrorsElements) {
       this.fieldValidationErrorsElements = fieldValidationErrorsElements;
       return this;
     }
     
+    /** XeroMethodNotAllowedException 
+    * @param element FieldValidationErrorsElement a list of field validation errors
+    * @return XeroMethodNotAllowedException an instance the bad request exception  
+    */
     public XeroMethodNotAllowedException addFieldValidationErrorsElement(FieldValidationErrorsElement element) {
       if (this.fieldValidationErrorsElements == null) {
         this.fieldValidationErrorsElements = new ArrayList<FieldValidationErrorsElement>();
@@ -228,12 +317,17 @@ public class XeroMethodNotAllowedException extends XeroException {
       return fieldValidationErrorsElements;
     }
     
+    /** XeroMethodNotAllowedException  
+    * @param fieldValidationErrorsElements List &lt;FieldValidationErrorsElement&gt; a list of field validation errors
+    */
     public void setFieldValidationErrorsElements(List<FieldValidationErrorsElement> fieldValidationErrorsElements) {
       this.fieldValidationErrorsElements = fieldValidationErrorsElements;
     }
-    
-    
-    // NZ Payroll Problems Errors
+        
+    /** XeroMethodNotAllowedException 
+    * @param problem the validation errors in NZ Payroll
+    * @return XeroMethodNotAllowedException an instance the bad request exception  
+    */
     public XeroMethodNotAllowedException payrollNzProblem(com.xero.models.payrollnz.Problem problem) {
       this.payrollNzProblem = problem;
       return this;
@@ -248,12 +342,17 @@ public class XeroMethodNotAllowedException extends XeroException {
       return payrollNzProblem;
     }
     
+    /** XeroMethodNotAllowedException 
+    * @param problem the validation errors in NZ Payroll
+    */
     public void setPayrollNzProblem(com.xero.models.payrollnz.Problem problem) {
       this.payrollNzProblem = problem;
     }
     
-    
-    // UK Payroll Problems Errors
+    /** XeroMethodNotAllowedException 
+    * @param problem the validation errors in UK Payroll
+    * @return XeroMethodNotAllowedException an instance the bad request exception  
+    */
     public XeroMethodNotAllowedException payrollUkProblem(com.xero.models.payrolluk.Problem problem) {
       this.payrollUkProblem = problem;
       return this;
@@ -268,6 +367,9 @@ public class XeroMethodNotAllowedException extends XeroException {
       return payrollUkProblem;
     }
     
+    /** XeroMethodNotAllowedException 
+    * @param problem the validation errors in UK Payroll
+    */
     public void setPayrollUkProblem(com.xero.models.payrolluk.Problem problem) {
       this.payrollUkProblem = problem;
     }
@@ -280,6 +382,7 @@ public class XeroMethodNotAllowedException extends XeroException {
       if (o == null || getClass() != o.getClass()) {
         return false;
       }
+
       XeroMethodNotAllowedException error = (XeroMethodNotAllowedException) o;
       return Objects.equals(this.statusCode, error.statusCode) &&
           Objects.equals(this.type, error.type) &&
@@ -291,7 +394,6 @@ public class XeroMethodNotAllowedException extends XeroException {
     public int hashCode() {
       return Objects.hash(statusCode, type, message);  //, elements
     }
-
 
     @Override
     public String toString() {
@@ -315,5 +417,4 @@ public class XeroMethodNotAllowedException extends XeroException {
       }
       return o.toString().replace("\n", "\n    ");
     }
-
 }

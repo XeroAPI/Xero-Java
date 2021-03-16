@@ -40,7 +40,12 @@ public class PaymentService {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
-
+  /**
+   * Xero identifier
+   *
+   * @param paymentServiceID UUID
+   * @return PaymentService
+   */
   public PaymentService paymentServiceID(UUID paymentServiceID) {
     this.paymentServiceID = paymentServiceID;
     return this;
@@ -52,14 +57,30 @@ public class PaymentService {
    * @return paymentServiceID
    */
   @ApiModelProperty(value = "Xero identifier")
+  /**
+   * Xero identifier
+   *
+   * @return paymentServiceID UUID
+   */
   public UUID getPaymentServiceID() {
     return paymentServiceID;
   }
 
+  /**
+   * Xero identifier
+   *
+   * @param paymentServiceID UUID
+   */
   public void setPaymentServiceID(UUID paymentServiceID) {
     this.paymentServiceID = paymentServiceID;
   }
 
+  /**
+   * Name of payment service
+   *
+   * @param paymentServiceName String
+   * @return PaymentService
+   */
   public PaymentService paymentServiceName(String paymentServiceName) {
     this.paymentServiceName = paymentServiceName;
     return this;
@@ -71,14 +92,30 @@ public class PaymentService {
    * @return paymentServiceName
    */
   @ApiModelProperty(value = "Name of payment service")
+  /**
+   * Name of payment service
+   *
+   * @return paymentServiceName String
+   */
   public String getPaymentServiceName() {
     return paymentServiceName;
   }
 
+  /**
+   * Name of payment service
+   *
+   * @param paymentServiceName String
+   */
   public void setPaymentServiceName(String paymentServiceName) {
     this.paymentServiceName = paymentServiceName;
   }
 
+  /**
+   * The custom payment URL
+   *
+   * @param paymentServiceUrl String
+   * @return PaymentService
+   */
   public PaymentService paymentServiceUrl(String paymentServiceUrl) {
     this.paymentServiceUrl = paymentServiceUrl;
     return this;
@@ -90,14 +127,31 @@ public class PaymentService {
    * @return paymentServiceUrl
    */
   @ApiModelProperty(value = "The custom payment URL")
+  /**
+   * The custom payment URL
+   *
+   * @return paymentServiceUrl String
+   */
   public String getPaymentServiceUrl() {
     return paymentServiceUrl;
   }
 
+  /**
+   * The custom payment URL
+   *
+   * @param paymentServiceUrl String
+   */
   public void setPaymentServiceUrl(String paymentServiceUrl) {
     this.paymentServiceUrl = paymentServiceUrl;
   }
 
+  /**
+   * The text displayed on the Pay Now button in Xero Online Invoicing. If this is not set it will
+   * default to Pay by credit card
+   *
+   * @param payNowText String
+   * @return PaymentService
+   */
   public PaymentService payNowText(String payNowText) {
     this.payNowText = payNowText;
     return this;
@@ -113,14 +167,32 @@ public class PaymentService {
       value =
           "The text displayed on the Pay Now button in Xero Online Invoicing. If this is not set"
               + " it will default to Pay by credit card")
+  /**
+   * The text displayed on the Pay Now button in Xero Online Invoicing. If this is not set it will
+   * default to Pay by credit card
+   *
+   * @return payNowText String
+   */
   public String getPayNowText() {
     return payNowText;
   }
 
+  /**
+   * The text displayed on the Pay Now button in Xero Online Invoicing. If this is not set it will
+   * default to Pay by credit card
+   *
+   * @param payNowText String
+   */
   public void setPayNowText(String payNowText) {
     this.payNowText = payNowText;
   }
 
+  /**
+   * This will always be CUSTOM for payment services created via the API.
+   *
+   * @param paymentServiceType String
+   * @return PaymentService
+   */
   public PaymentService paymentServiceType(String paymentServiceType) {
     this.paymentServiceType = paymentServiceType;
     return this;
@@ -132,19 +204,41 @@ public class PaymentService {
    * @return paymentServiceType
    */
   @ApiModelProperty(value = "This will always be CUSTOM for payment services created via the API.")
+  /**
+   * This will always be CUSTOM for payment services created via the API.
+   *
+   * @return paymentServiceType String
+   */
   public String getPaymentServiceType() {
     return paymentServiceType;
   }
 
+  /**
+   * This will always be CUSTOM for payment services created via the API.
+   *
+   * @param paymentServiceType String
+   */
   public void setPaymentServiceType(String paymentServiceType) {
     this.paymentServiceType = paymentServiceType;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrors List&lt;ValidationError&gt;
+   * @return PaymentService
+   */
   public PaymentService validationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
     return this;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrorsItem ValidationError
+   * @return PaymentService
+   */
   public PaymentService addValidationErrorsItem(ValidationError validationErrorsItem) {
     if (this.validationErrors == null) {
       this.validationErrors = new ArrayList<ValidationError>();
@@ -159,10 +253,20 @@ public class PaymentService {
    * @return validationErrors
    */
   @ApiModelProperty(value = "Displays array of validation error messages from the API")
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @return validationErrors List<ValidationError>
+   */
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrors List&lt;ValidationError&gt;
+   */
   public void setValidationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
   }

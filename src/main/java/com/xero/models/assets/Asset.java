@@ -69,7 +69,12 @@ public class Asset {
 
   @JsonProperty("isDeleteEnabledForDate")
   private Boolean isDeleteEnabledForDate;
-
+  /**
+   * The Xero-generated Id for the asset
+   *
+   * @param assetId UUID
+   * @return Asset
+   */
   public Asset assetId(UUID assetId) {
     this.assetId = assetId;
     return this;
@@ -83,14 +88,30 @@ public class Asset {
   @ApiModelProperty(
       example = "3b5b3a38-5649-495f-87a1-14a4e5918634",
       value = "The Xero-generated Id for the asset")
+  /**
+   * The Xero-generated Id for the asset
+   *
+   * @return assetId UUID
+   */
   public UUID getAssetId() {
     return assetId;
   }
 
+  /**
+   * The Xero-generated Id for the asset
+   *
+   * @param assetId UUID
+   */
   public void setAssetId(UUID assetId) {
     this.assetId = assetId;
   }
 
+  /**
+   * The name of the asset
+   *
+   * @param assetName String
+   * @return Asset
+   */
   public Asset assetName(String assetName) {
     this.assetName = assetName;
     return this;
@@ -102,14 +123,30 @@ public class Asset {
    * @return assetName
    */
   @ApiModelProperty(example = "Awesome Truck 3", required = true, value = "The name of the asset")
+  /**
+   * The name of the asset
+   *
+   * @return assetName String
+   */
   public String getAssetName() {
     return assetName;
   }
 
+  /**
+   * The name of the asset
+   *
+   * @param assetName String
+   */
   public void setAssetName(String assetName) {
     this.assetName = assetName;
   }
 
+  /**
+   * The Xero-generated Id for the asset type
+   *
+   * @param assetTypeId UUID
+   * @return Asset
+   */
   public Asset assetTypeId(UUID assetTypeId) {
     this.assetTypeId = assetTypeId;
     return this;
@@ -123,14 +160,30 @@ public class Asset {
   @ApiModelProperty(
       example = "3b5b3a38-5649-495f-87a1-14a4e5918634",
       value = "The Xero-generated Id for the asset type")
+  /**
+   * The Xero-generated Id for the asset type
+   *
+   * @return assetTypeId UUID
+   */
   public UUID getAssetTypeId() {
     return assetTypeId;
   }
 
+  /**
+   * The Xero-generated Id for the asset type
+   *
+   * @param assetTypeId UUID
+   */
   public void setAssetTypeId(UUID assetTypeId) {
     this.assetTypeId = assetTypeId;
   }
 
+  /**
+   * Must be unique.
+   *
+   * @param assetNumber String
+   * @return Asset
+   */
   public Asset assetNumber(String assetNumber) {
     this.assetNumber = assetNumber;
     return this;
@@ -142,14 +195,30 @@ public class Asset {
    * @return assetNumber
    */
   @ApiModelProperty(example = "FA-0013", value = "Must be unique.")
+  /**
+   * Must be unique.
+   *
+   * @return assetNumber String
+   */
   public String getAssetNumber() {
     return assetNumber;
   }
 
+  /**
+   * Must be unique.
+   *
+   * @param assetNumber String
+   */
   public void setAssetNumber(String assetNumber) {
     this.assetNumber = assetNumber;
   }
 
+  /**
+   * The date the asset was purchased YYYY-MM-DD
+   *
+   * @param purchaseDate LocalDate
+   * @return Asset
+   */
   public Asset purchaseDate(LocalDate purchaseDate) {
     this.purchaseDate = purchaseDate;
     return this;
@@ -161,14 +230,30 @@ public class Asset {
    * @return purchaseDate
    */
   @ApiModelProperty(value = "The date the asset was purchased YYYY-MM-DD")
+  /**
+   * The date the asset was purchased YYYY-MM-DD
+   *
+   * @return purchaseDate LocalDate
+   */
   public LocalDate getPurchaseDate() {
     return purchaseDate;
   }
 
+  /**
+   * The date the asset was purchased YYYY-MM-DD
+   *
+   * @param purchaseDate LocalDate
+   */
   public void setPurchaseDate(LocalDate purchaseDate) {
     this.purchaseDate = purchaseDate;
   }
 
+  /**
+   * The purchase price of the asset
+   *
+   * @param purchasePrice Double
+   * @return Asset
+   */
   public Asset purchasePrice(Double purchasePrice) {
     this.purchasePrice = purchasePrice;
     return this;
@@ -180,14 +265,30 @@ public class Asset {
    * @return purchasePrice
    */
   @ApiModelProperty(example = "1000.0000", value = "The purchase price of the asset")
+  /**
+   * The purchase price of the asset
+   *
+   * @return purchasePrice Double
+   */
   public Double getPurchasePrice() {
     return purchasePrice;
   }
 
+  /**
+   * The purchase price of the asset
+   *
+   * @param purchasePrice Double
+   */
   public void setPurchasePrice(Double purchasePrice) {
     this.purchasePrice = purchasePrice;
   }
 
+  /**
+   * The date the asset was disposed
+   *
+   * @param disposalDate LocalDate
+   * @return Asset
+   */
   public Asset disposalDate(LocalDate disposalDate) {
     this.disposalDate = disposalDate;
     return this;
@@ -199,14 +300,30 @@ public class Asset {
    * @return disposalDate
    */
   @ApiModelProperty(value = "The date the asset was disposed")
+  /**
+   * The date the asset was disposed
+   *
+   * @return disposalDate LocalDate
+   */
   public LocalDate getDisposalDate() {
     return disposalDate;
   }
 
+  /**
+   * The date the asset was disposed
+   *
+   * @param disposalDate LocalDate
+   */
   public void setDisposalDate(LocalDate disposalDate) {
     this.disposalDate = disposalDate;
   }
 
+  /**
+   * The price the asset was disposed at
+   *
+   * @param disposalPrice Double
+   * @return Asset
+   */
   public Asset disposalPrice(Double disposalPrice) {
     this.disposalPrice = disposalPrice;
     return this;
@@ -218,14 +335,30 @@ public class Asset {
    * @return disposalPrice
    */
   @ApiModelProperty(example = "1.0000", value = "The price the asset was disposed at")
+  /**
+   * The price the asset was disposed at
+   *
+   * @return disposalPrice Double
+   */
   public Double getDisposalPrice() {
     return disposalPrice;
   }
 
+  /**
+   * The price the asset was disposed at
+   *
+   * @param disposalPrice Double
+   */
   public void setDisposalPrice(Double disposalPrice) {
     this.disposalPrice = disposalPrice;
   }
 
+  /**
+   * assetStatus
+   *
+   * @param assetStatus AssetStatus
+   * @return Asset
+   */
   public Asset assetStatus(AssetStatus assetStatus) {
     this.assetStatus = assetStatus;
     return this;
@@ -237,14 +370,30 @@ public class Asset {
    * @return assetStatus
    */
   @ApiModelProperty(value = "")
+  /**
+   * assetStatus
+   *
+   * @return assetStatus AssetStatus
+   */
   public AssetStatus getAssetStatus() {
     return assetStatus;
   }
 
+  /**
+   * assetStatus
+   *
+   * @param assetStatus AssetStatus
+   */
   public void setAssetStatus(AssetStatus assetStatus) {
     this.assetStatus = assetStatus;
   }
 
+  /**
+   * The date the asset’s warranty expires (if needed) YYYY-MM-DD
+   *
+   * @param warrantyExpiryDate String
+   * @return Asset
+   */
   public Asset warrantyExpiryDate(String warrantyExpiryDate) {
     this.warrantyExpiryDate = warrantyExpiryDate;
     return this;
@@ -258,14 +407,30 @@ public class Asset {
   @ApiModelProperty(
       example = "ca4c6b39-4f4f-43e8-98da-5e1f350a6694",
       value = "The date the asset’s warranty expires (if needed) YYYY-MM-DD")
+  /**
+   * The date the asset’s warranty expires (if needed) YYYY-MM-DD
+   *
+   * @return warrantyExpiryDate String
+   */
   public String getWarrantyExpiryDate() {
     return warrantyExpiryDate;
   }
 
+  /**
+   * The date the asset’s warranty expires (if needed) YYYY-MM-DD
+   *
+   * @param warrantyExpiryDate String
+   */
   public void setWarrantyExpiryDate(String warrantyExpiryDate) {
     this.warrantyExpiryDate = warrantyExpiryDate;
   }
 
+  /**
+   * The asset&#39;s serial number
+   *
+   * @param serialNumber String
+   * @return Asset
+   */
   public Asset serialNumber(String serialNumber) {
     this.serialNumber = serialNumber;
     return this;
@@ -279,14 +444,30 @@ public class Asset {
   @ApiModelProperty(
       example = "ca4c6b39-4f4f-43e8-98da-5e1f350a6694",
       value = "The asset's serial number")
+  /**
+   * The asset&#39;s serial number
+   *
+   * @return serialNumber String
+   */
   public String getSerialNumber() {
     return serialNumber;
   }
 
+  /**
+   * The asset&#39;s serial number
+   *
+   * @param serialNumber String
+   */
   public void setSerialNumber(String serialNumber) {
     this.serialNumber = serialNumber;
   }
 
+  /**
+   * bookDepreciationSetting
+   *
+   * @param bookDepreciationSetting BookDepreciationSetting
+   * @return Asset
+   */
   public Asset bookDepreciationSetting(BookDepreciationSetting bookDepreciationSetting) {
     this.bookDepreciationSetting = bookDepreciationSetting;
     return this;
@@ -298,14 +479,30 @@ public class Asset {
    * @return bookDepreciationSetting
    */
   @ApiModelProperty(value = "")
+  /**
+   * bookDepreciationSetting
+   *
+   * @return bookDepreciationSetting BookDepreciationSetting
+   */
   public BookDepreciationSetting getBookDepreciationSetting() {
     return bookDepreciationSetting;
   }
 
+  /**
+   * bookDepreciationSetting
+   *
+   * @param bookDepreciationSetting BookDepreciationSetting
+   */
   public void setBookDepreciationSetting(BookDepreciationSetting bookDepreciationSetting) {
     this.bookDepreciationSetting = bookDepreciationSetting;
   }
 
+  /**
+   * bookDepreciationDetail
+   *
+   * @param bookDepreciationDetail BookDepreciationDetail
+   * @return Asset
+   */
   public Asset bookDepreciationDetail(BookDepreciationDetail bookDepreciationDetail) {
     this.bookDepreciationDetail = bookDepreciationDetail;
     return this;
@@ -317,14 +514,32 @@ public class Asset {
    * @return bookDepreciationDetail
    */
   @ApiModelProperty(value = "")
+  /**
+   * bookDepreciationDetail
+   *
+   * @return bookDepreciationDetail BookDepreciationDetail
+   */
   public BookDepreciationDetail getBookDepreciationDetail() {
     return bookDepreciationDetail;
   }
 
+  /**
+   * bookDepreciationDetail
+   *
+   * @param bookDepreciationDetail BookDepreciationDetail
+   */
   public void setBookDepreciationDetail(BookDepreciationDetail bookDepreciationDetail) {
     this.bookDepreciationDetail = bookDepreciationDetail;
   }
 
+  /**
+   * Boolean to indicate whether depreciation can be rolled back for this asset individually. This
+   * is true if it doesn&#39;t have &#39;legacy&#39; journal entries and if there is no lock period
+   * that would prevent this asset from rolling back.
+   *
+   * @param canRollback Boolean
+   * @return Asset
+   */
   public Asset canRollback(Boolean canRollback) {
     this.canRollback = canRollback;
     return this;
@@ -343,14 +558,34 @@ public class Asset {
           "Boolean to indicate whether depreciation can be rolled back for this asset"
               + " individually. This is true if it doesn't have 'legacy' journal entries and if"
               + " there is no lock period that would prevent this asset from rolling back.")
+  /**
+   * Boolean to indicate whether depreciation can be rolled back for this asset individually. This
+   * is true if it doesn&#39;t have &#39;legacy&#39; journal entries and if there is no lock period
+   * that would prevent this asset from rolling back.
+   *
+   * @return canRollback Boolean
+   */
   public Boolean getCanRollback() {
     return canRollback;
   }
 
+  /**
+   * Boolean to indicate whether depreciation can be rolled back for this asset individually. This
+   * is true if it doesn&#39;t have &#39;legacy&#39; journal entries and if there is no lock period
+   * that would prevent this asset from rolling back.
+   *
+   * @param canRollback Boolean
+   */
   public void setCanRollback(Boolean canRollback) {
     this.canRollback = canRollback;
   }
 
+  /**
+   * The accounting value of the asset
+   *
+   * @param accountingBookValue Double
+   * @return Asset
+   */
   public Asset accountingBookValue(Double accountingBookValue) {
     this.accountingBookValue = accountingBookValue;
     return this;
@@ -362,14 +597,30 @@ public class Asset {
    * @return accountingBookValue
    */
   @ApiModelProperty(example = "0", value = "The accounting value of the asset")
+  /**
+   * The accounting value of the asset
+   *
+   * @return accountingBookValue Double
+   */
   public Double getAccountingBookValue() {
     return accountingBookValue;
   }
 
+  /**
+   * The accounting value of the asset
+   *
+   * @param accountingBookValue Double
+   */
   public void setAccountingBookValue(Double accountingBookValue) {
     this.accountingBookValue = accountingBookValue;
   }
 
+  /**
+   * Boolean to indicate whether delete is enabled
+   *
+   * @param isDeleteEnabledForDate Boolean
+   * @return Asset
+   */
   public Asset isDeleteEnabledForDate(Boolean isDeleteEnabledForDate) {
     this.isDeleteEnabledForDate = isDeleteEnabledForDate;
     return this;
@@ -381,10 +632,20 @@ public class Asset {
    * @return isDeleteEnabledForDate
    */
   @ApiModelProperty(example = "true", value = "Boolean to indicate whether delete is enabled")
+  /**
+   * Boolean to indicate whether delete is enabled
+   *
+   * @return isDeleteEnabledForDate Boolean
+   */
   public Boolean getIsDeleteEnabledForDate() {
     return isDeleteEnabledForDate;
   }
 
+  /**
+   * Boolean to indicate whether delete is enabled
+   *
+   * @param isDeleteEnabledForDate Boolean
+   */
   public void setIsDeleteEnabledForDate(Boolean isDeleteEnabledForDate) {
     this.isDeleteEnabledForDate = isDeleteEnabledForDate;
   }

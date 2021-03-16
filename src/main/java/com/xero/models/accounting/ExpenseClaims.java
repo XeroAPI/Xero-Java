@@ -24,12 +24,23 @@ public class ExpenseClaims {
 
   @JsonProperty("ExpenseClaims")
   private List<ExpenseClaim> expenseClaims = new ArrayList<ExpenseClaim>();
-
+  /**
+   * expenseClaims
+   *
+   * @param expenseClaims List&lt;ExpenseClaim&gt;
+   * @return ExpenseClaims
+   */
   public ExpenseClaims expenseClaims(List<ExpenseClaim> expenseClaims) {
     this.expenseClaims = expenseClaims;
     return this;
   }
 
+  /**
+   * expenseClaims
+   *
+   * @param expenseClaimsItem ExpenseClaim
+   * @return ExpenseClaims
+   */
   public ExpenseClaims addExpenseClaimsItem(ExpenseClaim expenseClaimsItem) {
     if (this.expenseClaims == null) {
       this.expenseClaims = new ArrayList<ExpenseClaim>();
@@ -44,10 +55,20 @@ public class ExpenseClaims {
    * @return expenseClaims
    */
   @ApiModelProperty(value = "")
+  /**
+   * expenseClaims
+   *
+   * @return expenseClaims List<ExpenseClaim>
+   */
   public List<ExpenseClaim> getExpenseClaims() {
     return expenseClaims;
   }
 
+  /**
+   * expenseClaims
+   *
+   * @param expenseClaims List&lt;ExpenseClaim&gt;
+   */
   public void setExpenseClaims(List<ExpenseClaim> expenseClaims) {
     this.expenseClaims = expenseClaims;
   }

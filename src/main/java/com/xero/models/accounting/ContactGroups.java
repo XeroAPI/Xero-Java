@@ -24,12 +24,23 @@ public class ContactGroups {
 
   @JsonProperty("ContactGroups")
   private List<ContactGroup> contactGroups = new ArrayList<ContactGroup>();
-
+  /**
+   * contactGroups
+   *
+   * @param contactGroups List&lt;ContactGroup&gt;
+   * @return ContactGroups
+   */
   public ContactGroups contactGroups(List<ContactGroup> contactGroups) {
     this.contactGroups = contactGroups;
     return this;
   }
 
+  /**
+   * contactGroups
+   *
+   * @param contactGroupsItem ContactGroup
+   * @return ContactGroups
+   */
   public ContactGroups addContactGroupsItem(ContactGroup contactGroupsItem) {
     if (this.contactGroups == null) {
       this.contactGroups = new ArrayList<ContactGroup>();
@@ -44,10 +55,20 @@ public class ContactGroups {
    * @return contactGroups
    */
   @ApiModelProperty(value = "")
+  /**
+   * contactGroups
+   *
+   * @return contactGroups List<ContactGroup>
+   */
   public List<ContactGroup> getContactGroups() {
     return contactGroups;
   }
 
+  /**
+   * contactGroups
+   *
+   * @param contactGroups List&lt;ContactGroup&gt;
+   */
   public void setContactGroups(List<ContactGroup> contactGroups) {
     this.contactGroups = contactGroups;
   }

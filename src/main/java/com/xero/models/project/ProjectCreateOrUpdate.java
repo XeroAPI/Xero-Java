@@ -33,7 +33,12 @@ public class ProjectCreateOrUpdate {
 
   @JsonProperty("deadlineUtc")
   private OffsetDateTime deadlineUtc;
-
+  /**
+   * Identifier of the contact this project was created for.
+   *
+   * @param contactId UUID
+   * @return ProjectCreateOrUpdate
+   */
   public ProjectCreateOrUpdate contactId(UUID contactId) {
     this.contactId = contactId;
     return this;
@@ -47,14 +52,30 @@ public class ProjectCreateOrUpdate {
   @ApiModelProperty(
       example = "01234567-89ab-cdef-0123-456789abcdef",
       value = "Identifier of the contact this project was created for.")
+  /**
+   * Identifier of the contact this project was created for.
+   *
+   * @return contactId UUID
+   */
   public UUID getContactId() {
     return contactId;
   }
 
+  /**
+   * Identifier of the contact this project was created for.
+   *
+   * @param contactId UUID
+   */
   public void setContactId(UUID contactId) {
     this.contactId = contactId;
   }
 
+  /**
+   * Name of the project.
+   *
+   * @param name String
+   * @return ProjectCreateOrUpdate
+   */
   public ProjectCreateOrUpdate name(String name) {
     this.name = name;
     return this;
@@ -66,14 +87,30 @@ public class ProjectCreateOrUpdate {
    * @return name
    */
   @ApiModelProperty(example = "New Kitchen", required = true, value = "Name of the project.")
+  /**
+   * Name of the project.
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Name of the project.
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * estimateAmount
+   *
+   * @param estimateAmount Double
+   * @return ProjectCreateOrUpdate
+   */
   public ProjectCreateOrUpdate estimateAmount(Double estimateAmount) {
     this.estimateAmount = estimateAmount;
     return this;
@@ -85,14 +122,30 @@ public class ProjectCreateOrUpdate {
    * @return estimateAmount
    */
   @ApiModelProperty(example = "1.0", value = "")
+  /**
+   * estimateAmount
+   *
+   * @return estimateAmount Double
+   */
   public Double getEstimateAmount() {
     return estimateAmount;
   }
 
+  /**
+   * estimateAmount
+   *
+   * @param estimateAmount Double
+   */
   public void setEstimateAmount(Double estimateAmount) {
     this.estimateAmount = estimateAmount;
   }
 
+  /**
+   * Deadline for the project. UTC Date Time in ISO-8601 format.
+   *
+   * @param deadlineUtc OffsetDateTime
+   * @return ProjectCreateOrUpdate
+   */
   public ProjectCreateOrUpdate deadlineUtc(OffsetDateTime deadlineUtc) {
     this.deadlineUtc = deadlineUtc;
     return this;
@@ -106,10 +159,20 @@ public class ProjectCreateOrUpdate {
   @ApiModelProperty(
       example = "2019-12-10T12:59:59Z",
       value = "Deadline for the project. UTC Date Time in ISO-8601 format.")
+  /**
+   * Deadline for the project. UTC Date Time in ISO-8601 format.
+   *
+   * @return deadlineUtc OffsetDateTime
+   */
   public OffsetDateTime getDeadlineUtc() {
     return deadlineUtc;
   }
 
+  /**
+   * Deadline for the project. UTC Date Time in ISO-8601 format.
+   *
+   * @param deadlineUtc OffsetDateTime
+   */
   public void setDeadlineUtc(OffsetDateTime deadlineUtc) {
     this.deadlineUtc = deadlineUtc;
   }

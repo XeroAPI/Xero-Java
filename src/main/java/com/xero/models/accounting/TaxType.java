@@ -17,122 +17,182 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /** See Tax Types – can only be used on update calls */
 public enum TaxType {
+
+  /** OUTPUT */
   OUTPUT("OUTPUT"),
 
+  /** INPUT */
   INPUT("INPUT"),
 
+  /** CAPEXINPUT */
   CAPEXINPUT("CAPEXINPUT"),
 
+  /** EXEMPTEXPORT */
   EXEMPTEXPORT("EXEMPTEXPORT"),
 
+  /** EXEMPTEXPENSES */
   EXEMPTEXPENSES("EXEMPTEXPENSES"),
 
+  /** EXEMPTCAPITAL */
   EXEMPTCAPITAL("EXEMPTCAPITAL"),
 
+  /** EXEMPTOUTPUT */
   EXEMPTOUTPUT("EXEMPTOUTPUT"),
 
+  /** INPUTTAXED */
   INPUTTAXED("INPUTTAXED"),
 
+  /** BASEXCLUDED */
   BASEXCLUDED("BASEXCLUDED"),
 
+  /** GSTONCAPIMPORTS */
   GSTONCAPIMPORTS("GSTONCAPIMPORTS"),
 
+  /** GSTONIMPORTS */
   GSTONIMPORTS("GSTONIMPORTS"),
 
+  /** NONE */
   NONE("NONE"),
 
+  /** INPUT2 */
   INPUT2("INPUT2"),
 
+  /** ZERORATED */
   ZERORATED("ZERORATED"),
 
+  /** OUTPUT2 */
   OUTPUT2("OUTPUT2"),
 
+  /** CAPEXINPUT2 */
   CAPEXINPUT2("CAPEXINPUT2"),
 
+  /** CAPEXOUTPUT */
   CAPEXOUTPUT("CAPEXOUTPUT"),
 
+  /** CAPEXOUTPUT2 */
   CAPEXOUTPUT2("CAPEXOUTPUT2"),
 
+  /** CAPEXSRINPUT */
   CAPEXSRINPUT("CAPEXSRINPUT"),
 
+  /** CAPEXSROUTPUT */
   CAPEXSROUTPUT("CAPEXSROUTPUT"),
 
+  /** ECACQUISITIONS */
   ECACQUISITIONS("ECACQUISITIONS"),
 
+  /** ECZRINPUT */
   ECZRINPUT("ECZRINPUT"),
 
+  /** ECZROUTPUT */
   ECZROUTPUT("ECZROUTPUT"),
 
+  /** ECZROUTPUTSERVICES */
   ECZROUTPUTSERVICES("ECZROUTPUTSERVICES"),
 
+  /** EXEMPTINPUT */
   EXEMPTINPUT("EXEMPTINPUT"),
 
+  /** REVERSECHARGES */
   REVERSECHARGES("REVERSECHARGES"),
 
+  /** RRINPUT */
   RRINPUT("RRINPUT"),
 
+  /** RROUTPUT */
   RROUTPUT("RROUTPUT"),
 
+  /** SRINPUT */
   SRINPUT("SRINPUT"),
 
+  /** SROUTPUT */
   SROUTPUT("SROUTPUT"),
 
+  /** ZERORATEDINPUT */
   ZERORATEDINPUT("ZERORATEDINPUT"),
 
+  /** ZERORATEDOUTPUT */
   ZERORATEDOUTPUT("ZERORATEDOUTPUT"),
 
+  /** BLINPUT */
   BLINPUT("BLINPUT"),
 
+  /** DSOUTPUT */
   DSOUTPUT("DSOUTPUT"),
 
+  /** EPINPUT */
   EPINPUT("EPINPUT"),
 
+  /** ES33OUTPUT */
   ES33OUTPUT("ES33OUTPUT"),
 
+  /** ESN33OUTPUT */
   ESN33OUTPUT("ESN33OUTPUT"),
 
+  /** IGDSINPUT2 */
   IGDSINPUT2("IGDSINPUT2"),
 
+  /** IMINPUT2 */
   IMINPUT2("IMINPUT2"),
 
+  /** MEINPUT */
   MEINPUT("MEINPUT"),
 
+  /** NRINPUT */
   NRINPUT("NRINPUT"),
 
+  /** OPINPUT */
   OPINPUT("OPINPUT"),
 
+  /** OSOUTPUT */
   OSOUTPUT("OSOUTPUT"),
 
+  /** TXESSINPUT */
   TXESSINPUT("TXESSINPUT"),
 
+  /** TXN33INPUT */
   TXN33INPUT("TXN33INPUT"),
 
+  /** TXPETINPUT */
   TXPETINPUT("TXPETINPUT"),
 
+  /** TXREINPUT */
   TXREINPUT("TXREINPUT"),
 
+  /** INPUT3 */
   INPUT3("INPUT3"),
 
+  /** INPUT4 */
   INPUT4("INPUT4"),
 
+  /** OUTPUT3 */
   OUTPUT3("OUTPUT3"),
 
+  /** OUTPUT4 */
   OUTPUT4("OUTPUT4"),
 
+  /** SROUTPUT2 */
   SROUTPUT2("SROUTPUT2"),
 
+  /** TXCA */
   TXCA("TXCA"),
 
+  /** SRCAS */
   SRCAS("SRCAS"),
 
+  /** BLINPUT2 */
   BLINPUT2("BLINPUT2"),
 
+  /** DRCHARGESUPPLY20 */
   DRCHARGESUPPLY20("DRCHARGESUPPLY20"),
 
+  /** DRCHARGE20 */
   DRCHARGE20("DRCHARGE20"),
 
+  /** DRCHARGESUPPLY5 */
   DRCHARGESUPPLY5("DRCHARGESUPPLY5"),
 
+  /** DRCHARGE5 */
   DRCHARGE5("DRCHARGE5");
 
   private String value;
@@ -141,16 +201,27 @@ public enum TaxType {
     this.value = value;
   }
 
+  /** @return String value */
   @JsonValue
   public String getValue() {
     return value;
   }
 
+  /**
+   * toString
+   *
+   * @return String value
+   */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
+  /**
+   * fromValue
+   *
+   * @param value String
+   */
   @JsonCreator
   public static TaxType fromValue(String value) {
     for (TaxType b : TaxType.values()) {

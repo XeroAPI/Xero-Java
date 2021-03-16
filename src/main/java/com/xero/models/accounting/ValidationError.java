@@ -22,7 +22,12 @@ public class ValidationError {
 
   @JsonProperty("Message")
   private String message;
-
+  /**
+   * Validation error message
+   *
+   * @param message String
+   * @return ValidationError
+   */
   public ValidationError message(String message) {
     this.message = message;
     return this;
@@ -34,10 +39,20 @@ public class ValidationError {
    * @return message
    */
   @ApiModelProperty(value = "Validation error message")
+  /**
+   * Validation error message
+   *
+   * @return message String
+   */
   public String getMessage() {
     return message;
   }
 
+  /**
+   * Validation error message
+   *
+   * @param message String
+   */
   public void setMessage(String message) {
     this.message = message;
   }

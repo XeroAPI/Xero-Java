@@ -40,7 +40,12 @@ public class EmployeeLeaveSetup {
 
   @JsonProperty("sickLeaveOpeningBalance")
   private Double sickLeaveOpeningBalance;
-
+  /**
+   * Identifier if holiday pay will be included in each payslip
+   *
+   * @param includeHolidayPay Boolean
+   * @return EmployeeLeaveSetup
+   */
   public EmployeeLeaveSetup includeHolidayPay(Boolean includeHolidayPay) {
     this.includeHolidayPay = includeHolidayPay;
     return this;
@@ -54,14 +59,31 @@ public class EmployeeLeaveSetup {
   @ApiModelProperty(
       example = "false",
       value = "Identifier if holiday pay will be included in each payslip")
+  /**
+   * Identifier if holiday pay will be included in each payslip
+   *
+   * @return includeHolidayPay Boolean
+   */
   public Boolean getIncludeHolidayPay() {
     return includeHolidayPay;
   }
 
+  /**
+   * Identifier if holiday pay will be included in each payslip
+   *
+   * @param includeHolidayPay Boolean
+   */
   public void setIncludeHolidayPay(Boolean includeHolidayPay) {
     this.includeHolidayPay = includeHolidayPay;
   }
 
+  /**
+   * Initial holiday pay balance. A percentage — usually 8% — of gross earnings since their last
+   * work anniversary.
+   *
+   * @param holidayPayOpeningBalance Double
+   * @return EmployeeLeaveSetup
+   */
   public EmployeeLeaveSetup holidayPayOpeningBalance(Double holidayPayOpeningBalance) {
     this.holidayPayOpeningBalance = holidayPayOpeningBalance;
     return this;
@@ -78,14 +100,33 @@ public class EmployeeLeaveSetup {
       value =
           "Initial holiday pay balance. A percentage — usually 8% — of gross earnings since their"
               + " last work anniversary.")
+  /**
+   * Initial holiday pay balance. A percentage — usually 8% — of gross earnings since their last
+   * work anniversary.
+   *
+   * @return holidayPayOpeningBalance Double
+   */
   public Double getHolidayPayOpeningBalance() {
     return holidayPayOpeningBalance;
   }
 
+  /**
+   * Initial holiday pay balance. A percentage — usually 8% — of gross earnings since their last
+   * work anniversary.
+   *
+   * @param holidayPayOpeningBalance Double
+   */
   public void setHolidayPayOpeningBalance(Double holidayPayOpeningBalance) {
     this.holidayPayOpeningBalance = holidayPayOpeningBalance;
   }
 
+  /**
+   * Initial annual leave balance. The balance at their last anniversary, less any leave taken since
+   * then and excluding accrued annual leave.
+   *
+   * @param annualLeaveOpeningBalance Double
+   * @return EmployeeLeaveSetup
+   */
   public EmployeeLeaveSetup annualLeaveOpeningBalance(Double annualLeaveOpeningBalance) {
     this.annualLeaveOpeningBalance = annualLeaveOpeningBalance;
     return this;
@@ -102,14 +143,32 @@ public class EmployeeLeaveSetup {
       value =
           "Initial annual leave balance. The balance at their last anniversary, less any leave"
               + " taken since then and excluding accrued annual leave.")
+  /**
+   * Initial annual leave balance. The balance at their last anniversary, less any leave taken since
+   * then and excluding accrued annual leave.
+   *
+   * @return annualLeaveOpeningBalance Double
+   */
   public Double getAnnualLeaveOpeningBalance() {
     return annualLeaveOpeningBalance;
   }
 
+  /**
+   * Initial annual leave balance. The balance at their last anniversary, less any leave taken since
+   * then and excluding accrued annual leave.
+   *
+   * @param annualLeaveOpeningBalance Double
+   */
   public void setAnnualLeaveOpeningBalance(Double annualLeaveOpeningBalance) {
     this.annualLeaveOpeningBalance = annualLeaveOpeningBalance;
   }
 
+  /**
+   * The dollar value of annual leave opening balance if negative.
+   *
+   * @param negativeAnnualLeaveBalancePaidAmount Double
+   * @return EmployeeLeaveSetup
+   */
   public EmployeeLeaveSetup negativeAnnualLeaveBalancePaidAmount(
       Double negativeAnnualLeaveBalancePaidAmount) {
     this.negativeAnnualLeaveBalancePaidAmount = negativeAnnualLeaveBalancePaidAmount;
@@ -124,14 +183,31 @@ public class EmployeeLeaveSetup {
   @ApiModelProperty(
       example = "10.0",
       value = "The dollar value of annual leave opening balance if negative.")
+  /**
+   * The dollar value of annual leave opening balance if negative.
+   *
+   * @return negativeAnnualLeaveBalancePaidAmount Double
+   */
   public Double getNegativeAnnualLeaveBalancePaidAmount() {
     return negativeAnnualLeaveBalancePaidAmount;
   }
 
+  /**
+   * The dollar value of annual leave opening balance if negative.
+   *
+   * @param negativeAnnualLeaveBalancePaidAmount Double
+   */
   public void setNegativeAnnualLeaveBalancePaidAmount(Double negativeAnnualLeaveBalancePaidAmount) {
     this.negativeAnnualLeaveBalancePaidAmount = negativeAnnualLeaveBalancePaidAmount;
   }
 
+  /**
+   * Number of hours accrued annually for sick leave. Multiply the number of days they&#39;re
+   * entitled to by the hours worked per day
+   *
+   * @param sickLeaveHoursToAccrueAnnually Double
+   * @return EmployeeLeaveSetup
+   */
   public EmployeeLeaveSetup sickLeaveHoursToAccrueAnnually(Double sickLeaveHoursToAccrueAnnually) {
     this.sickLeaveHoursToAccrueAnnually = sickLeaveHoursToAccrueAnnually;
     return this;
@@ -148,14 +224,33 @@ public class EmployeeLeaveSetup {
       value =
           "Number of hours accrued annually for sick leave. Multiply the number of days they're"
               + " entitled to by the hours worked per day")
+  /**
+   * Number of hours accrued annually for sick leave. Multiply the number of days they&#39;re
+   * entitled to by the hours worked per day
+   *
+   * @return sickLeaveHoursToAccrueAnnually Double
+   */
   public Double getSickLeaveHoursToAccrueAnnually() {
     return sickLeaveHoursToAccrueAnnually;
   }
 
+  /**
+   * Number of hours accrued annually for sick leave. Multiply the number of days they&#39;re
+   * entitled to by the hours worked per day
+   *
+   * @param sickLeaveHoursToAccrueAnnually Double
+   */
   public void setSickLeaveHoursToAccrueAnnually(Double sickLeaveHoursToAccrueAnnually) {
     this.sickLeaveHoursToAccrueAnnually = sickLeaveHoursToAccrueAnnually;
   }
 
+  /**
+   * Maximum number of hours accrued annually for sick leave. Multiply the maximum days they can
+   * accrue by the hours worked per day
+   *
+   * @param sickLeaveMaximumHoursToAccrue Double
+   * @return EmployeeLeaveSetup
+   */
   public EmployeeLeaveSetup sickLeaveMaximumHoursToAccrue(Double sickLeaveMaximumHoursToAccrue) {
     this.sickLeaveMaximumHoursToAccrue = sickLeaveMaximumHoursToAccrue;
     return this;
@@ -172,14 +267,33 @@ public class EmployeeLeaveSetup {
       value =
           "Maximum number of hours accrued annually for sick leave. Multiply the maximum days they"
               + " can accrue by the hours worked per day")
+  /**
+   * Maximum number of hours accrued annually for sick leave. Multiply the maximum days they can
+   * accrue by the hours worked per day
+   *
+   * @return sickLeaveMaximumHoursToAccrue Double
+   */
   public Double getSickLeaveMaximumHoursToAccrue() {
     return sickLeaveMaximumHoursToAccrue;
   }
 
+  /**
+   * Maximum number of hours accrued annually for sick leave. Multiply the maximum days they can
+   * accrue by the hours worked per day
+   *
+   * @param sickLeaveMaximumHoursToAccrue Double
+   */
   public void setSickLeaveMaximumHoursToAccrue(Double sickLeaveMaximumHoursToAccrue) {
     this.sickLeaveMaximumHoursToAccrue = sickLeaveMaximumHoursToAccrue;
   }
 
+  /**
+   * Initial sick leave balance. This will be positive unless they&#39;ve taken sick leave in
+   * advance
+   *
+   * @param sickLeaveOpeningBalance Double
+   * @return EmployeeLeaveSetup
+   */
   public EmployeeLeaveSetup sickLeaveOpeningBalance(Double sickLeaveOpeningBalance) {
     this.sickLeaveOpeningBalance = sickLeaveOpeningBalance;
     return this;
@@ -196,10 +310,22 @@ public class EmployeeLeaveSetup {
       value =
           "Initial sick leave balance. This will be positive unless they've taken sick leave in"
               + " advance")
+  /**
+   * Initial sick leave balance. This will be positive unless they&#39;ve taken sick leave in
+   * advance
+   *
+   * @return sickLeaveOpeningBalance Double
+   */
   public Double getSickLeaveOpeningBalance() {
     return sickLeaveOpeningBalance;
   }
 
+  /**
+   * Initial sick leave balance. This will be positive unless they&#39;ve taken sick leave in
+   * advance
+   *
+   * @param sickLeaveOpeningBalance Double
+   */
   public void setSickLeaveOpeningBalance(Double sickLeaveOpeningBalance) {
     this.sickLeaveOpeningBalance = sickLeaveOpeningBalance;
   }

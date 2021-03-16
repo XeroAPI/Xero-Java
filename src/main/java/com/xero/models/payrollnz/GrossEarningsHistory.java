@@ -25,7 +25,12 @@ public class GrossEarningsHistory {
 
   @JsonProperty("unpaidWeeks")
   private Integer unpaidWeeks;
-
+  /**
+   * Number of days the employee worked in the pay period (0 - 365)
+   *
+   * @param daysPaid Integer
+   * @return GrossEarningsHistory
+   */
   public GrossEarningsHistory daysPaid(Integer daysPaid) {
     this.daysPaid = daysPaid;
     return this;
@@ -37,14 +42,30 @@ public class GrossEarningsHistory {
    * @return daysPaid
    */
   @ApiModelProperty(value = "Number of days the employee worked in the pay period (0 - 365)")
+  /**
+   * Number of days the employee worked in the pay period (0 - 365)
+   *
+   * @return daysPaid Integer
+   */
   public Integer getDaysPaid() {
     return daysPaid;
   }
 
+  /**
+   * Number of days the employee worked in the pay period (0 - 365)
+   *
+   * @param daysPaid Integer
+   */
   public void setDaysPaid(Integer daysPaid) {
     this.daysPaid = daysPaid;
   }
 
+  /**
+   * Number of full weeks the employee didn&#39;t work in the pay period (0 - 52)
+   *
+   * @param unpaidWeeks Integer
+   * @return GrossEarningsHistory
+   */
   public GrossEarningsHistory unpaidWeeks(Integer unpaidWeeks) {
     this.unpaidWeeks = unpaidWeeks;
     return this;
@@ -57,10 +78,20 @@ public class GrossEarningsHistory {
    */
   @ApiModelProperty(
       value = "Number of full weeks the employee didn't work in the pay period (0 - 52)")
+  /**
+   * Number of full weeks the employee didn&#39;t work in the pay period (0 - 52)
+   *
+   * @return unpaidWeeks Integer
+   */
   public Integer getUnpaidWeeks() {
     return unpaidWeeks;
   }
 
+  /**
+   * Number of full weeks the employee didn&#39;t work in the pay period (0 - 52)
+   *
+   * @param unpaidWeeks Integer
+   */
   public void setUnpaidWeeks(Integer unpaidWeeks) {
     this.unpaidWeeks = unpaidWeeks;
   }

@@ -38,7 +38,12 @@ public class SuperannuationLine {
 
   @JsonProperty("manualAdjustment")
   private Boolean manualAdjustment;
-
+  /**
+   * Xero identifier for payroll superannuation type
+   *
+   * @param superannuationTypeID UUID
+   * @return SuperannuationLine
+   */
   public SuperannuationLine superannuationTypeID(UUID superannuationTypeID) {
     this.superannuationTypeID = superannuationTypeID;
     return this;
@@ -50,14 +55,30 @@ public class SuperannuationLine {
    * @return superannuationTypeID
    */
   @ApiModelProperty(value = "Xero identifier for payroll superannuation type")
+  /**
+   * Xero identifier for payroll superannuation type
+   *
+   * @return superannuationTypeID UUID
+   */
   public UUID getSuperannuationTypeID() {
     return superannuationTypeID;
   }
 
+  /**
+   * Xero identifier for payroll superannuation type
+   *
+   * @param superannuationTypeID UUID
+   */
   public void setSuperannuationTypeID(UUID superannuationTypeID) {
     this.superannuationTypeID = superannuationTypeID;
   }
 
+  /**
+   * Benefit display name
+   *
+   * @param displayName String
+   * @return SuperannuationLine
+   */
   public SuperannuationLine displayName(String displayName) {
     this.displayName = displayName;
     return this;
@@ -69,14 +90,30 @@ public class SuperannuationLine {
    * @return displayName
    */
   @ApiModelProperty(value = "Benefit display name")
+  /**
+   * Benefit display name
+   *
+   * @return displayName String
+   */
   public String getDisplayName() {
     return displayName;
   }
 
+  /**
+   * Benefit display name
+   *
+   * @param displayName String
+   */
   public void setDisplayName(String displayName) {
     this.displayName = displayName;
   }
 
+  /**
+   * The amount of the superannuation line
+   *
+   * @param amount Double
+   * @return SuperannuationLine
+   */
   public SuperannuationLine amount(Double amount) {
     this.amount = amount;
     return this;
@@ -88,14 +125,30 @@ public class SuperannuationLine {
    * @return amount
    */
   @ApiModelProperty(value = "The amount of the superannuation line")
+  /**
+   * The amount of the superannuation line
+   *
+   * @return amount Double
+   */
   public Double getAmount() {
     return amount;
   }
 
+  /**
+   * The amount of the superannuation line
+   *
+   * @param amount Double
+   */
   public void setAmount(Double amount) {
     this.amount = amount;
   }
 
+  /**
+   * Superannuation fixed amount
+   *
+   * @param fixedAmount Double
+   * @return SuperannuationLine
+   */
   public SuperannuationLine fixedAmount(Double fixedAmount) {
     this.fixedAmount = fixedAmount;
     return this;
@@ -107,14 +160,30 @@ public class SuperannuationLine {
    * @return fixedAmount
    */
   @ApiModelProperty(value = "Superannuation fixed amount")
+  /**
+   * Superannuation fixed amount
+   *
+   * @return fixedAmount Double
+   */
   public Double getFixedAmount() {
     return fixedAmount;
   }
 
+  /**
+   * Superannuation fixed amount
+   *
+   * @param fixedAmount Double
+   */
   public void setFixedAmount(Double fixedAmount) {
     this.fixedAmount = fixedAmount;
   }
 
+  /**
+   * Superannuation rate percentage
+   *
+   * @param percentage Double
+   * @return SuperannuationLine
+   */
   public SuperannuationLine percentage(Double percentage) {
     this.percentage = percentage;
     return this;
@@ -126,14 +195,30 @@ public class SuperannuationLine {
    * @return percentage
    */
   @ApiModelProperty(value = "Superannuation rate percentage")
+  /**
+   * Superannuation rate percentage
+   *
+   * @return percentage Double
+   */
   public Double getPercentage() {
     return percentage;
   }
 
+  /**
+   * Superannuation rate percentage
+   *
+   * @param percentage Double
+   */
   public void setPercentage(Double percentage) {
     this.percentage = percentage;
   }
 
+  /**
+   * manual adjustment made
+   *
+   * @param manualAdjustment Boolean
+   * @return SuperannuationLine
+   */
   public SuperannuationLine manualAdjustment(Boolean manualAdjustment) {
     this.manualAdjustment = manualAdjustment;
     return this;
@@ -145,10 +230,20 @@ public class SuperannuationLine {
    * @return manualAdjustment
    */
   @ApiModelProperty(value = "manual adjustment made")
+  /**
+   * manual adjustment made
+   *
+   * @return manualAdjustment Boolean
+   */
   public Boolean getManualAdjustment() {
     return manualAdjustment;
   }
 
+  /**
+   * manual adjustment made
+   *
+   * @param manualAdjustment Boolean
+   */
   public void setManualAdjustment(Boolean manualAdjustment) {
     this.manualAdjustment = manualAdjustment;
   }

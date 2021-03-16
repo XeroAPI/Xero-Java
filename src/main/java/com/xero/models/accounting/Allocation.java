@@ -49,7 +49,12 @@ public class Allocation {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
-
+  /**
+   * invoice
+   *
+   * @param invoice Invoice
+   * @return Allocation
+   */
   public Allocation invoice(Invoice invoice) {
     this.invoice = invoice;
     return this;
@@ -61,14 +66,30 @@ public class Allocation {
    * @return invoice
    */
   @ApiModelProperty(required = true, value = "")
+  /**
+   * invoice
+   *
+   * @return invoice Invoice
+   */
   public Invoice getInvoice() {
     return invoice;
   }
 
+  /**
+   * invoice
+   *
+   * @param invoice Invoice
+   */
   public void setInvoice(Invoice invoice) {
     this.invoice = invoice;
   }
 
+  /**
+   * overpayment
+   *
+   * @param overpayment Overpayment
+   * @return Allocation
+   */
   public Allocation overpayment(Overpayment overpayment) {
     this.overpayment = overpayment;
     return this;
@@ -80,14 +101,30 @@ public class Allocation {
    * @return overpayment
    */
   @ApiModelProperty(value = "")
+  /**
+   * overpayment
+   *
+   * @return overpayment Overpayment
+   */
   public Overpayment getOverpayment() {
     return overpayment;
   }
 
+  /**
+   * overpayment
+   *
+   * @param overpayment Overpayment
+   */
   public void setOverpayment(Overpayment overpayment) {
     this.overpayment = overpayment;
   }
 
+  /**
+   * prepayment
+   *
+   * @param prepayment Prepayment
+   * @return Allocation
+   */
   public Allocation prepayment(Prepayment prepayment) {
     this.prepayment = prepayment;
     return this;
@@ -99,14 +136,30 @@ public class Allocation {
    * @return prepayment
    */
   @ApiModelProperty(value = "")
+  /**
+   * prepayment
+   *
+   * @return prepayment Prepayment
+   */
   public Prepayment getPrepayment() {
     return prepayment;
   }
 
+  /**
+   * prepayment
+   *
+   * @param prepayment Prepayment
+   */
   public void setPrepayment(Prepayment prepayment) {
     this.prepayment = prepayment;
   }
 
+  /**
+   * creditNote
+   *
+   * @param creditNote CreditNote
+   * @return Allocation
+   */
   public Allocation creditNote(CreditNote creditNote) {
     this.creditNote = creditNote;
     return this;
@@ -118,14 +171,30 @@ public class Allocation {
    * @return creditNote
    */
   @ApiModelProperty(value = "")
+  /**
+   * creditNote
+   *
+   * @return creditNote CreditNote
+   */
   public CreditNote getCreditNote() {
     return creditNote;
   }
 
+  /**
+   * creditNote
+   *
+   * @param creditNote CreditNote
+   */
   public void setCreditNote(CreditNote creditNote) {
     this.creditNote = creditNote;
   }
 
+  /**
+   * the amount being applied to the invoice
+   *
+   * @param amount Double
+   * @return Allocation
+   */
   public Allocation amount(Double amount) {
     this.amount = amount;
     return this;
@@ -137,14 +206,30 @@ public class Allocation {
    * @return amount
    */
   @ApiModelProperty(required = true, value = "the amount being applied to the invoice")
+  /**
+   * the amount being applied to the invoice
+   *
+   * @return amount Double
+   */
   public Double getAmount() {
     return amount;
   }
 
+  /**
+   * the amount being applied to the invoice
+   *
+   * @param amount Double
+   */
   public void setAmount(Double amount) {
     this.amount = amount;
   }
 
+  /**
+   * the date the allocation is applied YYYY-MM-DD.
+   *
+   * @param date String
+   * @return Allocation
+   */
   public Allocation date(String date) {
     this.date = date;
     return this;
@@ -156,10 +241,19 @@ public class Allocation {
    * @return date
    */
   @ApiModelProperty(required = true, value = "the date the allocation is applied YYYY-MM-DD.")
+  /**
+   * the date the allocation is applied YYYY-MM-DD.
+   *
+   * @return date String
+   */
   public String getDate() {
     return date;
   }
-
+  /**
+   * the date the allocation is applied YYYY-MM-DD.
+   *
+   * @return LocalDate
+   */
   public LocalDate getDateAsDate() {
     if (this.date != null) {
       try {
@@ -171,10 +265,20 @@ public class Allocation {
     return null;
   }
 
+  /**
+   * the date the allocation is applied YYYY-MM-DD.
+   *
+   * @param date String
+   */
   public void setDate(String date) {
     this.date = date;
   }
 
+  /**
+   * the date the allocation is applied YYYY-MM-DD.
+   *
+   * @param date LocalDateTime
+   */
   public void setDate(LocalDate date) {
     // CONVERT LocalDate args into MS DateFromat String
     Instant instant = date.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
@@ -183,6 +287,12 @@ public class Allocation {
     this.date = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
   }
 
+  /**
+   * A string to indicate if a invoice status
+   *
+   * @param statusAttributeString String
+   * @return Allocation
+   */
   public Allocation statusAttributeString(String statusAttributeString) {
     this.statusAttributeString = statusAttributeString;
     return this;
@@ -194,19 +304,41 @@ public class Allocation {
    * @return statusAttributeString
    */
   @ApiModelProperty(value = "A string to indicate if a invoice status")
+  /**
+   * A string to indicate if a invoice status
+   *
+   * @return statusAttributeString String
+   */
   public String getStatusAttributeString() {
     return statusAttributeString;
   }
 
+  /**
+   * A string to indicate if a invoice status
+   *
+   * @param statusAttributeString String
+   */
   public void setStatusAttributeString(String statusAttributeString) {
     this.statusAttributeString = statusAttributeString;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrors List&lt;ValidationError&gt;
+   * @return Allocation
+   */
   public Allocation validationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
     return this;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrorsItem ValidationError
+   * @return Allocation
+   */
   public Allocation addValidationErrorsItem(ValidationError validationErrorsItem) {
     if (this.validationErrors == null) {
       this.validationErrors = new ArrayList<ValidationError>();
@@ -221,10 +353,20 @@ public class Allocation {
    * @return validationErrors
    */
   @ApiModelProperty(value = "Displays array of validation error messages from the API")
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @return validationErrors List<ValidationError>
+   */
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrors List&lt;ValidationError&gt;
+   */
   public void setValidationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
   }

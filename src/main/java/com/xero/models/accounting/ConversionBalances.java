@@ -33,7 +33,12 @@ public class ConversionBalances {
 
   @JsonProperty("BalanceDetails")
   private List<BalanceDetails> balanceDetails = new ArrayList<BalanceDetails>();
-
+  /**
+   * The account code for a account
+   *
+   * @param accountCode String
+   * @return ConversionBalances
+   */
   public ConversionBalances accountCode(String accountCode) {
     this.accountCode = accountCode;
     return this;
@@ -45,14 +50,30 @@ public class ConversionBalances {
    * @return accountCode
    */
   @ApiModelProperty(value = "The account code for a account")
+  /**
+   * The account code for a account
+   *
+   * @return accountCode String
+   */
   public String getAccountCode() {
     return accountCode;
   }
 
+  /**
+   * The account code for a account
+   *
+   * @param accountCode String
+   */
   public void setAccountCode(String accountCode) {
     this.accountCode = accountCode;
   }
 
+  /**
+   * The opening balances of the account. Debits are positive, credits are negative values
+   *
+   * @param balance Double
+   * @return ConversionBalances
+   */
   public ConversionBalances balance(Double balance) {
     this.balance = balance;
     return this;
@@ -66,19 +87,41 @@ public class ConversionBalances {
   @ApiModelProperty(
       value =
           "The opening balances of the account. Debits are positive, credits are negative values")
+  /**
+   * The opening balances of the account. Debits are positive, credits are negative values
+   *
+   * @return balance Double
+   */
   public Double getBalance() {
     return balance;
   }
 
+  /**
+   * The opening balances of the account. Debits are positive, credits are negative values
+   *
+   * @param balance Double
+   */
   public void setBalance(Double balance) {
     this.balance = balance;
   }
 
+  /**
+   * balanceDetails
+   *
+   * @param balanceDetails List&lt;BalanceDetails&gt;
+   * @return ConversionBalances
+   */
   public ConversionBalances balanceDetails(List<BalanceDetails> balanceDetails) {
     this.balanceDetails = balanceDetails;
     return this;
   }
 
+  /**
+   * balanceDetails
+   *
+   * @param balanceDetailsItem BalanceDetails
+   * @return ConversionBalances
+   */
   public ConversionBalances addBalanceDetailsItem(BalanceDetails balanceDetailsItem) {
     if (this.balanceDetails == null) {
       this.balanceDetails = new ArrayList<BalanceDetails>();
@@ -93,10 +136,20 @@ public class ConversionBalances {
    * @return balanceDetails
    */
   @ApiModelProperty(value = "")
+  /**
+   * balanceDetails
+   *
+   * @return balanceDetails List<BalanceDetails>
+   */
   public List<BalanceDetails> getBalanceDetails() {
     return balanceDetails;
   }
 
+  /**
+   * balanceDetails
+   *
+   * @param balanceDetails List&lt;BalanceDetails&gt;
+   */
   public void setBalanceDetails(List<BalanceDetails> balanceDetails) {
     this.balanceDetails = balanceDetails;
   }

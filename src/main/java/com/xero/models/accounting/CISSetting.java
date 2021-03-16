@@ -25,7 +25,12 @@ public class CISSetting {
 
   @JsonProperty("Rate")
   private Double rate;
-
+  /**
+   * Boolean that describes if the contact is a CIS Subcontractor
+   *
+   * @param ciSEnabled Boolean
+   * @return CISSetting
+   */
   public CISSetting ciSEnabled(Boolean ciSEnabled) {
     this.ciSEnabled = ciSEnabled;
     return this;
@@ -37,10 +42,20 @@ public class CISSetting {
    * @return ciSEnabled
    */
   @ApiModelProperty(value = "Boolean that describes if the contact is a CIS Subcontractor")
+  /**
+   * Boolean that describes if the contact is a CIS Subcontractor
+   *
+   * @return ciSEnabled Boolean
+   */
   public Boolean getCiSEnabled() {
     return ciSEnabled;
   }
 
+  /**
+   * Boolean that describes if the contact is a CIS Subcontractor
+   *
+   * @param ciSEnabled Boolean
+   */
   public void setCiSEnabled(Boolean ciSEnabled) {
     this.ciSEnabled = ciSEnabled;
   }
@@ -55,6 +70,12 @@ public class CISSetting {
       value =
           "CIS Deduction rate for the contact if he is a subcontractor. If the contact is not"
               + " CISEnabled, then the rate is not returned")
+  /**
+   * CIS Deduction rate for the contact if he is a subcontractor. If the contact is not CISEnabled,
+   * then the rate is not returned
+   *
+   * @return rate Double
+   */
   public Double getRate() {
     return rate;
   }

@@ -35,7 +35,12 @@ public class DeductionLine {
 
   @JsonProperty("NumberOfUnits")
   private Double numberOfUnits;
-
+  /**
+   * Xero deduction type identifier
+   *
+   * @param deductionTypeID UUID
+   * @return DeductionLine
+   */
   public DeductionLine deductionTypeID(UUID deductionTypeID) {
     this.deductionTypeID = deductionTypeID;
     return this;
@@ -50,14 +55,30 @@ public class DeductionLine {
       example = "59cd9d04-4521-4cc3-93ac-7841651ff407",
       required = true,
       value = "Xero deduction type identifier")
+  /**
+   * Xero deduction type identifier
+   *
+   * @return deductionTypeID UUID
+   */
   public UUID getDeductionTypeID() {
     return deductionTypeID;
   }
 
+  /**
+   * Xero deduction type identifier
+   *
+   * @param deductionTypeID UUID
+   */
   public void setDeductionTypeID(UUID deductionTypeID) {
     this.deductionTypeID = deductionTypeID;
   }
 
+  /**
+   * calculationType
+   *
+   * @param calculationType DeductionTypeCalculationType
+   * @return DeductionLine
+   */
   public DeductionLine calculationType(DeductionTypeCalculationType calculationType) {
     this.calculationType = calculationType;
     return this;
@@ -69,14 +90,30 @@ public class DeductionLine {
    * @return calculationType
    */
   @ApiModelProperty(required = true, value = "")
+  /**
+   * calculationType
+   *
+   * @return calculationType DeductionTypeCalculationType
+   */
   public DeductionTypeCalculationType getCalculationType() {
     return calculationType;
   }
 
+  /**
+   * calculationType
+   *
+   * @param calculationType DeductionTypeCalculationType
+   */
   public void setCalculationType(DeductionTypeCalculationType calculationType) {
     this.calculationType = calculationType;
   }
 
+  /**
+   * Deduction type amount
+   *
+   * @param amount Double
+   * @return DeductionLine
+   */
   public DeductionLine amount(Double amount) {
     this.amount = amount;
     return this;
@@ -88,14 +125,30 @@ public class DeductionLine {
    * @return amount
    */
   @ApiModelProperty(example = "10.0", value = "Deduction type amount")
+  /**
+   * Deduction type amount
+   *
+   * @return amount Double
+   */
   public Double getAmount() {
     return amount;
   }
 
+  /**
+   * Deduction type amount
+   *
+   * @param amount Double
+   */
   public void setAmount(Double amount) {
     this.amount = amount;
   }
 
+  /**
+   * The Percentage of the Deduction
+   *
+   * @param percentage Double
+   * @return DeductionLine
+   */
   public DeductionLine percentage(Double percentage) {
     this.percentage = percentage;
     return this;
@@ -107,14 +160,30 @@ public class DeductionLine {
    * @return percentage
    */
   @ApiModelProperty(example = "10.0", value = "The Percentage of the Deduction")
+  /**
+   * The Percentage of the Deduction
+   *
+   * @return percentage Double
+   */
   public Double getPercentage() {
     return percentage;
   }
 
+  /**
+   * The Percentage of the Deduction
+   *
+   * @param percentage Double
+   */
   public void setPercentage(Double percentage) {
     this.percentage = percentage;
   }
 
+  /**
+   * Deduction number of units
+   *
+   * @param numberOfUnits Double
+   * @return DeductionLine
+   */
   public DeductionLine numberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
     return this;
@@ -126,10 +195,20 @@ public class DeductionLine {
    * @return numberOfUnits
    */
   @ApiModelProperty(example = "10.0", value = "Deduction number of units")
+  /**
+   * Deduction number of units
+   *
+   * @return numberOfUnits Double
+   */
   public Double getNumberOfUnits() {
     return numberOfUnits;
   }
 
+  /**
+   * Deduction number of units
+   *
+   * @param numberOfUnits Double
+   */
   public void setNumberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
   }

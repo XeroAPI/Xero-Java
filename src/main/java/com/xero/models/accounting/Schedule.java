@@ -30,8 +30,10 @@ public class Schedule {
   private Integer period;
   /** One of the following - WEEKLY or MONTHLY */
   public enum UnitEnum {
+    /** WEEKLY */
     WEEKLY("WEEKLY"),
 
+    /** MONTHLY */
     MONTHLY("MONTHLY");
 
     private String value;
@@ -40,16 +42,31 @@ public class Schedule {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static UnitEnum fromValue(String value) {
       for (UnitEnum b : UnitEnum.values()) {
@@ -68,16 +85,22 @@ public class Schedule {
   private Integer dueDate;
   /** the payment terms */
   public enum DueDateTypeEnum {
+    /** DAYSAFTERBILLDATE */
     DAYSAFTERBILLDATE("DAYSAFTERBILLDATE"),
 
+    /** DAYSAFTERBILLMONTH */
     DAYSAFTERBILLMONTH("DAYSAFTERBILLMONTH"),
 
+    /** DAYSAFTERINVOICEDATE */
     DAYSAFTERINVOICEDATE("DAYSAFTERINVOICEDATE"),
 
+    /** DAYSAFTERINVOICEMONTH */
     DAYSAFTERINVOICEMONTH("DAYSAFTERINVOICEMONTH"),
 
+    /** OFCURRENTMONTH */
     OFCURRENTMONTH("OFCURRENTMONTH"),
 
+    /** OFFOLLOWINGMONTH */
     OFFOLLOWINGMONTH("OFFOLLOWINGMONTH");
 
     private String value;
@@ -86,16 +109,31 @@ public class Schedule {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static DueDateTypeEnum fromValue(String value) {
       for (DueDateTypeEnum b : DueDateTypeEnum.values()) {
@@ -118,7 +156,12 @@ public class Schedule {
 
   @JsonProperty("EndDate")
   private String endDate;
-
+  /**
+   * Integer used with the unit e.g. 1 (every 1 week), 2 (every 2 months)
+   *
+   * @param period Integer
+   * @return Schedule
+   */
   public Schedule period(Integer period) {
     this.period = period;
     return this;
@@ -130,14 +173,30 @@ public class Schedule {
    * @return period
    */
   @ApiModelProperty(value = "Integer used with the unit e.g. 1 (every 1 week), 2 (every 2 months)")
+  /**
+   * Integer used with the unit e.g. 1 (every 1 week), 2 (every 2 months)
+   *
+   * @return period Integer
+   */
   public Integer getPeriod() {
     return period;
   }
 
+  /**
+   * Integer used with the unit e.g. 1 (every 1 week), 2 (every 2 months)
+   *
+   * @param period Integer
+   */
   public void setPeriod(Integer period) {
     this.period = period;
   }
 
+  /**
+   * One of the following - WEEKLY or MONTHLY
+   *
+   * @param unit UnitEnum
+   * @return Schedule
+   */
   public Schedule unit(UnitEnum unit) {
     this.unit = unit;
     return this;
@@ -149,14 +208,30 @@ public class Schedule {
    * @return unit
    */
   @ApiModelProperty(value = "One of the following - WEEKLY or MONTHLY")
+  /**
+   * One of the following - WEEKLY or MONTHLY
+   *
+   * @return unit UnitEnum
+   */
   public UnitEnum getUnit() {
     return unit;
   }
 
+  /**
+   * One of the following - WEEKLY or MONTHLY
+   *
+   * @param unit UnitEnum
+   */
   public void setUnit(UnitEnum unit) {
     this.unit = unit;
   }
 
+  /**
+   * Integer used with due date type e.g 20 (of following month), 31 (of current month)
+   *
+   * @param dueDate Integer
+   * @return Schedule
+   */
   public Schedule dueDate(Integer dueDate) {
     this.dueDate = dueDate;
     return this;
@@ -169,14 +244,30 @@ public class Schedule {
    */
   @ApiModelProperty(
       value = "Integer used with due date type e.g 20 (of following month), 31 (of current month)")
+  /**
+   * Integer used with due date type e.g 20 (of following month), 31 (of current month)
+   *
+   * @return dueDate Integer
+   */
   public Integer getDueDate() {
     return dueDate;
   }
 
+  /**
+   * Integer used with due date type e.g 20 (of following month), 31 (of current month)
+   *
+   * @param dueDate Integer
+   */
   public void setDueDate(Integer dueDate) {
     this.dueDate = dueDate;
   }
 
+  /**
+   * the payment terms
+   *
+   * @param dueDateType DueDateTypeEnum
+   * @return Schedule
+   */
   public Schedule dueDateType(DueDateTypeEnum dueDateType) {
     this.dueDateType = dueDateType;
     return this;
@@ -188,14 +279,31 @@ public class Schedule {
    * @return dueDateType
    */
   @ApiModelProperty(value = "the payment terms")
+  /**
+   * the payment terms
+   *
+   * @return dueDateType DueDateTypeEnum
+   */
   public DueDateTypeEnum getDueDateType() {
     return dueDateType;
   }
 
+  /**
+   * the payment terms
+   *
+   * @param dueDateType DueDateTypeEnum
+   */
   public void setDueDateType(DueDateTypeEnum dueDateType) {
     this.dueDateType = dueDateType;
   }
 
+  /**
+   * Date the first invoice of the current version of the repeating schedule was generated (changes
+   * when repeating invoice is edited)
+   *
+   * @param startDate String
+   * @return Schedule
+   */
   public Schedule startDate(String startDate) {
     this.startDate = startDate;
     return this;
@@ -211,10 +319,21 @@ public class Schedule {
       value =
           "Date the first invoice of the current version of the repeating schedule was generated"
               + " (changes when repeating invoice is edited)")
+  /**
+   * Date the first invoice of the current version of the repeating schedule was generated (changes
+   * when repeating invoice is edited)
+   *
+   * @return startDate String
+   */
   public String getStartDate() {
     return startDate;
   }
-
+  /**
+   * Date the first invoice of the current version of the repeating schedule was generated (changes
+   * when repeating invoice is edited)
+   *
+   * @return LocalDate
+   */
   public LocalDate getStartDateAsDate() {
     if (this.startDate != null) {
       try {
@@ -226,10 +345,22 @@ public class Schedule {
     return null;
   }
 
+  /**
+   * Date the first invoice of the current version of the repeating schedule was generated (changes
+   * when repeating invoice is edited)
+   *
+   * @param startDate String
+   */
   public void setStartDate(String startDate) {
     this.startDate = startDate;
   }
 
+  /**
+   * Date the first invoice of the current version of the repeating schedule was generated (changes
+   * when repeating invoice is edited)
+   *
+   * @param startDate LocalDateTime
+   */
   public void setStartDate(LocalDate startDate) {
     // CONVERT LocalDate args into MS DateFromat String
     Instant instant = startDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
@@ -238,6 +369,12 @@ public class Schedule {
     this.startDate = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
   }
 
+  /**
+   * The calendar date of the next invoice in the schedule to be generated
+   *
+   * @param nextScheduledDate String
+   * @return Schedule
+   */
   public Schedule nextScheduledDate(String nextScheduledDate) {
     this.nextScheduledDate = nextScheduledDate;
     return this;
@@ -249,10 +386,19 @@ public class Schedule {
    * @return nextScheduledDate
    */
   @ApiModelProperty(value = "The calendar date of the next invoice in the schedule to be generated")
+  /**
+   * The calendar date of the next invoice in the schedule to be generated
+   *
+   * @return nextScheduledDate String
+   */
   public String getNextScheduledDate() {
     return nextScheduledDate;
   }
-
+  /**
+   * The calendar date of the next invoice in the schedule to be generated
+   *
+   * @return LocalDate
+   */
   public LocalDate getNextScheduledDateAsDate() {
     if (this.nextScheduledDate != null) {
       try {
@@ -264,10 +410,20 @@ public class Schedule {
     return null;
   }
 
+  /**
+   * The calendar date of the next invoice in the schedule to be generated
+   *
+   * @param nextScheduledDate String
+   */
   public void setNextScheduledDate(String nextScheduledDate) {
     this.nextScheduledDate = nextScheduledDate;
   }
 
+  /**
+   * The calendar date of the next invoice in the schedule to be generated
+   *
+   * @param nextScheduledDate LocalDateTime
+   */
   public void setNextScheduledDate(LocalDate nextScheduledDate) {
     // CONVERT LocalDate args into MS DateFromat String
     Instant instant = nextScheduledDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
@@ -276,6 +432,12 @@ public class Schedule {
     this.nextScheduledDate = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
   }
 
+  /**
+   * Invoice end date – only returned if the template has an end date set
+   *
+   * @param endDate String
+   * @return Schedule
+   */
   public Schedule endDate(String endDate) {
     this.endDate = endDate;
     return this;
@@ -287,10 +449,19 @@ public class Schedule {
    * @return endDate
    */
   @ApiModelProperty(value = "Invoice end date – only returned if the template has an end date set")
+  /**
+   * Invoice end date – only returned if the template has an end date set
+   *
+   * @return endDate String
+   */
   public String getEndDate() {
     return endDate;
   }
-
+  /**
+   * Invoice end date – only returned if the template has an end date set
+   *
+   * @return LocalDate
+   */
   public LocalDate getEndDateAsDate() {
     if (this.endDate != null) {
       try {
@@ -302,10 +473,20 @@ public class Schedule {
     return null;
   }
 
+  /**
+   * Invoice end date – only returned if the template has an end date set
+   *
+   * @param endDate String
+   */
   public void setEndDate(String endDate) {
     this.endDate = endDate;
   }
 
+  /**
+   * Invoice end date – only returned if the template has an end date set
+   *
+   * @param endDate LocalDateTime
+   */
   public void setEndDate(LocalDate endDate) {
     // CONVERT LocalDate args into MS DateFromat String
     Instant instant = endDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();

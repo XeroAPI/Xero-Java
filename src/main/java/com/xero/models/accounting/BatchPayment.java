@@ -64,8 +64,10 @@ public class BatchPayment {
   private List<Payment> payments = new ArrayList<Payment>();
   /** PAYBATCH for bill payments or RECBATCH for sales invoice payments (read-only) */
   public enum TypeEnum {
+    /** PAYBATCH */
     PAYBATCH("PAYBATCH"),
 
+    /** RECBATCH */
     RECBATCH("RECBATCH");
 
     private String value;
@@ -74,16 +76,31 @@ public class BatchPayment {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static TypeEnum fromValue(String value) {
       for (TypeEnum b : TypeEnum.values()) {
@@ -102,8 +119,10 @@ public class BatchPayment {
    * not possible to delete batch payments via the API.
    */
   public enum StatusEnum {
+    /** AUTHORISED */
     AUTHORISED("AUTHORISED"),
 
+    /** DELETED */
     DELETED("DELETED");
 
     private String value;
@@ -112,16 +131,31 @@ public class BatchPayment {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
@@ -144,7 +178,12 @@ public class BatchPayment {
 
   @JsonProperty("IsReconciled")
   private String isReconciled;
-
+  /**
+   * account
+   *
+   * @param account Account
+   * @return BatchPayment
+   */
   public BatchPayment account(Account account) {
     this.account = account;
     return this;
@@ -156,14 +195,32 @@ public class BatchPayment {
    * @return account
    */
   @ApiModelProperty(value = "")
+  /**
+   * account
+   *
+   * @return account Account
+   */
   public Account getAccount() {
     return account;
   }
 
+  /**
+   * account
+   *
+   * @param account Account
+   */
   public void setAccount(Account account) {
     this.account = account;
   }
 
+  /**
+   * (NZ Only) Optional references for the batch payment transaction. It will also show with the
+   * batch payment transaction in the bank reconciliation Find &amp; Match screen. Depending on your
+   * individual bank, the detail may also show on the bank statement you import into Xero.
+   *
+   * @param reference String
+   * @return BatchPayment
+   */
   public BatchPayment reference(String reference) {
     this.reference = reference;
     return this;
@@ -182,14 +239,36 @@ public class BatchPayment {
               + " the batch payment transaction in the bank reconciliation Find & Match screen."
               + " Depending on your individual bank, the detail may also show on the bank"
               + " statement you import into Xero.")
+  /**
+   * (NZ Only) Optional references for the batch payment transaction. It will also show with the
+   * batch payment transaction in the bank reconciliation Find &amp; Match screen. Depending on your
+   * individual bank, the detail may also show on the bank statement you import into Xero.
+   *
+   * @return reference String
+   */
   public String getReference() {
     return reference;
   }
 
+  /**
+   * (NZ Only) Optional references for the batch payment transaction. It will also show with the
+   * batch payment transaction in the bank reconciliation Find &amp; Match screen. Depending on your
+   * individual bank, the detail may also show on the bank statement you import into Xero.
+   *
+   * @param reference String
+   */
   public void setReference(String reference) {
     this.reference = reference;
   }
 
+  /**
+   * (NZ Only) Optional references for the batch payment transaction. It will also show with the
+   * batch payment transaction in the bank reconciliation Find &amp; Match screen. Depending on your
+   * individual bank, the detail may also show on the bank statement you import into Xero.
+   *
+   * @param particulars String
+   * @return BatchPayment
+   */
   public BatchPayment particulars(String particulars) {
     this.particulars = particulars;
     return this;
@@ -208,14 +287,36 @@ public class BatchPayment {
               + " the batch payment transaction in the bank reconciliation Find & Match screen."
               + " Depending on your individual bank, the detail may also show on the bank"
               + " statement you import into Xero.")
+  /**
+   * (NZ Only) Optional references for the batch payment transaction. It will also show with the
+   * batch payment transaction in the bank reconciliation Find &amp; Match screen. Depending on your
+   * individual bank, the detail may also show on the bank statement you import into Xero.
+   *
+   * @return particulars String
+   */
   public String getParticulars() {
     return particulars;
   }
 
+  /**
+   * (NZ Only) Optional references for the batch payment transaction. It will also show with the
+   * batch payment transaction in the bank reconciliation Find &amp; Match screen. Depending on your
+   * individual bank, the detail may also show on the bank statement you import into Xero.
+   *
+   * @param particulars String
+   */
   public void setParticulars(String particulars) {
     this.particulars = particulars;
   }
 
+  /**
+   * (NZ Only) Optional references for the batch payment transaction. It will also show with the
+   * batch payment transaction in the bank reconciliation Find &amp; Match screen. Depending on your
+   * individual bank, the detail may also show on the bank statement you import into Xero.
+   *
+   * @param code String
+   * @return BatchPayment
+   */
   public BatchPayment code(String code) {
     this.code = code;
     return this;
@@ -234,14 +335,37 @@ public class BatchPayment {
               + " the batch payment transaction in the bank reconciliation Find & Match screen."
               + " Depending on your individual bank, the detail may also show on the bank"
               + " statement you import into Xero.")
+  /**
+   * (NZ Only) Optional references for the batch payment transaction. It will also show with the
+   * batch payment transaction in the bank reconciliation Find &amp; Match screen. Depending on your
+   * individual bank, the detail may also show on the bank statement you import into Xero.
+   *
+   * @return code String
+   */
   public String getCode() {
     return code;
   }
 
+  /**
+   * (NZ Only) Optional references for the batch payment transaction. It will also show with the
+   * batch payment transaction in the bank reconciliation Find &amp; Match screen. Depending on your
+   * individual bank, the detail may also show on the bank statement you import into Xero.
+   *
+   * @param code String
+   */
   public void setCode(String code) {
     this.code = code;
   }
 
+  /**
+   * (Non-NZ Only) These details are sent to the org’s bank as a reference for the batch payment
+   * transaction. They will also show with the batch payment transaction in the bank reconciliation
+   * Find &amp; Match screen. Depending on your individual bank, the detail may also show on the
+   * bank statement imported into Xero. Maximum field length &#x3D; 18
+   *
+   * @param details String
+   * @return BatchPayment
+   */
   public BatchPayment details(String details) {
     this.details = details;
     return this;
@@ -262,14 +386,36 @@ public class BatchPayment {
               + " the bank reconciliation Find & Match screen. Depending on your individual bank,"
               + " the detail may also show on the bank statement imported into Xero. Maximum field"
               + " length = 18")
+  /**
+   * (Non-NZ Only) These details are sent to the org’s bank as a reference for the batch payment
+   * transaction. They will also show with the batch payment transaction in the bank reconciliation
+   * Find &amp; Match screen. Depending on your individual bank, the detail may also show on the
+   * bank statement imported into Xero. Maximum field length &#x3D; 18
+   *
+   * @return details String
+   */
   public String getDetails() {
     return details;
   }
 
+  /**
+   * (Non-NZ Only) These details are sent to the org’s bank as a reference for the batch payment
+   * transaction. They will also show with the batch payment transaction in the bank reconciliation
+   * Find &amp; Match screen. Depending on your individual bank, the detail may also show on the
+   * bank statement imported into Xero. Maximum field length &#x3D; 18
+   *
+   * @param details String
+   */
   public void setDetails(String details) {
     this.details = details;
   }
 
+  /**
+   * (UK Only) Only shows on the statement line in Xero. Max length &#x3D;18
+   *
+   * @param narrative String
+   * @return BatchPayment
+   */
   public BatchPayment narrative(String narrative) {
     this.narrative = narrative;
     return this;
@@ -281,10 +427,20 @@ public class BatchPayment {
    * @return narrative
    */
   @ApiModelProperty(value = "(UK Only) Only shows on the statement line in Xero. Max length =18")
+  /**
+   * (UK Only) Only shows on the statement line in Xero. Max length &#x3D;18
+   *
+   * @return narrative String
+   */
   public String getNarrative() {
     return narrative;
   }
 
+  /**
+   * (UK Only) Only shows on the statement line in Xero. Max length &#x3D;18
+   *
+   * @param narrative String
+   */
   public void setNarrative(String narrative) {
     this.narrative = narrative;
   }
@@ -296,10 +452,21 @@ public class BatchPayment {
    */
   @ApiModelProperty(
       value = "The Xero generated unique identifier for the bank transaction (read-only)")
+  /**
+   * The Xero generated unique identifier for the bank transaction (read-only)
+   *
+   * @return batchPaymentID UUID
+   */
   public UUID getBatchPaymentID() {
     return batchPaymentID;
   }
 
+  /**
+   * Date the payment is being made (YYYY-MM-DD) e.g. 2009-09-06
+   *
+   * @param dateString String
+   * @return BatchPayment
+   */
   public BatchPayment dateString(String dateString) {
     this.dateString = dateString;
     return this;
@@ -311,14 +478,30 @@ public class BatchPayment {
    * @return dateString
    */
   @ApiModelProperty(value = "Date the payment is being made (YYYY-MM-DD) e.g. 2009-09-06")
+  /**
+   * Date the payment is being made (YYYY-MM-DD) e.g. 2009-09-06
+   *
+   * @return dateString String
+   */
   public String getDateString() {
     return dateString;
   }
 
+  /**
+   * Date the payment is being made (YYYY-MM-DD) e.g. 2009-09-06
+   *
+   * @param dateString String
+   */
   public void setDateString(String dateString) {
     this.dateString = dateString;
   }
 
+  /**
+   * Date the payment is being made (YYYY-MM-DD) e.g. 2009-09-06
+   *
+   * @param date String
+   * @return BatchPayment
+   */
   public BatchPayment date(String date) {
     this.date = date;
     return this;
@@ -330,10 +513,19 @@ public class BatchPayment {
    * @return date
    */
   @ApiModelProperty(value = "Date the payment is being made (YYYY-MM-DD) e.g. 2009-09-06")
+  /**
+   * Date the payment is being made (YYYY-MM-DD) e.g. 2009-09-06
+   *
+   * @return date String
+   */
   public String getDate() {
     return date;
   }
-
+  /**
+   * Date the payment is being made (YYYY-MM-DD) e.g. 2009-09-06
+   *
+   * @return LocalDate
+   */
   public LocalDate getDateAsDate() {
     if (this.date != null) {
       try {
@@ -345,10 +537,20 @@ public class BatchPayment {
     return null;
   }
 
+  /**
+   * Date the payment is being made (YYYY-MM-DD) e.g. 2009-09-06
+   *
+   * @param date String
+   */
   public void setDate(String date) {
     this.date = date;
   }
 
+  /**
+   * Date the payment is being made (YYYY-MM-DD) e.g. 2009-09-06
+   *
+   * @param date LocalDateTime
+   */
   public void setDate(LocalDate date) {
     // CONVERT LocalDate args into MS DateFromat String
     Instant instant = date.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
@@ -357,6 +559,13 @@ public class BatchPayment {
     this.date = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
   }
 
+  /**
+   * The amount of the payment. Must be less than or equal to the outstanding amount owing on the
+   * invoice e.g. 200.00
+   *
+   * @param amount Double
+   * @return BatchPayment
+   */
   public BatchPayment amount(Double amount) {
     this.amount = amount;
     return this;
@@ -372,19 +581,43 @@ public class BatchPayment {
       value =
           "The amount of the payment. Must be less than or equal to the outstanding amount owing"
               + " on the invoice e.g. 200.00")
+  /**
+   * The amount of the payment. Must be less than or equal to the outstanding amount owing on the
+   * invoice e.g. 200.00
+   *
+   * @return amount Double
+   */
   public Double getAmount() {
     return amount;
   }
 
+  /**
+   * The amount of the payment. Must be less than or equal to the outstanding amount owing on the
+   * invoice e.g. 200.00
+   *
+   * @param amount Double
+   */
   public void setAmount(Double amount) {
     this.amount = amount;
   }
 
+  /**
+   * An array of payments
+   *
+   * @param payments List&lt;Payment&gt;
+   * @return BatchPayment
+   */
   public BatchPayment payments(List<Payment> payments) {
     this.payments = payments;
     return this;
   }
 
+  /**
+   * An array of payments
+   *
+   * @param paymentsItem Payment
+   * @return BatchPayment
+   */
   public BatchPayment addPaymentsItem(Payment paymentsItem) {
     if (this.payments == null) {
       this.payments = new ArrayList<Payment>();
@@ -399,10 +632,20 @@ public class BatchPayment {
    * @return payments
    */
   @ApiModelProperty(value = "An array of payments")
+  /**
+   * An array of payments
+   *
+   * @return payments List<Payment>
+   */
   public List<Payment> getPayments() {
     return payments;
   }
 
+  /**
+   * An array of payments
+   *
+   * @param payments List&lt;Payment&gt;
+   */
   public void setPayments(List<Payment> payments) {
     this.payments = payments;
   }
@@ -414,6 +657,11 @@ public class BatchPayment {
    */
   @ApiModelProperty(
       value = "PAYBATCH for bill payments or RECBATCH for sales invoice payments (read-only)")
+  /**
+   * PAYBATCH for bill payments or RECBATCH for sales invoice payments (read-only)
+   *
+   * @return type TypeEnum
+   */
   public TypeEnum getType() {
     return type;
   }
@@ -428,6 +676,12 @@ public class BatchPayment {
       value =
           "AUTHORISED or DELETED (read-only). New batch payments will have a status of AUTHORISED."
               + " It is not possible to delete batch payments via the API.")
+  /**
+   * AUTHORISED or DELETED (read-only). New batch payments will have a status of AUTHORISED. It is
+   * not possible to delete batch payments via the API.
+   *
+   * @return status StatusEnum
+   */
   public StatusEnum getStatus() {
     return status;
   }
@@ -438,6 +692,11 @@ public class BatchPayment {
    * @return totalAmount
    */
   @ApiModelProperty(value = "The total of the payments that make up the batch (read-only)")
+  /**
+   * The total of the payments that make up the batch (read-only)
+   *
+   * @return totalAmount String
+   */
   public String getTotalAmount() {
     return totalAmount;
   }
@@ -450,10 +709,19 @@ public class BatchPayment {
   @ApiModelProperty(
       example = "/Date(1573755038314)/",
       value = "UTC timestamp of last update to the payment")
+  /**
+   * UTC timestamp of last update to the payment
+   *
+   * @return updatedDateUTC String
+   */
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-
+  /**
+   * UTC timestamp of last update to the payment
+   *
+   * @return OffsetDateTime
+   */
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
@@ -472,6 +740,11 @@ public class BatchPayment {
    */
   @ApiModelProperty(
       value = "Booelan that tells you if the batch payment has been reconciled (read-only)")
+  /**
+   * Booelan that tells you if the batch payment has been reconciled (read-only)
+   *
+   * @return isReconciled String
+   */
   public String getIsReconciled() {
     return isReconciled;
   }

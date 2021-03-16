@@ -36,7 +36,12 @@ public class TimeEntryCreateOrUpdate {
 
   @JsonProperty("description")
   private String description;
-
+  /**
+   * The xero user identifier of the person logging the time.
+   *
+   * @param userId UUID
+   * @return TimeEntryCreateOrUpdate
+   */
   public TimeEntryCreateOrUpdate userId(UUID userId) {
     this.userId = userId;
     return this;
@@ -51,14 +56,30 @@ public class TimeEntryCreateOrUpdate {
       example = "00000000-0000-0000-0000-000000000000",
       required = true,
       value = "The xero user identifier of the person logging the time.")
+  /**
+   * The xero user identifier of the person logging the time.
+   *
+   * @return userId UUID
+   */
   public UUID getUserId() {
     return userId;
   }
 
+  /**
+   * The xero user identifier of the person logging the time.
+   *
+   * @param userId UUID
+   */
   public void setUserId(UUID userId) {
     this.userId = userId;
   }
 
+  /**
+   * Identifier of the task that time entry is logged against.
+   *
+   * @param taskId UUID
+   * @return TimeEntryCreateOrUpdate
+   */
   public TimeEntryCreateOrUpdate taskId(UUID taskId) {
     this.taskId = taskId;
     return this;
@@ -73,14 +94,30 @@ public class TimeEntryCreateOrUpdate {
       example = "00000000-0000-0000-0000-000000000000",
       required = true,
       value = "Identifier of the task that time entry is logged against.")
+  /**
+   * Identifier of the task that time entry is logged against.
+   *
+   * @return taskId UUID
+   */
   public UUID getTaskId() {
     return taskId;
   }
 
+  /**
+   * Identifier of the task that time entry is logged against.
+   *
+   * @param taskId UUID
+   */
   public void setTaskId(UUID taskId) {
     this.taskId = taskId;
   }
 
+  /**
+   * Date time entry is logged on. UTC Date Time in ISO-8601 format.
+   *
+   * @param dateUtc OffsetDateTime
+   * @return TimeEntryCreateOrUpdate
+   */
   public TimeEntryCreateOrUpdate dateUtc(OffsetDateTime dateUtc) {
     this.dateUtc = dateUtc;
     return this;
@@ -94,14 +131,30 @@ public class TimeEntryCreateOrUpdate {
   @ApiModelProperty(
       required = true,
       value = "Date time entry is logged on. UTC Date Time in ISO-8601 format.")
+  /**
+   * Date time entry is logged on. UTC Date Time in ISO-8601 format.
+   *
+   * @return dateUtc OffsetDateTime
+   */
   public OffsetDateTime getDateUtc() {
     return dateUtc;
   }
 
+  /**
+   * Date time entry is logged on. UTC Date Time in ISO-8601 format.
+   *
+   * @param dateUtc OffsetDateTime
+   */
   public void setDateUtc(OffsetDateTime dateUtc) {
     this.dateUtc = dateUtc;
   }
 
+  /**
+   * Number of minutes to be logged. Duration is between 1 and 59940 inclusively.
+   *
+   * @param duration Integer
+   * @return TimeEntryCreateOrUpdate
+   */
   public TimeEntryCreateOrUpdate duration(Integer duration) {
     this.duration = duration;
     return this;
@@ -115,14 +168,30 @@ public class TimeEntryCreateOrUpdate {
   @ApiModelProperty(
       required = true,
       value = "Number of minutes to be logged. Duration is between 1 and 59940 inclusively.")
+  /**
+   * Number of minutes to be logged. Duration is between 1 and 59940 inclusively.
+   *
+   * @return duration Integer
+   */
   public Integer getDuration() {
     return duration;
   }
 
+  /**
+   * Number of minutes to be logged. Duration is between 1 and 59940 inclusively.
+   *
+   * @param duration Integer
+   */
   public void setDuration(Integer duration) {
     this.duration = duration;
   }
 
+  /**
+   * An optional description of the time entry, will be set to null if not provided during update.
+   *
+   * @param description String
+   * @return TimeEntryCreateOrUpdate
+   */
   public TimeEntryCreateOrUpdate description(String description) {
     this.description = description;
     return this;
@@ -137,10 +206,20 @@ public class TimeEntryCreateOrUpdate {
       value =
           "An optional description of the time entry, will be set to null if not provided during"
               + " update.")
+  /**
+   * An optional description of the time entry, will be set to null if not provided during update.
+   *
+   * @return description String
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * An optional description of the time entry, will be set to null if not provided during update.
+   *
+   * @param description String
+   */
   public void setDescription(String description) {
     this.description = description;
   }

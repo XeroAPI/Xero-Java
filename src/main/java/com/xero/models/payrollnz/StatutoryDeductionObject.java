@@ -28,7 +28,12 @@ public class StatutoryDeductionObject {
 
   @JsonProperty("statutoryDeduction")
   private StatutoryDeduction statutoryDeduction;
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return StatutoryDeductionObject
+   */
   public StatutoryDeductionObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -40,14 +45,30 @@ public class StatutoryDeductionObject {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return StatutoryDeductionObject
+   */
   public StatutoryDeductionObject problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -59,14 +80,30 @@ public class StatutoryDeductionObject {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * statutoryDeduction
+   *
+   * @param statutoryDeduction StatutoryDeduction
+   * @return StatutoryDeductionObject
+   */
   public StatutoryDeductionObject statutoryDeduction(StatutoryDeduction statutoryDeduction) {
     this.statutoryDeduction = statutoryDeduction;
     return this;
@@ -78,10 +115,20 @@ public class StatutoryDeductionObject {
    * @return statutoryDeduction
    */
   @ApiModelProperty(value = "")
+  /**
+   * statutoryDeduction
+   *
+   * @return statutoryDeduction StatutoryDeduction
+   */
   public StatutoryDeduction getStatutoryDeduction() {
     return statutoryDeduction;
   }
 
+  /**
+   * statutoryDeduction
+   *
+   * @param statutoryDeduction StatutoryDeduction
+   */
   public void setStatutoryDeduction(StatutoryDeduction statutoryDeduction) {
     this.statutoryDeduction = statutoryDeduction;
   }

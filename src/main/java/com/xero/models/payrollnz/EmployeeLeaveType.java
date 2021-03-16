@@ -27,12 +27,16 @@ public class EmployeeLeaveType {
   private UUID leaveTypeID;
   /** The schedule of accrual */
   public enum ScheduleOfAccrualEnum {
+    /** ANNUALLYAFTER6MONTHS */
     ANNUALLYAFTER6MONTHS("AnnuallyAfter6Months"),
 
+    /** ONANNIVERSARYDATE */
     ONANNIVERSARYDATE("OnAnniversaryDate"),
 
+    /** PERCENTAGEOFGROSSEARNINGS */
     PERCENTAGEOFGROSSEARNINGS("PercentageOfGrossEarnings"),
 
+    /** NOACCRUALS */
     NOACCRUALS("NoAccruals");
 
     private String value;
@@ -41,16 +45,31 @@ public class EmployeeLeaveType {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static ScheduleOfAccrualEnum fromValue(String value) {
       for (ScheduleOfAccrualEnum b : ScheduleOfAccrualEnum.values()) {
@@ -88,7 +107,12 @@ public class EmployeeLeaveType {
 
   @JsonProperty("annualLeaveTotalAmountPaid")
   private Double annualLeaveTotalAmountPaid;
-
+  /**
+   * The Xero identifier for leave type
+   *
+   * @param leaveTypeID UUID
+   * @return EmployeeLeaveType
+   */
   public EmployeeLeaveType leaveTypeID(UUID leaveTypeID) {
     this.leaveTypeID = leaveTypeID;
     return this;
@@ -100,14 +124,30 @@ public class EmployeeLeaveType {
    * @return leaveTypeID
    */
   @ApiModelProperty(value = "The Xero identifier for leave type")
+  /**
+   * The Xero identifier for leave type
+   *
+   * @return leaveTypeID UUID
+   */
   public UUID getLeaveTypeID() {
     return leaveTypeID;
   }
 
+  /**
+   * The Xero identifier for leave type
+   *
+   * @param leaveTypeID UUID
+   */
   public void setLeaveTypeID(UUID leaveTypeID) {
     this.leaveTypeID = leaveTypeID;
   }
 
+  /**
+   * The schedule of accrual
+   *
+   * @param scheduleOfAccrual ScheduleOfAccrualEnum
+   * @return EmployeeLeaveType
+   */
   public EmployeeLeaveType scheduleOfAccrual(ScheduleOfAccrualEnum scheduleOfAccrual) {
     this.scheduleOfAccrual = scheduleOfAccrual;
     return this;
@@ -119,14 +159,31 @@ public class EmployeeLeaveType {
    * @return scheduleOfAccrual
    */
   @ApiModelProperty(value = "The schedule of accrual")
+  /**
+   * The schedule of accrual
+   *
+   * @return scheduleOfAccrual ScheduleOfAccrualEnum
+   */
   public ScheduleOfAccrualEnum getScheduleOfAccrual() {
     return scheduleOfAccrual;
   }
 
+  /**
+   * The schedule of accrual
+   *
+   * @param scheduleOfAccrual ScheduleOfAccrualEnum
+   */
   public void setScheduleOfAccrual(ScheduleOfAccrualEnum scheduleOfAccrual) {
     this.scheduleOfAccrual = scheduleOfAccrual;
   }
 
+  /**
+   * The number of hours accrued for the leave annually. This is 0 when the scheduleOfAccrual chosen
+   * is \&quot;OnHourWorked\&quot;
+   *
+   * @param hoursAccruedAnnually Double
+   * @return EmployeeLeaveType
+   */
   public EmployeeLeaveType hoursAccruedAnnually(Double hoursAccruedAnnually) {
     this.hoursAccruedAnnually = hoursAccruedAnnually;
     return this;
@@ -142,14 +199,32 @@ public class EmployeeLeaveType {
       value =
           "The number of hours accrued for the leave annually. This is 0 when the"
               + " scheduleOfAccrual chosen is \"OnHourWorked\"")
+  /**
+   * The number of hours accrued for the leave annually. This is 0 when the scheduleOfAccrual chosen
+   * is \&quot;OnHourWorked\&quot;
+   *
+   * @return hoursAccruedAnnually Double
+   */
   public Double getHoursAccruedAnnually() {
     return hoursAccruedAnnually;
   }
 
+  /**
+   * The number of hours accrued for the leave annually. This is 0 when the scheduleOfAccrual chosen
+   * is \&quot;OnHourWorked\&quot;
+   *
+   * @param hoursAccruedAnnually Double
+   */
   public void setHoursAccruedAnnually(Double hoursAccruedAnnually) {
     this.hoursAccruedAnnually = hoursAccruedAnnually;
   }
 
+  /**
+   * The maximum number of hours that can be accrued for the leave
+   *
+   * @param maximumToAccrue Double
+   * @return EmployeeLeaveType
+   */
   public EmployeeLeaveType maximumToAccrue(Double maximumToAccrue) {
     this.maximumToAccrue = maximumToAccrue;
     return this;
@@ -161,14 +236,30 @@ public class EmployeeLeaveType {
    * @return maximumToAccrue
    */
   @ApiModelProperty(value = "The maximum number of hours that can be accrued for the leave")
+  /**
+   * The maximum number of hours that can be accrued for the leave
+   *
+   * @return maximumToAccrue Double
+   */
   public Double getMaximumToAccrue() {
     return maximumToAccrue;
   }
 
+  /**
+   * The maximum number of hours that can be accrued for the leave
+   *
+   * @param maximumToAccrue Double
+   */
   public void setMaximumToAccrue(Double maximumToAccrue) {
     this.maximumToAccrue = maximumToAccrue;
   }
 
+  /**
+   * The initial number of hours assigned when the leave was added to the employee
+   *
+   * @param openingBalance Double
+   * @return EmployeeLeaveType
+   */
   public EmployeeLeaveType openingBalance(Double openingBalance) {
     this.openingBalance = openingBalance;
     return this;
@@ -181,14 +272,31 @@ public class EmployeeLeaveType {
    */
   @ApiModelProperty(
       value = "The initial number of hours assigned when the leave was added to the employee")
+  /**
+   * The initial number of hours assigned when the leave was added to the employee
+   *
+   * @return openingBalance Double
+   */
   public Double getOpeningBalance() {
     return openingBalance;
   }
 
+  /**
+   * The initial number of hours assigned when the leave was added to the employee
+   *
+   * @param openingBalance Double
+   */
   public void setOpeningBalance(Double openingBalance) {
     this.openingBalance = openingBalance;
   }
 
+  /**
+   * The number of hours added to the leave balance for every hour worked by the employee. This is
+   * normally 0, unless the scheduleOfAccrual chosen is \&quot;OnHourWorked\&quot;
+   *
+   * @param rateAccruedHourly Double
+   * @return EmployeeLeaveType
+   */
   public EmployeeLeaveType rateAccruedHourly(Double rateAccruedHourly) {
     this.rateAccruedHourly = rateAccruedHourly;
     return this;
@@ -204,14 +312,33 @@ public class EmployeeLeaveType {
       value =
           "The number of hours added to the leave balance for every hour worked by the employee."
               + " This is normally 0, unless the scheduleOfAccrual chosen is \"OnHourWorked\"")
+  /**
+   * The number of hours added to the leave balance for every hour worked by the employee. This is
+   * normally 0, unless the scheduleOfAccrual chosen is \&quot;OnHourWorked\&quot;
+   *
+   * @return rateAccruedHourly Double
+   */
   public Double getRateAccruedHourly() {
     return rateAccruedHourly;
   }
 
+  /**
+   * The number of hours added to the leave balance for every hour worked by the employee. This is
+   * normally 0, unless the scheduleOfAccrual chosen is \&quot;OnHourWorked\&quot;
+   *
+   * @param rateAccruedHourly Double
+   */
   public void setRateAccruedHourly(Double rateAccruedHourly) {
     this.rateAccruedHourly = rateAccruedHourly;
   }
 
+  /**
+   * Specific for scheduleOfAccrual having percentage of gross earnings. Identifies how much
+   * percentage of gross earnings is accrued per pay period.
+   *
+   * @param percentageOfGrossEarnings Double
+   * @return EmployeeLeaveType
+   */
   public EmployeeLeaveType percentageOfGrossEarnings(Double percentageOfGrossEarnings) {
     this.percentageOfGrossEarnings = percentageOfGrossEarnings;
     return this;
@@ -227,14 +354,32 @@ public class EmployeeLeaveType {
       value =
           "Specific for scheduleOfAccrual having percentage of gross earnings. Identifies how much"
               + " percentage of gross earnings is accrued per pay period.")
+  /**
+   * Specific for scheduleOfAccrual having percentage of gross earnings. Identifies how much
+   * percentage of gross earnings is accrued per pay period.
+   *
+   * @return percentageOfGrossEarnings Double
+   */
   public Double getPercentageOfGrossEarnings() {
     return percentageOfGrossEarnings;
   }
 
+  /**
+   * Specific for scheduleOfAccrual having percentage of gross earnings. Identifies how much
+   * percentage of gross earnings is accrued per pay period.
+   *
+   * @param percentageOfGrossEarnings Double
+   */
   public void setPercentageOfGrossEarnings(Double percentageOfGrossEarnings) {
     this.percentageOfGrossEarnings = percentageOfGrossEarnings;
   }
 
+  /**
+   * Specific to Holiday pay. Flag determining if pay for leave type is added on each pay run.
+   *
+   * @param includeHolidayPayEveryPay Boolean
+   * @return EmployeeLeaveType
+   */
   public EmployeeLeaveType includeHolidayPayEveryPay(Boolean includeHolidayPayEveryPay) {
     this.includeHolidayPayEveryPay = includeHolidayPayEveryPay;
     return this;
@@ -249,14 +394,31 @@ public class EmployeeLeaveType {
       value =
           "Specific to Holiday pay. Flag determining if pay for leave type is added on each pay"
               + " run.")
+  /**
+   * Specific to Holiday pay. Flag determining if pay for leave type is added on each pay run.
+   *
+   * @return includeHolidayPayEveryPay Boolean
+   */
   public Boolean getIncludeHolidayPayEveryPay() {
     return includeHolidayPayEveryPay;
   }
 
+  /**
+   * Specific to Holiday pay. Flag determining if pay for leave type is added on each pay run.
+   *
+   * @param includeHolidayPayEveryPay Boolean
+   */
   public void setIncludeHolidayPayEveryPay(Boolean includeHolidayPayEveryPay) {
     this.includeHolidayPayEveryPay = includeHolidayPayEveryPay;
   }
 
+  /**
+   * Specific to Annual Leave. Flag to include leave available to take in advance in the balance in
+   * the payslip
+   *
+   * @param showAnnualLeaveInAdvance Boolean
+   * @return EmployeeLeaveType
+   */
   public EmployeeLeaveType showAnnualLeaveInAdvance(Boolean showAnnualLeaveInAdvance) {
     this.showAnnualLeaveInAdvance = showAnnualLeaveInAdvance;
     return this;
@@ -272,14 +434,32 @@ public class EmployeeLeaveType {
       value =
           "Specific to Annual Leave. Flag to include leave available to take in advance in the"
               + " balance in the payslip")
+  /**
+   * Specific to Annual Leave. Flag to include leave available to take in advance in the balance in
+   * the payslip
+   *
+   * @return showAnnualLeaveInAdvance Boolean
+   */
   public Boolean getShowAnnualLeaveInAdvance() {
     return showAnnualLeaveInAdvance;
   }
 
+  /**
+   * Specific to Annual Leave. Flag to include leave available to take in advance in the balance in
+   * the payslip
+   *
+   * @param showAnnualLeaveInAdvance Boolean
+   */
   public void setShowAnnualLeaveInAdvance(Boolean showAnnualLeaveInAdvance) {
     this.showAnnualLeaveInAdvance = showAnnualLeaveInAdvance;
   }
 
+  /**
+   * Specific to Annual Leave. Annual leave balance in dollars
+   *
+   * @param annualLeaveTotalAmountPaid Double
+   * @return EmployeeLeaveType
+   */
   public EmployeeLeaveType annualLeaveTotalAmountPaid(Double annualLeaveTotalAmountPaid) {
     this.annualLeaveTotalAmountPaid = annualLeaveTotalAmountPaid;
     return this;
@@ -291,10 +471,20 @@ public class EmployeeLeaveType {
    * @return annualLeaveTotalAmountPaid
    */
   @ApiModelProperty(value = "Specific to Annual Leave. Annual leave balance in dollars")
+  /**
+   * Specific to Annual Leave. Annual leave balance in dollars
+   *
+   * @return annualLeaveTotalAmountPaid Double
+   */
   public Double getAnnualLeaveTotalAmountPaid() {
     return annualLeaveTotalAmountPaid;
   }
 
+  /**
+   * Specific to Annual Leave. Annual leave balance in dollars
+   *
+   * @param annualLeaveTotalAmountPaid Double
+   */
   public void setAnnualLeaveTotalAmountPaid(Double annualLeaveTotalAmountPaid) {
     this.annualLeaveTotalAmountPaid = annualLeaveTotalAmountPaid;
   }

@@ -28,7 +28,12 @@ public class EmploymentObject {
 
   @JsonProperty("employment")
   private Employment employment;
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return EmploymentObject
+   */
   public EmploymentObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -40,14 +45,30 @@ public class EmploymentObject {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return EmploymentObject
+   */
   public EmploymentObject problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -59,14 +80,30 @@ public class EmploymentObject {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * employment
+   *
+   * @param employment Employment
+   * @return EmploymentObject
+   */
   public EmploymentObject employment(Employment employment) {
     this.employment = employment;
     return this;
@@ -78,10 +115,20 @@ public class EmploymentObject {
    * @return employment
    */
   @ApiModelProperty(value = "")
+  /**
+   * employment
+   *
+   * @return employment Employment
+   */
   public Employment getEmployment() {
     return employment;
   }
 
+  /**
+   * employment
+   *
+   * @param employment Employment
+   */
   public void setEmployment(Employment employment) {
     this.employment = employment;
   }

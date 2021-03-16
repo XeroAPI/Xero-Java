@@ -17,20 +17,29 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /** State abbreviation for employee home address */
 public enum State {
+
+  /** ACT */
   ACT("ACT"),
 
+  /** NSW */
   NSW("NSW"),
 
+  /** NT */
   NT("NT"),
 
+  /** QLD */
   QLD("QLD"),
 
+  /** SA */
   SA("SA"),
 
+  /** TAS */
   TAS("TAS"),
 
+  /** VIC */
   VIC("VIC"),
 
+  /** WA */
   WA("WA");
 
   private String value;
@@ -39,16 +48,27 @@ public enum State {
     this.value = value;
   }
 
+  /** @return String value */
   @JsonValue
   public String getValue() {
     return value;
   }
 
+  /**
+   * toString
+   *
+   * @return String value
+   */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
+  /**
+   * fromValue
+   *
+   * @param value String
+   */
   @JsonCreator
   public static State fromValue(String value) {
     for (State b : State.values()) {

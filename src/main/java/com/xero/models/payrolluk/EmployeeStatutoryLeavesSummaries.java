@@ -31,7 +31,12 @@ public class EmployeeStatutoryLeavesSummaries {
   @JsonProperty("statutoryLeaves")
   private List<EmployeeStatutoryLeaveSummary> statutoryLeaves =
       new ArrayList<EmployeeStatutoryLeaveSummary>();
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return EmployeeStatutoryLeavesSummaries
+   */
   public EmployeeStatutoryLeavesSummaries pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -43,14 +48,30 @@ public class EmployeeStatutoryLeavesSummaries {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return EmployeeStatutoryLeavesSummaries
+   */
   public EmployeeStatutoryLeavesSummaries problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -62,20 +83,42 @@ public class EmployeeStatutoryLeavesSummaries {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * statutoryLeaves
+   *
+   * @param statutoryLeaves List&lt;EmployeeStatutoryLeaveSummary&gt;
+   * @return EmployeeStatutoryLeavesSummaries
+   */
   public EmployeeStatutoryLeavesSummaries statutoryLeaves(
       List<EmployeeStatutoryLeaveSummary> statutoryLeaves) {
     this.statutoryLeaves = statutoryLeaves;
     return this;
   }
 
+  /**
+   * statutoryLeaves
+   *
+   * @param statutoryLeavesItem EmployeeStatutoryLeaveSummary
+   * @return EmployeeStatutoryLeavesSummaries
+   */
   public EmployeeStatutoryLeavesSummaries addStatutoryLeavesItem(
       EmployeeStatutoryLeaveSummary statutoryLeavesItem) {
     if (this.statutoryLeaves == null) {
@@ -91,10 +134,20 @@ public class EmployeeStatutoryLeavesSummaries {
    * @return statutoryLeaves
    */
   @ApiModelProperty(value = "")
+  /**
+   * statutoryLeaves
+   *
+   * @return statutoryLeaves List<EmployeeStatutoryLeaveSummary>
+   */
   public List<EmployeeStatutoryLeaveSummary> getStatutoryLeaves() {
     return statutoryLeaves;
   }
 
+  /**
+   * statutoryLeaves
+   *
+   * @param statutoryLeaves List&lt;EmployeeStatutoryLeaveSummary&gt;
+   */
   public void setStatutoryLeaves(List<EmployeeStatutoryLeaveSummary> statutoryLeaves) {
     this.statutoryLeaves = statutoryLeaves;
   }

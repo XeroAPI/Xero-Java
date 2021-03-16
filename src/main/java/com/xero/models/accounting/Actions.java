@@ -24,12 +24,23 @@ public class Actions {
 
   @JsonProperty("Actions")
   private List<Action> actions = new ArrayList<Action>();
-
+  /**
+   * actions
+   *
+   * @param actions List&lt;Action&gt;
+   * @return Actions
+   */
   public Actions actions(List<Action> actions) {
     this.actions = actions;
     return this;
   }
 
+  /**
+   * actions
+   *
+   * @param actionsItem Action
+   * @return Actions
+   */
   public Actions addActionsItem(Action actionsItem) {
     if (this.actions == null) {
       this.actions = new ArrayList<Action>();
@@ -44,10 +55,20 @@ public class Actions {
    * @return actions
    */
   @ApiModelProperty(value = "")
+  /**
+   * actions
+   *
+   * @return actions List<Action>
+   */
   public List<Action> getActions() {
     return actions;
   }
 
+  /**
+   * actions
+   *
+   * @param actions List&lt;Action&gt;
+   */
   public void setActions(List<Action> actions) {
     this.actions = actions;
   }

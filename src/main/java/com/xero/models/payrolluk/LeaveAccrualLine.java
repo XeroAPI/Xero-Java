@@ -26,7 +26,12 @@ public class LeaveAccrualLine {
 
   @JsonProperty("numberOfUnits")
   private Double numberOfUnits;
-
+  /**
+   * Xero identifier for the Leave type
+   *
+   * @param leaveTypeID UUID
+   * @return LeaveAccrualLine
+   */
   public LeaveAccrualLine leaveTypeID(UUID leaveTypeID) {
     this.leaveTypeID = leaveTypeID;
     return this;
@@ -38,14 +43,30 @@ public class LeaveAccrualLine {
    * @return leaveTypeID
    */
   @ApiModelProperty(value = "Xero identifier for the Leave type")
+  /**
+   * Xero identifier for the Leave type
+   *
+   * @return leaveTypeID UUID
+   */
   public UUID getLeaveTypeID() {
     return leaveTypeID;
   }
 
+  /**
+   * Xero identifier for the Leave type
+   *
+   * @param leaveTypeID UUID
+   */
   public void setLeaveTypeID(UUID leaveTypeID) {
     this.leaveTypeID = leaveTypeID;
   }
 
+  /**
+   * Leave accrual number of units
+   *
+   * @param numberOfUnits Double
+   * @return LeaveAccrualLine
+   */
   public LeaveAccrualLine numberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
     return this;
@@ -57,10 +78,20 @@ public class LeaveAccrualLine {
    * @return numberOfUnits
    */
   @ApiModelProperty(value = "Leave accrual number of units")
+  /**
+   * Leave accrual number of units
+   *
+   * @return numberOfUnits Double
+   */
   public Double getNumberOfUnits() {
     return numberOfUnits;
   }
 
+  /**
+   * Leave accrual number of units
+   *
+   * @param numberOfUnits Double
+   */
   public void setNumberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
   }

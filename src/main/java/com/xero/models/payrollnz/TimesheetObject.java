@@ -28,7 +28,12 @@ public class TimesheetObject {
 
   @JsonProperty("timesheet")
   private Timesheet timesheet;
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return TimesheetObject
+   */
   public TimesheetObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -40,14 +45,30 @@ public class TimesheetObject {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return TimesheetObject
+   */
   public TimesheetObject problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -59,14 +80,30 @@ public class TimesheetObject {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * timesheet
+   *
+   * @param timesheet Timesheet
+   * @return TimesheetObject
+   */
   public TimesheetObject timesheet(Timesheet timesheet) {
     this.timesheet = timesheet;
     return this;
@@ -78,10 +115,20 @@ public class TimesheetObject {
    * @return timesheet
    */
   @ApiModelProperty(value = "")
+  /**
+   * timesheet
+   *
+   * @return timesheet Timesheet
+   */
   public Timesheet getTimesheet() {
     return timesheet;
   }
 
+  /**
+   * timesheet
+   *
+   * @param timesheet Timesheet
+   */
   public void setTimesheet(Timesheet timesheet) {
     this.timesheet = timesheet;
   }

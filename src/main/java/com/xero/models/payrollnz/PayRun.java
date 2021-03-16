@@ -48,8 +48,10 @@ public class PayRun {
   private Double totalPay;
   /** Pay run status */
   public enum PayRunStatusEnum {
+    /** DRAFT */
     DRAFT("Draft"),
 
+    /** POSTED */
     POSTED("Posted");
 
     private String value;
@@ -58,16 +60,31 @@ public class PayRun {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static PayRunStatusEnum fromValue(String value) {
       for (PayRunStatusEnum b : PayRunStatusEnum.values()) {
@@ -83,10 +100,13 @@ public class PayRun {
   private PayRunStatusEnum payRunStatus;
   /** Pay run type */
   public enum PayRunTypeEnum {
+    /** SCHEDULED */
     SCHEDULED("Scheduled"),
 
+    /** UNSCHEDULED */
     UNSCHEDULED("Unscheduled"),
 
+    /** EARLIERYEARUPDATE */
     EARLIERYEARUPDATE("EarlierYearUpdate");
 
     private String value;
@@ -95,16 +115,31 @@ public class PayRun {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static PayRunTypeEnum fromValue(String value) {
       for (PayRunTypeEnum b : PayRunTypeEnum.values()) {
@@ -127,7 +162,12 @@ public class PayRun {
 
   @JsonProperty("paySlips")
   private List<PaySlip> paySlips = new ArrayList<PaySlip>();
-
+  /**
+   * Xero unique identifier for the pay run
+   *
+   * @param payRunID UUID
+   * @return PayRun
+   */
   public PayRun payRunID(UUID payRunID) {
     this.payRunID = payRunID;
     return this;
@@ -139,14 +179,30 @@ public class PayRun {
    * @return payRunID
    */
   @ApiModelProperty(value = "Xero unique identifier for the pay run")
+  /**
+   * Xero unique identifier for the pay run
+   *
+   * @return payRunID UUID
+   */
   public UUID getPayRunID() {
     return payRunID;
   }
 
+  /**
+   * Xero unique identifier for the pay run
+   *
+   * @param payRunID UUID
+   */
   public void setPayRunID(UUID payRunID) {
     this.payRunID = payRunID;
   }
 
+  /**
+   * Xero unique identifier for the payroll calendar
+   *
+   * @param payrollCalendarID UUID
+   * @return PayRun
+   */
   public PayRun payrollCalendarID(UUID payrollCalendarID) {
     this.payrollCalendarID = payrollCalendarID;
     return this;
@@ -158,14 +214,30 @@ public class PayRun {
    * @return payrollCalendarID
    */
   @ApiModelProperty(value = "Xero unique identifier for the payroll calendar")
+  /**
+   * Xero unique identifier for the payroll calendar
+   *
+   * @return payrollCalendarID UUID
+   */
   public UUID getPayrollCalendarID() {
     return payrollCalendarID;
   }
 
+  /**
+   * Xero unique identifier for the payroll calendar
+   *
+   * @param payrollCalendarID UUID
+   */
   public void setPayrollCalendarID(UUID payrollCalendarID) {
     this.payrollCalendarID = payrollCalendarID;
   }
 
+  /**
+   * Period start date of the payroll calendar
+   *
+   * @param periodStartDate LocalDate
+   * @return PayRun
+   */
   public PayRun periodStartDate(LocalDate periodStartDate) {
     this.periodStartDate = periodStartDate;
     return this;
@@ -177,14 +249,30 @@ public class PayRun {
    * @return periodStartDate
    */
   @ApiModelProperty(value = "Period start date of the payroll calendar")
+  /**
+   * Period start date of the payroll calendar
+   *
+   * @return periodStartDate LocalDate
+   */
   public LocalDate getPeriodStartDate() {
     return periodStartDate;
   }
 
+  /**
+   * Period start date of the payroll calendar
+   *
+   * @param periodStartDate LocalDate
+   */
   public void setPeriodStartDate(LocalDate periodStartDate) {
     this.periodStartDate = periodStartDate;
   }
 
+  /**
+   * Period end date of the payroll calendar
+   *
+   * @param periodEndDate LocalDate
+   * @return PayRun
+   */
   public PayRun periodEndDate(LocalDate periodEndDate) {
     this.periodEndDate = periodEndDate;
     return this;
@@ -196,14 +284,30 @@ public class PayRun {
    * @return periodEndDate
    */
   @ApiModelProperty(value = "Period end date of the payroll calendar")
+  /**
+   * Period end date of the payroll calendar
+   *
+   * @return periodEndDate LocalDate
+   */
   public LocalDate getPeriodEndDate() {
     return periodEndDate;
   }
 
+  /**
+   * Period end date of the payroll calendar
+   *
+   * @param periodEndDate LocalDate
+   */
   public void setPeriodEndDate(LocalDate periodEndDate) {
     this.periodEndDate = periodEndDate;
   }
 
+  /**
+   * Payment date of the pay run
+   *
+   * @param paymentDate LocalDate
+   * @return PayRun
+   */
   public PayRun paymentDate(LocalDate paymentDate) {
     this.paymentDate = paymentDate;
     return this;
@@ -215,14 +319,30 @@ public class PayRun {
    * @return paymentDate
    */
   @ApiModelProperty(value = "Payment date of the pay run")
+  /**
+   * Payment date of the pay run
+   *
+   * @return paymentDate LocalDate
+   */
   public LocalDate getPaymentDate() {
     return paymentDate;
   }
 
+  /**
+   * Payment date of the pay run
+   *
+   * @param paymentDate LocalDate
+   */
   public void setPaymentDate(LocalDate paymentDate) {
     this.paymentDate = paymentDate;
   }
 
+  /**
+   * Total cost of the pay run
+   *
+   * @param totalCost Double
+   * @return PayRun
+   */
   public PayRun totalCost(Double totalCost) {
     this.totalCost = totalCost;
     return this;
@@ -234,14 +354,30 @@ public class PayRun {
    * @return totalCost
    */
   @ApiModelProperty(value = "Total cost of the pay run")
+  /**
+   * Total cost of the pay run
+   *
+   * @return totalCost Double
+   */
   public Double getTotalCost() {
     return totalCost;
   }
 
+  /**
+   * Total cost of the pay run
+   *
+   * @param totalCost Double
+   */
   public void setTotalCost(Double totalCost) {
     this.totalCost = totalCost;
   }
 
+  /**
+   * Total pay of the pay run
+   *
+   * @param totalPay Double
+   * @return PayRun
+   */
   public PayRun totalPay(Double totalPay) {
     this.totalPay = totalPay;
     return this;
@@ -253,14 +389,30 @@ public class PayRun {
    * @return totalPay
    */
   @ApiModelProperty(value = "Total pay of the pay run")
+  /**
+   * Total pay of the pay run
+   *
+   * @return totalPay Double
+   */
   public Double getTotalPay() {
     return totalPay;
   }
 
+  /**
+   * Total pay of the pay run
+   *
+   * @param totalPay Double
+   */
   public void setTotalPay(Double totalPay) {
     this.totalPay = totalPay;
   }
 
+  /**
+   * Pay run status
+   *
+   * @param payRunStatus PayRunStatusEnum
+   * @return PayRun
+   */
   public PayRun payRunStatus(PayRunStatusEnum payRunStatus) {
     this.payRunStatus = payRunStatus;
     return this;
@@ -272,14 +424,30 @@ public class PayRun {
    * @return payRunStatus
    */
   @ApiModelProperty(value = "Pay run status")
+  /**
+   * Pay run status
+   *
+   * @return payRunStatus PayRunStatusEnum
+   */
   public PayRunStatusEnum getPayRunStatus() {
     return payRunStatus;
   }
 
+  /**
+   * Pay run status
+   *
+   * @param payRunStatus PayRunStatusEnum
+   */
   public void setPayRunStatus(PayRunStatusEnum payRunStatus) {
     this.payRunStatus = payRunStatus;
   }
 
+  /**
+   * Pay run type
+   *
+   * @param payRunType PayRunTypeEnum
+   * @return PayRun
+   */
   public PayRun payRunType(PayRunTypeEnum payRunType) {
     this.payRunType = payRunType;
     return this;
@@ -291,14 +459,30 @@ public class PayRun {
    * @return payRunType
    */
   @ApiModelProperty(value = "Pay run type")
+  /**
+   * Pay run type
+   *
+   * @return payRunType PayRunTypeEnum
+   */
   public PayRunTypeEnum getPayRunType() {
     return payRunType;
   }
 
+  /**
+   * Pay run type
+   *
+   * @param payRunType PayRunTypeEnum
+   */
   public void setPayRunType(PayRunTypeEnum payRunType) {
     this.payRunType = payRunType;
   }
 
+  /**
+   * calendarType
+   *
+   * @param calendarType CalendarType
+   * @return PayRun
+   */
   public PayRun calendarType(CalendarType calendarType) {
     this.calendarType = calendarType;
     return this;
@@ -310,14 +494,30 @@ public class PayRun {
    * @return calendarType
    */
   @ApiModelProperty(value = "")
+  /**
+   * calendarType
+   *
+   * @return calendarType CalendarType
+   */
   public CalendarType getCalendarType() {
     return calendarType;
   }
 
+  /**
+   * calendarType
+   *
+   * @param calendarType CalendarType
+   */
   public void setCalendarType(CalendarType calendarType) {
     this.calendarType = calendarType;
   }
 
+  /**
+   * Posted date time of the pay run
+   *
+   * @param postedDateTime LocalDate
+   * @return PayRun
+   */
   public PayRun postedDateTime(LocalDate postedDateTime) {
     this.postedDateTime = postedDateTime;
     return this;
@@ -329,19 +529,41 @@ public class PayRun {
    * @return postedDateTime
    */
   @ApiModelProperty(value = "Posted date time of the pay run")
+  /**
+   * Posted date time of the pay run
+   *
+   * @return postedDateTime LocalDate
+   */
   public LocalDate getPostedDateTime() {
     return postedDateTime;
   }
 
+  /**
+   * Posted date time of the pay run
+   *
+   * @param postedDateTime LocalDate
+   */
   public void setPostedDateTime(LocalDate postedDateTime) {
     this.postedDateTime = postedDateTime;
   }
 
+  /**
+   * paySlips
+   *
+   * @param paySlips List&lt;PaySlip&gt;
+   * @return PayRun
+   */
   public PayRun paySlips(List<PaySlip> paySlips) {
     this.paySlips = paySlips;
     return this;
   }
 
+  /**
+   * paySlips
+   *
+   * @param paySlipsItem PaySlip
+   * @return PayRun
+   */
   public PayRun addPaySlipsItem(PaySlip paySlipsItem) {
     if (this.paySlips == null) {
       this.paySlips = new ArrayList<PaySlip>();
@@ -356,10 +578,20 @@ public class PayRun {
    * @return paySlips
    */
   @ApiModelProperty(value = "")
+  /**
+   * paySlips
+   *
+   * @return paySlips List<PaySlip>
+   */
   public List<PaySlip> getPaySlips() {
     return paySlips;
   }
 
+  /**
+   * paySlips
+   *
+   * @param paySlips List&lt;PaySlip&gt;
+   */
   public void setPaySlips(List<PaySlip> paySlips) {
     this.paySlips = paySlips;
   }

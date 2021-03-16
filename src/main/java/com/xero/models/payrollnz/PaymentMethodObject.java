@@ -28,7 +28,12 @@ public class PaymentMethodObject {
 
   @JsonProperty("paymentMethod")
   private PaymentMethod paymentMethod;
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return PaymentMethodObject
+   */
   public PaymentMethodObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -40,14 +45,30 @@ public class PaymentMethodObject {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return PaymentMethodObject
+   */
   public PaymentMethodObject problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -59,14 +80,30 @@ public class PaymentMethodObject {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * paymentMethod
+   *
+   * @param paymentMethod PaymentMethod
+   * @return PaymentMethodObject
+   */
   public PaymentMethodObject paymentMethod(PaymentMethod paymentMethod) {
     this.paymentMethod = paymentMethod;
     return this;
@@ -78,10 +115,20 @@ public class PaymentMethodObject {
    * @return paymentMethod
    */
   @ApiModelProperty(value = "")
+  /**
+   * paymentMethod
+   *
+   * @return paymentMethod PaymentMethod
+   */
   public PaymentMethod getPaymentMethod() {
     return paymentMethod;
   }
 
+  /**
+   * paymentMethod
+   *
+   * @param paymentMethod PaymentMethod
+   */
   public void setPaymentMethod(PaymentMethod paymentMethod) {
     this.paymentMethod = paymentMethod;
   }

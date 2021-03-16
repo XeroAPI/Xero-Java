@@ -32,7 +32,12 @@ public class Association {
 
   @JsonProperty("ObjectType")
   private ObjectType objectType;
-
+  /**
+   * The unique identifier of the file
+   *
+   * @param fileId UUID
+   * @return Association
+   */
   public Association fileId(UUID fileId) {
     this.fileId = fileId;
     return this;
@@ -44,14 +49,31 @@ public class Association {
    * @return fileId
    */
   @ApiModelProperty(value = "The unique identifier of the file")
+  /**
+   * The unique identifier of the file
+   *
+   * @return fileId UUID
+   */
   public UUID getFileId() {
     return fileId;
   }
 
+  /**
+   * The unique identifier of the file
+   *
+   * @param fileId UUID
+   */
   public void setFileId(UUID fileId) {
     this.fileId = fileId;
   }
 
+  /**
+   * The identifier of the object that the file is being associated with (e.g. InvoiceID,
+   * BankTransactionID, ContactID)
+   *
+   * @param objectId UUID
+   * @return Association
+   */
   public Association objectId(UUID objectId) {
     this.objectId = objectId;
     return this;
@@ -67,14 +89,32 @@ public class Association {
       value =
           "The identifier of the object that the file is being associated with (e.g. InvoiceID,"
               + " BankTransactionID, ContactID)")
+  /**
+   * The identifier of the object that the file is being associated with (e.g. InvoiceID,
+   * BankTransactionID, ContactID)
+   *
+   * @return objectId UUID
+   */
   public UUID getObjectId() {
     return objectId;
   }
 
+  /**
+   * The identifier of the object that the file is being associated with (e.g. InvoiceID,
+   * BankTransactionID, ContactID)
+   *
+   * @param objectId UUID
+   */
   public void setObjectId(UUID objectId) {
     this.objectId = objectId;
   }
 
+  /**
+   * objectGroup
+   *
+   * @param objectGroup ObjectGroup
+   * @return Association
+   */
   public Association objectGroup(ObjectGroup objectGroup) {
     this.objectGroup = objectGroup;
     return this;
@@ -86,14 +126,30 @@ public class Association {
    * @return objectGroup
    */
   @ApiModelProperty(value = "")
+  /**
+   * objectGroup
+   *
+   * @return objectGroup ObjectGroup
+   */
   public ObjectGroup getObjectGroup() {
     return objectGroup;
   }
 
+  /**
+   * objectGroup
+   *
+   * @param objectGroup ObjectGroup
+   */
   public void setObjectGroup(ObjectGroup objectGroup) {
     this.objectGroup = objectGroup;
   }
 
+  /**
+   * objectType
+   *
+   * @param objectType ObjectType
+   * @return Association
+   */
   public Association objectType(ObjectType objectType) {
     this.objectType = objectType;
     return this;
@@ -105,10 +161,20 @@ public class Association {
    * @return objectType
    */
   @ApiModelProperty(value = "")
+  /**
+   * objectType
+   *
+   * @return objectType ObjectType
+   */
   public ObjectType getObjectType() {
     return objectType;
   }
 
+  /**
+   * objectType
+   *
+   * @param objectType ObjectType
+   */
   public void setObjectType(ObjectType objectType) {
     this.objectType = objectType;
   }

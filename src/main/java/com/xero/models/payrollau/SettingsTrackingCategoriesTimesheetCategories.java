@@ -28,7 +28,12 @@ public class SettingsTrackingCategoriesTimesheetCategories {
 
   @JsonProperty("TrackingCategoryName")
   private String trackingCategoryName;
-
+  /**
+   * The identifier for the tracking category
+   *
+   * @param trackingCategoryID UUID
+   * @return SettingsTrackingCategoriesTimesheetCategories
+   */
   public SettingsTrackingCategoriesTimesheetCategories trackingCategoryID(UUID trackingCategoryID) {
     this.trackingCategoryID = trackingCategoryID;
     return this;
@@ -42,14 +47,30 @@ public class SettingsTrackingCategoriesTimesheetCategories {
   @ApiModelProperty(
       example = "e0eb6747-7c17-4075-b804-989f8d4e5d39",
       value = "The identifier for the tracking category")
+  /**
+   * The identifier for the tracking category
+   *
+   * @return trackingCategoryID UUID
+   */
   public UUID getTrackingCategoryID() {
     return trackingCategoryID;
   }
 
+  /**
+   * The identifier for the tracking category
+   *
+   * @param trackingCategoryID UUID
+   */
   public void setTrackingCategoryID(UUID trackingCategoryID) {
     this.trackingCategoryID = trackingCategoryID;
   }
 
+  /**
+   * Name of the tracking category
+   *
+   * @param trackingCategoryName String
+   * @return SettingsTrackingCategoriesTimesheetCategories
+   */
   public SettingsTrackingCategoriesTimesheetCategories trackingCategoryName(
       String trackingCategoryName) {
     this.trackingCategoryName = trackingCategoryName;
@@ -62,10 +83,20 @@ public class SettingsTrackingCategoriesTimesheetCategories {
    * @return trackingCategoryName
    */
   @ApiModelProperty(value = "Name of the tracking category")
+  /**
+   * Name of the tracking category
+   *
+   * @return trackingCategoryName String
+   */
   public String getTrackingCategoryName() {
     return trackingCategoryName;
   }
 
+  /**
+   * Name of the tracking category
+   *
+   * @param trackingCategoryName String
+   */
   public void setTrackingCategoryName(String trackingCategoryName) {
     this.trackingCategoryName = trackingCategoryName;
   }

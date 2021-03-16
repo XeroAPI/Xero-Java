@@ -25,7 +25,12 @@ public class Error {
 
   @JsonProperty("modelState")
   private Object modelState;
-
+  /**
+   * Exception message
+   *
+   * @param message String
+   * @return Error
+   */
   public Error message(String message) {
     this.message = message;
     return this;
@@ -37,14 +42,30 @@ public class Error {
    * @return message
    */
   @ApiModelProperty(value = "Exception message")
+  /**
+   * Exception message
+   *
+   * @return message String
+   */
   public String getMessage() {
     return message;
   }
 
+  /**
+   * Exception message
+   *
+   * @param message String
+   */
   public void setMessage(String message) {
     this.message = message;
   }
 
+  /**
+   * Array of Elements of validation Errors
+   *
+   * @param modelState Object
+   * @return Error
+   */
   public Error modelState(Object modelState) {
     this.modelState = modelState;
     return this;
@@ -56,10 +77,20 @@ public class Error {
    * @return modelState
    */
   @ApiModelProperty(value = "Array of Elements of validation Errors")
+  /**
+   * Array of Elements of validation Errors
+   *
+   * @return modelState Object
+   */
   public Object getModelState() {
     return modelState;
   }
 
+  /**
+   * Array of Elements of validation Errors
+   *
+   * @param modelState Object
+   */
   public void setModelState(Object modelState) {
     this.modelState = modelState;
   }

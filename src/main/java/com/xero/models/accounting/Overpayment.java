@@ -31,10 +31,13 @@ public class Overpayment {
   StringUtil util = new StringUtil();
   /** See Overpayment Types */
   public enum TypeEnum {
+    /** RECEIVE_OVERPAYMENT */
     RECEIVE_OVERPAYMENT("RECEIVE-OVERPAYMENT"),
 
+    /** SPEND_OVERPAYMENT */
     SPEND_OVERPAYMENT("SPEND-OVERPAYMENT"),
 
+    /** AROVERPAYMENT */
     AROVERPAYMENT("AROVERPAYMENT");
 
     private String value;
@@ -43,16 +46,31 @@ public class Overpayment {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static TypeEnum fromValue(String value) {
       for (TypeEnum b : TypeEnum.values()) {
@@ -74,10 +92,13 @@ public class Overpayment {
   private String date;
   /** See Overpayment Status Codes */
   public enum StatusEnum {
+    /** AUTHORISED */
     AUTHORISED("AUTHORISED"),
 
+    /** PAID */
     PAID("PAID"),
 
+    /** VOIDED */
     VOIDED("VOIDED");
 
     private String value;
@@ -86,16 +107,31 @@ public class Overpayment {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
@@ -154,7 +190,12 @@ public class Overpayment {
 
   @JsonProperty("Attachments")
   private List<Attachment> attachments = new ArrayList<Attachment>();
-
+  /**
+   * See Overpayment Types
+   *
+   * @param type TypeEnum
+   * @return Overpayment
+   */
   public Overpayment type(TypeEnum type) {
     this.type = type;
     return this;
@@ -166,14 +207,30 @@ public class Overpayment {
    * @return type
    */
   @ApiModelProperty(value = "See Overpayment Types")
+  /**
+   * See Overpayment Types
+   *
+   * @return type TypeEnum
+   */
   public TypeEnum getType() {
     return type;
   }
 
+  /**
+   * See Overpayment Types
+   *
+   * @param type TypeEnum
+   */
   public void setType(TypeEnum type) {
     this.type = type;
   }
 
+  /**
+   * contact
+   *
+   * @param contact Contact
+   * @return Overpayment
+   */
   public Overpayment contact(Contact contact) {
     this.contact = contact;
     return this;
@@ -185,14 +242,30 @@ public class Overpayment {
    * @return contact
    */
   @ApiModelProperty(value = "")
+  /**
+   * contact
+   *
+   * @return contact Contact
+   */
   public Contact getContact() {
     return contact;
   }
 
+  /**
+   * contact
+   *
+   * @param contact Contact
+   */
   public void setContact(Contact contact) {
     this.contact = contact;
   }
 
+  /**
+   * The date the overpayment is created YYYY-MM-DD
+   *
+   * @param date String
+   * @return Overpayment
+   */
   public Overpayment date(String date) {
     this.date = date;
     return this;
@@ -204,10 +277,19 @@ public class Overpayment {
    * @return date
    */
   @ApiModelProperty(value = "The date the overpayment is created YYYY-MM-DD")
+  /**
+   * The date the overpayment is created YYYY-MM-DD
+   *
+   * @return date String
+   */
   public String getDate() {
     return date;
   }
-
+  /**
+   * The date the overpayment is created YYYY-MM-DD
+   *
+   * @return LocalDate
+   */
   public LocalDate getDateAsDate() {
     if (this.date != null) {
       try {
@@ -219,10 +301,20 @@ public class Overpayment {
     return null;
   }
 
+  /**
+   * The date the overpayment is created YYYY-MM-DD
+   *
+   * @param date String
+   */
   public void setDate(String date) {
     this.date = date;
   }
 
+  /**
+   * The date the overpayment is created YYYY-MM-DD
+   *
+   * @param date LocalDateTime
+   */
   public void setDate(LocalDate date) {
     // CONVERT LocalDate args into MS DateFromat String
     Instant instant = date.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
@@ -231,6 +323,12 @@ public class Overpayment {
     this.date = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
   }
 
+  /**
+   * See Overpayment Status Codes
+   *
+   * @param status StatusEnum
+   * @return Overpayment
+   */
   public Overpayment status(StatusEnum status) {
     this.status = status;
     return this;
@@ -242,14 +340,30 @@ public class Overpayment {
    * @return status
    */
   @ApiModelProperty(value = "See Overpayment Status Codes")
+  /**
+   * See Overpayment Status Codes
+   *
+   * @return status StatusEnum
+   */
   public StatusEnum getStatus() {
     return status;
   }
 
+  /**
+   * See Overpayment Status Codes
+   *
+   * @param status StatusEnum
+   */
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
+  /**
+   * lineAmountTypes
+   *
+   * @param lineAmountTypes LineAmountTypes
+   * @return Overpayment
+   */
   public Overpayment lineAmountTypes(LineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
     return this;
@@ -261,19 +375,41 @@ public class Overpayment {
    * @return lineAmountTypes
    */
   @ApiModelProperty(value = "")
+  /**
+   * lineAmountTypes
+   *
+   * @return lineAmountTypes LineAmountTypes
+   */
   public LineAmountTypes getLineAmountTypes() {
     return lineAmountTypes;
   }
 
+  /**
+   * lineAmountTypes
+   *
+   * @param lineAmountTypes LineAmountTypes
+   */
   public void setLineAmountTypes(LineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
   }
 
+  /**
+   * See Overpayment Line Items
+   *
+   * @param lineItems List&lt;LineItem&gt;
+   * @return Overpayment
+   */
   public Overpayment lineItems(List<LineItem> lineItems) {
     this.lineItems = lineItems;
     return this;
   }
 
+  /**
+   * See Overpayment Line Items
+   *
+   * @param lineItemsItem LineItem
+   * @return Overpayment
+   */
   public Overpayment addLineItemsItem(LineItem lineItemsItem) {
     if (this.lineItems == null) {
       this.lineItems = new ArrayList<LineItem>();
@@ -288,14 +424,30 @@ public class Overpayment {
    * @return lineItems
    */
   @ApiModelProperty(value = "See Overpayment Line Items")
+  /**
+   * See Overpayment Line Items
+   *
+   * @return lineItems List<LineItem>
+   */
   public List<LineItem> getLineItems() {
     return lineItems;
   }
 
+  /**
+   * See Overpayment Line Items
+   *
+   * @param lineItems List&lt;LineItem&gt;
+   */
   public void setLineItems(List<LineItem> lineItems) {
     this.lineItems = lineItems;
   }
 
+  /**
+   * The subtotal of the overpayment excluding taxes
+   *
+   * @param subTotal Double
+   * @return Overpayment
+   */
   public Overpayment subTotal(Double subTotal) {
     this.subTotal = subTotal;
     return this;
@@ -307,14 +459,30 @@ public class Overpayment {
    * @return subTotal
    */
   @ApiModelProperty(value = "The subtotal of the overpayment excluding taxes")
+  /**
+   * The subtotal of the overpayment excluding taxes
+   *
+   * @return subTotal Double
+   */
   public Double getSubTotal() {
     return subTotal;
   }
 
+  /**
+   * The subtotal of the overpayment excluding taxes
+   *
+   * @param subTotal Double
+   */
   public void setSubTotal(Double subTotal) {
     this.subTotal = subTotal;
   }
 
+  /**
+   * The total tax on the overpayment
+   *
+   * @param totalTax Double
+   * @return Overpayment
+   */
   public Overpayment totalTax(Double totalTax) {
     this.totalTax = totalTax;
     return this;
@@ -326,14 +494,30 @@ public class Overpayment {
    * @return totalTax
    */
   @ApiModelProperty(value = "The total tax on the overpayment")
+  /**
+   * The total tax on the overpayment
+   *
+   * @return totalTax Double
+   */
   public Double getTotalTax() {
     return totalTax;
   }
 
+  /**
+   * The total tax on the overpayment
+   *
+   * @param totalTax Double
+   */
   public void setTotalTax(Double totalTax) {
     this.totalTax = totalTax;
   }
 
+  /**
+   * The total of the overpayment (subtotal + total tax)
+   *
+   * @param total Double
+   * @return Overpayment
+   */
   public Overpayment total(Double total) {
     this.total = total;
     return this;
@@ -345,10 +529,20 @@ public class Overpayment {
    * @return total
    */
   @ApiModelProperty(value = "The total of the overpayment (subtotal + total tax)")
+  /**
+   * The total of the overpayment (subtotal + total tax)
+   *
+   * @return total Double
+   */
   public Double getTotal() {
     return total;
   }
 
+  /**
+   * The total of the overpayment (subtotal + total tax)
+   *
+   * @param total Double
+   */
   public void setTotal(Double total) {
     this.total = total;
   }
@@ -361,10 +555,19 @@ public class Overpayment {
   @ApiModelProperty(
       example = "/Date(1573755038314)/",
       value = "UTC timestamp of last update to the overpayment")
+  /**
+   * UTC timestamp of last update to the overpayment
+   *
+   * @return updatedDateUTC String
+   */
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-
+  /**
+   * UTC timestamp of last update to the overpayment
+   *
+   * @return OffsetDateTime
+   */
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
@@ -376,6 +579,12 @@ public class Overpayment {
     return null;
   }
 
+  /**
+   * currencyCode
+   *
+   * @param currencyCode CurrencyCode
+   * @return Overpayment
+   */
   public Overpayment currencyCode(CurrencyCode currencyCode) {
     this.currencyCode = currencyCode;
     return this;
@@ -387,14 +596,30 @@ public class Overpayment {
    * @return currencyCode
    */
   @ApiModelProperty(value = "")
+  /**
+   * currencyCode
+   *
+   * @return currencyCode CurrencyCode
+   */
   public CurrencyCode getCurrencyCode() {
     return currencyCode;
   }
 
+  /**
+   * currencyCode
+   *
+   * @param currencyCode CurrencyCode
+   */
   public void setCurrencyCode(CurrencyCode currencyCode) {
     this.currencyCode = currencyCode;
   }
 
+  /**
+   * Xero generated unique identifier
+   *
+   * @param overpaymentID UUID
+   * @return Overpayment
+   */
   public Overpayment overpaymentID(UUID overpaymentID) {
     this.overpaymentID = overpaymentID;
     return this;
@@ -406,14 +631,31 @@ public class Overpayment {
    * @return overpaymentID
    */
   @ApiModelProperty(value = "Xero generated unique identifier")
+  /**
+   * Xero generated unique identifier
+   *
+   * @return overpaymentID UUID
+   */
   public UUID getOverpaymentID() {
     return overpaymentID;
   }
 
+  /**
+   * Xero generated unique identifier
+   *
+   * @param overpaymentID UUID
+   */
   public void setOverpaymentID(UUID overpaymentID) {
     this.overpaymentID = overpaymentID;
   }
 
+  /**
+   * The currency rate for a multicurrency overpayment. If no rate is specified, the XE.com day rate
+   * is used
+   *
+   * @param currencyRate Double
+   * @return Overpayment
+   */
   public Overpayment currencyRate(Double currencyRate) {
     this.currencyRate = currencyRate;
     return this;
@@ -429,14 +671,32 @@ public class Overpayment {
       value =
           "The currency rate for a multicurrency overpayment. If no rate is specified, the XE.com"
               + " day rate is used")
+  /**
+   * The currency rate for a multicurrency overpayment. If no rate is specified, the XE.com day rate
+   * is used
+   *
+   * @return currencyRate Double
+   */
   public Double getCurrencyRate() {
     return currencyRate;
   }
 
+  /**
+   * The currency rate for a multicurrency overpayment. If no rate is specified, the XE.com day rate
+   * is used
+   *
+   * @param currencyRate Double
+   */
   public void setCurrencyRate(Double currencyRate) {
     this.currencyRate = currencyRate;
   }
 
+  /**
+   * The remaining credit balance on the overpayment
+   *
+   * @param remainingCredit Double
+   * @return Overpayment
+   */
   public Overpayment remainingCredit(Double remainingCredit) {
     this.remainingCredit = remainingCredit;
     return this;
@@ -448,19 +708,41 @@ public class Overpayment {
    * @return remainingCredit
    */
   @ApiModelProperty(value = "The remaining credit balance on the overpayment")
+  /**
+   * The remaining credit balance on the overpayment
+   *
+   * @return remainingCredit Double
+   */
   public Double getRemainingCredit() {
     return remainingCredit;
   }
 
+  /**
+   * The remaining credit balance on the overpayment
+   *
+   * @param remainingCredit Double
+   */
   public void setRemainingCredit(Double remainingCredit) {
     this.remainingCredit = remainingCredit;
   }
 
+  /**
+   * See Allocations
+   *
+   * @param allocations List&lt;Allocation&gt;
+   * @return Overpayment
+   */
   public Overpayment allocations(List<Allocation> allocations) {
     this.allocations = allocations;
     return this;
   }
 
+  /**
+   * See Allocations
+   *
+   * @param allocationsItem Allocation
+   * @return Overpayment
+   */
   public Overpayment addAllocationsItem(Allocation allocationsItem) {
     if (this.allocations == null) {
       this.allocations = new ArrayList<Allocation>();
@@ -475,14 +757,30 @@ public class Overpayment {
    * @return allocations
    */
   @ApiModelProperty(value = "See Allocations")
+  /**
+   * See Allocations
+   *
+   * @return allocations List<Allocation>
+   */
   public List<Allocation> getAllocations() {
     return allocations;
   }
 
+  /**
+   * See Allocations
+   *
+   * @param allocations List&lt;Allocation&gt;
+   */
   public void setAllocations(List<Allocation> allocations) {
     this.allocations = allocations;
   }
 
+  /**
+   * The amount of applied to an invoice
+   *
+   * @param appliedAmount Double
+   * @return Overpayment
+   */
   public Overpayment appliedAmount(Double appliedAmount) {
     this.appliedAmount = appliedAmount;
     return this;
@@ -494,19 +792,41 @@ public class Overpayment {
    * @return appliedAmount
    */
   @ApiModelProperty(example = "2.0", value = "The amount of applied to an invoice")
+  /**
+   * The amount of applied to an invoice
+   *
+   * @return appliedAmount Double
+   */
   public Double getAppliedAmount() {
     return appliedAmount;
   }
 
+  /**
+   * The amount of applied to an invoice
+   *
+   * @param appliedAmount Double
+   */
   public void setAppliedAmount(Double appliedAmount) {
     this.appliedAmount = appliedAmount;
   }
 
+  /**
+   * See Payments
+   *
+   * @param payments List&lt;Payment&gt;
+   * @return Overpayment
+   */
   public Overpayment payments(List<Payment> payments) {
     this.payments = payments;
     return this;
   }
 
+  /**
+   * See Payments
+   *
+   * @param paymentsItem Payment
+   * @return Overpayment
+   */
   public Overpayment addPaymentsItem(Payment paymentsItem) {
     if (this.payments == null) {
       this.payments = new ArrayList<Payment>();
@@ -521,10 +841,20 @@ public class Overpayment {
    * @return payments
    */
   @ApiModelProperty(value = "See Payments")
+  /**
+   * See Payments
+   *
+   * @return payments List<Payment>
+   */
   public List<Payment> getPayments() {
     return payments;
   }
 
+  /**
+   * See Payments
+   *
+   * @param payments List&lt;Payment&gt;
+   */
   public void setPayments(List<Payment> payments) {
     this.payments = payments;
   }
@@ -537,15 +867,32 @@ public class Overpayment {
   @ApiModelProperty(
       example = "false",
       value = "boolean to indicate if a overpayment has an attachment")
+  /**
+   * boolean to indicate if a overpayment has an attachment
+   *
+   * @return hasAttachments Boolean
+   */
   public Boolean getHasAttachments() {
     return hasAttachments;
   }
 
+  /**
+   * See Attachments
+   *
+   * @param attachments List&lt;Attachment&gt;
+   * @return Overpayment
+   */
   public Overpayment attachments(List<Attachment> attachments) {
     this.attachments = attachments;
     return this;
   }
 
+  /**
+   * See Attachments
+   *
+   * @param attachmentsItem Attachment
+   * @return Overpayment
+   */
   public Overpayment addAttachmentsItem(Attachment attachmentsItem) {
     if (this.attachments == null) {
       this.attachments = new ArrayList<Attachment>();
@@ -560,10 +907,20 @@ public class Overpayment {
    * @return attachments
    */
   @ApiModelProperty(value = "See Attachments")
+  /**
+   * See Attachments
+   *
+   * @return attachments List<Attachment>
+   */
   public List<Attachment> getAttachments() {
     return attachments;
   }
 
+  /**
+   * See Attachments
+   *
+   * @param attachments List&lt;Attachment&gt;
+   */
   public void setAttachments(List<Attachment> attachments) {
     this.attachments = attachments;
   }

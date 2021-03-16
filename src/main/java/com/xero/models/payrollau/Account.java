@@ -32,7 +32,12 @@ public class Account {
 
   @JsonProperty("Name")
   private String name;
-
+  /**
+   * Xero identifier for accounts
+   *
+   * @param accountID UUID
+   * @return Account
+   */
   public Account accountID(UUID accountID) {
     this.accountID = accountID;
     return this;
@@ -46,14 +51,30 @@ public class Account {
   @ApiModelProperty(
       example = "c56b19ef-75bf-45e8-98a4-e699a96609f7",
       value = "Xero identifier for accounts")
+  /**
+   * Xero identifier for accounts
+   *
+   * @return accountID UUID
+   */
   public UUID getAccountID() {
     return accountID;
   }
 
+  /**
+   * Xero identifier for accounts
+   *
+   * @param accountID UUID
+   */
   public void setAccountID(UUID accountID) {
     this.accountID = accountID;
   }
 
+  /**
+   * type
+   *
+   * @param type AccountType
+   * @return Account
+   */
   public Account type(AccountType type) {
     this.type = type;
     return this;
@@ -65,14 +86,30 @@ public class Account {
    * @return type
    */
   @ApiModelProperty(value = "")
+  /**
+   * type
+   *
+   * @return type AccountType
+   */
   public AccountType getType() {
     return type;
   }
 
+  /**
+   * type
+   *
+   * @param type AccountType
+   */
   public void setType(AccountType type) {
     this.type = type;
   }
 
+  /**
+   * Customer defined account code
+   *
+   * @param code String
+   * @return Account
+   */
   public Account code(String code) {
     this.code = code;
     return this;
@@ -84,14 +121,30 @@ public class Account {
    * @return code
    */
   @ApiModelProperty(example = "420", value = "Customer defined account code")
+  /**
+   * Customer defined account code
+   *
+   * @return code String
+   */
   public String getCode() {
     return code;
   }
 
+  /**
+   * Customer defined account code
+   *
+   * @param code String
+   */
   public void setCode(String code) {
     this.code = code;
   }
 
+  /**
+   * Name of account
+   *
+   * @param name String
+   * @return Account
+   */
   public Account name(String name) {
     this.name = name;
     return this;
@@ -103,10 +156,20 @@ public class Account {
    * @return name
    */
   @ApiModelProperty(example = "General expenses", value = "Name of account")
+  /**
+   * Name of account
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Name of account
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }

@@ -28,7 +28,12 @@ public class CISOrgSetting {
 
   @JsonProperty("Rate")
   private Double rate;
-
+  /**
+   * true or false - Boolean that describes if the organisation is a CIS Contractor
+   *
+   * @param ciSContractorEnabled Boolean
+   * @return CISOrgSetting
+   */
   public CISOrgSetting ciSContractorEnabled(Boolean ciSContractorEnabled) {
     this.ciSContractorEnabled = ciSContractorEnabled;
     return this;
@@ -41,14 +46,30 @@ public class CISOrgSetting {
    */
   @ApiModelProperty(
       value = "true or false - Boolean that describes if the organisation is a CIS Contractor")
+  /**
+   * true or false - Boolean that describes if the organisation is a CIS Contractor
+   *
+   * @return ciSContractorEnabled Boolean
+   */
   public Boolean getCiSContractorEnabled() {
     return ciSContractorEnabled;
   }
 
+  /**
+   * true or false - Boolean that describes if the organisation is a CIS Contractor
+   *
+   * @param ciSContractorEnabled Boolean
+   */
   public void setCiSContractorEnabled(Boolean ciSContractorEnabled) {
     this.ciSContractorEnabled = ciSContractorEnabled;
   }
 
+  /**
+   * true or false - Boolean that describes if the organisation is a CIS SubContractor
+   *
+   * @param ciSSubContractorEnabled Boolean
+   * @return CISOrgSetting
+   */
   public CISOrgSetting ciSSubContractorEnabled(Boolean ciSSubContractorEnabled) {
     this.ciSSubContractorEnabled = ciSSubContractorEnabled;
     return this;
@@ -61,10 +82,20 @@ public class CISOrgSetting {
    */
   @ApiModelProperty(
       value = "true or false - Boolean that describes if the organisation is a CIS SubContractor")
+  /**
+   * true or false - Boolean that describes if the organisation is a CIS SubContractor
+   *
+   * @return ciSSubContractorEnabled Boolean
+   */
   public Boolean getCiSSubContractorEnabled() {
     return ciSSubContractorEnabled;
   }
 
+  /**
+   * true or false - Boolean that describes if the organisation is a CIS SubContractor
+   *
+   * @param ciSSubContractorEnabled Boolean
+   */
   public void setCiSSubContractorEnabled(Boolean ciSSubContractorEnabled) {
     this.ciSSubContractorEnabled = ciSSubContractorEnabled;
   }
@@ -75,6 +106,11 @@ public class CISOrgSetting {
    * @return rate
    */
   @ApiModelProperty(value = "CIS Deduction rate for the organisation")
+  /**
+   * CIS Deduction rate for the organisation
+   *
+   * @return rate Double
+   */
   public Double getRate() {
     return rate;
   }

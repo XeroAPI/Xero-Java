@@ -32,16 +32,22 @@ public class PayRunCalendar {
   private String name;
   /** Type of the calendar */
   public enum CalendarTypeEnum {
+    /** WEEKLY */
     WEEKLY("Weekly"),
 
+    /** FORTNIGHTLY */
     FORTNIGHTLY("Fortnightly"),
 
+    /** FOURWEEKLY */
     FOURWEEKLY("FourWeekly"),
 
+    /** MONTHLY */
     MONTHLY("Monthly"),
 
+    /** ANNUAL */
     ANNUAL("Annual"),
 
+    /** QUARTERLY */
     QUARTERLY("Quarterly");
 
     private String value;
@@ -50,16 +56,31 @@ public class PayRunCalendar {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static CalendarTypeEnum fromValue(String value) {
       for (CalendarTypeEnum b : CalendarTypeEnum.values()) {
@@ -85,7 +106,12 @@ public class PayRunCalendar {
 
   @JsonProperty("updatedDateUTC")
   private LocalDateTime updatedDateUTC;
-
+  /**
+   * Xero unique identifier for the payroll calendar
+   *
+   * @param payrollCalendarID UUID
+   * @return PayRunCalendar
+   */
   public PayRunCalendar payrollCalendarID(UUID payrollCalendarID) {
     this.payrollCalendarID = payrollCalendarID;
     return this;
@@ -97,14 +123,30 @@ public class PayRunCalendar {
    * @return payrollCalendarID
    */
   @ApiModelProperty(value = "Xero unique identifier for the payroll calendar")
+  /**
+   * Xero unique identifier for the payroll calendar
+   *
+   * @return payrollCalendarID UUID
+   */
   public UUID getPayrollCalendarID() {
     return payrollCalendarID;
   }
 
+  /**
+   * Xero unique identifier for the payroll calendar
+   *
+   * @param payrollCalendarID UUID
+   */
   public void setPayrollCalendarID(UUID payrollCalendarID) {
     this.payrollCalendarID = payrollCalendarID;
   }
 
+  /**
+   * Name of the calendar
+   *
+   * @param name String
+   * @return PayRunCalendar
+   */
   public PayRunCalendar name(String name) {
     this.name = name;
     return this;
@@ -116,14 +158,30 @@ public class PayRunCalendar {
    * @return name
    */
   @ApiModelProperty(required = true, value = "Name of the calendar")
+  /**
+   * Name of the calendar
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Name of the calendar
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * Type of the calendar
+   *
+   * @param calendarType CalendarTypeEnum
+   * @return PayRunCalendar
+   */
   public PayRunCalendar calendarType(CalendarTypeEnum calendarType) {
     this.calendarType = calendarType;
     return this;
@@ -135,14 +193,30 @@ public class PayRunCalendar {
    * @return calendarType
    */
   @ApiModelProperty(required = true, value = "Type of the calendar")
+  /**
+   * Type of the calendar
+   *
+   * @return calendarType CalendarTypeEnum
+   */
   public CalendarTypeEnum getCalendarType() {
     return calendarType;
   }
 
+  /**
+   * Type of the calendar
+   *
+   * @param calendarType CalendarTypeEnum
+   */
   public void setCalendarType(CalendarTypeEnum calendarType) {
     this.calendarType = calendarType;
   }
 
+  /**
+   * Period start date of the calendar
+   *
+   * @param periodStartDate LocalDate
+   * @return PayRunCalendar
+   */
   public PayRunCalendar periodStartDate(LocalDate periodStartDate) {
     this.periodStartDate = periodStartDate;
     return this;
@@ -154,14 +228,30 @@ public class PayRunCalendar {
    * @return periodStartDate
    */
   @ApiModelProperty(required = true, value = "Period start date of the calendar")
+  /**
+   * Period start date of the calendar
+   *
+   * @return periodStartDate LocalDate
+   */
   public LocalDate getPeriodStartDate() {
     return periodStartDate;
   }
 
+  /**
+   * Period start date of the calendar
+   *
+   * @param periodStartDate LocalDate
+   */
   public void setPeriodStartDate(LocalDate periodStartDate) {
     this.periodStartDate = periodStartDate;
   }
 
+  /**
+   * Period end date of the calendar
+   *
+   * @param periodEndDate LocalDate
+   * @return PayRunCalendar
+   */
   public PayRunCalendar periodEndDate(LocalDate periodEndDate) {
     this.periodEndDate = periodEndDate;
     return this;
@@ -173,14 +263,30 @@ public class PayRunCalendar {
    * @return periodEndDate
    */
   @ApiModelProperty(value = "Period end date of the calendar")
+  /**
+   * Period end date of the calendar
+   *
+   * @return periodEndDate LocalDate
+   */
   public LocalDate getPeriodEndDate() {
     return periodEndDate;
   }
 
+  /**
+   * Period end date of the calendar
+   *
+   * @param periodEndDate LocalDate
+   */
   public void setPeriodEndDate(LocalDate periodEndDate) {
     this.periodEndDate = periodEndDate;
   }
 
+  /**
+   * Payment date of the calendar
+   *
+   * @param paymentDate LocalDate
+   * @return PayRunCalendar
+   */
   public PayRunCalendar paymentDate(LocalDate paymentDate) {
     this.paymentDate = paymentDate;
     return this;
@@ -192,14 +298,30 @@ public class PayRunCalendar {
    * @return paymentDate
    */
   @ApiModelProperty(required = true, value = "Payment date of the calendar")
+  /**
+   * Payment date of the calendar
+   *
+   * @return paymentDate LocalDate
+   */
   public LocalDate getPaymentDate() {
     return paymentDate;
   }
 
+  /**
+   * Payment date of the calendar
+   *
+   * @param paymentDate LocalDate
+   */
   public void setPaymentDate(LocalDate paymentDate) {
     this.paymentDate = paymentDate;
   }
 
+  /**
+   * UTC timestamp of the last update to the pay run calendar
+   *
+   * @param updatedDateUTC LocalDateTime
+   * @return PayRunCalendar
+   */
   public PayRunCalendar updatedDateUTC(LocalDateTime updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
     return this;
@@ -211,10 +333,20 @@ public class PayRunCalendar {
    * @return updatedDateUTC
    */
   @ApiModelProperty(value = "UTC timestamp of the last update to the pay run calendar")
+  /**
+   * UTC timestamp of the last update to the pay run calendar
+   *
+   * @return updatedDateUTC LocalDateTime
+   */
   public LocalDateTime getUpdatedDateUTC() {
     return updatedDateUTC;
   }
 
+  /**
+   * UTC timestamp of the last update to the pay run calendar
+   *
+   * @param updatedDateUTC LocalDateTime
+   */
   public void setUpdatedDateUTC(LocalDateTime updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
   }

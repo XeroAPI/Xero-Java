@@ -17,18 +17,26 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Calendar type of the pay run */
 public enum CalendarType {
+
+  /** WEEKLY */
   WEEKLY("Weekly"),
 
+  /** FORTNIGHTLY */
   FORTNIGHTLY("Fortnightly"),
 
+  /** FOURWEEKLY */
   FOURWEEKLY("FourWeekly"),
 
+  /** MONTHLY */
   MONTHLY("Monthly"),
 
+  /** ANNUAL */
   ANNUAL("Annual"),
 
+  /** QUARTERLY */
   QUARTERLY("Quarterly"),
 
+  /** TWICEMONTHLY */
   TWICEMONTHLY("TwiceMonthly");
 
   private String value;
@@ -37,16 +45,27 @@ public enum CalendarType {
     this.value = value;
   }
 
+  /** @return String value */
   @JsonValue
   public String getValue() {
     return value;
   }
 
+  /**
+   * toString
+   *
+   * @return String value
+   */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
+  /**
+   * fromValue
+   *
+   * @param value String
+   */
   @JsonCreator
   public static CalendarType fromValue(String value) {
     for (CalendarType b : CalendarType.values()) {

@@ -47,10 +47,13 @@ public class DeductionType {
   private String updatedDateUTC;
   /** Gets or Sets deductionCategory */
   public enum DeductionCategoryEnum {
+    /** NONE */
     NONE("NONE"),
 
+    /** UNIONFEES */
     UNIONFEES("UNIONFEES"),
 
+    /** WORKPLACEGIVING */
     WORKPLACEGIVING("WORKPLACEGIVING");
 
     private String value;
@@ -59,16 +62,31 @@ public class DeductionType {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static DeductionCategoryEnum fromValue(String value) {
       for (DeductionCategoryEnum b : DeductionCategoryEnum.values()) {
@@ -85,7 +103,12 @@ public class DeductionType {
 
   @JsonProperty("CurrentRecord")
   private Boolean currentRecord;
-
+  /**
+   * Name of the earnings rate (max length &#x3D; 100)
+   *
+   * @param name String
+   * @return DeductionType
+   */
   public DeductionType name(String name) {
     this.name = name;
     return this;
@@ -97,14 +120,30 @@ public class DeductionType {
    * @return name
    */
   @ApiModelProperty(example = "PTO", value = "Name of the earnings rate (max length = 100)")
+  /**
+   * Name of the earnings rate (max length &#x3D; 100)
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Name of the earnings rate (max length &#x3D; 100)
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * See Accounts
+   *
+   * @param accountCode String
+   * @return DeductionType
+   */
   public DeductionType accountCode(String accountCode) {
     this.accountCode = accountCode;
     return this;
@@ -116,14 +155,31 @@ public class DeductionType {
    * @return accountCode
    */
   @ApiModelProperty(example = "720", value = "See Accounts")
+  /**
+   * See Accounts
+   *
+   * @return accountCode String
+   */
   public String getAccountCode() {
     return accountCode;
   }
 
+  /**
+   * See Accounts
+   *
+   * @param accountCode String
+   */
   public void setAccountCode(String accountCode) {
     this.accountCode = accountCode;
   }
 
+  /**
+   * Indicates that this is a pre-tax deduction that will reduce the amount of tax you withhold from
+   * an employee.
+   *
+   * @param reducesTax Boolean
+   * @return DeductionType
+   */
   public DeductionType reducesTax(Boolean reducesTax) {
     this.reducesTax = reducesTax;
     return this;
@@ -140,14 +196,33 @@ public class DeductionType {
       value =
           "Indicates that this is a pre-tax deduction that will reduce the amount of tax you"
               + " withhold from an employee.")
+  /**
+   * Indicates that this is a pre-tax deduction that will reduce the amount of tax you withhold from
+   * an employee.
+   *
+   * @return reducesTax Boolean
+   */
   public Boolean getReducesTax() {
     return reducesTax;
   }
 
+  /**
+   * Indicates that this is a pre-tax deduction that will reduce the amount of tax you withhold from
+   * an employee.
+   *
+   * @param reducesTax Boolean
+   */
   public void setReducesTax(Boolean reducesTax) {
     this.reducesTax = reducesTax;
   }
 
+  /**
+   * Most deductions don’t reduce your superannuation guarantee contribution liability, so typically
+   * you will not set any value for this.
+   *
+   * @param reducesSuper Boolean
+   * @return DeductionType
+   */
   public DeductionType reducesSuper(Boolean reducesSuper) {
     this.reducesSuper = reducesSuper;
     return this;
@@ -164,14 +239,32 @@ public class DeductionType {
       value =
           "Most deductions don’t reduce your superannuation guarantee contribution liability, so"
               + " typically you will not set any value for this.")
+  /**
+   * Most deductions don’t reduce your superannuation guarantee contribution liability, so typically
+   * you will not set any value for this.
+   *
+   * @return reducesSuper Boolean
+   */
   public Boolean getReducesSuper() {
     return reducesSuper;
   }
 
+  /**
+   * Most deductions don’t reduce your superannuation guarantee contribution liability, so typically
+   * you will not set any value for this.
+   *
+   * @param reducesSuper Boolean
+   */
   public void setReducesSuper(Boolean reducesSuper) {
     this.reducesSuper = reducesSuper;
   }
 
+  /**
+   * Boolean to determine if the deduction type is reportable or exempt from W1
+   *
+   * @param isExemptFromW1 Boolean
+   * @return DeductionType
+   */
   public DeductionType isExemptFromW1(Boolean isExemptFromW1) {
     this.isExemptFromW1 = isExemptFromW1;
     return this;
@@ -185,14 +278,30 @@ public class DeductionType {
   @ApiModelProperty(
       example = "false",
       value = "Boolean to determine if the deduction type is reportable or exempt from W1")
+  /**
+   * Boolean to determine if the deduction type is reportable or exempt from W1
+   *
+   * @return isExemptFromW1 Boolean
+   */
   public Boolean getIsExemptFromW1() {
     return isExemptFromW1;
   }
 
+  /**
+   * Boolean to determine if the deduction type is reportable or exempt from W1
+   *
+   * @param isExemptFromW1 Boolean
+   */
   public void setIsExemptFromW1(Boolean isExemptFromW1) {
     this.isExemptFromW1 = isExemptFromW1;
   }
 
+  /**
+   * Xero identifier
+   *
+   * @param deductionTypeID UUID
+   * @return DeductionType
+   */
   public DeductionType deductionTypeID(UUID deductionTypeID) {
     this.deductionTypeID = deductionTypeID;
     return this;
@@ -204,10 +313,20 @@ public class DeductionType {
    * @return deductionTypeID
    */
   @ApiModelProperty(example = "e0eb6747-7c17-4075-b804-989f8d4e5d39", value = "Xero identifier")
+  /**
+   * Xero identifier
+   *
+   * @return deductionTypeID UUID
+   */
   public UUID getDeductionTypeID() {
     return deductionTypeID;
   }
 
+  /**
+   * Xero identifier
+   *
+   * @param deductionTypeID UUID
+   */
   public void setDeductionTypeID(UUID deductionTypeID) {
     this.deductionTypeID = deductionTypeID;
   }
@@ -218,10 +337,19 @@ public class DeductionType {
    * @return updatedDateUTC
    */
   @ApiModelProperty(example = "/Date(1583967733054+0000)/", value = "Last modified timestamp")
+  /**
+   * Last modified timestamp
+   *
+   * @return updatedDateUTC String
+   */
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-
+  /**
+   * Last modified timestamp
+   *
+   * @return OffsetDateTime
+   */
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
@@ -233,6 +361,12 @@ public class DeductionType {
     return null;
   }
 
+  /**
+   * deductionCategory
+   *
+   * @param deductionCategory DeductionCategoryEnum
+   * @return DeductionType
+   */
   public DeductionType deductionCategory(DeductionCategoryEnum deductionCategory) {
     this.deductionCategory = deductionCategory;
     return this;
@@ -244,14 +378,30 @@ public class DeductionType {
    * @return deductionCategory
    */
   @ApiModelProperty(value = "")
+  /**
+   * deductionCategory
+   *
+   * @return deductionCategory DeductionCategoryEnum
+   */
   public DeductionCategoryEnum getDeductionCategory() {
     return deductionCategory;
   }
 
+  /**
+   * deductionCategory
+   *
+   * @param deductionCategory DeductionCategoryEnum
+   */
   public void setDeductionCategory(DeductionCategoryEnum deductionCategory) {
     this.deductionCategory = deductionCategory;
   }
 
+  /**
+   * Is the current record
+   *
+   * @param currentRecord Boolean
+   * @return DeductionType
+   */
   public DeductionType currentRecord(Boolean currentRecord) {
     this.currentRecord = currentRecord;
     return this;
@@ -263,10 +413,20 @@ public class DeductionType {
    * @return currentRecord
    */
   @ApiModelProperty(example = "true", value = "Is the current record")
+  /**
+   * Is the current record
+   *
+   * @return currentRecord Boolean
+   */
   public Boolean getCurrentRecord() {
     return currentRecord;
   }
 
+  /**
+   * Is the current record
+   *
+   * @param currentRecord Boolean
+   */
   public void setCurrentRecord(Boolean currentRecord) {
     this.currentRecord = currentRecord;
   }

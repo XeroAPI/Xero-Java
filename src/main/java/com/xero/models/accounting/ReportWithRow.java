@@ -50,7 +50,12 @@ public class ReportWithRow {
 
   @JsonProperty("Fields")
   private List<ReportFields> fields = new ArrayList<ReportFields>();
-
+  /**
+   * Report id
+   *
+   * @param reportID String
+   * @return ReportWithRow
+   */
   public ReportWithRow reportID(String reportID) {
     this.reportID = reportID;
     return this;
@@ -62,14 +67,30 @@ public class ReportWithRow {
    * @return reportID
    */
   @ApiModelProperty(value = "Report id")
+  /**
+   * Report id
+   *
+   * @return reportID String
+   */
   public String getReportID() {
     return reportID;
   }
 
+  /**
+   * Report id
+   *
+   * @param reportID String
+   */
   public void setReportID(String reportID) {
     this.reportID = reportID;
   }
 
+  /**
+   * Name of the report
+   *
+   * @param reportName String
+   * @return ReportWithRow
+   */
   public ReportWithRow reportName(String reportName) {
     this.reportName = reportName;
     return this;
@@ -81,14 +102,30 @@ public class ReportWithRow {
    * @return reportName
    */
   @ApiModelProperty(value = "Name of the report")
+  /**
+   * Name of the report
+   *
+   * @return reportName String
+   */
   public String getReportName() {
     return reportName;
   }
 
+  /**
+   * Name of the report
+   *
+   * @param reportName String
+   */
   public void setReportName(String reportName) {
     this.reportName = reportName;
   }
 
+  /**
+   * Title of the report
+   *
+   * @param reportTitle String
+   * @return ReportWithRow
+   */
   public ReportWithRow reportTitle(String reportTitle) {
     this.reportTitle = reportTitle;
     return this;
@@ -100,14 +137,30 @@ public class ReportWithRow {
    * @return reportTitle
    */
   @ApiModelProperty(value = "Title of the report")
+  /**
+   * Title of the report
+   *
+   * @return reportTitle String
+   */
   public String getReportTitle() {
     return reportTitle;
   }
 
+  /**
+   * Title of the report
+   *
+   * @param reportTitle String
+   */
   public void setReportTitle(String reportTitle) {
     this.reportTitle = reportTitle;
   }
 
+  /**
+   * The type of report (BalanceSheet,ProfitLoss, etc)
+   *
+   * @param reportType String
+   * @return ReportWithRow
+   */
   public ReportWithRow reportType(String reportType) {
     this.reportType = reportType;
     return this;
@@ -119,19 +172,43 @@ public class ReportWithRow {
    * @return reportType
    */
   @ApiModelProperty(value = "The type of report (BalanceSheet,ProfitLoss, etc)")
+  /**
+   * The type of report (BalanceSheet,ProfitLoss, etc)
+   *
+   * @return reportType String
+   */
   public String getReportType() {
     return reportType;
   }
 
+  /**
+   * The type of report (BalanceSheet,ProfitLoss, etc)
+   *
+   * @param reportType String
+   */
   public void setReportType(String reportType) {
     this.reportType = reportType;
   }
 
+  /**
+   * Report titles array (3 to 4 strings with the report name, orgnisation name and time frame of
+   * report)
+   *
+   * @param reportTitles List&lt;&gt;
+   * @return ReportWithRow
+   */
   public ReportWithRow reportTitles(List<String> reportTitles) {
     this.reportTitles = reportTitles;
     return this;
   }
 
+  /**
+   * Report titles array (3 to 4 strings with the report name, orgnisation name and time frame of
+   * report)
+   *
+   * @param reportTitlesItem String
+   * @return ReportWithRow
+   */
   public ReportWithRow addReportTitlesItem(String reportTitlesItem) {
     if (this.reportTitles == null) {
       this.reportTitles = new ArrayList<String>();
@@ -150,14 +227,32 @@ public class ReportWithRow {
       value =
           "Report titles array (3 to 4 strings with the report name, orgnisation name and time"
               + " frame of report)")
+  /**
+   * Report titles array (3 to 4 strings with the report name, orgnisation name and time frame of
+   * report)
+   *
+   * @return reportTitles List<String>
+   */
   public List<String> getReportTitles() {
     return reportTitles;
   }
 
+  /**
+   * Report titles array (3 to 4 strings with the report name, orgnisation name and time frame of
+   * report)
+   *
+   * @param reportTitles List&lt;&gt;
+   */
   public void setReportTitles(List<String> reportTitles) {
     this.reportTitles = reportTitles;
   }
 
+  /**
+   * Date of report
+   *
+   * @param reportDate String
+   * @return ReportWithRow
+   */
   public ReportWithRow reportDate(String reportDate) {
     this.reportDate = reportDate;
     return this;
@@ -169,19 +264,41 @@ public class ReportWithRow {
    * @return reportDate
    */
   @ApiModelProperty(value = "Date of report")
+  /**
+   * Date of report
+   *
+   * @return reportDate String
+   */
   public String getReportDate() {
     return reportDate;
   }
 
+  /**
+   * Date of report
+   *
+   * @param reportDate String
+   */
   public void setReportDate(String reportDate) {
     this.reportDate = reportDate;
   }
 
+  /**
+   * rows
+   *
+   * @param rows List&lt;ReportRows&gt;
+   * @return ReportWithRow
+   */
   public ReportWithRow rows(List<ReportRows> rows) {
     this.rows = rows;
     return this;
   }
 
+  /**
+   * rows
+   *
+   * @param rowsItem ReportRows
+   * @return ReportWithRow
+   */
   public ReportWithRow addRowsItem(ReportRows rowsItem) {
     if (this.rows == null) {
       this.rows = new ArrayList<ReportRows>();
@@ -196,10 +313,20 @@ public class ReportWithRow {
    * @return rows
    */
   @ApiModelProperty(value = "")
+  /**
+   * rows
+   *
+   * @return rows List<ReportRows>
+   */
   public List<ReportRows> getRows() {
     return rows;
   }
 
+  /**
+   * rows
+   *
+   * @param rows List&lt;ReportRows&gt;
+   */
   public void setRows(List<ReportRows> rows) {
     this.rows = rows;
   }
@@ -210,10 +337,19 @@ public class ReportWithRow {
    * @return updatedDateUTC
    */
   @ApiModelProperty(example = "/Date(1573755038314)/", value = "Updated Date")
+  /**
+   * Updated Date
+   *
+   * @return updatedDateUTC String
+   */
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-
+  /**
+   * Updated Date
+   *
+   * @return OffsetDateTime
+   */
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
@@ -225,11 +361,23 @@ public class ReportWithRow {
     return null;
   }
 
+  /**
+   * fields
+   *
+   * @param fields List&lt;ReportFields&gt;
+   * @return ReportWithRow
+   */
   public ReportWithRow fields(List<ReportFields> fields) {
     this.fields = fields;
     return this;
   }
 
+  /**
+   * fields
+   *
+   * @param fieldsItem ReportFields
+   * @return ReportWithRow
+   */
   public ReportWithRow addFieldsItem(ReportFields fieldsItem) {
     if (this.fields == null) {
       this.fields = new ArrayList<ReportFields>();
@@ -244,10 +392,20 @@ public class ReportWithRow {
    * @return fields
    */
   @ApiModelProperty(value = "")
+  /**
+   * fields
+   *
+   * @return fields List<ReportFields>
+   */
   public List<ReportFields> getFields() {
     return fields;
   }
 
+  /**
+   * fields
+   *
+   * @param fields List&lt;ReportFields&gt;
+   */
   public void setFields(List<ReportFields> fields) {
     this.fields = fields;
   }

@@ -28,7 +28,12 @@ public class LeaveTypeObject {
 
   @JsonProperty("leaveType")
   private LeaveType leaveType;
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return LeaveTypeObject
+   */
   public LeaveTypeObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -40,14 +45,30 @@ public class LeaveTypeObject {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return LeaveTypeObject
+   */
   public LeaveTypeObject problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -59,14 +80,30 @@ public class LeaveTypeObject {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * leaveType
+   *
+   * @param leaveType LeaveType
+   * @return LeaveTypeObject
+   */
   public LeaveTypeObject leaveType(LeaveType leaveType) {
     this.leaveType = leaveType;
     return this;
@@ -78,10 +115,20 @@ public class LeaveTypeObject {
    * @return leaveType
    */
   @ApiModelProperty(value = "")
+  /**
+   * leaveType
+   *
+   * @return leaveType LeaveType
+   */
   public LeaveType getLeaveType() {
     return leaveType;
   }
 
+  /**
+   * leaveType
+   *
+   * @param leaveType LeaveType
+   */
   public void setLeaveType(LeaveType leaveType) {
     this.leaveType = leaveType;
   }

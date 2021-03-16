@@ -45,7 +45,12 @@ public class LeaveType {
 
   @JsonProperty("isStatutoryLeave")
   private Boolean isStatutoryLeave;
-
+  /**
+   * Xero unique identifier for the leave
+   *
+   * @param leaveID UUID
+   * @return LeaveType
+   */
   public LeaveType leaveID(UUID leaveID) {
     this.leaveID = leaveID;
     return this;
@@ -57,14 +62,30 @@ public class LeaveType {
    * @return leaveID
    */
   @ApiModelProperty(value = "Xero unique identifier for the leave")
+  /**
+   * Xero unique identifier for the leave
+   *
+   * @return leaveID UUID
+   */
   public UUID getLeaveID() {
     return leaveID;
   }
 
+  /**
+   * Xero unique identifier for the leave
+   *
+   * @param leaveID UUID
+   */
   public void setLeaveID(UUID leaveID) {
     this.leaveID = leaveID;
   }
 
+  /**
+   * Xero unique identifier for the leave type
+   *
+   * @param leaveTypeID UUID
+   * @return LeaveType
+   */
   public LeaveType leaveTypeID(UUID leaveTypeID) {
     this.leaveTypeID = leaveTypeID;
     return this;
@@ -76,14 +97,30 @@ public class LeaveType {
    * @return leaveTypeID
    */
   @ApiModelProperty(value = "Xero unique identifier for the leave type")
+  /**
+   * Xero unique identifier for the leave type
+   *
+   * @return leaveTypeID UUID
+   */
   public UUID getLeaveTypeID() {
     return leaveTypeID;
   }
 
+  /**
+   * Xero unique identifier for the leave type
+   *
+   * @param leaveTypeID UUID
+   */
   public void setLeaveTypeID(UUID leaveTypeID) {
     this.leaveTypeID = leaveTypeID;
   }
 
+  /**
+   * Name of the leave type
+   *
+   * @param name String
+   * @return LeaveType
+   */
   public LeaveType name(String name) {
     this.name = name;
     return this;
@@ -95,14 +132,30 @@ public class LeaveType {
    * @return name
    */
   @ApiModelProperty(required = true, value = "Name of the leave type")
+  /**
+   * Name of the leave type
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Name of the leave type
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * Indicate that an employee will be paid when taking this type of leave
+   *
+   * @param isPaidLeave Boolean
+   * @return LeaveType
+   */
   public LeaveType isPaidLeave(Boolean isPaidLeave) {
     this.isPaidLeave = isPaidLeave;
     return this;
@@ -116,14 +169,30 @@ public class LeaveType {
   @ApiModelProperty(
       required = true,
       value = "Indicate that an employee will be paid when taking this type of leave")
+  /**
+   * Indicate that an employee will be paid when taking this type of leave
+   *
+   * @return isPaidLeave Boolean
+   */
   public Boolean getIsPaidLeave() {
     return isPaidLeave;
   }
 
+  /**
+   * Indicate that an employee will be paid when taking this type of leave
+   *
+   * @param isPaidLeave Boolean
+   */
   public void setIsPaidLeave(Boolean isPaidLeave) {
     this.isPaidLeave = isPaidLeave;
   }
 
+  /**
+   * Indicate that a balance for this leave type to be shown on the employee’s payslips
+   *
+   * @param showOnPayslip Boolean
+   * @return LeaveType
+   */
   public LeaveType showOnPayslip(Boolean showOnPayslip) {
     this.showOnPayslip = showOnPayslip;
     return this;
@@ -137,14 +206,30 @@ public class LeaveType {
   @ApiModelProperty(
       required = true,
       value = "Indicate that a balance for this leave type to be shown on the employee’s payslips")
+  /**
+   * Indicate that a balance for this leave type to be shown on the employee’s payslips
+   *
+   * @return showOnPayslip Boolean
+   */
   public Boolean getShowOnPayslip() {
     return showOnPayslip;
   }
 
+  /**
+   * Indicate that a balance for this leave type to be shown on the employee’s payslips
+   *
+   * @param showOnPayslip Boolean
+   */
   public void setShowOnPayslip(Boolean showOnPayslip) {
     this.showOnPayslip = showOnPayslip;
   }
 
+  /**
+   * UTC timestamp of last update to the leave type note
+   *
+   * @param updatedDateUTC LocalDateTime
+   * @return LeaveType
+   */
   public LeaveType updatedDateUTC(LocalDateTime updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
     return this;
@@ -156,14 +241,30 @@ public class LeaveType {
    * @return updatedDateUTC
    */
   @ApiModelProperty(value = "UTC timestamp of last update to the leave type note")
+  /**
+   * UTC timestamp of last update to the leave type note
+   *
+   * @return updatedDateUTC LocalDateTime
+   */
   public LocalDateTime getUpdatedDateUTC() {
     return updatedDateUTC;
   }
 
+  /**
+   * UTC timestamp of last update to the leave type note
+   *
+   * @param updatedDateUTC LocalDateTime
+   */
   public void setUpdatedDateUTC(LocalDateTime updatedDateUTC) {
     this.updatedDateUTC = updatedDateUTC;
   }
 
+  /**
+   * Shows whether the leave type is active or not
+   *
+   * @param isActive Boolean
+   * @return LeaveType
+   */
   public LeaveType isActive(Boolean isActive) {
     this.isActive = isActive;
     return this;
@@ -175,14 +276,30 @@ public class LeaveType {
    * @return isActive
    */
   @ApiModelProperty(value = "Shows whether the leave type is active or not")
+  /**
+   * Shows whether the leave type is active or not
+   *
+   * @return isActive Boolean
+   */
   public Boolean getIsActive() {
     return isActive;
   }
 
+  /**
+   * Shows whether the leave type is active or not
+   *
+   * @param isActive Boolean
+   */
   public void setIsActive(Boolean isActive) {
     this.isActive = isActive;
   }
 
+  /**
+   * Shows whether the leave type is a statutory leave type or not
+   *
+   * @param isStatutoryLeave Boolean
+   * @return LeaveType
+   */
   public LeaveType isStatutoryLeave(Boolean isStatutoryLeave) {
     this.isStatutoryLeave = isStatutoryLeave;
     return this;
@@ -194,10 +311,20 @@ public class LeaveType {
    * @return isStatutoryLeave
    */
   @ApiModelProperty(value = "Shows whether the leave type is a statutory leave type or not")
+  /**
+   * Shows whether the leave type is a statutory leave type or not
+   *
+   * @return isStatutoryLeave Boolean
+   */
   public Boolean getIsStatutoryLeave() {
     return isStatutoryLeave;
   }
 
+  /**
+   * Shows whether the leave type is a statutory leave type or not
+   *
+   * @param isStatutoryLeave Boolean
+   */
   public void setIsStatutoryLeave(Boolean isStatutoryLeave) {
     this.isStatutoryLeave = isStatutoryLeave;
   }

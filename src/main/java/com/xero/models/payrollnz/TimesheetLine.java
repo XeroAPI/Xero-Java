@@ -36,7 +36,12 @@ public class TimesheetLine {
 
   @JsonProperty("numberOfUnits")
   private Double numberOfUnits;
-
+  /**
+   * The Xero identifier for a Timesheet Line
+   *
+   * @param timesheetLineID UUID
+   * @return TimesheetLine
+   */
   public TimesheetLine timesheetLineID(UUID timesheetLineID) {
     this.timesheetLineID = timesheetLineID;
     return this;
@@ -48,14 +53,30 @@ public class TimesheetLine {
    * @return timesheetLineID
    */
   @ApiModelProperty(value = "The Xero identifier for a Timesheet Line")
+  /**
+   * The Xero identifier for a Timesheet Line
+   *
+   * @return timesheetLineID UUID
+   */
   public UUID getTimesheetLineID() {
     return timesheetLineID;
   }
 
+  /**
+   * The Xero identifier for a Timesheet Line
+   *
+   * @param timesheetLineID UUID
+   */
   public void setTimesheetLineID(UUID timesheetLineID) {
     this.timesheetLineID = timesheetLineID;
   }
 
+  /**
+   * The Date that this Timesheet Line is for (YYYY-MM-DD)
+   *
+   * @param date LocalDate
+   * @return TimesheetLine
+   */
   public TimesheetLine date(LocalDate date) {
     this.date = date;
     return this;
@@ -69,14 +90,30 @@ public class TimesheetLine {
   @ApiModelProperty(
       required = true,
       value = "The Date that this Timesheet Line is for (YYYY-MM-DD)")
+  /**
+   * The Date that this Timesheet Line is for (YYYY-MM-DD)
+   *
+   * @return date LocalDate
+   */
   public LocalDate getDate() {
     return date;
   }
 
+  /**
+   * The Date that this Timesheet Line is for (YYYY-MM-DD)
+   *
+   * @param date LocalDate
+   */
   public void setDate(LocalDate date) {
     this.date = date;
   }
 
+  /**
+   * The Xero identifier for the Earnings Rate that the Timesheet is for
+   *
+   * @param earningsRateID UUID
+   * @return TimesheetLine
+   */
   public TimesheetLine earningsRateID(UUID earningsRateID) {
     this.earningsRateID = earningsRateID;
     return this;
@@ -90,14 +127,30 @@ public class TimesheetLine {
   @ApiModelProperty(
       required = true,
       value = "The Xero identifier for the Earnings Rate that the Timesheet is for")
+  /**
+   * The Xero identifier for the Earnings Rate that the Timesheet is for
+   *
+   * @return earningsRateID UUID
+   */
   public UUID getEarningsRateID() {
     return earningsRateID;
   }
 
+  /**
+   * The Xero identifier for the Earnings Rate that the Timesheet is for
+   *
+   * @param earningsRateID UUID
+   */
   public void setEarningsRateID(UUID earningsRateID) {
     this.earningsRateID = earningsRateID;
   }
 
+  /**
+   * The Xero identifier for the Tracking Item that the Timesheet is for
+   *
+   * @param trackingItemID UUID
+   * @return TimesheetLine
+   */
   public TimesheetLine trackingItemID(UUID trackingItemID) {
     this.trackingItemID = trackingItemID;
     return this;
@@ -109,14 +162,30 @@ public class TimesheetLine {
    * @return trackingItemID
    */
   @ApiModelProperty(value = "The Xero identifier for the Tracking Item that the Timesheet is for")
+  /**
+   * The Xero identifier for the Tracking Item that the Timesheet is for
+   *
+   * @return trackingItemID UUID
+   */
   public UUID getTrackingItemID() {
     return trackingItemID;
   }
 
+  /**
+   * The Xero identifier for the Tracking Item that the Timesheet is for
+   *
+   * @param trackingItemID UUID
+   */
   public void setTrackingItemID(UUID trackingItemID) {
     this.trackingItemID = trackingItemID;
   }
 
+  /**
+   * The Number of Units of the Timesheet Line
+   *
+   * @param numberOfUnits Double
+   * @return TimesheetLine
+   */
   public TimesheetLine numberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
     return this;
@@ -128,10 +197,20 @@ public class TimesheetLine {
    * @return numberOfUnits
    */
   @ApiModelProperty(required = true, value = "The Number of Units of the Timesheet Line")
+  /**
+   * The Number of Units of the Timesheet Line
+   *
+   * @return numberOfUnits Double
+   */
   public Double getNumberOfUnits() {
     return numberOfUnits;
   }
 
+  /**
+   * The Number of Units of the Timesheet Line
+   *
+   * @param numberOfUnits Double
+   */
   public void setNumberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
   }

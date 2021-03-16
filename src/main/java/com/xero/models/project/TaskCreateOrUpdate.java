@@ -31,7 +31,12 @@ public class TaskCreateOrUpdate {
 
   @JsonProperty("estimateMinutes")
   private Integer estimateMinutes;
-
+  /**
+   * Name of the task. Max length 100 characters.
+   *
+   * @param name String
+   * @return TaskCreateOrUpdate
+   */
   public TaskCreateOrUpdate name(String name) {
     this.name = name;
     return this;
@@ -43,14 +48,30 @@ public class TaskCreateOrUpdate {
    * @return name
    */
   @ApiModelProperty(required = true, value = "Name of the task. Max length 100 characters.")
+  /**
+   * Name of the task. Max length 100 characters.
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Name of the task. Max length 100 characters.
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * rate
+   *
+   * @param rate Amount
+   * @return TaskCreateOrUpdate
+   */
   public TaskCreateOrUpdate rate(Amount rate) {
     this.rate = rate;
     return this;
@@ -62,14 +83,30 @@ public class TaskCreateOrUpdate {
    * @return rate
    */
   @ApiModelProperty(required = true, value = "")
+  /**
+   * rate
+   *
+   * @return rate Amount
+   */
   public Amount getRate() {
     return rate;
   }
 
+  /**
+   * rate
+   *
+   * @param rate Amount
+   */
   public void setRate(Amount rate) {
     this.rate = rate;
   }
 
+  /**
+   * chargeType
+   *
+   * @param chargeType ChargeType
+   * @return TaskCreateOrUpdate
+   */
   public TaskCreateOrUpdate chargeType(ChargeType chargeType) {
     this.chargeType = chargeType;
     return this;
@@ -81,14 +118,30 @@ public class TaskCreateOrUpdate {
    * @return chargeType
    */
   @ApiModelProperty(required = true, value = "")
+  /**
+   * chargeType
+   *
+   * @return chargeType ChargeType
+   */
   public ChargeType getChargeType() {
     return chargeType;
   }
 
+  /**
+   * chargeType
+   *
+   * @param chargeType ChargeType
+   */
   public void setChargeType(ChargeType chargeType) {
     this.chargeType = chargeType;
   }
 
+  /**
+   * Estimated time to perform the task. EstimateMinutes has to be greater than 0 if provided.
+   *
+   * @param estimateMinutes Integer
+   * @return TaskCreateOrUpdate
+   */
   public TaskCreateOrUpdate estimateMinutes(Integer estimateMinutes) {
     this.estimateMinutes = estimateMinutes;
     return this;
@@ -103,10 +156,20 @@ public class TaskCreateOrUpdate {
       value =
           "Estimated time to perform the task. EstimateMinutes has to be greater than 0 if"
               + " provided.")
+  /**
+   * Estimated time to perform the task. EstimateMinutes has to be greater than 0 if provided.
+   *
+   * @return estimateMinutes Integer
+   */
   public Integer getEstimateMinutes() {
     return estimateMinutes;
   }
 
+  /**
+   * Estimated time to perform the task. EstimateMinutes has to be greater than 0 if provided.
+   *
+   * @param estimateMinutes Integer
+   */
   public void setEstimateMinutes(Integer estimateMinutes) {
     this.estimateMinutes = estimateMinutes;
   }

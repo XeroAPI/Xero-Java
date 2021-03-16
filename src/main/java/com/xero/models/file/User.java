@@ -35,7 +35,12 @@ public class User {
 
   @JsonProperty("FullName")
   private String fullName;
-
+  /**
+   * Xero identifier
+   *
+   * @param id UUID
+   * @return User
+   */
   public User id(UUID id) {
     this.id = id;
     return this;
@@ -50,14 +55,30 @@ public class User {
       example = "4ff1e5cc-9835-40d5-bb18-09fdb118db9c",
       required = true,
       value = "Xero identifier")
+  /**
+   * Xero identifier
+   *
+   * @return id UUID
+   */
   public UUID getId() {
     return id;
   }
 
+  /**
+   * Xero identifier
+   *
+   * @param id UUID
+   */
   public void setId(UUID id) {
     this.id = id;
   }
 
+  /**
+   * Key is Name, but returns Email address of user who created the file
+   *
+   * @param name String
+   * @return User
+   */
   public User name(String name) {
     this.name = name;
     return this;
@@ -71,14 +92,30 @@ public class User {
   @ApiModelProperty(
       example = "john.smith@mail.com",
       value = "Key is Name, but returns Email address of user who created the file")
+  /**
+   * Key is Name, but returns Email address of user who created the file
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Key is Name, but returns Email address of user who created the file
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * First name of user
+   *
+   * @param firstName String
+   * @return User
+   */
   public User firstName(String firstName) {
     this.firstName = firstName;
     return this;
@@ -90,14 +127,30 @@ public class User {
    * @return firstName
    */
   @ApiModelProperty(example = "John", value = "First name of user")
+  /**
+   * First name of user
+   *
+   * @return firstName String
+   */
   public String getFirstName() {
     return firstName;
   }
 
+  /**
+   * First name of user
+   *
+   * @param firstName String
+   */
   public void setFirstName(String firstName) {
     this.firstName = firstName;
   }
 
+  /**
+   * Last name of user
+   *
+   * @param lastName String
+   * @return User
+   */
   public User lastName(String lastName) {
     this.lastName = lastName;
     return this;
@@ -109,14 +162,30 @@ public class User {
    * @return lastName
    */
   @ApiModelProperty(example = "Smith", value = "Last name of user")
+  /**
+   * Last name of user
+   *
+   * @return lastName String
+   */
   public String getLastName() {
     return lastName;
   }
 
+  /**
+   * Last name of user
+   *
+   * @param lastName String
+   */
   public void setLastName(String lastName) {
     this.lastName = lastName;
   }
 
+  /**
+   * Last name of user
+   *
+   * @param fullName String
+   * @return User
+   */
   public User fullName(String fullName) {
     this.fullName = fullName;
     return this;
@@ -128,10 +197,20 @@ public class User {
    * @return fullName
    */
   @ApiModelProperty(example = "Smith", value = "Last name of user")
+  /**
+   * Last name of user
+   *
+   * @return fullName String
+   */
   public String getFullName() {
     return fullName;
   }
 
+  /**
+   * Last name of user
+   *
+   * @param fullName String
+   */
   public void setFullName(String fullName) {
     this.fullName = fullName;
   }

@@ -32,7 +32,12 @@ public class StatutoryDeductionLine {
 
   @JsonProperty("manualAdjustment")
   private Boolean manualAdjustment;
-
+  /**
+   * Xero identifier for payroll statutory deduction type
+   *
+   * @param statutoryDeductionTypeID UUID
+   * @return StatutoryDeductionLine
+   */
   public StatutoryDeductionLine statutoryDeductionTypeID(UUID statutoryDeductionTypeID) {
     this.statutoryDeductionTypeID = statutoryDeductionTypeID;
     return this;
@@ -44,14 +49,30 @@ public class StatutoryDeductionLine {
    * @return statutoryDeductionTypeID
    */
   @ApiModelProperty(value = "Xero identifier for payroll statutory deduction type")
+  /**
+   * Xero identifier for payroll statutory deduction type
+   *
+   * @return statutoryDeductionTypeID UUID
+   */
   public UUID getStatutoryDeductionTypeID() {
     return statutoryDeductionTypeID;
   }
 
+  /**
+   * Xero identifier for payroll statutory deduction type
+   *
+   * @param statutoryDeductionTypeID UUID
+   */
   public void setStatutoryDeductionTypeID(UUID statutoryDeductionTypeID) {
     this.statutoryDeductionTypeID = statutoryDeductionTypeID;
   }
 
+  /**
+   * The amount of the statutory deduction line
+   *
+   * @param amount Double
+   * @return StatutoryDeductionLine
+   */
   public StatutoryDeductionLine amount(Double amount) {
     this.amount = amount;
     return this;
@@ -63,14 +84,30 @@ public class StatutoryDeductionLine {
    * @return amount
    */
   @ApiModelProperty(value = "The amount of the statutory deduction line")
+  /**
+   * The amount of the statutory deduction line
+   *
+   * @return amount Double
+   */
   public Double getAmount() {
     return amount;
   }
 
+  /**
+   * The amount of the statutory deduction line
+   *
+   * @param amount Double
+   */
   public void setAmount(Double amount) {
     this.amount = amount;
   }
 
+  /**
+   * Fixed Amount
+   *
+   * @param fixedAmount Double
+   * @return StatutoryDeductionLine
+   */
   public StatutoryDeductionLine fixedAmount(Double fixedAmount) {
     this.fixedAmount = fixedAmount;
     return this;
@@ -82,14 +119,30 @@ public class StatutoryDeductionLine {
    * @return fixedAmount
    */
   @ApiModelProperty(value = "Fixed Amount")
+  /**
+   * Fixed Amount
+   *
+   * @return fixedAmount Double
+   */
   public Double getFixedAmount() {
     return fixedAmount;
   }
 
+  /**
+   * Fixed Amount
+   *
+   * @param fixedAmount Double
+   */
   public void setFixedAmount(Double fixedAmount) {
     this.fixedAmount = fixedAmount;
   }
 
+  /**
+   * Identifies if the tax line is a manual adjustment
+   *
+   * @param manualAdjustment Boolean
+   * @return StatutoryDeductionLine
+   */
   public StatutoryDeductionLine manualAdjustment(Boolean manualAdjustment) {
     this.manualAdjustment = manualAdjustment;
     return this;
@@ -101,10 +154,20 @@ public class StatutoryDeductionLine {
    * @return manualAdjustment
    */
   @ApiModelProperty(value = "Identifies if the tax line is a manual adjustment")
+  /**
+   * Identifies if the tax line is a manual adjustment
+   *
+   * @return manualAdjustment Boolean
+   */
   public Boolean getManualAdjustment() {
     return manualAdjustment;
   }
 
+  /**
+   * Identifies if the tax line is a manual adjustment
+   *
+   * @param manualAdjustment Boolean
+   */
   public void setManualAdjustment(Boolean manualAdjustment) {
     this.manualAdjustment = manualAdjustment;
   }

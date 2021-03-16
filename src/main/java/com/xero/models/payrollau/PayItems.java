@@ -22,7 +22,12 @@ public class PayItems {
 
   @JsonProperty("PayItems")
   private PayItem payItems;
-
+  /**
+   * payItems
+   *
+   * @param payItems PayItem
+   * @return PayItems
+   */
   public PayItems payItems(PayItem payItems) {
     this.payItems = payItems;
     return this;
@@ -34,10 +39,20 @@ public class PayItems {
    * @return payItems
    */
   @ApiModelProperty(value = "")
+  /**
+   * payItems
+   *
+   * @return payItems PayItem
+   */
   public PayItem getPayItems() {
     return payItems;
   }
 
+  /**
+   * payItems
+   *
+   * @param payItems PayItem
+   */
   public void setPayItems(PayItem payItems) {
     this.payItems = payItems;
   }

@@ -24,12 +24,23 @@ public class Organisations {
 
   @JsonProperty("Organisations")
   private List<Organisation> organisations = new ArrayList<Organisation>();
-
+  /**
+   * organisations
+   *
+   * @param organisations List&lt;Organisation&gt;
+   * @return Organisations
+   */
   public Organisations organisations(List<Organisation> organisations) {
     this.organisations = organisations;
     return this;
   }
 
+  /**
+   * organisations
+   *
+   * @param organisationsItem Organisation
+   * @return Organisations
+   */
   public Organisations addOrganisationsItem(Organisation organisationsItem) {
     if (this.organisations == null) {
       this.organisations = new ArrayList<Organisation>();
@@ -44,10 +55,20 @@ public class Organisations {
    * @return organisations
    */
   @ApiModelProperty(value = "")
+  /**
+   * organisations
+   *
+   * @return organisations List<Organisation>
+   */
   public List<Organisation> getOrganisations() {
     return organisations;
   }
 
+  /**
+   * organisations
+   *
+   * @param organisations List&lt;Organisation&gt;
+   */
   public void setOrganisations(List<Organisation> organisations) {
     this.organisations = organisations;
   }

@@ -30,7 +30,12 @@ public class LeaveTypes {
 
   @JsonProperty("leaveTypes")
   private List<LeaveType> leaveTypes = new ArrayList<LeaveType>();
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return LeaveTypes
+   */
   public LeaveTypes pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -42,14 +47,30 @@ public class LeaveTypes {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return LeaveTypes
+   */
   public LeaveTypes problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -61,19 +82,41 @@ public class LeaveTypes {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * leaveTypes
+   *
+   * @param leaveTypes List&lt;LeaveType&gt;
+   * @return LeaveTypes
+   */
   public LeaveTypes leaveTypes(List<LeaveType> leaveTypes) {
     this.leaveTypes = leaveTypes;
     return this;
   }
 
+  /**
+   * leaveTypes
+   *
+   * @param leaveTypesItem LeaveType
+   * @return LeaveTypes
+   */
   public LeaveTypes addLeaveTypesItem(LeaveType leaveTypesItem) {
     if (this.leaveTypes == null) {
       this.leaveTypes = new ArrayList<LeaveType>();
@@ -88,10 +131,20 @@ public class LeaveTypes {
    * @return leaveTypes
    */
   @ApiModelProperty(value = "")
+  /**
+   * leaveTypes
+   *
+   * @return leaveTypes List<LeaveType>
+   */
   public List<LeaveType> getLeaveTypes() {
     return leaveTypes;
   }
 
+  /**
+   * leaveTypes
+   *
+   * @param leaveTypes List&lt;LeaveType&gt;
+   */
   public void setLeaveTypes(List<LeaveType> leaveTypes) {
     this.leaveTypes = leaveTypes;
   }

@@ -30,7 +30,12 @@ public class EmployeePayTemplates {
 
   @JsonProperty("earningTemplates")
   private List<EarningsTemplate> earningTemplates = new ArrayList<EarningsTemplate>();
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return EmployeePayTemplates
+   */
   public EmployeePayTemplates pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -42,14 +47,30 @@ public class EmployeePayTemplates {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return EmployeePayTemplates
+   */
   public EmployeePayTemplates problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -61,19 +82,41 @@ public class EmployeePayTemplates {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * earningTemplates
+   *
+   * @param earningTemplates List&lt;EarningsTemplate&gt;
+   * @return EmployeePayTemplates
+   */
   public EmployeePayTemplates earningTemplates(List<EarningsTemplate> earningTemplates) {
     this.earningTemplates = earningTemplates;
     return this;
   }
 
+  /**
+   * earningTemplates
+   *
+   * @param earningTemplatesItem EarningsTemplate
+   * @return EmployeePayTemplates
+   */
   public EmployeePayTemplates addEarningTemplatesItem(EarningsTemplate earningTemplatesItem) {
     if (this.earningTemplates == null) {
       this.earningTemplates = new ArrayList<EarningsTemplate>();
@@ -88,10 +131,20 @@ public class EmployeePayTemplates {
    * @return earningTemplates
    */
   @ApiModelProperty(value = "")
+  /**
+   * earningTemplates
+   *
+   * @return earningTemplates List<EarningsTemplate>
+   */
   public List<EarningsTemplate> getEarningTemplates() {
     return earningTemplates;
   }
 
+  /**
+   * earningTemplates
+   *
+   * @param earningTemplates List&lt;EarningsTemplate&gt;
+   */
   public void setEarningTemplates(List<EarningsTemplate> earningTemplates) {
     this.earningTemplates = earningTemplates;
   }

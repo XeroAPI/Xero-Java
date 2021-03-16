@@ -25,7 +25,12 @@ public class InvalidField {
 
   @JsonProperty("reason")
   private String reason;
-
+  /**
+   * The name of the field that caused the error
+   *
+   * @param name String
+   * @return InvalidField
+   */
   public InvalidField name(String name) {
     this.name = name;
     return this;
@@ -37,14 +42,30 @@ public class InvalidField {
    * @return name
    */
   @ApiModelProperty(example = "DateOfBirth", value = "The name of the field that caused the error")
+  /**
+   * The name of the field that caused the error
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * The name of the field that caused the error
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * The reason the error occurred
+   *
+   * @param reason String
+   * @return InvalidField
+   */
   public InvalidField reason(String reason) {
     this.reason = reason;
     return this;
@@ -58,10 +79,20 @@ public class InvalidField {
   @ApiModelProperty(
       example = "The Date of Birth is required.",
       value = "The reason the error occurred")
+  /**
+   * The reason the error occurred
+   *
+   * @return reason String
+   */
   public String getReason() {
     return reason;
   }
 
+  /**
+   * The reason the error occurred
+   *
+   * @param reason String
+   */
   public void setReason(String reason) {
     this.reason = reason;
   }

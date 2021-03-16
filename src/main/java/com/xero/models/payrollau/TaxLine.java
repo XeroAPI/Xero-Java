@@ -38,7 +38,12 @@ public class TaxLine {
 
   @JsonProperty("LiabilityAccount")
   private String liabilityAccount;
-
+  /**
+   * Xero identifier for payslip tax line ID.
+   *
+   * @param payslipTaxLineID UUID
+   * @return TaxLine
+   */
   public TaxLine payslipTaxLineID(UUID payslipTaxLineID) {
     this.payslipTaxLineID = payslipTaxLineID;
     return this;
@@ -52,14 +57,30 @@ public class TaxLine {
   @ApiModelProperty(
       example = "e0eb6747-7c17-4075-b804-989f8d4e5d39",
       value = "Xero identifier for payslip tax line ID.")
+  /**
+   * Xero identifier for payslip tax line ID.
+   *
+   * @return payslipTaxLineID UUID
+   */
   public UUID getPayslipTaxLineID() {
     return payslipTaxLineID;
   }
 
+  /**
+   * Xero identifier for payslip tax line ID.
+   *
+   * @param payslipTaxLineID UUID
+   */
   public void setPayslipTaxLineID(UUID payslipTaxLineID) {
     this.payslipTaxLineID = payslipTaxLineID;
   }
 
+  /**
+   * The tax line amount
+   *
+   * @param amount Double
+   * @return TaxLine
+   */
   public TaxLine amount(Double amount) {
     this.amount = amount;
     return this;
@@ -71,14 +92,30 @@ public class TaxLine {
    * @return amount
    */
   @ApiModelProperty(example = "50.0", value = "The tax line amount")
+  /**
+   * The tax line amount
+   *
+   * @return amount Double
+   */
   public Double getAmount() {
     return amount;
   }
 
+  /**
+   * The tax line amount
+   *
+   * @param amount Double
+   */
   public void setAmount(Double amount) {
     this.amount = amount;
   }
 
+  /**
+   * Name of the tax type.
+   *
+   * @param taxTypeName String
+   * @return TaxLine
+   */
   public TaxLine taxTypeName(String taxTypeName) {
     this.taxTypeName = taxTypeName;
     return this;
@@ -90,14 +127,30 @@ public class TaxLine {
    * @return taxTypeName
    */
   @ApiModelProperty(example = "Manual Adjustment", value = "Name of the tax type.")
+  /**
+   * Name of the tax type.
+   *
+   * @return taxTypeName String
+   */
   public String getTaxTypeName() {
     return taxTypeName;
   }
 
+  /**
+   * Name of the tax type.
+   *
+   * @param taxTypeName String
+   */
   public void setTaxTypeName(String taxTypeName) {
     this.taxTypeName = taxTypeName;
   }
 
+  /**
+   * Description of the tax line.
+   *
+   * @param description String
+   * @return TaxLine
+   */
   public TaxLine description(String description) {
     this.description = description;
     return this;
@@ -109,14 +162,30 @@ public class TaxLine {
    * @return description
    */
   @ApiModelProperty(value = "Description of the tax line.")
+  /**
+   * Description of the tax line.
+   *
+   * @return description String
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * Description of the tax line.
+   *
+   * @param description String
+   */
   public void setDescription(String description) {
     this.description = description;
   }
 
+  /**
+   * manualTaxType
+   *
+   * @param manualTaxType ManualTaxType
+   * @return TaxLine
+   */
   public TaxLine manualTaxType(ManualTaxType manualTaxType) {
     this.manualTaxType = manualTaxType;
     return this;
@@ -128,14 +197,31 @@ public class TaxLine {
    * @return manualTaxType
    */
   @ApiModelProperty(value = "")
+  /**
+   * manualTaxType
+   *
+   * @return manualTaxType ManualTaxType
+   */
   public ManualTaxType getManualTaxType() {
     return manualTaxType;
   }
 
+  /**
+   * manualTaxType
+   *
+   * @param manualTaxType ManualTaxType
+   */
   public void setManualTaxType(ManualTaxType manualTaxType) {
     this.manualTaxType = manualTaxType;
   }
 
+  /**
+   * The tax line liability account code. For posted pay run you should be able to see liability
+   * account code
+   *
+   * @param liabilityAccount String
+   * @return TaxLine
+   */
   public TaxLine liabilityAccount(String liabilityAccount) {
     this.liabilityAccount = liabilityAccount;
     return this;
@@ -152,10 +238,22 @@ public class TaxLine {
       value =
           "The tax line liability account code. For posted pay run you should be able to see"
               + " liability account code")
+  /**
+   * The tax line liability account code. For posted pay run you should be able to see liability
+   * account code
+   *
+   * @return liabilityAccount String
+   */
   public String getLiabilityAccount() {
     return liabilityAccount;
   }
 
+  /**
+   * The tax line liability account code. For posted pay run you should be able to see liability
+   * account code
+   *
+   * @param liabilityAccount String
+   */
   public void setLiabilityAccount(String liabilityAccount) {
     this.liabilityAccount = liabilityAccount;
   }

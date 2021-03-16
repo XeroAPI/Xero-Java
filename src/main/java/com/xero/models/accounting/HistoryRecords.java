@@ -24,12 +24,23 @@ public class HistoryRecords {
 
   @JsonProperty("HistoryRecords")
   private List<HistoryRecord> historyRecords = new ArrayList<HistoryRecord>();
-
+  /**
+   * historyRecords
+   *
+   * @param historyRecords List&lt;HistoryRecord&gt;
+   * @return HistoryRecords
+   */
   public HistoryRecords historyRecords(List<HistoryRecord> historyRecords) {
     this.historyRecords = historyRecords;
     return this;
   }
 
+  /**
+   * historyRecords
+   *
+   * @param historyRecordsItem HistoryRecord
+   * @return HistoryRecords
+   */
   public HistoryRecords addHistoryRecordsItem(HistoryRecord historyRecordsItem) {
     if (this.historyRecords == null) {
       this.historyRecords = new ArrayList<HistoryRecord>();
@@ -44,10 +55,20 @@ public class HistoryRecords {
    * @return historyRecords
    */
   @ApiModelProperty(value = "")
+  /**
+   * historyRecords
+   *
+   * @return historyRecords List<HistoryRecord>
+   */
   public List<HistoryRecord> getHistoryRecords() {
     return historyRecords;
   }
 
+  /**
+   * historyRecords
+   *
+   * @param historyRecords List&lt;HistoryRecord&gt;
+   */
   public void setHistoryRecords(List<HistoryRecord> historyRecords) {
     this.historyRecords = historyRecords;
   }

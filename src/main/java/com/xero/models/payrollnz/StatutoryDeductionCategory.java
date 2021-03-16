@@ -17,26 +17,38 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Statutory Deduction Category */
 public enum StatutoryDeductionCategory {
+
+  /** PRIORITYORDER */
   PRIORITYORDER("PriorityOrder"),
 
+  /** NONPRIORITYORDER */
   NONPRIORITYORDER("NonPriorityOrder"),
 
+  /** TABLEBASED */
   TABLEBASED("TableBased"),
 
+  /** CHILDSUPPORT */
   CHILDSUPPORT("ChildSupport"),
 
+  /** COURTFINES */
   COURTFINES("CourtFines"),
 
+  /** INLANDREVENUEARREARS */
   INLANDREVENUEARREARS("InlandRevenueArrears"),
 
+  /** MSDREPAYMENTS */
   MSDREPAYMENTS("MsdRepayments"),
 
+  /** STUDENTLOAN */
   STUDENTLOAN("StudentLoan"),
 
+  /** ADDITIONALSTUDENTLOAN */
   ADDITIONALSTUDENTLOAN("AdditionalStudentLoan"),
 
+  /** VOLUNTARYSTUDENTLOAN */
   VOLUNTARYSTUDENTLOAN("VoluntaryStudentLoan"),
 
+  /** KIWISAVER */
   KIWISAVER("KiwiSaver");
 
   private String value;
@@ -45,16 +57,27 @@ public enum StatutoryDeductionCategory {
     this.value = value;
   }
 
+  /** @return String value */
   @JsonValue
   public String getValue() {
     return value;
   }
 
+  /**
+   * toString
+   *
+   * @return String value
+   */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
+  /**
+   * fromValue
+   *
+   * @param value String
+   */
   @JsonCreator
   public static StatutoryDeductionCategory fromValue(String value) {
     for (StatutoryDeductionCategory b : StatutoryDeductionCategory.values()) {

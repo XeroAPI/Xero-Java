@@ -25,7 +25,12 @@ public class AccountsPayable {
 
   @JsonProperty("Overdue")
   private Double overdue;
-
+  /**
+   * outstanding
+   *
+   * @param outstanding Double
+   * @return AccountsPayable
+   */
   public AccountsPayable outstanding(Double outstanding) {
     this.outstanding = outstanding;
     return this;
@@ -37,14 +42,30 @@ public class AccountsPayable {
    * @return outstanding
    */
   @ApiModelProperty(value = "")
+  /**
+   * outstanding
+   *
+   * @return outstanding Double
+   */
   public Double getOutstanding() {
     return outstanding;
   }
 
+  /**
+   * outstanding
+   *
+   * @param outstanding Double
+   */
   public void setOutstanding(Double outstanding) {
     this.outstanding = outstanding;
   }
 
+  /**
+   * overdue
+   *
+   * @param overdue Double
+   * @return AccountsPayable
+   */
   public AccountsPayable overdue(Double overdue) {
     this.overdue = overdue;
     return this;
@@ -56,10 +77,20 @@ public class AccountsPayable {
    * @return overdue
    */
   @ApiModelProperty(value = "")
+  /**
+   * overdue
+   *
+   * @return overdue Double
+   */
   public Double getOverdue() {
     return overdue;
   }
 
+  /**
+   * overdue
+   *
+   * @param overdue Double
+   */
   public void setOverdue(Double overdue) {
     this.overdue = overdue;
   }

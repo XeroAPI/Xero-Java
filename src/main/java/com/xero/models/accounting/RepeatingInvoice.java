@@ -26,8 +26,10 @@ public class RepeatingInvoice {
   StringUtil util = new StringUtil();
   /** See Invoice Types */
   public enum TypeEnum {
+    /** ACCPAY */
     ACCPAY("ACCPAY"),
 
+    /** ACCREC */
     ACCREC("ACCREC");
 
     private String value;
@@ -36,16 +38,31 @@ public class RepeatingInvoice {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static TypeEnum fromValue(String value) {
       for (TypeEnum b : TypeEnum.values()) {
@@ -82,10 +99,13 @@ public class RepeatingInvoice {
   private CurrencyCode currencyCode;
   /** One of the following - DRAFT or AUTHORISED – See Invoice Status Codes */
   public enum StatusEnum {
+    /** DRAFT */
     DRAFT("DRAFT"),
 
+    /** AUTHORISED */
     AUTHORISED("AUTHORISED"),
 
+    /** DELETED */
     DELETED("DELETED");
 
     private String value;
@@ -94,16 +114,31 @@ public class RepeatingInvoice {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
@@ -138,7 +173,12 @@ public class RepeatingInvoice {
 
   @JsonProperty("Attachments")
   private List<Attachment> attachments = new ArrayList<Attachment>();
-
+  /**
+   * See Invoice Types
+   *
+   * @param type TypeEnum
+   * @return RepeatingInvoice
+   */
   public RepeatingInvoice type(TypeEnum type) {
     this.type = type;
     return this;
@@ -150,14 +190,30 @@ public class RepeatingInvoice {
    * @return type
    */
   @ApiModelProperty(value = "See Invoice Types")
+  /**
+   * See Invoice Types
+   *
+   * @return type TypeEnum
+   */
   public TypeEnum getType() {
     return type;
   }
 
+  /**
+   * See Invoice Types
+   *
+   * @param type TypeEnum
+   */
   public void setType(TypeEnum type) {
     this.type = type;
   }
 
+  /**
+   * contact
+   *
+   * @param contact Contact
+   * @return RepeatingInvoice
+   */
   public RepeatingInvoice contact(Contact contact) {
     this.contact = contact;
     return this;
@@ -169,14 +225,30 @@ public class RepeatingInvoice {
    * @return contact
    */
   @ApiModelProperty(value = "")
+  /**
+   * contact
+   *
+   * @return contact Contact
+   */
   public Contact getContact() {
     return contact;
   }
 
+  /**
+   * contact
+   *
+   * @param contact Contact
+   */
   public void setContact(Contact contact) {
     this.contact = contact;
   }
 
+  /**
+   * schedule
+   *
+   * @param schedule Schedule
+   * @return RepeatingInvoice
+   */
   public RepeatingInvoice schedule(Schedule schedule) {
     this.schedule = schedule;
     return this;
@@ -188,19 +260,41 @@ public class RepeatingInvoice {
    * @return schedule
    */
   @ApiModelProperty(value = "")
+  /**
+   * schedule
+   *
+   * @return schedule Schedule
+   */
   public Schedule getSchedule() {
     return schedule;
   }
 
+  /**
+   * schedule
+   *
+   * @param schedule Schedule
+   */
   public void setSchedule(Schedule schedule) {
     this.schedule = schedule;
   }
 
+  /**
+   * See LineItems
+   *
+   * @param lineItems List&lt;LineItem&gt;
+   * @return RepeatingInvoice
+   */
   public RepeatingInvoice lineItems(List<LineItem> lineItems) {
     this.lineItems = lineItems;
     return this;
   }
 
+  /**
+   * See LineItems
+   *
+   * @param lineItemsItem LineItem
+   * @return RepeatingInvoice
+   */
   public RepeatingInvoice addLineItemsItem(LineItem lineItemsItem) {
     if (this.lineItems == null) {
       this.lineItems = new ArrayList<LineItem>();
@@ -215,14 +309,30 @@ public class RepeatingInvoice {
    * @return lineItems
    */
   @ApiModelProperty(value = "See LineItems")
+  /**
+   * See LineItems
+   *
+   * @return lineItems List<LineItem>
+   */
   public List<LineItem> getLineItems() {
     return lineItems;
   }
 
+  /**
+   * See LineItems
+   *
+   * @param lineItems List&lt;LineItem&gt;
+   */
   public void setLineItems(List<LineItem> lineItems) {
     this.lineItems = lineItems;
   }
 
+  /**
+   * lineAmountTypes
+   *
+   * @param lineAmountTypes LineAmountTypes
+   * @return RepeatingInvoice
+   */
   public RepeatingInvoice lineAmountTypes(LineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
     return this;
@@ -234,14 +344,30 @@ public class RepeatingInvoice {
    * @return lineAmountTypes
    */
   @ApiModelProperty(value = "")
+  /**
+   * lineAmountTypes
+   *
+   * @return lineAmountTypes LineAmountTypes
+   */
   public LineAmountTypes getLineAmountTypes() {
     return lineAmountTypes;
   }
 
+  /**
+   * lineAmountTypes
+   *
+   * @param lineAmountTypes LineAmountTypes
+   */
   public void setLineAmountTypes(LineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
   }
 
+  /**
+   * ACCREC only – additional reference number
+   *
+   * @param reference String
+   * @return RepeatingInvoice
+   */
   public RepeatingInvoice reference(String reference) {
     this.reference = reference;
     return this;
@@ -253,14 +379,30 @@ public class RepeatingInvoice {
    * @return reference
    */
   @ApiModelProperty(value = "ACCREC only – additional reference number")
+  /**
+   * ACCREC only – additional reference number
+   *
+   * @return reference String
+   */
   public String getReference() {
     return reference;
   }
 
+  /**
+   * ACCREC only – additional reference number
+   *
+   * @param reference String
+   */
   public void setReference(String reference) {
     this.reference = reference;
   }
 
+  /**
+   * See BrandingThemes
+   *
+   * @param brandingThemeID UUID
+   * @return RepeatingInvoice
+   */
   public RepeatingInvoice brandingThemeID(UUID brandingThemeID) {
     this.brandingThemeID = brandingThemeID;
     return this;
@@ -272,14 +414,30 @@ public class RepeatingInvoice {
    * @return brandingThemeID
    */
   @ApiModelProperty(value = "See BrandingThemes")
+  /**
+   * See BrandingThemes
+   *
+   * @return brandingThemeID UUID
+   */
   public UUID getBrandingThemeID() {
     return brandingThemeID;
   }
 
+  /**
+   * See BrandingThemes
+   *
+   * @param brandingThemeID UUID
+   */
   public void setBrandingThemeID(UUID brandingThemeID) {
     this.brandingThemeID = brandingThemeID;
   }
 
+  /**
+   * currencyCode
+   *
+   * @param currencyCode CurrencyCode
+   * @return RepeatingInvoice
+   */
   public RepeatingInvoice currencyCode(CurrencyCode currencyCode) {
     this.currencyCode = currencyCode;
     return this;
@@ -291,14 +449,30 @@ public class RepeatingInvoice {
    * @return currencyCode
    */
   @ApiModelProperty(value = "")
+  /**
+   * currencyCode
+   *
+   * @return currencyCode CurrencyCode
+   */
   public CurrencyCode getCurrencyCode() {
     return currencyCode;
   }
 
+  /**
+   * currencyCode
+   *
+   * @param currencyCode CurrencyCode
+   */
   public void setCurrencyCode(CurrencyCode currencyCode) {
     this.currencyCode = currencyCode;
   }
 
+  /**
+   * One of the following - DRAFT or AUTHORISED – See Invoice Status Codes
+   *
+   * @param status StatusEnum
+   * @return RepeatingInvoice
+   */
   public RepeatingInvoice status(StatusEnum status) {
     this.status = status;
     return this;
@@ -310,14 +484,30 @@ public class RepeatingInvoice {
    * @return status
    */
   @ApiModelProperty(value = "One of the following - DRAFT or AUTHORISED – See Invoice Status Codes")
+  /**
+   * One of the following - DRAFT or AUTHORISED – See Invoice Status Codes
+   *
+   * @return status StatusEnum
+   */
   public StatusEnum getStatus() {
     return status;
   }
 
+  /**
+   * One of the following - DRAFT or AUTHORISED – See Invoice Status Codes
+   *
+   * @param status StatusEnum
+   */
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
+  /**
+   * Total of invoice excluding taxes
+   *
+   * @param subTotal Double
+   * @return RepeatingInvoice
+   */
   public RepeatingInvoice subTotal(Double subTotal) {
     this.subTotal = subTotal;
     return this;
@@ -329,14 +519,30 @@ public class RepeatingInvoice {
    * @return subTotal
    */
   @ApiModelProperty(value = "Total of invoice excluding taxes")
+  /**
+   * Total of invoice excluding taxes
+   *
+   * @return subTotal Double
+   */
   public Double getSubTotal() {
     return subTotal;
   }
 
+  /**
+   * Total of invoice excluding taxes
+   *
+   * @param subTotal Double
+   */
   public void setSubTotal(Double subTotal) {
     this.subTotal = subTotal;
   }
 
+  /**
+   * Total tax on invoice
+   *
+   * @param totalTax Double
+   * @return RepeatingInvoice
+   */
   public RepeatingInvoice totalTax(Double totalTax) {
     this.totalTax = totalTax;
     return this;
@@ -348,14 +554,30 @@ public class RepeatingInvoice {
    * @return totalTax
    */
   @ApiModelProperty(value = "Total tax on invoice")
+  /**
+   * Total tax on invoice
+   *
+   * @return totalTax Double
+   */
   public Double getTotalTax() {
     return totalTax;
   }
 
+  /**
+   * Total tax on invoice
+   *
+   * @param totalTax Double
+   */
   public void setTotalTax(Double totalTax) {
     this.totalTax = totalTax;
   }
 
+  /**
+   * Total of Invoice tax inclusive (i.e. SubTotal + TotalTax)
+   *
+   * @param total Double
+   * @return RepeatingInvoice
+   */
   public RepeatingInvoice total(Double total) {
     this.total = total;
     return this;
@@ -367,14 +589,30 @@ public class RepeatingInvoice {
    * @return total
    */
   @ApiModelProperty(value = "Total of Invoice tax inclusive (i.e. SubTotal + TotalTax)")
+  /**
+   * Total of Invoice tax inclusive (i.e. SubTotal + TotalTax)
+   *
+   * @return total Double
+   */
   public Double getTotal() {
     return total;
   }
 
+  /**
+   * Total of Invoice tax inclusive (i.e. SubTotal + TotalTax)
+   *
+   * @param total Double
+   */
   public void setTotal(Double total) {
     this.total = total;
   }
 
+  /**
+   * Xero generated unique identifier for repeating invoice template
+   *
+   * @param repeatingInvoiceID UUID
+   * @return RepeatingInvoice
+   */
   public RepeatingInvoice repeatingInvoiceID(UUID repeatingInvoiceID) {
     this.repeatingInvoiceID = repeatingInvoiceID;
     return this;
@@ -386,14 +624,30 @@ public class RepeatingInvoice {
    * @return repeatingInvoiceID
    */
   @ApiModelProperty(value = "Xero generated unique identifier for repeating invoice template")
+  /**
+   * Xero generated unique identifier for repeating invoice template
+   *
+   * @return repeatingInvoiceID UUID
+   */
   public UUID getRepeatingInvoiceID() {
     return repeatingInvoiceID;
   }
 
+  /**
+   * Xero generated unique identifier for repeating invoice template
+   *
+   * @param repeatingInvoiceID UUID
+   */
   public void setRepeatingInvoiceID(UUID repeatingInvoiceID) {
     this.repeatingInvoiceID = repeatingInvoiceID;
   }
 
+  /**
+   * Xero generated unique identifier for repeating invoice template
+   *
+   * @param ID UUID
+   * @return RepeatingInvoice
+   */
   public RepeatingInvoice ID(UUID ID) {
     this.ID = ID;
     return this;
@@ -405,10 +659,20 @@ public class RepeatingInvoice {
    * @return ID
    */
   @ApiModelProperty(value = "Xero generated unique identifier for repeating invoice template")
+  /**
+   * Xero generated unique identifier for repeating invoice template
+   *
+   * @return ID UUID
+   */
   public UUID getID() {
     return ID;
   }
 
+  /**
+   * Xero generated unique identifier for repeating invoice template
+   *
+   * @param ID UUID
+   */
   public void setID(UUID ID) {
     this.ID = ID;
   }
@@ -421,15 +685,32 @@ public class RepeatingInvoice {
   @ApiModelProperty(
       example = "false",
       value = "boolean to indicate if an invoice has an attachment")
+  /**
+   * boolean to indicate if an invoice has an attachment
+   *
+   * @return hasAttachments Boolean
+   */
   public Boolean getHasAttachments() {
     return hasAttachments;
   }
 
+  /**
+   * Displays array of attachments from the API
+   *
+   * @param attachments List&lt;Attachment&gt;
+   * @return RepeatingInvoice
+   */
   public RepeatingInvoice attachments(List<Attachment> attachments) {
     this.attachments = attachments;
     return this;
   }
 
+  /**
+   * Displays array of attachments from the API
+   *
+   * @param attachmentsItem Attachment
+   * @return RepeatingInvoice
+   */
   public RepeatingInvoice addAttachmentsItem(Attachment attachmentsItem) {
     if (this.attachments == null) {
       this.attachments = new ArrayList<Attachment>();
@@ -444,10 +725,20 @@ public class RepeatingInvoice {
    * @return attachments
    */
   @ApiModelProperty(value = "Displays array of attachments from the API")
+  /**
+   * Displays array of attachments from the API
+   *
+   * @return attachments List<Attachment>
+   */
   public List<Attachment> getAttachments() {
     return attachments;
   }
 
+  /**
+   * Displays array of attachments from the API
+   *
+   * @param attachments List&lt;Attachment&gt;
+   */
   public void setAttachments(List<Attachment> attachments) {
     this.attachments = attachments;
   }

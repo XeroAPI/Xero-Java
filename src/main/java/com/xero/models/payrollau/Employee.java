@@ -55,12 +55,16 @@ public class Employee {
   private String email;
   /** The employee’s gender. See Employee Gender */
   public enum GenderEnum {
+    /** N */
     N("N"),
 
+    /** M */
     M("M"),
 
+    /** F */
     F("F"),
 
+    /** I */
     I("I");
 
     private String value;
@@ -69,16 +73,31 @@ public class Employee {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static GenderEnum fromValue(String value) {
       for (GenderEnum b : GenderEnum.values()) {
@@ -158,7 +177,12 @@ public class Employee {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
-
+  /**
+   * First name of employee
+   *
+   * @param firstName String
+   * @return Employee
+   */
   public Employee firstName(String firstName) {
     this.firstName = firstName;
     return this;
@@ -170,14 +194,30 @@ public class Employee {
    * @return firstName
    */
   @ApiModelProperty(example = "Karen", required = true, value = "First name of employee")
+  /**
+   * First name of employee
+   *
+   * @return firstName String
+   */
   public String getFirstName() {
     return firstName;
   }
 
+  /**
+   * First name of employee
+   *
+   * @param firstName String
+   */
   public void setFirstName(String firstName) {
     this.firstName = firstName;
   }
 
+  /**
+   * Last name of employee
+   *
+   * @param lastName String
+   * @return Employee
+   */
   public Employee lastName(String lastName) {
     this.lastName = lastName;
     return this;
@@ -189,14 +229,30 @@ public class Employee {
    * @return lastName
    */
   @ApiModelProperty(example = "Jones", required = true, value = "Last name of employee")
+  /**
+   * Last name of employee
+   *
+   * @return lastName String
+   */
   public String getLastName() {
     return lastName;
   }
 
+  /**
+   * Last name of employee
+   *
+   * @param lastName String
+   */
   public void setLastName(String lastName) {
     this.lastName = lastName;
   }
 
+  /**
+   * Date of birth of the employee (YYYY-MM-DD)
+   *
+   * @param dateOfBirth String
+   * @return Employee
+   */
   public Employee dateOfBirth(String dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
     return this;
@@ -211,10 +267,19 @@ public class Employee {
       example = "/Date(322560000000+0000)/",
       required = true,
       value = "Date of birth of the employee (YYYY-MM-DD)")
+  /**
+   * Date of birth of the employee (YYYY-MM-DD)
+   *
+   * @return dateOfBirth String
+   */
   public String getDateOfBirth() {
     return dateOfBirth;
   }
-
+  /**
+   * Date of birth of the employee (YYYY-MM-DD)
+   *
+   * @return LocalDate
+   */
   public LocalDate getDateOfBirthAsDate() {
     if (this.dateOfBirth != null) {
       try {
@@ -226,10 +291,20 @@ public class Employee {
     return null;
   }
 
+  /**
+   * Date of birth of the employee (YYYY-MM-DD)
+   *
+   * @param dateOfBirth String
+   */
   public void setDateOfBirth(String dateOfBirth) {
     this.dateOfBirth = dateOfBirth;
   }
 
+  /**
+   * Date of birth of the employee (YYYY-MM-DD)
+   *
+   * @param dateOfBirth LocalDateTime
+   */
   public void setDateOfBirth(LocalDate dateOfBirth) {
     // CONVERT LocalDate args into MS DateFromat String
     Instant instant = dateOfBirth.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
@@ -238,6 +313,12 @@ public class Employee {
     this.dateOfBirth = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
   }
 
+  /**
+   * homeAddress
+   *
+   * @param homeAddress HomeAddress
+   * @return Employee
+   */
   public Employee homeAddress(HomeAddress homeAddress) {
     this.homeAddress = homeAddress;
     return this;
@@ -249,14 +330,30 @@ public class Employee {
    * @return homeAddress
    */
   @ApiModelProperty(value = "")
+  /**
+   * homeAddress
+   *
+   * @return homeAddress HomeAddress
+   */
   public HomeAddress getHomeAddress() {
     return homeAddress;
   }
 
+  /**
+   * homeAddress
+   *
+   * @param homeAddress HomeAddress
+   */
   public void setHomeAddress(HomeAddress homeAddress) {
     this.homeAddress = homeAddress;
   }
 
+  /**
+   * Start date for an employee (YYYY-MM-DD)
+   *
+   * @param startDate String
+   * @return Employee
+   */
   public Employee startDate(String startDate) {
     this.startDate = startDate;
     return this;
@@ -270,10 +367,19 @@ public class Employee {
   @ApiModelProperty(
       example = "/Date(320284900000+0000)/",
       value = "Start date for an employee (YYYY-MM-DD)")
+  /**
+   * Start date for an employee (YYYY-MM-DD)
+   *
+   * @return startDate String
+   */
   public String getStartDate() {
     return startDate;
   }
-
+  /**
+   * Start date for an employee (YYYY-MM-DD)
+   *
+   * @return LocalDate
+   */
   public LocalDate getStartDateAsDate() {
     if (this.startDate != null) {
       try {
@@ -285,10 +391,20 @@ public class Employee {
     return null;
   }
 
+  /**
+   * Start date for an employee (YYYY-MM-DD)
+   *
+   * @param startDate String
+   */
   public void setStartDate(String startDate) {
     this.startDate = startDate;
   }
 
+  /**
+   * Start date for an employee (YYYY-MM-DD)
+   *
+   * @param startDate LocalDateTime
+   */
   public void setStartDate(LocalDate startDate) {
     // CONVERT LocalDate args into MS DateFromat String
     Instant instant = startDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
@@ -297,6 +413,12 @@ public class Employee {
     this.startDate = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
   }
 
+  /**
+   * Title of the employee
+   *
+   * @param title String
+   * @return Employee
+   */
   public Employee title(String title) {
     this.title = title;
     return this;
@@ -308,14 +430,30 @@ public class Employee {
    * @return title
    */
   @ApiModelProperty(example = "Mrs", value = "Title of the employee")
+  /**
+   * Title of the employee
+   *
+   * @return title String
+   */
   public String getTitle() {
     return title;
   }
 
+  /**
+   * Title of the employee
+   *
+   * @param title String
+   */
   public void setTitle(String title) {
     this.title = title;
   }
 
+  /**
+   * Middle name(s) of the employee
+   *
+   * @param middleNames String
+   * @return Employee
+   */
   public Employee middleNames(String middleNames) {
     this.middleNames = middleNames;
     return this;
@@ -327,14 +465,30 @@ public class Employee {
    * @return middleNames
    */
   @ApiModelProperty(example = "Adena", value = "Middle name(s) of the employee")
+  /**
+   * Middle name(s) of the employee
+   *
+   * @return middleNames String
+   */
   public String getMiddleNames() {
     return middleNames;
   }
 
+  /**
+   * Middle name(s) of the employee
+   *
+   * @param middleNames String
+   */
   public void setMiddleNames(String middleNames) {
     this.middleNames = middleNames;
   }
 
+  /**
+   * The email address for the employee
+   *
+   * @param email String
+   * @return Employee
+   */
   public Employee email(String email) {
     this.email = email;
     return this;
@@ -346,14 +500,30 @@ public class Employee {
    * @return email
    */
   @ApiModelProperty(example = "developer@me.com", value = "The email address for the employee")
+  /**
+   * The email address for the employee
+   *
+   * @return email String
+   */
   public String getEmail() {
     return email;
   }
 
+  /**
+   * The email address for the employee
+   *
+   * @param email String
+   */
   public void setEmail(String email) {
     this.email = email;
   }
 
+  /**
+   * The employee’s gender. See Employee Gender
+   *
+   * @param gender GenderEnum
+   * @return Employee
+   */
   public Employee gender(GenderEnum gender) {
     this.gender = gender;
     return this;
@@ -365,14 +535,30 @@ public class Employee {
    * @return gender
    */
   @ApiModelProperty(example = "F", value = "The employee’s gender. See Employee Gender")
+  /**
+   * The employee’s gender. See Employee Gender
+   *
+   * @return gender GenderEnum
+   */
   public GenderEnum getGender() {
     return gender;
   }
 
+  /**
+   * The employee’s gender. See Employee Gender
+   *
+   * @param gender GenderEnum
+   */
   public void setGender(GenderEnum gender) {
     this.gender = gender;
   }
 
+  /**
+   * Employee phone number
+   *
+   * @param phone String
+   * @return Employee
+   */
   public Employee phone(String phone) {
     this.phone = phone;
     return this;
@@ -384,14 +570,30 @@ public class Employee {
    * @return phone
    */
   @ApiModelProperty(example = "415-555-1212", value = "Employee phone number")
+  /**
+   * Employee phone number
+   *
+   * @return phone String
+   */
   public String getPhone() {
     return phone;
   }
 
+  /**
+   * Employee phone number
+   *
+   * @param phone String
+   */
   public void setPhone(String phone) {
     this.phone = phone;
   }
 
+  /**
+   * Employee mobile number
+   *
+   * @param mobile String
+   * @return Employee
+   */
   public Employee mobile(String mobile) {
     this.mobile = mobile;
     return this;
@@ -403,14 +605,30 @@ public class Employee {
    * @return mobile
    */
   @ApiModelProperty(example = "415-234-5678", value = "Employee mobile number")
+  /**
+   * Employee mobile number
+   *
+   * @return mobile String
+   */
   public String getMobile() {
     return mobile;
   }
 
+  /**
+   * Employee mobile number
+   *
+   * @param mobile String
+   */
   public void setMobile(String mobile) {
     this.mobile = mobile;
   }
 
+  /**
+   * Employee’s twitter name
+   *
+   * @param twitterUserName String
+   * @return Employee
+   */
   public Employee twitterUserName(String twitterUserName) {
     this.twitterUserName = twitterUserName;
     return this;
@@ -422,14 +640,30 @@ public class Employee {
    * @return twitterUserName
    */
   @ApiModelProperty(example = "xeroapi", value = "Employee’s twitter name")
+  /**
+   * Employee’s twitter name
+   *
+   * @return twitterUserName String
+   */
   public String getTwitterUserName() {
     return twitterUserName;
   }
 
+  /**
+   * Employee’s twitter name
+   *
+   * @param twitterUserName String
+   */
   public void setTwitterUserName(String twitterUserName) {
     this.twitterUserName = twitterUserName;
   }
 
+  /**
+   * Authorised to approve other employees&#39; leave requests
+   *
+   * @param isAuthorisedToApproveLeave Boolean
+   * @return Employee
+   */
   public Employee isAuthorisedToApproveLeave(Boolean isAuthorisedToApproveLeave) {
     this.isAuthorisedToApproveLeave = isAuthorisedToApproveLeave;
     return this;
@@ -443,14 +677,30 @@ public class Employee {
   @ApiModelProperty(
       example = "false",
       value = "Authorised to approve other employees' leave requests")
+  /**
+   * Authorised to approve other employees&#39; leave requests
+   *
+   * @return isAuthorisedToApproveLeave Boolean
+   */
   public Boolean getIsAuthorisedToApproveLeave() {
     return isAuthorisedToApproveLeave;
   }
 
+  /**
+   * Authorised to approve other employees&#39; leave requests
+   *
+   * @param isAuthorisedToApproveLeave Boolean
+   */
   public void setIsAuthorisedToApproveLeave(Boolean isAuthorisedToApproveLeave) {
     this.isAuthorisedToApproveLeave = isAuthorisedToApproveLeave;
   }
 
+  /**
+   * Authorised to approve timesheets
+   *
+   * @param isAuthorisedToApproveTimesheets Boolean
+   * @return Employee
+   */
   public Employee isAuthorisedToApproveTimesheets(Boolean isAuthorisedToApproveTimesheets) {
     this.isAuthorisedToApproveTimesheets = isAuthorisedToApproveTimesheets;
     return this;
@@ -462,14 +712,30 @@ public class Employee {
    * @return isAuthorisedToApproveTimesheets
    */
   @ApiModelProperty(example = "true", value = "Authorised to approve timesheets")
+  /**
+   * Authorised to approve timesheets
+   *
+   * @return isAuthorisedToApproveTimesheets Boolean
+   */
   public Boolean getIsAuthorisedToApproveTimesheets() {
     return isAuthorisedToApproveTimesheets;
   }
 
+  /**
+   * Authorised to approve timesheets
+   *
+   * @param isAuthorisedToApproveTimesheets Boolean
+   */
   public void setIsAuthorisedToApproveTimesheets(Boolean isAuthorisedToApproveTimesheets) {
     this.isAuthorisedToApproveTimesheets = isAuthorisedToApproveTimesheets;
   }
 
+  /**
+   * JobTitle of the employee
+   *
+   * @param jobTitle String
+   * @return Employee
+   */
   public Employee jobTitle(String jobTitle) {
     this.jobTitle = jobTitle;
     return this;
@@ -481,14 +747,30 @@ public class Employee {
    * @return jobTitle
    */
   @ApiModelProperty(example = "Manager", value = "JobTitle of the employee")
+  /**
+   * JobTitle of the employee
+   *
+   * @return jobTitle String
+   */
   public String getJobTitle() {
     return jobTitle;
   }
 
+  /**
+   * JobTitle of the employee
+   *
+   * @param jobTitle String
+   */
   public void setJobTitle(String jobTitle) {
     this.jobTitle = jobTitle;
   }
 
+  /**
+   * Employees classification
+   *
+   * @param classification String
+   * @return Employee
+   */
   public Employee classification(String classification) {
     this.classification = classification;
     return this;
@@ -500,14 +782,30 @@ public class Employee {
    * @return classification
    */
   @ApiModelProperty(example = "99383", value = "Employees classification")
+  /**
+   * Employees classification
+   *
+   * @return classification String
+   */
   public String getClassification() {
     return classification;
   }
 
+  /**
+   * Employees classification
+   *
+   * @param classification String
+   */
   public void setClassification(String classification) {
     this.classification = classification;
   }
 
+  /**
+   * Xero unique identifier for earnings rate
+   *
+   * @param ordinaryEarningsRateID UUID
+   * @return Employee
+   */
   public Employee ordinaryEarningsRateID(UUID ordinaryEarningsRateID) {
     this.ordinaryEarningsRateID = ordinaryEarningsRateID;
     return this;
@@ -519,14 +817,30 @@ public class Employee {
    * @return ordinaryEarningsRateID
    */
   @ApiModelProperty(value = "Xero unique identifier for earnings rate")
+  /**
+   * Xero unique identifier for earnings rate
+   *
+   * @return ordinaryEarningsRateID UUID
+   */
   public UUID getOrdinaryEarningsRateID() {
     return ordinaryEarningsRateID;
   }
 
+  /**
+   * Xero unique identifier for earnings rate
+   *
+   * @param ordinaryEarningsRateID UUID
+   */
   public void setOrdinaryEarningsRateID(UUID ordinaryEarningsRateID) {
     this.ordinaryEarningsRateID = ordinaryEarningsRateID;
   }
 
+  /**
+   * Xero unique identifier for payroll calendar for the employee
+   *
+   * @param payrollCalendarID UUID
+   * @return Employee
+   */
   public Employee payrollCalendarID(UUID payrollCalendarID) {
     this.payrollCalendarID = payrollCalendarID;
     return this;
@@ -540,14 +854,31 @@ public class Employee {
   @ApiModelProperty(
       example = "2ee8e5cc-9835-40d5-bb18-09fdb118db9c",
       value = "Xero unique identifier for payroll calendar for the employee")
+  /**
+   * Xero unique identifier for payroll calendar for the employee
+   *
+   * @return payrollCalendarID UUID
+   */
   public UUID getPayrollCalendarID() {
     return payrollCalendarID;
   }
 
+  /**
+   * Xero unique identifier for payroll calendar for the employee
+   *
+   * @param payrollCalendarID UUID
+   */
   public void setPayrollCalendarID(UUID payrollCalendarID) {
     this.payrollCalendarID = payrollCalendarID;
   }
 
+  /**
+   * The Employee Group allows you to report on payroll expenses and liabilities for each group of
+   * employees
+   *
+   * @param employeeGroupName String
+   * @return Employee
+   */
   public Employee employeeGroupName(String employeeGroupName) {
     this.employeeGroupName = employeeGroupName;
     return this;
@@ -564,14 +895,32 @@ public class Employee {
       value =
           "The Employee Group allows you to report on payroll expenses and liabilities for each"
               + " group of employees")
+  /**
+   * The Employee Group allows you to report on payroll expenses and liabilities for each group of
+   * employees
+   *
+   * @return employeeGroupName String
+   */
   public String getEmployeeGroupName() {
     return employeeGroupName;
   }
 
+  /**
+   * The Employee Group allows you to report on payroll expenses and liabilities for each group of
+   * employees
+   *
+   * @param employeeGroupName String
+   */
   public void setEmployeeGroupName(String employeeGroupName) {
     this.employeeGroupName = employeeGroupName;
   }
 
+  /**
+   * Xero unique identifier for an Employee
+   *
+   * @param employeeID UUID
+   * @return Employee
+   */
   public Employee employeeID(UUID employeeID) {
     this.employeeID = employeeID;
     return this;
@@ -585,14 +934,30 @@ public class Employee {
   @ApiModelProperty(
       example = "4ff1e5cc-9835-40d5-bb18-09fdb118db9c",
       value = "Xero unique identifier for an Employee")
+  /**
+   * Xero unique identifier for an Employee
+   *
+   * @return employeeID UUID
+   */
   public UUID getEmployeeID() {
     return employeeID;
   }
 
+  /**
+   * Xero unique identifier for an Employee
+   *
+   * @param employeeID UUID
+   */
   public void setEmployeeID(UUID employeeID) {
     this.employeeID = employeeID;
   }
 
+  /**
+   * Employee Termination Date (YYYY-MM-DD)
+   *
+   * @param terminationDate String
+   * @return Employee
+   */
   public Employee terminationDate(String terminationDate) {
     this.terminationDate = terminationDate;
     return this;
@@ -606,10 +971,19 @@ public class Employee {
   @ApiModelProperty(
       example = "/Date(1584662400000+0000)/",
       value = "Employee Termination Date (YYYY-MM-DD)")
+  /**
+   * Employee Termination Date (YYYY-MM-DD)
+   *
+   * @return terminationDate String
+   */
   public String getTerminationDate() {
     return terminationDate;
   }
-
+  /**
+   * Employee Termination Date (YYYY-MM-DD)
+   *
+   * @return LocalDate
+   */
   public LocalDate getTerminationDateAsDate() {
     if (this.terminationDate != null) {
       try {
@@ -621,10 +995,20 @@ public class Employee {
     return null;
   }
 
+  /**
+   * Employee Termination Date (YYYY-MM-DD)
+   *
+   * @param terminationDate String
+   */
   public void setTerminationDate(String terminationDate) {
     this.terminationDate = terminationDate;
   }
 
+  /**
+   * Employee Termination Date (YYYY-MM-DD)
+   *
+   * @param terminationDate LocalDateTime
+   */
   public void setTerminationDate(LocalDate terminationDate) {
     // CONVERT LocalDate args into MS DateFromat String
     Instant instant = terminationDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
@@ -633,11 +1017,23 @@ public class Employee {
     this.terminationDate = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
   }
 
+  /**
+   * bankAccounts
+   *
+   * @param bankAccounts List&lt;BankAccount&gt;
+   * @return Employee
+   */
   public Employee bankAccounts(List<BankAccount> bankAccounts) {
     this.bankAccounts = bankAccounts;
     return this;
   }
 
+  /**
+   * bankAccounts
+   *
+   * @param bankAccountsItem BankAccount
+   * @return Employee
+   */
   public Employee addBankAccountsItem(BankAccount bankAccountsItem) {
     if (this.bankAccounts == null) {
       this.bankAccounts = new ArrayList<BankAccount>();
@@ -652,14 +1048,30 @@ public class Employee {
    * @return bankAccounts
    */
   @ApiModelProperty(value = "")
+  /**
+   * bankAccounts
+   *
+   * @return bankAccounts List<BankAccount>
+   */
   public List<BankAccount> getBankAccounts() {
     return bankAccounts;
   }
 
+  /**
+   * bankAccounts
+   *
+   * @param bankAccounts List&lt;BankAccount&gt;
+   */
   public void setBankAccounts(List<BankAccount> bankAccounts) {
     this.bankAccounts = bankAccounts;
   }
 
+  /**
+   * payTemplate
+   *
+   * @param payTemplate PayTemplate
+   * @return Employee
+   */
   public Employee payTemplate(PayTemplate payTemplate) {
     this.payTemplate = payTemplate;
     return this;
@@ -671,14 +1083,30 @@ public class Employee {
    * @return payTemplate
    */
   @ApiModelProperty(value = "")
+  /**
+   * payTemplate
+   *
+   * @return payTemplate PayTemplate
+   */
   public PayTemplate getPayTemplate() {
     return payTemplate;
   }
 
+  /**
+   * payTemplate
+   *
+   * @param payTemplate PayTemplate
+   */
   public void setPayTemplate(PayTemplate payTemplate) {
     this.payTemplate = payTemplate;
   }
 
+  /**
+   * openingBalances
+   *
+   * @param openingBalances OpeningBalances
+   * @return Employee
+   */
   public Employee openingBalances(OpeningBalances openingBalances) {
     this.openingBalances = openingBalances;
     return this;
@@ -690,14 +1118,30 @@ public class Employee {
    * @return openingBalances
    */
   @ApiModelProperty(value = "")
+  /**
+   * openingBalances
+   *
+   * @return openingBalances OpeningBalances
+   */
   public OpeningBalances getOpeningBalances() {
     return openingBalances;
   }
 
+  /**
+   * openingBalances
+   *
+   * @param openingBalances OpeningBalances
+   */
   public void setOpeningBalances(OpeningBalances openingBalances) {
     this.openingBalances = openingBalances;
   }
 
+  /**
+   * taxDeclaration
+   *
+   * @param taxDeclaration TaxDeclaration
+   * @return Employee
+   */
   public Employee taxDeclaration(TaxDeclaration taxDeclaration) {
     this.taxDeclaration = taxDeclaration;
     return this;
@@ -709,19 +1153,41 @@ public class Employee {
    * @return taxDeclaration
    */
   @ApiModelProperty(value = "")
+  /**
+   * taxDeclaration
+   *
+   * @return taxDeclaration TaxDeclaration
+   */
   public TaxDeclaration getTaxDeclaration() {
     return taxDeclaration;
   }
 
+  /**
+   * taxDeclaration
+   *
+   * @param taxDeclaration TaxDeclaration
+   */
   public void setTaxDeclaration(TaxDeclaration taxDeclaration) {
     this.taxDeclaration = taxDeclaration;
   }
 
+  /**
+   * leaveBalances
+   *
+   * @param leaveBalances List&lt;LeaveBalance&gt;
+   * @return Employee
+   */
   public Employee leaveBalances(List<LeaveBalance> leaveBalances) {
     this.leaveBalances = leaveBalances;
     return this;
   }
 
+  /**
+   * leaveBalances
+   *
+   * @param leaveBalancesItem LeaveBalance
+   * @return Employee
+   */
   public Employee addLeaveBalancesItem(LeaveBalance leaveBalancesItem) {
     if (this.leaveBalances == null) {
       this.leaveBalances = new ArrayList<LeaveBalance>();
@@ -736,19 +1202,41 @@ public class Employee {
    * @return leaveBalances
    */
   @ApiModelProperty(value = "")
+  /**
+   * leaveBalances
+   *
+   * @return leaveBalances List<LeaveBalance>
+   */
   public List<LeaveBalance> getLeaveBalances() {
     return leaveBalances;
   }
 
+  /**
+   * leaveBalances
+   *
+   * @param leaveBalances List&lt;LeaveBalance&gt;
+   */
   public void setLeaveBalances(List<LeaveBalance> leaveBalances) {
     this.leaveBalances = leaveBalances;
   }
 
+  /**
+   * leaveLines
+   *
+   * @param leaveLines List&lt;LeaveLine&gt;
+   * @return Employee
+   */
   public Employee leaveLines(List<LeaveLine> leaveLines) {
     this.leaveLines = leaveLines;
     return this;
   }
 
+  /**
+   * leaveLines
+   *
+   * @param leaveLinesItem LeaveLine
+   * @return Employee
+   */
   public Employee addLeaveLinesItem(LeaveLine leaveLinesItem) {
     if (this.leaveLines == null) {
       this.leaveLines = new ArrayList<LeaveLine>();
@@ -763,19 +1251,41 @@ public class Employee {
    * @return leaveLines
    */
   @ApiModelProperty(value = "")
+  /**
+   * leaveLines
+   *
+   * @return leaveLines List<LeaveLine>
+   */
   public List<LeaveLine> getLeaveLines() {
     return leaveLines;
   }
 
+  /**
+   * leaveLines
+   *
+   * @param leaveLines List&lt;LeaveLine&gt;
+   */
   public void setLeaveLines(List<LeaveLine> leaveLines) {
     this.leaveLines = leaveLines;
   }
 
+  /**
+   * superMemberships
+   *
+   * @param superMemberships List&lt;SuperMembership&gt;
+   * @return Employee
+   */
   public Employee superMemberships(List<SuperMembership> superMemberships) {
     this.superMemberships = superMemberships;
     return this;
   }
 
+  /**
+   * superMemberships
+   *
+   * @param superMembershipsItem SuperMembership
+   * @return Employee
+   */
   public Employee addSuperMembershipsItem(SuperMembership superMembershipsItem) {
     if (this.superMemberships == null) {
       this.superMemberships = new ArrayList<SuperMembership>();
@@ -790,14 +1300,30 @@ public class Employee {
    * @return superMemberships
    */
   @ApiModelProperty(value = "")
+  /**
+   * superMemberships
+   *
+   * @return superMemberships List<SuperMembership>
+   */
   public List<SuperMembership> getSuperMemberships() {
     return superMemberships;
   }
 
+  /**
+   * superMemberships
+   *
+   * @param superMemberships List&lt;SuperMembership&gt;
+   */
   public void setSuperMemberships(List<SuperMembership> superMemberships) {
     this.superMemberships = superMemberships;
   }
 
+  /**
+   * status
+   *
+   * @param status EmployeeStatus
+   * @return Employee
+   */
   public Employee status(EmployeeStatus status) {
     this.status = status;
     return this;
@@ -809,10 +1335,20 @@ public class Employee {
    * @return status
    */
   @ApiModelProperty(value = "")
+  /**
+   * status
+   *
+   * @return status EmployeeStatus
+   */
   public EmployeeStatus getStatus() {
     return status;
   }
 
+  /**
+   * status
+   *
+   * @param status EmployeeStatus
+   */
   public void setStatus(EmployeeStatus status) {
     this.status = status;
   }
@@ -823,10 +1359,19 @@ public class Employee {
    * @return updatedDateUTC
    */
   @ApiModelProperty(example = "/Date(1583967733054+0000)/", value = "Last modified timestamp")
+  /**
+   * Last modified timestamp
+   *
+   * @return updatedDateUTC String
+   */
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-
+  /**
+   * Last modified timestamp
+   *
+   * @return OffsetDateTime
+   */
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
@@ -838,11 +1383,23 @@ public class Employee {
     return null;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrors List&lt;ValidationError&gt;
+   * @return Employee
+   */
   public Employee validationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
     return this;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrorsItem ValidationError
+   * @return Employee
+   */
   public Employee addValidationErrorsItem(ValidationError validationErrorsItem) {
     if (this.validationErrors == null) {
       this.validationErrors = new ArrayList<ValidationError>();
@@ -857,10 +1414,20 @@ public class Employee {
    * @return validationErrors
    */
   @ApiModelProperty(value = "Displays array of validation error messages from the API")
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @return validationErrors List<ValidationError>
+   */
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrors List&lt;ValidationError&gt;
+   */
   public void setValidationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
   }

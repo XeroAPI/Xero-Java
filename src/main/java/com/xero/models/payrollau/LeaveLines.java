@@ -26,12 +26,23 @@ public class LeaveLines {
 
   @JsonProperty("Employee")
   private List<LeaveLine> employee = new ArrayList<LeaveLine>();
-
+  /**
+   * employee
+   *
+   * @param employee List&lt;LeaveLine&gt;
+   * @return LeaveLines
+   */
   public LeaveLines employee(List<LeaveLine> employee) {
     this.employee = employee;
     return this;
   }
 
+  /**
+   * employee
+   *
+   * @param employeeItem LeaveLine
+   * @return LeaveLines
+   */
   public LeaveLines addEmployeeItem(LeaveLine employeeItem) {
     if (this.employee == null) {
       this.employee = new ArrayList<LeaveLine>();
@@ -46,10 +57,20 @@ public class LeaveLines {
    * @return employee
    */
   @ApiModelProperty(value = "")
+  /**
+   * employee
+   *
+   * @return employee List<LeaveLine>
+   */
   public List<LeaveLine> getEmployee() {
     return employee;
   }
 
+  /**
+   * employee
+   *
+   * @param employee List&lt;LeaveLine&gt;
+   */
   public void setEmployee(List<LeaveLine> employee) {
     this.employee = employee;
   }

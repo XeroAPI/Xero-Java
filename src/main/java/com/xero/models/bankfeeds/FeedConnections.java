@@ -27,7 +27,12 @@ public class FeedConnections {
 
   @JsonProperty("items")
   private List<FeedConnection> items = new ArrayList<FeedConnection>();
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return FeedConnections
+   */
   public FeedConnections pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -39,19 +44,41 @@ public class FeedConnections {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * items
+   *
+   * @param items List&lt;FeedConnection&gt;
+   * @return FeedConnections
+   */
   public FeedConnections items(List<FeedConnection> items) {
     this.items = items;
     return this;
   }
 
+  /**
+   * items
+   *
+   * @param itemsItem FeedConnection
+   * @return FeedConnections
+   */
   public FeedConnections addItemsItem(FeedConnection itemsItem) {
     if (this.items == null) {
       this.items = new ArrayList<FeedConnection>();
@@ -66,10 +93,20 @@ public class FeedConnections {
    * @return items
    */
   @ApiModelProperty(value = "")
+  /**
+   * items
+   *
+   * @return items List<FeedConnection>
+   */
   public List<FeedConnection> getItems() {
     return items;
   }
 
+  /**
+   * items
+   *
+   * @param items List&lt;FeedConnection&gt;
+   */
   public void setItems(List<FeedConnection> items) {
     this.items = items;
   }

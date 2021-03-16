@@ -31,7 +31,12 @@ public class EmployeeStatutorySickLeaves {
   @JsonProperty("statutorySickLeave")
   private List<EmployeeStatutorySickLeave> statutorySickLeave =
       new ArrayList<EmployeeStatutorySickLeave>();
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return EmployeeStatutorySickLeaves
+   */
   public EmployeeStatutorySickLeaves pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -43,14 +48,30 @@ public class EmployeeStatutorySickLeaves {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return EmployeeStatutorySickLeaves
+   */
   public EmployeeStatutorySickLeaves problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -62,20 +83,42 @@ public class EmployeeStatutorySickLeaves {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * statutorySickLeave
+   *
+   * @param statutorySickLeave List&lt;EmployeeStatutorySickLeave&gt;
+   * @return EmployeeStatutorySickLeaves
+   */
   public EmployeeStatutorySickLeaves statutorySickLeave(
       List<EmployeeStatutorySickLeave> statutorySickLeave) {
     this.statutorySickLeave = statutorySickLeave;
     return this;
   }
 
+  /**
+   * statutorySickLeave
+   *
+   * @param statutorySickLeaveItem EmployeeStatutorySickLeave
+   * @return EmployeeStatutorySickLeaves
+   */
   public EmployeeStatutorySickLeaves addStatutorySickLeaveItem(
       EmployeeStatutorySickLeave statutorySickLeaveItem) {
     if (this.statutorySickLeave == null) {
@@ -91,10 +134,20 @@ public class EmployeeStatutorySickLeaves {
    * @return statutorySickLeave
    */
   @ApiModelProperty(value = "")
+  /**
+   * statutorySickLeave
+   *
+   * @return statutorySickLeave List<EmployeeStatutorySickLeave>
+   */
   public List<EmployeeStatutorySickLeave> getStatutorySickLeave() {
     return statutorySickLeave;
   }
 
+  /**
+   * statutorySickLeave
+   *
+   * @param statutorySickLeave List&lt;EmployeeStatutorySickLeave&gt;
+   */
   public void setStatutorySickLeave(List<EmployeeStatutorySickLeave> statutorySickLeave) {
     this.statutorySickLeave = statutorySickLeave;
   }

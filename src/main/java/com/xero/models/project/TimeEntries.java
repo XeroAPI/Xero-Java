@@ -27,7 +27,12 @@ public class TimeEntries {
 
   @JsonProperty("items")
   private List<TimeEntry> items = new ArrayList<TimeEntry>();
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return TimeEntries
+   */
   public TimeEntries pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -39,19 +44,41 @@ public class TimeEntries {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * items
+   *
+   * @param items List&lt;TimeEntry&gt;
+   * @return TimeEntries
+   */
   public TimeEntries items(List<TimeEntry> items) {
     this.items = items;
     return this;
   }
 
+  /**
+   * items
+   *
+   * @param itemsItem TimeEntry
+   * @return TimeEntries
+   */
   public TimeEntries addItemsItem(TimeEntry itemsItem) {
     if (this.items == null) {
       this.items = new ArrayList<TimeEntry>();
@@ -66,10 +93,20 @@ public class TimeEntries {
    * @return items
    */
   @ApiModelProperty(value = "")
+  /**
+   * items
+   *
+   * @return items List<TimeEntry>
+   */
   public List<TimeEntry> getItems() {
     return items;
   }
 
+  /**
+   * items
+   *
+   * @param items List&lt;TimeEntry&gt;
+   */
   public void setItems(List<TimeEntry> items) {
     this.items = items;
   }

@@ -17,8 +17,11 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Gets or Sets LeavePeriodStatus */
 public enum LeavePeriodStatus {
+
+  /** SCHEDULED */
   SCHEDULED("SCHEDULED"),
 
+  /** PROCESSED */
   PROCESSED("PROCESSED");
 
   private String value;
@@ -27,16 +30,27 @@ public enum LeavePeriodStatus {
     this.value = value;
   }
 
+  /** @return String value */
   @JsonValue
   public String getValue() {
     return value;
   }
 
+  /**
+   * toString
+   *
+   * @return String value
+   */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
+  /**
+   * fromValue
+   *
+   * @param value String
+   */
   @JsonCreator
   public static LeavePeriodStatus fromValue(String value) {
     for (LeavePeriodStatus b : LeavePeriodStatus.values()) {

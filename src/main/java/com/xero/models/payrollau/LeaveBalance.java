@@ -31,7 +31,12 @@ public class LeaveBalance {
 
   @JsonProperty("TypeOfUnits")
   private String typeOfUnits;
-
+  /**
+   * The name of the leave type
+   *
+   * @param leaveName String
+   * @return LeaveBalance
+   */
   public LeaveBalance leaveName(String leaveName) {
     this.leaveName = leaveName;
     return this;
@@ -43,14 +48,30 @@ public class LeaveBalance {
    * @return leaveName
    */
   @ApiModelProperty(example = "Annual Leave", value = "The name of the leave type")
+  /**
+   * The name of the leave type
+   *
+   * @return leaveName String
+   */
   public String getLeaveName() {
     return leaveName;
   }
 
+  /**
+   * The name of the leave type
+   *
+   * @param leaveName String
+   */
   public void setLeaveName(String leaveName) {
     this.leaveName = leaveName;
   }
 
+  /**
+   * Identifier of the leave type (see PayItems)
+   *
+   * @param leaveTypeID String
+   * @return LeaveBalance
+   */
   public LeaveBalance leaveTypeID(String leaveTypeID) {
     this.leaveTypeID = leaveTypeID;
     return this;
@@ -64,14 +85,30 @@ public class LeaveBalance {
   @ApiModelProperty(
       example = "544d9292-4329-4512-bfff-a9f15236d776",
       value = "Identifier of the leave type (see PayItems)")
+  /**
+   * Identifier of the leave type (see PayItems)
+   *
+   * @return leaveTypeID String
+   */
   public String getLeaveTypeID() {
     return leaveTypeID;
   }
 
+  /**
+   * Identifier of the leave type (see PayItems)
+   *
+   * @param leaveTypeID String
+   */
   public void setLeaveTypeID(String leaveTypeID) {
     this.leaveTypeID = leaveTypeID;
   }
 
+  /**
+   * The balance of the leave available
+   *
+   * @param numberOfUnits Double
+   * @return LeaveBalance
+   */
   public LeaveBalance numberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
     return this;
@@ -83,14 +120,30 @@ public class LeaveBalance {
    * @return numberOfUnits
    */
   @ApiModelProperty(example = "81.2602", value = "The balance of the leave available")
+  /**
+   * The balance of the leave available
+   *
+   * @return numberOfUnits Double
+   */
   public Double getNumberOfUnits() {
     return numberOfUnits;
   }
 
+  /**
+   * The balance of the leave available
+   *
+   * @param numberOfUnits Double
+   */
   public void setNumberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
   }
 
+  /**
+   * The type of units as specified by the LeaveType (see PayItems)
+   *
+   * @param typeOfUnits String
+   * @return LeaveBalance
+   */
   public LeaveBalance typeOfUnits(String typeOfUnits) {
     this.typeOfUnits = typeOfUnits;
     return this;
@@ -104,10 +157,20 @@ public class LeaveBalance {
   @ApiModelProperty(
       example = "Hours",
       value = "The type of units as specified by the LeaveType (see PayItems)")
+  /**
+   * The type of units as specified by the LeaveType (see PayItems)
+   *
+   * @return typeOfUnits String
+   */
   public String getTypeOfUnits() {
     return typeOfUnits;
   }
 
+  /**
+   * The type of units as specified by the LeaveType (see PayItems)
+   *
+   * @param typeOfUnits String
+   */
   public void setTypeOfUnits(String typeOfUnits) {
     this.typeOfUnits = typeOfUnits;
   }

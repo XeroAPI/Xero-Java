@@ -17,10 +17,14 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Gets or Sets DeductionTypeCalculationType */
 public enum DeductionTypeCalculationType {
+
+  /** FIXEDAMOUNT */
   FIXEDAMOUNT("FIXEDAMOUNT"),
 
+  /** PRETAX */
   PRETAX("PRETAX"),
 
+  /** POSTTAX */
   POSTTAX("POSTTAX");
 
   private String value;
@@ -29,16 +33,27 @@ public enum DeductionTypeCalculationType {
     this.value = value;
   }
 
+  /** @return String value */
   @JsonValue
   public String getValue() {
     return value;
   }
 
+  /**
+   * toString
+   *
+   * @return String value
+   */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
+  /**
+   * fromValue
+   *
+   * @param value String
+   */
   @JsonCreator
   public static DeductionTypeCalculationType fromValue(String value) {
     for (DeductionTypeCalculationType b : DeductionTypeCalculationType.values()) {

@@ -31,7 +31,15 @@ public class Pagination {
 
   @JsonProperty("itemCount")
   private Integer itemCount;
-
+  /**
+   * Page number which specifies the set of records to retrieve. Example -
+   * https://api.xero.com/bankfeeds.xro/1.0/Statements?page&#x3D;2 to get the second set of the
+   * records. When page value is not a number or a negative number, by default, the first set of
+   * records is returned.
+   *
+   * @param page Integer
+   * @return Pagination
+   */
   public Pagination page(Integer page) {
     this.page = page;
     return this;
@@ -52,14 +60,38 @@ public class Pagination {
               + " https://api.xero.com/bankfeeds.xro/1.0/Statements?page=2 to get the second set"
               + " of the records. When page value is not a number or a negative number, by"
               + " default, the first set of records is returned.")
+  /**
+   * Page number which specifies the set of records to retrieve. Example -
+   * https://api.xero.com/bankfeeds.xro/1.0/Statements?page&#x3D;2 to get the second set of the
+   * records. When page value is not a number or a negative number, by default, the first set of
+   * records is returned.
+   *
+   * @return page Integer
+   */
   public Integer getPage() {
     return page;
   }
 
+  /**
+   * Page number which specifies the set of records to retrieve. Example -
+   * https://api.xero.com/bankfeeds.xro/1.0/Statements?page&#x3D;2 to get the second set of the
+   * records. When page value is not a number or a negative number, by default, the first set of
+   * records is returned.
+   *
+   * @param page Integer
+   */
   public void setPage(Integer page) {
     this.page = page;
   }
 
+  /**
+   * Page size which specifies how many records per page will be returned (default 50). Example -
+   * https://api.xero.com/bankfeeds.xro/1.0/Statements?pageSize&#x3D;100 to specify page size of
+   * 100.
+   *
+   * @param pageSize Integer
+   * @return Pagination
+   */
   public Pagination pageSize(Integer pageSize) {
     this.pageSize = pageSize;
     return this;
@@ -78,14 +110,34 @@ public class Pagination {
           "Page size which specifies how many records per page will be returned (default 50)."
               + " Example - https://api.xero.com/bankfeeds.xro/1.0/Statements?pageSize=100 to"
               + " specify page size of 100.")
+  /**
+   * Page size which specifies how many records per page will be returned (default 50). Example -
+   * https://api.xero.com/bankfeeds.xro/1.0/Statements?pageSize&#x3D;100 to specify page size of
+   * 100.
+   *
+   * @return pageSize Integer
+   */
   public Integer getPageSize() {
     return pageSize;
   }
 
+  /**
+   * Page size which specifies how many records per page will be returned (default 50). Example -
+   * https://api.xero.com/bankfeeds.xro/1.0/Statements?pageSize&#x3D;100 to specify page size of
+   * 100.
+   *
+   * @param pageSize Integer
+   */
   public void setPageSize(Integer pageSize) {
     this.pageSize = pageSize;
   }
 
+  /**
+   * Number of pages available
+   *
+   * @param pageCount Integer
+   * @return Pagination
+   */
   public Pagination pageCount(Integer pageCount) {
     this.pageCount = pageCount;
     return this;
@@ -97,14 +149,30 @@ public class Pagination {
    * @return pageCount
    */
   @ApiModelProperty(example = "1", value = "Number of pages available")
+  /**
+   * Number of pages available
+   *
+   * @return pageCount Integer
+   */
   public Integer getPageCount() {
     return pageCount;
   }
 
+  /**
+   * Number of pages available
+   *
+   * @param pageCount Integer
+   */
   public void setPageCount(Integer pageCount) {
     this.pageCount = pageCount;
   }
 
+  /**
+   * Number of items returned
+   *
+   * @param itemCount Integer
+   * @return Pagination
+   */
   public Pagination itemCount(Integer itemCount) {
     this.itemCount = itemCount;
     return this;
@@ -116,10 +184,20 @@ public class Pagination {
    * @return itemCount
    */
   @ApiModelProperty(example = "2", value = "Number of items returned")
+  /**
+   * Number of items returned
+   *
+   * @return itemCount Integer
+   */
   public Integer getItemCount() {
     return itemCount;
   }
 
+  /**
+   * Number of items returned
+   *
+   * @param itemCount Integer
+   */
   public void setItemCount(Integer itemCount) {
     this.itemCount = itemCount;
   }

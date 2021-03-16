@@ -28,7 +28,12 @@ public class EmployeeStatutoryLeaveBalanceObject {
 
   @JsonProperty("leaveBalance")
   private EmployeeStatutoryLeaveBalance leaveBalance;
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return EmployeeStatutoryLeaveBalanceObject
+   */
   public EmployeeStatutoryLeaveBalanceObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -40,14 +45,30 @@ public class EmployeeStatutoryLeaveBalanceObject {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return EmployeeStatutoryLeaveBalanceObject
+   */
   public EmployeeStatutoryLeaveBalanceObject problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -59,14 +80,30 @@ public class EmployeeStatutoryLeaveBalanceObject {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * leaveBalance
+   *
+   * @param leaveBalance EmployeeStatutoryLeaveBalance
+   * @return EmployeeStatutoryLeaveBalanceObject
+   */
   public EmployeeStatutoryLeaveBalanceObject leaveBalance(
       EmployeeStatutoryLeaveBalance leaveBalance) {
     this.leaveBalance = leaveBalance;
@@ -79,10 +116,20 @@ public class EmployeeStatutoryLeaveBalanceObject {
    * @return leaveBalance
    */
   @ApiModelProperty(value = "")
+  /**
+   * leaveBalance
+   *
+   * @return leaveBalance EmployeeStatutoryLeaveBalance
+   */
   public EmployeeStatutoryLeaveBalance getLeaveBalance() {
     return leaveBalance;
   }
 
+  /**
+   * leaveBalance
+   *
+   * @param leaveBalance EmployeeStatutoryLeaveBalance
+   */
   public void setLeaveBalance(EmployeeStatutoryLeaveBalance leaveBalance) {
     this.leaveBalance = leaveBalance;
   }

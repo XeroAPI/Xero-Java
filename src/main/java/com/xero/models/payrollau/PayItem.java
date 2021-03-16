@@ -33,12 +33,23 @@ public class PayItem {
 
   @JsonProperty("ReimbursementTypes")
   private List<ReimbursementType> reimbursementTypes = new ArrayList<ReimbursementType>();
-
+  /**
+   * earningsRates
+   *
+   * @param earningsRates List&lt;EarningsRate&gt;
+   * @return PayItem
+   */
   public PayItem earningsRates(List<EarningsRate> earningsRates) {
     this.earningsRates = earningsRates;
     return this;
   }
 
+  /**
+   * earningsRates
+   *
+   * @param earningsRatesItem EarningsRate
+   * @return PayItem
+   */
   public PayItem addEarningsRatesItem(EarningsRate earningsRatesItem) {
     if (this.earningsRates == null) {
       this.earningsRates = new ArrayList<EarningsRate>();
@@ -53,19 +64,41 @@ public class PayItem {
    * @return earningsRates
    */
   @ApiModelProperty(value = "")
+  /**
+   * earningsRates
+   *
+   * @return earningsRates List<EarningsRate>
+   */
   public List<EarningsRate> getEarningsRates() {
     return earningsRates;
   }
 
+  /**
+   * earningsRates
+   *
+   * @param earningsRates List&lt;EarningsRate&gt;
+   */
   public void setEarningsRates(List<EarningsRate> earningsRates) {
     this.earningsRates = earningsRates;
   }
 
+  /**
+   * deductionTypes
+   *
+   * @param deductionTypes List&lt;DeductionType&gt;
+   * @return PayItem
+   */
   public PayItem deductionTypes(List<DeductionType> deductionTypes) {
     this.deductionTypes = deductionTypes;
     return this;
   }
 
+  /**
+   * deductionTypes
+   *
+   * @param deductionTypesItem DeductionType
+   * @return PayItem
+   */
   public PayItem addDeductionTypesItem(DeductionType deductionTypesItem) {
     if (this.deductionTypes == null) {
       this.deductionTypes = new ArrayList<DeductionType>();
@@ -80,19 +113,41 @@ public class PayItem {
    * @return deductionTypes
    */
   @ApiModelProperty(value = "")
+  /**
+   * deductionTypes
+   *
+   * @return deductionTypes List<DeductionType>
+   */
   public List<DeductionType> getDeductionTypes() {
     return deductionTypes;
   }
 
+  /**
+   * deductionTypes
+   *
+   * @param deductionTypes List&lt;DeductionType&gt;
+   */
   public void setDeductionTypes(List<DeductionType> deductionTypes) {
     this.deductionTypes = deductionTypes;
   }
 
+  /**
+   * leaveTypes
+   *
+   * @param leaveTypes List&lt;LeaveType&gt;
+   * @return PayItem
+   */
   public PayItem leaveTypes(List<LeaveType> leaveTypes) {
     this.leaveTypes = leaveTypes;
     return this;
   }
 
+  /**
+   * leaveTypes
+   *
+   * @param leaveTypesItem LeaveType
+   * @return PayItem
+   */
   public PayItem addLeaveTypesItem(LeaveType leaveTypesItem) {
     if (this.leaveTypes == null) {
       this.leaveTypes = new ArrayList<LeaveType>();
@@ -107,19 +162,41 @@ public class PayItem {
    * @return leaveTypes
    */
   @ApiModelProperty(value = "")
+  /**
+   * leaveTypes
+   *
+   * @return leaveTypes List<LeaveType>
+   */
   public List<LeaveType> getLeaveTypes() {
     return leaveTypes;
   }
 
+  /**
+   * leaveTypes
+   *
+   * @param leaveTypes List&lt;LeaveType&gt;
+   */
   public void setLeaveTypes(List<LeaveType> leaveTypes) {
     this.leaveTypes = leaveTypes;
   }
 
+  /**
+   * reimbursementTypes
+   *
+   * @param reimbursementTypes List&lt;ReimbursementType&gt;
+   * @return PayItem
+   */
   public PayItem reimbursementTypes(List<ReimbursementType> reimbursementTypes) {
     this.reimbursementTypes = reimbursementTypes;
     return this;
   }
 
+  /**
+   * reimbursementTypes
+   *
+   * @param reimbursementTypesItem ReimbursementType
+   * @return PayItem
+   */
   public PayItem addReimbursementTypesItem(ReimbursementType reimbursementTypesItem) {
     if (this.reimbursementTypes == null) {
       this.reimbursementTypes = new ArrayList<ReimbursementType>();
@@ -134,10 +211,20 @@ public class PayItem {
    * @return reimbursementTypes
    */
   @ApiModelProperty(value = "")
+  /**
+   * reimbursementTypes
+   *
+   * @return reimbursementTypes List<ReimbursementType>
+   */
   public List<ReimbursementType> getReimbursementTypes() {
     return reimbursementTypes;
   }
 
+  /**
+   * reimbursementTypes
+   *
+   * @param reimbursementTypes List&lt;ReimbursementType&gt;
+   */
   public void setReimbursementTypes(List<ReimbursementType> reimbursementTypes) {
     this.reimbursementTypes = reimbursementTypes;
   }

@@ -28,7 +28,12 @@ public class BenefitObject {
 
   @JsonProperty("benefit")
   private Benefit benefit;
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return BenefitObject
+   */
   public BenefitObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -40,14 +45,30 @@ public class BenefitObject {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return BenefitObject
+   */
   public BenefitObject problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -59,14 +80,30 @@ public class BenefitObject {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * benefit
+   *
+   * @param benefit Benefit
+   * @return BenefitObject
+   */
   public BenefitObject benefit(Benefit benefit) {
     this.benefit = benefit;
     return this;
@@ -78,10 +115,20 @@ public class BenefitObject {
    * @return benefit
    */
   @ApiModelProperty(value = "")
+  /**
+   * benefit
+   *
+   * @return benefit Benefit
+   */
   public Benefit getBenefit() {
     return benefit;
   }
 
+  /**
+   * benefit
+   *
+   * @param benefit Benefit
+   */
   public void setBenefit(Benefit benefit) {
     this.benefit = benefit;
   }

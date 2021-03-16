@@ -46,10 +46,13 @@ public class SalaryAndWage {
   private Double annualSalary;
   /** The current status of the corresponding salary and wages */
   public enum StatusEnum {
+    /** ACTIVE */
     ACTIVE("Active"),
 
+    /** PENDING */
     PENDING("Pending"),
 
+    /** HISTORY */
     HISTORY("History");
 
     private String value;
@@ -58,16 +61,31 @@ public class SalaryAndWage {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
@@ -83,6 +101,7 @@ public class SalaryAndWage {
   private StatusEnum status;
   /** The type of the payment of the corresponding salary and wages */
   public enum PaymentTypeEnum {
+    /** SALARY */
     SALARY("Salary");
 
     private String value;
@@ -91,16 +110,31 @@ public class SalaryAndWage {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static PaymentTypeEnum fromValue(String value) {
       for (PaymentTypeEnum b : PaymentTypeEnum.values()) {
@@ -114,7 +148,12 @@ public class SalaryAndWage {
 
   @JsonProperty("paymentType")
   private PaymentTypeEnum paymentType;
-
+  /**
+   * Xero unique identifier for a salary and wages record
+   *
+   * @param salaryAndWagesID UUID
+   * @return SalaryAndWage
+   */
   public SalaryAndWage salaryAndWagesID(UUID salaryAndWagesID) {
     this.salaryAndWagesID = salaryAndWagesID;
     return this;
@@ -126,14 +165,30 @@ public class SalaryAndWage {
    * @return salaryAndWagesID
    */
   @ApiModelProperty(value = "Xero unique identifier for a salary and wages record")
+  /**
+   * Xero unique identifier for a salary and wages record
+   *
+   * @return salaryAndWagesID UUID
+   */
   public UUID getSalaryAndWagesID() {
     return salaryAndWagesID;
   }
 
+  /**
+   * Xero unique identifier for a salary and wages record
+   *
+   * @param salaryAndWagesID UUID
+   */
   public void setSalaryAndWagesID(UUID salaryAndWagesID) {
     this.salaryAndWagesID = salaryAndWagesID;
   }
 
+  /**
+   * Xero unique identifier for an earnings rate
+   *
+   * @param earningsRateID UUID
+   * @return SalaryAndWage
+   */
   public SalaryAndWage earningsRateID(UUID earningsRateID) {
     this.earningsRateID = earningsRateID;
     return this;
@@ -145,14 +200,30 @@ public class SalaryAndWage {
    * @return earningsRateID
    */
   @ApiModelProperty(required = true, value = "Xero unique identifier for an earnings rate")
+  /**
+   * Xero unique identifier for an earnings rate
+   *
+   * @return earningsRateID UUID
+   */
   public UUID getEarningsRateID() {
     return earningsRateID;
   }
 
+  /**
+   * Xero unique identifier for an earnings rate
+   *
+   * @param earningsRateID UUID
+   */
   public void setEarningsRateID(UUID earningsRateID) {
     this.earningsRateID = earningsRateID;
   }
 
+  /**
+   * The Number of Units per week for the corresponding salary and wages
+   *
+   * @param numberOfUnitsPerWeek Double
+   * @return SalaryAndWage
+   */
   public SalaryAndWage numberOfUnitsPerWeek(Double numberOfUnitsPerWeek) {
     this.numberOfUnitsPerWeek = numberOfUnitsPerWeek;
     return this;
@@ -166,14 +237,30 @@ public class SalaryAndWage {
   @ApiModelProperty(
       required = true,
       value = "The Number of Units per week for the corresponding salary and wages")
+  /**
+   * The Number of Units per week for the corresponding salary and wages
+   *
+   * @return numberOfUnitsPerWeek Double
+   */
   public Double getNumberOfUnitsPerWeek() {
     return numberOfUnitsPerWeek;
   }
 
+  /**
+   * The Number of Units per week for the corresponding salary and wages
+   *
+   * @param numberOfUnitsPerWeek Double
+   */
   public void setNumberOfUnitsPerWeek(Double numberOfUnitsPerWeek) {
     this.numberOfUnitsPerWeek = numberOfUnitsPerWeek;
   }
 
+  /**
+   * The rate of each unit for the corresponding salary and wages
+   *
+   * @param ratePerUnit Double
+   * @return SalaryAndWage
+   */
   public SalaryAndWage ratePerUnit(Double ratePerUnit) {
     this.ratePerUnit = ratePerUnit;
     return this;
@@ -185,14 +272,30 @@ public class SalaryAndWage {
    * @return ratePerUnit
    */
   @ApiModelProperty(value = "The rate of each unit for the corresponding salary and wages")
+  /**
+   * The rate of each unit for the corresponding salary and wages
+   *
+   * @return ratePerUnit Double
+   */
   public Double getRatePerUnit() {
     return ratePerUnit;
   }
 
+  /**
+   * The rate of each unit for the corresponding salary and wages
+   *
+   * @param ratePerUnit Double
+   */
   public void setRatePerUnit(Double ratePerUnit) {
     this.ratePerUnit = ratePerUnit;
   }
 
+  /**
+   * The Number of Units per day for the corresponding salary and wages
+   *
+   * @param numberOfUnitsPerDay Double
+   * @return SalaryAndWage
+   */
   public SalaryAndWage numberOfUnitsPerDay(Double numberOfUnitsPerDay) {
     this.numberOfUnitsPerDay = numberOfUnitsPerDay;
     return this;
@@ -204,14 +307,30 @@ public class SalaryAndWage {
    * @return numberOfUnitsPerDay
    */
   @ApiModelProperty(value = "The Number of Units per day for the corresponding salary and wages")
+  /**
+   * The Number of Units per day for the corresponding salary and wages
+   *
+   * @return numberOfUnitsPerDay Double
+   */
   public Double getNumberOfUnitsPerDay() {
     return numberOfUnitsPerDay;
   }
 
+  /**
+   * The Number of Units per day for the corresponding salary and wages
+   *
+   * @param numberOfUnitsPerDay Double
+   */
   public void setNumberOfUnitsPerDay(Double numberOfUnitsPerDay) {
     this.numberOfUnitsPerDay = numberOfUnitsPerDay;
   }
 
+  /**
+   * The effective date of the corresponding salary and wages
+   *
+   * @param effectiveFrom LocalDate
+   * @return SalaryAndWage
+   */
   public SalaryAndWage effectiveFrom(LocalDate effectiveFrom) {
     this.effectiveFrom = effectiveFrom;
     return this;
@@ -225,14 +344,30 @@ public class SalaryAndWage {
   @ApiModelProperty(
       required = true,
       value = "The effective date of the corresponding salary and wages")
+  /**
+   * The effective date of the corresponding salary and wages
+   *
+   * @return effectiveFrom LocalDate
+   */
   public LocalDate getEffectiveFrom() {
     return effectiveFrom;
   }
 
+  /**
+   * The effective date of the corresponding salary and wages
+   *
+   * @param effectiveFrom LocalDate
+   */
   public void setEffectiveFrom(LocalDate effectiveFrom) {
     this.effectiveFrom = effectiveFrom;
   }
 
+  /**
+   * The annual salary
+   *
+   * @param annualSalary Double
+   * @return SalaryAndWage
+   */
   public SalaryAndWage annualSalary(Double annualSalary) {
     this.annualSalary = annualSalary;
     return this;
@@ -244,14 +379,30 @@ public class SalaryAndWage {
    * @return annualSalary
    */
   @ApiModelProperty(required = true, value = "The annual salary")
+  /**
+   * The annual salary
+   *
+   * @return annualSalary Double
+   */
   public Double getAnnualSalary() {
     return annualSalary;
   }
 
+  /**
+   * The annual salary
+   *
+   * @param annualSalary Double
+   */
   public void setAnnualSalary(Double annualSalary) {
     this.annualSalary = annualSalary;
   }
 
+  /**
+   * The current status of the corresponding salary and wages
+   *
+   * @param status StatusEnum
+   * @return SalaryAndWage
+   */
   public SalaryAndWage status(StatusEnum status) {
     this.status = status;
     return this;
@@ -265,14 +416,30 @@ public class SalaryAndWage {
   @ApiModelProperty(
       required = true,
       value = "The current status of the corresponding salary and wages")
+  /**
+   * The current status of the corresponding salary and wages
+   *
+   * @return status StatusEnum
+   */
   public StatusEnum getStatus() {
     return status;
   }
 
+  /**
+   * The current status of the corresponding salary and wages
+   *
+   * @param status StatusEnum
+   */
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
+  /**
+   * The type of the payment of the corresponding salary and wages
+   *
+   * @param paymentType PaymentTypeEnum
+   * @return SalaryAndWage
+   */
   public SalaryAndWage paymentType(PaymentTypeEnum paymentType) {
     this.paymentType = paymentType;
     return this;
@@ -286,10 +453,20 @@ public class SalaryAndWage {
   @ApiModelProperty(
       required = true,
       value = "The type of the payment of the corresponding salary and wages")
+  /**
+   * The type of the payment of the corresponding salary and wages
+   *
+   * @return paymentType PaymentTypeEnum
+   */
   public PaymentTypeEnum getPaymentType() {
     return paymentType;
   }
 
+  /**
+   * The type of the payment of the corresponding salary and wages
+   *
+   * @param paymentType PaymentTypeEnum
+   */
   public void setPaymentType(PaymentTypeEnum paymentType) {
     this.paymentType = paymentType;
   }

@@ -25,10 +25,13 @@ public class PaymentMethod {
   StringUtil util = new StringUtil();
   /** The payment method code */
   public enum PaymentMethodEnum {
+    /** CHEQUE */
     CHEQUE("Cheque"),
 
+    /** ELECTRONICALLY */
     ELECTRONICALLY("Electronically"),
 
+    /** MANUAL */
     MANUAL("Manual");
 
     private String value;
@@ -37,16 +40,31 @@ public class PaymentMethod {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static PaymentMethodEnum fromValue(String value) {
       for (PaymentMethodEnum b : PaymentMethodEnum.values()) {
@@ -63,7 +81,12 @@ public class PaymentMethod {
 
   @JsonProperty("bankAccounts")
   private List<BankAccount> bankAccounts = new ArrayList<BankAccount>();
-
+  /**
+   * The payment method code
+   *
+   * @param paymentMethod PaymentMethodEnum
+   * @return PaymentMethod
+   */
   public PaymentMethod paymentMethod(PaymentMethodEnum paymentMethod) {
     this.paymentMethod = paymentMethod;
     return this;
@@ -75,19 +98,41 @@ public class PaymentMethod {
    * @return paymentMethod
    */
   @ApiModelProperty(required = true, value = "The payment method code")
+  /**
+   * The payment method code
+   *
+   * @return paymentMethod PaymentMethodEnum
+   */
   public PaymentMethodEnum getPaymentMethod() {
     return paymentMethod;
   }
 
+  /**
+   * The payment method code
+   *
+   * @param paymentMethod PaymentMethodEnum
+   */
   public void setPaymentMethod(PaymentMethodEnum paymentMethod) {
     this.paymentMethod = paymentMethod;
   }
 
+  /**
+   * bankAccounts
+   *
+   * @param bankAccounts List&lt;BankAccount&gt;
+   * @return PaymentMethod
+   */
   public PaymentMethod bankAccounts(List<BankAccount> bankAccounts) {
     this.bankAccounts = bankAccounts;
     return this;
   }
 
+  /**
+   * bankAccounts
+   *
+   * @param bankAccountsItem BankAccount
+   * @return PaymentMethod
+   */
   public PaymentMethod addBankAccountsItem(BankAccount bankAccountsItem) {
     if (this.bankAccounts == null) {
       this.bankAccounts = new ArrayList<BankAccount>();
@@ -102,10 +147,20 @@ public class PaymentMethod {
    * @return bankAccounts
    */
   @ApiModelProperty(value = "")
+  /**
+   * bankAccounts
+   *
+   * @return bankAccounts List<BankAccount>
+   */
   public List<BankAccount> getBankAccounts() {
     return bankAccounts;
   }
 
+  /**
+   * bankAccounts
+   *
+   * @param bankAccounts List&lt;BankAccount&gt;
+   */
   public void setBankAccounts(List<BankAccount> bankAccounts) {
     this.bankAccounts = bankAccounts;
   }

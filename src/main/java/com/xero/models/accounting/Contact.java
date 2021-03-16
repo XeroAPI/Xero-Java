@@ -37,10 +37,13 @@ public class Contact {
   private String accountNumber;
   /** Current status of a contact – see contact status types */
   public enum ContactStatusEnum {
+    /** ACTIVE */
     ACTIVE("ACTIVE"),
 
+    /** ARCHIVED */
     ARCHIVED("ARCHIVED"),
 
+    /** GDPRREQUEST */
     GDPRREQUEST("GDPRREQUEST");
 
     private String value;
@@ -49,16 +52,31 @@ public class Contact {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static ContactStatusEnum fromValue(String value) {
       for (ContactStatusEnum b : ContactStatusEnum.values()) {
@@ -179,7 +197,12 @@ public class Contact {
 
   @JsonProperty("StatusAttributeString")
   private String statusAttributeString;
-
+  /**
+   * Xero identifier
+   *
+   * @param contactID UUID
+   * @return Contact
+   */
   public Contact contactID(UUID contactID) {
     this.contactID = contactID;
     return this;
@@ -191,14 +214,32 @@ public class Contact {
    * @return contactID
    */
   @ApiModelProperty(value = "Xero identifier")
+  /**
+   * Xero identifier
+   *
+   * @return contactID UUID
+   */
   public UUID getContactID() {
     return contactID;
   }
 
+  /**
+   * Xero identifier
+   *
+   * @param contactID UUID
+   */
   public void setContactID(UUID contactID) {
     this.contactID = contactID;
   }
 
+  /**
+   * This can be updated via the API only i.e. This field is read only on the Xero contact screen,
+   * used to identify contacts in external systems (max length &#x3D; 50). If the Contact Number is
+   * used, this is displayed as Contact Code in the Contacts UI in Xero.
+   *
+   * @param contactNumber String
+   * @return Contact
+   */
   public Contact contactNumber(String contactNumber) {
     this.contactNumber = contactNumber;
     return this;
@@ -217,14 +258,35 @@ public class Contact {
               + " screen, used to identify contacts in external systems (max length = 50). If the"
               + " Contact Number is used, this is displayed as Contact Code in the Contacts UI in"
               + " Xero.")
+  /**
+   * This can be updated via the API only i.e. This field is read only on the Xero contact screen,
+   * used to identify contacts in external systems (max length &#x3D; 50). If the Contact Number is
+   * used, this is displayed as Contact Code in the Contacts UI in Xero.
+   *
+   * @return contactNumber String
+   */
   public String getContactNumber() {
     return contactNumber;
   }
 
+  /**
+   * This can be updated via the API only i.e. This field is read only on the Xero contact screen,
+   * used to identify contacts in external systems (max length &#x3D; 50). If the Contact Number is
+   * used, this is displayed as Contact Code in the Contacts UI in Xero.
+   *
+   * @param contactNumber String
+   */
   public void setContactNumber(String contactNumber) {
     this.contactNumber = contactNumber;
   }
 
+  /**
+   * A user defined account number. This can be updated via the API and the Xero UI (max length
+   * &#x3D; 50)
+   *
+   * @param accountNumber String
+   * @return Contact
+   */
   public Contact accountNumber(String accountNumber) {
     this.accountNumber = accountNumber;
     return this;
@@ -240,14 +302,32 @@ public class Contact {
       value =
           "A user defined account number. This can be updated via the API and the Xero UI (max"
               + " length = 50)")
+  /**
+   * A user defined account number. This can be updated via the API and the Xero UI (max length
+   * &#x3D; 50)
+   *
+   * @return accountNumber String
+   */
   public String getAccountNumber() {
     return accountNumber;
   }
 
+  /**
+   * A user defined account number. This can be updated via the API and the Xero UI (max length
+   * &#x3D; 50)
+   *
+   * @param accountNumber String
+   */
   public void setAccountNumber(String accountNumber) {
     this.accountNumber = accountNumber;
   }
 
+  /**
+   * Current status of a contact – see contact status types
+   *
+   * @param contactStatus ContactStatusEnum
+   * @return Contact
+   */
   public Contact contactStatus(ContactStatusEnum contactStatus) {
     this.contactStatus = contactStatus;
     return this;
@@ -259,14 +339,30 @@ public class Contact {
    * @return contactStatus
    */
   @ApiModelProperty(value = "Current status of a contact – see contact status types")
+  /**
+   * Current status of a contact – see contact status types
+   *
+   * @return contactStatus ContactStatusEnum
+   */
   public ContactStatusEnum getContactStatus() {
     return contactStatus;
   }
 
+  /**
+   * Current status of a contact – see contact status types
+   *
+   * @param contactStatus ContactStatusEnum
+   */
   public void setContactStatus(ContactStatusEnum contactStatus) {
     this.contactStatus = contactStatus;
   }
 
+  /**
+   * Full name of contact/organisation (max length &#x3D; 255)
+   *
+   * @param name String
+   * @return Contact
+   */
   public Contact name(String name) {
     this.name = name;
     return this;
@@ -278,14 +374,30 @@ public class Contact {
    * @return name
    */
   @ApiModelProperty(value = "Full name of contact/organisation (max length = 255)")
+  /**
+   * Full name of contact/organisation (max length &#x3D; 255)
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Full name of contact/organisation (max length &#x3D; 255)
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * First name of contact person (max length &#x3D; 255)
+   *
+   * @param firstName String
+   * @return Contact
+   */
   public Contact firstName(String firstName) {
     this.firstName = firstName;
     return this;
@@ -297,14 +409,30 @@ public class Contact {
    * @return firstName
    */
   @ApiModelProperty(value = "First name of contact person (max length = 255)")
+  /**
+   * First name of contact person (max length &#x3D; 255)
+   *
+   * @return firstName String
+   */
   public String getFirstName() {
     return firstName;
   }
 
+  /**
+   * First name of contact person (max length &#x3D; 255)
+   *
+   * @param firstName String
+   */
   public void setFirstName(String firstName) {
     this.firstName = firstName;
   }
 
+  /**
+   * Last name of contact person (max length &#x3D; 255)
+   *
+   * @param lastName String
+   * @return Contact
+   */
   public Contact lastName(String lastName) {
     this.lastName = lastName;
     return this;
@@ -316,14 +444,30 @@ public class Contact {
    * @return lastName
    */
   @ApiModelProperty(value = "Last name of contact person (max length = 255)")
+  /**
+   * Last name of contact person (max length &#x3D; 255)
+   *
+   * @return lastName String
+   */
   public String getLastName() {
     return lastName;
   }
 
+  /**
+   * Last name of contact person (max length &#x3D; 255)
+   *
+   * @param lastName String
+   */
   public void setLastName(String lastName) {
     this.lastName = lastName;
   }
 
+  /**
+   * Email address of contact person (umlauts not supported) (max length &#x3D; 255)
+   *
+   * @param emailAddress String
+   * @return Contact
+   */
   public Contact emailAddress(String emailAddress) {
     this.emailAddress = emailAddress;
     return this;
@@ -336,14 +480,30 @@ public class Contact {
    */
   @ApiModelProperty(
       value = "Email address of contact person (umlauts not supported) (max length  = 255)")
+  /**
+   * Email address of contact person (umlauts not supported) (max length &#x3D; 255)
+   *
+   * @return emailAddress String
+   */
   public String getEmailAddress() {
     return emailAddress;
   }
 
+  /**
+   * Email address of contact person (umlauts not supported) (max length &#x3D; 255)
+   *
+   * @param emailAddress String
+   */
   public void setEmailAddress(String emailAddress) {
     this.emailAddress = emailAddress;
   }
 
+  /**
+   * Skype user name of contact
+   *
+   * @param skypeUserName String
+   * @return Contact
+   */
   public Contact skypeUserName(String skypeUserName) {
     this.skypeUserName = skypeUserName;
     return this;
@@ -355,19 +515,41 @@ public class Contact {
    * @return skypeUserName
    */
   @ApiModelProperty(value = "Skype user name of contact")
+  /**
+   * Skype user name of contact
+   *
+   * @return skypeUserName String
+   */
   public String getSkypeUserName() {
     return skypeUserName;
   }
 
+  /**
+   * Skype user name of contact
+   *
+   * @param skypeUserName String
+   */
   public void setSkypeUserName(String skypeUserName) {
     this.skypeUserName = skypeUserName;
   }
 
+  /**
+   * See contact persons
+   *
+   * @param contactPersons List&lt;ContactPerson&gt;
+   * @return Contact
+   */
   public Contact contactPersons(List<ContactPerson> contactPersons) {
     this.contactPersons = contactPersons;
     return this;
   }
 
+  /**
+   * See contact persons
+   *
+   * @param contactPersonsItem ContactPerson
+   * @return Contact
+   */
   public Contact addContactPersonsItem(ContactPerson contactPersonsItem) {
     if (this.contactPersons == null) {
       this.contactPersons = new ArrayList<ContactPerson>();
@@ -382,14 +564,30 @@ public class Contact {
    * @return contactPersons
    */
   @ApiModelProperty(value = "See contact persons")
+  /**
+   * See contact persons
+   *
+   * @return contactPersons List<ContactPerson>
+   */
   public List<ContactPerson> getContactPersons() {
     return contactPersons;
   }
 
+  /**
+   * See contact persons
+   *
+   * @param contactPersons List&lt;ContactPerson&gt;
+   */
   public void setContactPersons(List<ContactPerson> contactPersons) {
     this.contactPersons = contactPersons;
   }
 
+  /**
+   * Bank account number of contact
+   *
+   * @param bankAccountDetails String
+   * @return Contact
+   */
   public Contact bankAccountDetails(String bankAccountDetails) {
     this.bankAccountDetails = bankAccountDetails;
     return this;
@@ -401,14 +599,32 @@ public class Contact {
    * @return bankAccountDetails
    */
   @ApiModelProperty(value = "Bank account number of contact")
+  /**
+   * Bank account number of contact
+   *
+   * @return bankAccountDetails String
+   */
   public String getBankAccountDetails() {
     return bankAccountDetails;
   }
 
+  /**
+   * Bank account number of contact
+   *
+   * @param bankAccountDetails String
+   */
   public void setBankAccountDetails(String bankAccountDetails) {
     this.bankAccountDetails = bankAccountDetails;
   }
 
+  /**
+   * Tax number of contact – this is also known as the ABN (Australia), GST Number (New Zealand),
+   * VAT Number (UK) or Tax ID Number (US and global) in the Xero UI depending on which regionalized
+   * version of Xero you are using (max length &#x3D; 50)
+   *
+   * @param taxNumber String
+   * @return Contact
+   */
   public Contact taxNumber(String taxNumber) {
     this.taxNumber = taxNumber;
     return this;
@@ -426,14 +642,34 @@ public class Contact {
           "Tax number of contact – this is also known as the ABN (Australia), GST Number (New"
               + " Zealand), VAT Number (UK) or Tax ID Number (US and global) in the Xero UI"
               + " depending on which regionalized version of Xero you are using (max length = 50)")
+  /**
+   * Tax number of contact – this is also known as the ABN (Australia), GST Number (New Zealand),
+   * VAT Number (UK) or Tax ID Number (US and global) in the Xero UI depending on which regionalized
+   * version of Xero you are using (max length &#x3D; 50)
+   *
+   * @return taxNumber String
+   */
   public String getTaxNumber() {
     return taxNumber;
   }
 
+  /**
+   * Tax number of contact – this is also known as the ABN (Australia), GST Number (New Zealand),
+   * VAT Number (UK) or Tax ID Number (US and global) in the Xero UI depending on which regionalized
+   * version of Xero you are using (max length &#x3D; 50)
+   *
+   * @param taxNumber String
+   */
   public void setTaxNumber(String taxNumber) {
     this.taxNumber = taxNumber;
   }
 
+  /**
+   * The tax type from TaxRates
+   *
+   * @param accountsReceivableTaxType String
+   * @return Contact
+   */
   public Contact accountsReceivableTaxType(String accountsReceivableTaxType) {
     this.accountsReceivableTaxType = accountsReceivableTaxType;
     return this;
@@ -445,14 +681,30 @@ public class Contact {
    * @return accountsReceivableTaxType
    */
   @ApiModelProperty(value = "The tax type from TaxRates")
+  /**
+   * The tax type from TaxRates
+   *
+   * @return accountsReceivableTaxType String
+   */
   public String getAccountsReceivableTaxType() {
     return accountsReceivableTaxType;
   }
 
+  /**
+   * The tax type from TaxRates
+   *
+   * @param accountsReceivableTaxType String
+   */
   public void setAccountsReceivableTaxType(String accountsReceivableTaxType) {
     this.accountsReceivableTaxType = accountsReceivableTaxType;
   }
 
+  /**
+   * The tax type from TaxRates
+   *
+   * @param accountsPayableTaxType String
+   * @return Contact
+   */
   public Contact accountsPayableTaxType(String accountsPayableTaxType) {
     this.accountsPayableTaxType = accountsPayableTaxType;
     return this;
@@ -464,19 +716,41 @@ public class Contact {
    * @return accountsPayableTaxType
    */
   @ApiModelProperty(value = "The tax type from TaxRates")
+  /**
+   * The tax type from TaxRates
+   *
+   * @return accountsPayableTaxType String
+   */
   public String getAccountsPayableTaxType() {
     return accountsPayableTaxType;
   }
 
+  /**
+   * The tax type from TaxRates
+   *
+   * @param accountsPayableTaxType String
+   */
   public void setAccountsPayableTaxType(String accountsPayableTaxType) {
     this.accountsPayableTaxType = accountsPayableTaxType;
   }
 
+  /**
+   * Store certain address types for a contact – see address types
+   *
+   * @param addresses List&lt;Address&gt;
+   * @return Contact
+   */
   public Contact addresses(List<Address> addresses) {
     this.addresses = addresses;
     return this;
   }
 
+  /**
+   * Store certain address types for a contact – see address types
+   *
+   * @param addressesItem Address
+   * @return Contact
+   */
   public Contact addAddressesItem(Address addressesItem) {
     if (this.addresses == null) {
       this.addresses = new ArrayList<Address>();
@@ -491,19 +765,41 @@ public class Contact {
    * @return addresses
    */
   @ApiModelProperty(value = "Store certain address types for a contact – see address types")
+  /**
+   * Store certain address types for a contact – see address types
+   *
+   * @return addresses List<Address>
+   */
   public List<Address> getAddresses() {
     return addresses;
   }
 
+  /**
+   * Store certain address types for a contact – see address types
+   *
+   * @param addresses List&lt;Address&gt;
+   */
   public void setAddresses(List<Address> addresses) {
     this.addresses = addresses;
   }
 
+  /**
+   * Store certain phone types for a contact – see phone types
+   *
+   * @param phones List&lt;Phone&gt;
+   * @return Contact
+   */
   public Contact phones(List<Phone> phones) {
     this.phones = phones;
     return this;
   }
 
+  /**
+   * Store certain phone types for a contact – see phone types
+   *
+   * @param phonesItem Phone
+   * @return Contact
+   */
   public Contact addPhonesItem(Phone phonesItem) {
     if (this.phones == null) {
       this.phones = new ArrayList<Phone>();
@@ -518,14 +814,32 @@ public class Contact {
    * @return phones
    */
   @ApiModelProperty(value = "Store certain phone types for a contact – see phone types")
+  /**
+   * Store certain phone types for a contact – see phone types
+   *
+   * @return phones List<Phone>
+   */
   public List<Phone> getPhones() {
     return phones;
   }
 
+  /**
+   * Store certain phone types for a contact – see phone types
+   *
+   * @param phones List&lt;Phone&gt;
+   */
   public void setPhones(List<Phone> phones) {
     this.phones = phones;
   }
 
+  /**
+   * true or false – Boolean that describes if a contact that has any AP invoices entered against
+   * them. Cannot be set via PUT or POST – it is automatically set when an accounts payable invoice
+   * is generated against this contact.
+   *
+   * @param isSupplier Boolean
+   * @return Contact
+   */
   public Contact isSupplier(Boolean isSupplier) {
     this.isSupplier = isSupplier;
     return this;
@@ -543,14 +857,36 @@ public class Contact {
           "true or false – Boolean that describes if a contact that has any AP  invoices entered"
               + " against them. Cannot be set via PUT or POST – it is automatically set when an"
               + " accounts payable invoice is generated against this contact.")
+  /**
+   * true or false – Boolean that describes if a contact that has any AP invoices entered against
+   * them. Cannot be set via PUT or POST – it is automatically set when an accounts payable invoice
+   * is generated against this contact.
+   *
+   * @return isSupplier Boolean
+   */
   public Boolean getIsSupplier() {
     return isSupplier;
   }
 
+  /**
+   * true or false – Boolean that describes if a contact that has any AP invoices entered against
+   * them. Cannot be set via PUT or POST – it is automatically set when an accounts payable invoice
+   * is generated against this contact.
+   *
+   * @param isSupplier Boolean
+   */
   public void setIsSupplier(Boolean isSupplier) {
     this.isSupplier = isSupplier;
   }
 
+  /**
+   * true or false – Boolean that describes if a contact has any AR invoices entered against them.
+   * Cannot be set via PUT or POST – it is automatically set when an accounts receivable invoice is
+   * generated against this contact.
+   *
+   * @param isCustomer Boolean
+   * @return Contact
+   */
   public Contact isCustomer(Boolean isCustomer) {
     this.isCustomer = isCustomer;
     return this;
@@ -568,14 +904,34 @@ public class Contact {
           "true or false – Boolean that describes if a contact has any AR invoices entered against"
               + " them. Cannot be set via PUT or POST – it is automatically set when an accounts"
               + " receivable invoice is generated against this contact.")
+  /**
+   * true or false – Boolean that describes if a contact has any AR invoices entered against them.
+   * Cannot be set via PUT or POST – it is automatically set when an accounts receivable invoice is
+   * generated against this contact.
+   *
+   * @return isCustomer Boolean
+   */
   public Boolean getIsCustomer() {
     return isCustomer;
   }
 
+  /**
+   * true or false – Boolean that describes if a contact has any AR invoices entered against them.
+   * Cannot be set via PUT or POST – it is automatically set when an accounts receivable invoice is
+   * generated against this contact.
+   *
+   * @param isCustomer Boolean
+   */
   public void setIsCustomer(Boolean isCustomer) {
     this.isCustomer = isCustomer;
   }
 
+  /**
+   * defaultCurrency
+   *
+   * @param defaultCurrency CurrencyCode
+   * @return Contact
+   */
   public Contact defaultCurrency(CurrencyCode defaultCurrency) {
     this.defaultCurrency = defaultCurrency;
     return this;
@@ -587,14 +943,30 @@ public class Contact {
    * @return defaultCurrency
    */
   @ApiModelProperty(value = "")
+  /**
+   * defaultCurrency
+   *
+   * @return defaultCurrency CurrencyCode
+   */
   public CurrencyCode getDefaultCurrency() {
     return defaultCurrency;
   }
 
+  /**
+   * defaultCurrency
+   *
+   * @param defaultCurrency CurrencyCode
+   */
   public void setDefaultCurrency(CurrencyCode defaultCurrency) {
     this.defaultCurrency = defaultCurrency;
   }
 
+  /**
+   * Store XeroNetworkKey for contacts.
+   *
+   * @param xeroNetworkKey String
+   * @return Contact
+   */
   public Contact xeroNetworkKey(String xeroNetworkKey) {
     this.xeroNetworkKey = xeroNetworkKey;
     return this;
@@ -606,14 +978,30 @@ public class Contact {
    * @return xeroNetworkKey
    */
   @ApiModelProperty(value = "Store XeroNetworkKey for contacts.")
+  /**
+   * Store XeroNetworkKey for contacts.
+   *
+   * @return xeroNetworkKey String
+   */
   public String getXeroNetworkKey() {
     return xeroNetworkKey;
   }
 
+  /**
+   * Store XeroNetworkKey for contacts.
+   *
+   * @param xeroNetworkKey String
+   */
   public void setXeroNetworkKey(String xeroNetworkKey) {
     this.xeroNetworkKey = xeroNetworkKey;
   }
 
+  /**
+   * The default sales account code for contacts
+   *
+   * @param salesDefaultAccountCode String
+   * @return Contact
+   */
   public Contact salesDefaultAccountCode(String salesDefaultAccountCode) {
     this.salesDefaultAccountCode = salesDefaultAccountCode;
     return this;
@@ -625,14 +1013,30 @@ public class Contact {
    * @return salesDefaultAccountCode
    */
   @ApiModelProperty(value = "The default sales account code for contacts")
+  /**
+   * The default sales account code for contacts
+   *
+   * @return salesDefaultAccountCode String
+   */
   public String getSalesDefaultAccountCode() {
     return salesDefaultAccountCode;
   }
 
+  /**
+   * The default sales account code for contacts
+   *
+   * @param salesDefaultAccountCode String
+   */
   public void setSalesDefaultAccountCode(String salesDefaultAccountCode) {
     this.salesDefaultAccountCode = salesDefaultAccountCode;
   }
 
+  /**
+   * The default purchases account code for contacts
+   *
+   * @param purchasesDefaultAccountCode String
+   * @return Contact
+   */
   public Contact purchasesDefaultAccountCode(String purchasesDefaultAccountCode) {
     this.purchasesDefaultAccountCode = purchasesDefaultAccountCode;
     return this;
@@ -644,19 +1048,41 @@ public class Contact {
    * @return purchasesDefaultAccountCode
    */
   @ApiModelProperty(value = "The default purchases account code for contacts")
+  /**
+   * The default purchases account code for contacts
+   *
+   * @return purchasesDefaultAccountCode String
+   */
   public String getPurchasesDefaultAccountCode() {
     return purchasesDefaultAccountCode;
   }
 
+  /**
+   * The default purchases account code for contacts
+   *
+   * @param purchasesDefaultAccountCode String
+   */
   public void setPurchasesDefaultAccountCode(String purchasesDefaultAccountCode) {
     this.purchasesDefaultAccountCode = purchasesDefaultAccountCode;
   }
 
+  /**
+   * The default sales tracking categories for contacts
+   *
+   * @param salesTrackingCategories List&lt;SalesTrackingCategory&gt;
+   * @return Contact
+   */
   public Contact salesTrackingCategories(List<SalesTrackingCategory> salesTrackingCategories) {
     this.salesTrackingCategories = salesTrackingCategories;
     return this;
   }
 
+  /**
+   * The default sales tracking categories for contacts
+   *
+   * @param salesTrackingCategoriesItem SalesTrackingCategory
+   * @return Contact
+   */
   public Contact addSalesTrackingCategoriesItem(SalesTrackingCategory salesTrackingCategoriesItem) {
     if (this.salesTrackingCategories == null) {
       this.salesTrackingCategories = new ArrayList<SalesTrackingCategory>();
@@ -671,20 +1097,42 @@ public class Contact {
    * @return salesTrackingCategories
    */
   @ApiModelProperty(value = "The default sales tracking categories for contacts")
+  /**
+   * The default sales tracking categories for contacts
+   *
+   * @return salesTrackingCategories List<SalesTrackingCategory>
+   */
   public List<SalesTrackingCategory> getSalesTrackingCategories() {
     return salesTrackingCategories;
   }
 
+  /**
+   * The default sales tracking categories for contacts
+   *
+   * @param salesTrackingCategories List&lt;SalesTrackingCategory&gt;
+   */
   public void setSalesTrackingCategories(List<SalesTrackingCategory> salesTrackingCategories) {
     this.salesTrackingCategories = salesTrackingCategories;
   }
 
+  /**
+   * The default purchases tracking categories for contacts
+   *
+   * @param purchasesTrackingCategories List&lt;SalesTrackingCategory&gt;
+   * @return Contact
+   */
   public Contact purchasesTrackingCategories(
       List<SalesTrackingCategory> purchasesTrackingCategories) {
     this.purchasesTrackingCategories = purchasesTrackingCategories;
     return this;
   }
 
+  /**
+   * The default purchases tracking categories for contacts
+   *
+   * @param purchasesTrackingCategoriesItem SalesTrackingCategory
+   * @return Contact
+   */
   public Contact addPurchasesTrackingCategoriesItem(
       SalesTrackingCategory purchasesTrackingCategoriesItem) {
     if (this.purchasesTrackingCategories == null) {
@@ -700,15 +1148,32 @@ public class Contact {
    * @return purchasesTrackingCategories
    */
   @ApiModelProperty(value = "The default purchases tracking categories for contacts")
+  /**
+   * The default purchases tracking categories for contacts
+   *
+   * @return purchasesTrackingCategories List<SalesTrackingCategory>
+   */
   public List<SalesTrackingCategory> getPurchasesTrackingCategories() {
     return purchasesTrackingCategories;
   }
 
+  /**
+   * The default purchases tracking categories for contacts
+   *
+   * @param purchasesTrackingCategories List&lt;SalesTrackingCategory&gt;
+   */
   public void setPurchasesTrackingCategories(
       List<SalesTrackingCategory> purchasesTrackingCategories) {
     this.purchasesTrackingCategories = purchasesTrackingCategories;
   }
 
+  /**
+   * The name of the Tracking Category assigned to the contact under SalesTrackingCategories and
+   * PurchasesTrackingCategories
+   *
+   * @param trackingCategoryName String
+   * @return Contact
+   */
   public Contact trackingCategoryName(String trackingCategoryName) {
     this.trackingCategoryName = trackingCategoryName;
     return this;
@@ -724,14 +1189,33 @@ public class Contact {
       value =
           "The name of the Tracking Category assigned to the contact under SalesTrackingCategories"
               + " and PurchasesTrackingCategories")
+  /**
+   * The name of the Tracking Category assigned to the contact under SalesTrackingCategories and
+   * PurchasesTrackingCategories
+   *
+   * @return trackingCategoryName String
+   */
   public String getTrackingCategoryName() {
     return trackingCategoryName;
   }
 
+  /**
+   * The name of the Tracking Category assigned to the contact under SalesTrackingCategories and
+   * PurchasesTrackingCategories
+   *
+   * @param trackingCategoryName String
+   */
   public void setTrackingCategoryName(String trackingCategoryName) {
     this.trackingCategoryName = trackingCategoryName;
   }
 
+  /**
+   * The name of the Tracking Option assigned to the contact under SalesTrackingCategories and
+   * PurchasesTrackingCategories
+   *
+   * @param trackingCategoryOption String
+   * @return Contact
+   */
   public Contact trackingCategoryOption(String trackingCategoryOption) {
     this.trackingCategoryOption = trackingCategoryOption;
     return this;
@@ -747,14 +1231,32 @@ public class Contact {
       value =
           "The name of the Tracking Option assigned to the contact under SalesTrackingCategories"
               + " and PurchasesTrackingCategories")
+  /**
+   * The name of the Tracking Option assigned to the contact under SalesTrackingCategories and
+   * PurchasesTrackingCategories
+   *
+   * @return trackingCategoryOption String
+   */
   public String getTrackingCategoryOption() {
     return trackingCategoryOption;
   }
 
+  /**
+   * The name of the Tracking Option assigned to the contact under SalesTrackingCategories and
+   * PurchasesTrackingCategories
+   *
+   * @param trackingCategoryOption String
+   */
   public void setTrackingCategoryOption(String trackingCategoryOption) {
     this.trackingCategoryOption = trackingCategoryOption;
   }
 
+  /**
+   * paymentTerms
+   *
+   * @param paymentTerms PaymentTerm
+   * @return Contact
+   */
   public Contact paymentTerms(PaymentTerm paymentTerms) {
     this.paymentTerms = paymentTerms;
     return this;
@@ -766,10 +1268,20 @@ public class Contact {
    * @return paymentTerms
    */
   @ApiModelProperty(value = "")
+  /**
+   * paymentTerms
+   *
+   * @return paymentTerms PaymentTerm
+   */
   public PaymentTerm getPaymentTerms() {
     return paymentTerms;
   }
 
+  /**
+   * paymentTerms
+   *
+   * @param paymentTerms PaymentTerm
+   */
   public void setPaymentTerms(PaymentTerm paymentTerms) {
     this.paymentTerms = paymentTerms;
   }
@@ -782,10 +1294,19 @@ public class Contact {
   @ApiModelProperty(
       example = "/Date(1573755038314)/",
       value = "UTC timestamp of last update to contact")
+  /**
+   * UTC timestamp of last update to contact
+   *
+   * @return updatedDateUTC String
+   */
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-
+  /**
+   * UTC timestamp of last update to contact
+   *
+   * @return OffsetDateTime
+   */
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
@@ -797,11 +1318,23 @@ public class Contact {
     return null;
   }
 
+  /**
+   * Displays which contact groups a contact is included in
+   *
+   * @param contactGroups List&lt;ContactGroup&gt;
+   * @return Contact
+   */
   public Contact contactGroups(List<ContactGroup> contactGroups) {
     this.contactGroups = contactGroups;
     return this;
   }
 
+  /**
+   * Displays which contact groups a contact is included in
+   *
+   * @param contactGroupsItem ContactGroup
+   * @return Contact
+   */
   public Contact addContactGroupsItem(ContactGroup contactGroupsItem) {
     if (this.contactGroups == null) {
       this.contactGroups = new ArrayList<ContactGroup>();
@@ -816,10 +1349,20 @@ public class Contact {
    * @return contactGroups
    */
   @ApiModelProperty(value = "Displays which contact groups a contact is included in")
+  /**
+   * Displays which contact groups a contact is included in
+   *
+   * @return contactGroups List<ContactGroup>
+   */
   public List<ContactGroup> getContactGroups() {
     return contactGroups;
   }
 
+  /**
+   * Displays which contact groups a contact is included in
+   *
+   * @param contactGroups List&lt;ContactGroup&gt;
+   */
   public void setContactGroups(List<ContactGroup> contactGroups) {
     this.contactGroups = contactGroups;
   }
@@ -830,10 +1373,21 @@ public class Contact {
    * @return website
    */
   @ApiModelProperty(value = "Website address for contact (read only)")
+  /**
+   * Website address for contact (read only)
+   *
+   * @return website String
+   */
   public String getWebsite() {
     return website;
   }
 
+  /**
+   * brandingTheme
+   *
+   * @param brandingTheme BrandingTheme
+   * @return Contact
+   */
   public Contact brandingTheme(BrandingTheme brandingTheme) {
     this.brandingTheme = brandingTheme;
     return this;
@@ -845,14 +1399,30 @@ public class Contact {
    * @return brandingTheme
    */
   @ApiModelProperty(value = "")
+  /**
+   * brandingTheme
+   *
+   * @return brandingTheme BrandingTheme
+   */
   public BrandingTheme getBrandingTheme() {
     return brandingTheme;
   }
 
+  /**
+   * brandingTheme
+   *
+   * @param brandingTheme BrandingTheme
+   */
   public void setBrandingTheme(BrandingTheme brandingTheme) {
     this.brandingTheme = brandingTheme;
   }
 
+  /**
+   * batchPayments
+   *
+   * @param batchPayments BatchPaymentDetails
+   * @return Contact
+   */
   public Contact batchPayments(BatchPaymentDetails batchPayments) {
     this.batchPayments = batchPayments;
     return this;
@@ -864,10 +1434,20 @@ public class Contact {
    * @return batchPayments
    */
   @ApiModelProperty(value = "")
+  /**
+   * batchPayments
+   *
+   * @return batchPayments BatchPaymentDetails
+   */
   public BatchPaymentDetails getBatchPayments() {
     return batchPayments;
   }
 
+  /**
+   * batchPayments
+   *
+   * @param batchPayments BatchPaymentDetails
+   */
   public void setBatchPayments(BatchPaymentDetails batchPayments) {
     this.batchPayments = batchPayments;
   }
@@ -878,10 +1458,21 @@ public class Contact {
    * @return discount
    */
   @ApiModelProperty(value = "The default discount rate for the contact (read only)")
+  /**
+   * The default discount rate for the contact (read only)
+   *
+   * @return discount Double
+   */
   public Double getDiscount() {
     return discount;
   }
 
+  /**
+   * balances
+   *
+   * @param balances Balances
+   * @return Contact
+   */
   public Contact balances(Balances balances) {
     this.balances = balances;
     return this;
@@ -893,19 +1484,41 @@ public class Contact {
    * @return balances
    */
   @ApiModelProperty(value = "")
+  /**
+   * balances
+   *
+   * @return balances Balances
+   */
   public Balances getBalances() {
     return balances;
   }
 
+  /**
+   * balances
+   *
+   * @param balances Balances
+   */
   public void setBalances(Balances balances) {
     this.balances = balances;
   }
 
+  /**
+   * Displays array of attachments from the API
+   *
+   * @param attachments List&lt;Attachment&gt;
+   * @return Contact
+   */
   public Contact attachments(List<Attachment> attachments) {
     this.attachments = attachments;
     return this;
   }
 
+  /**
+   * Displays array of attachments from the API
+   *
+   * @param attachmentsItem Attachment
+   * @return Contact
+   */
   public Contact addAttachmentsItem(Attachment attachmentsItem) {
     if (this.attachments == null) {
       this.attachments = new ArrayList<Attachment>();
@@ -920,14 +1533,30 @@ public class Contact {
    * @return attachments
    */
   @ApiModelProperty(value = "Displays array of attachments from the API")
+  /**
+   * Displays array of attachments from the API
+   *
+   * @return attachments List<Attachment>
+   */
   public List<Attachment> getAttachments() {
     return attachments;
   }
 
+  /**
+   * Displays array of attachments from the API
+   *
+   * @param attachments List&lt;Attachment&gt;
+   */
   public void setAttachments(List<Attachment> attachments) {
     this.attachments = attachments;
   }
 
+  /**
+   * A boolean to indicate if a contact has an attachment
+   *
+   * @param hasAttachments Boolean
+   * @return Contact
+   */
   public Contact hasAttachments(Boolean hasAttachments) {
     this.hasAttachments = hasAttachments;
     return this;
@@ -941,19 +1570,41 @@ public class Contact {
   @ApiModelProperty(
       example = "false",
       value = "A boolean to indicate if a contact has an attachment")
+  /**
+   * A boolean to indicate if a contact has an attachment
+   *
+   * @return hasAttachments Boolean
+   */
   public Boolean getHasAttachments() {
     return hasAttachments;
   }
 
+  /**
+   * A boolean to indicate if a contact has an attachment
+   *
+   * @param hasAttachments Boolean
+   */
   public void setHasAttachments(Boolean hasAttachments) {
     this.hasAttachments = hasAttachments;
   }
 
+  /**
+   * Displays validation errors returned from the API
+   *
+   * @param validationErrors List&lt;ValidationError&gt;
+   * @return Contact
+   */
   public Contact validationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
     return this;
   }
 
+  /**
+   * Displays validation errors returned from the API
+   *
+   * @param validationErrorsItem ValidationError
+   * @return Contact
+   */
   public Contact addValidationErrorsItem(ValidationError validationErrorsItem) {
     if (this.validationErrors == null) {
       this.validationErrors = new ArrayList<ValidationError>();
@@ -968,14 +1619,30 @@ public class Contact {
    * @return validationErrors
    */
   @ApiModelProperty(value = "Displays validation errors returned from the API")
+  /**
+   * Displays validation errors returned from the API
+   *
+   * @return validationErrors List<ValidationError>
+   */
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
   }
 
+  /**
+   * Displays validation errors returned from the API
+   *
+   * @param validationErrors List&lt;ValidationError&gt;
+   */
   public void setValidationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
   }
 
+  /**
+   * A boolean to indicate if a contact has an validation errors
+   *
+   * @param hasValidationErrors Boolean
+   * @return Contact
+   */
   public Contact hasValidationErrors(Boolean hasValidationErrors) {
     this.hasValidationErrors = hasValidationErrors;
     return this;
@@ -989,14 +1656,30 @@ public class Contact {
   @ApiModelProperty(
       example = "false",
       value = "A boolean to indicate if a contact has an validation errors")
+  /**
+   * A boolean to indicate if a contact has an validation errors
+   *
+   * @return hasValidationErrors Boolean
+   */
   public Boolean getHasValidationErrors() {
     return hasValidationErrors;
   }
 
+  /**
+   * A boolean to indicate if a contact has an validation errors
+   *
+   * @param hasValidationErrors Boolean
+   */
   public void setHasValidationErrors(Boolean hasValidationErrors) {
     this.hasValidationErrors = hasValidationErrors;
   }
 
+  /**
+   * Status of object
+   *
+   * @param statusAttributeString String
+   * @return Contact
+   */
   public Contact statusAttributeString(String statusAttributeString) {
     this.statusAttributeString = statusAttributeString;
     return this;
@@ -1008,10 +1691,20 @@ public class Contact {
    * @return statusAttributeString
    */
   @ApiModelProperty(value = "Status of object")
+  /**
+   * Status of object
+   *
+   * @return statusAttributeString String
+   */
   public String getStatusAttributeString() {
     return statusAttributeString;
   }
 
+  /**
+   * Status of object
+   *
+   * @param statusAttributeString String
+   */
   public void setStatusAttributeString(String statusAttributeString) {
     this.statusAttributeString = statusAttributeString;
   }

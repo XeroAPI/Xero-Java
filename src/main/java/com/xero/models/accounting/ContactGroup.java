@@ -32,8 +32,10 @@ public class ContactGroup {
    * contact groups with a status of ACTIVE are returned on GETs.
    */
   public enum StatusEnum {
+    /** ACTIVE */
     ACTIVE("ACTIVE"),
 
+    /** DELETED */
     DELETED("DELETED");
 
     private String value;
@@ -42,16 +44,31 @@ public class ContactGroup {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
@@ -71,7 +88,12 @@ public class ContactGroup {
 
   @JsonProperty("Contacts")
   private List<Contact> contacts = new ArrayList<Contact>();
-
+  /**
+   * The Name of the contact group. Required when creating a new contact group
+   *
+   * @param name String
+   * @return ContactGroup
+   */
   public ContactGroup name(String name) {
     this.name = name;
     return this;
@@ -84,14 +106,31 @@ public class ContactGroup {
    */
   @ApiModelProperty(
       value = "The Name of the contact group. Required when creating a new contact  group")
+  /**
+   * The Name of the contact group. Required when creating a new contact group
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * The Name of the contact group. Required when creating a new contact group
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * The Status of a contact group. To delete a contact group update the status to DELETED. Only
+   * contact groups with a status of ACTIVE are returned on GETs.
+   *
+   * @param status StatusEnum
+   * @return ContactGroup
+   */
   public ContactGroup status(StatusEnum status) {
     this.status = status;
     return this;
@@ -107,14 +146,33 @@ public class ContactGroup {
       value =
           "The Status of a contact group. To delete a contact group update the status to DELETED."
               + " Only contact groups with a status of ACTIVE are returned on GETs.")
+  /**
+   * The Status of a contact group. To delete a contact group update the status to DELETED. Only
+   * contact groups with a status of ACTIVE are returned on GETs.
+   *
+   * @return status StatusEnum
+   */
   public StatusEnum getStatus() {
     return status;
   }
 
+  /**
+   * The Status of a contact group. To delete a contact group update the status to DELETED. Only
+   * contact groups with a status of ACTIVE are returned on GETs.
+   *
+   * @param status StatusEnum
+   */
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
+  /**
+   * The Xero identifier for an contact group – specified as a string following the endpoint name.
+   * e.g. /297c2dc5-cc47-4afd-8ec8-74990b8761e9
+   *
+   * @param contactGroupID UUID
+   * @return ContactGroup
+   */
   public ContactGroup contactGroupID(UUID contactGroupID) {
     this.contactGroupID = contactGroupID;
     return this;
@@ -130,19 +188,45 @@ public class ContactGroup {
       value =
           "The Xero identifier for an contact group – specified as a string following the endpoint"
               + " name. e.g. /297c2dc5-cc47-4afd-8ec8-74990b8761e9")
+  /**
+   * The Xero identifier for an contact group – specified as a string following the endpoint name.
+   * e.g. /297c2dc5-cc47-4afd-8ec8-74990b8761e9
+   *
+   * @return contactGroupID UUID
+   */
   public UUID getContactGroupID() {
     return contactGroupID;
   }
 
+  /**
+   * The Xero identifier for an contact group – specified as a string following the endpoint name.
+   * e.g. /297c2dc5-cc47-4afd-8ec8-74990b8761e9
+   *
+   * @param contactGroupID UUID
+   */
   public void setContactGroupID(UUID contactGroupID) {
     this.contactGroupID = contactGroupID;
   }
 
+  /**
+   * The ContactID and Name of Contacts in a contact group. Returned on GETs when the ContactGroupID
+   * is supplied in the URL.
+   *
+   * @param contacts List&lt;Contact&gt;
+   * @return ContactGroup
+   */
   public ContactGroup contacts(List<Contact> contacts) {
     this.contacts = contacts;
     return this;
   }
 
+  /**
+   * The ContactID and Name of Contacts in a contact group. Returned on GETs when the ContactGroupID
+   * is supplied in the URL.
+   *
+   * @param contactsItem Contact
+   * @return ContactGroup
+   */
   public ContactGroup addContactsItem(Contact contactsItem) {
     if (this.contacts == null) {
       this.contacts = new ArrayList<Contact>();
@@ -161,10 +245,22 @@ public class ContactGroup {
       value =
           "The ContactID and Name of Contacts in a contact group. Returned on GETs when the"
               + " ContactGroupID is supplied in the URL.")
+  /**
+   * The ContactID and Name of Contacts in a contact group. Returned on GETs when the ContactGroupID
+   * is supplied in the URL.
+   *
+   * @return contacts List<Contact>
+   */
   public List<Contact> getContacts() {
     return contacts;
   }
 
+  /**
+   * The ContactID and Name of Contacts in a contact group. Returned on GETs when the ContactGroupID
+   * is supplied in the URL.
+   *
+   * @param contacts List&lt;Contact&gt;
+   */
   public void setContacts(List<Contact> contacts) {
     this.contacts = contacts;
   }

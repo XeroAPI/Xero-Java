@@ -23,14 +23,19 @@ public class ExternalLink {
   StringUtil util = new StringUtil();
   /** See External link types */
   public enum LinkTypeEnum {
+    /** FACEBOOK */
     FACEBOOK("Facebook"),
 
+    /** GOOGLEPLUS */
     GOOGLEPLUS("GooglePlus"),
 
+    /** LINKEDIN */
     LINKEDIN("LinkedIn"),
 
+    /** TWITTER */
     TWITTER("Twitter"),
 
+    /** WEBSITE */
     WEBSITE("Website");
 
     private String value;
@@ -39,16 +44,31 @@ public class ExternalLink {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static LinkTypeEnum fromValue(String value) {
       for (LinkTypeEnum b : LinkTypeEnum.values()) {
@@ -68,7 +88,12 @@ public class ExternalLink {
 
   @JsonProperty("Description")
   private String description;
-
+  /**
+   * See External link types
+   *
+   * @param linkType LinkTypeEnum
+   * @return ExternalLink
+   */
   public ExternalLink linkType(LinkTypeEnum linkType) {
     this.linkType = linkType;
     return this;
@@ -80,14 +105,30 @@ public class ExternalLink {
    * @return linkType
    */
   @ApiModelProperty(value = "See External link types")
+  /**
+   * See External link types
+   *
+   * @return linkType LinkTypeEnum
+   */
   public LinkTypeEnum getLinkType() {
     return linkType;
   }
 
+  /**
+   * See External link types
+   *
+   * @param linkType LinkTypeEnum
+   */
   public void setLinkType(LinkTypeEnum linkType) {
     this.linkType = linkType;
   }
 
+  /**
+   * URL for service e.g. http://twitter.com/xeroapi
+   *
+   * @param url String
+   * @return ExternalLink
+   */
   public ExternalLink url(String url) {
     this.url = url;
     return this;
@@ -99,14 +140,30 @@ public class ExternalLink {
    * @return url
    */
   @ApiModelProperty(value = "URL for service e.g. http://twitter.com/xeroapi")
+  /**
+   * URL for service e.g. http://twitter.com/xeroapi
+   *
+   * @return url String
+   */
   public String getUrl() {
     return url;
   }
 
+  /**
+   * URL for service e.g. http://twitter.com/xeroapi
+   *
+   * @param url String
+   */
   public void setUrl(String url) {
     this.url = url;
   }
 
+  /**
+   * description
+   *
+   * @param description String
+   * @return ExternalLink
+   */
   public ExternalLink description(String description) {
     this.description = description;
     return this;
@@ -118,10 +175,20 @@ public class ExternalLink {
    * @return description
    */
   @ApiModelProperty(value = "")
+  /**
+   * description
+   *
+   * @return description String
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * description
+   *
+   * @param description String
+   */
   public void setDescription(String description) {
     this.description = description;
   }

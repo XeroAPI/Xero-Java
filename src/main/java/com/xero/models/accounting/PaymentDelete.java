@@ -22,7 +22,12 @@ public class PaymentDelete {
 
   @JsonProperty("Status")
   private String status = "DELETED";
-
+  /**
+   * The status of the payment.
+   *
+   * @param status String
+   * @return PaymentDelete
+   */
   public PaymentDelete status(String status) {
     this.status = status;
     return this;
@@ -34,10 +39,20 @@ public class PaymentDelete {
    * @return status
    */
   @ApiModelProperty(required = true, value = "The status of the payment.")
+  /**
+   * The status of the payment.
+   *
+   * @return status String
+   */
   public String getStatus() {
     return status;
   }
 
+  /**
+   * The status of the payment.
+   *
+   * @param status String
+   */
   public void setStatus(String status) {
     this.status = status;
   }

@@ -30,7 +30,12 @@ public class EmployeeLeaveTypes {
 
   @JsonProperty("leaveTypes")
   private List<EmployeeLeaveType> leaveTypes = new ArrayList<EmployeeLeaveType>();
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return EmployeeLeaveTypes
+   */
   public EmployeeLeaveTypes pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -42,14 +47,30 @@ public class EmployeeLeaveTypes {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return EmployeeLeaveTypes
+   */
   public EmployeeLeaveTypes problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -61,19 +82,41 @@ public class EmployeeLeaveTypes {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * leaveTypes
+   *
+   * @param leaveTypes List&lt;EmployeeLeaveType&gt;
+   * @return EmployeeLeaveTypes
+   */
   public EmployeeLeaveTypes leaveTypes(List<EmployeeLeaveType> leaveTypes) {
     this.leaveTypes = leaveTypes;
     return this;
   }
 
+  /**
+   * leaveTypes
+   *
+   * @param leaveTypesItem EmployeeLeaveType
+   * @return EmployeeLeaveTypes
+   */
   public EmployeeLeaveTypes addLeaveTypesItem(EmployeeLeaveType leaveTypesItem) {
     if (this.leaveTypes == null) {
       this.leaveTypes = new ArrayList<EmployeeLeaveType>();
@@ -88,10 +131,20 @@ public class EmployeeLeaveTypes {
    * @return leaveTypes
    */
   @ApiModelProperty(value = "")
+  /**
+   * leaveTypes
+   *
+   * @return leaveTypes List<EmployeeLeaveType>
+   */
   public List<EmployeeLeaveType> getLeaveTypes() {
     return leaveTypes;
   }
 
+  /**
+   * leaveTypes
+   *
+   * @param leaveTypes List&lt;EmployeeLeaveType&gt;
+   */
   public void setLeaveTypes(List<EmployeeLeaveType> leaveTypes) {
     this.leaveTypes = leaveTypes;
   }

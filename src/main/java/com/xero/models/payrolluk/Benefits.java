@@ -30,7 +30,12 @@ public class Benefits {
 
   @JsonProperty("benefits")
   private List<Benefit> benefits = new ArrayList<Benefit>();
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return Benefits
+   */
   public Benefits pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -42,14 +47,30 @@ public class Benefits {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return Benefits
+   */
   public Benefits problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -61,19 +82,41 @@ public class Benefits {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * benefits
+   *
+   * @param benefits List&lt;Benefit&gt;
+   * @return Benefits
+   */
   public Benefits benefits(List<Benefit> benefits) {
     this.benefits = benefits;
     return this;
   }
 
+  /**
+   * benefits
+   *
+   * @param benefitsItem Benefit
+   * @return Benefits
+   */
   public Benefits addBenefitsItem(Benefit benefitsItem) {
     if (this.benefits == null) {
       this.benefits = new ArrayList<Benefit>();
@@ -88,10 +131,20 @@ public class Benefits {
    * @return benefits
    */
   @ApiModelProperty(value = "")
+  /**
+   * benefits
+   *
+   * @return benefits List<Benefit>
+   */
   public List<Benefit> getBenefits() {
     return benefits;
   }
 
+  /**
+   * benefits
+   *
+   * @param benefits List&lt;Benefit&gt;
+   */
   public void setBenefits(List<Benefit> benefits) {
     this.benefits = benefits;
   }

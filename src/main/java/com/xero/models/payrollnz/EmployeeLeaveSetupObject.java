@@ -28,7 +28,12 @@ public class EmployeeLeaveSetupObject {
 
   @JsonProperty("leaveSetup")
   private EmployeeLeaveSetup leaveSetup;
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return EmployeeLeaveSetupObject
+   */
   public EmployeeLeaveSetupObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -40,14 +45,30 @@ public class EmployeeLeaveSetupObject {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return EmployeeLeaveSetupObject
+   */
   public EmployeeLeaveSetupObject problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -59,14 +80,30 @@ public class EmployeeLeaveSetupObject {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * leaveSetup
+   *
+   * @param leaveSetup EmployeeLeaveSetup
+   * @return EmployeeLeaveSetupObject
+   */
   public EmployeeLeaveSetupObject leaveSetup(EmployeeLeaveSetup leaveSetup) {
     this.leaveSetup = leaveSetup;
     return this;
@@ -78,10 +115,20 @@ public class EmployeeLeaveSetupObject {
    * @return leaveSetup
    */
   @ApiModelProperty(value = "")
+  /**
+   * leaveSetup
+   *
+   * @return leaveSetup EmployeeLeaveSetup
+   */
   public EmployeeLeaveSetup getLeaveSetup() {
     return leaveSetup;
   }
 
+  /**
+   * leaveSetup
+   *
+   * @param leaveSetup EmployeeLeaveSetup
+   */
   public void setLeaveSetup(EmployeeLeaveSetup leaveSetup) {
     this.leaveSetup = leaveSetup;
   }

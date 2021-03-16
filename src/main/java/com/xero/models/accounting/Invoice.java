@@ -31,20 +31,28 @@ public class Invoice {
   StringUtil util = new StringUtil();
   /** See Invoice Types */
   public enum TypeEnum {
+    /** ACCPAY */
     ACCPAY("ACCPAY"),
 
+    /** ACCPAYCREDIT */
     ACCPAYCREDIT("ACCPAYCREDIT"),
 
+    /** APOVERPAYMENT */
     APOVERPAYMENT("APOVERPAYMENT"),
 
+    /** APPREPAYMENT */
     APPREPAYMENT("APPREPAYMENT"),
 
+    /** ACCREC */
     ACCREC("ACCREC"),
 
+    /** ACCRECCREDIT */
     ACCRECCREDIT("ACCRECCREDIT"),
 
+    /** AROVERPAYMENT */
     AROVERPAYMENT("AROVERPAYMENT"),
 
+    /** ARPREPAYMENT */
     ARPREPAYMENT("ARPREPAYMENT");
 
     private String value;
@@ -53,16 +61,31 @@ public class Invoice {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static TypeEnum fromValue(String value) {
       for (TypeEnum b : TypeEnum.values()) {
@@ -111,16 +134,22 @@ public class Invoice {
   private Double currencyRate;
   /** See Invoice Status Codes */
   public enum StatusEnum {
+    /** DRAFT */
     DRAFT("DRAFT"),
 
+    /** SUBMITTED */
     SUBMITTED("SUBMITTED"),
 
+    /** DELETED */
     DELETED("DELETED"),
 
+    /** AUTHORISED */
     AUTHORISED("AUTHORISED"),
 
+    /** PAID */
     PAID("PAID"),
 
+    /** VOIDED */
     VOIDED("VOIDED");
 
     private String value;
@@ -129,16 +158,31 @@ public class Invoice {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
@@ -233,7 +277,12 @@ public class Invoice {
 
   @JsonProperty("Warnings")
   private List<ValidationError> warnings = new ArrayList<ValidationError>();
-
+  /**
+   * See Invoice Types
+   *
+   * @param type TypeEnum
+   * @return Invoice
+   */
   public Invoice type(TypeEnum type) {
     this.type = type;
     return this;
@@ -245,14 +294,30 @@ public class Invoice {
    * @return type
    */
   @ApiModelProperty(value = "See Invoice Types")
+  /**
+   * See Invoice Types
+   *
+   * @return type TypeEnum
+   */
   public TypeEnum getType() {
     return type;
   }
 
+  /**
+   * See Invoice Types
+   *
+   * @param type TypeEnum
+   */
   public void setType(TypeEnum type) {
     this.type = type;
   }
 
+  /**
+   * contact
+   *
+   * @param contact Contact
+   * @return Invoice
+   */
   public Invoice contact(Contact contact) {
     this.contact = contact;
     return this;
@@ -264,19 +329,41 @@ public class Invoice {
    * @return contact
    */
   @ApiModelProperty(value = "")
+  /**
+   * contact
+   *
+   * @return contact Contact
+   */
   public Contact getContact() {
     return contact;
   }
 
+  /**
+   * contact
+   *
+   * @param contact Contact
+   */
   public void setContact(Contact contact) {
     this.contact = contact;
   }
 
+  /**
+   * See LineItems
+   *
+   * @param lineItems List&lt;LineItem&gt;
+   * @return Invoice
+   */
   public Invoice lineItems(List<LineItem> lineItems) {
     this.lineItems = lineItems;
     return this;
   }
 
+  /**
+   * See LineItems
+   *
+   * @param lineItemsItem LineItem
+   * @return Invoice
+   */
   public Invoice addLineItemsItem(LineItem lineItemsItem) {
     if (this.lineItems == null) {
       this.lineItems = new ArrayList<LineItem>();
@@ -291,14 +378,31 @@ public class Invoice {
    * @return lineItems
    */
   @ApiModelProperty(value = "See LineItems")
+  /**
+   * See LineItems
+   *
+   * @return lineItems List<LineItem>
+   */
   public List<LineItem> getLineItems() {
     return lineItems;
   }
 
+  /**
+   * See LineItems
+   *
+   * @param lineItems List&lt;LineItem&gt;
+   */
   public void setLineItems(List<LineItem> lineItems) {
     this.lineItems = lineItems;
   }
 
+  /**
+   * Date invoice was issued – YYYY-MM-DD. If the Date element is not specified it will default to
+   * the current date based on the timezone setting of the organisation
+   *
+   * @param date String
+   * @return Invoice
+   */
   public Invoice date(String date) {
     this.date = date;
     return this;
@@ -314,10 +418,21 @@ public class Invoice {
       value =
           "Date invoice was issued – YYYY-MM-DD. If the Date element is not specified it will"
               + " default to the current date based on the timezone setting of the organisation")
+  /**
+   * Date invoice was issued – YYYY-MM-DD. If the Date element is not specified it will default to
+   * the current date based on the timezone setting of the organisation
+   *
+   * @return date String
+   */
   public String getDate() {
     return date;
   }
-
+  /**
+   * Date invoice was issued – YYYY-MM-DD. If the Date element is not specified it will default to
+   * the current date based on the timezone setting of the organisation
+   *
+   * @return LocalDate
+   */
   public LocalDate getDateAsDate() {
     if (this.date != null) {
       try {
@@ -329,10 +444,22 @@ public class Invoice {
     return null;
   }
 
+  /**
+   * Date invoice was issued – YYYY-MM-DD. If the Date element is not specified it will default to
+   * the current date based on the timezone setting of the organisation
+   *
+   * @param date String
+   */
   public void setDate(String date) {
     this.date = date;
   }
 
+  /**
+   * Date invoice was issued – YYYY-MM-DD. If the Date element is not specified it will default to
+   * the current date based on the timezone setting of the organisation
+   *
+   * @param date LocalDateTime
+   */
   public void setDate(LocalDate date) {
     // CONVERT LocalDate args into MS DateFromat String
     Instant instant = date.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
@@ -341,6 +468,12 @@ public class Invoice {
     this.date = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
   }
 
+  /**
+   * Date invoice is due – YYYY-MM-DD
+   *
+   * @param dueDate String
+   * @return Invoice
+   */
   public Invoice dueDate(String dueDate) {
     this.dueDate = dueDate;
     return this;
@@ -352,10 +485,19 @@ public class Invoice {
    * @return dueDate
    */
   @ApiModelProperty(value = "Date invoice is due – YYYY-MM-DD")
+  /**
+   * Date invoice is due – YYYY-MM-DD
+   *
+   * @return dueDate String
+   */
   public String getDueDate() {
     return dueDate;
   }
-
+  /**
+   * Date invoice is due – YYYY-MM-DD
+   *
+   * @return LocalDate
+   */
   public LocalDate getDueDateAsDate() {
     if (this.dueDate != null) {
       try {
@@ -367,10 +509,20 @@ public class Invoice {
     return null;
   }
 
+  /**
+   * Date invoice is due – YYYY-MM-DD
+   *
+   * @param dueDate String
+   */
   public void setDueDate(String dueDate) {
     this.dueDate = dueDate;
   }
 
+  /**
+   * Date invoice is due – YYYY-MM-DD
+   *
+   * @param dueDate LocalDateTime
+   */
   public void setDueDate(LocalDate dueDate) {
     // CONVERT LocalDate args into MS DateFromat String
     Instant instant = dueDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
@@ -379,6 +531,12 @@ public class Invoice {
     this.dueDate = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
   }
 
+  /**
+   * lineAmountTypes
+   *
+   * @param lineAmountTypes LineAmountTypes
+   * @return Invoice
+   */
   public Invoice lineAmountTypes(LineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
     return this;
@@ -390,14 +548,31 @@ public class Invoice {
    * @return lineAmountTypes
    */
   @ApiModelProperty(value = "")
+  /**
+   * lineAmountTypes
+   *
+   * @return lineAmountTypes LineAmountTypes
+   */
   public LineAmountTypes getLineAmountTypes() {
     return lineAmountTypes;
   }
 
+  /**
+   * lineAmountTypes
+   *
+   * @param lineAmountTypes LineAmountTypes
+   */
   public void setLineAmountTypes(LineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
   }
 
+  /**
+   * ACCREC – Unique alpha numeric code identifying invoice (when missing will auto-generate from
+   * your Organisation Invoice Settings) (max length &#x3D; 255)
+   *
+   * @param invoiceNumber String
+   * @return Invoice
+   */
   public Invoice invoiceNumber(String invoiceNumber) {
     this.invoiceNumber = invoiceNumber;
     return this;
@@ -413,14 +588,32 @@ public class Invoice {
       value =
           "ACCREC – Unique alpha numeric code identifying invoice (when missing will auto-generate"
               + " from your Organisation Invoice Settings) (max length = 255)")
+  /**
+   * ACCREC – Unique alpha numeric code identifying invoice (when missing will auto-generate from
+   * your Organisation Invoice Settings) (max length &#x3D; 255)
+   *
+   * @return invoiceNumber String
+   */
   public String getInvoiceNumber() {
     return invoiceNumber;
   }
 
+  /**
+   * ACCREC – Unique alpha numeric code identifying invoice (when missing will auto-generate from
+   * your Organisation Invoice Settings) (max length &#x3D; 255)
+   *
+   * @param invoiceNumber String
+   */
   public void setInvoiceNumber(String invoiceNumber) {
     this.invoiceNumber = invoiceNumber;
   }
 
+  /**
+   * ACCREC only – additional reference number
+   *
+   * @param reference String
+   * @return Invoice
+   */
   public Invoice reference(String reference) {
     this.reference = reference;
     return this;
@@ -432,14 +625,30 @@ public class Invoice {
    * @return reference
    */
   @ApiModelProperty(value = "ACCREC only – additional reference number")
+  /**
+   * ACCREC only – additional reference number
+   *
+   * @return reference String
+   */
   public String getReference() {
     return reference;
   }
 
+  /**
+   * ACCREC only – additional reference number
+   *
+   * @param reference String
+   */
   public void setReference(String reference) {
     this.reference = reference;
   }
 
+  /**
+   * See BrandingThemes
+   *
+   * @param brandingThemeID UUID
+   * @return Invoice
+   */
   public Invoice brandingThemeID(UUID brandingThemeID) {
     this.brandingThemeID = brandingThemeID;
     return this;
@@ -451,14 +660,30 @@ public class Invoice {
    * @return brandingThemeID
    */
   @ApiModelProperty(value = "See BrandingThemes")
+  /**
+   * See BrandingThemes
+   *
+   * @return brandingThemeID UUID
+   */
   public UUID getBrandingThemeID() {
     return brandingThemeID;
   }
 
+  /**
+   * See BrandingThemes
+   *
+   * @param brandingThemeID UUID
+   */
   public void setBrandingThemeID(UUID brandingThemeID) {
     this.brandingThemeID = brandingThemeID;
   }
 
+  /**
+   * URL link to a source document – shown as “Go to [appName]” in the Xero app
+   *
+   * @param url String
+   * @return Invoice
+   */
   public Invoice url(String url) {
     this.url = url;
     return this;
@@ -471,14 +696,30 @@ public class Invoice {
    */
   @ApiModelProperty(
       value = "URL link to a source document – shown as “Go to [appName]” in the Xero app")
+  /**
+   * URL link to a source document – shown as “Go to [appName]” in the Xero app
+   *
+   * @return url String
+   */
   public String getUrl() {
     return url;
   }
 
+  /**
+   * URL link to a source document – shown as “Go to [appName]” in the Xero app
+   *
+   * @param url String
+   */
   public void setUrl(String url) {
     this.url = url;
   }
 
+  /**
+   * currencyCode
+   *
+   * @param currencyCode CurrencyCode
+   * @return Invoice
+   */
   public Invoice currencyCode(CurrencyCode currencyCode) {
     this.currencyCode = currencyCode;
     return this;
@@ -490,14 +731,31 @@ public class Invoice {
    * @return currencyCode
    */
   @ApiModelProperty(value = "")
+  /**
+   * currencyCode
+   *
+   * @return currencyCode CurrencyCode
+   */
   public CurrencyCode getCurrencyCode() {
     return currencyCode;
   }
 
+  /**
+   * currencyCode
+   *
+   * @param currencyCode CurrencyCode
+   */
   public void setCurrencyCode(CurrencyCode currencyCode) {
     this.currencyCode = currencyCode;
   }
 
+  /**
+   * The currency rate for a multicurrency invoice. If no rate is specified, the XE.com day rate is
+   * used. (max length &#x3D; [18].[6])
+   *
+   * @param currencyRate Double
+   * @return Invoice
+   */
   public Invoice currencyRate(Double currencyRate) {
     this.currencyRate = currencyRate;
     return this;
@@ -513,14 +771,32 @@ public class Invoice {
       value =
           "The currency rate for a multicurrency invoice. If no rate is specified, the XE.com day"
               + " rate is used. (max length = [18].[6])")
+  /**
+   * The currency rate for a multicurrency invoice. If no rate is specified, the XE.com day rate is
+   * used. (max length &#x3D; [18].[6])
+   *
+   * @return currencyRate Double
+   */
   public Double getCurrencyRate() {
     return currencyRate;
   }
 
+  /**
+   * The currency rate for a multicurrency invoice. If no rate is specified, the XE.com day rate is
+   * used. (max length &#x3D; [18].[6])
+   *
+   * @param currencyRate Double
+   */
   public void setCurrencyRate(Double currencyRate) {
     this.currencyRate = currencyRate;
   }
 
+  /**
+   * See Invoice Status Codes
+   *
+   * @param status StatusEnum
+   * @return Invoice
+   */
   public Invoice status(StatusEnum status) {
     this.status = status;
     return this;
@@ -532,14 +808,31 @@ public class Invoice {
    * @return status
    */
   @ApiModelProperty(value = "See Invoice Status Codes")
+  /**
+   * See Invoice Status Codes
+   *
+   * @return status StatusEnum
+   */
   public StatusEnum getStatus() {
     return status;
   }
 
+  /**
+   * See Invoice Status Codes
+   *
+   * @param status StatusEnum
+   */
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
+  /**
+   * Boolean to set whether the invoice in the Xero app should be marked as “sent”. This can be set
+   * only on invoices that have been approved
+   *
+   * @param sentToContact Boolean
+   * @return Invoice
+   */
   public Invoice sentToContact(Boolean sentToContact) {
     this.sentToContact = sentToContact;
     return this;
@@ -555,14 +848,32 @@ public class Invoice {
       value =
           "Boolean to set whether the invoice in the Xero app should be marked as “sent”. This can"
               + " be set only on invoices that have been approved")
+  /**
+   * Boolean to set whether the invoice in the Xero app should be marked as “sent”. This can be set
+   * only on invoices that have been approved
+   *
+   * @return sentToContact Boolean
+   */
   public Boolean getSentToContact() {
     return sentToContact;
   }
 
+  /**
+   * Boolean to set whether the invoice in the Xero app should be marked as “sent”. This can be set
+   * only on invoices that have been approved
+   *
+   * @param sentToContact Boolean
+   */
   public void setSentToContact(Boolean sentToContact) {
     this.sentToContact = sentToContact;
   }
 
+  /**
+   * Shown on sales invoices (Accounts Receivable) when this has been set
+   *
+   * @param expectedPaymentDate String
+   * @return Invoice
+   */
   public Invoice expectedPaymentDate(String expectedPaymentDate) {
     this.expectedPaymentDate = expectedPaymentDate;
     return this;
@@ -574,10 +885,19 @@ public class Invoice {
    * @return expectedPaymentDate
    */
   @ApiModelProperty(value = "Shown on sales invoices (Accounts Receivable) when this has been set")
+  /**
+   * Shown on sales invoices (Accounts Receivable) when this has been set
+   *
+   * @return expectedPaymentDate String
+   */
   public String getExpectedPaymentDate() {
     return expectedPaymentDate;
   }
-
+  /**
+   * Shown on sales invoices (Accounts Receivable) when this has been set
+   *
+   * @return LocalDate
+   */
   public LocalDate getExpectedPaymentDateAsDate() {
     if (this.expectedPaymentDate != null) {
       try {
@@ -589,10 +909,20 @@ public class Invoice {
     return null;
   }
 
+  /**
+   * Shown on sales invoices (Accounts Receivable) when this has been set
+   *
+   * @param expectedPaymentDate String
+   */
   public void setExpectedPaymentDate(String expectedPaymentDate) {
     this.expectedPaymentDate = expectedPaymentDate;
   }
 
+  /**
+   * Shown on sales invoices (Accounts Receivable) when this has been set
+   *
+   * @param expectedPaymentDate LocalDateTime
+   */
   public void setExpectedPaymentDate(LocalDate expectedPaymentDate) {
     // CONVERT LocalDate args into MS DateFromat String
     Instant instant = expectedPaymentDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
@@ -601,6 +931,12 @@ public class Invoice {
     this.expectedPaymentDate = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
   }
 
+  /**
+   * Shown on bills (Accounts Payable) when this has been set
+   *
+   * @param plannedPaymentDate String
+   * @return Invoice
+   */
   public Invoice plannedPaymentDate(String plannedPaymentDate) {
     this.plannedPaymentDate = plannedPaymentDate;
     return this;
@@ -612,10 +948,19 @@ public class Invoice {
    * @return plannedPaymentDate
    */
   @ApiModelProperty(value = "Shown on bills (Accounts Payable) when this has been set")
+  /**
+   * Shown on bills (Accounts Payable) when this has been set
+   *
+   * @return plannedPaymentDate String
+   */
   public String getPlannedPaymentDate() {
     return plannedPaymentDate;
   }
-
+  /**
+   * Shown on bills (Accounts Payable) when this has been set
+   *
+   * @return LocalDate
+   */
   public LocalDate getPlannedPaymentDateAsDate() {
     if (this.plannedPaymentDate != null) {
       try {
@@ -627,10 +972,20 @@ public class Invoice {
     return null;
   }
 
+  /**
+   * Shown on bills (Accounts Payable) when this has been set
+   *
+   * @param plannedPaymentDate String
+   */
   public void setPlannedPaymentDate(String plannedPaymentDate) {
     this.plannedPaymentDate = plannedPaymentDate;
   }
 
+  /**
+   * Shown on bills (Accounts Payable) when this has been set
+   *
+   * @param plannedPaymentDate LocalDateTime
+   */
   public void setPlannedPaymentDate(LocalDate plannedPaymentDate) {
     // CONVERT LocalDate args into MS DateFromat String
     Instant instant = plannedPaymentDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
@@ -645,6 +1000,11 @@ public class Invoice {
    * @return ciSDeduction
    */
   @ApiModelProperty(value = "CIS deduction for UK contractors")
+  /**
+   * CIS deduction for UK contractors
+   *
+   * @return ciSDeduction Double
+   */
   public Double getCiSDeduction() {
     return ciSDeduction;
   }
@@ -655,6 +1015,11 @@ public class Invoice {
    * @return ciSRate
    */
   @ApiModelProperty(value = "CIS Deduction rate for the organisation")
+  /**
+   * CIS Deduction rate for the organisation
+   *
+   * @return ciSRate Double
+   */
   public Double getCiSRate() {
     return ciSRate;
   }
@@ -665,6 +1030,11 @@ public class Invoice {
    * @return subTotal
    */
   @ApiModelProperty(value = "Total of invoice excluding taxes")
+  /**
+   * Total of invoice excluding taxes
+   *
+   * @return subTotal Double
+   */
   public Double getSubTotal() {
     return subTotal;
   }
@@ -675,6 +1045,11 @@ public class Invoice {
    * @return totalTax
    */
   @ApiModelProperty(value = "Total tax on invoice")
+  /**
+   * Total tax on invoice
+   *
+   * @return totalTax Double
+   */
   public Double getTotalTax() {
     return totalTax;
   }
@@ -689,6 +1064,12 @@ public class Invoice {
       value =
           "Total of Invoice tax inclusive (i.e. SubTotal + TotalTax). This will be ignored if it"
               + " doesn’t equal the sum of the LineAmounts")
+  /**
+   * Total of Invoice tax inclusive (i.e. SubTotal + TotalTax). This will be ignored if it doesn’t
+   * equal the sum of the LineAmounts
+   *
+   * @return total Double
+   */
   public Double getTotal() {
     return total;
   }
@@ -699,10 +1080,21 @@ public class Invoice {
    * @return totalDiscount
    */
   @ApiModelProperty(value = "Total of discounts applied on the invoice line items")
+  /**
+   * Total of discounts applied on the invoice line items
+   *
+   * @return totalDiscount Double
+   */
   public Double getTotalDiscount() {
     return totalDiscount;
   }
 
+  /**
+   * Xero generated unique identifier for invoice
+   *
+   * @param invoiceID UUID
+   * @return Invoice
+   */
   public Invoice invoiceID(UUID invoiceID) {
     this.invoiceID = invoiceID;
     return this;
@@ -714,14 +1106,30 @@ public class Invoice {
    * @return invoiceID
    */
   @ApiModelProperty(value = "Xero generated unique identifier for invoice")
+  /**
+   * Xero generated unique identifier for invoice
+   *
+   * @return invoiceID UUID
+   */
   public UUID getInvoiceID() {
     return invoiceID;
   }
 
+  /**
+   * Xero generated unique identifier for invoice
+   *
+   * @param invoiceID UUID
+   */
   public void setInvoiceID(UUID invoiceID) {
     this.invoiceID = invoiceID;
   }
 
+  /**
+   * Xero generated unique identifier for repeating invoices
+   *
+   * @param repeatingInvoiceID UUID
+   * @return Invoice
+   */
   public Invoice repeatingInvoiceID(UUID repeatingInvoiceID) {
     this.repeatingInvoiceID = repeatingInvoiceID;
     return this;
@@ -733,10 +1141,20 @@ public class Invoice {
    * @return repeatingInvoiceID
    */
   @ApiModelProperty(value = "Xero generated unique identifier for repeating invoices")
+  /**
+   * Xero generated unique identifier for repeating invoices
+   *
+   * @return repeatingInvoiceID UUID
+   */
   public UUID getRepeatingInvoiceID() {
     return repeatingInvoiceID;
   }
 
+  /**
+   * Xero generated unique identifier for repeating invoices
+   *
+   * @param repeatingInvoiceID UUID
+   */
   public void setRepeatingInvoiceID(UUID repeatingInvoiceID) {
     this.repeatingInvoiceID = repeatingInvoiceID;
   }
@@ -749,6 +1167,11 @@ public class Invoice {
   @ApiModelProperty(
       example = "false",
       value = "boolean to indicate if an invoice has an attachment")
+  /**
+   * boolean to indicate if an invoice has an attachment
+   *
+   * @return hasAttachments Boolean
+   */
   public Boolean getHasAttachments() {
     return hasAttachments;
   }
@@ -759,6 +1182,11 @@ public class Invoice {
    * @return isDiscounted
    */
   @ApiModelProperty(value = "boolean to indicate if an invoice has a discount")
+  /**
+   * boolean to indicate if an invoice has a discount
+   *
+   * @return isDiscounted Boolean
+   */
   public Boolean getIsDiscounted() {
     return isDiscounted;
   }
@@ -769,6 +1197,11 @@ public class Invoice {
    * @return payments
    */
   @ApiModelProperty(value = "See Payments")
+  /**
+   * See Payments
+   *
+   * @return payments List<Payment>
+   */
   public List<Payment> getPayments() {
     return payments;
   }
@@ -779,6 +1212,11 @@ public class Invoice {
    * @return prepayments
    */
   @ApiModelProperty(value = "See Prepayments")
+  /**
+   * See Prepayments
+   *
+   * @return prepayments List<Prepayment>
+   */
   public List<Prepayment> getPrepayments() {
     return prepayments;
   }
@@ -789,6 +1227,11 @@ public class Invoice {
    * @return overpayments
    */
   @ApiModelProperty(value = "See Overpayments")
+  /**
+   * See Overpayments
+   *
+   * @return overpayments List<Overpayment>
+   */
   public List<Overpayment> getOverpayments() {
     return overpayments;
   }
@@ -799,6 +1242,11 @@ public class Invoice {
    * @return amountDue
    */
   @ApiModelProperty(value = "Amount remaining to be paid on invoice")
+  /**
+   * Amount remaining to be paid on invoice
+   *
+   * @return amountDue Double
+   */
   public Double getAmountDue() {
     return amountDue;
   }
@@ -809,6 +1257,11 @@ public class Invoice {
    * @return amountPaid
    */
   @ApiModelProperty(value = "Sum of payments received for invoice")
+  /**
+   * Sum of payments received for invoice
+   *
+   * @return amountPaid Double
+   */
   public Double getAmountPaid() {
     return amountPaid;
   }
@@ -820,10 +1273,19 @@ public class Invoice {
    */
   @ApiModelProperty(
       value = "The date the invoice was fully paid. Only returned on fully paid invoices")
+  /**
+   * The date the invoice was fully paid. Only returned on fully paid invoices
+   *
+   * @return fullyPaidOnDate String
+   */
   public String getFullyPaidOnDate() {
     return fullyPaidOnDate;
   }
-
+  /**
+   * The date the invoice was fully paid. Only returned on fully paid invoices
+   *
+   * @return LocalDate
+   */
   public LocalDate getFullyPaidOnDateAsDate() {
     if (this.fullyPaidOnDate != null) {
       try {
@@ -842,6 +1304,11 @@ public class Invoice {
    */
   @ApiModelProperty(
       value = "Sum of all credit notes, over-payments and pre-payments applied to invoice")
+  /**
+   * Sum of all credit notes, over-payments and pre-payments applied to invoice
+   *
+   * @return amountCredited Double
+   */
   public Double getAmountCredited() {
     return amountCredited;
   }
@@ -852,10 +1319,19 @@ public class Invoice {
    * @return updatedDateUTC
    */
   @ApiModelProperty(example = "/Date(1573755038314)/", value = "Last modified date UTC format")
+  /**
+   * Last modified date UTC format
+   *
+   * @return updatedDateUTC String
+   */
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-
+  /**
+   * Last modified date UTC format
+   *
+   * @return OffsetDateTime
+   */
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
@@ -873,15 +1349,32 @@ public class Invoice {
    * @return creditNotes
    */
   @ApiModelProperty(value = "Details of credit notes that have been applied to an invoice")
+  /**
+   * Details of credit notes that have been applied to an invoice
+   *
+   * @return creditNotes List<CreditNote>
+   */
   public List<CreditNote> getCreditNotes() {
     return creditNotes;
   }
 
+  /**
+   * Displays array of attachments from the API
+   *
+   * @param attachments List&lt;Attachment&gt;
+   * @return Invoice
+   */
   public Invoice attachments(List<Attachment> attachments) {
     this.attachments = attachments;
     return this;
   }
 
+  /**
+   * Displays array of attachments from the API
+   *
+   * @param attachmentsItem Attachment
+   * @return Invoice
+   */
   public Invoice addAttachmentsItem(Attachment attachmentsItem) {
     if (this.attachments == null) {
       this.attachments = new ArrayList<Attachment>();
@@ -896,14 +1389,30 @@ public class Invoice {
    * @return attachments
    */
   @ApiModelProperty(value = "Displays array of attachments from the API")
+  /**
+   * Displays array of attachments from the API
+   *
+   * @return attachments List<Attachment>
+   */
   public List<Attachment> getAttachments() {
     return attachments;
   }
 
+  /**
+   * Displays array of attachments from the API
+   *
+   * @param attachments List&lt;Attachment&gt;
+   */
   public void setAttachments(List<Attachment> attachments) {
     this.attachments = attachments;
   }
 
+  /**
+   * A boolean to indicate if a invoice has an validation errors
+   *
+   * @param hasErrors Boolean
+   * @return Invoice
+   */
   public Invoice hasErrors(Boolean hasErrors) {
     this.hasErrors = hasErrors;
     return this;
@@ -917,14 +1426,30 @@ public class Invoice {
   @ApiModelProperty(
       example = "false",
       value = "A boolean to indicate if a invoice has an validation errors")
+  /**
+   * A boolean to indicate if a invoice has an validation errors
+   *
+   * @return hasErrors Boolean
+   */
   public Boolean getHasErrors() {
     return hasErrors;
   }
 
+  /**
+   * A boolean to indicate if a invoice has an validation errors
+   *
+   * @param hasErrors Boolean
+   */
   public void setHasErrors(Boolean hasErrors) {
     this.hasErrors = hasErrors;
   }
 
+  /**
+   * A string to indicate if a invoice status
+   *
+   * @param statusAttributeString String
+   * @return Invoice
+   */
   public Invoice statusAttributeString(String statusAttributeString) {
     this.statusAttributeString = statusAttributeString;
     return this;
@@ -936,19 +1461,41 @@ public class Invoice {
    * @return statusAttributeString
    */
   @ApiModelProperty(value = "A string to indicate if a invoice status")
+  /**
+   * A string to indicate if a invoice status
+   *
+   * @return statusAttributeString String
+   */
   public String getStatusAttributeString() {
     return statusAttributeString;
   }
 
+  /**
+   * A string to indicate if a invoice status
+   *
+   * @param statusAttributeString String
+   */
   public void setStatusAttributeString(String statusAttributeString) {
     this.statusAttributeString = statusAttributeString;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrors List&lt;ValidationError&gt;
+   * @return Invoice
+   */
   public Invoice validationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
     return this;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrorsItem ValidationError
+   * @return Invoice
+   */
   public Invoice addValidationErrorsItem(ValidationError validationErrorsItem) {
     if (this.validationErrors == null) {
       this.validationErrors = new ArrayList<ValidationError>();
@@ -963,19 +1510,41 @@ public class Invoice {
    * @return validationErrors
    */
   @ApiModelProperty(value = "Displays array of validation error messages from the API")
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @return validationErrors List<ValidationError>
+   */
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrors List&lt;ValidationError&gt;
+   */
   public void setValidationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
   }
 
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warnings List&lt;ValidationError&gt;
+   * @return Invoice
+   */
   public Invoice warnings(List<ValidationError> warnings) {
     this.warnings = warnings;
     return this;
   }
 
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warningsItem ValidationError
+   * @return Invoice
+   */
   public Invoice addWarningsItem(ValidationError warningsItem) {
     if (this.warnings == null) {
       this.warnings = new ArrayList<ValidationError>();
@@ -990,10 +1559,20 @@ public class Invoice {
    * @return warnings
    */
   @ApiModelProperty(value = "Displays array of warning messages from the API")
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @return warnings List<ValidationError>
+   */
   public List<ValidationError> getWarnings() {
     return warnings;
   }
 
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warnings List&lt;ValidationError&gt;
+   */
   public void setWarnings(List<ValidationError> warnings) {
     this.warnings = warnings;
   }

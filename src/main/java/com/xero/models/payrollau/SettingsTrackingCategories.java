@@ -27,7 +27,12 @@ public class SettingsTrackingCategories {
 
   @JsonProperty("TimesheetCategories")
   private SettingsTrackingCategoriesTimesheetCategories timesheetCategories;
-
+  /**
+   * employeeGroups
+   *
+   * @param employeeGroups SettingsTrackingCategoriesEmployeeGroups
+   * @return SettingsTrackingCategories
+   */
   public SettingsTrackingCategories employeeGroups(
       SettingsTrackingCategoriesEmployeeGroups employeeGroups) {
     this.employeeGroups = employeeGroups;
@@ -40,14 +45,30 @@ public class SettingsTrackingCategories {
    * @return employeeGroups
    */
   @ApiModelProperty(value = "")
+  /**
+   * employeeGroups
+   *
+   * @return employeeGroups SettingsTrackingCategoriesEmployeeGroups
+   */
   public SettingsTrackingCategoriesEmployeeGroups getEmployeeGroups() {
     return employeeGroups;
   }
 
+  /**
+   * employeeGroups
+   *
+   * @param employeeGroups SettingsTrackingCategoriesEmployeeGroups
+   */
   public void setEmployeeGroups(SettingsTrackingCategoriesEmployeeGroups employeeGroups) {
     this.employeeGroups = employeeGroups;
   }
 
+  /**
+   * timesheetCategories
+   *
+   * @param timesheetCategories SettingsTrackingCategoriesTimesheetCategories
+   * @return SettingsTrackingCategories
+   */
   public SettingsTrackingCategories timesheetCategories(
       SettingsTrackingCategoriesTimesheetCategories timesheetCategories) {
     this.timesheetCategories = timesheetCategories;
@@ -60,10 +81,20 @@ public class SettingsTrackingCategories {
    * @return timesheetCategories
    */
   @ApiModelProperty(value = "")
+  /**
+   * timesheetCategories
+   *
+   * @return timesheetCategories SettingsTrackingCategoriesTimesheetCategories
+   */
   public SettingsTrackingCategoriesTimesheetCategories getTimesheetCategories() {
     return timesheetCategories;
   }
 
+  /**
+   * timesheetCategories
+   *
+   * @param timesheetCategories SettingsTrackingCategoriesTimesheetCategories
+   */
   public void setTimesheetCategories(
       SettingsTrackingCategoriesTimesheetCategories timesheetCategories) {
     this.timesheetCategories = timesheetCategories;

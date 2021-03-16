@@ -28,7 +28,12 @@ public class PayRunObject {
 
   @JsonProperty("payRun")
   private PayRun payRun;
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return PayRunObject
+   */
   public PayRunObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -40,14 +45,30 @@ public class PayRunObject {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return PayRunObject
+   */
   public PayRunObject problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -59,14 +80,30 @@ public class PayRunObject {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * payRun
+   *
+   * @param payRun PayRun
+   * @return PayRunObject
+   */
   public PayRunObject payRun(PayRun payRun) {
     this.payRun = payRun;
     return this;
@@ -78,10 +115,20 @@ public class PayRunObject {
    * @return payRun
    */
   @ApiModelProperty(value = "")
+  /**
+   * payRun
+   *
+   * @return payRun PayRun
+   */
   public PayRun getPayRun() {
     return payRun;
   }
 
+  /**
+   * payRun
+   *
+   * @param payRun PayRun
+   */
   public void setPayRun(PayRun payRun) {
     this.payRun = payRun;
   }

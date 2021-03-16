@@ -25,7 +25,12 @@ public class Currency {
 
   @JsonProperty("Description")
   private String description;
-
+  /**
+   * code
+   *
+   * @param code CurrencyCode
+   * @return Currency
+   */
   public Currency code(CurrencyCode code) {
     this.code = code;
     return this;
@@ -37,14 +42,30 @@ public class Currency {
    * @return code
    */
   @ApiModelProperty(value = "")
+  /**
+   * code
+   *
+   * @return code CurrencyCode
+   */
   public CurrencyCode getCode() {
     return code;
   }
 
+  /**
+   * code
+   *
+   * @param code CurrencyCode
+   */
   public void setCode(CurrencyCode code) {
     this.code = code;
   }
 
+  /**
+   * Name of Currency
+   *
+   * @param description String
+   * @return Currency
+   */
   public Currency description(String description) {
     this.description = description;
     return this;
@@ -56,10 +77,20 @@ public class Currency {
    * @return description
    */
   @ApiModelProperty(value = "Name of Currency")
+  /**
+   * Name of Currency
+   *
+   * @return description String
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * Name of Currency
+   *
+   * @param description String
+   */
   public void setDescription(String description) {
     this.description = description;
   }

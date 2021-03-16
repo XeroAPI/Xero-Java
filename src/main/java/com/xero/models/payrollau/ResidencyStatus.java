@@ -17,10 +17,14 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Gets or Sets ResidencyStatus */
 public enum ResidencyStatus {
+
+  /** AUSTRALIANRESIDENT */
   AUSTRALIANRESIDENT("AUSTRALIANRESIDENT"),
 
+  /** FOREIGNRESIDENT */
   FOREIGNRESIDENT("FOREIGNRESIDENT"),
 
+  /** WORKINGHOLIDAYMAKER */
   WORKINGHOLIDAYMAKER("WORKINGHOLIDAYMAKER");
 
   private String value;
@@ -29,16 +33,27 @@ public enum ResidencyStatus {
     this.value = value;
   }
 
+  /** @return String value */
   @JsonValue
   public String getValue() {
     return value;
   }
 
+  /**
+   * toString
+   *
+   * @return String value
+   */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
+  /**
+   * fromValue
+   *
+   * @param value String
+   */
   @JsonCreator
   public static ResidencyStatus fromValue(String value) {
     for (ResidencyStatus b : ResidencyStatus.values()) {

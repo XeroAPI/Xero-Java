@@ -38,10 +38,13 @@ public class TrackingCategory {
   private String option;
   /** The status of a tracking category */
   public enum StatusEnum {
+    /** ACTIVE */
     ACTIVE("ACTIVE"),
 
+    /** ARCHIVED */
     ARCHIVED("ARCHIVED"),
 
+    /** DELETED */
     DELETED("DELETED");
 
     private String value;
@@ -50,16 +53,31 @@ public class TrackingCategory {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
@@ -76,7 +94,12 @@ public class TrackingCategory {
 
   @JsonProperty("Options")
   private List<TrackingOption> options = new ArrayList<TrackingOption>();
-
+  /**
+   * The Xero identifier for a tracking category e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9
+   *
+   * @param trackingCategoryID UUID
+   * @return TrackingCategory
+   */
   public TrackingCategory trackingCategoryID(UUID trackingCategoryID) {
     this.trackingCategoryID = trackingCategoryID;
     return this;
@@ -90,14 +113,30 @@ public class TrackingCategory {
   @ApiModelProperty(
       value =
           "The Xero identifier for a tracking category e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9")
+  /**
+   * The Xero identifier for a tracking category e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9
+   *
+   * @return trackingCategoryID UUID
+   */
   public UUID getTrackingCategoryID() {
     return trackingCategoryID;
   }
 
+  /**
+   * The Xero identifier for a tracking category e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9
+   *
+   * @param trackingCategoryID UUID
+   */
   public void setTrackingCategoryID(UUID trackingCategoryID) {
     this.trackingCategoryID = trackingCategoryID;
   }
 
+  /**
+   * The Xero identifier for a tracking option e.g. dc54c220-0140-495a-b925-3246adc0075f
+   *
+   * @param trackingOptionID UUID
+   * @return TrackingCategory
+   */
   public TrackingCategory trackingOptionID(UUID trackingOptionID) {
     this.trackingOptionID = trackingOptionID;
     return this;
@@ -110,14 +149,30 @@ public class TrackingCategory {
    */
   @ApiModelProperty(
       value = "The Xero identifier for a tracking option e.g. dc54c220-0140-495a-b925-3246adc0075f")
+  /**
+   * The Xero identifier for a tracking option e.g. dc54c220-0140-495a-b925-3246adc0075f
+   *
+   * @return trackingOptionID UUID
+   */
   public UUID getTrackingOptionID() {
     return trackingOptionID;
   }
 
+  /**
+   * The Xero identifier for a tracking option e.g. dc54c220-0140-495a-b925-3246adc0075f
+   *
+   * @param trackingOptionID UUID
+   */
   public void setTrackingOptionID(UUID trackingOptionID) {
     this.trackingOptionID = trackingOptionID;
   }
 
+  /**
+   * The name of the tracking category e.g. Department, Region (max length &#x3D; 100)
+   *
+   * @param name String
+   * @return TrackingCategory
+   */
   public TrackingCategory name(String name) {
     this.name = name;
     return this;
@@ -130,14 +185,30 @@ public class TrackingCategory {
    */
   @ApiModelProperty(
       value = "The name of the tracking category e.g. Department, Region (max length = 100)")
+  /**
+   * The name of the tracking category e.g. Department, Region (max length &#x3D; 100)
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * The name of the tracking category e.g. Department, Region (max length &#x3D; 100)
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * The option name of the tracking option e.g. East, West (max length &#x3D; 100)
+   *
+   * @param option String
+   * @return TrackingCategory
+   */
   public TrackingCategory option(String option) {
     this.option = option;
     return this;
@@ -150,14 +221,30 @@ public class TrackingCategory {
    */
   @ApiModelProperty(
       value = "The option name of the tracking option e.g. East, West (max length = 100)")
+  /**
+   * The option name of the tracking option e.g. East, West (max length &#x3D; 100)
+   *
+   * @return option String
+   */
   public String getOption() {
     return option;
   }
 
+  /**
+   * The option name of the tracking option e.g. East, West (max length &#x3D; 100)
+   *
+   * @param option String
+   */
   public void setOption(String option) {
     this.option = option;
   }
 
+  /**
+   * The status of a tracking category
+   *
+   * @param status StatusEnum
+   * @return TrackingCategory
+   */
   public TrackingCategory status(StatusEnum status) {
     this.status = status;
     return this;
@@ -169,19 +256,41 @@ public class TrackingCategory {
    * @return status
    */
   @ApiModelProperty(value = "The status of a tracking category")
+  /**
+   * The status of a tracking category
+   *
+   * @return status StatusEnum
+   */
   public StatusEnum getStatus() {
     return status;
   }
 
+  /**
+   * The status of a tracking category
+   *
+   * @param status StatusEnum
+   */
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
+  /**
+   * See Tracking Options
+   *
+   * @param options List&lt;TrackingOption&gt;
+   * @return TrackingCategory
+   */
   public TrackingCategory options(List<TrackingOption> options) {
     this.options = options;
     return this;
   }
 
+  /**
+   * See Tracking Options
+   *
+   * @param optionsItem TrackingOption
+   * @return TrackingCategory
+   */
   public TrackingCategory addOptionsItem(TrackingOption optionsItem) {
     if (this.options == null) {
       this.options = new ArrayList<TrackingOption>();
@@ -196,10 +305,20 @@ public class TrackingCategory {
    * @return options
    */
   @ApiModelProperty(value = "See Tracking Options")
+  /**
+   * See Tracking Options
+   *
+   * @return options List<TrackingOption>
+   */
   public List<TrackingOption> getOptions() {
     return options;
   }
 
+  /**
+   * See Tracking Options
+   *
+   * @param options List&lt;TrackingOption&gt;
+   */
   public void setOptions(List<TrackingOption> options) {
     this.options = options;
   }

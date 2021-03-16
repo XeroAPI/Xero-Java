@@ -44,7 +44,12 @@ public class SuperLine {
 
   @JsonProperty("Amount")
   private Double amount;
-
+  /**
+   * Xero super membership ID
+   *
+   * @param superMembershipID UUID
+   * @return SuperLine
+   */
   public SuperLine superMembershipID(UUID superMembershipID) {
     this.superMembershipID = superMembershipID;
     return this;
@@ -58,14 +63,30 @@ public class SuperLine {
   @ApiModelProperty(
       example = "4333d5cd-53a5-4c31-98e5-a8b4e5676b0b",
       value = "Xero super membership ID")
+  /**
+   * Xero super membership ID
+   *
+   * @return superMembershipID UUID
+   */
   public UUID getSuperMembershipID() {
     return superMembershipID;
   }
 
+  /**
+   * Xero super membership ID
+   *
+   * @param superMembershipID UUID
+   */
   public void setSuperMembershipID(UUID superMembershipID) {
     this.superMembershipID = superMembershipID;
   }
 
+  /**
+   * contributionType
+   *
+   * @param contributionType SuperannuationContributionType
+   * @return SuperLine
+   */
   public SuperLine contributionType(SuperannuationContributionType contributionType) {
     this.contributionType = contributionType;
     return this;
@@ -77,14 +98,30 @@ public class SuperLine {
    * @return contributionType
    */
   @ApiModelProperty(value = "")
+  /**
+   * contributionType
+   *
+   * @return contributionType SuperannuationContributionType
+   */
   public SuperannuationContributionType getContributionType() {
     return contributionType;
   }
 
+  /**
+   * contributionType
+   *
+   * @param contributionType SuperannuationContributionType
+   */
   public void setContributionType(SuperannuationContributionType contributionType) {
     this.contributionType = contributionType;
   }
 
+  /**
+   * calculationType
+   *
+   * @param calculationType SuperannuationCalculationType
+   * @return SuperLine
+   */
   public SuperLine calculationType(SuperannuationCalculationType calculationType) {
     this.calculationType = calculationType;
     return this;
@@ -96,14 +133,30 @@ public class SuperLine {
    * @return calculationType
    */
   @ApiModelProperty(value = "")
+  /**
+   * calculationType
+   *
+   * @return calculationType SuperannuationCalculationType
+   */
   public SuperannuationCalculationType getCalculationType() {
     return calculationType;
   }
 
+  /**
+   * calculationType
+   *
+   * @param calculationType SuperannuationCalculationType
+   */
   public void setCalculationType(SuperannuationCalculationType calculationType) {
     this.calculationType = calculationType;
   }
 
+  /**
+   * amount of minimum earnings
+   *
+   * @param minimumMonthlyEarnings Double
+   * @return SuperLine
+   */
   public SuperLine minimumMonthlyEarnings(Double minimumMonthlyEarnings) {
     this.minimumMonthlyEarnings = minimumMonthlyEarnings;
     return this;
@@ -115,14 +168,30 @@ public class SuperLine {
    * @return minimumMonthlyEarnings
    */
   @ApiModelProperty(example = "450.0", value = "amount of minimum earnings")
+  /**
+   * amount of minimum earnings
+   *
+   * @return minimumMonthlyEarnings Double
+   */
   public Double getMinimumMonthlyEarnings() {
     return minimumMonthlyEarnings;
   }
 
+  /**
+   * amount of minimum earnings
+   *
+   * @param minimumMonthlyEarnings Double
+   */
   public void setMinimumMonthlyEarnings(Double minimumMonthlyEarnings) {
     this.minimumMonthlyEarnings = minimumMonthlyEarnings;
   }
 
+  /**
+   * expense account code
+   *
+   * @param expenseAccountCode String
+   * @return SuperLine
+   */
   public SuperLine expenseAccountCode(String expenseAccountCode) {
     this.expenseAccountCode = expenseAccountCode;
     return this;
@@ -134,14 +203,30 @@ public class SuperLine {
    * @return expenseAccountCode
    */
   @ApiModelProperty(example = "478", value = "expense account code")
+  /**
+   * expense account code
+   *
+   * @return expenseAccountCode String
+   */
   public String getExpenseAccountCode() {
     return expenseAccountCode;
   }
 
+  /**
+   * expense account code
+   *
+   * @param expenseAccountCode String
+   */
   public void setExpenseAccountCode(String expenseAccountCode) {
     this.expenseAccountCode = expenseAccountCode;
   }
 
+  /**
+   * liabilty account code
+   *
+   * @param liabilityAccountCode String
+   * @return SuperLine
+   */
   public SuperLine liabilityAccountCode(String liabilityAccountCode) {
     this.liabilityAccountCode = liabilityAccountCode;
     return this;
@@ -153,14 +238,30 @@ public class SuperLine {
    * @return liabilityAccountCode
    */
   @ApiModelProperty(example = "826", value = "liabilty account code")
+  /**
+   * liabilty account code
+   *
+   * @return liabilityAccountCode String
+   */
   public String getLiabilityAccountCode() {
     return liabilityAccountCode;
   }
 
+  /**
+   * liabilty account code
+   *
+   * @param liabilityAccountCode String
+   */
   public void setLiabilityAccountCode(String liabilityAccountCode) {
     this.liabilityAccountCode = liabilityAccountCode;
   }
 
+  /**
+   * percentage for super line
+   *
+   * @param percentage Double
+   * @return SuperLine
+   */
   public SuperLine percentage(Double percentage) {
     this.percentage = percentage;
     return this;
@@ -172,14 +273,30 @@ public class SuperLine {
    * @return percentage
    */
   @ApiModelProperty(example = "9.0", value = "percentage for super line")
+  /**
+   * percentage for super line
+   *
+   * @return percentage Double
+   */
   public Double getPercentage() {
     return percentage;
   }
 
+  /**
+   * percentage for super line
+   *
+   * @param percentage Double
+   */
   public void setPercentage(Double percentage) {
     this.percentage = percentage;
   }
 
+  /**
+   * Super membership amount
+   *
+   * @param amount Double
+   * @return SuperLine
+   */
   public SuperLine amount(Double amount) {
     this.amount = amount;
     return this;
@@ -191,10 +308,20 @@ public class SuperLine {
    * @return amount
    */
   @ApiModelProperty(example = "10.0", value = "Super membership amount")
+  /**
+   * Super membership amount
+   *
+   * @return amount Double
+   */
   public Double getAmount() {
     return amount;
   }
 
+  /**
+   * Super membership amount
+   *
+   * @param amount Double
+   */
   public void setAmount(Double amount) {
     this.amount = amount;
   }

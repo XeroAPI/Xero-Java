@@ -22,7 +22,12 @@ public class OnlineInvoice {
 
   @JsonProperty("OnlineInvoiceUrl")
   private String onlineInvoiceUrl;
-
+  /**
+   * the URL to an online invoice
+   *
+   * @param onlineInvoiceUrl String
+   * @return OnlineInvoice
+   */
   public OnlineInvoice onlineInvoiceUrl(String onlineInvoiceUrl) {
     this.onlineInvoiceUrl = onlineInvoiceUrl;
     return this;
@@ -34,10 +39,20 @@ public class OnlineInvoice {
    * @return onlineInvoiceUrl
    */
   @ApiModelProperty(value = "the URL to an online invoice")
+  /**
+   * the URL to an online invoice
+   *
+   * @return onlineInvoiceUrl String
+   */
   public String getOnlineInvoiceUrl() {
     return onlineInvoiceUrl;
   }
 
+  /**
+   * the URL to an online invoice
+   *
+   * @param onlineInvoiceUrl String
+   */
   public void setOnlineInvoiceUrl(String onlineInvoiceUrl) {
     this.onlineInvoiceUrl = onlineInvoiceUrl;
   }

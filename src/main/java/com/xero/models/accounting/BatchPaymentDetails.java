@@ -36,7 +36,12 @@ public class BatchPaymentDetails {
 
   @JsonProperty("Reference")
   private String reference;
-
+  /**
+   * Bank account number for use with Batch Payments
+   *
+   * @param bankAccountNumber String
+   * @return BatchPaymentDetails
+   */
   public BatchPaymentDetails bankAccountNumber(String bankAccountNumber) {
     this.bankAccountNumber = bankAccountNumber;
     return this;
@@ -50,14 +55,30 @@ public class BatchPaymentDetails {
   @ApiModelProperty(
       example = "123-456-1111111",
       value = "Bank account number for use with Batch Payments")
+  /**
+   * Bank account number for use with Batch Payments
+   *
+   * @return bankAccountNumber String
+   */
   public String getBankAccountNumber() {
     return bankAccountNumber;
   }
 
+  /**
+   * Bank account number for use with Batch Payments
+   *
+   * @param bankAccountNumber String
+   */
   public void setBankAccountNumber(String bankAccountNumber) {
     this.bankAccountNumber = bankAccountNumber;
   }
 
+  /**
+   * Name of bank for use with Batch Payments
+   *
+   * @param bankAccountName String
+   * @return BatchPaymentDetails
+   */
   public BatchPaymentDetails bankAccountName(String bankAccountName) {
     this.bankAccountName = bankAccountName;
     return this;
@@ -69,14 +90,33 @@ public class BatchPaymentDetails {
    * @return bankAccountName
    */
   @ApiModelProperty(example = "ACME Bank", value = "Name of bank for use with Batch Payments")
+  /**
+   * Name of bank for use with Batch Payments
+   *
+   * @return bankAccountName String
+   */
   public String getBankAccountName() {
     return bankAccountName;
   }
 
+  /**
+   * Name of bank for use with Batch Payments
+   *
+   * @param bankAccountName String
+   */
   public void setBankAccountName(String bankAccountName) {
     this.bankAccountName = bankAccountName;
   }
 
+  /**
+   * (Non-NZ Only) These details are sent to the org’s bank as a reference for the batch payment
+   * transaction. They will also show with the batch payment transaction in the bank reconciliation
+   * Find &amp; Match screen. Depending on your individual bank, the detail may also show on the
+   * bank statement imported into Xero. Maximum field length &#x3D; 18
+   *
+   * @param details String
+   * @return BatchPaymentDetails
+   */
   public BatchPaymentDetails details(String details) {
     this.details = details;
     return this;
@@ -98,14 +138,38 @@ public class BatchPaymentDetails {
               + " the bank reconciliation Find & Match screen. Depending on your individual bank,"
               + " the detail may also show on the bank statement imported into Xero. Maximum field"
               + " length = 18")
+  /**
+   * (Non-NZ Only) These details are sent to the org’s bank as a reference for the batch payment
+   * transaction. They will also show with the batch payment transaction in the bank reconciliation
+   * Find &amp; Match screen. Depending on your individual bank, the detail may also show on the
+   * bank statement imported into Xero. Maximum field length &#x3D; 18
+   *
+   * @return details String
+   */
   public String getDetails() {
     return details;
   }
 
+  /**
+   * (Non-NZ Only) These details are sent to the org’s bank as a reference for the batch payment
+   * transaction. They will also show with the batch payment transaction in the bank reconciliation
+   * Find &amp; Match screen. Depending on your individual bank, the detail may also show on the
+   * bank statement imported into Xero. Maximum field length &#x3D; 18
+   *
+   * @param details String
+   */
   public void setDetails(String details) {
     this.details = details;
   }
 
+  /**
+   * (NZ Only) Optional references for the batch payment transaction. It will also show with the
+   * batch payment transaction in the bank reconciliation Find &amp; Match screen. Depending on your
+   * individual bank, the detail may also show on the bank statement you import into Xero.
+   *
+   * @param code String
+   * @return BatchPaymentDetails
+   */
   public BatchPaymentDetails code(String code) {
     this.code = code;
     return this;
@@ -125,14 +189,36 @@ public class BatchPaymentDetails {
               + " the batch payment transaction in the bank reconciliation Find & Match screen."
               + " Depending on your individual bank, the detail may also show on the bank"
               + " statement you import into Xero.")
+  /**
+   * (NZ Only) Optional references for the batch payment transaction. It will also show with the
+   * batch payment transaction in the bank reconciliation Find &amp; Match screen. Depending on your
+   * individual bank, the detail may also show on the bank statement you import into Xero.
+   *
+   * @return code String
+   */
   public String getCode() {
     return code;
   }
 
+  /**
+   * (NZ Only) Optional references for the batch payment transaction. It will also show with the
+   * batch payment transaction in the bank reconciliation Find &amp; Match screen. Depending on your
+   * individual bank, the detail may also show on the bank statement you import into Xero.
+   *
+   * @param code String
+   */
   public void setCode(String code) {
     this.code = code;
   }
 
+  /**
+   * (NZ Only) Optional references for the batch payment transaction. It will also show with the
+   * batch payment transaction in the bank reconciliation Find &amp; Match screen. Depending on your
+   * individual bank, the detail may also show on the bank statement you import into Xero.
+   *
+   * @param reference String
+   * @return BatchPaymentDetails
+   */
   public BatchPaymentDetails reference(String reference) {
     this.reference = reference;
     return this;
@@ -152,10 +238,24 @@ public class BatchPaymentDetails {
               + " the batch payment transaction in the bank reconciliation Find & Match screen."
               + " Depending on your individual bank, the detail may also show on the bank"
               + " statement you import into Xero.")
+  /**
+   * (NZ Only) Optional references for the batch payment transaction. It will also show with the
+   * batch payment transaction in the bank reconciliation Find &amp; Match screen. Depending on your
+   * individual bank, the detail may also show on the bank statement you import into Xero.
+   *
+   * @return reference String
+   */
   public String getReference() {
     return reference;
   }
 
+  /**
+   * (NZ Only) Optional references for the batch payment transaction. It will also show with the
+   * batch payment transaction in the bank reconciliation Find &amp; Match screen. Depending on your
+   * individual bank, the detail may also show on the bank statement you import into Xero.
+   *
+   * @param reference String
+   */
   public void setReference(String reference) {
     this.reference = reference;
   }

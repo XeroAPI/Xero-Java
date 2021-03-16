@@ -20,26 +20,38 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * to retrieve the object via the core accounting API.
  */
 public enum ObjectGroup {
+
+  /** ACCOUNT */
   ACCOUNT("Account"),
 
+  /** BANKTRANSACTION */
   BANKTRANSACTION("BankTransaction"),
 
+  /** CONTACT */
   CONTACT("Contact"),
 
+  /** CREDITNOTE */
   CREDITNOTE("CreditNote"),
 
+  /** INVOICE */
   INVOICE("Invoice"),
 
+  /** ITEM */
   ITEM("Item"),
 
+  /** MANUALJOURNAL */
   MANUALJOURNAL("ManualJournal"),
 
+  /** OVERPAYMENT */
   OVERPAYMENT("Overpayment"),
 
+  /** PAYMENT */
   PAYMENT("Payment"),
 
+  /** PREPAYMENT */
   PREPAYMENT("Prepayment"),
 
+  /** RECEIPT */
   RECEIPT("Receipt");
 
   private String value;
@@ -48,16 +60,27 @@ public enum ObjectGroup {
     this.value = value;
   }
 
+  /** @return String value */
   @JsonValue
   public String getValue() {
     return value;
   }
 
+  /**
+   * toString
+   *
+   * @return String value
+   */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
+  /**
+   * fromValue
+   *
+   * @param value String
+   */
   @JsonCreator
   public static ObjectGroup fromValue(String value) {
     for (ObjectGroup b : ObjectGroup.values()) {

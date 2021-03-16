@@ -32,7 +32,12 @@ public class EmployeeOpeningBalance {
 
   @JsonProperty("grossEarnings")
   private Double grossEarnings;
-
+  /**
+   * The opening balance period end date.
+   *
+   * @param periodEndDate LocalDate
+   * @return EmployeeOpeningBalance
+   */
   public EmployeeOpeningBalance periodEndDate(LocalDate periodEndDate) {
     this.periodEndDate = periodEndDate;
     return this;
@@ -44,14 +49,30 @@ public class EmployeeOpeningBalance {
    * @return periodEndDate
    */
   @ApiModelProperty(value = "The opening balance period end date.")
+  /**
+   * The opening balance period end date.
+   *
+   * @return periodEndDate LocalDate
+   */
   public LocalDate getPeriodEndDate() {
     return periodEndDate;
   }
 
+  /**
+   * The opening balance period end date.
+   *
+   * @param periodEndDate LocalDate
+   */
   public void setPeriodEndDate(LocalDate periodEndDate) {
     this.periodEndDate = periodEndDate;
   }
 
+  /**
+   * The paid number of days.
+   *
+   * @param daysPaid Integer
+   * @return EmployeeOpeningBalance
+   */
   public EmployeeOpeningBalance daysPaid(Integer daysPaid) {
     this.daysPaid = daysPaid;
     return this;
@@ -63,14 +84,30 @@ public class EmployeeOpeningBalance {
    * @return daysPaid
    */
   @ApiModelProperty(value = "The paid number of days.")
+  /**
+   * The paid number of days.
+   *
+   * @return daysPaid Integer
+   */
   public Integer getDaysPaid() {
     return daysPaid;
   }
 
+  /**
+   * The paid number of days.
+   *
+   * @param daysPaid Integer
+   */
   public void setDaysPaid(Integer daysPaid) {
     this.daysPaid = daysPaid;
   }
 
+  /**
+   * The number of unpaid weeks.
+   *
+   * @param unpaidWeeks Integer
+   * @return EmployeeOpeningBalance
+   */
   public EmployeeOpeningBalance unpaidWeeks(Integer unpaidWeeks) {
     this.unpaidWeeks = unpaidWeeks;
     return this;
@@ -82,14 +119,30 @@ public class EmployeeOpeningBalance {
    * @return unpaidWeeks
    */
   @ApiModelProperty(value = "The number of unpaid weeks.")
+  /**
+   * The number of unpaid weeks.
+   *
+   * @return unpaidWeeks Integer
+   */
   public Integer getUnpaidWeeks() {
     return unpaidWeeks;
   }
 
+  /**
+   * The number of unpaid weeks.
+   *
+   * @param unpaidWeeks Integer
+   */
   public void setUnpaidWeeks(Integer unpaidWeeks) {
     this.unpaidWeeks = unpaidWeeks;
   }
 
+  /**
+   * The gross earnings during the period.
+   *
+   * @param grossEarnings Double
+   * @return EmployeeOpeningBalance
+   */
   public EmployeeOpeningBalance grossEarnings(Double grossEarnings) {
     this.grossEarnings = grossEarnings;
     return this;
@@ -101,10 +154,20 @@ public class EmployeeOpeningBalance {
    * @return grossEarnings
    */
   @ApiModelProperty(value = "The gross earnings during the period.")
+  /**
+   * The gross earnings during the period.
+   *
+   * @return grossEarnings Double
+   */
   public Double getGrossEarnings() {
     return grossEarnings;
   }
 
+  /**
+   * The gross earnings during the period.
+   *
+   * @param grossEarnings Double
+   */
   public void setGrossEarnings(Double grossEarnings) {
     this.grossEarnings = grossEarnings;
   }

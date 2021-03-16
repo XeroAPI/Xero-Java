@@ -31,7 +31,12 @@ public class TaxComponent {
 
   @JsonProperty("IsNonRecoverable")
   private Boolean isNonRecoverable;
-
+  /**
+   * Name of Tax Component
+   *
+   * @param name String
+   * @return TaxComponent
+   */
   public TaxComponent name(String name) {
     this.name = name;
     return this;
@@ -43,14 +48,30 @@ public class TaxComponent {
    * @return name
    */
   @ApiModelProperty(value = "Name of Tax Component")
+  /**
+   * Name of Tax Component
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Name of Tax Component
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * Tax Rate (up to 4dp)
+   *
+   * @param rate Double
+   * @return TaxComponent
+   */
   public TaxComponent rate(Double rate) {
     this.rate = rate;
     return this;
@@ -62,14 +83,30 @@ public class TaxComponent {
    * @return rate
    */
   @ApiModelProperty(value = "Tax Rate (up to 4dp)")
+  /**
+   * Tax Rate (up to 4dp)
+   *
+   * @return rate Double
+   */
   public Double getRate() {
     return rate;
   }
 
+  /**
+   * Tax Rate (up to 4dp)
+   *
+   * @param rate Double
+   */
   public void setRate(Double rate) {
     this.rate = rate;
   }
 
+  /**
+   * Boolean to describe if Tax rate is compounded.
+   *
+   * @param isCompound Boolean
+   * @return TaxComponent
+   */
   public TaxComponent isCompound(Boolean isCompound) {
     this.isCompound = isCompound;
     return this;
@@ -81,14 +118,31 @@ public class TaxComponent {
    * @return isCompound
    */
   @ApiModelProperty(value = "Boolean to describe if Tax rate is compounded.")
+  /**
+   * Boolean to describe if Tax rate is compounded.
+   *
+   * @return isCompound Boolean
+   */
   public Boolean getIsCompound() {
     return isCompound;
   }
 
+  /**
+   * Boolean to describe if Tax rate is compounded.
+   *
+   * @param isCompound Boolean
+   */
   public void setIsCompound(Boolean isCompound) {
     this.isCompound = isCompound;
   }
 
+  /**
+   * Boolean to describe if tax rate is non-recoverable. Non-recoverable rates are only applicable
+   * to Canadian organisations
+   *
+   * @param isNonRecoverable Boolean
+   * @return TaxComponent
+   */
   public TaxComponent isNonRecoverable(Boolean isNonRecoverable) {
     this.isNonRecoverable = isNonRecoverable;
     return this;
@@ -104,10 +158,22 @@ public class TaxComponent {
       value =
           "Boolean to describe if tax rate is non-recoverable. Non-recoverable rates are only"
               + " applicable to Canadian organisations")
+  /**
+   * Boolean to describe if tax rate is non-recoverable. Non-recoverable rates are only applicable
+   * to Canadian organisations
+   *
+   * @return isNonRecoverable Boolean
+   */
   public Boolean getIsNonRecoverable() {
     return isNonRecoverable;
   }
 
+  /**
+   * Boolean to describe if tax rate is non-recoverable. Non-recoverable rates are only applicable
+   * to Canadian organisations
+   *
+   * @param isNonRecoverable Boolean
+   */
   public void setIsNonRecoverable(Boolean isNonRecoverable) {
     this.isNonRecoverable = isNonRecoverable;
   }

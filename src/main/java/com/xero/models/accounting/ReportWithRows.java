@@ -24,12 +24,23 @@ public class ReportWithRows {
 
   @JsonProperty("Reports")
   private List<ReportWithRow> reports = new ArrayList<ReportWithRow>();
-
+  /**
+   * reports
+   *
+   * @param reports List&lt;ReportWithRow&gt;
+   * @return ReportWithRows
+   */
   public ReportWithRows reports(List<ReportWithRow> reports) {
     this.reports = reports;
     return this;
   }
 
+  /**
+   * reports
+   *
+   * @param reportsItem ReportWithRow
+   * @return ReportWithRows
+   */
   public ReportWithRows addReportsItem(ReportWithRow reportsItem) {
     if (this.reports == null) {
       this.reports = new ArrayList<ReportWithRow>();
@@ -44,10 +55,20 @@ public class ReportWithRows {
    * @return reports
    */
   @ApiModelProperty(value = "")
+  /**
+   * reports
+   *
+   * @return reports List<ReportWithRow>
+   */
   public List<ReportWithRow> getReports() {
     return reports;
   }
 
+  /**
+   * reports
+   *
+   * @param reports List&lt;ReportWithRow&gt;
+   */
   public void setReports(List<ReportWithRow> reports) {
     this.reports = reports;
   }

@@ -30,7 +30,12 @@ public class Employees {
 
   @JsonProperty("employees")
   private List<Employee> employees = new ArrayList<Employee>();
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return Employees
+   */
   public Employees pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -42,14 +47,30 @@ public class Employees {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return Employees
+   */
   public Employees problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -61,19 +82,41 @@ public class Employees {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * employees
+   *
+   * @param employees List&lt;Employee&gt;
+   * @return Employees
+   */
   public Employees employees(List<Employee> employees) {
     this.employees = employees;
     return this;
   }
 
+  /**
+   * employees
+   *
+   * @param employeesItem Employee
+   * @return Employees
+   */
   public Employees addEmployeesItem(Employee employeesItem) {
     if (this.employees == null) {
       this.employees = new ArrayList<Employee>();
@@ -88,10 +131,20 @@ public class Employees {
    * @return employees
    */
   @ApiModelProperty(value = "")
+  /**
+   * employees
+   *
+   * @return employees List<Employee>
+   */
   public List<Employee> getEmployees() {
     return employees;
   }
 
+  /**
+   * employees
+   *
+   * @param employees List&lt;Employee&gt;
+   */
   public void setEmployees(List<Employee> employees) {
     this.employees = employees;
   }

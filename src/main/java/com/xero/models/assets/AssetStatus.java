@@ -17,10 +17,14 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /** See Asset Status Codes. */
 public enum AssetStatus {
+
+  /** DRAFT */
   DRAFT("Draft"),
 
+  /** REGISTERED */
   REGISTERED("Registered"),
 
+  /** DISPOSED */
   DISPOSED("Disposed");
 
   private String value;
@@ -29,16 +33,27 @@ public enum AssetStatus {
     this.value = value;
   }
 
+  /** @return String value */
   @JsonValue
   public String getValue() {
     return value;
   }
 
+  /**
+   * toString
+   *
+   * @return String value
+   */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
+  /**
+   * fromValue
+   *
+   * @param value String
+   */
   @JsonCreator
   public static AssetStatus fromValue(String value) {
     for (AssetStatus b : AssetStatus.values()) {

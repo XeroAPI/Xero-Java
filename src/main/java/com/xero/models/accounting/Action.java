@@ -26,8 +26,10 @@ public class Action {
   private String name;
   /** Status of the action for this organisation */
   public enum StatusEnum {
+    /** ALLOWED */
     ALLOWED("ALLOWED"),
 
+    /** NOT_ALLOWED */
     NOT_ALLOWED("NOT-ALLOWED");
 
     private String value;
@@ -36,16 +38,31 @@ public class Action {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
@@ -59,7 +76,12 @@ public class Action {
 
   @JsonProperty("Status")
   private StatusEnum status;
-
+  /**
+   * Name of the actions for this organisation
+   *
+   * @param name String
+   * @return Action
+   */
   public Action name(String name) {
     this.name = name;
     return this;
@@ -73,14 +95,30 @@ public class Action {
   @ApiModelProperty(
       example = "UseMulticurrency",
       value = "Name of the actions for this organisation")
+  /**
+   * Name of the actions for this organisation
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Name of the actions for this organisation
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * Status of the action for this organisation
+   *
+   * @param status StatusEnum
+   * @return Action
+   */
   public Action status(StatusEnum status) {
     this.status = status;
     return this;
@@ -92,10 +130,20 @@ public class Action {
    * @return status
    */
   @ApiModelProperty(value = "Status of the action for this organisation")
+  /**
+   * Status of the action for this organisation
+   *
+   * @return status StatusEnum
+   */
   public StatusEnum getStatus() {
     return status;
   }
 
+  /**
+   * Status of the action for this organisation
+   *
+   * @param status StatusEnum
+   */
   public void setStatus(StatusEnum status) {
     this.status = status;
   }

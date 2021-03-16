@@ -24,12 +24,23 @@ public class Attachments {
 
   @JsonProperty("Attachments")
   private List<Attachment> attachments = new ArrayList<Attachment>();
-
+  /**
+   * attachments
+   *
+   * @param attachments List&lt;Attachment&gt;
+   * @return Attachments
+   */
   public Attachments attachments(List<Attachment> attachments) {
     this.attachments = attachments;
     return this;
   }
 
+  /**
+   * attachments
+   *
+   * @param attachmentsItem Attachment
+   * @return Attachments
+   */
   public Attachments addAttachmentsItem(Attachment attachmentsItem) {
     if (this.attachments == null) {
       this.attachments = new ArrayList<Attachment>();
@@ -44,10 +55,20 @@ public class Attachments {
    * @return attachments
    */
   @ApiModelProperty(value = "")
+  /**
+   * attachments
+   *
+   * @return attachments List<Attachment>
+   */
   public List<Attachment> getAttachments() {
     return attachments;
   }
 
+  /**
+   * attachments
+   *
+   * @param attachments List&lt;Attachment&gt;
+   */
   public void setAttachments(List<Attachment> attachments) {
     this.attachments = attachments;
   }

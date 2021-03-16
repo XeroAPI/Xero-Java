@@ -20,10 +20,14 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * Types
  */
 public enum QuoteLineAmountTypes {
+
+  /** EXCLUSIVE */
   EXCLUSIVE("EXCLUSIVE"),
 
+  /** INCLUSIVE */
   INCLUSIVE("INCLUSIVE"),
 
+  /** NOTAX */
   NOTAX("NOTAX");
 
   private String value;
@@ -32,16 +36,27 @@ public enum QuoteLineAmountTypes {
     this.value = value;
   }
 
+  /** @return String value */
   @JsonValue
   public String getValue() {
     return value;
   }
 
+  /**
+   * toString
+   *
+   * @return String value
+   */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
+  /**
+   * fromValue
+   *
+   * @param value String
+   */
   @JsonCreator
   public static QuoteLineAmountTypes fromValue(String value) {
     for (QuoteLineAmountTypes b : QuoteLineAmountTypes.values()) {

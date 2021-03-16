@@ -32,7 +32,12 @@ public class EmployeeLeaveBalance {
 
   @JsonProperty("typeOfUnits")
   private String typeOfUnits;
-
+  /**
+   * Name of the leave type.
+   *
+   * @param name String
+   * @return EmployeeLeaveBalance
+   */
   public EmployeeLeaveBalance name(String name) {
     this.name = name;
     return this;
@@ -44,14 +49,30 @@ public class EmployeeLeaveBalance {
    * @return name
    */
   @ApiModelProperty(example = "Holiday", value = "Name of the leave type.")
+  /**
+   * Name of the leave type.
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Name of the leave type.
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * The Xero identifier for leave type
+   *
+   * @param leaveTypeID UUID
+   * @return EmployeeLeaveBalance
+   */
   public EmployeeLeaveBalance leaveTypeID(UUID leaveTypeID) {
     this.leaveTypeID = leaveTypeID;
     return this;
@@ -63,14 +84,30 @@ public class EmployeeLeaveBalance {
    * @return leaveTypeID
    */
   @ApiModelProperty(value = "The Xero identifier for leave type")
+  /**
+   * The Xero identifier for leave type
+   *
+   * @return leaveTypeID UUID
+   */
   public UUID getLeaveTypeID() {
     return leaveTypeID;
   }
 
+  /**
+   * The Xero identifier for leave type
+   *
+   * @param leaveTypeID UUID
+   */
   public void setLeaveTypeID(UUID leaveTypeID) {
     this.leaveTypeID = leaveTypeID;
   }
 
+  /**
+   * The employees current balance for the corresponding leave type.
+   *
+   * @param balance Double
+   * @return EmployeeLeaveBalance
+   */
   public EmployeeLeaveBalance balance(Double balance) {
     this.balance = balance;
     return this;
@@ -82,14 +119,30 @@ public class EmployeeLeaveBalance {
    * @return balance
    */
   @ApiModelProperty(value = "The employees current balance for the corresponding leave type.")
+  /**
+   * The employees current balance for the corresponding leave type.
+   *
+   * @return balance Double
+   */
   public Double getBalance() {
     return balance;
   }
 
+  /**
+   * The employees current balance for the corresponding leave type.
+   *
+   * @param balance Double
+   */
   public void setBalance(Double balance) {
     this.balance = balance;
   }
 
+  /**
+   * The type of the units of the leave.
+   *
+   * @param typeOfUnits String
+   * @return EmployeeLeaveBalance
+   */
   public EmployeeLeaveBalance typeOfUnits(String typeOfUnits) {
     this.typeOfUnits = typeOfUnits;
     return this;
@@ -101,10 +154,20 @@ public class EmployeeLeaveBalance {
    * @return typeOfUnits
    */
   @ApiModelProperty(example = "hours", value = "The type of the units of the leave.")
+  /**
+   * The type of the units of the leave.
+   *
+   * @return typeOfUnits String
+   */
   public String getTypeOfUnits() {
     return typeOfUnits;
   }
 
+  /**
+   * The type of the units of the leave.
+   *
+   * @param typeOfUnits String
+   */
   public void setTypeOfUnits(String typeOfUnits) {
     this.typeOfUnits = typeOfUnits;
   }

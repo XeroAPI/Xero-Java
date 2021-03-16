@@ -24,12 +24,23 @@ public class OnlineInvoices {
 
   @JsonProperty("OnlineInvoices")
   private List<OnlineInvoice> onlineInvoices = new ArrayList<OnlineInvoice>();
-
+  /**
+   * onlineInvoices
+   *
+   * @param onlineInvoices List&lt;OnlineInvoice&gt;
+   * @return OnlineInvoices
+   */
   public OnlineInvoices onlineInvoices(List<OnlineInvoice> onlineInvoices) {
     this.onlineInvoices = onlineInvoices;
     return this;
   }
 
+  /**
+   * onlineInvoices
+   *
+   * @param onlineInvoicesItem OnlineInvoice
+   * @return OnlineInvoices
+   */
   public OnlineInvoices addOnlineInvoicesItem(OnlineInvoice onlineInvoicesItem) {
     if (this.onlineInvoices == null) {
       this.onlineInvoices = new ArrayList<OnlineInvoice>();
@@ -44,10 +55,20 @@ public class OnlineInvoices {
    * @return onlineInvoices
    */
   @ApiModelProperty(value = "")
+  /**
+   * onlineInvoices
+   *
+   * @return onlineInvoices List<OnlineInvoice>
+   */
   public List<OnlineInvoice> getOnlineInvoices() {
     return onlineInvoices;
   }
 
+  /**
+   * onlineInvoices
+   *
+   * @param onlineInvoices List&lt;OnlineInvoice&gt;
+   */
   public void setOnlineInvoices(List<OnlineInvoice> onlineInvoices) {
     this.onlineInvoices = onlineInvoices;
   }

@@ -17,10 +17,14 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Gets or Sets EarningsRateCalculationType */
 public enum EarningsRateCalculationType {
+
+  /** USEEARNINGSRATE */
   USEEARNINGSRATE("USEEARNINGSRATE"),
 
+  /** ENTEREARNINGSRATE */
   ENTEREARNINGSRATE("ENTEREARNINGSRATE"),
 
+  /** ANNUALSALARY */
   ANNUALSALARY("ANNUALSALARY");
 
   private String value;
@@ -29,16 +33,27 @@ public enum EarningsRateCalculationType {
     this.value = value;
   }
 
+  /** @return String value */
   @JsonValue
   public String getValue() {
     return value;
   }
 
+  /**
+   * toString
+   *
+   * @return String value
+   */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
+  /**
+   * fromValue
+   *
+   * @param value String
+   */
   @JsonCreator
   public static EarningsRateCalculationType fromValue(String value) {
     for (EarningsRateCalculationType b : EarningsRateCalculationType.values()) {

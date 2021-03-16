@@ -24,12 +24,23 @@ public class Employees {
 
   @JsonProperty("Employees")
   private List<Employee> employees = new ArrayList<Employee>();
-
+  /**
+   * employees
+   *
+   * @param employees List&lt;Employee&gt;
+   * @return Employees
+   */
   public Employees employees(List<Employee> employees) {
     this.employees = employees;
     return this;
   }
 
+  /**
+   * employees
+   *
+   * @param employeesItem Employee
+   * @return Employees
+   */
   public Employees addEmployeesItem(Employee employeesItem) {
     if (this.employees == null) {
       this.employees = new ArrayList<Employee>();
@@ -44,10 +55,20 @@ public class Employees {
    * @return employees
    */
   @ApiModelProperty(value = "")
+  /**
+   * employees
+   *
+   * @return employees List<Employee>
+   */
   public List<Employee> getEmployees() {
     return employees;
   }
 
+  /**
+   * employees
+   *
+   * @param employees List&lt;Employee&gt;
+   */
   public void setEmployees(List<Employee> employees) {
     this.employees = employees;
   }

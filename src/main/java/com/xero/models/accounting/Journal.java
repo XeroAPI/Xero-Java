@@ -49,54 +49,79 @@ public class Journal {
   private UUID sourceID;
   /** The journal source type. The type of transaction that created the journal */
   public enum SourceTypeEnum {
+    /** ACCREC */
     ACCREC("ACCREC"),
 
+    /** ACCPAY */
     ACCPAY("ACCPAY"),
 
+    /** ACCRECCREDIT */
     ACCRECCREDIT("ACCRECCREDIT"),
 
+    /** ACCPAYCREDIT */
     ACCPAYCREDIT("ACCPAYCREDIT"),
 
+    /** ACCRECPAYMENT */
     ACCRECPAYMENT("ACCRECPAYMENT"),
 
+    /** ACCPAYPAYMENT */
     ACCPAYPAYMENT("ACCPAYPAYMENT"),
 
+    /** ARCREDITPAYMENT */
     ARCREDITPAYMENT("ARCREDITPAYMENT"),
 
+    /** APCREDITPAYMENT */
     APCREDITPAYMENT("APCREDITPAYMENT"),
 
+    /** CASHREC */
     CASHREC("CASHREC"),
 
+    /** CASHPAID */
     CASHPAID("CASHPAID"),
 
+    /** TRANSFER */
     TRANSFER("TRANSFER"),
 
+    /** ARPREPAYMENT */
     ARPREPAYMENT("ARPREPAYMENT"),
 
+    /** APPREPAYMENT */
     APPREPAYMENT("APPREPAYMENT"),
 
+    /** AROVERPAYMENT */
     AROVERPAYMENT("AROVERPAYMENT"),
 
+    /** APOVERPAYMENT */
     APOVERPAYMENT("APOVERPAYMENT"),
 
+    /** EXPCLAIM */
     EXPCLAIM("EXPCLAIM"),
 
+    /** EXPPAYMENT */
     EXPPAYMENT("EXPPAYMENT"),
 
+    /** MANJOURNAL */
     MANJOURNAL("MANJOURNAL"),
 
+    /** PAYSLIP */
     PAYSLIP("PAYSLIP"),
 
+    /** WAGEPAYABLE */
     WAGEPAYABLE("WAGEPAYABLE"),
 
+    /** INTEGRATEDPAYROLLPE */
     INTEGRATEDPAYROLLPE("INTEGRATEDPAYROLLPE"),
 
+    /** INTEGRATEDPAYROLLPT */
     INTEGRATEDPAYROLLPT("INTEGRATEDPAYROLLPT"),
 
+    /** EXTERNALSPENDMONEY */
     EXTERNALSPENDMONEY("EXTERNALSPENDMONEY"),
 
+    /** INTEGRATEDPAYROLLPTPAYMENT */
     INTEGRATEDPAYROLLPTPAYMENT("INTEGRATEDPAYROLLPTPAYMENT"),
 
+    /** INTEGRATEDPAYROLLCN */
     INTEGRATEDPAYROLLCN("INTEGRATEDPAYROLLCN");
 
     private String value;
@@ -105,16 +130,31 @@ public class Journal {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static SourceTypeEnum fromValue(String value) {
       for (SourceTypeEnum b : SourceTypeEnum.values()) {
@@ -131,7 +171,12 @@ public class Journal {
 
   @JsonProperty("JournalLines")
   private List<JournalLine> journalLines = new ArrayList<JournalLine>();
-
+  /**
+   * Xero identifier
+   *
+   * @param journalID UUID
+   * @return Journal
+   */
   public Journal journalID(UUID journalID) {
     this.journalID = journalID;
     return this;
@@ -143,14 +188,30 @@ public class Journal {
    * @return journalID
    */
   @ApiModelProperty(value = "Xero identifier")
+  /**
+   * Xero identifier
+   *
+   * @return journalID UUID
+   */
   public UUID getJournalID() {
     return journalID;
   }
 
+  /**
+   * Xero identifier
+   *
+   * @param journalID UUID
+   */
   public void setJournalID(UUID journalID) {
     this.journalID = journalID;
   }
 
+  /**
+   * Date the journal was posted
+   *
+   * @param journalDate String
+   * @return Journal
+   */
   public Journal journalDate(String journalDate) {
     this.journalDate = journalDate;
     return this;
@@ -162,10 +223,19 @@ public class Journal {
    * @return journalDate
    */
   @ApiModelProperty(value = "Date the journal was posted")
+  /**
+   * Date the journal was posted
+   *
+   * @return journalDate String
+   */
   public String getJournalDate() {
     return journalDate;
   }
-
+  /**
+   * Date the journal was posted
+   *
+   * @return LocalDate
+   */
   public LocalDate getJournalDateAsDate() {
     if (this.journalDate != null) {
       try {
@@ -177,10 +247,20 @@ public class Journal {
     return null;
   }
 
+  /**
+   * Date the journal was posted
+   *
+   * @param journalDate String
+   */
   public void setJournalDate(String journalDate) {
     this.journalDate = journalDate;
   }
 
+  /**
+   * Date the journal was posted
+   *
+   * @param journalDate LocalDateTime
+   */
   public void setJournalDate(LocalDate journalDate) {
     // CONVERT LocalDate args into MS DateFromat String
     Instant instant = journalDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
@@ -189,6 +269,12 @@ public class Journal {
     this.journalDate = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
   }
 
+  /**
+   * Xero generated journal number
+   *
+   * @param journalNumber Integer
+   * @return Journal
+   */
   public Journal journalNumber(Integer journalNumber) {
     this.journalNumber = journalNumber;
     return this;
@@ -200,10 +286,20 @@ public class Journal {
    * @return journalNumber
    */
   @ApiModelProperty(value = "Xero generated journal number")
+  /**
+   * Xero generated journal number
+   *
+   * @return journalNumber Integer
+   */
   public Integer getJournalNumber() {
     return journalNumber;
   }
 
+  /**
+   * Xero generated journal number
+   *
+   * @param journalNumber Integer
+   */
   public void setJournalNumber(Integer journalNumber) {
     this.journalNumber = journalNumber;
   }
@@ -214,10 +310,19 @@ public class Journal {
    * @return createdDateUTC
    */
   @ApiModelProperty(example = "/Date(1573755038314)/", value = "Created date UTC format")
+  /**
+   * Created date UTC format
+   *
+   * @return createdDateUTC String
+   */
   public String getCreatedDateUTC() {
     return createdDateUTC;
   }
-
+  /**
+   * Created date UTC format
+   *
+   * @return OffsetDateTime
+   */
   public OffsetDateTime getCreatedDateUTCAsDate() {
     if (this.createdDateUTC != null) {
       try {
@@ -229,6 +334,12 @@ public class Journal {
     return null;
   }
 
+  /**
+   * reference field for additional indetifying information
+   *
+   * @param reference String
+   * @return Journal
+   */
   public Journal reference(String reference) {
     this.reference = reference;
     return this;
@@ -240,14 +351,30 @@ public class Journal {
    * @return reference
    */
   @ApiModelProperty(value = "reference field for additional indetifying information")
+  /**
+   * reference field for additional indetifying information
+   *
+   * @return reference String
+   */
   public String getReference() {
     return reference;
   }
 
+  /**
+   * reference field for additional indetifying information
+   *
+   * @param reference String
+   */
   public void setReference(String reference) {
     this.reference = reference;
   }
 
+  /**
+   * The identifier for the source transaction (e.g. InvoiceID)
+   *
+   * @param sourceID UUID
+   * @return Journal
+   */
   public Journal sourceID(UUID sourceID) {
     this.sourceID = sourceID;
     return this;
@@ -259,14 +386,30 @@ public class Journal {
    * @return sourceID
    */
   @ApiModelProperty(value = "The identifier for the source transaction (e.g. InvoiceID)")
+  /**
+   * The identifier for the source transaction (e.g. InvoiceID)
+   *
+   * @return sourceID UUID
+   */
   public UUID getSourceID() {
     return sourceID;
   }
 
+  /**
+   * The identifier for the source transaction (e.g. InvoiceID)
+   *
+   * @param sourceID UUID
+   */
   public void setSourceID(UUID sourceID) {
     this.sourceID = sourceID;
   }
 
+  /**
+   * The journal source type. The type of transaction that created the journal
+   *
+   * @param sourceType SourceTypeEnum
+   * @return Journal
+   */
   public Journal sourceType(SourceTypeEnum sourceType) {
     this.sourceType = sourceType;
     return this;
@@ -279,19 +422,41 @@ public class Journal {
    */
   @ApiModelProperty(
       value = "The journal source type. The type of transaction that created the journal")
+  /**
+   * The journal source type. The type of transaction that created the journal
+   *
+   * @return sourceType SourceTypeEnum
+   */
   public SourceTypeEnum getSourceType() {
     return sourceType;
   }
 
+  /**
+   * The journal source type. The type of transaction that created the journal
+   *
+   * @param sourceType SourceTypeEnum
+   */
   public void setSourceType(SourceTypeEnum sourceType) {
     this.sourceType = sourceType;
   }
 
+  /**
+   * See JournalLines
+   *
+   * @param journalLines List&lt;JournalLine&gt;
+   * @return Journal
+   */
   public Journal journalLines(List<JournalLine> journalLines) {
     this.journalLines = journalLines;
     return this;
   }
 
+  /**
+   * See JournalLines
+   *
+   * @param journalLinesItem JournalLine
+   * @return Journal
+   */
   public Journal addJournalLinesItem(JournalLine journalLinesItem) {
     if (this.journalLines == null) {
       this.journalLines = new ArrayList<JournalLine>();
@@ -306,10 +471,20 @@ public class Journal {
    * @return journalLines
    */
   @ApiModelProperty(value = "See JournalLines")
+  /**
+   * See JournalLines
+   *
+   * @return journalLines List<JournalLine>
+   */
   public List<JournalLine> getJournalLines() {
     return journalLines;
   }
 
+  /**
+   * See JournalLines
+   *
+   * @param journalLines List&lt;JournalLine&gt;
+   */
   public void setJournalLines(List<JournalLine> journalLines) {
     this.journalLines = journalLines;
   }

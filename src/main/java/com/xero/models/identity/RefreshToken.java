@@ -31,7 +31,12 @@ public class RefreshToken {
 
   @JsonProperty("client_secret")
   private String clientSecret;
-
+  /**
+   * Xero grant type
+   *
+   * @param grantType String
+   * @return RefreshToken
+   */
   public RefreshToken grantType(String grantType) {
     this.grantType = grantType;
     return this;
@@ -43,14 +48,30 @@ public class RefreshToken {
    * @return grantType
    */
   @ApiModelProperty(value = "Xero grant type")
+  /**
+   * Xero grant type
+   *
+   * @return grantType String
+   */
   public String getGrantType() {
     return grantType;
   }
 
+  /**
+   * Xero grant type
+   *
+   * @param grantType String
+   */
   public void setGrantType(String grantType) {
     this.grantType = grantType;
   }
 
+  /**
+   * refresh token provided during authentication flow
+   *
+   * @param refreshToken String
+   * @return RefreshToken
+   */
   public RefreshToken refreshToken(String refreshToken) {
     this.refreshToken = refreshToken;
     return this;
@@ -62,14 +83,30 @@ public class RefreshToken {
    * @return refreshToken
    */
   @ApiModelProperty(value = "refresh token provided during authentication flow")
+  /**
+   * refresh token provided during authentication flow
+   *
+   * @return refreshToken String
+   */
   public String getRefreshToken() {
     return refreshToken;
   }
 
+  /**
+   * refresh token provided during authentication flow
+   *
+   * @param refreshToken String
+   */
   public void setRefreshToken(String refreshToken) {
     this.refreshToken = refreshToken;
   }
 
+  /**
+   * client id for Xero app
+   *
+   * @param clientId String
+   * @return RefreshToken
+   */
   public RefreshToken clientId(String clientId) {
     this.clientId = clientId;
     return this;
@@ -81,14 +118,30 @@ public class RefreshToken {
    * @return clientId
    */
   @ApiModelProperty(value = "client id for Xero app")
+  /**
+   * client id for Xero app
+   *
+   * @return clientId String
+   */
   public String getClientId() {
     return clientId;
   }
 
+  /**
+   * client id for Xero app
+   *
+   * @param clientId String
+   */
   public void setClientId(String clientId) {
     this.clientId = clientId;
   }
 
+  /**
+   * client secret for Xero app 2
+   *
+   * @param clientSecret String
+   * @return RefreshToken
+   */
   public RefreshToken clientSecret(String clientSecret) {
     this.clientSecret = clientSecret;
     return this;
@@ -100,10 +153,20 @@ public class RefreshToken {
    * @return clientSecret
    */
   @ApiModelProperty(value = "client secret for Xero app 2")
+  /**
+   * client secret for Xero app 2
+   *
+   * @return clientSecret String
+   */
   public String getClientSecret() {
     return clientSecret;
   }
 
+  /**
+   * client secret for Xero app 2
+   *
+   * @param clientSecret String
+   */
   public void setClientSecret(String clientSecret) {
     this.clientSecret = clientSecret;
   }

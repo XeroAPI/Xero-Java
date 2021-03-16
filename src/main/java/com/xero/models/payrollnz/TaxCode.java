@@ -17,42 +17,62 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Tax codes used for employee tax */
 public enum TaxCode {
+
+  /** ND */
   ND("ND"),
 
+  /** M */
   M("M"),
 
+  /** ME */
   ME("ME"),
 
+  /** MSL */
   MSL("MSL"),
 
+  /** MESL */
   MESL("MESL"),
 
+  /** SB */
   SB("SB"),
 
+  /** S */
   S("S"),
 
+  /** SH */
   SH("SH"),
 
+  /** ST */
   ST("ST"),
 
+  /** SBSL */
   SBSL("SBSL"),
 
+  /** SSL */
   SSL("SSL"),
 
+  /** SHSL */
   SHSL("SHSL"),
 
+  /** STSL */
   STSL("STSL"),
 
+  /** WT */
   WT("WT"),
 
+  /** CAE */
   CAE("CAE"),
 
+  /** EDW */
   EDW("EDW"),
 
+  /** NSW */
   NSW("NSW"),
 
+  /** STC */
   STC("STC"),
 
+  /** STCSL */
   STCSL("STCSL");
 
   private String value;
@@ -61,16 +81,27 @@ public enum TaxCode {
     this.value = value;
   }
 
+  /** @return String value */
   @JsonValue
   public String getValue() {
     return value;
   }
 
+  /**
+   * toString
+   *
+   * @return String value
+   */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
+  /**
+   * fromValue
+   *
+   * @param value String
+   */
   @JsonCreator
   public static TaxCode fromValue(String value) {
     for (TaxCode b : TaxCode.values()) {

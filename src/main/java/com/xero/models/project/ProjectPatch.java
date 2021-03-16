@@ -22,7 +22,12 @@ public class ProjectPatch {
 
   @JsonProperty("status")
   private ProjectStatus status;
-
+  /**
+   * status
+   *
+   * @param status ProjectStatus
+   * @return ProjectPatch
+   */
   public ProjectPatch status(ProjectStatus status) {
     this.status = status;
     return this;
@@ -34,10 +39,20 @@ public class ProjectPatch {
    * @return status
    */
   @ApiModelProperty(required = true, value = "")
+  /**
+   * status
+   *
+   * @return status ProjectStatus
+   */
   public ProjectStatus getStatus() {
     return status;
   }
 
+  /**
+   * status
+   *
+   * @param status ProjectStatus
+   */
   public void setStatus(ProjectStatus status) {
     this.status = status;
   }

@@ -30,7 +30,12 @@ public class StatutoryDeductions {
 
   @JsonProperty("statutoryDeductions")
   private List<StatutoryDeduction> statutoryDeductions = new ArrayList<StatutoryDeduction>();
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return StatutoryDeductions
+   */
   public StatutoryDeductions pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -42,14 +47,30 @@ public class StatutoryDeductions {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return StatutoryDeductions
+   */
   public StatutoryDeductions problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -61,19 +82,41 @@ public class StatutoryDeductions {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * statutoryDeductions
+   *
+   * @param statutoryDeductions List&lt;StatutoryDeduction&gt;
+   * @return StatutoryDeductions
+   */
   public StatutoryDeductions statutoryDeductions(List<StatutoryDeduction> statutoryDeductions) {
     this.statutoryDeductions = statutoryDeductions;
     return this;
   }
 
+  /**
+   * statutoryDeductions
+   *
+   * @param statutoryDeductionsItem StatutoryDeduction
+   * @return StatutoryDeductions
+   */
   public StatutoryDeductions addStatutoryDeductionsItem(
       StatutoryDeduction statutoryDeductionsItem) {
     if (this.statutoryDeductions == null) {
@@ -89,10 +132,20 @@ public class StatutoryDeductions {
    * @return statutoryDeductions
    */
   @ApiModelProperty(value = "")
+  /**
+   * statutoryDeductions
+   *
+   * @return statutoryDeductions List<StatutoryDeduction>
+   */
   public List<StatutoryDeduction> getStatutoryDeductions() {
     return statutoryDeductions;
   }
 
+  /**
+   * statutoryDeductions
+   *
+   * @param statutoryDeductions List&lt;StatutoryDeduction&gt;
+   */
   public void setStatutoryDeductions(List<StatutoryDeduction> statutoryDeductions) {
     this.statutoryDeductions = statutoryDeductions;
   }

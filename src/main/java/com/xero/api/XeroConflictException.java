@@ -14,6 +14,7 @@ import com.xero.models.bankfeeds.Statements;
 
 import io.swagger.annotations.ApiModelProperty;
 
+/** handle bank feed conflict exception  */
 public class XeroConflictException extends XeroException {
 
     private static final long serialVersionUID = 1L;
@@ -27,37 +28,61 @@ public class XeroConflictException extends XeroException {
     private com.xero.models.payrolluk.Problem payrollUkProblem = new com.xero.models.payrolluk.Problem();
     private com.xero.models.payrollnz.Problem payrollNzProblem = new com.xero.models.payrollnz.Problem();
     
-    
+    /** XeroConflictException
+    * @param objectType String object type being interacted with when the error was returned.
+    * @param error Error object with details specific to accounting API
+    */
     public XeroConflictException(String objectType, com.xero.models.accounting.Error error) {
         this.statusCode = 409;
         this.type(objectType);
         this.elements(error.getElements());
     }
     
+    /** XeroConflictException
+    * @param objectType String object type being interacted with when the error was returned.
+    * @param error Error object with details specific to assets API
+    */
     public XeroConflictException(String objectType, com.xero.models.assets.Error error) {
         this.statusCode = 409;
         this.type = objectType;
         this.fieldValidationErrorsElements = error.getFieldValidationErrors();
     }
     
+    /** XeroConflictException
+    * @param objectType String object type being interacted with when the error was returned.
+    * @param error Statements object with details specific to Bank Feeds API
+    */
     public XeroConflictException(String objectType, Statements error) {
         this.statusCode = 409;
         this.type = objectType;
         this.statementItems = error.getItems();
     }
     
+    /** XeroConflictException 
+    * @param objectType String object type being interacted with when the error was returned.
+    * @param error FeedConnections object with details specific to Bank Feeds API
+    */
     public XeroConflictException(String objectType, FeedConnections error) {
         this.statusCode = 409;
         this.type = objectType;
         this.feedConnectionItems = error.getItems();
     }
     
+    /** XeroConflictException   
+    * @param objectType String object type being interacted with when the error was returned.
+    * @param problem Problem object with details specific to UK Payroll API
+    */
     public XeroConflictException(String objectType, com.xero.models.payrolluk.Problem problem) {
         this.statusCode = 409;
         this.type = objectType;
         this.payrollUkProblem = problem;
     }
     
+    /** XeroConflictException   
+    * @param objectType String object type being interacted with when the error was returned.
+    * @param problem Problem object with details specific to UK Payroll API
+    * @param e Exception object with details about the original exception
+    */
     public XeroConflictException(String objectType, com.xero.models.payrollnz.Problem problem, Exception e) {
         super(e);
         this.statusCode = 409;
@@ -65,11 +90,19 @@ public class XeroConflictException extends XeroException {
         this.payrollNzProblem = problem;
     }
     
+    /** XeroConflictException 
+    * @param statusCode Integer the server status code returned.
+    * @param message String with details about the exception
+    */
     public XeroConflictException(Integer statusCode, String message) {
         this.statusCode = statusCode;
         this.message = message;
     }
     
+    /** XeroConflictException  
+    * @param statusCode Integer the server status code returned.
+    * @return XeroConflictException an instance the conflict exception  
+    */
     public XeroConflictException statusCode(Integer statusCode) {
       this.statusCode = statusCode;
       return this;
@@ -84,10 +117,17 @@ public class XeroConflictException extends XeroException {
       return statusCode;
     }
 
+    /** Set Status Code  
+    * @param statusCode Integer the server status code returned.
+    */
     public void setStatusCode(Integer statusCode) {
       this.statusCode = statusCode;
     }
 
+    /** Init Type 
+    * @param type String the server status code returned
+    * @return XeroConflictException an instance the conflict exception  
+    */
     public XeroConflictException type(String type) {
       this.type = type;
       return this;
@@ -102,10 +142,17 @@ public class XeroConflictException extends XeroException {
       return type;
     }
 
+    /** Set Type 
+    * @param type String the server status code returned
+    */
     public void setType(String type) {
       this.type = type;
     }
 
+    /** Init Message
+    * @param message String with the details about the exception
+    * @return XeroConflictException an instance the conflict exception  
+    */
     public XeroConflictException message(String message) {
       this.message = message;
       return this;
@@ -120,15 +167,26 @@ public class XeroConflictException extends XeroException {
       return message;
     }
 
+    /** Set Message
+    * @param message String with the details about the exception
+    */
     public void setMessage(String message) {
       this.message = message;
     }
 
+    /** Init Elements
+    * @param elements List&lt;Element&gt; with the details about the exception
+    * @return XeroConflictException an instance the conflict exception  
+    */
     public XeroConflictException elements(List<Element> elements) {
       this.elements = elements;
       return this;
     }
 
+    /** Add Elements 
+    * @param elementsItem Element object with the details about the exception
+    * @return XeroConflictException an instance the conflict exception  
+    */
     public XeroConflictException addElementsItem(Element elementsItem) {
       if (this.elements == null) {
         this.elements = new ArrayList<Element>();
@@ -146,16 +204,26 @@ public class XeroConflictException extends XeroException {
       return elements;
     }
 
+    /** Set Elements
+    * @param elements List&lt;Element&gt; with the details about the exception
+    */
     public void setElements(List<Element> elements) {
       this.elements = elements;
     }
     
-    // Bank Feed Statement items
+    /** Init Statement Items 
+    * @param statementItems List &lt;Statement&gt; a list of bank statements
+    * @return XeroConflictException an instance the conflict exception  
+    */
     public XeroConflictException statementItems(List<Statement> statementItems) {
       this.statementItems = statementItems;
       return this;
     }
     
+    /** Add Statement Items
+    * @param item Statement object containing bank statement details
+    * @return XeroConflictException an instance the conflict exception  
+    */
     public XeroConflictException addStatementItem(Statement item) {
       if (this.statementItems == null) {
         this.statementItems = new ArrayList<Statement>();
@@ -173,16 +241,26 @@ public class XeroConflictException extends XeroException {
       return statementItems;
     }
     
+    /** Set Statement Items
+    * @param statementItems List &lt;Statement&gt; a list of bank statements
+    */
     public void setStatementItems(List<Statement> statementItems) {
       this.statementItems = statementItems;
     }
     
-    // Bank Feed FeedConnection items
+    /** Init Feed Connection Items 
+    * @param feedConnectionItems List &lt;FeedConnection&gt; a list of feed connections
+    * @return XeroConflictException an instance the conflict exception  
+    */
     public XeroConflictException feedConnectionItems(List<FeedConnection> feedConnectionItems) {
       this.feedConnectionItems = feedConnectionItems;
       return this;
     }
     
+    /** Add Feed Connection Items 
+    * @param item FeedConnection a list of feed connections
+    * @return XeroConflictException an instance the conflict exception  
+    */
     public XeroConflictException addFeedConnectionItems(FeedConnection item) {
       if (this.feedConnectionItems == null) {
         this.feedConnectionItems = new ArrayList<FeedConnection>();
@@ -200,16 +278,26 @@ public class XeroConflictException extends XeroException {
       return feedConnectionItems;
     }
     
+    /** Set Feed Connection Items
+    * @param feedConnectionItems List &lt;FeedConnection&gt; a list of feed connections
+    */
     public void setFeedConnectionItems(List<FeedConnection> feedConnectionItems) {
       this.feedConnectionItems = feedConnectionItems;
     }
     
-    // Assets field Validation Errors
+    /** Init Assets Field Validation Errors 
+    * @param fieldValidationErrorsElements List &lt;FieldValidationErrorsElement&gt; a list of field validation errors
+    * @return XeroConflictException an instance the conflict exception  
+    */
     public XeroConflictException fieldValidationErrorsElements(List<FieldValidationErrorsElement> fieldValidationErrorsElements) {
       this.fieldValidationErrorsElements = fieldValidationErrorsElements;
       return this;
     }
     
+    /** Add Assets Field Validation Errors 
+    * @param element FieldValidationErrorsElement a list of field validation errors
+    * @return XeroConflictException an instance the conflict exception  
+    */
     public XeroConflictException addFieldValidationErrorsElement(FieldValidationErrorsElement element) {
       if (this.fieldValidationErrorsElements == null) {
         this.fieldValidationErrorsElements = new ArrayList<FieldValidationErrorsElement>();
@@ -227,12 +315,17 @@ public class XeroConflictException extends XeroException {
       return fieldValidationErrorsElements;
     }
     
+    /** Set Assets Field Validation Errors 
+    * @param fieldValidationErrorsElements List &lt;FieldValidationErrorsElement&gt; a list of field validation errors
+    */
     public void setFieldValidationErrorsElements(List<FieldValidationErrorsElement> fieldValidationErrorsElements) {
       this.fieldValidationErrorsElements = fieldValidationErrorsElements;
     }
-    
-    
-    // NZ Payroll Problems Errors
+        
+    /** Init Payroll NZ Problem 
+    * @param problem the validation errors in NZ Payroll
+    * @return XeroConflictException an instance the conflict exception  
+    */
     public XeroConflictException payrollNzProblem(com.xero.models.payrollnz.Problem problem) {
       this.payrollNzProblem = problem;
       return this;
@@ -247,12 +340,17 @@ public class XeroConflictException extends XeroException {
       return payrollNzProblem;
     }
     
+    /** Set Payroll nz Problem 
+    * @param problem the validation errors in NZ Payroll
+    */
     public void setPayrollNzProblem(com.xero.models.payrollnz.Problem problem) {
       this.payrollNzProblem = problem;
     }
     
-    
-    // UK Payroll Problems Errors
+    /** Init Payroll UK Problem 
+    * @param problem the validation errors in UK Payroll
+    * @return XeroConflictException an instance the conflict exception  
+    */
     public XeroConflictException payrollUkProblem(com.xero.models.payrolluk.Problem problem) {
       this.payrollUkProblem = problem;
       return this;
@@ -267,6 +365,9 @@ public class XeroConflictException extends XeroException {
       return payrollUkProblem;
     }
     
+    /** Set Payroll UK Problem 
+    * @param problem the validation errors in UK Payroll
+    */
     public void setPayrollUkProblem(com.xero.models.payrolluk.Problem problem) {
       this.payrollUkProblem = problem;
     }

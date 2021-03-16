@@ -31,7 +31,13 @@ public class Pagination {
 
   @JsonProperty("itemCount")
   private Integer itemCount;
-
+  /**
+   * Set to 1 by default. The requested number of the page in paged response - Must be a number
+   * greater than 0.
+   *
+   * @param page Integer
+   * @return Pagination
+   */
   public Pagination page(Integer page) {
     this.page = page;
     return this;
@@ -48,14 +54,33 @@ public class Pagination {
       value =
           "Set to 1 by default. The requested number of the page in paged response - Must be a"
               + " number greater than 0.")
+  /**
+   * Set to 1 by default. The requested number of the page in paged response - Must be a number
+   * greater than 0.
+   *
+   * @return page Integer
+   */
   public Integer getPage() {
     return page;
   }
 
+  /**
+   * Set to 1 by default. The requested number of the page in paged response - Must be a number
+   * greater than 0.
+   *
+   * @param page Integer
+   */
   public void setPage(Integer page) {
     this.page = page;
   }
 
+  /**
+   * Optional, it is set to 50 by default. The number of items to return per page in a paged
+   * response - Must be a number between 1 and 500.
+   *
+   * @param pageSize Integer
+   * @return Pagination
+   */
   public Pagination pageSize(Integer pageSize) {
     this.pageSize = pageSize;
     return this;
@@ -72,14 +97,32 @@ public class Pagination {
       value =
           "Optional, it is set to 50 by default. The number of items to return per page in a paged"
               + " response - Must be a number between 1 and 500.")
+  /**
+   * Optional, it is set to 50 by default. The number of items to return per page in a paged
+   * response - Must be a number between 1 and 500.
+   *
+   * @return pageSize Integer
+   */
   public Integer getPageSize() {
     return pageSize;
   }
 
+  /**
+   * Optional, it is set to 50 by default. The number of items to return per page in a paged
+   * response - Must be a number between 1 and 500.
+   *
+   * @param pageSize Integer
+   */
   public void setPageSize(Integer pageSize) {
     this.pageSize = pageSize;
   }
 
+  /**
+   * Number of pages available
+   *
+   * @param pageCount Integer
+   * @return Pagination
+   */
   public Pagination pageCount(Integer pageCount) {
     this.pageCount = pageCount;
     return this;
@@ -91,14 +134,30 @@ public class Pagination {
    * @return pageCount
    */
   @ApiModelProperty(example = "1", value = "Number of pages available")
+  /**
+   * Number of pages available
+   *
+   * @return pageCount Integer
+   */
   public Integer getPageCount() {
     return pageCount;
   }
 
+  /**
+   * Number of pages available
+   *
+   * @param pageCount Integer
+   */
   public void setPageCount(Integer pageCount) {
     this.pageCount = pageCount;
   }
 
+  /**
+   * Number of items returned
+   *
+   * @param itemCount Integer
+   * @return Pagination
+   */
   public Pagination itemCount(Integer itemCount) {
     this.itemCount = itemCount;
     return this;
@@ -110,10 +169,20 @@ public class Pagination {
    * @return itemCount
    */
   @ApiModelProperty(example = "2", value = "Number of items returned")
+  /**
+   * Number of items returned
+   *
+   * @return itemCount Integer
+   */
   public Integer getItemCount() {
     return itemCount;
   }
 
+  /**
+   * Number of items returned
+   *
+   * @param itemCount Integer
+   */
   public void setItemCount(Integer itemCount) {
     this.itemCount = itemCount;
   }

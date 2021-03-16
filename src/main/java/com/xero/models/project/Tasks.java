@@ -27,7 +27,12 @@ public class Tasks {
 
   @JsonProperty("items")
   private List<Task> items = new ArrayList<Task>();
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return Tasks
+   */
   public Tasks pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -39,19 +44,41 @@ public class Tasks {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * items
+   *
+   * @param items List&lt;Task&gt;
+   * @return Tasks
+   */
   public Tasks items(List<Task> items) {
     this.items = items;
     return this;
   }
 
+  /**
+   * items
+   *
+   * @param itemsItem Task
+   * @return Tasks
+   */
   public Tasks addItemsItem(Task itemsItem) {
     if (this.items == null) {
       this.items = new ArrayList<Task>();
@@ -66,10 +93,20 @@ public class Tasks {
    * @return items
    */
   @ApiModelProperty(value = "")
+  /**
+   * items
+   *
+   * @return items List<Task>
+   */
   public List<Task> getItems() {
     return items;
   }
 
+  /**
+   * items
+   *
+   * @param items List&lt;Task&gt;
+   */
   public void setItems(List<Task> items) {
     this.items = items;
   }

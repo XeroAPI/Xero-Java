@@ -28,7 +28,12 @@ public class EmployeePayTemplateObject {
 
   @JsonProperty("payTemplate")
   private EmployeePayTemplate payTemplate;
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return EmployeePayTemplateObject
+   */
   public EmployeePayTemplateObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -40,14 +45,30 @@ public class EmployeePayTemplateObject {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return EmployeePayTemplateObject
+   */
   public EmployeePayTemplateObject problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -59,14 +80,30 @@ public class EmployeePayTemplateObject {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * payTemplate
+   *
+   * @param payTemplate EmployeePayTemplate
+   * @return EmployeePayTemplateObject
+   */
   public EmployeePayTemplateObject payTemplate(EmployeePayTemplate payTemplate) {
     this.payTemplate = payTemplate;
     return this;
@@ -78,10 +115,20 @@ public class EmployeePayTemplateObject {
    * @return payTemplate
    */
   @ApiModelProperty(value = "")
+  /**
+   * payTemplate
+   *
+   * @return payTemplate EmployeePayTemplate
+   */
   public EmployeePayTemplate getPayTemplate() {
     return payTemplate;
   }
 
+  /**
+   * payTemplate
+   *
+   * @param payTemplate EmployeePayTemplate
+   */
   public void setPayTemplate(EmployeePayTemplate payTemplate) {
     this.payTemplate = payTemplate;
   }

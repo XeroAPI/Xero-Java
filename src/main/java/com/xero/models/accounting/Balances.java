@@ -33,7 +33,12 @@ public class Balances {
 
   @JsonProperty("AccountsPayable")
   private AccountsPayable accountsPayable;
-
+  /**
+   * accountsReceivable
+   *
+   * @param accountsReceivable AccountsReceivable
+   * @return Balances
+   */
   public Balances accountsReceivable(AccountsReceivable accountsReceivable) {
     this.accountsReceivable = accountsReceivable;
     return this;
@@ -45,14 +50,30 @@ public class Balances {
    * @return accountsReceivable
    */
   @ApiModelProperty(value = "")
+  /**
+   * accountsReceivable
+   *
+   * @return accountsReceivable AccountsReceivable
+   */
   public AccountsReceivable getAccountsReceivable() {
     return accountsReceivable;
   }
 
+  /**
+   * accountsReceivable
+   *
+   * @param accountsReceivable AccountsReceivable
+   */
   public void setAccountsReceivable(AccountsReceivable accountsReceivable) {
     this.accountsReceivable = accountsReceivable;
   }
 
+  /**
+   * accountsPayable
+   *
+   * @param accountsPayable AccountsPayable
+   * @return Balances
+   */
   public Balances accountsPayable(AccountsPayable accountsPayable) {
     this.accountsPayable = accountsPayable;
     return this;
@@ -64,10 +85,20 @@ public class Balances {
    * @return accountsPayable
    */
   @ApiModelProperty(value = "")
+  /**
+   * accountsPayable
+   *
+   * @return accountsPayable AccountsPayable
+   */
   public AccountsPayable getAccountsPayable() {
     return accountsPayable;
   }
 
+  /**
+   * accountsPayable
+   *
+   * @param accountsPayable AccountsPayable
+   */
   public void setAccountsPayable(AccountsPayable accountsPayable) {
     this.accountsPayable = accountsPayable;
   }

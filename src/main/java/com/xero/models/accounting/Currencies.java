@@ -24,12 +24,23 @@ public class Currencies {
 
   @JsonProperty("Currencies")
   private List<Currency> currencies = new ArrayList<Currency>();
-
+  /**
+   * currencies
+   *
+   * @param currencies List&lt;Currency&gt;
+   * @return Currencies
+   */
   public Currencies currencies(List<Currency> currencies) {
     this.currencies = currencies;
     return this;
   }
 
+  /**
+   * currencies
+   *
+   * @param currenciesItem Currency
+   * @return Currencies
+   */
   public Currencies addCurrenciesItem(Currency currenciesItem) {
     if (this.currencies == null) {
       this.currencies = new ArrayList<Currency>();
@@ -44,10 +55,20 @@ public class Currencies {
    * @return currencies
    */
   @ApiModelProperty(value = "")
+  /**
+   * currencies
+   *
+   * @return currencies List<Currency>
+   */
   public List<Currency> getCurrencies() {
     return currencies;
   }
 
+  /**
+   * currencies
+   *
+   * @param currencies List&lt;Currency&gt;
+   */
   public void setCurrencies(List<Currency> currencies) {
     this.currencies = currencies;
   }

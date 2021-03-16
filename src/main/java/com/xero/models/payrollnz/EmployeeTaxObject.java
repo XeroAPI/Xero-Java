@@ -28,7 +28,12 @@ public class EmployeeTaxObject {
 
   @JsonProperty("employeeTax")
   private EmployeeTax employeeTax;
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return EmployeeTaxObject
+   */
   public EmployeeTaxObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -40,14 +45,30 @@ public class EmployeeTaxObject {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return EmployeeTaxObject
+   */
   public EmployeeTaxObject problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -59,14 +80,30 @@ public class EmployeeTaxObject {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * employeeTax
+   *
+   * @param employeeTax EmployeeTax
+   * @return EmployeeTaxObject
+   */
   public EmployeeTaxObject employeeTax(EmployeeTax employeeTax) {
     this.employeeTax = employeeTax;
     return this;
@@ -78,10 +115,20 @@ public class EmployeeTaxObject {
    * @return employeeTax
    */
   @ApiModelProperty(value = "")
+  /**
+   * employeeTax
+   *
+   * @return employeeTax EmployeeTax
+   */
   public EmployeeTax getEmployeeTax() {
     return employeeTax;
   }
 
+  /**
+   * employeeTax
+   *
+   * @param employeeTax EmployeeTax
+   */
   public void setEmployeeTax(EmployeeTax employeeTax) {
     this.employeeTax = employeeTax;
   }

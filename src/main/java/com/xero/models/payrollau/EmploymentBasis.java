@@ -17,14 +17,20 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Gets or Sets EmploymentBasis */
 public enum EmploymentBasis {
+
+  /** FULLTIME */
   FULLTIME("FULLTIME"),
 
+  /** PARTTIME */
   PARTTIME("PARTTIME"),
 
+  /** CASUAL */
   CASUAL("CASUAL"),
 
+  /** LABOURHIRE */
   LABOURHIRE("LABOURHIRE"),
 
+  /** SUPERINCOMESTREAM */
   SUPERINCOMESTREAM("SUPERINCOMESTREAM");
 
   private String value;
@@ -33,16 +39,27 @@ public enum EmploymentBasis {
     this.value = value;
   }
 
+  /** @return String value */
   @JsonValue
   public String getValue() {
     return value;
   }
 
+  /**
+   * toString
+   *
+   * @return String value
+   */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
+  /**
+   * fromValue
+   *
+   * @param value String
+   */
   @JsonCreator
   public static EmploymentBasis fromValue(String value) {
     for (EmploymentBasis b : EmploymentBasis.values()) {

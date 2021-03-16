@@ -28,7 +28,12 @@ public class TrackingCategories {
 
   @JsonProperty("trackingCategories")
   private TrackingCategory trackingCategories;
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return TrackingCategories
+   */
   public TrackingCategories pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -40,14 +45,30 @@ public class TrackingCategories {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return TrackingCategories
+   */
   public TrackingCategories problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -59,14 +80,30 @@ public class TrackingCategories {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * trackingCategories
+   *
+   * @param trackingCategories TrackingCategory
+   * @return TrackingCategories
+   */
   public TrackingCategories trackingCategories(TrackingCategory trackingCategories) {
     this.trackingCategories = trackingCategories;
     return this;
@@ -78,10 +115,20 @@ public class TrackingCategories {
    * @return trackingCategories
    */
   @ApiModelProperty(value = "")
+  /**
+   * trackingCategories
+   *
+   * @return trackingCategories TrackingCategory
+   */
   public TrackingCategory getTrackingCategories() {
     return trackingCategories;
   }
 
+  /**
+   * trackingCategories
+   *
+   * @param trackingCategories TrackingCategory
+   */
   public void setTrackingCategories(TrackingCategory trackingCategories) {
     this.trackingCategories = trackingCategories;
   }

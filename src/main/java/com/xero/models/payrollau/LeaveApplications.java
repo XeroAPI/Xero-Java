@@ -24,12 +24,23 @@ public class LeaveApplications {
 
   @JsonProperty("LeaveApplications")
   private List<LeaveApplication> leaveApplications = new ArrayList<LeaveApplication>();
-
+  /**
+   * leaveApplications
+   *
+   * @param leaveApplications List&lt;LeaveApplication&gt;
+   * @return LeaveApplications
+   */
   public LeaveApplications leaveApplications(List<LeaveApplication> leaveApplications) {
     this.leaveApplications = leaveApplications;
     return this;
   }
 
+  /**
+   * leaveApplications
+   *
+   * @param leaveApplicationsItem LeaveApplication
+   * @return LeaveApplications
+   */
   public LeaveApplications addLeaveApplicationsItem(LeaveApplication leaveApplicationsItem) {
     if (this.leaveApplications == null) {
       this.leaveApplications = new ArrayList<LeaveApplication>();
@@ -44,10 +55,20 @@ public class LeaveApplications {
    * @return leaveApplications
    */
   @ApiModelProperty(value = "")
+  /**
+   * leaveApplications
+   *
+   * @return leaveApplications List<LeaveApplication>
+   */
   public List<LeaveApplication> getLeaveApplications() {
     return leaveApplications;
   }
 
+  /**
+   * leaveApplications
+   *
+   * @param leaveApplications List&lt;LeaveApplication&gt;
+   */
   public void setLeaveApplications(List<LeaveApplication> leaveApplications) {
     this.leaveApplications = leaveApplications;
   }

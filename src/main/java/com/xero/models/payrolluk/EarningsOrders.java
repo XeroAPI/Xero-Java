@@ -30,7 +30,12 @@ public class EarningsOrders {
 
   @JsonProperty("statutoryDeductions")
   private List<EarningsOrder> statutoryDeductions = new ArrayList<EarningsOrder>();
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return EarningsOrders
+   */
   public EarningsOrders pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -42,14 +47,30 @@ public class EarningsOrders {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return EarningsOrders
+   */
   public EarningsOrders problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -61,19 +82,41 @@ public class EarningsOrders {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * statutoryDeductions
+   *
+   * @param statutoryDeductions List&lt;EarningsOrder&gt;
+   * @return EarningsOrders
+   */
   public EarningsOrders statutoryDeductions(List<EarningsOrder> statutoryDeductions) {
     this.statutoryDeductions = statutoryDeductions;
     return this;
   }
 
+  /**
+   * statutoryDeductions
+   *
+   * @param statutoryDeductionsItem EarningsOrder
+   * @return EarningsOrders
+   */
   public EarningsOrders addStatutoryDeductionsItem(EarningsOrder statutoryDeductionsItem) {
     if (this.statutoryDeductions == null) {
       this.statutoryDeductions = new ArrayList<EarningsOrder>();
@@ -88,10 +131,20 @@ public class EarningsOrders {
    * @return statutoryDeductions
    */
   @ApiModelProperty(value = "")
+  /**
+   * statutoryDeductions
+   *
+   * @return statutoryDeductions List<EarningsOrder>
+   */
   public List<EarningsOrder> getStatutoryDeductions() {
     return statutoryDeductions;
   }
 
+  /**
+   * statutoryDeductions
+   *
+   * @param statutoryDeductions List&lt;EarningsOrder&gt;
+   */
   public void setStatutoryDeductions(List<EarningsOrder> statutoryDeductions) {
     this.statutoryDeductions = statutoryDeductions;
   }

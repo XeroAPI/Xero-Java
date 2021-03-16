@@ -28,7 +28,12 @@ public class TimesheetLineObject {
 
   @JsonProperty("timesheetLine")
   private TimesheetLine timesheetLine;
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return TimesheetLineObject
+   */
   public TimesheetLineObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -40,14 +45,30 @@ public class TimesheetLineObject {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return TimesheetLineObject
+   */
   public TimesheetLineObject problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -59,14 +80,30 @@ public class TimesheetLineObject {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * timesheetLine
+   *
+   * @param timesheetLine TimesheetLine
+   * @return TimesheetLineObject
+   */
   public TimesheetLineObject timesheetLine(TimesheetLine timesheetLine) {
     this.timesheetLine = timesheetLine;
     return this;
@@ -78,10 +115,20 @@ public class TimesheetLineObject {
    * @return timesheetLine
    */
   @ApiModelProperty(value = "")
+  /**
+   * timesheetLine
+   *
+   * @return timesheetLine TimesheetLine
+   */
   public TimesheetLine getTimesheetLine() {
     return timesheetLine;
   }
 
+  /**
+   * timesheetLine
+   *
+   * @param timesheetLine TimesheetLine
+   */
   public void setTimesheetLine(TimesheetLine timesheetLine) {
     this.timesheetLine = timesheetLine;
   }

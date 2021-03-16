@@ -17,8 +17,11 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Status for project */
 public enum ProjectStatus {
+
+  /** INPROGRESS */
   INPROGRESS("INPROGRESS"),
 
+  /** CLOSED */
   CLOSED("CLOSED");
 
   private String value;
@@ -27,16 +30,27 @@ public enum ProjectStatus {
     this.value = value;
   }
 
+  /** @return String value */
   @JsonValue
   public String getValue() {
     return value;
   }
 
+  /**
+   * toString
+   *
+   * @return String value
+   */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
+  /**
+   * fromValue
+   *
+   * @param value String
+   */
   @JsonCreator
   public static ProjectStatus fromValue(String value) {
     for (ProjectStatus b : ProjectStatus.values()) {

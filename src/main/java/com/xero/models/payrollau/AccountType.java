@@ -17,50 +17,74 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /** See Account Types */
 public enum AccountType {
+
+  /** BANK */
   BANK("BANK"),
 
+  /** CURRENT */
   CURRENT("CURRENT"),
 
+  /** CURRLIAB */
   CURRLIAB("CURRLIAB"),
 
+  /** DEPRECIATN */
   DEPRECIATN("DEPRECIATN"),
 
+  /** DIRECTCOSTS */
   DIRECTCOSTS("DIRECTCOSTS"),
 
+  /** EQUITY */
   EQUITY("EQUITY"),
 
+  /** EXPENSE */
   EXPENSE("EXPENSE"),
 
+  /** FIXED */
   FIXED("FIXED"),
 
+  /** INVENTORY */
   INVENTORY("INVENTORY"),
 
+  /** LIABILITY */
   LIABILITY("LIABILITY"),
 
+  /** NONCURRENT */
   NONCURRENT("NONCURRENT"),
 
+  /** OTHERINCOME */
   OTHERINCOME("OTHERINCOME"),
 
+  /** OVERHEADS */
   OVERHEADS("OVERHEADS"),
 
+  /** PREPAYMENT */
   PREPAYMENT("PREPAYMENT"),
 
+  /** REVENUE */
   REVENUE("REVENUE"),
 
+  /** SALES */
   SALES("SALES"),
 
+  /** TERMLIAB */
   TERMLIAB("TERMLIAB"),
 
+  /** PAYGLIABILITY */
   PAYGLIABILITY("PAYGLIABILITY"),
 
+  /** PAYG */
   PAYG("PAYG"),
 
+  /** SUPERANNUATIONEXPENSE */
   SUPERANNUATIONEXPENSE("SUPERANNUATIONEXPENSE"),
 
+  /** SUPERANNUATIONLIABILITY */
   SUPERANNUATIONLIABILITY("SUPERANNUATIONLIABILITY"),
 
+  /** WAGESEXPENSE */
   WAGESEXPENSE("WAGESEXPENSE"),
 
+  /** WAGESPAYABLELIABILITY */
   WAGESPAYABLELIABILITY("WAGESPAYABLELIABILITY");
 
   private String value;
@@ -69,16 +93,27 @@ public enum AccountType {
     this.value = value;
   }
 
+  /** @return String value */
   @JsonValue
   public String getValue() {
     return value;
   }
 
+  /**
+   * toString
+   *
+   * @return String value
+   */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
+  /**
+   * fromValue
+   *
+   * @param value String
+   */
   @JsonCreator
   public static AccountType fromValue(String value) {
     for (AccountType b : AccountType.values()) {

@@ -30,7 +30,12 @@ public class EmployeeLeaveBalances {
 
   @JsonProperty("leaveBalances")
   private List<EmployeeLeaveBalance> leaveBalances = new ArrayList<EmployeeLeaveBalance>();
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return EmployeeLeaveBalances
+   */
   public EmployeeLeaveBalances pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -42,14 +47,30 @@ public class EmployeeLeaveBalances {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return EmployeeLeaveBalances
+   */
   public EmployeeLeaveBalances problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -61,19 +82,41 @@ public class EmployeeLeaveBalances {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * leaveBalances
+   *
+   * @param leaveBalances List&lt;EmployeeLeaveBalance&gt;
+   * @return EmployeeLeaveBalances
+   */
   public EmployeeLeaveBalances leaveBalances(List<EmployeeLeaveBalance> leaveBalances) {
     this.leaveBalances = leaveBalances;
     return this;
   }
 
+  /**
+   * leaveBalances
+   *
+   * @param leaveBalancesItem EmployeeLeaveBalance
+   * @return EmployeeLeaveBalances
+   */
   public EmployeeLeaveBalances addLeaveBalancesItem(EmployeeLeaveBalance leaveBalancesItem) {
     if (this.leaveBalances == null) {
       this.leaveBalances = new ArrayList<EmployeeLeaveBalance>();
@@ -88,10 +131,20 @@ public class EmployeeLeaveBalances {
    * @return leaveBalances
    */
   @ApiModelProperty(value = "")
+  /**
+   * leaveBalances
+   *
+   * @return leaveBalances List<EmployeeLeaveBalance>
+   */
   public List<EmployeeLeaveBalance> getLeaveBalances() {
     return leaveBalances;
   }
 
+  /**
+   * leaveBalances
+   *
+   * @param leaveBalances List&lt;EmployeeLeaveBalance&gt;
+   */
   public void setLeaveBalances(List<EmployeeLeaveBalance> leaveBalances) {
     this.leaveBalances = leaveBalances;
   }

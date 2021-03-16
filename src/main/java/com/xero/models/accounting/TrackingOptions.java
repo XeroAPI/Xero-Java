@@ -24,12 +24,23 @@ public class TrackingOptions {
 
   @JsonProperty("Options")
   private List<TrackingOption> options = new ArrayList<TrackingOption>();
-
+  /**
+   * options
+   *
+   * @param options List&lt;TrackingOption&gt;
+   * @return TrackingOptions
+   */
   public TrackingOptions options(List<TrackingOption> options) {
     this.options = options;
     return this;
   }
 
+  /**
+   * options
+   *
+   * @param optionsItem TrackingOption
+   * @return TrackingOptions
+   */
   public TrackingOptions addOptionsItem(TrackingOption optionsItem) {
     if (this.options == null) {
       this.options = new ArrayList<TrackingOption>();
@@ -44,10 +55,20 @@ public class TrackingOptions {
    * @return options
    */
   @ApiModelProperty(value = "")
+  /**
+   * options
+   *
+   * @return options List<TrackingOption>
+   */
   public List<TrackingOption> getOptions() {
     return options;
   }
 
+  /**
+   * options
+   *
+   * @param options List&lt;TrackingOption&gt;
+   */
   public void setOptions(List<TrackingOption> options) {
     this.options = options;
   }

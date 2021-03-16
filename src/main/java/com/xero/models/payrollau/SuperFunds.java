@@ -24,12 +24,23 @@ public class SuperFunds {
 
   @JsonProperty("SuperFunds")
   private List<SuperFund> superFunds = new ArrayList<SuperFund>();
-
+  /**
+   * superFunds
+   *
+   * @param superFunds List&lt;SuperFund&gt;
+   * @return SuperFunds
+   */
   public SuperFunds superFunds(List<SuperFund> superFunds) {
     this.superFunds = superFunds;
     return this;
   }
 
+  /**
+   * superFunds
+   *
+   * @param superFundsItem SuperFund
+   * @return SuperFunds
+   */
   public SuperFunds addSuperFundsItem(SuperFund superFundsItem) {
     if (this.superFunds == null) {
       this.superFunds = new ArrayList<SuperFund>();
@@ -44,10 +55,20 @@ public class SuperFunds {
    * @return superFunds
    */
   @ApiModelProperty(value = "")
+  /**
+   * superFunds
+   *
+   * @return superFunds List<SuperFund>
+   */
   public List<SuperFund> getSuperFunds() {
     return superFunds;
   }
 
+  /**
+   * superFunds
+   *
+   * @param superFunds List&lt;SuperFund&gt;
+   */
   public void setSuperFunds(List<SuperFund> superFunds) {
     this.superFunds = superFunds;
   }

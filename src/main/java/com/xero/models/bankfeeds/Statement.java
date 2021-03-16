@@ -33,10 +33,13 @@ public class Statement {
   private UUID feedConnectionId;
   /** Current status of statements */
   public enum StatusEnum {
+    /** PENDING */
     PENDING("PENDING"),
 
+    /** REJECTED */
     REJECTED("REJECTED"),
 
+    /** DELIVERED */
     DELIVERED("DELIVERED");
 
     private String value;
@@ -45,16 +48,31 @@ public class Statement {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
@@ -89,7 +107,12 @@ public class Statement {
 
   @JsonProperty("statementLineCount")
   private Integer statementLineCount;
-
+  /**
+   * GUID used to identify the Statement.
+   *
+   * @param id UUID
+   * @return Statement
+   */
   public Statement id(UUID id) {
     this.id = id;
     return this;
@@ -103,14 +126,31 @@ public class Statement {
   @ApiModelProperty(
       example = "ba4f3127-5e46-427d-80ea-dea2fcd26afe",
       value = "GUID used to identify the Statement.")
+  /**
+   * GUID used to identify the Statement.
+   *
+   * @return id UUID
+   */
   public UUID getId() {
     return id;
   }
 
+  /**
+   * GUID used to identify the Statement.
+   *
+   * @param id UUID
+   */
   public void setId(UUID id) {
     this.id = id;
   }
 
+  /**
+   * The Xero generated feed connection Id that identifies the Xero Bank Account Container into
+   * which the statement should be delivered. This is obtained by calling GET FeedConnections.
+   *
+   * @param feedConnectionId UUID
+   * @return Statement
+   */
   public Statement feedConnectionId(UUID feedConnectionId) {
     this.feedConnectionId = feedConnectionId;
     return this;
@@ -128,14 +168,32 @@ public class Statement {
           "The Xero generated feed connection Id that identifies the Xero Bank Account Container"
               + " into which the statement should be delivered. This is obtained by calling GET"
               + " FeedConnections.")
+  /**
+   * The Xero generated feed connection Id that identifies the Xero Bank Account Container into
+   * which the statement should be delivered. This is obtained by calling GET FeedConnections.
+   *
+   * @return feedConnectionId UUID
+   */
   public UUID getFeedConnectionId() {
     return feedConnectionId;
   }
 
+  /**
+   * The Xero generated feed connection Id that identifies the Xero Bank Account Container into
+   * which the statement should be delivered. This is obtained by calling GET FeedConnections.
+   *
+   * @param feedConnectionId UUID
+   */
   public void setFeedConnectionId(UUID feedConnectionId) {
     this.feedConnectionId = feedConnectionId;
   }
 
+  /**
+   * Current status of statements
+   *
+   * @param status StatusEnum
+   * @return Statement
+   */
   public Statement status(StatusEnum status) {
     this.status = status;
     return this;
@@ -147,14 +205,30 @@ public class Statement {
    * @return status
    */
   @ApiModelProperty(example = "PENDING", value = "Current status of statements")
+  /**
+   * Current status of statements
+   *
+   * @return status StatusEnum
+   */
   public StatusEnum getStatus() {
     return status;
   }
 
+  /**
+   * Current status of statements
+   *
+   * @param status StatusEnum
+   */
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
+  /**
+   * Opening balance date (can be no older than one year from the current date) ISO-8601 YYYY-MM-DD
+   *
+   * @param startDate LocalDate
+   * @return Statement
+   */
   public Statement startDate(LocalDate startDate) {
     this.startDate = startDate;
     return this;
@@ -170,14 +244,30 @@ public class Statement {
       value =
           "Opening balance date (can be no older than one year from the current date) ISO-8601"
               + " YYYY-MM-DD")
+  /**
+   * Opening balance date (can be no older than one year from the current date) ISO-8601 YYYY-MM-DD
+   *
+   * @return startDate LocalDate
+   */
   public LocalDate getStartDate() {
     return startDate;
   }
 
+  /**
+   * Opening balance date (can be no older than one year from the current date) ISO-8601 YYYY-MM-DD
+   *
+   * @param startDate LocalDate
+   */
   public void setStartDate(LocalDate startDate) {
     this.startDate = startDate;
   }
 
+  /**
+   * Closing balance date ISO-8601 YYYY-MM-DD
+   *
+   * @param endDate LocalDate
+   * @return Statement
+   */
   public Statement endDate(LocalDate endDate) {
     this.endDate = endDate;
     return this;
@@ -191,14 +281,30 @@ public class Statement {
   @ApiModelProperty(
       example = "Fri Jul 27 00:00:00 GMT 2018",
       value = "Closing balance date ISO-8601 YYYY-MM-DD")
+  /**
+   * Closing balance date ISO-8601 YYYY-MM-DD
+   *
+   * @return endDate LocalDate
+   */
   public LocalDate getEndDate() {
     return endDate;
   }
 
+  /**
+   * Closing balance date ISO-8601 YYYY-MM-DD
+   *
+   * @param endDate LocalDate
+   */
   public void setEndDate(LocalDate endDate) {
     this.endDate = endDate;
   }
 
+  /**
+   * startBalance
+   *
+   * @param startBalance StartBalance
+   * @return Statement
+   */
   public Statement startBalance(StartBalance startBalance) {
     this.startBalance = startBalance;
     return this;
@@ -210,14 +316,30 @@ public class Statement {
    * @return startBalance
    */
   @ApiModelProperty(value = "")
+  /**
+   * startBalance
+   *
+   * @return startBalance StartBalance
+   */
   public StartBalance getStartBalance() {
     return startBalance;
   }
 
+  /**
+   * startBalance
+   *
+   * @param startBalance StartBalance
+   */
   public void setStartBalance(StartBalance startBalance) {
     this.startBalance = startBalance;
   }
 
+  /**
+   * endBalance
+   *
+   * @param endBalance EndBalance
+   * @return Statement
+   */
   public Statement endBalance(EndBalance endBalance) {
     this.endBalance = endBalance;
     return this;
@@ -229,19 +351,41 @@ public class Statement {
    * @return endBalance
    */
   @ApiModelProperty(value = "")
+  /**
+   * endBalance
+   *
+   * @return endBalance EndBalance
+   */
   public EndBalance getEndBalance() {
     return endBalance;
   }
 
+  /**
+   * endBalance
+   *
+   * @param endBalance EndBalance
+   */
   public void setEndBalance(EndBalance endBalance) {
     this.endBalance = endBalance;
   }
 
+  /**
+   * statementLines
+   *
+   * @param statementLines List&lt;StatementLine&gt;
+   * @return Statement
+   */
   public Statement statementLines(List<StatementLine> statementLines) {
     this.statementLines = statementLines;
     return this;
   }
 
+  /**
+   * statementLines
+   *
+   * @param statementLinesItem StatementLine
+   * @return Statement
+   */
   public Statement addStatementLinesItem(StatementLine statementLinesItem) {
     if (this.statementLines == null) {
       this.statementLines = new ArrayList<StatementLine>();
@@ -256,19 +400,41 @@ public class Statement {
    * @return statementLines
    */
   @ApiModelProperty(value = "")
+  /**
+   * statementLines
+   *
+   * @return statementLines List<StatementLine>
+   */
   public List<StatementLine> getStatementLines() {
     return statementLines;
   }
 
+  /**
+   * statementLines
+   *
+   * @param statementLines List&lt;StatementLine&gt;
+   */
   public void setStatementLines(List<StatementLine> statementLines) {
     this.statementLines = statementLines;
   }
 
+  /**
+   * errors
+   *
+   * @param errors List&lt;Error&gt;
+   * @return Statement
+   */
   public Statement errors(List<Error> errors) {
     this.errors = errors;
     return this;
   }
 
+  /**
+   * errors
+   *
+   * @param errorsItem Error
+   * @return Statement
+   */
   public Statement addErrorsItem(Error errorsItem) {
     if (this.errors == null) {
       this.errors = new ArrayList<Error>();
@@ -283,14 +449,30 @@ public class Statement {
    * @return errors
    */
   @ApiModelProperty(value = "")
+  /**
+   * errors
+   *
+   * @return errors List<Error>
+   */
   public List<Error> getErrors() {
     return errors;
   }
 
+  /**
+   * errors
+   *
+   * @param errors List&lt;Error&gt;
+   */
   public void setErrors(List<Error> errors) {
     this.errors = errors;
   }
 
+  /**
+   * statementLineCount
+   *
+   * @param statementLineCount Integer
+   * @return Statement
+   */
   public Statement statementLineCount(Integer statementLineCount) {
     this.statementLineCount = statementLineCount;
     return this;
@@ -302,10 +484,20 @@ public class Statement {
    * @return statementLineCount
    */
   @ApiModelProperty(example = "1", value = "")
+  /**
+   * statementLineCount
+   *
+   * @return statementLineCount Integer
+   */
   public Integer getStatementLineCount() {
     return statementLineCount;
   }
 
+  /**
+   * statementLineCount
+   *
+   * @param statementLineCount Integer
+   */
   public void setStatementLineCount(Integer statementLineCount) {
     this.statementLineCount = statementLineCount;
   }

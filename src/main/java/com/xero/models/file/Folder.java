@@ -35,7 +35,12 @@ public class Folder {
 
   @JsonProperty("Id")
   private UUID id;
-
+  /**
+   * The name of the folder
+   *
+   * @param name String
+   * @return Folder
+   */
   public Folder name(String name) {
     this.name = name;
     return this;
@@ -47,14 +52,30 @@ public class Folder {
    * @return name
    */
   @ApiModelProperty(example = "assets", value = "The name of the folder")
+  /**
+   * The name of the folder
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * The name of the folder
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * The number of files in the folder
+   *
+   * @param fileCount Integer
+   * @return Folder
+   */
   public Folder fileCount(Integer fileCount) {
     this.fileCount = fileCount;
     return this;
@@ -66,14 +87,30 @@ public class Folder {
    * @return fileCount
    */
   @ApiModelProperty(example = "5", value = "The number of files in the folder")
+  /**
+   * The number of files in the folder
+   *
+   * @return fileCount Integer
+   */
   public Integer getFileCount() {
     return fileCount;
   }
 
+  /**
+   * The number of files in the folder
+   *
+   * @param fileCount Integer
+   */
   public void setFileCount(Integer fileCount) {
     this.fileCount = fileCount;
   }
 
+  /**
+   * The email address used to email files to the inbox. Only the inbox will have this element.
+   *
+   * @param email String
+   * @return Folder
+   */
   public Folder email(String email) {
     this.email = email;
     return this;
@@ -89,14 +126,30 @@ public class Folder {
       value =
           "The email address used to email files to the inbox. Only the inbox will have this"
               + " element.")
+  /**
+   * The email address used to email files to the inbox. Only the inbox will have this element.
+   *
+   * @return email String
+   */
   public String getEmail() {
     return email;
   }
 
+  /**
+   * The email address used to email files to the inbox. Only the inbox will have this element.
+   *
+   * @param email String
+   */
   public void setEmail(String email) {
     this.email = email;
   }
 
+  /**
+   * to indicate if the folder is the Inbox. The Inbox cannot be renamed or deleted.
+   *
+   * @param isInbox Boolean
+   * @return Folder
+   */
   public Folder isInbox(Boolean isInbox) {
     this.isInbox = isInbox;
     return this;
@@ -110,14 +163,30 @@ public class Folder {
   @ApiModelProperty(
       example = "true",
       value = "to indicate if the folder is the Inbox. The Inbox cannot be renamed or deleted.")
+  /**
+   * to indicate if the folder is the Inbox. The Inbox cannot be renamed or deleted.
+   *
+   * @return isInbox Boolean
+   */
   public Boolean getIsInbox() {
     return isInbox;
   }
 
+  /**
+   * to indicate if the folder is the Inbox. The Inbox cannot be renamed or deleted.
+   *
+   * @param isInbox Boolean
+   */
   public void setIsInbox(Boolean isInbox) {
     this.isInbox = isInbox;
   }
 
+  /**
+   * Xero unique identifier for a folder Files
+   *
+   * @param id UUID
+   * @return Folder
+   */
   public Folder id(UUID id) {
     this.id = id;
     return this;
@@ -131,10 +200,20 @@ public class Folder {
   @ApiModelProperty(
       example = "4ff1e5cc-9835-40d5-bb18-09fdb118db9c",
       value = "Xero unique identifier for a folder  Files")
+  /**
+   * Xero unique identifier for a folder Files
+   *
+   * @return id UUID
+   */
   public UUID getId() {
     return id;
   }
 
+  /**
+   * Xero unique identifier for a folder Files
+   *
+   * @param id UUID
+   */
   public void setId(UUID id) {
     this.id = id;
   }

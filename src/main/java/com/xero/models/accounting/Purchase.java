@@ -31,7 +31,13 @@ public class Purchase {
 
   @JsonProperty("TaxType")
   private String taxType;
-
+  /**
+   * Unit Price of the item. By default UnitPrice is rounded to two decimal places. You can use 4
+   * decimal places by adding the unitdp&#x3D;4 querystring parameter to your request.
+   *
+   * @param unitPrice Double
+   * @return Purchase
+   */
   public Purchase unitPrice(Double unitPrice) {
     this.unitPrice = unitPrice;
     return this;
@@ -48,14 +54,33 @@ public class Purchase {
           "Unit Price of the item. By default UnitPrice is rounded to two decimal places. You can"
               + " use 4 decimal places by adding the unitdp=4 querystring parameter to your"
               + " request.")
+  /**
+   * Unit Price of the item. By default UnitPrice is rounded to two decimal places. You can use 4
+   * decimal places by adding the unitdp&#x3D;4 querystring parameter to your request.
+   *
+   * @return unitPrice Double
+   */
   public Double getUnitPrice() {
     return unitPrice;
   }
 
+  /**
+   * Unit Price of the item. By default UnitPrice is rounded to two decimal places. You can use 4
+   * decimal places by adding the unitdp&#x3D;4 querystring parameter to your request.
+   *
+   * @param unitPrice Double
+   */
   public void setUnitPrice(Double unitPrice) {
     this.unitPrice = unitPrice;
   }
 
+  /**
+   * Default account code to be used for purchased/sale. Not applicable to the purchase details of
+   * tracked items
+   *
+   * @param accountCode String
+   * @return Purchase
+   */
   public Purchase accountCode(String accountCode) {
     this.accountCode = accountCode;
     return this;
@@ -71,14 +96,32 @@ public class Purchase {
       value =
           "Default account code to be used for purchased/sale. Not applicable to the purchase"
               + " details of tracked items")
+  /**
+   * Default account code to be used for purchased/sale. Not applicable to the purchase details of
+   * tracked items
+   *
+   * @return accountCode String
+   */
   public String getAccountCode() {
     return accountCode;
   }
 
+  /**
+   * Default account code to be used for purchased/sale. Not applicable to the purchase details of
+   * tracked items
+   *
+   * @param accountCode String
+   */
   public void setAccountCode(String accountCode) {
     this.accountCode = accountCode;
   }
 
+  /**
+   * Cost of goods sold account. Only applicable to the purchase details of tracked items.
+   *
+   * @param coGSAccountCode String
+   * @return Purchase
+   */
   public Purchase coGSAccountCode(String coGSAccountCode) {
     this.coGSAccountCode = coGSAccountCode;
     return this;
@@ -92,14 +135,30 @@ public class Purchase {
   @ApiModelProperty(
       value =
           "Cost of goods sold account. Only applicable to the purchase details of tracked items.")
+  /**
+   * Cost of goods sold account. Only applicable to the purchase details of tracked items.
+   *
+   * @return coGSAccountCode String
+   */
   public String getCoGSAccountCode() {
     return coGSAccountCode;
   }
 
+  /**
+   * Cost of goods sold account. Only applicable to the purchase details of tracked items.
+   *
+   * @param coGSAccountCode String
+   */
   public void setCoGSAccountCode(String coGSAccountCode) {
     this.coGSAccountCode = coGSAccountCode;
   }
 
+  /**
+   * The tax type from TaxRates
+   *
+   * @param taxType String
+   * @return Purchase
+   */
   public Purchase taxType(String taxType) {
     this.taxType = taxType;
     return this;
@@ -111,10 +170,20 @@ public class Purchase {
    * @return taxType
    */
   @ApiModelProperty(value = "The tax type from TaxRates")
+  /**
+   * The tax type from TaxRates
+   *
+   * @return taxType String
+   */
   public String getTaxType() {
     return taxType;
   }
 
+  /**
+   * The tax type from TaxRates
+   *
+   * @param taxType String
+   */
   public void setTaxType(String taxType) {
     this.taxType = taxType;
   }

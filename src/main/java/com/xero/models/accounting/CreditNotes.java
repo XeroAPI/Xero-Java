@@ -24,12 +24,23 @@ public class CreditNotes {
 
   @JsonProperty("CreditNotes")
   private List<CreditNote> creditNotes = new ArrayList<CreditNote>();
-
+  /**
+   * creditNotes
+   *
+   * @param creditNotes List&lt;CreditNote&gt;
+   * @return CreditNotes
+   */
   public CreditNotes creditNotes(List<CreditNote> creditNotes) {
     this.creditNotes = creditNotes;
     return this;
   }
 
+  /**
+   * creditNotes
+   *
+   * @param creditNotesItem CreditNote
+   * @return CreditNotes
+   */
   public CreditNotes addCreditNotesItem(CreditNote creditNotesItem) {
     if (this.creditNotes == null) {
       this.creditNotes = new ArrayList<CreditNote>();
@@ -44,10 +55,20 @@ public class CreditNotes {
    * @return creditNotes
    */
   @ApiModelProperty(value = "")
+  /**
+   * creditNotes
+   *
+   * @return creditNotes List<CreditNote>
+   */
   public List<CreditNote> getCreditNotes() {
     return creditNotes;
   }
 
+  /**
+   * creditNotes
+   *
+   * @param creditNotes List&lt;CreditNote&gt;
+   */
   public void setCreditNotes(List<CreditNote> creditNotes) {
     this.creditNotes = creditNotes;
   }

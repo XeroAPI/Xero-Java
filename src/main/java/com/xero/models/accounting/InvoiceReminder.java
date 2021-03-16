@@ -22,7 +22,12 @@ public class InvoiceReminder {
 
   @JsonProperty("Enabled")
   private Boolean enabled;
-
+  /**
+   * setting for on or off
+   *
+   * @param enabled Boolean
+   * @return InvoiceReminder
+   */
   public InvoiceReminder enabled(Boolean enabled) {
     this.enabled = enabled;
     return this;
@@ -34,10 +39,20 @@ public class InvoiceReminder {
    * @return enabled
    */
   @ApiModelProperty(value = "setting for on or off")
+  /**
+   * setting for on or off
+   *
+   * @return enabled Boolean
+   */
   public Boolean getEnabled() {
     return enabled;
   }
 
+  /**
+   * setting for on or off
+   *
+   * @param enabled Boolean
+   */
   public void setEnabled(Boolean enabled) {
     this.enabled = enabled;
   }

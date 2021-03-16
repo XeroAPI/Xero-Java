@@ -45,12 +45,23 @@ public class PayslipLines {
 
   @JsonProperty("TaxLines")
   private List<TaxLine> taxLines = new ArrayList<TaxLine>();
-
+  /**
+   * earningsLines
+   *
+   * @param earningsLines List&lt;EarningsLine&gt;
+   * @return PayslipLines
+   */
   public PayslipLines earningsLines(List<EarningsLine> earningsLines) {
     this.earningsLines = earningsLines;
     return this;
   }
 
+  /**
+   * earningsLines
+   *
+   * @param earningsLinesItem EarningsLine
+   * @return PayslipLines
+   */
   public PayslipLines addEarningsLinesItem(EarningsLine earningsLinesItem) {
     if (this.earningsLines == null) {
       this.earningsLines = new ArrayList<EarningsLine>();
@@ -65,19 +76,41 @@ public class PayslipLines {
    * @return earningsLines
    */
   @ApiModelProperty(value = "")
+  /**
+   * earningsLines
+   *
+   * @return earningsLines List<EarningsLine>
+   */
   public List<EarningsLine> getEarningsLines() {
     return earningsLines;
   }
 
+  /**
+   * earningsLines
+   *
+   * @param earningsLines List&lt;EarningsLine&gt;
+   */
   public void setEarningsLines(List<EarningsLine> earningsLines) {
     this.earningsLines = earningsLines;
   }
 
+  /**
+   * leaveEarningsLines
+   *
+   * @param leaveEarningsLines List&lt;LeaveEarningsLine&gt;
+   * @return PayslipLines
+   */
   public PayslipLines leaveEarningsLines(List<LeaveEarningsLine> leaveEarningsLines) {
     this.leaveEarningsLines = leaveEarningsLines;
     return this;
   }
 
+  /**
+   * leaveEarningsLines
+   *
+   * @param leaveEarningsLinesItem LeaveEarningsLine
+   * @return PayslipLines
+   */
   public PayslipLines addLeaveEarningsLinesItem(LeaveEarningsLine leaveEarningsLinesItem) {
     if (this.leaveEarningsLines == null) {
       this.leaveEarningsLines = new ArrayList<LeaveEarningsLine>();
@@ -92,19 +125,41 @@ public class PayslipLines {
    * @return leaveEarningsLines
    */
   @ApiModelProperty(value = "")
+  /**
+   * leaveEarningsLines
+   *
+   * @return leaveEarningsLines List<LeaveEarningsLine>
+   */
   public List<LeaveEarningsLine> getLeaveEarningsLines() {
     return leaveEarningsLines;
   }
 
+  /**
+   * leaveEarningsLines
+   *
+   * @param leaveEarningsLines List&lt;LeaveEarningsLine&gt;
+   */
   public void setLeaveEarningsLines(List<LeaveEarningsLine> leaveEarningsLines) {
     this.leaveEarningsLines = leaveEarningsLines;
   }
 
+  /**
+   * timesheetEarningsLines
+   *
+   * @param timesheetEarningsLines List&lt;EarningsLine&gt;
+   * @return PayslipLines
+   */
   public PayslipLines timesheetEarningsLines(List<EarningsLine> timesheetEarningsLines) {
     this.timesheetEarningsLines = timesheetEarningsLines;
     return this;
   }
 
+  /**
+   * timesheetEarningsLines
+   *
+   * @param timesheetEarningsLinesItem EarningsLine
+   * @return PayslipLines
+   */
   public PayslipLines addTimesheetEarningsLinesItem(EarningsLine timesheetEarningsLinesItem) {
     if (this.timesheetEarningsLines == null) {
       this.timesheetEarningsLines = new ArrayList<EarningsLine>();
@@ -119,19 +174,41 @@ public class PayslipLines {
    * @return timesheetEarningsLines
    */
   @ApiModelProperty(value = "")
+  /**
+   * timesheetEarningsLines
+   *
+   * @return timesheetEarningsLines List<EarningsLine>
+   */
   public List<EarningsLine> getTimesheetEarningsLines() {
     return timesheetEarningsLines;
   }
 
+  /**
+   * timesheetEarningsLines
+   *
+   * @param timesheetEarningsLines List&lt;EarningsLine&gt;
+   */
   public void setTimesheetEarningsLines(List<EarningsLine> timesheetEarningsLines) {
     this.timesheetEarningsLines = timesheetEarningsLines;
   }
 
+  /**
+   * deductionLines
+   *
+   * @param deductionLines List&lt;DeductionLine&gt;
+   * @return PayslipLines
+   */
   public PayslipLines deductionLines(List<DeductionLine> deductionLines) {
     this.deductionLines = deductionLines;
     return this;
   }
 
+  /**
+   * deductionLines
+   *
+   * @param deductionLinesItem DeductionLine
+   * @return PayslipLines
+   */
   public PayslipLines addDeductionLinesItem(DeductionLine deductionLinesItem) {
     if (this.deductionLines == null) {
       this.deductionLines = new ArrayList<DeductionLine>();
@@ -146,19 +223,41 @@ public class PayslipLines {
    * @return deductionLines
    */
   @ApiModelProperty(value = "")
+  /**
+   * deductionLines
+   *
+   * @return deductionLines List<DeductionLine>
+   */
   public List<DeductionLine> getDeductionLines() {
     return deductionLines;
   }
 
+  /**
+   * deductionLines
+   *
+   * @param deductionLines List&lt;DeductionLine&gt;
+   */
   public void setDeductionLines(List<DeductionLine> deductionLines) {
     this.deductionLines = deductionLines;
   }
 
+  /**
+   * leaveAccrualLines
+   *
+   * @param leaveAccrualLines List&lt;LeaveAccrualLine&gt;
+   * @return PayslipLines
+   */
   public PayslipLines leaveAccrualLines(List<LeaveAccrualLine> leaveAccrualLines) {
     this.leaveAccrualLines = leaveAccrualLines;
     return this;
   }
 
+  /**
+   * leaveAccrualLines
+   *
+   * @param leaveAccrualLinesItem LeaveAccrualLine
+   * @return PayslipLines
+   */
   public PayslipLines addLeaveAccrualLinesItem(LeaveAccrualLine leaveAccrualLinesItem) {
     if (this.leaveAccrualLines == null) {
       this.leaveAccrualLines = new ArrayList<LeaveAccrualLine>();
@@ -173,19 +272,41 @@ public class PayslipLines {
    * @return leaveAccrualLines
    */
   @ApiModelProperty(value = "")
+  /**
+   * leaveAccrualLines
+   *
+   * @return leaveAccrualLines List<LeaveAccrualLine>
+   */
   public List<LeaveAccrualLine> getLeaveAccrualLines() {
     return leaveAccrualLines;
   }
 
+  /**
+   * leaveAccrualLines
+   *
+   * @param leaveAccrualLines List&lt;LeaveAccrualLine&gt;
+   */
   public void setLeaveAccrualLines(List<LeaveAccrualLine> leaveAccrualLines) {
     this.leaveAccrualLines = leaveAccrualLines;
   }
 
+  /**
+   * reimbursementLines
+   *
+   * @param reimbursementLines List&lt;ReimbursementLine&gt;
+   * @return PayslipLines
+   */
   public PayslipLines reimbursementLines(List<ReimbursementLine> reimbursementLines) {
     this.reimbursementLines = reimbursementLines;
     return this;
   }
 
+  /**
+   * reimbursementLines
+   *
+   * @param reimbursementLinesItem ReimbursementLine
+   * @return PayslipLines
+   */
   public PayslipLines addReimbursementLinesItem(ReimbursementLine reimbursementLinesItem) {
     if (this.reimbursementLines == null) {
       this.reimbursementLines = new ArrayList<ReimbursementLine>();
@@ -200,19 +321,41 @@ public class PayslipLines {
    * @return reimbursementLines
    */
   @ApiModelProperty(value = "")
+  /**
+   * reimbursementLines
+   *
+   * @return reimbursementLines List<ReimbursementLine>
+   */
   public List<ReimbursementLine> getReimbursementLines() {
     return reimbursementLines;
   }
 
+  /**
+   * reimbursementLines
+   *
+   * @param reimbursementLines List&lt;ReimbursementLine&gt;
+   */
   public void setReimbursementLines(List<ReimbursementLine> reimbursementLines) {
     this.reimbursementLines = reimbursementLines;
   }
 
+  /**
+   * superannuationLines
+   *
+   * @param superannuationLines List&lt;SuperannuationLine&gt;
+   * @return PayslipLines
+   */
   public PayslipLines superannuationLines(List<SuperannuationLine> superannuationLines) {
     this.superannuationLines = superannuationLines;
     return this;
   }
 
+  /**
+   * superannuationLines
+   *
+   * @param superannuationLinesItem SuperannuationLine
+   * @return PayslipLines
+   */
   public PayslipLines addSuperannuationLinesItem(SuperannuationLine superannuationLinesItem) {
     if (this.superannuationLines == null) {
       this.superannuationLines = new ArrayList<SuperannuationLine>();
@@ -227,19 +370,41 @@ public class PayslipLines {
    * @return superannuationLines
    */
   @ApiModelProperty(value = "")
+  /**
+   * superannuationLines
+   *
+   * @return superannuationLines List<SuperannuationLine>
+   */
   public List<SuperannuationLine> getSuperannuationLines() {
     return superannuationLines;
   }
 
+  /**
+   * superannuationLines
+   *
+   * @param superannuationLines List&lt;SuperannuationLine&gt;
+   */
   public void setSuperannuationLines(List<SuperannuationLine> superannuationLines) {
     this.superannuationLines = superannuationLines;
   }
 
+  /**
+   * taxLines
+   *
+   * @param taxLines List&lt;TaxLine&gt;
+   * @return PayslipLines
+   */
   public PayslipLines taxLines(List<TaxLine> taxLines) {
     this.taxLines = taxLines;
     return this;
   }
 
+  /**
+   * taxLines
+   *
+   * @param taxLinesItem TaxLine
+   * @return PayslipLines
+   */
   public PayslipLines addTaxLinesItem(TaxLine taxLinesItem) {
     if (this.taxLines == null) {
       this.taxLines = new ArrayList<TaxLine>();
@@ -254,10 +419,20 @@ public class PayslipLines {
    * @return taxLines
    */
   @ApiModelProperty(value = "")
+  /**
+   * taxLines
+   *
+   * @return taxLines List<TaxLine>
+   */
   public List<TaxLine> getTaxLines() {
     return taxLines;
   }
 
+  /**
+   * taxLines
+   *
+   * @param taxLines List&lt;TaxLine&gt;
+   */
   public void setTaxLines(List<TaxLine> taxLines) {
     this.taxLines = taxLines;
   }

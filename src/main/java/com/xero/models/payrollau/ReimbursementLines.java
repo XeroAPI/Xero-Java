@@ -26,12 +26,23 @@ public class ReimbursementLines {
 
   @JsonProperty("ReimbursementLines")
   private List<ReimbursementLine> reimbursementLines = new ArrayList<ReimbursementLine>();
-
+  /**
+   * reimbursementLines
+   *
+   * @param reimbursementLines List&lt;ReimbursementLine&gt;
+   * @return ReimbursementLines
+   */
   public ReimbursementLines reimbursementLines(List<ReimbursementLine> reimbursementLines) {
     this.reimbursementLines = reimbursementLines;
     return this;
   }
 
+  /**
+   * reimbursementLines
+   *
+   * @param reimbursementLinesItem ReimbursementLine
+   * @return ReimbursementLines
+   */
   public ReimbursementLines addReimbursementLinesItem(ReimbursementLine reimbursementLinesItem) {
     if (this.reimbursementLines == null) {
       this.reimbursementLines = new ArrayList<ReimbursementLine>();
@@ -46,10 +57,20 @@ public class ReimbursementLines {
    * @return reimbursementLines
    */
   @ApiModelProperty(value = "")
+  /**
+   * reimbursementLines
+   *
+   * @return reimbursementLines List<ReimbursementLine>
+   */
   public List<ReimbursementLine> getReimbursementLines() {
     return reimbursementLines;
   }
 
+  /**
+   * reimbursementLines
+   *
+   * @param reimbursementLines List&lt;ReimbursementLine&gt;
+   */
   public void setReimbursementLines(List<ReimbursementLine> reimbursementLines) {
     this.reimbursementLines = reimbursementLines;
   }

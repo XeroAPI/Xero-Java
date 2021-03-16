@@ -33,6 +33,7 @@ public class Report {
   private String reportName;
   /** See Prepayment Types */
   public enum ReportTypeEnum {
+    /** AGEDPAYABLESBYCONTACT */
     AGEDPAYABLESBYCONTACT("AgedPayablesByContact");
 
     private String value;
@@ -41,16 +42,31 @@ public class Report {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static ReportTypeEnum fromValue(String value) {
       for (ReportTypeEnum b : ReportTypeEnum.values()) {
@@ -76,7 +92,12 @@ public class Report {
 
   @JsonProperty("Contacts")
   private List<TenNinetyNineContact> contacts = new ArrayList<TenNinetyNineContact>();
-
+  /**
+   * See Prepayment Types
+   *
+   * @param reportID String
+   * @return Report
+   */
   public Report reportID(String reportID) {
     this.reportID = reportID;
     return this;
@@ -88,14 +109,30 @@ public class Report {
    * @return reportID
    */
   @ApiModelProperty(value = "See Prepayment Types")
+  /**
+   * See Prepayment Types
+   *
+   * @return reportID String
+   */
   public String getReportID() {
     return reportID;
   }
 
+  /**
+   * See Prepayment Types
+   *
+   * @param reportID String
+   */
   public void setReportID(String reportID) {
     this.reportID = reportID;
   }
 
+  /**
+   * See Prepayment Types
+   *
+   * @param reportName String
+   * @return Report
+   */
   public Report reportName(String reportName) {
     this.reportName = reportName;
     return this;
@@ -107,14 +144,30 @@ public class Report {
    * @return reportName
    */
   @ApiModelProperty(value = "See Prepayment Types")
+  /**
+   * See Prepayment Types
+   *
+   * @return reportName String
+   */
   public String getReportName() {
     return reportName;
   }
 
+  /**
+   * See Prepayment Types
+   *
+   * @param reportName String
+   */
   public void setReportName(String reportName) {
     this.reportName = reportName;
   }
 
+  /**
+   * See Prepayment Types
+   *
+   * @param reportType ReportTypeEnum
+   * @return Report
+   */
   public Report reportType(ReportTypeEnum reportType) {
     this.reportType = reportType;
     return this;
@@ -126,14 +179,30 @@ public class Report {
    * @return reportType
    */
   @ApiModelProperty(value = "See Prepayment Types")
+  /**
+   * See Prepayment Types
+   *
+   * @return reportType ReportTypeEnum
+   */
   public ReportTypeEnum getReportType() {
     return reportType;
   }
 
+  /**
+   * See Prepayment Types
+   *
+   * @param reportType ReportTypeEnum
+   */
   public void setReportType(ReportTypeEnum reportType) {
     this.reportType = reportType;
   }
 
+  /**
+   * See Prepayment Types
+   *
+   * @param reportTitle String
+   * @return Report
+   */
   public Report reportTitle(String reportTitle) {
     this.reportTitle = reportTitle;
     return this;
@@ -145,14 +214,30 @@ public class Report {
    * @return reportTitle
    */
   @ApiModelProperty(value = "See Prepayment Types")
+  /**
+   * See Prepayment Types
+   *
+   * @return reportTitle String
+   */
   public String getReportTitle() {
     return reportTitle;
   }
 
+  /**
+   * See Prepayment Types
+   *
+   * @param reportTitle String
+   */
   public void setReportTitle(String reportTitle) {
     this.reportTitle = reportTitle;
   }
 
+  /**
+   * Date of report
+   *
+   * @param reportDate String
+   * @return Report
+   */
   public Report reportDate(String reportDate) {
     this.reportDate = reportDate;
     return this;
@@ -164,10 +249,20 @@ public class Report {
    * @return reportDate
    */
   @ApiModelProperty(value = "Date of report")
+  /**
+   * Date of report
+   *
+   * @return reportDate String
+   */
   public String getReportDate() {
     return reportDate;
   }
 
+  /**
+   * Date of report
+   *
+   * @param reportDate String
+   */
   public void setReportDate(String reportDate) {
     this.reportDate = reportDate;
   }
@@ -178,10 +273,19 @@ public class Report {
    * @return updatedDateUTC
    */
   @ApiModelProperty(example = "/Date(1573755038314)/", value = "Updated Date")
+  /**
+   * Updated Date
+   *
+   * @return updatedDateUTC String
+   */
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-
+  /**
+   * Updated Date
+   *
+   * @return OffsetDateTime
+   */
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
@@ -193,11 +297,23 @@ public class Report {
     return null;
   }
 
+  /**
+   * contacts
+   *
+   * @param contacts List&lt;TenNinetyNineContact&gt;
+   * @return Report
+   */
   public Report contacts(List<TenNinetyNineContact> contacts) {
     this.contacts = contacts;
     return this;
   }
 
+  /**
+   * contacts
+   *
+   * @param contactsItem TenNinetyNineContact
+   * @return Report
+   */
   public Report addContactsItem(TenNinetyNineContact contactsItem) {
     if (this.contacts == null) {
       this.contacts = new ArrayList<TenNinetyNineContact>();
@@ -212,10 +328,20 @@ public class Report {
    * @return contacts
    */
   @ApiModelProperty(value = "")
+  /**
+   * contacts
+   *
+   * @return contacts List<TenNinetyNineContact>
+   */
   public List<TenNinetyNineContact> getContacts() {
     return contacts;
   }
 
+  /**
+   * contacts
+   *
+   * @param contacts List&lt;TenNinetyNineContact&gt;
+   */
   public void setContacts(List<TenNinetyNineContact> contacts) {
     this.contacts = contacts;
   }

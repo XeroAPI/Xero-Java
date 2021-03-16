@@ -17,8 +17,11 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Gets or Sets EmploymentTerminationPaymentType */
 public enum EmploymentTerminationPaymentType {
+
+  /** O */
   O("O"),
 
+  /** R */
   R("R");
 
   private String value;
@@ -27,16 +30,27 @@ public enum EmploymentTerminationPaymentType {
     this.value = value;
   }
 
+  /** @return String value */
   @JsonValue
   public String getValue() {
     return value;
   }
 
+  /**
+   * toString
+   *
+   * @return String value
+   */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
+  /**
+   * fromValue
+   *
+   * @param value String
+   */
   @JsonCreator
   public static EmploymentTerminationPaymentType fromValue(String value) {
     for (EmploymentTerminationPaymentType b : EmploymentTerminationPaymentType.values()) {

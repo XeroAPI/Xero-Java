@@ -35,7 +35,12 @@ public class BenefitLine {
 
   @JsonProperty("percentage")
   private Double percentage;
-
+  /**
+   * Xero identifier for payroll benefit type
+   *
+   * @param benefitTypeID UUID
+   * @return BenefitLine
+   */
   public BenefitLine benefitTypeID(UUID benefitTypeID) {
     this.benefitTypeID = benefitTypeID;
     return this;
@@ -47,14 +52,30 @@ public class BenefitLine {
    * @return benefitTypeID
    */
   @ApiModelProperty(value = "Xero identifier for payroll benefit type")
+  /**
+   * Xero identifier for payroll benefit type
+   *
+   * @return benefitTypeID UUID
+   */
   public UUID getBenefitTypeID() {
     return benefitTypeID;
   }
 
+  /**
+   * Xero identifier for payroll benefit type
+   *
+   * @param benefitTypeID UUID
+   */
   public void setBenefitTypeID(UUID benefitTypeID) {
     this.benefitTypeID = benefitTypeID;
   }
 
+  /**
+   * Benefit display name
+   *
+   * @param displayName String
+   * @return BenefitLine
+   */
   public BenefitLine displayName(String displayName) {
     this.displayName = displayName;
     return this;
@@ -66,14 +87,30 @@ public class BenefitLine {
    * @return displayName
    */
   @ApiModelProperty(value = "Benefit display name")
+  /**
+   * Benefit display name
+   *
+   * @return displayName String
+   */
   public String getDisplayName() {
     return displayName;
   }
 
+  /**
+   * Benefit display name
+   *
+   * @param displayName String
+   */
   public void setDisplayName(String displayName) {
     this.displayName = displayName;
   }
 
+  /**
+   * The amount of the benefit line.
+   *
+   * @param amount Double
+   * @return BenefitLine
+   */
   public BenefitLine amount(Double amount) {
     this.amount = amount;
     return this;
@@ -85,14 +122,30 @@ public class BenefitLine {
    * @return amount
    */
   @ApiModelProperty(value = "The amount of the benefit line.")
+  /**
+   * The amount of the benefit line.
+   *
+   * @return amount Double
+   */
   public Double getAmount() {
     return amount;
   }
 
+  /**
+   * The amount of the benefit line.
+   *
+   * @param amount Double
+   */
   public void setAmount(Double amount) {
     this.amount = amount;
   }
 
+  /**
+   * Benefit fixed amount
+   *
+   * @param fixedAmount Double
+   * @return BenefitLine
+   */
   public BenefitLine fixedAmount(Double fixedAmount) {
     this.fixedAmount = fixedAmount;
     return this;
@@ -104,14 +157,30 @@ public class BenefitLine {
    * @return fixedAmount
    */
   @ApiModelProperty(value = "Benefit fixed amount")
+  /**
+   * Benefit fixed amount
+   *
+   * @return fixedAmount Double
+   */
   public Double getFixedAmount() {
     return fixedAmount;
   }
 
+  /**
+   * Benefit fixed amount
+   *
+   * @param fixedAmount Double
+   */
   public void setFixedAmount(Double fixedAmount) {
     this.fixedAmount = fixedAmount;
   }
 
+  /**
+   * Benefit rate percentage
+   *
+   * @param percentage Double
+   * @return BenefitLine
+   */
   public BenefitLine percentage(Double percentage) {
     this.percentage = percentage;
     return this;
@@ -123,10 +192,20 @@ public class BenefitLine {
    * @return percentage
    */
   @ApiModelProperty(value = "Benefit rate percentage")
+  /**
+   * Benefit rate percentage
+   *
+   * @return percentage Double
+   */
   public Double getPercentage() {
     return percentage;
   }
 
+  /**
+   * Benefit rate percentage
+   *
+   * @param percentage Double
+   */
   public void setPercentage(Double percentage) {
     this.percentage = percentage;
   }

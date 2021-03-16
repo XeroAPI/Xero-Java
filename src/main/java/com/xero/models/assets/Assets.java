@@ -27,7 +27,12 @@ public class Assets {
 
   @JsonProperty("items")
   private List<Asset> items = new ArrayList<Asset>();
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return Assets
+   */
   public Assets pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -39,19 +44,41 @@ public class Assets {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * items
+   *
+   * @param items List&lt;Asset&gt;
+   * @return Assets
+   */
   public Assets items(List<Asset> items) {
     this.items = items;
     return this;
   }
 
+  /**
+   * items
+   *
+   * @param itemsItem Asset
+   * @return Assets
+   */
   public Assets addItemsItem(Asset itemsItem) {
     if (this.items == null) {
       this.items = new ArrayList<Asset>();
@@ -66,10 +93,20 @@ public class Assets {
    * @return items
    */
   @ApiModelProperty(value = "")
+  /**
+   * items
+   *
+   * @return items List<Asset>
+   */
   public List<Asset> getItems() {
     return items;
   }
 
+  /**
+   * items
+   *
+   * @param items List&lt;Asset&gt;
+   */
   public void setItems(List<Asset> items) {
     this.items = items;
   }

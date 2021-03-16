@@ -33,7 +33,12 @@ public class HistoryRecord {
 
   @JsonProperty("DateUTC")
   private String dateUTC;
-
+  /**
+   * details
+   *
+   * @param details String
+   * @return HistoryRecord
+   */
   public HistoryRecord details(String details) {
     this.details = details;
     return this;
@@ -45,14 +50,30 @@ public class HistoryRecord {
    * @return details
    */
   @ApiModelProperty(value = "details")
+  /**
+   * details
+   *
+   * @return details String
+   */
   public String getDetails() {
     return details;
   }
 
+  /**
+   * details
+   *
+   * @param details String
+   */
   public void setDetails(String details) {
     this.details = details;
   }
 
+  /**
+   * Name of branding theme
+   *
+   * @param changes String
+   * @return HistoryRecord
+   */
   public HistoryRecord changes(String changes) {
     this.changes = changes;
     return this;
@@ -64,14 +85,30 @@ public class HistoryRecord {
    * @return changes
    */
   @ApiModelProperty(value = "Name of branding theme")
+  /**
+   * Name of branding theme
+   *
+   * @return changes String
+   */
   public String getChanges() {
     return changes;
   }
 
+  /**
+   * Name of branding theme
+   *
+   * @param changes String
+   */
   public void setChanges(String changes) {
     this.changes = changes;
   }
 
+  /**
+   * has a value of 0
+   *
+   * @param user String
+   * @return HistoryRecord
+   */
   public HistoryRecord user(String user) {
     this.user = user;
     return this;
@@ -83,10 +120,20 @@ public class HistoryRecord {
    * @return user
    */
   @ApiModelProperty(value = "has a value of 0")
+  /**
+   * has a value of 0
+   *
+   * @return user String
+   */
   public String getUser() {
     return user;
   }
 
+  /**
+   * has a value of 0
+   *
+   * @param user String
+   */
   public void setUser(String user) {
     this.user = user;
   }
@@ -99,10 +146,19 @@ public class HistoryRecord {
   @ApiModelProperty(
       example = "/Date(1573755038314)/",
       value = "UTC timestamp of creation date of branding theme")
+  /**
+   * UTC timestamp of creation date of branding theme
+   *
+   * @return dateUTC String
+   */
   public String getDateUTC() {
     return dateUTC;
   }
-
+  /**
+   * UTC timestamp of creation date of branding theme
+   *
+   * @return OffsetDateTime
+   */
   public OffsetDateTime getDateUTCAsDate() {
     if (this.dateUTC != null) {
       try {

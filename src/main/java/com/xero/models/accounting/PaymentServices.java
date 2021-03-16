@@ -24,12 +24,23 @@ public class PaymentServices {
 
   @JsonProperty("PaymentServices")
   private List<PaymentService> paymentServices = new ArrayList<PaymentService>();
-
+  /**
+   * paymentServices
+   *
+   * @param paymentServices List&lt;PaymentService&gt;
+   * @return PaymentServices
+   */
   public PaymentServices paymentServices(List<PaymentService> paymentServices) {
     this.paymentServices = paymentServices;
     return this;
   }
 
+  /**
+   * paymentServices
+   *
+   * @param paymentServicesItem PaymentService
+   * @return PaymentServices
+   */
   public PaymentServices addPaymentServicesItem(PaymentService paymentServicesItem) {
     if (this.paymentServices == null) {
       this.paymentServices = new ArrayList<PaymentService>();
@@ -44,10 +55,20 @@ public class PaymentServices {
    * @return paymentServices
    */
   @ApiModelProperty(value = "")
+  /**
+   * paymentServices
+   *
+   * @return paymentServices List<PaymentService>
+   */
   public List<PaymentService> getPaymentServices() {
     return paymentServices;
   }
 
+  /**
+   * paymentServices
+   *
+   * @param paymentServices List&lt;PaymentService&gt;
+   */
   public void setPaymentServices(List<PaymentService> paymentServices) {
     this.paymentServices = paymentServices;
   }

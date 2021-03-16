@@ -38,13 +38,24 @@ public class Error {
 
   @JsonProperty("detail")
   private String detail;
-
+  /**
+   * Array of elements of resource validation errors
+   *
+   * @param resourceValidationErrors List&lt;ResourceValidationErrorsElement&gt;
+   * @return Error
+   */
   public Error resourceValidationErrors(
       List<ResourceValidationErrorsElement> resourceValidationErrors) {
     this.resourceValidationErrors = resourceValidationErrors;
     return this;
   }
 
+  /**
+   * Array of elements of resource validation errors
+   *
+   * @param resourceValidationErrorsItem ResourceValidationErrorsElement
+   * @return Error
+   */
   public Error addResourceValidationErrorsItem(
       ResourceValidationErrorsElement resourceValidationErrorsItem) {
     if (this.resourceValidationErrors == null) {
@@ -60,20 +71,42 @@ public class Error {
    * @return resourceValidationErrors
    */
   @ApiModelProperty(value = "Array of elements of resource validation errors")
+  /**
+   * Array of elements of resource validation errors
+   *
+   * @return resourceValidationErrors List<ResourceValidationErrorsElement>
+   */
   public List<ResourceValidationErrorsElement> getResourceValidationErrors() {
     return resourceValidationErrors;
   }
 
+  /**
+   * Array of elements of resource validation errors
+   *
+   * @param resourceValidationErrors List&lt;ResourceValidationErrorsElement&gt;
+   */
   public void setResourceValidationErrors(
       List<ResourceValidationErrorsElement> resourceValidationErrors) {
     this.resourceValidationErrors = resourceValidationErrors;
   }
 
+  /**
+   * Array of elements of field validation errors
+   *
+   * @param fieldValidationErrors List&lt;FieldValidationErrorsElement&gt;
+   * @return Error
+   */
   public Error fieldValidationErrors(List<FieldValidationErrorsElement> fieldValidationErrors) {
     this.fieldValidationErrors = fieldValidationErrors;
     return this;
   }
 
+  /**
+   * Array of elements of field validation errors
+   *
+   * @param fieldValidationErrorsItem FieldValidationErrorsElement
+   * @return Error
+   */
   public Error addFieldValidationErrorsItem(
       FieldValidationErrorsElement fieldValidationErrorsItem) {
     if (this.fieldValidationErrors == null) {
@@ -89,14 +122,30 @@ public class Error {
    * @return fieldValidationErrors
    */
   @ApiModelProperty(value = "Array of elements of field validation errors")
+  /**
+   * Array of elements of field validation errors
+   *
+   * @return fieldValidationErrors List<FieldValidationErrorsElement>
+   */
   public List<FieldValidationErrorsElement> getFieldValidationErrors() {
     return fieldValidationErrors;
   }
 
+  /**
+   * Array of elements of field validation errors
+   *
+   * @param fieldValidationErrors List&lt;FieldValidationErrorsElement&gt;
+   */
   public void setFieldValidationErrors(List<FieldValidationErrorsElement> fieldValidationErrors) {
     this.fieldValidationErrors = fieldValidationErrors;
   }
 
+  /**
+   * The internal type of error, not accessible externally
+   *
+   * @param type String
+   * @return Error
+   */
   public Error type(String type) {
     this.type = type;
     return this;
@@ -108,14 +157,30 @@ public class Error {
    * @return type
    */
   @ApiModelProperty(value = "The internal type of error, not accessible externally")
+  /**
+   * The internal type of error, not accessible externally
+   *
+   * @return type String
+   */
   public String getType() {
     return type;
   }
 
+  /**
+   * The internal type of error, not accessible externally
+   *
+   * @param type String
+   */
   public void setType(String type) {
     this.type = type;
   }
 
+  /**
+   * Title of the error
+   *
+   * @param title String
+   * @return Error
+   */
   public Error title(String title) {
     this.title = title;
     return this;
@@ -127,14 +192,30 @@ public class Error {
    * @return title
    */
   @ApiModelProperty(value = "Title of the error")
+  /**
+   * Title of the error
+   *
+   * @return title String
+   */
   public String getTitle() {
     return title;
   }
 
+  /**
+   * Title of the error
+   *
+   * @param title String
+   */
   public void setTitle(String title) {
     this.title = title;
   }
 
+  /**
+   * Detail of the error
+   *
+   * @param detail String
+   * @return Error
+   */
   public Error detail(String detail) {
     this.detail = detail;
     return this;
@@ -146,10 +227,20 @@ public class Error {
    * @return detail
    */
   @ApiModelProperty(value = "Detail of the error")
+  /**
+   * Detail of the error
+   *
+   * @return detail String
+   */
   public String getDetail() {
     return detail;
   }
 
+  /**
+   * Detail of the error
+   *
+   * @param detail String
+   */
   public void setDetail(String detail) {
     this.detail = detail;
   }

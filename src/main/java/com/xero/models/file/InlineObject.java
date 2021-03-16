@@ -32,7 +32,12 @@ public class InlineObject {
 
   @JsonProperty("mimeType")
   private String mimeType;
-
+  /**
+   * body
+   *
+   * @param body byte[]
+   * @return InlineObject
+   */
   public InlineObject body(byte[] body) {
     this.body = body;
     return this;
@@ -44,14 +49,30 @@ public class InlineObject {
    * @return body
    */
   @ApiModelProperty(value = "")
+  /**
+   * body
+   *
+   * @return body byte[]
+   */
   public byte[] getBody() {
     return body;
   }
 
+  /**
+   * body
+   *
+   * @param body byte[]
+   */
   public void setBody(byte[] body) {
     this.body = body;
   }
 
+  /**
+   * exact name of the file you are uploading
+   *
+   * @param name String
+   * @return InlineObject
+   */
   public InlineObject name(String name) {
     this.name = name;
     return this;
@@ -63,14 +84,30 @@ public class InlineObject {
    * @return name
    */
   @ApiModelProperty(value = "exact name of the file you are uploading")
+  /**
+   * exact name of the file you are uploading
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * exact name of the file you are uploading
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * filename
+   *
+   * @param filename String
+   * @return InlineObject
+   */
   public InlineObject filename(String filename) {
     this.filename = filename;
     return this;
@@ -82,14 +119,30 @@ public class InlineObject {
    * @return filename
    */
   @ApiModelProperty(value = "")
+  /**
+   * filename
+   *
+   * @return filename String
+   */
   public String getFilename() {
     return filename;
   }
 
+  /**
+   * filename
+   *
+   * @param filename String
+   */
   public void setFilename(String filename) {
     this.filename = filename;
   }
 
+  /**
+   * mimeType
+   *
+   * @param mimeType String
+   * @return InlineObject
+   */
   public InlineObject mimeType(String mimeType) {
     this.mimeType = mimeType;
     return this;
@@ -101,10 +154,20 @@ public class InlineObject {
    * @return mimeType
    */
   @ApiModelProperty(value = "")
+  /**
+   * mimeType
+   *
+   * @return mimeType String
+   */
   public String getMimeType() {
     return mimeType;
   }
 
+  /**
+   * mimeType
+   *
+   * @param mimeType String
+   */
   public void setMimeType(String mimeType) {
     this.mimeType = mimeType;
   }

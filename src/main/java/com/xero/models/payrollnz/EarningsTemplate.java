@@ -38,7 +38,12 @@ public class EarningsTemplate {
 
   @JsonProperty("name")
   private String name;
-
+  /**
+   * The Xero identifier for the earnings template
+   *
+   * @param payTemplateEarningID UUID
+   * @return EarningsTemplate
+   */
   public EarningsTemplate payTemplateEarningID(UUID payTemplateEarningID) {
     this.payTemplateEarningID = payTemplateEarningID;
     return this;
@@ -50,14 +55,30 @@ public class EarningsTemplate {
    * @return payTemplateEarningID
    */
   @ApiModelProperty(value = "The Xero identifier for the earnings template")
+  /**
+   * The Xero identifier for the earnings template
+   *
+   * @return payTemplateEarningID UUID
+   */
   public UUID getPayTemplateEarningID() {
     return payTemplateEarningID;
   }
 
+  /**
+   * The Xero identifier for the earnings template
+   *
+   * @param payTemplateEarningID UUID
+   */
   public void setPayTemplateEarningID(UUID payTemplateEarningID) {
     this.payTemplateEarningID = payTemplateEarningID;
   }
 
+  /**
+   * The rate per unit
+   *
+   * @param ratePerUnit Double
+   * @return EarningsTemplate
+   */
   public EarningsTemplate ratePerUnit(Double ratePerUnit) {
     this.ratePerUnit = ratePerUnit;
     return this;
@@ -69,14 +90,30 @@ public class EarningsTemplate {
    * @return ratePerUnit
    */
   @ApiModelProperty(value = "The rate per unit")
+  /**
+   * The rate per unit
+   *
+   * @return ratePerUnit Double
+   */
   public Double getRatePerUnit() {
     return ratePerUnit;
   }
 
+  /**
+   * The rate per unit
+   *
+   * @param ratePerUnit Double
+   */
   public void setRatePerUnit(Double ratePerUnit) {
     this.ratePerUnit = ratePerUnit;
   }
 
+  /**
+   * The rate per unit
+   *
+   * @param numberOfUnits Double
+   * @return EarningsTemplate
+   */
   public EarningsTemplate numberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
     return this;
@@ -88,14 +125,30 @@ public class EarningsTemplate {
    * @return numberOfUnits
    */
   @ApiModelProperty(value = "The rate per unit")
+  /**
+   * The rate per unit
+   *
+   * @return numberOfUnits Double
+   */
   public Double getNumberOfUnits() {
     return numberOfUnits;
   }
 
+  /**
+   * The rate per unit
+   *
+   * @param numberOfUnits Double
+   */
   public void setNumberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
   }
 
+  /**
+   * The fixed amount per period
+   *
+   * @param fixedAmount Double
+   * @return EarningsTemplate
+   */
   public EarningsTemplate fixedAmount(Double fixedAmount) {
     this.fixedAmount = fixedAmount;
     return this;
@@ -107,14 +160,30 @@ public class EarningsTemplate {
    * @return fixedAmount
    */
   @ApiModelProperty(value = "The fixed amount per period")
+  /**
+   * The fixed amount per period
+   *
+   * @return fixedAmount Double
+   */
   public Double getFixedAmount() {
     return fixedAmount;
   }
 
+  /**
+   * The fixed amount per period
+   *
+   * @param fixedAmount Double
+   */
   public void setFixedAmount(Double fixedAmount) {
     this.fixedAmount = fixedAmount;
   }
 
+  /**
+   * The corresponding earnings rate identifier
+   *
+   * @param earningsRateID UUID
+   * @return EarningsTemplate
+   */
   public EarningsTemplate earningsRateID(UUID earningsRateID) {
     this.earningsRateID = earningsRateID;
     return this;
@@ -126,14 +195,30 @@ public class EarningsTemplate {
    * @return earningsRateID
    */
   @ApiModelProperty(value = "The corresponding earnings rate identifier")
+  /**
+   * The corresponding earnings rate identifier
+   *
+   * @return earningsRateID UUID
+   */
   public UUID getEarningsRateID() {
     return earningsRateID;
   }
 
+  /**
+   * The corresponding earnings rate identifier
+   *
+   * @param earningsRateID UUID
+   */
   public void setEarningsRateID(UUID earningsRateID) {
     this.earningsRateID = earningsRateID;
   }
 
+  /**
+   * The read-only name of the Earning Template.
+   *
+   * @param name String
+   * @return EarningsTemplate
+   */
   public EarningsTemplate name(String name) {
     this.name = name;
     return this;
@@ -145,10 +230,20 @@ public class EarningsTemplate {
    * @return name
    */
   @ApiModelProperty(value = "The read-only name of the Earning Template.")
+  /**
+   * The read-only name of the Earning Template.
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * The read-only name of the Earning Template.
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }

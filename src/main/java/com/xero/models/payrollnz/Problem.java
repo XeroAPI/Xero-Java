@@ -41,7 +41,12 @@ public class Problem {
 
   @JsonProperty("invalidFields")
   private List<InvalidField> invalidFields = new ArrayList<InvalidField>();
-
+  /**
+   * The type of error format
+   *
+   * @param type String
+   * @return Problem
+   */
   public Problem type(String type) {
     this.type = type;
     return this;
@@ -53,14 +58,30 @@ public class Problem {
    * @return type
    */
   @ApiModelProperty(example = "application/problem+json", value = "The type of error format")
+  /**
+   * The type of error format
+   *
+   * @return type String
+   */
   public String getType() {
     return type;
   }
 
+  /**
+   * The type of error format
+   *
+   * @param type String
+   */
   public void setType(String type) {
     this.type = type;
   }
 
+  /**
+   * The type of the error
+   *
+   * @param title String
+   * @return Problem
+   */
   public Problem title(String title) {
     this.title = title;
     return this;
@@ -72,14 +93,30 @@ public class Problem {
    * @return title
    */
   @ApiModelProperty(example = "BadRequest", value = "The type of the error")
+  /**
+   * The type of the error
+   *
+   * @return title String
+   */
   public String getTitle() {
     return title;
   }
 
+  /**
+   * The type of the error
+   *
+   * @param title String
+   */
   public void setTitle(String title) {
     this.title = title;
   }
 
+  /**
+   * The error status code
+   *
+   * @param status String
+   * @return Problem
+   */
   public Problem status(String status) {
     this.status = status;
     return this;
@@ -91,14 +128,30 @@ public class Problem {
    * @return status
    */
   @ApiModelProperty(example = "400", value = "The error status code")
+  /**
+   * The error status code
+   *
+   * @return status String
+   */
   public String getStatus() {
     return status;
   }
 
+  /**
+   * The error status code
+   *
+   * @param status String
+   */
   public void setStatus(String status) {
     this.status = status;
   }
 
+  /**
+   * A description of the error
+   *
+   * @param detail String
+   * @return Problem
+   */
   public Problem detail(String detail) {
     this.detail = detail;
     return this;
@@ -110,14 +163,30 @@ public class Problem {
    * @return detail
    */
   @ApiModelProperty(example = "Validation error occurred.", value = "A description of the error")
+  /**
+   * A description of the error
+   *
+   * @return detail String
+   */
   public String getDetail() {
     return detail;
   }
 
+  /**
+   * A description of the error
+   *
+   * @param detail String
+   */
   public void setDetail(String detail) {
     this.detail = detail;
   }
 
+  /**
+   * instance
+   *
+   * @param instance String
+   * @return Problem
+   */
   public Problem instance(String instance) {
     this.instance = instance;
     return this;
@@ -129,19 +198,41 @@ public class Problem {
    * @return instance
    */
   @ApiModelProperty(value = "")
+  /**
+   * instance
+   *
+   * @return instance String
+   */
   public String getInstance() {
     return instance;
   }
 
+  /**
+   * instance
+   *
+   * @param instance String
+   */
   public void setInstance(String instance) {
     this.instance = instance;
   }
 
+  /**
+   * invalidFields
+   *
+   * @param invalidFields List&lt;InvalidField&gt;
+   * @return Problem
+   */
   public Problem invalidFields(List<InvalidField> invalidFields) {
     this.invalidFields = invalidFields;
     return this;
   }
 
+  /**
+   * invalidFields
+   *
+   * @param invalidFieldsItem InvalidField
+   * @return Problem
+   */
   public Problem addInvalidFieldsItem(InvalidField invalidFieldsItem) {
     if (this.invalidFields == null) {
       this.invalidFields = new ArrayList<InvalidField>();
@@ -156,10 +247,20 @@ public class Problem {
    * @return invalidFields
    */
   @ApiModelProperty(value = "")
+  /**
+   * invalidFields
+   *
+   * @return invalidFields List<InvalidField>
+   */
   public List<InvalidField> getInvalidFields() {
     return invalidFields;
   }
 
+  /**
+   * invalidFields
+   *
+   * @param invalidFields List&lt;InvalidField&gt;
+   */
   public void setInvalidFields(List<InvalidField> invalidFields) {
     this.invalidFields = invalidFields;
   }

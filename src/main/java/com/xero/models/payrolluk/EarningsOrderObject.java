@@ -28,7 +28,12 @@ public class EarningsOrderObject {
 
   @JsonProperty("statutoryDeduction")
   private EarningsOrder statutoryDeduction;
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return EarningsOrderObject
+   */
   public EarningsOrderObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -40,14 +45,30 @@ public class EarningsOrderObject {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return EarningsOrderObject
+   */
   public EarningsOrderObject problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -59,14 +80,30 @@ public class EarningsOrderObject {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * statutoryDeduction
+   *
+   * @param statutoryDeduction EarningsOrder
+   * @return EarningsOrderObject
+   */
   public EarningsOrderObject statutoryDeduction(EarningsOrder statutoryDeduction) {
     this.statutoryDeduction = statutoryDeduction;
     return this;
@@ -78,10 +115,20 @@ public class EarningsOrderObject {
    * @return statutoryDeduction
    */
   @ApiModelProperty(value = "")
+  /**
+   * statutoryDeduction
+   *
+   * @return statutoryDeduction EarningsOrder
+   */
   public EarningsOrder getStatutoryDeduction() {
     return statutoryDeduction;
   }
 
+  /**
+   * statutoryDeduction
+   *
+   * @param statutoryDeduction EarningsOrder
+   */
   public void setStatutoryDeduction(EarningsOrder statutoryDeduction) {
     this.statutoryDeduction = statutoryDeduction;
   }

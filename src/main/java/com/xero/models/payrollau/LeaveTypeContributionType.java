@@ -17,12 +17,17 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Gets or Sets LeaveTypeContributionType */
 public enum LeaveTypeContributionType {
+
+  /** SGC */
   SGC("SGC"),
 
+  /** SALARYSACRIFICE */
   SALARYSACRIFICE("SALARYSACRIFICE"),
 
+  /** EMPLOYERADDITIONAL */
   EMPLOYERADDITIONAL("EMPLOYERADDITIONAL"),
 
+  /** EMPLOYEE */
   EMPLOYEE("EMPLOYEE");
 
   private String value;
@@ -31,16 +36,27 @@ public enum LeaveTypeContributionType {
     this.value = value;
   }
 
+  /** @return String value */
   @JsonValue
   public String getValue() {
     return value;
   }
 
+  /**
+   * toString
+   *
+   * @return String value
+   */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
+  /**
+   * fromValue
+   *
+   * @param value String
+   */
   @JsonCreator
   public static LeaveTypeContributionType fromValue(String value) {
     for (LeaveTypeContributionType b : LeaveTypeContributionType.values()) {

@@ -27,7 +27,12 @@ public class StartBalance {
 
   @JsonProperty("creditDebitIndicator")
   private CreditDebitIndicator creditDebitIndicator;
-
+  /**
+   * decimal(19,4) unsigned Opening/closing balance amount.
+   *
+   * @param amount Double
+   * @return StartBalance
+   */
   public StartBalance amount(Double amount) {
     this.amount = amount;
     return this;
@@ -41,14 +46,30 @@ public class StartBalance {
   @ApiModelProperty(
       example = "9.0000",
       value = "decimal(19,4) unsigned Opening/closing balance amount.")
+  /**
+   * decimal(19,4) unsigned Opening/closing balance amount.
+   *
+   * @return amount Double
+   */
   public Double getAmount() {
     return amount;
   }
 
+  /**
+   * decimal(19,4) unsigned Opening/closing balance amount.
+   *
+   * @param amount Double
+   */
   public void setAmount(Double amount) {
     this.amount = amount;
   }
 
+  /**
+   * creditDebitIndicator
+   *
+   * @param creditDebitIndicator CreditDebitIndicator
+   * @return StartBalance
+   */
   public StartBalance creditDebitIndicator(CreditDebitIndicator creditDebitIndicator) {
     this.creditDebitIndicator = creditDebitIndicator;
     return this;
@@ -60,10 +81,20 @@ public class StartBalance {
    * @return creditDebitIndicator
    */
   @ApiModelProperty(value = "")
+  /**
+   * creditDebitIndicator
+   *
+   * @return creditDebitIndicator CreditDebitIndicator
+   */
   public CreditDebitIndicator getCreditDebitIndicator() {
     return creditDebitIndicator;
   }
 
+  /**
+   * creditDebitIndicator
+   *
+   * @param creditDebitIndicator CreditDebitIndicator
+   */
   public void setCreditDebitIndicator(CreditDebitIndicator creditDebitIndicator) {
     this.creditDebitIndicator = creditDebitIndicator;
   }

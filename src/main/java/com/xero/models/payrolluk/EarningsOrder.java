@@ -35,7 +35,12 @@ public class EarningsOrder {
 
   @JsonProperty("currentRecord")
   private Boolean currentRecord = true;
-
+  /**
+   * Xero unique identifier for an earning rate
+   *
+   * @param id UUID
+   * @return EarningsOrder
+   */
   public EarningsOrder id(UUID id) {
     this.id = id;
     return this;
@@ -47,14 +52,30 @@ public class EarningsOrder {
    * @return id
    */
   @ApiModelProperty(value = "Xero unique identifier for an earning rate")
+  /**
+   * Xero unique identifier for an earning rate
+   *
+   * @return id UUID
+   */
   public UUID getId() {
     return id;
   }
 
+  /**
+   * Xero unique identifier for an earning rate
+   *
+   * @param id UUID
+   */
   public void setId(UUID id) {
     this.id = id;
   }
 
+  /**
+   * Name of the earning order
+   *
+   * @param name String
+   * @return EarningsOrder
+   */
   public EarningsOrder name(String name) {
     this.name = name;
     return this;
@@ -66,14 +87,30 @@ public class EarningsOrder {
    * @return name
    */
   @ApiModelProperty(required = true, value = "Name of the earning order")
+  /**
+   * Name of the earning order
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Name of the earning order
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * statutoryDeductionCategory
+   *
+   * @param statutoryDeductionCategory StatutoryDeductionCategory
+   * @return EarningsOrder
+   */
   public EarningsOrder statutoryDeductionCategory(
       StatutoryDeductionCategory statutoryDeductionCategory) {
     this.statutoryDeductionCategory = statutoryDeductionCategory;
@@ -86,14 +123,30 @@ public class EarningsOrder {
    * @return statutoryDeductionCategory
    */
   @ApiModelProperty(value = "")
+  /**
+   * statutoryDeductionCategory
+   *
+   * @return statutoryDeductionCategory StatutoryDeductionCategory
+   */
   public StatutoryDeductionCategory getStatutoryDeductionCategory() {
     return statutoryDeductionCategory;
   }
 
+  /**
+   * statutoryDeductionCategory
+   *
+   * @param statutoryDeductionCategory StatutoryDeductionCategory
+   */
   public void setStatutoryDeductionCategory(StatutoryDeductionCategory statutoryDeductionCategory) {
     this.statutoryDeductionCategory = statutoryDeductionCategory;
   }
 
+  /**
+   * Xero identifier for Liability Account
+   *
+   * @param liabilityAccountId UUID
+   * @return EarningsOrder
+   */
   public EarningsOrder liabilityAccountId(UUID liabilityAccountId) {
     this.liabilityAccountId = liabilityAccountId;
     return this;
@@ -105,14 +158,30 @@ public class EarningsOrder {
    * @return liabilityAccountId
    */
   @ApiModelProperty(value = "Xero identifier for Liability Account")
+  /**
+   * Xero identifier for Liability Account
+   *
+   * @return liabilityAccountId UUID
+   */
   public UUID getLiabilityAccountId() {
     return liabilityAccountId;
   }
 
+  /**
+   * Xero identifier for Liability Account
+   *
+   * @param liabilityAccountId UUID
+   */
   public void setLiabilityAccountId(UUID liabilityAccountId) {
     this.liabilityAccountId = liabilityAccountId;
   }
 
+  /**
+   * Identifier of a record is active or not.
+   *
+   * @param currentRecord Boolean
+   * @return EarningsOrder
+   */
   public EarningsOrder currentRecord(Boolean currentRecord) {
     this.currentRecord = currentRecord;
     return this;
@@ -124,10 +193,20 @@ public class EarningsOrder {
    * @return currentRecord
    */
   @ApiModelProperty(value = "Identifier of a record is active or not.")
+  /**
+   * Identifier of a record is active or not.
+   *
+   * @return currentRecord Boolean
+   */
   public Boolean getCurrentRecord() {
     return currentRecord;
   }
 
+  /**
+   * Identifier of a record is active or not.
+   *
+   * @param currentRecord Boolean
+   */
   public void setCurrentRecord(Boolean currentRecord) {
     this.currentRecord = currentRecord;
   }

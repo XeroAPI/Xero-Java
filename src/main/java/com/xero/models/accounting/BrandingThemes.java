@@ -24,12 +24,23 @@ public class BrandingThemes {
 
   @JsonProperty("BrandingThemes")
   private List<BrandingTheme> brandingThemes = new ArrayList<BrandingTheme>();
-
+  /**
+   * brandingThemes
+   *
+   * @param brandingThemes List&lt;BrandingTheme&gt;
+   * @return BrandingThemes
+   */
   public BrandingThemes brandingThemes(List<BrandingTheme> brandingThemes) {
     this.brandingThemes = brandingThemes;
     return this;
   }
 
+  /**
+   * brandingThemes
+   *
+   * @param brandingThemesItem BrandingTheme
+   * @return BrandingThemes
+   */
   public BrandingThemes addBrandingThemesItem(BrandingTheme brandingThemesItem) {
     if (this.brandingThemes == null) {
       this.brandingThemes = new ArrayList<BrandingTheme>();
@@ -44,10 +55,20 @@ public class BrandingThemes {
    * @return brandingThemes
    */
   @ApiModelProperty(value = "")
+  /**
+   * brandingThemes
+   *
+   * @return brandingThemes List<BrandingTheme>
+   */
   public List<BrandingTheme> getBrandingThemes() {
     return brandingThemes;
   }
 
+  /**
+   * brandingThemes
+   *
+   * @param brandingThemes List&lt;BrandingTheme&gt;
+   */
   public void setBrandingThemes(List<BrandingTheme> brandingThemes) {
     this.brandingThemes = brandingThemes;
   }

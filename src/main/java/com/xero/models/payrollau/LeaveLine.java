@@ -44,7 +44,12 @@ public class LeaveLine {
 
   @JsonProperty("FullTimeNumberOfUnitsPerPeriod")
   private Double fullTimeNumberOfUnitsPerPeriod;
-
+  /**
+   * Xero leave type identifier
+   *
+   * @param leaveTypeID UUID
+   * @return LeaveLine
+   */
   public LeaveLine leaveTypeID(UUID leaveTypeID) {
     this.leaveTypeID = leaveTypeID;
     return this;
@@ -58,14 +63,30 @@ public class LeaveLine {
   @ApiModelProperty(
       example = "742998cb-7584-4ecf-aa88-d694f59c50f9",
       value = "Xero leave type identifier")
+  /**
+   * Xero leave type identifier
+   *
+   * @return leaveTypeID UUID
+   */
   public UUID getLeaveTypeID() {
     return leaveTypeID;
   }
 
+  /**
+   * Xero leave type identifier
+   *
+   * @param leaveTypeID UUID
+   */
   public void setLeaveTypeID(UUID leaveTypeID) {
     this.leaveTypeID = leaveTypeID;
   }
 
+  /**
+   * calculationType
+   *
+   * @param calculationType LeaveLineCalculationType
+   * @return LeaveLine
+   */
   public LeaveLine calculationType(LeaveLineCalculationType calculationType) {
     this.calculationType = calculationType;
     return this;
@@ -77,14 +98,30 @@ public class LeaveLine {
    * @return calculationType
    */
   @ApiModelProperty(value = "")
+  /**
+   * calculationType
+   *
+   * @return calculationType LeaveLineCalculationType
+   */
   public LeaveLineCalculationType getCalculationType() {
     return calculationType;
   }
 
+  /**
+   * calculationType
+   *
+   * @param calculationType LeaveLineCalculationType
+   */
   public void setCalculationType(LeaveLineCalculationType calculationType) {
     this.calculationType = calculationType;
   }
 
+  /**
+   * entitlementFinalPayPayoutType
+   *
+   * @param entitlementFinalPayPayoutType EntitlementFinalPayPayoutType
+   * @return LeaveLine
+   */
   public LeaveLine entitlementFinalPayPayoutType(
       EntitlementFinalPayPayoutType entitlementFinalPayPayoutType) {
     this.entitlementFinalPayPayoutType = entitlementFinalPayPayoutType;
@@ -97,15 +134,31 @@ public class LeaveLine {
    * @return entitlementFinalPayPayoutType
    */
   @ApiModelProperty(value = "")
+  /**
+   * entitlementFinalPayPayoutType
+   *
+   * @return entitlementFinalPayPayoutType EntitlementFinalPayPayoutType
+   */
   public EntitlementFinalPayPayoutType getEntitlementFinalPayPayoutType() {
     return entitlementFinalPayPayoutType;
   }
 
+  /**
+   * entitlementFinalPayPayoutType
+   *
+   * @param entitlementFinalPayPayoutType EntitlementFinalPayPayoutType
+   */
   public void setEntitlementFinalPayPayoutType(
       EntitlementFinalPayPayoutType entitlementFinalPayPayoutType) {
     this.entitlementFinalPayPayoutType = entitlementFinalPayPayoutType;
   }
 
+  /**
+   * employmentTerminationPaymentType
+   *
+   * @param employmentTerminationPaymentType EmploymentTerminationPaymentType
+   * @return LeaveLine
+   */
   public LeaveLine employmentTerminationPaymentType(
       EmploymentTerminationPaymentType employmentTerminationPaymentType) {
     this.employmentTerminationPaymentType = employmentTerminationPaymentType;
@@ -118,15 +171,31 @@ public class LeaveLine {
    * @return employmentTerminationPaymentType
    */
   @ApiModelProperty(value = "")
+  /**
+   * employmentTerminationPaymentType
+   *
+   * @return employmentTerminationPaymentType EmploymentTerminationPaymentType
+   */
   public EmploymentTerminationPaymentType getEmploymentTerminationPaymentType() {
     return employmentTerminationPaymentType;
   }
 
+  /**
+   * employmentTerminationPaymentType
+   *
+   * @param employmentTerminationPaymentType EmploymentTerminationPaymentType
+   */
   public void setEmploymentTerminationPaymentType(
       EmploymentTerminationPaymentType employmentTerminationPaymentType) {
     this.employmentTerminationPaymentType = employmentTerminationPaymentType;
   }
 
+  /**
+   * amount of leave line
+   *
+   * @param includeSuperannuationGuaranteeContribution Boolean
+   * @return LeaveLine
+   */
   public LeaveLine includeSuperannuationGuaranteeContribution(
       Boolean includeSuperannuationGuaranteeContribution) {
     this.includeSuperannuationGuaranteeContribution = includeSuperannuationGuaranteeContribution;
@@ -139,15 +208,31 @@ public class LeaveLine {
    * @return includeSuperannuationGuaranteeContribution
    */
   @ApiModelProperty(example = "true", value = "amount of leave line")
+  /**
+   * amount of leave line
+   *
+   * @return includeSuperannuationGuaranteeContribution Boolean
+   */
   public Boolean getIncludeSuperannuationGuaranteeContribution() {
     return includeSuperannuationGuaranteeContribution;
   }
 
+  /**
+   * amount of leave line
+   *
+   * @param includeSuperannuationGuaranteeContribution Boolean
+   */
   public void setIncludeSuperannuationGuaranteeContribution(
       Boolean includeSuperannuationGuaranteeContribution) {
     this.includeSuperannuationGuaranteeContribution = includeSuperannuationGuaranteeContribution;
   }
 
+  /**
+   * Number of units for leave line.
+   *
+   * @param numberOfUnits Double
+   * @return LeaveLine
+   */
   public LeaveLine numberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
     return this;
@@ -159,14 +244,30 @@ public class LeaveLine {
    * @return numberOfUnits
    */
   @ApiModelProperty(example = "2.5", value = "Number of units for leave line.")
+  /**
+   * Number of units for leave line.
+   *
+   * @return numberOfUnits Double
+   */
   public Double getNumberOfUnits() {
     return numberOfUnits;
   }
 
+  /**
+   * Number of units for leave line.
+   *
+   * @param numberOfUnits Double
+   */
   public void setNumberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
   }
 
+  /**
+   * Hours of leave accrued each year
+   *
+   * @param annualNumberOfUnits Double
+   * @return LeaveLine
+   */
   public LeaveLine annualNumberOfUnits(Double annualNumberOfUnits) {
     this.annualNumberOfUnits = annualNumberOfUnits;
     return this;
@@ -178,14 +279,30 @@ public class LeaveLine {
    * @return annualNumberOfUnits
    */
   @ApiModelProperty(example = "2.5", value = "Hours of leave accrued each year")
+  /**
+   * Hours of leave accrued each year
+   *
+   * @return annualNumberOfUnits Double
+   */
   public Double getAnnualNumberOfUnits() {
     return annualNumberOfUnits;
   }
 
+  /**
+   * Hours of leave accrued each year
+   *
+   * @param annualNumberOfUnits Double
+   */
   public void setAnnualNumberOfUnits(Double annualNumberOfUnits) {
     this.annualNumberOfUnits = annualNumberOfUnits;
   }
 
+  /**
+   * Normal ordinary earnings number of units for leave line.
+   *
+   * @param fullTimeNumberOfUnitsPerPeriod Double
+   * @return LeaveLine
+   */
   public LeaveLine fullTimeNumberOfUnitsPerPeriod(Double fullTimeNumberOfUnitsPerPeriod) {
     this.fullTimeNumberOfUnitsPerPeriod = fullTimeNumberOfUnitsPerPeriod;
     return this;
@@ -199,10 +316,20 @@ public class LeaveLine {
   @ApiModelProperty(
       example = "2.5",
       value = "Normal ordinary earnings number of units for leave line.")
+  /**
+   * Normal ordinary earnings number of units for leave line.
+   *
+   * @return fullTimeNumberOfUnitsPerPeriod Double
+   */
   public Double getFullTimeNumberOfUnitsPerPeriod() {
     return fullTimeNumberOfUnitsPerPeriod;
   }
 
+  /**
+   * Normal ordinary earnings number of units for leave line.
+   *
+   * @param fullTimeNumberOfUnitsPerPeriod Double
+   */
   public void setFullTimeNumberOfUnitsPerPeriod(Double fullTimeNumberOfUnitsPerPeriod) {
     this.fullTimeNumberOfUnitsPerPeriod = fullTimeNumberOfUnitsPerPeriod;
   }

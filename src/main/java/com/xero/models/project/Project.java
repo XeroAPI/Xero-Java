@@ -87,7 +87,12 @@ public class Project {
 
   @JsonProperty("status")
   private ProjectStatus status;
-
+  /**
+   * Identifier of the project.
+   *
+   * @param projectId UUID
+   * @return Project
+   */
   public Project projectId(UUID projectId) {
     this.projectId = projectId;
     return this;
@@ -101,14 +106,30 @@ public class Project {
   @ApiModelProperty(
       example = "254553fa-2be8-4991-bd5e-70a97ea12ef8",
       value = "Identifier of the project.")
+  /**
+   * Identifier of the project.
+   *
+   * @return projectId UUID
+   */
   public UUID getProjectId() {
     return projectId;
   }
 
+  /**
+   * Identifier of the project.
+   *
+   * @param projectId UUID
+   */
   public void setProjectId(UUID projectId) {
     this.projectId = projectId;
   }
 
+  /**
+   * Identifier of the contact this project was created for.
+   *
+   * @param contactId UUID
+   * @return Project
+   */
   public Project contactId(UUID contactId) {
     this.contactId = contactId;
     return this;
@@ -122,14 +143,30 @@ public class Project {
   @ApiModelProperty(
       example = "01234567-89ab-cdef-0123-456789abcdef",
       value = "Identifier of the contact this project was created for.")
+  /**
+   * Identifier of the contact this project was created for.
+   *
+   * @return contactId UUID
+   */
   public UUID getContactId() {
     return contactId;
   }
 
+  /**
+   * Identifier of the contact this project was created for.
+   *
+   * @param contactId UUID
+   */
   public void setContactId(UUID contactId) {
     this.contactId = contactId;
   }
 
+  /**
+   * Name of the project.
+   *
+   * @param name String
+   * @return Project
+   */
   public Project name(String name) {
     this.name = name;
     return this;
@@ -141,14 +178,30 @@ public class Project {
    * @return name
    */
   @ApiModelProperty(example = "New Kitchen", required = true, value = "Name of the project.")
+  /**
+   * Name of the project.
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Name of the project.
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * currencyCode
+   *
+   * @param currencyCode CurrencyCode
+   * @return Project
+   */
   public Project currencyCode(CurrencyCode currencyCode) {
     this.currencyCode = currencyCode;
     return this;
@@ -160,14 +213,30 @@ public class Project {
    * @return currencyCode
    */
   @ApiModelProperty(value = "")
+  /**
+   * currencyCode
+   *
+   * @return currencyCode CurrencyCode
+   */
   public CurrencyCode getCurrencyCode() {
     return currencyCode;
   }
 
+  /**
+   * currencyCode
+   *
+   * @param currencyCode CurrencyCode
+   */
   public void setCurrencyCode(CurrencyCode currencyCode) {
     this.currencyCode = currencyCode;
   }
 
+  /**
+   * A total of minutes logged against all tasks on the Project.
+   *
+   * @param minutesLogged Integer
+   * @return Project
+   */
   public Project minutesLogged(Integer minutesLogged) {
     this.minutesLogged = minutesLogged;
     return this;
@@ -181,14 +250,30 @@ public class Project {
   @ApiModelProperty(
       example = "0",
       value = "A total of minutes logged against all tasks on the Project.")
+  /**
+   * A total of minutes logged against all tasks on the Project.
+   *
+   * @return minutesLogged Integer
+   */
   public Integer getMinutesLogged() {
     return minutesLogged;
   }
 
+  /**
+   * A total of minutes logged against all tasks on the Project.
+   *
+   * @param minutesLogged Integer
+   */
   public void setMinutesLogged(Integer minutesLogged) {
     this.minutesLogged = minutesLogged;
   }
 
+  /**
+   * totalTaskAmount
+   *
+   * @param totalTaskAmount Amount
+   * @return Project
+   */
   public Project totalTaskAmount(Amount totalTaskAmount) {
     this.totalTaskAmount = totalTaskAmount;
     return this;
@@ -200,14 +285,30 @@ public class Project {
    * @return totalTaskAmount
    */
   @ApiModelProperty(value = "")
+  /**
+   * totalTaskAmount
+   *
+   * @return totalTaskAmount Amount
+   */
   public Amount getTotalTaskAmount() {
     return totalTaskAmount;
   }
 
+  /**
+   * totalTaskAmount
+   *
+   * @param totalTaskAmount Amount
+   */
   public void setTotalTaskAmount(Amount totalTaskAmount) {
     this.totalTaskAmount = totalTaskAmount;
   }
 
+  /**
+   * totalExpenseAmount
+   *
+   * @param totalExpenseAmount Amount
+   * @return Project
+   */
   public Project totalExpenseAmount(Amount totalExpenseAmount) {
     this.totalExpenseAmount = totalExpenseAmount;
     return this;
@@ -219,14 +320,30 @@ public class Project {
    * @return totalExpenseAmount
    */
   @ApiModelProperty(value = "")
+  /**
+   * totalExpenseAmount
+   *
+   * @return totalExpenseAmount Amount
+   */
   public Amount getTotalExpenseAmount() {
     return totalExpenseAmount;
   }
 
+  /**
+   * totalExpenseAmount
+   *
+   * @param totalExpenseAmount Amount
+   */
   public void setTotalExpenseAmount(Amount totalExpenseAmount) {
     this.totalExpenseAmount = totalExpenseAmount;
   }
 
+  /**
+   * estimateAmount
+   *
+   * @param estimateAmount Amount
+   * @return Project
+   */
   public Project estimateAmount(Amount estimateAmount) {
     this.estimateAmount = estimateAmount;
     return this;
@@ -238,14 +355,30 @@ public class Project {
    * @return estimateAmount
    */
   @ApiModelProperty(value = "")
+  /**
+   * estimateAmount
+   *
+   * @return estimateAmount Amount
+   */
   public Amount getEstimateAmount() {
     return estimateAmount;
   }
 
+  /**
+   * estimateAmount
+   *
+   * @param estimateAmount Amount
+   */
   public void setEstimateAmount(Amount estimateAmount) {
     this.estimateAmount = estimateAmount;
   }
 
+  /**
+   * Minutes which have not been invoiced across all chargeable tasks in the project.
+   *
+   * @param minutesToBeInvoiced Integer
+   * @return Project
+   */
   public Project minutesToBeInvoiced(Integer minutesToBeInvoiced) {
     this.minutesToBeInvoiced = minutesToBeInvoiced;
     return this;
@@ -259,14 +392,30 @@ public class Project {
   @ApiModelProperty(
       example = "0",
       value = "Minutes which have not been invoiced across all chargeable tasks in the project.")
+  /**
+   * Minutes which have not been invoiced across all chargeable tasks in the project.
+   *
+   * @return minutesToBeInvoiced Integer
+   */
   public Integer getMinutesToBeInvoiced() {
     return minutesToBeInvoiced;
   }
 
+  /**
+   * Minutes which have not been invoiced across all chargeable tasks in the project.
+   *
+   * @param minutesToBeInvoiced Integer
+   */
   public void setMinutesToBeInvoiced(Integer minutesToBeInvoiced) {
     this.minutesToBeInvoiced = minutesToBeInvoiced;
   }
 
+  /**
+   * taskAmountToBeInvoiced
+   *
+   * @param taskAmountToBeInvoiced Amount
+   * @return Project
+   */
   public Project taskAmountToBeInvoiced(Amount taskAmountToBeInvoiced) {
     this.taskAmountToBeInvoiced = taskAmountToBeInvoiced;
     return this;
@@ -278,14 +427,30 @@ public class Project {
    * @return taskAmountToBeInvoiced
    */
   @ApiModelProperty(value = "")
+  /**
+   * taskAmountToBeInvoiced
+   *
+   * @return taskAmountToBeInvoiced Amount
+   */
   public Amount getTaskAmountToBeInvoiced() {
     return taskAmountToBeInvoiced;
   }
 
+  /**
+   * taskAmountToBeInvoiced
+   *
+   * @param taskAmountToBeInvoiced Amount
+   */
   public void setTaskAmountToBeInvoiced(Amount taskAmountToBeInvoiced) {
     this.taskAmountToBeInvoiced = taskAmountToBeInvoiced;
   }
 
+  /**
+   * taskAmountInvoiced
+   *
+   * @param taskAmountInvoiced Amount
+   * @return Project
+   */
   public Project taskAmountInvoiced(Amount taskAmountInvoiced) {
     this.taskAmountInvoiced = taskAmountInvoiced;
     return this;
@@ -297,14 +462,30 @@ public class Project {
    * @return taskAmountInvoiced
    */
   @ApiModelProperty(value = "")
+  /**
+   * taskAmountInvoiced
+   *
+   * @return taskAmountInvoiced Amount
+   */
   public Amount getTaskAmountInvoiced() {
     return taskAmountInvoiced;
   }
 
+  /**
+   * taskAmountInvoiced
+   *
+   * @param taskAmountInvoiced Amount
+   */
   public void setTaskAmountInvoiced(Amount taskAmountInvoiced) {
     this.taskAmountInvoiced = taskAmountInvoiced;
   }
 
+  /**
+   * expenseAmountToBeInvoiced
+   *
+   * @param expenseAmountToBeInvoiced Amount
+   * @return Project
+   */
   public Project expenseAmountToBeInvoiced(Amount expenseAmountToBeInvoiced) {
     this.expenseAmountToBeInvoiced = expenseAmountToBeInvoiced;
     return this;
@@ -316,14 +497,30 @@ public class Project {
    * @return expenseAmountToBeInvoiced
    */
   @ApiModelProperty(value = "")
+  /**
+   * expenseAmountToBeInvoiced
+   *
+   * @return expenseAmountToBeInvoiced Amount
+   */
   public Amount getExpenseAmountToBeInvoiced() {
     return expenseAmountToBeInvoiced;
   }
 
+  /**
+   * expenseAmountToBeInvoiced
+   *
+   * @param expenseAmountToBeInvoiced Amount
+   */
   public void setExpenseAmountToBeInvoiced(Amount expenseAmountToBeInvoiced) {
     this.expenseAmountToBeInvoiced = expenseAmountToBeInvoiced;
   }
 
+  /**
+   * expenseAmountInvoiced
+   *
+   * @param expenseAmountInvoiced Amount
+   * @return Project
+   */
   public Project expenseAmountInvoiced(Amount expenseAmountInvoiced) {
     this.expenseAmountInvoiced = expenseAmountInvoiced;
     return this;
@@ -335,14 +532,30 @@ public class Project {
    * @return expenseAmountInvoiced
    */
   @ApiModelProperty(value = "")
+  /**
+   * expenseAmountInvoiced
+   *
+   * @return expenseAmountInvoiced Amount
+   */
   public Amount getExpenseAmountInvoiced() {
     return expenseAmountInvoiced;
   }
 
+  /**
+   * expenseAmountInvoiced
+   *
+   * @param expenseAmountInvoiced Amount
+   */
   public void setExpenseAmountInvoiced(Amount expenseAmountInvoiced) {
     this.expenseAmountInvoiced = expenseAmountInvoiced;
   }
 
+  /**
+   * projectAmountInvoiced
+   *
+   * @param projectAmountInvoiced Amount
+   * @return Project
+   */
   public Project projectAmountInvoiced(Amount projectAmountInvoiced) {
     this.projectAmountInvoiced = projectAmountInvoiced;
     return this;
@@ -354,14 +567,30 @@ public class Project {
    * @return projectAmountInvoiced
    */
   @ApiModelProperty(value = "")
+  /**
+   * projectAmountInvoiced
+   *
+   * @return projectAmountInvoiced Amount
+   */
   public Amount getProjectAmountInvoiced() {
     return projectAmountInvoiced;
   }
 
+  /**
+   * projectAmountInvoiced
+   *
+   * @param projectAmountInvoiced Amount
+   */
   public void setProjectAmountInvoiced(Amount projectAmountInvoiced) {
     this.projectAmountInvoiced = projectAmountInvoiced;
   }
 
+  /**
+   * deposit
+   *
+   * @param deposit Amount
+   * @return Project
+   */
   public Project deposit(Amount deposit) {
     this.deposit = deposit;
     return this;
@@ -373,14 +602,30 @@ public class Project {
    * @return deposit
    */
   @ApiModelProperty(value = "")
+  /**
+   * deposit
+   *
+   * @return deposit Amount
+   */
   public Amount getDeposit() {
     return deposit;
   }
 
+  /**
+   * deposit
+   *
+   * @param deposit Amount
+   */
   public void setDeposit(Amount deposit) {
     this.deposit = deposit;
   }
 
+  /**
+   * depositApplied
+   *
+   * @param depositApplied Amount
+   * @return Project
+   */
   public Project depositApplied(Amount depositApplied) {
     this.depositApplied = depositApplied;
     return this;
@@ -392,14 +637,30 @@ public class Project {
    * @return depositApplied
    */
   @ApiModelProperty(value = "")
+  /**
+   * depositApplied
+   *
+   * @return depositApplied Amount
+   */
   public Amount getDepositApplied() {
     return depositApplied;
   }
 
+  /**
+   * depositApplied
+   *
+   * @param depositApplied Amount
+   */
   public void setDepositApplied(Amount depositApplied) {
     this.depositApplied = depositApplied;
   }
 
+  /**
+   * creditNoteAmount
+   *
+   * @param creditNoteAmount Amount
+   * @return Project
+   */
   public Project creditNoteAmount(Amount creditNoteAmount) {
     this.creditNoteAmount = creditNoteAmount;
     return this;
@@ -411,14 +672,30 @@ public class Project {
    * @return creditNoteAmount
    */
   @ApiModelProperty(value = "")
+  /**
+   * creditNoteAmount
+   *
+   * @return creditNoteAmount Amount
+   */
   public Amount getCreditNoteAmount() {
     return creditNoteAmount;
   }
 
+  /**
+   * creditNoteAmount
+   *
+   * @param creditNoteAmount Amount
+   */
   public void setCreditNoteAmount(Amount creditNoteAmount) {
     this.creditNoteAmount = creditNoteAmount;
   }
 
+  /**
+   * Deadline for the project. UTC Date Time in ISO-8601 format.
+   *
+   * @param deadlineUtc OffsetDateTime
+   * @return Project
+   */
   public Project deadlineUtc(OffsetDateTime deadlineUtc) {
     this.deadlineUtc = deadlineUtc;
     return this;
@@ -432,14 +709,30 @@ public class Project {
   @ApiModelProperty(
       example = "2019-12-10T12:59:59Z",
       value = "Deadline for the project. UTC Date Time in ISO-8601 format.")
+  /**
+   * Deadline for the project. UTC Date Time in ISO-8601 format.
+   *
+   * @return deadlineUtc OffsetDateTime
+   */
   public OffsetDateTime getDeadlineUtc() {
     return deadlineUtc;
   }
 
+  /**
+   * Deadline for the project. UTC Date Time in ISO-8601 format.
+   *
+   * @param deadlineUtc OffsetDateTime
+   */
   public void setDeadlineUtc(OffsetDateTime deadlineUtc) {
     this.deadlineUtc = deadlineUtc;
   }
 
+  /**
+   * totalInvoiced
+   *
+   * @param totalInvoiced Amount
+   * @return Project
+   */
   public Project totalInvoiced(Amount totalInvoiced) {
     this.totalInvoiced = totalInvoiced;
     return this;
@@ -451,14 +744,30 @@ public class Project {
    * @return totalInvoiced
    */
   @ApiModelProperty(value = "")
+  /**
+   * totalInvoiced
+   *
+   * @return totalInvoiced Amount
+   */
   public Amount getTotalInvoiced() {
     return totalInvoiced;
   }
 
+  /**
+   * totalInvoiced
+   *
+   * @param totalInvoiced Amount
+   */
   public void setTotalInvoiced(Amount totalInvoiced) {
     this.totalInvoiced = totalInvoiced;
   }
 
+  /**
+   * totalToBeInvoiced
+   *
+   * @param totalToBeInvoiced Amount
+   * @return Project
+   */
   public Project totalToBeInvoiced(Amount totalToBeInvoiced) {
     this.totalToBeInvoiced = totalToBeInvoiced;
     return this;
@@ -470,14 +779,30 @@ public class Project {
    * @return totalToBeInvoiced
    */
   @ApiModelProperty(value = "")
+  /**
+   * totalToBeInvoiced
+   *
+   * @return totalToBeInvoiced Amount
+   */
   public Amount getTotalToBeInvoiced() {
     return totalToBeInvoiced;
   }
 
+  /**
+   * totalToBeInvoiced
+   *
+   * @param totalToBeInvoiced Amount
+   */
   public void setTotalToBeInvoiced(Amount totalToBeInvoiced) {
     this.totalToBeInvoiced = totalToBeInvoiced;
   }
 
+  /**
+   * estimate
+   *
+   * @param estimate Amount
+   * @return Project
+   */
   public Project estimate(Amount estimate) {
     this.estimate = estimate;
     return this;
@@ -489,14 +814,30 @@ public class Project {
    * @return estimate
    */
   @ApiModelProperty(value = "")
+  /**
+   * estimate
+   *
+   * @return estimate Amount
+   */
   public Amount getEstimate() {
     return estimate;
   }
 
+  /**
+   * estimate
+   *
+   * @param estimate Amount
+   */
   public void setEstimate(Amount estimate) {
     this.estimate = estimate;
   }
 
+  /**
+   * status
+   *
+   * @param status ProjectStatus
+   * @return Project
+   */
   public Project status(ProjectStatus status) {
     this.status = status;
     return this;
@@ -508,10 +849,20 @@ public class Project {
    * @return status
    */
   @ApiModelProperty(value = "")
+  /**
+   * status
+   *
+   * @return status ProjectStatus
+   */
   public ProjectStatus getStatus() {
     return status;
   }
 
+  /**
+   * status
+   *
+   * @param status ProjectStatus
+   */
   public void setStatus(ProjectStatus status) {
     this.status = status;
   }

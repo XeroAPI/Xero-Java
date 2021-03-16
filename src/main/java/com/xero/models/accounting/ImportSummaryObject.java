@@ -22,7 +22,12 @@ public class ImportSummaryObject {
 
   @JsonProperty("ImportSummary")
   private ImportSummary importSummary;
-
+  /**
+   * importSummary
+   *
+   * @param importSummary ImportSummary
+   * @return ImportSummaryObject
+   */
   public ImportSummaryObject importSummary(ImportSummary importSummary) {
     this.importSummary = importSummary;
     return this;
@@ -34,10 +39,20 @@ public class ImportSummaryObject {
    * @return importSummary
    */
   @ApiModelProperty(value = "")
+  /**
+   * importSummary
+   *
+   * @return importSummary ImportSummary
+   */
   public ImportSummary getImportSummary() {
     return importSummary;
   }
 
+  /**
+   * importSummary
+   *
+   * @param importSummary ImportSummary
+   */
   public void setImportSummary(ImportSummary importSummary) {
     this.importSummary = importSummary;
   }

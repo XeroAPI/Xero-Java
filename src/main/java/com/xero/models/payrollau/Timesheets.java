@@ -24,12 +24,23 @@ public class Timesheets {
 
   @JsonProperty("Timesheets")
   private List<Timesheet> timesheets = new ArrayList<Timesheet>();
-
+  /**
+   * timesheets
+   *
+   * @param timesheets List&lt;Timesheet&gt;
+   * @return Timesheets
+   */
   public Timesheets timesheets(List<Timesheet> timesheets) {
     this.timesheets = timesheets;
     return this;
   }
 
+  /**
+   * timesheets
+   *
+   * @param timesheetsItem Timesheet
+   * @return Timesheets
+   */
   public Timesheets addTimesheetsItem(Timesheet timesheetsItem) {
     if (this.timesheets == null) {
       this.timesheets = new ArrayList<Timesheet>();
@@ -44,10 +55,20 @@ public class Timesheets {
    * @return timesheets
    */
   @ApiModelProperty(value = "")
+  /**
+   * timesheets
+   *
+   * @return timesheets List<Timesheet>
+   */
   public List<Timesheet> getTimesheets() {
     return timesheets;
   }
 
+  /**
+   * timesheets
+   *
+   * @param timesheets List&lt;Timesheet&gt;
+   */
   public void setTimesheets(List<Timesheet> timesheets) {
     this.timesheets = timesheets;
   }

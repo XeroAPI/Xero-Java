@@ -28,7 +28,12 @@ public class EarningsTemplateObject {
 
   @JsonProperty("earningTemplate")
   private EarningsTemplate earningTemplate;
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return EarningsTemplateObject
+   */
   public EarningsTemplateObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -40,14 +45,30 @@ public class EarningsTemplateObject {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return EarningsTemplateObject
+   */
   public EarningsTemplateObject problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -59,14 +80,30 @@ public class EarningsTemplateObject {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * earningTemplate
+   *
+   * @param earningTemplate EarningsTemplate
+   * @return EarningsTemplateObject
+   */
   public EarningsTemplateObject earningTemplate(EarningsTemplate earningTemplate) {
     this.earningTemplate = earningTemplate;
     return this;
@@ -78,10 +115,20 @@ public class EarningsTemplateObject {
    * @return earningTemplate
    */
   @ApiModelProperty(value = "")
+  /**
+   * earningTemplate
+   *
+   * @return earningTemplate EarningsTemplate
+   */
   public EarningsTemplate getEarningTemplate() {
     return earningTemplate;
   }
 
+  /**
+   * earningTemplate
+   *
+   * @param earningTemplate EarningsTemplate
+   */
   public void setEarningTemplate(EarningsTemplate earningTemplate) {
     this.earningTemplate = earningTemplate;
   }

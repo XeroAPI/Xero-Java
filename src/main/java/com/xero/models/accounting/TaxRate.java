@@ -34,12 +34,16 @@ public class TaxRate {
   private List<TaxComponent> taxComponents = new ArrayList<TaxComponent>();
   /** See Status Codes */
   public enum StatusEnum {
+    /** ACTIVE */
     ACTIVE("ACTIVE"),
 
+    /** DELETED */
     DELETED("DELETED"),
 
+    /** ARCHIVED */
     ARCHIVED("ARCHIVED"),
 
+    /** PENDING */
     PENDING("PENDING");
 
     private String value;
@@ -48,16 +52,31 @@ public class TaxRate {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
@@ -73,152 +92,226 @@ public class TaxRate {
   private StatusEnum status;
   /** See ReportTaxTypes */
   public enum ReportTaxTypeEnum {
+    /** AVALARA */
     AVALARA("AVALARA"),
 
+    /** BASEXCLUDED */
     BASEXCLUDED("BASEXCLUDED"),
 
+    /** CAPITALSALESOUTPUT */
     CAPITALSALESOUTPUT("CAPITALSALESOUTPUT"),
 
+    /** CAPITALEXPENSESINPUT */
     CAPITALEXPENSESINPUT("CAPITALEXPENSESINPUT"),
 
+    /** ECOUTPUT */
     ECOUTPUT("ECOUTPUT"),
 
+    /** ECOUTPUTSERVICES */
     ECOUTPUTSERVICES("ECOUTPUTSERVICES"),
 
+    /** ECINPUT */
     ECINPUT("ECINPUT"),
 
+    /** ECACQUISITIONS */
     ECACQUISITIONS("ECACQUISITIONS"),
 
+    /** EXEMPTEXPENSES */
     EXEMPTEXPENSES("EXEMPTEXPENSES"),
 
+    /** EXEMPTINPUT */
     EXEMPTINPUT("EXEMPTINPUT"),
 
+    /** EXEMPTOUTPUT */
     EXEMPTOUTPUT("EXEMPTOUTPUT"),
 
+    /** GSTONIMPORTS */
     GSTONIMPORTS("GSTONIMPORTS"),
 
+    /** INPUT */
     INPUT("INPUT"),
 
+    /** INPUTTAXED */
     INPUTTAXED("INPUTTAXED"),
 
+    /** MOSSSALES */
     MOSSSALES("MOSSSALES"),
 
+    /** NONE */
     NONE("NONE"),
 
+    /** NONEOUTPUT */
     NONEOUTPUT("NONEOUTPUT"),
 
+    /** OUTPUT */
     OUTPUT("OUTPUT"),
 
+    /** PURCHASESINPUT */
     PURCHASESINPUT("PURCHASESINPUT"),
 
+    /** SALESOUTPUT */
     SALESOUTPUT("SALESOUTPUT"),
 
+    /** EXEMPTCAPITAL */
     EXEMPTCAPITAL("EXEMPTCAPITAL"),
 
+    /** EXEMPTEXPORT */
     EXEMPTEXPORT("EXEMPTEXPORT"),
 
+    /** CAPITALEXINPUT */
     CAPITALEXINPUT("CAPITALEXINPUT"),
 
+    /** GSTONCAPIMPORTS */
     GSTONCAPIMPORTS("GSTONCAPIMPORTS"),
 
+    /** GSTONCAPITALIMPORTS */
     GSTONCAPITALIMPORTS("GSTONCAPITALIMPORTS"),
 
+    /** REVERSECHARGES */
     REVERSECHARGES("REVERSECHARGES"),
 
+    /** PAYMENTS */
     PAYMENTS("PAYMENTS"),
 
+    /** INVOICE */
     INVOICE("INVOICE"),
 
+    /** CASH */
     CASH("CASH"),
 
+    /** ACCRUAL */
     ACCRUAL("ACCRUAL"),
 
+    /** FLATRATECASH */
     FLATRATECASH("FLATRATECASH"),
 
+    /** FLATRATEACCRUAL */
     FLATRATEACCRUAL("FLATRATEACCRUAL"),
 
+    /** ACCRUALS */
     ACCRUALS("ACCRUALS"),
 
+    /** TXCA */
     TXCA("TXCA"),
 
+    /** SRCAS */
     SRCAS("SRCAS"),
 
+    /** DSOUTPUT */
     DSOUTPUT("DSOUTPUT"),
 
+    /** BLINPUT2 */
     BLINPUT2("BLINPUT2"),
 
+    /** EPINPUT */
     EPINPUT("EPINPUT"),
 
+    /** IMINPUT2 */
     IMINPUT2("IMINPUT2"),
 
+    /** MEINPUT */
     MEINPUT("MEINPUT"),
 
+    /** IGDSINPUT2 */
     IGDSINPUT2("IGDSINPUT2"),
 
+    /** ESN33OUTPUT */
     ESN33OUTPUT("ESN33OUTPUT"),
 
+    /** OPINPUT */
     OPINPUT("OPINPUT"),
 
+    /** OSOUTPUT */
     OSOUTPUT("OSOUTPUT"),
 
+    /** TXN33INPUT */
     TXN33INPUT("TXN33INPUT"),
 
+    /** TXESSINPUT */
     TXESSINPUT("TXESSINPUT"),
 
+    /** TXREINPUT */
     TXREINPUT("TXREINPUT"),
 
+    /** TXPETINPUT */
     TXPETINPUT("TXPETINPUT"),
 
+    /** NRINPUT */
     NRINPUT("NRINPUT"),
 
+    /** ES33OUTPUT */
     ES33OUTPUT("ES33OUTPUT"),
 
+    /** ZERORATEDINPUT */
     ZERORATEDINPUT("ZERORATEDINPUT"),
 
+    /** ZERORATEDOUTPUT */
     ZERORATEDOUTPUT("ZERORATEDOUTPUT"),
 
+    /** DRCHARGESUPPLY */
     DRCHARGESUPPLY("DRCHARGESUPPLY"),
 
+    /** DRCHARGE */
     DRCHARGE("DRCHARGE"),
 
+    /** CAPINPUT */
     CAPINPUT("CAPINPUT"),
 
+    /** CAPIMPORTS */
     CAPIMPORTS("CAPIMPORTS"),
 
+    /** IMINPUT */
     IMINPUT("IMINPUT"),
 
+    /** INPUT2 */
     INPUT2("INPUT2"),
 
+    /** CIUINPUT */
     CIUINPUT("CIUINPUT"),
 
+    /** SRINPUT */
     SRINPUT("SRINPUT"),
 
+    /** OUTPUT2 */
     OUTPUT2("OUTPUT2"),
 
+    /** SROUTPUT */
     SROUTPUT("SROUTPUT"),
 
+    /** CAPOUTPUT */
     CAPOUTPUT("CAPOUTPUT"),
 
+    /** SROUTPUT2 */
     SROUTPUT2("SROUTPUT2"),
 
+    /** CIUOUTPUT */
     CIUOUTPUT("CIUOUTPUT"),
 
+    /** ZROUTPUT */
     ZROUTPUT("ZROUTPUT"),
 
+    /** ZREXPORT */
     ZREXPORT("ZREXPORT"),
 
+    /** ACC28PLUS */
     ACC28PLUS("ACC28PLUS"),
 
+    /** ACCUPTO28 */
     ACCUPTO28("ACCUPTO28"),
 
+    /** OTHEROUTPUT */
     OTHEROUTPUT("OTHEROUTPUT"),
 
+    /** SHOUTPUT */
     SHOUTPUT("SHOUTPUT"),
 
+    /** ZRINPUT */
     ZRINPUT("ZRINPUT"),
 
+    /** BADDEBT */
     BADDEBT("BADDEBT"),
 
+    /** OTHERINPUT */
     OTHERINPUT("OTHERINPUT");
 
     private String value;
@@ -227,16 +320,31 @@ public class TaxRate {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static ReportTaxTypeEnum fromValue(String value) {
       for (ReportTaxTypeEnum b : ReportTaxTypeEnum.values()) {
@@ -271,7 +379,12 @@ public class TaxRate {
 
   @JsonProperty("EffectiveRate")
   private Double effectiveRate;
-
+  /**
+   * Name of tax rate
+   *
+   * @param name String
+   * @return TaxRate
+   */
   public TaxRate name(String name) {
     this.name = name;
     return this;
@@ -283,14 +396,30 @@ public class TaxRate {
    * @return name
    */
   @ApiModelProperty(value = "Name of tax rate")
+  /**
+   * Name of tax rate
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Name of tax rate
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * The tax type
+   *
+   * @param taxType String
+   * @return TaxRate
+   */
   public TaxRate taxType(String taxType) {
     this.taxType = taxType;
     return this;
@@ -302,19 +431,41 @@ public class TaxRate {
    * @return taxType
    */
   @ApiModelProperty(value = "The tax type")
+  /**
+   * The tax type
+   *
+   * @return taxType String
+   */
   public String getTaxType() {
     return taxType;
   }
 
+  /**
+   * The tax type
+   *
+   * @param taxType String
+   */
   public void setTaxType(String taxType) {
     this.taxType = taxType;
   }
 
+  /**
+   * See TaxComponents
+   *
+   * @param taxComponents List&lt;TaxComponent&gt;
+   * @return TaxRate
+   */
   public TaxRate taxComponents(List<TaxComponent> taxComponents) {
     this.taxComponents = taxComponents;
     return this;
   }
 
+  /**
+   * See TaxComponents
+   *
+   * @param taxComponentsItem TaxComponent
+   * @return TaxRate
+   */
   public TaxRate addTaxComponentsItem(TaxComponent taxComponentsItem) {
     if (this.taxComponents == null) {
       this.taxComponents = new ArrayList<TaxComponent>();
@@ -329,14 +480,30 @@ public class TaxRate {
    * @return taxComponents
    */
   @ApiModelProperty(value = "See TaxComponents")
+  /**
+   * See TaxComponents
+   *
+   * @return taxComponents List<TaxComponent>
+   */
   public List<TaxComponent> getTaxComponents() {
     return taxComponents;
   }
 
+  /**
+   * See TaxComponents
+   *
+   * @param taxComponents List&lt;TaxComponent&gt;
+   */
   public void setTaxComponents(List<TaxComponent> taxComponents) {
     this.taxComponents = taxComponents;
   }
 
+  /**
+   * See Status Codes
+   *
+   * @param status StatusEnum
+   * @return TaxRate
+   */
   public TaxRate status(StatusEnum status) {
     this.status = status;
     return this;
@@ -348,14 +515,30 @@ public class TaxRate {
    * @return status
    */
   @ApiModelProperty(value = "See Status Codes")
+  /**
+   * See Status Codes
+   *
+   * @return status StatusEnum
+   */
   public StatusEnum getStatus() {
     return status;
   }
 
+  /**
+   * See Status Codes
+   *
+   * @param status StatusEnum
+   */
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
+  /**
+   * See ReportTaxTypes
+   *
+   * @param reportTaxType ReportTaxTypeEnum
+   * @return TaxRate
+   */
   public TaxRate reportTaxType(ReportTaxTypeEnum reportTaxType) {
     this.reportTaxType = reportTaxType;
     return this;
@@ -367,10 +550,20 @@ public class TaxRate {
    * @return reportTaxType
    */
   @ApiModelProperty(value = "See ReportTaxTypes")
+  /**
+   * See ReportTaxTypes
+   *
+   * @return reportTaxType ReportTaxTypeEnum
+   */
   public ReportTaxTypeEnum getReportTaxType() {
     return reportTaxType;
   }
 
+  /**
+   * See ReportTaxTypes
+   *
+   * @param reportTaxType ReportTaxTypeEnum
+   */
   public void setReportTaxType(ReportTaxTypeEnum reportTaxType) {
     this.reportTaxType = reportTaxType;
   }
@@ -382,6 +575,11 @@ public class TaxRate {
    */
   @ApiModelProperty(
       value = "Boolean to describe if tax rate can be used for asset accounts i.e.  true,false")
+  /**
+   * Boolean to describe if tax rate can be used for asset accounts i.e. true,false
+   *
+   * @return canApplyToAssets Boolean
+   */
   public Boolean getCanApplyToAssets() {
     return canApplyToAssets;
   }
@@ -393,6 +591,11 @@ public class TaxRate {
    */
   @ApiModelProperty(
       value = "Boolean to describe if tax rate can be used for equity accounts i.e true,false")
+  /**
+   * Boolean to describe if tax rate can be used for equity accounts i.e true,false
+   *
+   * @return canApplyToEquity Boolean
+   */
   public Boolean getCanApplyToEquity() {
     return canApplyToEquity;
   }
@@ -404,6 +607,11 @@ public class TaxRate {
    */
   @ApiModelProperty(
       value = "Boolean to describe if tax rate can be used for expense accounts  i.e. true,false")
+  /**
+   * Boolean to describe if tax rate can be used for expense accounts i.e. true,false
+   *
+   * @return canApplyToExpenses Boolean
+   */
   public Boolean getCanApplyToExpenses() {
     return canApplyToExpenses;
   }
@@ -415,6 +623,11 @@ public class TaxRate {
    */
   @ApiModelProperty(
       value = "Boolean to describe if tax rate can be used for liability accounts  i.e. true,false")
+  /**
+   * Boolean to describe if tax rate can be used for liability accounts i.e. true,false
+   *
+   * @return canApplyToLiabilities Boolean
+   */
   public Boolean getCanApplyToLiabilities() {
     return canApplyToLiabilities;
   }
@@ -426,6 +639,11 @@ public class TaxRate {
    */
   @ApiModelProperty(
       value = "Boolean to describe if tax rate can be used for revenue accounts i.e. true,false")
+  /**
+   * Boolean to describe if tax rate can be used for revenue accounts i.e. true,false
+   *
+   * @return canApplyToRevenue Boolean
+   */
   public Boolean getCanApplyToRevenue() {
     return canApplyToRevenue;
   }
@@ -436,6 +654,11 @@ public class TaxRate {
    * @return displayTaxRate
    */
   @ApiModelProperty(value = "Tax Rate (decimal to 4dp) e.g 12.5000")
+  /**
+   * Tax Rate (decimal to 4dp) e.g 12.5000
+   *
+   * @return displayTaxRate Double
+   */
   public Double getDisplayTaxRate() {
     return displayTaxRate;
   }
@@ -446,6 +669,11 @@ public class TaxRate {
    * @return effectiveRate
    */
   @ApiModelProperty(value = "Effective Tax Rate (decimal to 4dp) e.g 12.5000")
+  /**
+   * Effective Tax Rate (decimal to 4dp) e.g 12.5000
+   *
+   * @return effectiveRate Double
+   */
   public Double getEffectiveRate() {
     return effectiveRate;
   }

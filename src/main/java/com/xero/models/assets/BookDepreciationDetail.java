@@ -41,7 +41,13 @@ public class BookDepreciationDetail {
 
   @JsonProperty("currentAccumDepreciationAmount")
   private Double currentAccumDepreciationAmount;
-
+  /**
+   * When an asset is disposed, this will be the sell price minus the purchase price if a profit was
+   * made.
+   *
+   * @param currentCapitalGain Double
+   * @return BookDepreciationDetail
+   */
   public BookDepreciationDetail currentCapitalGain(Double currentCapitalGain) {
     this.currentCapitalGain = currentCapitalGain;
     return this;
@@ -58,14 +64,33 @@ public class BookDepreciationDetail {
       value =
           "When an asset is disposed, this will be the sell price minus the purchase price if a"
               + " profit was made.")
+  /**
+   * When an asset is disposed, this will be the sell price minus the purchase price if a profit was
+   * made.
+   *
+   * @return currentCapitalGain Double
+   */
   public Double getCurrentCapitalGain() {
     return currentCapitalGain;
   }
 
+  /**
+   * When an asset is disposed, this will be the sell price minus the purchase price if a profit was
+   * made.
+   *
+   * @param currentCapitalGain Double
+   */
   public void setCurrentCapitalGain(Double currentCapitalGain) {
     this.currentCapitalGain = currentCapitalGain;
   }
 
+  /**
+   * When an asset is disposed, this will be the lowest one of sell price or purchase price, minus
+   * the current book value.
+   *
+   * @param currentGainLoss Double
+   * @return BookDepreciationDetail
+   */
   public BookDepreciationDetail currentGainLoss(Double currentGainLoss) {
     this.currentGainLoss = currentGainLoss;
     return this;
@@ -82,14 +107,32 @@ public class BookDepreciationDetail {
       value =
           "When an asset is disposed, this will be the lowest one of sell price or purchase price,"
               + " minus the current book value.")
+  /**
+   * When an asset is disposed, this will be the lowest one of sell price or purchase price, minus
+   * the current book value.
+   *
+   * @return currentGainLoss Double
+   */
   public Double getCurrentGainLoss() {
     return currentGainLoss;
   }
 
+  /**
+   * When an asset is disposed, this will be the lowest one of sell price or purchase price, minus
+   * the current book value.
+   *
+   * @param currentGainLoss Double
+   */
   public void setCurrentGainLoss(Double currentGainLoss) {
     this.currentGainLoss = currentGainLoss;
   }
 
+  /**
+   * YYYY-MM-DD
+   *
+   * @param depreciationStartDate LocalDate
+   * @return BookDepreciationDetail
+   */
   public BookDepreciationDetail depreciationStartDate(LocalDate depreciationStartDate) {
     this.depreciationStartDate = depreciationStartDate;
     return this;
@@ -101,14 +144,30 @@ public class BookDepreciationDetail {
    * @return depreciationStartDate
    */
   @ApiModelProperty(value = "YYYY-MM-DD")
+  /**
+   * YYYY-MM-DD
+   *
+   * @return depreciationStartDate LocalDate
+   */
   public LocalDate getDepreciationStartDate() {
     return depreciationStartDate;
   }
 
+  /**
+   * YYYY-MM-DD
+   *
+   * @param depreciationStartDate LocalDate
+   */
   public void setDepreciationStartDate(LocalDate depreciationStartDate) {
     this.depreciationStartDate = depreciationStartDate;
   }
 
+  /**
+   * The value of the asset you want to depreciate, if this is less than the cost of the asset.
+   *
+   * @param costLimit Double
+   * @return BookDepreciationDetail
+   */
   public BookDepreciationDetail costLimit(Double costLimit) {
     this.costLimit = costLimit;
     return this;
@@ -124,14 +183,30 @@ public class BookDepreciationDetail {
       value =
           "The value of the asset you want to depreciate, if this is less than the cost of the"
               + " asset.")
+  /**
+   * The value of the asset you want to depreciate, if this is less than the cost of the asset.
+   *
+   * @return costLimit Double
+   */
   public Double getCostLimit() {
     return costLimit;
   }
 
+  /**
+   * The value of the asset you want to depreciate, if this is less than the cost of the asset.
+   *
+   * @param costLimit Double
+   */
   public void setCostLimit(Double costLimit) {
     this.costLimit = costLimit;
   }
 
+  /**
+   * The value of the asset remaining when you&#39;ve fully depreciated it.
+   *
+   * @param residualValue Double
+   * @return BookDepreciationDetail
+   */
   public BookDepreciationDetail residualValue(Double residualValue) {
     this.residualValue = residualValue;
     return this;
@@ -145,14 +220,30 @@ public class BookDepreciationDetail {
   @ApiModelProperty(
       example = "10000.0",
       value = "The value of the asset remaining when you've fully depreciated it.")
+  /**
+   * The value of the asset remaining when you&#39;ve fully depreciated it.
+   *
+   * @return residualValue Double
+   */
   public Double getResidualValue() {
     return residualValue;
   }
 
+  /**
+   * The value of the asset remaining when you&#39;ve fully depreciated it.
+   *
+   * @param residualValue Double
+   */
   public void setResidualValue(Double residualValue) {
     this.residualValue = residualValue;
   }
 
+  /**
+   * All depreciation prior to the current financial year.
+   *
+   * @param priorAccumDepreciationAmount Double
+   * @return BookDepreciationDetail
+   */
   public BookDepreciationDetail priorAccumDepreciationAmount(Double priorAccumDepreciationAmount) {
     this.priorAccumDepreciationAmount = priorAccumDepreciationAmount;
     return this;
@@ -166,14 +257,30 @@ public class BookDepreciationDetail {
   @ApiModelProperty(
       example = "0.45",
       value = "All depreciation prior to the current financial year.")
+  /**
+   * All depreciation prior to the current financial year.
+   *
+   * @return priorAccumDepreciationAmount Double
+   */
   public Double getPriorAccumDepreciationAmount() {
     return priorAccumDepreciationAmount;
   }
 
+  /**
+   * All depreciation prior to the current financial year.
+   *
+   * @param priorAccumDepreciationAmount Double
+   */
   public void setPriorAccumDepreciationAmount(Double priorAccumDepreciationAmount) {
     this.priorAccumDepreciationAmount = priorAccumDepreciationAmount;
   }
 
+  /**
+   * All depreciation occurring in the current financial year.
+   *
+   * @param currentAccumDepreciationAmount Double
+   * @return BookDepreciationDetail
+   */
   public BookDepreciationDetail currentAccumDepreciationAmount(
       Double currentAccumDepreciationAmount) {
     this.currentAccumDepreciationAmount = currentAccumDepreciationAmount;
@@ -188,10 +295,20 @@ public class BookDepreciationDetail {
   @ApiModelProperty(
       example = "5.0",
       value = "All depreciation occurring in the current financial year.")
+  /**
+   * All depreciation occurring in the current financial year.
+   *
+   * @return currentAccumDepreciationAmount Double
+   */
   public Double getCurrentAccumDepreciationAmount() {
     return currentAccumDepreciationAmount;
   }
 
+  /**
+   * All depreciation occurring in the current financial year.
+   *
+   * @param currentAccumDepreciationAmount Double
+   */
   public void setCurrentAccumDepreciationAmount(Double currentAccumDepreciationAmount) {
     this.currentAccumDepreciationAmount = currentAccumDepreciationAmount;
   }

@@ -17,12 +17,17 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Gets or Sets RowType */
 public enum RowType {
+
+  /** HEADER */
   HEADER("Header"),
 
+  /** SECTION */
   SECTION("Section"),
 
+  /** ROW */
   ROW("Row"),
 
+  /** SUMMARYROW */
   SUMMARYROW("SummaryRow");
 
   private String value;
@@ -31,16 +36,27 @@ public enum RowType {
     this.value = value;
   }
 
+  /** @return String value */
   @JsonValue
   public String getValue() {
     return value;
   }
 
+  /**
+   * toString
+   *
+   * @return String value
+   */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
+  /**
+   * fromValue
+   *
+   * @param value String
+   */
   @JsonCreator
   public static RowType fromValue(String value) {
     for (RowType b : RowType.values()) {

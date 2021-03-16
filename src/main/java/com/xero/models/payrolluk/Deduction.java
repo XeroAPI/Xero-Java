@@ -30,24 +30,34 @@ public class Deduction {
   private String deductionName;
   /** Deduction Category type */
   public enum DeductionCategoryEnum {
+    /** CAPITALCONTRIBUTIONS */
     CAPITALCONTRIBUTIONS("CapitalContributions"),
 
+    /** CHILDCAREVOUCHER */
     CHILDCAREVOUCHER("ChildCareVoucher"),
 
+    /** MAKINGGOOD */
     MAKINGGOOD("MakingGood"),
 
+    /** POSTGRADUATELOANDEDUCTIONS */
     POSTGRADUATELOANDEDUCTIONS("PostgraduateLoanDeductions"),
 
+    /** PRIVATEUSEPAYMENTS */
     PRIVATEUSEPAYMENTS("PrivateUsePayments"),
 
+    /** SALARYSACRIFICE */
     SALARYSACRIFICE("SalarySacrifice"),
 
+    /** STAKEHOLDERPENSION */
     STAKEHOLDERPENSION("StakeholderPension"),
 
+    /** STAKEHOLDERPENSIONPOSTTAX */
     STAKEHOLDERPENSIONPOSTTAX("StakeholderPensionPostTax"),
 
+    /** STUDENTLOANDEDUCTIONS */
     STUDENTLOANDEDUCTIONS("StudentLoanDeductions"),
 
+    /** UKOTHER */
     UKOTHER("UkOther");
 
     private String value;
@@ -56,16 +66,31 @@ public class Deduction {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static DeductionCategoryEnum fromValue(String value) {
       for (DeductionCategoryEnum b : DeductionCategoryEnum.values()) {
@@ -96,8 +121,10 @@ public class Deduction {
   private Boolean reducesTaxLiability;
   /** determine the calculation type whether fixed amount or percentage of gross */
   public enum CalculationTypeEnum {
+    /** FIXEDAMOUNT */
     FIXEDAMOUNT("FixedAmount"),
 
+    /** PERCENTAGEOFGROSS */
     PERCENTAGEOFGROSS("PercentageOfGross");
 
     private String value;
@@ -106,16 +133,31 @@ public class Deduction {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static CalculationTypeEnum fromValue(String value) {
       for (CalculationTypeEnum b : CalculationTypeEnum.values()) {
@@ -150,7 +192,12 @@ public class Deduction {
 
   @JsonProperty("isPension")
   private Boolean isPension;
-
+  /**
+   * The Xero identifier for Deduction
+   *
+   * @param deductionId UUID
+   * @return Deduction
+   */
   public Deduction deductionId(UUID deductionId) {
     this.deductionId = deductionId;
     return this;
@@ -162,14 +209,30 @@ public class Deduction {
    * @return deductionId
    */
   @ApiModelProperty(value = "The Xero identifier for Deduction")
+  /**
+   * The Xero identifier for Deduction
+   *
+   * @return deductionId UUID
+   */
   public UUID getDeductionId() {
     return deductionId;
   }
 
+  /**
+   * The Xero identifier for Deduction
+   *
+   * @param deductionId UUID
+   */
   public void setDeductionId(UUID deductionId) {
     this.deductionId = deductionId;
   }
 
+  /**
+   * Name of the deduction
+   *
+   * @param deductionName String
+   * @return Deduction
+   */
   public Deduction deductionName(String deductionName) {
     this.deductionName = deductionName;
     return this;
@@ -181,14 +244,30 @@ public class Deduction {
    * @return deductionName
    */
   @ApiModelProperty(required = true, value = "Name of the deduction")
+  /**
+   * Name of the deduction
+   *
+   * @return deductionName String
+   */
   public String getDeductionName() {
     return deductionName;
   }
 
+  /**
+   * Name of the deduction
+   *
+   * @param deductionName String
+   */
   public void setDeductionName(String deductionName) {
     this.deductionName = deductionName;
   }
 
+  /**
+   * Deduction Category type
+   *
+   * @param deductionCategory DeductionCategoryEnum
+   * @return Deduction
+   */
   public Deduction deductionCategory(DeductionCategoryEnum deductionCategory) {
     this.deductionCategory = deductionCategory;
     return this;
@@ -200,14 +279,30 @@ public class Deduction {
    * @return deductionCategory
    */
   @ApiModelProperty(value = "Deduction Category type")
+  /**
+   * Deduction Category type
+   *
+   * @return deductionCategory DeductionCategoryEnum
+   */
   public DeductionCategoryEnum getDeductionCategory() {
     return deductionCategory;
   }
 
+  /**
+   * Deduction Category type
+   *
+   * @param deductionCategory DeductionCategoryEnum
+   */
   public void setDeductionCategory(DeductionCategoryEnum deductionCategory) {
     this.deductionCategory = deductionCategory;
   }
 
+  /**
+   * Xero identifier for Liability Account
+   *
+   * @param liabilityAccountId UUID
+   * @return Deduction
+   */
   public Deduction liabilityAccountId(UUID liabilityAccountId) {
     this.liabilityAccountId = liabilityAccountId;
     return this;
@@ -219,14 +314,30 @@ public class Deduction {
    * @return liabilityAccountId
    */
   @ApiModelProperty(required = true, value = "Xero identifier for Liability Account")
+  /**
+   * Xero identifier for Liability Account
+   *
+   * @return liabilityAccountId UUID
+   */
   public UUID getLiabilityAccountId() {
     return liabilityAccountId;
   }
 
+  /**
+   * Xero identifier for Liability Account
+   *
+   * @param liabilityAccountId UUID
+   */
   public void setLiabilityAccountId(UUID liabilityAccountId) {
     this.liabilityAccountId = liabilityAccountId;
   }
 
+  /**
+   * Identifier of a record is active or not.
+   *
+   * @param currentRecord Boolean
+   * @return Deduction
+   */
   public Deduction currentRecord(Boolean currentRecord) {
     this.currentRecord = currentRecord;
     return this;
@@ -238,14 +349,30 @@ public class Deduction {
    * @return currentRecord
    */
   @ApiModelProperty(value = "Identifier of a record is active or not.")
+  /**
+   * Identifier of a record is active or not.
+   *
+   * @return currentRecord Boolean
+   */
   public Boolean getCurrentRecord() {
     return currentRecord;
   }
 
+  /**
+   * Identifier of a record is active or not.
+   *
+   * @param currentRecord Boolean
+   */
   public void setCurrentRecord(Boolean currentRecord) {
     this.currentRecord = currentRecord;
   }
 
+  /**
+   * Standard amount of the deduction
+   *
+   * @param standardAmount Double
+   * @return Deduction
+   */
   public Deduction standardAmount(Double standardAmount) {
     this.standardAmount = standardAmount;
     return this;
@@ -257,14 +384,30 @@ public class Deduction {
    * @return standardAmount
    */
   @ApiModelProperty(value = "Standard amount of the deduction")
+  /**
+   * Standard amount of the deduction
+   *
+   * @return standardAmount Double
+   */
   public Double getStandardAmount() {
     return standardAmount;
   }
 
+  /**
+   * Standard amount of the deduction
+   *
+   * @param standardAmount Double
+   */
   public void setStandardAmount(Double standardAmount) {
     this.standardAmount = standardAmount;
   }
 
+  /**
+   * Identifier of reduces super liability
+   *
+   * @param reducesSuperLiability Boolean
+   * @return Deduction
+   */
   public Deduction reducesSuperLiability(Boolean reducesSuperLiability) {
     this.reducesSuperLiability = reducesSuperLiability;
     return this;
@@ -276,14 +419,30 @@ public class Deduction {
    * @return reducesSuperLiability
    */
   @ApiModelProperty(value = "Identifier of reduces super liability")
+  /**
+   * Identifier of reduces super liability
+   *
+   * @return reducesSuperLiability Boolean
+   */
   public Boolean getReducesSuperLiability() {
     return reducesSuperLiability;
   }
 
+  /**
+   * Identifier of reduces super liability
+   *
+   * @param reducesSuperLiability Boolean
+   */
   public void setReducesSuperLiability(Boolean reducesSuperLiability) {
     this.reducesSuperLiability = reducesSuperLiability;
   }
 
+  /**
+   * Identifier of reduces tax liability
+   *
+   * @param reducesTaxLiability Boolean
+   * @return Deduction
+   */
   public Deduction reducesTaxLiability(Boolean reducesTaxLiability) {
     this.reducesTaxLiability = reducesTaxLiability;
     return this;
@@ -295,14 +454,30 @@ public class Deduction {
    * @return reducesTaxLiability
    */
   @ApiModelProperty(value = "Identifier of reduces tax liability")
+  /**
+   * Identifier of reduces tax liability
+   *
+   * @return reducesTaxLiability Boolean
+   */
   public Boolean getReducesTaxLiability() {
     return reducesTaxLiability;
   }
 
+  /**
+   * Identifier of reduces tax liability
+   *
+   * @param reducesTaxLiability Boolean
+   */
   public void setReducesTaxLiability(Boolean reducesTaxLiability) {
     this.reducesTaxLiability = reducesTaxLiability;
   }
 
+  /**
+   * determine the calculation type whether fixed amount or percentage of gross
+   *
+   * @param calculationType CalculationTypeEnum
+   * @return Deduction
+   */
   public Deduction calculationType(CalculationTypeEnum calculationType) {
     this.calculationType = calculationType;
     return this;
@@ -315,14 +490,30 @@ public class Deduction {
    */
   @ApiModelProperty(
       value = "determine the calculation type whether fixed amount or percentage of gross")
+  /**
+   * determine the calculation type whether fixed amount or percentage of gross
+   *
+   * @return calculationType CalculationTypeEnum
+   */
   public CalculationTypeEnum getCalculationType() {
     return calculationType;
   }
 
+  /**
+   * determine the calculation type whether fixed amount or percentage of gross
+   *
+   * @param calculationType CalculationTypeEnum
+   */
   public void setCalculationType(CalculationTypeEnum calculationType) {
     this.calculationType = calculationType;
   }
 
+  /**
+   * Percentage of gross
+   *
+   * @param percentage Double
+   * @return Deduction
+   */
   public Deduction percentage(Double percentage) {
     this.percentage = percentage;
     return this;
@@ -334,14 +525,30 @@ public class Deduction {
    * @return percentage
    */
   @ApiModelProperty(value = "Percentage of gross")
+  /**
+   * Percentage of gross
+   *
+   * @return percentage Double
+   */
   public Double getPercentage() {
     return percentage;
   }
 
+  /**
+   * Percentage of gross
+   *
+   * @param percentage Double
+   */
   public void setPercentage(Double percentage) {
     this.percentage = percentage;
   }
 
+  /**
+   * Identifier of subject To NIC
+   *
+   * @param subjectToNIC Boolean
+   * @return Deduction
+   */
   public Deduction subjectToNIC(Boolean subjectToNIC) {
     this.subjectToNIC = subjectToNIC;
     return this;
@@ -353,14 +560,30 @@ public class Deduction {
    * @return subjectToNIC
    */
   @ApiModelProperty(value = "Identifier of subject To NIC")
+  /**
+   * Identifier of subject To NIC
+   *
+   * @return subjectToNIC Boolean
+   */
   public Boolean getSubjectToNIC() {
     return subjectToNIC;
   }
 
+  /**
+   * Identifier of subject To NIC
+   *
+   * @param subjectToNIC Boolean
+   */
   public void setSubjectToNIC(Boolean subjectToNIC) {
     this.subjectToNIC = subjectToNIC;
   }
 
+  /**
+   * Identifier of subject To Tax
+   *
+   * @param subjectToTax Boolean
+   * @return Deduction
+   */
   public Deduction subjectToTax(Boolean subjectToTax) {
     this.subjectToTax = subjectToTax;
     return this;
@@ -372,14 +595,30 @@ public class Deduction {
    * @return subjectToTax
    */
   @ApiModelProperty(value = "Identifier of subject To Tax")
+  /**
+   * Identifier of subject To Tax
+   *
+   * @return subjectToTax Boolean
+   */
   public Boolean getSubjectToTax() {
     return subjectToTax;
   }
 
+  /**
+   * Identifier of subject To Tax
+   *
+   * @param subjectToTax Boolean
+   */
   public void setSubjectToTax(Boolean subjectToTax) {
     this.subjectToTax = subjectToTax;
   }
 
+  /**
+   * Identifier of reduced by basic rate applicable or not
+   *
+   * @param isReducedByBasicRate Boolean
+   * @return Deduction
+   */
   public Deduction isReducedByBasicRate(Boolean isReducedByBasicRate) {
     this.isReducedByBasicRate = isReducedByBasicRate;
     return this;
@@ -391,14 +630,30 @@ public class Deduction {
    * @return isReducedByBasicRate
    */
   @ApiModelProperty(value = "Identifier of reduced by basic rate applicable or not")
+  /**
+   * Identifier of reduced by basic rate applicable or not
+   *
+   * @return isReducedByBasicRate Boolean
+   */
   public Boolean getIsReducedByBasicRate() {
     return isReducedByBasicRate;
   }
 
+  /**
+   * Identifier of reduced by basic rate applicable or not
+   *
+   * @param isReducedByBasicRate Boolean
+   */
   public void setIsReducedByBasicRate(Boolean isReducedByBasicRate) {
     this.isReducedByBasicRate = isReducedByBasicRate;
   }
 
+  /**
+   * Identifier for apply to pension calculations
+   *
+   * @param applyToPensionCalculations Boolean
+   * @return Deduction
+   */
   public Deduction applyToPensionCalculations(Boolean applyToPensionCalculations) {
     this.applyToPensionCalculations = applyToPensionCalculations;
     return this;
@@ -410,14 +665,30 @@ public class Deduction {
    * @return applyToPensionCalculations
    */
   @ApiModelProperty(value = "Identifier for apply to pension calculations")
+  /**
+   * Identifier for apply to pension calculations
+   *
+   * @return applyToPensionCalculations Boolean
+   */
   public Boolean getApplyToPensionCalculations() {
     return applyToPensionCalculations;
   }
 
+  /**
+   * Identifier for apply to pension calculations
+   *
+   * @param applyToPensionCalculations Boolean
+   */
   public void setApplyToPensionCalculations(Boolean applyToPensionCalculations) {
     this.applyToPensionCalculations = applyToPensionCalculations;
   }
 
+  /**
+   * Identifier of calculating on qualifying earnings
+   *
+   * @param isCalculatingOnQualifyingEarnings Boolean
+   * @return Deduction
+   */
   public Deduction isCalculatingOnQualifyingEarnings(Boolean isCalculatingOnQualifyingEarnings) {
     this.isCalculatingOnQualifyingEarnings = isCalculatingOnQualifyingEarnings;
     return this;
@@ -429,14 +700,30 @@ public class Deduction {
    * @return isCalculatingOnQualifyingEarnings
    */
   @ApiModelProperty(value = "Identifier of calculating on qualifying earnings")
+  /**
+   * Identifier of calculating on qualifying earnings
+   *
+   * @return isCalculatingOnQualifyingEarnings Boolean
+   */
   public Boolean getIsCalculatingOnQualifyingEarnings() {
     return isCalculatingOnQualifyingEarnings;
   }
 
+  /**
+   * Identifier of calculating on qualifying earnings
+   *
+   * @param isCalculatingOnQualifyingEarnings Boolean
+   */
   public void setIsCalculatingOnQualifyingEarnings(Boolean isCalculatingOnQualifyingEarnings) {
     this.isCalculatingOnQualifyingEarnings = isCalculatingOnQualifyingEarnings;
   }
 
+  /**
+   * Identifier of applicable for pension or not
+   *
+   * @param isPension Boolean
+   * @return Deduction
+   */
   public Deduction isPension(Boolean isPension) {
     this.isPension = isPension;
     return this;
@@ -448,10 +735,20 @@ public class Deduction {
    * @return isPension
    */
   @ApiModelProperty(value = "Identifier of applicable for pension or not")
+  /**
+   * Identifier of applicable for pension or not
+   *
+   * @return isPension Boolean
+   */
   public Boolean getIsPension() {
     return isPension;
   }
 
+  /**
+   * Identifier of applicable for pension or not
+   *
+   * @param isPension Boolean
+   */
   public void setIsPension(Boolean isPension) {
     this.isPension = isPension;
   }

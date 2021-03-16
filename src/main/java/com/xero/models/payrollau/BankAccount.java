@@ -37,7 +37,12 @@ public class BankAccount {
 
   @JsonProperty("Amount")
   private Double amount;
-
+  /**
+   * The text that will appear on your employee&#39;s bank statement when they receive payment
+   *
+   * @param statementText String
+   * @return BankAccount
+   */
   public BankAccount statementText(String statementText) {
     this.statementText = statementText;
     return this;
@@ -52,14 +57,30 @@ public class BankAccount {
       example = "Salary",
       value =
           "The text that will appear on your employee's bank statement when they receive payment")
+  /**
+   * The text that will appear on your employee&#39;s bank statement when they receive payment
+   *
+   * @return statementText String
+   */
   public String getStatementText() {
     return statementText;
   }
 
+  /**
+   * The text that will appear on your employee&#39;s bank statement when they receive payment
+   *
+   * @param statementText String
+   */
   public void setStatementText(String statementText) {
     this.statementText = statementText;
   }
 
+  /**
+   * The name of the account
+   *
+   * @param accountName String
+   * @return BankAccount
+   */
   public BankAccount accountName(String accountName) {
     this.accountName = accountName;
     return this;
@@ -71,14 +92,30 @@ public class BankAccount {
    * @return accountName
    */
   @ApiModelProperty(example = "James Lebron Savings", value = "The name of the account")
+  /**
+   * The name of the account
+   *
+   * @return accountName String
+   */
   public String getAccountName() {
     return accountName;
   }
 
+  /**
+   * The name of the account
+   *
+   * @param accountName String
+   */
   public void setAccountName(String accountName) {
     this.accountName = accountName;
   }
 
+  /**
+   * The BSB number of the account
+   *
+   * @param BSB String
+   * @return BankAccount
+   */
   public BankAccount BSB(String BSB) {
     this.BSB = BSB;
     return this;
@@ -90,14 +127,30 @@ public class BankAccount {
    * @return BSB
    */
   @ApiModelProperty(example = "122344", value = "The BSB number of the account")
+  /**
+   * The BSB number of the account
+   *
+   * @return BSB String
+   */
   public String getBSB() {
     return BSB;
   }
 
+  /**
+   * The BSB number of the account
+   *
+   * @param BSB String
+   */
   public void setBSB(String BSB) {
     this.BSB = BSB;
   }
 
+  /**
+   * The account number
+   *
+   * @param accountNumber String
+   * @return BankAccount
+   */
   public BankAccount accountNumber(String accountNumber) {
     this.accountNumber = accountNumber;
     return this;
@@ -109,14 +162,30 @@ public class BankAccount {
    * @return accountNumber
    */
   @ApiModelProperty(example = "345678", value = "The account number")
+  /**
+   * The account number
+   *
+   * @return accountNumber String
+   */
   public String getAccountNumber() {
     return accountNumber;
   }
 
+  /**
+   * The account number
+   *
+   * @param accountNumber String
+   */
   public void setAccountNumber(String accountNumber) {
     this.accountNumber = accountNumber;
   }
 
+  /**
+   * If this account is the Remaining bank account
+   *
+   * @param remainder Boolean
+   * @return BankAccount
+   */
   public BankAccount remainder(Boolean remainder) {
     this.remainder = remainder;
     return this;
@@ -128,14 +197,31 @@ public class BankAccount {
    * @return remainder
    */
   @ApiModelProperty(example = "false", value = "If this account is the Remaining bank account")
+  /**
+   * If this account is the Remaining bank account
+   *
+   * @return remainder Boolean
+   */
   public Boolean getRemainder() {
     return remainder;
   }
 
+  /**
+   * If this account is the Remaining bank account
+   *
+   * @param remainder Boolean
+   */
   public void setRemainder(Boolean remainder) {
     this.remainder = remainder;
   }
 
+  /**
+   * Fixed amounts (for example, if an employee wants to have $100 of their salary transferred to
+   * one account, and the remaining amount to another)
+   *
+   * @param amount Double
+   * @return BankAccount
+   */
   public BankAccount amount(Double amount) {
     this.amount = amount;
     return this;
@@ -152,10 +238,22 @@ public class BankAccount {
       value =
           "Fixed amounts (for example, if an employee wants to have $100 of their salary"
               + " transferred to one account, and the remaining amount to another)")
+  /**
+   * Fixed amounts (for example, if an employee wants to have $100 of their salary transferred to
+   * one account, and the remaining amount to another)
+   *
+   * @return amount Double
+   */
   public Double getAmount() {
     return amount;
   }
 
+  /**
+   * Fixed amounts (for example, if an employee wants to have $100 of their salary transferred to
+   * one account, and the remaining amount to another)
+   *
+   * @param amount Double
+   */
   public void setAmount(Double amount) {
     this.amount = amount;
   }

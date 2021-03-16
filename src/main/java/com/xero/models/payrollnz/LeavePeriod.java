@@ -33,8 +33,10 @@ public class LeavePeriod {
   private Double numberOfUnits;
   /** Period Status */
   public enum PeriodStatusEnum {
+    /** APPROVED */
     APPROVED("Approved"),
 
+    /** COMPLETED */
     COMPLETED("Completed");
 
     private String value;
@@ -43,16 +45,31 @@ public class LeavePeriod {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static PeriodStatusEnum fromValue(String value) {
       for (PeriodStatusEnum b : PeriodStatusEnum.values()) {
@@ -66,7 +83,12 @@ public class LeavePeriod {
 
   @JsonProperty("periodStatus")
   private PeriodStatusEnum periodStatus;
-
+  /**
+   * The Pay Period Start Date (YYYY-MM-DD)
+   *
+   * @param periodStartDate LocalDate
+   * @return LeavePeriod
+   */
   public LeavePeriod periodStartDate(LocalDate periodStartDate) {
     this.periodStartDate = periodStartDate;
     return this;
@@ -78,14 +100,30 @@ public class LeavePeriod {
    * @return periodStartDate
    */
   @ApiModelProperty(value = "The Pay Period Start Date (YYYY-MM-DD)")
+  /**
+   * The Pay Period Start Date (YYYY-MM-DD)
+   *
+   * @return periodStartDate LocalDate
+   */
   public LocalDate getPeriodStartDate() {
     return periodStartDate;
   }
 
+  /**
+   * The Pay Period Start Date (YYYY-MM-DD)
+   *
+   * @param periodStartDate LocalDate
+   */
   public void setPeriodStartDate(LocalDate periodStartDate) {
     this.periodStartDate = periodStartDate;
   }
 
+  /**
+   * The Pay Period End Date (YYYY-MM-DD)
+   *
+   * @param periodEndDate LocalDate
+   * @return LeavePeriod
+   */
   public LeavePeriod periodEndDate(LocalDate periodEndDate) {
     this.periodEndDate = periodEndDate;
     return this;
@@ -97,14 +135,30 @@ public class LeavePeriod {
    * @return periodEndDate
    */
   @ApiModelProperty(value = "The Pay Period End Date (YYYY-MM-DD)")
+  /**
+   * The Pay Period End Date (YYYY-MM-DD)
+   *
+   * @return periodEndDate LocalDate
+   */
   public LocalDate getPeriodEndDate() {
     return periodEndDate;
   }
 
+  /**
+   * The Pay Period End Date (YYYY-MM-DD)
+   *
+   * @param periodEndDate LocalDate
+   */
   public void setPeriodEndDate(LocalDate periodEndDate) {
     this.periodEndDate = periodEndDate;
   }
 
+  /**
+   * The Number of Units for the leave
+   *
+   * @param numberOfUnits Double
+   * @return LeavePeriod
+   */
   public LeavePeriod numberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
     return this;
@@ -116,14 +170,30 @@ public class LeavePeriod {
    * @return numberOfUnits
    */
   @ApiModelProperty(value = "The Number of Units for the leave")
+  /**
+   * The Number of Units for the leave
+   *
+   * @return numberOfUnits Double
+   */
   public Double getNumberOfUnits() {
     return numberOfUnits;
   }
 
+  /**
+   * The Number of Units for the leave
+   *
+   * @param numberOfUnits Double
+   */
   public void setNumberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
   }
 
+  /**
+   * Period Status
+   *
+   * @param periodStatus PeriodStatusEnum
+   * @return LeavePeriod
+   */
   public LeavePeriod periodStatus(PeriodStatusEnum periodStatus) {
     this.periodStatus = periodStatus;
     return this;
@@ -135,10 +205,20 @@ public class LeavePeriod {
    * @return periodStatus
    */
   @ApiModelProperty(value = "Period Status")
+  /**
+   * Period Status
+   *
+   * @return periodStatus PeriodStatusEnum
+   */
   public PeriodStatusEnum getPeriodStatus() {
     return periodStatus;
   }
 
+  /**
+   * Period Status
+   *
+   * @param periodStatus PeriodStatusEnum
+   */
   public void setPeriodStatus(PeriodStatusEnum periodStatus) {
     this.periodStatus = periodStatus;
   }

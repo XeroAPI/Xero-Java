@@ -30,7 +30,12 @@ public class PaySlips {
 
   @JsonProperty("paySlips")
   private List<PaySlip> paySlips = new ArrayList<PaySlip>();
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return PaySlips
+   */
   public PaySlips pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -42,14 +47,30 @@ public class PaySlips {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return PaySlips
+   */
   public PaySlips problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -61,19 +82,41 @@ public class PaySlips {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * paySlips
+   *
+   * @param paySlips List&lt;PaySlip&gt;
+   * @return PaySlips
+   */
   public PaySlips paySlips(List<PaySlip> paySlips) {
     this.paySlips = paySlips;
     return this;
   }
 
+  /**
+   * paySlips
+   *
+   * @param paySlipsItem PaySlip
+   * @return PaySlips
+   */
   public PaySlips addPaySlipsItem(PaySlip paySlipsItem) {
     if (this.paySlips == null) {
       this.paySlips = new ArrayList<PaySlip>();
@@ -88,10 +131,20 @@ public class PaySlips {
    * @return paySlips
    */
   @ApiModelProperty(value = "")
+  /**
+   * paySlips
+   *
+   * @return paySlips List<PaySlip>
+   */
   public List<PaySlip> getPaySlips() {
     return paySlips;
   }
 
+  /**
+   * paySlips
+   *
+   * @param paySlips List&lt;PaySlip&gt;
+   */
   public void setPaySlips(List<PaySlip> paySlips) {
     this.paySlips = paySlips;
   }

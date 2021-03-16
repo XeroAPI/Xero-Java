@@ -28,7 +28,12 @@ public class EmployeeLeaveObject {
 
   @JsonProperty("leave")
   private EmployeeLeave leave;
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return EmployeeLeaveObject
+   */
   public EmployeeLeaveObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -40,14 +45,30 @@ public class EmployeeLeaveObject {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return EmployeeLeaveObject
+   */
   public EmployeeLeaveObject problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -59,14 +80,30 @@ public class EmployeeLeaveObject {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * leave
+   *
+   * @param leave EmployeeLeave
+   * @return EmployeeLeaveObject
+   */
   public EmployeeLeaveObject leave(EmployeeLeave leave) {
     this.leave = leave;
     return this;
@@ -78,10 +115,20 @@ public class EmployeeLeaveObject {
    * @return leave
    */
   @ApiModelProperty(value = "")
+  /**
+   * leave
+   *
+   * @return leave EmployeeLeave
+   */
   public EmployeeLeave getLeave() {
     return leave;
   }
 
+  /**
+   * leave
+   *
+   * @param leave EmployeeLeave
+   */
   public void setLeave(EmployeeLeave leave) {
     this.leave = leave;
   }

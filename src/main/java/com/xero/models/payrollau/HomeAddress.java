@@ -37,7 +37,12 @@ public class HomeAddress {
 
   @JsonProperty("Country")
   private String country;
-
+  /**
+   * Address line 1 for employee home address
+   *
+   * @param addressLine1 String
+   * @return HomeAddress
+   */
   public HomeAddress addressLine1(String addressLine1) {
     this.addressLine1 = addressLine1;
     return this;
@@ -52,14 +57,30 @@ public class HomeAddress {
       example = "123 Main St",
       required = true,
       value = "Address line 1 for employee home address")
+  /**
+   * Address line 1 for employee home address
+   *
+   * @return addressLine1 String
+   */
   public String getAddressLine1() {
     return addressLine1;
   }
 
+  /**
+   * Address line 1 for employee home address
+   *
+   * @param addressLine1 String
+   */
   public void setAddressLine1(String addressLine1) {
     this.addressLine1 = addressLine1;
   }
 
+  /**
+   * Address line 2 for employee home address
+   *
+   * @param addressLine2 String
+   * @return HomeAddress
+   */
   public HomeAddress addressLine2(String addressLine2) {
     this.addressLine2 = addressLine2;
     return this;
@@ -71,14 +92,30 @@ public class HomeAddress {
    * @return addressLine2
    */
   @ApiModelProperty(example = "Apt 4", value = "Address line 2 for employee home address")
+  /**
+   * Address line 2 for employee home address
+   *
+   * @return addressLine2 String
+   */
   public String getAddressLine2() {
     return addressLine2;
   }
 
+  /**
+   * Address line 2 for employee home address
+   *
+   * @param addressLine2 String
+   */
   public void setAddressLine2(String addressLine2) {
     this.addressLine2 = addressLine2;
   }
 
+  /**
+   * Suburb for employee home address
+   *
+   * @param city String
+   * @return HomeAddress
+   */
   public HomeAddress city(String city) {
     this.city = city;
     return this;
@@ -90,14 +127,30 @@ public class HomeAddress {
    * @return city
    */
   @ApiModelProperty(example = "St. Kilda", value = "Suburb for employee home address")
+  /**
+   * Suburb for employee home address
+   *
+   * @return city String
+   */
   public String getCity() {
     return city;
   }
 
+  /**
+   * Suburb for employee home address
+   *
+   * @param city String
+   */
   public void setCity(String city) {
     this.city = city;
   }
 
+  /**
+   * region
+   *
+   * @param region State
+   * @return HomeAddress
+   */
   public HomeAddress region(State region) {
     this.region = region;
     return this;
@@ -109,14 +162,30 @@ public class HomeAddress {
    * @return region
    */
   @ApiModelProperty(value = "")
+  /**
+   * region
+   *
+   * @return region State
+   */
   public State getRegion() {
     return region;
   }
 
+  /**
+   * region
+   *
+   * @param region State
+   */
   public void setRegion(State region) {
     this.region = region;
   }
 
+  /**
+   * PostCode for employee home address
+   *
+   * @param postalCode String
+   * @return HomeAddress
+   */
   public HomeAddress postalCode(String postalCode) {
     this.postalCode = postalCode;
     return this;
@@ -128,14 +197,30 @@ public class HomeAddress {
    * @return postalCode
    */
   @ApiModelProperty(example = "3182", value = "PostCode for employee home address")
+  /**
+   * PostCode for employee home address
+   *
+   * @return postalCode String
+   */
   public String getPostalCode() {
     return postalCode;
   }
 
+  /**
+   * PostCode for employee home address
+   *
+   * @param postalCode String
+   */
   public void setPostalCode(String postalCode) {
     this.postalCode = postalCode;
   }
 
+  /**
+   * Country of HomeAddress
+   *
+   * @param country String
+   * @return HomeAddress
+   */
   public HomeAddress country(String country) {
     this.country = country;
     return this;
@@ -147,10 +232,20 @@ public class HomeAddress {
    * @return country
    */
   @ApiModelProperty(example = "AUSTRALIA", value = "Country of HomeAddress")
+  /**
+   * Country of HomeAddress
+   *
+   * @return country String
+   */
   public String getCountry() {
     return country;
   }
 
+  /**
+   * Country of HomeAddress
+   *
+   * @param country String
+   */
   public void setCountry(String country) {
     this.country = country;
   }

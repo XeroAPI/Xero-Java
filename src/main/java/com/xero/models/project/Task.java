@@ -72,10 +72,13 @@ public class Task {
    * state (for example being invoiced) and can&#39;t be modified.
    */
   public enum StatusEnum {
+    /** ACTIVE */
     ACTIVE("ACTIVE"),
 
+    /** INVOICED */
     INVOICED("INVOICED"),
 
+    /** LOCKED */
     LOCKED("LOCKED");
 
     private String value;
@@ -84,16 +87,31 @@ public class Task {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
@@ -107,7 +125,12 @@ public class Task {
 
   @JsonProperty("status")
   private StatusEnum status;
-
+  /**
+   * Identifier of the task.
+   *
+   * @param taskId UUID
+   * @return Task
+   */
   public Task taskId(UUID taskId) {
     this.taskId = taskId;
     return this;
@@ -121,14 +144,30 @@ public class Task {
   @ApiModelProperty(
       example = "00000000-0000-0000-0000-000000000000",
       value = "Identifier of the task.")
+  /**
+   * Identifier of the task.
+   *
+   * @return taskId UUID
+   */
   public UUID getTaskId() {
     return taskId;
   }
 
+  /**
+   * Identifier of the task.
+   *
+   * @param taskId UUID
+   */
   public void setTaskId(UUID taskId) {
     this.taskId = taskId;
   }
 
+  /**
+   * Name of the task.
+   *
+   * @param name String
+   * @return Task
+   */
   public Task name(String name) {
     this.name = name;
     return this;
@@ -140,14 +179,30 @@ public class Task {
    * @return name
    */
   @ApiModelProperty(value = "Name of the task.")
+  /**
+   * Name of the task.
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Name of the task.
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * rate
+   *
+   * @param rate Amount
+   * @return Task
+   */
   public Task rate(Amount rate) {
     this.rate = rate;
     return this;
@@ -159,14 +214,30 @@ public class Task {
    * @return rate
    */
   @ApiModelProperty(value = "")
+  /**
+   * rate
+   *
+   * @return rate Amount
+   */
   public Amount getRate() {
     return rate;
   }
 
+  /**
+   * rate
+   *
+   * @param rate Amount
+   */
   public void setRate(Amount rate) {
     this.rate = rate;
   }
 
+  /**
+   * chargeType
+   *
+   * @param chargeType ChargeType
+   * @return Task
+   */
   public Task chargeType(ChargeType chargeType) {
     this.chargeType = chargeType;
     return this;
@@ -178,14 +249,30 @@ public class Task {
    * @return chargeType
    */
   @ApiModelProperty(value = "")
+  /**
+   * chargeType
+   *
+   * @return chargeType ChargeType
+   */
   public ChargeType getChargeType() {
     return chargeType;
   }
 
+  /**
+   * chargeType
+   *
+   * @param chargeType ChargeType
+   */
   public void setChargeType(ChargeType chargeType) {
     this.chargeType = chargeType;
   }
 
+  /**
+   * An estimated time to perform the task
+   *
+   * @param estimateMinutes Double
+   * @return Task
+   */
   public Task estimateMinutes(Double estimateMinutes) {
     this.estimateMinutes = estimateMinutes;
     return this;
@@ -197,14 +284,30 @@ public class Task {
    * @return estimateMinutes
    */
   @ApiModelProperty(value = "An estimated time to perform the task")
+  /**
+   * An estimated time to perform the task
+   *
+   * @return estimateMinutes Double
+   */
   public Double getEstimateMinutes() {
     return estimateMinutes;
   }
 
+  /**
+   * An estimated time to perform the task
+   *
+   * @param estimateMinutes Double
+   */
   public void setEstimateMinutes(Double estimateMinutes) {
     this.estimateMinutes = estimateMinutes;
   }
 
+  /**
+   * Identifier of the project task belongs to.
+   *
+   * @param projectId UUID
+   * @return Task
+   */
   public Task projectId(UUID projectId) {
     this.projectId = projectId;
     return this;
@@ -218,14 +321,31 @@ public class Task {
   @ApiModelProperty(
       example = "00000000-0000-0000-0000-000000000000",
       value = "Identifier of the project task belongs to.")
+  /**
+   * Identifier of the project task belongs to.
+   *
+   * @return projectId UUID
+   */
   public UUID getProjectId() {
     return projectId;
   }
 
+  /**
+   * Identifier of the project task belongs to.
+   *
+   * @param projectId UUID
+   */
   public void setProjectId(UUID projectId) {
     this.projectId = projectId;
   }
 
+  /**
+   * Total minutes which have been logged against the task. Logged by assigning a time entry to a
+   * task
+   *
+   * @param totalMinutes Double
+   * @return Task
+   */
   public Task totalMinutes(Double totalMinutes) {
     this.totalMinutes = totalMinutes;
     return this;
@@ -241,14 +361,32 @@ public class Task {
       value =
           "Total minutes which have been logged against the task. Logged by assigning a time entry"
               + " to a task")
+  /**
+   * Total minutes which have been logged against the task. Logged by assigning a time entry to a
+   * task
+   *
+   * @return totalMinutes Double
+   */
   public Double getTotalMinutes() {
     return totalMinutes;
   }
 
+  /**
+   * Total minutes which have been logged against the task. Logged by assigning a time entry to a
+   * task
+   *
+   * @param totalMinutes Double
+   */
   public void setTotalMinutes(Double totalMinutes) {
     this.totalMinutes = totalMinutes;
   }
 
+  /**
+   * totalAmount
+   *
+   * @param totalAmount Amount
+   * @return Task
+   */
   public Task totalAmount(Amount totalAmount) {
     this.totalAmount = totalAmount;
     return this;
@@ -260,14 +398,30 @@ public class Task {
    * @return totalAmount
    */
   @ApiModelProperty(value = "")
+  /**
+   * totalAmount
+   *
+   * @return totalAmount Amount
+   */
   public Amount getTotalAmount() {
     return totalAmount;
   }
 
+  /**
+   * totalAmount
+   *
+   * @param totalAmount Amount
+   */
   public void setTotalAmount(Amount totalAmount) {
     this.totalAmount = totalAmount;
   }
 
+  /**
+   * Minutes on this task which have been invoiced.
+   *
+   * @param minutesInvoiced Double
+   * @return Task
+   */
   public Task minutesInvoiced(Double minutesInvoiced) {
     this.minutesInvoiced = minutesInvoiced;
     return this;
@@ -279,14 +433,30 @@ public class Task {
    * @return minutesInvoiced
    */
   @ApiModelProperty(value = "Minutes on this task which have been invoiced.")
+  /**
+   * Minutes on this task which have been invoiced.
+   *
+   * @return minutesInvoiced Double
+   */
   public Double getMinutesInvoiced() {
     return minutesInvoiced;
   }
 
+  /**
+   * Minutes on this task which have been invoiced.
+   *
+   * @param minutesInvoiced Double
+   */
   public void setMinutesInvoiced(Double minutesInvoiced) {
     this.minutesInvoiced = minutesInvoiced;
   }
 
+  /**
+   * Minutes on this task which have not been invoiced.
+   *
+   * @param minutesToBeInvoiced Double
+   * @return Task
+   */
   public Task minutesToBeInvoiced(Double minutesToBeInvoiced) {
     this.minutesToBeInvoiced = minutesToBeInvoiced;
     return this;
@@ -298,14 +468,30 @@ public class Task {
    * @return minutesToBeInvoiced
    */
   @ApiModelProperty(value = "Minutes on this task which have not been invoiced.")
+  /**
+   * Minutes on this task which have not been invoiced.
+   *
+   * @return minutesToBeInvoiced Double
+   */
   public Double getMinutesToBeInvoiced() {
     return minutesToBeInvoiced;
   }
 
+  /**
+   * Minutes on this task which have not been invoiced.
+   *
+   * @param minutesToBeInvoiced Double
+   */
   public void setMinutesToBeInvoiced(Double minutesToBeInvoiced) {
     this.minutesToBeInvoiced = minutesToBeInvoiced;
   }
 
+  /**
+   * Minutes logged against this task if its charge type is &#x60;FIXED&#x60;.
+   *
+   * @param fixedMinutes Double
+   * @return Task
+   */
   public Task fixedMinutes(Double fixedMinutes) {
     this.fixedMinutes = fixedMinutes;
     return this;
@@ -317,14 +503,30 @@ public class Task {
    * @return fixedMinutes
    */
   @ApiModelProperty(value = "Minutes logged against this task if its charge type is `FIXED`.")
+  /**
+   * Minutes logged against this task if its charge type is &#x60;FIXED&#x60;.
+   *
+   * @return fixedMinutes Double
+   */
   public Double getFixedMinutes() {
     return fixedMinutes;
   }
 
+  /**
+   * Minutes logged against this task if its charge type is &#x60;FIXED&#x60;.
+   *
+   * @param fixedMinutes Double
+   */
   public void setFixedMinutes(Double fixedMinutes) {
     this.fixedMinutes = fixedMinutes;
   }
 
+  /**
+   * Minutes logged against this task if its charge type is &#x60;NON_CHARGEABLE&#x60;.
+   *
+   * @param nonChargeableMinutes Double
+   * @return Task
+   */
   public Task nonChargeableMinutes(Double nonChargeableMinutes) {
     this.nonChargeableMinutes = nonChargeableMinutes;
     return this;
@@ -337,14 +539,30 @@ public class Task {
    */
   @ApiModelProperty(
       value = "Minutes logged against this task if its charge type is `NON_CHARGEABLE`.")
+  /**
+   * Minutes logged against this task if its charge type is &#x60;NON_CHARGEABLE&#x60;.
+   *
+   * @return nonChargeableMinutes Double
+   */
   public Double getNonChargeableMinutes() {
     return nonChargeableMinutes;
   }
 
+  /**
+   * Minutes logged against this task if its charge type is &#x60;NON_CHARGEABLE&#x60;.
+   *
+   * @param nonChargeableMinutes Double
+   */
   public void setNonChargeableMinutes(Double nonChargeableMinutes) {
     this.nonChargeableMinutes = nonChargeableMinutes;
   }
 
+  /**
+   * amountToBeInvoiced
+   *
+   * @param amountToBeInvoiced Amount
+   * @return Task
+   */
   public Task amountToBeInvoiced(Amount amountToBeInvoiced) {
     this.amountToBeInvoiced = amountToBeInvoiced;
     return this;
@@ -356,14 +574,30 @@ public class Task {
    * @return amountToBeInvoiced
    */
   @ApiModelProperty(value = "")
+  /**
+   * amountToBeInvoiced
+   *
+   * @return amountToBeInvoiced Amount
+   */
   public Amount getAmountToBeInvoiced() {
     return amountToBeInvoiced;
   }
 
+  /**
+   * amountToBeInvoiced
+   *
+   * @param amountToBeInvoiced Amount
+   */
   public void setAmountToBeInvoiced(Amount amountToBeInvoiced) {
     this.amountToBeInvoiced = amountToBeInvoiced;
   }
 
+  /**
+   * amountInvoiced
+   *
+   * @param amountInvoiced Amount
+   * @return Task
+   */
   public Task amountInvoiced(Amount amountInvoiced) {
     this.amountInvoiced = amountInvoiced;
     return this;
@@ -375,14 +609,34 @@ public class Task {
    * @return amountInvoiced
    */
   @ApiModelProperty(value = "")
+  /**
+   * amountInvoiced
+   *
+   * @return amountInvoiced Amount
+   */
   public Amount getAmountInvoiced() {
     return amountInvoiced;
   }
 
+  /**
+   * amountInvoiced
+   *
+   * @param amountInvoiced Amount
+   */
   public void setAmountInvoiced(Amount amountInvoiced) {
     this.amountInvoiced = amountInvoiced;
   }
 
+  /**
+   * Status of the task. When a task of ChargeType is &#x60;FIXED&#x60; and the rate amount is
+   * invoiced the status will be set to &#x60;INVOICED&#x60; and can&#39;t be modified. A task with
+   * ChargeType of &#x60;TIME&#x60; or &#x60;NON_CHARGEABLE&#x60; cannot have a status of
+   * &#x60;INVOICED&#x60;. A &#x60;LOCKED&#x60; state indicates that the task is currently changing
+   * state (for example being invoiced) and can&#39;t be modified.
+   *
+   * @param status StatusEnum
+   * @return Task
+   */
   public Task status(StatusEnum status) {
     this.status = status;
     return this;
@@ -404,10 +658,28 @@ public class Task {
               + " ChargeType of `TIME` or `NON_CHARGEABLE` cannot have a status of `INVOICED`. A"
               + " `LOCKED` state indicates that the task is currently changing state (for example"
               + " being invoiced) and can't be modified.")
+  /**
+   * Status of the task. When a task of ChargeType is &#x60;FIXED&#x60; and the rate amount is
+   * invoiced the status will be set to &#x60;INVOICED&#x60; and can&#39;t be modified. A task with
+   * ChargeType of &#x60;TIME&#x60; or &#x60;NON_CHARGEABLE&#x60; cannot have a status of
+   * &#x60;INVOICED&#x60;. A &#x60;LOCKED&#x60; state indicates that the task is currently changing
+   * state (for example being invoiced) and can&#39;t be modified.
+   *
+   * @return status StatusEnum
+   */
   public StatusEnum getStatus() {
     return status;
   }
 
+  /**
+   * Status of the task. When a task of ChargeType is &#x60;FIXED&#x60; and the rate amount is
+   * invoiced the status will be set to &#x60;INVOICED&#x60; and can&#39;t be modified. A task with
+   * ChargeType of &#x60;TIME&#x60; or &#x60;NON_CHARGEABLE&#x60; cannot have a status of
+   * &#x60;INVOICED&#x60;. A &#x60;LOCKED&#x60; state indicates that the task is currently changing
+   * state (for example being invoiced) and can&#39;t be modified.
+   *
+   * @param status StatusEnum
+   */
   public void setStatus(StatusEnum status) {
     this.status = status;
   }

@@ -38,7 +38,12 @@ public class TimesheetEarningsLine {
 
   @JsonProperty("isLinkedToTimesheet")
   private Boolean isLinkedToTimesheet;
-
+  /**
+   * Xero identifier for payroll timesheet earnings rate
+   *
+   * @param earningsRateID UUID
+   * @return TimesheetEarningsLine
+   */
   public TimesheetEarningsLine earningsRateID(UUID earningsRateID) {
     this.earningsRateID = earningsRateID;
     return this;
@@ -50,14 +55,30 @@ public class TimesheetEarningsLine {
    * @return earningsRateID
    */
   @ApiModelProperty(value = "Xero identifier for payroll timesheet earnings rate")
+  /**
+   * Xero identifier for payroll timesheet earnings rate
+   *
+   * @return earningsRateID UUID
+   */
   public UUID getEarningsRateID() {
     return earningsRateID;
   }
 
+  /**
+   * Xero identifier for payroll timesheet earnings rate
+   *
+   * @param earningsRateID UUID
+   */
   public void setEarningsRateID(UUID earningsRateID) {
     this.earningsRateID = earningsRateID;
   }
 
+  /**
+   * Rate per unit for timesheet earnings line
+   *
+   * @param ratePerUnit Double
+   * @return TimesheetEarningsLine
+   */
   public TimesheetEarningsLine ratePerUnit(Double ratePerUnit) {
     this.ratePerUnit = ratePerUnit;
     return this;
@@ -69,14 +90,30 @@ public class TimesheetEarningsLine {
    * @return ratePerUnit
    */
   @ApiModelProperty(value = "Rate per unit for timesheet earnings line")
+  /**
+   * Rate per unit for timesheet earnings line
+   *
+   * @return ratePerUnit Double
+   */
   public Double getRatePerUnit() {
     return ratePerUnit;
   }
 
+  /**
+   * Rate per unit for timesheet earnings line
+   *
+   * @param ratePerUnit Double
+   */
   public void setRatePerUnit(Double ratePerUnit) {
     this.ratePerUnit = ratePerUnit;
   }
 
+  /**
+   * Timesheet earnings number of units
+   *
+   * @param numberOfUnits Double
+   * @return TimesheetEarningsLine
+   */
   public TimesheetEarningsLine numberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
     return this;
@@ -88,14 +125,30 @@ public class TimesheetEarningsLine {
    * @return numberOfUnits
    */
   @ApiModelProperty(value = "Timesheet earnings number of units")
+  /**
+   * Timesheet earnings number of units
+   *
+   * @return numberOfUnits Double
+   */
   public Double getNumberOfUnits() {
     return numberOfUnits;
   }
 
+  /**
+   * Timesheet earnings number of units
+   *
+   * @param numberOfUnits Double
+   */
   public void setNumberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
   }
 
+  /**
+   * Timesheet earnings fixed amount. Only applicable if the EarningsRate RateType is Fixed
+   *
+   * @param fixedAmount Double
+   * @return TimesheetEarningsLine
+   */
   public TimesheetEarningsLine fixedAmount(Double fixedAmount) {
     this.fixedAmount = fixedAmount;
     return this;
@@ -109,14 +162,30 @@ public class TimesheetEarningsLine {
   @ApiModelProperty(
       value =
           "Timesheet earnings fixed amount. Only applicable if the EarningsRate RateType is Fixed")
+  /**
+   * Timesheet earnings fixed amount. Only applicable if the EarningsRate RateType is Fixed
+   *
+   * @return fixedAmount Double
+   */
   public Double getFixedAmount() {
     return fixedAmount;
   }
 
+  /**
+   * Timesheet earnings fixed amount. Only applicable if the EarningsRate RateType is Fixed
+   *
+   * @param fixedAmount Double
+   */
   public void setFixedAmount(Double fixedAmount) {
     this.fixedAmount = fixedAmount;
   }
 
+  /**
+   * The amount of the timesheet earnings line.
+   *
+   * @param amount Double
+   * @return TimesheetEarningsLine
+   */
   public TimesheetEarningsLine amount(Double amount) {
     this.amount = amount;
     return this;
@@ -128,14 +197,30 @@ public class TimesheetEarningsLine {
    * @return amount
    */
   @ApiModelProperty(value = "The amount of the timesheet earnings line.")
+  /**
+   * The amount of the timesheet earnings line.
+   *
+   * @return amount Double
+   */
   public Double getAmount() {
     return amount;
   }
 
+  /**
+   * The amount of the timesheet earnings line.
+   *
+   * @param amount Double
+   */
   public void setAmount(Double amount) {
     this.amount = amount;
   }
 
+  /**
+   * Identifies if the timesheet earnings is taken from the timesheet. False for leave earnings line
+   *
+   * @param isLinkedToTimesheet Boolean
+   * @return TimesheetEarningsLine
+   */
   public TimesheetEarningsLine isLinkedToTimesheet(Boolean isLinkedToTimesheet) {
     this.isLinkedToTimesheet = isLinkedToTimesheet;
     return this;
@@ -150,10 +235,20 @@ public class TimesheetEarningsLine {
       value =
           "Identifies if the timesheet earnings is taken from the timesheet. False for leave"
               + " earnings line")
+  /**
+   * Identifies if the timesheet earnings is taken from the timesheet. False for leave earnings line
+   *
+   * @return isLinkedToTimesheet Boolean
+   */
   public Boolean getIsLinkedToTimesheet() {
     return isLinkedToTimesheet;
   }
 
+  /**
+   * Identifies if the timesheet earnings is taken from the timesheet. False for leave earnings line
+   *
+   * @param isLinkedToTimesheet Boolean
+   */
   public void setIsLinkedToTimesheet(Boolean isLinkedToTimesheet) {
     this.isLinkedToTimesheet = isLinkedToTimesheet;
   }

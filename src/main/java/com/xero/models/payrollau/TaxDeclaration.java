@@ -71,7 +71,12 @@ public class TaxDeclaration {
 
   @JsonProperty("UpdatedDateUTC")
   private String updatedDateUTC;
-
+  /**
+   * Address line 1 for employee home address
+   *
+   * @param employeeID UUID
+   * @return TaxDeclaration
+   */
   public TaxDeclaration employeeID(UUID employeeID) {
     this.employeeID = employeeID;
     return this;
@@ -83,14 +88,30 @@ public class TaxDeclaration {
    * @return employeeID
    */
   @ApiModelProperty(value = "Address line 1 for employee home address")
+  /**
+   * Address line 1 for employee home address
+   *
+   * @return employeeID UUID
+   */
   public UUID getEmployeeID() {
     return employeeID;
   }
 
+  /**
+   * Address line 1 for employee home address
+   *
+   * @param employeeID UUID
+   */
   public void setEmployeeID(UUID employeeID) {
     this.employeeID = employeeID;
   }
 
+  /**
+   * employmentBasis
+   *
+   * @param employmentBasis EmploymentBasis
+   * @return TaxDeclaration
+   */
   public TaxDeclaration employmentBasis(EmploymentBasis employmentBasis) {
     this.employmentBasis = employmentBasis;
     return this;
@@ -102,14 +123,30 @@ public class TaxDeclaration {
    * @return employmentBasis
    */
   @ApiModelProperty(value = "")
+  /**
+   * employmentBasis
+   *
+   * @return employmentBasis EmploymentBasis
+   */
   public EmploymentBasis getEmploymentBasis() {
     return employmentBasis;
   }
 
+  /**
+   * employmentBasis
+   *
+   * @param employmentBasis EmploymentBasis
+   */
   public void setEmploymentBasis(EmploymentBasis employmentBasis) {
     this.employmentBasis = employmentBasis;
   }
 
+  /**
+   * tfNExemptionType
+   *
+   * @param tfNExemptionType TFNExemptionType
+   * @return TaxDeclaration
+   */
   public TaxDeclaration tfNExemptionType(TFNExemptionType tfNExemptionType) {
     this.tfNExemptionType = tfNExemptionType;
     return this;
@@ -121,14 +158,30 @@ public class TaxDeclaration {
    * @return tfNExemptionType
    */
   @ApiModelProperty(value = "")
+  /**
+   * tfNExemptionType
+   *
+   * @return tfNExemptionType TFNExemptionType
+   */
   public TFNExemptionType getTfNExemptionType() {
     return tfNExemptionType;
   }
 
+  /**
+   * tfNExemptionType
+   *
+   * @param tfNExemptionType TFNExemptionType
+   */
   public void setTfNExemptionType(TFNExemptionType tfNExemptionType) {
     this.tfNExemptionType = tfNExemptionType;
   }
 
+  /**
+   * The tax file number e.g 123123123.
+   *
+   * @param taxFileNumber String
+   * @return TaxDeclaration
+   */
   public TaxDeclaration taxFileNumber(String taxFileNumber) {
     this.taxFileNumber = taxFileNumber;
     return this;
@@ -140,14 +193,30 @@ public class TaxDeclaration {
    * @return taxFileNumber
    */
   @ApiModelProperty(example = "123123123", value = "The tax file number e.g 123123123.")
+  /**
+   * The tax file number e.g 123123123.
+   *
+   * @return taxFileNumber String
+   */
   public String getTaxFileNumber() {
     return taxFileNumber;
   }
 
+  /**
+   * The tax file number e.g 123123123.
+   *
+   * @param taxFileNumber String
+   */
   public void setTaxFileNumber(String taxFileNumber) {
     this.taxFileNumber = taxFileNumber;
   }
 
+  /**
+   * If the employee is Australian resident for tax purposes. e.g true or false
+   *
+   * @param australianResidentForTaxPurposes Boolean
+   * @return TaxDeclaration
+   */
   public TaxDeclaration australianResidentForTaxPurposes(Boolean australianResidentForTaxPurposes) {
     this.australianResidentForTaxPurposes = australianResidentForTaxPurposes;
     return this;
@@ -161,14 +230,30 @@ public class TaxDeclaration {
   @ApiModelProperty(
       example = "true",
       value = "If the employee is Australian resident for tax purposes. e.g true or false")
+  /**
+   * If the employee is Australian resident for tax purposes. e.g true or false
+   *
+   * @return australianResidentForTaxPurposes Boolean
+   */
   public Boolean getAustralianResidentForTaxPurposes() {
     return australianResidentForTaxPurposes;
   }
 
+  /**
+   * If the employee is Australian resident for tax purposes. e.g true or false
+   *
+   * @param australianResidentForTaxPurposes Boolean
+   */
   public void setAustralianResidentForTaxPurposes(Boolean australianResidentForTaxPurposes) {
     this.australianResidentForTaxPurposes = australianResidentForTaxPurposes;
   }
 
+  /**
+   * residencyStatus
+   *
+   * @param residencyStatus ResidencyStatus
+   * @return TaxDeclaration
+   */
   public TaxDeclaration residencyStatus(ResidencyStatus residencyStatus) {
     this.residencyStatus = residencyStatus;
     return this;
@@ -180,14 +265,30 @@ public class TaxDeclaration {
    * @return residencyStatus
    */
   @ApiModelProperty(value = "")
+  /**
+   * residencyStatus
+   *
+   * @return residencyStatus ResidencyStatus
+   */
   public ResidencyStatus getResidencyStatus() {
     return residencyStatus;
   }
 
+  /**
+   * residencyStatus
+   *
+   * @param residencyStatus ResidencyStatus
+   */
   public void setResidencyStatus(ResidencyStatus residencyStatus) {
     this.residencyStatus = residencyStatus;
   }
 
+  /**
+   * If tax free threshold claimed. e.g true or false
+   *
+   * @param taxFreeThresholdClaimed Boolean
+   * @return TaxDeclaration
+   */
   public TaxDeclaration taxFreeThresholdClaimed(Boolean taxFreeThresholdClaimed) {
     this.taxFreeThresholdClaimed = taxFreeThresholdClaimed;
     return this;
@@ -199,14 +300,30 @@ public class TaxDeclaration {
    * @return taxFreeThresholdClaimed
    */
   @ApiModelProperty(example = "false", value = "If tax free threshold claimed. e.g true or false")
+  /**
+   * If tax free threshold claimed. e.g true or false
+   *
+   * @return taxFreeThresholdClaimed Boolean
+   */
   public Boolean getTaxFreeThresholdClaimed() {
     return taxFreeThresholdClaimed;
   }
 
+  /**
+   * If tax free threshold claimed. e.g true or false
+   *
+   * @param taxFreeThresholdClaimed Boolean
+   */
   public void setTaxFreeThresholdClaimed(Boolean taxFreeThresholdClaimed) {
     this.taxFreeThresholdClaimed = taxFreeThresholdClaimed;
   }
 
+  /**
+   * If has tax offset estimated then the tax offset estimated amount. e.g 100
+   *
+   * @param taxOffsetEstimatedAmount BigDecimal
+   * @return TaxDeclaration
+   */
   public TaxDeclaration taxOffsetEstimatedAmount(BigDecimal taxOffsetEstimatedAmount) {
     this.taxOffsetEstimatedAmount = taxOffsetEstimatedAmount;
     return this;
@@ -220,14 +337,30 @@ public class TaxDeclaration {
   @ApiModelProperty(
       example = "100",
       value = "If has tax offset estimated then the tax offset estimated amount. e.g 100")
+  /**
+   * If has tax offset estimated then the tax offset estimated amount. e.g 100
+   *
+   * @return taxOffsetEstimatedAmount BigDecimal
+   */
   public BigDecimal getTaxOffsetEstimatedAmount() {
     return taxOffsetEstimatedAmount;
   }
 
+  /**
+   * If has tax offset estimated then the tax offset estimated amount. e.g 100
+   *
+   * @param taxOffsetEstimatedAmount BigDecimal
+   */
   public void setTaxOffsetEstimatedAmount(BigDecimal taxOffsetEstimatedAmount) {
     this.taxOffsetEstimatedAmount = taxOffsetEstimatedAmount;
   }
 
+  /**
+   * If employee has HECS or HELP debt. e.g true or false
+   *
+   * @param hasHELPDebt Boolean
+   * @return TaxDeclaration
+   */
   public TaxDeclaration hasHELPDebt(Boolean hasHELPDebt) {
     this.hasHELPDebt = hasHELPDebt;
     return this;
@@ -241,14 +374,30 @@ public class TaxDeclaration {
   @ApiModelProperty(
       example = "false",
       value = "If employee has HECS or HELP debt. e.g true or false")
+  /**
+   * If employee has HECS or HELP debt. e.g true or false
+   *
+   * @return hasHELPDebt Boolean
+   */
   public Boolean getHasHELPDebt() {
     return hasHELPDebt;
   }
 
+  /**
+   * If employee has HECS or HELP debt. e.g true or false
+   *
+   * @param hasHELPDebt Boolean
+   */
   public void setHasHELPDebt(Boolean hasHELPDebt) {
     this.hasHELPDebt = hasHELPDebt;
   }
 
+  /**
+   * If employee has financial supplement debt. e.g true or false
+   *
+   * @param hasSFSSDebt Boolean
+   * @return TaxDeclaration
+   */
   public TaxDeclaration hasSFSSDebt(Boolean hasSFSSDebt) {
     this.hasSFSSDebt = hasSFSSDebt;
     return this;
@@ -262,14 +411,30 @@ public class TaxDeclaration {
   @ApiModelProperty(
       example = "false",
       value = "If employee has financial supplement debt. e.g true or false")
+  /**
+   * If employee has financial supplement debt. e.g true or false
+   *
+   * @return hasSFSSDebt Boolean
+   */
   public Boolean getHasSFSSDebt() {
     return hasSFSSDebt;
   }
 
+  /**
+   * If employee has financial supplement debt. e.g true or false
+   *
+   * @param hasSFSSDebt Boolean
+   */
   public void setHasSFSSDebt(Boolean hasSFSSDebt) {
     this.hasSFSSDebt = hasSFSSDebt;
   }
 
+  /**
+   * If employee has trade support loan. e.g true or false
+   *
+   * @param hasTradeSupportLoanDebt Boolean
+   * @return TaxDeclaration
+   */
   public TaxDeclaration hasTradeSupportLoanDebt(Boolean hasTradeSupportLoanDebt) {
     this.hasTradeSupportLoanDebt = hasTradeSupportLoanDebt;
     return this;
@@ -283,14 +448,30 @@ public class TaxDeclaration {
   @ApiModelProperty(
       example = "false",
       value = "If employee has trade support loan. e.g true or false")
+  /**
+   * If employee has trade support loan. e.g true or false
+   *
+   * @return hasTradeSupportLoanDebt Boolean
+   */
   public Boolean getHasTradeSupportLoanDebt() {
     return hasTradeSupportLoanDebt;
   }
 
+  /**
+   * If employee has trade support loan. e.g true or false
+   *
+   * @param hasTradeSupportLoanDebt Boolean
+   */
   public void setHasTradeSupportLoanDebt(Boolean hasTradeSupportLoanDebt) {
     this.hasTradeSupportLoanDebt = hasTradeSupportLoanDebt;
   }
 
+  /**
+   * If the employee has requested that additional tax be withheld each pay run. e.g 50
+   *
+   * @param upwardVariationTaxWithholdingAmount BigDecimal
+   * @return TaxDeclaration
+   */
   public TaxDeclaration upwardVariationTaxWithholdingAmount(
       BigDecimal upwardVariationTaxWithholdingAmount) {
     this.upwardVariationTaxWithholdingAmount = upwardVariationTaxWithholdingAmount;
@@ -305,15 +486,32 @@ public class TaxDeclaration {
   @ApiModelProperty(
       example = "50",
       value = "If the employee has requested that additional tax be withheld each pay run. e.g 50")
+  /**
+   * If the employee has requested that additional tax be withheld each pay run. e.g 50
+   *
+   * @return upwardVariationTaxWithholdingAmount BigDecimal
+   */
   public BigDecimal getUpwardVariationTaxWithholdingAmount() {
     return upwardVariationTaxWithholdingAmount;
   }
 
+  /**
+   * If the employee has requested that additional tax be withheld each pay run. e.g 50
+   *
+   * @param upwardVariationTaxWithholdingAmount BigDecimal
+   */
   public void setUpwardVariationTaxWithholdingAmount(
       BigDecimal upwardVariationTaxWithholdingAmount) {
     this.upwardVariationTaxWithholdingAmount = upwardVariationTaxWithholdingAmount;
   }
 
+  /**
+   * If the employee is eligible to receive an additional percentage on top of ordinary earnings
+   * when they take leave (typically 17.5%). e.g true or false
+   *
+   * @param eligibleToReceiveLeaveLoading Boolean
+   * @return TaxDeclaration
+   */
   public TaxDeclaration eligibleToReceiveLeaveLoading(Boolean eligibleToReceiveLeaveLoading) {
     this.eligibleToReceiveLeaveLoading = eligibleToReceiveLeaveLoading;
     return this;
@@ -330,14 +528,32 @@ public class TaxDeclaration {
       value =
           "If the employee is eligible to receive an additional percentage on top of ordinary"
               + " earnings when they take leave (typically 17.5%). e.g true or false")
+  /**
+   * If the employee is eligible to receive an additional percentage on top of ordinary earnings
+   * when they take leave (typically 17.5%). e.g true or false
+   *
+   * @return eligibleToReceiveLeaveLoading Boolean
+   */
   public Boolean getEligibleToReceiveLeaveLoading() {
     return eligibleToReceiveLeaveLoading;
   }
 
+  /**
+   * If the employee is eligible to receive an additional percentage on top of ordinary earnings
+   * when they take leave (typically 17.5%). e.g true or false
+   *
+   * @param eligibleToReceiveLeaveLoading Boolean
+   */
   public void setEligibleToReceiveLeaveLoading(Boolean eligibleToReceiveLeaveLoading) {
     this.eligibleToReceiveLeaveLoading = eligibleToReceiveLeaveLoading;
   }
 
+  /**
+   * If the employee has approved withholding variation. e.g (0 - 100)
+   *
+   * @param approvedWithholdingVariationPercentage BigDecimal
+   * @return TaxDeclaration
+   */
   public TaxDeclaration approvedWithholdingVariationPercentage(
       BigDecimal approvedWithholdingVariationPercentage) {
     this.approvedWithholdingVariationPercentage = approvedWithholdingVariationPercentage;
@@ -352,15 +568,31 @@ public class TaxDeclaration {
   @ApiModelProperty(
       example = "75",
       value = "If the employee has approved withholding variation. e.g (0 - 100)")
+  /**
+   * If the employee has approved withholding variation. e.g (0 - 100)
+   *
+   * @return approvedWithholdingVariationPercentage BigDecimal
+   */
   public BigDecimal getApprovedWithholdingVariationPercentage() {
     return approvedWithholdingVariationPercentage;
   }
 
+  /**
+   * If the employee has approved withholding variation. e.g (0 - 100)
+   *
+   * @param approvedWithholdingVariationPercentage BigDecimal
+   */
   public void setApprovedWithholdingVariationPercentage(
       BigDecimal approvedWithholdingVariationPercentage) {
     this.approvedWithholdingVariationPercentage = approvedWithholdingVariationPercentage;
   }
 
+  /**
+   * If the employee is eligible for student startup loan rules
+   *
+   * @param hasStudentStartupLoan Boolean
+   * @return TaxDeclaration
+   */
   public TaxDeclaration hasStudentStartupLoan(Boolean hasStudentStartupLoan) {
     this.hasStudentStartupLoan = hasStudentStartupLoan;
     return this;
@@ -374,10 +606,20 @@ public class TaxDeclaration {
   @ApiModelProperty(
       example = "true",
       value = "If the employee is eligible for student startup loan rules")
+  /**
+   * If the employee is eligible for student startup loan rules
+   *
+   * @return hasStudentStartupLoan Boolean
+   */
   public Boolean getHasStudentStartupLoan() {
     return hasStudentStartupLoan;
   }
 
+  /**
+   * If the employee is eligible for student startup loan rules
+   *
+   * @param hasStudentStartupLoan Boolean
+   */
   public void setHasStudentStartupLoan(Boolean hasStudentStartupLoan) {
     this.hasStudentStartupLoan = hasStudentStartupLoan;
   }
@@ -388,10 +630,19 @@ public class TaxDeclaration {
    * @return updatedDateUTC
    */
   @ApiModelProperty(example = "/Date(1583967733054+0000)/", value = "Last modified timestamp")
+  /**
+   * Last modified timestamp
+   *
+   * @return updatedDateUTC String
+   */
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-
+  /**
+   * Last modified timestamp
+   *
+   * @return OffsetDateTime
+   */
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {

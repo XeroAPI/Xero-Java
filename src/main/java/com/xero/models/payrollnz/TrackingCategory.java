@@ -26,7 +26,12 @@ public class TrackingCategory {
 
   @JsonProperty("timesheetTrackingCategoryID")
   private UUID timesheetTrackingCategoryID;
-
+  /**
+   * The Xero identifier for Employee groups tracking category.
+   *
+   * @param employeeGroupsTrackingCategoryID UUID
+   * @return TrackingCategory
+   */
   public TrackingCategory employeeGroupsTrackingCategoryID(UUID employeeGroupsTrackingCategoryID) {
     this.employeeGroupsTrackingCategoryID = employeeGroupsTrackingCategoryID;
     return this;
@@ -38,14 +43,30 @@ public class TrackingCategory {
    * @return employeeGroupsTrackingCategoryID
    */
   @ApiModelProperty(value = "The Xero identifier for Employee groups tracking category.")
+  /**
+   * The Xero identifier for Employee groups tracking category.
+   *
+   * @return employeeGroupsTrackingCategoryID UUID
+   */
   public UUID getEmployeeGroupsTrackingCategoryID() {
     return employeeGroupsTrackingCategoryID;
   }
 
+  /**
+   * The Xero identifier for Employee groups tracking category.
+   *
+   * @param employeeGroupsTrackingCategoryID UUID
+   */
   public void setEmployeeGroupsTrackingCategoryID(UUID employeeGroupsTrackingCategoryID) {
     this.employeeGroupsTrackingCategoryID = employeeGroupsTrackingCategoryID;
   }
 
+  /**
+   * The Xero identifier for Timesheet tracking category.
+   *
+   * @param timesheetTrackingCategoryID UUID
+   * @return TrackingCategory
+   */
   public TrackingCategory timesheetTrackingCategoryID(UUID timesheetTrackingCategoryID) {
     this.timesheetTrackingCategoryID = timesheetTrackingCategoryID;
     return this;
@@ -57,10 +78,20 @@ public class TrackingCategory {
    * @return timesheetTrackingCategoryID
    */
   @ApiModelProperty(value = "The Xero identifier for Timesheet tracking category.")
+  /**
+   * The Xero identifier for Timesheet tracking category.
+   *
+   * @return timesheetTrackingCategoryID UUID
+   */
   public UUID getTimesheetTrackingCategoryID() {
     return timesheetTrackingCategoryID;
   }
 
+  /**
+   * The Xero identifier for Timesheet tracking category.
+   *
+   * @param timesheetTrackingCategoryID UUID
+   */
   public void setTimesheetTrackingCategoryID(UUID timesheetTrackingCategoryID) {
     this.timesheetTrackingCategoryID = timesheetTrackingCategoryID;
   }

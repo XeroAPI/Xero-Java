@@ -30,7 +30,12 @@ public class ReportRow {
 
   @JsonProperty("Cells")
   private List<ReportCell> cells = new ArrayList<ReportCell>();
-
+  /**
+   * rowType
+   *
+   * @param rowType RowType
+   * @return ReportRow
+   */
   public ReportRow rowType(RowType rowType) {
     this.rowType = rowType;
     return this;
@@ -42,14 +47,30 @@ public class ReportRow {
    * @return rowType
    */
   @ApiModelProperty(value = "")
+  /**
+   * rowType
+   *
+   * @return rowType RowType
+   */
   public RowType getRowType() {
     return rowType;
   }
 
+  /**
+   * rowType
+   *
+   * @param rowType RowType
+   */
   public void setRowType(RowType rowType) {
     this.rowType = rowType;
   }
 
+  /**
+   * title
+   *
+   * @param title String
+   * @return ReportRow
+   */
   public ReportRow title(String title) {
     this.title = title;
     return this;
@@ -61,19 +82,41 @@ public class ReportRow {
    * @return title
    */
   @ApiModelProperty(value = "")
+  /**
+   * title
+   *
+   * @return title String
+   */
   public String getTitle() {
     return title;
   }
 
+  /**
+   * title
+   *
+   * @param title String
+   */
   public void setTitle(String title) {
     this.title = title;
   }
 
+  /**
+   * cells
+   *
+   * @param cells List&lt;ReportCell&gt;
+   * @return ReportRow
+   */
   public ReportRow cells(List<ReportCell> cells) {
     this.cells = cells;
     return this;
   }
 
+  /**
+   * cells
+   *
+   * @param cellsItem ReportCell
+   * @return ReportRow
+   */
   public ReportRow addCellsItem(ReportCell cellsItem) {
     if (this.cells == null) {
       this.cells = new ArrayList<ReportCell>();
@@ -88,10 +131,20 @@ public class ReportRow {
    * @return cells
    */
   @ApiModelProperty(value = "")
+  /**
+   * cells
+   *
+   * @return cells List<ReportCell>
+   */
   public List<ReportCell> getCells() {
     return cells;
   }
 
+  /**
+   * cells
+   *
+   * @param cells List&lt;ReportCell&gt;
+   */
   public void setCells(List<ReportCell> cells) {
     this.cells = cells;
   }

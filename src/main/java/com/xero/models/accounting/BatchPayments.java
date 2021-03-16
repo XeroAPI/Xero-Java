@@ -24,12 +24,23 @@ public class BatchPayments {
 
   @JsonProperty("BatchPayments")
   private List<BatchPayment> batchPayments = new ArrayList<BatchPayment>();
-
+  /**
+   * batchPayments
+   *
+   * @param batchPayments List&lt;BatchPayment&gt;
+   * @return BatchPayments
+   */
   public BatchPayments batchPayments(List<BatchPayment> batchPayments) {
     this.batchPayments = batchPayments;
     return this;
   }
 
+  /**
+   * batchPayments
+   *
+   * @param batchPaymentsItem BatchPayment
+   * @return BatchPayments
+   */
   public BatchPayments addBatchPaymentsItem(BatchPayment batchPaymentsItem) {
     if (this.batchPayments == null) {
       this.batchPayments = new ArrayList<BatchPayment>();
@@ -44,10 +55,20 @@ public class BatchPayments {
    * @return batchPayments
    */
   @ApiModelProperty(value = "")
+  /**
+   * batchPayments
+   *
+   * @return batchPayments List<BatchPayment>
+   */
   public List<BatchPayment> getBatchPayments() {
     return batchPayments;
   }
 
+  /**
+   * batchPayments
+   *
+   * @param batchPayments List&lt;BatchPayment&gt;
+   */
   public void setBatchPayments(List<BatchPayment> batchPayments) {
     this.batchPayments = batchPayments;
   }

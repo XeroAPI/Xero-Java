@@ -60,7 +60,12 @@ public class BankTransfer {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
-
+  /**
+   * fromBankAccount
+   *
+   * @param fromBankAccount Account
+   * @return BankTransfer
+   */
   public BankTransfer fromBankAccount(Account fromBankAccount) {
     this.fromBankAccount = fromBankAccount;
     return this;
@@ -72,14 +77,30 @@ public class BankTransfer {
    * @return fromBankAccount
    */
   @ApiModelProperty(required = true, value = "")
+  /**
+   * fromBankAccount
+   *
+   * @return fromBankAccount Account
+   */
   public Account getFromBankAccount() {
     return fromBankAccount;
   }
 
+  /**
+   * fromBankAccount
+   *
+   * @param fromBankAccount Account
+   */
   public void setFromBankAccount(Account fromBankAccount) {
     this.fromBankAccount = fromBankAccount;
   }
 
+  /**
+   * toBankAccount
+   *
+   * @param toBankAccount Account
+   * @return BankTransfer
+   */
   public BankTransfer toBankAccount(Account toBankAccount) {
     this.toBankAccount = toBankAccount;
     return this;
@@ -91,14 +112,30 @@ public class BankTransfer {
    * @return toBankAccount
    */
   @ApiModelProperty(required = true, value = "")
+  /**
+   * toBankAccount
+   *
+   * @return toBankAccount Account
+   */
   public Account getToBankAccount() {
     return toBankAccount;
   }
 
+  /**
+   * toBankAccount
+   *
+   * @param toBankAccount Account
+   */
   public void setToBankAccount(Account toBankAccount) {
     this.toBankAccount = toBankAccount;
   }
 
+  /**
+   * amount of the transaction
+   *
+   * @param amount Double
+   * @return BankTransfer
+   */
   public BankTransfer amount(Double amount) {
     this.amount = amount;
     return this;
@@ -110,14 +147,30 @@ public class BankTransfer {
    * @return amount
    */
   @ApiModelProperty(required = true, value = "amount of the transaction")
+  /**
+   * amount of the transaction
+   *
+   * @return amount Double
+   */
   public Double getAmount() {
     return amount;
   }
 
+  /**
+   * amount of the transaction
+   *
+   * @param amount Double
+   */
   public void setAmount(Double amount) {
     this.amount = amount;
   }
 
+  /**
+   * The date of the Transfer YYYY-MM-DD
+   *
+   * @param date String
+   * @return BankTransfer
+   */
   public BankTransfer date(String date) {
     this.date = date;
     return this;
@@ -129,10 +182,19 @@ public class BankTransfer {
    * @return date
    */
   @ApiModelProperty(value = "The date of the Transfer YYYY-MM-DD")
+  /**
+   * The date of the Transfer YYYY-MM-DD
+   *
+   * @return date String
+   */
   public String getDate() {
     return date;
   }
-
+  /**
+   * The date of the Transfer YYYY-MM-DD
+   *
+   * @return LocalDate
+   */
   public LocalDate getDateAsDate() {
     if (this.date != null) {
       try {
@@ -144,10 +206,20 @@ public class BankTransfer {
     return null;
   }
 
+  /**
+   * The date of the Transfer YYYY-MM-DD
+   *
+   * @param date String
+   */
   public void setDate(String date) {
     this.date = date;
   }
 
+  /**
+   * The date of the Transfer YYYY-MM-DD
+   *
+   * @param date LocalDateTime
+   */
   public void setDate(LocalDate date) {
     // CONVERT LocalDate args into MS DateFromat String
     Instant instant = date.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
@@ -162,6 +234,11 @@ public class BankTransfer {
    * @return bankTransferID
    */
   @ApiModelProperty(value = "The identifier of the Bank Transfer")
+  /**
+   * The identifier of the Bank Transfer
+   *
+   * @return bankTransferID UUID
+   */
   public UUID getBankTransferID() {
     return bankTransferID;
   }
@@ -172,6 +249,11 @@ public class BankTransfer {
    * @return currencyRate
    */
   @ApiModelProperty(value = "The currency rate")
+  /**
+   * The currency rate
+   *
+   * @return currencyRate Double
+   */
   public Double getCurrencyRate() {
     return currencyRate;
   }
@@ -182,6 +264,11 @@ public class BankTransfer {
    * @return fromBankTransactionID
    */
   @ApiModelProperty(value = "The Bank Transaction ID for the source account")
+  /**
+   * The Bank Transaction ID for the source account
+   *
+   * @return fromBankTransactionID UUID
+   */
   public UUID getFromBankTransactionID() {
     return fromBankTransactionID;
   }
@@ -192,6 +279,11 @@ public class BankTransfer {
    * @return toBankTransactionID
    */
   @ApiModelProperty(value = "The Bank Transaction ID for the destination account")
+  /**
+   * The Bank Transaction ID for the destination account
+   *
+   * @return toBankTransactionID UUID
+   */
   public UUID getToBankTransactionID() {
     return toBankTransactionID;
   }
@@ -204,6 +296,11 @@ public class BankTransfer {
   @ApiModelProperty(
       example = "false",
       value = "Boolean to indicate if a Bank Transfer has an attachment")
+  /**
+   * Boolean to indicate if a Bank Transfer has an attachment
+   *
+   * @return hasAttachments Boolean
+   */
   public Boolean getHasAttachments() {
     return hasAttachments;
   }
@@ -216,10 +313,19 @@ public class BankTransfer {
   @ApiModelProperty(
       example = "/Date(1573755038314)/",
       value = "UTC timestamp of creation date of bank transfer")
+  /**
+   * UTC timestamp of creation date of bank transfer
+   *
+   * @return createdDateUTC String
+   */
   public String getCreatedDateUTC() {
     return createdDateUTC;
   }
-
+  /**
+   * UTC timestamp of creation date of bank transfer
+   *
+   * @return OffsetDateTime
+   */
   public OffsetDateTime getCreatedDateUTCAsDate() {
     if (this.createdDateUTC != null) {
       try {
@@ -231,11 +337,23 @@ public class BankTransfer {
     return null;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrors List&lt;ValidationError&gt;
+   * @return BankTransfer
+   */
   public BankTransfer validationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
     return this;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrorsItem ValidationError
+   * @return BankTransfer
+   */
   public BankTransfer addValidationErrorsItem(ValidationError validationErrorsItem) {
     if (this.validationErrors == null) {
       this.validationErrors = new ArrayList<ValidationError>();
@@ -250,10 +368,20 @@ public class BankTransfer {
    * @return validationErrors
    */
   @ApiModelProperty(value = "Displays array of validation error messages from the API")
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @return validationErrors List<ValidationError>
+   */
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrors List&lt;ValidationError&gt;
+   */
   public void setValidationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
   }

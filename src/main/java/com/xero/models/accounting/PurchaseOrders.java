@@ -24,12 +24,23 @@ public class PurchaseOrders {
 
   @JsonProperty("PurchaseOrders")
   private List<PurchaseOrder> purchaseOrders = new ArrayList<PurchaseOrder>();
-
+  /**
+   * purchaseOrders
+   *
+   * @param purchaseOrders List&lt;PurchaseOrder&gt;
+   * @return PurchaseOrders
+   */
   public PurchaseOrders purchaseOrders(List<PurchaseOrder> purchaseOrders) {
     this.purchaseOrders = purchaseOrders;
     return this;
   }
 
+  /**
+   * purchaseOrders
+   *
+   * @param purchaseOrdersItem PurchaseOrder
+   * @return PurchaseOrders
+   */
   public PurchaseOrders addPurchaseOrdersItem(PurchaseOrder purchaseOrdersItem) {
     if (this.purchaseOrders == null) {
       this.purchaseOrders = new ArrayList<PurchaseOrder>();
@@ -44,10 +55,20 @@ public class PurchaseOrders {
    * @return purchaseOrders
    */
   @ApiModelProperty(value = "")
+  /**
+   * purchaseOrders
+   *
+   * @return purchaseOrders List<PurchaseOrder>
+   */
   public List<PurchaseOrder> getPurchaseOrders() {
     return purchaseOrders;
   }
 
+  /**
+   * purchaseOrders
+   *
+   * @param purchaseOrders List&lt;PurchaseOrder&gt;
+   */
   public void setPurchaseOrders(List<PurchaseOrder> purchaseOrders) {
     this.purchaseOrders = purchaseOrders;
   }

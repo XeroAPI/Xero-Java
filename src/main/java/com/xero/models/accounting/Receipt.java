@@ -61,14 +61,19 @@ public class Receipt {
   private UUID receiptID;
   /** Current status of receipt – see status types */
   public enum StatusEnum {
+    /** DRAFT */
     DRAFT("DRAFT"),
 
+    /** SUBMITTED */
     SUBMITTED("SUBMITTED"),
 
+    /** AUTHORISED */
     AUTHORISED("AUTHORISED"),
 
+    /** DECLINED */
     DECLINED("DECLINED"),
 
+    /** VOIDED */
     VOIDED("VOIDED");
 
     private String value;
@@ -77,16 +82,31 @@ public class Receipt {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
@@ -121,7 +141,12 @@ public class Receipt {
 
   @JsonProperty("Attachments")
   private List<Attachment> attachments = new ArrayList<Attachment>();
-
+  /**
+   * Date of receipt – YYYY-MM-DD
+   *
+   * @param date String
+   * @return Receipt
+   */
   public Receipt date(String date) {
     this.date = date;
     return this;
@@ -133,10 +158,19 @@ public class Receipt {
    * @return date
    */
   @ApiModelProperty(value = "Date of receipt – YYYY-MM-DD")
+  /**
+   * Date of receipt – YYYY-MM-DD
+   *
+   * @return date String
+   */
   public String getDate() {
     return date;
   }
-
+  /**
+   * Date of receipt – YYYY-MM-DD
+   *
+   * @return LocalDate
+   */
   public LocalDate getDateAsDate() {
     if (this.date != null) {
       try {
@@ -148,10 +182,20 @@ public class Receipt {
     return null;
   }
 
+  /**
+   * Date of receipt – YYYY-MM-DD
+   *
+   * @param date String
+   */
   public void setDate(String date) {
     this.date = date;
   }
 
+  /**
+   * Date of receipt – YYYY-MM-DD
+   *
+   * @param date LocalDateTime
+   */
   public void setDate(LocalDate date) {
     // CONVERT LocalDate args into MS DateFromat String
     Instant instant = date.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
@@ -160,6 +204,12 @@ public class Receipt {
     this.date = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
   }
 
+  /**
+   * contact
+   *
+   * @param contact Contact
+   * @return Receipt
+   */
   public Receipt contact(Contact contact) {
     this.contact = contact;
     return this;
@@ -171,19 +221,41 @@ public class Receipt {
    * @return contact
    */
   @ApiModelProperty(value = "")
+  /**
+   * contact
+   *
+   * @return contact Contact
+   */
   public Contact getContact() {
     return contact;
   }
 
+  /**
+   * contact
+   *
+   * @param contact Contact
+   */
   public void setContact(Contact contact) {
     this.contact = contact;
   }
 
+  /**
+   * lineItems
+   *
+   * @param lineItems List&lt;LineItem&gt;
+   * @return Receipt
+   */
   public Receipt lineItems(List<LineItem> lineItems) {
     this.lineItems = lineItems;
     return this;
   }
 
+  /**
+   * lineItems
+   *
+   * @param lineItemsItem LineItem
+   * @return Receipt
+   */
   public Receipt addLineItemsItem(LineItem lineItemsItem) {
     if (this.lineItems == null) {
       this.lineItems = new ArrayList<LineItem>();
@@ -198,14 +270,30 @@ public class Receipt {
    * @return lineItems
    */
   @ApiModelProperty(value = "")
+  /**
+   * lineItems
+   *
+   * @return lineItems List<LineItem>
+   */
   public List<LineItem> getLineItems() {
     return lineItems;
   }
 
+  /**
+   * lineItems
+   *
+   * @param lineItems List&lt;LineItem&gt;
+   */
   public void setLineItems(List<LineItem> lineItems) {
     this.lineItems = lineItems;
   }
 
+  /**
+   * user
+   *
+   * @param user User
+   * @return Receipt
+   */
   public Receipt user(User user) {
     this.user = user;
     return this;
@@ -217,14 +305,30 @@ public class Receipt {
    * @return user
    */
   @ApiModelProperty(value = "")
+  /**
+   * user
+   *
+   * @return user User
+   */
   public User getUser() {
     return user;
   }
 
+  /**
+   * user
+   *
+   * @param user User
+   */
   public void setUser(User user) {
     this.user = user;
   }
 
+  /**
+   * Additional reference number
+   *
+   * @param reference String
+   * @return Receipt
+   */
   public Receipt reference(String reference) {
     this.reference = reference;
     return this;
@@ -236,14 +340,30 @@ public class Receipt {
    * @return reference
    */
   @ApiModelProperty(value = "Additional reference number")
+  /**
+   * Additional reference number
+   *
+   * @return reference String
+   */
   public String getReference() {
     return reference;
   }
 
+  /**
+   * Additional reference number
+   *
+   * @param reference String
+   */
   public void setReference(String reference) {
     this.reference = reference;
   }
 
+  /**
+   * lineAmountTypes
+   *
+   * @param lineAmountTypes LineAmountTypes
+   * @return Receipt
+   */
   public Receipt lineAmountTypes(LineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
     return this;
@@ -255,14 +375,30 @@ public class Receipt {
    * @return lineAmountTypes
    */
   @ApiModelProperty(value = "")
+  /**
+   * lineAmountTypes
+   *
+   * @return lineAmountTypes LineAmountTypes
+   */
   public LineAmountTypes getLineAmountTypes() {
     return lineAmountTypes;
   }
 
+  /**
+   * lineAmountTypes
+   *
+   * @param lineAmountTypes LineAmountTypes
+   */
   public void setLineAmountTypes(LineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
   }
 
+  /**
+   * Total of receipt excluding taxes
+   *
+   * @param subTotal Double
+   * @return Receipt
+   */
   public Receipt subTotal(Double subTotal) {
     this.subTotal = subTotal;
     return this;
@@ -274,14 +410,30 @@ public class Receipt {
    * @return subTotal
    */
   @ApiModelProperty(value = "Total of receipt excluding taxes")
+  /**
+   * Total of receipt excluding taxes
+   *
+   * @return subTotal Double
+   */
   public Double getSubTotal() {
     return subTotal;
   }
 
+  /**
+   * Total of receipt excluding taxes
+   *
+   * @param subTotal Double
+   */
   public void setSubTotal(Double subTotal) {
     this.subTotal = subTotal;
   }
 
+  /**
+   * Total tax on receipt
+   *
+   * @param totalTax Double
+   * @return Receipt
+   */
   public Receipt totalTax(Double totalTax) {
     this.totalTax = totalTax;
     return this;
@@ -293,14 +445,30 @@ public class Receipt {
    * @return totalTax
    */
   @ApiModelProperty(value = "Total tax on receipt")
+  /**
+   * Total tax on receipt
+   *
+   * @return totalTax Double
+   */
   public Double getTotalTax() {
     return totalTax;
   }
 
+  /**
+   * Total tax on receipt
+   *
+   * @param totalTax Double
+   */
   public void setTotalTax(Double totalTax) {
     this.totalTax = totalTax;
   }
 
+  /**
+   * Total of receipt tax inclusive (i.e. SubTotal + TotalTax)
+   *
+   * @param total Double
+   * @return Receipt
+   */
   public Receipt total(Double total) {
     this.total = total;
     return this;
@@ -312,14 +480,30 @@ public class Receipt {
    * @return total
    */
   @ApiModelProperty(value = "Total of receipt tax inclusive (i.e. SubTotal + TotalTax)")
+  /**
+   * Total of receipt tax inclusive (i.e. SubTotal + TotalTax)
+   *
+   * @return total Double
+   */
   public Double getTotal() {
     return total;
   }
 
+  /**
+   * Total of receipt tax inclusive (i.e. SubTotal + TotalTax)
+   *
+   * @param total Double
+   */
   public void setTotal(Double total) {
     this.total = total;
   }
 
+  /**
+   * Xero generated unique identifier for receipt
+   *
+   * @param receiptID UUID
+   * @return Receipt
+   */
   public Receipt receiptID(UUID receiptID) {
     this.receiptID = receiptID;
     return this;
@@ -331,14 +515,30 @@ public class Receipt {
    * @return receiptID
    */
   @ApiModelProperty(value = "Xero generated unique identifier for receipt")
+  /**
+   * Xero generated unique identifier for receipt
+   *
+   * @return receiptID UUID
+   */
   public UUID getReceiptID() {
     return receiptID;
   }
 
+  /**
+   * Xero generated unique identifier for receipt
+   *
+   * @param receiptID UUID
+   */
   public void setReceiptID(UUID receiptID) {
     this.receiptID = receiptID;
   }
 
+  /**
+   * Current status of receipt – see status types
+   *
+   * @param status StatusEnum
+   * @return Receipt
+   */
   public Receipt status(StatusEnum status) {
     this.status = status;
     return this;
@@ -350,10 +550,20 @@ public class Receipt {
    * @return status
    */
   @ApiModelProperty(value = "Current status of receipt – see status types")
+  /**
+   * Current status of receipt – see status types
+   *
+   * @return status StatusEnum
+   */
   public StatusEnum getStatus() {
     return status;
   }
 
+  /**
+   * Current status of receipt – see status types
+   *
+   * @param status StatusEnum
+   */
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
@@ -365,6 +575,11 @@ public class Receipt {
    */
   @ApiModelProperty(
       value = "Xero generated sequence number for receipt in current claim for a given user")
+  /**
+   * Xero generated sequence number for receipt in current claim for a given user
+   *
+   * @return receiptNumber String
+   */
   public String getReceiptNumber() {
     return receiptNumber;
   }
@@ -375,10 +590,19 @@ public class Receipt {
    * @return updatedDateUTC
    */
   @ApiModelProperty(example = "/Date(1573755038314)/", value = "Last modified date UTC format")
+  /**
+   * Last modified date UTC format
+   *
+   * @return updatedDateUTC String
+   */
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-
+  /**
+   * Last modified date UTC format
+   *
+   * @return OffsetDateTime
+   */
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
@@ -396,6 +620,11 @@ public class Receipt {
    * @return hasAttachments
    */
   @ApiModelProperty(example = "false", value = "boolean to indicate if a receipt has an attachment")
+  /**
+   * boolean to indicate if a receipt has an attachment
+   *
+   * @return hasAttachments Boolean
+   */
   public Boolean getHasAttachments() {
     return hasAttachments;
   }
@@ -407,15 +636,32 @@ public class Receipt {
    */
   @ApiModelProperty(
       value = "URL link to a source document – shown as “Go to [appName]” in the Xero app")
+  /**
+   * URL link to a source document – shown as “Go to [appName]” in the Xero app
+   *
+   * @return url String
+   */
   public String getUrl() {
     return url;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrors List&lt;ValidationError&gt;
+   * @return Receipt
+   */
   public Receipt validationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
     return this;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrorsItem ValidationError
+   * @return Receipt
+   */
   public Receipt addValidationErrorsItem(ValidationError validationErrorsItem) {
     if (this.validationErrors == null) {
       this.validationErrors = new ArrayList<ValidationError>();
@@ -430,19 +676,41 @@ public class Receipt {
    * @return validationErrors
    */
   @ApiModelProperty(value = "Displays array of validation error messages from the API")
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @return validationErrors List<ValidationError>
+   */
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrors List&lt;ValidationError&gt;
+   */
   public void setValidationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
   }
 
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warnings List&lt;ValidationError&gt;
+   * @return Receipt
+   */
   public Receipt warnings(List<ValidationError> warnings) {
     this.warnings = warnings;
     return this;
   }
 
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warningsItem ValidationError
+   * @return Receipt
+   */
   public Receipt addWarningsItem(ValidationError warningsItem) {
     if (this.warnings == null) {
       this.warnings = new ArrayList<ValidationError>();
@@ -457,19 +725,41 @@ public class Receipt {
    * @return warnings
    */
   @ApiModelProperty(value = "Displays array of warning messages from the API")
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @return warnings List<ValidationError>
+   */
   public List<ValidationError> getWarnings() {
     return warnings;
   }
 
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warnings List&lt;ValidationError&gt;
+   */
   public void setWarnings(List<ValidationError> warnings) {
     this.warnings = warnings;
   }
 
+  /**
+   * Displays array of attachments from the API
+   *
+   * @param attachments List&lt;Attachment&gt;
+   * @return Receipt
+   */
   public Receipt attachments(List<Attachment> attachments) {
     this.attachments = attachments;
     return this;
   }
 
+  /**
+   * Displays array of attachments from the API
+   *
+   * @param attachmentsItem Attachment
+   * @return Receipt
+   */
   public Receipt addAttachmentsItem(Attachment attachmentsItem) {
     if (this.attachments == null) {
       this.attachments = new ArrayList<Attachment>();
@@ -484,10 +774,20 @@ public class Receipt {
    * @return attachments
    */
   @ApiModelProperty(value = "Displays array of attachments from the API")
+  /**
+   * Displays array of attachments from the API
+   *
+   * @return attachments List<Attachment>
+   */
   public List<Attachment> getAttachments() {
     return attachments;
   }
 
+  /**
+   * Displays array of attachments from the API
+   *
+   * @param attachments List&lt;Attachment&gt;
+   */
   public void setAttachments(List<Attachment> attachments) {
     this.attachments = attachments;
   }

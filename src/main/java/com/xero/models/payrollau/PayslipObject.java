@@ -22,7 +22,12 @@ public class PayslipObject {
 
   @JsonProperty("Payslip")
   private Payslip payslip;
-
+  /**
+   * payslip
+   *
+   * @param payslip Payslip
+   * @return PayslipObject
+   */
   public PayslipObject payslip(Payslip payslip) {
     this.payslip = payslip;
     return this;
@@ -34,10 +39,20 @@ public class PayslipObject {
    * @return payslip
    */
   @ApiModelProperty(value = "")
+  /**
+   * payslip
+   *
+   * @return payslip Payslip
+   */
   public Payslip getPayslip() {
     return payslip;
   }
 
+  /**
+   * payslip
+   *
+   * @param payslip Payslip
+   */
   public void setPayslip(Payslip payslip) {
     this.payslip = payslip;
   }

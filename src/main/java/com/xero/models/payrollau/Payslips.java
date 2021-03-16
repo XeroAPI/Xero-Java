@@ -24,12 +24,23 @@ public class Payslips {
 
   @JsonProperty("Payslips")
   private List<Payslip> payslips = new ArrayList<Payslip>();
-
+  /**
+   * payslips
+   *
+   * @param payslips List&lt;Payslip&gt;
+   * @return Payslips
+   */
   public Payslips payslips(List<Payslip> payslips) {
     this.payslips = payslips;
     return this;
   }
 
+  /**
+   * payslips
+   *
+   * @param payslipsItem Payslip
+   * @return Payslips
+   */
   public Payslips addPayslipsItem(Payslip payslipsItem) {
     if (this.payslips == null) {
       this.payslips = new ArrayList<Payslip>();
@@ -44,10 +55,20 @@ public class Payslips {
    * @return payslips
    */
   @ApiModelProperty(value = "")
+  /**
+   * payslips
+   *
+   * @return payslips List<Payslip>
+   */
   public List<Payslip> getPayslips() {
     return payslips;
   }
 
+  /**
+   * payslips
+   *
+   * @param payslips List&lt;Payslip&gt;
+   */
   public void setPayslips(List<Payslip> payslips) {
     this.payslips = payslips;
   }

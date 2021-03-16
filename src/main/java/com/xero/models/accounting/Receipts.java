@@ -24,12 +24,23 @@ public class Receipts {
 
   @JsonProperty("Receipts")
   private List<Receipt> receipts = new ArrayList<Receipt>();
-
+  /**
+   * receipts
+   *
+   * @param receipts List&lt;Receipt&gt;
+   * @return Receipts
+   */
   public Receipts receipts(List<Receipt> receipts) {
     this.receipts = receipts;
     return this;
   }
 
+  /**
+   * receipts
+   *
+   * @param receiptsItem Receipt
+   * @return Receipts
+   */
   public Receipts addReceiptsItem(Receipt receiptsItem) {
     if (this.receipts == null) {
       this.receipts = new ArrayList<Receipt>();
@@ -44,10 +55,20 @@ public class Receipts {
    * @return receipts
    */
   @ApiModelProperty(value = "")
+  /**
+   * receipts
+   *
+   * @return receipts List<Receipt>
+   */
   public List<Receipt> getReceipts() {
     return receipts;
   }
 
+  /**
+   * receipts
+   *
+   * @param receipts List&lt;Receipt&gt;
+   */
   public void setReceipts(List<Receipt> receipts) {
     this.receipts = receipts;
   }

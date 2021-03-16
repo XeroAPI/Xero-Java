@@ -27,18 +27,25 @@ public class Account {
   private UUID accountID;
   /** The assigned AccountType */
   public enum TypeEnum {
+    /** BANK */
     BANK("BANK"),
 
+    /** EMPLOYERSNIC */
     EMPLOYERSNIC("EMPLOYERSNIC"),
 
+    /** NICLIABILITY */
     NICLIABILITY("NICLIABILITY"),
 
+    /** PAYEECONTRIBUTION */
     PAYEECONTRIBUTION("PAYEECONTRIBUTION"),
 
+    /** PAYELIABILITY */
     PAYELIABILITY("PAYELIABILITY"),
 
+    /** WAGESPAYABLE */
     WAGESPAYABLE("WAGESPAYABLE"),
 
+    /** WAGESEXPENSE */
     WAGESEXPENSE("WAGESEXPENSE");
 
     private String value;
@@ -47,16 +54,31 @@ public class Account {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static TypeEnum fromValue(String value) {
       for (TypeEnum b : TypeEnum.values()) {
@@ -76,7 +98,12 @@ public class Account {
 
   @JsonProperty("name")
   private String name;
-
+  /**
+   * The Xero identifier for Settings.
+   *
+   * @param accountID UUID
+   * @return Account
+   */
   public Account accountID(UUID accountID) {
     this.accountID = accountID;
     return this;
@@ -88,14 +115,30 @@ public class Account {
    * @return accountID
    */
   @ApiModelProperty(value = "The Xero identifier for Settings.")
+  /**
+   * The Xero identifier for Settings.
+   *
+   * @return accountID UUID
+   */
   public UUID getAccountID() {
     return accountID;
   }
 
+  /**
+   * The Xero identifier for Settings.
+   *
+   * @param accountID UUID
+   */
   public void setAccountID(UUID accountID) {
     this.accountID = accountID;
   }
 
+  /**
+   * The assigned AccountType
+   *
+   * @param type TypeEnum
+   * @return Account
+   */
   public Account type(TypeEnum type) {
     this.type = type;
     return this;
@@ -107,14 +150,30 @@ public class Account {
    * @return type
    */
   @ApiModelProperty(value = "The assigned AccountType")
+  /**
+   * The assigned AccountType
+   *
+   * @return type TypeEnum
+   */
   public TypeEnum getType() {
     return type;
   }
 
+  /**
+   * The assigned AccountType
+   *
+   * @param type TypeEnum
+   */
   public void setType(TypeEnum type) {
     this.type = type;
   }
 
+  /**
+   * A unique 3 digit number for each Account
+   *
+   * @param code String
+   * @return Account
+   */
   public Account code(String code) {
     this.code = code;
     return this;
@@ -126,14 +185,30 @@ public class Account {
    * @return code
    */
   @ApiModelProperty(value = "A unique 3 digit number for each Account")
+  /**
+   * A unique 3 digit number for each Account
+   *
+   * @return code String
+   */
   public String getCode() {
     return code;
   }
 
+  /**
+   * A unique 3 digit number for each Account
+   *
+   * @param code String
+   */
   public void setCode(String code) {
     this.code = code;
   }
 
+  /**
+   * Name of the Account.
+   *
+   * @param name String
+   * @return Account
+   */
   public Account name(String name) {
     this.name = name;
     return this;
@@ -145,10 +220,20 @@ public class Account {
    * @return name
    */
   @ApiModelProperty(value = "Name of the Account.")
+  /**
+   * Name of the Account.
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Name of the Account.
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }

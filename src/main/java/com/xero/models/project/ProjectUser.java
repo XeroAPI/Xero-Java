@@ -29,7 +29,12 @@ public class ProjectUser {
 
   @JsonProperty("email")
   private String email;
-
+  /**
+   * Identifier of the user of the project.
+   *
+   * @param userId UUID
+   * @return ProjectUser
+   */
   public ProjectUser userId(UUID userId) {
     this.userId = userId;
     return this;
@@ -43,14 +48,30 @@ public class ProjectUser {
   @ApiModelProperty(
       example = "254553fa-2be8-4991-bd5e-70a97ea12ef8",
       value = "Identifier of the user of the project.")
+  /**
+   * Identifier of the user of the project.
+   *
+   * @return userId UUID
+   */
   public UUID getUserId() {
     return userId;
   }
 
+  /**
+   * Identifier of the user of the project.
+   *
+   * @param userId UUID
+   */
   public void setUserId(UUID userId) {
     this.userId = userId;
   }
 
+  /**
+   * Full name of the user.
+   *
+   * @param name String
+   * @return ProjectUser
+   */
   public ProjectUser name(String name) {
     this.name = name;
     return this;
@@ -62,14 +83,30 @@ public class ProjectUser {
    * @return name
    */
   @ApiModelProperty(example = "Sidney Allen", value = "Full name of the user.")
+  /**
+   * Full name of the user.
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Full name of the user.
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * Email address of the user.
+   *
+   * @param email String
+   * @return ProjectUser
+   */
   public ProjectUser email(String email) {
     this.email = email;
     return this;
@@ -81,10 +118,20 @@ public class ProjectUser {
    * @return email
    */
   @ApiModelProperty(example = "sidneyallen@xero.com", value = "Email address of the user.")
+  /**
+   * Email address of the user.
+   *
+   * @return email String
+   */
   public String getEmail() {
     return email;
   }
 
+  /**
+   * Email address of the user.
+   *
+   * @param email String
+   */
   public void setEmail(String email) {
     this.email = email;
   }

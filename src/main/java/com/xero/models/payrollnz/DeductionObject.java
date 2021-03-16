@@ -28,7 +28,12 @@ public class DeductionObject {
 
   @JsonProperty("deduction")
   private Deduction deduction;
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return DeductionObject
+   */
   public DeductionObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -40,14 +45,30 @@ public class DeductionObject {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return DeductionObject
+   */
   public DeductionObject problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -59,14 +80,30 @@ public class DeductionObject {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * deduction
+   *
+   * @param deduction Deduction
+   * @return DeductionObject
+   */
   public DeductionObject deduction(Deduction deduction) {
     this.deduction = deduction;
     return this;
@@ -78,10 +115,20 @@ public class DeductionObject {
    * @return deduction
    */
   @ApiModelProperty(value = "")
+  /**
+   * deduction
+   *
+   * @return deduction Deduction
+   */
   public Deduction getDeduction() {
     return deduction;
   }
 
+  /**
+   * deduction
+   *
+   * @param deduction Deduction
+   */
   public void setDeduction(Deduction deduction) {
     this.deduction = deduction;
   }

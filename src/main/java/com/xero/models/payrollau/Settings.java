@@ -30,12 +30,25 @@ public class Settings {
 
   @JsonProperty("DaysInPayrollYear")
   private Integer daysInPayrollYear;
-
+  /**
+   * Payroll Account details for SuperExpense, SuperLiabilty, WagesExpense, PAYGLiability &amp;
+   * WagesPayable.
+   *
+   * @param accounts List&lt;Account&gt;
+   * @return Settings
+   */
   public Settings accounts(List<Account> accounts) {
     this.accounts = accounts;
     return this;
   }
 
+  /**
+   * Payroll Account details for SuperExpense, SuperLiabilty, WagesExpense, PAYGLiability &amp;
+   * WagesPayable.
+   *
+   * @param accountsItem Account
+   * @return Settings
+   */
   public Settings addAccountsItem(Account accountsItem) {
     if (this.accounts == null) {
       this.accounts = new ArrayList<Account>();
@@ -54,14 +67,32 @@ public class Settings {
       value =
           "Payroll Account details for SuperExpense, SuperLiabilty, WagesExpense, PAYGLiability &"
               + " WagesPayable.")
+  /**
+   * Payroll Account details for SuperExpense, SuperLiabilty, WagesExpense, PAYGLiability &amp;
+   * WagesPayable.
+   *
+   * @return accounts List<Account>
+   */
   public List<Account> getAccounts() {
     return accounts;
   }
 
+  /**
+   * Payroll Account details for SuperExpense, SuperLiabilty, WagesExpense, PAYGLiability &amp;
+   * WagesPayable.
+   *
+   * @param accounts List&lt;Account&gt;
+   */
   public void setAccounts(List<Account> accounts) {
     this.accounts = accounts;
   }
 
+  /**
+   * trackingCategories
+   *
+   * @param trackingCategories SettingsTrackingCategories
+   * @return Settings
+   */
   public Settings trackingCategories(SettingsTrackingCategories trackingCategories) {
     this.trackingCategories = trackingCategories;
     return this;
@@ -73,14 +104,30 @@ public class Settings {
    * @return trackingCategories
    */
   @ApiModelProperty(value = "")
+  /**
+   * trackingCategories
+   *
+   * @return trackingCategories SettingsTrackingCategories
+   */
   public SettingsTrackingCategories getTrackingCategories() {
     return trackingCategories;
   }
 
+  /**
+   * trackingCategories
+   *
+   * @param trackingCategories SettingsTrackingCategories
+   */
   public void setTrackingCategories(SettingsTrackingCategories trackingCategories) {
     this.trackingCategories = trackingCategories;
   }
 
+  /**
+   * Number of days in the Payroll year
+   *
+   * @param daysInPayrollYear Integer
+   * @return Settings
+   */
   public Settings daysInPayrollYear(Integer daysInPayrollYear) {
     this.daysInPayrollYear = daysInPayrollYear;
     return this;
@@ -92,10 +139,20 @@ public class Settings {
    * @return daysInPayrollYear
    */
   @ApiModelProperty(example = "365", value = "Number of days in the Payroll year")
+  /**
+   * Number of days in the Payroll year
+   *
+   * @return daysInPayrollYear Integer
+   */
   public Integer getDaysInPayrollYear() {
     return daysInPayrollYear;
   }
 
+  /**
+   * Number of days in the Payroll year
+   *
+   * @param daysInPayrollYear Integer
+   */
   public void setDaysInPayrollYear(Integer daysInPayrollYear) {
     this.daysInPayrollYear = daysInPayrollYear;
   }

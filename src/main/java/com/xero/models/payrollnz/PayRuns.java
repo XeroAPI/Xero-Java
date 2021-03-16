@@ -30,7 +30,12 @@ public class PayRuns {
 
   @JsonProperty("payRuns")
   private List<PayRun> payRuns = new ArrayList<PayRun>();
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return PayRuns
+   */
   public PayRuns pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -42,14 +47,30 @@ public class PayRuns {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return PayRuns
+   */
   public PayRuns problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -61,19 +82,41 @@ public class PayRuns {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * payRuns
+   *
+   * @param payRuns List&lt;PayRun&gt;
+   * @return PayRuns
+   */
   public PayRuns payRuns(List<PayRun> payRuns) {
     this.payRuns = payRuns;
     return this;
   }
 
+  /**
+   * payRuns
+   *
+   * @param payRunsItem PayRun
+   * @return PayRuns
+   */
   public PayRuns addPayRunsItem(PayRun payRunsItem) {
     if (this.payRuns == null) {
       this.payRuns = new ArrayList<PayRun>();
@@ -88,10 +131,20 @@ public class PayRuns {
    * @return payRuns
    */
   @ApiModelProperty(value = "")
+  /**
+   * payRuns
+   *
+   * @return payRuns List<PayRun>
+   */
   public List<PayRun> getPayRuns() {
     return payRuns;
   }
 
+  /**
+   * payRuns
+   *
+   * @param payRuns List&lt;PayRun&gt;
+   */
   public void setPayRuns(List<PayRun> payRuns) {
     this.payRuns = payRuns;
   }

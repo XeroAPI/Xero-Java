@@ -30,7 +30,12 @@ public class Employment {
 
   @JsonProperty("startDate")
   private LocalDate startDate;
-
+  /**
+   * Xero unique identifier for the payroll calendar of the employee
+   *
+   * @param payrollCalendarID UUID
+   * @return Employment
+   */
   public Employment payrollCalendarID(UUID payrollCalendarID) {
     this.payrollCalendarID = payrollCalendarID;
     return this;
@@ -42,14 +47,30 @@ public class Employment {
    * @return payrollCalendarID
    */
   @ApiModelProperty(value = "Xero unique identifier for the payroll calendar of the employee")
+  /**
+   * Xero unique identifier for the payroll calendar of the employee
+   *
+   * @return payrollCalendarID UUID
+   */
   public UUID getPayrollCalendarID() {
     return payrollCalendarID;
   }
 
+  /**
+   * Xero unique identifier for the payroll calendar of the employee
+   *
+   * @param payrollCalendarID UUID
+   */
   public void setPayrollCalendarID(UUID payrollCalendarID) {
     this.payrollCalendarID = payrollCalendarID;
   }
 
+  /**
+   * Xero unique identifier for the payrun calendar for the employee (Deprecated in version 1.1.6)
+   *
+   * @param payRunCalendarID UUID
+   * @return Employment
+   */
   public Employment payRunCalendarID(UUID payRunCalendarID) {
     this.payRunCalendarID = payRunCalendarID;
     return this;
@@ -64,14 +85,30 @@ public class Employment {
       value =
           "Xero unique identifier for the payrun calendar for the employee (Deprecated in version"
               + " 1.1.6)")
+  /**
+   * Xero unique identifier for the payrun calendar for the employee (Deprecated in version 1.1.6)
+   *
+   * @return payRunCalendarID UUID
+   */
   public UUID getPayRunCalendarID() {
     return payRunCalendarID;
   }
 
+  /**
+   * Xero unique identifier for the payrun calendar for the employee (Deprecated in version 1.1.6)
+   *
+   * @param payRunCalendarID UUID
+   */
   public void setPayRunCalendarID(UUID payRunCalendarID) {
     this.payRunCalendarID = payRunCalendarID;
   }
 
+  /**
+   * Start date of the employment (YYYY-MM-DD)
+   *
+   * @param startDate LocalDate
+   * @return Employment
+   */
   public Employment startDate(LocalDate startDate) {
     this.startDate = startDate;
     return this;
@@ -83,10 +120,20 @@ public class Employment {
    * @return startDate
    */
   @ApiModelProperty(value = "Start date of the employment (YYYY-MM-DD)")
+  /**
+   * Start date of the employment (YYYY-MM-DD)
+   *
+   * @return startDate LocalDate
+   */
   public LocalDate getStartDate() {
     return startDate;
   }
 
+  /**
+   * Start date of the employment (YYYY-MM-DD)
+   *
+   * @param startDate LocalDate
+   */
   public void setStartDate(LocalDate startDate) {
     this.startDate = startDate;
   }

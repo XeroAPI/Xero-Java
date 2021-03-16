@@ -20,10 +20,14 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * Types
  */
 public enum LineAmountTypes {
+
+  /** EXCLUSIVE */
   EXCLUSIVE("Exclusive"),
 
+  /** INCLUSIVE */
   INCLUSIVE("Inclusive"),
 
+  /** NOTAX */
   NOTAX("NoTax");
 
   private String value;
@@ -32,16 +36,27 @@ public enum LineAmountTypes {
     this.value = value;
   }
 
+  /** @return String value */
   @JsonValue
   public String getValue() {
     return value;
   }
 
+  /**
+   * toString
+   *
+   * @return String value
+   */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
+  /**
+   * fromValue
+   *
+   * @param value String
+   */
   @JsonCreator
   public static LineAmountTypes fromValue(String value) {
     for (LineAmountTypes b : LineAmountTypes.values()) {

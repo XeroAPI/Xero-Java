@@ -24,12 +24,23 @@ public class TaxRates {
 
   @JsonProperty("TaxRates")
   private List<TaxRate> taxRates = new ArrayList<TaxRate>();
-
+  /**
+   * taxRates
+   *
+   * @param taxRates List&lt;TaxRate&gt;
+   * @return TaxRates
+   */
   public TaxRates taxRates(List<TaxRate> taxRates) {
     this.taxRates = taxRates;
     return this;
   }
 
+  /**
+   * taxRates
+   *
+   * @param taxRatesItem TaxRate
+   * @return TaxRates
+   */
   public TaxRates addTaxRatesItem(TaxRate taxRatesItem) {
     if (this.taxRates == null) {
       this.taxRates = new ArrayList<TaxRate>();
@@ -44,10 +55,20 @@ public class TaxRates {
    * @return taxRates
    */
   @ApiModelProperty(value = "")
+  /**
+   * taxRates
+   *
+   * @return taxRates List<TaxRate>
+   */
   public List<TaxRate> getTaxRates() {
     return taxRates;
   }
 
+  /**
+   * taxRates
+   *
+   * @param taxRates List&lt;TaxRate&gt;
+   */
   public void setTaxRates(List<TaxRate> taxRates) {
     this.taxRates = taxRates;
   }

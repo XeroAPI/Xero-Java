@@ -30,8 +30,10 @@ public class Benefit {
   private String name;
   /** Category type of the employer pension */
   public enum CategoryEnum {
+    /** STAKEHOLDERPENSION */
     STAKEHOLDERPENSION("StakeholderPension"),
 
+    /** OTHER */
     OTHER("Other");
 
     private String value;
@@ -40,16 +42,31 @@ public class Benefit {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static CategoryEnum fromValue(String value) {
       for (CategoryEnum b : CategoryEnum.values()) {
@@ -77,8 +94,10 @@ public class Benefit {
   private Double percentage;
   /** Calculation Type of the employer pension (FixedAmount or PercentageOfGross). */
   public enum CalculationTypeEnum {
+    /** FIXEDAMOUNT */
     FIXEDAMOUNT("FixedAmount"),
 
+    /** PERCENTAGEOFGROSS */
     PERCENTAGEOFGROSS("PercentageOfGross");
 
     private String value;
@@ -87,16 +106,31 @@ public class Benefit {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static CalculationTypeEnum fromValue(String value) {
       for (CalculationTypeEnum b : CalculationTypeEnum.values()) {
@@ -128,7 +162,12 @@ public class Benefit {
 
   @JsonProperty("showBalanceToEmployee")
   private Boolean showBalanceToEmployee;
-
+  /**
+   * unique identifier in Xero
+   *
+   * @param id UUID
+   * @return Benefit
+   */
   public Benefit id(UUID id) {
     this.id = id;
     return this;
@@ -140,14 +179,30 @@ public class Benefit {
    * @return id
    */
   @ApiModelProperty(value = "unique identifier in Xero")
+  /**
+   * unique identifier in Xero
+   *
+   * @return id UUID
+   */
   public UUID getId() {
     return id;
   }
 
+  /**
+   * unique identifier in Xero
+   *
+   * @param id UUID
+   */
   public void setId(UUID id) {
     this.id = id;
   }
 
+  /**
+   * Name of the employer pension
+   *
+   * @param name String
+   * @return Benefit
+   */
   public Benefit name(String name) {
     this.name = name;
     return this;
@@ -159,14 +214,30 @@ public class Benefit {
    * @return name
    */
   @ApiModelProperty(required = true, value = "Name of the employer pension")
+  /**
+   * Name of the employer pension
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Name of the employer pension
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * Category type of the employer pension
+   *
+   * @param category CategoryEnum
+   * @return Benefit
+   */
   public Benefit category(CategoryEnum category) {
     this.category = category;
     return this;
@@ -178,14 +249,30 @@ public class Benefit {
    * @return category
    */
   @ApiModelProperty(required = true, value = "Category type of the employer pension")
+  /**
+   * Category type of the employer pension
+   *
+   * @return category CategoryEnum
+   */
   public CategoryEnum getCategory() {
     return category;
   }
 
+  /**
+   * Category type of the employer pension
+   *
+   * @param category CategoryEnum
+   */
   public void setCategory(CategoryEnum category) {
     this.category = category;
   }
 
+  /**
+   * Xero identifier for Liability Account
+   *
+   * @param liabilityAccountId UUID
+   * @return Benefit
+   */
   public Benefit liabilityAccountId(UUID liabilityAccountId) {
     this.liabilityAccountId = liabilityAccountId;
     return this;
@@ -197,14 +284,30 @@ public class Benefit {
    * @return liabilityAccountId
    */
   @ApiModelProperty(required = true, value = "Xero identifier for Liability Account")
+  /**
+   * Xero identifier for Liability Account
+   *
+   * @return liabilityAccountId UUID
+   */
   public UUID getLiabilityAccountId() {
     return liabilityAccountId;
   }
 
+  /**
+   * Xero identifier for Liability Account
+   *
+   * @param liabilityAccountId UUID
+   */
   public void setLiabilityAccountId(UUID liabilityAccountId) {
     this.liabilityAccountId = liabilityAccountId;
   }
 
+  /**
+   * Xero identifier for Expense Account
+   *
+   * @param expenseAccountId UUID
+   * @return Benefit
+   */
   public Benefit expenseAccountId(UUID expenseAccountId) {
     this.expenseAccountId = expenseAccountId;
     return this;
@@ -216,14 +319,30 @@ public class Benefit {
    * @return expenseAccountId
    */
   @ApiModelProperty(required = true, value = "Xero identifier for Expense Account")
+  /**
+   * Xero identifier for Expense Account
+   *
+   * @return expenseAccountId UUID
+   */
   public UUID getExpenseAccountId() {
     return expenseAccountId;
   }
 
+  /**
+   * Xero identifier for Expense Account
+   *
+   * @param expenseAccountId UUID
+   */
   public void setExpenseAccountId(UUID expenseAccountId) {
     this.expenseAccountId = expenseAccountId;
   }
 
+  /**
+   * Standard amount of the employer pension
+   *
+   * @param standardAmount Double
+   * @return Benefit
+   */
   public Benefit standardAmount(Double standardAmount) {
     this.standardAmount = standardAmount;
     return this;
@@ -235,14 +354,30 @@ public class Benefit {
    * @return standardAmount
    */
   @ApiModelProperty(value = "Standard amount of the employer pension")
+  /**
+   * Standard amount of the employer pension
+   *
+   * @return standardAmount Double
+   */
   public Double getStandardAmount() {
     return standardAmount;
   }
 
+  /**
+   * Standard amount of the employer pension
+   *
+   * @param standardAmount Double
+   */
   public void setStandardAmount(Double standardAmount) {
     this.standardAmount = standardAmount;
   }
 
+  /**
+   * Percentage of gross of the employer pension
+   *
+   * @param percentage Double
+   * @return Benefit
+   */
   public Benefit percentage(Double percentage) {
     this.percentage = percentage;
     return this;
@@ -254,14 +389,30 @@ public class Benefit {
    * @return percentage
    */
   @ApiModelProperty(required = true, value = "Percentage of gross of the employer pension")
+  /**
+   * Percentage of gross of the employer pension
+   *
+   * @return percentage Double
+   */
   public Double getPercentage() {
     return percentage;
   }
 
+  /**
+   * Percentage of gross of the employer pension
+   *
+   * @param percentage Double
+   */
   public void setPercentage(Double percentage) {
     this.percentage = percentage;
   }
 
+  /**
+   * Calculation Type of the employer pension (FixedAmount or PercentageOfGross).
+   *
+   * @param calculationType CalculationTypeEnum
+   * @return Benefit
+   */
   public Benefit calculationType(CalculationTypeEnum calculationType) {
     this.calculationType = calculationType;
     return this;
@@ -275,14 +426,30 @@ public class Benefit {
   @ApiModelProperty(
       required = true,
       value = "Calculation Type of the employer pension (FixedAmount or PercentageOfGross).")
+  /**
+   * Calculation Type of the employer pension (FixedAmount or PercentageOfGross).
+   *
+   * @return calculationType CalculationTypeEnum
+   */
   public CalculationTypeEnum getCalculationType() {
     return calculationType;
   }
 
+  /**
+   * Calculation Type of the employer pension (FixedAmount or PercentageOfGross).
+   *
+   * @param calculationType CalculationTypeEnum
+   */
   public void setCalculationType(CalculationTypeEnum calculationType) {
     this.calculationType = calculationType;
   }
 
+  /**
+   * Identifier of a record is active or not.
+   *
+   * @param currentRecord Boolean
+   * @return Benefit
+   */
   public Benefit currentRecord(Boolean currentRecord) {
     this.currentRecord = currentRecord;
     return this;
@@ -294,14 +461,30 @@ public class Benefit {
    * @return currentRecord
    */
   @ApiModelProperty(value = "Identifier of a record is active or not.")
+  /**
+   * Identifier of a record is active or not.
+   *
+   * @return currentRecord Boolean
+   */
   public Boolean getCurrentRecord() {
     return currentRecord;
   }
 
+  /**
+   * Identifier of a record is active or not.
+   *
+   * @param currentRecord Boolean
+   */
   public void setCurrentRecord(Boolean currentRecord) {
     this.currentRecord = currentRecord;
   }
 
+  /**
+   * Identifier of subject To NIC
+   *
+   * @param subjectToNIC Boolean
+   * @return Benefit
+   */
   public Benefit subjectToNIC(Boolean subjectToNIC) {
     this.subjectToNIC = subjectToNIC;
     return this;
@@ -313,14 +496,30 @@ public class Benefit {
    * @return subjectToNIC
    */
   @ApiModelProperty(value = "Identifier of subject To NIC")
+  /**
+   * Identifier of subject To NIC
+   *
+   * @return subjectToNIC Boolean
+   */
   public Boolean getSubjectToNIC() {
     return subjectToNIC;
   }
 
+  /**
+   * Identifier of subject To NIC
+   *
+   * @param subjectToNIC Boolean
+   */
   public void setSubjectToNIC(Boolean subjectToNIC) {
     this.subjectToNIC = subjectToNIC;
   }
 
+  /**
+   * Identifier of subject To pension
+   *
+   * @param subjectToPension Boolean
+   * @return Benefit
+   */
   public Benefit subjectToPension(Boolean subjectToPension) {
     this.subjectToPension = subjectToPension;
     return this;
@@ -332,14 +531,30 @@ public class Benefit {
    * @return subjectToPension
    */
   @ApiModelProperty(value = "Identifier of subject To pension")
+  /**
+   * Identifier of subject To pension
+   *
+   * @return subjectToPension Boolean
+   */
   public Boolean getSubjectToPension() {
     return subjectToPension;
   }
 
+  /**
+   * Identifier of subject To pension
+   *
+   * @param subjectToPension Boolean
+   */
   public void setSubjectToPension(Boolean subjectToPension) {
     this.subjectToPension = subjectToPension;
   }
 
+  /**
+   * Identifier of subject To Tax
+   *
+   * @param subjectToTax Boolean
+   * @return Benefit
+   */
   public Benefit subjectToTax(Boolean subjectToTax) {
     this.subjectToTax = subjectToTax;
     return this;
@@ -351,14 +566,30 @@ public class Benefit {
    * @return subjectToTax
    */
   @ApiModelProperty(value = "Identifier of subject To Tax")
+  /**
+   * Identifier of subject To Tax
+   *
+   * @return subjectToTax Boolean
+   */
   public Boolean getSubjectToTax() {
     return subjectToTax;
   }
 
+  /**
+   * Identifier of subject To Tax
+   *
+   * @param subjectToTax Boolean
+   */
   public void setSubjectToTax(Boolean subjectToTax) {
     this.subjectToTax = subjectToTax;
   }
 
+  /**
+   * Identifier of calculating on qualifying earnings
+   *
+   * @param isCalculatingOnQualifyingEarnings Boolean
+   * @return Benefit
+   */
   public Benefit isCalculatingOnQualifyingEarnings(Boolean isCalculatingOnQualifyingEarnings) {
     this.isCalculatingOnQualifyingEarnings = isCalculatingOnQualifyingEarnings;
     return this;
@@ -370,14 +601,30 @@ public class Benefit {
    * @return isCalculatingOnQualifyingEarnings
    */
   @ApiModelProperty(value = "Identifier of calculating on qualifying earnings")
+  /**
+   * Identifier of calculating on qualifying earnings
+   *
+   * @return isCalculatingOnQualifyingEarnings Boolean
+   */
   public Boolean getIsCalculatingOnQualifyingEarnings() {
     return isCalculatingOnQualifyingEarnings;
   }
 
+  /**
+   * Identifier of calculating on qualifying earnings
+   *
+   * @param isCalculatingOnQualifyingEarnings Boolean
+   */
   public void setIsCalculatingOnQualifyingEarnings(Boolean isCalculatingOnQualifyingEarnings) {
     this.isCalculatingOnQualifyingEarnings = isCalculatingOnQualifyingEarnings;
   }
 
+  /**
+   * display the balance to employee
+   *
+   * @param showBalanceToEmployee Boolean
+   * @return Benefit
+   */
   public Benefit showBalanceToEmployee(Boolean showBalanceToEmployee) {
     this.showBalanceToEmployee = showBalanceToEmployee;
     return this;
@@ -389,10 +636,20 @@ public class Benefit {
    * @return showBalanceToEmployee
    */
   @ApiModelProperty(value = "display the balance to employee")
+  /**
+   * display the balance to employee
+   *
+   * @return showBalanceToEmployee Boolean
+   */
   public Boolean getShowBalanceToEmployee() {
     return showBalanceToEmployee;
   }
 
+  /**
+   * display the balance to employee
+   *
+   * @param showBalanceToEmployee Boolean
+   */
   public void setShowBalanceToEmployee(Boolean showBalanceToEmployee) {
     this.showBalanceToEmployee = showBalanceToEmployee;
   }

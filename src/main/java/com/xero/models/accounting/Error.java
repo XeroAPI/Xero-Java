@@ -33,7 +33,12 @@ public class Error {
 
   @JsonProperty("Elements")
   private List<Element> elements = new ArrayList<Element>();
-
+  /**
+   * Exception number
+   *
+   * @param errorNumber Integer
+   * @return Error
+   */
   public Error errorNumber(Integer errorNumber) {
     this.errorNumber = errorNumber;
     return this;
@@ -45,14 +50,30 @@ public class Error {
    * @return errorNumber
    */
   @ApiModelProperty(value = "Exception number")
+  /**
+   * Exception number
+   *
+   * @return errorNumber Integer
+   */
   public Integer getErrorNumber() {
     return errorNumber;
   }
 
+  /**
+   * Exception number
+   *
+   * @param errorNumber Integer
+   */
   public void setErrorNumber(Integer errorNumber) {
     this.errorNumber = errorNumber;
   }
 
+  /**
+   * Exception type
+   *
+   * @param type String
+   * @return Error
+   */
   public Error type(String type) {
     this.type = type;
     return this;
@@ -64,14 +85,30 @@ public class Error {
    * @return type
    */
   @ApiModelProperty(value = "Exception type")
+  /**
+   * Exception type
+   *
+   * @return type String
+   */
   public String getType() {
     return type;
   }
 
+  /**
+   * Exception type
+   *
+   * @param type String
+   */
   public void setType(String type) {
     this.type = type;
   }
 
+  /**
+   * Exception message
+   *
+   * @param message String
+   * @return Error
+   */
   public Error message(String message) {
     this.message = message;
     return this;
@@ -83,19 +120,41 @@ public class Error {
    * @return message
    */
   @ApiModelProperty(value = "Exception message")
+  /**
+   * Exception message
+   *
+   * @return message String
+   */
   public String getMessage() {
     return message;
   }
 
+  /**
+   * Exception message
+   *
+   * @param message String
+   */
   public void setMessage(String message) {
     this.message = message;
   }
 
+  /**
+   * Array of Elements of validation Errors
+   *
+   * @param elements List&lt;Element&gt;
+   * @return Error
+   */
   public Error elements(List<Element> elements) {
     this.elements = elements;
     return this;
   }
 
+  /**
+   * Array of Elements of validation Errors
+   *
+   * @param elementsItem Element
+   * @return Error
+   */
   public Error addElementsItem(Element elementsItem) {
     if (this.elements == null) {
       this.elements = new ArrayList<Element>();
@@ -110,10 +169,20 @@ public class Error {
    * @return elements
    */
   @ApiModelProperty(value = "Array of Elements of validation Errors")
+  /**
+   * Array of Elements of validation Errors
+   *
+   * @return elements List<Element>
+   */
   public List<Element> getElements() {
     return elements;
   }
 
+  /**
+   * Array of Elements of validation Errors
+   *
+   * @param elements List&lt;Element&gt;
+   */
   public void setElements(List<Element> elements) {
     this.elements = elements;
   }

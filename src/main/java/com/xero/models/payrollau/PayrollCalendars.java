@@ -24,12 +24,23 @@ public class PayrollCalendars {
 
   @JsonProperty("PayrollCalendars")
   private List<PayrollCalendar> payrollCalendars = new ArrayList<PayrollCalendar>();
-
+  /**
+   * payrollCalendars
+   *
+   * @param payrollCalendars List&lt;PayrollCalendar&gt;
+   * @return PayrollCalendars
+   */
   public PayrollCalendars payrollCalendars(List<PayrollCalendar> payrollCalendars) {
     this.payrollCalendars = payrollCalendars;
     return this;
   }
 
+  /**
+   * payrollCalendars
+   *
+   * @param payrollCalendarsItem PayrollCalendar
+   * @return PayrollCalendars
+   */
   public PayrollCalendars addPayrollCalendarsItem(PayrollCalendar payrollCalendarsItem) {
     if (this.payrollCalendars == null) {
       this.payrollCalendars = new ArrayList<PayrollCalendar>();
@@ -44,10 +55,20 @@ public class PayrollCalendars {
    * @return payrollCalendars
    */
   @ApiModelProperty(value = "")
+  /**
+   * payrollCalendars
+   *
+   * @return payrollCalendars List<PayrollCalendar>
+   */
   public List<PayrollCalendar> getPayrollCalendars() {
     return payrollCalendars;
   }
 
+  /**
+   * payrollCalendars
+   *
+   * @param payrollCalendars List&lt;PayrollCalendar&gt;
+   */
   public void setPayrollCalendars(List<PayrollCalendar> payrollCalendars) {
     this.payrollCalendars = payrollCalendars;
   }

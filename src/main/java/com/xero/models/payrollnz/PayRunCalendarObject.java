@@ -28,7 +28,12 @@ public class PayRunCalendarObject {
 
   @JsonProperty("payRunCalendar")
   private PayRunCalendar payRunCalendar;
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return PayRunCalendarObject
+   */
   public PayRunCalendarObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -40,14 +45,30 @@ public class PayRunCalendarObject {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return PayRunCalendarObject
+   */
   public PayRunCalendarObject problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -59,14 +80,30 @@ public class PayRunCalendarObject {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * payRunCalendar
+   *
+   * @param payRunCalendar PayRunCalendar
+   * @return PayRunCalendarObject
+   */
   public PayRunCalendarObject payRunCalendar(PayRunCalendar payRunCalendar) {
     this.payRunCalendar = payRunCalendar;
     return this;
@@ -78,10 +115,20 @@ public class PayRunCalendarObject {
    * @return payRunCalendar
    */
   @ApiModelProperty(value = "")
+  /**
+   * payRunCalendar
+   *
+   * @return payRunCalendar PayRunCalendar
+   */
   public PayRunCalendar getPayRunCalendar() {
     return payRunCalendar;
   }
 
+  /**
+   * payRunCalendar
+   *
+   * @param payRunCalendar PayRunCalendar
+   */
   public void setPayRunCalendar(PayRunCalendar payRunCalendar) {
     this.payRunCalendar = payRunCalendar;
   }

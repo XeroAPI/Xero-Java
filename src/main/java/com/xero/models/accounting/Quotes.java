@@ -24,12 +24,23 @@ public class Quotes {
 
   @JsonProperty("Quotes")
   private List<Quote> quotes = new ArrayList<Quote>();
-
+  /**
+   * quotes
+   *
+   * @param quotes List&lt;Quote&gt;
+   * @return Quotes
+   */
   public Quotes quotes(List<Quote> quotes) {
     this.quotes = quotes;
     return this;
   }
 
+  /**
+   * quotes
+   *
+   * @param quotesItem Quote
+   * @return Quotes
+   */
   public Quotes addQuotesItem(Quote quotesItem) {
     if (this.quotes == null) {
       this.quotes = new ArrayList<Quote>();
@@ -44,10 +55,20 @@ public class Quotes {
    * @return quotes
    */
   @ApiModelProperty(value = "")
+  /**
+   * quotes
+   *
+   * @return quotes List<Quote>
+   */
   public List<Quote> getQuotes() {
     return quotes;
   }
 
+  /**
+   * quotes
+   *
+   * @param quotes List&lt;Quote&gt;
+   */
   public void setQuotes(List<Quote> quotes) {
     this.quotes = quotes;
   }

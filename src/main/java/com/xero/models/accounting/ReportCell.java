@@ -27,7 +27,12 @@ public class ReportCell {
 
   @JsonProperty("Attributes")
   private List<ReportAttribute> attributes = new ArrayList<ReportAttribute>();
-
+  /**
+   * value
+   *
+   * @param value String
+   * @return ReportCell
+   */
   public ReportCell value(String value) {
     this.value = value;
     return this;
@@ -39,19 +44,41 @@ public class ReportCell {
    * @return value
    */
   @ApiModelProperty(value = "")
+  /**
+   * value
+   *
+   * @return value String
+   */
   public String getValue() {
     return value;
   }
 
+  /**
+   * value
+   *
+   * @param value String
+   */
   public void setValue(String value) {
     this.value = value;
   }
 
+  /**
+   * attributes
+   *
+   * @param attributes List&lt;ReportAttribute&gt;
+   * @return ReportCell
+   */
   public ReportCell attributes(List<ReportAttribute> attributes) {
     this.attributes = attributes;
     return this;
   }
 
+  /**
+   * attributes
+   *
+   * @param attributesItem ReportAttribute
+   * @return ReportCell
+   */
   public ReportCell addAttributesItem(ReportAttribute attributesItem) {
     if (this.attributes == null) {
       this.attributes = new ArrayList<ReportAttribute>();
@@ -66,10 +93,20 @@ public class ReportCell {
    * @return attributes
    */
   @ApiModelProperty(value = "")
+  /**
+   * attributes
+   *
+   * @return attributes List<ReportAttribute>
+   */
   public List<ReportAttribute> getAttributes() {
     return attributes;
   }
 
+  /**
+   * attributes
+   *
+   * @param attributes List&lt;ReportAttribute&gt;
+   */
   public void setAttributes(List<ReportAttribute> attributes) {
     this.attributes = attributes;
   }

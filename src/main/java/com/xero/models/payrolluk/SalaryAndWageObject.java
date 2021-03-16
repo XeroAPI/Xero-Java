@@ -28,7 +28,12 @@ public class SalaryAndWageObject {
 
   @JsonProperty("salaryAndWages")
   private SalaryAndWage salaryAndWages;
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return SalaryAndWageObject
+   */
   public SalaryAndWageObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -40,14 +45,30 @@ public class SalaryAndWageObject {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return SalaryAndWageObject
+   */
   public SalaryAndWageObject problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -59,14 +80,30 @@ public class SalaryAndWageObject {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * salaryAndWages
+   *
+   * @param salaryAndWages SalaryAndWage
+   * @return SalaryAndWageObject
+   */
   public SalaryAndWageObject salaryAndWages(SalaryAndWage salaryAndWages) {
     this.salaryAndWages = salaryAndWages;
     return this;
@@ -78,10 +115,20 @@ public class SalaryAndWageObject {
    * @return salaryAndWages
    */
   @ApiModelProperty(value = "")
+  /**
+   * salaryAndWages
+   *
+   * @return salaryAndWages SalaryAndWage
+   */
   public SalaryAndWage getSalaryAndWages() {
     return salaryAndWages;
   }
 
+  /**
+   * salaryAndWages
+   *
+   * @param salaryAndWages SalaryAndWage
+   */
   public void setSalaryAndWages(SalaryAndWage salaryAndWages) {
     this.salaryAndWages = salaryAndWages;
   }

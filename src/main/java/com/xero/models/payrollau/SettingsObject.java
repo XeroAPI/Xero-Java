@@ -22,7 +22,12 @@ public class SettingsObject {
 
   @JsonProperty("Settings")
   private Settings settings;
-
+  /**
+   * settings
+   *
+   * @param settings Settings
+   * @return SettingsObject
+   */
   public SettingsObject settings(Settings settings) {
     this.settings = settings;
     return this;
@@ -34,10 +39,20 @@ public class SettingsObject {
    * @return settings
    */
   @ApiModelProperty(value = "")
+  /**
+   * settings
+   *
+   * @return settings Settings
+   */
   public Settings getSettings() {
     return settings;
   }
 
+  /**
+   * settings
+   *
+   * @param settings Settings
+   */
   public void setSettings(Settings settings) {
     this.settings = settings;
   }

@@ -25,7 +25,12 @@ public class PaymentTerm {
 
   @JsonProperty("Sales")
   private Bill sales;
-
+  /**
+   * bills
+   *
+   * @param bills Bill
+   * @return PaymentTerm
+   */
   public PaymentTerm bills(Bill bills) {
     this.bills = bills;
     return this;
@@ -37,14 +42,30 @@ public class PaymentTerm {
    * @return bills
    */
   @ApiModelProperty(value = "")
+  /**
+   * bills
+   *
+   * @return bills Bill
+   */
   public Bill getBills() {
     return bills;
   }
 
+  /**
+   * bills
+   *
+   * @param bills Bill
+   */
   public void setBills(Bill bills) {
     this.bills = bills;
   }
 
+  /**
+   * sales
+   *
+   * @param sales Bill
+   * @return PaymentTerm
+   */
   public PaymentTerm sales(Bill sales) {
     this.sales = sales;
     return this;
@@ -56,10 +77,20 @@ public class PaymentTerm {
    * @return sales
    */
   @ApiModelProperty(value = "")
+  /**
+   * sales
+   *
+   * @return sales Bill
+   */
   public Bill getSales() {
     return sales;
   }
 
+  /**
+   * sales
+   *
+   * @param sales Bill
+   */
   public void setSales(Bill sales) {
     this.sales = sales;
   }

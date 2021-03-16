@@ -32,7 +32,12 @@ public class ReimbursementLine {
 
   @JsonProperty("ExpenseAccount")
   private String expenseAccount;
-
+  /**
+   * Xero reimbursement type identifier
+   *
+   * @param reimbursementTypeID UUID
+   * @return ReimbursementLine
+   */
   public ReimbursementLine reimbursementTypeID(UUID reimbursementTypeID) {
     this.reimbursementTypeID = reimbursementTypeID;
     return this;
@@ -46,14 +51,30 @@ public class ReimbursementLine {
   @ApiModelProperty(
       example = "bd246b96-c637-4767-81cf-851ba8fa93c2",
       value = "Xero reimbursement type identifier")
+  /**
+   * Xero reimbursement type identifier
+   *
+   * @return reimbursementTypeID UUID
+   */
   public UUID getReimbursementTypeID() {
     return reimbursementTypeID;
   }
 
+  /**
+   * Xero reimbursement type identifier
+   *
+   * @param reimbursementTypeID UUID
+   */
   public void setReimbursementTypeID(UUID reimbursementTypeID) {
     this.reimbursementTypeID = reimbursementTypeID;
   }
 
+  /**
+   * Reimbursement type amount
+   *
+   * @param amount Double
+   * @return ReimbursementLine
+   */
   public ReimbursementLine amount(Double amount) {
     this.amount = amount;
     return this;
@@ -65,14 +86,30 @@ public class ReimbursementLine {
    * @return amount
    */
   @ApiModelProperty(example = "10.0", value = "Reimbursement type amount")
+  /**
+   * Reimbursement type amount
+   *
+   * @return amount Double
+   */
   public Double getAmount() {
     return amount;
   }
 
+  /**
+   * Reimbursement type amount
+   *
+   * @param amount Double
+   */
   public void setAmount(Double amount) {
     this.amount = amount;
   }
 
+  /**
+   * Reimbursement lines description (max length 50)
+   *
+   * @param description String
+   * @return ReimbursementLine
+   */
   public ReimbursementLine description(String description) {
     this.description = description;
     return this;
@@ -86,14 +123,31 @@ public class ReimbursementLine {
   @ApiModelProperty(
       example = "For the taxi",
       value = "Reimbursement lines description (max length 50)")
+  /**
+   * Reimbursement lines description (max length 50)
+   *
+   * @return description String
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * Reimbursement lines description (max length 50)
+   *
+   * @param description String
+   */
   public void setDescription(String description) {
     this.description = description;
   }
 
+  /**
+   * Reimbursement expense account. For posted pay run you should be able to see expense account
+   * code.
+   *
+   * @param expenseAccount String
+   * @return ReimbursementLine
+   */
   public ReimbursementLine expenseAccount(String expenseAccount) {
     this.expenseAccount = expenseAccount;
     return this;
@@ -110,10 +164,22 @@ public class ReimbursementLine {
       value =
           "Reimbursement expense account. For posted pay run you should be able to see expense"
               + " account code.")
+  /**
+   * Reimbursement expense account. For posted pay run you should be able to see expense account
+   * code.
+   *
+   * @return expenseAccount String
+   */
   public String getExpenseAccount() {
     return expenseAccount;
   }
 
+  /**
+   * Reimbursement expense account. For posted pay run you should be able to see expense account
+   * code.
+   *
+   * @param expenseAccount String
+   */
   public void setExpenseAccount(String expenseAccount) {
     this.expenseAccount = expenseAccount;
   }

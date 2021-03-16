@@ -36,10 +36,13 @@ public class Reimbursement {
   private Boolean currentRecord;
   /** See Reimbursement Categories */
   public enum ReimbursementCategoryEnum {
+    /** GST */
     GST("GST"),
 
+    /** NOGST */
     NOGST("NoGST"),
 
+    /** GSTINCLUSIVE */
     GSTINCLUSIVE("GSTInclusive");
 
     private String value;
@@ -48,16 +51,31 @@ public class Reimbursement {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static ReimbursementCategoryEnum fromValue(String value) {
       for (ReimbursementCategoryEnum b : ReimbursementCategoryEnum.values()) {
@@ -73,10 +91,13 @@ public class Reimbursement {
   private ReimbursementCategoryEnum reimbursementCategory;
   /** See Calculation Types */
   public enum CalculationTypeEnum {
+    /** UNKNOWN */
     UNKNOWN("Unknown"),
 
+    /** FIXEDAMOUNT */
     FIXEDAMOUNT("FixedAmount"),
 
+    /** RATEPERUNIT */
     RATEPERUNIT("RatePerUnit");
 
     private String value;
@@ -85,16 +106,31 @@ public class Reimbursement {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static CalculationTypeEnum fromValue(String value) {
       for (CalculationTypeEnum b : CalculationTypeEnum.values()) {
@@ -113,8 +149,10 @@ public class Reimbursement {
   private String standardAmount;
   /** Optional Type Of Units. Applicable when calculation type is Rate Per Unit */
   public enum StandardTypeOfUnitsEnum {
+    /** HOURS */
     HOURS("Hours"),
 
+    /** KM */
     KM("km");
 
     private String value;
@@ -123,16 +161,31 @@ public class Reimbursement {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static StandardTypeOfUnitsEnum fromValue(String value) {
       for (StandardTypeOfUnitsEnum b : StandardTypeOfUnitsEnum.values()) {
@@ -149,7 +202,12 @@ public class Reimbursement {
 
   @JsonProperty("standardRatePerUnit")
   private Double standardRatePerUnit;
-
+  /**
+   * Xero unique identifier for a reimbursement
+   *
+   * @param reimbursementID UUID
+   * @return Reimbursement
+   */
   public Reimbursement reimbursementID(UUID reimbursementID) {
     this.reimbursementID = reimbursementID;
     return this;
@@ -161,14 +219,30 @@ public class Reimbursement {
    * @return reimbursementID
    */
   @ApiModelProperty(value = "Xero unique identifier for a reimbursement")
+  /**
+   * Xero unique identifier for a reimbursement
+   *
+   * @return reimbursementID UUID
+   */
   public UUID getReimbursementID() {
     return reimbursementID;
   }
 
+  /**
+   * Xero unique identifier for a reimbursement
+   *
+   * @param reimbursementID UUID
+   */
   public void setReimbursementID(UUID reimbursementID) {
     this.reimbursementID = reimbursementID;
   }
 
+  /**
+   * Name of the reimbursement
+   *
+   * @param name String
+   * @return Reimbursement
+   */
   public Reimbursement name(String name) {
     this.name = name;
     return this;
@@ -180,14 +254,30 @@ public class Reimbursement {
    * @return name
    */
   @ApiModelProperty(required = true, value = "Name of the reimbursement")
+  /**
+   * Name of the reimbursement
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Name of the reimbursement
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * Xero unique identifier for the account used for the reimbursement
+   *
+   * @param accountID UUID
+   * @return Reimbursement
+   */
   public Reimbursement accountID(UUID accountID) {
     this.accountID = accountID;
     return this;
@@ -201,14 +291,30 @@ public class Reimbursement {
   @ApiModelProperty(
       required = true,
       value = "Xero unique identifier for the account used for the reimbursement")
+  /**
+   * Xero unique identifier for the account used for the reimbursement
+   *
+   * @return accountID UUID
+   */
   public UUID getAccountID() {
     return accountID;
   }
 
+  /**
+   * Xero unique identifier for the account used for the reimbursement
+   *
+   * @param accountID UUID
+   */
   public void setAccountID(UUID accountID) {
     this.accountID = accountID;
   }
 
+  /**
+   * Indicates that whether the reimbursement is active
+   *
+   * @param currentRecord Boolean
+   * @return Reimbursement
+   */
   public Reimbursement currentRecord(Boolean currentRecord) {
     this.currentRecord = currentRecord;
     return this;
@@ -220,14 +326,30 @@ public class Reimbursement {
    * @return currentRecord
    */
   @ApiModelProperty(value = "Indicates that whether the reimbursement is active")
+  /**
+   * Indicates that whether the reimbursement is active
+   *
+   * @return currentRecord Boolean
+   */
   public Boolean getCurrentRecord() {
     return currentRecord;
   }
 
+  /**
+   * Indicates that whether the reimbursement is active
+   *
+   * @param currentRecord Boolean
+   */
   public void setCurrentRecord(Boolean currentRecord) {
     this.currentRecord = currentRecord;
   }
 
+  /**
+   * See Reimbursement Categories
+   *
+   * @param reimbursementCategory ReimbursementCategoryEnum
+   * @return Reimbursement
+   */
   public Reimbursement reimbursementCategory(ReimbursementCategoryEnum reimbursementCategory) {
     this.reimbursementCategory = reimbursementCategory;
     return this;
@@ -239,14 +361,30 @@ public class Reimbursement {
    * @return reimbursementCategory
    */
   @ApiModelProperty(value = "See Reimbursement Categories")
+  /**
+   * See Reimbursement Categories
+   *
+   * @return reimbursementCategory ReimbursementCategoryEnum
+   */
   public ReimbursementCategoryEnum getReimbursementCategory() {
     return reimbursementCategory;
   }
 
+  /**
+   * See Reimbursement Categories
+   *
+   * @param reimbursementCategory ReimbursementCategoryEnum
+   */
   public void setReimbursementCategory(ReimbursementCategoryEnum reimbursementCategory) {
     this.reimbursementCategory = reimbursementCategory;
   }
 
+  /**
+   * See Calculation Types
+   *
+   * @param calculationType CalculationTypeEnum
+   * @return Reimbursement
+   */
   public Reimbursement calculationType(CalculationTypeEnum calculationType) {
     this.calculationType = calculationType;
     return this;
@@ -258,14 +396,30 @@ public class Reimbursement {
    * @return calculationType
    */
   @ApiModelProperty(value = "See Calculation Types")
+  /**
+   * See Calculation Types
+   *
+   * @return calculationType CalculationTypeEnum
+   */
   public CalculationTypeEnum getCalculationType() {
     return calculationType;
   }
 
+  /**
+   * See Calculation Types
+   *
+   * @param calculationType CalculationTypeEnum
+   */
   public void setCalculationType(CalculationTypeEnum calculationType) {
     this.calculationType = calculationType;
   }
 
+  /**
+   * Optional Fixed Rate Amount. Applicable when calculation type is Fixed Amount
+   *
+   * @param standardAmount String
+   * @return Reimbursement
+   */
   public Reimbursement standardAmount(String standardAmount) {
     this.standardAmount = standardAmount;
     return this;
@@ -278,14 +432,30 @@ public class Reimbursement {
    */
   @ApiModelProperty(
       value = "Optional Fixed Rate Amount. Applicable when calculation type is Fixed Amount")
+  /**
+   * Optional Fixed Rate Amount. Applicable when calculation type is Fixed Amount
+   *
+   * @return standardAmount String
+   */
   public String getStandardAmount() {
     return standardAmount;
   }
 
+  /**
+   * Optional Fixed Rate Amount. Applicable when calculation type is Fixed Amount
+   *
+   * @param standardAmount String
+   */
   public void setStandardAmount(String standardAmount) {
     this.standardAmount = standardAmount;
   }
 
+  /**
+   * Optional Type Of Units. Applicable when calculation type is Rate Per Unit
+   *
+   * @param standardTypeOfUnits StandardTypeOfUnitsEnum
+   * @return Reimbursement
+   */
   public Reimbursement standardTypeOfUnits(StandardTypeOfUnitsEnum standardTypeOfUnits) {
     this.standardTypeOfUnits = standardTypeOfUnits;
     return this;
@@ -298,14 +468,30 @@ public class Reimbursement {
    */
   @ApiModelProperty(
       value = "Optional Type Of Units. Applicable when calculation type is Rate Per Unit")
+  /**
+   * Optional Type Of Units. Applicable when calculation type is Rate Per Unit
+   *
+   * @return standardTypeOfUnits StandardTypeOfUnitsEnum
+   */
   public StandardTypeOfUnitsEnum getStandardTypeOfUnits() {
     return standardTypeOfUnits;
   }
 
+  /**
+   * Optional Type Of Units. Applicable when calculation type is Rate Per Unit
+   *
+   * @param standardTypeOfUnits StandardTypeOfUnitsEnum
+   */
   public void setStandardTypeOfUnits(StandardTypeOfUnitsEnum standardTypeOfUnits) {
     this.standardTypeOfUnits = standardTypeOfUnits;
   }
 
+  /**
+   * Optional Rate Per Unit. Applicable when calculation type is Rate Per Unit
+   *
+   * @param standardRatePerUnit Double
+   * @return Reimbursement
+   */
   public Reimbursement standardRatePerUnit(Double standardRatePerUnit) {
     this.standardRatePerUnit = standardRatePerUnit;
     return this;
@@ -318,10 +504,20 @@ public class Reimbursement {
    */
   @ApiModelProperty(
       value = "Optional Rate Per Unit. Applicable when calculation type is Rate Per Unit")
+  /**
+   * Optional Rate Per Unit. Applicable when calculation type is Rate Per Unit
+   *
+   * @return standardRatePerUnit Double
+   */
   public Double getStandardRatePerUnit() {
     return standardRatePerUnit;
   }
 
+  /**
+   * Optional Rate Per Unit. Applicable when calculation type is Rate Per Unit
+   *
+   * @param standardRatePerUnit Double
+   */
   public void setStandardRatePerUnit(Double standardRatePerUnit) {
     this.standardRatePerUnit = standardRatePerUnit;
   }

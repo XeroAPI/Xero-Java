@@ -28,14 +28,16 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.interfaces.RSAPublicKey;
 
-
+/** 
+ * ApiClient for managing global http client and object mapper
+*/
 public class ApiClient {
     private final String basePath;
     private final HttpRequestFactory httpRequestFactory;
     private final ObjectMapper objectMapper;
     private HttpTransport httpTransport = new NetHttpTransport();
-    private int connectionTimeout = 20000;
-    private int readTimeout = 20000;
+    private int connectionTimeout = 180000;
+    private int readTimeout = 180000;
 
     private static final String defaultBasePath = "https://api.xero.com/api.xro/2.0";
 
@@ -53,10 +55,18 @@ public class ApiClient {
         return objectMapper;
     }
 
+    /** method for initiazing object instance with default properties */
     public ApiClient() {
         this(null, null, null, null,null);
     }
 
+    /** ApiClient method for initiazing object instance with custom properties 
+    * @param basePath String that defines the base path for each API request
+    * @param transport HttpTransport required for creating the httpRequestFactory
+    * @param initializer HttpRequestInitializer for additional configuration during creation of httpRequestFactory
+    * @param objectMapper ObjectMapper object used to serialize and deserialize using model classes.
+    * @param reqFactory HttpRequestFactory is the thread-safe light-weight HTTP request factory layer on top of the HTTP transport  
+    */
     public ApiClient(
         String basePath,
         HttpTransport transport,
@@ -74,46 +84,77 @@ public class ApiClient {
         this.objectMapper = (objectMapper == null ? createDefaultObjectMapper() : objectMapper);
     }
 
+    /** method for retrieving the httpRequestFactory property
+    * @return HttpRequestFactory
+    */
     public HttpRequestFactory getHttpRequestFactory() {
         return httpRequestFactory;
     }
 
+    /** method for retrieving the connectionTimeout property 
+    * @return int
+    */
     public int getConnectionTimeout() {
         return connectionTimeout;
     }
 
+    /** method for setting the connectionTimeout property 
+    * @param connectionTimeout int defines in milliseconds the time allowed making the initial connection to the server.
+    */
     public void setConnectionTimeout(int connectionTimeout) {
         this.connectionTimeout = connectionTimeout;
     }
 
+    /** method for retrieving the readTimeout property
+    * @return int
+    */
     public int getReadTimeout() {
         return readTimeout;
     }
 
+    /** method for setting the readTimeout property 
+    * @param readTimeout int defines in milliseconds the time allowed to complete reading data from the server.
+    */
     public void setReadTimeout(int readTimeout) {
         this.readTimeout = readTimeout;
     }
 
+    /** method for retrieving the httpTransport property 
+    * @return HttpTransport
+    */
     public HttpTransport getHttpTransport() {
         return httpTransport;
     }
 
+    /** method for setting the httpTransport property 
+    * @param transport HttpTransport required for creating the httpRequestFactory
+    */
     public void setHttpTransport(HttpTransport transport) {
         this.httpTransport = transport;
     }
 
+    /** method for retrieving the basePath property 
+    * @return String
+    */
     public String getBasePath() {
         return basePath;
     }
 
+    /** method for retrieving the objectMapper property 
+    * @return ObjectMapper
+    */
     public ObjectMapper getObjectMapper() {
         return objectMapper;
     }
 
+    /** method for managing objects to be serialized */
     public class JacksonJsonHttpContent extends AbstractHttpContent {
         /* A POJO that can be serialized with a com.fasterxml Jackson ObjectMapper */
         private final Object data;
 
+        /**  method for taking native object and serializing into JSON data for use by http client 
+        * @param data Object 
+        */
         public JacksonJsonHttpContent(Object data) {
             super(Json.MEDIA_TYPE);
             this.data = data;
@@ -125,11 +166,19 @@ public class ApiClient {
         }
     }
 
-    // Builder pattern to get API instances for this client.
+    /**  Builder pattern to get API instances for this client. 
+    * @return AccountingApi
+    */
     public AccountingApi accountingApi() {
         return new AccountingApi(this);
     }
 
+    /** method for verifying an access token using RSA256 Algorithm
+    * @param accessToken String the JWT token used to access the API
+    * @return DecodedJWT
+    * @exception MalformedURLException Thrown to indicate that a malformed URL has occurred. 
+    * @exception JwkException thrown to indicate a problem while verifying a JWT
+    */
     public DecodedJWT verify(String accessToken) throws MalformedURLException, JwkException {
 		
     	DecodedJWT unverifiedJWT = JWT.decode(accessToken);        

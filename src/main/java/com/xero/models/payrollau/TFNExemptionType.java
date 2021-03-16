@@ -17,12 +17,17 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Gets or Sets TFNExemptionType */
 public enum TFNExemptionType {
+
+  /** NOTQUOTED */
   NOTQUOTED("NOTQUOTED"),
 
+  /** PENDING */
   PENDING("PENDING"),
 
+  /** PENSIONER */
   PENSIONER("PENSIONER"),
 
+  /** UNDER18 */
   UNDER18("UNDER18");
 
   private String value;
@@ -31,16 +36,27 @@ public enum TFNExemptionType {
     this.value = value;
   }
 
+  /** @return String value */
   @JsonValue
   public String getValue() {
     return value;
   }
 
+  /**
+   * toString
+   *
+   * @return String value
+   */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
+  /**
+   * fromValue
+   *
+   * @param value String
+   */
   @JsonCreator
   public static TFNExemptionType fromValue(String value) {
     for (TFNExemptionType b : TFNExemptionType.values()) {

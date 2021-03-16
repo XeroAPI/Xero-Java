@@ -17,8 +17,11 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Gets or Sets EntitlementFinalPayPayoutType */
 public enum EntitlementFinalPayPayoutType {
+
+  /** NOTPAIDOUT */
   NOTPAIDOUT("NOTPAIDOUT"),
 
+  /** PAIDOUT */
   PAIDOUT("PAIDOUT");
 
   private String value;
@@ -27,16 +30,27 @@ public enum EntitlementFinalPayPayoutType {
     this.value = value;
   }
 
+  /** @return String value */
   @JsonValue
   public String getValue() {
     return value;
   }
 
+  /**
+   * toString
+   *
+   * @return String value
+   */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
+  /**
+   * fromValue
+   *
+   * @param value String
+   */
   @JsonCreator
   public static EntitlementFinalPayPayoutType fromValue(String value) {
     for (EntitlementFinalPayPayoutType b : EntitlementFinalPayPayoutType.values()) {

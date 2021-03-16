@@ -24,12 +24,23 @@ public class SuperFundProducts {
 
   @JsonProperty("SuperFundProducts")
   private List<SuperFundProduct> superFundProducts = new ArrayList<SuperFundProduct>();
-
+  /**
+   * superFundProducts
+   *
+   * @param superFundProducts List&lt;SuperFundProduct&gt;
+   * @return SuperFundProducts
+   */
   public SuperFundProducts superFundProducts(List<SuperFundProduct> superFundProducts) {
     this.superFundProducts = superFundProducts;
     return this;
   }
 
+  /**
+   * superFundProducts
+   *
+   * @param superFundProductsItem SuperFundProduct
+   * @return SuperFundProducts
+   */
   public SuperFundProducts addSuperFundProductsItem(SuperFundProduct superFundProductsItem) {
     if (this.superFundProducts == null) {
       this.superFundProducts = new ArrayList<SuperFundProduct>();
@@ -44,10 +55,20 @@ public class SuperFundProducts {
    * @return superFundProducts
    */
   @ApiModelProperty(value = "")
+  /**
+   * superFundProducts
+   *
+   * @return superFundProducts List<SuperFundProduct>
+   */
   public List<SuperFundProduct> getSuperFundProducts() {
     return superFundProducts;
   }
 
+  /**
+   * superFundProducts
+   *
+   * @param superFundProducts List&lt;SuperFundProduct&gt;
+   */
   public void setSuperFundProducts(List<SuperFundProduct> superFundProducts) {
     this.superFundProducts = superFundProducts;
   }

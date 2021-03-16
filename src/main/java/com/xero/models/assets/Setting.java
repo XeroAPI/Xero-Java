@@ -45,7 +45,12 @@ public class Setting {
 
   @JsonProperty("optInForTax")
   private Boolean optInForTax;
-
+  /**
+   * The prefix used for fixed asset numbers (“FA-” by default)
+   *
+   * @param assetNumberPrefix String
+   * @return Setting
+   */
   public Setting assetNumberPrefix(String assetNumberPrefix) {
     this.assetNumberPrefix = assetNumberPrefix;
     return this;
@@ -59,14 +64,30 @@ public class Setting {
   @ApiModelProperty(
       example = "FA-",
       value = "The prefix used for fixed asset numbers (“FA-” by default)")
+  /**
+   * The prefix used for fixed asset numbers (“FA-” by default)
+   *
+   * @return assetNumberPrefix String
+   */
   public String getAssetNumberPrefix() {
     return assetNumberPrefix;
   }
 
+  /**
+   * The prefix used for fixed asset numbers (“FA-” by default)
+   *
+   * @param assetNumberPrefix String
+   */
   public void setAssetNumberPrefix(String assetNumberPrefix) {
     this.assetNumberPrefix = assetNumberPrefix;
   }
 
+  /**
+   * The next available sequence number
+   *
+   * @param assetNumberSequence String
+   * @return Setting
+   */
   public Setting assetNumberSequence(String assetNumberSequence) {
     this.assetNumberSequence = assetNumberSequence;
     return this;
@@ -78,14 +99,30 @@ public class Setting {
    * @return assetNumberSequence
    */
   @ApiModelProperty(example = "0022", value = "The next available sequence number")
+  /**
+   * The next available sequence number
+   *
+   * @return assetNumberSequence String
+   */
   public String getAssetNumberSequence() {
     return assetNumberSequence;
   }
 
+  /**
+   * The next available sequence number
+   *
+   * @param assetNumberSequence String
+   */
   public void setAssetNumberSequence(String assetNumberSequence) {
     this.assetNumberSequence = assetNumberSequence;
   }
 
+  /**
+   * The date depreciation calculations started on registered fixed assets in Xero
+   *
+   * @param assetStartDate LocalDate
+   * @return Setting
+   */
   public Setting assetStartDate(LocalDate assetStartDate) {
     this.assetStartDate = assetStartDate;
     return this;
@@ -98,14 +135,30 @@ public class Setting {
    */
   @ApiModelProperty(
       value = "The date depreciation calculations started on registered fixed assets in Xero")
+  /**
+   * The date depreciation calculations started on registered fixed assets in Xero
+   *
+   * @return assetStartDate LocalDate
+   */
   public LocalDate getAssetStartDate() {
     return assetStartDate;
   }
 
+  /**
+   * The date depreciation calculations started on registered fixed assets in Xero
+   *
+   * @param assetStartDate LocalDate
+   */
   public void setAssetStartDate(LocalDate assetStartDate) {
     this.assetStartDate = assetStartDate;
   }
 
+  /**
+   * The last depreciation date
+   *
+   * @param lastDepreciationDate LocalDate
+   * @return Setting
+   */
   public Setting lastDepreciationDate(LocalDate lastDepreciationDate) {
     this.lastDepreciationDate = lastDepreciationDate;
     return this;
@@ -117,14 +170,30 @@ public class Setting {
    * @return lastDepreciationDate
    */
   @ApiModelProperty(value = "The last depreciation date")
+  /**
+   * The last depreciation date
+   *
+   * @return lastDepreciationDate LocalDate
+   */
   public LocalDate getLastDepreciationDate() {
     return lastDepreciationDate;
   }
 
+  /**
+   * The last depreciation date
+   *
+   * @param lastDepreciationDate LocalDate
+   */
   public void setLastDepreciationDate(LocalDate lastDepreciationDate) {
     this.lastDepreciationDate = lastDepreciationDate;
   }
 
+  /**
+   * Default account that gains are posted to
+   *
+   * @param defaultGainOnDisposalAccountId UUID
+   * @return Setting
+   */
   public Setting defaultGainOnDisposalAccountId(UUID defaultGainOnDisposalAccountId) {
     this.defaultGainOnDisposalAccountId = defaultGainOnDisposalAccountId;
     return this;
@@ -138,14 +207,30 @@ public class Setting {
   @ApiModelProperty(
       example = "346ddb97-739a-4274-b43b-66aa3218d17c",
       value = "Default account that gains are posted to")
+  /**
+   * Default account that gains are posted to
+   *
+   * @return defaultGainOnDisposalAccountId UUID
+   */
   public UUID getDefaultGainOnDisposalAccountId() {
     return defaultGainOnDisposalAccountId;
   }
 
+  /**
+   * Default account that gains are posted to
+   *
+   * @param defaultGainOnDisposalAccountId UUID
+   */
   public void setDefaultGainOnDisposalAccountId(UUID defaultGainOnDisposalAccountId) {
     this.defaultGainOnDisposalAccountId = defaultGainOnDisposalAccountId;
   }
 
+  /**
+   * Default account that losses are posted to
+   *
+   * @param defaultLossOnDisposalAccountId UUID
+   * @return Setting
+   */
   public Setting defaultLossOnDisposalAccountId(UUID defaultLossOnDisposalAccountId) {
     this.defaultLossOnDisposalAccountId = defaultLossOnDisposalAccountId;
     return this;
@@ -159,14 +244,30 @@ public class Setting {
   @ApiModelProperty(
       example = "1b798541-24e2-4855-9309-c023a0b576f3",
       value = "Default account that losses are posted to")
+  /**
+   * Default account that losses are posted to
+   *
+   * @return defaultLossOnDisposalAccountId UUID
+   */
   public UUID getDefaultLossOnDisposalAccountId() {
     return defaultLossOnDisposalAccountId;
   }
 
+  /**
+   * Default account that losses are posted to
+   *
+   * @param defaultLossOnDisposalAccountId UUID
+   */
   public void setDefaultLossOnDisposalAccountId(UUID defaultLossOnDisposalAccountId) {
     this.defaultLossOnDisposalAccountId = defaultLossOnDisposalAccountId;
   }
 
+  /**
+   * Default account that capital gains are posted to
+   *
+   * @param defaultCapitalGainOnDisposalAccountId UUID
+   * @return Setting
+   */
   public Setting defaultCapitalGainOnDisposalAccountId(UUID defaultCapitalGainOnDisposalAccountId) {
     this.defaultCapitalGainOnDisposalAccountId = defaultCapitalGainOnDisposalAccountId;
     return this;
@@ -180,14 +281,30 @@ public class Setting {
   @ApiModelProperty(
       example = "6d6a0bdb-e118-45d8-a023-2ad617ec1cb7",
       value = "Default account that capital gains are posted to")
+  /**
+   * Default account that capital gains are posted to
+   *
+   * @return defaultCapitalGainOnDisposalAccountId UUID
+   */
   public UUID getDefaultCapitalGainOnDisposalAccountId() {
     return defaultCapitalGainOnDisposalAccountId;
   }
 
+  /**
+   * Default account that capital gains are posted to
+   *
+   * @param defaultCapitalGainOnDisposalAccountId UUID
+   */
   public void setDefaultCapitalGainOnDisposalAccountId(UUID defaultCapitalGainOnDisposalAccountId) {
     this.defaultCapitalGainOnDisposalAccountId = defaultCapitalGainOnDisposalAccountId;
   }
 
+  /**
+   * opt in for tax calculation
+   *
+   * @param optInForTax Boolean
+   * @return Setting
+   */
   public Setting optInForTax(Boolean optInForTax) {
     this.optInForTax = optInForTax;
     return this;
@@ -199,10 +316,20 @@ public class Setting {
    * @return optInForTax
    */
   @ApiModelProperty(example = "false", value = "opt in for tax calculation")
+  /**
+   * opt in for tax calculation
+   *
+   * @return optInForTax Boolean
+   */
   public Boolean getOptInForTax() {
     return optInForTax;
   }
 
+  /**
+   * opt in for tax calculation
+   *
+   * @param optInForTax Boolean
+   */
   public void setOptInForTax(Boolean optInForTax) {
     this.optInForTax = optInForTax;
   }

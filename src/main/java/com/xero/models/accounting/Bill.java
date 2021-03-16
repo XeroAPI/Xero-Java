@@ -25,7 +25,12 @@ public class Bill {
 
   @JsonProperty("Type")
   private PaymentTermType type;
-
+  /**
+   * Day of Month (0-31)
+   *
+   * @param day Integer
+   * @return Bill
+   */
   public Bill day(Integer day) {
     this.day = day;
     return this;
@@ -37,14 +42,30 @@ public class Bill {
    * @return day
    */
   @ApiModelProperty(value = "Day of Month (0-31)")
+  /**
+   * Day of Month (0-31)
+   *
+   * @return day Integer
+   */
   public Integer getDay() {
     return day;
   }
 
+  /**
+   * Day of Month (0-31)
+   *
+   * @param day Integer
+   */
   public void setDay(Integer day) {
     this.day = day;
   }
 
+  /**
+   * type
+   *
+   * @param type PaymentTermType
+   * @return Bill
+   */
   public Bill type(PaymentTermType type) {
     this.type = type;
     return this;
@@ -56,10 +77,20 @@ public class Bill {
    * @return type
    */
   @ApiModelProperty(value = "")
+  /**
+   * type
+   *
+   * @return type PaymentTermType
+   */
   public PaymentTermType getType() {
     return type;
   }
 
+  /**
+   * type
+   *
+   * @param type PaymentTermType
+   */
   public void setType(PaymentTermType type) {
     this.type = type;
   }

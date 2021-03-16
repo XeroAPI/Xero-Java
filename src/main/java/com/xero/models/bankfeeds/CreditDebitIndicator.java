@@ -20,8 +20,11 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * the perspective of the Customer.
  */
 public enum CreditDebitIndicator {
+
+  /** CREDIT */
   CREDIT("CREDIT"),
 
+  /** DEBIT */
   DEBIT("DEBIT");
 
   private String value;
@@ -30,16 +33,27 @@ public enum CreditDebitIndicator {
     this.value = value;
   }
 
+  /** @return String value */
   @JsonValue
   public String getValue() {
     return value;
   }
 
+  /**
+   * toString
+   *
+   * @return String value
+   */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
+  /**
+   * fromValue
+   *
+   * @param value String
+   */
   @JsonCreator
   public static CreditDebitIndicator fromValue(String value) {
     for (CreditDebitIndicator b : CreditDebitIndicator.values()) {

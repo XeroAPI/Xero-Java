@@ -75,7 +75,12 @@ public class PayRun {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
-
+  /**
+   * Xero identifier for pay run
+   *
+   * @param payrollCalendarID UUID
+   * @return PayRun
+   */
   public PayRun payrollCalendarID(UUID payrollCalendarID) {
     this.payrollCalendarID = payrollCalendarID;
     return this;
@@ -90,14 +95,30 @@ public class PayRun {
       example = "bfac31bd-ea62-4fc8-a5e7-7965d9504b15",
       required = true,
       value = "Xero identifier for pay run")
+  /**
+   * Xero identifier for pay run
+   *
+   * @return payrollCalendarID UUID
+   */
   public UUID getPayrollCalendarID() {
     return payrollCalendarID;
   }
 
+  /**
+   * Xero identifier for pay run
+   *
+   * @param payrollCalendarID UUID
+   */
   public void setPayrollCalendarID(UUID payrollCalendarID) {
     this.payrollCalendarID = payrollCalendarID;
   }
 
+  /**
+   * Xero identifier for pay run
+   *
+   * @param payRunID UUID
+   * @return PayRun
+   */
   public PayRun payRunID(UUID payRunID) {
     this.payRunID = payRunID;
     return this;
@@ -111,14 +132,30 @@ public class PayRun {
   @ApiModelProperty(
       example = "bba1d10f-63b1-4692-b5c5-a99f869523a4",
       value = "Xero identifier for pay run")
+  /**
+   * Xero identifier for pay run
+   *
+   * @return payRunID UUID
+   */
   public UUID getPayRunID() {
     return payRunID;
   }
 
+  /**
+   * Xero identifier for pay run
+   *
+   * @param payRunID UUID
+   */
   public void setPayRunID(UUID payRunID) {
     this.payRunID = payRunID;
   }
 
+  /**
+   * Period Start Date for the PayRun (YYYY-MM-DD)
+   *
+   * @param payRunPeriodStartDate String
+   * @return PayRun
+   */
   public PayRun payRunPeriodStartDate(String payRunPeriodStartDate) {
     this.payRunPeriodStartDate = payRunPeriodStartDate;
     return this;
@@ -132,10 +169,19 @@ public class PayRun {
   @ApiModelProperty(
       example = "/Date(322560000000+0000)/",
       value = "Period Start Date for the PayRun (YYYY-MM-DD)")
+  /**
+   * Period Start Date for the PayRun (YYYY-MM-DD)
+   *
+   * @return payRunPeriodStartDate String
+   */
   public String getPayRunPeriodStartDate() {
     return payRunPeriodStartDate;
   }
-
+  /**
+   * Period Start Date for the PayRun (YYYY-MM-DD)
+   *
+   * @return LocalDate
+   */
   public LocalDate getPayRunPeriodStartDateAsDate() {
     if (this.payRunPeriodStartDate != null) {
       try {
@@ -147,10 +193,20 @@ public class PayRun {
     return null;
   }
 
+  /**
+   * Period Start Date for the PayRun (YYYY-MM-DD)
+   *
+   * @param payRunPeriodStartDate String
+   */
   public void setPayRunPeriodStartDate(String payRunPeriodStartDate) {
     this.payRunPeriodStartDate = payRunPeriodStartDate;
   }
 
+  /**
+   * Period Start Date for the PayRun (YYYY-MM-DD)
+   *
+   * @param payRunPeriodStartDate LocalDateTime
+   */
   public void setPayRunPeriodStartDate(LocalDate payRunPeriodStartDate) {
     // CONVERT LocalDate args into MS DateFromat String
     Instant instant = payRunPeriodStartDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
@@ -159,6 +215,12 @@ public class PayRun {
     this.payRunPeriodStartDate = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
   }
 
+  /**
+   * Period End Date for the PayRun (YYYY-MM-DD)
+   *
+   * @param payRunPeriodEndDate String
+   * @return PayRun
+   */
   public PayRun payRunPeriodEndDate(String payRunPeriodEndDate) {
     this.payRunPeriodEndDate = payRunPeriodEndDate;
     return this;
@@ -172,10 +234,19 @@ public class PayRun {
   @ApiModelProperty(
       example = "/Date(322560000000+0000)/",
       value = "Period End Date for the PayRun (YYYY-MM-DD)")
+  /**
+   * Period End Date for the PayRun (YYYY-MM-DD)
+   *
+   * @return payRunPeriodEndDate String
+   */
   public String getPayRunPeriodEndDate() {
     return payRunPeriodEndDate;
   }
-
+  /**
+   * Period End Date for the PayRun (YYYY-MM-DD)
+   *
+   * @return LocalDate
+   */
   public LocalDate getPayRunPeriodEndDateAsDate() {
     if (this.payRunPeriodEndDate != null) {
       try {
@@ -187,10 +258,20 @@ public class PayRun {
     return null;
   }
 
+  /**
+   * Period End Date for the PayRun (YYYY-MM-DD)
+   *
+   * @param payRunPeriodEndDate String
+   */
   public void setPayRunPeriodEndDate(String payRunPeriodEndDate) {
     this.payRunPeriodEndDate = payRunPeriodEndDate;
   }
 
+  /**
+   * Period End Date for the PayRun (YYYY-MM-DD)
+   *
+   * @param payRunPeriodEndDate LocalDateTime
+   */
   public void setPayRunPeriodEndDate(LocalDate payRunPeriodEndDate) {
     // CONVERT LocalDate args into MS DateFromat String
     Instant instant = payRunPeriodEndDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
@@ -199,6 +280,12 @@ public class PayRun {
     this.payRunPeriodEndDate = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
   }
 
+  /**
+   * payRunStatus
+   *
+   * @param payRunStatus PayRunStatus
+   * @return PayRun
+   */
   public PayRun payRunStatus(PayRunStatus payRunStatus) {
     this.payRunStatus = payRunStatus;
     return this;
@@ -210,14 +297,30 @@ public class PayRun {
    * @return payRunStatus
    */
   @ApiModelProperty(value = "")
+  /**
+   * payRunStatus
+   *
+   * @return payRunStatus PayRunStatus
+   */
   public PayRunStatus getPayRunStatus() {
     return payRunStatus;
   }
 
+  /**
+   * payRunStatus
+   *
+   * @param payRunStatus PayRunStatus
+   */
   public void setPayRunStatus(PayRunStatus payRunStatus) {
     this.payRunStatus = payRunStatus;
   }
 
+  /**
+   * Payment Date for the PayRun (YYYY-MM-DD)
+   *
+   * @param paymentDate String
+   * @return PayRun
+   */
   public PayRun paymentDate(String paymentDate) {
     this.paymentDate = paymentDate;
     return this;
@@ -231,10 +334,19 @@ public class PayRun {
   @ApiModelProperty(
       example = "/Date(322560000000+0000)/",
       value = "Payment Date for the PayRun (YYYY-MM-DD)")
+  /**
+   * Payment Date for the PayRun (YYYY-MM-DD)
+   *
+   * @return paymentDate String
+   */
   public String getPaymentDate() {
     return paymentDate;
   }
-
+  /**
+   * Payment Date for the PayRun (YYYY-MM-DD)
+   *
+   * @return LocalDate
+   */
   public LocalDate getPaymentDateAsDate() {
     if (this.paymentDate != null) {
       try {
@@ -246,10 +358,20 @@ public class PayRun {
     return null;
   }
 
+  /**
+   * Payment Date for the PayRun (YYYY-MM-DD)
+   *
+   * @param paymentDate String
+   */
   public void setPaymentDate(String paymentDate) {
     this.paymentDate = paymentDate;
   }
 
+  /**
+   * Payment Date for the PayRun (YYYY-MM-DD)
+   *
+   * @param paymentDate LocalDateTime
+   */
   public void setPaymentDate(LocalDate paymentDate) {
     // CONVERT LocalDate args into MS DateFromat String
     Instant instant = paymentDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
@@ -258,6 +380,12 @@ public class PayRun {
     this.paymentDate = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
   }
 
+  /**
+   * Payslip message for the PayRun
+   *
+   * @param payslipMessage String
+   * @return PayRun
+   */
   public PayRun payslipMessage(String payslipMessage) {
     this.payslipMessage = payslipMessage;
     return this;
@@ -269,10 +397,20 @@ public class PayRun {
    * @return payslipMessage
    */
   @ApiModelProperty(example = "Thanks for being awesome", value = "Payslip message for the PayRun")
+  /**
+   * Payslip message for the PayRun
+   *
+   * @return payslipMessage String
+   */
   public String getPayslipMessage() {
     return payslipMessage;
   }
 
+  /**
+   * Payslip message for the PayRun
+   *
+   * @param payslipMessage String
+   */
   public void setPayslipMessage(String payslipMessage) {
     this.payslipMessage = payslipMessage;
   }
@@ -283,10 +421,19 @@ public class PayRun {
    * @return updatedDateUTC
    */
   @ApiModelProperty(example = "/Date(1583967733054+0000)/", value = "Last modified timestamp")
+  /**
+   * Last modified timestamp
+   *
+   * @return updatedDateUTC String
+   */
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-
+  /**
+   * Last modified timestamp
+   *
+   * @return OffsetDateTime
+   */
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
@@ -298,11 +445,23 @@ public class PayRun {
     return null;
   }
 
+  /**
+   * The payslips in the payrun
+   *
+   * @param payslips List&lt;PayslipSummary&gt;
+   * @return PayRun
+   */
   public PayRun payslips(List<PayslipSummary> payslips) {
     this.payslips = payslips;
     return this;
   }
 
+  /**
+   * The payslips in the payrun
+   *
+   * @param payslipsItem PayslipSummary
+   * @return PayRun
+   */
   public PayRun addPayslipsItem(PayslipSummary payslipsItem) {
     if (this.payslips == null) {
       this.payslips = new ArrayList<PayslipSummary>();
@@ -317,14 +476,30 @@ public class PayRun {
    * @return payslips
    */
   @ApiModelProperty(value = "The payslips in the payrun")
+  /**
+   * The payslips in the payrun
+   *
+   * @return payslips List<PayslipSummary>
+   */
   public List<PayslipSummary> getPayslips() {
     return payslips;
   }
 
+  /**
+   * The payslips in the payrun
+   *
+   * @param payslips List&lt;PayslipSummary&gt;
+   */
   public void setPayslips(List<PayslipSummary> payslips) {
     this.payslips = payslips;
   }
 
+  /**
+   * The total Wages for the Payrun
+   *
+   * @param wages Double
+   * @return PayRun
+   */
   public PayRun wages(Double wages) {
     this.wages = wages;
     return this;
@@ -336,14 +511,30 @@ public class PayRun {
    * @return wages
    */
   @ApiModelProperty(example = "1060.5", value = "The total Wages for the Payrun")
+  /**
+   * The total Wages for the Payrun
+   *
+   * @return wages Double
+   */
   public Double getWages() {
     return wages;
   }
 
+  /**
+   * The total Wages for the Payrun
+   *
+   * @param wages Double
+   */
   public void setWages(Double wages) {
     this.wages = wages;
   }
 
+  /**
+   * The total Deductions for the Payrun
+   *
+   * @param deductions Double
+   * @return PayRun
+   */
   public PayRun deductions(Double deductions) {
     this.deductions = deductions;
     return this;
@@ -355,14 +546,30 @@ public class PayRun {
    * @return deductions
    */
   @ApiModelProperty(example = "0.0", value = "The total Deductions for the Payrun")
+  /**
+   * The total Deductions for the Payrun
+   *
+   * @return deductions Double
+   */
   public Double getDeductions() {
     return deductions;
   }
 
+  /**
+   * The total Deductions for the Payrun
+   *
+   * @param deductions Double
+   */
   public void setDeductions(Double deductions) {
     this.deductions = deductions;
   }
 
+  /**
+   * The total Tax for the Payrun
+   *
+   * @param tax Double
+   * @return PayRun
+   */
   public PayRun tax(Double tax) {
     this.tax = tax;
     return this;
@@ -374,14 +581,30 @@ public class PayRun {
    * @return tax
    */
   @ApiModelProperty(example = "198.0", value = "The total Tax for the Payrun")
+  /**
+   * The total Tax for the Payrun
+   *
+   * @return tax Double
+   */
   public Double getTax() {
     return tax;
   }
 
+  /**
+   * The total Tax for the Payrun
+   *
+   * @param tax Double
+   */
   public void setTax(Double tax) {
     this.tax = tax;
   }
 
+  /**
+   * The total Super for the Payrun
+   *
+   * @param _super Double
+   * @return PayRun
+   */
   public PayRun _super(Double _super) {
     this._super = _super;
     return this;
@@ -393,14 +616,30 @@ public class PayRun {
    * @return _super
    */
   @ApiModelProperty(example = "75.6", value = "The total Super for the Payrun")
+  /**
+   * The total Super for the Payrun
+   *
+   * @return _super Double
+   */
   public Double getSuper() {
     return _super;
   }
 
+  /**
+   * The total Super for the Payrun
+   *
+   * @param _super Double
+   */
   public void setSuper(Double _super) {
     this._super = _super;
   }
 
+  /**
+   * The total Reimbursements for the Payrun
+   *
+   * @param reimbursement Double
+   * @return PayRun
+   */
   public PayRun reimbursement(Double reimbursement) {
     this.reimbursement = reimbursement;
     return this;
@@ -412,14 +651,30 @@ public class PayRun {
    * @return reimbursement
    */
   @ApiModelProperty(example = "0.0", value = "The total Reimbursements for the Payrun")
+  /**
+   * The total Reimbursements for the Payrun
+   *
+   * @return reimbursement Double
+   */
   public Double getReimbursement() {
     return reimbursement;
   }
 
+  /**
+   * The total Reimbursements for the Payrun
+   *
+   * @param reimbursement Double
+   */
   public void setReimbursement(Double reimbursement) {
     this.reimbursement = reimbursement;
   }
 
+  /**
+   * The total NetPay for the Payrun
+   *
+   * @param netPay Double
+   * @return PayRun
+   */
   public PayRun netPay(Double netPay) {
     this.netPay = netPay;
     return this;
@@ -431,19 +686,41 @@ public class PayRun {
    * @return netPay
    */
   @ApiModelProperty(example = "862.5", value = "The total NetPay for the Payrun")
+  /**
+   * The total NetPay for the Payrun
+   *
+   * @return netPay Double
+   */
   public Double getNetPay() {
     return netPay;
   }
 
+  /**
+   * The total NetPay for the Payrun
+   *
+   * @param netPay Double
+   */
   public void setNetPay(Double netPay) {
     this.netPay = netPay;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrors List&lt;ValidationError&gt;
+   * @return PayRun
+   */
   public PayRun validationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
     return this;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrorsItem ValidationError
+   * @return PayRun
+   */
   public PayRun addValidationErrorsItem(ValidationError validationErrorsItem) {
     if (this.validationErrors == null) {
       this.validationErrors = new ArrayList<ValidationError>();
@@ -458,10 +735,20 @@ public class PayRun {
    * @return validationErrors
    */
   @ApiModelProperty(value = "Displays array of validation error messages from the API")
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @return validationErrors List<ValidationError>
+   */
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrors List&lt;ValidationError&gt;
+   */
   public void setValidationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
   }

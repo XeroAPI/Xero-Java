@@ -28,7 +28,12 @@ public class EmployeePayTemplate {
 
   @JsonProperty("earningTemplates")
   private List<EarningsTemplate> earningTemplates = new ArrayList<EarningsTemplate>();
-
+  /**
+   * Unique identifier for the employee
+   *
+   * @param employeeID UUID
+   * @return EmployeePayTemplate
+   */
   public EmployeePayTemplate employeeID(UUID employeeID) {
     this.employeeID = employeeID;
     return this;
@@ -40,19 +45,41 @@ public class EmployeePayTemplate {
    * @return employeeID
    */
   @ApiModelProperty(value = "Unique identifier for the employee")
+  /**
+   * Unique identifier for the employee
+   *
+   * @return employeeID UUID
+   */
   public UUID getEmployeeID() {
     return employeeID;
   }
 
+  /**
+   * Unique identifier for the employee
+   *
+   * @param employeeID UUID
+   */
   public void setEmployeeID(UUID employeeID) {
     this.employeeID = employeeID;
   }
 
+  /**
+   * earningTemplates
+   *
+   * @param earningTemplates List&lt;EarningsTemplate&gt;
+   * @return EmployeePayTemplate
+   */
   public EmployeePayTemplate earningTemplates(List<EarningsTemplate> earningTemplates) {
     this.earningTemplates = earningTemplates;
     return this;
   }
 
+  /**
+   * earningTemplates
+   *
+   * @param earningTemplatesItem EarningsTemplate
+   * @return EmployeePayTemplate
+   */
   public EmployeePayTemplate addEarningTemplatesItem(EarningsTemplate earningTemplatesItem) {
     if (this.earningTemplates == null) {
       this.earningTemplates = new ArrayList<EarningsTemplate>();
@@ -67,10 +94,20 @@ public class EmployeePayTemplate {
    * @return earningTemplates
    */
   @ApiModelProperty(value = "")
+  /**
+   * earningTemplates
+   *
+   * @return earningTemplates List<EarningsTemplate>
+   */
   public List<EarningsTemplate> getEarningTemplates() {
     return earningTemplates;
   }
 
+  /**
+   * earningTemplates
+   *
+   * @param earningTemplates List&lt;EarningsTemplate&gt;
+   */
   public void setEarningTemplates(List<EarningsTemplate> earningTemplates) {
     this.earningTemplates = earningTemplates;
   }

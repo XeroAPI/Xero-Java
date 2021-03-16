@@ -38,7 +38,12 @@ public class Attachment {
 
   @JsonProperty("IncludeOnline")
   private Boolean includeOnline;
-
+  /**
+   * Unique ID for the file
+   *
+   * @param attachmentID UUID
+   * @return Attachment
+   */
   public Attachment attachmentID(UUID attachmentID) {
     this.attachmentID = attachmentID;
     return this;
@@ -52,14 +57,30 @@ public class Attachment {
   @ApiModelProperty(
       example = "00000000-0000-0000-0000-000000000000",
       value = "Unique ID for the file")
+  /**
+   * Unique ID for the file
+   *
+   * @return attachmentID UUID
+   */
   public UUID getAttachmentID() {
     return attachmentID;
   }
 
+  /**
+   * Unique ID for the file
+   *
+   * @param attachmentID UUID
+   */
   public void setAttachmentID(UUID attachmentID) {
     this.attachmentID = attachmentID;
   }
 
+  /**
+   * Name of the file
+   *
+   * @param fileName String
+   * @return Attachment
+   */
   public Attachment fileName(String fileName) {
     this.fileName = fileName;
     return this;
@@ -71,14 +92,30 @@ public class Attachment {
    * @return fileName
    */
   @ApiModelProperty(example = "xero-dev.jpg", value = "Name of the file")
+  /**
+   * Name of the file
+   *
+   * @return fileName String
+   */
   public String getFileName() {
     return fileName;
   }
 
+  /**
+   * Name of the file
+   *
+   * @param fileName String
+   */
   public void setFileName(String fileName) {
     this.fileName = fileName;
   }
 
+  /**
+   * URL to the file on xero.com
+   *
+   * @param url String
+   * @return Attachment
+   */
   public Attachment url(String url) {
     this.url = url;
     return this;
@@ -93,14 +130,30 @@ public class Attachment {
       example =
           "https://api.xero.com/api.xro/2.0/Accounts/da962997-a8bd-4dff-9616-01cdc199283f/Attachments/sample5.jpg",
       value = "URL to the file on xero.com")
+  /**
+   * URL to the file on xero.com
+   *
+   * @return url String
+   */
   public String getUrl() {
     return url;
   }
 
+  /**
+   * URL to the file on xero.com
+   *
+   * @param url String
+   */
   public void setUrl(String url) {
     this.url = url;
   }
 
+  /**
+   * Type of file
+   *
+   * @param mimeType String
+   * @return Attachment
+   */
   public Attachment mimeType(String mimeType) {
     this.mimeType = mimeType;
     return this;
@@ -112,14 +165,30 @@ public class Attachment {
    * @return mimeType
    */
   @ApiModelProperty(example = "image/jpg", value = "Type of file")
+  /**
+   * Type of file
+   *
+   * @return mimeType String
+   */
   public String getMimeType() {
     return mimeType;
   }
 
+  /**
+   * Type of file
+   *
+   * @param mimeType String
+   */
   public void setMimeType(String mimeType) {
     this.mimeType = mimeType;
   }
 
+  /**
+   * Length of the file content
+   *
+   * @param contentLength Integer
+   * @return Attachment
+   */
   public Attachment contentLength(Integer contentLength) {
     this.contentLength = contentLength;
     return this;
@@ -131,14 +200,30 @@ public class Attachment {
    * @return contentLength
    */
   @ApiModelProperty(value = "Length of the file content")
+  /**
+   * Length of the file content
+   *
+   * @return contentLength Integer
+   */
   public Integer getContentLength() {
     return contentLength;
   }
 
+  /**
+   * Length of the file content
+   *
+   * @param contentLength Integer
+   */
   public void setContentLength(Integer contentLength) {
     this.contentLength = contentLength;
   }
 
+  /**
+   * Include the file with the online invoice
+   *
+   * @param includeOnline Boolean
+   * @return Attachment
+   */
   public Attachment includeOnline(Boolean includeOnline) {
     this.includeOnline = includeOnline;
     return this;
@@ -150,10 +235,20 @@ public class Attachment {
    * @return includeOnline
    */
   @ApiModelProperty(value = "Include the file with the online invoice")
+  /**
+   * Include the file with the online invoice
+   *
+   * @return includeOnline Boolean
+   */
   public Boolean getIncludeOnline() {
     return includeOnline;
   }
 
+  /**
+   * Include the file with the online invoice
+   *
+   * @param includeOnline Boolean
+   */
   public void setIncludeOnline(Boolean includeOnline) {
     this.includeOnline = includeOnline;
   }

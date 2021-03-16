@@ -17,16 +17,23 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /** The status of the quote. */
 public enum QuoteStatusCodes {
+
+  /** DRAFT */
   DRAFT("DRAFT"),
 
+  /** SENT */
   SENT("SENT"),
 
+  /** DECLINED */
   DECLINED("DECLINED"),
 
+  /** ACCEPTED */
   ACCEPTED("ACCEPTED"),
 
+  /** INVOICED */
   INVOICED("INVOICED"),
 
+  /** DELETED */
   DELETED("DELETED");
 
   private String value;
@@ -35,16 +42,27 @@ public enum QuoteStatusCodes {
     this.value = value;
   }
 
+  /** @return String value */
   @JsonValue
   public String getValue() {
     return value;
   }
 
+  /**
+   * toString
+   *
+   * @return String value
+   */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
+  /**
+   * fromValue
+   *
+   * @param value String
+   */
   @JsonCreator
   public static QuoteStatusCodes fromValue(String value) {
     for (QuoteStatusCodes b : QuoteStatusCodes.values()) {

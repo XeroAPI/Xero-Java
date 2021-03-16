@@ -32,7 +32,12 @@ public class DeductionLine {
 
   @JsonProperty("percentage")
   private Double percentage;
-
+  /**
+   * Xero identifier for payroll deduction
+   *
+   * @param deductionTypeID UUID
+   * @return DeductionLine
+   */
   public DeductionLine deductionTypeID(UUID deductionTypeID) {
     this.deductionTypeID = deductionTypeID;
     return this;
@@ -44,14 +49,30 @@ public class DeductionLine {
    * @return deductionTypeID
    */
   @ApiModelProperty(value = "Xero identifier for payroll deduction")
+  /**
+   * Xero identifier for payroll deduction
+   *
+   * @return deductionTypeID UUID
+   */
   public UUID getDeductionTypeID() {
     return deductionTypeID;
   }
 
+  /**
+   * Xero identifier for payroll deduction
+   *
+   * @param deductionTypeID UUID
+   */
   public void setDeductionTypeID(UUID deductionTypeID) {
     this.deductionTypeID = deductionTypeID;
   }
 
+  /**
+   * The amount of the deduction line
+   *
+   * @param amount Double
+   * @return DeductionLine
+   */
   public DeductionLine amount(Double amount) {
     this.amount = amount;
     return this;
@@ -63,14 +84,30 @@ public class DeductionLine {
    * @return amount
    */
   @ApiModelProperty(value = "The amount of the deduction line")
+  /**
+   * The amount of the deduction line
+   *
+   * @return amount Double
+   */
   public Double getAmount() {
     return amount;
   }
 
+  /**
+   * The amount of the deduction line
+   *
+   * @param amount Double
+   */
   public void setAmount(Double amount) {
     this.amount = amount;
   }
 
+  /**
+   * Identifies if the deduction is subject to tax
+   *
+   * @param subjectToTax Boolean
+   * @return DeductionLine
+   */
   public DeductionLine subjectToTax(Boolean subjectToTax) {
     this.subjectToTax = subjectToTax;
     return this;
@@ -82,14 +119,30 @@ public class DeductionLine {
    * @return subjectToTax
    */
   @ApiModelProperty(value = "Identifies if the deduction is subject to tax")
+  /**
+   * Identifies if the deduction is subject to tax
+   *
+   * @return subjectToTax Boolean
+   */
   public Boolean getSubjectToTax() {
     return subjectToTax;
   }
 
+  /**
+   * Identifies if the deduction is subject to tax
+   *
+   * @param subjectToTax Boolean
+   */
   public void setSubjectToTax(Boolean subjectToTax) {
     this.subjectToTax = subjectToTax;
   }
 
+  /**
+   * Deduction rate percentage
+   *
+   * @param percentage Double
+   * @return DeductionLine
+   */
   public DeductionLine percentage(Double percentage) {
     this.percentage = percentage;
     return this;
@@ -101,10 +154,20 @@ public class DeductionLine {
    * @return percentage
    */
   @ApiModelProperty(value = "Deduction rate percentage")
+  /**
+   * Deduction rate percentage
+   *
+   * @return percentage Double
+   */
   public Double getPercentage() {
     return percentage;
   }
 
+  /**
+   * Deduction rate percentage
+   *
+   * @param percentage Double
+   */
   public void setPercentage(Double percentage) {
     this.percentage = percentage;
   }

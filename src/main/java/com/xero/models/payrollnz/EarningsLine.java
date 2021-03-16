@@ -50,7 +50,12 @@ public class EarningsLine {
 
   @JsonProperty("isSystemGenerated")
   private Boolean isSystemGenerated;
-
+  /**
+   * Xero identifier for payroll earnings line
+   *
+   * @param earningsLineID UUID
+   * @return EarningsLine
+   */
   public EarningsLine earningsLineID(UUID earningsLineID) {
     this.earningsLineID = earningsLineID;
     return this;
@@ -62,14 +67,30 @@ public class EarningsLine {
    * @return earningsLineID
    */
   @ApiModelProperty(value = "Xero identifier for payroll earnings line")
+  /**
+   * Xero identifier for payroll earnings line
+   *
+   * @return earningsLineID UUID
+   */
   public UUID getEarningsLineID() {
     return earningsLineID;
   }
 
+  /**
+   * Xero identifier for payroll earnings line
+   *
+   * @param earningsLineID UUID
+   */
   public void setEarningsLineID(UUID earningsLineID) {
     this.earningsLineID = earningsLineID;
   }
 
+  /**
+   * Xero identifier for payroll earnings rate
+   *
+   * @param earningsRateID UUID
+   * @return EarningsLine
+   */
   public EarningsLine earningsRateID(UUID earningsRateID) {
     this.earningsRateID = earningsRateID;
     return this;
@@ -81,14 +102,30 @@ public class EarningsLine {
    * @return earningsRateID
    */
   @ApiModelProperty(value = "Xero identifier for payroll earnings rate")
+  /**
+   * Xero identifier for payroll earnings rate
+   *
+   * @return earningsRateID UUID
+   */
   public UUID getEarningsRateID() {
     return earningsRateID;
   }
 
+  /**
+   * Xero identifier for payroll earnings rate
+   *
+   * @param earningsRateID UUID
+   */
   public void setEarningsRateID(UUID earningsRateID) {
     this.earningsRateID = earningsRateID;
   }
 
+  /**
+   * name of earnings rate for display in UI
+   *
+   * @param displayName String
+   * @return EarningsLine
+   */
   public EarningsLine displayName(String displayName) {
     this.displayName = displayName;
     return this;
@@ -100,14 +137,30 @@ public class EarningsLine {
    * @return displayName
    */
   @ApiModelProperty(value = "name of earnings rate for display in UI")
+  /**
+   * name of earnings rate for display in UI
+   *
+   * @return displayName String
+   */
   public String getDisplayName() {
     return displayName;
   }
 
+  /**
+   * name of earnings rate for display in UI
+   *
+   * @param displayName String
+   */
   public void setDisplayName(String displayName) {
     this.displayName = displayName;
   }
 
+  /**
+   * Rate per unit for earnings line
+   *
+   * @param ratePerUnit Double
+   * @return EarningsLine
+   */
   public EarningsLine ratePerUnit(Double ratePerUnit) {
     this.ratePerUnit = ratePerUnit;
     return this;
@@ -119,14 +172,30 @@ public class EarningsLine {
    * @return ratePerUnit
    */
   @ApiModelProperty(value = "Rate per unit for earnings line")
+  /**
+   * Rate per unit for earnings line
+   *
+   * @return ratePerUnit Double
+   */
   public Double getRatePerUnit() {
     return ratePerUnit;
   }
 
+  /**
+   * Rate per unit for earnings line
+   *
+   * @param ratePerUnit Double
+   */
   public void setRatePerUnit(Double ratePerUnit) {
     this.ratePerUnit = ratePerUnit;
   }
 
+  /**
+   * Earnings number of units
+   *
+   * @param numberOfUnits Double
+   * @return EarningsLine
+   */
   public EarningsLine numberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
     return this;
@@ -138,14 +207,30 @@ public class EarningsLine {
    * @return numberOfUnits
    */
   @ApiModelProperty(value = "Earnings number of units")
+  /**
+   * Earnings number of units
+   *
+   * @return numberOfUnits Double
+   */
   public Double getNumberOfUnits() {
     return numberOfUnits;
   }
 
+  /**
+   * Earnings number of units
+   *
+   * @param numberOfUnits Double
+   */
   public void setNumberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
   }
 
+  /**
+   * Earnings fixed amount. Only applicable if the EarningsRate RateType is Fixed
+   *
+   * @param fixedAmount Double
+   * @return EarningsLine
+   */
   public EarningsLine fixedAmount(Double fixedAmount) {
     this.fixedAmount = fixedAmount;
     return this;
@@ -158,14 +243,30 @@ public class EarningsLine {
    */
   @ApiModelProperty(
       value = "Earnings fixed amount. Only applicable if the EarningsRate RateType is Fixed")
+  /**
+   * Earnings fixed amount. Only applicable if the EarningsRate RateType is Fixed
+   *
+   * @return fixedAmount Double
+   */
   public Double getFixedAmount() {
     return fixedAmount;
   }
 
+  /**
+   * Earnings fixed amount. Only applicable if the EarningsRate RateType is Fixed
+   *
+   * @param fixedAmount Double
+   */
   public void setFixedAmount(Double fixedAmount) {
     this.fixedAmount = fixedAmount;
   }
 
+  /**
+   * The amount of the earnings line.
+   *
+   * @param amount Double
+   * @return EarningsLine
+   */
   public EarningsLine amount(Double amount) {
     this.amount = amount;
     return this;
@@ -177,14 +278,30 @@ public class EarningsLine {
    * @return amount
    */
   @ApiModelProperty(value = "The amount of the earnings line.")
+  /**
+   * The amount of the earnings line.
+   *
+   * @return amount Double
+   */
   public Double getAmount() {
     return amount;
   }
 
+  /**
+   * The amount of the earnings line.
+   *
+   * @param amount Double
+   */
   public void setAmount(Double amount) {
     this.amount = amount;
   }
 
+  /**
+   * Identifies if the earnings is taken from the timesheet. False for earnings line
+   *
+   * @param isLinkedToTimesheet Boolean
+   * @return EarningsLine
+   */
   public EarningsLine isLinkedToTimesheet(Boolean isLinkedToTimesheet) {
     this.isLinkedToTimesheet = isLinkedToTimesheet;
     return this;
@@ -197,14 +314,30 @@ public class EarningsLine {
    */
   @ApiModelProperty(
       value = "Identifies if the earnings is taken from the timesheet. False for earnings line")
+  /**
+   * Identifies if the earnings is taken from the timesheet. False for earnings line
+   *
+   * @return isLinkedToTimesheet Boolean
+   */
   public Boolean getIsLinkedToTimesheet() {
     return isLinkedToTimesheet;
   }
 
+  /**
+   * Identifies if the earnings is taken from the timesheet. False for earnings line
+   *
+   * @param isLinkedToTimesheet Boolean
+   */
   public void setIsLinkedToTimesheet(Boolean isLinkedToTimesheet) {
     this.isLinkedToTimesheet = isLinkedToTimesheet;
   }
 
+  /**
+   * Identifies if the earnings is using an average daily pay rate
+   *
+   * @param isAverageDailyPayRate Boolean
+   * @return EarningsLine
+   */
   public EarningsLine isAverageDailyPayRate(Boolean isAverageDailyPayRate) {
     this.isAverageDailyPayRate = isAverageDailyPayRate;
     return this;
@@ -216,14 +349,30 @@ public class EarningsLine {
    * @return isAverageDailyPayRate
    */
   @ApiModelProperty(value = "Identifies if the earnings is using an average daily pay rate")
+  /**
+   * Identifies if the earnings is using an average daily pay rate
+   *
+   * @return isAverageDailyPayRate Boolean
+   */
   public Boolean getIsAverageDailyPayRate() {
     return isAverageDailyPayRate;
   }
 
+  /**
+   * Identifies if the earnings is using an average daily pay rate
+   *
+   * @param isAverageDailyPayRate Boolean
+   */
   public void setIsAverageDailyPayRate(Boolean isAverageDailyPayRate) {
     this.isAverageDailyPayRate = isAverageDailyPayRate;
   }
 
+  /**
+   * Flag to identify whether the earnings line is system generated or not.
+   *
+   * @param isSystemGenerated Boolean
+   * @return EarningsLine
+   */
   public EarningsLine isSystemGenerated(Boolean isSystemGenerated) {
     this.isSystemGenerated = isSystemGenerated;
     return this;
@@ -236,10 +385,20 @@ public class EarningsLine {
    */
   @ApiModelProperty(
       value = "Flag to identify whether the earnings line is system generated or not.")
+  /**
+   * Flag to identify whether the earnings line is system generated or not.
+   *
+   * @return isSystemGenerated Boolean
+   */
   public Boolean getIsSystemGenerated() {
     return isSystemGenerated;
   }
 
+  /**
+   * Flag to identify whether the earnings line is system generated or not.
+   *
+   * @param isSystemGenerated Boolean
+   */
   public void setIsSystemGenerated(Boolean isSystemGenerated) {
     this.isSystemGenerated = isSystemGenerated;
   }

@@ -17,14 +17,20 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Gets or Sets ManualTaxType */
 public enum ManualTaxType {
+
+  /** PAYGMANUAL */
   PAYGMANUAL("PAYGMANUAL"),
 
+  /** ETPOMANUAL */
   ETPOMANUAL("ETPOMANUAL"),
 
+  /** ETPRMANUAL */
   ETPRMANUAL("ETPRMANUAL"),
 
+  /** SCHEDULE5MANUAL */
   SCHEDULE5MANUAL("SCHEDULE5MANUAL"),
 
+  /** SCHEDULE5STSLMANUAL */
   SCHEDULE5STSLMANUAL("SCHEDULE5STSLMANUAL");
 
   private String value;
@@ -33,16 +39,27 @@ public enum ManualTaxType {
     this.value = value;
   }
 
+  /** @return String value */
   @JsonValue
   public String getValue() {
     return value;
   }
 
+  /**
+   * toString
+   *
+   * @return String value
+   */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
+  /**
+   * fromValue
+   *
+   * @param value String
+   */
   @JsonCreator
   public static ManualTaxType fromValue(String value) {
     for (ManualTaxType b : ManualTaxType.values()) {

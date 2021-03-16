@@ -31,20 +31,28 @@ public class BankTransaction {
   StringUtil util = new StringUtil();
   /** See Bank Transaction Types */
   public enum TypeEnum {
+    /** RECEIVE */
     RECEIVE("RECEIVE"),
 
+    /** RECEIVE_OVERPAYMENT */
     RECEIVE_OVERPAYMENT("RECEIVE-OVERPAYMENT"),
 
+    /** RECEIVE_PREPAYMENT */
     RECEIVE_PREPAYMENT("RECEIVE-PREPAYMENT"),
 
+    /** SPEND */
     SPEND("SPEND"),
 
+    /** SPEND_OVERPAYMENT */
     SPEND_OVERPAYMENT("SPEND-OVERPAYMENT"),
 
+    /** SPEND_PREPAYMENT */
     SPEND_PREPAYMENT("SPEND-PREPAYMENT"),
 
+    /** RECEIVE_TRANSFER */
     RECEIVE_TRANSFER("RECEIVE-TRANSFER"),
 
+    /** SPEND_TRANSFER */
     SPEND_TRANSFER("SPEND-TRANSFER");
 
     private String value;
@@ -53,16 +61,31 @@ public class BankTransaction {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static TypeEnum fromValue(String value) {
       for (TypeEnum b : TypeEnum.values()) {
@@ -105,10 +128,13 @@ public class BankTransaction {
   private String url;
   /** See Bank Transaction Status Codes */
   public enum StatusEnum {
+    /** AUTHORISED */
     AUTHORISED("AUTHORISED"),
 
+    /** DELETED */
     DELETED("DELETED"),
 
+    /** VOIDED */
     VOIDED("VOIDED");
 
     private String value;
@@ -117,16 +143,31 @@ public class BankTransaction {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
@@ -173,7 +214,12 @@ public class BankTransaction {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
-
+  /**
+   * See Bank Transaction Types
+   *
+   * @param type TypeEnum
+   * @return BankTransaction
+   */
   public BankTransaction type(TypeEnum type) {
     this.type = type;
     return this;
@@ -185,14 +231,30 @@ public class BankTransaction {
    * @return type
    */
   @ApiModelProperty(required = true, value = "See Bank Transaction Types")
+  /**
+   * See Bank Transaction Types
+   *
+   * @return type TypeEnum
+   */
   public TypeEnum getType() {
     return type;
   }
 
+  /**
+   * See Bank Transaction Types
+   *
+   * @param type TypeEnum
+   */
   public void setType(TypeEnum type) {
     this.type = type;
   }
 
+  /**
+   * contact
+   *
+   * @param contact Contact
+   * @return BankTransaction
+   */
   public BankTransaction contact(Contact contact) {
     this.contact = contact;
     return this;
@@ -204,19 +266,41 @@ public class BankTransaction {
    * @return contact
    */
   @ApiModelProperty(value = "")
+  /**
+   * contact
+   *
+   * @return contact Contact
+   */
   public Contact getContact() {
     return contact;
   }
 
+  /**
+   * contact
+   *
+   * @param contact Contact
+   */
   public void setContact(Contact contact) {
     this.contact = contact;
   }
 
+  /**
+   * See LineItems
+   *
+   * @param lineItems List&lt;LineItem&gt;
+   * @return BankTransaction
+   */
   public BankTransaction lineItems(List<LineItem> lineItems) {
     this.lineItems = lineItems;
     return this;
   }
 
+  /**
+   * See LineItems
+   *
+   * @param lineItemsItem LineItem
+   * @return BankTransaction
+   */
   public BankTransaction addLineItemsItem(LineItem lineItemsItem) {
     this.lineItems.add(lineItemsItem);
     return this;
@@ -228,14 +312,30 @@ public class BankTransaction {
    * @return lineItems
    */
   @ApiModelProperty(required = true, value = "See LineItems")
+  /**
+   * See LineItems
+   *
+   * @return lineItems List<LineItem>
+   */
   public List<LineItem> getLineItems() {
     return lineItems;
   }
 
+  /**
+   * See LineItems
+   *
+   * @param lineItems List&lt;LineItem&gt;
+   */
   public void setLineItems(List<LineItem> lineItems) {
     this.lineItems = lineItems;
   }
 
+  /**
+   * bankAccount
+   *
+   * @param bankAccount Account
+   * @return BankTransaction
+   */
   public BankTransaction bankAccount(Account bankAccount) {
     this.bankAccount = bankAccount;
     return this;
@@ -247,14 +347,30 @@ public class BankTransaction {
    * @return bankAccount
    */
   @ApiModelProperty(required = true, value = "")
+  /**
+   * bankAccount
+   *
+   * @return bankAccount Account
+   */
   public Account getBankAccount() {
     return bankAccount;
   }
 
+  /**
+   * bankAccount
+   *
+   * @param bankAccount Account
+   */
   public void setBankAccount(Account bankAccount) {
     this.bankAccount = bankAccount;
   }
 
+  /**
+   * Boolean to show if transaction is reconciled
+   *
+   * @param isReconciled Boolean
+   * @return BankTransaction
+   */
   public BankTransaction isReconciled(Boolean isReconciled) {
     this.isReconciled = isReconciled;
     return this;
@@ -266,14 +382,30 @@ public class BankTransaction {
    * @return isReconciled
    */
   @ApiModelProperty(value = "Boolean to show if transaction is reconciled")
+  /**
+   * Boolean to show if transaction is reconciled
+   *
+   * @return isReconciled Boolean
+   */
   public Boolean getIsReconciled() {
     return isReconciled;
   }
 
+  /**
+   * Boolean to show if transaction is reconciled
+   *
+   * @param isReconciled Boolean
+   */
   public void setIsReconciled(Boolean isReconciled) {
     this.isReconciled = isReconciled;
   }
 
+  /**
+   * Date of transaction – YYYY-MM-DD
+   *
+   * @param date String
+   * @return BankTransaction
+   */
   public BankTransaction date(String date) {
     this.date = date;
     return this;
@@ -285,10 +417,19 @@ public class BankTransaction {
    * @return date
    */
   @ApiModelProperty(value = "Date of transaction – YYYY-MM-DD")
+  /**
+   * Date of transaction – YYYY-MM-DD
+   *
+   * @return date String
+   */
   public String getDate() {
     return date;
   }
-
+  /**
+   * Date of transaction – YYYY-MM-DD
+   *
+   * @return LocalDate
+   */
   public LocalDate getDateAsDate() {
     if (this.date != null) {
       try {
@@ -300,10 +441,20 @@ public class BankTransaction {
     return null;
   }
 
+  /**
+   * Date of transaction – YYYY-MM-DD
+   *
+   * @param date String
+   */
   public void setDate(String date) {
     this.date = date;
   }
 
+  /**
+   * Date of transaction – YYYY-MM-DD
+   *
+   * @param date LocalDateTime
+   */
   public void setDate(LocalDate date) {
     // CONVERT LocalDate args into MS DateFromat String
     Instant instant = date.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
@@ -312,6 +463,12 @@ public class BankTransaction {
     this.date = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
   }
 
+  /**
+   * Reference for the transaction. Only supported for SPEND and RECEIVE transactions.
+   *
+   * @param reference String
+   * @return BankTransaction
+   */
   public BankTransaction reference(String reference) {
     this.reference = reference;
     return this;
@@ -324,14 +481,30 @@ public class BankTransaction {
    */
   @ApiModelProperty(
       value = "Reference for the transaction. Only supported for SPEND and RECEIVE transactions.")
+  /**
+   * Reference for the transaction. Only supported for SPEND and RECEIVE transactions.
+   *
+   * @return reference String
+   */
   public String getReference() {
     return reference;
   }
 
+  /**
+   * Reference for the transaction. Only supported for SPEND and RECEIVE transactions.
+   *
+   * @param reference String
+   */
   public void setReference(String reference) {
     this.reference = reference;
   }
 
+  /**
+   * currencyCode
+   *
+   * @param currencyCode CurrencyCode
+   * @return BankTransaction
+   */
   public BankTransaction currencyCode(CurrencyCode currencyCode) {
     this.currencyCode = currencyCode;
     return this;
@@ -343,14 +516,33 @@ public class BankTransaction {
    * @return currencyCode
    */
   @ApiModelProperty(value = "")
+  /**
+   * currencyCode
+   *
+   * @return currencyCode CurrencyCode
+   */
   public CurrencyCode getCurrencyCode() {
     return currencyCode;
   }
 
+  /**
+   * currencyCode
+   *
+   * @param currencyCode CurrencyCode
+   */
   public void setCurrencyCode(CurrencyCode currencyCode) {
     this.currencyCode = currencyCode;
   }
 
+  /**
+   * Exchange rate to base currency when money is spent or received. e.g.0.7500 Only used for bank
+   * transactions in non base currency. If this isn’t specified for non base currency accounts then
+   * either the user-defined rate (preference) or the XE.com day rate will be used. Setting currency
+   * is only supported on overpayments.
+   *
+   * @param currencyRate Double
+   * @return BankTransaction
+   */
   public BankTransaction currencyRate(Double currencyRate) {
     this.currencyRate = currencyRate;
     return this;
@@ -370,14 +562,36 @@ public class BankTransaction {
               + " for bank transactions in non base currency. If this isn’t specified for non base"
               + " currency accounts then either the user-defined rate (preference) or the XE.com"
               + " day rate will be used. Setting currency is only supported on overpayments.")
+  /**
+   * Exchange rate to base currency when money is spent or received. e.g.0.7500 Only used for bank
+   * transactions in non base currency. If this isn’t specified for non base currency accounts then
+   * either the user-defined rate (preference) or the XE.com day rate will be used. Setting currency
+   * is only supported on overpayments.
+   *
+   * @return currencyRate Double
+   */
   public Double getCurrencyRate() {
     return currencyRate;
   }
 
+  /**
+   * Exchange rate to base currency when money is spent or received. e.g.0.7500 Only used for bank
+   * transactions in non base currency. If this isn’t specified for non base currency accounts then
+   * either the user-defined rate (preference) or the XE.com day rate will be used. Setting currency
+   * is only supported on overpayments.
+   *
+   * @param currencyRate Double
+   */
   public void setCurrencyRate(Double currencyRate) {
     this.currencyRate = currencyRate;
   }
 
+  /**
+   * URL link to a source document – shown as “Go to App Name”
+   *
+   * @param url String
+   * @return BankTransaction
+   */
   public BankTransaction url(String url) {
     this.url = url;
     return this;
@@ -389,14 +603,30 @@ public class BankTransaction {
    * @return url
    */
   @ApiModelProperty(value = "URL link to a source document – shown as “Go to App Name”")
+  /**
+   * URL link to a source document – shown as “Go to App Name”
+   *
+   * @return url String
+   */
   public String getUrl() {
     return url;
   }
 
+  /**
+   * URL link to a source document – shown as “Go to App Name”
+   *
+   * @param url String
+   */
   public void setUrl(String url) {
     this.url = url;
   }
 
+  /**
+   * See Bank Transaction Status Codes
+   *
+   * @param status StatusEnum
+   * @return BankTransaction
+   */
   public BankTransaction status(StatusEnum status) {
     this.status = status;
     return this;
@@ -408,14 +638,30 @@ public class BankTransaction {
    * @return status
    */
   @ApiModelProperty(value = "See Bank Transaction Status Codes")
+  /**
+   * See Bank Transaction Status Codes
+   *
+   * @return status StatusEnum
+   */
   public StatusEnum getStatus() {
     return status;
   }
 
+  /**
+   * See Bank Transaction Status Codes
+   *
+   * @param status StatusEnum
+   */
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
+  /**
+   * lineAmountTypes
+   *
+   * @param lineAmountTypes LineAmountTypes
+   * @return BankTransaction
+   */
   public BankTransaction lineAmountTypes(LineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
     return this;
@@ -427,14 +673,30 @@ public class BankTransaction {
    * @return lineAmountTypes
    */
   @ApiModelProperty(value = "")
+  /**
+   * lineAmountTypes
+   *
+   * @return lineAmountTypes LineAmountTypes
+   */
   public LineAmountTypes getLineAmountTypes() {
     return lineAmountTypes;
   }
 
+  /**
+   * lineAmountTypes
+   *
+   * @param lineAmountTypes LineAmountTypes
+   */
   public void setLineAmountTypes(LineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
   }
 
+  /**
+   * Total of bank transaction excluding taxes
+   *
+   * @param subTotal Double
+   * @return BankTransaction
+   */
   public BankTransaction subTotal(Double subTotal) {
     this.subTotal = subTotal;
     return this;
@@ -446,14 +708,30 @@ public class BankTransaction {
    * @return subTotal
    */
   @ApiModelProperty(value = "Total of bank transaction excluding taxes")
+  /**
+   * Total of bank transaction excluding taxes
+   *
+   * @return subTotal Double
+   */
   public Double getSubTotal() {
     return subTotal;
   }
 
+  /**
+   * Total of bank transaction excluding taxes
+   *
+   * @param subTotal Double
+   */
   public void setSubTotal(Double subTotal) {
     this.subTotal = subTotal;
   }
 
+  /**
+   * Total tax on bank transaction
+   *
+   * @param totalTax Double
+   * @return BankTransaction
+   */
   public BankTransaction totalTax(Double totalTax) {
     this.totalTax = totalTax;
     return this;
@@ -465,14 +743,30 @@ public class BankTransaction {
    * @return totalTax
    */
   @ApiModelProperty(value = "Total tax on bank transaction")
+  /**
+   * Total tax on bank transaction
+   *
+   * @return totalTax Double
+   */
   public Double getTotalTax() {
     return totalTax;
   }
 
+  /**
+   * Total tax on bank transaction
+   *
+   * @param totalTax Double
+   */
   public void setTotalTax(Double totalTax) {
     this.totalTax = totalTax;
   }
 
+  /**
+   * Total of bank transaction tax inclusive
+   *
+   * @param total Double
+   * @return BankTransaction
+   */
   public BankTransaction total(Double total) {
     this.total = total;
     return this;
@@ -484,14 +778,30 @@ public class BankTransaction {
    * @return total
    */
   @ApiModelProperty(value = "Total of bank transaction tax inclusive")
+  /**
+   * Total of bank transaction tax inclusive
+   *
+   * @return total Double
+   */
   public Double getTotal() {
     return total;
   }
 
+  /**
+   * Total of bank transaction tax inclusive
+   *
+   * @param total Double
+   */
   public void setTotal(Double total) {
     this.total = total;
   }
 
+  /**
+   * Xero generated unique identifier for bank transaction
+   *
+   * @param bankTransactionID UUID
+   * @return BankTransaction
+   */
   public BankTransaction bankTransactionID(UUID bankTransactionID) {
     this.bankTransactionID = bankTransactionID;
     return this;
@@ -505,10 +815,20 @@ public class BankTransaction {
   @ApiModelProperty(
       example = "00000000-0000-0000-0000-000000000000",
       value = "Xero generated unique identifier for bank transaction")
+  /**
+   * Xero generated unique identifier for bank transaction
+   *
+   * @return bankTransactionID UUID
+   */
   public UUID getBankTransactionID() {
     return bankTransactionID;
   }
 
+  /**
+   * Xero generated unique identifier for bank transaction
+   *
+   * @param bankTransactionID UUID
+   */
   public void setBankTransactionID(UUID bankTransactionID) {
     this.bankTransactionID = bankTransactionID;
   }
@@ -524,6 +844,12 @@ public class BankTransaction {
       value =
           "Xero generated unique identifier for a Prepayment. This will be returned on"
               + " BankTransactions with a Type of SPEND-PREPAYMENT or RECEIVE-PREPAYMENT")
+  /**
+   * Xero generated unique identifier for a Prepayment. This will be returned on BankTransactions
+   * with a Type of SPEND-PREPAYMENT or RECEIVE-PREPAYMENT
+   *
+   * @return prepaymentID UUID
+   */
   public UUID getPrepaymentID() {
     return prepaymentID;
   }
@@ -539,6 +865,12 @@ public class BankTransaction {
       value =
           "Xero generated unique identifier for an Overpayment. This will be returned on"
               + " BankTransactions with a Type of SPEND-OVERPAYMENT or RECEIVE-OVERPAYMENT")
+  /**
+   * Xero generated unique identifier for an Overpayment. This will be returned on BankTransactions
+   * with a Type of SPEND-OVERPAYMENT or RECEIVE-OVERPAYMENT
+   *
+   * @return overpaymentID UUID
+   */
   public UUID getOverpaymentID() {
     return overpaymentID;
   }
@@ -549,10 +881,19 @@ public class BankTransaction {
    * @return updatedDateUTC
    */
   @ApiModelProperty(example = "/Date(1573755038314)/", value = "Last modified date UTC format")
+  /**
+   * Last modified date UTC format
+   *
+   * @return updatedDateUTC String
+   */
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-
+  /**
+   * Last modified date UTC format
+   *
+   * @return OffsetDateTime
+   */
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
@@ -572,10 +913,21 @@ public class BankTransaction {
   @ApiModelProperty(
       example = "false",
       value = "Boolean to indicate if a bank transaction has an attachment")
+  /**
+   * Boolean to indicate if a bank transaction has an attachment
+   *
+   * @return hasAttachments Boolean
+   */
   public Boolean getHasAttachments() {
     return hasAttachments;
   }
 
+  /**
+   * A string to indicate if a invoice status
+   *
+   * @param statusAttributeString String
+   * @return BankTransaction
+   */
   public BankTransaction statusAttributeString(String statusAttributeString) {
     this.statusAttributeString = statusAttributeString;
     return this;
@@ -587,19 +939,41 @@ public class BankTransaction {
    * @return statusAttributeString
    */
   @ApiModelProperty(value = "A string to indicate if a invoice status")
+  /**
+   * A string to indicate if a invoice status
+   *
+   * @return statusAttributeString String
+   */
   public String getStatusAttributeString() {
     return statusAttributeString;
   }
 
+  /**
+   * A string to indicate if a invoice status
+   *
+   * @param statusAttributeString String
+   */
   public void setStatusAttributeString(String statusAttributeString) {
     this.statusAttributeString = statusAttributeString;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrors List&lt;ValidationError&gt;
+   * @return BankTransaction
+   */
   public BankTransaction validationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
     return this;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrorsItem ValidationError
+   * @return BankTransaction
+   */
   public BankTransaction addValidationErrorsItem(ValidationError validationErrorsItem) {
     if (this.validationErrors == null) {
       this.validationErrors = new ArrayList<ValidationError>();
@@ -614,10 +988,20 @@ public class BankTransaction {
    * @return validationErrors
    */
   @ApiModelProperty(value = "Displays array of validation error messages from the API")
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @return validationErrors List<ValidationError>
+   */
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrors List&lt;ValidationError&gt;
+   */
   public void setValidationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
   }

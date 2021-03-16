@@ -27,7 +27,12 @@ public class ImportSummary {
 
   @JsonProperty("Organisation")
   private ImportSummaryOrganisation organisation;
-
+  /**
+   * accounts
+   *
+   * @param accounts ImportSummaryAccounts
+   * @return ImportSummary
+   */
   public ImportSummary accounts(ImportSummaryAccounts accounts) {
     this.accounts = accounts;
     return this;
@@ -39,14 +44,30 @@ public class ImportSummary {
    * @return accounts
    */
   @ApiModelProperty(value = "")
+  /**
+   * accounts
+   *
+   * @return accounts ImportSummaryAccounts
+   */
   public ImportSummaryAccounts getAccounts() {
     return accounts;
   }
 
+  /**
+   * accounts
+   *
+   * @param accounts ImportSummaryAccounts
+   */
   public void setAccounts(ImportSummaryAccounts accounts) {
     this.accounts = accounts;
   }
 
+  /**
+   * organisation
+   *
+   * @param organisation ImportSummaryOrganisation
+   * @return ImportSummary
+   */
   public ImportSummary organisation(ImportSummaryOrganisation organisation) {
     this.organisation = organisation;
     return this;
@@ -58,10 +79,20 @@ public class ImportSummary {
    * @return organisation
    */
   @ApiModelProperty(value = "")
+  /**
+   * organisation
+   *
+   * @return organisation ImportSummaryOrganisation
+   */
   public ImportSummaryOrganisation getOrganisation() {
     return organisation;
   }
 
+  /**
+   * organisation
+   *
+   * @param organisation ImportSummaryOrganisation
+   */
   public void setOrganisation(ImportSummaryOrganisation organisation) {
     this.organisation = organisation;
   }

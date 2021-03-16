@@ -31,7 +31,12 @@ public class ContactPerson {
 
   @JsonProperty("IncludeInEmails")
   private Boolean includeInEmails;
-
+  /**
+   * First name of person
+   *
+   * @param firstName String
+   * @return ContactPerson
+   */
   public ContactPerson firstName(String firstName) {
     this.firstName = firstName;
     return this;
@@ -43,14 +48,30 @@ public class ContactPerson {
    * @return firstName
    */
   @ApiModelProperty(value = "First name of person")
+  /**
+   * First name of person
+   *
+   * @return firstName String
+   */
   public String getFirstName() {
     return firstName;
   }
 
+  /**
+   * First name of person
+   *
+   * @param firstName String
+   */
   public void setFirstName(String firstName) {
     this.firstName = firstName;
   }
 
+  /**
+   * Last name of person
+   *
+   * @param lastName String
+   * @return ContactPerson
+   */
   public ContactPerson lastName(String lastName) {
     this.lastName = lastName;
     return this;
@@ -62,14 +83,30 @@ public class ContactPerson {
    * @return lastName
    */
   @ApiModelProperty(value = "Last name of person")
+  /**
+   * Last name of person
+   *
+   * @return lastName String
+   */
   public String getLastName() {
     return lastName;
   }
 
+  /**
+   * Last name of person
+   *
+   * @param lastName String
+   */
   public void setLastName(String lastName) {
     this.lastName = lastName;
   }
 
+  /**
+   * Email address of person
+   *
+   * @param emailAddress String
+   * @return ContactPerson
+   */
   public ContactPerson emailAddress(String emailAddress) {
     this.emailAddress = emailAddress;
     return this;
@@ -81,14 +118,30 @@ public class ContactPerson {
    * @return emailAddress
    */
   @ApiModelProperty(value = "Email address of person")
+  /**
+   * Email address of person
+   *
+   * @return emailAddress String
+   */
   public String getEmailAddress() {
     return emailAddress;
   }
 
+  /**
+   * Email address of person
+   *
+   * @param emailAddress String
+   */
   public void setEmailAddress(String emailAddress) {
     this.emailAddress = emailAddress;
   }
 
+  /**
+   * boolean to indicate whether contact should be included on emails with invoices etc.
+   *
+   * @param includeInEmails Boolean
+   * @return ContactPerson
+   */
   public ContactPerson includeInEmails(Boolean includeInEmails) {
     this.includeInEmails = includeInEmails;
     return this;
@@ -101,10 +154,20 @@ public class ContactPerson {
    */
   @ApiModelProperty(
       value = "boolean to indicate whether contact should be included on emails with invoices etc.")
+  /**
+   * boolean to indicate whether contact should be included on emails with invoices etc.
+   *
+   * @return includeInEmails Boolean
+   */
   public Boolean getIncludeInEmails() {
     return includeInEmails;
   }
 
+  /**
+   * boolean to indicate whether contact should be included on emails with invoices etc.
+   *
+   * @param includeInEmails Boolean
+   */
   public void setIncludeInEmails(Boolean includeInEmails) {
     this.includeInEmails = includeInEmails;
   }

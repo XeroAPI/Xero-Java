@@ -28,7 +28,12 @@ public class EmployeeStatutorySickLeaveObject {
 
   @JsonProperty("statutorySickLeave")
   private EmployeeStatutorySickLeave statutorySickLeave;
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return EmployeeStatutorySickLeaveObject
+   */
   public EmployeeStatutorySickLeaveObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -40,14 +45,30 @@ public class EmployeeStatutorySickLeaveObject {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return EmployeeStatutorySickLeaveObject
+   */
   public EmployeeStatutorySickLeaveObject problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -59,14 +80,30 @@ public class EmployeeStatutorySickLeaveObject {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * statutorySickLeave
+   *
+   * @param statutorySickLeave EmployeeStatutorySickLeave
+   * @return EmployeeStatutorySickLeaveObject
+   */
   public EmployeeStatutorySickLeaveObject statutorySickLeave(
       EmployeeStatutorySickLeave statutorySickLeave) {
     this.statutorySickLeave = statutorySickLeave;
@@ -79,10 +116,20 @@ public class EmployeeStatutorySickLeaveObject {
    * @return statutorySickLeave
    */
   @ApiModelProperty(value = "")
+  /**
+   * statutorySickLeave
+   *
+   * @return statutorySickLeave EmployeeStatutorySickLeave
+   */
   public EmployeeStatutorySickLeave getStatutorySickLeave() {
     return statutorySickLeave;
   }
 
+  /**
+   * statutorySickLeave
+   *
+   * @param statutorySickLeave EmployeeStatutorySickLeave
+   */
   public void setStatutorySickLeave(EmployeeStatutorySickLeave statutorySickLeave) {
     this.statutorySickLeave = statutorySickLeave;
   }

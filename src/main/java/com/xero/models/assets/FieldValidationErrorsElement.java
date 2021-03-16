@@ -37,7 +37,12 @@ public class FieldValidationErrorsElement {
 
   @JsonProperty("detail")
   private String detail;
-
+  /**
+   * The field name of the erroneous field
+   *
+   * @param fieldName String
+   * @return FieldValidationErrorsElement
+   */
   public FieldValidationErrorsElement fieldName(String fieldName) {
     this.fieldName = fieldName;
     return this;
@@ -49,14 +54,30 @@ public class FieldValidationErrorsElement {
    * @return fieldName
    */
   @ApiModelProperty(value = "The field name of the erroneous field")
+  /**
+   * The field name of the erroneous field
+   *
+   * @return fieldName String
+   */
   public String getFieldName() {
     return fieldName;
   }
 
+  /**
+   * The field name of the erroneous field
+   *
+   * @param fieldName String
+   */
   public void setFieldName(String fieldName) {
     this.fieldName = fieldName;
   }
 
+  /**
+   * The provided value
+   *
+   * @param valueProvided String
+   * @return FieldValidationErrorsElement
+   */
   public FieldValidationErrorsElement valueProvided(String valueProvided) {
     this.valueProvided = valueProvided;
     return this;
@@ -68,14 +89,30 @@ public class FieldValidationErrorsElement {
    * @return valueProvided
    */
   @ApiModelProperty(value = "The provided value")
+  /**
+   * The provided value
+   *
+   * @return valueProvided String
+   */
   public String getValueProvided() {
     return valueProvided;
   }
 
+  /**
+   * The provided value
+   *
+   * @param valueProvided String
+   */
   public void setValueProvided(String valueProvided) {
     this.valueProvided = valueProvided;
   }
 
+  /**
+   * Explanation of the field validation error
+   *
+   * @param localisedMessage String
+   * @return FieldValidationErrorsElement
+   */
   public FieldValidationErrorsElement localisedMessage(String localisedMessage) {
     this.localisedMessage = localisedMessage;
     return this;
@@ -87,14 +124,30 @@ public class FieldValidationErrorsElement {
    * @return localisedMessage
    */
   @ApiModelProperty(value = "Explanation of the field validation error")
+  /**
+   * Explanation of the field validation error
+   *
+   * @return localisedMessage String
+   */
   public String getLocalisedMessage() {
     return localisedMessage;
   }
 
+  /**
+   * Explanation of the field validation error
+   *
+   * @param localisedMessage String
+   */
   public void setLocalisedMessage(String localisedMessage) {
     this.localisedMessage = localisedMessage;
   }
 
+  /**
+   * Internal type of the field validation error message
+   *
+   * @param type String
+   * @return FieldValidationErrorsElement
+   */
   public FieldValidationErrorsElement type(String type) {
     this.type = type;
     return this;
@@ -106,14 +159,30 @@ public class FieldValidationErrorsElement {
    * @return type
    */
   @ApiModelProperty(value = "Internal type of the field validation error message")
+  /**
+   * Internal type of the field validation error message
+   *
+   * @return type String
+   */
   public String getType() {
     return type;
   }
 
+  /**
+   * Internal type of the field validation error message
+   *
+   * @param type String
+   */
   public void setType(String type) {
     this.type = type;
   }
 
+  /**
+   * Title of the field validation error
+   *
+   * @param title String
+   * @return FieldValidationErrorsElement
+   */
   public FieldValidationErrorsElement title(String title) {
     this.title = title;
     return this;
@@ -125,14 +194,30 @@ public class FieldValidationErrorsElement {
    * @return title
    */
   @ApiModelProperty(value = "Title of the field validation error")
+  /**
+   * Title of the field validation error
+   *
+   * @return title String
+   */
   public String getTitle() {
     return title;
   }
 
+  /**
+   * Title of the field validation error
+   *
+   * @param title String
+   */
   public void setTitle(String title) {
     this.title = title;
   }
 
+  /**
+   * Detail of the field validation error
+   *
+   * @param detail String
+   * @return FieldValidationErrorsElement
+   */
   public FieldValidationErrorsElement detail(String detail) {
     this.detail = detail;
     return this;
@@ -144,10 +229,20 @@ public class FieldValidationErrorsElement {
    * @return detail
    */
   @ApiModelProperty(value = "Detail of the field validation error")
+  /**
+   * Detail of the field validation error
+   *
+   * @return detail String
+   */
   public String getDetail() {
     return detail;
   }
 
+  /**
+   * Detail of the field validation error
+   *
+   * @param detail String
+   */
   public void setDetail(String detail) {
     this.detail = detail;
   }

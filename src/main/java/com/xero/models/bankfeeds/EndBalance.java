@@ -32,7 +32,12 @@ public class EndBalance {
 
   @JsonProperty("creditDebitIndicator")
   private CreditDebitIndicator creditDebitIndicator;
-
+  /**
+   * amount
+   *
+   * @param amount Double
+   * @return EndBalance
+   */
   public EndBalance amount(Double amount) {
     this.amount = amount;
     return this;
@@ -44,14 +49,30 @@ public class EndBalance {
    * @return amount
    */
   @ApiModelProperty(example = "10.1340", value = "")
+  /**
+   * amount
+   *
+   * @return amount Double
+   */
   public Double getAmount() {
     return amount;
   }
 
+  /**
+   * amount
+   *
+   * @param amount Double
+   */
   public void setAmount(Double amount) {
     this.amount = amount;
   }
 
+  /**
+   * creditDebitIndicator
+   *
+   * @param creditDebitIndicator CreditDebitIndicator
+   * @return EndBalance
+   */
   public EndBalance creditDebitIndicator(CreditDebitIndicator creditDebitIndicator) {
     this.creditDebitIndicator = creditDebitIndicator;
     return this;
@@ -63,10 +84,20 @@ public class EndBalance {
    * @return creditDebitIndicator
    */
   @ApiModelProperty(value = "")
+  /**
+   * creditDebitIndicator
+   *
+   * @return creditDebitIndicator CreditDebitIndicator
+   */
   public CreditDebitIndicator getCreditDebitIndicator() {
     return creditDebitIndicator;
   }
 
+  /**
+   * creditDebitIndicator
+   *
+   * @param creditDebitIndicator CreditDebitIndicator
+   */
   public void setCreditDebitIndicator(CreditDebitIndicator creditDebitIndicator) {
     this.creditDebitIndicator = creditDebitIndicator;
   }

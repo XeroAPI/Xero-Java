@@ -24,12 +24,23 @@ public class BankTransactions {
 
   @JsonProperty("BankTransactions")
   private List<BankTransaction> bankTransactions = new ArrayList<BankTransaction>();
-
+  /**
+   * bankTransactions
+   *
+   * @param bankTransactions List&lt;BankTransaction&gt;
+   * @return BankTransactions
+   */
   public BankTransactions bankTransactions(List<BankTransaction> bankTransactions) {
     this.bankTransactions = bankTransactions;
     return this;
   }
 
+  /**
+   * bankTransactions
+   *
+   * @param bankTransactionsItem BankTransaction
+   * @return BankTransactions
+   */
   public BankTransactions addBankTransactionsItem(BankTransaction bankTransactionsItem) {
     if (this.bankTransactions == null) {
       this.bankTransactions = new ArrayList<BankTransaction>();
@@ -44,10 +55,20 @@ public class BankTransactions {
    * @return bankTransactions
    */
   @ApiModelProperty(value = "")
+  /**
+   * bankTransactions
+   *
+   * @return bankTransactions List<BankTransaction>
+   */
   public List<BankTransaction> getBankTransactions() {
     return bankTransactions;
   }
 
+  /**
+   * bankTransactions
+   *
+   * @param bankTransactions List&lt;BankTransaction&gt;
+   */
   public void setBankTransactions(List<BankTransaction> bankTransactions) {
     this.bankTransactions = bankTransactions;
   }

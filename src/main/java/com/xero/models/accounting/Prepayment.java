@@ -31,12 +31,16 @@ public class Prepayment {
   StringUtil util = new StringUtil();
   /** See Prepayment Types */
   public enum TypeEnum {
+    /** RECEIVE_PREPAYMENT */
     RECEIVE_PREPAYMENT("RECEIVE-PREPAYMENT"),
 
+    /** SPEND_PREPAYMENT */
     SPEND_PREPAYMENT("SPEND-PREPAYMENT"),
 
+    /** ARPREPAYMENT */
     ARPREPAYMENT("ARPREPAYMENT"),
 
+    /** APPREPAYMENT */
     APPREPAYMENT("APPREPAYMENT");
 
     private String value;
@@ -45,16 +49,31 @@ public class Prepayment {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static TypeEnum fromValue(String value) {
       for (TypeEnum b : TypeEnum.values()) {
@@ -76,10 +95,13 @@ public class Prepayment {
   private String date;
   /** See Prepayment Status Codes */
   public enum StatusEnum {
+    /** AUTHORISED */
     AUTHORISED("AUTHORISED"),
 
+    /** PAID */
     PAID("PAID"),
 
+    /** VOIDED */
     VOIDED("VOIDED");
 
     private String value;
@@ -88,16 +110,31 @@ public class Prepayment {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
@@ -156,7 +193,12 @@ public class Prepayment {
 
   @JsonProperty("Attachments")
   private List<Attachment> attachments = new ArrayList<Attachment>();
-
+  /**
+   * See Prepayment Types
+   *
+   * @param type TypeEnum
+   * @return Prepayment
+   */
   public Prepayment type(TypeEnum type) {
     this.type = type;
     return this;
@@ -168,14 +210,30 @@ public class Prepayment {
    * @return type
    */
   @ApiModelProperty(value = "See Prepayment Types")
+  /**
+   * See Prepayment Types
+   *
+   * @return type TypeEnum
+   */
   public TypeEnum getType() {
     return type;
   }
 
+  /**
+   * See Prepayment Types
+   *
+   * @param type TypeEnum
+   */
   public void setType(TypeEnum type) {
     this.type = type;
   }
 
+  /**
+   * contact
+   *
+   * @param contact Contact
+   * @return Prepayment
+   */
   public Prepayment contact(Contact contact) {
     this.contact = contact;
     return this;
@@ -187,14 +245,30 @@ public class Prepayment {
    * @return contact
    */
   @ApiModelProperty(value = "")
+  /**
+   * contact
+   *
+   * @return contact Contact
+   */
   public Contact getContact() {
     return contact;
   }
 
+  /**
+   * contact
+   *
+   * @param contact Contact
+   */
   public void setContact(Contact contact) {
     this.contact = contact;
   }
 
+  /**
+   * The date the prepayment is created YYYY-MM-DD
+   *
+   * @param date String
+   * @return Prepayment
+   */
   public Prepayment date(String date) {
     this.date = date;
     return this;
@@ -206,10 +280,19 @@ public class Prepayment {
    * @return date
    */
   @ApiModelProperty(value = "The date the prepayment is created YYYY-MM-DD")
+  /**
+   * The date the prepayment is created YYYY-MM-DD
+   *
+   * @return date String
+   */
   public String getDate() {
     return date;
   }
-
+  /**
+   * The date the prepayment is created YYYY-MM-DD
+   *
+   * @return LocalDate
+   */
   public LocalDate getDateAsDate() {
     if (this.date != null) {
       try {
@@ -221,10 +304,20 @@ public class Prepayment {
     return null;
   }
 
+  /**
+   * The date the prepayment is created YYYY-MM-DD
+   *
+   * @param date String
+   */
   public void setDate(String date) {
     this.date = date;
   }
 
+  /**
+   * The date the prepayment is created YYYY-MM-DD
+   *
+   * @param date LocalDateTime
+   */
   public void setDate(LocalDate date) {
     // CONVERT LocalDate args into MS DateFromat String
     Instant instant = date.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
@@ -233,6 +326,12 @@ public class Prepayment {
     this.date = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
   }
 
+  /**
+   * See Prepayment Status Codes
+   *
+   * @param status StatusEnum
+   * @return Prepayment
+   */
   public Prepayment status(StatusEnum status) {
     this.status = status;
     return this;
@@ -244,14 +343,30 @@ public class Prepayment {
    * @return status
    */
   @ApiModelProperty(value = "See Prepayment Status Codes")
+  /**
+   * See Prepayment Status Codes
+   *
+   * @return status StatusEnum
+   */
   public StatusEnum getStatus() {
     return status;
   }
 
+  /**
+   * See Prepayment Status Codes
+   *
+   * @param status StatusEnum
+   */
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
+  /**
+   * lineAmountTypes
+   *
+   * @param lineAmountTypes LineAmountTypes
+   * @return Prepayment
+   */
   public Prepayment lineAmountTypes(LineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
     return this;
@@ -263,19 +378,41 @@ public class Prepayment {
    * @return lineAmountTypes
    */
   @ApiModelProperty(value = "")
+  /**
+   * lineAmountTypes
+   *
+   * @return lineAmountTypes LineAmountTypes
+   */
   public LineAmountTypes getLineAmountTypes() {
     return lineAmountTypes;
   }
 
+  /**
+   * lineAmountTypes
+   *
+   * @param lineAmountTypes LineAmountTypes
+   */
   public void setLineAmountTypes(LineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
   }
 
+  /**
+   * See Prepayment Line Items
+   *
+   * @param lineItems List&lt;LineItem&gt;
+   * @return Prepayment
+   */
   public Prepayment lineItems(List<LineItem> lineItems) {
     this.lineItems = lineItems;
     return this;
   }
 
+  /**
+   * See Prepayment Line Items
+   *
+   * @param lineItemsItem LineItem
+   * @return Prepayment
+   */
   public Prepayment addLineItemsItem(LineItem lineItemsItem) {
     if (this.lineItems == null) {
       this.lineItems = new ArrayList<LineItem>();
@@ -290,14 +427,30 @@ public class Prepayment {
    * @return lineItems
    */
   @ApiModelProperty(value = "See Prepayment Line Items")
+  /**
+   * See Prepayment Line Items
+   *
+   * @return lineItems List<LineItem>
+   */
   public List<LineItem> getLineItems() {
     return lineItems;
   }
 
+  /**
+   * See Prepayment Line Items
+   *
+   * @param lineItems List&lt;LineItem&gt;
+   */
   public void setLineItems(List<LineItem> lineItems) {
     this.lineItems = lineItems;
   }
 
+  /**
+   * The subtotal of the prepayment excluding taxes
+   *
+   * @param subTotal Double
+   * @return Prepayment
+   */
   public Prepayment subTotal(Double subTotal) {
     this.subTotal = subTotal;
     return this;
@@ -309,14 +462,30 @@ public class Prepayment {
    * @return subTotal
    */
   @ApiModelProperty(value = "The subtotal of the prepayment excluding taxes")
+  /**
+   * The subtotal of the prepayment excluding taxes
+   *
+   * @return subTotal Double
+   */
   public Double getSubTotal() {
     return subTotal;
   }
 
+  /**
+   * The subtotal of the prepayment excluding taxes
+   *
+   * @param subTotal Double
+   */
   public void setSubTotal(Double subTotal) {
     this.subTotal = subTotal;
   }
 
+  /**
+   * The total tax on the prepayment
+   *
+   * @param totalTax Double
+   * @return Prepayment
+   */
   public Prepayment totalTax(Double totalTax) {
     this.totalTax = totalTax;
     return this;
@@ -328,14 +497,30 @@ public class Prepayment {
    * @return totalTax
    */
   @ApiModelProperty(value = "The total tax on the prepayment")
+  /**
+   * The total tax on the prepayment
+   *
+   * @return totalTax Double
+   */
   public Double getTotalTax() {
     return totalTax;
   }
 
+  /**
+   * The total tax on the prepayment
+   *
+   * @param totalTax Double
+   */
   public void setTotalTax(Double totalTax) {
     this.totalTax = totalTax;
   }
 
+  /**
+   * The total of the prepayment(subtotal + total tax)
+   *
+   * @param total Double
+   * @return Prepayment
+   */
   public Prepayment total(Double total) {
     this.total = total;
     return this;
@@ -347,10 +532,20 @@ public class Prepayment {
    * @return total
    */
   @ApiModelProperty(value = "The total of the prepayment(subtotal + total tax)")
+  /**
+   * The total of the prepayment(subtotal + total tax)
+   *
+   * @return total Double
+   */
   public Double getTotal() {
     return total;
   }
 
+  /**
+   * The total of the prepayment(subtotal + total tax)
+   *
+   * @param total Double
+   */
   public void setTotal(Double total) {
     this.total = total;
   }
@@ -361,6 +556,11 @@ public class Prepayment {
    * @return reference
    */
   @ApiModelProperty(value = "Returns Invoice number field. Reference field isn't available.")
+  /**
+   * Returns Invoice number field. Reference field isn&#39;t available.
+   *
+   * @return reference String
+   */
   public String getReference() {
     return reference;
   }
@@ -373,10 +573,19 @@ public class Prepayment {
   @ApiModelProperty(
       example = "/Date(1573755038314)/",
       value = "UTC timestamp of last update to the prepayment")
+  /**
+   * UTC timestamp of last update to the prepayment
+   *
+   * @return updatedDateUTC String
+   */
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-
+  /**
+   * UTC timestamp of last update to the prepayment
+   *
+   * @return OffsetDateTime
+   */
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
@@ -388,6 +597,12 @@ public class Prepayment {
     return null;
   }
 
+  /**
+   * currencyCode
+   *
+   * @param currencyCode CurrencyCode
+   * @return Prepayment
+   */
   public Prepayment currencyCode(CurrencyCode currencyCode) {
     this.currencyCode = currencyCode;
     return this;
@@ -399,14 +614,30 @@ public class Prepayment {
    * @return currencyCode
    */
   @ApiModelProperty(value = "")
+  /**
+   * currencyCode
+   *
+   * @return currencyCode CurrencyCode
+   */
   public CurrencyCode getCurrencyCode() {
     return currencyCode;
   }
 
+  /**
+   * currencyCode
+   *
+   * @param currencyCode CurrencyCode
+   */
   public void setCurrencyCode(CurrencyCode currencyCode) {
     this.currencyCode = currencyCode;
   }
 
+  /**
+   * Xero generated unique identifier
+   *
+   * @param prepaymentID UUID
+   * @return Prepayment
+   */
   public Prepayment prepaymentID(UUID prepaymentID) {
     this.prepaymentID = prepaymentID;
     return this;
@@ -418,14 +649,31 @@ public class Prepayment {
    * @return prepaymentID
    */
   @ApiModelProperty(value = "Xero generated unique identifier")
+  /**
+   * Xero generated unique identifier
+   *
+   * @return prepaymentID UUID
+   */
   public UUID getPrepaymentID() {
     return prepaymentID;
   }
 
+  /**
+   * Xero generated unique identifier
+   *
+   * @param prepaymentID UUID
+   */
   public void setPrepaymentID(UUID prepaymentID) {
     this.prepaymentID = prepaymentID;
   }
 
+  /**
+   * The currency rate for a multicurrency prepayment. If no rate is specified, the XE.com day rate
+   * is used
+   *
+   * @param currencyRate Double
+   * @return Prepayment
+   */
   public Prepayment currencyRate(Double currencyRate) {
     this.currencyRate = currencyRate;
     return this;
@@ -441,14 +689,32 @@ public class Prepayment {
       value =
           "The currency rate for a multicurrency prepayment. If no rate is specified, the XE.com"
               + " day rate is used")
+  /**
+   * The currency rate for a multicurrency prepayment. If no rate is specified, the XE.com day rate
+   * is used
+   *
+   * @return currencyRate Double
+   */
   public Double getCurrencyRate() {
     return currencyRate;
   }
 
+  /**
+   * The currency rate for a multicurrency prepayment. If no rate is specified, the XE.com day rate
+   * is used
+   *
+   * @param currencyRate Double
+   */
   public void setCurrencyRate(Double currencyRate) {
     this.currencyRate = currencyRate;
   }
 
+  /**
+   * The remaining credit balance on the prepayment
+   *
+   * @param remainingCredit Double
+   * @return Prepayment
+   */
   public Prepayment remainingCredit(Double remainingCredit) {
     this.remainingCredit = remainingCredit;
     return this;
@@ -460,19 +726,41 @@ public class Prepayment {
    * @return remainingCredit
    */
   @ApiModelProperty(value = "The remaining credit balance on the prepayment")
+  /**
+   * The remaining credit balance on the prepayment
+   *
+   * @return remainingCredit Double
+   */
   public Double getRemainingCredit() {
     return remainingCredit;
   }
 
+  /**
+   * The remaining credit balance on the prepayment
+   *
+   * @param remainingCredit Double
+   */
   public void setRemainingCredit(Double remainingCredit) {
     this.remainingCredit = remainingCredit;
   }
 
+  /**
+   * See Allocations
+   *
+   * @param allocations List&lt;Allocation&gt;
+   * @return Prepayment
+   */
   public Prepayment allocations(List<Allocation> allocations) {
     this.allocations = allocations;
     return this;
   }
 
+  /**
+   * See Allocations
+   *
+   * @param allocationsItem Allocation
+   * @return Prepayment
+   */
   public Prepayment addAllocationsItem(Allocation allocationsItem) {
     if (this.allocations == null) {
       this.allocations = new ArrayList<Allocation>();
@@ -487,14 +775,30 @@ public class Prepayment {
    * @return allocations
    */
   @ApiModelProperty(value = "See Allocations")
+  /**
+   * See Allocations
+   *
+   * @return allocations List<Allocation>
+   */
   public List<Allocation> getAllocations() {
     return allocations;
   }
 
+  /**
+   * See Allocations
+   *
+   * @param allocations List&lt;Allocation&gt;
+   */
   public void setAllocations(List<Allocation> allocations) {
     this.allocations = allocations;
   }
 
+  /**
+   * The amount of applied to an invoice
+   *
+   * @param appliedAmount Double
+   * @return Prepayment
+   */
   public Prepayment appliedAmount(Double appliedAmount) {
     this.appliedAmount = appliedAmount;
     return this;
@@ -506,10 +810,20 @@ public class Prepayment {
    * @return appliedAmount
    */
   @ApiModelProperty(example = "2.0", value = "The amount of applied to an invoice")
+  /**
+   * The amount of applied to an invoice
+   *
+   * @return appliedAmount Double
+   */
   public Double getAppliedAmount() {
     return appliedAmount;
   }
 
+  /**
+   * The amount of applied to an invoice
+   *
+   * @param appliedAmount Double
+   */
   public void setAppliedAmount(Double appliedAmount) {
     this.appliedAmount = appliedAmount;
   }
@@ -522,15 +836,32 @@ public class Prepayment {
   @ApiModelProperty(
       example = "false",
       value = "boolean to indicate if a prepayment has an attachment")
+  /**
+   * boolean to indicate if a prepayment has an attachment
+   *
+   * @return hasAttachments Boolean
+   */
   public Boolean getHasAttachments() {
     return hasAttachments;
   }
 
+  /**
+   * See Attachments
+   *
+   * @param attachments List&lt;Attachment&gt;
+   * @return Prepayment
+   */
   public Prepayment attachments(List<Attachment> attachments) {
     this.attachments = attachments;
     return this;
   }
 
+  /**
+   * See Attachments
+   *
+   * @param attachmentsItem Attachment
+   * @return Prepayment
+   */
   public Prepayment addAttachmentsItem(Attachment attachmentsItem) {
     if (this.attachments == null) {
       this.attachments = new ArrayList<Attachment>();
@@ -545,10 +876,20 @@ public class Prepayment {
    * @return attachments
    */
   @ApiModelProperty(value = "See Attachments")
+  /**
+   * See Attachments
+   *
+   * @return attachments List<Attachment>
+   */
   public List<Attachment> getAttachments() {
     return attachments;
   }
 
+  /**
+   * See Attachments
+   *
+   * @param attachments List&lt;Attachment&gt;
+   */
   public void setAttachments(List<Attachment> attachments) {
     this.attachments = attachments;
   }

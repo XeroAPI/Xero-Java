@@ -31,7 +31,12 @@ public class ModelAPIException {
 
   @JsonProperty("Message")
   private String message;
-
+  /**
+   * The error number
+   *
+   * @param errorNumber BigDecimal
+   * @return ModelAPIException
+   */
   public ModelAPIException errorNumber(BigDecimal errorNumber) {
     this.errorNumber = errorNumber;
     return this;
@@ -43,14 +48,30 @@ public class ModelAPIException {
    * @return errorNumber
    */
   @ApiModelProperty(example = "16", value = "The error number")
+  /**
+   * The error number
+   *
+   * @return errorNumber BigDecimal
+   */
   public BigDecimal getErrorNumber() {
     return errorNumber;
   }
 
+  /**
+   * The error number
+   *
+   * @param errorNumber BigDecimal
+   */
   public void setErrorNumber(BigDecimal errorNumber) {
     this.errorNumber = errorNumber;
   }
 
+  /**
+   * The type of error
+   *
+   * @param type String
+   * @return ModelAPIException
+   */
   public ModelAPIException type(String type) {
     this.type = type;
     return this;
@@ -62,14 +83,30 @@ public class ModelAPIException {
    * @return type
    */
   @ApiModelProperty(example = "QueryParseException", value = "The type of error")
+  /**
+   * The type of error
+   *
+   * @return type String
+   */
   public String getType() {
     return type;
   }
 
+  /**
+   * The type of error
+   *
+   * @param type String
+   */
   public void setType(String type) {
     this.type = type;
   }
 
+  /**
+   * The message describing the error
+   *
+   * @param message String
+   * @return ModelAPIException
+   */
   public ModelAPIException message(String message) {
     this.message = message;
     return this;
@@ -83,10 +120,20 @@ public class ModelAPIException {
   @ApiModelProperty(
       example = "No property or field 'hi' exists in type 'Employee' (at index 0)",
       value = "The message describing the error")
+  /**
+   * The message describing the error
+   *
+   * @return message String
+   */
   public String getMessage() {
     return message;
   }
 
+  /**
+   * The message describing the error
+   *
+   * @param message String
+   */
   public void setMessage(String message) {
     this.message = message;
   }

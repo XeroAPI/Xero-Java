@@ -28,7 +28,12 @@ public class Settings {
 
   @JsonProperty("settings")
   private Accounts settings;
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return Settings
+   */
   public Settings pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -40,14 +45,30 @@ public class Settings {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return Settings
+   */
   public Settings problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -59,14 +80,30 @@ public class Settings {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * settings
+   *
+   * @param settings Accounts
+   * @return Settings
+   */
   public Settings settings(Accounts settings) {
     this.settings = settings;
     return this;
@@ -78,10 +115,20 @@ public class Settings {
    * @return settings
    */
   @ApiModelProperty(value = "")
+  /**
+   * settings
+   *
+   * @return settings Accounts
+   */
   public Accounts getSettings() {
     return settings;
   }
 
+  /**
+   * settings
+   *
+   * @param settings Accounts
+   */
   public void setSettings(Accounts settings) {
     this.settings = settings;
   }

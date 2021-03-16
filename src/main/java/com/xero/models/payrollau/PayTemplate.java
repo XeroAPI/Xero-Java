@@ -36,12 +36,23 @@ public class PayTemplate {
 
   @JsonProperty("LeaveLines")
   private List<LeaveLine> leaveLines = new ArrayList<LeaveLine>();
-
+  /**
+   * earningsLines
+   *
+   * @param earningsLines List&lt;EarningsLine&gt;
+   * @return PayTemplate
+   */
   public PayTemplate earningsLines(List<EarningsLine> earningsLines) {
     this.earningsLines = earningsLines;
     return this;
   }
 
+  /**
+   * earningsLines
+   *
+   * @param earningsLinesItem EarningsLine
+   * @return PayTemplate
+   */
   public PayTemplate addEarningsLinesItem(EarningsLine earningsLinesItem) {
     if (this.earningsLines == null) {
       this.earningsLines = new ArrayList<EarningsLine>();
@@ -56,19 +67,41 @@ public class PayTemplate {
    * @return earningsLines
    */
   @ApiModelProperty(value = "")
+  /**
+   * earningsLines
+   *
+   * @return earningsLines List<EarningsLine>
+   */
   public List<EarningsLine> getEarningsLines() {
     return earningsLines;
   }
 
+  /**
+   * earningsLines
+   *
+   * @param earningsLines List&lt;EarningsLine&gt;
+   */
   public void setEarningsLines(List<EarningsLine> earningsLines) {
     this.earningsLines = earningsLines;
   }
 
+  /**
+   * deductionLines
+   *
+   * @param deductionLines List&lt;DeductionLine&gt;
+   * @return PayTemplate
+   */
   public PayTemplate deductionLines(List<DeductionLine> deductionLines) {
     this.deductionLines = deductionLines;
     return this;
   }
 
+  /**
+   * deductionLines
+   *
+   * @param deductionLinesItem DeductionLine
+   * @return PayTemplate
+   */
   public PayTemplate addDeductionLinesItem(DeductionLine deductionLinesItem) {
     if (this.deductionLines == null) {
       this.deductionLines = new ArrayList<DeductionLine>();
@@ -83,19 +116,41 @@ public class PayTemplate {
    * @return deductionLines
    */
   @ApiModelProperty(value = "")
+  /**
+   * deductionLines
+   *
+   * @return deductionLines List<DeductionLine>
+   */
   public List<DeductionLine> getDeductionLines() {
     return deductionLines;
   }
 
+  /**
+   * deductionLines
+   *
+   * @param deductionLines List&lt;DeductionLine&gt;
+   */
   public void setDeductionLines(List<DeductionLine> deductionLines) {
     this.deductionLines = deductionLines;
   }
 
+  /**
+   * superLines
+   *
+   * @param superLines List&lt;SuperLine&gt;
+   * @return PayTemplate
+   */
   public PayTemplate superLines(List<SuperLine> superLines) {
     this.superLines = superLines;
     return this;
   }
 
+  /**
+   * superLines
+   *
+   * @param superLinesItem SuperLine
+   * @return PayTemplate
+   */
   public PayTemplate addSuperLinesItem(SuperLine superLinesItem) {
     if (this.superLines == null) {
       this.superLines = new ArrayList<SuperLine>();
@@ -110,19 +165,41 @@ public class PayTemplate {
    * @return superLines
    */
   @ApiModelProperty(value = "")
+  /**
+   * superLines
+   *
+   * @return superLines List<SuperLine>
+   */
   public List<SuperLine> getSuperLines() {
     return superLines;
   }
 
+  /**
+   * superLines
+   *
+   * @param superLines List&lt;SuperLine&gt;
+   */
   public void setSuperLines(List<SuperLine> superLines) {
     this.superLines = superLines;
   }
 
+  /**
+   * reimbursementLines
+   *
+   * @param reimbursementLines List&lt;ReimbursementLine&gt;
+   * @return PayTemplate
+   */
   public PayTemplate reimbursementLines(List<ReimbursementLine> reimbursementLines) {
     this.reimbursementLines = reimbursementLines;
     return this;
   }
 
+  /**
+   * reimbursementLines
+   *
+   * @param reimbursementLinesItem ReimbursementLine
+   * @return PayTemplate
+   */
   public PayTemplate addReimbursementLinesItem(ReimbursementLine reimbursementLinesItem) {
     if (this.reimbursementLines == null) {
       this.reimbursementLines = new ArrayList<ReimbursementLine>();
@@ -137,19 +214,41 @@ public class PayTemplate {
    * @return reimbursementLines
    */
   @ApiModelProperty(value = "")
+  /**
+   * reimbursementLines
+   *
+   * @return reimbursementLines List<ReimbursementLine>
+   */
   public List<ReimbursementLine> getReimbursementLines() {
     return reimbursementLines;
   }
 
+  /**
+   * reimbursementLines
+   *
+   * @param reimbursementLines List&lt;ReimbursementLine&gt;
+   */
   public void setReimbursementLines(List<ReimbursementLine> reimbursementLines) {
     this.reimbursementLines = reimbursementLines;
   }
 
+  /**
+   * leaveLines
+   *
+   * @param leaveLines List&lt;LeaveLine&gt;
+   * @return PayTemplate
+   */
   public PayTemplate leaveLines(List<LeaveLine> leaveLines) {
     this.leaveLines = leaveLines;
     return this;
   }
 
+  /**
+   * leaveLines
+   *
+   * @param leaveLinesItem LeaveLine
+   * @return PayTemplate
+   */
   public PayTemplate addLeaveLinesItem(LeaveLine leaveLinesItem) {
     if (this.leaveLines == null) {
       this.leaveLines = new ArrayList<LeaveLine>();
@@ -164,10 +263,20 @@ public class PayTemplate {
    * @return leaveLines
    */
   @ApiModelProperty(value = "")
+  /**
+   * leaveLines
+   *
+   * @return leaveLines List<LeaveLine>
+   */
   public List<LeaveLine> getLeaveLines() {
     return leaveLines;
   }
 
+  /**
+   * leaveLines
+   *
+   * @param leaveLines List&lt;LeaveLine&gt;
+   */
   public void setLeaveLines(List<LeaveLine> leaveLines) {
     this.leaveLines = leaveLines;
   }

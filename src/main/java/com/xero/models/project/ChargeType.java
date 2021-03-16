@@ -21,10 +21,14 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * charge as a fixed amount. If the task will not be charged use &#x60;NON_CHARGEABLE&#x60;.
  */
 public enum ChargeType {
+
+  /** TIME */
   TIME("TIME"),
 
+  /** FIXED */
   FIXED("FIXED"),
 
+  /** NON_CHARGEABLE */
   NON_CHARGEABLE("NON_CHARGEABLE");
 
   private String value;
@@ -33,16 +37,27 @@ public enum ChargeType {
     this.value = value;
   }
 
+  /** @return String value */
   @JsonValue
   public String getValue() {
     return value;
   }
 
+  /**
+   * toString
+   *
+   * @return String value
+   */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
+  /**
+   * fromValue
+   *
+   * @param value String
+   */
   @JsonCreator
   public static ChargeType fromValue(String value) {
     for (ChargeType b : ChargeType.values()) {

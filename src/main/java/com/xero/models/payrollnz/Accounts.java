@@ -24,12 +24,23 @@ public class Accounts {
 
   @JsonProperty("accounts")
   private List<Account> accounts = new ArrayList<Account>();
-
+  /**
+   * accounts
+   *
+   * @param accounts List&lt;Account&gt;
+   * @return Accounts
+   */
   public Accounts accounts(List<Account> accounts) {
     this.accounts = accounts;
     return this;
   }
 
+  /**
+   * accounts
+   *
+   * @param accountsItem Account
+   * @return Accounts
+   */
   public Accounts addAccountsItem(Account accountsItem) {
     if (this.accounts == null) {
       this.accounts = new ArrayList<Account>();
@@ -44,10 +55,20 @@ public class Accounts {
    * @return accounts
    */
   @ApiModelProperty(value = "")
+  /**
+   * accounts
+   *
+   * @return accounts List<Account>
+   */
   public List<Account> getAccounts() {
     return accounts;
   }
 
+  /**
+   * accounts
+   *
+   * @param accounts List&lt;Account&gt;
+   */
   public void setAccounts(List<Account> accounts) {
     this.accounts = accounts;
   }

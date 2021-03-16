@@ -32,14 +32,19 @@ public class ExpenseClaim {
   private UUID expenseClaimID;
   /** Current status of an expense claim – see status types */
   public enum StatusEnum {
+    /** SUBMITTED */
     SUBMITTED("SUBMITTED"),
 
+    /** AUTHORISED */
     AUTHORISED("AUTHORISED"),
 
+    /** PAID */
     PAID("PAID"),
 
+    /** VOIDED */
     VOIDED("VOIDED"),
 
+    /** DELETED */
     DELETED("DELETED");
 
     private String value;
@@ -48,16 +53,31 @@ public class ExpenseClaim {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
@@ -101,7 +121,12 @@ public class ExpenseClaim {
 
   @JsonProperty("ReceiptID")
   private UUID receiptID;
-
+  /**
+   * Xero generated unique identifier for an expense claim
+   *
+   * @param expenseClaimID UUID
+   * @return ExpenseClaim
+   */
   public ExpenseClaim expenseClaimID(UUID expenseClaimID) {
     this.expenseClaimID = expenseClaimID;
     return this;
@@ -113,14 +138,30 @@ public class ExpenseClaim {
    * @return expenseClaimID
    */
   @ApiModelProperty(value = "Xero generated unique identifier for an expense claim")
+  /**
+   * Xero generated unique identifier for an expense claim
+   *
+   * @return expenseClaimID UUID
+   */
   public UUID getExpenseClaimID() {
     return expenseClaimID;
   }
 
+  /**
+   * Xero generated unique identifier for an expense claim
+   *
+   * @param expenseClaimID UUID
+   */
   public void setExpenseClaimID(UUID expenseClaimID) {
     this.expenseClaimID = expenseClaimID;
   }
 
+  /**
+   * Current status of an expense claim – see status types
+   *
+   * @param status StatusEnum
+   * @return ExpenseClaim
+   */
   public ExpenseClaim status(StatusEnum status) {
     this.status = status;
     return this;
@@ -132,19 +173,41 @@ public class ExpenseClaim {
    * @return status
    */
   @ApiModelProperty(value = "Current status of an expense claim – see status types")
+  /**
+   * Current status of an expense claim – see status types
+   *
+   * @return status StatusEnum
+   */
   public StatusEnum getStatus() {
     return status;
   }
 
+  /**
+   * Current status of an expense claim – see status types
+   *
+   * @param status StatusEnum
+   */
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
+  /**
+   * See Payments
+   *
+   * @param payments List&lt;Payment&gt;
+   * @return ExpenseClaim
+   */
   public ExpenseClaim payments(List<Payment> payments) {
     this.payments = payments;
     return this;
   }
 
+  /**
+   * See Payments
+   *
+   * @param paymentsItem Payment
+   * @return ExpenseClaim
+   */
   public ExpenseClaim addPaymentsItem(Payment paymentsItem) {
     if (this.payments == null) {
       this.payments = new ArrayList<Payment>();
@@ -159,14 +222,30 @@ public class ExpenseClaim {
    * @return payments
    */
   @ApiModelProperty(value = "See Payments")
+  /**
+   * See Payments
+   *
+   * @return payments List<Payment>
+   */
   public List<Payment> getPayments() {
     return payments;
   }
 
+  /**
+   * See Payments
+   *
+   * @param payments List&lt;Payment&gt;
+   */
   public void setPayments(List<Payment> payments) {
     this.payments = payments;
   }
 
+  /**
+   * user
+   *
+   * @param user User
+   * @return ExpenseClaim
+   */
   public ExpenseClaim user(User user) {
     this.user = user;
     return this;
@@ -178,19 +257,41 @@ public class ExpenseClaim {
    * @return user
    */
   @ApiModelProperty(value = "")
+  /**
+   * user
+   *
+   * @return user User
+   */
   public User getUser() {
     return user;
   }
 
+  /**
+   * user
+   *
+   * @param user User
+   */
   public void setUser(User user) {
     this.user = user;
   }
 
+  /**
+   * receipts
+   *
+   * @param receipts List&lt;Receipt&gt;
+   * @return ExpenseClaim
+   */
   public ExpenseClaim receipts(List<Receipt> receipts) {
     this.receipts = receipts;
     return this;
   }
 
+  /**
+   * receipts
+   *
+   * @param receiptsItem Receipt
+   * @return ExpenseClaim
+   */
   public ExpenseClaim addReceiptsItem(Receipt receiptsItem) {
     if (this.receipts == null) {
       this.receipts = new ArrayList<Receipt>();
@@ -205,10 +306,20 @@ public class ExpenseClaim {
    * @return receipts
    */
   @ApiModelProperty(value = "")
+  /**
+   * receipts
+   *
+   * @return receipts List<Receipt>
+   */
   public List<Receipt> getReceipts() {
     return receipts;
   }
 
+  /**
+   * receipts
+   *
+   * @param receipts List&lt;Receipt&gt;
+   */
   public void setReceipts(List<Receipt> receipts) {
     this.receipts = receipts;
   }
@@ -219,10 +330,19 @@ public class ExpenseClaim {
    * @return updatedDateUTC
    */
   @ApiModelProperty(example = "/Date(1573755038314)/", value = "Last modified date UTC format")
+  /**
+   * Last modified date UTC format
+   *
+   * @return updatedDateUTC String
+   */
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-
+  /**
+   * Last modified date UTC format
+   *
+   * @return OffsetDateTime
+   */
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
@@ -240,6 +360,11 @@ public class ExpenseClaim {
    * @return total
    */
   @ApiModelProperty(value = "The total of an expense claim being paid")
+  /**
+   * The total of an expense claim being paid
+   *
+   * @return total Double
+   */
   public Double getTotal() {
     return total;
   }
@@ -250,6 +375,11 @@ public class ExpenseClaim {
    * @return amountDue
    */
   @ApiModelProperty(value = "The amount due to be paid for an expense claim")
+  /**
+   * The amount due to be paid for an expense claim
+   *
+   * @return amountDue Double
+   */
   public Double getAmountDue() {
     return amountDue;
   }
@@ -260,6 +390,11 @@ public class ExpenseClaim {
    * @return amountPaid
    */
   @ApiModelProperty(value = "The amount still to pay for an expense claim")
+  /**
+   * The amount still to pay for an expense claim
+   *
+   * @return amountPaid Double
+   */
   public Double getAmountPaid() {
     return amountPaid;
   }
@@ -270,10 +405,19 @@ public class ExpenseClaim {
    * @return paymentDueDate
    */
   @ApiModelProperty(value = "The date when the expense claim is due to be paid YYYY-MM-DD")
+  /**
+   * The date when the expense claim is due to be paid YYYY-MM-DD
+   *
+   * @return paymentDueDate String
+   */
   public String getPaymentDueDate() {
     return paymentDueDate;
   }
-
+  /**
+   * The date when the expense claim is due to be paid YYYY-MM-DD
+   *
+   * @return LocalDate
+   */
   public LocalDate getPaymentDueDateAsDate() {
     if (this.paymentDueDate != null) {
       try {
@@ -291,10 +435,19 @@ public class ExpenseClaim {
    * @return reportingDate
    */
   @ApiModelProperty(value = "The date the expense claim will be reported in Xero YYYY-MM-DD")
+  /**
+   * The date the expense claim will be reported in Xero YYYY-MM-DD
+   *
+   * @return reportingDate String
+   */
   public String getReportingDate() {
     return reportingDate;
   }
-
+  /**
+   * The date the expense claim will be reported in Xero YYYY-MM-DD
+   *
+   * @return LocalDate
+   */
   public LocalDate getReportingDateAsDate() {
     if (this.reportingDate != null) {
       try {
@@ -306,6 +459,12 @@ public class ExpenseClaim {
     return null;
   }
 
+  /**
+   * The Xero identifier for the Receipt e.g. e59a2c7f-1306-4078-a0f3-73537afcbba9
+   *
+   * @param receiptID UUID
+   * @return ExpenseClaim
+   */
   public ExpenseClaim receiptID(UUID receiptID) {
     this.receiptID = receiptID;
     return this;
@@ -318,10 +477,20 @@ public class ExpenseClaim {
    */
   @ApiModelProperty(
       value = "The Xero identifier for the Receipt e.g. e59a2c7f-1306-4078-a0f3-73537afcbba9")
+  /**
+   * The Xero identifier for the Receipt e.g. e59a2c7f-1306-4078-a0f3-73537afcbba9
+   *
+   * @return receiptID UUID
+   */
   public UUID getReceiptID() {
     return receiptID;
   }
 
+  /**
+   * The Xero identifier for the Receipt e.g. e59a2c7f-1306-4078-a0f3-73537afcbba9
+   *
+   * @param receiptID UUID
+   */
   public void setReceiptID(UUID receiptID) {
     this.receiptID = receiptID;
   }

@@ -72,7 +72,12 @@ public class Item {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
-
+  /**
+   * User defined item code (max length &#x3D; 30)
+   *
+   * @param code String
+   * @return Item
+   */
   public Item code(String code) {
     this.code = code;
     return this;
@@ -84,14 +89,31 @@ public class Item {
    * @return code
    */
   @ApiModelProperty(required = true, value = "User defined item code (max length = 30)")
+  /**
+   * User defined item code (max length &#x3D; 30)
+   *
+   * @return code String
+   */
   public String getCode() {
     return code;
   }
 
+  /**
+   * User defined item code (max length &#x3D; 30)
+   *
+   * @param code String
+   */
   public void setCode(String code) {
     this.code = code;
   }
 
+  /**
+   * The inventory asset account for the item. The account must be of type INVENTORY. The
+   * COGSAccountCode in PurchaseDetails is also required to create a tracked item
+   *
+   * @param inventoryAssetAccountCode String
+   * @return Item
+   */
   public Item inventoryAssetAccountCode(String inventoryAssetAccountCode) {
     this.inventoryAssetAccountCode = inventoryAssetAccountCode;
     return this;
@@ -107,14 +129,32 @@ public class Item {
       value =
           "The inventory asset account for the item. The account must be of type INVENTORY. The "
               + " COGSAccountCode in PurchaseDetails is also required to create a tracked item")
+  /**
+   * The inventory asset account for the item. The account must be of type INVENTORY. The
+   * COGSAccountCode in PurchaseDetails is also required to create a tracked item
+   *
+   * @return inventoryAssetAccountCode String
+   */
   public String getInventoryAssetAccountCode() {
     return inventoryAssetAccountCode;
   }
 
+  /**
+   * The inventory asset account for the item. The account must be of type INVENTORY. The
+   * COGSAccountCode in PurchaseDetails is also required to create a tracked item
+   *
+   * @param inventoryAssetAccountCode String
+   */
   public void setInventoryAssetAccountCode(String inventoryAssetAccountCode) {
     this.inventoryAssetAccountCode = inventoryAssetAccountCode;
   }
 
+  /**
+   * The name of the item (max length &#x3D; 50)
+   *
+   * @param name String
+   * @return Item
+   */
   public Item name(String name) {
     this.name = name;
     return this;
@@ -126,14 +166,32 @@ public class Item {
    * @return name
    */
   @ApiModelProperty(value = "The name of the item (max length = 50)")
+  /**
+   * The name of the item (max length &#x3D; 50)
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * The name of the item (max length &#x3D; 50)
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * Boolean value, defaults to true. When IsSold is true the item will be available on sales
+   * transactions in the Xero UI. If IsSold is updated to false then Description and SalesDetails
+   * values will be nulled.
+   *
+   * @param isSold Boolean
+   * @return Item
+   */
   public Item isSold(Boolean isSold) {
     this.isSold = isSold;
     return this;
@@ -151,14 +209,36 @@ public class Item {
           "Boolean value, defaults to true. When IsSold is true the item will be available on"
               + " sales transactions in the Xero UI. If IsSold is updated to false then"
               + " Description and SalesDetails values will be nulled.")
+  /**
+   * Boolean value, defaults to true. When IsSold is true the item will be available on sales
+   * transactions in the Xero UI. If IsSold is updated to false then Description and SalesDetails
+   * values will be nulled.
+   *
+   * @return isSold Boolean
+   */
   public Boolean getIsSold() {
     return isSold;
   }
 
+  /**
+   * Boolean value, defaults to true. When IsSold is true the item will be available on sales
+   * transactions in the Xero UI. If IsSold is updated to false then Description and SalesDetails
+   * values will be nulled.
+   *
+   * @param isSold Boolean
+   */
   public void setIsSold(Boolean isSold) {
     this.isSold = isSold;
   }
 
+  /**
+   * Boolean value, defaults to true. When IsPurchased is true the item is available for purchase
+   * transactions in the Xero UI. If IsPurchased is updated to false then PurchaseDescription and
+   * PurchaseDetails values will be nulled.
+   *
+   * @param isPurchased Boolean
+   * @return Item
+   */
   public Item isPurchased(Boolean isPurchased) {
     this.isPurchased = isPurchased;
     return this;
@@ -176,14 +256,34 @@ public class Item {
           "Boolean value, defaults to true. When IsPurchased is true the item is available for"
               + " purchase transactions in the Xero UI. If IsPurchased is updated to false then"
               + " PurchaseDescription and PurchaseDetails values will be nulled.")
+  /**
+   * Boolean value, defaults to true. When IsPurchased is true the item is available for purchase
+   * transactions in the Xero UI. If IsPurchased is updated to false then PurchaseDescription and
+   * PurchaseDetails values will be nulled.
+   *
+   * @return isPurchased Boolean
+   */
   public Boolean getIsPurchased() {
     return isPurchased;
   }
 
+  /**
+   * Boolean value, defaults to true. When IsPurchased is true the item is available for purchase
+   * transactions in the Xero UI. If IsPurchased is updated to false then PurchaseDescription and
+   * PurchaseDetails values will be nulled.
+   *
+   * @param isPurchased Boolean
+   */
   public void setIsPurchased(Boolean isPurchased) {
     this.isPurchased = isPurchased;
   }
 
+  /**
+   * The sales description of the item (max length &#x3D; 4000)
+   *
+   * @param description String
+   * @return Item
+   */
   public Item description(String description) {
     this.description = description;
     return this;
@@ -195,14 +295,30 @@ public class Item {
    * @return description
    */
   @ApiModelProperty(value = "The sales description of the item (max length = 4000)")
+  /**
+   * The sales description of the item (max length &#x3D; 4000)
+   *
+   * @return description String
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * The sales description of the item (max length &#x3D; 4000)
+   *
+   * @param description String
+   */
   public void setDescription(String description) {
     this.description = description;
   }
 
+  /**
+   * The purchase description of the item (max length &#x3D; 4000)
+   *
+   * @param purchaseDescription String
+   * @return Item
+   */
   public Item purchaseDescription(String purchaseDescription) {
     this.purchaseDescription = purchaseDescription;
     return this;
@@ -214,14 +330,30 @@ public class Item {
    * @return purchaseDescription
    */
   @ApiModelProperty(value = "The purchase description of the item (max length = 4000)")
+  /**
+   * The purchase description of the item (max length &#x3D; 4000)
+   *
+   * @return purchaseDescription String
+   */
   public String getPurchaseDescription() {
     return purchaseDescription;
   }
 
+  /**
+   * The purchase description of the item (max length &#x3D; 4000)
+   *
+   * @param purchaseDescription String
+   */
   public void setPurchaseDescription(String purchaseDescription) {
     this.purchaseDescription = purchaseDescription;
   }
 
+  /**
+   * purchaseDetails
+   *
+   * @param purchaseDetails Purchase
+   * @return Item
+   */
   public Item purchaseDetails(Purchase purchaseDetails) {
     this.purchaseDetails = purchaseDetails;
     return this;
@@ -233,14 +365,30 @@ public class Item {
    * @return purchaseDetails
    */
   @ApiModelProperty(value = "")
+  /**
+   * purchaseDetails
+   *
+   * @return purchaseDetails Purchase
+   */
   public Purchase getPurchaseDetails() {
     return purchaseDetails;
   }
 
+  /**
+   * purchaseDetails
+   *
+   * @param purchaseDetails Purchase
+   */
   public void setPurchaseDetails(Purchase purchaseDetails) {
     this.purchaseDetails = purchaseDetails;
   }
 
+  /**
+   * salesDetails
+   *
+   * @param salesDetails Purchase
+   * @return Item
+   */
   public Item salesDetails(Purchase salesDetails) {
     this.salesDetails = salesDetails;
     return this;
@@ -252,14 +400,31 @@ public class Item {
    * @return salesDetails
    */
   @ApiModelProperty(value = "")
+  /**
+   * salesDetails
+   *
+   * @return salesDetails Purchase
+   */
   public Purchase getSalesDetails() {
     return salesDetails;
   }
 
+  /**
+   * salesDetails
+   *
+   * @param salesDetails Purchase
+   */
   public void setSalesDetails(Purchase salesDetails) {
     this.salesDetails = salesDetails;
   }
 
+  /**
+   * True for items that are tracked as inventory. An item will be tracked as inventory if the
+   * InventoryAssetAccountCode and COGSAccountCode are set.
+   *
+   * @param isTrackedAsInventory Boolean
+   * @return Item
+   */
   public Item isTrackedAsInventory(Boolean isTrackedAsInventory) {
     this.isTrackedAsInventory = isTrackedAsInventory;
     return this;
@@ -275,14 +440,32 @@ public class Item {
       value =
           "True for items that are tracked as inventory. An item will be tracked as inventory if"
               + " the InventoryAssetAccountCode and COGSAccountCode are set.")
+  /**
+   * True for items that are tracked as inventory. An item will be tracked as inventory if the
+   * InventoryAssetAccountCode and COGSAccountCode are set.
+   *
+   * @return isTrackedAsInventory Boolean
+   */
   public Boolean getIsTrackedAsInventory() {
     return isTrackedAsInventory;
   }
 
+  /**
+   * True for items that are tracked as inventory. An item will be tracked as inventory if the
+   * InventoryAssetAccountCode and COGSAccountCode are set.
+   *
+   * @param isTrackedAsInventory Boolean
+   */
   public void setIsTrackedAsInventory(Boolean isTrackedAsInventory) {
     this.isTrackedAsInventory = isTrackedAsInventory;
   }
 
+  /**
+   * The value of the item on hand. Calculated using average cost accounting.
+   *
+   * @param totalCostPool Double
+   * @return Item
+   */
   public Item totalCostPool(Double totalCostPool) {
     this.totalCostPool = totalCostPool;
     return this;
@@ -295,14 +478,30 @@ public class Item {
    */
   @ApiModelProperty(
       value = "The value of the item on hand. Calculated using average cost accounting.")
+  /**
+   * The value of the item on hand. Calculated using average cost accounting.
+   *
+   * @return totalCostPool Double
+   */
   public Double getTotalCostPool() {
     return totalCostPool;
   }
 
+  /**
+   * The value of the item on hand. Calculated using average cost accounting.
+   *
+   * @param totalCostPool Double
+   */
   public void setTotalCostPool(Double totalCostPool) {
     this.totalCostPool = totalCostPool;
   }
 
+  /**
+   * The quantity of the item on hand
+   *
+   * @param quantityOnHand Double
+   * @return Item
+   */
   public Item quantityOnHand(Double quantityOnHand) {
     this.quantityOnHand = quantityOnHand;
     return this;
@@ -314,10 +513,20 @@ public class Item {
    * @return quantityOnHand
    */
   @ApiModelProperty(value = "The quantity of the item on hand")
+  /**
+   * The quantity of the item on hand
+   *
+   * @return quantityOnHand Double
+   */
   public Double getQuantityOnHand() {
     return quantityOnHand;
   }
 
+  /**
+   * The quantity of the item on hand
+   *
+   * @param quantityOnHand Double
+   */
   public void setQuantityOnHand(Double quantityOnHand) {
     this.quantityOnHand = quantityOnHand;
   }
@@ -328,10 +537,19 @@ public class Item {
    * @return updatedDateUTC
    */
   @ApiModelProperty(example = "/Date(1573755038314)/", value = "Last modified date in UTC format")
+  /**
+   * Last modified date in UTC format
+   *
+   * @return updatedDateUTC String
+   */
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-
+  /**
+   * Last modified date in UTC format
+   *
+   * @return OffsetDateTime
+   */
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
@@ -343,6 +561,12 @@ public class Item {
     return null;
   }
 
+  /**
+   * The Xero identifier for an Item
+   *
+   * @param itemID UUID
+   * @return Item
+   */
   public Item itemID(UUID itemID) {
     this.itemID = itemID;
     return this;
@@ -354,14 +578,30 @@ public class Item {
    * @return itemID
    */
   @ApiModelProperty(value = "The Xero identifier for an Item")
+  /**
+   * The Xero identifier for an Item
+   *
+   * @return itemID UUID
+   */
   public UUID getItemID() {
     return itemID;
   }
 
+  /**
+   * The Xero identifier for an Item
+   *
+   * @param itemID UUID
+   */
   public void setItemID(UUID itemID) {
     this.itemID = itemID;
   }
 
+  /**
+   * Status of object
+   *
+   * @param statusAttributeString String
+   * @return Item
+   */
   public Item statusAttributeString(String statusAttributeString) {
     this.statusAttributeString = statusAttributeString;
     return this;
@@ -373,19 +613,41 @@ public class Item {
    * @return statusAttributeString
    */
   @ApiModelProperty(value = "Status of object")
+  /**
+   * Status of object
+   *
+   * @return statusAttributeString String
+   */
   public String getStatusAttributeString() {
     return statusAttributeString;
   }
 
+  /**
+   * Status of object
+   *
+   * @param statusAttributeString String
+   */
   public void setStatusAttributeString(String statusAttributeString) {
     this.statusAttributeString = statusAttributeString;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrors List&lt;ValidationError&gt;
+   * @return Item
+   */
   public Item validationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
     return this;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrorsItem ValidationError
+   * @return Item
+   */
   public Item addValidationErrorsItem(ValidationError validationErrorsItem) {
     if (this.validationErrors == null) {
       this.validationErrors = new ArrayList<ValidationError>();
@@ -400,10 +662,20 @@ public class Item {
    * @return validationErrors
    */
   @ApiModelProperty(value = "Displays array of validation error messages from the API")
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @return validationErrors List<ValidationError>
+   */
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrors List&lt;ValidationError&gt;
+   */
   public void setValidationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
   }

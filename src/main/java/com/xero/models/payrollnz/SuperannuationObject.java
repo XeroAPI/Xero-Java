@@ -28,7 +28,12 @@ public class SuperannuationObject {
 
   @JsonProperty("benefit")
   private Benefit benefit;
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return SuperannuationObject
+   */
   public SuperannuationObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -40,14 +45,30 @@ public class SuperannuationObject {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return SuperannuationObject
+   */
   public SuperannuationObject problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -59,14 +80,30 @@ public class SuperannuationObject {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * benefit
+   *
+   * @param benefit Benefit
+   * @return SuperannuationObject
+   */
   public SuperannuationObject benefit(Benefit benefit) {
     this.benefit = benefit;
     return this;
@@ -78,10 +115,20 @@ public class SuperannuationObject {
    * @return benefit
    */
   @ApiModelProperty(value = "")
+  /**
+   * benefit
+   *
+   * @return benefit Benefit
+   */
   public Benefit getBenefit() {
     return benefit;
   }
 
+  /**
+   * benefit
+   *
+   * @param benefit Benefit
+   */
   public void setBenefit(Benefit benefit) {
     this.benefit = benefit;
   }

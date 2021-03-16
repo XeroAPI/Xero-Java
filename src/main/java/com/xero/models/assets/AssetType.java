@@ -41,7 +41,12 @@ public class AssetType {
 
   @JsonProperty("locks")
   private Integer locks;
-
+  /**
+   * Xero generated unique identifier for asset types
+   *
+   * @param assetTypeId UUID
+   * @return AssetType
+   */
   public AssetType assetTypeId(UUID assetTypeId) {
     this.assetTypeId = assetTypeId;
     return this;
@@ -55,14 +60,30 @@ public class AssetType {
   @ApiModelProperty(
       example = "5da209c5-5e19-4a43-b925-71b776c49ced",
       value = "Xero generated unique identifier for asset types")
+  /**
+   * Xero generated unique identifier for asset types
+   *
+   * @return assetTypeId UUID
+   */
   public UUID getAssetTypeId() {
     return assetTypeId;
   }
 
+  /**
+   * Xero generated unique identifier for asset types
+   *
+   * @param assetTypeId UUID
+   */
   public void setAssetTypeId(UUID assetTypeId) {
     this.assetTypeId = assetTypeId;
   }
 
+  /**
+   * The name of the asset type
+   *
+   * @param assetTypeName String
+   * @return AssetType
+   */
   public AssetType assetTypeName(String assetTypeName) {
     this.assetTypeName = assetTypeName;
     return this;
@@ -77,14 +98,30 @@ public class AssetType {
       example = "Computer Equipment",
       required = true,
       value = "The name of the asset type")
+  /**
+   * The name of the asset type
+   *
+   * @return assetTypeName String
+   */
   public String getAssetTypeName() {
     return assetTypeName;
   }
 
+  /**
+   * The name of the asset type
+   *
+   * @param assetTypeName String
+   */
   public void setAssetTypeName(String assetTypeName) {
     this.assetTypeName = assetTypeName;
   }
 
+  /**
+   * The asset account for fixed assets of this type
+   *
+   * @param fixedAssetAccountId UUID
+   * @return AssetType
+   */
   public AssetType fixedAssetAccountId(UUID fixedAssetAccountId) {
     this.fixedAssetAccountId = fixedAssetAccountId;
     return this;
@@ -98,14 +135,30 @@ public class AssetType {
   @ApiModelProperty(
       example = "24e260f1-bfc4-4766-ad7f-8a8ce01de879",
       value = "The asset account for fixed assets of this type")
+  /**
+   * The asset account for fixed assets of this type
+   *
+   * @return fixedAssetAccountId UUID
+   */
   public UUID getFixedAssetAccountId() {
     return fixedAssetAccountId;
   }
 
+  /**
+   * The asset account for fixed assets of this type
+   *
+   * @param fixedAssetAccountId UUID
+   */
   public void setFixedAssetAccountId(UUID fixedAssetAccountId) {
     this.fixedAssetAccountId = fixedAssetAccountId;
   }
 
+  /**
+   * The expense account for the depreciation of fixed assets of this type
+   *
+   * @param depreciationExpenseAccountId UUID
+   * @return AssetType
+   */
   public AssetType depreciationExpenseAccountId(UUID depreciationExpenseAccountId) {
     this.depreciationExpenseAccountId = depreciationExpenseAccountId;
     return this;
@@ -119,14 +172,30 @@ public class AssetType {
   @ApiModelProperty(
       example = "b23fc79b-d66b-44b0-a240-e138e086fcbc",
       value = "The expense account for the depreciation of fixed assets of this type")
+  /**
+   * The expense account for the depreciation of fixed assets of this type
+   *
+   * @return depreciationExpenseAccountId UUID
+   */
   public UUID getDepreciationExpenseAccountId() {
     return depreciationExpenseAccountId;
   }
 
+  /**
+   * The expense account for the depreciation of fixed assets of this type
+   *
+   * @param depreciationExpenseAccountId UUID
+   */
   public void setDepreciationExpenseAccountId(UUID depreciationExpenseAccountId) {
     this.depreciationExpenseAccountId = depreciationExpenseAccountId;
   }
 
+  /**
+   * The account for accumulated depreciation of fixed assets of this type
+   *
+   * @param accumulatedDepreciationAccountId UUID
+   * @return AssetType
+   */
   public AssetType accumulatedDepreciationAccountId(UUID accumulatedDepreciationAccountId) {
     this.accumulatedDepreciationAccountId = accumulatedDepreciationAccountId;
     return this;
@@ -140,14 +209,30 @@ public class AssetType {
   @ApiModelProperty(
       example = "ca4c6b39-4f4f-43e8-98da-5e1f350a6694",
       value = "The account for accumulated depreciation of fixed assets of this type")
+  /**
+   * The account for accumulated depreciation of fixed assets of this type
+   *
+   * @return accumulatedDepreciationAccountId UUID
+   */
   public UUID getAccumulatedDepreciationAccountId() {
     return accumulatedDepreciationAccountId;
   }
 
+  /**
+   * The account for accumulated depreciation of fixed assets of this type
+   *
+   * @param accumulatedDepreciationAccountId UUID
+   */
   public void setAccumulatedDepreciationAccountId(UUID accumulatedDepreciationAccountId) {
     this.accumulatedDepreciationAccountId = accumulatedDepreciationAccountId;
   }
 
+  /**
+   * bookDepreciationSetting
+   *
+   * @param bookDepreciationSetting BookDepreciationSetting
+   * @return AssetType
+   */
   public AssetType bookDepreciationSetting(BookDepreciationSetting bookDepreciationSetting) {
     this.bookDepreciationSetting = bookDepreciationSetting;
     return this;
@@ -159,14 +244,31 @@ public class AssetType {
    * @return bookDepreciationSetting
    */
   @ApiModelProperty(required = true, value = "")
+  /**
+   * bookDepreciationSetting
+   *
+   * @return bookDepreciationSetting BookDepreciationSetting
+   */
   public BookDepreciationSetting getBookDepreciationSetting() {
     return bookDepreciationSetting;
   }
 
+  /**
+   * bookDepreciationSetting
+   *
+   * @param bookDepreciationSetting BookDepreciationSetting
+   */
   public void setBookDepreciationSetting(BookDepreciationSetting bookDepreciationSetting) {
     this.bookDepreciationSetting = bookDepreciationSetting;
   }
 
+  /**
+   * All asset types that have accumulated depreciation for any assets that use them are deemed
+   * ‘locked’ and cannot be removed.
+   *
+   * @param locks Integer
+   * @return AssetType
+   */
   public AssetType locks(Integer locks) {
     this.locks = locks;
     return this;
@@ -183,10 +285,22 @@ public class AssetType {
       value =
           "All asset types that have accumulated depreciation for any assets that use them are"
               + " deemed ‘locked’ and cannot be removed.")
+  /**
+   * All asset types that have accumulated depreciation for any assets that use them are deemed
+   * ‘locked’ and cannot be removed.
+   *
+   * @return locks Integer
+   */
   public Integer getLocks() {
     return locks;
   }
 
+  /**
+   * All asset types that have accumulated depreciation for any assets that use them are deemed
+   * ‘locked’ and cannot be removed.
+   *
+   * @param locks Integer
+   */
   public void setLocks(Integer locks) {
     this.locks = locks;
   }

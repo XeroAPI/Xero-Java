@@ -29,7 +29,12 @@ public class LeaveAccrualLine {
 
   @JsonProperty("AutoCalculate")
   private Boolean autoCalculate;
-
+  /**
+   * Xero identifier for the Leave type.
+   *
+   * @param leaveTypeID UUID
+   * @return LeaveAccrualLine
+   */
   public LeaveAccrualLine leaveTypeID(UUID leaveTypeID) {
     this.leaveTypeID = leaveTypeID;
     return this;
@@ -43,14 +48,30 @@ public class LeaveAccrualLine {
   @ApiModelProperty(
       example = "e0eb6747-7c17-4075-b804-989f8d4e5d39",
       value = "Xero identifier for the Leave type.")
+  /**
+   * Xero identifier for the Leave type.
+   *
+   * @return leaveTypeID UUID
+   */
   public UUID getLeaveTypeID() {
     return leaveTypeID;
   }
 
+  /**
+   * Xero identifier for the Leave type.
+   *
+   * @param leaveTypeID UUID
+   */
   public void setLeaveTypeID(UUID leaveTypeID) {
     this.leaveTypeID = leaveTypeID;
   }
 
+  /**
+   * Leave Accrual number of units
+   *
+   * @param numberOfUnits Double
+   * @return LeaveAccrualLine
+   */
   public LeaveAccrualLine numberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
     return this;
@@ -62,14 +83,30 @@ public class LeaveAccrualLine {
    * @return numberOfUnits
    */
   @ApiModelProperty(example = "105.5", value = "Leave Accrual number of units")
+  /**
+   * Leave Accrual number of units
+   *
+   * @return numberOfUnits Double
+   */
   public Double getNumberOfUnits() {
     return numberOfUnits;
   }
 
+  /**
+   * Leave Accrual number of units
+   *
+   * @param numberOfUnits Double
+   */
   public void setNumberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
   }
 
+  /**
+   * If you want to auto calculate leave.
+   *
+   * @param autoCalculate Boolean
+   * @return LeaveAccrualLine
+   */
   public LeaveAccrualLine autoCalculate(Boolean autoCalculate) {
     this.autoCalculate = autoCalculate;
     return this;
@@ -81,10 +118,20 @@ public class LeaveAccrualLine {
    * @return autoCalculate
    */
   @ApiModelProperty(example = "true", value = "If you want to auto calculate leave.")
+  /**
+   * If you want to auto calculate leave.
+   *
+   * @return autoCalculate Boolean
+   */
   public Boolean getAutoCalculate() {
     return autoCalculate;
   }
 
+  /**
+   * If you want to auto calculate leave.
+   *
+   * @param autoCalculate Boolean
+   */
   public void setAutoCalculate(Boolean autoCalculate) {
     this.autoCalculate = autoCalculate;
   }

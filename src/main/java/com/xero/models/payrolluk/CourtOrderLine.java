@@ -26,7 +26,12 @@ public class CourtOrderLine {
 
   @JsonProperty("amount")
   private Double amount;
-
+  /**
+   * Xero identifier for payroll court order type
+   *
+   * @param courtOrderTypeID UUID
+   * @return CourtOrderLine
+   */
   public CourtOrderLine courtOrderTypeID(UUID courtOrderTypeID) {
     this.courtOrderTypeID = courtOrderTypeID;
     return this;
@@ -38,14 +43,30 @@ public class CourtOrderLine {
    * @return courtOrderTypeID
    */
   @ApiModelProperty(value = "Xero identifier for payroll court order type")
+  /**
+   * Xero identifier for payroll court order type
+   *
+   * @return courtOrderTypeID UUID
+   */
   public UUID getCourtOrderTypeID() {
     return courtOrderTypeID;
   }
 
+  /**
+   * Xero identifier for payroll court order type
+   *
+   * @param courtOrderTypeID UUID
+   */
   public void setCourtOrderTypeID(UUID courtOrderTypeID) {
     this.courtOrderTypeID = courtOrderTypeID;
   }
 
+  /**
+   * Amount
+   *
+   * @param amount Double
+   * @return CourtOrderLine
+   */
   public CourtOrderLine amount(Double amount) {
     this.amount = amount;
     return this;
@@ -57,10 +78,20 @@ public class CourtOrderLine {
    * @return amount
    */
   @ApiModelProperty(value = "Amount")
+  /**
+   * Amount
+   *
+   * @return amount Double
+   */
   public Double getAmount() {
     return amount;
   }
 
+  /**
+   * Amount
+   *
+   * @param amount Double
+   */
   public void setAmount(Double amount) {
     this.amount = amount;
   }

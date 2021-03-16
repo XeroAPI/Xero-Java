@@ -24,12 +24,23 @@ public class BankTransfers {
 
   @JsonProperty("BankTransfers")
   private List<BankTransfer> bankTransfers = new ArrayList<BankTransfer>();
-
+  /**
+   * bankTransfers
+   *
+   * @param bankTransfers List&lt;BankTransfer&gt;
+   * @return BankTransfers
+   */
   public BankTransfers bankTransfers(List<BankTransfer> bankTransfers) {
     this.bankTransfers = bankTransfers;
     return this;
   }
 
+  /**
+   * bankTransfers
+   *
+   * @param bankTransfersItem BankTransfer
+   * @return BankTransfers
+   */
   public BankTransfers addBankTransfersItem(BankTransfer bankTransfersItem) {
     if (this.bankTransfers == null) {
       this.bankTransfers = new ArrayList<BankTransfer>();
@@ -44,10 +55,20 @@ public class BankTransfers {
    * @return bankTransfers
    */
   @ApiModelProperty(value = "")
+  /**
+   * bankTransfers
+   *
+   * @return bankTransfers List<BankTransfer>
+   */
   public List<BankTransfer> getBankTransfers() {
     return bankTransfers;
   }
 
+  /**
+   * bankTransfers
+   *
+   * @param bankTransfers List&lt;BankTransfer&gt;
+   */
   public void setBankTransfers(List<BankTransfer> bankTransfers) {
     this.bankTransfers = bankTransfers;
   }

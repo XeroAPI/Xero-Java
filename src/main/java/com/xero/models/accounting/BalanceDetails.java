@@ -30,7 +30,12 @@ public class BalanceDetails {
 
   @JsonProperty("CurrencyRate")
   private Double currencyRate;
-
+  /**
+   * The opening balances of the account. Debits are positive, credits are negative values
+   *
+   * @param balance Double
+   * @return BalanceDetails
+   */
   public BalanceDetails balance(Double balance) {
     this.balance = balance;
     return this;
@@ -44,14 +49,30 @@ public class BalanceDetails {
   @ApiModelProperty(
       value =
           "The opening balances of the account. Debits are positive, credits are negative values")
+  /**
+   * The opening balances of the account. Debits are positive, credits are negative values
+   *
+   * @return balance Double
+   */
   public Double getBalance() {
     return balance;
   }
 
+  /**
+   * The opening balances of the account. Debits are positive, credits are negative values
+   *
+   * @param balance Double
+   */
   public void setBalance(Double balance) {
     this.balance = balance;
   }
 
+  /**
+   * The currency of the balance (Not required for base currency)
+   *
+   * @param currencyCode String
+   * @return BalanceDetails
+   */
   public BalanceDetails currencyCode(String currencyCode) {
     this.currencyCode = currencyCode;
     return this;
@@ -63,14 +84,31 @@ public class BalanceDetails {
    * @return currencyCode
    */
   @ApiModelProperty(value = "The currency of the balance (Not required for base currency)")
+  /**
+   * The currency of the balance (Not required for base currency)
+   *
+   * @return currencyCode String
+   */
   public String getCurrencyCode() {
     return currencyCode;
   }
 
+  /**
+   * The currency of the balance (Not required for base currency)
+   *
+   * @param currencyCode String
+   */
   public void setCurrencyCode(String currencyCode) {
     this.currencyCode = currencyCode;
   }
 
+  /**
+   * (Optional) Exchange rate to base currency when money is spent or received. If not specified, XE
+   * rate for the day is applied
+   *
+   * @param currencyRate Double
+   * @return BalanceDetails
+   */
   public BalanceDetails currencyRate(Double currencyRate) {
     this.currencyRate = currencyRate;
     return this;
@@ -86,10 +124,22 @@ public class BalanceDetails {
       value =
           "(Optional) Exchange rate to base currency when money is spent or received. If not"
               + " specified, XE rate for the day is applied")
+  /**
+   * (Optional) Exchange rate to base currency when money is spent or received. If not specified, XE
+   * rate for the day is applied
+   *
+   * @return currencyRate Double
+   */
   public Double getCurrencyRate() {
     return currencyRate;
   }
 
+  /**
+   * (Optional) Exchange rate to base currency when money is spent or received. If not specified, XE
+   * rate for the day is applied
+   *
+   * @param currencyRate Double
+   */
   public void setCurrencyRate(Double currencyRate) {
     this.currencyRate = currencyRate;
   }

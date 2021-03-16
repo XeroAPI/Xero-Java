@@ -58,14 +58,19 @@ public class PurchaseOrder {
   private CurrencyCode currencyCode;
   /** See Purchase Order Status Codes */
   public enum StatusEnum {
+    /** DRAFT */
     DRAFT("DRAFT"),
 
+    /** SUBMITTED */
     SUBMITTED("SUBMITTED"),
 
+    /** AUTHORISED */
     AUTHORISED("AUTHORISED"),
 
+    /** BILLED */
     BILLED("BILLED"),
 
+    /** DELETED */
     DELETED("DELETED");
 
     private String value;
@@ -74,16 +79,31 @@ public class PurchaseOrder {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
@@ -151,7 +171,12 @@ public class PurchaseOrder {
 
   @JsonProperty("Attachments")
   private List<Attachment> attachments = new ArrayList<Attachment>();
-
+  /**
+   * contact
+   *
+   * @param contact Contact
+   * @return PurchaseOrder
+   */
   public PurchaseOrder contact(Contact contact) {
     this.contact = contact;
     return this;
@@ -163,19 +188,41 @@ public class PurchaseOrder {
    * @return contact
    */
   @ApiModelProperty(value = "")
+  /**
+   * contact
+   *
+   * @return contact Contact
+   */
   public Contact getContact() {
     return contact;
   }
 
+  /**
+   * contact
+   *
+   * @param contact Contact
+   */
   public void setContact(Contact contact) {
     this.contact = contact;
   }
 
+  /**
+   * See LineItems
+   *
+   * @param lineItems List&lt;LineItem&gt;
+   * @return PurchaseOrder
+   */
   public PurchaseOrder lineItems(List<LineItem> lineItems) {
     this.lineItems = lineItems;
     return this;
   }
 
+  /**
+   * See LineItems
+   *
+   * @param lineItemsItem LineItem
+   * @return PurchaseOrder
+   */
   public PurchaseOrder addLineItemsItem(LineItem lineItemsItem) {
     if (this.lineItems == null) {
       this.lineItems = new ArrayList<LineItem>();
@@ -190,14 +237,31 @@ public class PurchaseOrder {
    * @return lineItems
    */
   @ApiModelProperty(value = "See LineItems")
+  /**
+   * See LineItems
+   *
+   * @return lineItems List<LineItem>
+   */
   public List<LineItem> getLineItems() {
     return lineItems;
   }
 
+  /**
+   * See LineItems
+   *
+   * @param lineItems List&lt;LineItem&gt;
+   */
   public void setLineItems(List<LineItem> lineItems) {
     this.lineItems = lineItems;
   }
 
+  /**
+   * Date purchase order was issued – YYYY-MM-DD. If the Date element is not specified then it will
+   * default to the current date based on the timezone setting of the organisation
+   *
+   * @param date String
+   * @return PurchaseOrder
+   */
   public PurchaseOrder date(String date) {
     this.date = date;
     return this;
@@ -214,10 +278,21 @@ public class PurchaseOrder {
           "Date purchase order was issued – YYYY-MM-DD. If the Date element is not specified then"
               + " it will default to the current date based on the timezone setting of the"
               + " organisation")
+  /**
+   * Date purchase order was issued – YYYY-MM-DD. If the Date element is not specified then it will
+   * default to the current date based on the timezone setting of the organisation
+   *
+   * @return date String
+   */
   public String getDate() {
     return date;
   }
-
+  /**
+   * Date purchase order was issued – YYYY-MM-DD. If the Date element is not specified then it will
+   * default to the current date based on the timezone setting of the organisation
+   *
+   * @return LocalDate
+   */
   public LocalDate getDateAsDate() {
     if (this.date != null) {
       try {
@@ -229,10 +304,22 @@ public class PurchaseOrder {
     return null;
   }
 
+  /**
+   * Date purchase order was issued – YYYY-MM-DD. If the Date element is not specified then it will
+   * default to the current date based on the timezone setting of the organisation
+   *
+   * @param date String
+   */
   public void setDate(String date) {
     this.date = date;
   }
 
+  /**
+   * Date purchase order was issued – YYYY-MM-DD. If the Date element is not specified then it will
+   * default to the current date based on the timezone setting of the organisation
+   *
+   * @param date LocalDateTime
+   */
   public void setDate(LocalDate date) {
     // CONVERT LocalDate args into MS DateFromat String
     Instant instant = date.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
@@ -241,6 +328,12 @@ public class PurchaseOrder {
     this.date = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
   }
 
+  /**
+   * Date the goods are to be delivered – YYYY-MM-DD
+   *
+   * @param deliveryDate String
+   * @return PurchaseOrder
+   */
   public PurchaseOrder deliveryDate(String deliveryDate) {
     this.deliveryDate = deliveryDate;
     return this;
@@ -252,10 +345,19 @@ public class PurchaseOrder {
    * @return deliveryDate
    */
   @ApiModelProperty(value = "Date the goods are to be delivered – YYYY-MM-DD")
+  /**
+   * Date the goods are to be delivered – YYYY-MM-DD
+   *
+   * @return deliveryDate String
+   */
   public String getDeliveryDate() {
     return deliveryDate;
   }
-
+  /**
+   * Date the goods are to be delivered – YYYY-MM-DD
+   *
+   * @return LocalDate
+   */
   public LocalDate getDeliveryDateAsDate() {
     if (this.deliveryDate != null) {
       try {
@@ -267,10 +369,20 @@ public class PurchaseOrder {
     return null;
   }
 
+  /**
+   * Date the goods are to be delivered – YYYY-MM-DD
+   *
+   * @param deliveryDate String
+   */
   public void setDeliveryDate(String deliveryDate) {
     this.deliveryDate = deliveryDate;
   }
 
+  /**
+   * Date the goods are to be delivered – YYYY-MM-DD
+   *
+   * @param deliveryDate LocalDateTime
+   */
   public void setDeliveryDate(LocalDate deliveryDate) {
     // CONVERT LocalDate args into MS DateFromat String
     Instant instant = deliveryDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
@@ -279,6 +391,12 @@ public class PurchaseOrder {
     this.deliveryDate = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
   }
 
+  /**
+   * lineAmountTypes
+   *
+   * @param lineAmountTypes LineAmountTypes
+   * @return PurchaseOrder
+   */
   public PurchaseOrder lineAmountTypes(LineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
     return this;
@@ -290,14 +408,31 @@ public class PurchaseOrder {
    * @return lineAmountTypes
    */
   @ApiModelProperty(value = "")
+  /**
+   * lineAmountTypes
+   *
+   * @return lineAmountTypes LineAmountTypes
+   */
   public LineAmountTypes getLineAmountTypes() {
     return lineAmountTypes;
   }
 
+  /**
+   * lineAmountTypes
+   *
+   * @param lineAmountTypes LineAmountTypes
+   */
   public void setLineAmountTypes(LineAmountTypes lineAmountTypes) {
     this.lineAmountTypes = lineAmountTypes;
   }
 
+  /**
+   * Unique alpha numeric code identifying purchase order (when missing will auto-generate from your
+   * Organisation Invoice Settings)
+   *
+   * @param purchaseOrderNumber String
+   * @return PurchaseOrder
+   */
   public PurchaseOrder purchaseOrderNumber(String purchaseOrderNumber) {
     this.purchaseOrderNumber = purchaseOrderNumber;
     return this;
@@ -313,14 +448,32 @@ public class PurchaseOrder {
       value =
           "Unique alpha numeric code identifying purchase order (when missing will auto-generate"
               + " from your Organisation Invoice Settings)")
+  /**
+   * Unique alpha numeric code identifying purchase order (when missing will auto-generate from your
+   * Organisation Invoice Settings)
+   *
+   * @return purchaseOrderNumber String
+   */
   public String getPurchaseOrderNumber() {
     return purchaseOrderNumber;
   }
 
+  /**
+   * Unique alpha numeric code identifying purchase order (when missing will auto-generate from your
+   * Organisation Invoice Settings)
+   *
+   * @param purchaseOrderNumber String
+   */
   public void setPurchaseOrderNumber(String purchaseOrderNumber) {
     this.purchaseOrderNumber = purchaseOrderNumber;
   }
 
+  /**
+   * Additional reference number
+   *
+   * @param reference String
+   * @return PurchaseOrder
+   */
   public PurchaseOrder reference(String reference) {
     this.reference = reference;
     return this;
@@ -332,14 +485,30 @@ public class PurchaseOrder {
    * @return reference
    */
   @ApiModelProperty(value = "Additional reference number")
+  /**
+   * Additional reference number
+   *
+   * @return reference String
+   */
   public String getReference() {
     return reference;
   }
 
+  /**
+   * Additional reference number
+   *
+   * @param reference String
+   */
   public void setReference(String reference) {
     this.reference = reference;
   }
 
+  /**
+   * See BrandingThemes
+   *
+   * @param brandingThemeID UUID
+   * @return PurchaseOrder
+   */
   public PurchaseOrder brandingThemeID(UUID brandingThemeID) {
     this.brandingThemeID = brandingThemeID;
     return this;
@@ -351,14 +520,30 @@ public class PurchaseOrder {
    * @return brandingThemeID
    */
   @ApiModelProperty(value = "See BrandingThemes")
+  /**
+   * See BrandingThemes
+   *
+   * @return brandingThemeID UUID
+   */
   public UUID getBrandingThemeID() {
     return brandingThemeID;
   }
 
+  /**
+   * See BrandingThemes
+   *
+   * @param brandingThemeID UUID
+   */
   public void setBrandingThemeID(UUID brandingThemeID) {
     this.brandingThemeID = brandingThemeID;
   }
 
+  /**
+   * currencyCode
+   *
+   * @param currencyCode CurrencyCode
+   * @return PurchaseOrder
+   */
   public PurchaseOrder currencyCode(CurrencyCode currencyCode) {
     this.currencyCode = currencyCode;
     return this;
@@ -370,14 +555,30 @@ public class PurchaseOrder {
    * @return currencyCode
    */
   @ApiModelProperty(value = "")
+  /**
+   * currencyCode
+   *
+   * @return currencyCode CurrencyCode
+   */
   public CurrencyCode getCurrencyCode() {
     return currencyCode;
   }
 
+  /**
+   * currencyCode
+   *
+   * @param currencyCode CurrencyCode
+   */
   public void setCurrencyCode(CurrencyCode currencyCode) {
     this.currencyCode = currencyCode;
   }
 
+  /**
+   * See Purchase Order Status Codes
+   *
+   * @param status StatusEnum
+   * @return PurchaseOrder
+   */
   public PurchaseOrder status(StatusEnum status) {
     this.status = status;
     return this;
@@ -389,14 +590,31 @@ public class PurchaseOrder {
    * @return status
    */
   @ApiModelProperty(value = "See Purchase Order Status Codes")
+  /**
+   * See Purchase Order Status Codes
+   *
+   * @return status StatusEnum
+   */
   public StatusEnum getStatus() {
     return status;
   }
 
+  /**
+   * See Purchase Order Status Codes
+   *
+   * @param status StatusEnum
+   */
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
+  /**
+   * Boolean to set whether the purchase order should be marked as “sent”. This can be set only on
+   * purchase orders that have been approved or billed
+   *
+   * @param sentToContact Boolean
+   * @return PurchaseOrder
+   */
   public PurchaseOrder sentToContact(Boolean sentToContact) {
     this.sentToContact = sentToContact;
     return this;
@@ -412,14 +630,32 @@ public class PurchaseOrder {
       value =
           "Boolean to set whether the purchase order should be marked as “sent”. This can be set"
               + " only on purchase orders that have been approved or billed")
+  /**
+   * Boolean to set whether the purchase order should be marked as “sent”. This can be set only on
+   * purchase orders that have been approved or billed
+   *
+   * @return sentToContact Boolean
+   */
   public Boolean getSentToContact() {
     return sentToContact;
   }
 
+  /**
+   * Boolean to set whether the purchase order should be marked as “sent”. This can be set only on
+   * purchase orders that have been approved or billed
+   *
+   * @param sentToContact Boolean
+   */
   public void setSentToContact(Boolean sentToContact) {
     this.sentToContact = sentToContact;
   }
 
+  /**
+   * The address the goods are to be delivered to
+   *
+   * @param deliveryAddress String
+   * @return PurchaseOrder
+   */
   public PurchaseOrder deliveryAddress(String deliveryAddress) {
     this.deliveryAddress = deliveryAddress;
     return this;
@@ -431,14 +667,30 @@ public class PurchaseOrder {
    * @return deliveryAddress
    */
   @ApiModelProperty(value = "The address the goods are to be delivered to")
+  /**
+   * The address the goods are to be delivered to
+   *
+   * @return deliveryAddress String
+   */
   public String getDeliveryAddress() {
     return deliveryAddress;
   }
 
+  /**
+   * The address the goods are to be delivered to
+   *
+   * @param deliveryAddress String
+   */
   public void setDeliveryAddress(String deliveryAddress) {
     this.deliveryAddress = deliveryAddress;
   }
 
+  /**
+   * The person that the delivery is going to
+   *
+   * @param attentionTo String
+   * @return PurchaseOrder
+   */
   public PurchaseOrder attentionTo(String attentionTo) {
     this.attentionTo = attentionTo;
     return this;
@@ -450,14 +702,30 @@ public class PurchaseOrder {
    * @return attentionTo
    */
   @ApiModelProperty(value = "The person that the delivery is going to")
+  /**
+   * The person that the delivery is going to
+   *
+   * @return attentionTo String
+   */
   public String getAttentionTo() {
     return attentionTo;
   }
 
+  /**
+   * The person that the delivery is going to
+   *
+   * @param attentionTo String
+   */
   public void setAttentionTo(String attentionTo) {
     this.attentionTo = attentionTo;
   }
 
+  /**
+   * The phone number for the person accepting the delivery
+   *
+   * @param telephone String
+   * @return PurchaseOrder
+   */
   public PurchaseOrder telephone(String telephone) {
     this.telephone = telephone;
     return this;
@@ -469,14 +737,30 @@ public class PurchaseOrder {
    * @return telephone
    */
   @ApiModelProperty(value = "The phone number for the person accepting the delivery")
+  /**
+   * The phone number for the person accepting the delivery
+   *
+   * @return telephone String
+   */
   public String getTelephone() {
     return telephone;
   }
 
+  /**
+   * The phone number for the person accepting the delivery
+   *
+   * @param telephone String
+   */
   public void setTelephone(String telephone) {
     this.telephone = telephone;
   }
 
+  /**
+   * A free text feild for instructions (500 characters max)
+   *
+   * @param deliveryInstructions String
+   * @return PurchaseOrder
+   */
   public PurchaseOrder deliveryInstructions(String deliveryInstructions) {
     this.deliveryInstructions = deliveryInstructions;
     return this;
@@ -488,14 +772,30 @@ public class PurchaseOrder {
    * @return deliveryInstructions
    */
   @ApiModelProperty(value = "A free text feild for instructions (500 characters max)")
+  /**
+   * A free text feild for instructions (500 characters max)
+   *
+   * @return deliveryInstructions String
+   */
   public String getDeliveryInstructions() {
     return deliveryInstructions;
   }
 
+  /**
+   * A free text feild for instructions (500 characters max)
+   *
+   * @param deliveryInstructions String
+   */
   public void setDeliveryInstructions(String deliveryInstructions) {
     this.deliveryInstructions = deliveryInstructions;
   }
 
+  /**
+   * The date the goods are expected to arrive.
+   *
+   * @param expectedArrivalDate String
+   * @return PurchaseOrder
+   */
   public PurchaseOrder expectedArrivalDate(String expectedArrivalDate) {
     this.expectedArrivalDate = expectedArrivalDate;
     return this;
@@ -507,10 +807,19 @@ public class PurchaseOrder {
    * @return expectedArrivalDate
    */
   @ApiModelProperty(value = "The date the goods are expected to arrive.")
+  /**
+   * The date the goods are expected to arrive.
+   *
+   * @return expectedArrivalDate String
+   */
   public String getExpectedArrivalDate() {
     return expectedArrivalDate;
   }
-
+  /**
+   * The date the goods are expected to arrive.
+   *
+   * @return LocalDate
+   */
   public LocalDate getExpectedArrivalDateAsDate() {
     if (this.expectedArrivalDate != null) {
       try {
@@ -522,10 +831,20 @@ public class PurchaseOrder {
     return null;
   }
 
+  /**
+   * The date the goods are expected to arrive.
+   *
+   * @param expectedArrivalDate String
+   */
   public void setExpectedArrivalDate(String expectedArrivalDate) {
     this.expectedArrivalDate = expectedArrivalDate;
   }
 
+  /**
+   * The date the goods are expected to arrive.
+   *
+   * @param expectedArrivalDate LocalDateTime
+   */
   public void setExpectedArrivalDate(LocalDate expectedArrivalDate) {
     // CONVERT LocalDate args into MS DateFromat String
     Instant instant = expectedArrivalDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
@@ -534,6 +853,12 @@ public class PurchaseOrder {
     this.expectedArrivalDate = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
   }
 
+  /**
+   * Xero generated unique identifier for purchase order
+   *
+   * @param purchaseOrderID UUID
+   * @return PurchaseOrder
+   */
   public PurchaseOrder purchaseOrderID(UUID purchaseOrderID) {
     this.purchaseOrderID = purchaseOrderID;
     return this;
@@ -545,14 +870,31 @@ public class PurchaseOrder {
    * @return purchaseOrderID
    */
   @ApiModelProperty(value = "Xero generated unique identifier for purchase order")
+  /**
+   * Xero generated unique identifier for purchase order
+   *
+   * @return purchaseOrderID UUID
+   */
   public UUID getPurchaseOrderID() {
     return purchaseOrderID;
   }
 
+  /**
+   * Xero generated unique identifier for purchase order
+   *
+   * @param purchaseOrderID UUID
+   */
   public void setPurchaseOrderID(UUID purchaseOrderID) {
     this.purchaseOrderID = purchaseOrderID;
   }
 
+  /**
+   * The currency rate for a multicurrency purchase order. If no rate is specified, the XE.com day
+   * rate is used.
+   *
+   * @param currencyRate Double
+   * @return PurchaseOrder
+   */
   public PurchaseOrder currencyRate(Double currencyRate) {
     this.currencyRate = currencyRate;
     return this;
@@ -568,10 +910,22 @@ public class PurchaseOrder {
       value =
           "The currency rate for a multicurrency purchase order. If no rate is specified, the"
               + " XE.com day rate is used.")
+  /**
+   * The currency rate for a multicurrency purchase order. If no rate is specified, the XE.com day
+   * rate is used.
+   *
+   * @return currencyRate Double
+   */
   public Double getCurrencyRate() {
     return currencyRate;
   }
 
+  /**
+   * The currency rate for a multicurrency purchase order. If no rate is specified, the XE.com day
+   * rate is used.
+   *
+   * @param currencyRate Double
+   */
   public void setCurrencyRate(Double currencyRate) {
     this.currencyRate = currencyRate;
   }
@@ -582,6 +936,11 @@ public class PurchaseOrder {
    * @return subTotal
    */
   @ApiModelProperty(value = "Total of purchase order excluding taxes")
+  /**
+   * Total of purchase order excluding taxes
+   *
+   * @return subTotal Double
+   */
   public Double getSubTotal() {
     return subTotal;
   }
@@ -592,6 +951,11 @@ public class PurchaseOrder {
    * @return totalTax
    */
   @ApiModelProperty(value = "Total tax on purchase order")
+  /**
+   * Total tax on purchase order
+   *
+   * @return totalTax Double
+   */
   public Double getTotalTax() {
     return totalTax;
   }
@@ -602,6 +966,11 @@ public class PurchaseOrder {
    * @return total
    */
   @ApiModelProperty(value = "Total of Purchase Order tax inclusive (i.e. SubTotal + TotalTax)")
+  /**
+   * Total of Purchase Order tax inclusive (i.e. SubTotal + TotalTax)
+   *
+   * @return total Double
+   */
   public Double getTotal() {
     return total;
   }
@@ -612,6 +981,11 @@ public class PurchaseOrder {
    * @return totalDiscount
    */
   @ApiModelProperty(value = "Total of discounts applied on the purchase order line items")
+  /**
+   * Total of discounts applied on the purchase order line items
+   *
+   * @return totalDiscount Double
+   */
   public Double getTotalDiscount() {
     return totalDiscount;
   }
@@ -624,6 +998,11 @@ public class PurchaseOrder {
   @ApiModelProperty(
       example = "false",
       value = "boolean to indicate if a purchase order has an attachment")
+  /**
+   * boolean to indicate if a purchase order has an attachment
+   *
+   * @return hasAttachments Boolean
+   */
   public Boolean getHasAttachments() {
     return hasAttachments;
   }
@@ -634,10 +1013,19 @@ public class PurchaseOrder {
    * @return updatedDateUTC
    */
   @ApiModelProperty(example = "/Date(1573755038314)/", value = "Last modified date UTC format")
+  /**
+   * Last modified date UTC format
+   *
+   * @return updatedDateUTC String
+   */
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-
+  /**
+   * Last modified date UTC format
+   *
+   * @return OffsetDateTime
+   */
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
@@ -649,6 +1037,12 @@ public class PurchaseOrder {
     return null;
   }
 
+  /**
+   * A string to indicate if a invoice status
+   *
+   * @param statusAttributeString String
+   * @return PurchaseOrder
+   */
   public PurchaseOrder statusAttributeString(String statusAttributeString) {
     this.statusAttributeString = statusAttributeString;
     return this;
@@ -660,19 +1054,41 @@ public class PurchaseOrder {
    * @return statusAttributeString
    */
   @ApiModelProperty(value = "A string to indicate if a invoice status")
+  /**
+   * A string to indicate if a invoice status
+   *
+   * @return statusAttributeString String
+   */
   public String getStatusAttributeString() {
     return statusAttributeString;
   }
 
+  /**
+   * A string to indicate if a invoice status
+   *
+   * @param statusAttributeString String
+   */
   public void setStatusAttributeString(String statusAttributeString) {
     this.statusAttributeString = statusAttributeString;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrors List&lt;ValidationError&gt;
+   * @return PurchaseOrder
+   */
   public PurchaseOrder validationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
     return this;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrorsItem ValidationError
+   * @return PurchaseOrder
+   */
   public PurchaseOrder addValidationErrorsItem(ValidationError validationErrorsItem) {
     if (this.validationErrors == null) {
       this.validationErrors = new ArrayList<ValidationError>();
@@ -687,19 +1103,41 @@ public class PurchaseOrder {
    * @return validationErrors
    */
   @ApiModelProperty(value = "Displays array of validation error messages from the API")
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @return validationErrors List<ValidationError>
+   */
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrors List&lt;ValidationError&gt;
+   */
   public void setValidationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
   }
 
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warnings List&lt;ValidationError&gt;
+   * @return PurchaseOrder
+   */
   public PurchaseOrder warnings(List<ValidationError> warnings) {
     this.warnings = warnings;
     return this;
   }
 
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warningsItem ValidationError
+   * @return PurchaseOrder
+   */
   public PurchaseOrder addWarningsItem(ValidationError warningsItem) {
     if (this.warnings == null) {
       this.warnings = new ArrayList<ValidationError>();
@@ -714,19 +1152,41 @@ public class PurchaseOrder {
    * @return warnings
    */
   @ApiModelProperty(value = "Displays array of warning messages from the API")
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @return warnings List<ValidationError>
+   */
   public List<ValidationError> getWarnings() {
     return warnings;
   }
 
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warnings List&lt;ValidationError&gt;
+   */
   public void setWarnings(List<ValidationError> warnings) {
     this.warnings = warnings;
   }
 
+  /**
+   * Displays array of attachments from the API
+   *
+   * @param attachments List&lt;Attachment&gt;
+   * @return PurchaseOrder
+   */
   public PurchaseOrder attachments(List<Attachment> attachments) {
     this.attachments = attachments;
     return this;
   }
 
+  /**
+   * Displays array of attachments from the API
+   *
+   * @param attachmentsItem Attachment
+   * @return PurchaseOrder
+   */
   public PurchaseOrder addAttachmentsItem(Attachment attachmentsItem) {
     if (this.attachments == null) {
       this.attachments = new ArrayList<Attachment>();
@@ -741,10 +1201,20 @@ public class PurchaseOrder {
    * @return attachments
    */
   @ApiModelProperty(value = "Displays array of attachments from the API")
+  /**
+   * Displays array of attachments from the API
+   *
+   * @return attachments List<Attachment>
+   */
   public List<Attachment> getAttachments() {
     return attachments;
   }
 
+  /**
+   * Displays array of attachments from the API
+   *
+   * @param attachments List&lt;Attachment&gt;
+   */
   public void setAttachments(List<Attachment> attachments) {
     this.attachments = attachments;
   }

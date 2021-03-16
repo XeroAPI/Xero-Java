@@ -33,7 +33,12 @@ public class Files {
 
   @JsonProperty("Items")
   private List<FileObject> items = new ArrayList<FileObject>();
-
+  /**
+   * totalCount
+   *
+   * @param totalCount Integer
+   * @return Files
+   */
   public Files totalCount(Integer totalCount) {
     this.totalCount = totalCount;
     return this;
@@ -45,14 +50,30 @@ public class Files {
    * @return totalCount
    */
   @ApiModelProperty(example = "2", value = "")
+  /**
+   * totalCount
+   *
+   * @return totalCount Integer
+   */
   public Integer getTotalCount() {
     return totalCount;
   }
 
+  /**
+   * totalCount
+   *
+   * @param totalCount Integer
+   */
   public void setTotalCount(Integer totalCount) {
     this.totalCount = totalCount;
   }
 
+  /**
+   * page
+   *
+   * @param page Integer
+   * @return Files
+   */
   public Files page(Integer page) {
     this.page = page;
     return this;
@@ -64,14 +85,30 @@ public class Files {
    * @return page
    */
   @ApiModelProperty(example = "1", value = "")
+  /**
+   * page
+   *
+   * @return page Integer
+   */
   public Integer getPage() {
     return page;
   }
 
+  /**
+   * page
+   *
+   * @param page Integer
+   */
   public void setPage(Integer page) {
     this.page = page;
   }
 
+  /**
+   * perPage
+   *
+   * @param perPage Integer
+   * @return Files
+   */
   public Files perPage(Integer perPage) {
     this.perPage = perPage;
     return this;
@@ -83,19 +120,41 @@ public class Files {
    * @return perPage
    */
   @ApiModelProperty(example = "50", value = "")
+  /**
+   * perPage
+   *
+   * @return perPage Integer
+   */
   public Integer getPerPage() {
     return perPage;
   }
 
+  /**
+   * perPage
+   *
+   * @param perPage Integer
+   */
   public void setPerPage(Integer perPage) {
     this.perPage = perPage;
   }
 
+  /**
+   * items
+   *
+   * @param items List&lt;FileObject&gt;
+   * @return Files
+   */
   public Files items(List<FileObject> items) {
     this.items = items;
     return this;
   }
 
+  /**
+   * items
+   *
+   * @param itemsItem FileObject
+   * @return Files
+   */
   public Files addItemsItem(FileObject itemsItem) {
     if (this.items == null) {
       this.items = new ArrayList<FileObject>();
@@ -110,10 +169,20 @@ public class Files {
    * @return items
    */
   @ApiModelProperty(value = "")
+  /**
+   * items
+   *
+   * @return items List<FileObject>
+   */
   public List<FileObject> getItems() {
     return items;
   }
 
+  /**
+   * items
+   *
+   * @param items List&lt;FileObject&gt;
+   */
   public void setItems(List<FileObject> items) {
     this.items = items;
   }

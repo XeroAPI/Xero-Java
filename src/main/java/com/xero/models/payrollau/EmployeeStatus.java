@@ -17,8 +17,11 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Employee Status Types */
 public enum EmployeeStatus {
+
+  /** ACTIVE */
   ACTIVE("ACTIVE"),
 
+  /** TERMINATED */
   TERMINATED("TERMINATED");
 
   private String value;
@@ -27,16 +30,27 @@ public enum EmployeeStatus {
     this.value = value;
   }
 
+  /** @return String value */
   @JsonValue
   public String getValue() {
     return value;
   }
 
+  /**
+   * toString
+   *
+   * @return String value
+   */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
+  /**
+   * fromValue
+   *
+   * @param value String
+   */
   @JsonCreator
   public static EmployeeStatus fromValue(String value) {
     for (EmployeeStatus b : EmployeeStatus.values()) {

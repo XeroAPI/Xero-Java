@@ -26,8 +26,10 @@ public class TaxSettings {
   private Double periodUnits;
   /** The type of period (\&quot;weeks\&quot; or \&quot;months\&quot;) */
   public enum PeriodTypeEnum {
+    /** WEEKS */
     WEEKS("weeks"),
 
+    /** MONTHS */
     MONTHS("months");
 
     private String value;
@@ -36,16 +38,31 @@ public class TaxSettings {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static PeriodTypeEnum fromValue(String value) {
       for (PeriodTypeEnum b : PeriodTypeEnum.values()) {
@@ -71,7 +88,12 @@ public class TaxSettings {
 
   @JsonProperty("lumpSumAmount")
   private String lumpSumAmount;
-
+  /**
+   * The number of units for the period type
+   *
+   * @param periodUnits Double
+   * @return TaxSettings
+   */
   public TaxSettings periodUnits(Double periodUnits) {
     this.periodUnits = periodUnits;
     return this;
@@ -83,14 +105,30 @@ public class TaxSettings {
    * @return periodUnits
    */
   @ApiModelProperty(value = "The number of units for the period type")
+  /**
+   * The number of units for the period type
+   *
+   * @return periodUnits Double
+   */
   public Double getPeriodUnits() {
     return periodUnits;
   }
 
+  /**
+   * The number of units for the period type
+   *
+   * @param periodUnits Double
+   */
   public void setPeriodUnits(Double periodUnits) {
     this.periodUnits = periodUnits;
   }
 
+  /**
+   * The type of period (\&quot;weeks\&quot; or \&quot;months\&quot;)
+   *
+   * @param periodType PeriodTypeEnum
+   * @return TaxSettings
+   */
   public TaxSettings periodType(PeriodTypeEnum periodType) {
     this.periodType = periodType;
     return this;
@@ -102,14 +140,30 @@ public class TaxSettings {
    * @return periodType
    */
   @ApiModelProperty(example = "weeks", value = "The type of period (\"weeks\" or \"months\")")
+  /**
+   * The type of period (\&quot;weeks\&quot; or \&quot;months\&quot;)
+   *
+   * @return periodType PeriodTypeEnum
+   */
   public PeriodTypeEnum getPeriodType() {
     return periodType;
   }
 
+  /**
+   * The type of period (\&quot;weeks\&quot; or \&quot;months\&quot;)
+   *
+   * @param periodType PeriodTypeEnum
+   */
   public void setPeriodType(PeriodTypeEnum periodType) {
     this.periodType = periodType;
   }
 
+  /**
+   * taxCode
+   *
+   * @param taxCode TaxCode
+   * @return TaxSettings
+   */
   public TaxSettings taxCode(TaxCode taxCode) {
     this.taxCode = taxCode;
     return this;
@@ -121,14 +175,30 @@ public class TaxSettings {
    * @return taxCode
    */
   @ApiModelProperty(value = "")
+  /**
+   * taxCode
+   *
+   * @return taxCode TaxCode
+   */
   public TaxCode getTaxCode() {
     return taxCode;
   }
 
+  /**
+   * taxCode
+   *
+   * @param taxCode TaxCode
+   */
   public void setTaxCode(TaxCode taxCode) {
     this.taxCode = taxCode;
   }
 
+  /**
+   * Tax rate for STC and WT
+   *
+   * @param specialTaxRate String
+   * @return TaxSettings
+   */
   public TaxSettings specialTaxRate(String specialTaxRate) {
     this.specialTaxRate = specialTaxRate;
     return this;
@@ -140,14 +210,30 @@ public class TaxSettings {
    * @return specialTaxRate
    */
   @ApiModelProperty(value = "Tax rate for STC and WT")
+  /**
+   * Tax rate for STC and WT
+   *
+   * @return specialTaxRate String
+   */
   public String getSpecialTaxRate() {
     return specialTaxRate;
   }
 
+  /**
+   * Tax rate for STC and WT
+   *
+   * @param specialTaxRate String
+   */
   public void setSpecialTaxRate(String specialTaxRate) {
     this.specialTaxRate = specialTaxRate;
   }
 
+  /**
+   * Tax code for a lump sum amount
+   *
+   * @param lumpSumTaxCode String
+   * @return TaxSettings
+   */
   public TaxSettings lumpSumTaxCode(String lumpSumTaxCode) {
     this.lumpSumTaxCode = lumpSumTaxCode;
     return this;
@@ -159,14 +245,30 @@ public class TaxSettings {
    * @return lumpSumTaxCode
    */
   @ApiModelProperty(value = "Tax code for a lump sum amount")
+  /**
+   * Tax code for a lump sum amount
+   *
+   * @return lumpSumTaxCode String
+   */
   public String getLumpSumTaxCode() {
     return lumpSumTaxCode;
   }
 
+  /**
+   * Tax code for a lump sum amount
+   *
+   * @param lumpSumTaxCode String
+   */
   public void setLumpSumTaxCode(String lumpSumTaxCode) {
     this.lumpSumTaxCode = lumpSumTaxCode;
   }
 
+  /**
+   * The total of the lump sum amount
+   *
+   * @param lumpSumAmount String
+   * @return TaxSettings
+   */
   public TaxSettings lumpSumAmount(String lumpSumAmount) {
     this.lumpSumAmount = lumpSumAmount;
     return this;
@@ -178,10 +280,20 @@ public class TaxSettings {
    * @return lumpSumAmount
    */
   @ApiModelProperty(value = "The total of the lump sum amount")
+  /**
+   * The total of the lump sum amount
+   *
+   * @return lumpSumAmount String
+   */
   public String getLumpSumAmount() {
     return lumpSumAmount;
   }
 
+  /**
+   * The total of the lump sum amount
+   *
+   * @param lumpSumAmount String
+   */
   public void setLumpSumAmount(String lumpSumAmount) {
     this.lumpSumAmount = lumpSumAmount;
   }

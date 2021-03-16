@@ -17,18 +17,26 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Gets or Sets PaymentFrequencyType */
 public enum PaymentFrequencyType {
+
+  /** WEEKLY */
   WEEKLY("WEEKLY"),
 
+  /** MONTHLY */
   MONTHLY("MONTHLY"),
 
+  /** FORTNIGHTLY */
   FORTNIGHTLY("FORTNIGHTLY"),
 
+  /** QUARTERLY */
   QUARTERLY("QUARTERLY"),
 
+  /** TWICEMONTHLY */
   TWICEMONTHLY("TWICEMONTHLY"),
 
+  /** FOURWEEKLY */
   FOURWEEKLY("FOURWEEKLY"),
 
+  /** YEARLY */
   YEARLY("YEARLY");
 
   private String value;
@@ -37,16 +45,27 @@ public enum PaymentFrequencyType {
     this.value = value;
   }
 
+  /** @return String value */
   @JsonValue
   public String getValue() {
     return value;
   }
 
+  /**
+   * toString
+   *
+   * @return String value
+   */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
+  /**
+   * fromValue
+   *
+   * @param value String
+   */
   @JsonCreator
   public static PaymentFrequencyType fromValue(String value) {
     for (PaymentFrequencyType b : PaymentFrequencyType.values()) {

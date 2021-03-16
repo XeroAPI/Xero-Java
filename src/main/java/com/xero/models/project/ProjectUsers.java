@@ -27,7 +27,12 @@ public class ProjectUsers {
 
   @JsonProperty("items")
   private List<ProjectUser> items = new ArrayList<ProjectUser>();
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return ProjectUsers
+   */
   public ProjectUsers pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -39,19 +44,41 @@ public class ProjectUsers {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * items
+   *
+   * @param items List&lt;ProjectUser&gt;
+   * @return ProjectUsers
+   */
   public ProjectUsers items(List<ProjectUser> items) {
     this.items = items;
     return this;
   }
 
+  /**
+   * items
+   *
+   * @param itemsItem ProjectUser
+   * @return ProjectUsers
+   */
   public ProjectUsers addItemsItem(ProjectUser itemsItem) {
     if (this.items == null) {
       this.items = new ArrayList<ProjectUser>();
@@ -66,10 +93,20 @@ public class ProjectUsers {
    * @return items
    */
   @ApiModelProperty(value = "")
+  /**
+   * items
+   *
+   * @return items List<ProjectUser>
+   */
   public List<ProjectUser> getItems() {
     return items;
   }
 
+  /**
+   * items
+   *
+   * @param items List&lt;ProjectUser&gt;
+   */
   public void setItems(List<ProjectUser> items) {
     this.items = items;
   }

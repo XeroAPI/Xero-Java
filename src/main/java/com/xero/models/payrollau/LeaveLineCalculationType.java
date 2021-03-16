@@ -17,14 +17,20 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Calculation type for leave line for Opening Balance on Employee */
 public enum LeaveLineCalculationType {
+
+  /** NOCALCULATIONREQUIRED */
   NOCALCULATIONREQUIRED("NOCALCULATIONREQUIRED"),
 
+  /** FIXEDAMOUNTEACHPERIOD */
   FIXEDAMOUNTEACHPERIOD("FIXEDAMOUNTEACHPERIOD"),
 
+  /** ENTERRATEINPAYTEMPLATE */
   ENTERRATEINPAYTEMPLATE("ENTERRATEINPAYTEMPLATE"),
 
+  /** BASEDONORDINARYEARNINGS */
   BASEDONORDINARYEARNINGS("BASEDONORDINARYEARNINGS"),
 
+  /** EMPTY */
   EMPTY("");
 
   private String value;
@@ -33,16 +39,27 @@ public enum LeaveLineCalculationType {
     this.value = value;
   }
 
+  /** @return String value */
   @JsonValue
   public String getValue() {
     return value;
   }
 
+  /**
+   * toString
+   *
+   * @return String value
+   */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
+  /**
+   * fromValue
+   *
+   * @param value String
+   */
   @JsonCreator
   public static LeaveLineCalculationType fromValue(String value) {
     for (LeaveLineCalculationType b : LeaveLineCalculationType.values()) {

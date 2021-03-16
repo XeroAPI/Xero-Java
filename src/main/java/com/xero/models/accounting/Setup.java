@@ -30,7 +30,12 @@ public class Setup {
 
   @JsonProperty("Accounts")
   private List<Account> accounts = new ArrayList<Account>();
-
+  /**
+   * conversionDate
+   *
+   * @param conversionDate ConversionDate
+   * @return Setup
+   */
   public Setup conversionDate(ConversionDate conversionDate) {
     this.conversionDate = conversionDate;
     return this;
@@ -42,19 +47,41 @@ public class Setup {
    * @return conversionDate
    */
   @ApiModelProperty(value = "")
+  /**
+   * conversionDate
+   *
+   * @return conversionDate ConversionDate
+   */
   public ConversionDate getConversionDate() {
     return conversionDate;
   }
 
+  /**
+   * conversionDate
+   *
+   * @param conversionDate ConversionDate
+   */
   public void setConversionDate(ConversionDate conversionDate) {
     this.conversionDate = conversionDate;
   }
 
+  /**
+   * Balance supplied for each account that has a value as at the conversion date.
+   *
+   * @param conversionBalances List&lt;ConversionBalances&gt;
+   * @return Setup
+   */
   public Setup conversionBalances(List<ConversionBalances> conversionBalances) {
     this.conversionBalances = conversionBalances;
     return this;
   }
 
+  /**
+   * Balance supplied for each account that has a value as at the conversion date.
+   *
+   * @param conversionBalancesItem ConversionBalances
+   * @return Setup
+   */
   public Setup addConversionBalancesItem(ConversionBalances conversionBalancesItem) {
     if (this.conversionBalances == null) {
       this.conversionBalances = new ArrayList<ConversionBalances>();
@@ -70,19 +97,41 @@ public class Setup {
    */
   @ApiModelProperty(
       value = "Balance supplied for each account that has a value as at the conversion date.")
+  /**
+   * Balance supplied for each account that has a value as at the conversion date.
+   *
+   * @return conversionBalances List<ConversionBalances>
+   */
   public List<ConversionBalances> getConversionBalances() {
     return conversionBalances;
   }
 
+  /**
+   * Balance supplied for each account that has a value as at the conversion date.
+   *
+   * @param conversionBalances List&lt;ConversionBalances&gt;
+   */
   public void setConversionBalances(List<ConversionBalances> conversionBalances) {
     this.conversionBalances = conversionBalances;
   }
 
+  /**
+   * accounts
+   *
+   * @param accounts List&lt;Account&gt;
+   * @return Setup
+   */
   public Setup accounts(List<Account> accounts) {
     this.accounts = accounts;
     return this;
   }
 
+  /**
+   * accounts
+   *
+   * @param accountsItem Account
+   * @return Setup
+   */
   public Setup addAccountsItem(Account accountsItem) {
     if (this.accounts == null) {
       this.accounts = new ArrayList<Account>();
@@ -97,10 +146,20 @@ public class Setup {
    * @return accounts
    */
   @ApiModelProperty(value = "")
+  /**
+   * accounts
+   *
+   * @return accounts List<Account>
+   */
   public List<Account> getAccounts() {
     return accounts;
   }
 
+  /**
+   * accounts
+   *
+   * @param accounts List&lt;Account&gt;
+   */
   public void setAccounts(List<Account> accounts) {
     this.accounts = accounts;
   }

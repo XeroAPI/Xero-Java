@@ -27,7 +27,12 @@ public class ConversionDate {
 
   @JsonProperty("Year")
   private Integer year;
-
+  /**
+   * The month the organisation starts using Xero. Value is an integer between 1 and 12
+   *
+   * @param month Integer
+   * @return ConversionDate
+   */
   public ConversionDate month(Integer month) {
     this.month = month;
     return this;
@@ -41,14 +46,30 @@ public class ConversionDate {
   @ApiModelProperty(
       example = "1",
       value = "The month the organisation starts using Xero. Value is an integer between 1 and 12")
+  /**
+   * The month the organisation starts using Xero. Value is an integer between 1 and 12
+   *
+   * @return month Integer
+   */
   public Integer getMonth() {
     return month;
   }
 
+  /**
+   * The month the organisation starts using Xero. Value is an integer between 1 and 12
+   *
+   * @param month Integer
+   */
   public void setMonth(Integer month) {
     this.month = month;
   }
 
+  /**
+   * The year the organisation starts using Xero. Value is an integer greater than 2006
+   *
+   * @param year Integer
+   * @return ConversionDate
+   */
   public ConversionDate year(Integer year) {
     this.year = year;
     return this;
@@ -62,10 +83,20 @@ public class ConversionDate {
   @ApiModelProperty(
       example = "2020",
       value = "The year the organisation starts using Xero. Value is an integer greater than 2006")
+  /**
+   * The year the organisation starts using Xero. Value is an integer greater than 2006
+   *
+   * @return year Integer
+   */
   public Integer getYear() {
     return year;
   }
 
+  /**
+   * The year the organisation starts using Xero. Value is an integer greater than 2006
+   *
+   * @param year Integer
+   */
   public void setYear(Integer year) {
     this.year = year;
   }

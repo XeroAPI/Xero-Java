@@ -30,7 +30,12 @@ public class LeavePeriods {
 
   @JsonProperty("periods")
   private List<LeavePeriod> periods = new ArrayList<LeavePeriod>();
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return LeavePeriods
+   */
   public LeavePeriods pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -42,14 +47,30 @@ public class LeavePeriods {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return LeavePeriods
+   */
   public LeavePeriods problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -61,19 +82,41 @@ public class LeavePeriods {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * periods
+   *
+   * @param periods List&lt;LeavePeriod&gt;
+   * @return LeavePeriods
+   */
   public LeavePeriods periods(List<LeavePeriod> periods) {
     this.periods = periods;
     return this;
   }
 
+  /**
+   * periods
+   *
+   * @param periodsItem LeavePeriod
+   * @return LeavePeriods
+   */
   public LeavePeriods addPeriodsItem(LeavePeriod periodsItem) {
     if (this.periods == null) {
       this.periods = new ArrayList<LeavePeriod>();
@@ -88,10 +131,20 @@ public class LeavePeriods {
    * @return periods
    */
   @ApiModelProperty(value = "")
+  /**
+   * periods
+   *
+   * @return periods List<LeavePeriod>
+   */
   public List<LeavePeriod> getPeriods() {
     return periods;
   }
 
+  /**
+   * periods
+   *
+   * @param periods List&lt;LeavePeriod&gt;
+   */
   public void setPeriods(List<LeavePeriod> periods) {
     this.periods = periods;
   }

@@ -35,6 +35,7 @@ public class BrandingTheme {
   private String logoUrl;
   /** Always INVOICE */
   public enum TypeEnum {
+    /** INVOICE */
     INVOICE("INVOICE");
 
     private String value;
@@ -43,16 +44,31 @@ public class BrandingTheme {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static TypeEnum fromValue(String value) {
       for (TypeEnum b : TypeEnum.values()) {
@@ -72,7 +88,12 @@ public class BrandingTheme {
 
   @JsonProperty("CreatedDateUTC")
   private String createdDateUTC;
-
+  /**
+   * Xero identifier
+   *
+   * @param brandingThemeID UUID
+   * @return BrandingTheme
+   */
   public BrandingTheme brandingThemeID(UUID brandingThemeID) {
     this.brandingThemeID = brandingThemeID;
     return this;
@@ -84,14 +105,30 @@ public class BrandingTheme {
    * @return brandingThemeID
    */
   @ApiModelProperty(value = "Xero identifier")
+  /**
+   * Xero identifier
+   *
+   * @return brandingThemeID UUID
+   */
   public UUID getBrandingThemeID() {
     return brandingThemeID;
   }
 
+  /**
+   * Xero identifier
+   *
+   * @param brandingThemeID UUID
+   */
   public void setBrandingThemeID(UUID brandingThemeID) {
     this.brandingThemeID = brandingThemeID;
   }
 
+  /**
+   * Name of branding theme
+   *
+   * @param name String
+   * @return BrandingTheme
+   */
   public BrandingTheme name(String name) {
     this.name = name;
     return this;
@@ -103,14 +140,30 @@ public class BrandingTheme {
    * @return name
    */
   @ApiModelProperty(value = "Name of branding theme")
+  /**
+   * Name of branding theme
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Name of branding theme
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * The location of the image file used as the logo on this branding theme
+   *
+   * @param logoUrl String
+   * @return BrandingTheme
+   */
   public BrandingTheme logoUrl(String logoUrl) {
     this.logoUrl = logoUrl;
     return this;
@@ -123,14 +176,30 @@ public class BrandingTheme {
    */
   @ApiModelProperty(
       value = "The location of the image file used as the logo on this branding theme")
+  /**
+   * The location of the image file used as the logo on this branding theme
+   *
+   * @return logoUrl String
+   */
   public String getLogoUrl() {
     return logoUrl;
   }
 
+  /**
+   * The location of the image file used as the logo on this branding theme
+   *
+   * @param logoUrl String
+   */
   public void setLogoUrl(String logoUrl) {
     this.logoUrl = logoUrl;
   }
 
+  /**
+   * Always INVOICE
+   *
+   * @param type TypeEnum
+   * @return BrandingTheme
+   */
   public BrandingTheme type(TypeEnum type) {
     this.type = type;
     return this;
@@ -142,14 +211,30 @@ public class BrandingTheme {
    * @return type
    */
   @ApiModelProperty(value = "Always INVOICE")
+  /**
+   * Always INVOICE
+   *
+   * @return type TypeEnum
+   */
   public TypeEnum getType() {
     return type;
   }
 
+  /**
+   * Always INVOICE
+   *
+   * @param type TypeEnum
+   */
   public void setType(TypeEnum type) {
     this.type = type;
   }
 
+  /**
+   * Integer – ranked order of branding theme. The default branding theme has a value of 0
+   *
+   * @param sortOrder Integer
+   * @return BrandingTheme
+   */
   public BrandingTheme sortOrder(Integer sortOrder) {
     this.sortOrder = sortOrder;
     return this;
@@ -163,10 +248,20 @@ public class BrandingTheme {
   @ApiModelProperty(
       value =
           "Integer – ranked order of branding theme. The default branding theme has a value of 0")
+  /**
+   * Integer – ranked order of branding theme. The default branding theme has a value of 0
+   *
+   * @return sortOrder Integer
+   */
   public Integer getSortOrder() {
     return sortOrder;
   }
 
+  /**
+   * Integer – ranked order of branding theme. The default branding theme has a value of 0
+   *
+   * @param sortOrder Integer
+   */
   public void setSortOrder(Integer sortOrder) {
     this.sortOrder = sortOrder;
   }
@@ -179,10 +274,19 @@ public class BrandingTheme {
   @ApiModelProperty(
       example = "/Date(1573755038314)/",
       value = "UTC timestamp of creation date of branding theme")
+  /**
+   * UTC timestamp of creation date of branding theme
+   *
+   * @return createdDateUTC String
+   */
   public String getCreatedDateUTC() {
     return createdDateUTC;
   }
-
+  /**
+   * UTC timestamp of creation date of branding theme
+   *
+   * @return OffsetDateTime
+   */
   public OffsetDateTime getCreatedDateUTCAsDate() {
     if (this.createdDateUTC != null) {
       try {

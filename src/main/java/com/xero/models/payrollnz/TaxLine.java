@@ -35,7 +35,12 @@ public class TaxLine {
 
   @JsonProperty("manualAdjustment")
   private Boolean manualAdjustment;
-
+  /**
+   * Xero identifier for payroll tax line
+   *
+   * @param taxLineID UUID
+   * @return TaxLine
+   */
   public TaxLine taxLineID(UUID taxLineID) {
     this.taxLineID = taxLineID;
     return this;
@@ -47,14 +52,30 @@ public class TaxLine {
    * @return taxLineID
    */
   @ApiModelProperty(value = "Xero identifier for payroll tax line")
+  /**
+   * Xero identifier for payroll tax line
+   *
+   * @return taxLineID UUID
+   */
   public UUID getTaxLineID() {
     return taxLineID;
   }
 
+  /**
+   * Xero identifier for payroll tax line
+   *
+   * @param taxLineID UUID
+   */
   public void setTaxLineID(UUID taxLineID) {
     this.taxLineID = taxLineID;
   }
 
+  /**
+   * Tax line description
+   *
+   * @param description String
+   * @return TaxLine
+   */
   public TaxLine description(String description) {
     this.description = description;
     return this;
@@ -66,14 +87,30 @@ public class TaxLine {
    * @return description
    */
   @ApiModelProperty(value = "Tax line description")
+  /**
+   * Tax line description
+   *
+   * @return description String
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * Tax line description
+   *
+   * @param description String
+   */
   public void setDescription(String description) {
     this.description = description;
   }
 
+  /**
+   * The amount of the tax line
+   *
+   * @param amount Double
+   * @return TaxLine
+   */
   public TaxLine amount(Double amount) {
     this.amount = amount;
     return this;
@@ -85,14 +122,30 @@ public class TaxLine {
    * @return amount
    */
   @ApiModelProperty(value = "The amount of the tax line")
+  /**
+   * The amount of the tax line
+   *
+   * @return amount Double
+   */
   public Double getAmount() {
     return amount;
   }
 
+  /**
+   * The amount of the tax line
+   *
+   * @param amount Double
+   */
   public void setAmount(Double amount) {
     this.amount = amount;
   }
 
+  /**
+   * Tax type ID
+   *
+   * @param globalTaxTypeID String
+   * @return TaxLine
+   */
   public TaxLine globalTaxTypeID(String globalTaxTypeID) {
     this.globalTaxTypeID = globalTaxTypeID;
     return this;
@@ -104,14 +157,30 @@ public class TaxLine {
    * @return globalTaxTypeID
    */
   @ApiModelProperty(value = "Tax type ID")
+  /**
+   * Tax type ID
+   *
+   * @return globalTaxTypeID String
+   */
   public String getGlobalTaxTypeID() {
     return globalTaxTypeID;
   }
 
+  /**
+   * Tax type ID
+   *
+   * @param globalTaxTypeID String
+   */
   public void setGlobalTaxTypeID(String globalTaxTypeID) {
     this.globalTaxTypeID = globalTaxTypeID;
   }
 
+  /**
+   * Identifies if the tax line is a manual adjustment
+   *
+   * @param manualAdjustment Boolean
+   * @return TaxLine
+   */
   public TaxLine manualAdjustment(Boolean manualAdjustment) {
     this.manualAdjustment = manualAdjustment;
     return this;
@@ -123,10 +192,20 @@ public class TaxLine {
    * @return manualAdjustment
    */
   @ApiModelProperty(value = "Identifies if the tax line is a manual adjustment")
+  /**
+   * Identifies if the tax line is a manual adjustment
+   *
+   * @return manualAdjustment Boolean
+   */
   public Boolean getManualAdjustment() {
     return manualAdjustment;
   }
 
+  /**
+   * Identifies if the tax line is a manual adjustment
+   *
+   * @param manualAdjustment Boolean
+   */
   public void setManualAdjustment(Boolean manualAdjustment) {
     this.manualAdjustment = manualAdjustment;
   }

@@ -23,14 +23,19 @@ public class EmployeeStatutoryLeaveBalance {
   StringUtil util = new StringUtil();
   /** The type of statutory leave */
   public enum LeaveTypeEnum {
+    /** SICK */
     SICK("Sick"),
 
+    /** ADOPTION */
     ADOPTION("Adoption"),
 
+    /** MATERNITY */
     MATERNITY("Maternity"),
 
+    /** PATERNITY */
     PATERNITY("Paternity"),
 
+    /** SHAREDPARENTAL */
     SHAREDPARENTAL("Sharedparental");
 
     private String value;
@@ -39,16 +44,31 @@ public class EmployeeStatutoryLeaveBalance {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static LeaveTypeEnum fromValue(String value) {
       for (LeaveTypeEnum b : LeaveTypeEnum.values()) {
@@ -67,6 +87,7 @@ public class EmployeeStatutoryLeaveBalance {
   private Double balanceRemaining;
   /** The units will be \&quot;Hours\&quot; */
   public enum UnitsEnum {
+    /** HOURS */
     HOURS("Hours");
 
     private String value;
@@ -75,16 +96,31 @@ public class EmployeeStatutoryLeaveBalance {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static UnitsEnum fromValue(String value) {
       for (UnitsEnum b : UnitsEnum.values()) {
@@ -98,7 +134,12 @@ public class EmployeeStatutoryLeaveBalance {
 
   @JsonProperty("units")
   private UnitsEnum units;
-
+  /**
+   * The type of statutory leave
+   *
+   * @param leaveType LeaveTypeEnum
+   * @return EmployeeStatutoryLeaveBalance
+   */
   public EmployeeStatutoryLeaveBalance leaveType(LeaveTypeEnum leaveType) {
     this.leaveType = leaveType;
     return this;
@@ -110,14 +151,30 @@ public class EmployeeStatutoryLeaveBalance {
    * @return leaveType
    */
   @ApiModelProperty(value = "The type of statutory leave")
+  /**
+   * The type of statutory leave
+   *
+   * @return leaveType LeaveTypeEnum
+   */
   public LeaveTypeEnum getLeaveType() {
     return leaveType;
   }
 
+  /**
+   * The type of statutory leave
+   *
+   * @param leaveType LeaveTypeEnum
+   */
   public void setLeaveType(LeaveTypeEnum leaveType) {
     this.leaveType = leaveType;
   }
 
+  /**
+   * The balance remaining for the corresponding leave type as of specified date.
+   *
+   * @param balanceRemaining Double
+   * @return EmployeeStatutoryLeaveBalance
+   */
   public EmployeeStatutoryLeaveBalance balanceRemaining(Double balanceRemaining) {
     this.balanceRemaining = balanceRemaining;
     return this;
@@ -130,14 +187,30 @@ public class EmployeeStatutoryLeaveBalance {
    */
   @ApiModelProperty(
       value = "The balance remaining for the corresponding leave type as of specified date.")
+  /**
+   * The balance remaining for the corresponding leave type as of specified date.
+   *
+   * @return balanceRemaining Double
+   */
   public Double getBalanceRemaining() {
     return balanceRemaining;
   }
 
+  /**
+   * The balance remaining for the corresponding leave type as of specified date.
+   *
+   * @param balanceRemaining Double
+   */
   public void setBalanceRemaining(Double balanceRemaining) {
     this.balanceRemaining = balanceRemaining;
   }
 
+  /**
+   * The units will be \&quot;Hours\&quot;
+   *
+   * @param units UnitsEnum
+   * @return EmployeeStatutoryLeaveBalance
+   */
   public EmployeeStatutoryLeaveBalance units(UnitsEnum units) {
     this.units = units;
     return this;
@@ -149,10 +222,20 @@ public class EmployeeStatutoryLeaveBalance {
    * @return units
    */
   @ApiModelProperty(value = "The units will be \"Hours\"")
+  /**
+   * The units will be \&quot;Hours\&quot;
+   *
+   * @return units UnitsEnum
+   */
   public UnitsEnum getUnits() {
     return units;
   }
 
+  /**
+   * The units will be \&quot;Hours\&quot;
+   *
+   * @param units UnitsEnum
+   */
   public void setUnits(UnitsEnum units) {
     this.units = units;
   }

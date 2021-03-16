@@ -24,12 +24,23 @@ public class Invoices {
 
   @JsonProperty("Invoices")
   private List<Invoice> invoices = new ArrayList<Invoice>();
-
+  /**
+   * invoices
+   *
+   * @param invoices List&lt;Invoice&gt;
+   * @return Invoices
+   */
   public Invoices invoices(List<Invoice> invoices) {
     this.invoices = invoices;
     return this;
   }
 
+  /**
+   * invoices
+   *
+   * @param invoicesItem Invoice
+   * @return Invoices
+   */
   public Invoices addInvoicesItem(Invoice invoicesItem) {
     if (this.invoices == null) {
       this.invoices = new ArrayList<Invoice>();
@@ -44,10 +55,20 @@ public class Invoices {
    * @return invoices
    */
   @ApiModelProperty(value = "")
+  /**
+   * invoices
+   *
+   * @return invoices List<Invoice>
+   */
   public List<Invoice> getInvoices() {
     return invoices;
   }
 
+  /**
+   * invoices
+   *
+   * @param invoices List&lt;Invoice&gt;
+   */
   public void setInvoices(List<Invoice> invoices) {
     this.invoices = invoices;
   }

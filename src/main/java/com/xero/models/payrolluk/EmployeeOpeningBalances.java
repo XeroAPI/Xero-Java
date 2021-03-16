@@ -37,7 +37,13 @@ public class EmployeeOpeningBalances {
 
   @JsonProperty("priorEmployeeNumber")
   private Double priorEmployeeNumber;
-
+  /**
+   * The total accumulated statutory adoption pay amount received by the employee for current fiscal
+   * year to date
+   *
+   * @param statutoryAdoptionPay Double
+   * @return EmployeeOpeningBalances
+   */
   public EmployeeOpeningBalances statutoryAdoptionPay(Double statutoryAdoptionPay) {
     this.statutoryAdoptionPay = statutoryAdoptionPay;
     return this;
@@ -53,14 +59,33 @@ public class EmployeeOpeningBalances {
       value =
           "The total accumulated statutory adoption pay amount received by the employee for"
               + " current fiscal year to date")
+  /**
+   * The total accumulated statutory adoption pay amount received by the employee for current fiscal
+   * year to date
+   *
+   * @return statutoryAdoptionPay Double
+   */
   public Double getStatutoryAdoptionPay() {
     return statutoryAdoptionPay;
   }
 
+  /**
+   * The total accumulated statutory adoption pay amount received by the employee for current fiscal
+   * year to date
+   *
+   * @param statutoryAdoptionPay Double
+   */
   public void setStatutoryAdoptionPay(Double statutoryAdoptionPay) {
     this.statutoryAdoptionPay = statutoryAdoptionPay;
   }
 
+  /**
+   * The total accumulated statutory maternity pay amount received by the employee for current
+   * fiscal year to date
+   *
+   * @param statutoryMaternityPay Double
+   * @return EmployeeOpeningBalances
+   */
   public EmployeeOpeningBalances statutoryMaternityPay(Double statutoryMaternityPay) {
     this.statutoryMaternityPay = statutoryMaternityPay;
     return this;
@@ -76,14 +101,33 @@ public class EmployeeOpeningBalances {
       value =
           "The total accumulated statutory maternity pay amount received by the employee for"
               + " current fiscal year to date")
+  /**
+   * The total accumulated statutory maternity pay amount received by the employee for current
+   * fiscal year to date
+   *
+   * @return statutoryMaternityPay Double
+   */
   public Double getStatutoryMaternityPay() {
     return statutoryMaternityPay;
   }
 
+  /**
+   * The total accumulated statutory maternity pay amount received by the employee for current
+   * fiscal year to date
+   *
+   * @param statutoryMaternityPay Double
+   */
   public void setStatutoryMaternityPay(Double statutoryMaternityPay) {
     this.statutoryMaternityPay = statutoryMaternityPay;
   }
 
+  /**
+   * The total accumulated statutory paternity pay amount received by the employee for current
+   * fiscal year to date
+   *
+   * @param statutoryPaternityPay Double
+   * @return EmployeeOpeningBalances
+   */
   public EmployeeOpeningBalances statutoryPaternityPay(Double statutoryPaternityPay) {
     this.statutoryPaternityPay = statutoryPaternityPay;
     return this;
@@ -99,14 +143,33 @@ public class EmployeeOpeningBalances {
       value =
           "The total accumulated statutory paternity pay amount received by the employee for"
               + " current fiscal year to date")
+  /**
+   * The total accumulated statutory paternity pay amount received by the employee for current
+   * fiscal year to date
+   *
+   * @return statutoryPaternityPay Double
+   */
   public Double getStatutoryPaternityPay() {
     return statutoryPaternityPay;
   }
 
+  /**
+   * The total accumulated statutory paternity pay amount received by the employee for current
+   * fiscal year to date
+   *
+   * @param statutoryPaternityPay Double
+   */
   public void setStatutoryPaternityPay(Double statutoryPaternityPay) {
     this.statutoryPaternityPay = statutoryPaternityPay;
   }
 
+  /**
+   * The total accumulated statutory shared parental pay amount received by the employee for current
+   * fiscal year to date
+   *
+   * @param statutorySharedParentalPay Double
+   * @return EmployeeOpeningBalances
+   */
   public EmployeeOpeningBalances statutorySharedParentalPay(Double statutorySharedParentalPay) {
     this.statutorySharedParentalPay = statutorySharedParentalPay;
     return this;
@@ -122,14 +185,33 @@ public class EmployeeOpeningBalances {
       value =
           "The total accumulated statutory shared parental pay amount received by the employee for"
               + " current fiscal year to date")
+  /**
+   * The total accumulated statutory shared parental pay amount received by the employee for current
+   * fiscal year to date
+   *
+   * @return statutorySharedParentalPay Double
+   */
   public Double getStatutorySharedParentalPay() {
     return statutorySharedParentalPay;
   }
 
+  /**
+   * The total accumulated statutory shared parental pay amount received by the employee for current
+   * fiscal year to date
+   *
+   * @param statutorySharedParentalPay Double
+   */
   public void setStatutorySharedParentalPay(Double statutorySharedParentalPay) {
     this.statutorySharedParentalPay = statutorySharedParentalPay;
   }
 
+  /**
+   * The total accumulated statutory sick pay amount received by the employee for current fiscal
+   * year to date
+   *
+   * @param statutorySickPay Double
+   * @return EmployeeOpeningBalances
+   */
   public EmployeeOpeningBalances statutorySickPay(Double statutorySickPay) {
     this.statutorySickPay = statutorySickPay;
     return this;
@@ -145,14 +227,32 @@ public class EmployeeOpeningBalances {
       value =
           "The total accumulated statutory sick pay amount received by the employee for current"
               + " fiscal year to date")
+  /**
+   * The total accumulated statutory sick pay amount received by the employee for current fiscal
+   * year to date
+   *
+   * @return statutorySickPay Double
+   */
   public Double getStatutorySickPay() {
     return statutorySickPay;
   }
 
+  /**
+   * The total accumulated statutory sick pay amount received by the employee for current fiscal
+   * year to date
+   *
+   * @param statutorySickPay Double
+   */
   public void setStatutorySickPay(Double statutorySickPay) {
     this.statutorySickPay = statutorySickPay;
   }
 
+  /**
+   * The unique employee number issued by the employee&#39;s former employer
+   *
+   * @param priorEmployeeNumber Double
+   * @return EmployeeOpeningBalances
+   */
   public EmployeeOpeningBalances priorEmployeeNumber(Double priorEmployeeNumber) {
     this.priorEmployeeNumber = priorEmployeeNumber;
     return this;
@@ -164,10 +264,20 @@ public class EmployeeOpeningBalances {
    * @return priorEmployeeNumber
    */
   @ApiModelProperty(value = "The unique employee number issued by the employee's former employer")
+  /**
+   * The unique employee number issued by the employee&#39;s former employer
+   *
+   * @return priorEmployeeNumber Double
+   */
   public Double getPriorEmployeeNumber() {
     return priorEmployeeNumber;
   }
 
+  /**
+   * The unique employee number issued by the employee&#39;s former employer
+   *
+   * @param priorEmployeeNumber Double
+   */
   public void setPriorEmployeeNumber(Double priorEmployeeNumber) {
     this.priorEmployeeNumber = priorEmployeeNumber;
   }

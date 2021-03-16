@@ -30,7 +30,12 @@ public class EmployeeOpeningBalancesObject {
 
   @JsonProperty("openingBalances")
   private List<EmployeeOpeningBalance> openingBalances = new ArrayList<EmployeeOpeningBalance>();
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return EmployeeOpeningBalancesObject
+   */
   public EmployeeOpeningBalancesObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -42,14 +47,30 @@ public class EmployeeOpeningBalancesObject {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return EmployeeOpeningBalancesObject
+   */
   public EmployeeOpeningBalancesObject problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -61,20 +82,42 @@ public class EmployeeOpeningBalancesObject {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * openingBalances
+   *
+   * @param openingBalances List&lt;EmployeeOpeningBalance&gt;
+   * @return EmployeeOpeningBalancesObject
+   */
   public EmployeeOpeningBalancesObject openingBalances(
       List<EmployeeOpeningBalance> openingBalances) {
     this.openingBalances = openingBalances;
     return this;
   }
 
+  /**
+   * openingBalances
+   *
+   * @param openingBalancesItem EmployeeOpeningBalance
+   * @return EmployeeOpeningBalancesObject
+   */
   public EmployeeOpeningBalancesObject addOpeningBalancesItem(
       EmployeeOpeningBalance openingBalancesItem) {
     if (this.openingBalances == null) {
@@ -90,10 +133,20 @@ public class EmployeeOpeningBalancesObject {
    * @return openingBalances
    */
   @ApiModelProperty(value = "")
+  /**
+   * openingBalances
+   *
+   * @return openingBalances List<EmployeeOpeningBalance>
+   */
   public List<EmployeeOpeningBalance> getOpeningBalances() {
     return openingBalances;
   }
 
+  /**
+   * openingBalances
+   *
+   * @param openingBalances List&lt;EmployeeOpeningBalance&gt;
+   */
   public void setOpeningBalances(List<EmployeeOpeningBalance> openingBalances) {
     this.openingBalances = openingBalances;
   }

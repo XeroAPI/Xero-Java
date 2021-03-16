@@ -25,7 +25,12 @@ public class ReportAttribute {
 
   @JsonProperty("Value")
   private String value;
-
+  /**
+   * id
+   *
+   * @param id String
+   * @return ReportAttribute
+   */
   public ReportAttribute id(String id) {
     this.id = id;
     return this;
@@ -37,14 +42,30 @@ public class ReportAttribute {
    * @return id
    */
   @ApiModelProperty(value = "")
+  /**
+   * id
+   *
+   * @return id String
+   */
   public String getId() {
     return id;
   }
 
+  /**
+   * id
+   *
+   * @param id String
+   */
   public void setId(String id) {
     this.id = id;
   }
 
+  /**
+   * value
+   *
+   * @param value String
+   * @return ReportAttribute
+   */
   public ReportAttribute value(String value) {
     this.value = value;
     return this;
@@ -56,10 +77,20 @@ public class ReportAttribute {
    * @return value
    */
   @ApiModelProperty(value = "")
+  /**
+   * value
+   *
+   * @return value String
+   */
   public String getValue() {
     return value;
   }
 
+  /**
+   * value
+   *
+   * @param value String
+   */
   public void setValue(String value) {
     this.value = value;
   }

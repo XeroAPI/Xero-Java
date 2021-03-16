@@ -30,7 +30,12 @@ public class EarningsRates {
 
   @JsonProperty("earningsRates")
   private List<EarningsRate> earningsRates = new ArrayList<EarningsRate>();
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return EarningsRates
+   */
   public EarningsRates pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -42,14 +47,30 @@ public class EarningsRates {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return EarningsRates
+   */
   public EarningsRates problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -61,19 +82,41 @@ public class EarningsRates {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * earningsRates
+   *
+   * @param earningsRates List&lt;EarningsRate&gt;
+   * @return EarningsRates
+   */
   public EarningsRates earningsRates(List<EarningsRate> earningsRates) {
     this.earningsRates = earningsRates;
     return this;
   }
 
+  /**
+   * earningsRates
+   *
+   * @param earningsRatesItem EarningsRate
+   * @return EarningsRates
+   */
   public EarningsRates addEarningsRatesItem(EarningsRate earningsRatesItem) {
     if (this.earningsRates == null) {
       this.earningsRates = new ArrayList<EarningsRate>();
@@ -88,10 +131,20 @@ public class EarningsRates {
    * @return earningsRates
    */
   @ApiModelProperty(value = "")
+  /**
+   * earningsRates
+   *
+   * @return earningsRates List<EarningsRate>
+   */
   public List<EarningsRate> getEarningsRates() {
     return earningsRates;
   }
 
+  /**
+   * earningsRates
+   *
+   * @param earningsRates List&lt;EarningsRate&gt;
+   */
   public void setEarningsRates(List<EarningsRate> earningsRates) {
     this.earningsRates = earningsRates;
   }

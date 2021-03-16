@@ -22,6 +22,7 @@ import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.OffsetDateTime;
 import org.threeten.bp.ZoneOffset;
 
+/** StringUtil has helper methods for String and Date conversions  */
 public class StringUtil {
     /**
      * Check if the given array contains the given value (with case-insensitive
@@ -72,6 +73,11 @@ public class StringUtil {
         return out.toString();
     }
 
+    /** Convert string to date
+    * @param date String is a date in MS DateFormat
+    * @return LocalDate a standard date  
+    * @exception IOException thown if string pattern matching and formatting fails
+    */
     public LocalDate convertStringToDate(String date)
             throws IOException {
         LocalDate formattedDate;
@@ -91,6 +97,11 @@ public class StringUtil {
         return formattedDate;
     }
     
+    /** Convert string to datetime
+    * @param date String is a date in MS DateFormat
+    * @return OffsetDateTime an offset date time set to UTC  
+    * @exception IOException thown if string pattern matching and formatting fails
+    */
     public OffsetDateTime convertStringToOffsetDateTime(String date)
             throws IOException {
         OffsetDateTime formattedDate;
@@ -110,6 +121,11 @@ public class StringUtil {
         return formattedDate;
     }
 
+    /** Convert string to datetime
+    * @param date String is a date in MS DateFormat
+    * @return LocalDateTime an local date time   
+    * @exception IOException thown if string pattern matching and formatting fails
+    */
     public LocalDateTime convertStringToLocalDateTime(String date)
             throws IOException {
         LocalDateTime formattedDate;

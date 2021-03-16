@@ -34,20 +34,28 @@ public class Employment {
   private String employeeNumber;
   /** The NI Category of the employee */
   public enum NiCategoryEnum {
+    /** A */
     A("A"),
 
+    /** B */
     B("B"),
 
+    /** C */
     C("C"),
 
+    /** H */
     H("H"),
 
+    /** J */
     J("J"),
 
+    /** M */
     M("M"),
 
+    /** Z */
     Z("Z"),
 
+    /** X */
     X("X");
 
     private String value;
@@ -56,16 +64,31 @@ public class Employment {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static NiCategoryEnum fromValue(String value) {
       for (NiCategoryEnum b : NiCategoryEnum.values()) {
@@ -79,7 +102,12 @@ public class Employment {
 
   @JsonProperty("niCategory")
   private NiCategoryEnum niCategory;
-
+  /**
+   * Xero unique identifier for the payroll calendar of the employee
+   *
+   * @param payrollCalendarID UUID
+   * @return Employment
+   */
   public Employment payrollCalendarID(UUID payrollCalendarID) {
     this.payrollCalendarID = payrollCalendarID;
     return this;
@@ -91,14 +119,30 @@ public class Employment {
    * @return payrollCalendarID
    */
   @ApiModelProperty(value = "Xero unique identifier for the payroll calendar of the employee")
+  /**
+   * Xero unique identifier for the payroll calendar of the employee
+   *
+   * @return payrollCalendarID UUID
+   */
   public UUID getPayrollCalendarID() {
     return payrollCalendarID;
   }
 
+  /**
+   * Xero unique identifier for the payroll calendar of the employee
+   *
+   * @param payrollCalendarID UUID
+   */
   public void setPayrollCalendarID(UUID payrollCalendarID) {
     this.payrollCalendarID = payrollCalendarID;
   }
 
+  /**
+   * Start date of the employment (YYYY-MM-DD)
+   *
+   * @param startDate LocalDate
+   * @return Employment
+   */
   public Employment startDate(LocalDate startDate) {
     this.startDate = startDate;
     return this;
@@ -110,14 +154,30 @@ public class Employment {
    * @return startDate
    */
   @ApiModelProperty(value = "Start date of the employment (YYYY-MM-DD)")
+  /**
+   * Start date of the employment (YYYY-MM-DD)
+   *
+   * @return startDate LocalDate
+   */
   public LocalDate getStartDate() {
     return startDate;
   }
 
+  /**
+   * Start date of the employment (YYYY-MM-DD)
+   *
+   * @param startDate LocalDate
+   */
   public void setStartDate(LocalDate startDate) {
     this.startDate = startDate;
   }
 
+  /**
+   * The employment number of the employee
+   *
+   * @param employeeNumber String
+   * @return Employment
+   */
   public Employment employeeNumber(String employeeNumber) {
     this.employeeNumber = employeeNumber;
     return this;
@@ -129,14 +189,30 @@ public class Employment {
    * @return employeeNumber
    */
   @ApiModelProperty(example = "7", value = "The employment number of the employee")
+  /**
+   * The employment number of the employee
+   *
+   * @return employeeNumber String
+   */
   public String getEmployeeNumber() {
     return employeeNumber;
   }
 
+  /**
+   * The employment number of the employee
+   *
+   * @param employeeNumber String
+   */
   public void setEmployeeNumber(String employeeNumber) {
     this.employeeNumber = employeeNumber;
   }
 
+  /**
+   * The NI Category of the employee
+   *
+   * @param niCategory NiCategoryEnum
+   * @return Employment
+   */
   public Employment niCategory(NiCategoryEnum niCategory) {
     this.niCategory = niCategory;
     return this;
@@ -148,10 +224,20 @@ public class Employment {
    * @return niCategory
    */
   @ApiModelProperty(example = "A", value = "The NI Category of the employee")
+  /**
+   * The NI Category of the employee
+   *
+   * @return niCategory NiCategoryEnum
+   */
   public NiCategoryEnum getNiCategory() {
     return niCategory;
   }
 
+  /**
+   * The NI Category of the employee
+   *
+   * @param niCategory NiCategoryEnum
+   */
   public void setNiCategory(NiCategoryEnum niCategory) {
     this.niCategory = niCategory;
   }

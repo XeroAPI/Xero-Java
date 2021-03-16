@@ -29,7 +29,12 @@ public class ReimbursementLine {
 
   @JsonProperty("amount")
   private Double amount;
-
+  /**
+   * Xero identifier for payroll reimbursement
+   *
+   * @param reimbursementTypeID UUID
+   * @return ReimbursementLine
+   */
   public ReimbursementLine reimbursementTypeID(UUID reimbursementTypeID) {
     this.reimbursementTypeID = reimbursementTypeID;
     return this;
@@ -41,14 +46,30 @@ public class ReimbursementLine {
    * @return reimbursementTypeID
    */
   @ApiModelProperty(value = "Xero identifier for payroll reimbursement")
+  /**
+   * Xero identifier for payroll reimbursement
+   *
+   * @return reimbursementTypeID UUID
+   */
   public UUID getReimbursementTypeID() {
     return reimbursementTypeID;
   }
 
+  /**
+   * Xero identifier for payroll reimbursement
+   *
+   * @param reimbursementTypeID UUID
+   */
   public void setReimbursementTypeID(UUID reimbursementTypeID) {
     this.reimbursementTypeID = reimbursementTypeID;
   }
 
+  /**
+   * Reimbursement line description
+   *
+   * @param description String
+   * @return ReimbursementLine
+   */
   public ReimbursementLine description(String description) {
     this.description = description;
     return this;
@@ -60,14 +81,30 @@ public class ReimbursementLine {
    * @return description
    */
   @ApiModelProperty(value = "Reimbursement line description")
+  /**
+   * Reimbursement line description
+   *
+   * @return description String
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * Reimbursement line description
+   *
+   * @param description String
+   */
   public void setDescription(String description) {
     this.description = description;
   }
 
+  /**
+   * Reimbursement amount
+   *
+   * @param amount Double
+   * @return ReimbursementLine
+   */
   public ReimbursementLine amount(Double amount) {
     this.amount = amount;
     return this;
@@ -79,10 +116,20 @@ public class ReimbursementLine {
    * @return amount
    */
   @ApiModelProperty(value = "Reimbursement amount")
+  /**
+   * Reimbursement amount
+   *
+   * @return amount Double
+   */
   public Double getAmount() {
     return amount;
   }
 
+  /**
+   * Reimbursement amount
+   *
+   * @param amount Double
+   */
   public void setAmount(Double amount) {
     this.amount = amount;
   }

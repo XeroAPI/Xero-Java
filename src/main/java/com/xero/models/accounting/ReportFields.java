@@ -28,7 +28,12 @@ public class ReportFields {
 
   @JsonProperty("Value")
   private String value;
-
+  /**
+   * fieldID
+   *
+   * @param fieldID String
+   * @return ReportFields
+   */
   public ReportFields fieldID(String fieldID) {
     this.fieldID = fieldID;
     return this;
@@ -40,14 +45,30 @@ public class ReportFields {
    * @return fieldID
    */
   @ApiModelProperty(value = "")
+  /**
+   * fieldID
+   *
+   * @return fieldID String
+   */
   public String getFieldID() {
     return fieldID;
   }
 
+  /**
+   * fieldID
+   *
+   * @param fieldID String
+   */
   public void setFieldID(String fieldID) {
     this.fieldID = fieldID;
   }
 
+  /**
+   * description
+   *
+   * @param description String
+   * @return ReportFields
+   */
   public ReportFields description(String description) {
     this.description = description;
     return this;
@@ -59,14 +80,30 @@ public class ReportFields {
    * @return description
    */
   @ApiModelProperty(value = "")
+  /**
+   * description
+   *
+   * @return description String
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * description
+   *
+   * @param description String
+   */
   public void setDescription(String description) {
     this.description = description;
   }
 
+  /**
+   * value
+   *
+   * @param value String
+   * @return ReportFields
+   */
   public ReportFields value(String value) {
     this.value = value;
     return this;
@@ -78,10 +115,20 @@ public class ReportFields {
    * @return value
    */
   @ApiModelProperty(value = "")
+  /**
+   * value
+   *
+   * @return value String
+   */
   public String getValue() {
     return value;
   }
 
+  /**
+   * value
+   *
+   * @param value String
+   */
   public void setValue(String value) {
     this.value = value;
   }

@@ -25,7 +25,12 @@ public class SalesTrackingCategory {
 
   @JsonProperty("TrackingOptionName")
   private String trackingOptionName;
-
+  /**
+   * The default sales tracking category name for contacts
+   *
+   * @param trackingCategoryName String
+   * @return SalesTrackingCategory
+   */
   public SalesTrackingCategory trackingCategoryName(String trackingCategoryName) {
     this.trackingCategoryName = trackingCategoryName;
     return this;
@@ -37,14 +42,30 @@ public class SalesTrackingCategory {
    * @return trackingCategoryName
    */
   @ApiModelProperty(value = "The default sales tracking category name for contacts")
+  /**
+   * The default sales tracking category name for contacts
+   *
+   * @return trackingCategoryName String
+   */
   public String getTrackingCategoryName() {
     return trackingCategoryName;
   }
 
+  /**
+   * The default sales tracking category name for contacts
+   *
+   * @param trackingCategoryName String
+   */
   public void setTrackingCategoryName(String trackingCategoryName) {
     this.trackingCategoryName = trackingCategoryName;
   }
 
+  /**
+   * The default purchase tracking category name for contacts
+   *
+   * @param trackingOptionName String
+   * @return SalesTrackingCategory
+   */
   public SalesTrackingCategory trackingOptionName(String trackingOptionName) {
     this.trackingOptionName = trackingOptionName;
     return this;
@@ -56,10 +77,20 @@ public class SalesTrackingCategory {
    * @return trackingOptionName
    */
   @ApiModelProperty(value = "The default purchase tracking category name for contacts")
+  /**
+   * The default purchase tracking category name for contacts
+   *
+   * @return trackingOptionName String
+   */
   public String getTrackingOptionName() {
     return trackingOptionName;
   }
 
+  /**
+   * The default purchase tracking category name for contacts
+   *
+   * @param trackingOptionName String
+   */
   public void setTrackingOptionName(String trackingOptionName) {
     this.trackingOptionName = trackingOptionName;
   }

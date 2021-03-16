@@ -29,7 +29,12 @@ public class LeaveEarningsLine {
 
   @JsonProperty("NumberOfUnits")
   private Double numberOfUnits;
-
+  /**
+   * Xero identifier
+   *
+   * @param earningsRateID UUID
+   * @return LeaveEarningsLine
+   */
   public LeaveEarningsLine earningsRateID(UUID earningsRateID) {
     this.earningsRateID = earningsRateID;
     return this;
@@ -41,14 +46,30 @@ public class LeaveEarningsLine {
    * @return earningsRateID
    */
   @ApiModelProperty(example = "e0eb6747-7c17-4075-b804-989f8d4e5d39", value = "Xero identifier")
+  /**
+   * Xero identifier
+   *
+   * @return earningsRateID UUID
+   */
   public UUID getEarningsRateID() {
     return earningsRateID;
   }
 
+  /**
+   * Xero identifier
+   *
+   * @param earningsRateID UUID
+   */
   public void setEarningsRateID(UUID earningsRateID) {
     this.earningsRateID = earningsRateID;
   }
 
+  /**
+   * Rate per unit of the EarningsLine.
+   *
+   * @param ratePerUnit Double
+   * @return LeaveEarningsLine
+   */
   public LeaveEarningsLine ratePerUnit(Double ratePerUnit) {
     this.ratePerUnit = ratePerUnit;
     return this;
@@ -60,14 +81,30 @@ public class LeaveEarningsLine {
    * @return ratePerUnit
    */
   @ApiModelProperty(example = "38.0", value = "Rate per unit of the EarningsLine.")
+  /**
+   * Rate per unit of the EarningsLine.
+   *
+   * @return ratePerUnit Double
+   */
   public Double getRatePerUnit() {
     return ratePerUnit;
   }
 
+  /**
+   * Rate per unit of the EarningsLine.
+   *
+   * @param ratePerUnit Double
+   */
   public void setRatePerUnit(Double ratePerUnit) {
     this.ratePerUnit = ratePerUnit;
   }
 
+  /**
+   * Earnings rate number of units.
+   *
+   * @param numberOfUnits Double
+   * @return LeaveEarningsLine
+   */
   public LeaveEarningsLine numberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
     return this;
@@ -79,10 +116,20 @@ public class LeaveEarningsLine {
    * @return numberOfUnits
    */
   @ApiModelProperty(example = "2.5", value = "Earnings rate number of units.")
+  /**
+   * Earnings rate number of units.
+   *
+   * @return numberOfUnits Double
+   */
   public Double getNumberOfUnits() {
     return numberOfUnits;
   }
 
+  /**
+   * Earnings rate number of units.
+   *
+   * @param numberOfUnits Double
+   */
   public void setNumberOfUnits(Double numberOfUnits) {
     this.numberOfUnits = numberOfUnits;
   }

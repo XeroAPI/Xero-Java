@@ -12,34 +12,56 @@ import com.xero.models.accounting.ValidationError;
 import com.xero.models.bankfeeds.FeedConnections;
 import com.xero.models.bankfeeds.Statements;
 
+/** XeroApiExceptionHandler main method for handling and throwing errors returned by Xero API */
 public class XeroApiExceptionHandler {
 
+    /** Init Xero Api Exception Hander   */
     public XeroApiExceptionHandler() {
         super();
     }
 
-    // REFACTOR ERROR HANDLER
-    // ACCOUNTING Validation Errors (400)
+    /** Handle Validation Errors (400)
+    * @param objectType String object type being interacted with when the error was returned.
+    * @param error Error object with details specific to Accounting API
+    * @param e Exception object with details about the original exception
+    */
     public void validationError(String objectType, com.xero.models.accounting.Error error, Exception e) {
         throw new XeroBadRequestException(objectType, error, e);
     }
 
-    // ASSETS Validation Errors (400)
+    /** Handle Validation Errors (400)
+    * @param objectType String object type being interacted with when the error was returned.
+    * @param error Error object with details specific to Assets API
+    * @param e Exception object with details about the original exception
+    */
     public void validationError(String objectType, com.xero.models.assets.Error error, Exception e) {
         throw new XeroBadRequestException(objectType, error, e);
     }
 
-    // BANKFEED Statements Validation Errors (400)
+    /** Handle Validation Errors (400)
+    * @param objectType String object type being interacted with when the error was returned.
+    * @param error Statements object with details specific to Bank Feeds API
+    * @param e Exception object with details about the original exception
+    */
     public void validationError(String objectType, Statements error, Exception e) {
         throw new XeroBadRequestException(objectType, error, e);
     }
     
-    // BANKFEED Connections Validation Errors (400)
+    /** Handle Validation Errors (400)
+    * @param objectType String object type being interacted with when the error was returned.
+    * @param error FeedConnections object with details specific to Bank Feeds API
+    * @param e Exception object with details about the original exception
+    */
     public void validationError(String objectType, FeedConnections error, Exception e) {
         throw new XeroBadRequestException(objectType, error, e);
     }
     
-    // PAYROLL UK Validation Errors 
+    /** Handle Validation Errors (400)
+    * @param statusCode Integer the server status code returned.
+    * @param objectType String object type being interacted with when the error was returned.
+    * @param error Problem object with details specific to UK Payroll API
+    * @param e Exception object with details about the original exception
+    */
     public void validationError(Integer statusCode, String objectType, com.xero.models.payrolluk.Problem error, Exception e) {
         if (statusCode == 400 ) {
             throw new XeroBadRequestException(objectType, error, e);
@@ -48,7 +70,12 @@ public class XeroApiExceptionHandler {
         }
     }
     
-    // PAYROLL NZ Validation Errors 
+    /** Handle Validation Errors (400)
+    * @param statusCode Integer the server status code returned.
+    * @param objectType String object type being interacted with when the error was returned.
+    * @param error Problem object with details specific to NZ Payroll API
+    * @param e Exception object with details about the original exception
+    */
     public void validationError(Integer statusCode, String objectType, com.xero.models.payrollnz.Problem error, Exception e) {
         if (statusCode == 400 ) {
             throw new XeroBadRequestException(objectType, error, e);
@@ -59,40 +86,81 @@ public class XeroApiExceptionHandler {
         }
     }
     
-    // PAYROLL AU Employees Validation Errors (400)
+    /** Handle Validation Errors (400)
+    * @param objectType String object type being interacted with when the error was returned.
+    * @param employees Employees object with details specific to AU Payroll API
+    * @param e Exception object with details about the original exception
+    */
     public void validationError(String objectType, com.xero.models.payrollau.Employees employees, Exception e) {
         throw new XeroBadRequestException(objectType, employees, e);
     }
     
+    /** Handle Validation Errors (400)
+    * @param objectType String object type being interacted with when the error was returned.
+    * @param leaveApplications LeaveApplications object with details specific to AU Payroll API
+    * @param e Exception object with details about the original exception
+    */
     public void validationError(String objectType, com.xero.models.payrollau.LeaveApplications leaveApplications, Exception e) {
         throw new XeroBadRequestException(objectType, leaveApplications, e);
     }
-    
+
+    /** Handle Validation Errors (400)
+    * @param objectType String object type being interacted with when the error was returned.
+    * @param payItems PayItems object with details specific to AU Payroll API
+    * @param e Exception object with details about the original exception
+    */
     public void validationError(String objectType, com.xero.models.payrollau.PayItems payItems, Exception e) {
         throw new XeroBadRequestException(objectType, payItems, e);
     }
     
+    /** Handle Validation Errors (400)
+    * @param objectType String object type being interacted with when the error was returned.
+    * @param payRuns PayRuns object with details specific to AU Payroll API
+    * @param e Exception object with details about the original exception
+    */
     public void validationError(String objectType, com.xero.models.payrollau.PayRuns payRuns, Exception e) {
         throw new XeroBadRequestException(objectType, payRuns, e);
     }
     
+    /** Handle Validation Errors (400)
+    * @param objectType String object type being interacted with when the error was returned.
+    * @param payrollCalendars PayrollCalendars object with details specific to AU Payroll API
+    * @param e Exception object with details about the original exception
+    */
     public void validationError(String objectType, com.xero.models.payrollau.PayrollCalendars payrollCalendars, Exception e) {
         throw new XeroBadRequestException(objectType, payrollCalendars, e);
     }
-    
+
+    /** Handle Validation Errors (400)
+    * @param objectType String object type being interacted with when the error was returned.
+    * @param superFunds SuperFunds object with details specific to AU Payroll API
+    * @param e Exception object with details about the original exception
+    */
     public void validationError(String objectType, com.xero.models.payrollau.SuperFunds superFunds, Exception e) {
         throw new XeroBadRequestException(objectType, superFunds, e);
     }
     
+    /** Handle Validation Errors (400)
+    * @param objectType String object type being interacted with when the error was returned.
+    * @param timesheets Timesheets object with details specific to AU Payroll API
+    * @param e Exception object with details about the original exception
+    */
     public void validationError(String objectType, com.xero.models.payrollau.Timesheets timesheets, Exception e) {
         throw new XeroBadRequestException(objectType, timesheets, e);
     }
     
+    /** Handle Validation Errors (400)
+    * @param objectType String object type being interacted with when the error was returned.
+    * @param msg Sting with details specific to Accounting API
+    * @param e Exception object with details about the original exception
+    */
     public void validationError(String objectType, String msg, Exception e) {
         throw new XeroBadRequestException(400, msg, e);
     }
     
-    // REFACTOR GENERIC ERROR HANDLER
+    /** GENERIC ERROR HANDLER
+    * @param e HttpResponseException object with details about the original exception
+    */
     public void execute(HttpResponseException e) {
         int statusCode = e.getStatusCode();
         
@@ -151,8 +219,13 @@ public class XeroApiExceptionHandler {
         }
     }
     
-    
-    // LEGACY ERROR HANDLER
+    /** LEGACY ERROR HANDLER
+    * @param e HttpResponseException object with details about the original exception
+    * @param apiClient ApiClient class for use in deserializing http response
+    * @throws JsonParseException for parsing errors
+    * @throws JsonMappingException for mapping errors
+    * @throws IOException for failed or interrupted I/O operations
+    */
     public void execute(HttpResponseException e, ApiClient apiClient)
             throws JsonParseException, JsonMappingException, IOException {
         Error error = null;

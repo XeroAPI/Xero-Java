@@ -24,12 +24,23 @@ public class Overpayments {
 
   @JsonProperty("Overpayments")
   private List<Overpayment> overpayments = new ArrayList<Overpayment>();
-
+  /**
+   * overpayments
+   *
+   * @param overpayments List&lt;Overpayment&gt;
+   * @return Overpayments
+   */
   public Overpayments overpayments(List<Overpayment> overpayments) {
     this.overpayments = overpayments;
     return this;
   }
 
+  /**
+   * overpayments
+   *
+   * @param overpaymentsItem Overpayment
+   * @return Overpayments
+   */
   public Overpayments addOverpaymentsItem(Overpayment overpaymentsItem) {
     if (this.overpayments == null) {
       this.overpayments = new ArrayList<Overpayment>();
@@ -44,10 +55,20 @@ public class Overpayments {
    * @return overpayments
    */
   @ApiModelProperty(value = "")
+  /**
+   * overpayments
+   *
+   * @return overpayments List<Overpayment>
+   */
   public List<Overpayment> getOverpayments() {
     return overpayments;
   }
 
+  /**
+   * overpayments
+   *
+   * @param overpayments List&lt;Overpayment&gt;
+   */
   public void setOverpayments(List<Overpayment> overpayments) {
     this.overpayments = overpayments;
   }

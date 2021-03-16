@@ -86,7 +86,12 @@ public class TenNinetyNineContact {
 
   @JsonProperty("ContactId")
   private UUID contactId;
-
+  /**
+   * Box 1 on 1099 Form
+   *
+   * @param box1 Double
+   * @return TenNinetyNineContact
+   */
   public TenNinetyNineContact box1(Double box1) {
     this.box1 = box1;
     return this;
@@ -98,14 +103,30 @@ public class TenNinetyNineContact {
    * @return box1
    */
   @ApiModelProperty(value = "Box 1 on 1099 Form")
+  /**
+   * Box 1 on 1099 Form
+   *
+   * @return box1 Double
+   */
   public Double getBox1() {
     return box1;
   }
 
+  /**
+   * Box 1 on 1099 Form
+   *
+   * @param box1 Double
+   */
   public void setBox1(Double box1) {
     this.box1 = box1;
   }
 
+  /**
+   * Box 2 on 1099 Form
+   *
+   * @param box2 Double
+   * @return TenNinetyNineContact
+   */
   public TenNinetyNineContact box2(Double box2) {
     this.box2 = box2;
     return this;
@@ -117,14 +138,30 @@ public class TenNinetyNineContact {
    * @return box2
    */
   @ApiModelProperty(value = "Box 2 on 1099 Form")
+  /**
+   * Box 2 on 1099 Form
+   *
+   * @return box2 Double
+   */
   public Double getBox2() {
     return box2;
   }
 
+  /**
+   * Box 2 on 1099 Form
+   *
+   * @param box2 Double
+   */
   public void setBox2(Double box2) {
     this.box2 = box2;
   }
 
+  /**
+   * Box 3 on 1099 Form
+   *
+   * @param box3 Double
+   * @return TenNinetyNineContact
+   */
   public TenNinetyNineContact box3(Double box3) {
     this.box3 = box3;
     return this;
@@ -136,14 +173,30 @@ public class TenNinetyNineContact {
    * @return box3
    */
   @ApiModelProperty(value = "Box 3 on 1099 Form")
+  /**
+   * Box 3 on 1099 Form
+   *
+   * @return box3 Double
+   */
   public Double getBox3() {
     return box3;
   }
 
+  /**
+   * Box 3 on 1099 Form
+   *
+   * @param box3 Double
+   */
   public void setBox3(Double box3) {
     this.box3 = box3;
   }
 
+  /**
+   * Box 4 on 1099 Form
+   *
+   * @param box4 Double
+   * @return TenNinetyNineContact
+   */
   public TenNinetyNineContact box4(Double box4) {
     this.box4 = box4;
     return this;
@@ -155,14 +208,30 @@ public class TenNinetyNineContact {
    * @return box4
    */
   @ApiModelProperty(value = "Box 4 on 1099 Form")
+  /**
+   * Box 4 on 1099 Form
+   *
+   * @return box4 Double
+   */
   public Double getBox4() {
     return box4;
   }
 
+  /**
+   * Box 4 on 1099 Form
+   *
+   * @param box4 Double
+   */
   public void setBox4(Double box4) {
     this.box4 = box4;
   }
 
+  /**
+   * Box 5 on 1099 Form
+   *
+   * @param box5 Double
+   * @return TenNinetyNineContact
+   */
   public TenNinetyNineContact box5(Double box5) {
     this.box5 = box5;
     return this;
@@ -174,14 +243,30 @@ public class TenNinetyNineContact {
    * @return box5
    */
   @ApiModelProperty(value = "Box 5 on 1099 Form")
+  /**
+   * Box 5 on 1099 Form
+   *
+   * @return box5 Double
+   */
   public Double getBox5() {
     return box5;
   }
 
+  /**
+   * Box 5 on 1099 Form
+   *
+   * @param box5 Double
+   */
   public void setBox5(Double box5) {
     this.box5 = box5;
   }
 
+  /**
+   * Box 6 on 1099 Form
+   *
+   * @param box6 Double
+   * @return TenNinetyNineContact
+   */
   public TenNinetyNineContact box6(Double box6) {
     this.box6 = box6;
     return this;
@@ -193,14 +278,30 @@ public class TenNinetyNineContact {
    * @return box6
    */
   @ApiModelProperty(value = "Box 6 on 1099 Form")
+  /**
+   * Box 6 on 1099 Form
+   *
+   * @return box6 Double
+   */
   public Double getBox6() {
     return box6;
   }
 
+  /**
+   * Box 6 on 1099 Form
+   *
+   * @param box6 Double
+   */
   public void setBox6(Double box6) {
     this.box6 = box6;
   }
 
+  /**
+   * Box 7 on 1099 Form
+   *
+   * @param box7 Double
+   * @return TenNinetyNineContact
+   */
   public TenNinetyNineContact box7(Double box7) {
     this.box7 = box7;
     return this;
@@ -212,14 +313,30 @@ public class TenNinetyNineContact {
    * @return box7
    */
   @ApiModelProperty(value = "Box 7 on 1099 Form")
+  /**
+   * Box 7 on 1099 Form
+   *
+   * @return box7 Double
+   */
   public Double getBox7() {
     return box7;
   }
 
+  /**
+   * Box 7 on 1099 Form
+   *
+   * @param box7 Double
+   */
   public void setBox7(Double box7) {
     this.box7 = box7;
   }
 
+  /**
+   * Box 8 on 1099 Form
+   *
+   * @param box8 Double
+   * @return TenNinetyNineContact
+   */
   public TenNinetyNineContact box8(Double box8) {
     this.box8 = box8;
     return this;
@@ -231,14 +348,30 @@ public class TenNinetyNineContact {
    * @return box8
    */
   @ApiModelProperty(value = "Box 8 on 1099 Form")
+  /**
+   * Box 8 on 1099 Form
+   *
+   * @return box8 Double
+   */
   public Double getBox8() {
     return box8;
   }
 
+  /**
+   * Box 8 on 1099 Form
+   *
+   * @param box8 Double
+   */
   public void setBox8(Double box8) {
     this.box8 = box8;
   }
 
+  /**
+   * Box 9 on 1099 Form
+   *
+   * @param box9 Double
+   * @return TenNinetyNineContact
+   */
   public TenNinetyNineContact box9(Double box9) {
     this.box9 = box9;
     return this;
@@ -250,14 +383,30 @@ public class TenNinetyNineContact {
    * @return box9
    */
   @ApiModelProperty(value = "Box 9 on 1099 Form")
+  /**
+   * Box 9 on 1099 Form
+   *
+   * @return box9 Double
+   */
   public Double getBox9() {
     return box9;
   }
 
+  /**
+   * Box 9 on 1099 Form
+   *
+   * @param box9 Double
+   */
   public void setBox9(Double box9) {
     this.box9 = box9;
   }
 
+  /**
+   * Box 10 on 1099 Form
+   *
+   * @param box10 Double
+   * @return TenNinetyNineContact
+   */
   public TenNinetyNineContact box10(Double box10) {
     this.box10 = box10;
     return this;
@@ -269,14 +418,30 @@ public class TenNinetyNineContact {
    * @return box10
    */
   @ApiModelProperty(value = "Box 10 on 1099 Form")
+  /**
+   * Box 10 on 1099 Form
+   *
+   * @return box10 Double
+   */
   public Double getBox10() {
     return box10;
   }
 
+  /**
+   * Box 10 on 1099 Form
+   *
+   * @param box10 Double
+   */
   public void setBox10(Double box10) {
     this.box10 = box10;
   }
 
+  /**
+   * Box 11 on 1099 Form
+   *
+   * @param box11 Double
+   * @return TenNinetyNineContact
+   */
   public TenNinetyNineContact box11(Double box11) {
     this.box11 = box11;
     return this;
@@ -288,14 +453,30 @@ public class TenNinetyNineContact {
    * @return box11
    */
   @ApiModelProperty(value = "Box 11 on 1099 Form")
+  /**
+   * Box 11 on 1099 Form
+   *
+   * @return box11 Double
+   */
   public Double getBox11() {
     return box11;
   }
 
+  /**
+   * Box 11 on 1099 Form
+   *
+   * @param box11 Double
+   */
   public void setBox11(Double box11) {
     this.box11 = box11;
   }
 
+  /**
+   * Box 13 on 1099 Form
+   *
+   * @param box13 Double
+   * @return TenNinetyNineContact
+   */
   public TenNinetyNineContact box13(Double box13) {
     this.box13 = box13;
     return this;
@@ -307,14 +488,30 @@ public class TenNinetyNineContact {
    * @return box13
    */
   @ApiModelProperty(value = "Box 13 on 1099 Form")
+  /**
+   * Box 13 on 1099 Form
+   *
+   * @return box13 Double
+   */
   public Double getBox13() {
     return box13;
   }
 
+  /**
+   * Box 13 on 1099 Form
+   *
+   * @param box13 Double
+   */
   public void setBox13(Double box13) {
     this.box13 = box13;
   }
 
+  /**
+   * Box 14 on 1099 Form
+   *
+   * @param box14 Double
+   * @return TenNinetyNineContact
+   */
   public TenNinetyNineContact box14(Double box14) {
     this.box14 = box14;
     return this;
@@ -326,14 +523,30 @@ public class TenNinetyNineContact {
    * @return box14
    */
   @ApiModelProperty(value = "Box 14 on 1099 Form")
+  /**
+   * Box 14 on 1099 Form
+   *
+   * @return box14 Double
+   */
   public Double getBox14() {
     return box14;
   }
 
+  /**
+   * Box 14 on 1099 Form
+   *
+   * @param box14 Double
+   */
   public void setBox14(Double box14) {
     this.box14 = box14;
   }
 
+  /**
+   * Contact name on 1099 Form
+   *
+   * @param name String
+   * @return TenNinetyNineContact
+   */
   public TenNinetyNineContact name(String name) {
     this.name = name;
     return this;
@@ -345,14 +558,30 @@ public class TenNinetyNineContact {
    * @return name
    */
   @ApiModelProperty(value = "Contact name on 1099 Form")
+  /**
+   * Contact name on 1099 Form
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Contact name on 1099 Form
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * Contact Fed Tax ID type
+   *
+   * @param federalTaxIDType String
+   * @return TenNinetyNineContact
+   */
   public TenNinetyNineContact federalTaxIDType(String federalTaxIDType) {
     this.federalTaxIDType = federalTaxIDType;
     return this;
@@ -364,14 +593,30 @@ public class TenNinetyNineContact {
    * @return federalTaxIDType
    */
   @ApiModelProperty(value = "Contact Fed Tax ID type")
+  /**
+   * Contact Fed Tax ID type
+   *
+   * @return federalTaxIDType String
+   */
   public String getFederalTaxIDType() {
     return federalTaxIDType;
   }
 
+  /**
+   * Contact Fed Tax ID type
+   *
+   * @param federalTaxIDType String
+   */
   public void setFederalTaxIDType(String federalTaxIDType) {
     this.federalTaxIDType = federalTaxIDType;
   }
 
+  /**
+   * Contact city on 1099 Form
+   *
+   * @param city String
+   * @return TenNinetyNineContact
+   */
   public TenNinetyNineContact city(String city) {
     this.city = city;
     return this;
@@ -383,14 +628,30 @@ public class TenNinetyNineContact {
    * @return city
    */
   @ApiModelProperty(value = "Contact city on 1099 Form")
+  /**
+   * Contact city on 1099 Form
+   *
+   * @return city String
+   */
   public String getCity() {
     return city;
   }
 
+  /**
+   * Contact city on 1099 Form
+   *
+   * @param city String
+   */
   public void setCity(String city) {
     this.city = city;
   }
 
+  /**
+   * Contact zip on 1099 Form
+   *
+   * @param zip String
+   * @return TenNinetyNineContact
+   */
   public TenNinetyNineContact zip(String zip) {
     this.zip = zip;
     return this;
@@ -402,14 +663,30 @@ public class TenNinetyNineContact {
    * @return zip
    */
   @ApiModelProperty(value = "Contact zip on 1099 Form")
+  /**
+   * Contact zip on 1099 Form
+   *
+   * @return zip String
+   */
   public String getZip() {
     return zip;
   }
 
+  /**
+   * Contact zip on 1099 Form
+   *
+   * @param zip String
+   */
   public void setZip(String zip) {
     this.zip = zip;
   }
 
+  /**
+   * Contact State on 1099 Form
+   *
+   * @param state String
+   * @return TenNinetyNineContact
+   */
   public TenNinetyNineContact state(String state) {
     this.state = state;
     return this;
@@ -421,14 +698,30 @@ public class TenNinetyNineContact {
    * @return state
    */
   @ApiModelProperty(value = "Contact State on 1099 Form")
+  /**
+   * Contact State on 1099 Form
+   *
+   * @return state String
+   */
   public String getState() {
     return state;
   }
 
+  /**
+   * Contact State on 1099 Form
+   *
+   * @param state String
+   */
   public void setState(String state) {
     this.state = state;
   }
 
+  /**
+   * Contact email on 1099 Form
+   *
+   * @param email String
+   * @return TenNinetyNineContact
+   */
   public TenNinetyNineContact email(String email) {
     this.email = email;
     return this;
@@ -440,14 +733,30 @@ public class TenNinetyNineContact {
    * @return email
    */
   @ApiModelProperty(value = "Contact email on 1099 Form")
+  /**
+   * Contact email on 1099 Form
+   *
+   * @return email String
+   */
   public String getEmail() {
     return email;
   }
 
+  /**
+   * Contact email on 1099 Form
+   *
+   * @param email String
+   */
   public void setEmail(String email) {
     this.email = email;
   }
 
+  /**
+   * Contact address on 1099 Form
+   *
+   * @param streetAddress String
+   * @return TenNinetyNineContact
+   */
   public TenNinetyNineContact streetAddress(String streetAddress) {
     this.streetAddress = streetAddress;
     return this;
@@ -459,14 +768,30 @@ public class TenNinetyNineContact {
    * @return streetAddress
    */
   @ApiModelProperty(value = "Contact address on 1099 Form")
+  /**
+   * Contact address on 1099 Form
+   *
+   * @return streetAddress String
+   */
   public String getStreetAddress() {
     return streetAddress;
   }
 
+  /**
+   * Contact address on 1099 Form
+   *
+   * @param streetAddress String
+   */
   public void setStreetAddress(String streetAddress) {
     this.streetAddress = streetAddress;
   }
 
+  /**
+   * Contact tax id on 1099 Form
+   *
+   * @param taxID String
+   * @return TenNinetyNineContact
+   */
   public TenNinetyNineContact taxID(String taxID) {
     this.taxID = taxID;
     return this;
@@ -478,14 +803,30 @@ public class TenNinetyNineContact {
    * @return taxID
    */
   @ApiModelProperty(value = "Contact tax id on 1099 Form")
+  /**
+   * Contact tax id on 1099 Form
+   *
+   * @return taxID String
+   */
   public String getTaxID() {
     return taxID;
   }
 
+  /**
+   * Contact tax id on 1099 Form
+   *
+   * @param taxID String
+   */
   public void setTaxID(String taxID) {
     this.taxID = taxID;
   }
 
+  /**
+   * Contact contact id
+   *
+   * @param contactId UUID
+   * @return TenNinetyNineContact
+   */
   public TenNinetyNineContact contactId(UUID contactId) {
     this.contactId = contactId;
     return this;
@@ -497,10 +838,20 @@ public class TenNinetyNineContact {
    * @return contactId
    */
   @ApiModelProperty(value = "Contact contact id")
+  /**
+   * Contact contact id
+   *
+   * @return contactId UUID
+   */
   public UUID getContactId() {
     return contactId;
   }
 
+  /**
+   * Contact contact id
+   *
+   * @param contactId UUID
+   */
   public void setContactId(UUID contactId) {
     this.contactId = contactId;
   }

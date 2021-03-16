@@ -48,7 +48,12 @@ public class PayrollCalendar {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
-
+  /**
+   * Name of the Payroll Calendar
+   *
+   * @param name String
+   * @return PayrollCalendar
+   */
   public PayrollCalendar name(String name) {
     this.name = name;
     return this;
@@ -60,14 +65,30 @@ public class PayrollCalendar {
    * @return name
    */
   @ApiModelProperty(example = "Fortnightly Calendar", value = "Name of the Payroll Calendar")
+  /**
+   * Name of the Payroll Calendar
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Name of the Payroll Calendar
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * calendarType
+   *
+   * @param calendarType CalendarType
+   * @return PayrollCalendar
+   */
   public PayrollCalendar calendarType(CalendarType calendarType) {
     this.calendarType = calendarType;
     return this;
@@ -79,14 +100,31 @@ public class PayrollCalendar {
    * @return calendarType
    */
   @ApiModelProperty(value = "")
+  /**
+   * calendarType
+   *
+   * @return calendarType CalendarType
+   */
   public CalendarType getCalendarType() {
     return calendarType;
   }
 
+  /**
+   * calendarType
+   *
+   * @param calendarType CalendarType
+   */
   public void setCalendarType(CalendarType calendarType) {
     this.calendarType = calendarType;
   }
 
+  /**
+   * The start date of the upcoming pay period. The end date will be calculated based upon this
+   * date, and the calendar type selected (YYYY-MM-DD)
+   *
+   * @param startDate String
+   * @return PayrollCalendar
+   */
   public PayrollCalendar startDate(String startDate) {
     this.startDate = startDate;
     return this;
@@ -103,10 +141,21 @@ public class PayrollCalendar {
       value =
           "The start date of the upcoming pay period. The end date will be calculated based upon"
               + " this date, and the calendar type selected (YYYY-MM-DD)")
+  /**
+   * The start date of the upcoming pay period. The end date will be calculated based upon this
+   * date, and the calendar type selected (YYYY-MM-DD)
+   *
+   * @return startDate String
+   */
   public String getStartDate() {
     return startDate;
   }
-
+  /**
+   * The start date of the upcoming pay period. The end date will be calculated based upon this
+   * date, and the calendar type selected (YYYY-MM-DD)
+   *
+   * @return LocalDate
+   */
   public LocalDate getStartDateAsDate() {
     if (this.startDate != null) {
       try {
@@ -118,10 +167,22 @@ public class PayrollCalendar {
     return null;
   }
 
+  /**
+   * The start date of the upcoming pay period. The end date will be calculated based upon this
+   * date, and the calendar type selected (YYYY-MM-DD)
+   *
+   * @param startDate String
+   */
   public void setStartDate(String startDate) {
     this.startDate = startDate;
   }
 
+  /**
+   * The start date of the upcoming pay period. The end date will be calculated based upon this
+   * date, and the calendar type selected (YYYY-MM-DD)
+   *
+   * @param startDate LocalDateTime
+   */
   public void setStartDate(LocalDate startDate) {
     // CONVERT LocalDate args into MS DateFromat String
     Instant instant = startDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
@@ -130,6 +191,12 @@ public class PayrollCalendar {
     this.startDate = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
   }
 
+  /**
+   * The date on which employees will be paid for the upcoming pay period (YYYY-MM-DD)
+   *
+   * @param paymentDate String
+   * @return PayrollCalendar
+   */
   public PayrollCalendar paymentDate(String paymentDate) {
     this.paymentDate = paymentDate;
     return this;
@@ -143,10 +210,19 @@ public class PayrollCalendar {
   @ApiModelProperty(
       example = "/Date(322560000000+0000)/",
       value = "The date on which employees will be paid for the upcoming pay period (YYYY-MM-DD)")
+  /**
+   * The date on which employees will be paid for the upcoming pay period (YYYY-MM-DD)
+   *
+   * @return paymentDate String
+   */
   public String getPaymentDate() {
     return paymentDate;
   }
-
+  /**
+   * The date on which employees will be paid for the upcoming pay period (YYYY-MM-DD)
+   *
+   * @return LocalDate
+   */
   public LocalDate getPaymentDateAsDate() {
     if (this.paymentDate != null) {
       try {
@@ -158,10 +234,20 @@ public class PayrollCalendar {
     return null;
   }
 
+  /**
+   * The date on which employees will be paid for the upcoming pay period (YYYY-MM-DD)
+   *
+   * @param paymentDate String
+   */
   public void setPaymentDate(String paymentDate) {
     this.paymentDate = paymentDate;
   }
 
+  /**
+   * The date on which employees will be paid for the upcoming pay period (YYYY-MM-DD)
+   *
+   * @param paymentDate LocalDateTime
+   */
   public void setPaymentDate(LocalDate paymentDate) {
     // CONVERT LocalDate args into MS DateFromat String
     Instant instant = paymentDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
@@ -170,6 +256,12 @@ public class PayrollCalendar {
     this.paymentDate = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
   }
 
+  /**
+   * Xero identifier
+   *
+   * @param payrollCalendarID UUID
+   * @return PayrollCalendar
+   */
   public PayrollCalendar payrollCalendarID(UUID payrollCalendarID) {
     this.payrollCalendarID = payrollCalendarID;
     return this;
@@ -181,10 +273,20 @@ public class PayrollCalendar {
    * @return payrollCalendarID
    */
   @ApiModelProperty(example = "e0eb6747-7c17-4075-b804-989f8d4e5d39", value = "Xero identifier")
+  /**
+   * Xero identifier
+   *
+   * @return payrollCalendarID UUID
+   */
   public UUID getPayrollCalendarID() {
     return payrollCalendarID;
   }
 
+  /**
+   * Xero identifier
+   *
+   * @param payrollCalendarID UUID
+   */
   public void setPayrollCalendarID(UUID payrollCalendarID) {
     this.payrollCalendarID = payrollCalendarID;
   }
@@ -195,10 +297,19 @@ public class PayrollCalendar {
    * @return updatedDateUTC
    */
   @ApiModelProperty(example = "/Date(1583967733054+0000)/", value = "Last modified timestamp")
+  /**
+   * Last modified timestamp
+   *
+   * @return updatedDateUTC String
+   */
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-
+  /**
+   * Last modified timestamp
+   *
+   * @return OffsetDateTime
+   */
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
@@ -210,11 +321,23 @@ public class PayrollCalendar {
     return null;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrors List&lt;ValidationError&gt;
+   * @return PayrollCalendar
+   */
   public PayrollCalendar validationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
     return this;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrorsItem ValidationError
+   * @return PayrollCalendar
+   */
   public PayrollCalendar addValidationErrorsItem(ValidationError validationErrorsItem) {
     if (this.validationErrors == null) {
       this.validationErrors = new ArrayList<ValidationError>();
@@ -229,10 +352,20 @@ public class PayrollCalendar {
    * @return validationErrors
    */
   @ApiModelProperty(value = "Displays array of validation error messages from the API")
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @return validationErrors List<ValidationError>
+   */
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrors List&lt;ValidationError&gt;
+   */
   public void setValidationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
   }

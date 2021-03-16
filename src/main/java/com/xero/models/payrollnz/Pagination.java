@@ -31,7 +31,12 @@ public class Pagination {
 
   @JsonProperty("itemCount")
   private Integer itemCount;
-
+  /**
+   * page
+   *
+   * @param page Integer
+   * @return Pagination
+   */
   public Pagination page(Integer page) {
     this.page = page;
     return this;
@@ -43,14 +48,30 @@ public class Pagination {
    * @return page
    */
   @ApiModelProperty(example = "1", value = "")
+  /**
+   * page
+   *
+   * @return page Integer
+   */
   public Integer getPage() {
     return page;
   }
 
+  /**
+   * page
+   *
+   * @param page Integer
+   */
   public void setPage(Integer page) {
     this.page = page;
   }
 
+  /**
+   * pageSize
+   *
+   * @param pageSize Integer
+   * @return Pagination
+   */
   public Pagination pageSize(Integer pageSize) {
     this.pageSize = pageSize;
     return this;
@@ -62,14 +83,30 @@ public class Pagination {
    * @return pageSize
    */
   @ApiModelProperty(example = "10", value = "")
+  /**
+   * pageSize
+   *
+   * @return pageSize Integer
+   */
   public Integer getPageSize() {
     return pageSize;
   }
 
+  /**
+   * pageSize
+   *
+   * @param pageSize Integer
+   */
   public void setPageSize(Integer pageSize) {
     this.pageSize = pageSize;
   }
 
+  /**
+   * pageCount
+   *
+   * @param pageCount Integer
+   * @return Pagination
+   */
   public Pagination pageCount(Integer pageCount) {
     this.pageCount = pageCount;
     return this;
@@ -81,14 +118,30 @@ public class Pagination {
    * @return pageCount
    */
   @ApiModelProperty(example = "1", value = "")
+  /**
+   * pageCount
+   *
+   * @return pageCount Integer
+   */
   public Integer getPageCount() {
     return pageCount;
   }
 
+  /**
+   * pageCount
+   *
+   * @param pageCount Integer
+   */
   public void setPageCount(Integer pageCount) {
     this.pageCount = pageCount;
   }
 
+  /**
+   * itemCount
+   *
+   * @param itemCount Integer
+   * @return Pagination
+   */
   public Pagination itemCount(Integer itemCount) {
     this.itemCount = itemCount;
     return this;
@@ -100,10 +153,20 @@ public class Pagination {
    * @return itemCount
    */
   @ApiModelProperty(example = "2", value = "")
+  /**
+   * itemCount
+   *
+   * @return itemCount Integer
+   */
   public Integer getItemCount() {
     return itemCount;
   }
 
+  /**
+   * itemCount
+   *
+   * @param itemCount Integer
+   */
   public void setItemCount(Integer itemCount) {
     this.itemCount = itemCount;
   }

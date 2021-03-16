@@ -17,10 +17,14 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Gets or Sets SuperannuationCalculationType */
 public enum SuperannuationCalculationType {
+
+  /** FIXEDAMOUNT */
   FIXEDAMOUNT("FIXEDAMOUNT"),
 
+  /** PERCENTAGEOFEARNINGS */
   PERCENTAGEOFEARNINGS("PERCENTAGEOFEARNINGS"),
 
+  /** STATUTORY */
   STATUTORY("STATUTORY");
 
   private String value;
@@ -29,16 +33,27 @@ public enum SuperannuationCalculationType {
     this.value = value;
   }
 
+  /** @return String value */
   @JsonValue
   public String getValue() {
     return value;
   }
 
+  /**
+   * toString
+   *
+   * @return String value
+   */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
+  /**
+   * fromValue
+   *
+   * @param value String
+   */
   @JsonCreator
   public static SuperannuationCalculationType fromValue(String value) {
     for (SuperannuationCalculationType b : SuperannuationCalculationType.values()) {

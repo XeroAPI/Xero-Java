@@ -28,7 +28,12 @@ public class EmployeeOpeningBalancesObject {
 
   @JsonProperty("openingBalances")
   private EmployeeOpeningBalances openingBalances;
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return EmployeeOpeningBalancesObject
+   */
   public EmployeeOpeningBalancesObject pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -40,14 +45,30 @@ public class EmployeeOpeningBalancesObject {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return EmployeeOpeningBalancesObject
+   */
   public EmployeeOpeningBalancesObject problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -59,14 +80,30 @@ public class EmployeeOpeningBalancesObject {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * openingBalances
+   *
+   * @param openingBalances EmployeeOpeningBalances
+   * @return EmployeeOpeningBalancesObject
+   */
   public EmployeeOpeningBalancesObject openingBalances(EmployeeOpeningBalances openingBalances) {
     this.openingBalances = openingBalances;
     return this;
@@ -78,10 +115,20 @@ public class EmployeeOpeningBalancesObject {
    * @return openingBalances
    */
   @ApiModelProperty(value = "")
+  /**
+   * openingBalances
+   *
+   * @return openingBalances EmployeeOpeningBalances
+   */
   public EmployeeOpeningBalances getOpeningBalances() {
     return openingBalances;
   }
 
+  /**
+   * openingBalances
+   *
+   * @param openingBalances EmployeeOpeningBalances
+   */
   public void setOpeningBalances(EmployeeOpeningBalances openingBalances) {
     this.openingBalances = openingBalances;
   }

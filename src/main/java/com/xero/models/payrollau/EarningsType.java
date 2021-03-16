@@ -17,24 +17,35 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Gets or Sets EarningsType */
 public enum EarningsType {
+
+  /** FIXED */
   FIXED("FIXED"),
 
+  /** ORDINARYTIMEEARNINGS */
   ORDINARYTIMEEARNINGS("ORDINARYTIMEEARNINGS"),
 
+  /** OVERTIMEEARNINGS */
   OVERTIMEEARNINGS("OVERTIMEEARNINGS"),
 
+  /** ALLOWANCE */
   ALLOWANCE("ALLOWANCE"),
 
+  /** LUMPSUMD */
   LUMPSUMD("LUMPSUMD"),
 
+  /** EMPLOYMENTTERMINATIONPAYMENT */
   EMPLOYMENTTERMINATIONPAYMENT("EMPLOYMENTTERMINATIONPAYMENT"),
 
+  /** LUMPSUMA */
   LUMPSUMA("LUMPSUMA"),
 
+  /** LUMPSUMB */
   LUMPSUMB("LUMPSUMB"),
 
+  /** BONUSESANDCOMMISSIONS */
   BONUSESANDCOMMISSIONS("BONUSESANDCOMMISSIONS"),
 
+  /** LUMPSUME */
   LUMPSUME("LUMPSUME");
 
   private String value;
@@ -43,16 +54,27 @@ public enum EarningsType {
     this.value = value;
   }
 
+  /** @return String value */
   @JsonValue
   public String getValue() {
     return value;
   }
 
+  /**
+   * toString
+   *
+   * @return String value
+   */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
+  /**
+   * fromValue
+   *
+   * @param value String
+   */
   @JsonCreator
   public static EarningsType fromValue(String value) {
     for (EarningsType b : EarningsType.values()) {

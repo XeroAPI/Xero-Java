@@ -17,8 +17,11 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /** Gets or Sets PayRunStatus */
 public enum PayRunStatus {
+
+  /** DRAFT */
   DRAFT("DRAFT"),
 
+  /** POSTED */
   POSTED("POSTED");
 
   private String value;
@@ -27,16 +30,27 @@ public enum PayRunStatus {
     this.value = value;
   }
 
+  /** @return String value */
   @JsonValue
   public String getValue() {
     return value;
   }
 
+  /**
+   * toString
+   *
+   * @return String value
+   */
   @Override
   public String toString() {
     return String.valueOf(value);
   }
 
+  /**
+   * fromValue
+   *
+   * @param value String
+   */
   @JsonCreator
   public static PayRunStatus fromValue(String value) {
     for (PayRunStatus b : PayRunStatus.values()) {

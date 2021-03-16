@@ -46,24 +46,34 @@ public class Organisation {
   private Boolean paysTax;
   /** See Version Types */
   public enum VersionEnum {
+    /** AU */
     AU("AU"),
 
+    /** NZ */
     NZ("NZ"),
 
+    /** GLOBAL */
     GLOBAL("GLOBAL"),
 
+    /** UK */
     UK("UK"),
 
+    /** US */
     US("US"),
 
+    /** AUONRAMP */
     AUONRAMP("AUONRAMP"),
 
+    /** NZONRAMP */
     NZONRAMP("NZONRAMP"),
 
+    /** GLOBALONRAMP */
     GLOBALONRAMP("GLOBALONRAMP"),
 
+    /** UKONRAMP */
     UKONRAMP("UKONRAMP"),
 
+    /** USONRAMP */
     USONRAMP("USONRAMP");
 
     private String value;
@@ -72,16 +82,31 @@ public class Organisation {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static VersionEnum fromValue(String value) {
       for (VersionEnum b : VersionEnum.values()) {
@@ -97,28 +122,40 @@ public class Organisation {
   private VersionEnum version;
   /** Organisation Type */
   public enum OrganisationTypeEnum {
+    /** ACCOUNTING_PRACTICE */
     ACCOUNTING_PRACTICE("ACCOUNTING_PRACTICE"),
 
+    /** COMPANY */
     COMPANY("COMPANY"),
 
+    /** CHARITY */
     CHARITY("CHARITY"),
 
+    /** CLUB_OR_SOCIETY */
     CLUB_OR_SOCIETY("CLUB_OR_SOCIETY"),
 
+    /** LOOK_THROUGH_COMPANY */
     LOOK_THROUGH_COMPANY("LOOK_THROUGH_COMPANY"),
 
+    /** NOT_FOR_PROFIT */
     NOT_FOR_PROFIT("NOT_FOR_PROFIT"),
 
+    /** PARTNERSHIP */
     PARTNERSHIP("PARTNERSHIP"),
 
+    /** S_CORPORATION */
     S_CORPORATION("S_CORPORATION"),
 
+    /** SELF_MANAGED_SUPERANNUATION_FUND */
     SELF_MANAGED_SUPERANNUATION_FUND("SELF_MANAGED_SUPERANNUATION_FUND"),
 
+    /** SOLE_TRADER */
     SOLE_TRADER("SOLE_TRADER"),
 
+    /** SUPERANNUATION_FUND */
     SUPERANNUATION_FUND("SUPERANNUATION_FUND"),
 
+    /** TRUST */
     TRUST("TRUST");
 
     private String value;
@@ -127,16 +164,31 @@ public class Organisation {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static OrganisationTypeEnum fromValue(String value) {
       for (OrganisationTypeEnum b : OrganisationTypeEnum.values()) {
@@ -179,20 +231,28 @@ public class Organisation {
   private Integer financialYearEndMonth;
   /** The accounting basis used for tax returns. See Sales Tax Basis */
   public enum SalesTaxBasisEnum {
+    /** PAYMENTS */
     PAYMENTS("PAYMENTS"),
 
+    /** INVOICE */
     INVOICE("INVOICE"),
 
+    /** NONE */
     NONE("NONE"),
 
+    /** CASH */
     CASH("CASH"),
 
+    /** ACCRUAL */
     ACCRUAL("ACCRUAL"),
 
+    /** FLATRATECASH */
     FLATRATECASH("FLATRATECASH"),
 
+    /** FLATRATEACCRUAL */
     FLATRATEACCRUAL("FLATRATEACCRUAL"),
 
+    /** ACCRUALS */
     ACCRUALS("ACCRUALS");
 
     private String value;
@@ -201,16 +261,31 @@ public class Organisation {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static SalesTaxBasisEnum fromValue(String value) {
       for (SalesTaxBasisEnum b : SalesTaxBasisEnum.values()) {
@@ -226,34 +301,49 @@ public class Organisation {
   private SalesTaxBasisEnum salesTaxBasis;
   /** The frequency with which tax returns are processed. See Sales Tax Period */
   public enum SalesTaxPeriodEnum {
+    /** MONTHLY */
     MONTHLY("MONTHLY"),
 
+    /** QUARTERLY1 */
     QUARTERLY1("QUARTERLY1"),
 
+    /** QUARTERLY2 */
     QUARTERLY2("QUARTERLY2"),
 
+    /** QUARTERLY3 */
     QUARTERLY3("QUARTERLY3"),
 
+    /** ANNUALLY */
     ANNUALLY("ANNUALLY"),
 
+    /** ONEMONTHS */
     ONEMONTHS("ONEMONTHS"),
 
+    /** TWOMONTHS */
     TWOMONTHS("TWOMONTHS"),
 
+    /** SIXMONTHS */
     SIXMONTHS("SIXMONTHS"),
 
+    /** _1MONTHLY */
     _1MONTHLY("1MONTHLY"),
 
+    /** _2MONTHLY */
     _2MONTHLY("2MONTHLY"),
 
+    /** _3MONTHLY */
     _3MONTHLY("3MONTHLY"),
 
+    /** _6MONTHLY */
     _6MONTHLY("6MONTHLY"),
 
+    /** QUARTERLY */
     QUARTERLY("QUARTERLY"),
 
+    /** YEARLY */
     YEARLY("YEARLY"),
 
+    /** NONE */
     NONE("NONE");
 
     private String value;
@@ -262,16 +352,31 @@ public class Organisation {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static SalesTaxPeriodEnum fromValue(String value) {
       for (SalesTaxPeriodEnum b : SalesTaxPeriodEnum.values()) {
@@ -305,28 +410,40 @@ public class Organisation {
   private TimeZone timezone;
   /** Organisation Entity Type */
   public enum OrganisationEntityTypeEnum {
+    /** ACCOUNTING_PRACTICE */
     ACCOUNTING_PRACTICE("ACCOUNTING_PRACTICE"),
 
+    /** COMPANY */
     COMPANY("COMPANY"),
 
+    /** CHARITY */
     CHARITY("CHARITY"),
 
+    /** CLUB_OR_SOCIETY */
     CLUB_OR_SOCIETY("CLUB_OR_SOCIETY"),
 
+    /** LOOK_THROUGH_COMPANY */
     LOOK_THROUGH_COMPANY("LOOK_THROUGH_COMPANY"),
 
+    /** NOT_FOR_PROFIT */
     NOT_FOR_PROFIT("NOT_FOR_PROFIT"),
 
+    /** PARTNERSHIP */
     PARTNERSHIP("PARTNERSHIP"),
 
+    /** S_CORPORATION */
     S_CORPORATION("S_CORPORATION"),
 
+    /** SELF_MANAGED_SUPERANNUATION_FUND */
     SELF_MANAGED_SUPERANNUATION_FUND("SELF_MANAGED_SUPERANNUATION_FUND"),
 
+    /** SOLE_TRADER */
     SOLE_TRADER("SOLE_TRADER"),
 
+    /** SUPERANNUATION_FUND */
     SUPERANNUATION_FUND("SUPERANNUATION_FUND"),
 
+    /** TRUST */
     TRUST("TRUST");
 
     private String value;
@@ -335,16 +452,31 @@ public class Organisation {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static OrganisationEntityTypeEnum fromValue(String value) {
       for (OrganisationEntityTypeEnum b : OrganisationEntityTypeEnum.values()) {
@@ -366,26 +498,37 @@ public class Organisation {
    * PREMIUM)
    */
   public enum PropertyClassEnum {
+    /** DEMO */
     DEMO("DEMO"),
 
+    /** TRIAL */
     TRIAL("TRIAL"),
 
+    /** STARTER */
     STARTER("STARTER"),
 
+    /** STANDARD */
     STANDARD("STANDARD"),
 
+    /** PREMIUM */
     PREMIUM("PREMIUM"),
 
+    /** PREMIUM_20 */
     PREMIUM_20("PREMIUM_20"),
 
+    /** PREMIUM_50 */
     PREMIUM_50("PREMIUM_50"),
 
+    /** PREMIUM_100 */
     PREMIUM_100("PREMIUM_100"),
 
+    /** LEDGER */
     LEDGER("LEDGER"),
 
+    /** GST_CASHBOOK */
     GST_CASHBOOK("GST_CASHBOOK"),
 
+    /** NON_GST_CASHBOOK */
     NON_GST_CASHBOOK("NON_GST_CASHBOOK");
 
     private String value;
@@ -394,16 +537,31 @@ public class Organisation {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static PropertyClassEnum fromValue(String value) {
       for (PropertyClassEnum b : PropertyClassEnum.values()) {
@@ -422,8 +580,10 @@ public class Organisation {
    * partners and have restricted functionality (e.g. no access to invoicing)
    */
   public enum EditionEnum {
+    /** BUSINESS */
     BUSINESS("BUSINESS"),
 
+    /** PARTNER */
     PARTNER("PARTNER");
 
     private String value;
@@ -432,16 +592,31 @@ public class Organisation {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static EditionEnum fromValue(String value) {
       for (EditionEnum b : EditionEnum.values()) {
@@ -470,7 +645,12 @@ public class Organisation {
 
   @JsonProperty("PaymentTerms")
   private PaymentTerm paymentTerms;
-
+  /**
+   * Unique Xero identifier
+   *
+   * @param organisationID UUID
+   * @return Organisation
+   */
   public Organisation organisationID(UUID organisationID) {
     this.organisationID = organisationID;
     return this;
@@ -484,14 +664,30 @@ public class Organisation {
   @ApiModelProperty(
       example = "8be9db36-3598-4755-ba5c-c2dbc8c4a7a2",
       value = "Unique Xero identifier")
+  /**
+   * Unique Xero identifier
+   *
+   * @return organisationID UUID
+   */
   public UUID getOrganisationID() {
     return organisationID;
   }
 
+  /**
+   * Unique Xero identifier
+   *
+   * @param organisationID UUID
+   */
   public void setOrganisationID(UUID organisationID) {
     this.organisationID = organisationID;
   }
 
+  /**
+   * Display a unique key used for Xero-to-Xero transactions
+   *
+   * @param apIKey String
+   * @return Organisation
+   */
   public Organisation apIKey(String apIKey) {
     this.apIKey = apIKey;
     return this;
@@ -503,14 +699,30 @@ public class Organisation {
    * @return apIKey
    */
   @ApiModelProperty(value = "Display a unique key used for Xero-to-Xero transactions")
+  /**
+   * Display a unique key used for Xero-to-Xero transactions
+   *
+   * @return apIKey String
+   */
   public String getApIKey() {
     return apIKey;
   }
 
+  /**
+   * Display a unique key used for Xero-to-Xero transactions
+   *
+   * @param apIKey String
+   */
   public void setApIKey(String apIKey) {
     this.apIKey = apIKey;
   }
 
+  /**
+   * Display name of organisation shown in Xero
+   *
+   * @param name String
+   * @return Organisation
+   */
   public Organisation name(String name) {
     this.name = name;
     return this;
@@ -522,14 +734,30 @@ public class Organisation {
    * @return name
    */
   @ApiModelProperty(value = "Display name of organisation shown in Xero")
+  /**
+   * Display name of organisation shown in Xero
+   *
+   * @return name String
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * Display name of organisation shown in Xero
+   *
+   * @param name String
+   */
   public void setName(String name) {
     this.name = name;
   }
 
+  /**
+   * Organisation name shown on Reports
+   *
+   * @param legalName String
+   * @return Organisation
+   */
   public Organisation legalName(String legalName) {
     this.legalName = legalName;
     return this;
@@ -541,14 +769,30 @@ public class Organisation {
    * @return legalName
    */
   @ApiModelProperty(value = "Organisation name shown on Reports")
+  /**
+   * Organisation name shown on Reports
+   *
+   * @return legalName String
+   */
   public String getLegalName() {
     return legalName;
   }
 
+  /**
+   * Organisation name shown on Reports
+   *
+   * @param legalName String
+   */
   public void setLegalName(String legalName) {
     this.legalName = legalName;
   }
 
+  /**
+   * Boolean to describe if organisation is registered with a local tax authority i.e. true, false
+   *
+   * @param paysTax Boolean
+   * @return Organisation
+   */
   public Organisation paysTax(Boolean paysTax) {
     this.paysTax = paysTax;
     return this;
@@ -563,14 +807,30 @@ public class Organisation {
       value =
           "Boolean to describe if organisation is registered with a local tax authority i.e. true,"
               + " false")
+  /**
+   * Boolean to describe if organisation is registered with a local tax authority i.e. true, false
+   *
+   * @return paysTax Boolean
+   */
   public Boolean getPaysTax() {
     return paysTax;
   }
 
+  /**
+   * Boolean to describe if organisation is registered with a local tax authority i.e. true, false
+   *
+   * @param paysTax Boolean
+   */
   public void setPaysTax(Boolean paysTax) {
     this.paysTax = paysTax;
   }
 
+  /**
+   * See Version Types
+   *
+   * @param version VersionEnum
+   * @return Organisation
+   */
   public Organisation version(VersionEnum version) {
     this.version = version;
     return this;
@@ -582,14 +842,30 @@ public class Organisation {
    * @return version
    */
   @ApiModelProperty(value = "See Version Types")
+  /**
+   * See Version Types
+   *
+   * @return version VersionEnum
+   */
   public VersionEnum getVersion() {
     return version;
   }
 
+  /**
+   * See Version Types
+   *
+   * @param version VersionEnum
+   */
   public void setVersion(VersionEnum version) {
     this.version = version;
   }
 
+  /**
+   * Organisation Type
+   *
+   * @param organisationType OrganisationTypeEnum
+   * @return Organisation
+   */
   public Organisation organisationType(OrganisationTypeEnum organisationType) {
     this.organisationType = organisationType;
     return this;
@@ -601,14 +877,30 @@ public class Organisation {
    * @return organisationType
    */
   @ApiModelProperty(value = "Organisation Type")
+  /**
+   * Organisation Type
+   *
+   * @return organisationType OrganisationTypeEnum
+   */
   public OrganisationTypeEnum getOrganisationType() {
     return organisationType;
   }
 
+  /**
+   * Organisation Type
+   *
+   * @param organisationType OrganisationTypeEnum
+   */
   public void setOrganisationType(OrganisationTypeEnum organisationType) {
     this.organisationType = organisationType;
   }
 
+  /**
+   * baseCurrency
+   *
+   * @param baseCurrency CurrencyCode
+   * @return Organisation
+   */
   public Organisation baseCurrency(CurrencyCode baseCurrency) {
     this.baseCurrency = baseCurrency;
     return this;
@@ -620,14 +912,30 @@ public class Organisation {
    * @return baseCurrency
    */
   @ApiModelProperty(value = "")
+  /**
+   * baseCurrency
+   *
+   * @return baseCurrency CurrencyCode
+   */
   public CurrencyCode getBaseCurrency() {
     return baseCurrency;
   }
 
+  /**
+   * baseCurrency
+   *
+   * @param baseCurrency CurrencyCode
+   */
   public void setBaseCurrency(CurrencyCode baseCurrency) {
     this.baseCurrency = baseCurrency;
   }
 
+  /**
+   * countryCode
+   *
+   * @param countryCode CountryCode
+   * @return Organisation
+   */
   public Organisation countryCode(CountryCode countryCode) {
     this.countryCode = countryCode;
     return this;
@@ -639,14 +947,30 @@ public class Organisation {
    * @return countryCode
    */
   @ApiModelProperty(value = "")
+  /**
+   * countryCode
+   *
+   * @return countryCode CountryCode
+   */
   public CountryCode getCountryCode() {
     return countryCode;
   }
 
+  /**
+   * countryCode
+   *
+   * @param countryCode CountryCode
+   */
   public void setCountryCode(CountryCode countryCode) {
     this.countryCode = countryCode;
   }
 
+  /**
+   * Boolean to describe if organisation is a demo company.
+   *
+   * @param isDemoCompany Boolean
+   * @return Organisation
+   */
   public Organisation isDemoCompany(Boolean isDemoCompany) {
     this.isDemoCompany = isDemoCompany;
     return this;
@@ -658,14 +982,30 @@ public class Organisation {
    * @return isDemoCompany
    */
   @ApiModelProperty(value = "Boolean to describe if organisation is a demo company.")
+  /**
+   * Boolean to describe if organisation is a demo company.
+   *
+   * @return isDemoCompany Boolean
+   */
   public Boolean getIsDemoCompany() {
     return isDemoCompany;
   }
 
+  /**
+   * Boolean to describe if organisation is a demo company.
+   *
+   * @param isDemoCompany Boolean
+   */
   public void setIsDemoCompany(Boolean isDemoCompany) {
     this.isDemoCompany = isDemoCompany;
   }
 
+  /**
+   * Will be set to ACTIVE if you can connect to organisation via the Xero API
+   *
+   * @param organisationStatus String
+   * @return Organisation
+   */
   public Organisation organisationStatus(String organisationStatus) {
     this.organisationStatus = organisationStatus;
     return this;
@@ -678,14 +1018,30 @@ public class Organisation {
    */
   @ApiModelProperty(
       value = "Will be set to ACTIVE if you can connect to organisation via the Xero API")
+  /**
+   * Will be set to ACTIVE if you can connect to organisation via the Xero API
+   *
+   * @return organisationStatus String
+   */
   public String getOrganisationStatus() {
     return organisationStatus;
   }
 
+  /**
+   * Will be set to ACTIVE if you can connect to organisation via the Xero API
+   *
+   * @param organisationStatus String
+   */
   public void setOrganisationStatus(String organisationStatus) {
     this.organisationStatus = organisationStatus;
   }
 
+  /**
+   * Shows for New Zealand, Australian and UK organisations
+   *
+   * @param registrationNumber String
+   * @return Organisation
+   */
   public Organisation registrationNumber(String registrationNumber) {
     this.registrationNumber = registrationNumber;
     return this;
@@ -697,14 +1053,30 @@ public class Organisation {
    * @return registrationNumber
    */
   @ApiModelProperty(value = "Shows for New Zealand, Australian and UK organisations")
+  /**
+   * Shows for New Zealand, Australian and UK organisations
+   *
+   * @return registrationNumber String
+   */
   public String getRegistrationNumber() {
     return registrationNumber;
   }
 
+  /**
+   * Shows for New Zealand, Australian and UK organisations
+   *
+   * @param registrationNumber String
+   */
   public void setRegistrationNumber(String registrationNumber) {
     this.registrationNumber = registrationNumber;
   }
 
+  /**
+   * Shown if set. US Only.
+   *
+   * @param employerIdentificationNumber String
+   * @return Organisation
+   */
   public Organisation employerIdentificationNumber(String employerIdentificationNumber) {
     this.employerIdentificationNumber = employerIdentificationNumber;
     return this;
@@ -716,14 +1088,31 @@ public class Organisation {
    * @return employerIdentificationNumber
    */
   @ApiModelProperty(value = "Shown if set. US Only.")
+  /**
+   * Shown if set. US Only.
+   *
+   * @return employerIdentificationNumber String
+   */
   public String getEmployerIdentificationNumber() {
     return employerIdentificationNumber;
   }
 
+  /**
+   * Shown if set. US Only.
+   *
+   * @param employerIdentificationNumber String
+   */
   public void setEmployerIdentificationNumber(String employerIdentificationNumber) {
     this.employerIdentificationNumber = employerIdentificationNumber;
   }
 
+  /**
+   * Shown if set. Displays in the Xero UI as Tax File Number (AU), GST Number (NZ), VAT Number (UK)
+   * and Tax ID Number (US &amp; Global).
+   *
+   * @param taxNumber String
+   * @return Organisation
+   */
   public Organisation taxNumber(String taxNumber) {
     this.taxNumber = taxNumber;
     return this;
@@ -739,14 +1128,32 @@ public class Organisation {
       value =
           "Shown if set. Displays in the Xero UI as Tax File Number (AU), GST Number (NZ), VAT"
               + " Number (UK) and Tax ID Number (US & Global).")
+  /**
+   * Shown if set. Displays in the Xero UI as Tax File Number (AU), GST Number (NZ), VAT Number (UK)
+   * and Tax ID Number (US &amp; Global).
+   *
+   * @return taxNumber String
+   */
   public String getTaxNumber() {
     return taxNumber;
   }
 
+  /**
+   * Shown if set. Displays in the Xero UI as Tax File Number (AU), GST Number (NZ), VAT Number (UK)
+   * and Tax ID Number (US &amp; Global).
+   *
+   * @param taxNumber String
+   */
   public void setTaxNumber(String taxNumber) {
     this.taxNumber = taxNumber;
   }
 
+  /**
+   * Calendar day e.g. 0-31
+   *
+   * @param financialYearEndDay Integer
+   * @return Organisation
+   */
   public Organisation financialYearEndDay(Integer financialYearEndDay) {
     this.financialYearEndDay = financialYearEndDay;
     return this;
@@ -758,14 +1165,30 @@ public class Organisation {
    * @return financialYearEndDay
    */
   @ApiModelProperty(value = "Calendar day e.g. 0-31")
+  /**
+   * Calendar day e.g. 0-31
+   *
+   * @return financialYearEndDay Integer
+   */
   public Integer getFinancialYearEndDay() {
     return financialYearEndDay;
   }
 
+  /**
+   * Calendar day e.g. 0-31
+   *
+   * @param financialYearEndDay Integer
+   */
   public void setFinancialYearEndDay(Integer financialYearEndDay) {
     this.financialYearEndDay = financialYearEndDay;
   }
 
+  /**
+   * Calendar Month e.g. 1-12
+   *
+   * @param financialYearEndMonth Integer
+   * @return Organisation
+   */
   public Organisation financialYearEndMonth(Integer financialYearEndMonth) {
     this.financialYearEndMonth = financialYearEndMonth;
     return this;
@@ -777,14 +1200,30 @@ public class Organisation {
    * @return financialYearEndMonth
    */
   @ApiModelProperty(value = "Calendar Month e.g. 1-12")
+  /**
+   * Calendar Month e.g. 1-12
+   *
+   * @return financialYearEndMonth Integer
+   */
   public Integer getFinancialYearEndMonth() {
     return financialYearEndMonth;
   }
 
+  /**
+   * Calendar Month e.g. 1-12
+   *
+   * @param financialYearEndMonth Integer
+   */
   public void setFinancialYearEndMonth(Integer financialYearEndMonth) {
     this.financialYearEndMonth = financialYearEndMonth;
   }
 
+  /**
+   * The accounting basis used for tax returns. See Sales Tax Basis
+   *
+   * @param salesTaxBasis SalesTaxBasisEnum
+   * @return Organisation
+   */
   public Organisation salesTaxBasis(SalesTaxBasisEnum salesTaxBasis) {
     this.salesTaxBasis = salesTaxBasis;
     return this;
@@ -796,14 +1235,30 @@ public class Organisation {
    * @return salesTaxBasis
    */
   @ApiModelProperty(value = "The accounting basis used for tax returns. See Sales Tax Basis")
+  /**
+   * The accounting basis used for tax returns. See Sales Tax Basis
+   *
+   * @return salesTaxBasis SalesTaxBasisEnum
+   */
   public SalesTaxBasisEnum getSalesTaxBasis() {
     return salesTaxBasis;
   }
 
+  /**
+   * The accounting basis used for tax returns. See Sales Tax Basis
+   *
+   * @param salesTaxBasis SalesTaxBasisEnum
+   */
   public void setSalesTaxBasis(SalesTaxBasisEnum salesTaxBasis) {
     this.salesTaxBasis = salesTaxBasis;
   }
 
+  /**
+   * The frequency with which tax returns are processed. See Sales Tax Period
+   *
+   * @param salesTaxPeriod SalesTaxPeriodEnum
+   * @return Organisation
+   */
   public Organisation salesTaxPeriod(SalesTaxPeriodEnum salesTaxPeriod) {
     this.salesTaxPeriod = salesTaxPeriod;
     return this;
@@ -816,14 +1271,30 @@ public class Organisation {
    */
   @ApiModelProperty(
       value = "The frequency with which tax returns are processed. See Sales Tax Period")
+  /**
+   * The frequency with which tax returns are processed. See Sales Tax Period
+   *
+   * @return salesTaxPeriod SalesTaxPeriodEnum
+   */
   public SalesTaxPeriodEnum getSalesTaxPeriod() {
     return salesTaxPeriod;
   }
 
+  /**
+   * The frequency with which tax returns are processed. See Sales Tax Period
+   *
+   * @param salesTaxPeriod SalesTaxPeriodEnum
+   */
   public void setSalesTaxPeriod(SalesTaxPeriodEnum salesTaxPeriod) {
     this.salesTaxPeriod = salesTaxPeriod;
   }
 
+  /**
+   * The default for LineAmountTypes on sales transactions
+   *
+   * @param defaultSalesTax String
+   * @return Organisation
+   */
   public Organisation defaultSalesTax(String defaultSalesTax) {
     this.defaultSalesTax = defaultSalesTax;
     return this;
@@ -835,14 +1306,30 @@ public class Organisation {
    * @return defaultSalesTax
    */
   @ApiModelProperty(value = "The default for LineAmountTypes on sales transactions")
+  /**
+   * The default for LineAmountTypes on sales transactions
+   *
+   * @return defaultSalesTax String
+   */
   public String getDefaultSalesTax() {
     return defaultSalesTax;
   }
 
+  /**
+   * The default for LineAmountTypes on sales transactions
+   *
+   * @param defaultSalesTax String
+   */
   public void setDefaultSalesTax(String defaultSalesTax) {
     this.defaultSalesTax = defaultSalesTax;
   }
 
+  /**
+   * The default for LineAmountTypes on purchase transactions
+   *
+   * @param defaultPurchasesTax String
+   * @return Organisation
+   */
   public Organisation defaultPurchasesTax(String defaultPurchasesTax) {
     this.defaultPurchasesTax = defaultPurchasesTax;
     return this;
@@ -854,14 +1341,30 @@ public class Organisation {
    * @return defaultPurchasesTax
    */
   @ApiModelProperty(value = "The default for LineAmountTypes on purchase transactions")
+  /**
+   * The default for LineAmountTypes on purchase transactions
+   *
+   * @return defaultPurchasesTax String
+   */
   public String getDefaultPurchasesTax() {
     return defaultPurchasesTax;
   }
 
+  /**
+   * The default for LineAmountTypes on purchase transactions
+   *
+   * @param defaultPurchasesTax String
+   */
   public void setDefaultPurchasesTax(String defaultPurchasesTax) {
     this.defaultPurchasesTax = defaultPurchasesTax;
   }
 
+  /**
+   * Shown if set. See lock dates
+   *
+   * @param periodLockDate String
+   * @return Organisation
+   */
   public Organisation periodLockDate(String periodLockDate) {
     this.periodLockDate = periodLockDate;
     return this;
@@ -873,10 +1376,19 @@ public class Organisation {
    * @return periodLockDate
    */
   @ApiModelProperty(value = "Shown if set. See lock dates")
+  /**
+   * Shown if set. See lock dates
+   *
+   * @return periodLockDate String
+   */
   public String getPeriodLockDate() {
     return periodLockDate;
   }
-
+  /**
+   * Shown if set. See lock dates
+   *
+   * @return LocalDate
+   */
   public LocalDate getPeriodLockDateAsDate() {
     if (this.periodLockDate != null) {
       try {
@@ -888,10 +1400,20 @@ public class Organisation {
     return null;
   }
 
+  /**
+   * Shown if set. See lock dates
+   *
+   * @param periodLockDate String
+   */
   public void setPeriodLockDate(String periodLockDate) {
     this.periodLockDate = periodLockDate;
   }
 
+  /**
+   * Shown if set. See lock dates
+   *
+   * @param periodLockDate LocalDateTime
+   */
   public void setPeriodLockDate(LocalDate periodLockDate) {
     // CONVERT LocalDate args into MS DateFromat String
     Instant instant = periodLockDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
@@ -900,6 +1422,12 @@ public class Organisation {
     this.periodLockDate = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
   }
 
+  /**
+   * Shown if set. See lock dates
+   *
+   * @param endOfYearLockDate String
+   * @return Organisation
+   */
   public Organisation endOfYearLockDate(String endOfYearLockDate) {
     this.endOfYearLockDate = endOfYearLockDate;
     return this;
@@ -911,10 +1439,19 @@ public class Organisation {
    * @return endOfYearLockDate
    */
   @ApiModelProperty(value = "Shown if set. See lock dates")
+  /**
+   * Shown if set. See lock dates
+   *
+   * @return endOfYearLockDate String
+   */
   public String getEndOfYearLockDate() {
     return endOfYearLockDate;
   }
-
+  /**
+   * Shown if set. See lock dates
+   *
+   * @return LocalDate
+   */
   public LocalDate getEndOfYearLockDateAsDate() {
     if (this.endOfYearLockDate != null) {
       try {
@@ -926,10 +1463,20 @@ public class Organisation {
     return null;
   }
 
+  /**
+   * Shown if set. See lock dates
+   *
+   * @param endOfYearLockDate String
+   */
   public void setEndOfYearLockDate(String endOfYearLockDate) {
     this.endOfYearLockDate = endOfYearLockDate;
   }
 
+  /**
+   * Shown if set. See lock dates
+   *
+   * @param endOfYearLockDate LocalDateTime
+   */
   public void setEndOfYearLockDate(LocalDate endOfYearLockDate) {
     // CONVERT LocalDate args into MS DateFromat String
     Instant instant = endOfYearLockDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
@@ -946,10 +1493,19 @@ public class Organisation {
   @ApiModelProperty(
       example = "/Date(1573755038314)/",
       value = "Timestamp when the organisation was created in Xero")
+  /**
+   * Timestamp when the organisation was created in Xero
+   *
+   * @return createdDateUTC String
+   */
   public String getCreatedDateUTC() {
     return createdDateUTC;
   }
-
+  /**
+   * Timestamp when the organisation was created in Xero
+   *
+   * @return OffsetDateTime
+   */
   public OffsetDateTime getCreatedDateUTCAsDate() {
     if (this.createdDateUTC != null) {
       try {
@@ -961,6 +1517,12 @@ public class Organisation {
     return null;
   }
 
+  /**
+   * timezone
+   *
+   * @param timezone TimeZone
+   * @return Organisation
+   */
   public Organisation timezone(TimeZone timezone) {
     this.timezone = timezone;
     return this;
@@ -972,14 +1534,30 @@ public class Organisation {
    * @return timezone
    */
   @ApiModelProperty(value = "")
+  /**
+   * timezone
+   *
+   * @return timezone TimeZone
+   */
   public TimeZone getTimezone() {
     return timezone;
   }
 
+  /**
+   * timezone
+   *
+   * @param timezone TimeZone
+   */
   public void setTimezone(TimeZone timezone) {
     this.timezone = timezone;
   }
 
+  /**
+   * Organisation Entity Type
+   *
+   * @param organisationEntityType OrganisationEntityTypeEnum
+   * @return Organisation
+   */
   public Organisation organisationEntityType(OrganisationEntityTypeEnum organisationEntityType) {
     this.organisationEntityType = organisationEntityType;
     return this;
@@ -991,14 +1569,30 @@ public class Organisation {
    * @return organisationEntityType
    */
   @ApiModelProperty(value = "Organisation Entity Type")
+  /**
+   * Organisation Entity Type
+   *
+   * @return organisationEntityType OrganisationEntityTypeEnum
+   */
   public OrganisationEntityTypeEnum getOrganisationEntityType() {
     return organisationEntityType;
   }
 
+  /**
+   * Organisation Entity Type
+   *
+   * @param organisationEntityType OrganisationEntityTypeEnum
+   */
   public void setOrganisationEntityType(OrganisationEntityTypeEnum organisationEntityType) {
     this.organisationEntityType = organisationEntityType;
   }
 
+  /**
+   * A unique identifier for the organisation. Potential uses.
+   *
+   * @param shortCode String
+   * @return Organisation
+   */
   public Organisation shortCode(String shortCode) {
     this.shortCode = shortCode;
     return this;
@@ -1010,14 +1604,31 @@ public class Organisation {
    * @return shortCode
    */
   @ApiModelProperty(value = "A unique identifier for the organisation. Potential uses.")
+  /**
+   * A unique identifier for the organisation. Potential uses.
+   *
+   * @return shortCode String
+   */
   public String getShortCode() {
     return shortCode;
   }
 
+  /**
+   * A unique identifier for the organisation. Potential uses.
+   *
+   * @param shortCode String
+   */
   public void setShortCode(String shortCode) {
     this.shortCode = shortCode;
   }
 
+  /**
+   * Organisation Classes describe which plan the Xero organisation is on (e.g. DEMO, TRIAL,
+   * PREMIUM)
+   *
+   * @param propertyClass PropertyClassEnum
+   * @return Organisation
+   */
   public Organisation propertyClass(PropertyClassEnum propertyClass) {
     this.propertyClass = propertyClass;
     return this;
@@ -1033,14 +1644,33 @@ public class Organisation {
       value =
           "Organisation Classes describe which plan the Xero organisation is on (e.g. DEMO, TRIAL,"
               + " PREMIUM)")
+  /**
+   * Organisation Classes describe which plan the Xero organisation is on (e.g. DEMO, TRIAL,
+   * PREMIUM)
+   *
+   * @return propertyClass PropertyClassEnum
+   */
   public PropertyClassEnum getPropertyClass() {
     return propertyClass;
   }
 
+  /**
+   * Organisation Classes describe which plan the Xero organisation is on (e.g. DEMO, TRIAL,
+   * PREMIUM)
+   *
+   * @param propertyClass PropertyClassEnum
+   */
   public void setPropertyClass(PropertyClassEnum propertyClass) {
     this.propertyClass = propertyClass;
   }
 
+  /**
+   * BUSINESS or PARTNER. Partner edition organisations are sold exclusively through accounting
+   * partners and have restricted functionality (e.g. no access to invoicing)
+   *
+   * @param edition EditionEnum
+   * @return Organisation
+   */
   public Organisation edition(EditionEnum edition) {
     this.edition = edition;
     return this;
@@ -1057,14 +1687,32 @@ public class Organisation {
           "BUSINESS or PARTNER. Partner edition organisations are sold exclusively through"
               + " accounting partners and have restricted functionality (e.g. no access to"
               + " invoicing)")
+  /**
+   * BUSINESS or PARTNER. Partner edition organisations are sold exclusively through accounting
+   * partners and have restricted functionality (e.g. no access to invoicing)
+   *
+   * @return edition EditionEnum
+   */
   public EditionEnum getEdition() {
     return edition;
   }
 
+  /**
+   * BUSINESS or PARTNER. Partner edition organisations are sold exclusively through accounting
+   * partners and have restricted functionality (e.g. no access to invoicing)
+   *
+   * @param edition EditionEnum
+   */
   public void setEdition(EditionEnum edition) {
     this.edition = edition;
   }
 
+  /**
+   * Description of business type as defined in Organisation settings
+   *
+   * @param lineOfBusiness String
+   * @return Organisation
+   */
   public Organisation lineOfBusiness(String lineOfBusiness) {
     this.lineOfBusiness = lineOfBusiness;
     return this;
@@ -1076,19 +1724,41 @@ public class Organisation {
    * @return lineOfBusiness
    */
   @ApiModelProperty(value = "Description of business type as defined in Organisation settings")
+  /**
+   * Description of business type as defined in Organisation settings
+   *
+   * @return lineOfBusiness String
+   */
   public String getLineOfBusiness() {
     return lineOfBusiness;
   }
 
+  /**
+   * Description of business type as defined in Organisation settings
+   *
+   * @param lineOfBusiness String
+   */
   public void setLineOfBusiness(String lineOfBusiness) {
     this.lineOfBusiness = lineOfBusiness;
   }
 
+  /**
+   * Address details for organisation – see Addresses
+   *
+   * @param addresses List&lt;AddressForOrganisation&gt;
+   * @return Organisation
+   */
   public Organisation addresses(List<AddressForOrganisation> addresses) {
     this.addresses = addresses;
     return this;
   }
 
+  /**
+   * Address details for organisation – see Addresses
+   *
+   * @param addressesItem AddressForOrganisation
+   * @return Organisation
+   */
   public Organisation addAddressesItem(AddressForOrganisation addressesItem) {
     if (this.addresses == null) {
       this.addresses = new ArrayList<AddressForOrganisation>();
@@ -1103,19 +1773,41 @@ public class Organisation {
    * @return addresses
    */
   @ApiModelProperty(value = "Address details for organisation – see Addresses")
+  /**
+   * Address details for organisation – see Addresses
+   *
+   * @return addresses List<AddressForOrganisation>
+   */
   public List<AddressForOrganisation> getAddresses() {
     return addresses;
   }
 
+  /**
+   * Address details for organisation – see Addresses
+   *
+   * @param addresses List&lt;AddressForOrganisation&gt;
+   */
   public void setAddresses(List<AddressForOrganisation> addresses) {
     this.addresses = addresses;
   }
 
+  /**
+   * Phones details for organisation – see Phones
+   *
+   * @param phones List&lt;Phone&gt;
+   * @return Organisation
+   */
   public Organisation phones(List<Phone> phones) {
     this.phones = phones;
     return this;
   }
 
+  /**
+   * Phones details for organisation – see Phones
+   *
+   * @param phonesItem Phone
+   * @return Organisation
+   */
   public Organisation addPhonesItem(Phone phonesItem) {
     if (this.phones == null) {
       this.phones = new ArrayList<Phone>();
@@ -1130,19 +1822,45 @@ public class Organisation {
    * @return phones
    */
   @ApiModelProperty(value = "Phones details for organisation – see Phones")
+  /**
+   * Phones details for organisation – see Phones
+   *
+   * @return phones List<Phone>
+   */
   public List<Phone> getPhones() {
     return phones;
   }
 
+  /**
+   * Phones details for organisation – see Phones
+   *
+   * @param phones List&lt;Phone&gt;
+   */
   public void setPhones(List<Phone> phones) {
     this.phones = phones;
   }
 
+  /**
+   * Organisation profile links for popular services such as Facebook,Twitter, GooglePlus and
+   * LinkedIn. You can also add link to your website here. Shown if Organisation settings is updated
+   * in Xero. See ExternalLinks below
+   *
+   * @param externalLinks List&lt;ExternalLink&gt;
+   * @return Organisation
+   */
   public Organisation externalLinks(List<ExternalLink> externalLinks) {
     this.externalLinks = externalLinks;
     return this;
   }
 
+  /**
+   * Organisation profile links for popular services such as Facebook,Twitter, GooglePlus and
+   * LinkedIn. You can also add link to your website here. Shown if Organisation settings is updated
+   * in Xero. See ExternalLinks below
+   *
+   * @param externalLinksItem ExternalLink
+   * @return Organisation
+   */
   public Organisation addExternalLinksItem(ExternalLink externalLinksItem) {
     if (this.externalLinks == null) {
       this.externalLinks = new ArrayList<ExternalLink>();
@@ -1163,14 +1881,34 @@ public class Organisation {
           "Organisation profile links for popular services such as Facebook,Twitter, GooglePlus"
               + " and LinkedIn. You can also add link to your website here. Shown if Organisation"
               + " settings  is updated in Xero. See ExternalLinks below")
+  /**
+   * Organisation profile links for popular services such as Facebook,Twitter, GooglePlus and
+   * LinkedIn. You can also add link to your website here. Shown if Organisation settings is updated
+   * in Xero. See ExternalLinks below
+   *
+   * @return externalLinks List<ExternalLink>
+   */
   public List<ExternalLink> getExternalLinks() {
     return externalLinks;
   }
 
+  /**
+   * Organisation profile links for popular services such as Facebook,Twitter, GooglePlus and
+   * LinkedIn. You can also add link to your website here. Shown if Organisation settings is updated
+   * in Xero. See ExternalLinks below
+   *
+   * @param externalLinks List&lt;ExternalLink&gt;
+   */
   public void setExternalLinks(List<ExternalLink> externalLinks) {
     this.externalLinks = externalLinks;
   }
 
+  /**
+   * paymentTerms
+   *
+   * @param paymentTerms PaymentTerm
+   * @return Organisation
+   */
   public Organisation paymentTerms(PaymentTerm paymentTerms) {
     this.paymentTerms = paymentTerms;
     return this;
@@ -1182,10 +1920,20 @@ public class Organisation {
    * @return paymentTerms
    */
   @ApiModelProperty(value = "")
+  /**
+   * paymentTerms
+   *
+   * @return paymentTerms PaymentTerm
+   */
   public PaymentTerm getPaymentTerms() {
     return paymentTerms;
   }
 
+  /**
+   * paymentTerms
+   *
+   * @param paymentTerms PaymentTerm
+   */
   public void setPaymentTerms(PaymentTerm paymentTerms) {
     this.paymentTerms = paymentTerms;
   }

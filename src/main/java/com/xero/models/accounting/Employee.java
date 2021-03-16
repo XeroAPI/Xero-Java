@@ -31,12 +31,16 @@ public class Employee {
   private UUID employeeID;
   /** Current status of an employee – see contact status types */
   public enum StatusEnum {
+    /** ACTIVE */
     ACTIVE("ACTIVE"),
 
+    /** ARCHIVED */
     ARCHIVED("ARCHIVED"),
 
+    /** GDPRREQUEST */
     GDPRREQUEST("GDPRREQUEST"),
 
+    /** DELETED */
     DELETED("DELETED");
 
     private String value;
@@ -45,16 +49,31 @@ public class Employee {
       this.value = value;
     }
 
+    /**
+     * getValue
+     *
+     * @return String value
+     */
     @JsonValue
     public String getValue() {
       return value;
     }
 
+    /**
+     * toString
+     *
+     * @return String value
+     */
     @Override
     public String toString() {
       return String.valueOf(value);
     }
 
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
     @JsonCreator
     public static StatusEnum fromValue(String value) {
       for (StatusEnum b : StatusEnum.values()) {
@@ -86,7 +105,12 @@ public class Employee {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
-
+  /**
+   * The Xero identifier for an employee e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9
+   *
+   * @param employeeID UUID
+   * @return Employee
+   */
   public Employee employeeID(UUID employeeID) {
     this.employeeID = employeeID;
     return this;
@@ -99,14 +123,30 @@ public class Employee {
    */
   @ApiModelProperty(
       value = "The Xero identifier for an employee e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9")
+  /**
+   * The Xero identifier for an employee e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9
+   *
+   * @return employeeID UUID
+   */
   public UUID getEmployeeID() {
     return employeeID;
   }
 
+  /**
+   * The Xero identifier for an employee e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9
+   *
+   * @param employeeID UUID
+   */
   public void setEmployeeID(UUID employeeID) {
     this.employeeID = employeeID;
   }
 
+  /**
+   * Current status of an employee – see contact status types
+   *
+   * @param status StatusEnum
+   * @return Employee
+   */
   public Employee status(StatusEnum status) {
     this.status = status;
     return this;
@@ -118,14 +158,30 @@ public class Employee {
    * @return status
    */
   @ApiModelProperty(value = "Current status of an employee – see contact status types")
+  /**
+   * Current status of an employee – see contact status types
+   *
+   * @return status StatusEnum
+   */
   public StatusEnum getStatus() {
     return status;
   }
 
+  /**
+   * Current status of an employee – see contact status types
+   *
+   * @param status StatusEnum
+   */
   public void setStatus(StatusEnum status) {
     this.status = status;
   }
 
+  /**
+   * First name of an employee (max length &#x3D; 255)
+   *
+   * @param firstName String
+   * @return Employee
+   */
   public Employee firstName(String firstName) {
     this.firstName = firstName;
     return this;
@@ -137,14 +193,30 @@ public class Employee {
    * @return firstName
    */
   @ApiModelProperty(value = "First name of an employee (max length = 255)")
+  /**
+   * First name of an employee (max length &#x3D; 255)
+   *
+   * @return firstName String
+   */
   public String getFirstName() {
     return firstName;
   }
 
+  /**
+   * First name of an employee (max length &#x3D; 255)
+   *
+   * @param firstName String
+   */
   public void setFirstName(String firstName) {
     this.firstName = firstName;
   }
 
+  /**
+   * Last name of an employee (max length &#x3D; 255)
+   *
+   * @param lastName String
+   * @return Employee
+   */
   public Employee lastName(String lastName) {
     this.lastName = lastName;
     return this;
@@ -156,14 +228,30 @@ public class Employee {
    * @return lastName
    */
   @ApiModelProperty(value = "Last name of an employee (max length = 255)")
+  /**
+   * Last name of an employee (max length &#x3D; 255)
+   *
+   * @return lastName String
+   */
   public String getLastName() {
     return lastName;
   }
 
+  /**
+   * Last name of an employee (max length &#x3D; 255)
+   *
+   * @param lastName String
+   */
   public void setLastName(String lastName) {
     this.lastName = lastName;
   }
 
+  /**
+   * externalLink
+   *
+   * @param externalLink ExternalLink
+   * @return Employee
+   */
   public Employee externalLink(ExternalLink externalLink) {
     this.externalLink = externalLink;
     return this;
@@ -175,10 +263,20 @@ public class Employee {
    * @return externalLink
    */
   @ApiModelProperty(value = "")
+  /**
+   * externalLink
+   *
+   * @return externalLink ExternalLink
+   */
   public ExternalLink getExternalLink() {
     return externalLink;
   }
 
+  /**
+   * externalLink
+   *
+   * @param externalLink ExternalLink
+   */
   public void setExternalLink(ExternalLink externalLink) {
     this.externalLink = externalLink;
   }
@@ -189,10 +287,19 @@ public class Employee {
    * @return updatedDateUTC
    */
   @ApiModelProperty(example = "/Date(1573755038314)/", value = "")
+  /**
+   * updatedDateUTC
+   *
+   * @return updatedDateUTC String
+   */
   public String getUpdatedDateUTC() {
     return updatedDateUTC;
   }
-
+  /**
+   * updatedDateUTC
+   *
+   * @return OffsetDateTime
+   */
   public OffsetDateTime getUpdatedDateUTCAsDate() {
     if (this.updatedDateUTC != null) {
       try {
@@ -204,6 +311,12 @@ public class Employee {
     return null;
   }
 
+  /**
+   * A string to indicate if a invoice status
+   *
+   * @param statusAttributeString String
+   * @return Employee
+   */
   public Employee statusAttributeString(String statusAttributeString) {
     this.statusAttributeString = statusAttributeString;
     return this;
@@ -215,19 +328,41 @@ public class Employee {
    * @return statusAttributeString
    */
   @ApiModelProperty(example = "ERROR", value = "A string to indicate if a invoice status")
+  /**
+   * A string to indicate if a invoice status
+   *
+   * @return statusAttributeString String
+   */
   public String getStatusAttributeString() {
     return statusAttributeString;
   }
 
+  /**
+   * A string to indicate if a invoice status
+   *
+   * @param statusAttributeString String
+   */
   public void setStatusAttributeString(String statusAttributeString) {
     this.statusAttributeString = statusAttributeString;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrors List&lt;ValidationError&gt;
+   * @return Employee
+   */
   public Employee validationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
     return this;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrorsItem ValidationError
+   * @return Employee
+   */
   public Employee addValidationErrorsItem(ValidationError validationErrorsItem) {
     if (this.validationErrors == null) {
       this.validationErrors = new ArrayList<ValidationError>();
@@ -242,10 +377,20 @@ public class Employee {
    * @return validationErrors
    */
   @ApiModelProperty(value = "Displays array of validation error messages from the API")
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @return validationErrors List<ValidationError>
+   */
   public List<ValidationError> getValidationErrors() {
     return validationErrors;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrors List&lt;ValidationError&gt;
+   */
   public void setValidationErrors(List<ValidationError> validationErrors) {
     this.validationErrors = validationErrors;
   }

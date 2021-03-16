@@ -30,7 +30,12 @@ public class Deductions {
 
   @JsonProperty("deductions")
   private List<Deduction> deductions = new ArrayList<Deduction>();
-
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return Deductions
+   */
   public Deductions pagination(Pagination pagination) {
     this.pagination = pagination;
     return this;
@@ -42,14 +47,30 @@ public class Deductions {
    * @return pagination
    */
   @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
   public Pagination getPagination() {
     return pagination;
   }
 
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   * @return Deductions
+   */
   public Deductions problem(Problem problem) {
     this.problem = problem;
     return this;
@@ -61,19 +82,41 @@ public class Deductions {
    * @return problem
    */
   @ApiModelProperty(value = "")
+  /**
+   * problem
+   *
+   * @return problem Problem
+   */
   public Problem getProblem() {
     return problem;
   }
 
+  /**
+   * problem
+   *
+   * @param problem Problem
+   */
   public void setProblem(Problem problem) {
     this.problem = problem;
   }
 
+  /**
+   * deductions
+   *
+   * @param deductions List&lt;Deduction&gt;
+   * @return Deductions
+   */
   public Deductions deductions(List<Deduction> deductions) {
     this.deductions = deductions;
     return this;
   }
 
+  /**
+   * deductions
+   *
+   * @param deductionsItem Deduction
+   * @return Deductions
+   */
   public Deductions addDeductionsItem(Deduction deductionsItem) {
     if (this.deductions == null) {
       this.deductions = new ArrayList<Deduction>();
@@ -88,10 +131,20 @@ public class Deductions {
    * @return deductions
    */
   @ApiModelProperty(value = "")
+  /**
+   * deductions
+   *
+   * @return deductions List<Deduction>
+   */
   public List<Deduction> getDeductions() {
     return deductions;
   }
 
+  /**
+   * deductions
+   *
+   * @param deductions List&lt;Deduction&gt;
+   */
   public void setDeductions(List<Deduction> deductions) {
     this.deductions = deductions;
   }

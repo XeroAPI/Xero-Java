@@ -46,7 +46,12 @@ public class OpeningBalances {
 
   @JsonProperty("LeaveLines")
   private List<LeaveLine> leaveLines = new ArrayList<LeaveLine>();
-
+  /**
+   * Opening Balance Date. (YYYY-MM-DD)
+   *
+   * @param openingBalanceDate String
+   * @return OpeningBalances
+   */
   public OpeningBalances openingBalanceDate(String openingBalanceDate) {
     this.openingBalanceDate = openingBalanceDate;
     return this;
@@ -60,10 +65,19 @@ public class OpeningBalances {
   @ApiModelProperty(
       example = "/Date(322560000000+0000)/",
       value = "Opening Balance Date. (YYYY-MM-DD)")
+  /**
+   * Opening Balance Date. (YYYY-MM-DD)
+   *
+   * @return openingBalanceDate String
+   */
   public String getOpeningBalanceDate() {
     return openingBalanceDate;
   }
-
+  /**
+   * Opening Balance Date. (YYYY-MM-DD)
+   *
+   * @return LocalDate
+   */
   public LocalDate getOpeningBalanceDateAsDate() {
     if (this.openingBalanceDate != null) {
       try {
@@ -75,10 +89,20 @@ public class OpeningBalances {
     return null;
   }
 
+  /**
+   * Opening Balance Date. (YYYY-MM-DD)
+   *
+   * @param openingBalanceDate String
+   */
   public void setOpeningBalanceDate(String openingBalanceDate) {
     this.openingBalanceDate = openingBalanceDate;
   }
 
+  /**
+   * Opening Balance Date. (YYYY-MM-DD)
+   *
+   * @param openingBalanceDate LocalDateTime
+   */
   public void setOpeningBalanceDate(LocalDate openingBalanceDate) {
     // CONVERT LocalDate args into MS DateFromat String
     Instant instant = openingBalanceDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
@@ -87,6 +111,12 @@ public class OpeningBalances {
     this.openingBalanceDate = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
   }
 
+  /**
+   * Opening Balance tax
+   *
+   * @param tax String
+   * @return OpeningBalances
+   */
   public OpeningBalances tax(String tax) {
     this.tax = tax;
     return this;
@@ -98,19 +128,41 @@ public class OpeningBalances {
    * @return tax
    */
   @ApiModelProperty(example = "4333d5cd-53a5-4c31-98e5-a8b4e5676b0b", value = "Opening Balance tax")
+  /**
+   * Opening Balance tax
+   *
+   * @return tax String
+   */
   public String getTax() {
     return tax;
   }
 
+  /**
+   * Opening Balance tax
+   *
+   * @param tax String
+   */
   public void setTax(String tax) {
     this.tax = tax;
   }
 
+  /**
+   * earningsLines
+   *
+   * @param earningsLines List&lt;EarningsLine&gt;
+   * @return OpeningBalances
+   */
   public OpeningBalances earningsLines(List<EarningsLine> earningsLines) {
     this.earningsLines = earningsLines;
     return this;
   }
 
+  /**
+   * earningsLines
+   *
+   * @param earningsLinesItem EarningsLine
+   * @return OpeningBalances
+   */
   public OpeningBalances addEarningsLinesItem(EarningsLine earningsLinesItem) {
     if (this.earningsLines == null) {
       this.earningsLines = new ArrayList<EarningsLine>();
@@ -125,19 +177,41 @@ public class OpeningBalances {
    * @return earningsLines
    */
   @ApiModelProperty(value = "")
+  /**
+   * earningsLines
+   *
+   * @return earningsLines List<EarningsLine>
+   */
   public List<EarningsLine> getEarningsLines() {
     return earningsLines;
   }
 
+  /**
+   * earningsLines
+   *
+   * @param earningsLines List&lt;EarningsLine&gt;
+   */
   public void setEarningsLines(List<EarningsLine> earningsLines) {
     this.earningsLines = earningsLines;
   }
 
+  /**
+   * deductionLines
+   *
+   * @param deductionLines List&lt;DeductionLine&gt;
+   * @return OpeningBalances
+   */
   public OpeningBalances deductionLines(List<DeductionLine> deductionLines) {
     this.deductionLines = deductionLines;
     return this;
   }
 
+  /**
+   * deductionLines
+   *
+   * @param deductionLinesItem DeductionLine
+   * @return OpeningBalances
+   */
   public OpeningBalances addDeductionLinesItem(DeductionLine deductionLinesItem) {
     if (this.deductionLines == null) {
       this.deductionLines = new ArrayList<DeductionLine>();
@@ -152,19 +226,41 @@ public class OpeningBalances {
    * @return deductionLines
    */
   @ApiModelProperty(value = "")
+  /**
+   * deductionLines
+   *
+   * @return deductionLines List<DeductionLine>
+   */
   public List<DeductionLine> getDeductionLines() {
     return deductionLines;
   }
 
+  /**
+   * deductionLines
+   *
+   * @param deductionLines List&lt;DeductionLine&gt;
+   */
   public void setDeductionLines(List<DeductionLine> deductionLines) {
     this.deductionLines = deductionLines;
   }
 
+  /**
+   * superLines
+   *
+   * @param superLines List&lt;SuperLine&gt;
+   * @return OpeningBalances
+   */
   public OpeningBalances superLines(List<SuperLine> superLines) {
     this.superLines = superLines;
     return this;
   }
 
+  /**
+   * superLines
+   *
+   * @param superLinesItem SuperLine
+   * @return OpeningBalances
+   */
   public OpeningBalances addSuperLinesItem(SuperLine superLinesItem) {
     if (this.superLines == null) {
       this.superLines = new ArrayList<SuperLine>();
@@ -179,19 +275,41 @@ public class OpeningBalances {
    * @return superLines
    */
   @ApiModelProperty(value = "")
+  /**
+   * superLines
+   *
+   * @return superLines List<SuperLine>
+   */
   public List<SuperLine> getSuperLines() {
     return superLines;
   }
 
+  /**
+   * superLines
+   *
+   * @param superLines List&lt;SuperLine&gt;
+   */
   public void setSuperLines(List<SuperLine> superLines) {
     this.superLines = superLines;
   }
 
+  /**
+   * reimbursementLines
+   *
+   * @param reimbursementLines List&lt;ReimbursementLine&gt;
+   * @return OpeningBalances
+   */
   public OpeningBalances reimbursementLines(List<ReimbursementLine> reimbursementLines) {
     this.reimbursementLines = reimbursementLines;
     return this;
   }
 
+  /**
+   * reimbursementLines
+   *
+   * @param reimbursementLinesItem ReimbursementLine
+   * @return OpeningBalances
+   */
   public OpeningBalances addReimbursementLinesItem(ReimbursementLine reimbursementLinesItem) {
     if (this.reimbursementLines == null) {
       this.reimbursementLines = new ArrayList<ReimbursementLine>();
@@ -206,19 +324,41 @@ public class OpeningBalances {
    * @return reimbursementLines
    */
   @ApiModelProperty(value = "")
+  /**
+   * reimbursementLines
+   *
+   * @return reimbursementLines List<ReimbursementLine>
+   */
   public List<ReimbursementLine> getReimbursementLines() {
     return reimbursementLines;
   }
 
+  /**
+   * reimbursementLines
+   *
+   * @param reimbursementLines List&lt;ReimbursementLine&gt;
+   */
   public void setReimbursementLines(List<ReimbursementLine> reimbursementLines) {
     this.reimbursementLines = reimbursementLines;
   }
 
+  /**
+   * leaveLines
+   *
+   * @param leaveLines List&lt;LeaveLine&gt;
+   * @return OpeningBalances
+   */
   public OpeningBalances leaveLines(List<LeaveLine> leaveLines) {
     this.leaveLines = leaveLines;
     return this;
   }
 
+  /**
+   * leaveLines
+   *
+   * @param leaveLinesItem LeaveLine
+   * @return OpeningBalances
+   */
   public OpeningBalances addLeaveLinesItem(LeaveLine leaveLinesItem) {
     if (this.leaveLines == null) {
       this.leaveLines = new ArrayList<LeaveLine>();
@@ -233,10 +373,20 @@ public class OpeningBalances {
    * @return leaveLines
    */
   @ApiModelProperty(value = "")
+  /**
+   * leaveLines
+   *
+   * @return leaveLines List<LeaveLine>
+   */
   public List<LeaveLine> getLeaveLines() {
     return leaveLines;
   }
 
+  /**
+   * leaveLines
+   *
+   * @param leaveLines List&lt;LeaveLine&gt;
+   */
   public void setLeaveLines(List<LeaveLine> leaveLines) {
     this.leaveLines = leaveLines;
   }
