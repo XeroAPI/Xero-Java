@@ -74,9 +74,8 @@ public class PayrollUkApiTimesheetsTest {
         System.out.println("@Test UK Payroll - getTimesheetsTest");
        
         int page = 1;
-        UUID employeeId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e"); 
-        UUID payrollCalendarId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e"); 
-        Timesheets response = payrollUkApi.getTimesheets(accessToken, xeroTenantId, page, employeeId, payrollCalendarId);
+        String filter = "";
+        Timesheets response = payrollUkApi.getTimesheets(accessToken, xeroTenantId, page, filter);
         
         assertThat(response.getTimesheets().get(0).getTimesheetID(),is(equalTo(UUID.fromString("0c94d453-3d8c-4167-8c25-b4025121d18b"))));
         assertThat(response.getTimesheets().get(0).getPayrollCalendarID(),is(equalTo(UUID.fromString("216d80e6-af55-47b1-b718-9457c3f5d2fe"))));

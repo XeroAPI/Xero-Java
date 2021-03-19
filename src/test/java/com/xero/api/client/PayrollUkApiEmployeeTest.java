@@ -70,7 +70,8 @@ public class PayrollUkApiEmployeeTest {
     public void getEmployeesTest() throws IOException {
         System.out.println("@Test UK Payroll - getEmployeesTest");
        
-        Employees response =  payrollUkApi.getEmployees(accessToken, xeroTenantId, null, null,1);
+        String filter = "";
+        Employees response =  payrollUkApi.getEmployees(accessToken, xeroTenantId, filter,1);
         
         assertThat(response.getEmployees().get(0).getEmployeeID(), is(equalTo(UUID.fromString("aad6b292-7b94-408b-93f6-e489867e3fb0"))));
         assertThat(response.getEmployees().get(0).getFirstName(), is(equalTo("Jack")));

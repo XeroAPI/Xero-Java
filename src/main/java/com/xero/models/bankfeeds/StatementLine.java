@@ -46,6 +46,9 @@ public class StatementLine {
 
   @JsonProperty("chequeNumber")
   private String chequeNumber;
+
+  @JsonProperty("transactionType")
+  private String transactionType;
   /**
    * The date that the transaction was processed or cleared as seen in internet banking ISO-8601
    * YYYY-MM-DD
@@ -346,6 +349,41 @@ public class StatementLine {
     this.chequeNumber = chequeNumber;
   }
 
+  /**
+   * Descriptive transaction type
+   *
+   * @param transactionType String
+   * @return StatementLine
+   */
+  public StatementLine transactionType(String transactionType) {
+    this.transactionType = transactionType;
+    return this;
+  }
+
+  /**
+   * Descriptive transaction type maximum: 30
+   *
+   * @return transactionType
+   */
+  @ApiModelProperty(example = "Refund", value = "Descriptive transaction type")
+  /**
+   * Descriptive transaction type
+   *
+   * @return transactionType String
+   */
+  public String getTransactionType() {
+    return transactionType;
+  }
+
+  /**
+   * Descriptive transaction type
+   *
+   * @param transactionType String
+   */
+  public void setTransactionType(String transactionType) {
+    this.transactionType = transactionType;
+  }
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -362,7 +400,8 @@ public class StatementLine {
         && Objects.equals(this.transactionId, statementLine.transactionId)
         && Objects.equals(this.payeeName, statementLine.payeeName)
         && Objects.equals(this.reference, statementLine.reference)
-        && Objects.equals(this.chequeNumber, statementLine.chequeNumber);
+        && Objects.equals(this.chequeNumber, statementLine.chequeNumber)
+        && Objects.equals(this.transactionType, statementLine.transactionType);
   }
 
   @Override
@@ -375,7 +414,8 @@ public class StatementLine {
         transactionId,
         payeeName,
         reference,
-        chequeNumber);
+        chequeNumber,
+        transactionType);
   }
 
   @Override
@@ -392,6 +432,7 @@ public class StatementLine {
     sb.append("    payeeName: ").append(toIndentedString(payeeName)).append("\n");
     sb.append("    reference: ").append(toIndentedString(reference)).append("\n");
     sb.append("    chequeNumber: ").append(toIndentedString(chequeNumber)).append("\n");
+    sb.append("    transactionType: ").append(toIndentedString(transactionType)).append("\n");
     sb.append("}");
     return sb.toString();
   }
