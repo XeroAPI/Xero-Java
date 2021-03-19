@@ -17,7 +17,7 @@ Version 4.x and higher of Xero Java SDK only supports OAuth2 authentication and 
 ## SDK Documentation
 We've begun generating SDK documentation with code examples for each method.
 
-* [Accounting](http://xeroapi.github.io/Xero-Java/docs/v4/accounting/index.html) 
+* [Accounting](https://xeroapi.github.io/Xero-Java/v4/accounting/index.html) 
 
 Coming Soon
 * identity
