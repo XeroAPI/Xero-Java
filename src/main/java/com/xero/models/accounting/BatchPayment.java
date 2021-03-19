@@ -178,6 +178,9 @@ public class BatchPayment {
 
   @JsonProperty("IsReconciled")
   private String isReconciled;
+
+  @JsonProperty("ValidationErrors")
+  private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
   /**
    * account
    *
@@ -749,6 +752,55 @@ public class BatchPayment {
     return isReconciled;
   }
 
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrors List&lt;ValidationError&gt;
+   * @return BatchPayment
+   */
+  public BatchPayment validationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+    return this;
+  }
+
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrorsItem ValidationError
+   * @return BatchPayment
+   */
+  public BatchPayment addValidationErrorsItem(ValidationError validationErrorsItem) {
+    if (this.validationErrors == null) {
+      this.validationErrors = new ArrayList<ValidationError>();
+    }
+    this.validationErrors.add(validationErrorsItem);
+    return this;
+  }
+
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @return validationErrors
+   */
+  @ApiModelProperty(value = "Displays array of validation error messages from the API")
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @return validationErrors List<ValidationError>
+   */
+  public List<ValidationError> getValidationErrors() {
+    return validationErrors;
+  }
+
+  /**
+   * Displays array of validation error messages from the API
+   *
+   * @param validationErrors List&lt;ValidationError&gt;
+   */
+  public void setValidationErrors(List<ValidationError> validationErrors) {
+    this.validationErrors = validationErrors;
+  }
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -773,7 +825,8 @@ public class BatchPayment {
         && Objects.equals(this.status, batchPayment.status)
         && Objects.equals(this.totalAmount, batchPayment.totalAmount)
         && Objects.equals(this.updatedDateUTC, batchPayment.updatedDateUTC)
-        && Objects.equals(this.isReconciled, batchPayment.isReconciled);
+        && Objects.equals(this.isReconciled, batchPayment.isReconciled)
+        && Objects.equals(this.validationErrors, batchPayment.validationErrors);
   }
 
   @Override
@@ -794,7 +847,8 @@ public class BatchPayment {
         status,
         totalAmount,
         updatedDateUTC,
-        isReconciled);
+        isReconciled,
+        validationErrors);
   }
 
   @Override
@@ -817,6 +871,7 @@ public class BatchPayment {
     sb.append("    totalAmount: ").append(toIndentedString(totalAmount)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
     sb.append("    isReconciled: ").append(toIndentedString(isReconciled)).append("\n");
+    sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("}");
     return sb.toString();
   }
