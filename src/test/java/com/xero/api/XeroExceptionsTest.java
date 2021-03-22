@@ -197,6 +197,34 @@ public class XeroExceptionsTest {
     }
 
     @Test
+    public void testXeroNotImplementedException() {
+        int statusCode = 501;
+        String message = "The method you have called has not been implemented";
+
+        // XeroNotImplementedException extends XeroException so we can catch either
+        expectedException.expect(XeroException.class);
+        expectedException.expect(XeroNotImplementedException.class);
+        expectedException.expectMessage(message);
+
+        when(httpResponseException.getStatusCode()).thenReturn(statusCode);
+        xeroApiExceptionHandler.execute(httpResponseException);
+    }
+
+
+    @Test
+    public void testXeroNotAvailableException() {
+        // 3 different messages can be returned with status code 503 so we won't check them
+        int statusCode = 503;
+
+        // XeroNotAvailableException extends XeroException so we can catch either
+        expectedException.expect(XeroException.class);
+        expectedException.expect(XeroNotAvailableException.class);
+
+        when(httpResponseException.getStatusCode()).thenReturn(statusCode);
+        xeroApiExceptionHandler.execute(httpResponseException);
+    }
+
+    @Test
     public void testXeroApiException() {
         int statusCode = 1;
         String message = "Unknown http status code 1";
@@ -212,3 +240,4 @@ public class XeroExceptionsTest {
     }
 
 }
+

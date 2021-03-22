@@ -65,6 +65,8 @@ To address this we've refactored exception handling and we are deprecating the g
 | 429  | XeroDailyRateLimitException            | The API daily rate limit for your organisation/application pairing has been exceeded.                                                   |
 | 429  | XeroMinuteRateLimitException           | The API minute rate limit for your organisation/application pairing has been exceeded.                                                  |
 | 500  | XeroServerErrorException               | An unhandled error with the Xero API                                                                                                    |
+| 501  | XeroNotImplementedException            | Method not implemented for the organisation                                                                                             |
+| 503  | XeroNotAvailableException              | The organisation temporarily cannot be connected to or API is currently unavailable – typically due to a scheduled outage               |
 
 Below is a try/catch example
 

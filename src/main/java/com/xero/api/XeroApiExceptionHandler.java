@@ -210,10 +210,13 @@ public class XeroApiExceptionHandler {
             String message = "An error occurred in Xero. Check the API Status page http://status.developer.xero.com for current service status.";
             throw new XeroServerErrorException(statusCode, message, e);
 
-        } else if (statusCode > 500) {
-            String message = "Internal Server Error";
-            throw new XeroServerErrorException(statusCode, message, e);
-            
+        } else if (statusCode == 501) {
+            String message = "The method you have called has not been implemented";
+            throw new XeroNotImplementedException(statusCode, message, e);
+
+        } else if (statusCode == 503) {
+            throw new XeroNotAvailableException(statusCode, e.getStatusMessage(), e);
+
         } else {
             throw new XeroApiException(statusCode, e.getStatusMessage(), e);
         }
@@ -261,3 +264,4 @@ public class XeroApiExceptionHandler {
     }
 
 }
+
