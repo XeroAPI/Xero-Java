@@ -53,7 +53,10 @@ public class SalaryAndWage {
     ACTIVE("Active"),
 
     /** PENDING */
-    PENDING("Pending");
+    PENDING("Pending"),
+
+    /** HISTORY */
+    HISTORY("History");
 
     private String value;
 
