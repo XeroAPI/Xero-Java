@@ -50,7 +50,10 @@ public class Timesheet {
     APPROVED("Approved"),
 
     /** COMPLETED */
-    COMPLETED("Completed");
+    COMPLETED("Completed"),
+
+    /** REQUESTED */
+    REQUESTED("Requested");
 
     private String value;
 

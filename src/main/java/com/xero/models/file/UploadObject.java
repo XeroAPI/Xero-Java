@@ -17,8 +17,8 @@ import io.swagger.annotations.ApiModelProperty;
 import java.util.Arrays;
 import java.util.Objects;
 
-/** InlineObject */
-public class InlineObject {
+/** UploadObject */
+public class UploadObject {
   StringUtil util = new StringUtil();
 
   @JsonProperty("body")
@@ -36,9 +36,9 @@ public class InlineObject {
    * body
    *
    * @param body byte[]
-   * @return InlineObject
+   * @return UploadObject
    */
-  public InlineObject body(byte[] body) {
+  public UploadObject body(byte[] body) {
     this.body = body;
     return this;
   }
@@ -48,7 +48,7 @@ public class InlineObject {
    *
    * @return body
    */
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(required = true, value = "")
   /**
    * body
    *
@@ -71,9 +71,9 @@ public class InlineObject {
    * exact name of the file you are uploading
    *
    * @param name String
-   * @return InlineObject
+   * @return UploadObject
    */
-  public InlineObject name(String name) {
+  public UploadObject name(String name) {
     this.name = name;
     return this;
   }
@@ -83,7 +83,7 @@ public class InlineObject {
    *
    * @return name
    */
-  @ApiModelProperty(value = "exact name of the file you are uploading")
+  @ApiModelProperty(required = true, value = "exact name of the file you are uploading")
   /**
    * exact name of the file you are uploading
    *
@@ -106,9 +106,9 @@ public class InlineObject {
    * filename
    *
    * @param filename String
-   * @return InlineObject
+   * @return UploadObject
    */
-  public InlineObject filename(String filename) {
+  public UploadObject filename(String filename) {
     this.filename = filename;
     return this;
   }
@@ -118,7 +118,7 @@ public class InlineObject {
    *
    * @return filename
    */
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(required = true, value = "")
   /**
    * filename
    *
@@ -141,9 +141,9 @@ public class InlineObject {
    * mimeType
    *
    * @param mimeType String
-   * @return InlineObject
+   * @return UploadObject
    */
-  public InlineObject mimeType(String mimeType) {
+  public UploadObject mimeType(String mimeType) {
     this.mimeType = mimeType;
     return this;
   }
@@ -180,11 +180,11 @@ public class InlineObject {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    InlineObject inlineObject = (InlineObject) o;
-    return Arrays.equals(this.body, inlineObject.body)
-        && Objects.equals(this.name, inlineObject.name)
-        && Objects.equals(this.filename, inlineObject.filename)
-        && Objects.equals(this.mimeType, inlineObject.mimeType);
+    UploadObject uploadObject = (UploadObject) o;
+    return Arrays.equals(this.body, uploadObject.body)
+        && Objects.equals(this.name, uploadObject.name)
+        && Objects.equals(this.filename, uploadObject.filename)
+        && Objects.equals(this.mimeType, uploadObject.mimeType);
   }
 
   @Override
@@ -195,7 +195,7 @@ public class InlineObject {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class InlineObject {\n");
+    sb.append("class UploadObject {\n");
     sb.append("    body: ").append(toIndentedString(body)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    filename: ").append(toIndentedString(filename)).append("\n");
