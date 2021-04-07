@@ -1,4 +1,5 @@
 /target/
+/src/main/resources/
 .classpath
 .project
 .settings
@@ -137,3 +138,4 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+*.log

@@ -1,32 +1,74 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.xero</groupId>
-	<artifactId>xero-java-sdk</artifactId>
-	<packaging>jar</packaging>
-	<version>1.0.5</version>
-	<name>Xero-Java SDK</name>
-	<url>http://maven.apache.org</url>
-	<dependencies>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.github.xeroapi</groupId>
+    <artifactId>xero-java</artifactId>
+    <packaging>jar</packaging>
+    <name>xero-java</name>
+    <version>4.8.3</version>
+    <url>https://github.com/XeroAPI/Xero-Java</url>
+    <description>This is the official Java SDK for Xero API</description>
+    <licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+		</license>
+	</licenses>
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
+    <developers>
+        <developer>
+            <name>Xero API Team</name>
+            <email>api@xero.com</email>
+            <organization>Xero</organization>
+            <organizationUrl>https://developer.xero.com</organizationUrl>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:git://github.com/XeroAPI/Xero-Java.git</connection>
+        <developerConnection>scm:git:ssh://github.com:XeroAPI/Xero-Java.git</developerConnection>
+        <url>http://github.com/XeroAPI/Xero-Java/tree/master</url>
+    </scm>
+    <dependencies>
 		<dependency>
-			<groupId>com.google.oauth-client</groupId>
-			<artifactId>google-oauth-client</artifactId>
-			<version>1.23.0</version>
+		    <groupId>com.auth0</groupId>
+		    <artifactId>java-jwt</artifactId>
+		    <version>3.8.1</version>
 		</dependency>
+		<dependency>
+		    <groupId>com.auth0</groupId>
+		    <artifactId>jwks-rsa</artifactId>
+		    <version>0.17.0</version>
+		</dependency>
+		<dependency>
+            <groupId>com.google.api-client</groupId>
+            <artifactId>google-api-client</artifactId>
+            <version>${google-api-client-version}</version>
+        </dependency>
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
 			<artifactId>json-simple</artifactId>
 			<version>1.1.1</version>
+			<exclusions>
+				<!-- json-simple incorrectly includes junit in compile scope -->
+				<exclusion>
+					<groupId>junit</groupId>
+					<artifactId>junit</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.5</version>
-		</dependency>
-		<dependency>
-			<groupId>com.xero</groupId>
-			<artifactId>xero-accounting-api-schema</artifactId>
-			<version>0.1.2</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -36,90 +78,88 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>2.8.47</version>
+            <version>3.5.13</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- This will get hamcrest-core automatically -->
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-all</artifactId>
+			<version>1.3</version>
+			<scope>test</scope>
+		</dependency>
+        <dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.30</version>
+		</dependency>
+		
+	    <!-- JSON processing: jackson -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>${jackson-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson-databind-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.joschi.jackson</groupId>
+			<artifactId>jackson-datatype-threetenbp</artifactId>
+			<version>${jackson-threetenbp-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.swagger</groupId>
+			<artifactId>swagger-annotations</artifactId>
+			<version>${swagger-annotations-version}</version>
+		</dependency>
+		
+        <!-- HTTP client: jersey-client -->
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>${jersey-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-multipart</artifactId>
+            <version>${jersey-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-jackson</artifactId>
+            <version>${jersey-version}</version>
+        </dependency>
+        <!-- Base64 encoding that works in both JVM and Android -->
+        <dependency>
+            <groupId>com.brsanthu</groupId>
+            <artifactId>migbase64</artifactId>
+            <version>2.2</version>
+        </dependency>
+
+        <!-- test dependencies -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>${junit-version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-		    <groupId>org.apache.httpcomponents</groupId>
-		    <artifactId>httpclient</artifactId>
-		    <version>4.5.3</version>
-		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
-		</dependency>
-    </dependencies>
-	<repositories>
-		<repository>
-			<id>xero-accounting-api-schema-mvn-repo</id>
-			<url>https://raw.github.com/XeroAPI/XeroAPI-Schemas/mvn-repo/</url>
-			<snapshots>
-				<enabled>true</enabled>
-				<updatePolicy>always</updatePolicy>
-			</snapshots>
-		</repository>
-	</repositories>
-	<distributionManagement>
-		<repository>
-			<id>internal.repo</id>
-			<name>Temporary Staging Repository</name>
-			<url>file://${project.build.directory}/mvn-repo</url>
-		</repository>
-	</distributionManagement>
-	<properties>
-		<!-- github server corresponds to entry in ~/.m2/settings.xml -->
-		<github.global.server>github</github.global.server>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-    </properties>
+       
+	</dependencies>
 	<build>
 		<finalName>Xero-Java-SDK</finalName>
-		<plugins>
+		<plugins>	
 			<plugin>
-				<artifactId>maven3-deploy-plugin</artifactId>
+				<artifactId>maven-deploy-plugin</artifactId>
 				<version>2.8.1</version>
-				<configuration>
-					<altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-repo</altDeploymentRepository>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>com.github.github</groupId>
-				<artifactId>site-maven-plugin</artifactId>
-				<version>0.12</version>
-				<configuration>
-					<!-- git commit message -->
-					<message>Maven artifacts for ${project.version}</message>
-					<!-- disable webpage processing -->
-					<noJekyll>true</noJekyll>
-					<!-- matches distribution management repository url above -->
-					<outputDirectory>${project.build.directory}/mvn-repo</outputDirectory>
-					<branch>refs/heads/mvn-repo</branch>
-					<!-- If you remove this then the old artifact will be removed and new 
-						one will replace. But with the merge tag you can just release by changing 
-						the version -->
-					<merge>true</merge>
-					<includes>
-						<include>**/*</include>
-					</includes>
-					<repositoryName>Xero-Java</repositoryName>
-					<repositoryOwner>XeroAPI</repositoryOwner>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>site</goal>
-						</goals>
-						<phase>deploy</phase>
-					</execution>
-				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -189,15 +229,59 @@
 					</webResources>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9.1</version>
+				<configuration>
+					<source>8</source>
+				</configuration>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.7</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
+			<plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M4</version>
+                <configuration>
+                    <argLine>-Duser.timezone=GMT-08:00</argLine>
+                </configuration>
+            </plugin>
 		</plugins>
 	</build>
 	<reporting>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-project-info-reports-plugin</artifactId>
-				<version>2.9</version>
-			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
@@ -219,4 +303,25 @@
 			</plugin>
 		</plugins>
 	</reporting>
+	<properties>
+		<!-- github server corresponds to entry in ~/.m2/settings.xml -->
+		<github.global.server>github</github.global.server>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+		<swagger-annotations-version>1.5.17</swagger-annotations-version>
+		<google-api-client-version>1.23.0</google-api-client-version>
+		<jersey-common-version>2.25.1</jersey-common-version>
+		<jackson-version>2.9.10</jackson-version>
+		<jackson-databind-version>2.9.10.7</jackson-databind-version>
+		<jackson-threetenbp-version>2.6.4</jackson-threetenbp-version>
+        <junit-version>4.13.1</junit-version>
+        <org-apache-httpcomponents>4.5.3</org-apache-httpcomponents>
+        <jersey-version>2.27</jersey-version>
+        <threetenbp-version>2.6.4</threetenbp-version>
+        <maven-plugin-version>1.0.0</maven-plugin-version>
+        <feign-version>9.7.0</feign-version>
+        <feign-form-version>2.1.0</feign-form-version>
+        <oltu-version>1.0.1</oltu-version>
+	</properties>
 </project>
