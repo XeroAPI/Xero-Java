@@ -102,7 +102,10 @@ public class SalaryAndWage {
   /** The type of the payment of the corresponding salary and wages */
   public enum PaymentTypeEnum {
     /** SALARY */
-    SALARY("Salary");
+    SALARY("Salary"),
+
+    /** HOURLY */
+    HOURLY("Hourly");
 
     private String value;
 
