@@ -9,7 +9,7 @@
     <!-- start *****REPLACE***** SEO meta details-->
     <meta name="description" content="Xero-Java SDK Accounting API Documentation">
     <title>Xero-Java Accounting SDK Docs</title>
-    <meta name="keywords" content="Xero-Java, java, sdk, documentation, docs, XeroAPI, Xero, developer">
+    <meta name="keywords" content="Xero-Java, Java, sdk, documentation, docs, XeroAPI, Xero, developer">
     <!-- end *****REPLACE***** SEO meta details-->
     <meta name="author" content="Xero Developer Evangelists">
     <link rel="shortcut icon" href="https://developer.xero.com/static/favicon.ico" type="image/x-icon">
@@ -309,7 +309,7 @@ td.code {
 }
 
 #content {
-  padding-top: 65px;
+  padding-top: 80px;
   z-index: -1;
   margin-left: 270px;
 }
@@ -826,29 +826,34 @@ ul.nav-tabs {
 
 .xero-logo {
   float: left;
+  margin-top: 5px;
+}
+
+.language {
+  background: #fff;
+  border-radius: 50%;
+  padding: 1px;
 }
 
 .language, .api-set-wrapper {
   float: left;
-  margin-left: 20px;
+  margin-left: 30px;
 }
 
 .language img {
   height: 30px;
   width: auto;
+  padding: 5px;
 }
 
 .api-set {
   float: left;
   margin-left: 30px;
+  margin-top: 5px;
 }
 
 .api-set-wrapper {
   padding-top: 5px;
-}
-
-.api-set-name {
-  color: #fff;
 }
 
     </style>
@@ -5749,26 +5754,27 @@ ul.nav-tabs {
       </div>
       <fieldset class='api-set'>
         <select name="form" id="language-set-selection" onchange="routeDocs(this);">
+          <option data-url="#">-SDK-</option>
           <option data-url="https://xeroapi.github.io/Xero-Java/v4/accounting/index.html" value="java">Java</option>
           <option data-url="https://xeroapi.github.io/xero-node/accounting/index.html" value="node">Node</option>
-          <option data-url="https://github.com/XeroAPI/Xero-NetStandard" value="dotnet">C#</option>
+          <option data-url="https://xeroapi.github.io/Xero-NetStandard/accounting/index.html" value="dotnet">C#</option>
           <option data-url="https://xeroapi.github.io/xero-php-oauth2/docs/v2/accounting/index.html" value="php">PHP</option>
           <option data-url="https://xeroapi.github.io/xero-python/v1/accounting/index.html" value="python">Python</option>
           <option data-url="https://xeroapi.github.io/xero-ruby/accounting/index.html" value="ruby">Ruby</option>
         </select>
       </fieldset>
       <div class='language'>
-        <img alt="" width="115" height="30" class="xrh-app-image" src="https://i.imgur.com/hTwRNlp.png">
+        <img alt="xero-java icon" class="xrh-app-image language-logo" src="https://i.imgur.com/YlFfXNk.png">
         <!-- *****REPLACE***** with a small png of your language -->
       </div>
       <fieldset class='api-set'>
         <select name="form" id="api-set-selection" onchange="routeDocs(this);">
           <!-- *****REPLACE***** `xero-node` with the correct repo naming pattern + also add/delete api sets (ex. Ruby does not have Bankfeeds) -->
+          <option data-url="#">-API-</option>
           <option data-url="https://xeroapi.github.io/Xero-Java/v4/accounting/index.html" value="Accounting">Accounting</option>
         </select>
       </fieldset>
       <div class='api-set-wrapper'>
-        <span class='api-set-name'>Accounting API</span>
         <script>
           $(document).ready(function() {
             const location = window.location.href.toLowerCase()
@@ -5776,14 +5782,14 @@ ul.nav-tabs {
             let sdkName
             if( location.includes('ruby') ){
               sdkLang = 'ruby'
-              sdkName = 'Xero-Java'
+              sdkName = 'xero-ruby'
             } else if (location.includes('node')){
               sdkLang = 'node'
               sdkName = 'xero-node'
             } else if (location.includes('php')){
               sdkLang = 'php'
               sdkName = 'xero-php-oauth2'
-            } else if (location.includes('dotnet')){
+            } else if (location.includes('xero-netstandard') || location.includes('csharp')){
               sdkLang = 'dotnet'
               sdkName = 'Xero-NetStandard'
             } else if (location.includes('java')){
