@@ -601,18 +601,19 @@ public class TokenRefresh {
 ```
 
 **Revoking Tokens**
+
 You can revoke a user's refresh token and remove all their connections to your app by making a request to the revocation endpoint.
 
 We've added a helpful method to the ApiClient class. The code below shows how to pass the id, secret and refresh token to execute the revoke method.  Success
 
 ```java
-    try {
-		ApiClient apiClient = new ApiClient();
-		HttpResponse revokeResponse = apiClient.revoke(clientId, clientSecret, refreshToken);
-		System.out.println("Revoke success: " + revokeResponse.getStatusCode());
-	} catch (Exception e) {
-			System.out.println(e.getMessage());
-	}
+try {
+    ApiClient apiClient = new ApiClient();
+    HttpResponse revokeResponse = apiClient.revoke(clientId, clientSecret, refreshToken);
+    System.out.println("Revoke success: " + revokeResponse.getStatusCode());
+} catch (Exception e) {
+    System.out.println(e.getMessage());
+}
 ```
 
 **Data Endpoints**
