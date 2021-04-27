@@ -89,7 +89,7 @@ public class DeductionLine {
    *
    * @return calculationType
    */
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(value = "")
   /**
    * calculationType
    *

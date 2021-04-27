@@ -285,6 +285,17 @@ public class ManualJournalLine {
   /**
    * The calculated tax amount based on the TaxType and LineAmount
    *
+   * @param taxAmount Double
+   * @return ManualJournalLine
+   */
+  public ManualJournalLine taxAmount(Double taxAmount) {
+    this.taxAmount = taxAmount;
+    return this;
+  }
+
+  /**
+   * The calculated tax amount based on the TaxType and LineAmount
+   *
    * @return taxAmount
    */
   @ApiModelProperty(
@@ -297,6 +308,15 @@ public class ManualJournalLine {
    */
   public Double getTaxAmount() {
     return taxAmount;
+  }
+
+  /**
+   * The calculated tax amount based on the TaxType and LineAmount
+   *
+   * @param taxAmount Double
+   */
+  public void setTaxAmount(Double taxAmount) {
+    this.taxAmount = taxAmount;
   }
 
   /**
