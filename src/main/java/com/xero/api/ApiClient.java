@@ -9,6 +9,12 @@ import com.fasterxml.jackson.datatype.threetenbp.ThreeTenModule;
 import org.threeten.bp.*;
 import com.google.api.client.googleapis.util.Utils;
 import com.google.api.client.http.AbstractHttpContent;
+import com.google.api.client.http.ByteArrayContent;
+import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpContent;
+import com.google.api.client.http.HttpHeaders;
+import com.google.api.client.http.HttpMethods;
+import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpRequestFactory;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.HttpTransport;
@@ -26,6 +32,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.security.interfaces.RSAPublicKey;
 
 /** 
@@ -194,5 +201,36 @@ public class ApiClient {
 		 
     	return verifiedJWT;
     }
-    
+
+    /** method for revoking a refresh token
+     * @param refreshToken String the refresh token used to obtain a new access token via the API
+     * @param clientId String the client id used to authtenticate with the API
+     * @param clientSecret String the client secret used to authtenticate with the API
+     * @return revokeResponse HttpResponse a successful revocation request will return a 200 response with an empty body.
+     */
+    public HttpResponse revoke(String clientId, String clientSecret, String refreshToken) throws IOException {
+
+		// BASIC AUTHENTICATION HEADER
+		HttpHeaders headers = new HttpHeaders();
+	    headers.setBasicAuthentication(clientId, clientSecret);
+		
+	    // POST BODY WITH REFRESH TOKEN
+		String urlParameters  = "token=" + refreshToken;
+		byte[] postData = urlParameters.getBytes( StandardCharsets.UTF_8 );
+		HttpContent content = new ByteArrayContent("application/x-www-form-urlencoded", postData);
+	
+		// REVOKE URL DEFINED
+		GenericUrl url = new GenericUrl("https://identity.xero.com/connect/revocation");
+        		
+		HttpTransport transport = this.getHttpTransport();
+	    HttpRequestFactory requestFactory = transport.createRequestFactory();
+	    HttpResponse revokeResponse = requestFactory
+		    .buildRequest(HttpMethods.POST, url, content)
+		    .setHeaders(headers)
+		    .setConnectTimeout(this.getConnectionTimeout())
+		    .setReadTimeout(this.getReadTimeout())
+		    .execute();
+		
+		return revokeResponse;
+    }
 }

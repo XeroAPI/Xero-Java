@@ -100,7 +100,10 @@ public class Error {
     INVALID_USER_ROLE("invalid-user-role"),
 
     /** ACCOUNT_NOT_VALID */
-    ACCOUNT_NOT_VALID("account-not-valid");
+    ACCOUNT_NOT_VALID("account-not-valid"),
+
+    /** FEED_NOT_FOUND_OR_ALREADY_DELETED */
+    FEED_NOT_FOUND_OR_ALREADY_DELETED("feed-not-found-or-already-deleted");
 
     private String value;
 

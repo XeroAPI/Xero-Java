@@ -95,7 +95,8 @@ public class AccountingApiContactsTest {
         String order = null;
         List<UUID> ids = new ArrayList();
         Boolean includeArchived = null;
-        Contacts response = accountingApi.getContacts(accessToken,xeroTenantId,ifModifiedSince, where, order, ids, null, includeArchived);
+        Boolean summaryOnly = null;
+        Contacts response = accountingApi.getContacts(accessToken,xeroTenantId,ifModifiedSince, where, order, ids, null, includeArchived, summaryOnly);
 
         assertThat(response.getContacts().get(0).getContactID(), is(equalTo(UUID.fromString("5cc8cf28-567e-4d43-b287-687cfcaec47c"))));
         assertThat(response.getContacts().get(0).getName(), is(equalTo("Katherine Warren")));

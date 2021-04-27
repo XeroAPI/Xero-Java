@@ -58,7 +58,10 @@ public class TimeEntry {
     ACTIVE("ACTIVE"),
 
     /** LOCKED */
-    LOCKED("LOCKED");
+    LOCKED("LOCKED"),
+
+    /** INVOICED */
+    INVOICED("INVOICED");
 
     private String value;
 
