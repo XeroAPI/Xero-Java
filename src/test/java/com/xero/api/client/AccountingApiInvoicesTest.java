@@ -231,7 +231,8 @@ public class AccountingApiInvoicesTest {
         Boolean includeArchived = null;
         Boolean createdByMyApp = null;
         Integer unitdp = null;
-        Invoices response = accountingApi.getInvoices(accessToken,xeroTenantId,ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp, unitdp);          
+        Boolean summaryOnly = null;
+        Invoices response = accountingApi.getInvoices(accessToken,xeroTenantId,ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp, summaryOnly, unitdp);          
 
         assertThat(response.getInvoices().get(0).getType(), is(equalTo(com.xero.models.accounting.Invoice.TypeEnum.ACCREC)));
         assertThat(response.getInvoices().get(0).getDateAsDate(), is(equalTo(LocalDate.of(2018,10,20))));  

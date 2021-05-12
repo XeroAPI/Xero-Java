@@ -185,6 +185,9 @@ public class Prepayment {
   @JsonProperty("Allocations")
   private List<Allocation> allocations = new ArrayList<Allocation>();
 
+  @JsonProperty("Payments")
+  private List<Payment> payments = new ArrayList<Payment>();
+
   @JsonProperty("AppliedAmount")
   private Double appliedAmount;
 
@@ -794,6 +797,55 @@ public class Prepayment {
   }
 
   /**
+   * See Payments
+   *
+   * @param payments List&lt;Payment&gt;
+   * @return Prepayment
+   */
+  public Prepayment payments(List<Payment> payments) {
+    this.payments = payments;
+    return this;
+  }
+
+  /**
+   * See Payments
+   *
+   * @param paymentsItem Payment
+   * @return Prepayment
+   */
+  public Prepayment addPaymentsItem(Payment paymentsItem) {
+    if (this.payments == null) {
+      this.payments = new ArrayList<Payment>();
+    }
+    this.payments.add(paymentsItem);
+    return this;
+  }
+
+  /**
+   * See Payments
+   *
+   * @return payments
+   */
+  @ApiModelProperty(value = "See Payments")
+  /**
+   * See Payments
+   *
+   * @return payments List<Payment>
+   */
+  public List<Payment> getPayments() {
+    return payments;
+  }
+
+  /**
+   * See Payments
+   *
+   * @param payments List&lt;Payment&gt;
+   */
+  public void setPayments(List<Payment> payments) {
+    this.payments = payments;
+  }
+
+  /**
    * The amount of applied to an invoice
    *
    * @param appliedAmount Double
@@ -919,6 +971,7 @@ public class Prepayment {
         && Objects.equals(this.currencyRate, prepayment.currencyRate)
         && Objects.equals(this.remainingCredit, prepayment.remainingCredit)
         && Objects.equals(this.allocations, prepayment.allocations)
+        && Objects.equals(this.payments, prepayment.payments)
         && Objects.equals(this.appliedAmount, prepayment.appliedAmount)
         && Objects.equals(this.hasAttachments, prepayment.hasAttachments)
         && Objects.equals(this.attachments, prepayment.attachments);
@@ -943,6 +996,7 @@ public class Prepayment {
         currencyRate,
         remainingCredit,
         allocations,
+        payments,
         appliedAmount,
         hasAttachments,
         attachments);
@@ -968,6 +1022,7 @@ public class Prepayment {
     sb.append("    currencyRate: ").append(toIndentedString(currencyRate)).append("\n");
     sb.append("    remainingCredit: ").append(toIndentedString(remainingCredit)).append("\n");
     sb.append("    allocations: ").append(toIndentedString(allocations)).append("\n");
+    sb.append("    payments: ").append(toIndentedString(payments)).append("\n");
     sb.append("    appliedAmount: ").append(toIndentedString(appliedAmount)).append("\n");
     sb.append("    hasAttachments: ").append(toIndentedString(hasAttachments)).append("\n");
     sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
