@@ -7,7 +7,7 @@
 * [How to use the SDK](#how-to-use-the-xero-java-sdk)
 * [Example Calls](#example-calls)
 * [Revoking a token](#revoking-token)
-* [Client credential grant type](##client-credential-grant-type)
+* [Client credential grant type](#client-credential-grant-type)
 * [Working with dates](#working-with-dates)
 * [Exception Handling](#exception-handling)
 * [Logging](#logging)
