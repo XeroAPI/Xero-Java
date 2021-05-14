@@ -196,6 +196,7 @@ public class ApiClient {
 		 
 		JWTVerifier verifier = JWT.require(algorithm)
 				 .withIssuer("https://identity.xero.com")
+                 .acceptLeeway(1000)
 				 .build();
 		DecodedJWT verifiedJWT = verifier.verify(accessToken);
 		 
