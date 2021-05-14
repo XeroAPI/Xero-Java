@@ -5,8 +5,14 @@
 * [Documentation](#documentation)
 * [Getting Started](#getting-started)
 * [How to use the SDK](#how-to-use-the-xero-java-sdk)
-
-
+* [Example Calls](#example-calls)
+* [Revoking a token](#revoking-token)
+* [Client credential grant type](##client-credential-grant-type)
+* [Working with dates](#working-with-dates)
+* [Exception Handling](#exception-handling)
+* [Logging](#logging)
+* [Older versions](#older-versions)
+* [Contributing](#participating-in-xeros-developer-community)
 
 ## Current release of SDK with oAuth 2 support
 Version 4.x and higher of Xero Java SDK only supports OAuth2 authentication and the following API sets.
@@ -439,22 +445,6 @@ public class TokenRefresh {
 }
 ```
 
-## Revoking Token
-
-You can revoke a user's refresh token and remove all their connections to your app by making a request to the revocation endpoint.
-
-We've added a helpful method to the ApiClient class. The code below shows how to pass the id, secret and refresh token to execute the revoke method.  Success
-
-```java
-try {
-    ApiClient apiClient = new ApiClient();
-    HttpResponse revokeResponse = apiClient.revoke(clientId, clientSecret, refreshToken);
-    System.out.println("Revoke success: " + revokeResponse.getStatusCode());
-} catch (Exception e) {
-    System.out.println(e.getMessage());
-}
-```
-
 ## Example Calls
 
 The Xero Java SDK contains Client classes (AccountingApi, etc) which have helper methods to perform (Create, Read, Update and Delete) actions on each endpoints.  AccountingApi is designed as a Singleton. Use the getInstance method of the class class and use with API models to interact with Java Objects.
@@ -584,25 +574,41 @@ public class AuthenticatedResource extends HttpServlet {
 }
 ```
 
+## Revoking Token
+
+You can revoke a user's refresh token and remove all their connections to your app by making a request to the revocation endpoint.
+
+We've added a helpful method to the ApiClient class. The code below shows how to pass the id, secret and refresh token to execute the revoke method.  Success
+
+```java
+try {
+    ApiClient apiClient = new ApiClient();
+    HttpResponse revokeResponse = apiClient.revoke(clientId, clientSecret, refreshToken);
+    System.out.println("Revoke success: " + revokeResponse.getStatusCode());
+} catch (Exception e) {
+    System.out.println(e.getMessage());
+}
+```
+
 ## Client Credential Grant Type
 
 The code below shows how to perform the OAuth 2 client credential grant flow.  [Custom connections](https://developer.xero.com/announcements/custom-integrations-are-coming/) will utilize this flow when it becomes available.
 
 ```java
-	final String clientId = "--CLIENT-ID--";
+    final String clientId = "--CLIENT-ID--";
     final String clientSecret = "--CLIENT-SECRET--";
- 	final NetHttpTransport HTTP_TRANSPORT = new NetHttpTransport();
+    final NetHttpTransport HTTP_TRANSPORT = new NetHttpTransport();
     final JsonFactory JSON_FACTORY = new JacksonFactory();
 
-	ArrayList<String> appStoreScopeList = new ArrayList<String>();
+    ArrayList<String> appStoreScopeList = new ArrayList<String>();
     appStoreScopeList.add("marketplace.billing");
 
-	// client_credentials 
-	TokenResponse tokenResponse = new ClientCredentialsTokenRequest(HTTP_TRANSPORT, JSON_FACTORY, 
-			new GenericUrl("https://identity.xero.com/connect/token"))
-			.setScopes(appStoreScopeList)
-			.setClientAuthentication( new BasicAuthentication(clientId, clientSecret))
-			.execute();
+    // client_credentials 
+    TokenResponse tokenResponse = new ClientCredentialsTokenRequest(HTTP_TRANSPORT, JSON_FACTORY, 
+        new GenericUrl("https://identity.xero.com/connect/token"))
+        .setScopes(appStoreScopeList)
+        .setClientAuthentication( new BasicAuthentication(clientId, clientSecret))
+        .execute();
 ```
 
 ## Working with dates
