@@ -51,7 +51,7 @@ public class ReportWithRow {
   @JsonProperty("Fields")
   private List<ReportFields> fields = new ArrayList<ReportFields>();
   /**
-   * Report id
+   * ID of the Report
    *
    * @param reportID String
    * @return ReportWithRow
@@ -62,13 +62,13 @@ public class ReportWithRow {
   }
 
   /**
-   * Report id
+   * ID of the Report
    *
    * @return reportID
    */
-  @ApiModelProperty(value = "Report id")
+  @ApiModelProperty(value = "ID of the Report")
   /**
-   * Report id
+   * ID of the Report
    *
    * @return reportID String
    */
@@ -77,7 +77,7 @@ public class ReportWithRow {
   }
 
   /**
-   * Report id
+   * ID of the Report
    *
    * @param reportID String
    */

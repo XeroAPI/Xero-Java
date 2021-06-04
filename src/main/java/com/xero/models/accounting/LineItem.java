@@ -41,6 +41,9 @@ public class LineItem {
   @JsonProperty("AccountCode")
   private String accountCode;
 
+  @JsonProperty("AccountID")
+  private UUID accountID;
+
   @JsonProperty("TaxType")
   private String taxType;
 
@@ -281,6 +284,43 @@ public class LineItem {
    */
   public void setAccountCode(String accountCode) {
     this.accountCode = accountCode;
+  }
+
+  /**
+   * The associated account ID related to this line item
+   *
+   * @param accountID UUID
+   * @return LineItem
+   */
+  public LineItem accountID(UUID accountID) {
+    this.accountID = accountID;
+    return this;
+  }
+
+  /**
+   * The associated account ID related to this line item
+   *
+   * @return accountID
+   */
+  @ApiModelProperty(
+      example = "00000000-0000-0000-0000-000000000000",
+      value = "The associated account ID related to this line item")
+  /**
+   * The associated account ID related to this line item
+   *
+   * @return accountID UUID
+   */
+  public UUID getAccountID() {
+    return accountID;
+  }
+
+  /**
+   * The associated account ID related to this line item
+   *
+   * @param accountID UUID
+   */
+  public void setAccountID(UUID accountID) {
+    this.accountID = accountID;
   }
 
   /**
@@ -606,6 +646,7 @@ public class LineItem {
         && Objects.equals(this.unitAmount, lineItem.unitAmount)
         && Objects.equals(this.itemCode, lineItem.itemCode)
         && Objects.equals(this.accountCode, lineItem.accountCode)
+        && Objects.equals(this.accountID, lineItem.accountID)
         && Objects.equals(this.taxType, lineItem.taxType)
         && Objects.equals(this.taxAmount, lineItem.taxAmount)
         && Objects.equals(this.lineAmount, lineItem.lineAmount)
@@ -624,6 +665,7 @@ public class LineItem {
         unitAmount,
         itemCode,
         accountCode,
+        accountID,
         taxType,
         taxAmount,
         lineAmount,
@@ -643,6 +685,7 @@ public class LineItem {
     sb.append("    unitAmount: ").append(toIndentedString(unitAmount)).append("\n");
     sb.append("    itemCode: ").append(toIndentedString(itemCode)).append("\n");
     sb.append("    accountCode: ").append(toIndentedString(accountCode)).append("\n");
+    sb.append("    accountID: ").append(toIndentedString(accountID)).append("\n");
     sb.append("    taxType: ").append(toIndentedString(taxType)).append("\n");
     sb.append("    taxAmount: ").append(toIndentedString(taxAmount)).append("\n");
     sb.append("    lineAmount: ").append(toIndentedString(lineAmount)).append("\n");
