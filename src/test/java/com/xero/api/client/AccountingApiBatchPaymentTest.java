@@ -113,7 +113,7 @@ public class AccountingApiBatchPaymentTest {
 		UUID batchPaymentID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");	
 
 		HistoryRecords hr = accountingApi.getBatchPaymentHistory(accessToken,xeroTenantId,batchPaymentID);
-		assertThat(hr.getHistoryRecords().get(0).getUser(), is(equalTo("Sidney Maestre")));		
+		assertThat(hr.getHistoryRecords().get(0).getUser(), is(equalTo("Buzz Lightyear")));		
 		assertThat(hr.getHistoryRecords().get(0).getChanges(), is(equalTo("Approved")));		
 		//System.out.println(hr.getHistoryRecords().toString());		
 	}

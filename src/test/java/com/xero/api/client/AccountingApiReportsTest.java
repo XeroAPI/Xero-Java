@@ -90,7 +90,6 @@ public class AccountingApiReportsTest {
        
             ReportWithRows response = accountingApi.getReportAgedPayablesByContact(accessToken,xeroTenantId,contactId, date, fromDate, toDate);
             
-            assertThat(response.getReports().get(0).getReportID(), is(equalTo("AgedPayablesByContact")));
             assertThat(response.getReports().get(0).getReportName(), is(equalTo("Aged Payables By Contact")));
             assertThat(response.getReports().get(0).getReportType(), is("AgedPayablesByContact"));
             assertThat(response.getReports().get(0).getReportTitles().get(0), is(equalTo("Invoices")));
@@ -127,7 +126,6 @@ public class AccountingApiReportsTest {
         LocalDate toDate = null;
         ReportWithRows response = accountingApi.getReportAgedReceivablesByContact(accessToken,xeroTenantId,contactId, date, fromDate, toDate);
 
-        assertThat(response.getReports().get(0).getReportID(), is(equalTo("AgedReceivablesByContact")));
         assertThat(response.getReports().get(0).getReportName(), is(equalTo("Aged Receivables By Contact")));
         assertThat(response.getReports().get(0).getReportType(), is("AgedReceivablesByContact"));
         assertThat(response.getReports().get(0).getReportTitles().get(0), is(equalTo("Invoices")));
@@ -168,7 +166,6 @@ public class AccountingApiReportsTest {
         Boolean paymentsOnly = null;
         ReportWithRows response = accountingApi.getReportBalanceSheet(accessToken,xeroTenantId,date, periods, timeframe, trackingOptionID1, trackingOptionID2, standardLayout, paymentsOnly);
 
-        assertThat(response.getReports().get(0).getReportID(), is(equalTo("BalanceSheet")));
         assertThat(response.getReports().get(0).getReportName(), is(equalTo("Balance Sheet")));
         assertThat(response.getReports().get(0).getReportType(), is(equalTo("BalanceSheet")));
         assertThat(response.getReports().get(0).getReportTitles().get(0), is(equalTo("Balance Sheet")));
@@ -194,7 +191,6 @@ public class AccountingApiReportsTest {
         LocalDate fromDate = null;  
         
         ReportWithRows response = accountingApi.getReportBankSummary(accessToken,xeroTenantId,fromDate, toDate );
-        assertThat(response.getReports().get(0).getReportID(), is(equalTo("BankSummary")));
         assertThat(response.getReports().get(0).getReportName(), is(equalTo("Bank Summary")));
         assertThat(response.getReports().get(0).getReportType(), is("BankSummary"));
         assertThat(response.getReports().get(0).getReportTitles().get(0), is(equalTo("Bank Summary")));
@@ -225,11 +221,10 @@ public class AccountingApiReportsTest {
     
         ReportWithRows response = accountingApi.getReportExecutiveSummary(accessToken,xeroTenantId,date);
 
-        assertThat(response.getReports().get(0).getReportID(), is(equalTo("ExecutiveSummary")));
         assertThat(response.getReports().get(0).getReportName(), is(equalTo("Executive Summary")));
         assertThat(response.getReports().get(0).getReportType(), is("ExecutiveSummary"));
         assertThat(response.getReports().get(0).getReportTitles().get(0), is(equalTo("Executive Summary")));
-        assertThat(response.getReports().get(0).getReportTitles().get(1), is(equalTo("Mind Body Online Test 11")));
+        assertThat(response.getReports().get(0).getReportTitles().get(1), is(equalTo("Online Test 11")));
         assertThat(response.getReports().get(0).getReportTitles().get(2), is(equalTo("For the month of November 2019")));
         assertThat(response.getReports().get(0).getReportDate(), is(equalTo("14 November 2019")));
         assertThat(response.getReports().get(0).getRows().get(0).getRowType(), is(equalTo(com.xero.models.accounting.RowType.HEADER)));
@@ -283,7 +278,6 @@ public class AccountingApiReportsTest {
         Boolean paymentsOnly = null;
         ReportWithRows response = accountingApi.getReportTrialBalance(accessToken,xeroTenantId,date, paymentsOnly);
         
-        assertThat(response.getReports().get(0).getReportID(), is(equalTo("TrialBalance")));
         assertThat(response.getReports().get(0).getReportName(), is(equalTo("Trial Balance")));
         assertThat(response.getReports().get(0).getReportType(), is("TrialBalance"));
         assertThat(response.getReports().get(0).getReportTitles().get(0), is(equalTo("Trial Balance")));
@@ -313,12 +307,11 @@ public class AccountingApiReportsTest {
         Integer timeframe = null;
         ReportWithRows response = accountingApi.getReportBudgetSummary(accessToken,xeroTenantId,date, period, timeframe);
 
-        assertThat(response.getReports().get(0).getReportID(), is(equalTo("BudgetSummary")));
         assertThat(response.getReports().get(0).getReportName(), is(equalTo("Budget Summary")));
         assertThat(response.getReports().get(0).getReportType(), is("BudgetSummary"));
         assertThat(response.getReports().get(0).getReportTitles().get(0), is(equalTo("Overall Budget")));
         assertThat(response.getReports().get(0).getReportTitles().get(1), is(equalTo("Budget Summary")));
-        assertThat(response.getReports().get(0).getReportTitles().get(2), is(equalTo("Mind Body Online Test 11")));
+        assertThat(response.getReports().get(0).getReportTitles().get(2), is(equalTo("Online Test 11")));
         assertThat(response.getReports().get(0).getReportTitles().get(3), is(equalTo("November 2019 to October 2022")));
         assertThat(response.getReports().get(0).getReportDate(), is(equalTo("14 November 2019")));
         assertThat(response.getReports().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-14T18:10:37.865Z")))); 
@@ -356,7 +349,6 @@ public class AccountingApiReportsTest {
     
         ReportWithRows response = accountingApi.getReportProfitAndLoss(accessToken,xeroTenantId,fromDate, toDate, periods, timeframe, trackingCategoryID, trackingCategoryID2, trackingOptionID, trackingOptionID2, standardLayout, paymentsOnly);
 
-        // assertThat(response.getReports().get(0).getReportID(), is(equalTo("ProfitAndLoss")));
         // assertThat(response.getReports().get(0).getReportName(), is(equalTo("Profit and Loss")));
         // assertThat(response.getReports().get(0).getReportType(), is("ProfitAndLoss"));
         // assertThat(response.getReports().get(0).getReportTitles().get(0), is(equalTo("Income Statement")));
@@ -376,24 +368,5 @@ public class AccountingApiReportsTest {
         // assertThat(response.getReports().get(0).getRows().get(1).getRows().get(0).getCells().get(1).getAttributes().get(0).getValue().toString(), is(equalTo("da962997-a8bd-4dff-9616-01cdc199283f")));
      
         //System.out.println(response.toString());
-    }
-
-    @Test
-    public void getReportBASorGSTTest() throws IOException {
-        System.out.println("@Test - getReportBASorGST - not implemented");
-        String reportID = null;
-        //ReportWithRows response = accountingApi.getReportBASorGST(reportID);
-
-        // TODO: test validations
-        //System.out.println(response.getReports().get(0).toString());
-    }
-
-    @Test
-    public void getReportBASorGSTListTest() throws IOException {
-        System.out.println("@Test - getReportBASorGSTList - not implemented");
-        //ReportWithRows response = accountingApi.getReportBASorGSTList();
-
-        // TODO: test validations
-        //System.out.println(response.getReports().get(0).toString());
     }
 }

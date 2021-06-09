@@ -124,7 +124,7 @@ public class AccountingApiBrandingThemeTest {
 		btPaymentService.setPaymentServiceUrl("http://www.mydomain.com/paymentservice");
 		btPaymentService.setPayNowText("Pay Now");
 		PaymentServices response = accountingApi.createBrandingThemePaymentServices(accessToken,xeroTenantId,brandingThemeId, btPaymentService);	
-		assertThat(response.getPaymentServices().get(0).getPaymentServiceID().toString(), is(equalTo("dede7858-14e3-4a46-bf95-4d4cc491e645")));
+		assertThat(response.getPaymentServices().get(0).getPaymentServiceID().toString(), is(equalTo("00000000-0000-0000-0000-000000000000")));
 		assertThat(response.getPaymentServices().get(0).getPaymentServiceName(), is(equalTo("ACME Payments")));
 		assertThat(response.getPaymentServices().get(0).getPaymentServiceUrl(), is(equalTo("https://www.payupnow.com/")));
 		assertThat(response.getPaymentServices().get(0).getPayNowText(), is(equalTo("Pay Now")));
