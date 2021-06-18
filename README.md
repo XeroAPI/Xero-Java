@@ -654,7 +654,7 @@ class TryCatchExample {
     try {
       // Create contact with the same name as an existing contact will generate a validation error.
       Contact contact = new Contact();
-      contact.setName("Sidney Maestre");
+      contact.setName("Test user");
       Contacts createContact1 = accountingApi.createContact(accessToken, xeroTenantId, contact);
       Contacts createContact2 = accountingApi.createContact(accessToken, xeroTenantId, contact);
     } catch (XeroBadRequestException e) {

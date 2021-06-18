@@ -26,9 +26,6 @@ import org.threeten.bp.OffsetDateTime;
 public class Report {
   StringUtil util = new StringUtil();
 
-  @JsonProperty("ReportID")
-  private String reportID;
-
   @JsonProperty("ReportName")
   private String reportName;
   /** See Prepayment Types */
@@ -92,41 +89,6 @@ public class Report {
 
   @JsonProperty("Contacts")
   private List<TenNinetyNineContact> contacts = new ArrayList<TenNinetyNineContact>();
-  /**
-   * See Prepayment Types
-   *
-   * @param reportID String
-   * @return Report
-   */
-  public Report reportID(String reportID) {
-    this.reportID = reportID;
-    return this;
-  }
-
-  /**
-   * See Prepayment Types
-   *
-   * @return reportID
-   */
-  @ApiModelProperty(value = "See Prepayment Types")
-  /**
-   * See Prepayment Types
-   *
-   * @return reportID String
-   */
-  public String getReportID() {
-    return reportID;
-  }
-
-  /**
-   * See Prepayment Types
-   *
-   * @param reportID String
-   */
-  public void setReportID(String reportID) {
-    this.reportID = reportID;
-  }
-
   /**
    * See Prepayment Types
    *
@@ -355,8 +317,7 @@ public class Report {
       return false;
     }
     Report report = (Report) o;
-    return Objects.equals(this.reportID, report.reportID)
-        && Objects.equals(this.reportName, report.reportName)
+    return Objects.equals(this.reportName, report.reportName)
         && Objects.equals(this.reportType, report.reportType)
         && Objects.equals(this.reportTitle, report.reportTitle)
         && Objects.equals(this.reportDate, report.reportDate)
@@ -366,15 +327,13 @@ public class Report {
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        reportID, reportName, reportType, reportTitle, reportDate, updatedDateUTC, contacts);
+    return Objects.hash(reportName, reportType, reportTitle, reportDate, updatedDateUTC, contacts);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Report {\n");
-    sb.append("    reportID: ").append(toIndentedString(reportID)).append("\n");
     sb.append("    reportName: ").append(toIndentedString(reportName)).append("\n");
     sb.append("    reportType: ").append(toIndentedString(reportType)).append("\n");
     sb.append("    reportTitle: ").append(toIndentedString(reportTitle)).append("\n");

@@ -87,9 +87,9 @@ public class AccountingApiUsersTest {
         Users response = accountingApi.getUser(accessToken,xeroTenantId,userID);
 
         assertThat(response.getUsers().get(0).getUserID(), is(equalTo(UUID.fromString("3c37ef1d-cd49-4589-9787-3c418ed8b6ac"))));
-        assertThat(response.getUsers().get(0).getEmailAddress(), is(equalTo("sid.maestre@xero.com")));
-        assertThat(response.getUsers().get(0).getFirstName(), is(equalTo("Sidney")));
-        assertThat(response.getUsers().get(0).getLastName(), is(equalTo("Maestre")));
+        assertThat(response.getUsers().get(0).getEmailAddress(), is(equalTo("test@email.com")));
+        assertThat(response.getUsers().get(0).getFirstName(), is(equalTo("Test")));
+        assertThat(response.getUsers().get(0).getLastName(), is(equalTo("Xero")));
         assertThat(response.getUsers().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2017-10-20T18:14:21.613Z"))));
         assertThat(response.getUsers().get(0).getIsSubscriber(), is(equalTo(false)));
         assertThat(response.getUsers().get(0).getOrganisationRole(), is(equalTo(com.xero.models.accounting.User.OrganisationRoleEnum.FINANCIALADVISER)));
@@ -105,9 +105,9 @@ public class AccountingApiUsersTest {
         Users response = accountingApi.getUsers(accessToken,xeroTenantId,ifModifiedSince, where, order);
 
         assertThat(response.getUsers().get(0).getUserID(), is(equalTo(UUID.fromString("3c37ef1d-cd49-4589-9787-3c418ed8b6ac"))));
-        assertThat(response.getUsers().get(0).getEmailAddress(), is(equalTo("sid.maestre@xero.com")));
-        assertThat(response.getUsers().get(0).getFirstName(), is(equalTo("Sidney")));
-        assertThat(response.getUsers().get(0).getLastName(), is(equalTo("Maestre")));
+        assertThat(response.getUsers().get(0).getEmailAddress(), is(equalTo("test@email.com")));
+        assertThat(response.getUsers().get(0).getFirstName(), is(equalTo("Test")));
+        assertThat(response.getUsers().get(0).getLastName(), is(equalTo("Xero")));
         assertThat(response.getUsers().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2017-10-20T18:14:21.613Z"))));
         assertThat(response.getUsers().get(0).getIsSubscriber(), is(equalTo(false)));
         assertThat(response.getUsers().get(0).getOrganisationRole(), is(equalTo(com.xero.models.accounting.User.OrganisationRoleEnum.FINANCIALADVISER)));
