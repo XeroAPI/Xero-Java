@@ -17,6 +17,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import org.threeten.bp.OffsetDateTime;
@@ -87,10 +89,10 @@ public class Budget {
   private String updatedDateUTC;
 
   @JsonProperty("BudgetLines")
-  private BudgetLines budgetLines;
+  private List<BudgetLine> budgetLines = new ArrayList<BudgetLine>();
 
   @JsonProperty("Tracking")
-  private TrackingCategory tracking;
+  private List<TrackingCategory> tracking = new ArrayList<TrackingCategory>();
   /**
    * Xero identifier
    *
@@ -231,11 +233,25 @@ public class Budget {
   /**
    * budgetLines
    *
-   * @param budgetLines BudgetLines
+   * @param budgetLines List&lt;BudgetLine&gt;
    * @return Budget
    */
-  public Budget budgetLines(BudgetLines budgetLines) {
+  public Budget budgetLines(List<BudgetLine> budgetLines) {
     this.budgetLines = budgetLines;
+    return this;
+  }
+
+  /**
+   * budgetLines
+   *
+   * @param budgetLinesItem BudgetLine
+   * @return Budget
+   */
+  public Budget addBudgetLinesItem(BudgetLine budgetLinesItem) {
+    if (this.budgetLines == null) {
+      this.budgetLines = new ArrayList<BudgetLine>();
+    }
+    this.budgetLines.add(budgetLinesItem);
     return this;
   }
 
@@ -248,29 +264,43 @@ public class Budget {
   /**
    * budgetLines
    *
-   * @return budgetLines BudgetLines
+   * @return budgetLines List<BudgetLine>
    */
-  public BudgetLines getBudgetLines() {
+  public List<BudgetLine> getBudgetLines() {
     return budgetLines;
   }
 
   /**
    * budgetLines
    *
-   * @param budgetLines BudgetLines
+   * @param budgetLines List&lt;BudgetLine&gt;
    */
-  public void setBudgetLines(BudgetLines budgetLines) {
+  public void setBudgetLines(List<BudgetLine> budgetLines) {
     this.budgetLines = budgetLines;
   }
 
   /**
    * tracking
    *
-   * @param tracking TrackingCategory
+   * @param tracking List&lt;TrackingCategory&gt;
    * @return Budget
    */
-  public Budget tracking(TrackingCategory tracking) {
+  public Budget tracking(List<TrackingCategory> tracking) {
     this.tracking = tracking;
+    return this;
+  }
+
+  /**
+   * tracking
+   *
+   * @param trackingItem TrackingCategory
+   * @return Budget
+   */
+  public Budget addTrackingItem(TrackingCategory trackingItem) {
+    if (this.tracking == null) {
+      this.tracking = new ArrayList<TrackingCategory>();
+    }
+    this.tracking.add(trackingItem);
     return this;
   }
 
@@ -283,18 +313,18 @@ public class Budget {
   /**
    * tracking
    *
-   * @return tracking TrackingCategory
+   * @return tracking List<TrackingCategory>
    */
-  public TrackingCategory getTracking() {
+  public List<TrackingCategory> getTracking() {
     return tracking;
   }
 
   /**
    * tracking
    *
-   * @param tracking TrackingCategory
+   * @param tracking List&lt;TrackingCategory&gt;
    */
-  public void setTracking(TrackingCategory tracking) {
+  public void setTracking(List<TrackingCategory> tracking) {
     this.tracking = tracking;
   }
 

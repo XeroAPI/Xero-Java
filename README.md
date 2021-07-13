@@ -1,53 +1,60 @@
-# Xero-Java OAuth 2.0
-
-[![Maven Central](https://img.shields.io/maven-central/v/com.github.xeroapi/xero-java.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22com.github.xeroapi%22%20AND%20a:%22xero-java%22)
-
-* [Documentation](#documentation)
-* [Getting Started](#getting-started)
-* [How to use the SDK](#how-to-use-the-xero-java-sdk)
-* [Example Calls](#example-calls)
-* [Revoking a token](#revoking-token)
-* [Client credential grant type](#client-credential-grant-type)
-* [Working with dates](#working-with-dates)
-* [Exception Handling](#exception-handling)
-* [Logging](#logging)
-* [Older versions](#older-versions)
-* [Contributing](#participating-in-xeros-developer-community)
-
-## Current release of SDK with oAuth 2 support
-Version 4.x and higher of Xero Java SDK only supports OAuth2 authentication and the following API sets.
-* accounting 
-* identity
-* bank feeds
-* fixed asset 
-* projects
-* payroll au
-* payroll uk
-* payroll nz
-* files 
-
-## Documentation
-We've begun generating SDK documentation with code examples for each method.
-
-* [Accounting](https://xeroapi.github.io/Xero-Java/v4/accounting/index.html) 
-
-Coming Soon
-* identity
-* bank feeds
-* fixed asset 
-* projects
-* payroll au
-* payroll uk
-* payroll nz
-* files
-
-All third party libraries dependencies managed with Maven.
+# Xero-Java
+[![Xero-Java](https://maven-badges.herokuapp.com/maven-central/com.github.xeroapi/xero-java/badge.svg?style=plastic)](https://maven-badges.herokuapp.com/maven-central/com.github.xeroapi/xero-java)
+[![Github forks](https://img.shields.io/github/forks/XeroAPI/Xero-Java.svg)](https://github.com/XeroAPI/Xero-Java/network)
+[![Github stars](https://img.shields.io/github/stars/XeroAPI/Xero-Java.svg)](https://github.com/XeroAPI/Xero-Java/stargazers)
 
 
-## Getting Started
+The **Xero-Java** SDK makes it easy for developers to access Xero's APIs in their **Java** code, and build robust applications and software using small business & general ledger accounting data.
+# Table of Contents
+- [API Client documentation](#api-client-documentation)
+- [Sample Applications](#sample-applications)
+- [Xero Account Requirements](#xero-account-requirements)
+- [Installation](#installation)
+- [Authentication](#authentication)
+- [Custom Connections](#custom-connections)
+- [API Clients](#api-clients)
+- [Usage Examples](#usage-examples)
+- [SDK conventions](#sdk-conventions)
+- [Participating in Xero’s developer community](#participating-in-xeros-developoer-community)
 
-### Add Xero-Java Dependency
+<hr>
 
+## API Client documentation
+This SDK supports full method coverage for the following Xero API sets:
+
+| API Set | Description |
+| --- | --- |
+| [`Accounting`](https://xeroapi.github.io/Xero-Java/v4/accounting/index.html) | The Accounting API exposes accounting functions of the main Xero application *(most commonly used)*
+| [Assets](https://xeroapi.github.io/Xero-Java/v4/assets/index.html) | The Assets API exposes fixed asset related functions of the Xero Accounting application |
+| [Files](https://xeroapi.github.io/Xero-Java/v4/files/index.html) | The Files API provides access to the files, folders, and the association of files within a Xero organisation |
+| [Projects](https://xeroapi.github.io/Xero-Java/v4/projects/index.html) | Xero Projects allows businesses to track time and costs on projects/jobs and report on profitability |
+| [Payroll (AU)](https://xeroapi.github.io/Xero-Java/v4/payroll_au/index.html) | The (AU) Payroll API exposes payroll related functions of the payroll Xero application |
+| [Payroll (UK)](https://xeroapi.github.io/Xero-Java/v4/payroll_uk/index.html) | The (UK) Payroll API exposes payroll related functions of the payroll Xero application |
+| [Payroll (NZ)](https://xeroapi.github.io/Xero-Java/v4/payroll_nz/index.html) | The (NZ) Payroll API exposes payroll related functions of the payroll Xero application |
+| [Payroll (NZ)](https://xeroapi.github.io/Xero-Java/v4/bankfeeds/index.html) | The Bankfeeds API exposes Bankfeed functions - this is a restricted API - [Contact us](https://www.xero.com/partner-programs/financialweb/contact/) to get permission to use|
+
+<img src="https://i.imgur.com/cvuZGNN.png" alt="drawing" width="350"/>
+
+<hr>
+
+## Sample Applications
+Sample apps can get you started quickly with simple auth flows and advanced usage examples.
+
+| Sample App | Description | Screenshot |
+| --- | --- |
+| [`starter-app`](https://github.com/XeroAPI/xero-java-oauth2-starter) | Basic getting started code samples
+| [`full-app`](https://github.com/XeroAPI/xero-java-oauth2-app) | Complete app with more examples
+| [`custom-connections-starter`](https://github.com/XeroAPI/xero-java-custom-connections-starter) | Basic app showing Custom Connections - a Xero [premium option](https://developer.xero.com/documentation/oauth2/custom-connections) for building M2M integrations to a single org
+
+<hr>
+
+## Xero Account Requirements
+- Create a [free Xero user account](https://www.xero.com/us/signup/api/)
+- Login to your Xero developer [dashboard](https://developer.xero.com/app/manage) and create an API application
+- Copy the credentials from your API app and store them using a secure ENV variable strategy
+- Decide the [neccesary scopes](https://developer.xero.com/documentation/oauth2/scopes) for your app's functionality
+
+## Installation
 Add the Xero Java SDK dependency to project via maven, gradle, sbt or other build tools can be found on [maven central](https://search.maven.org/search?q=g:com.github.xeroapi).
 
 ```xml
@@ -58,25 +65,18 @@ Add the Xero Java SDK dependency to project via maven, gradle, sbt or other buil
 </dependency>
 ```
 
-### Create a Xero App
-Follow these steps to create your Xero app
-
-* Create a [free Xero user account](https://www.xero.com/us/signup/api/) (if you don't have one)
-* Login to [Xero developer center](https://developer.xero.com/myapps)
-* Click "New app" button
-* Enter your App name, company url, privacy policy url.
-* Enter the redirect URI (this is your callback url - localhost, etc)
-* Agree to terms and condition and click "Create App".
-* Click "Generate a secret" button.
-* Copy your client id and client secret and save for use later.
-* Click the "Save" button. Your secret is now hidden.
-
-## How to use the Xero-Java SDK
+---
+## Authentication
+All API requests go through Xero's OAuth 2.0 gateway and require a valid `access_token` to be set on the `client` which appends the `access_token` [JWT](https://jwt.io/) to the header of each request.
 
 The code below shows how to perform the OAuth 2 authorization code flow.
 
-### Authorization
-Create your [Xero app](https://developer.xero.com/myapps) to obtain your clientId, clientSecret and set your redirectUri.  The redirectUri is your server that Xero will send a user back to once authorization is complete (aka callback url).
+1. *Authorization.java*
+2. *Callback.java*
+3. *TokenStorage.java*
+4. *TokenRefresh.java*
+
+Create your [Xero app](https://developer.xero.com/myapps) to obtain your clientId, clientSecret and set your redirectUri. The redirectUri is your server that Xero will send a user back to once authorization is complete (aka callback url).
 
 You can add or remove resources from the scopeList for your integration. We have a [list of all available scopes](https://developer.xero.com/documentation/oauth2/scopes).
 
@@ -445,7 +445,64 @@ public class TokenRefresh {
 }
 ```
 
-## Example Calls
+It is recommended that you store this token set JSON in a datastore in relation to the user who has authenticated the Xero API connection. Each time you want to call the Xero API, you will need to access the previously generated token set, initialize it on the SDK `client`, and refresh your `access_token` prior to making API calls.
+
+### Token Set
+| key | value | description |
+| --- | --- | --- |
+| id_token: | "xxx.yyy.zzz" | [OpenID Connect](https://openid.net/connect/) token returned if `openid profile email` scopes accepted |
+| access_token: | "xxx.yyy.zzz" | [Bearer token](https://oauth.net/2/jwt/) with a 30 minute expiration required for all API calls |
+| expires_in: | 1800 | Time in seconds till the token expires - 1800s is 30m |
+| refresh_token: | "XXXXXXX" | Alphanumeric string used to obtain a new Token Set w/ a fresh access_token - 60 day expiry |
+| scope: | "email profile openid accounting.transactions offline_access" | The Xero permissions that are embedded in the `access_token` |
+
+---
+## Custom Connections 
+
+Custom Connections are a Xero [premium option](https://developer.xero.com/documentation/oauth2/custom-connections) used for building M2M integrations to a single organisation. A custom connection uses OAuth 2.0's [`client_credentials`](https://www.oauth.com/oauth2-servers/access-tokens/client-credentials/) grant which eliminates the step of exchanging the temporary code for a token set.
+
+> [Sample Application full code example](https://github.com/XeroAPI/xero-java-custom-connections-starter)
+
+To use this SDK with a Custom Connection:
+```java
+    final String clientId = "--CLIENT-ID--";
+    final String clientSecret = "--CLIENT-SECRET--";
+    final NetHttpTransport HTTP_TRANSPORT = new NetHttpTransport();
+    final JsonFactory JSON_FACTORY = new JacksonFactory();
+
+    ArrayList<String> appStoreScopeList = new ArrayList<String>();
+    appStoreScopeList.add("marketplace.billing");
+
+    // client_credentials 
+    TokenResponse tokenResponse = new ClientCredentialsTokenRequest(HTTP_TRANSPORT, JSON_FACTORY, 
+        new GenericUrl("https://identity.xero.com/connect/token"))
+        .setScopes(appStoreScopeList)
+        .setClientAuthentication( new BasicAuthentication(clientId, clientSecret))
+        .execute();
+```
+
+Because Custom Connections are only valid for a single organisation you don't need to set the specific `xero-tenant-id` anymore which can now simply be set as an empy string.
+
+---
+## API Clients
+You can access the different API sets and their available methods through the following:
+
+```java
+ApiClient defaultClient = new ApiClient();
+
+// Get Singleton - instance of sub client
+accountingApi = AccountingApi.getInstance(defaultClient);
+assetApi = AssetApi.getInstance(defaultClient);
+bankFeedsApi = BankfeedsApi.getInstance(defaultClient);
+filesApi = FilesApi.getInstance(defaultClient);
+projectApi = ProjectNzApi.getInstance(defaultClient);
+identityApi = IdentityApi.getInstance(defaultClient);
+payrollAuApi = PayrollAuApi.getInstance(defaultClient);
+payrollUkApi = PayrollUkApi.getInstance(defaultClient);
+payrollNzApi = PayrollNzApi.getInstance(defaultClient);
+```
+---
+## Usage Examples
 
 The Xero Java SDK contains Client classes (AccountingApi, etc) which have helper methods to perform (Create, Read, Update and Delete) actions on each endpoints.  AccountingApi is designed as a Singleton. Use the getInstance method of the class class and use with API models to interact with Java Objects.
 
@@ -574,11 +631,10 @@ public class AuthenticatedResource extends HttpServlet {
 }
 ```
 
-## Revoking Token
-
+### Revoking Token
 You can revoke a user's refresh token and remove all their connections to your app by making a request to the revocation endpoint.
 
-We've added a helpful method to the ApiClient class. The code below shows how to pass the id, secret and refresh token to execute the revoke method.  Success
+We've added a helpful method to the ApiClient class. The code below shows how to pass the id, secret and refresh token to execute the revoke method. Success
 
 ```java
 try {
@@ -590,37 +646,18 @@ try {
 }
 ```
 
-## Client Credential Grant Type
+## SDK conventions
 
-The code below shows how to perform the OAuth 2 client credential grant flow.  [Custom connections](https://developer.xero.com/announcements/custom-integrations-are-coming/) will utilize this flow when it becomes available.
+### Working with dates
+Both our Accounting and AU Payroll APIs use [Microsoft .NET JSON format](https://developer.xero.com/documentation/api/accounting/requests-and-responses/#JSON) i.e. "/Date(1439434356790)/". Our other APIs use standard date formatting i.e. "2020-03-24T18:43:43.860852". Building our SDKs from OpenAPI specs with such different date formats has been challenging.
 
-```java
-    final String clientId = "--CLIENT-ID--";
-    final String clientSecret = "--CLIENT-SECRET--";
-    final NetHttpTransport HTTP_TRANSPORT = new NetHttpTransport();
-    final JsonFactory JSON_FACTORY = new JacksonFactory();
+For this reason, we've decided dates in MS .NET JSON format will be strings with NO date or date-time format in our OpenAPI specs. This means developers wanting to use our OpenAPI specs with code generators won't run into deserialization issues trying to handle MS .NET JSON format dates.
 
-    ArrayList<String> appStoreScopeList = new ArrayList<String>();
-    appStoreScopeList.add("marketplace.billing");
+The side effect is accounting and AU payroll models now have two getter methods. For example, getDateOfBirth() returns the string "/Date(1439434356790)/" while getDateOfBirthAsDate() return a standard date "2020-05-14". Since you can overload methods in Java setDateOfBirth() can accept a String or a LocalDate.
 
-    // client_credentials 
-    TokenResponse tokenResponse = new ClientCredentialsTokenRequest(HTTP_TRANSPORT, JSON_FACTORY, 
-        new GenericUrl("https://identity.xero.com/connect/token"))
-        .setScopes(appStoreScopeList)
-        .setClientAuthentication( new BasicAuthentication(clientId, clientSecret))
-        .execute();
-```
+This is a breaking change between version 3.x and 4.x.
 
-## Working with dates
-Both our Accounting and AU Payroll APIs use [Microsoft .NET JSON format](https://developer.xero.com/documentation/api/requests-and-responses#JSON) i.e. "\/Date(1439434356790)\/". Our other APIs use standard date formatting i.e. "2020-03-24T18:43:43.860852". Building our SDKs from OpenAPI specs with such different date formats has been challenging.
-
-For this reason, we've decided dates in MS .NET JSON format will be  strings with NO date or date-time format in our OpenAPI specs. This means developers wanting to use our OpenAPI specs with code generators won't run into deserialization issues trying to handle MS .NET JSON format dates.
-
-The side effect is accounting and AU payroll models now have two getter methods. For example, getDateOfBirth() returns the string "\/Date(1439434356790)\/" while getDateOfBirthAsDate() return a standard date "2020-05-14". Since you can overload methods in Java setDateOfBirth() can accept a String or a LocalDate. 
-
-**This is a breaking change between version 3.x and 4.x.**
-
-## Exception Handling
+### Exception Handling
 As we work to expand API coverage in our SDKs through new OpenAPI specs, we've discovered that error messages returned by different Xero API sets can vary greatly. Specifically, we found the format of validation errors differ enough that our current exception handling resulted in details being lost as exceptions bubbled up.
 
 
@@ -791,27 +828,28 @@ class TryCatchExample {
 }
 ```
 
-## Logging
+### Logging
 We've replace a specific logging plugin (org.apache.logging.log4j) with a logging facade org.slf4j. With version 4.x we'll use SLF4J and allow you to plug in the logging library of your choice at deployment time. This [blog post](https://www.baeldung.com/slf4j-with-log4j2-logback) explains how to add log4j2 for logging. To configure, add a log4j.properties file to the Resources directory.
-
-## Older versions
 
 ### Looking for version 3.x of the SDK?
 Codebase, samples and setup instructions located in [java-3.x branch](https://github.com/XeroAPI/Xero-Java/tree/java-3.x).
 
-### Looking for version 2.x of the SDK with OAuth 1.0a support?
-Codebase, samples and setup instructions located in [oauth1 branch](https://github.com/XeroAPI/Xero-Java/tree/oauth1).
-
-
+---
 ## Participating in Xero’s developer community
+
 This SDK is one of a number of SDK’s that the Xero Developer team builds and maintains. We are grateful for all the contributions that the community makes. 
 
 Here are a few things you should be aware of as a contributor:
 * Xero has adopted the Contributor Covenant [Code of Conduct](https://github.com/XeroAPI/Xero-Java/blob/master/CODE_OF_CONDUCT.md), we expect all contributors in our community to adhere to it
-* If you raise an issue then please make sure to fill out the github issue template, doing so helps us help you 
+* If you raise an issue then please make sure to fill out the Github issue template, doing so helps us help you 
 * You’re welcome to raise PRs. As our SDKs are generated we may use your code in the core SDK build instead of merging your code
 * We have a [contribution guide](https://github.com/XeroAPI/Xero-Java/blob/master/CONTRIBUTING.md) for you to follow when contributing to this SDK
 * Curious about how we generate our SDK’s? Have a [read of our process](https://devblog.xero.com/building-sdks-for-the-future-b79ff726dfd6) and have a look at our [OpenAPISpec](https://github.com/XeroAPI/Xero-OpenAPI)
 * This software is published under the [MIT License](https://github.com/XeroAPI/Xero-Java/blob/master/LICENSE)
 
 For questions that aren’t related to SDKs please refer to our [developer support page](https://developer.xero.com/support/).
+
+### Contributing
+PRs, issues, and discussion are highly appreciated and encouraged. Note that the majority of this project is generated code based on [Xero's OpenAPI specs](https://github.com/XeroAPI/Xero-OpenAPI) - PR's will be evaluated and pre-merge will be incorporated into the root generation templates.
+### Versioning
+We do our best to keep OS industry `semver` standards, but we can make mistakes! If something is not accurately reflected in a version's release notes please let the team know.

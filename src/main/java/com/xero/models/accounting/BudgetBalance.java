@@ -20,8 +20,8 @@ import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.ZoneId;
 
-/** BudgetLines */
-public class BudgetLines {
+/** BudgetBalance */
+public class BudgetBalance {
   StringUtil util = new StringUtil();
 
   @JsonProperty("Period")
@@ -39,9 +39,9 @@ public class BudgetLines {
    * Period the amount applies to (e.g. “2019-08”)
    *
    * @param period String
-   * @return BudgetLines
+   * @return BudgetBalance
    */
-  public BudgetLines period(String period) {
+  public BudgetBalance period(String period) {
     this.period = period;
     return this;
   }
@@ -102,9 +102,9 @@ public class BudgetLines {
    * LineItem Quantity
    *
    * @param amount Integer
-   * @return BudgetLines
+   * @return BudgetBalance
    */
-  public BudgetLines amount(Integer amount) {
+  public BudgetBalance amount(Integer amount) {
     this.amount = amount;
     return this;
   }
@@ -137,9 +137,9 @@ public class BudgetLines {
    * Budgeted amount
    *
    * @param unitAmount Integer
-   * @return BudgetLines
+   * @return BudgetBalance
    */
-  public BudgetLines unitAmount(Integer unitAmount) {
+  public BudgetBalance unitAmount(Integer unitAmount) {
     this.unitAmount = unitAmount;
     return this;
   }
@@ -172,9 +172,9 @@ public class BudgetLines {
    * Any footnotes associated with this balance
    *
    * @param notes String
-   * @return BudgetLines
+   * @return BudgetBalance
    */
-  public BudgetLines notes(String notes) {
+  public BudgetBalance notes(String notes) {
     this.notes = notes;
     return this;
   }
@@ -211,11 +211,11 @@ public class BudgetLines {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    BudgetLines budgetLines = (BudgetLines) o;
-    return Objects.equals(this.period, budgetLines.period)
-        && Objects.equals(this.amount, budgetLines.amount)
-        && Objects.equals(this.unitAmount, budgetLines.unitAmount)
-        && Objects.equals(this.notes, budgetLines.notes);
+    BudgetBalance budgetBalance = (BudgetBalance) o;
+    return Objects.equals(this.period, budgetBalance.period)
+        && Objects.equals(this.amount, budgetBalance.amount)
+        && Objects.equals(this.unitAmount, budgetBalance.unitAmount)
+        && Objects.equals(this.notes, budgetBalance.notes);
   }
 
   @Override
@@ -226,7 +226,7 @@ public class BudgetLines {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class BudgetLines {\n");
+    sb.append("class BudgetBalance {\n");
     sb.append("    period: ").append(toIndentedString(period)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
     sb.append("    unitAmount: ").append(toIndentedString(unitAmount)).append("\n");

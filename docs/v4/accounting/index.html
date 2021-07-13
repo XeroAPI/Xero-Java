@@ -6,11 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8">
-    <!-- start *****REPLACE***** SEO meta details-->
     <meta name="description" content="Xero-Java SDK Accounting API Documentation">
     <title>Xero-Java Accounting SDK Docs</title>
     <meta name="keywords" content="Xero-Java, Java, sdk, documentation, docs, XeroAPI, Xero, developer">
-    <!-- end *****REPLACE***** SEO meta details-->
     <meta name="author" content="Xero Developer Evangelists">
     <link rel="shortcut icon" href="https://developer.xero.com/static/favicon.ico" type="image/x-icon">
     <meta charset="UTF-8" />
@@ -1801,10 +1799,16 @@ ul.nav-tabs {
       "x-is-msdate-time" : true
     },
     "BudgetLines" : {
-      "$ref" : "#/components/schemas/BudgetLines"
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/BudgetLine"
+      }
     },
     "Tracking" : {
-      "$ref" : "#/components/schemas/TrackingCategory"
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/TrackingCategory"
+      }
     }
   },
   "description" : "",
@@ -1812,7 +1816,7 @@ ul.nav-tabs {
     "url" : "http://developer.xero.com/documentation/api/budgets/"
   }
 };
-      defs["BudgetLines"] = {
+      defs["BudgetBalance"] = {
   "title" : "",
   "type" : "object",
   "properties" : {
@@ -1833,6 +1837,29 @@ ul.nav-tabs {
       "maxLength" : 255,
       "type" : "string",
       "description" : "Any footnotes associated with this balance"
+    }
+  },
+  "description" : ""
+};
+      defs["BudgetLine"] = {
+  "title" : "",
+  "type" : "object",
+  "properties" : {
+    "AccountID" : {
+      "type" : "string",
+      "description" : "See Accounts",
+      "format" : "uuid"
+    },
+    "AccountCode" : {
+      "type" : "string",
+      "description" : "See Accounts",
+      "example" : "90.0"
+    },
+    "BudgetBalances" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/BudgetBalance"
+      }
     }
   },
   "description" : "",
@@ -5837,7 +5864,7 @@ ul.nav-tabs {
     <div class='docs-header'>
       <div class='xero-logo'>
         <a target="_blank"  href="https://developer.xero.com/documentation/">
-        <img alt="" width="115" height="30" class="xrh-app-image" src="https://developer.xero.com/static/images/developer-logo.svg">
+        <img alt="" width="115" height="30" class="xrh-app-image" src="https://i.imgur.com/kzfh8mf.png">
         </a>
       </div>
       <fieldset class='api-set'>
@@ -5853,13 +5880,17 @@ ul.nav-tabs {
       </fieldset>
       <div class='language'>
         <img alt="xero-java icon" class="xrh-app-image language-logo" src="https://i.imgur.com/YlFfXNk.png">
-        <!-- *****REPLACE***** with a small png of your language -->
       </div>
       <fieldset class='api-set'>
         <select name="form" id="api-set-selection" onchange="routeDocs(this);">
-          <!-- *****REPLACE***** `xero-node` with the correct repo naming pattern + also add/delete api sets (ex. Ruby does not have Bankfeeds) -->
           <option data-url="#">-API-</option>
           <option data-url="https://xeroapi.github.io/Xero-Java/v4/accounting/index.html" value="Accounting">Accounting</option>
+          <option data-url="https://xeroapi.github.io/Xero-Java/v4/assets/index.html" value="Asset">Assets</option>
+          <option data-url="https://xeroapi.github.io/Xero-Java/v4/files/index.html" value="Files">Files</option>
+          <option data-url="https://xeroapi.github.io/Xero-Java/v4/projects/index.html" value="Project">Projects</option>
+          <option data-url="https://xeroapi.github.io/Xero-Java/v4/payroll-au/index.html" value="PayrollAu">Payroll (AU)</option>
+          <option data-url="https://xeroapi.github.io/Xero-Java/v4/payroll-uk/index.html" value="PayrollUk">Payroll (UK)</option>
+          <option data-url="https://xeroapi.github.io/Xero-Java/v4/payroll-nz/index.html" value="PayrollNz">Payroll (NZ)</option>
         </select>
       </fieldset>
       <div class='api-set-wrapper'>
@@ -6616,11 +6647,9 @@ ul.nav-tabs {
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createAccount-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createAccount-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -6753,11 +6782,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createAccountAttachmentByFileName-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createAccountAttachmentByFileName-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -6947,11 +6974,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createBankTransactionAttachmentByFileName-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createBankTransactionAttachmentByFileName-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -7141,11 +7166,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createBankTransactionHistoryRecord-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createBankTransactionHistoryRecord-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -7312,11 +7335,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createBankTransactions-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createBankTransactions-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -7516,11 +7537,9 @@ e.g. unitdp=4 – (Unit Decimal Places) You can opt in to use four decimal place
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createBankTransfer-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createBankTransfer-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -7661,11 +7680,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createBankTransferAttachmentByFileName-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createBankTransferAttachmentByFileName-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -7855,11 +7872,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createBankTransferHistoryRecord-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createBankTransferHistoryRecord-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -8026,11 +8041,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createBatchPayment-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createBatchPayment-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -8213,11 +8226,9 @@ If false return 200 OK and mix of successfully created objects and any with vali
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createBatchPaymentHistoryRecord-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createBatchPaymentHistoryRecord-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -8384,11 +8395,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createBrandingThemePaymentServices-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createBrandingThemePaymentServices-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -8555,11 +8564,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createContactAttachmentByFileName-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createContactAttachmentByFileName-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -8749,11 +8756,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createContactGroup-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createContactGroup-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -8886,11 +8891,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createContactGroupContacts-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createContactGroupContacts-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -9057,11 +9060,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createContactHistory-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createContactHistory-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -9228,11 +9229,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createContacts-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createContacts-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -9402,11 +9401,9 @@ If false return 200 OK and mix of successfully created objects and any with vali
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createCreditNoteAllocation-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createCreditNoteAllocation-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -9607,11 +9604,9 @@ If false return 200 OK and mix of successfully created objects and any with vali
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createCreditNoteAttachmentByFileName-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createCreditNoteAttachmentByFileName-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -9829,11 +9824,9 @@ Allows an attachment to be seen by the end customer within their online invoice
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createCreditNoteHistory-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createCreditNoteHistory-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -10000,11 +9993,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createCreditNotes-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createCreditNotes-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -10202,11 +10193,9 @@ e.g. unitdp=4 – (Unit Decimal Places) You can opt in to use four decimal place
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createCurrency-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createCurrency-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -10337,11 +10326,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createEmployees-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createEmployees-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -10503,11 +10490,9 @@ If false return 200 OK and mix of successfully created objects and any with vali
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createExpenseClaimHistory-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createExpenseClaimHistory-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -10674,11 +10659,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createExpenseClaims-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createExpenseClaims-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -10824,11 +10807,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createInvoiceAttachmentByFileName-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createInvoiceAttachmentByFileName-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -11046,11 +11027,9 @@ Allows an attachment to be seen by the end customer within their online invoice
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createInvoiceHistory-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createInvoiceHistory-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -11217,11 +11196,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createInvoices-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createInvoices-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -11431,11 +11408,9 @@ e.g. unitdp=4 – (Unit Decimal Places) You can opt in to use four decimal place
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createItemHistory-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createItemHistory-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -11602,11 +11577,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createItems-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createItems-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -11795,11 +11768,9 @@ e.g. unitdp=4 – (Unit Decimal Places) You can opt in to use four decimal place
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createLinkedTransaction-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createLinkedTransaction-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -11930,11 +11901,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createManualJournalAttachmentByFileName-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createManualJournalAttachmentByFileName-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -12124,11 +12093,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createManualJournalHistoryRecord-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createManualJournalHistoryRecord-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -12295,11 +12262,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createManualJournals-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createManualJournals-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -12477,11 +12442,9 @@ If false return 200 OK and mix of successfully created objects and any with vali
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createOverpaymentAllocations-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createOverpaymentAllocations-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -12682,11 +12645,9 @@ If false return 200 OK and mix of successfully created objects and any with vali
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createOverpaymentHistory-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createOverpaymentHistory-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -12853,11 +12814,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createPayment-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createPayment-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -13000,11 +12959,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createPaymentHistory-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createPaymentHistory-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -13171,11 +13128,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createPaymentService-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createPaymentService-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -13310,11 +13265,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createPayments-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createPayments-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -13485,11 +13438,9 @@ If false return 200 OK and mix of successfully created objects and any with vali
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createPrepaymentAllocations-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createPrepaymentAllocations-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -13690,11 +13641,9 @@ If false return 200 OK and mix of successfully created objects and any with vali
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createPrepaymentHistory-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createPrepaymentHistory-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -13861,11 +13810,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createPurchaseOrderAttachmentByFileName-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createPurchaseOrderAttachmentByFileName-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -14055,11 +14002,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createPurchaseOrderHistory-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createPurchaseOrderHistory-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -14226,11 +14171,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createPurchaseOrders-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createPurchaseOrders-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -14406,11 +14349,9 @@ If false return 200 OK and mix of successfully created objects and any with vali
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createQuoteAttachmentByFileName-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createQuoteAttachmentByFileName-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -14600,11 +14541,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createQuoteHistory-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createQuoteHistory-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -14771,11 +14710,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createQuotes-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createQuotes-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -14951,11 +14888,9 @@ If false return 200 OK and mix of successfully created objects and any with vali
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createReceipt-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createReceipt-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -15135,11 +15070,9 @@ e.g. unitdp=4 – (Unit Decimal Places) You can opt in to use four decimal place
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createReceiptAttachmentByFileName-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createReceiptAttachmentByFileName-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -15329,11 +15262,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createReceiptHistory-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createReceiptHistory-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -15500,11 +15431,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createRepeatingInvoiceAttachmentByFileName-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createRepeatingInvoiceAttachmentByFileName-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -15694,11 +15623,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createRepeatingInvoiceHistory-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createRepeatingInvoiceHistory-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -15865,11 +15792,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createTaxRates-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createTaxRates-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -16010,11 +15935,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createTrackingCategory-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createTrackingCategory-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -16144,11 +16067,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-createTrackingOptions-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-createTrackingOptions-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -16312,11 +16233,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-deleteAccount-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-deleteAccount-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -16440,11 +16359,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-deleteContactGroupContact-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-deleteContactGroupContact-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -16594,11 +16511,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-deleteContactGroupContacts-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-deleteContactGroupContacts-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -16721,11 +16636,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-deleteItem-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-deleteItem-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -16848,11 +16761,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-deleteLinkedTransaction-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-deleteLinkedTransaction-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -16975,11 +16886,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-deletePayment-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-deletePayment-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -17142,11 +17051,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-deleteTrackingCategory-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-deleteTrackingCategory-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -17270,11 +17177,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-deleteTrackingOptions-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-deleteTrackingOptions-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -17425,11 +17330,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-emailInvoice-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-emailInvoice-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -17590,11 +17493,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getAccount-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getAccount-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -17718,11 +17619,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getAccountAttachmentByFileName-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getAccountAttachmentByFileName-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -17894,11 +17793,9 @@ The mime type of the attachment file you are retrieving i.e image/jpg, applicati
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getAccountAttachmentById-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getAccountAttachmentById-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -18073,11 +17970,9 @@ The mime type of the attachment file you are retrieving i.e image/jpg, applicati
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getAccountAttachments-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getAccountAttachments-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -18201,11 +18096,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getAccounts-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getAccounts-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -18369,11 +18262,9 @@ Order by an any element
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getBankTransaction-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getBankTransaction-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -18525,11 +18416,9 @@ e.g. unitdp=4 – (Unit Decimal Places) You can opt in to use four decimal place
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getBankTransactionAttachmentByFileName-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getBankTransactionAttachmentByFileName-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -18701,11 +18590,9 @@ The mime type of the attachment file you are retrieving i.e image/jpg, applicati
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getBankTransactionAttachmentById-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getBankTransactionAttachmentById-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -18880,11 +18767,9 @@ The mime type of the attachment file you are retrieving i.e image/jpg, applicati
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getBankTransactionAttachments-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getBankTransactionAttachments-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -19008,11 +18893,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getBankTransactions-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getBankTransactions-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -19218,11 +19101,9 @@ e.g. unitdp=4 – (Unit Decimal Places) You can opt in to use four decimal place
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getBankTransactionsHistory-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getBankTransactionsHistory-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -19346,11 +19227,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getBankTransfer-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getBankTransfer-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -19474,11 +19353,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getBankTransferAttachmentByFileName-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getBankTransferAttachmentByFileName-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -19650,11 +19527,9 @@ The mime type of the attachment file you are retrieving i.e image/jpg, applicati
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getBankTransferAttachmentById-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getBankTransferAttachmentById-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -19829,11 +19704,9 @@ The mime type of the attachment file you are retrieving i.e image/jpg, applicati
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getBankTransferAttachments-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getBankTransferAttachments-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -19957,11 +19830,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getBankTransferHistory-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getBankTransferHistory-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -20085,11 +19956,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getBankTransfers-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getBankTransfers-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -20253,11 +20122,9 @@ Order by an any element
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getBatchPaymentHistory-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getBatchPaymentHistory-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -20381,11 +20248,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getBatchPayments-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getBatchPayments-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -20549,11 +20414,9 @@ Order by an any element
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getBrandingTheme-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getBrandingTheme-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -20677,11 +20540,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getBrandingThemePaymentServices-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getBrandingThemePaymentServices-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -20805,11 +20666,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getBrandingThemes-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getBrandingThemes-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -20899,11 +20758,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getBudget-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getBudget-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -21027,11 +20884,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getBudgets-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getBudgets-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -21200,11 +21055,9 @@ Filter by end date
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getContact-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getContact-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -21328,11 +21181,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getContactAttachmentByFileName-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getContactAttachmentByFileName-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -21504,11 +21355,9 @@ The mime type of the attachment file you are retrieving i.e image/jpg, applicati
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getContactAttachmentById-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getContactAttachmentById-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -21683,11 +21532,9 @@ The mime type of the attachment file you are retrieving i.e image/jpg, applicati
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getContactAttachments-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getContactAttachments-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -21811,11 +21658,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getContactByContactNumber-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getContactByContactNumber-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -21936,11 +21781,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getContactCISSettings-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getContactCISSettings-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -22064,11 +21907,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getContactGroup-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getContactGroup-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -22192,11 +22033,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getContactGroups-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getContactGroups-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -22335,11 +22174,9 @@ Order by an any element
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getContactHistory-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getContactHistory-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -22463,11 +22300,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getContacts-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getContacts-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -22718,11 +22553,9 @@ Use summaryOnly=true in GET Contacts and Invoices endpoint to retrieve a smaller
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getCreditNote-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getCreditNote-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -22874,11 +22707,9 @@ e.g. unitdp=4 – (Unit Decimal Places) You can opt in to use four decimal place
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getCreditNoteAsPdf-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getCreditNoteAsPdf-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -23002,11 +22833,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getCreditNoteAttachmentByFileName-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getCreditNoteAttachmentByFileName-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -23178,11 +23007,9 @@ The mime type of the attachment file you are retrieving i.e image/jpg, applicati
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getCreditNoteAttachmentById-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getCreditNoteAttachmentById-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -23357,11 +23184,9 @@ The mime type of the attachment file you are retrieving i.e image/jpg, applicati
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getCreditNoteAttachments-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getCreditNoteAttachments-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -23485,11 +23310,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getCreditNoteHistory-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getCreditNoteHistory-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -23613,11 +23436,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getCreditNotes-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getCreditNotes-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -23823,11 +23644,9 @@ e.g. unitdp=4 – (Unit Decimal Places) You can opt in to use four decimal place
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getCurrencies-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getCurrencies-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -23966,11 +23785,9 @@ Order by an any element
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getEmployee-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getEmployee-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -24094,11 +23911,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getEmployees-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getEmployees-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -24262,11 +24077,9 @@ Order by an any element
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getExpenseClaim-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getExpenseClaim-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -24390,11 +24203,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getExpenseClaimHistory-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getExpenseClaimHistory-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -24518,11 +24329,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getExpenseClaims-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getExpenseClaims-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -24686,11 +24495,9 @@ Order by an any element
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getInvoice-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getInvoice-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -24842,11 +24649,9 @@ e.g. unitdp=4 – (Unit Decimal Places) You can opt in to use four decimal place
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getInvoiceAsPdf-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getInvoiceAsPdf-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -24970,11 +24775,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getInvoiceAttachmentByFileName-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getInvoiceAttachmentByFileName-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -25146,11 +24949,9 @@ The mime type of the attachment file you are retrieving i.e image/jpg, applicati
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getInvoiceAttachmentById-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getInvoiceAttachmentById-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -25325,11 +25126,9 @@ The mime type of the attachment file you are retrieving i.e image/jpg, applicati
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getInvoiceAttachments-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getInvoiceAttachments-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -25453,11 +25252,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getInvoiceHistory-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getInvoiceHistory-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -25581,11 +25378,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getInvoiceReminders-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getInvoiceReminders-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -25675,11 +25470,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getInvoices-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getInvoices-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -26038,11 +25831,9 @@ Use summaryOnly=true in GET Contacts and Invoices endpoint to retrieve a smaller
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getItem-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getItem-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -26194,11 +25985,9 @@ e.g. unitdp=4 – (Unit Decimal Places) You can opt in to use four decimal place
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getItemHistory-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getItemHistory-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -26322,11 +26111,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getItems-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getItems-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -26511,11 +26298,9 @@ e.g. unitdp=4 – (Unit Decimal Places) You can opt in to use four decimal place
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getJournal-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getJournal-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -26639,11 +26424,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getJournals-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getJournals-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -26807,11 +26590,9 @@ Filter to retrieve journals on a cash basis. Journals are returned on an accrual
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getLinkedTransaction-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getLinkedTransaction-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -26935,11 +26716,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getLinkedTransactions-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getLinkedTransactions-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -27174,11 +26953,9 @@ Filter by the TargetTransactionID. Get all the linked transactions allocated to 
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getManualJournal-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getManualJournal-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -27302,11 +27079,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getManualJournalAttachmentByFileName-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getManualJournalAttachmentByFileName-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -27478,11 +27253,9 @@ The mime type of the attachment file you are retrieving i.e image/jpg, applicati
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getManualJournalAttachmentById-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getManualJournalAttachmentById-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -27657,11 +27430,9 @@ The mime type of the attachment file you are retrieving i.e image/jpg, applicati
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getManualJournalAttachments-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getManualJournalAttachments-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -27785,11 +27556,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getManualJournals-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getManualJournals-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -27974,11 +27743,9 @@ e.g. page=1 – Up to 100 manual journals will be returned in a single API call 
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getManualJournalsHistory-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getManualJournalsHistory-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -28102,11 +27869,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getOnlineInvoice-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getOnlineInvoice-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -28230,11 +27995,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getOrganisationActions-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getOrganisationActions-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -28324,11 +28087,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getOrganisationCISSettings-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getOrganisationCISSettings-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -28452,11 +28213,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getOrganisations-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getOrganisations-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -28546,11 +28305,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getOverpayment-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getOverpayment-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -28674,11 +28431,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getOverpaymentHistory-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getOverpaymentHistory-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -28802,11 +28557,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getOverpayments-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getOverpayments-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -29012,11 +28765,9 @@ e.g. unitdp=4 – (Unit Decimal Places) You can opt in to use four decimal place
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getPayment-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getPayment-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -29140,11 +28891,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getPaymentHistory-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getPaymentHistory-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -29268,11 +29017,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getPaymentServices-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getPaymentServices-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -29362,11 +29109,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getPayments-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getPayments-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -29551,11 +29296,9 @@ Up to 100 payments will be returned in a single API call
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getPrepayment-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getPrepayment-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -29679,11 +29422,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getPrepaymentHistory-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getPrepaymentHistory-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -29807,11 +29548,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getPrepayments-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getPrepayments-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -30017,11 +29756,9 @@ e.g. unitdp=4 – (Unit Decimal Places) You can opt in to use four decimal place
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getPurchaseOrder-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getPurchaseOrder-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -30145,11 +29882,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getPurchaseOrderAsPdf-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getPurchaseOrderAsPdf-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -30273,11 +30008,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getPurchaseOrderAttachmentById-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getPurchaseOrderAttachmentById-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -30452,11 +30185,9 @@ The mime type of the attachment file you are retrieving i.e image/jpg, applicati
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getPurchaseOrderAttachments-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getPurchaseOrderAttachments-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -30580,11 +30311,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getPurchaseOrderByNumber-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getPurchaseOrderByNumber-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -30705,11 +30434,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getPurchaseOrderHistory-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getPurchaseOrderHistory-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -30833,11 +30560,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getPurchaseOrders-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getPurchaseOrders-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -31064,11 +30789,9 @@ To specify a page, append the page parameter to the URL e.g. ?page=1. If there a
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getPurchaseOrder≠AttachmentByFileName-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getPurchaseOrder≠AttachmentByFileName-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -31240,11 +30963,9 @@ The mime type of the attachment file you are retrieving i.e image/jpg, applicati
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getQuote-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getQuote-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -31368,11 +31089,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getQuoteAsPdf-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getQuoteAsPdf-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -31496,11 +31215,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getQuoteAttachmentByFileName-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getQuoteAttachmentByFileName-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -31672,11 +31389,9 @@ The mime type of the attachment file you are retrieving i.e image/jpg, applicati
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getQuoteAttachmentById-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getQuoteAttachmentById-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -31851,11 +31566,9 @@ The mime type of the attachment file you are retrieving i.e image/jpg, applicati
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getQuoteAttachments-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getQuoteAttachments-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -31979,11 +31692,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getQuoteHistory-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getQuoteHistory-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -32107,11 +31818,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getQuotes-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getQuotes-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -32437,11 +32146,9 @@ Filter by quote number (e.g. GET https://.../Quotes?QuoteNumber=QU-0001)
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getReceipt-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getReceipt-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -32593,11 +32300,9 @@ e.g. unitdp=4 – (Unit Decimal Places) You can opt in to use four decimal place
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getReceiptAttachmentByFileName-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getReceiptAttachmentByFileName-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -32769,11 +32474,9 @@ The mime type of the attachment file you are retrieving i.e image/jpg, applicati
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getReceiptAttachmentById-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getReceiptAttachmentById-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -32948,11 +32651,9 @@ The mime type of the attachment file you are retrieving i.e image/jpg, applicati
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getReceiptAttachments-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getReceiptAttachments-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -33076,11 +32777,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getReceiptHistory-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getReceiptHistory-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -33204,11 +32903,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getReceipts-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getReceipts-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -33393,11 +33090,9 @@ e.g. unitdp=4 – (Unit Decimal Places) You can opt in to use four decimal place
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getRepeatingInvoice-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getRepeatingInvoice-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -33521,11 +33216,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getRepeatingInvoiceAttachmentByFileName-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getRepeatingInvoiceAttachmentByFileName-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -33697,11 +33390,9 @@ The mime type of the attachment file you are retrieving i.e image/jpg, applicati
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getRepeatingInvoiceAttachmentById-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getRepeatingInvoiceAttachmentById-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -33876,11 +33567,9 @@ The mime type of the attachment file you are retrieving i.e image/jpg, applicati
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getRepeatingInvoiceAttachments-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getRepeatingInvoiceAttachments-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -34004,11 +33693,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getRepeatingInvoiceHistory-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getRepeatingInvoiceHistory-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -34132,11 +33819,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getRepeatingInvoices-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getRepeatingInvoices-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -34275,11 +33960,9 @@ Order by an any element
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getReportAgedPayablesByContact-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getReportAgedPayablesByContact-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -34475,11 +34158,9 @@ filter by the to date of the report e.g. 2021-02-28
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getReportAgedReceivablesByContact-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getReportAgedReceivablesByContact-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -34675,11 +34356,9 @@ filter by the to date of the report e.g. 2021-02-28
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getReportBalanceSheet-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getReportBalanceSheet-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -34926,11 +34605,9 @@ return a cash basis for the Balance Sheet report
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getReportBankSummary-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getReportBankSummary-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -35075,11 +34752,9 @@ filter by the to date of the report e.g. 2021-02-28
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getReportBudgetSummary-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getReportBudgetSummary-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -35242,11 +34917,9 @@ The period size to compare to (1=month, 3=quarter, 12=year)
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getReportExecutiveSummary-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getReportExecutiveSummary-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -35367,11 +35040,9 @@ The date for the Bank Summary report e.g. 2018-03-31
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getReportFromId-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getReportFromId-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -35492,11 +35163,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getReportProfitAndLoss-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getReportProfitAndLoss-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -35809,11 +35478,9 @@ Return cash only basis for the ProfitAndLoss report
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getReportTenNinetyNine-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getReportTenNinetyNine-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -35931,11 +35598,9 @@ The year of the 1099 report
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getReportTrialBalance-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getReportTrialBalance-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -36077,11 +35742,9 @@ Return cash only basis for the Trial Balance report
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getReportsList-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getReportsList-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -36171,11 +35834,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getTaxRates-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getTaxRates-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -36335,11 +35996,9 @@ Filter by tax type
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getTrackingCategories-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getTrackingCategories-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -36499,11 +36158,9 @@ e.g. includeArchived=true - Categories and options with a status of ARCHIVED wil
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getTrackingCategory-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getTrackingCategory-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -36627,11 +36284,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getUser-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getUser-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -36755,11 +36410,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-getUsers-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-getUsers-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -36923,11 +36576,9 @@ Order by an any element
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-postSetup-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-postSetup-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -37073,11 +36724,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateAccount-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateAccount-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -37248,11 +36897,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateAccountAttachmentByFileName-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateAccountAttachmentByFileName-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -37442,11 +37089,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateBankTransaction-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateBankTransaction-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -37659,11 +37304,9 @@ e.g. unitdp=4 – (Unit Decimal Places) You can opt in to use four decimal place
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateBankTransactionAttachmentByFileName-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateBankTransactionAttachmentByFileName-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -37853,11 +37496,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateBankTransferAttachmentByFileName-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateBankTransferAttachmentByFileName-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -38047,11 +37688,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateContact-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateContact-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -38219,11 +37858,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateContactAttachmentByFileName-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateContactAttachmentByFileName-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -38413,11 +38050,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateContactGroup-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateContactGroup-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -38584,11 +38219,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateCreditNote-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateCreditNote-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -38801,11 +38434,9 @@ e.g. unitdp=4 – (Unit Decimal Places) You can opt in to use four decimal place
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateCreditNoteAttachmentByFileName-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateCreditNoteAttachmentByFileName-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -38995,11 +38626,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateExpenseClaim-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateExpenseClaim-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -39178,11 +38807,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateInvoice-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateInvoice-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -39376,11 +39003,9 @@ e.g. unitdp=4 – (Unit Decimal Places) You can opt in to use four decimal place
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateInvoiceAttachmentByFileName-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateInvoiceAttachmentByFileName-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -39570,11 +39195,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateItem-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateItem-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -39769,11 +39392,9 @@ e.g. unitdp=4 – (Unit Decimal Places) You can opt in to use four decimal place
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateLinkedTransaction-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateLinkedTransaction-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -39940,11 +39561,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateManualJournal-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateManualJournal-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -40127,11 +39746,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateManualJournalAttachmentByFileName-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateManualJournalAttachmentByFileName-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -40321,11 +39938,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateOrCreateBankTransactions-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateOrCreateBankTransactions-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -40524,11 +40139,9 @@ e.g. unitdp=4 – (Unit Decimal Places) You can opt in to use four decimal place
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateOrCreateContacts-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateOrCreateContacts-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -40697,11 +40310,9 @@ If false return 200 OK and mix of successfully created objects and any with vali
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateOrCreateCreditNotes-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateOrCreateCreditNotes-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -40899,11 +40510,9 @@ e.g. unitdp=4 – (Unit Decimal Places) You can opt in to use four decimal place
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateOrCreateEmployees-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateOrCreateEmployees-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -41065,11 +40674,9 @@ If false return 200 OK and mix of successfully created objects and any with vali
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateOrCreateInvoices-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateOrCreateInvoices-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -41270,11 +40877,9 @@ e.g. unitdp=4 – (Unit Decimal Places) You can opt in to use four decimal place
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateOrCreateItems-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateOrCreateItems-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -41457,11 +41062,9 @@ e.g. unitdp=4 – (Unit Decimal Places) You can opt in to use four decimal place
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateOrCreateManualJournals-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateOrCreateManualJournals-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -41639,11 +41242,9 @@ If false return 200 OK and mix of successfully created objects and any with vali
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateOrCreatePurchaseOrders-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateOrCreatePurchaseOrders-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -41818,11 +41419,9 @@ If false return 200 OK and mix of successfully created objects and any with vali
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateOrCreateQuotes-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateOrCreateQuotes-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -41997,11 +41596,9 @@ If false return 200 OK and mix of successfully created objects and any with vali
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updatePurchaseOrder-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updatePurchaseOrder-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -42167,11 +41764,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updatePurchaseOrderAttachmentByFileName-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updatePurchaseOrderAttachmentByFileName-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -42361,11 +41956,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateQuote-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateQuote-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -42537,11 +42130,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateQuoteAttachmentByFileName-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateQuoteAttachmentByFileName-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -42731,11 +42322,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateReceipt-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateReceipt-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -42935,11 +42524,9 @@ e.g. unitdp=4 – (Unit Decimal Places) You can opt in to use four decimal place
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateReceiptAttachmentByFileName-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateReceiptAttachmentByFileName-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -43129,11 +42716,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateRepeatingInvoiceAttachmentByFileName-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateRepeatingInvoiceAttachmentByFileName-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -43323,11 +42908,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateTaxRate-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateTaxRate-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -43467,11 +43050,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateTrackingCategory-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateTrackingCategory-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
@@ -43634,11 +43215,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-Accounting-updateTrackingOptions-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-Accounting-updateTrackingOptions-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.AccountingApi;
