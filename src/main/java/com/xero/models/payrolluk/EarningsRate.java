@@ -94,7 +94,10 @@ public class EarningsRate {
     TIPS_DIRECT_("Tips(Direct)"),
 
     /** TIPS_NON_DIRECT_ */
-    TIPS_NON_DIRECT_("Tips(Non-Direct)");
+    TIPS_NON_DIRECT_("Tips(Non-Direct)"),
+
+    /** TERMINATIONPAY */
+    TERMINATIONPAY("TerminationPay");
 
     private String value;
 

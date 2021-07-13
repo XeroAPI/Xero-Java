@@ -6,11 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8">
-    <!-- start *****REPLACE***** SEO meta details-->
     <meta name="description" content="Xero-Java SDK PayrollUk API Documentation">
     <title>Xero-Java PayrollUk SDK Docs</title>
     <meta name="keywords" content="Xero-Java, Java, sdk, documentation, docs, XeroAPI, Xero, developer">
-    <!-- end *****REPLACE***** SEO meta details-->
     <meta name="author" content="Xero Developer Evangelists">
     <link rel="shortcut icon" href="https://developer.xero.com/static/favicon.ico" type="image/x-icon">
     <meta charset="UTF-8" />
@@ -1381,7 +1379,7 @@ ul.nav-tabs {
     "earningsType" : {
       "type" : "string",
       "description" : "Indicates how an employee will be paid when taking this type of earning",
-      "enum" : [ "Allowance", "Backpay", "Bonus", "Commission", "LumpSum", "OtherEarnings", "OvertimeEarnings", "RegularEarnings", "StatutoryAdoptionPay", "StatutoryAdoptionPayNonPensionable", "StatutoryBereavementPay", "StatutoryMaternityPay", "StatutoryMaternityPayNonPensionable", "StatutoryPaternityPay", "StatutoryPaternityPayNonPensionable", "StatutoryParentalBereavementPayNonPensionable", "StatutorySharedParentalPay", "StatutorySharedParentalPayNonPensionable", "StatutorySickPay", "StatutorySickPayNonPensionable", "Tips(Direct)", "Tips(Non-Direct)" ]
+      "enum" : [ "Allowance", "Backpay", "Bonus", "Commission", "LumpSum", "OtherEarnings", "OvertimeEarnings", "RegularEarnings", "StatutoryAdoptionPay", "StatutoryAdoptionPayNonPensionable", "StatutoryBereavementPay", "StatutoryMaternityPay", "StatutoryMaternityPayNonPensionable", "StatutoryPaternityPay", "StatutoryPaternityPayNonPensionable", "StatutoryParentalBereavementPayNonPensionable", "StatutorySharedParentalPay", "StatutorySharedParentalPayNonPensionable", "StatutorySickPay", "StatutorySickPayNonPensionable", "Tips(Direct)", "Tips(Non-Direct)", "TerminationPay" ]
     },
     "rateType" : {
       "type" : "string",
@@ -3434,7 +3432,7 @@ ul.nav-tabs {
     <div class='docs-header'>
       <div class='xero-logo'>
         <a target="_blank"  href="https://developer.xero.com/documentation/">
-        <img alt="" width="115" height="30" class="xrh-app-image" src="https://developer.xero.com/static/images/developer-logo.svg">
+        <img alt="" width="115" height="30" class="xrh-app-image" src="https://i.imgur.com/kzfh8mf.png">
         </a>
       </div>
       <fieldset class='api-set'>
@@ -3450,13 +3448,17 @@ ul.nav-tabs {
       </fieldset>
       <div class='language'>
         <img alt="xero-java icon" class="xrh-app-image language-logo" src="https://i.imgur.com/YlFfXNk.png">
-        <!-- *****REPLACE***** with a small png of your language -->
       </div>
       <fieldset class='api-set'>
         <select name="form" id="api-set-selection" onchange="routeDocs(this);">
-          <!-- *****REPLACE***** `xero-node` with the correct repo naming pattern + also add/delete api sets (ex. Ruby does not have Bankfeeds) -->
           <option data-url="#">-API-</option>
           <option data-url="https://xeroapi.github.io/Xero-Java/v4/accounting/index.html" value="Accounting">Accounting</option>
+          <option data-url="https://xeroapi.github.io/Xero-Java/v4/assets/index.html" value="Asset">Assets</option>
+          <option data-url="https://xeroapi.github.io/Xero-Java/v4/files/index.html" value="Files">Files</option>
+          <option data-url="https://xeroapi.github.io/Xero-Java/v4/projects/index.html" value="Project">Projects</option>
+          <option data-url="https://xeroapi.github.io/Xero-Java/v4/payroll-au/index.html" value="PayrollAu">Payroll (AU)</option>
+          <option data-url="https://xeroapi.github.io/Xero-Java/v4/payroll-uk/index.html" value="PayrollUk">Payroll (UK)</option>
+          <option data-url="https://xeroapi.github.io/Xero-Java/v4/payroll-nz/index.html" value="PayrollNz">Payroll (NZ)</option>
         </select>
       </fieldset>
       <div class='api-set-wrapper'>
@@ -3745,11 +3747,9 @@ ul.nav-tabs {
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-approveTimesheet-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-approveTimesheet-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -3873,11 +3873,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-createBenefit-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-createBenefit-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -4009,11 +4007,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-createDeduction-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-createDeduction-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -4145,11 +4141,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-createEarningsRate-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-createEarningsRate-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -4281,11 +4275,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-createEmployee-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-createEmployee-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -4424,11 +4416,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-createEmployeeEarningsTemplate-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-createEmployeeEarningsTemplate-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -4598,11 +4588,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-createEmployeeLeave-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-createEmployeeLeave-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -4769,11 +4757,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-createEmployeeLeaveType-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-createEmployeeLeaveType-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -4938,11 +4924,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-createEmployeeOpeningBalances-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-createEmployeeOpeningBalances-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -5109,11 +5093,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-createEmployeePaymentMethod-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-createEmployeePaymentMethod-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -5284,11 +5266,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-createEmployeeSalaryAndWage-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-createEmployeeSalaryAndWage-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -5455,11 +5435,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-createEmployeeStatutorySickLeave-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-createEmployeeStatutorySickLeave-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -5593,11 +5571,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-createEmployment-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-createEmployment-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -5762,11 +5738,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-createLeaveType-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-createLeaveType-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -5897,11 +5871,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-createMultipleEmployeeEarningsTemplate-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-createMultipleEmployeeEarningsTemplate-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -6072,11 +6044,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-createPayRunCalendar-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-createPayRunCalendar-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -6209,11 +6179,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-createReimbursement-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-createReimbursement-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -6343,11 +6311,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-createTimesheet-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-createTimesheet-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -6481,11 +6447,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-createTimesheetLine-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-createTimesheetLine-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -6653,11 +6617,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-deleteEmployeeEarningsTemplate-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-deleteEmployeeEarningsTemplate-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -6807,11 +6769,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-deleteEmployeeLeave-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-deleteEmployeeLeave-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -6962,11 +6922,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-deleteEmployeeSalaryAndWage-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-deleteEmployeeSalaryAndWage-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -7116,11 +7074,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-deleteTimesheet-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-deleteTimesheet-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -7244,11 +7200,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-deleteTimesheetLine-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-deleteTimesheetLine-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -7399,11 +7353,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getBenefit-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getBenefit-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -7532,11 +7484,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getBenefits-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getBenefits-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -7659,11 +7609,9 @@ Page number which specifies the set of records to retrieve. By default the numbe
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getDeduction-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getDeduction-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -7792,11 +7740,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getDeductions-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getDeductions-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -7919,11 +7865,9 @@ Page number which specifies the set of records to retrieve. By default the numbe
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getEarningsOrder-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getEarningsOrder-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -8052,11 +7996,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getEarningsOrders-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getEarningsOrders-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -8179,11 +8121,9 @@ Page number which specifies the set of records to retrieve. By default the numbe
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getEarningsRate-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getEarningsRate-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -8312,11 +8252,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getEarningsRates-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getEarningsRates-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -8439,11 +8377,9 @@ Page number which specifies the set of records to retrieve. By default the numbe
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getEmployee-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getEmployee-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -8572,11 +8508,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getEmployeeLeave-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getEmployeeLeave-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -8732,11 +8666,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getEmployeeLeaveBalances-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getEmployeeLeaveBalances-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -8865,11 +8797,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getEmployeeLeavePeriods-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getEmployeeLeavePeriods-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -9053,11 +8983,9 @@ Filter by end date
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getEmployeeLeaveTypes-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getEmployeeLeaveTypes-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -9186,11 +9114,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getEmployeeLeaves-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getEmployeeLeaves-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -9319,11 +9245,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getEmployeeOpeningBalances-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getEmployeeOpeningBalances-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -9452,11 +9376,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getEmployeePayTemplate-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getEmployeePayTemplate-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -9585,11 +9507,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getEmployeePaymentMethod-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getEmployeePaymentMethod-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -9718,11 +9638,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getEmployeeSalaryAndWage-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getEmployeeSalaryAndWage-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -9878,11 +9796,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getEmployeeSalaryAndWages-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getEmployeeSalaryAndWages-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -10039,11 +9955,9 @@ Page number which specifies the set of records to retrieve. By default the numbe
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getEmployeeStatutoryLeaveBalances-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getEmployeeStatutoryLeaveBalances-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -10224,11 +10138,9 @@ The date from which to calculate balance remaining. If not specified, current da
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getEmployeeStatutorySickLeave-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getEmployeeStatutorySickLeave-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -10357,11 +10269,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getEmployeeTax-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getEmployeeTax-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -10490,11 +10400,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getEmployees-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getEmployees-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -10633,11 +10541,9 @@ Page number which specifies the set of records to retrieve. By default the numbe
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getLeaveType-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getLeaveType-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -10766,11 +10672,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getLeaveTypes-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getLeaveTypes-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -10914,11 +10818,9 @@ Filters leave types by active status. By default the API returns all leave types
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getPayRun-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getPayRun-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -11047,11 +10949,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getPayRunCalendar-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getPayRunCalendar-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -11180,11 +11080,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getPayRunCalendars-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getPayRunCalendars-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -11307,11 +11205,9 @@ Page number which specifies the set of records to retrieve. By default the numbe
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getPayRuns-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getPayRuns-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -11455,11 +11351,9 @@ By default get payruns will return all the payruns for an organization. You can 
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getPaySlip-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getPaySlip-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -11588,11 +11482,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getPaySlips-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getPaySlips-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -11742,11 +11634,9 @@ PayrunID which specifies the containing payrun of payslips to retrieve. By defau
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getReimbursement-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getReimbursement-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -11875,11 +11765,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getReimbursements-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getReimbursements-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -12002,11 +11890,9 @@ Page number which specifies the set of records to retrieve. By default the numbe
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getSettings-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getSettings-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -12101,11 +11987,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getStatutoryLeaveSummary-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getStatutoryLeaveSummary-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -12262,11 +12146,9 @@ Filter response with leaves that are currently active or yet to be taken. If not
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getTimesheet-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getTimesheet-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -12395,11 +12277,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getTimesheets-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getTimesheets-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -12543,11 +12423,9 @@ Filter by first name and/or lastname
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-getTrackingCategories-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-getTrackingCategories-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -12642,11 +12520,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-revertTimesheet-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-revertTimesheet-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -12770,11 +12646,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-updateEmployee-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-updateEmployee-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -12947,11 +12821,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-updateEmployeeEarningsTemplate-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-updateEmployeeEarningsTemplate-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -13149,11 +13021,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-updateEmployeeLeave-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-updateEmployeeLeave-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -13347,11 +13217,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-updateEmployeeOpeningBalances-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-updateEmployeeOpeningBalances-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -13518,11 +13386,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-updateEmployeeSalaryAndWage-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-updateEmployeeSalaryAndWage-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -13716,11 +13582,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-updatePayRun-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-updatePayRun-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;
@@ -13887,11 +13751,9 @@ Xero identifier for Tenant
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <!-- *****REPLACE***** comment out the other languages <li> -->
                     <li class=""><a href="#examples-PayrollUk-updateTimesheetLine-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <!-- *****REPLACE***** comment out the other languages tab-pane -->
                     <div class="tab-pane" id="examples-PayrollUk-updateTimesheetLine-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
 import org.openapitools.client.api.client.PayrollUkApi;

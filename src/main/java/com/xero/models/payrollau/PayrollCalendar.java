@@ -46,6 +46,9 @@ public class PayrollCalendar {
   @JsonProperty("UpdatedDateUTC")
   private String updatedDateUTC;
 
+  @JsonProperty("ReferenceDate")
+  private String referenceDate;
+
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
   /**
@@ -322,6 +325,69 @@ public class PayrollCalendar {
   }
 
   /**
+   * Reference Date (YYYY-MM-DD)
+   *
+   * @param referenceDate String
+   * @return PayrollCalendar
+   */
+  public PayrollCalendar referenceDate(String referenceDate) {
+    this.referenceDate = referenceDate;
+    return this;
+  }
+
+  /**
+   * Reference Date (YYYY-MM-DD)
+   *
+   * @return referenceDate
+   */
+  @ApiModelProperty(example = "/Date(322560000000+0000)/", value = "Reference Date (YYYY-MM-DD)")
+  /**
+   * Reference Date (YYYY-MM-DD)
+   *
+   * @return referenceDate String
+   */
+  public String getReferenceDate() {
+    return referenceDate;
+  }
+  /**
+   * Reference Date (YYYY-MM-DD)
+   *
+   * @return LocalDate
+   */
+  public LocalDate getReferenceDateAsDate() {
+    if (this.referenceDate != null) {
+      try {
+        return util.convertStringToDate(this.referenceDate);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Reference Date (YYYY-MM-DD)
+   *
+   * @param referenceDate String
+   */
+  public void setReferenceDate(String referenceDate) {
+    this.referenceDate = referenceDate;
+  }
+
+  /**
+   * Reference Date (YYYY-MM-DD)
+   *
+   * @param referenceDate LocalDateTime
+   */
+  public void setReferenceDate(LocalDate referenceDate) {
+    // CONVERT LocalDate args into MS DateFromat String
+    Instant instant = referenceDate.atStartOfDay(ZoneId.of("UTC").normalized()).toInstant();
+    long timeInMillis = instant.toEpochMilli();
+
+    this.referenceDate = "/Date(" + Long.toString(timeInMillis) + "+0000)/";
+  }
+
+  /**
    * Displays array of validation error messages from the API
    *
    * @param validationErrors List&lt;ValidationError&gt;
@@ -385,6 +451,7 @@ public class PayrollCalendar {
         && Objects.equals(this.paymentDate, payrollCalendar.paymentDate)
         && Objects.equals(this.payrollCalendarID, payrollCalendar.payrollCalendarID)
         && Objects.equals(this.updatedDateUTC, payrollCalendar.updatedDateUTC)
+        && Objects.equals(this.referenceDate, payrollCalendar.referenceDate)
         && Objects.equals(this.validationErrors, payrollCalendar.validationErrors);
   }
 
@@ -397,6 +464,7 @@ public class PayrollCalendar {
         paymentDate,
         payrollCalendarID,
         updatedDateUTC,
+        referenceDate,
         validationErrors);
   }
 
@@ -410,6 +478,7 @@ public class PayrollCalendar {
     sb.append("    paymentDate: ").append(toIndentedString(paymentDate)).append("\n");
     sb.append("    payrollCalendarID: ").append(toIndentedString(payrollCalendarID)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
+    sb.append("    referenceDate: ").append(toIndentedString(referenceDate)).append("\n");
     sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("}");
     return sb.toString();
