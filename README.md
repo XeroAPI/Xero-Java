@@ -40,7 +40,7 @@ This SDK supports full method coverage for the following Xero API sets:
 ## Sample Applications
 Sample apps can get you started quickly with simple auth flows and advanced usage examples.
 
-| Sample App | Description | Screenshot |
+| Sample App | Description |
 | --- | --- |
 | [`starter-app`](https://github.com/XeroAPI/xero-java-oauth2-starter) | Basic getting started code samples
 | [`full-app`](https://github.com/XeroAPI/xero-java-oauth2-app) | Complete app with more examples
