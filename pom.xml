@@ -256,7 +256,7 @@
 						<goals>
 							<goal>sign</goal>
 						</goals>
-						<configuration>
+             <configuration>
 							<passphraseServerId>gpg.passphrase</passphraseServerId>
             </configuration>
 					</execution>

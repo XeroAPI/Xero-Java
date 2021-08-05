@@ -147,6 +147,88 @@ public class Employee {
 
   @JsonProperty("TerminationDate")
   private String terminationDate;
+  /**
+   * * &#x60;V&#x60; Voluntary cessation - An employee resignation, retirement, domestic or pressing
+   * necessity or abandonment of employment * &#x60;I&#x60; Ill health - An employee resignation due
+   * to medical condition that prevents the continuation of employment, such as for illness,
+   * ill-health, medical unfitness or total permanent disability * &#x60;D&#x60; Deceased - The
+   * death of an employee * &#x60;R&#x60; Redundancy - An employer-initiated termination of
+   * employment due to a genuine redundancy or approved early retirement scheme * &#x60;F&#x60;
+   * Dismissal - An employer-initiated termination of employment due to dismissal, inability to
+   * perform the required work, misconduct or inefficiency * &#x60;C&#x60; Contract cessation - The
+   * natural conclusion of a limited employment relationship due to contract/engagement duration or
+   * task completion, seasonal work completion, or to cease casuals that are no longer required *
+   * &#x60;T&#x60; Transfer - The administrative arrangements performed to transfer employees across
+   * payroll systems, move them temporarily to another employer (machinery of government for public
+   * servants), transfer of business, move them to outsourcing arrangements or other such technical
+   * activities.
+   */
+  public enum TerminationReasonEnum {
+    /** V */
+    V("V"),
+
+    /** I */
+    I("I"),
+
+    /** D */
+    D("D"),
+
+    /** R */
+    R("R"),
+
+    /** F */
+    F("F"),
+
+    /** C */
+    C("C"),
+
+    /** T */
+    T("T");
+
+    private String value;
+
+    TerminationReasonEnum(String value) {
+      this.value = value;
+    }
+
+    /**
+     * getValue
+     *
+     * @return String value
+     */
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    /**
+     * toString
+     *
+     * @return String value
+     */
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
+    @JsonCreator
+    public static TerminationReasonEnum fromValue(String value) {
+      for (TerminationReasonEnum b : TerminationReasonEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  @JsonProperty("TerminationReason")
+  private TerminationReasonEnum terminationReason;
 
   @JsonProperty("BankAccounts")
   private List<BankAccount> bankAccounts = new ArrayList<BankAccount>();
@@ -1018,6 +1100,111 @@ public class Employee {
   }
 
   /**
+   * * &#x60;V&#x60; Voluntary cessation - An employee resignation, retirement, domestic or pressing
+   * necessity or abandonment of employment * &#x60;I&#x60; Ill health - An employee resignation due
+   * to medical condition that prevents the continuation of employment, such as for illness,
+   * ill-health, medical unfitness or total permanent disability * &#x60;D&#x60; Deceased - The
+   * death of an employee * &#x60;R&#x60; Redundancy - An employer-initiated termination of
+   * employment due to a genuine redundancy or approved early retirement scheme * &#x60;F&#x60;
+   * Dismissal - An employer-initiated termination of employment due to dismissal, inability to
+   * perform the required work, misconduct or inefficiency * &#x60;C&#x60; Contract cessation - The
+   * natural conclusion of a limited employment relationship due to contract/engagement duration or
+   * task completion, seasonal work completion, or to cease casuals that are no longer required *
+   * &#x60;T&#x60; Transfer - The administrative arrangements performed to transfer employees across
+   * payroll systems, move them temporarily to another employer (machinery of government for public
+   * servants), transfer of business, move them to outsourcing arrangements or other such technical
+   * activities.
+   *
+   * @param terminationReason TerminationReasonEnum
+   * @return Employee
+   */
+  public Employee terminationReason(TerminationReasonEnum terminationReason) {
+    this.terminationReason = terminationReason;
+    return this;
+  }
+
+  /**
+   * * &#x60;V&#x60; Voluntary cessation - An employee resignation, retirement, domestic or pressing
+   * necessity or abandonment of employment * &#x60;I&#x60; Ill health - An employee resignation due
+   * to medical condition that prevents the continuation of employment, such as for illness,
+   * ill-health, medical unfitness or total permanent disability * &#x60;D&#x60; Deceased - The
+   * death of an employee * &#x60;R&#x60; Redundancy - An employer-initiated termination of
+   * employment due to a genuine redundancy or approved early retirement scheme * &#x60;F&#x60;
+   * Dismissal - An employer-initiated termination of employment due to dismissal, inability to
+   * perform the required work, misconduct or inefficiency * &#x60;C&#x60; Contract cessation - The
+   * natural conclusion of a limited employment relationship due to contract/engagement duration or
+   * task completion, seasonal work completion, or to cease casuals that are no longer required *
+   * &#x60;T&#x60; Transfer - The administrative arrangements performed to transfer employees across
+   * payroll systems, move them temporarily to another employer (machinery of government for public
+   * servants), transfer of business, move them to outsourcing arrangements or other such technical
+   * activities.
+   *
+   * @return terminationReason
+   */
+  @ApiModelProperty(
+      example = "F",
+      value =
+          "* `V` Voluntary cessation - An employee resignation, retirement, domestic or pressing"
+              + " necessity or abandonment of employment * `I` Ill health - An employee"
+              + " resignation due to medical condition that prevents the continuation of"
+              + " employment, such as for illness, ill-health, medical unfitness or total"
+              + " permanent disability * `D` Deceased - The death of an employee * `R` Redundancy"
+              + " - An employer-initiated termination of employment due to a genuine redundancy or"
+              + " approved early retirement scheme * `F` Dismissal - An employer-initiated"
+              + " termination of employment due to dismissal, inability to perform the required"
+              + " work, misconduct or inefficiency * `C` Contract cessation - The natural"
+              + " conclusion of a limited employment relationship due to contract/engagement"
+              + " duration or task completion, seasonal work completion, or to cease casuals that"
+              + " are no longer required * `T` Transfer - The administrative arrangements"
+              + " performed to transfer employees across payroll systems, move them temporarily to"
+              + " another employer (machinery of government for public servants), transfer of"
+              + " business, move them to outsourcing arrangements or other such technical"
+              + " activities. ")
+  /**
+   * * &#x60;V&#x60; Voluntary cessation - An employee resignation, retirement, domestic or pressing
+   * necessity or abandonment of employment * &#x60;I&#x60; Ill health - An employee resignation due
+   * to medical condition that prevents the continuation of employment, such as for illness,
+   * ill-health, medical unfitness or total permanent disability * &#x60;D&#x60; Deceased - The
+   * death of an employee * &#x60;R&#x60; Redundancy - An employer-initiated termination of
+   * employment due to a genuine redundancy or approved early retirement scheme * &#x60;F&#x60;
+   * Dismissal - An employer-initiated termination of employment due to dismissal, inability to
+   * perform the required work, misconduct or inefficiency * &#x60;C&#x60; Contract cessation - The
+   * natural conclusion of a limited employment relationship due to contract/engagement duration or
+   * task completion, seasonal work completion, or to cease casuals that are no longer required *
+   * &#x60;T&#x60; Transfer - The administrative arrangements performed to transfer employees across
+   * payroll systems, move them temporarily to another employer (machinery of government for public
+   * servants), transfer of business, move them to outsourcing arrangements or other such technical
+   * activities.
+   *
+   * @return terminationReason TerminationReasonEnum
+   */
+  public TerminationReasonEnum getTerminationReason() {
+    return terminationReason;
+  }
+
+  /**
+   * * &#x60;V&#x60; Voluntary cessation - An employee resignation, retirement, domestic or pressing
+   * necessity or abandonment of employment * &#x60;I&#x60; Ill health - An employee resignation due
+   * to medical condition that prevents the continuation of employment, such as for illness,
+   * ill-health, medical unfitness or total permanent disability * &#x60;D&#x60; Deceased - The
+   * death of an employee * &#x60;R&#x60; Redundancy - An employer-initiated termination of
+   * employment due to a genuine redundancy or approved early retirement scheme * &#x60;F&#x60;
+   * Dismissal - An employer-initiated termination of employment due to dismissal, inability to
+   * perform the required work, misconduct or inefficiency * &#x60;C&#x60; Contract cessation - The
+   * natural conclusion of a limited employment relationship due to contract/engagement duration or
+   * task completion, seasonal work completion, or to cease casuals that are no longer required *
+   * &#x60;T&#x60; Transfer - The administrative arrangements performed to transfer employees across
+   * payroll systems, move them temporarily to another employer (machinery of government for public
+   * servants), transfer of business, move them to outsourcing arrangements or other such technical
+   * activities.
+   *
+   * @param terminationReason TerminationReasonEnum
+   */
+  public void setTerminationReason(TerminationReasonEnum terminationReason) {
+    this.terminationReason = terminationReason;
+  }
+
+  /**
    * bankAccounts
    *
    * @param bankAccounts List&lt;BankAccount&gt;
@@ -1463,6 +1650,7 @@ public class Employee {
         && Objects.equals(this.employeeGroupName, employee.employeeGroupName)
         && Objects.equals(this.employeeID, employee.employeeID)
         && Objects.equals(this.terminationDate, employee.terminationDate)
+        && Objects.equals(this.terminationReason, employee.terminationReason)
         && Objects.equals(this.bankAccounts, employee.bankAccounts)
         && Objects.equals(this.payTemplate, employee.payTemplate)
         && Objects.equals(this.openingBalances, employee.openingBalances)
@@ -1499,6 +1687,7 @@ public class Employee {
         employeeGroupName,
         employeeID,
         terminationDate,
+        terminationReason,
         bankAccounts,
         payTemplate,
         openingBalances,
@@ -1542,6 +1731,7 @@ public class Employee {
     sb.append("    employeeGroupName: ").append(toIndentedString(employeeGroupName)).append("\n");
     sb.append("    employeeID: ").append(toIndentedString(employeeID)).append("\n");
     sb.append("    terminationDate: ").append(toIndentedString(terminationDate)).append("\n");
+    sb.append("    terminationReason: ").append(toIndentedString(terminationReason)).append("\n");
     sb.append("    bankAccounts: ").append(toIndentedString(bankAccounts)).append("\n");
     sb.append("    payTemplate: ").append(toIndentedString(payTemplate)).append("\n");
     sb.append("    openingBalances: ").append(toIndentedString(openingBalances)).append("\n");

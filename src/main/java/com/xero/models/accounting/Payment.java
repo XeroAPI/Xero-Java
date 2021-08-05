@@ -63,6 +63,9 @@ public class Payment {
   @JsonProperty("Amount")
   private Double amount;
 
+  @JsonProperty("BankAmount")
+  private Double bankAmount;
+
   @JsonProperty("Reference")
   private String reference;
 
@@ -657,6 +660,41 @@ public class Payment {
   }
 
   /**
+   * The amount of the payment in the currency of the bank account.
+   *
+   * @param bankAmount Double
+   * @return Payment
+   */
+  public Payment bankAmount(Double bankAmount) {
+    this.bankAmount = bankAmount;
+    return this;
+  }
+
+  /**
+   * The amount of the payment in the currency of the bank account.
+   *
+   * @return bankAmount
+   */
+  @ApiModelProperty(value = "The amount of the payment in the currency of the bank account.")
+  /**
+   * The amount of the payment in the currency of the bank account.
+   *
+   * @return bankAmount Double
+   */
+  public Double getBankAmount() {
+    return bankAmount;
+  }
+
+  /**
+   * The amount of the payment in the currency of the bank account.
+   *
+   * @param bankAmount Double
+   */
+  public void setBankAmount(Double bankAmount) {
+    this.bankAmount = bankAmount;
+  }
+
+  /**
    * An optional description for the payment e.g. Direct Debit
    *
    * @param reference String
@@ -1177,6 +1215,7 @@ public class Payment {
         && Objects.equals(this.date, payment.date)
         && Objects.equals(this.currencyRate, payment.currencyRate)
         && Objects.equals(this.amount, payment.amount)
+        && Objects.equals(this.bankAmount, payment.bankAmount)
         && Objects.equals(this.reference, payment.reference)
         && Objects.equals(this.isReconciled, payment.isReconciled)
         && Objects.equals(this.status, payment.status)
@@ -1207,6 +1246,7 @@ public class Payment {
         date,
         currencyRate,
         amount,
+        bankAmount,
         reference,
         isReconciled,
         status,
@@ -1238,6 +1278,7 @@ public class Payment {
     sb.append("    date: ").append(toIndentedString(date)).append("\n");
     sb.append("    currencyRate: ").append(toIndentedString(currencyRate)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
+    sb.append("    bankAmount: ").append(toIndentedString(bankAmount)).append("\n");
     sb.append("    reference: ").append(toIndentedString(reference)).append("\n");
     sb.append("    isReconciled: ").append(toIndentedString(isReconciled)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
