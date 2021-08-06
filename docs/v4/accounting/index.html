@@ -4185,6 +4185,12 @@ ul.nav-tabs {
       "format" : "double",
       "x-is-money" : true
     },
+    "BankAmount" : {
+      "type" : "number",
+      "description" : "The amount of the payment in the currency of the bank account.",
+      "format" : "double",
+      "x-is-money" : true
+    },
     "Reference" : {
       "type" : "string",
       "description" : "An optional description for the payment e.g. Direct Debit"
@@ -5680,7 +5686,7 @@ ul.nav-tabs {
   "title" : "",
   "type" : "string",
   "description" : "Timezone specifications",
-  "enum" : [ "MOROCCOSTANDARDTIME", "UTC", "GMTSTANDARDTIME", "GREENWICHSTANDARDTIME", "WEUROPESTANDARDTIME", "CENTRALEUROPESTANDARDTIME", "ROMANCESTANDARDTIME", "CENTRALEUROPEANSTANDARDTIME", "WCENTRALAFRICASTANDARDTIME", "NAMIBIASTANDARDTIME", "JORDANSTANDARDTIME", "GTBSTANDARDTIME", "MIDDLEEASTSTANDARDTIME", "EGYPTSTANDARDTIME", "SYRIASTANDARDTIME", "EEUROPESTANDARDTIME", "SOUTHAFRICASTANDARDTIME", "FLESTANDARDTIME", "TURKEYSTANDARDTIME", "ISRAELSTANDARDTIME", "KALININGRADSTANDARDTIME", "LIBYASTANDARDTIME", "ARABICSTANDARDTIME", "ARABSTANDARDTIME", "BELARUSSTANDARDTIME", "RUSSIANSTANDARDTIME", "EAFRICASTANDARDTIME", "IRANSTANDARDTIME", "ARABIANSTANDARDTIME", "AZERBAIJANSTANDARDTIME", "RUSSIATIMEZONE3", "MAURITIUSSTANDARDTIME", "GEORGIANSTANDARDTIME", "CAUCASUSSTANDARDTIME", "AFGHANISTANSTANDARDTIME", "WESTASIASTANDARDTIME", "EKATERINBURGSTANDARDTIME", "PAKISTANSTANDARDTIME", "INDIASTANDARDTIME", "SRILANKASTANDARDTIME", "NEPALSTANDARDTIME", "CENTRALASIASTANDARDTIME", "BANGLADESHSTANDARDTIME", "NCENTRALASIASTANDARDTIME", "MYANMARSTANDARDTIME", "SEASIASTANDARDTIME", "NORTHASIASTANDARDTIME", "CHINASTANDARDTIME", "NORTHASIAEASTSTANDARDTIME", "SINGAPORESTANDARDTIME", "WAUSTRALIASTANDARDTIME", "TAIPEISTANDARDTIME", "ULAANBAATARSTANDARDTIME", "TOKYOSTANDARDTIME", "KOREASTANDARDTIME", "YAKUTSKSTANDARDTIME", "CENAUSTRALIASTANDARDTIME", "AUSCENTRALSTANDARDTIME", "EAUSTRALIASTANDARDTIME", "AUSEASTERNSTANDARDTIME", "WESTPACIFICSTANDARDTIME", "TASMANIASTANDARDTIME", "MAGADANSTANDARDTIME", "VLADIVOSTOKSTANDARDTIME", "RUSSIATIMEZONE10", "CENTRALPACIFICSTANDARDTIME", "RUSSIATIMEZONE11", "NEWZEALANDSTANDARDTIME", "UTC+12", "UTC+13", "FIJISTANDARDTIME", "KAMCHATKASTANDARDTIME", "TONGASTANDARDTIME", "SAMOASTANDARDTIME", "LINEISLANDSSTANDARDTIME", "AZORESSTANDARDTIME", "CAPEVERDESTANDARDTIME", "UTC02", "MIDATLANTICSTANDARDTIME", "ESOUTHAMERICASTANDARDTIME", "ARGENTINASTANDARDTIME", "SAEASTERNSTANDARDTIME", "GREENLANDSTANDARDTIME", "MONTEVIDEOSTANDARDTIME", "BAHIASTANDARDTIME", "NEWFOUNDLANDSTANDARDTIME", "PARAGUAYSTANDARDTIME", "ATLANTICSTANDARDTIME", "CENTRALBRAZILIANSTANDARDTIME", "SAWESTERNSTANDARDTIME", "PACIFICSASTANDARDTIME", "VENEZUELASTANDARDTIME", "SAPACIFICSTANDARDTIME", "EASTERNSTANDARDTIME", "USEASTERNSTANDARDTIME", "CENTRALAMERICASTANDARDTIME", "CENTRALSTANDARDTIME", "CENTRALSTANDARDTIME(MEXICO)", "CANADACENTRALSTANDARDTIME", "USMOUNTAINSTANDARDTIME", "MOUNTAINSTANDARDTIME(MEXICO)", "MOUNTAINSTANDARDTIME", "PACIFICSTANDARDTIME(MEXICO)", "PACIFICSTANDARDTIME", "ALASKANSTANDARDTIME", "HAWAIIANSTANDARDTIME", "UTC11", "DATELINESTANDARDTIME" ]
+  "enum" : [ "MOROCCOSTANDARDTIME", "UTC", "GMTSTANDARDTIME", "GREENWICHSTANDARDTIME", "WEUROPESTANDARDTIME", "CENTRALEUROPESTANDARDTIME", "ROMANCESTANDARDTIME", "CENTRALEUROPEANSTANDARDTIME", "WCENTRALAFRICASTANDARDTIME", "NAMIBIASTANDARDTIME", "JORDANSTANDARDTIME", "GTBSTANDARDTIME", "MIDDLEEASTSTANDARDTIME", "EGYPTSTANDARDTIME", "SYRIASTANDARDTIME", "EEUROPESTANDARDTIME", "SOUTHAFRICASTANDARDTIME", "FLESTANDARDTIME", "TURKEYSTANDARDTIME", "ISRAELSTANDARDTIME", "KALININGRADSTANDARDTIME", "LIBYASTANDARDTIME", "ARABICSTANDARDTIME", "ARABSTANDARDTIME", "BELARUSSTANDARDTIME", "RUSSIANSTANDARDTIME", "EAFRICASTANDARDTIME", "IRANSTANDARDTIME", "ARABIANSTANDARDTIME", "AZERBAIJANSTANDARDTIME", "RUSSIATIMEZONE3", "MAURITIUSSTANDARDTIME", "GEORGIANSTANDARDTIME", "CAUCASUSSTANDARDTIME", "AFGHANISTANSTANDARDTIME", "WESTASIASTANDARDTIME", "EKATERINBURGSTANDARDTIME", "PAKISTANSTANDARDTIME", "INDIASTANDARDTIME", "SRILANKASTANDARDTIME", "NEPALSTANDARDTIME", "CENTRALASIASTANDARDTIME", "BANGLADESHSTANDARDTIME", "NCENTRALASIASTANDARDTIME", "MYANMARSTANDARDTIME", "SEASIASTANDARDTIME", "NORTHASIASTANDARDTIME", "CHINASTANDARDTIME", "NORTHASIAEASTSTANDARDTIME", "SINGAPORESTANDARDTIME", "WAUSTRALIASTANDARDTIME", "TAIPEISTANDARDTIME", "ULAANBAATARSTANDARDTIME", "TOKYOSTANDARDTIME", "KOREASTANDARDTIME", "YAKUTSKSTANDARDTIME", "CENAUSTRALIASTANDARDTIME", "AUSCENTRALSTANDARDTIME", "EAUSTRALIASTANDARDTIME", "AUSEASTERNSTANDARDTIME", "WESTPACIFICSTANDARDTIME", "TASMANIASTANDARDTIME", "MAGADANSTANDARDTIME", "VLADIVOSTOKSTANDARDTIME", "RUSSIATIMEZONE10", "CENTRALPACIFICSTANDARDTIME", "RUSSIATIMEZONE11", "NEWZEALANDSTANDARDTIME", "UTC+12", "UTC+13", "FIJISTANDARDTIME", "KAMCHATKASTANDARDTIME", "TONGASTANDARDTIME", "SAMOASTANDARDTIME", "LINEISLANDSSTANDARDTIME", "AZORESSTANDARDTIME", "CAPEVERDESTANDARDTIME", "UTC02", "MIDATLANTICSTANDARDTIME", "ESOUTHAMERICASTANDARDTIME", "ARGENTINASTANDARDTIME", "SAEASTERNSTANDARDTIME", "GREENLANDSTANDARDTIME", "MONTEVIDEOSTANDARDTIME", "BAHIASTANDARDTIME", "NEWFOUNDLANDSTANDARDTIME", "PARAGUAYSTANDARDTIME", "ATLANTICSTANDARDTIME", "CENTRALBRAZILIANSTANDARDTIME", "SAWESTERNSTANDARDTIME", "PACIFICSASTANDARDTIME", "VENEZUELASTANDARDTIME", "SAPACIFICSTANDARDTIME", "EASTERNSTANDARDTIME", "USEASTERNSTANDARDTIME", "CENTRALAMERICASTANDARDTIME", "CENTRALSTANDARDTIME", "CENTRALSTANDARDTIME(MEXICO)", "CANADACENTRALSTANDARDTIME", "USMOUNTAINSTANDARDTIME", "MOUNTAINSTANDARDTIME(MEXICO)", "MOUNTAINSTANDARDTIME", "PACIFICSTANDARDTIME(MEXICO)", "PACIFICSTANDARDTIME", "ALASKANSTANDARDTIME", "HAWAIIANSTANDARDTIME", "UTC11", "DATELINESTANDARDTIME", "EASTERISLANDSTANDARDTIME" ]
 };
       defs["TrackingCategories"] = {
   "title" : "",
@@ -5932,7 +5938,7 @@ ul.nav-tabs {
           <nav id="scrollingNav">
             <ul class="sidenav nav nav-list">
               <li class="nav-header" data-group="Accounting"><strong>SDK: </strong><span id='sdk-name'></span></li>
-              <li class="nav-header" data-group="Accounting"><strong>VSN: </strong>4.11.1</li>
+              <li class="nav-header" data-group="Accounting"><strong>VSN: </strong>4.12.0</li>
               <li class="nav-header" data-group="Accounting"><a href="#api-Accounting">Methods</a></li>
               <li data-group="Accounting" data-name="createAccount" class="">
                 <a href="#api-Accounting-createAccount">createAccount</a>
@@ -17534,6 +17540,11 @@ public class AccountingApiExample {
                       <td>Grant read-write access to organisation and account settings</td>
                     </tr>
                     
+                    <tr>
+                      <td>accounting.settings.read</td>
+                      <td>Grant read-only access to organisation and account settings</td>
+                    </tr>
+                    
                   </table>
                   <h2>Parameters</h2>
                   <div class="methodsubtabletitle">Path parameters</div>
@@ -17656,6 +17667,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.attachments</td>
+                      <td>Grant read-write access to attachments</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.attachments.read</td>
@@ -17830,6 +17846,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.attachments</td>
+                      <td>Grant read-write access to attachments</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.attachments.read</td>
@@ -18007,6 +18028,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.attachments</td>
+                      <td>Grant read-write access to attachments</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.attachments.read</td>
                       <td>Grant read-only access to attachments</td>
                     </tr>
@@ -18138,6 +18164,11 @@ public class AccountingApiExample {
                     <tr>
                       <td>accounting.settings</td>
                       <td>Grant read-write access to organisation and account settings</td>
+                    </tr>
+                    
+                    <tr>
+                      <td>accounting.settings.read</td>
+                      <td>Grant read-only access to organisation and account settings</td>
                     </tr>
                     
                   </table>
@@ -18300,6 +18331,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.transactions.read</td>
                       <td>Grant read-only access to invoices</td>
                     </tr>
@@ -18453,6 +18489,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.attachments</td>
+                      <td>Grant read-write access to attachments</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.attachments.read</td>
@@ -18627,6 +18668,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.attachments</td>
+                      <td>Grant read-write access to attachments</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.attachments.read</td>
@@ -18804,6 +18850,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.attachments</td>
+                      <td>Grant read-write access to attachments</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.attachments.read</td>
                       <td>Grant read-only access to attachments</td>
                     </tr>
@@ -18933,6 +18984,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.transactions.read</td>
@@ -19138,6 +19194,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.transactions.read</td>
                       <td>Grant read-only access to invoices</td>
                     </tr>
@@ -19262,6 +19323,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.transactions.read</td>
@@ -19390,6 +19456,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.attachments</td>
+                      <td>Grant read-write access to attachments</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.attachments.read</td>
@@ -19564,6 +19635,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.attachments</td>
+                      <td>Grant read-write access to attachments</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.attachments.read</td>
@@ -19741,6 +19817,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.attachments</td>
+                      <td>Grant read-write access to attachments</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.attachments.read</td>
                       <td>Grant read-only access to attachments</td>
                     </tr>
@@ -19865,6 +19946,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.transactions.read</td>
@@ -19994,6 +20080,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.transactions.read</td>
@@ -20159,6 +20250,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.transactions.read</td>
                       <td>Grant read-only access to invoices</td>
                     </tr>
@@ -20286,6 +20382,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.transactions.read</td>
@@ -20449,6 +20550,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.settings</td>
+                      <td>Grant read-write access to organisation and account settings</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.settings.read</td>
@@ -20700,6 +20806,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.settings</td>
+                      <td>Grant read-write access to organisation and account settings</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.settings.read</td>
@@ -21092,6 +21203,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.contacts</td>
+                      <td>Grant read-write access to contacts and contact groups</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.contacts.read</td>
                       <td>Grant read-only access to contacts and contact groups</td>
                     </tr>
@@ -21218,6 +21334,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.attachments</td>
+                      <td>Grant read-write access to attachments</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.attachments.read</td>
@@ -21392,6 +21513,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.attachments</td>
+                      <td>Grant read-write access to attachments</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.attachments.read</td>
@@ -21569,6 +21695,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.attachments</td>
+                      <td>Grant read-write access to attachments</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.attachments.read</td>
                       <td>Grant read-only access to attachments</td>
                     </tr>
@@ -21695,6 +21826,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.contacts</td>
+                      <td>Grant read-write access to contacts and contact groups</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.contacts.read</td>
                       <td>Grant read-only access to contacts and contact groups</td>
                     </tr>
@@ -21818,8 +21954,13 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
-                      <td>accounting.contacts.read</td>
-                      <td>Grant read-only access to contacts and contact groups</td>
+                      <td>accounting.settings</td>
+                      <td>Grant read-write access to organisation and account settings</td>
+                    </tr>
+                    
+                    <tr>
+                      <td>accounting.settings.read</td>
+                      <td>Grant read-only access to organisation and account settings</td>
                     </tr>
                     
                   </table>
@@ -21942,6 +22083,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.contacts</td>
+                      <td>Grant read-write access to contacts and contact groups</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.contacts.read</td>
@@ -22069,6 +22215,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.contacts</td>
+                      <td>Grant read-write access to contacts and contact groups</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.contacts.read</td>
@@ -22211,6 +22362,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.contacts</td>
+                      <td>Grant read-write access to contacts and contact groups</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.contacts.read</td>
                       <td>Grant read-only access to contacts and contact groups</td>
                     </tr>
@@ -22342,6 +22498,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.contacts</td>
+                      <td>Grant read-write access to contacts and contact groups</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.contacts.read</td>
@@ -22591,6 +22752,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.transactions.read</td>
                       <td>Grant read-only access to invoices</td>
                     </tr>
@@ -22748,6 +22914,11 @@ public class AccountingApiExample {
                       <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
                     </tr>
                     
+                    <tr>
+                      <td>accounting.transactions.read</td>
+                      <td>Grant read-only access to invoices</td>
+                    </tr>
+                    
                   </table>
                   <h2>Parameters</h2>
                   <div class="methodsubtabletitle">Path parameters</div>
@@ -22870,6 +23041,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.attachments</td>
+                      <td>Grant read-write access to attachments</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.attachments.read</td>
@@ -23044,6 +23220,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.attachments</td>
+                      <td>Grant read-write access to attachments</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.attachments.read</td>
@@ -23221,6 +23402,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.attachments</td>
+                      <td>Grant read-write access to attachments</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.attachments.read</td>
                       <td>Grant read-only access to attachments</td>
                     </tr>
@@ -23345,6 +23531,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.transactions.read</td>
@@ -23476,6 +23667,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.transactions.read</td>
@@ -23682,6 +23878,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.settings</td>
+                      <td>Grant read-write access to organisation and account settings</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.settings.read</td>
                       <td>Grant read-only access to organisation and account settings</td>
                     </tr>
@@ -23822,6 +24023,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.settings</td>
+                      <td>Grant read-write access to organisation and account settings</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.settings.read</td>
                       <td>Grant read-only access to organisation and account settings</td>
                     </tr>
@@ -23949,6 +24155,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.settings</td>
+                      <td>Grant read-write access to organisation and account settings</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.settings.read</td>
@@ -24114,6 +24325,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.transactions.read</td>
                       <td>Grant read-only access to invoices</td>
                     </tr>
@@ -24238,6 +24454,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.transactions.read</td>
@@ -24367,6 +24588,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.transactions.read</td>
@@ -24533,6 +24759,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.transactions.read</td>
                       <td>Grant read-only access to invoices</td>
                     </tr>
@@ -24686,6 +24917,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.transactions.read</td>
                       <td>Grant read-only access to invoices</td>
                     </tr>
@@ -24812,6 +25048,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.attachments</td>
+                      <td>Grant read-write access to attachments</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.attachments.read</td>
@@ -24986,6 +25227,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.attachments</td>
+                      <td>Grant read-write access to attachments</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.attachments.read</td>
@@ -25163,6 +25409,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.attachments</td>
+                      <td>Grant read-write access to attachments</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.attachments.read</td>
                       <td>Grant read-only access to attachments</td>
                     </tr>
@@ -25287,6 +25538,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.transactions.read</td>
@@ -25414,8 +25670,13 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
-                      <td>accounting.transactions.read</td>
-                      <td>Grant read-only access to invoices</td>
+                      <td>accounting.settings</td>
+                      <td>Grant read-write access to organisation and account settings</td>
+                    </tr>
+                    
+                    <tr>
+                      <td>accounting.settings.read</td>
+                      <td>Grant read-only access to organisation and account settings</td>
                     </tr>
                     
                   </table>
@@ -25517,6 +25778,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.transactions.read</td>
@@ -25869,6 +26135,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.settings</td>
+                      <td>Grant read-write access to organisation and account settings</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.settings.read</td>
                       <td>Grant read-only access to organisation and account settings</td>
                     </tr>
@@ -26022,6 +26293,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.settings</td>
+                      <td>Grant read-write access to organisation and account settings</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.settings.read</td>
                       <td>Grant read-only access to organisation and account settings</td>
                     </tr>
@@ -26150,6 +26426,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.settings</td>
+                      <td>Grant read-write access to organisation and account settings</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.settings.read</td>
@@ -26627,6 +26908,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.transactions.read</td>
                       <td>Grant read-only access to invoices</td>
                     </tr>
@@ -26756,6 +27042,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.transactions.read</td>
@@ -26990,6 +27281,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.transactions.read</td>
                       <td>Grant read-only access to invoices</td>
                     </tr>
@@ -27116,6 +27412,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.attachments</td>
+                      <td>Grant read-write access to attachments</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.attachments.read</td>
@@ -27290,6 +27591,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.attachments</td>
+                      <td>Grant read-write access to attachments</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.attachments.read</td>
@@ -27467,6 +27773,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.attachments</td>
+                      <td>Grant read-write access to attachments</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.attachments.read</td>
                       <td>Grant read-only access to attachments</td>
                     </tr>
@@ -27595,6 +27906,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.transactions.read</td>
@@ -27780,6 +28096,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.transactions.read</td>
                       <td>Grant read-only access to invoices</td>
                     </tr>
@@ -27904,6 +28225,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.transactions.read</td>
@@ -28031,6 +28357,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.settings</td>
+                      <td>Grant read-write access to organisation and account settings</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.settings.read</td>
                       <td>Grant read-only access to organisation and account settings</td>
                     </tr>
@@ -28122,6 +28453,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.settings</td>
+                      <td>Grant read-write access to organisation and account settings</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.settings.read</td>
@@ -28249,6 +28585,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.settings</td>
+                      <td>Grant read-write access to organisation and account settings</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.settings.read</td>
                       <td>Grant read-only access to organisation and account settings</td>
                     </tr>
@@ -28340,6 +28681,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.transactions.read</td>
@@ -28466,6 +28812,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.transactions.read</td>
@@ -28597,6 +28948,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.transactions.read</td>
@@ -28802,6 +29158,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.transactions.read</td>
                       <td>Grant read-only access to invoices</td>
                     </tr>
@@ -28926,6 +29287,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.transactions.read</td>
@@ -29150,6 +29516,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.transactions.read</td>
                       <td>Grant read-only access to invoices</td>
                     </tr>
@@ -29333,6 +29704,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.transactions.read</td>
                       <td>Grant read-only access to invoices</td>
                     </tr>
@@ -29457,6 +29833,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.transactions.read</td>
@@ -29588,6 +29969,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.transactions.read</td>
@@ -29793,6 +30179,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.transactions.read</td>
                       <td>Grant read-only access to invoices</td>
                     </tr>
@@ -29917,6 +30308,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.transactions.read</td>
@@ -30045,6 +30441,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.attachments</td>
+                      <td>Grant read-write access to attachments</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.attachments.read</td>
@@ -30222,6 +30623,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.attachments</td>
+                      <td>Grant read-write access to attachments</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.attachments.read</td>
                       <td>Grant read-only access to attachments</td>
                     </tr>
@@ -30348,6 +30754,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.transactions.read</td>
                       <td>Grant read-only access to invoices</td>
                     </tr>
@@ -30469,6 +30880,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.transactions.read</td>
@@ -30601,6 +31017,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.transactions.read</td>
@@ -30828,6 +31249,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.attachments</td>
+                      <td>Grant read-write access to attachments</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.attachments.read</td>
                       <td>Grant read-only access to attachments</td>
                     </tr>
@@ -31000,6 +31426,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.transactions.read</td>
                       <td>Grant read-only access to invoices</td>
                     </tr>
@@ -31124,6 +31555,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.transactions.read</td>
@@ -31252,6 +31688,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.attachments</td>
+                      <td>Grant read-write access to attachments</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.attachments.read</td>
@@ -31426,6 +31867,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.attachments</td>
+                      <td>Grant read-write access to attachments</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.attachments.read</td>
@@ -31603,6 +32049,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.attachments</td>
+                      <td>Grant read-write access to attachments</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.attachments.read</td>
                       <td>Grant read-only access to attachments</td>
                     </tr>
@@ -31727,6 +32178,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.transactions.read</td>
@@ -31863,6 +32319,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.transactions.read</td>
@@ -32184,6 +32645,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.transactions.read</td>
                       <td>Grant read-only access to invoices</td>
                     </tr>
@@ -32337,6 +32803,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.attachments</td>
+                      <td>Grant read-write access to attachments</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.attachments.read</td>
@@ -32511,6 +32982,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.attachments</td>
+                      <td>Grant read-write access to attachments</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.attachments.read</td>
@@ -32688,6 +33164,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.attachments</td>
+                      <td>Grant read-write access to attachments</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.attachments.read</td>
                       <td>Grant read-only access to attachments</td>
                     </tr>
@@ -32812,6 +33293,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.transactions.read</td>
@@ -32942,6 +33428,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.transactions.read</td>
@@ -33127,6 +33618,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.transactions.read</td>
                       <td>Grant read-only access to invoices</td>
                     </tr>
@@ -33253,6 +33749,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.attachments</td>
+                      <td>Grant read-write access to attachments</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.attachments.read</td>
@@ -33427,6 +33928,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.attachments</td>
+                      <td>Grant read-write access to attachments</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.attachments.read</td>
@@ -33604,6 +34110,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.attachments</td>
+                      <td>Grant read-write access to attachments</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.attachments.read</td>
                       <td>Grant read-only access to attachments</td>
                     </tr>
@@ -33728,6 +34239,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.transactions.read</td>
@@ -33855,6 +34371,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.transactions.read</td>
@@ -35515,6 +36036,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.reports.read</td>
+                      <td>Grant read-only access to accounting reports</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.reports.tenninetynine.read</td>
                       <td>Grant read-only access to 1099 reports</td>
                     </tr>
@@ -35873,6 +36399,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.settings</td>
+                      <td>Grant read-write access to organisation and account settings</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.settings.read</td>
                       <td>Grant read-only access to organisation and account settings</td>
                     </tr>
@@ -36035,6 +36566,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.settings</td>
+                      <td>Grant read-write access to organisation and account settings</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.settings.read</td>
                       <td>Grant read-only access to organisation and account settings</td>
                     </tr>
@@ -36195,6 +36731,11 @@ public class AccountingApiExample {
                   <table>
                     
                     <tr>
+                      <td>accounting.settings</td>
+                      <td>Grant read-write access to organisation and account settings</td>
+                    </tr>
+                    
+                    <tr>
                       <td>accounting.settings.read</td>
                       <td>Grant read-only access to organisation and account settings</td>
                     </tr>
@@ -36319,6 +36860,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.settings</td>
+                      <td>Grant read-write access to organisation and account settings</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.settings.read</td>
@@ -36448,6 +36994,11 @@ public class AccountingApiExample {
                   </div>
                   <h2>Scopes</h2>
                   <table>
+                    
+                    <tr>
+                      <td>accounting.settings</td>
+                      <td>Grant read-write access to organisation and account settings</td>
+                    </tr>
                     
                     <tr>
                       <td>accounting.settings.read</td>
