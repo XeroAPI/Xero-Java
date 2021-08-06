@@ -48,7 +48,7 @@ public class AssetApi {
   private ApiClient apiClient;
   private static AssetApi instance = null;
   private String userAgent = "Default";
-  private String version = "4.11.1";
+  private String version = "4.12.0";
   static final Logger logger = LoggerFactory.getLogger(AssetApi.class);
 
   /** AssetApi */

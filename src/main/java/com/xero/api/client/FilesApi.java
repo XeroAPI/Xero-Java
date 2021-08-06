@@ -53,7 +53,7 @@ public class FilesApi {
   private ApiClient apiClient;
   private static FilesApi instance = null;
   private String userAgent = "Default";
-  private String version = "4.11.1";
+  private String version = "4.12.0";
   static final Logger logger = LoggerFactory.getLogger(FilesApi.class);
 
   /** FilesApi */
