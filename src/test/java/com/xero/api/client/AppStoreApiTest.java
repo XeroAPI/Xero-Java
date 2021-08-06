@@ -51,12 +51,10 @@ public class AppStoreApiTest {
 
 	@Before
 	public void setUp() {
-		
 		// Set Access Token and Tenant Id
         accessToken = "123";
         xeroTenantId = "xyz";
         
-        // Init clienthttps://xero-bank-feeds.getsandbox.com:443/bankfeeds.xro/1.0
 		defaultClient = new ApiClient("https://xero-app-store.getsandbox.com:443/appstore/2.0",null,null,null,null);
         appStoreApi = AppStoreApi.getInstance(defaultClient);
         
@@ -88,11 +86,10 @@ public class AppStoreApiTest {
         try {
             UUID subscriptionId = UUID.fromString("01b5a6f4-8936-4bfa-b703-830702312b87");
             Subscription response = appStoreApi.getSubscription(accessToken, subscriptionId);
-   
             assertThat(response.getId().toString(), (equalTo("01b5a6f4-8936-4bfa-b703-830702312b87")));
             assertThat(response.getOrganisationId().toString(), (equalTo("fdc5be44-9b3e-4ebb-a0e9-11b9737f9a28")));
 
-            //System.out.println(response.toString());
+            System.out.println(response.toString());
         } catch (XeroApiException xe) {
             System.out.println(xe.toString());
         }
