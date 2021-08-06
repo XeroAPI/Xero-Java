@@ -58,7 +58,7 @@ public class AppStoreApiTest {
         
         // Init clienthttps://xero-bank-feeds.getsandbox.com:443/bankfeeds.xro/1.0
 		defaultClient = new ApiClient("https://xero-app-store.getsandbox.com:443/appstore/2.0",null,null,null,null);
-        AppStoreApi = AppStoreApi.getInstance(defaultClient);
+        appStoreApi = AppStoreApi.getInstance(defaultClient);
         
 		// ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
 		if (setUpIsDone) {
@@ -77,7 +77,7 @@ public class AppStoreApiTest {
 	}
 
 	public void tearDown() {
-		AppStoreApi = null;
+		appStoreApi = null;
 		defaultClient = null;
 	}
 
