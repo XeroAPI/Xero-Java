@@ -2,12 +2,12 @@
 <html>
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Xero Assets API</title>
+    <title>Xero AppStore API</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8">
-    <meta name="description" content="Xero-Java SDK Asset API Documentation">
-    <title>Xero-Java Asset SDK Docs</title>
+    <meta name="description" content="Xero-Java SDK AppStore API Documentation">
+    <title>Xero-Java AppStore SDK Docs</title>
     <meta name="keywords" content="Xero-Java, Java, sdk, documentation, docs, XeroAPI, Xero, developer">
     <meta name="author" content="Xero Developer Evangelists">
     <link rel="shortcut icon" href="https://developer.xero.com/static/favicon.ico" type="image/x-icon">
@@ -860,448 +860,180 @@ ul.nav-tabs {
     <script>
       // Script section to load models into a JS Var
       var defs = {}
-      defs["Asset"] = {
+      defs["Plan"] = {
   "title" : "",
-  "required" : [ "assetName" ],
+  "required" : [ "id", "name", "status", "subscriptionItems" ],
   "type" : "object",
   "properties" : {
-    "assetId" : {
+    "id" : {
       "type" : "string",
-      "description" : "The Xero-generated Id for the asset",
-      "format" : "uuid",
-      "example" : "3b5b3a38-5649-495f-87a1-14a4e5918634"
+      "description" : "The unique identifier of the plan",
+      "format" : "uuid"
     },
-    "assetName" : {
+    "name" : {
       "type" : "string",
-      "description" : "The name of the asset",
-      "example" : "Awesome Truck 3"
+      "description" : "The name of the plan. It is used in the invoice line item\ndescription.\n"
     },
-    "assetTypeId" : {
+    "status" : {
       "type" : "string",
-      "description" : "The Xero-generated Id for the asset type",
-      "format" : "uuid",
-      "example" : "3b5b3a38-5649-495f-87a1-14a4e5918634"
+      "description" : "Status of the plan. Available statuses are ACTIVE,\nPENDING_ACTIVATION.\n",
+      "enum" : [ "ACTIVE", "PENDING_ACTIVATION" ]
     },
-    "assetNumber" : {
-      "type" : "string",
-      "description" : "Must be unique.",
-      "example" : "FA-0013"
-    },
-    "purchaseDate" : {
-      "type" : "string",
-      "description" : "The date the asset was purchased YYYY-MM-DD",
-      "format" : "date"
-    },
-    "purchasePrice" : {
-      "type" : "number",
-      "description" : "The purchase price of the asset",
-      "format" : "double",
-      "example" : 1000.0000,
-      "x-is-money" : true
-    },
-    "disposalDate" : {
-      "type" : "string",
-      "description" : "The date the asset was disposed",
-      "format" : "date"
-    },
-    "disposalPrice" : {
-      "type" : "number",
-      "description" : "The price the asset was disposed at",
-      "format" : "double",
-      "example" : 1.0000,
-      "x-is-money" : true
-    },
-    "assetStatus" : {
-      "$ref" : "#/components/schemas/AssetStatus"
-    },
-    "warrantyExpiryDate" : {
-      "type" : "string",
-      "description" : "The date the asset’s warranty expires (if needed) YYYY-MM-DD",
-      "example" : "ca4c6b39-4f4f-43e8-98da-5e1f350a6694"
-    },
-    "serialNumber" : {
-      "type" : "string",
-      "description" : "The asset's serial number",
-      "example" : "ca4c6b39-4f4f-43e8-98da-5e1f350a6694"
-    },
-    "bookDepreciationSetting" : {
-      "$ref" : "#/components/schemas/BookDepreciationSetting"
-    },
-    "bookDepreciationDetail" : {
-      "$ref" : "#/components/schemas/BookDepreciationDetail"
-    },
-    "canRollback" : {
-      "type" : "boolean",
-      "description" : "Boolean to indicate whether depreciation can be rolled back for this asset individually. This is true if it doesn't have 'legacy' journal entries and if there is no lock period that would prevent this asset from rolling back.",
-      "example" : true
-    },
-    "accountingBookValue" : {
-      "type" : "number",
-      "description" : "The accounting value of the asset",
-      "format" : "double",
-      "example" : 0,
-      "x-is-money" : true
-    },
-    "isDeleteEnabledForDate" : {
-      "type" : "boolean",
-      "description" : "Boolean to indicate whether delete is enabled",
-      "example" : true
-    }
-  },
-  "description" : ""
-};
-      defs["AssetStatus"] = {
-  "title" : "",
-  "type" : "string",
-  "description" : "See Asset Status Codes.",
-  "example" : "Draft",
-  "enum" : [ "Draft", "Registered", "Disposed" ]
-};
-      defs["AssetStatusQueryParam"] = {
-  "title" : "",
-  "type" : "string",
-  "description" : "See Asset Status Codes.",
-  "example" : "DRAFT",
-  "enum" : [ "DRAFT", "REGISTERED", "DISPOSED" ]
-};
-      defs["AssetType"] = {
-  "title" : "",
-  "required" : [ "assetTypeName", "bookDepreciationSetting" ],
-  "type" : "object",
-  "properties" : {
-    "assetTypeId" : {
-      "type" : "string",
-      "description" : "Xero generated unique identifier for asset types",
-      "format" : "uuid",
-      "example" : "5da209c5-5e19-4a43-b925-71b776c49ced"
-    },
-    "assetTypeName" : {
-      "type" : "string",
-      "description" : "The name of the asset type",
-      "example" : "Computer Equipment"
-    },
-    "fixedAssetAccountId" : {
-      "type" : "string",
-      "description" : "The asset account for fixed assets of this type",
-      "format" : "uuid",
-      "example" : "24e260f1-bfc4-4766-ad7f-8a8ce01de879"
-    },
-    "depreciationExpenseAccountId" : {
-      "type" : "string",
-      "description" : "The expense account for the depreciation of fixed assets of this type",
-      "format" : "uuid",
-      "example" : "b23fc79b-d66b-44b0-a240-e138e086fcbc"
-    },
-    "accumulatedDepreciationAccountId" : {
-      "type" : "string",
-      "description" : "The account for accumulated depreciation of fixed assets of this type",
-      "format" : "uuid",
-      "example" : "ca4c6b39-4f4f-43e8-98da-5e1f350a6694"
-    },
-    "bookDepreciationSetting" : {
-      "$ref" : "#/components/schemas/BookDepreciationSetting"
-    },
-    "locks" : {
-      "type" : "integer",
-      "description" : "All asset types that have accumulated depreciation for any assets that use them are deemed ‘locked’ and cannot be removed.",
-      "example" : 33
-    }
-  },
-  "description" : ""
-};
-      defs["Assets"] = {
-  "title" : "",
-  "type" : "object",
-  "properties" : {
-    "pagination" : {
-      "$ref" : "#/components/schemas/Pagination"
-    },
-    "items" : {
+    "subscriptionItems" : {
       "type" : "array",
+      "description" : "List of the subscription items belonging to the plan. It does not\ninclude cancelled subscription items.\n",
       "items" : {
-        "$ref" : "#/components/schemas/Asset"
+        "$ref" : "#/components/schemas/SubscriptionItem"
       }
     }
   },
   "description" : ""
 };
-      defs["BookDepreciationDetail"] = {
+      defs["Price"] = {
   "title" : "",
-  "required" : [ "name" ],
+  "required" : [ "amount", "currency", "id" ],
+  "type" : "object",
   "properties" : {
-    "currentCapitalGain" : {
+    "amount" : {
       "type" : "number",
-      "description" : "When an asset is disposed, this will be the sell price minus the purchase price if a profit was made.",
+      "description" : "The net (before tax) amount.",
       "format" : "double",
-      "example" : 5.25,
       "x-is-money" : true
     },
-    "currentGainLoss" : {
-      "type" : "number",
-      "description" : "When an asset is disposed, this will be the lowest one of sell price or purchase price, minus the current book value.",
-      "format" : "double",
-      "example" : 10.5,
-      "x-is-money" : true
-    },
-    "depreciationStartDate" : {
+    "currency" : {
       "type" : "string",
-      "description" : "YYYY-MM-DD",
-      "format" : "date"
+      "description" : "The currency of the price."
     },
-    "costLimit" : {
-      "type" : "number",
-      "description" : "The value of the asset you want to depreciate, if this is less than the cost of the asset.",
-      "format" : "double",
-      "example" : 9000.0,
-      "x-is-money" : true
-    },
-    "residualValue" : {
-      "type" : "number",
-      "description" : "The value of the asset remaining when you've fully depreciated it.",
-      "format" : "double",
-      "example" : 10000.0,
-      "x-is-money" : true
-    },
-    "priorAccumDepreciationAmount" : {
-      "type" : "number",
-      "description" : "All depreciation prior to the current financial year.",
-      "format" : "double",
-      "example" : 0.45,
-      "x-is-money" : true
-    },
-    "currentAccumDepreciationAmount" : {
-      "type" : "number",
-      "description" : "All depreciation occurring in the current financial year.",
-      "format" : "double",
-      "example" : 5.0,
-      "x-is-money" : true
+    "id" : {
+      "type" : "string",
+      "description" : "The unique identifier of the price.",
+      "format" : "uuid"
     }
   },
   "description" : ""
 };
-      defs["BookDepreciationSetting"] = {
-  "title" : "",
-  "required" : [ "name" ],
-  "properties" : {
-    "depreciationMethod" : {
-      "type" : "string",
-      "description" : "The method of depreciation applied to this asset. See Depreciation Methods",
-      "example" : "StraightLine",
-      "enum" : [ "NoDepreciation", "StraightLine", "DiminishingValue100", "DiminishingValue150", "DiminishingValue200", "FullDepreciation" ]
-    },
-    "averagingMethod" : {
-      "type" : "string",
-      "description" : "The method of averaging applied to this asset. See Averaging Methods",
-      "example" : "ActualDays",
-      "enum" : [ "FullMonth", "ActualDays" ]
-    },
-    "depreciationRate" : {
-      "type" : "number",
-      "description" : "The rate of depreciation (e.g. 0.05)",
-      "format" : "double",
-      "example" : 0.05,
-      "x-is-money" : true
-    },
-    "effectiveLifeYears" : {
-      "type" : "integer",
-      "description" : "Effective life of the asset in years (e.g. 5)",
-      "example" : 5
-    },
-    "depreciationCalculationMethod" : {
-      "type" : "string",
-      "description" : "See Depreciation Calculation Methods",
-      "example" : "None",
-      "enum" : [ "Rate", "Life", "None" ]
-    },
-    "depreciableObjectId" : {
-      "type" : "string",
-      "description" : "Unique Xero identifier for the depreciable object",
-      "format" : "uuid",
-      "example" : "68f17094-af97-4f1b-b36b-013b45b6ad3c"
-    },
-    "depreciableObjectType" : {
-      "type" : "string",
-      "description" : "The type of asset object",
-      "example" : "Asset"
-    },
-    "bookEffectiveDateOfChangeId" : {
-      "type" : "string",
-      "description" : "Unique Xero identifier for the effective date change",
-      "format" : "uuid",
-      "example" : "68f17094-af97-4f1b-b36b-013b45b6ad3c"
-    }
-  },
-  "description" : ""
-};
-      defs["Error"] = {
+      defs["ProblemDetails"] = {
   "title" : "",
   "type" : "object",
   "properties" : {
-    "resourceValidationErrors" : {
+    "detail" : {
+      "type" : "string"
+    },
+    "extensions" : {
+      "type" : "object"
+    },
+    "instance" : {
+      "type" : "string"
+    },
+    "status" : {
+      "type" : "integer"
+    },
+    "title" : {
+      "type" : "string"
+    },
+    "type" : {
+      "type" : "string"
+    }
+  },
+  "description" : ""
+};
+      defs["Product"] = {
+  "title" : "",
+  "properties" : {
+    "id" : {
+      "type" : "string",
+      "description" : "The unique identifier for the product",
+      "format" : "uuid"
+    },
+    "name" : {
+      "type" : "string",
+      "description" : "The name of the product"
+    },
+    "type" : {
+      "type" : "string",
+      "description" : "The pricing model of the product:\n* FIXED: Customers are charged a fixed amount for each billing period\n* PER_SEAT: Customers are charged based on the number of units they purchase\n",
+      "enum" : [ "FIXED", "PER_SEAT" ]
+    }
+  },
+  "description" : ""
+};
+      defs["Subscription"] = {
+  "title" : "",
+  "required" : [ "currentPeriodEnd", "id", "organisationId", "plans", "startDate", "status" ],
+  "type" : "object",
+  "properties" : {
+    "currentPeriodEnd" : {
+      "type" : "string",
+      "description" : "End of the current period that the subscription has been invoiced for.\n",
+      "format" : "date-time"
+    },
+    "endDate" : {
+      "type" : "string",
+      "description" : "If the subscription has been canceled, this is the date when the subscription ends. If null, the subscription is active and has not been cancelled",
+      "format" : "date-time"
+    },
+    "id" : {
+      "type" : "string",
+      "description" : "The unique identifier of the subscription",
+      "format" : "uuid"
+    },
+    "organisationId" : {
+      "type" : "string",
+      "description" : "The Xero generated unique identifier for the organisation",
+      "format" : "uuid"
+    },
+    "plans" : {
       "type" : "array",
-      "description" : "Array of elements of resource validation errors",
+      "description" : "List of plans for the subscription.",
       "items" : {
-        "$ref" : "#/components/schemas/ResourceValidationErrorsElement"
+        "$ref" : "#/components/schemas/Plan"
       }
     },
-    "fieldValidationErrors" : {
-      "type" : "array",
-      "description" : "Array of elements of field validation errors",
-      "items" : {
-        "$ref" : "#/components/schemas/FieldValidationErrorsElement"
-      }
-    },
-    "type" : {
+    "startDate" : {
       "type" : "string",
-      "description" : "The internal type of error, not accessible externally"
+      "description" : "Date when the subscription was first created.",
+      "format" : "date-time"
     },
-    "title" : {
+    "status" : {
       "type" : "string",
-      "description" : "Title of the error"
+      "description" : "Status of the subscription. Available statuses are ACTIVE, CANCELED, and PAST_DUE."
     },
-    "detail" : {
-      "type" : "string",
-      "description" : "Detail of the error"
-    }
-  },
-  "description" : "",
-  "externalDocs" : {
-    "url" : "https://developer.xero.com/documentation/api/http-response-codes"
-  }
-};
-      defs["FieldValidationErrorsElement"] = {
-  "title" : "",
-  "type" : "object",
-  "properties" : {
-    "fieldName" : {
-      "type" : "string",
-      "description" : "The field name of the erroneous field"
-    },
-    "valueProvided" : {
-      "type" : "string",
-      "description" : "The provided value"
-    },
-    "localisedMessage" : {
-      "type" : "string",
-      "description" : "Explanation of the field validation error"
-    },
-    "type" : {
-      "type" : "string",
-      "description" : "Internal type of the field validation error message"
-    },
-    "title" : {
-      "type" : "string",
-      "description" : "Title of the field validation error"
-    },
-    "detail" : {
-      "type" : "string",
-      "description" : "Detail of the field validation error"
-    }
-  },
-  "description" : "",
-  "externalDocs" : {
-    "url" : "https://developer.xero.com/documentation/api/http-response-codes"
-  }
-};
-      defs["Pagination"] = {
-  "title" : "",
-  "properties" : {
-    "page" : {
-      "type" : "integer",
-      "example" : 1
-    },
-    "pageSize" : {
-      "type" : "integer",
-      "example" : 10
-    },
-    "pageCount" : {
-      "type" : "integer",
-      "example" : 1
-    },
-    "itemCount" : {
-      "type" : "integer",
-      "example" : 2
-    }
-  },
-  "description" : ""
-};
-      defs["ResourceValidationErrorsElement"] = {
-  "title" : "",
-  "type" : "object",
-  "properties" : {
-    "resourceName" : {
-      "type" : "string",
-      "description" : "The field name of the erroneous field"
-    },
-    "localisedMessage" : {
-      "type" : "string",
-      "description" : "Explanation of the resource validation error"
-    },
-    "type" : {
-      "type" : "string",
-      "description" : "Internal type of the resource error message"
-    },
-    "title" : {
-      "type" : "string",
-      "description" : "Title of the resource validation error"
-    },
-    "detail" : {
-      "type" : "string",
-      "description" : "Detail of the resource validation error"
-    }
-  },
-  "description" : "",
-  "externalDocs" : {
-    "url" : "https://developer.xero.com/documentation/api/http-response-codes"
-  }
-};
-      defs["Setting"] = {
-  "title" : "",
-  "required" : [ "name" ],
-  "type" : "object",
-  "properties" : {
-    "assetNumberPrefix" : {
-      "type" : "string",
-      "description" : "The prefix used for fixed asset numbers (“FA-” by default)",
-      "example" : "FA-"
-    },
-    "assetNumberSequence" : {
-      "type" : "string",
-      "description" : "The next available sequence number",
-      "example" : "0022"
-    },
-    "assetStartDate" : {
-      "type" : "string",
-      "description" : "The date depreciation calculations started on registered fixed assets in Xero",
-      "format" : "date"
-    },
-    "lastDepreciationDate" : {
-      "type" : "string",
-      "description" : "The last depreciation date",
-      "format" : "date"
-    },
-    "defaultGainOnDisposalAccountId" : {
-      "type" : "string",
-      "description" : "Default account that gains are posted to",
-      "format" : "uuid",
-      "example" : "346ddb97-739a-4274-b43b-66aa3218d17c"
-    },
-    "defaultLossOnDisposalAccountId" : {
-      "type" : "string",
-      "description" : "Default account that losses are posted to",
-      "format" : "uuid",
-      "example" : "1b798541-24e2-4855-9309-c023a0b576f3"
-    },
-    "defaultCapitalGainOnDisposalAccountId" : {
-      "type" : "string",
-      "description" : "Default account that capital gains are posted to",
-      "format" : "uuid",
-      "example" : "6d6a0bdb-e118-45d8-a023-2ad617ec1cb7"
-    },
-    "optInForTax" : {
+    "testMode" : {
       "type" : "boolean",
-      "description" : "opt in for tax calculation",
-      "example" : false
+      "description" : "Boolean used to indicate if the subscription is in test mode"
+    }
+  },
+  "description" : ""
+};
+      defs["SubscriptionItem"] = {
+  "title" : "",
+  "required" : [ "id", "price", "product", "startDate" ],
+  "type" : "object",
+  "properties" : {
+    "endDate" : {
+      "type" : "string",
+      "description" : "Date when the subscription to this product will end",
+      "format" : "date-time"
+    },
+    "id" : {
+      "type" : "string",
+      "description" : "The unique identifier of the subscription item.",
+      "format" : "uuid"
+    },
+    "price" : {
+      "$ref" : "#/components/schemas/Price"
+    },
+    "product" : {
+      "$ref" : "#/components/schemas/Product"
+    },
+    "startDate" : {
+      "type" : "string",
+      "description" : "Date the subscription started, or will start. Note: this could be in\nthe future for downgrades or reduced number of seats that haven't taken effect yet.\n",
+      "format" : "date-time"
+    },
+    "testMode" : {
+      "type" : "boolean",
+      "description" : "If the subscription is a test subscription"
     }
   },
   "description" : ""
@@ -1374,8 +1106,8 @@ ul.nav-tabs {
             }
             $('#language-set-selection option[value="'+ sdkLang +'"]').attr("selected", "selected");
             $('#sdk-name').html(sdkName);
-            console.log('Asset')
-            $('#api-set-selection option[value="'+ 'Asset' + '"]').attr("selected", "selected");
+            console.log('AppStore')
+            $('#api-set-selection option[value="'+ 'AppStore' + '"]').attr("selected", "selected");
           });
         </script>
       </div>
@@ -1385,26 +1117,11 @@ ul.nav-tabs {
         <div id="sidenav" class="span2">
           <nav id="scrollingNav">
             <ul class="sidenav nav nav-list">
-              <li class="nav-header" data-group="Asset"><strong>SDK: </strong><span id='sdk-name'></span></li>
-              <li class="nav-header" data-group="Asset"><strong>VSN: </strong>4.12.0</li>
-              <li class="nav-header" data-group="Asset"><a href="#api-Asset">Methods</a></li>
-              <li data-group="Asset" data-name="createAsset" class="">
-                <a href="#api-Asset-createAsset">createAsset</a>
-              </li>
-              <li data-group="Asset" data-name="createAssetType" class="">
-                <a href="#api-Asset-createAssetType">createAssetType</a>
-              </li>
-              <li data-group="Asset" data-name="getAssetById" class="">
-                <a href="#api-Asset-getAssetById">getAssetById</a>
-              </li>
-              <li data-group="Asset" data-name="getAssetSettings" class="">
-                <a href="#api-Asset-getAssetSettings">getAssetSettings</a>
-              </li>
-              <li data-group="Asset" data-name="getAssetTypes" class="">
-                <a href="#api-Asset-getAssetTypes">getAssetTypes</a>
-              </li>
-              <li data-group="Asset" data-name="getAssets" class="">
-                <a href="#api-Asset-getAssets">getAssets</a>
+              <li class="nav-header" data-group="AppStore"><strong>SDK: </strong><span id='sdk-name'></span></li>
+              <li class="nav-header" data-group="AppStore"><strong>VSN: </strong>4.12.0</li>
+              <li class="nav-header" data-group="AppStore"><a href="#api-AppStore">Methods</a></li>
+              <li data-group="AppStore" data-name="getSubscription" class="">
+                <a href="#api-AppStore-getSubscription">getSubscription</a>
               </li>
             </ul>
           </nav>
@@ -1412,7 +1129,7 @@ ul.nav-tabs {
         <div id="content">
           <div id="project">
             <div class="pull-left">
-              <h1>Xero Assets API</h1>
+              <h1>Xero AppStore API</h1>
             </div>
             <div class="clearfix"></div>
           </div>
@@ -1422,56 +1139,51 @@ ul.nav-tabs {
             </div>
           </div>
           <div id="sections">
-            <section id="api-Asset">
-              <h1>Asset</h1>
-              <div id="api-Asset-createAsset">
-                <article id="api-Asset-createAsset-0" data-group="User" data-name="createAsset" data-version="0">
+            <section id="api-AppStore">
+              <h1>AppStore</h1>
+              <div id="api-AppStore-getSubscription">
+                <article id="api-AppStore-getSubscription-0" data-group="User" data-name="getSubscription" data-version="0">
                   <div class="pull-left">
-                    <h1>createAsset</h1>
-                    <p>adds a fixed asset</p>
+                    <h1>getSubscription</h1>
+                    <p>Retrieves a subscription for a given subscriptionId</p>
                   </div>
                   <div class="pull-right"></div>
                   <div class="clearfix"></div>
                   <p></p>
-                  <p class="marked">Adds an asset to the system</p>
+                  <p class="marked"></p>
                   <p></p>
                   <br />
-                  <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/Assets</span></code></pre>
+                  <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/subscriptions/{subscriptionId}</span></code></pre>
                   <p>
                   <h3>Usage and SDK Samples</h3>
                   </p>
                   <ul class="nav nav-tabs nav-tabs-examples">
-                    <li class=""><a href="#examples-Asset-createAsset-0-java">Java</a></li>
+                    <li class=""><a href="#examples-AppStore-getSubscription-0-java">Java</a></li>
                   </ul>
                   <div class="tab-content">
-                    <div class="tab-pane" id="examples-Asset-createAsset-0-java">
+                    <div class="tab-pane" id="examples-AppStore-getSubscription-0-java">
                       <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
-import org.openapitools.client.api.client.AssetApi;
-import org.openapitools.client.models.asset.*;
+import org.openapitools.client.api.client.AppStoreApi;
+import org.openapitools.client.models.appStore.*;
 
 import java.io.File;
 import java.util.*;
 
-public class AssetApiExample {
-    private AssetApi apiInstance;
+public class AppStoreApiExample {
+    private AppStoreApi apiInstance;
     
     public static void main(String[] args) {
         String accessToken = "YOUR_ACCESS_TOKEN";
         ApiClient defaultClient = new ApiClient();
 
         apiInstance = AccountingApi.getInstance(defaultClient);
-        String xeroTenantId = 'YOUR_XERO_TENANT_ID';
-        
-        Asset asset = new Asset();
-        asset.setassetName("Other Computer");
-        asset.setassetNumber("FA-00210");
-        asset.setStatus(com.xero.models.assets.AssetStatus.DRAFT);
+        UUID subscriptionId = UUID.fromString("00000000-0000-0000-0000-000000000000");
 
         try {
-            Asset result = apiInstance.createAsset(accessToken, xeroTenantId, asset);
+            Subscription result = apiInstance.getSubscription(accessToken, subscriptionId);
             System.out.println(result);
         } catch (XeroException e) {
-            System.err.println("Exception when calling AssetApi#createAsset");
+            System.err.println("Exception when calling AppStoreApi#getSubscription");
             e.printStackTrace();
         }
     }
@@ -1482,281 +1194,7 @@ public class AssetApiExample {
                   <table>
                     
                     <tr>
-                      <td>assets</td>
-                      <td>Grant read-write access to fixed assets</td>
-                    </tr>
-                    
-                  </table>
-                  <h2>Parameters</h2>
-                  <div class="methodsubtabletitle">Header parameters</div>
-                  <table id="methodsubtable">
-                    <tr>
-                      <th width="150px">Name</th>
-                      <th>Description</th>
-                    </tr>
-                    <tr><td style="width:150px;">xero-tenant-id<span style="color:red;">*</span></td>
-<td>
-
-
-    <div id="d2e199_createAsset_xeroTenantId">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-                    <div class="inner description marked">
-Xero identifier for Tenant
-                    </div>
-            </div>
-                <div class="inner required">
-                    Required
-                </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                  </table>
-                  <div class="methodsubtabletitle">Body parameters</div>
-                  <table id="methodsubtable">
-                    <tr>
-                      <th width="150px">Name</th>
-                      <th>Description</th>
-                    </tr>
-                    <tr>
-  <td style="width:150px;">asset <span style="color:red;">*</span></td>
-  <td>
-    <div class="json-schema-view">
-      <div class="primitive">
-        <span class="type">
-        Asset
-        </span>
-        <div class="inner description marked">
-          Fixed asset you are creating
-        </div>
-      </div>
-      <div class="inner required">
-        Required
-      </div>
-    </div>
-    <script type="application/ld+json">
-      {
-  "description" : "Fixed asset you are creating",
-  "content" : {
-    "application/json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/Asset"
-      },
-      "example" : "{ \"assetName\":\"Computer74863\", \"assetNumber\":\"123477544\", \"purchaseDate\":\"2020-01-01\", \"purchasePrice\":100.0, \"disposalPrice\":23.23, \"assetStatus\":\"Draft\", \"bookDepreciationSetting\":{ \"depreciationMethod\":\"StraightLine\", \"averagingMethod\":\"ActualDays\", \"depreciationRate\":0.5, \"depreciationCalculationMethod\":\"None\" }, \"bookDepreciationDetail\":{ \"currentCapitalGain\":5.32, \"currentGainLoss\":3.88, \"depreciationStartDate\":\"2020-01-02\", \"costLimit\":100.0, \"currentAccumDepreciationAmount\":2.25 }, \"AccountingBookValue\":99.5 }"
-    }
-  },
-  "required" : true
-}
-    </script>
-                  </table>
-                </article>
-              </div>
-              <hr>
-              <div id="api-Asset-createAssetType">
-                <article id="api-Asset-createAssetType-0" data-group="User" data-name="createAssetType" data-version="0">
-                  <div class="pull-left">
-                    <h1>createAssetType</h1>
-                    <p>adds a fixed asset type</p>
-                  </div>
-                  <div class="pull-right"></div>
-                  <div class="clearfix"></div>
-                  <p></p>
-                  <p class="marked">Adds an fixed asset type to the system</p>
-                  <p></p>
-                  <br />
-                  <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/AssetTypes</span></code></pre>
-                  <p>
-                  <h3>Usage and SDK Samples</h3>
-                  </p>
-                  <ul class="nav nav-tabs nav-tabs-examples">
-                    <li class=""><a href="#examples-Asset-createAssetType-0-java">Java</a></li>
-                  </ul>
-                  <div class="tab-content">
-                    <div class="tab-pane" id="examples-Asset-createAssetType-0-java">
-                      <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
-import org.openapitools.client.api.client.AssetApi;
-import org.openapitools.client.models.asset.*;
-
-import java.io.File;
-import java.util.*;
-
-public class AssetApiExample {
-    private AssetApi apiInstance;
-    
-    public static void main(String[] args) {
-        String accessToken = "YOUR_ACCESS_TOKEN";
-        ApiClient defaultClient = new ApiClient();
-
-        apiInstance = AccountingApi.getInstance(defaultClient);
-        String xeroTenantId = 'YOUR_XERO_TENANT_ID';
-        
-        BookDepreciationSetting bookDepreciationSetting = new BookDepreciationSetting();
-        bookDepreciationSetting.setDepreciationMethod("DiminishingValue100");
-        bookDepreciationSetting.setAveragingMethod("ActualDays");
-        bookDepreciationSetting.setDepreciationRate(40);
-        bookDepreciationSetting.setDepreciationCalculationMethod("None");
-        
-        AssetType assetType = new AssetType();
-        assetType.setAssetTypeName("Computer Equipment");
-        assetType.setFixedAssetAccountId(UUID.fromString("00000000-0000-0000-0000-000000000000"));
-        assetType.setDepreciationExpenseAccountId(UUID.fromString("00000000-0000-0000-0000-000000000000"));
-        assetType.setAccumulatedDepreciationAccountId(UUID.fromString("00000000-0000-0000-0000-000000000000"));
-        assetType.setBookDepreciationSetting(bookDepreciationSetting);
-
-        try {
-            AssetType result = apiInstance.createAssetType(accessToken, xeroTenantId, assetType);
-            System.out.println(result);
-        } catch (XeroException e) {
-            System.err.println("Exception when calling AssetApi#createAssetType");
-            e.printStackTrace();
-        }
-    }
-}</code></pre>
-                    </div>
-                  </div>
-                  <h2>Scopes</h2>
-                  <table>
-                    
-                    <tr>
-                      <td>assets</td>
-                      <td>Grant read-write access to fixed assets</td>
-                    </tr>
-                    
-                  </table>
-                  <h2>Parameters</h2>
-                  <div class="methodsubtabletitle">Header parameters</div>
-                  <table id="methodsubtable">
-                    <tr>
-                      <th width="150px">Name</th>
-                      <th>Description</th>
-                    </tr>
-                    <tr><td style="width:150px;">xero-tenant-id<span style="color:red;">*</span></td>
-<td>
-
-
-    <div id="d2e199_createAssetType_xeroTenantId">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-                    <div class="inner description marked">
-Xero identifier for Tenant
-                    </div>
-            </div>
-                <div class="inner required">
-                    Required
-                </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                  </table>
-                  <div class="methodsubtabletitle">Body parameters</div>
-                  <table id="methodsubtable">
-                    <tr>
-                      <th width="150px">Name</th>
-                      <th>Description</th>
-                    </tr>
-                    <tr>
-  <td style="width:150px;">assetType </td>
-  <td>
-    <div class="json-schema-view">
-      <div class="primitive">
-        <span class="type">
-        AssetType
-        </span>
-        <div class="inner description marked">
-          Asset type to add
-        </div>
-      </div>
-    </div>
-    <script type="application/ld+json">
-      {
-  "description" : "Asset type to add",
-  "content" : {
-    "application/json" : {
-      "schema" : {
-        "$ref" : "#/components/schemas/AssetType"
-      },
-      "example" : "{ \"assetTypeName\":\"Machinery11004\", \"fixedAssetAccountId\":\"3d8d063a-c148-4bb8-8b3c-a5e2ad3b1e82\", \"depreciationExpenseAccountId\":\"d1602f69-f900-4616-8d34-90af393fa368\", \"accumulatedDepreciationAccountId\":\"9195cadd-8645-41e6-9f67-7bcd421defe8\", \"bookDepreciationSetting\":{ \"depreciationMethod\":\"DiminishingValue100\", \"averagingMethod\":\"ActualDays\", \"depreciationRate\":0.05, \"depreciationCalculationMethod\":\"None\" } }"
-    }
-  }
-}
-    </script>
-                  </table>
-                </article>
-              </div>
-              <hr>
-              <div id="api-Asset-getAssetById">
-                <article id="api-Asset-getAssetById-0" data-group="User" data-name="getAssetById" data-version="0">
-                  <div class="pull-left">
-                    <h1>getAssetById</h1>
-                    <p>Retrieves fixed asset by id</p>
-                  </div>
-                  <div class="pull-right"></div>
-                  <div class="clearfix"></div>
-                  <p></p>
-                  <p class="marked">By passing in the appropriate asset id, you can search for
-a specific fixed asset in the system</p>
-                  <p></p>
-                  <br />
-                  <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/Assets/{id}</span></code></pre>
-                  <p>
-                  <h3>Usage and SDK Samples</h3>
-                  </p>
-                  <ul class="nav nav-tabs nav-tabs-examples">
-                    <li class=""><a href="#examples-Asset-getAssetById-0-java">Java</a></li>
-                  </ul>
-                  <div class="tab-content">
-                    <div class="tab-pane" id="examples-Asset-getAssetById-0-java">
-                      <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
-import org.openapitools.client.api.client.AssetApi;
-import org.openapitools.client.models.asset.*;
-
-import java.io.File;
-import java.util.*;
-
-public class AssetApiExample {
-    private AssetApi apiInstance;
-    
-    public static void main(String[] args) {
-        String accessToken = "YOUR_ACCESS_TOKEN";
-        ApiClient defaultClient = new ApiClient();
-
-        apiInstance = AccountingApi.getInstance(defaultClient);
-        String xeroTenantId = 'YOUR_XERO_TENANT_ID';
-        UUID id = UUID.fromString("00000000-0000-0000-0000-000000000000");
-
-        try {
-            Asset result = apiInstance.getAssetById(accessToken, xeroTenantId, id);
-            System.out.println(result);
-        } catch (XeroException e) {
-            System.err.println("Exception when calling AssetApi#getAssetById");
-            e.printStackTrace();
-        }
-    }
-}</code></pre>
-                    </div>
-                  </div>
-                  <h2>Scopes</h2>
-                  <table>
-                    
-                    <tr>
-                      <td>assets</td>
-                      <td>Grant read-write access to fixed assets</td>
-                    </tr>
-                    
-                    <tr>
-                      <td>assets.read</td>
+                      <td>marketplace.billing</td>
                       <td>Grant read-only access to fixed assets</td>
                     </tr>
                     
@@ -1768,11 +1206,11 @@ public class AssetApiExample {
                       <th width="150px">Name</th>
                       <th>Description</th>
                     </tr>
-                    <tr><td style="width:150px;">id<span style="color:red;">*</span></td>
+                    <tr><td style="width:150px;">subscriptionId<span style="color:red;">*</span></td>
 <td>
 
 
-    <div id="d2e199_getAssetById_id">
+    <div id="d2e199_getSubscription_subscriptionId">
         <div class="json-schema-view">
             <div class="primitive">
                 <span class="type">
@@ -1783,469 +1221,12 @@ public class AssetApiExample {
                     </span>
 
                     <div class="inner description marked">
-fixed asset id for single object
+Unique identifier for Subscription object
                     </div>
             </div>
                 <div class="inner required">
                     Required
                 </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                  </table>
-                  <div class="methodsubtabletitle">Header parameters</div>
-                  <table id="methodsubtable">
-                    <tr>
-                      <th width="150px">Name</th>
-                      <th>Description</th>
-                    </tr>
-                    <tr><td style="width:150px;">xero-tenant-id<span style="color:red;">*</span></td>
-<td>
-
-
-    <div id="d2e199_getAssetById_xeroTenantId">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-                    <div class="inner description marked">
-Xero identifier for Tenant
-                    </div>
-            </div>
-                <div class="inner required">
-                    Required
-                </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                  </table>
-                </article>
-              </div>
-              <hr>
-              <div id="api-Asset-getAssetSettings">
-                <article id="api-Asset-getAssetSettings-0" data-group="User" data-name="getAssetSettings" data-version="0">
-                  <div class="pull-left">
-                    <h1>getAssetSettings</h1>
-                    <p>searches fixed asset settings</p>
-                  </div>
-                  <div class="pull-right"></div>
-                  <div class="clearfix"></div>
-                  <p></p>
-                  <p class="marked">By passing in the appropriate options, you can search for available fixed asset types in the system</p>
-                  <p></p>
-                  <br />
-                  <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/Settings</span></code></pre>
-                  <p>
-                  <h3>Usage and SDK Samples</h3>
-                  </p>
-                  <ul class="nav nav-tabs nav-tabs-examples">
-                    <li class=""><a href="#examples-Asset-getAssetSettings-0-java">Java</a></li>
-                  </ul>
-                  <div class="tab-content">
-                    <div class="tab-pane" id="examples-Asset-getAssetSettings-0-java">
-                      <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
-import org.openapitools.client.api.client.AssetApi;
-import org.openapitools.client.models.asset.*;
-
-import java.io.File;
-import java.util.*;
-
-public class AssetApiExample {
-    private AssetApi apiInstance;
-    
-    public static void main(String[] args) {
-        String accessToken = "YOUR_ACCESS_TOKEN";
-        ApiClient defaultClient = new ApiClient();
-
-        apiInstance = AccountingApi.getInstance(defaultClient);
-        String xeroTenantId = 'YOUR_XERO_TENANT_ID';
-
-        try {
-            Setting result = apiInstance.getAssetSettings(accessToken, xeroTenantId);
-            System.out.println(result);
-        } catch (XeroException e) {
-            System.err.println("Exception when calling AssetApi#getAssetSettings");
-            e.printStackTrace();
-        }
-    }
-}</code></pre>
-                    </div>
-                  </div>
-                  <h2>Scopes</h2>
-                  <table>
-                    
-                    <tr>
-                      <td>assets</td>
-                      <td>Grant read-write access to fixed assets</td>
-                    </tr>
-                    
-                    <tr>
-                      <td>assets.read</td>
-                      <td>Grant read-only access to fixed assets</td>
-                    </tr>
-                    
-                  </table>
-                  <h2>Parameters</h2>
-                  <div class="methodsubtabletitle">Header parameters</div>
-                  <table id="methodsubtable">
-                    <tr>
-                      <th width="150px">Name</th>
-                      <th>Description</th>
-                    </tr>
-                    <tr><td style="width:150px;">xero-tenant-id<span style="color:red;">*</span></td>
-<td>
-
-
-    <div id="d2e199_getAssetSettings_xeroTenantId">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-                    <div class="inner description marked">
-Xero identifier for Tenant
-                    </div>
-            </div>
-                <div class="inner required">
-                    Required
-                </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                  </table>
-                </article>
-              </div>
-              <hr>
-              <div id="api-Asset-getAssetTypes">
-                <article id="api-Asset-getAssetTypes-0" data-group="User" data-name="getAssetTypes" data-version="0">
-                  <div class="pull-left">
-                    <h1>getAssetTypes</h1>
-                    <p>searches fixed asset types</p>
-                  </div>
-                  <div class="pull-right"></div>
-                  <div class="clearfix"></div>
-                  <p></p>
-                  <p class="marked">By passing in the appropriate options, you can search for available fixed asset types in the system</p>
-                  <p></p>
-                  <br />
-                  <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/AssetTypes</span></code></pre>
-                  <p>
-                  <h3>Usage and SDK Samples</h3>
-                  </p>
-                  <ul class="nav nav-tabs nav-tabs-examples">
-                    <li class=""><a href="#examples-Asset-getAssetTypes-0-java">Java</a></li>
-                  </ul>
-                  <div class="tab-content">
-                    <div class="tab-pane" id="examples-Asset-getAssetTypes-0-java">
-                      <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
-import org.openapitools.client.api.client.AssetApi;
-import org.openapitools.client.models.asset.*;
-
-import java.io.File;
-import java.util.*;
-
-public class AssetApiExample {
-    private AssetApi apiInstance;
-    
-    public static void main(String[] args) {
-        String accessToken = "YOUR_ACCESS_TOKEN";
-        ApiClient defaultClient = new ApiClient();
-
-        apiInstance = AccountingApi.getInstance(defaultClient);
-        String xeroTenantId = 'YOUR_XERO_TENANT_ID';
-
-        try {
-            array[AssetType] result = apiInstance.getAssetTypes(accessToken, xeroTenantId);
-            System.out.println(result);
-        } catch (XeroException e) {
-            System.err.println("Exception when calling AssetApi#getAssetTypes");
-            e.printStackTrace();
-        }
-    }
-}</code></pre>
-                    </div>
-                  </div>
-                  <h2>Scopes</h2>
-                  <table>
-                    
-                    <tr>
-                      <td>assets</td>
-                      <td>Grant read-write access to fixed assets</td>
-                    </tr>
-                    
-                    <tr>
-                      <td>assets.read</td>
-                      <td>Grant read-only access to fixed assets</td>
-                    </tr>
-                    
-                  </table>
-                  <h2>Parameters</h2>
-                  <div class="methodsubtabletitle">Header parameters</div>
-                  <table id="methodsubtable">
-                    <tr>
-                      <th width="150px">Name</th>
-                      <th>Description</th>
-                    </tr>
-                    <tr><td style="width:150px;">xero-tenant-id<span style="color:red;">*</span></td>
-<td>
-
-
-    <div id="d2e199_getAssetTypes_xeroTenantId">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-                    <div class="inner description marked">
-Xero identifier for Tenant
-                    </div>
-            </div>
-                <div class="inner required">
-                    Required
-                </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                  </table>
-                </article>
-              </div>
-              <hr>
-              <div id="api-Asset-getAssets">
-                <article id="api-Asset-getAssets-0" data-group="User" data-name="getAssets" data-version="0">
-                  <div class="pull-left">
-                    <h1>getAssets</h1>
-                    <p>searches fixed asset</p>
-                  </div>
-                  <div class="pull-right"></div>
-                  <div class="clearfix"></div>
-                  <p></p>
-                  <p class="marked">By passing in the appropriate options, you can search for available fixed asset in the system</p>
-                  <p></p>
-                  <br />
-                  <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/Assets</span></code></pre>
-                  <p>
-                  <h3>Usage and SDK Samples</h3>
-                  </p>
-                  <ul class="nav nav-tabs nav-tabs-examples">
-                    <li class=""><a href="#examples-Asset-getAssets-0-java">Java</a></li>
-                  </ul>
-                  <div class="tab-content">
-                    <div class="tab-pane" id="examples-Asset-getAssets-0-java">
-                      <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
-import org.openapitools.client.api.client.AssetApi;
-import org.openapitools.client.models.asset.*;
-
-import java.io.File;
-import java.util.*;
-
-public class AssetApiExample {
-    private AssetApi apiInstance;
-    
-    public static void main(String[] args) {
-        String accessToken = "YOUR_ACCESS_TOKEN";
-        ApiClient defaultClient = new ApiClient();
-
-        apiInstance = AccountingApi.getInstance(defaultClient);
-        String xeroTenantId = 'YOUR_XERO_TENANT_ID';
-        AssetStatusQueryParam status = ;
-        Integer page = 1;
-        Integer pageSize = 5;
-        String orderBy = 'AssetName';
-        String sortDirection = 'ASC';
-        String filterBy = 'Company Car';
-
-        try {
-            Assets result = apiInstance.getAssets(accessToken, xeroTenantId, status, page, pageSize, orderBy, sortDirection, filterBy);
-            System.out.println(result);
-        } catch (XeroException e) {
-            System.err.println("Exception when calling AssetApi#getAssets");
-            e.printStackTrace();
-        }
-    }
-}</code></pre>
-                    </div>
-                  </div>
-                  <h2>Scopes</h2>
-                  <table>
-                    
-                    <tr>
-                      <td>assets</td>
-                      <td>Grant read-write access to fixed assets</td>
-                    </tr>
-                    
-                    <tr>
-                      <td>assets.read</td>
-                      <td>Grant read-only access to fixed assets</td>
-                    </tr>
-                    
-                  </table>
-                  <h2>Parameters</h2>
-                  <div class="methodsubtabletitle">Header parameters</div>
-                  <table id="methodsubtable">
-                    <tr>
-                      <th width="150px">Name</th>
-                      <th>Description</th>
-                    </tr>
-                    <tr><td style="width:150px;">xero-tenant-id<span style="color:red;">*</span></td>
-<td>
-
-
-    <div id="d2e199_getAssets_xeroTenantId">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-                    <div class="inner description marked">
-Xero identifier for Tenant
-                    </div>
-            </div>
-                <div class="inner required">
-                    Required
-                </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                  </table>
-                  <div class="methodsubtabletitle">Query parameters</div>
-                  <table id="methodsubtable">
-                    <tr>
-                      <th width="150px">Name</th>
-                      <th>Description</th>
-                    </tr>
-                    <tr><td style="width:150px;">status<span style="color:red;">*</span></td>
-<td>
-
-
-    <div id="d2e199_getAssets_status">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    AssetStatusQueryParam
-                </span>
-
-                    <div class="inner description marked">
-Required when retrieving a collection of assets. See Asset Status Codes
-                    </div>
-            </div>
-                <div class="inner required">
-                    Required
-                </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                    <tr><td style="width:150px;">page</td>
-<td>
-
-
-    <div id="d2e199_getAssets_page">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    Integer
-                </span>
-
-                    <div class="inner description marked">
-Results are paged. This specifies which page of the results to return. The default page is 1.
-                    </div>
-            </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                    <tr><td style="width:150px;">pageSize</td>
-<td>
-
-
-    <div id="d2e199_getAssets_pageSize">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    Integer
-                </span>
-
-                    <div class="inner description marked">
-The number of records returned per page. By default the number of records returned is 10.
-                    </div>
-            </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                    <tr><td style="width:150px;">orderBy</td>
-<td>
-
-
-    <div id="d2e199_getAssets_orderBy">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-                    <div class="inner description marked">
-Requests can be ordered by AssetType, AssetName, AssetNumber, PurchaseDate and PurchasePrice. If the asset status is DISPOSED it also allows DisposalDate and DisposalPrice.
-                    </div>
-            </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                    <tr><td style="width:150px;">sortDirection</td>
-<td>
-
-
-    <div id="d2e199_getAssets_sortDirection">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-                    <div class="inner description marked">
-ASC or DESC
-                    </div>
-            </div>
-        </div>
-    </div>
-</td>
-</tr>
-
-                    <tr><td style="width:150px;">filterBy</td>
-<td>
-
-
-    <div id="d2e199_getAssets_filterBy">
-        <div class="json-schema-view">
-            <div class="primitive">
-                <span class="type">
-                    String
-                </span>
-
-                    <div class="inner description marked">
-A string that can be used to filter the list to only return assets containing the text. Checks it against the AssetName, AssetNumber, Description and AssetTypeName fields.
-                    </div>
-            </div>
         </div>
     </div>
 </td>

@@ -12,6 +12,7 @@ The **Xero-Java** SDK makes it easy for developers to access Xero's APIs in thei
 - [Installation](#installation)
 - [Authentication](#authentication)
 - [Custom Connections](#custom-connections)
+- [App Store Subscriptions](#app-store-subscriptions)
 - [API Clients](#api-clients)
 - [Usage Examples](#usage-examples)
 - [SDK conventions](#sdk-conventions)
@@ -52,7 +53,7 @@ Sample apps can get you started quickly with simple auth flows and advanced usag
 - Create a [free Xero user account](https://www.xero.com/us/signup/api/)
 - Login to your Xero developer [dashboard](https://developer.xero.com/app/manage) and create an API application
 - Copy the credentials from your API app and store them using a secure ENV variable strategy
-- Decide the [neccesary scopes](https://developer.xero.com/documentation/oauth2/scopes) for your app's functionality
+- Decide the [necessary scopes](https://developer.xero.com/documentation/oauth2/scopes) for your app's functionality
 
 ## Installation
 Add the Xero Java SDK dependency to project via maven, gradle, sbt or other build tools can be found on [maven central](https://search.maven.org/search?q=g:com.github.xeroapi).
@@ -465,25 +466,54 @@ Custom Connections are a Xero [premium option](https://developer.xero.com/docume
 
 To use this SDK with a Custom Connection:
 ```java
-    final String clientId = "--CLIENT-ID--";
-    final String clientSecret = "--CLIENT-SECRET--";
-    final NetHttpTransport HTTP_TRANSPORT = new NetHttpTransport();
-    final JsonFactory JSON_FACTORY = new JacksonFactory();
+final String clientId = "--CLIENT-ID--";
+final String clientSecret = "--CLIENT-SECRET--";
+final NetHttpTransport HTTP_TRANSPORT = new NetHttpTransport();
+final JsonFactory JSON_FACTORY = new JacksonFactory();
 
-    ArrayList<String> appStoreScopeList = new ArrayList<String>();
-    appStoreScopeList.add("marketplace.billing");
+ArrayList<String> appStoreScopeList = new ArrayList<String>();
+appStoreScopeList.add("accounting.transactions");
 
-    // client_credentials 
-    TokenResponse tokenResponse = new ClientCredentialsTokenRequest(HTTP_TRANSPORT, JSON_FACTORY, 
-        new GenericUrl("https://identity.xero.com/connect/token"))
-        .setScopes(appStoreScopeList)
-        .setClientAuthentication( new BasicAuthentication(clientId, clientSecret))
-        .execute();
+// client_credentials 
+TokenResponse tokenResponse = new ClientCredentialsTokenRequest(HTTP_TRANSPORT, JSON_FACTORY, 
+    new GenericUrl("https://identity.xero.com/connect/token"))
+    .setScopes(appStoreScopeList)
+    .setClientAuthentication( new BasicAuthentication(clientId, clientSecret))
+    .execute();
 ```
 
 Because Custom Connections are only valid for a single organisation you don't need to set the specific `xero-tenant-id` anymore which can now simply be set as an empy string.
 
 ---
+
+## App Store Subscriptions
+If you are implementing subscriptions to participate in Xero's App Store you will need to setup [App Store subscriptions](https://developer.xero.com/documentation/guides/how-to-guides/xero-app-store-referrals/) endpoints.
+
+When a plan is successfully purchased, the user is redirected back to the URL specified in the setup process. The Xero App Store appends the subscription Id to this URL so you can immediately determine what plan the user has subscribed to through the subscriptions API.
+
+With your app credentials you can create a client via `client_credentials` grant_type with the `marketplace.billing` scope. This unique access_token will allow you to interact with functions in `AppStoreApi`. Client Credentials tokens to query app store endpoints will only work for apps that have completed the App Store on-boarding process.
+
+```java
+final String clientId = "--APP-STORE-CLIENT-ID--";
+final String clientSecret = "--APP-STORE-CLIENT-SECRET--";
+final NetHttpTransport HTTP_TRANSPORT = new NetHttpTransport();
+final JsonFactory JSON_FACTORY = new JacksonFactory();
+
+ArrayList<String> appStoreScopeList = new ArrayList<String>();
+scopesList.add("marketplace.billing");
+
+// client_credentials 
+TokenResponse tokenResponse = new ClientCredentialsTokenRequest(HTTP_TRANSPORT, JSON_FACTORY, 
+    new GenericUrl("https://identity.xero.com/connect/token"))
+    .setScopes(scopesList)
+    .setClientAuthentication( new BasicAuthentication(clientId, clientSecret))
+    .execute();
+
+// => /post-purchase-url?subscriptionId=03bc74f2-1237-4477-b782-2dfb1a6d8b21
+AppStoreApi appStoreApi = new AppStoreApi(defaultIdentityClient);
+Subscription subscription = appStoreApi.getSubscription(tokenResponse.getAccessToken(), "03bc74f2-1237-4477-b782-2dfb1a6d8b21");
+```
+
 ## API Clients
 You can access the different API sets and their available methods through the following:
 
@@ -500,6 +530,7 @@ identityApi = IdentityApi.getInstance(defaultClient);
 payrollAuApi = PayrollAuApi.getInstance(defaultClient);
 payrollUkApi = PayrollUkApi.getInstance(defaultClient);
 payrollNzApi = PayrollNzApi.getInstance(defaultClient);
+appStoreApi = AppStoreApi.getInstance(defaultClient);
 ```
 ---
 ## Usage Examples
