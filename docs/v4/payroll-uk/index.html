@@ -1379,7 +1379,7 @@ ul.nav-tabs {
     "earningsType" : {
       "type" : "string",
       "description" : "Indicates how an employee will be paid when taking this type of earning",
-      "enum" : [ "Allowance", "Backpay", "Bonus", "Commission", "LumpSum", "OtherEarnings", "OvertimeEarnings", "RegularEarnings", "StatutoryAdoptionPay", "StatutoryAdoptionPayNonPensionable", "StatutoryBereavementPay", "StatutoryMaternityPay", "StatutoryMaternityPayNonPensionable", "StatutoryPaternityPay", "StatutoryPaternityPayNonPensionable", "StatutoryParentalBereavementPayNonPensionable", "StatutorySharedParentalPay", "StatutorySharedParentalPayNonPensionable", "StatutorySickPay", "StatutorySickPayNonPensionable", "Tips(Direct)", "Tips(Non-Direct)", "TerminationPay" ]
+      "enum" : [ "Allowance", "Backpay", "Bonus", "Commission", "LumpSum", "OtherEarnings", "OvertimeEarnings", "RegularEarnings", "StatutoryAdoptionPay", "StatutoryAdoptionPayNonPensionable", "StatutoryBereavementPay", "StatutoryMaternityPay", "StatutoryMaternityPayNonPensionable", "StatutoryPaternityPay", "StatutoryPaternityPayNonPensionable", "StatutoryParentalBereavementPayNonPensionable", "StatutorySharedParentalPay", "StatutorySharedParentalPayNonPensionable", "StatutorySickPay", "StatutorySickPayNonPensionable", "TipsNonDirect", "TipsDirect", "TerminationPay" ]
     },
     "rateType" : {
       "type" : "string",
@@ -3459,7 +3459,8 @@ ul.nav-tabs {
           <option data-url="https://xeroapi.github.io/Xero-Java/v4/payroll-au/index.html" value="PayrollAu">Payroll (AU)</option>
           <option data-url="https://xeroapi.github.io/Xero-Java/v4/payroll-uk/index.html" value="PayrollUk">Payroll (UK)</option>
           <option data-url="https://xeroapi.github.io/Xero-Java/v4/payroll-nz/index.html" value="PayrollNz">Payroll (NZ)</option>
-          <option data-url="https://xeroapi.github.io/Xero-Java/v4/app-store/index.html" value="AppStore">App Store</option>
+          <option data-url="https://xeroapi.github.io/Xero-Java/v4/appstore/index.html" value="AppStore">App Store</option>
+          <option data-url="https://xeroapi.github.io/Xero-Java/v4/finance/index.html" value="Finance">Finance</option>
         </select>
       </fieldset>
       <div class='api-set-wrapper'>
@@ -3501,7 +3502,7 @@ ul.nav-tabs {
           <nav id="scrollingNav">
             <ul class="sidenav nav nav-list">
               <li class="nav-header" data-group="PayrollUk"><strong>SDK: </strong><span id='sdk-name'></span></li>
-              <li class="nav-header" data-group="PayrollUk"><strong>VSN: </strong>4.12.0</li>
+              <li class="nav-header" data-group="PayrollUk"><strong>VSN: </strong>4.13.0</li>
               <li class="nav-header" data-group="PayrollUk"><a href="#api-PayrollUk">Methods</a></li>
               <li data-group="PayrollUk" data-name="approveTimesheet" class="">
                 <a href="#api-PayrollUk-approveTimesheet">approveTimesheet</a>
@@ -10422,7 +10423,7 @@ public class PayrollUkApiExample {
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'xeroTenantId_example';
         String filter = 'firstName==John,lastName==Smith';
-        Integer page = 56;
+        Integer page = 5;
 
         try {
             Employees result = apiInstance.getEmployees(accessToken, xeroTenantId, filter, page);
@@ -12303,11 +12304,15 @@ public class PayrollUkApiExample {
 
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'xeroTenantId_example';
-        Integer page = 56;
+        Integer page = 5;
         String filter = 'employeeId==00000000-0000-0000-0000-000000000000,payrollCalendarId==00000000-0000-0000-0000-000000000000';
+        String status = 'Draft';
+        String startDate = '2019-01-02';
+        String endDate = '2020-01-02';
+        String sort = 'startDate';
 
         try {
-            Timesheets result = apiInstance.getTimesheets(accessToken, xeroTenantId, page, filter);
+            Timesheets result = apiInstance.getTimesheets(accessToken, xeroTenantId, page, filter, status, startDate, endDate, sort);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling PayrollUkApi#getTimesheets");
@@ -12400,7 +12405,87 @@ Page number which specifies the set of records to retrieve. By default the numbe
                 </span>
 
                     <div class="inner description marked">
-Filter by first name and/or lastname
+Filter by employeeId and/or payrollCalendarId
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">status</td>
+<td>
+
+
+    <div id="d2e199_getTimesheets_status">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+filter results by any timesheets with a matching timesheet status
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">startDate</td>
+<td>
+
+
+    <div id="d2e199_getTimesheets_startDate">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+filter results by any timesheets with a startDate on or after the provided date
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">endDate</td>
+<td>
+
+
+    <div id="d2e199_getTimesheets_endDate">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+filter results by any timesheets with a endDate on or before the provided date
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">sort</td>
+<td>
+
+
+    <div id="d2e199_getTimesheets_sort">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+sort the order of timesheets returned. The default is based on the timesheets createdDate, sorted oldest to newest. Currently, the only other option is to reverse the order based on the timesheets startDate, sorted newest to oldest.
                     </div>
             </div>
         </div>

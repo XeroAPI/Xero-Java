@@ -1,6 +1,6 @@
 /*
- * Xero Payroll AU API
- * This is the Xero Payroll API for orgs in Australia region.
+ * Xero Finance API
+ * The Finance API is a collection of endpoints which customers can use in the course of a loan application, which may assist lenders to gain the confidence they need to provide capital.
  *
  * Contact: api@xero.com
  *
@@ -9,36 +9,33 @@
  * Do not edit the class manually.
  */
 
-package com.xero.models.payrollau;
+package com.xero.models.finance;
 
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Gets or Sets ManualTaxType */
-public enum ManualTaxType {
+/** Gets or Sets ProblemType */
+public enum ProblemType {
 
-  /** PAYGMANUAL */
-  PAYGMANUAL("PAYGMANUAL"),
+  /** NOTSET */
+  NOTSET("NotSet"),
 
-  /** ETPOMANUAL */
-  ETPOMANUAL("ETPOMANUAL"),
+  /** INVALID_REQUEST */
+  INVALID_REQUEST("invalid-request"),
 
-  /** ETPRMANUAL */
-  ETPRMANUAL("ETPRMANUAL"),
+  /** INVALID_APPLICATION */
+  INVALID_APPLICATION("invalid-application"),
 
-  /** SCHEDULE5MANUAL */
-  SCHEDULE5MANUAL("SCHEDULE5MANUAL"),
+  /** SERVICE_UNAVAILABLE */
+  SERVICE_UNAVAILABLE("service-unavailable"),
 
-  /** SCHEDULE5STSLMANUAL */
-  SCHEDULE5STSLMANUAL("SCHEDULE5STSLMANUAL"),
-
-  /** SCHEDULE4MANUAL */
-  SCHEDULE4MANUAL("SCHEDULE4MANUAL");
+  /** INTERNAL_ERROR */
+  INTERNAL_ERROR("internal-error");
 
   private String value;
 
-  ManualTaxType(String value) {
+  ProblemType(String value) {
     this.value = value;
   }
 
@@ -64,8 +61,8 @@ public enum ManualTaxType {
    * @param value String
    */
   @JsonCreator
-  public static ManualTaxType fromValue(String value) {
-    for (ManualTaxType b : ManualTaxType.values()) {
+  public static ProblemType fromValue(String value) {
+    for (ProblemType b : ProblemType.values()) {
       if (b.value.equals(value)) {
         return b;
       }

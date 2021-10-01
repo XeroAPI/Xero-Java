@@ -90,11 +90,11 @@ public class EarningsRate {
     /** STATUTORYSICKPAYNONPENSIONABLE */
     STATUTORYSICKPAYNONPENSIONABLE("StatutorySickPayNonPensionable"),
 
-    /** TIPS_DIRECT_ */
-    TIPS_DIRECT_("Tips(Direct)"),
+    /** TIPSNONDIRECT */
+    TIPSNONDIRECT("TipsNonDirect"),
 
-    /** TIPS_NON_DIRECT_ */
-    TIPS_NON_DIRECT_("Tips(Non-Direct)"),
+    /** TIPSDIRECT */
+    TIPSDIRECT("TipsDirect"),
 
     /** TERMINATIONPAY */
     TERMINATIONPAY("TerminationPay");

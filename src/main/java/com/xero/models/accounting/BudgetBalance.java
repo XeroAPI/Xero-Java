@@ -28,10 +28,10 @@ public class BudgetBalance {
   private String period;
 
   @JsonProperty("Amount")
-  private Integer amount;
+  private Double amount;
 
   @JsonProperty("UnitAmount")
-  private Integer unitAmount;
+  private Double unitAmount;
 
   @JsonProperty("Notes")
   private String notes;
@@ -101,10 +101,10 @@ public class BudgetBalance {
   /**
    * LineItem Quantity
    *
-   * @param amount Integer
+   * @param amount Double
    * @return BudgetBalance
    */
-  public BudgetBalance amount(Integer amount) {
+  public BudgetBalance amount(Double amount) {
     this.amount = amount;
     return this;
   }
@@ -118,28 +118,28 @@ public class BudgetBalance {
   /**
    * LineItem Quantity
    *
-   * @return amount Integer
+   * @return amount Double
    */
-  public Integer getAmount() {
+  public Double getAmount() {
     return amount;
   }
 
   /**
    * LineItem Quantity
    *
-   * @param amount Integer
+   * @param amount Double
    */
-  public void setAmount(Integer amount) {
+  public void setAmount(Double amount) {
     this.amount = amount;
   }
 
   /**
    * Budgeted amount
    *
-   * @param unitAmount Integer
+   * @param unitAmount Double
    * @return BudgetBalance
    */
-  public BudgetBalance unitAmount(Integer unitAmount) {
+  public BudgetBalance unitAmount(Double unitAmount) {
     this.unitAmount = unitAmount;
     return this;
   }
@@ -153,18 +153,18 @@ public class BudgetBalance {
   /**
    * Budgeted amount
    *
-   * @return unitAmount Integer
+   * @return unitAmount Double
    */
-  public Integer getUnitAmount() {
+  public Double getUnitAmount() {
     return unitAmount;
   }
 
   /**
    * Budgeted amount
    *
-   * @param unitAmount Integer
+   * @param unitAmount Double
    */
-  public void setUnitAmount(Integer unitAmount) {
+  public void setUnitAmount(Double unitAmount) {
     this.unitAmount = unitAmount;
   }
 

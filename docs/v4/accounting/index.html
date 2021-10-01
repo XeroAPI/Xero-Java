@@ -1510,6 +1510,22 @@ ul.nav-tabs {
       "format" : "uuid",
       "readOnly" : true
     },
+    "FromIsReconciled" : {
+      "type" : "boolean",
+      "description" : "The Bank Transaction boolean to show if it is reconciled for the source account",
+      "example" : false,
+      "default" : false
+    },
+    "ToIsReconciled" : {
+      "type" : "boolean",
+      "description" : "The Bank Transaction boolean to show if it is reconciled for the destination account",
+      "example" : false,
+      "default" : false
+    },
+    "Reference" : {
+      "type" : "string",
+      "description" : "Reference for the transactions."
+    },
     "HasAttachments" : {
       "type" : "boolean",
       "description" : "Boolean to indicate if a Bank Transfer has an attachment",
@@ -1826,12 +1842,16 @@ ul.nav-tabs {
       "x-is-msdate" : true
     },
     "Amount" : {
-      "type" : "integer",
-      "description" : "LineItem Quantity"
+      "type" : "number",
+      "description" : "LineItem Quantity",
+      "format" : "double",
+      "x-is-money" : true
     },
     "UnitAmount" : {
-      "type" : "integer",
-      "description" : "Budgeted amount"
+      "type" : "number",
+      "description" : "Budgeted amount",
+      "format" : "double",
+      "x-is-money" : true
     },
     "Notes" : {
       "maxLength" : 255,
@@ -5897,7 +5917,8 @@ ul.nav-tabs {
           <option data-url="https://xeroapi.github.io/Xero-Java/v4/payroll-au/index.html" value="PayrollAu">Payroll (AU)</option>
           <option data-url="https://xeroapi.github.io/Xero-Java/v4/payroll-uk/index.html" value="PayrollUk">Payroll (UK)</option>
           <option data-url="https://xeroapi.github.io/Xero-Java/v4/payroll-nz/index.html" value="PayrollNz">Payroll (NZ)</option>
-          <option data-url="https://xeroapi.github.io/Xero-Java/v4/app-store/index.html" value="AppStore">App Store</option>
+          <option data-url="https://xeroapi.github.io/Xero-Java/v4/appstore/index.html" value="AppStore">App Store</option>
+          <option data-url="https://xeroapi.github.io/Xero-Java/v4/finance/index.html" value="Finance">Finance</option>
         </select>
       </fieldset>
       <div class='api-set-wrapper'>
@@ -5939,7 +5960,7 @@ ul.nav-tabs {
           <nav id="scrollingNav">
             <ul class="sidenav nav nav-list">
               <li class="nav-header" data-group="Accounting"><strong>SDK: </strong><span id='sdk-name'></span></li>
-              <li class="nav-header" data-group="Accounting"><strong>VSN: </strong>4.12.0</li>
+              <li class="nav-header" data-group="Accounting"><strong>VSN: </strong>4.13.0</li>
               <li class="nav-header" data-group="Accounting"><a href="#api-Accounting">Methods</a></li>
               <li data-group="Accounting" data-name="createAccount" class="">
                 <a href="#api-Accounting-createAccount">createAccount</a>
@@ -7660,7 +7681,7 @@ Xero identifier for Tenant
       "schema" : {
         "$ref" : "#/components/schemas/BankTransfers"
       },
-      "example" : "{ \"BankTransfers\": [ { \"FromBankAccount\": { \"Code\": \"090\", \"Name\": \"My Savings\", \"AccountID\": \"00000000-0000-0000-0000-000000000000\", \"Type\": \"BANK\", \"BankAccountNumber\": \"123455\", \"Status\": \"ACTIVE\", \"BankAccountType\": \"BANK\", \"CurrencyCode\": \"USD\", \"TaxType\": \"NONE\", \"EnablePaymentsToAccount\": false, \"ShowInExpenseClaims\": false, \"Class\": \"ASSET\", \"ReportingCode\": \"ASS\", \"ReportingCodeName\": \"Assets\", \"HasAttachments\": false, \"UpdatedDateUTC\": \"2016-10-17T13:45:33.993-07:00\" }, \"ToBankAccount\": { \"Code\": \"088\", \"Name\": \"Business Wells Fargo\", \"AccountID\": \"00000000-0000-0000-0000-000000000000\", \"Type\": \"BANK\", \"BankAccountNumber\": \"123455\", \"Status\": \"ACTIVE\", \"BankAccountType\": \"BANK\", \"CurrencyCode\": \"USD\", \"TaxType\": \"NONE\", \"EnablePaymentsToAccount\": false, \"ShowInExpenseClaims\": false, \"Class\": \"ASSET\", \"ReportingCode\": \"ASS\", \"ReportingCodeName\": \"Assets\", \"HasAttachments\": false, \"UpdatedDateUTC\": \"2016-06-03T08:31:14.517-07:00\" }, \"Amount\": \"50.00\" } ] }"
+      "example" : "{ \"BankTransfers\": [ { \"FromBankAccount\": { \"Code\": \"090\", \"Name\": \"My Savings\", \"AccountID\": \"00000000-0000-0000-0000-000000000000\", \"Type\": \"BANK\", \"BankAccountNumber\": \"123455\", \"Status\": \"ACTIVE\", \"BankAccountType\": \"BANK\", \"CurrencyCode\": \"USD\", \"TaxType\": \"NONE\", \"EnablePaymentsToAccount\": false, \"ShowInExpenseClaims\": false, \"Class\": \"ASSET\", \"ReportingCode\": \"ASS\", \"ReportingCodeName\": \"Assets\", \"HasAttachments\": false, \"UpdatedDateUTC\": \"2016-10-17T13:45:33.993-07:00\" }, \"ToBankAccount\": { \"Code\": \"088\", \"Name\": \"Business Wells Fargo\", \"AccountID\": \"00000000-0000-0000-0000-000000000000\", \"Type\": \"BANK\", \"BankAccountNumber\": \"123455\", \"Status\": \"ACTIVE\", \"BankAccountType\": \"BANK\", \"CurrencyCode\": \"USD\", \"TaxType\": \"NONE\", \"EnablePaymentsToAccount\": false, \"ShowInExpenseClaims\": false, \"Class\": \"ASSET\", \"ReportingCode\": \"ASS\", \"ReportingCodeName\": \"Assets\", \"HasAttachments\": false, \"UpdatedDateUTC\": \"2016-06-03T08:31:14.517-07:00\" }, \"Amount\": \"50.00\", \"FromIsReconciled\": true, \"ToIsReconciled\": true, \"Reference\": \"Sub 098801\" } ] }"
     }
   },
   "required" : true
@@ -20857,7 +20878,7 @@ Xero identifier for Tenant
                 <article id="api-Accounting-getBudget-0" data-group="User" data-name="getBudget" data-version="0">
                   <div class="pull-left">
                     <h1>getBudget</h1>
-                    <p>Retrieves a specific budgets, which includes budget lines</p>
+                    <p>Retrieves a specific budget, which includes budget lines</p>
                   </div>
                   <div class="pull-right"></div>
                   <div class="clearfix"></div>
@@ -20891,9 +20912,11 @@ public class AccountingApiExample {
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'YOUR_XERO_TENANT_ID';
         UUID budgetID = UUID.fromString("00000000-0000-0000-0000-000000000000");
+        date dateTo = 2019-10-31;
+        date dateFrom = 2019-10-31;
 
         try {
-            Budgets result = apiInstance.getBudget(accessToken, xeroTenantId, budgetID);
+            Budgets result = apiInstance.getBudget(accessToken, xeroTenantId, budgetID, dateTo, dateFrom);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#getBudget");
@@ -20976,6 +20999,59 @@ Xero identifier for Tenant
 </tr>
 
                   </table>
+                  <div class="methodsubtabletitle">Query parameters</div>
+                  <table id="methodsubtable">
+                    <tr>
+                      <th width="150px">Name</th>
+                      <th>Description</th>
+                    </tr>
+                    <tr><td style="width:150px;">DateTo</td>
+<td>
+
+
+    <div id="d2e199_getBudget_dateTo">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    date
+                </span>
+                    <span class="format">
+                        (date)
+                    </span>
+
+                    <div class="inner description marked">
+Filter by start date
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">DateFrom</td>
+<td>
+
+
+    <div id="d2e199_getBudget_dateFrom">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    date
+                </span>
+                    <span class="format">
+                        (date)
+                    </span>
+
+                    <div class="inner description marked">
+Filter by end date
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                  </table>
                 </article>
               </div>
               <hr>
@@ -21017,8 +21093,8 @@ public class AccountingApiExample {
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'YOUR_XERO_TENANT_ID';
         array[UUID] iDs = &quot;00000000-0000-0000-0000-000000000000&quot;;
-        date dateTo = 2013-10-20;
-        date dateFrom = 2013-10-20;
+        date dateTo = 2019-10-31;
+        date dateFrom = 2019-10-31;
 
         try {
             Budgets result = apiInstance.getBudgets(accessToken, xeroTenantId, iDs, dateTo, dateFrom);
@@ -32297,10 +32373,10 @@ public class AccountingApiExample {
         String xeroTenantId = 'YOUR_XERO_TENANT_ID';
 
         OffsetDateTime ifModifiedSince = OffsetDateTime.parse("2020-02-06T12:17:43.202-08:00");
-        date dateFrom = 2013-10-20;
-        date dateTo = 2013-10-20;
-        date expiryDateFrom = 2013-10-20;
-        date expiryDateTo = 2013-10-20;
+        date dateFrom = 2019-10-31;
+        date dateTo = 2019-10-31;
+        date expiryDateFrom = 2019-10-31;
+        date expiryDateTo = 2019-10-31;
         UUID contactID = UUID.fromString("00000000-0000-0000-0000-000000000000");
         String status = 'DRAFT';
         Integer page = 1;
@@ -34503,9 +34579,9 @@ public class AccountingApiExample {
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'YOUR_XERO_TENANT_ID';
         UUID contactId = UUID.fromString("00000000-0000-0000-0000-000000000000");
-        date date = 2013-10-20;
-        date fromDate = 2013-10-20;
-        date toDate = 2013-10-20;
+        date date = 2019-10-31;
+        date fromDate = 2019-10-31;
+        date toDate = 2019-10-31;
 
         try {
             ReportWithRows result = apiInstance.getReportAgedPayablesByContact(accessToken, xeroTenantId, contactId, date, fromDate, toDate);
@@ -34701,9 +34777,9 @@ public class AccountingApiExample {
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'YOUR_XERO_TENANT_ID';
         UUID contactId = UUID.fromString("00000000-0000-0000-0000-000000000000");
-        date date = 2013-10-20;
-        date fromDate = 2013-10-20;
-        date toDate = 2013-10-20;
+        date date = 2019-10-31;
+        date fromDate = 2019-10-31;
+        date toDate = 2019-10-31;
 
         try {
             ReportWithRows result = apiInstance.getReportAgedReceivablesByContact(accessToken, xeroTenantId, contactId, date, fromDate, toDate);
@@ -35147,8 +35223,8 @@ public class AccountingApiExample {
 
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'YOUR_XERO_TENANT_ID';
-        date fromDate = 2013-10-20;
-        date toDate = 2013-10-20;
+        date fromDate = 2019-10-31;
+        date toDate = 2019-10-31;
 
         try {
             ReportWithRows result = apiInstance.getReportBankSummary(accessToken, xeroTenantId, fromDate, toDate);
@@ -35705,8 +35781,8 @@ public class AccountingApiExample {
 
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'YOUR_XERO_TENANT_ID';
-        date fromDate = 2013-10-20;
-        date toDate = 2013-10-20;
+        date fromDate = 2019-10-31;
+        date toDate = 2019-10-31;
         Integer periods = 3;
         String timeframe = 'MONTH';
         String trackingCategoryID = '00000000-0000-0000-0000-000000000000';

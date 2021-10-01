@@ -52,6 +52,15 @@ public class BankTransfer {
   @JsonProperty("ToBankTransactionID")
   private UUID toBankTransactionID;
 
+  @JsonProperty("FromIsReconciled")
+  private Boolean fromIsReconciled = false;
+
+  @JsonProperty("ToIsReconciled")
+  private Boolean toIsReconciled = false;
+
+  @JsonProperty("Reference")
+  private String reference;
+
   @JsonProperty("HasAttachments")
   private Boolean hasAttachments = false;
 
@@ -289,6 +298,116 @@ public class BankTransfer {
   }
 
   /**
+   * The Bank Transaction boolean to show if it is reconciled for the source account
+   *
+   * @param fromIsReconciled Boolean
+   * @return BankTransfer
+   */
+  public BankTransfer fromIsReconciled(Boolean fromIsReconciled) {
+    this.fromIsReconciled = fromIsReconciled;
+    return this;
+  }
+
+  /**
+   * The Bank Transaction boolean to show if it is reconciled for the source account
+   *
+   * @return fromIsReconciled
+   */
+  @ApiModelProperty(
+      example = "false",
+      value = "The Bank Transaction boolean to show if it is reconciled for the source account")
+  /**
+   * The Bank Transaction boolean to show if it is reconciled for the source account
+   *
+   * @return fromIsReconciled Boolean
+   */
+  public Boolean getFromIsReconciled() {
+    return fromIsReconciled;
+  }
+
+  /**
+   * The Bank Transaction boolean to show if it is reconciled for the source account
+   *
+   * @param fromIsReconciled Boolean
+   */
+  public void setFromIsReconciled(Boolean fromIsReconciled) {
+    this.fromIsReconciled = fromIsReconciled;
+  }
+
+  /**
+   * The Bank Transaction boolean to show if it is reconciled for the destination account
+   *
+   * @param toIsReconciled Boolean
+   * @return BankTransfer
+   */
+  public BankTransfer toIsReconciled(Boolean toIsReconciled) {
+    this.toIsReconciled = toIsReconciled;
+    return this;
+  }
+
+  /**
+   * The Bank Transaction boolean to show if it is reconciled for the destination account
+   *
+   * @return toIsReconciled
+   */
+  @ApiModelProperty(
+      example = "false",
+      value =
+          "The Bank Transaction boolean to show if it is reconciled for the destination account")
+  /**
+   * The Bank Transaction boolean to show if it is reconciled for the destination account
+   *
+   * @return toIsReconciled Boolean
+   */
+  public Boolean getToIsReconciled() {
+    return toIsReconciled;
+  }
+
+  /**
+   * The Bank Transaction boolean to show if it is reconciled for the destination account
+   *
+   * @param toIsReconciled Boolean
+   */
+  public void setToIsReconciled(Boolean toIsReconciled) {
+    this.toIsReconciled = toIsReconciled;
+  }
+
+  /**
+   * Reference for the transactions.
+   *
+   * @param reference String
+   * @return BankTransfer
+   */
+  public BankTransfer reference(String reference) {
+    this.reference = reference;
+    return this;
+  }
+
+  /**
+   * Reference for the transactions.
+   *
+   * @return reference
+   */
+  @ApiModelProperty(value = "Reference for the transactions.")
+  /**
+   * Reference for the transactions.
+   *
+   * @return reference String
+   */
+  public String getReference() {
+    return reference;
+  }
+
+  /**
+   * Reference for the transactions.
+   *
+   * @param reference String
+   */
+  public void setReference(String reference) {
+    this.reference = reference;
+  }
+
+  /**
    * Boolean to indicate if a Bank Transfer has an attachment
    *
    * @return hasAttachments
@@ -403,6 +522,9 @@ public class BankTransfer {
         && Objects.equals(this.currencyRate, bankTransfer.currencyRate)
         && Objects.equals(this.fromBankTransactionID, bankTransfer.fromBankTransactionID)
         && Objects.equals(this.toBankTransactionID, bankTransfer.toBankTransactionID)
+        && Objects.equals(this.fromIsReconciled, bankTransfer.fromIsReconciled)
+        && Objects.equals(this.toIsReconciled, bankTransfer.toIsReconciled)
+        && Objects.equals(this.reference, bankTransfer.reference)
         && Objects.equals(this.hasAttachments, bankTransfer.hasAttachments)
         && Objects.equals(this.createdDateUTC, bankTransfer.createdDateUTC)
         && Objects.equals(this.validationErrors, bankTransfer.validationErrors);
@@ -419,6 +541,9 @@ public class BankTransfer {
         currencyRate,
         fromBankTransactionID,
         toBankTransactionID,
+        fromIsReconciled,
+        toIsReconciled,
+        reference,
         hasAttachments,
         createdDateUTC,
         validationErrors);
@@ -440,6 +565,9 @@ public class BankTransfer {
     sb.append("    toBankTransactionID: ")
         .append(toIndentedString(toBankTransactionID))
         .append("\n");
+    sb.append("    fromIsReconciled: ").append(toIndentedString(fromIsReconciled)).append("\n");
+    sb.append("    toIsReconciled: ").append(toIndentedString(toIsReconciled)).append("\n");
+    sb.append("    reference: ").append(toIndentedString(reference)).append("\n");
     sb.append("    hasAttachments: ").append(toIndentedString(hasAttachments)).append("\n");
     sb.append("    createdDateUTC: ").append(toIndentedString(createdDateUTC)).append("\n");
     sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");

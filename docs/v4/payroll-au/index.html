@@ -1234,7 +1234,7 @@ ul.nav-tabs {
   "title" : "",
   "type" : "string",
   "description" : "",
-  "enum" : [ "FIXED", "ORDINARYTIMEEARNINGS", "OVERTIMEEARNINGS", "ALLOWANCE", "LUMPSUMD", "EMPLOYMENTTERMINATIONPAYMENT", "LUMPSUMA", "LUMPSUMB", "BONUSESANDCOMMISSIONS", "LUMPSUME" ]
+  "enum" : [ "FIXED", "ORDINARYTIMEEARNINGS", "OVERTIMEEARNINGS", "ALLOWANCE", "LUMPSUMD", "EMPLOYMENTTERMINATIONPAYMENT", "LUMPSUMA", "LUMPSUMB", "BONUSESANDCOMMISSIONS", "LUMPSUME", "LUMPSUMW", "DIRECTORSFEES" ]
 };
       defs["Employee"] = {
   "title" : "",
@@ -1816,7 +1816,7 @@ ul.nav-tabs {
   "title" : "",
   "type" : "string",
   "description" : "",
-  "enum" : [ "PAYGMANUAL", "ETPOMANUAL", "ETPRMANUAL", "SCHEDULE5MANUAL", "SCHEDULE5STSLMANUAL" ]
+  "enum" : [ "PAYGMANUAL", "ETPOMANUAL", "ETPRMANUAL", "SCHEDULE5MANUAL", "SCHEDULE5STSLMANUAL", "SCHEDULE4MANUAL" ]
 };
       defs["OpeningBalances"] = {
   "title" : "",
@@ -3198,7 +3198,8 @@ ul.nav-tabs {
           <option data-url="https://xeroapi.github.io/Xero-Java/v4/payroll-au/index.html" value="PayrollAu">Payroll (AU)</option>
           <option data-url="https://xeroapi.github.io/Xero-Java/v4/payroll-uk/index.html" value="PayrollUk">Payroll (UK)</option>
           <option data-url="https://xeroapi.github.io/Xero-Java/v4/payroll-nz/index.html" value="PayrollNz">Payroll (NZ)</option>
-          <option data-url="https://xeroapi.github.io/Xero-Java/v4/app-store/index.html" value="AppStore">App Store</option>
+          <option data-url="https://xeroapi.github.io/Xero-Java/v4/appstore/index.html" value="AppStore">App Store</option>
+          <option data-url="https://xeroapi.github.io/Xero-Java/v4/finance/index.html" value="Finance">Finance</option>
         </select>
       </fieldset>
       <div class='api-set-wrapper'>
@@ -3240,7 +3241,7 @@ ul.nav-tabs {
           <nav id="scrollingNav">
             <ul class="sidenav nav nav-list">
               <li class="nav-header" data-group="PayrollAu"><strong>SDK: </strong><span id='sdk-name'></span></li>
-              <li class="nav-header" data-group="PayrollAu"><strong>VSN: </strong>4.12.0</li>
+              <li class="nav-header" data-group="PayrollAu"><strong>VSN: </strong>4.13.0</li>
               <li class="nav-header" data-group="PayrollAu"><a href="#api-PayrollAu">Methods</a></li>
               <li data-group="PayrollAu" data-name="createEmployee" class="">
                 <a href="#api-PayrollAu-createEmployee">createEmployee</a>
@@ -4518,7 +4519,8 @@ public class PayrollAuApiExample {
 
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'xeroTenantId_example';
-        String ifModifiedSince = 'ifModifiedSince_example';
+
+        OffsetDateTime ifModifiedSince = OffsetDateTime.parse("2020-02-06T12:17:43.202-08:00");
         String where = 'Status=="ACTIVE"';
         String order = 'EmailAddress%20DESC';
         Integer page = 56;
@@ -4586,8 +4588,11 @@ Xero identifier for Tenant
         <div class="json-schema-view">
             <div class="primitive">
                 <span class="type">
-                    String
+                    Date
                 </span>
+                    <span class="format">
+                        (date-time)
+                    </span>
 
                     <div class="inner description marked">
 Only records created or modified since this timestamp will be returned
@@ -4837,7 +4842,8 @@ public class PayrollAuApiExample {
 
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'xeroTenantId_example';
-        String ifModifiedSince = 'ifModifiedSince_example';
+
+        OffsetDateTime ifModifiedSince = OffsetDateTime.parse("2020-02-06T12:17:43.202-08:00");
         String where = 'Status=="ACTIVE"';
         String order = 'EmailAddress%20DESC';
         Integer page = 56;
@@ -4905,8 +4911,11 @@ Xero identifier for Tenant
         <div class="json-schema-view">
             <div class="primitive">
                 <span class="type">
-                    String
+                    Date
                 </span>
+                    <span class="format">
+                        (date-time)
+                    </span>
 
                     <div class="inner description marked">
 Only records created or modified since this timestamp will be returned
@@ -5025,7 +5034,8 @@ public class PayrollAuApiExample {
 
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'xeroTenantId_example';
-        String ifModifiedSince = 'ifModifiedSince_example';
+
+        OffsetDateTime ifModifiedSince = OffsetDateTime.parse("2020-02-06T12:17:43.202-08:00");
         String where = 'Status=="ACTIVE"';
         String order = 'EmailAddress%20DESC';
         Integer page = 56;
@@ -5093,8 +5103,11 @@ Xero identifier for Tenant
         <div class="json-schema-view">
             <div class="primitive">
                 <span class="type">
-                    String
+                    Date
                 </span>
+                    <span class="format">
+                        (date-time)
+                    </span>
 
                     <div class="inner description marked">
 Only records created or modified since this timestamp will be returned
@@ -5344,7 +5357,8 @@ public class PayrollAuApiExample {
 
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'xeroTenantId_example';
-        String ifModifiedSince = 'ifModifiedSince_example';
+
+        OffsetDateTime ifModifiedSince = OffsetDateTime.parse("2020-02-06T12:17:43.202-08:00");
         String where = 'Status=="ACTIVE"';
         String order = 'EmailAddress%20DESC';
         Integer page = 56;
@@ -5412,8 +5426,11 @@ Xero identifier for Tenant
         <div class="json-schema-view">
             <div class="primitive">
                 <span class="type">
-                    String
+                    Date
                 </span>
+                    <span class="format">
+                        (date-time)
+                    </span>
 
                     <div class="inner description marked">
 Only records created or modified since this timestamp will be returned
@@ -5663,7 +5680,8 @@ public class PayrollAuApiExample {
 
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'xeroTenantId_example';
-        String ifModifiedSince = 'ifModifiedSince_example';
+
+        OffsetDateTime ifModifiedSince = OffsetDateTime.parse("2020-02-06T12:17:43.202-08:00");
         String where = 'Status=="ACTIVE"';
         String order = 'EmailAddress%20DESC';
         Integer page = 56;
@@ -5731,8 +5749,11 @@ Xero identifier for Tenant
         <div class="json-schema-view">
             <div class="primitive">
                 <span class="type">
-                    String
+                    Date
                 </span>
+                    <span class="format">
+                        (date-time)
+                    </span>
 
                     <div class="inner description marked">
 Only records created or modified since this timestamp will be returned
@@ -6356,7 +6377,8 @@ public class PayrollAuApiExample {
 
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'xeroTenantId_example';
-        String ifModifiedSince = 'ifModifiedSince_example';
+
+        OffsetDateTime ifModifiedSince = OffsetDateTime.parse("2020-02-06T12:17:43.202-08:00");
         String where = 'Status=="ACTIVE"';
         String order = 'EmailAddress%20DESC';
         Integer page = 56;
@@ -6424,8 +6446,11 @@ Xero identifier for Tenant
         <div class="json-schema-view">
             <div class="primitive">
                 <span class="type">
-                    String
+                    Date
                 </span>
+                    <span class="format">
+                        (date-time)
+                    </span>
 
                     <div class="inner description marked">
 Only records created or modified since this timestamp will be returned
@@ -6675,7 +6700,8 @@ public class PayrollAuApiExample {
 
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'xeroTenantId_example';
-        String ifModifiedSince = 'ifModifiedSince_example';
+
+        OffsetDateTime ifModifiedSince = OffsetDateTime.parse("2020-02-06T12:17:43.202-08:00");
         String where = 'Status=="ACTIVE"';
         String order = 'EmailAddress%20DESC';
         Integer page = 56;
@@ -6743,8 +6769,11 @@ Xero identifier for Tenant
         <div class="json-schema-view">
             <div class="primitive">
                 <span class="type">
-                    String
+                    Date
                 </span>
+                    <span class="format">
+                        (date-time)
+                    </span>
 
                     <div class="inner description marked">
 Only records created or modified since this timestamp will be returned

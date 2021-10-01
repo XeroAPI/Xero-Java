@@ -83,6 +83,9 @@ public class Product {
 
   @JsonProperty("type")
   private TypeEnum type;
+
+  @JsonProperty("seatUnit")
+  private String seatUnit;
   /**
    * The unique identifier for the product
    *
@@ -196,6 +199,46 @@ public class Product {
     this.type = type;
   }
 
+  /**
+   * The unit of the per seat product. e.g. \&quot;user\&quot;, \&quot;organisation\&quot;,
+   * \&quot;SMS\&quot;, etc
+   *
+   * @param seatUnit String
+   * @return Product
+   */
+  public Product seatUnit(String seatUnit) {
+    this.seatUnit = seatUnit;
+    return this;
+  }
+
+  /**
+   * The unit of the per seat product. e.g. \&quot;user\&quot;, \&quot;organisation\&quot;,
+   * \&quot;SMS\&quot;, etc
+   *
+   * @return seatUnit
+   */
+  @ApiModelProperty(
+      value = "The unit of the per seat product. e.g. \"user\", \"organisation\", \"SMS\", etc")
+  /**
+   * The unit of the per seat product. e.g. \&quot;user\&quot;, \&quot;organisation\&quot;,
+   * \&quot;SMS\&quot;, etc
+   *
+   * @return seatUnit String
+   */
+  public String getSeatUnit() {
+    return seatUnit;
+  }
+
+  /**
+   * The unit of the per seat product. e.g. \&quot;user\&quot;, \&quot;organisation\&quot;,
+   * \&quot;SMS\&quot;, etc
+   *
+   * @param seatUnit String
+   */
+  public void setSeatUnit(String seatUnit) {
+    this.seatUnit = seatUnit;
+  }
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -207,12 +250,13 @@ public class Product {
     Product product = (Product) o;
     return Objects.equals(this.id, product.id)
         && Objects.equals(this.name, product.name)
-        && Objects.equals(this.type, product.type);
+        && Objects.equals(this.type, product.type)
+        && Objects.equals(this.seatUnit, product.seatUnit);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, type);
+    return Objects.hash(id, name, type, seatUnit);
   }
 
   @Override
@@ -222,6 +266,7 @@ public class Product {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    seatUnit: ").append(toIndentedString(seatUnit)).append("\n");
     sb.append("}");
     return sb.toString();
   }
