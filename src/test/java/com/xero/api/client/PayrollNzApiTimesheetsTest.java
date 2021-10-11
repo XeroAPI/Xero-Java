@@ -72,9 +72,7 @@ public class PayrollNzApiTimesheetsTest {
         System.out.println("@Test NZ Payroll - getTimesheetsTest");
        
         int page = 1;
-        UUID employeeId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e"); 
-        UUID payrollCalendarId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e"); 
-        Timesheets response = payrollNzApi.getTimesheets(accessToken, xeroTenantId, page, employeeId, payrollCalendarId);
+        Timesheets response = payrollNzApi.getTimesheets(accessToken, xeroTenantId, page,"","","","","");
         
         assertThat(response.getTimesheets().get(0).getTimesheetID(),is(equalTo(UUID.fromString("f2a2aff0-9944-411e-bc58-44f22304188d"))));
         assertThat(response.getTimesheets().get(0).getPayrollCalendarID(),is(equalTo(UUID.fromString("f6931b89-d9c8-4f25-b4fa-268b5fd24197"))));
