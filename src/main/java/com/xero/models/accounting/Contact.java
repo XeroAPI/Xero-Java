@@ -30,6 +30,9 @@ public class Contact {
   @JsonProperty("ContactID")
   private UUID contactID;
 
+  @JsonProperty("MergedToContactID")
+  private UUID mergedToContactID;
+
   @JsonProperty("ContactNumber")
   private String contactNumber;
 
@@ -100,6 +103,9 @@ public class Contact {
   @JsonProperty("LastName")
   private String lastName;
 
+  @JsonProperty("CompanyNumber")
+  private String companyNumber;
+
   @JsonProperty("EmailAddress")
   private String emailAddress;
 
@@ -132,6 +138,122 @@ public class Contact {
 
   @JsonProperty("IsCustomer")
   private Boolean isCustomer;
+  /**
+   * The default sales line amount type for a contact. Only available when summaryOnly parameter or
+   * paging is used, or when fetch by ContactId or ContactNumber.
+   */
+  public enum SalesDefaultLineAmountTypeEnum {
+    /** INCLUSIVE */
+    INCLUSIVE("INCLUSIVE"),
+
+    /** EXCLUSIVE */
+    EXCLUSIVE("EXCLUSIVE"),
+
+    /** NONE */
+    NONE("NONE");
+
+    private String value;
+
+    SalesDefaultLineAmountTypeEnum(String value) {
+      this.value = value;
+    }
+
+    /**
+     * getValue
+     *
+     * @return String value
+     */
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    /**
+     * toString
+     *
+     * @return String value
+     */
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
+    @JsonCreator
+    public static SalesDefaultLineAmountTypeEnum fromValue(String value) {
+      for (SalesDefaultLineAmountTypeEnum b : SalesDefaultLineAmountTypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  @JsonProperty("SalesDefaultLineAmountType")
+  private SalesDefaultLineAmountTypeEnum salesDefaultLineAmountType;
+  /**
+   * The default purchases line amount type for a contact Only available when summaryOnly parameter
+   * or paging is used, or when fetch by ContactId or ContactNumber.
+   */
+  public enum PurchasesDefaultLineAmountTypeEnum {
+    /** INCLUSIVE */
+    INCLUSIVE("INCLUSIVE"),
+
+    /** EXCLUSIVE */
+    EXCLUSIVE("EXCLUSIVE"),
+
+    /** NONE */
+    NONE("NONE");
+
+    private String value;
+
+    PurchasesDefaultLineAmountTypeEnum(String value) {
+      this.value = value;
+    }
+
+    /**
+     * getValue
+     *
+     * @return String value
+     */
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    /**
+     * toString
+     *
+     * @return String value
+     */
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
+    @JsonCreator
+    public static PurchasesDefaultLineAmountTypeEnum fromValue(String value) {
+      for (PurchasesDefaultLineAmountTypeEnum b : PurchasesDefaultLineAmountTypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  @JsonProperty("PurchasesDefaultLineAmountType")
+  private PurchasesDefaultLineAmountTypeEnum purchasesDefaultLineAmountType;
 
   @JsonProperty("DefaultCurrency")
   private CurrencyCode defaultCurrency;
@@ -230,6 +352,48 @@ public class Contact {
    */
   public void setContactID(UUID contactID) {
     this.contactID = contactID;
+  }
+
+  /**
+   * ID for the destination of a merged contact. Only returned when using paging or when fetching a
+   * contact by ContactId or ContactNumber.
+   *
+   * @param mergedToContactID UUID
+   * @return Contact
+   */
+  public Contact mergedToContactID(UUID mergedToContactID) {
+    this.mergedToContactID = mergedToContactID;
+    return this;
+  }
+
+  /**
+   * ID for the destination of a merged contact. Only returned when using paging or when fetching a
+   * contact by ContactId or ContactNumber.
+   *
+   * @return mergedToContactID
+   */
+  @ApiModelProperty(
+      value =
+          "ID for the destination of a merged contact. Only returned when using paging or when"
+              + " fetching a contact by ContactId or ContactNumber.")
+  /**
+   * ID for the destination of a merged contact. Only returned when using paging or when fetching a
+   * contact by ContactId or ContactNumber.
+   *
+   * @return mergedToContactID UUID
+   */
+  public UUID getMergedToContactID() {
+    return mergedToContactID;
+  }
+
+  /**
+   * ID for the destination of a merged contact. Only returned when using paging or when fetching a
+   * contact by ContactId or ContactNumber.
+   *
+   * @param mergedToContactID UUID
+   */
+  public void setMergedToContactID(UUID mergedToContactID) {
+    this.mergedToContactID = mergedToContactID;
   }
 
   /**
@@ -460,6 +624,41 @@ public class Contact {
    */
   public void setLastName(String lastName) {
     this.lastName = lastName;
+  }
+
+  /**
+   * Company registration number (max length &#x3D; 50)
+   *
+   * @param companyNumber String
+   * @return Contact
+   */
+  public Contact companyNumber(String companyNumber) {
+    this.companyNumber = companyNumber;
+    return this;
+  }
+
+  /**
+   * Company registration number (max length &#x3D; 50)
+   *
+   * @return companyNumber
+   */
+  @ApiModelProperty(value = "Company registration number (max length = 50)")
+  /**
+   * Company registration number (max length &#x3D; 50)
+   *
+   * @return companyNumber String
+   */
+  public String getCompanyNumber() {
+    return companyNumber;
+  }
+
+  /**
+   * Company registration number (max length &#x3D; 50)
+   *
+   * @param companyNumber String
+   */
+  public void setCompanyNumber(String companyNumber) {
+    this.companyNumber = companyNumber;
   }
 
   /**
@@ -924,6 +1123,94 @@ public class Contact {
    */
   public void setIsCustomer(Boolean isCustomer) {
     this.isCustomer = isCustomer;
+  }
+
+  /**
+   * The default sales line amount type for a contact. Only available when summaryOnly parameter or
+   * paging is used, or when fetch by ContactId or ContactNumber.
+   *
+   * @param salesDefaultLineAmountType SalesDefaultLineAmountTypeEnum
+   * @return Contact
+   */
+  public Contact salesDefaultLineAmountType(
+      SalesDefaultLineAmountTypeEnum salesDefaultLineAmountType) {
+    this.salesDefaultLineAmountType = salesDefaultLineAmountType;
+    return this;
+  }
+
+  /**
+   * The default sales line amount type for a contact. Only available when summaryOnly parameter or
+   * paging is used, or when fetch by ContactId or ContactNumber.
+   *
+   * @return salesDefaultLineAmountType
+   */
+  @ApiModelProperty(
+      value =
+          "The default sales line amount type for a contact. Only available when summaryOnly"
+              + " parameter or paging is used, or when fetch by ContactId or ContactNumber.")
+  /**
+   * The default sales line amount type for a contact. Only available when summaryOnly parameter or
+   * paging is used, or when fetch by ContactId or ContactNumber.
+   *
+   * @return salesDefaultLineAmountType SalesDefaultLineAmountTypeEnum
+   */
+  public SalesDefaultLineAmountTypeEnum getSalesDefaultLineAmountType() {
+    return salesDefaultLineAmountType;
+  }
+
+  /**
+   * The default sales line amount type for a contact. Only available when summaryOnly parameter or
+   * paging is used, or when fetch by ContactId or ContactNumber.
+   *
+   * @param salesDefaultLineAmountType SalesDefaultLineAmountTypeEnum
+   */
+  public void setSalesDefaultLineAmountType(
+      SalesDefaultLineAmountTypeEnum salesDefaultLineAmountType) {
+    this.salesDefaultLineAmountType = salesDefaultLineAmountType;
+  }
+
+  /**
+   * The default purchases line amount type for a contact Only available when summaryOnly parameter
+   * or paging is used, or when fetch by ContactId or ContactNumber.
+   *
+   * @param purchasesDefaultLineAmountType PurchasesDefaultLineAmountTypeEnum
+   * @return Contact
+   */
+  public Contact purchasesDefaultLineAmountType(
+      PurchasesDefaultLineAmountTypeEnum purchasesDefaultLineAmountType) {
+    this.purchasesDefaultLineAmountType = purchasesDefaultLineAmountType;
+    return this;
+  }
+
+  /**
+   * The default purchases line amount type for a contact Only available when summaryOnly parameter
+   * or paging is used, or when fetch by ContactId or ContactNumber.
+   *
+   * @return purchasesDefaultLineAmountType
+   */
+  @ApiModelProperty(
+      value =
+          "The default purchases line amount type for a contact Only available when summaryOnly"
+              + " parameter or paging is used, or when fetch by ContactId or ContactNumber.")
+  /**
+   * The default purchases line amount type for a contact Only available when summaryOnly parameter
+   * or paging is used, or when fetch by ContactId or ContactNumber.
+   *
+   * @return purchasesDefaultLineAmountType PurchasesDefaultLineAmountTypeEnum
+   */
+  public PurchasesDefaultLineAmountTypeEnum getPurchasesDefaultLineAmountType() {
+    return purchasesDefaultLineAmountType;
+  }
+
+  /**
+   * The default purchases line amount type for a contact Only available when summaryOnly parameter
+   * or paging is used, or when fetch by ContactId or ContactNumber.
+   *
+   * @param purchasesDefaultLineAmountType PurchasesDefaultLineAmountTypeEnum
+   */
+  public void setPurchasesDefaultLineAmountType(
+      PurchasesDefaultLineAmountTypeEnum purchasesDefaultLineAmountType) {
+    this.purchasesDefaultLineAmountType = purchasesDefaultLineAmountType;
   }
 
   /**
@@ -1719,12 +2006,14 @@ public class Contact {
     }
     Contact contact = (Contact) o;
     return Objects.equals(this.contactID, contact.contactID)
+        && Objects.equals(this.mergedToContactID, contact.mergedToContactID)
         && Objects.equals(this.contactNumber, contact.contactNumber)
         && Objects.equals(this.accountNumber, contact.accountNumber)
         && Objects.equals(this.contactStatus, contact.contactStatus)
         && Objects.equals(this.name, contact.name)
         && Objects.equals(this.firstName, contact.firstName)
         && Objects.equals(this.lastName, contact.lastName)
+        && Objects.equals(this.companyNumber, contact.companyNumber)
         && Objects.equals(this.emailAddress, contact.emailAddress)
         && Objects.equals(this.skypeUserName, contact.skypeUserName)
         && Objects.equals(this.contactPersons, contact.contactPersons)
@@ -1736,6 +2025,9 @@ public class Contact {
         && Objects.equals(this.phones, contact.phones)
         && Objects.equals(this.isSupplier, contact.isSupplier)
         && Objects.equals(this.isCustomer, contact.isCustomer)
+        && Objects.equals(this.salesDefaultLineAmountType, contact.salesDefaultLineAmountType)
+        && Objects.equals(
+            this.purchasesDefaultLineAmountType, contact.purchasesDefaultLineAmountType)
         && Objects.equals(this.defaultCurrency, contact.defaultCurrency)
         && Objects.equals(this.xeroNetworkKey, contact.xeroNetworkKey)
         && Objects.equals(this.salesDefaultAccountCode, contact.salesDefaultAccountCode)
@@ -1763,12 +2055,14 @@ public class Contact {
   public int hashCode() {
     return Objects.hash(
         contactID,
+        mergedToContactID,
         contactNumber,
         accountNumber,
         contactStatus,
         name,
         firstName,
         lastName,
+        companyNumber,
         emailAddress,
         skypeUserName,
         contactPersons,
@@ -1780,6 +2074,8 @@ public class Contact {
         phones,
         isSupplier,
         isCustomer,
+        salesDefaultLineAmountType,
+        purchasesDefaultLineAmountType,
         defaultCurrency,
         xeroNetworkKey,
         salesDefaultAccountCode,
@@ -1808,12 +2104,14 @@ public class Contact {
     StringBuilder sb = new StringBuilder();
     sb.append("class Contact {\n");
     sb.append("    contactID: ").append(toIndentedString(contactID)).append("\n");
+    sb.append("    mergedToContactID: ").append(toIndentedString(mergedToContactID)).append("\n");
     sb.append("    contactNumber: ").append(toIndentedString(contactNumber)).append("\n");
     sb.append("    accountNumber: ").append(toIndentedString(accountNumber)).append("\n");
     sb.append("    contactStatus: ").append(toIndentedString(contactStatus)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
     sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
+    sb.append("    companyNumber: ").append(toIndentedString(companyNumber)).append("\n");
     sb.append("    emailAddress: ").append(toIndentedString(emailAddress)).append("\n");
     sb.append("    skypeUserName: ").append(toIndentedString(skypeUserName)).append("\n");
     sb.append("    contactPersons: ").append(toIndentedString(contactPersons)).append("\n");
@@ -1829,6 +2127,12 @@ public class Contact {
     sb.append("    phones: ").append(toIndentedString(phones)).append("\n");
     sb.append("    isSupplier: ").append(toIndentedString(isSupplier)).append("\n");
     sb.append("    isCustomer: ").append(toIndentedString(isCustomer)).append("\n");
+    sb.append("    salesDefaultLineAmountType: ")
+        .append(toIndentedString(salesDefaultLineAmountType))
+        .append("\n");
+    sb.append("    purchasesDefaultLineAmountType: ")
+        .append(toIndentedString(purchasesDefaultLineAmountType))
+        .append("\n");
     sb.append("    defaultCurrency: ").append(toIndentedString(defaultCurrency)).append("\n");
     sb.append("    xeroNetworkKey: ").append(toIndentedString(xeroNetworkKey)).append("\n");
     sb.append("    salesDefaultAccountCode: ")

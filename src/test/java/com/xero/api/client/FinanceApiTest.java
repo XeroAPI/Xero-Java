@@ -82,7 +82,7 @@ public class FinanceApiTest {
     @Test
 	public void testGetCashValidation() throws Exception {
 		System.out.println("@Test - getCashValidation");
-		List<CashValidationResponse> response = new ArrayList();
+		List<CashValidationResponse> response = new ArrayList<CashValidationResponse>();
 
         try {
             //UUID subscriptionId = UUID.fromString("73151de8-3676-4887-a021-edec960dd537");
@@ -116,7 +116,7 @@ public class FinanceApiTest {
         try {
             LockHistoryResponse response = financeApi.getAccountingActivityLockHistory(accessToken, "73151de8-3676-4887-a021-edec960dd537", null);
             assertThat(response.getOrganisationId().toString(), (equalTo("73151de8-3676-4887-a021-edec960dd537")));
-            assertThat(response.getLockDates().get(0).getUpdatedDateUtc().toString(), (equalTo("2019-01-20T10:50:03Z")));
+            assertThat(response.getLockDates().get(1).getUpdatedDateUtc().toString(), (equalTo("2019-01-20T10:50:03Z")));
 
         } catch (XeroApiException xe) {
             System.out.println(xe.toString());
@@ -130,7 +130,7 @@ public class FinanceApiTest {
         try {
             ReportHistoryResponse response = financeApi.getAccountingActivityReportHistory(accessToken, "73151de8-3676-4887-a021-edec960dd537", null);
             assertThat(response.getOrganisationId().toString(), (equalTo("73151de8-3676-4887-a021-edec960dd537")));
-            assertThat(response.getReports().get(0).getPublishedDateUtc().toString(), (equalTo("2019-09-23T00:30:17Z")));
+            assertThat(response.getReports().get(0).getPublishedDateUtc().toString(), (equalTo("2019-09-23T00:30:17.407Z")));
 
         } catch (XeroApiException xe) {
             System.out.println(xe.toString());
@@ -202,6 +202,34 @@ public class FinanceApiTest {
             assertThat(response.getAccounts().get(0).getAccountId().toString(), (equalTo("abcdefab-3bbf-4f2a-9e4c-20ec7b8e6b41")));
             assertThat(response.getStartDate().toString(), (equalTo("2020-07-01")));
 
+        } catch (XeroApiException xe) {
+            System.out.println(xe.toString());
+        }
+    }
+
+    @Test
+	public void testGetFinancialStatementContactsRevenue() throws Exception {
+		System.out.println("@Test - getFinancialStatementContactsRevenue");
+        List<UUID> contacts = new ArrayList<UUID>();
+        contacts.add(UUID.fromString("1f580fe2-0659-31ee-eeb4-5c49d15d8bfa"));
+        contacts.add(UUID.fromString("20e94281-4751-fb7e-ee5e-96b43ae93c8a"));
+        try {
+            IncomeByContactResponse response = financeApi.getFinancialStatementContactsRevenue(accessToken, "73151de8-3676-4887-a021-edec960dd537",contacts,true,null,null);
+            assertThat(response.getContacts().get(0).getName(), (equalTo("FirstContact")));
+        } catch (XeroApiException xe) {
+            System.out.println(xe.toString());
+        }
+    }
+
+    @Test
+	public void testGetFinancialStatementContactsExpense() throws Exception {
+		System.out.println("@Test - getFinancialStatementContactsExpense");
+        List<UUID> contacts = new ArrayList<UUID>();
+        contacts.add(UUID.fromString("1f580fe2-0659-31ee-eeb4-5c49d15d8bfa"));
+        contacts.add(UUID.fromString("20e94281-4751-fb7e-ee5e-96b43ae93c8a"));
+        try {
+            IncomeByContactResponse response = financeApi.getFinancialStatementContactsExpense(accessToken, "73151de8-3676-4887-a021-edec960dd537",contacts,true,null,null);
+            assertThat(response.getContacts().get(0).getName(), (equalTo("FirstContact")));
         } catch (XeroApiException xe) {
             System.out.println(xe.toString());
         }

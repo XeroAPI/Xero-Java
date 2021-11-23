@@ -1276,6 +1276,99 @@ ul.nav-tabs {
   "additionalProperties" : false,
   "description" : ""
 };
+      defs["ContactDetail"] = {
+  "title" : "",
+  "type" : "object",
+  "properties" : {
+    "contactId" : {
+      "type" : "string",
+      "description" : "ID of the contact associated with the transactions.\r\n\r\nTransactions with no contact will be grouped under the special ID: 86793108-198C-46D8-90A3-43C1D12686CE.\r\n\r\nTransactions that are receive or spend bank transfers will be grouped under the special ID: 207322B3-6A58-4BE7-80F1-430123914AD6",
+      "format" : "uuid"
+    },
+    "name" : {
+      "type" : "string",
+      "description" : "Name of the contact associated with the transactions.\r\n\r\nIf no contact is associated with the transactions this will appear as “None Provided”,\r\n\r\nFor receive or spend bank transfer transactions, this will appear as “Bank Transfer”."
+    },
+    "total" : {
+      "type" : "number",
+      "description" : "Total value for the contact",
+      "format" : "double",
+      "x-is-money" : true
+    },
+    "totalDetail" : {
+      "$ref" : "#/components/schemas/ContactTotalDetail"
+    },
+    "totalOther" : {
+      "$ref" : "#/components/schemas/ContactTotalOther"
+    },
+    "accountCodes" : {
+      "type" : "array",
+      "description" : "A list of account codes involved in transactions.",
+      "items" : {
+        "type" : "string"
+      }
+    }
+  },
+  "additionalProperties" : false,
+  "description" : ""
+};
+      defs["ContactTotalDetail"] = {
+  "title" : "",
+  "type" : "object",
+  "properties" : {
+    "totalPaid" : {
+      "type" : "number",
+      "description" : "Total paid invoice and cash value for the contact within the period.",
+      "format" : "double",
+      "x-is-money" : true
+    },
+    "totalOutstanding" : {
+      "type" : "number",
+      "description" : "Total outstanding invoice value for the contact within the period.",
+      "format" : "double",
+      "x-is-money" : true
+    },
+    "totalCreditedUnApplied" : {
+      "type" : "number",
+      "description" : "Total unapplied credited value for the contact within the period.",
+      "format" : "double",
+      "x-is-money" : true
+    }
+  },
+  "additionalProperties" : false,
+  "description" : ""
+};
+      defs["ContactTotalOther"] = {
+  "title" : "",
+  "type" : "object",
+  "properties" : {
+    "totalOutstandingAged" : {
+      "type" : "number",
+      "description" : "Total outstanding invoice value for the contact within the period where the invoices are more than 90 days old",
+      "format" : "double",
+      "x-is-money" : true
+    },
+    "totalVoided" : {
+      "type" : "number",
+      "description" : "Total voided value for the contact.",
+      "format" : "double",
+      "x-is-money" : true
+    },
+    "totalCredited" : {
+      "type" : "number",
+      "description" : "Total credited value for the contact.",
+      "format" : "double",
+      "x-is-money" : true
+    },
+    "transactionCount" : {
+      "type" : "integer",
+      "description" : "Number of transactions for the contact.",
+      "format" : "int32"
+    }
+  },
+  "additionalProperties" : false,
+  "description" : ""
+};
       defs["CurrentStatementResponse"] = {
   "title" : "",
   "type" : "object",
@@ -1442,6 +1535,45 @@ ul.nav-tabs {
   "additionalProperties" : false,
   "description" : ""
 };
+      defs["IncomeByContactResponse"] = {
+  "title" : "",
+  "type" : "object",
+  "properties" : {
+    "startDate" : {
+      "type" : "string",
+      "description" : "Start date of the report",
+      "format" : "date"
+    },
+    "endDate" : {
+      "type" : "string",
+      "description" : "End date of the report",
+      "format" : "date"
+    },
+    "total" : {
+      "type" : "number",
+      "description" : "Total value",
+      "format" : "double",
+      "x-is-money" : true
+    },
+    "totalDetail" : {
+      "$ref" : "#/components/schemas/TotalDetail"
+    },
+    "totalOther" : {
+      "$ref" : "#/components/schemas/TotalOther"
+    },
+    "contacts" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/components/schemas/ContactDetail"
+      }
+    },
+    "manualJournals" : {
+      "$ref" : "#/components/schemas/ManualJournalTotal"
+    }
+  },
+  "additionalProperties" : false,
+  "description" : ""
+};
       defs["LockHistoryModel"] = {
   "title" : "",
   "type" : "object",
@@ -1484,6 +1616,20 @@ ul.nav-tabs {
       "items" : {
         "$ref" : "#/components/schemas/LockHistoryModel"
       }
+    }
+  },
+  "additionalProperties" : false,
+  "description" : ""
+};
+      defs["ManualJournalTotal"] = {
+  "title" : "",
+  "type" : "object",
+  "properties" : {
+    "total" : {
+      "type" : "number",
+      "description" : "Total value of manual journals.",
+      "format" : "double",
+      "x-is-money" : true
     }
   },
   "additionalProperties" : false,
@@ -1821,6 +1967,58 @@ ul.nav-tabs {
   "additionalProperties" : false,
   "description" : ""
 };
+      defs["TotalDetail"] = {
+  "title" : "",
+  "type" : "object",
+  "properties" : {
+    "totalPaid" : {
+      "type" : "number",
+      "description" : "Total paid invoice and cash value within the period.",
+      "format" : "double",
+      "x-is-money" : true
+    },
+    "totalOutstanding" : {
+      "type" : "number",
+      "description" : "Total outstanding invoice value within the period.",
+      "format" : "double",
+      "x-is-money" : true
+    },
+    "totalCreditedUnApplied" : {
+      "type" : "number",
+      "description" : "Total unapplied credited value within the period.",
+      "format" : "double",
+      "x-is-money" : true
+    }
+  },
+  "additionalProperties" : false,
+  "description" : ""
+};
+      defs["TotalOther"] = {
+  "title" : "",
+  "type" : "object",
+  "properties" : {
+    "totalOutstandingAged" : {
+      "type" : "number",
+      "description" : "Total outstanding invoice value within the period where the invoices are more than 90 days old",
+      "format" : "double",
+      "x-is-money" : true
+    },
+    "totalVoided" : {
+      "type" : "number",
+      "description" : "Total voided value.",
+      "format" : "double",
+      "x-is-money" : true
+    },
+    "totalCredited" : {
+      "type" : "number",
+      "description" : "Total credited value.",
+      "format" : "double",
+      "x-is-money" : true
+    }
+  },
+  "additionalProperties" : false,
+  "description" : ""
+};
       defs["TrialBalanceAccount"] = {
   "title" : "",
   "type" : "object",
@@ -2115,7 +2313,7 @@ ul.nav-tabs {
           <nav id="scrollingNav">
             <ul class="sidenav nav nav-list">
               <li class="nav-header" data-group="Finance"><strong>SDK: </strong><span id='sdk-name'></span></li>
-              <li class="nav-header" data-group="Finance"><strong>VSN: </strong>4.13.0</li>
+              <li class="nav-header" data-group="Finance"><strong>VSN: </strong>4.14.0</li>
               <li class="nav-header" data-group="Finance"><a href="#api-Finance">Methods</a></li>
               <li data-group="Finance" data-name="getAccountingActivityAccountUsage" class="">
                 <a href="#api-Finance-getAccountingActivityAccountUsage">getAccountingActivityAccountUsage</a>
@@ -2137,6 +2335,12 @@ ul.nav-tabs {
               </li>
               <li data-group="Finance" data-name="getFinancialStatementCashflow" class="">
                 <a href="#api-Finance-getFinancialStatementCashflow">getFinancialStatementCashflow</a>
+              </li>
+              <li data-group="Finance" data-name="getFinancialStatementContactsExpense" class="">
+                <a href="#api-Finance-getFinancialStatementContactsExpense">getFinancialStatementContactsExpense</a>
+              </li>
+              <li data-group="Finance" data-name="getFinancialStatementContactsRevenue" class="">
+                <a href="#api-Finance-getFinancialStatementContactsRevenue">getFinancialStatementContactsRevenue</a>
               </li>
               <li data-group="Finance" data-name="getFinancialStatementProfitAndLoss" class="">
                 <a href="#api-Finance-getFinancialStatementProfitAndLoss">getFinancialStatementProfitAndLoss</a>
@@ -3116,6 +3320,402 @@ Xero identifier for Tenant
 <p>Date e.g. yyyy-MM-dd</p>
 <p>Specifies the end date for cash flow report.</p>
 <p>If no parameter is provided, the current date will be used.</p>
+
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                  </table>
+                </article>
+              </div>
+              <hr>
+              <div id="api-Finance-getFinancialStatementContactsExpense">
+                <article id="api-Finance-getFinancialStatementContactsExpense-0" data-group="User" data-name="getFinancialStatementContactsExpense" data-version="0">
+                  <div class="pull-left">
+                    <h1>getFinancialStatementContactsExpense</h1>
+                    <p>Get expense by contacts report</p>
+                  </div>
+                  <div class="pull-right"></div>
+                  <div class="clearfix"></div>
+                  <p></p>
+                  <p class="marked">The expense by contact report provides a year to date profit and loss for customers and suppliers for a given organisation, including detailed contact information.</p>
+                  <p></p>
+                  <br />
+                  <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/FinancialStatements/contacts/expense</span></code></pre>
+                  <p>
+                  <h3>Usage and SDK Samples</h3>
+                  </p>
+                  <ul class="nav nav-tabs nav-tabs-examples">
+                    <li class=""><a href="#examples-Finance-getFinancialStatementContactsExpense-0-java">Java</a></li>
+                  </ul>
+                  <div class="tab-content">
+                    <div class="tab-pane" id="examples-Finance-getFinancialStatementContactsExpense-0-java">
+                      <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
+import org.openapitools.client.api.client.FinanceApi;
+import org.openapitools.client.models.finance.*;
+
+import java.io.File;
+import java.util.*;
+
+public class FinanceApiExample {
+    private FinanceApi apiInstance;
+    
+    public static void main(String[] args) {
+        String accessToken = "YOUR_ACCESS_TOKEN";
+        ApiClient defaultClient = new ApiClient();
+
+        apiInstance = AccountingApi.getInstance(defaultClient);
+        String xeroTenantId = 'YOUR_XERO_TENANT_ID';
+        array[UUID] contactIds = ["00000000-0000-0000-0000-000000000000","00000000-0000-0000-0000-000000000000"];
+        Boolean includeManualJournals = true;
+        String startDate = '2020-09-15';
+        String endDate = '2020-09-15';
+
+        try {
+            IncomeByContactResponse result = apiInstance.getFinancialStatementContactsExpense(accessToken, xeroTenantId, contactIds, includeManualJournals, startDate, endDate);
+            System.out.println(result);
+        } catch (XeroException e) {
+            System.err.println("Exception when calling FinanceApi#getFinancialStatementContactsExpense");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                    </div>
+                  </div>
+                  <h2>Scopes</h2>
+                  <table>
+                    
+                    <tr>
+                      <td>finance.statements.read</td>
+                      <td>Grant read-only access to finacial statements</td>
+                    </tr>
+                    
+                  </table>
+                  <h2>Parameters</h2>
+                  <div class="methodsubtabletitle">Header parameters</div>
+                  <table id="methodsubtable">
+                    <tr>
+                      <th width="150px">Name</th>
+                      <th>Description</th>
+                    </tr>
+                    <tr><td style="width:150px;">xero-tenant-id<span style="color:red;">*</span></td>
+<td>
+
+
+    <div id="d2e199_getFinancialStatementContactsExpense_xeroTenantId">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+Xero identifier for Tenant
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                  </table>
+                  <div class="methodsubtabletitle">Query parameters</div>
+                  <table id="methodsubtable">
+                    <tr>
+                      <th width="150px">Name</th>
+                      <th>Description</th>
+                    </tr>
+                    <tr><td style="width:150px;">contactIds</td>
+<td>
+
+
+    <div id="d2e199_getFinancialStatementContactsExpense_contactIds">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    array[UUID]
+                </span>
+                    <span class="format">
+                        (uuid)
+                    </span>
+
+                    <div class="inner description marked">
+<p>Specifies the customer contacts to be included in the report.</p>
+<p>If no parameter is provided, all customer contacts will be included</p>
+
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">includeManualJournals</td>
+<td>
+
+
+    <div id="d2e199_getFinancialStatementContactsExpense_includeManualJournals">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Boolean
+                </span>
+
+                    <div class="inner description marked">
+<p>Specifies whether to include the manual journals in the report.</p>
+<p>If no parameter is provided, manual journals will not be included.</p>
+
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">startDate</td>
+<td>
+
+
+    <div id="d2e199_getFinancialStatementContactsExpense_startDate">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+<p>Date yyyy-MM-dd</p>
+<p>Specifies the start date for the report.</p>
+<p>If no parameter is provided, the date of 12 months before the end date will be used.</p>
+<p>It is recommended to always specify both a start date and end date; While the initial range may be set to 12 months, this may need to be reduced for high volume organisations in order to improve latency.</p>
+
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">endDate</td>
+<td>
+
+
+    <div id="d2e199_getFinancialStatementContactsExpense_endDate">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+<p>Date yyyy-MM-dd</p>
+<p>Specifies the end date for the report.</p>
+<p>If no parameter is provided, the current date will be used.</p>
+<p>It is recommended to always specify both a start date and end date; While the initial range may be set to 12 months, this may need to be reduced for high volume organisations in order to improve latency.</p>
+
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                  </table>
+                </article>
+              </div>
+              <hr>
+              <div id="api-Finance-getFinancialStatementContactsRevenue">
+                <article id="api-Finance-getFinancialStatementContactsRevenue-0" data-group="User" data-name="getFinancialStatementContactsRevenue" data-version="0">
+                  <div class="pull-left">
+                    <h1>getFinancialStatementContactsRevenue</h1>
+                    <p>Get revenue by contacts report</p>
+                  </div>
+                  <div class="pull-right"></div>
+                  <div class="clearfix"></div>
+                  <p></p>
+                  <p class="marked">The revenue by contact report provides a year to date profit and loss for customers and suppliers for a given organisation, including detailed contact information.</p>
+                  <p></p>
+                  <br />
+                  <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/FinancialStatements/contacts/revenue</span></code></pre>
+                  <p>
+                  <h3>Usage and SDK Samples</h3>
+                  </p>
+                  <ul class="nav nav-tabs nav-tabs-examples">
+                    <li class=""><a href="#examples-Finance-getFinancialStatementContactsRevenue-0-java">Java</a></li>
+                  </ul>
+                  <div class="tab-content">
+                    <div class="tab-pane" id="examples-Finance-getFinancialStatementContactsRevenue-0-java">
+                      <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
+import org.openapitools.client.api.client.FinanceApi;
+import org.openapitools.client.models.finance.*;
+
+import java.io.File;
+import java.util.*;
+
+public class FinanceApiExample {
+    private FinanceApi apiInstance;
+    
+    public static void main(String[] args) {
+        String accessToken = "YOUR_ACCESS_TOKEN";
+        ApiClient defaultClient = new ApiClient();
+
+        apiInstance = AccountingApi.getInstance(defaultClient);
+        String xeroTenantId = 'YOUR_XERO_TENANT_ID';
+        array[UUID] contactIds = ["00000000-0000-0000-0000-000000000000","00000000-0000-0000-0000-000000000000"];
+        Boolean includeManualJournals = true;
+        String startDate = '2020-09-15';
+        String endDate = '2020-09-15';
+
+        try {
+            IncomeByContactResponse result = apiInstance.getFinancialStatementContactsRevenue(accessToken, xeroTenantId, contactIds, includeManualJournals, startDate, endDate);
+            System.out.println(result);
+        } catch (XeroException e) {
+            System.err.println("Exception when calling FinanceApi#getFinancialStatementContactsRevenue");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                    </div>
+                  </div>
+                  <h2>Scopes</h2>
+                  <table>
+                    
+                    <tr>
+                      <td>finance.statements.read</td>
+                      <td>Grant read-only access to finacial statements</td>
+                    </tr>
+                    
+                  </table>
+                  <h2>Parameters</h2>
+                  <div class="methodsubtabletitle">Header parameters</div>
+                  <table id="methodsubtable">
+                    <tr>
+                      <th width="150px">Name</th>
+                      <th>Description</th>
+                    </tr>
+                    <tr><td style="width:150px;">xero-tenant-id<span style="color:red;">*</span></td>
+<td>
+
+
+    <div id="d2e199_getFinancialStatementContactsRevenue_xeroTenantId">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+Xero identifier for Tenant
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                  </table>
+                  <div class="methodsubtabletitle">Query parameters</div>
+                  <table id="methodsubtable">
+                    <tr>
+                      <th width="150px">Name</th>
+                      <th>Description</th>
+                    </tr>
+                    <tr><td style="width:150px;">contactIds</td>
+<td>
+
+
+    <div id="d2e199_getFinancialStatementContactsRevenue_contactIds">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    array[UUID]
+                </span>
+                    <span class="format">
+                        (uuid)
+                    </span>
+
+                    <div class="inner description marked">
+<p>Specifies the customer contacts to be included in the report.</p>
+<p>If no parameter is provided, all customer contacts will be included</p>
+
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">includeManualJournals</td>
+<td>
+
+
+    <div id="d2e199_getFinancialStatementContactsRevenue_includeManualJournals">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Boolean
+                </span>
+
+                    <div class="inner description marked">
+<p>Specifies whether to include the manual journals in the report.</p>
+<p>If no parameter is provided, manual journals will not be included.</p>
+
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">startDate</td>
+<td>
+
+
+    <div id="d2e199_getFinancialStatementContactsRevenue_startDate">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+<p>Date yyyy-MM-dd</p>
+<p>Specifies the start date for the report.</p>
+<p>If no parameter is provided, the date of 12 months before the end date will be used.</p>
+<p>It is recommended to always specify both a start date and end date; While the initial range may be set to 12 months, this may need to be reduced for high volume organisations in order to improve latency.</p>
+
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">endDate</td>
+<td>
+
+
+    <div id="d2e199_getFinancialStatementContactsRevenue_endDate">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+<p>Date yyyy-MM-dd</p>
+<p>Specifies the end date for the report.</p>
+<p>If no parameter is provided, the current date will be used.</p>
+<p>It is recommended to always specify both a start date and end date; While the initial range may be set to 12 months, this may need to be reduced for high volume organisations in order to improve latency.</p>
 
                     </div>
             </div>
