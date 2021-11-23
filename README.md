@@ -28,6 +28,7 @@ This SDK supports full method coverage for the following Xero API sets:
 | [`Accounting`](https://xeroapi.github.io/Xero-Java/v4/accounting/index.html) | The Accounting API exposes accounting functions of the main Xero application *(most commonly used)*
 | [Assets](https://xeroapi.github.io/Xero-Java/v4/assets/index.html) | The Assets API exposes fixed asset related functions of the Xero Accounting application |
 | [Files](https://xeroapi.github.io/Xero-Java/v4/files/index.html) | The Files API provides access to the files, folders, and the association of files within a Xero organisation |
+| [Finance](https://xeroapi.github.io/Xero-Java/v4/finance/index.html) | The Finance API exposes finacial functions that may help lenders gain the confidence they need to provide capital |
 | [Projects](https://xeroapi.github.io/Xero-Java/v4/projects/index.html) | Xero Projects allows businesses to track time and costs on projects/jobs and report on profitability |
 | [Payroll (AU)](https://xeroapi.github.io/Xero-Java/v4/payroll_au/index.html) | The (AU) Payroll API exposes payroll related functions of the payroll Xero application |
 | [Payroll (UK)](https://xeroapi.github.io/Xero-Java/v4/payroll_uk/index.html) | The (UK) Payroll API exposes payroll related functions of the payroll Xero application |
