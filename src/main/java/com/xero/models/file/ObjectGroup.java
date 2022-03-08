@@ -51,6 +51,9 @@ public enum ObjectGroup {
   /** PREPAYMENT */
   PREPAYMENT("Prepayment"),
 
+  /** QUOTE */
+  QUOTE("Quote"),
+
   /** RECEIPT */
   RECEIPT("Receipt");
 

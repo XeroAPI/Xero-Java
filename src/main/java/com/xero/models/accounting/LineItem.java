@@ -50,6 +50,9 @@ public class LineItem {
   @JsonProperty("TaxAmount")
   private Double taxAmount;
 
+  @JsonProperty("Item")
+  private LineItemItem item;
+
   @JsonProperty("LineAmount")
   private Double lineAmount;
 
@@ -402,6 +405,41 @@ public class LineItem {
   }
 
   /**
+   * item
+   *
+   * @param item LineItemItem
+   * @return LineItem
+   */
+  public LineItem item(LineItemItem item) {
+    this.item = item;
+    return this;
+  }
+
+  /**
+   * Get item
+   *
+   * @return item
+   */
+  @ApiModelProperty(value = "")
+  /**
+   * item
+   *
+   * @return item LineItemItem
+   */
+  public LineItemItem getItem() {
+    return item;
+  }
+
+  /**
+   * item
+   *
+   * @param item LineItemItem
+   */
+  public void setItem(LineItemItem item) {
+    this.item = item;
+  }
+
+  /**
    * If you wish to omit either of the &lt;Quantity&gt; or &lt;UnitAmount&gt; you can provide a
    * LineAmount and Xero will calculate the missing amount for you. The line amount reflects the
    * discounted price if a DiscountRate has been used . i.e LineAmount &#x3D; Quantity * Unit Amount
@@ -649,6 +687,7 @@ public class LineItem {
         && Objects.equals(this.accountID, lineItem.accountID)
         && Objects.equals(this.taxType, lineItem.taxType)
         && Objects.equals(this.taxAmount, lineItem.taxAmount)
+        && Objects.equals(this.item, lineItem.item)
         && Objects.equals(this.lineAmount, lineItem.lineAmount)
         && Objects.equals(this.tracking, lineItem.tracking)
         && Objects.equals(this.discountRate, lineItem.discountRate)
@@ -668,6 +707,7 @@ public class LineItem {
         accountID,
         taxType,
         taxAmount,
+        item,
         lineAmount,
         tracking,
         discountRate,
@@ -688,6 +728,7 @@ public class LineItem {
     sb.append("    accountID: ").append(toIndentedString(accountID)).append("\n");
     sb.append("    taxType: ").append(toIndentedString(taxType)).append("\n");
     sb.append("    taxAmount: ").append(toIndentedString(taxAmount)).append("\n");
+    sb.append("    item: ").append(toIndentedString(item)).append("\n");
     sb.append("    lineAmount: ").append(toIndentedString(lineAmount)).append("\n");
     sb.append("    tracking: ").append(toIndentedString(tracking)).append("\n");
     sb.append("    discountRate: ").append(toIndentedString(discountRate)).append("\n");

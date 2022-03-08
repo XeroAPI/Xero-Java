@@ -234,4 +234,18 @@ public class FinanceApiTest {
             System.out.println(xe.toString());
         }
     }
+
+    @Test
+	public void testgetBankStatementAccounting() throws Exception {
+		System.out.println("@Test - getBankStatementAccounting");
+        UUID bankAccountID = UUID.fromString("1234eee9-47f0-4179-bd46-9adb4f21cc7f");
+        try {
+            BankStatementAccountingResponse response = financeApi.getBankStatementAccounting(accessToken, "73151de8-3676-4887-a021-edec960dd537", bankAccountID, "2021-01-01", "2021-01-02", null);
+            assertThat(response.getStatements().get(0).getStatementId().toString(), (equalTo("7c29eee9-47f0-4179-bd46-9adb4f21cc7f")));
+            assertThat(response.getStatements().get(0).getStatementLines().get(0).getPayments().get(0).getInvoice().getContact().getContactName(), (equalTo("Bob")));
+
+        } catch (XeroApiException xe) {
+            System.out.println(xe.toString());
+        }
+    }
 }
