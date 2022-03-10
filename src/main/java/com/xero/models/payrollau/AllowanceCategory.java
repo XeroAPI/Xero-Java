@@ -15,42 +15,33 @@ package com.xero.models.payrollau;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Gets or Sets AllowanceType */
-public enum AllowanceType {
+/** Gets or Sets AllowanceCategory */
+public enum AllowanceCategory {
 
-  /** CAR */
-  CAR("CAR"),
+  /** NONDEDUCTIBLE */
+  NONDEDUCTIBLE("NONDEDUCTIBLE"),
+
+  /** UNIFORM */
+  UNIFORM("UNIFORM"),
+
+  /** PRIVATEVEHICLE */
+  PRIVATEVEHICLE("PRIVATEVEHICLE"),
+
+  /** HOMEOFFICE */
+  HOMEOFFICE("HOMEOFFICE"),
 
   /** TRANSPORT */
   TRANSPORT("TRANSPORT"),
 
-  /** LAUNDRY */
-  LAUNDRY("LAUNDRY"),
-
-  /** MEALS */
-  MEALS("MEALS"),
-
-  /** TRAVEL */
-  TRAVEL("TRAVEL"),
+  /** GENERAL */
+  GENERAL("GENERAL"),
 
   /** OTHER */
-  OTHER("OTHER"),
-
-  /** JOBKEEPER */
-  JOBKEEPER("JOBKEEPER"),
-
-  /** TOOLS */
-  TOOLS("TOOLS"),
-
-  /** TASKS */
-  TASKS("TASKS"),
-
-  /** QUALIFICATIONS */
-  QUALIFICATIONS("QUALIFICATIONS");
+  OTHER("OTHER");
 
   private String value;
 
-  AllowanceType(String value) {
+  AllowanceCategory(String value) {
     this.value = value;
   }
 
@@ -76,8 +67,8 @@ public enum AllowanceType {
    * @param value String
    */
   @JsonCreator
-  public static AllowanceType fromValue(String value) {
-    for (AllowanceType b : AllowanceType.values()) {
+  public static AllowanceCategory fromValue(String value) {
+    for (AllowanceCategory b : AllowanceCategory.values()) {
       if (b.value.equals(value)) {
         return b;
       }

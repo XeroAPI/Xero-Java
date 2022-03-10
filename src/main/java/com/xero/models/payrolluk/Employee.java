@@ -118,6 +118,9 @@ public class Employee {
 
   @JsonProperty("nationalInsuranceNumber")
   private String nationalInsuranceNumber;
+
+  @JsonProperty("isOffPayrollWorker")
+  private Boolean isOffPayrollWorker;
   /**
    * Xero unique identifier for the employee
    *
@@ -651,6 +654,41 @@ public class Employee {
     this.nationalInsuranceNumber = nationalInsuranceNumber;
   }
 
+  /**
+   * Whether the employee is an off payroll worker
+   *
+   * @param isOffPayrollWorker Boolean
+   * @return Employee
+   */
+  public Employee isOffPayrollWorker(Boolean isOffPayrollWorker) {
+    this.isOffPayrollWorker = isOffPayrollWorker;
+    return this;
+  }
+
+  /**
+   * Whether the employee is an off payroll worker
+   *
+   * @return isOffPayrollWorker
+   */
+  @ApiModelProperty(value = "Whether the employee is an off payroll worker")
+  /**
+   * Whether the employee is an off payroll worker
+   *
+   * @return isOffPayrollWorker Boolean
+   */
+  public Boolean getIsOffPayrollWorker() {
+    return isOffPayrollWorker;
+  }
+
+  /**
+   * Whether the employee is an off payroll worker
+   *
+   * @param isOffPayrollWorker Boolean
+   */
+  public void setIsOffPayrollWorker(Boolean isOffPayrollWorker) {
+    this.isOffPayrollWorker = isOffPayrollWorker;
+  }
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -674,7 +712,8 @@ public class Employee {
         && Objects.equals(this.payrollCalendarID, employee.payrollCalendarID)
         && Objects.equals(this.updatedDateUTC, employee.updatedDateUTC)
         && Objects.equals(this.createdDateUTC, employee.createdDateUTC)
-        && Objects.equals(this.nationalInsuranceNumber, employee.nationalInsuranceNumber);
+        && Objects.equals(this.nationalInsuranceNumber, employee.nationalInsuranceNumber)
+        && Objects.equals(this.isOffPayrollWorker, employee.isOffPayrollWorker);
   }
 
   @Override
@@ -694,7 +733,8 @@ public class Employee {
         payrollCalendarID,
         updatedDateUTC,
         createdDateUTC,
-        nationalInsuranceNumber);
+        nationalInsuranceNumber,
+        isOffPayrollWorker);
   }
 
   @Override
@@ -718,6 +758,7 @@ public class Employee {
     sb.append("    nationalInsuranceNumber: ")
         .append(toIndentedString(nationalInsuranceNumber))
         .append("\n");
+    sb.append("    isOffPayrollWorker: ").append(toIndentedString(isOffPayrollWorker)).append("\n");
     sb.append("}");
     return sb.toString();
   }

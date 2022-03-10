@@ -181,7 +181,10 @@ public enum ObjectType {
   TERMLIAB("Termliab"),
 
   /** NONCURRENT */
-  NONCURRENT("NonCurrent");
+  NONCURRENT("NonCurrent"),
+
+  /** SALESQUOTE */
+  SALESQUOTE("SalesQuote");
 
   private String value;
 

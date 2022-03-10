@@ -73,6 +73,9 @@ public class EarningsRate {
 
   @JsonProperty("AllowanceType")
   private AllowanceType allowanceType;
+
+  @JsonProperty("AllowanceCategory")
+  private AllowanceCategory allowanceCategory;
   /**
    * Name of the earnings rate (max length &#x3D; 100)
    *
@@ -702,6 +705,41 @@ public class EarningsRate {
     this.allowanceType = allowanceType;
   }
 
+  /**
+   * allowanceCategory
+   *
+   * @param allowanceCategory AllowanceCategory
+   * @return EarningsRate
+   */
+  public EarningsRate allowanceCategory(AllowanceCategory allowanceCategory) {
+    this.allowanceCategory = allowanceCategory;
+    return this;
+  }
+
+  /**
+   * Get allowanceCategory
+   *
+   * @return allowanceCategory
+   */
+  @ApiModelProperty(value = "")
+  /**
+   * allowanceCategory
+   *
+   * @return allowanceCategory AllowanceCategory
+   */
+  public AllowanceCategory getAllowanceCategory() {
+    return allowanceCategory;
+  }
+
+  /**
+   * allowanceCategory
+   *
+   * @param allowanceCategory AllowanceCategory
+   */
+  public void setAllowanceCategory(AllowanceCategory allowanceCategory) {
+    this.allowanceCategory = allowanceCategory;
+  }
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -728,7 +766,8 @@ public class EarningsRate {
             this.employmentTerminationPaymentType, earningsRate.employmentTerminationPaymentType)
         && Objects.equals(this.updatedDateUTC, earningsRate.updatedDateUTC)
         && Objects.equals(this.currentRecord, earningsRate.currentRecord)
-        && Objects.equals(this.allowanceType, earningsRate.allowanceType);
+        && Objects.equals(this.allowanceType, earningsRate.allowanceType)
+        && Objects.equals(this.allowanceCategory, earningsRate.allowanceCategory);
   }
 
   @Override
@@ -750,7 +789,8 @@ public class EarningsRate {
         employmentTerminationPaymentType,
         updatedDateUTC,
         currentRecord,
-        allowanceType);
+        allowanceType,
+        allowanceCategory);
   }
 
   @Override
@@ -776,6 +816,7 @@ public class EarningsRate {
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
     sb.append("    currentRecord: ").append(toIndentedString(currentRecord)).append("\n");
     sb.append("    allowanceType: ").append(toIndentedString(allowanceType)).append("\n");
+    sb.append("    allowanceCategory: ").append(toIndentedString(allowanceCategory)).append("\n");
     sb.append("}");
     return sb.toString();
   }

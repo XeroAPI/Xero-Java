@@ -11,7 +11,9 @@
 
 package com.xero.models.appstore;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
@@ -41,9 +43,61 @@ public class Subscription {
 
   @JsonProperty("startDate")
   private OffsetDateTime startDate;
+  /** Status of the subscription. Available statuses are ACTIVE, CANCELED, and PAST_DUE. */
+  public enum StatusEnum {
+    /** ACTIVE */
+    ACTIVE("ACTIVE"),
+
+    /** CANCELED */
+    CANCELED("CANCELED"),
+
+    /** PAST_DUE */
+    PAST_DUE("PAST_DUE");
+
+    private String value;
+
+    StatusEnum(String value) {
+      this.value = value;
+    }
+
+    /**
+     * getValue
+     *
+     * @return String value
+     */
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    /**
+     * toString
+     *
+     * @return String value
+     */
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
+    @JsonCreator
+    public static StatusEnum fromValue(String value) {
+      for (StatusEnum b : StatusEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
 
   @JsonProperty("status")
-  private String status;
+  private StatusEnum status;
 
   @JsonProperty("testMode")
   private Boolean testMode;
@@ -282,10 +336,10 @@ public class Subscription {
   /**
    * Status of the subscription. Available statuses are ACTIVE, CANCELED, and PAST_DUE.
    *
-   * @param status String
+   * @param status StatusEnum
    * @return Subscription
    */
-  public Subscription status(String status) {
+  public Subscription status(StatusEnum status) {
     this.status = status;
     return this;
   }
@@ -301,18 +355,18 @@ public class Subscription {
   /**
    * Status of the subscription. Available statuses are ACTIVE, CANCELED, and PAST_DUE.
    *
-   * @return status String
+   * @return status StatusEnum
    */
-  public String getStatus() {
+  public StatusEnum getStatus() {
     return status;
   }
 
   /**
    * Status of the subscription. Available statuses are ACTIVE, CANCELED, and PAST_DUE.
    *
-   * @param status String
+   * @param status StatusEnum
    */
-  public void setStatus(String status) {
+  public void setStatus(StatusEnum status) {
     this.status = status;
   }
 

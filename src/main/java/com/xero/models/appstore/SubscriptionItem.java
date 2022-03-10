@@ -11,7 +11,9 @@
 
 package com.xero.models.appstore;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
@@ -36,6 +38,64 @@ public class SubscriptionItem {
 
   @JsonProperty("startDate")
   private OffsetDateTime startDate;
+  /**
+   * Status of the subscription item. Available statuses are ACTIVE, CANCELED, and
+   * PENDING_ACTIVATION.
+   */
+  public enum StatusEnum {
+    /** ACTIVE */
+    ACTIVE("ACTIVE"),
+
+    /** CANCELED */
+    CANCELED("CANCELED"),
+
+    /** PENDING_ACTIVATION */
+    PENDING_ACTIVATION("PENDING_ACTIVATION");
+
+    private String value;
+
+    StatusEnum(String value) {
+      this.value = value;
+    }
+
+    /**
+     * getValue
+     *
+     * @return String value
+     */
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    /**
+     * toString
+     *
+     * @return String value
+     */
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
+    @JsonCreator
+    public static StatusEnum fromValue(String value) {
+      for (StatusEnum b : StatusEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  @JsonProperty("status")
+  private StatusEnum status;
 
   @JsonProperty("testMode")
   private Boolean testMode;
@@ -223,6 +283,49 @@ public class SubscriptionItem {
   }
 
   /**
+   * Status of the subscription item. Available statuses are ACTIVE, CANCELED, and
+   * PENDING_ACTIVATION.
+   *
+   * @param status StatusEnum
+   * @return SubscriptionItem
+   */
+  public SubscriptionItem status(StatusEnum status) {
+    this.status = status;
+    return this;
+  }
+
+  /**
+   * Status of the subscription item. Available statuses are ACTIVE, CANCELED, and
+   * PENDING_ACTIVATION.
+   *
+   * @return status
+   */
+  @ApiModelProperty(
+      required = true,
+      value =
+          "Status of the subscription item. Available statuses are ACTIVE, CANCELED, and"
+              + " PENDING_ACTIVATION. ")
+  /**
+   * Status of the subscription item. Available statuses are ACTIVE, CANCELED, and
+   * PENDING_ACTIVATION.
+   *
+   * @return status StatusEnum
+   */
+  public StatusEnum getStatus() {
+    return status;
+  }
+
+  /**
+   * Status of the subscription item. Available statuses are ACTIVE, CANCELED, and
+   * PENDING_ACTIVATION.
+   *
+   * @param status StatusEnum
+   */
+  public void setStatus(StatusEnum status) {
+    this.status = status;
+  }
+
+  /**
    * If the subscription is a test subscription
    *
    * @param testMode Boolean
@@ -271,12 +374,13 @@ public class SubscriptionItem {
         && Objects.equals(this.price, subscriptionItem.price)
         && Objects.equals(this.product, subscriptionItem.product)
         && Objects.equals(this.startDate, subscriptionItem.startDate)
+        && Objects.equals(this.status, subscriptionItem.status)
         && Objects.equals(this.testMode, subscriptionItem.testMode);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(endDate, id, price, product, startDate, testMode);
+    return Objects.hash(endDate, id, price, product, startDate, status, testMode);
   }
 
   @Override
@@ -288,6 +392,7 @@ public class SubscriptionItem {
     sb.append("    price: ").append(toIndentedString(price)).append("\n");
     sb.append("    product: ").append(toIndentedString(product)).append("\n");
     sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    testMode: ").append(toIndentedString(testMode)).append("\n");
     sb.append("}");
     return sb.toString();

@@ -30,10 +30,13 @@ public class Plan {
 
   @JsonProperty("name")
   private String name;
-  /** Status of the plan. Available statuses are ACTIVE, PENDING_ACTIVATION. */
+  /** Status of the plan. Available statuses are ACTIVE, CANCELED, and PENDING_ACTIVATION. */
   public enum StatusEnum {
     /** ACTIVE */
     ACTIVE("ACTIVE"),
+
+    /** CANCELED */
+    CANCELED("CANCELED"),
 
     /** PENDING_ACTIVATION */
     PENDING_ACTIVATION("PENDING_ACTIVATION");
@@ -158,7 +161,7 @@ public class Plan {
   }
 
   /**
-   * Status of the plan. Available statuses are ACTIVE, PENDING_ACTIVATION.
+   * Status of the plan. Available statuses are ACTIVE, CANCELED, and PENDING_ACTIVATION.
    *
    * @param status StatusEnum
    * @return Plan
@@ -169,15 +172,16 @@ public class Plan {
   }
 
   /**
-   * Status of the plan. Available statuses are ACTIVE, PENDING_ACTIVATION.
+   * Status of the plan. Available statuses are ACTIVE, CANCELED, and PENDING_ACTIVATION.
    *
    * @return status
    */
   @ApiModelProperty(
       required = true,
-      value = "Status of the plan. Available statuses are ACTIVE, PENDING_ACTIVATION. ")
+      value =
+          "Status of the plan. Available statuses are ACTIVE, CANCELED, and PENDING_ACTIVATION. ")
   /**
-   * Status of the plan. Available statuses are ACTIVE, PENDING_ACTIVATION.
+   * Status of the plan. Available statuses are ACTIVE, CANCELED, and PENDING_ACTIVATION.
    *
    * @return status StatusEnum
    */
@@ -186,7 +190,7 @@ public class Plan {
   }
 
   /**
-   * Status of the plan. Available statuses are ACTIVE, PENDING_ACTIVATION.
+   * Status of the plan. Available statuses are ACTIVE, CANCELED, and PENDING_ACTIVATION.
    *
    * @param status StatusEnum
    */

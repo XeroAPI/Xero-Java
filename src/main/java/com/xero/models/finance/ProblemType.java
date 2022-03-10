@@ -21,17 +21,32 @@ public enum ProblemType {
   /** NOTSET */
   NOTSET("NotSet"),
 
-  /** INVALID_REQUEST */
-  INVALID_REQUEST("invalid-request"),
+  /** BANK_ACCOUNT_NOT_FOUND */
+  BANK_ACCOUNT_NOT_FOUND("bank-account-not-found"),
+
+  /** INTERNAL_ERROR */
+  INTERNAL_ERROR("internal-error"),
 
   /** INVALID_APPLICATION */
   INVALID_APPLICATION("invalid-application"),
 
+  /** INVALID_REQUEST */
+  INVALID_REQUEST("invalid-request"),
+
+  /** ORGANISATION_NOT_FOUND */
+  ORGANISATION_NOT_FOUND("organisation-not-found"),
+
+  /** ORGANISATION_OFFLINE */
+  ORGANISATION_OFFLINE("organisation-offline"),
+
+  /** REQUEST_TIMEOUT */
+  REQUEST_TIMEOUT("request-timeout"),
+
   /** SERVICE_UNAVAILABLE */
   SERVICE_UNAVAILABLE("service-unavailable"),
 
-  /** INTERNAL_ERROR */
-  INTERNAL_ERROR("internal-error");
+  /** UNAUTHORIZED */
+  UNAUTHORIZED("unauthorized");
 
   private String value;
 
