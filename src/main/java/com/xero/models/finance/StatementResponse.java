@@ -40,6 +40,12 @@ public class StatementResponse {
   @JsonProperty("importSource")
   private String importSource;
 
+  @JsonProperty("startBalance")
+  private Double startBalance;
+
+  @JsonProperty("endBalance")
+  private Double endBalance;
+
   @JsonProperty("statementLines")
   private List<StatementLineResponse> statementLines = new ArrayList<StatementLineResponse>();
   /**
@@ -183,8 +189,11 @@ public class StatementResponse {
   }
 
   /**
-   * Import source of statement (STMTIMPORTSRC/MANUAL, STMTIMPORTSRC/CSV, STMTIMPORTSRC/QIF,
-   * STMTIMPORTSRC/OFX, XeroApi)
+   * Indicates the source of the statement data. Either imported from 1) direct bank feed OR 2)
+   * manual customer entry or upload. Manual import sources are STMTIMPORTSRC/MANUAL,
+   * STMTIMPORTSRC/CSV, STMTIMPORTSRC/OFX, Ofx or STMTIMPORTSRC/QIF. All other import sources are
+   * direct and, depending on the direct solution, may contain the name of the financial
+   * institution.
    *
    * @param importSource String
    * @return StatementResponse
@@ -195,18 +204,27 @@ public class StatementResponse {
   }
 
   /**
-   * Import source of statement (STMTIMPORTSRC/MANUAL, STMTIMPORTSRC/CSV, STMTIMPORTSRC/QIF,
-   * STMTIMPORTSRC/OFX, XeroApi)
+   * Indicates the source of the statement data. Either imported from 1) direct bank feed OR 2)
+   * manual customer entry or upload. Manual import sources are STMTIMPORTSRC/MANUAL,
+   * STMTIMPORTSRC/CSV, STMTIMPORTSRC/OFX, Ofx or STMTIMPORTSRC/QIF. All other import sources are
+   * direct and, depending on the direct solution, may contain the name of the financial
+   * institution.
    *
    * @return importSource
    */
   @ApiModelProperty(
       value =
-          "Import source of statement (STMTIMPORTSRC/MANUAL, STMTIMPORTSRC/CSV, STMTIMPORTSRC/QIF,"
-              + " STMTIMPORTSRC/OFX, XeroApi)")
+          "Indicates the source of the statement data. Either imported from 1) direct bank feed OR"
+              + " 2) manual customer entry or upload. Manual import sources are"
+              + " STMTIMPORTSRC/MANUAL, STMTIMPORTSRC/CSV, STMTIMPORTSRC/OFX, Ofx or"
+              + " STMTIMPORTSRC/QIF. All other import sources are direct and, depending on the"
+              + " direct solution, may contain the name of the financial institution.")
   /**
-   * Import source of statement (STMTIMPORTSRC/MANUAL, STMTIMPORTSRC/CSV, STMTIMPORTSRC/QIF,
-   * STMTIMPORTSRC/OFX, XeroApi)
+   * Indicates the source of the statement data. Either imported from 1) direct bank feed OR 2)
+   * manual customer entry or upload. Manual import sources are STMTIMPORTSRC/MANUAL,
+   * STMTIMPORTSRC/CSV, STMTIMPORTSRC/OFX, Ofx or STMTIMPORTSRC/QIF. All other import sources are
+   * direct and, depending on the direct solution, may contain the name of the financial
+   * institution.
    *
    * @return importSource String
    */
@@ -215,13 +233,100 @@ public class StatementResponse {
   }
 
   /**
-   * Import source of statement (STMTIMPORTSRC/MANUAL, STMTIMPORTSRC/CSV, STMTIMPORTSRC/QIF,
-   * STMTIMPORTSRC/OFX, XeroApi)
+   * Indicates the source of the statement data. Either imported from 1) direct bank feed OR 2)
+   * manual customer entry or upload. Manual import sources are STMTIMPORTSRC/MANUAL,
+   * STMTIMPORTSRC/CSV, STMTIMPORTSRC/OFX, Ofx or STMTIMPORTSRC/QIF. All other import sources are
+   * direct and, depending on the direct solution, may contain the name of the financial
+   * institution.
    *
    * @param importSource String
    */
   public void setImportSource(String importSource) {
     this.importSource = importSource;
+  }
+
+  /**
+   * Opening balance sourced from imported bank statements (if supplied). Note, for manually
+   * uploaded statements, this balance is also manual and usually not supplied.
+   *
+   * @param startBalance Double
+   * @return StatementResponse
+   */
+  public StatementResponse startBalance(Double startBalance) {
+    this.startBalance = startBalance;
+    return this;
+  }
+
+  /**
+   * Opening balance sourced from imported bank statements (if supplied). Note, for manually
+   * uploaded statements, this balance is also manual and usually not supplied.
+   *
+   * @return startBalance
+   */
+  @ApiModelProperty(
+      value =
+          "Opening balance sourced from imported bank statements (if supplied). Note, for manually"
+              + " uploaded statements, this balance is also manual and usually not supplied.")
+  /**
+   * Opening balance sourced from imported bank statements (if supplied). Note, for manually
+   * uploaded statements, this balance is also manual and usually not supplied.
+   *
+   * @return startBalance Double
+   */
+  public Double getStartBalance() {
+    return startBalance;
+  }
+
+  /**
+   * Opening balance sourced from imported bank statements (if supplied). Note, for manually
+   * uploaded statements, this balance is also manual and usually not supplied.
+   *
+   * @param startBalance Double
+   */
+  public void setStartBalance(Double startBalance) {
+    this.startBalance = startBalance;
+  }
+
+  /**
+   * Closing balance sourced from imported bank statements (if supplied). Note, for manually
+   * uploaded statements, this balance is also manual and usually not supplied.
+   *
+   * @param endBalance Double
+   * @return StatementResponse
+   */
+  public StatementResponse endBalance(Double endBalance) {
+    this.endBalance = endBalance;
+    return this;
+  }
+
+  /**
+   * Closing balance sourced from imported bank statements (if supplied). Note, for manually
+   * uploaded statements, this balance is also manual and usually not supplied.
+   *
+   * @return endBalance
+   */
+  @ApiModelProperty(
+      value =
+          "Closing balance sourced from imported bank statements (if supplied). Note, for manually"
+              + " uploaded statements, this balance is also manual and usually not supplied.")
+  /**
+   * Closing balance sourced from imported bank statements (if supplied). Note, for manually
+   * uploaded statements, this balance is also manual and usually not supplied.
+   *
+   * @return endBalance Double
+   */
+  public Double getEndBalance() {
+    return endBalance;
+  }
+
+  /**
+   * Closing balance sourced from imported bank statements (if supplied). Note, for manually
+   * uploaded statements, this balance is also manual and usually not supplied.
+   *
+   * @param endBalance Double
+   */
+  public void setEndBalance(Double endBalance) {
+    this.endBalance = endBalance;
   }
 
   /**
@@ -287,13 +392,22 @@ public class StatementResponse {
         && Objects.equals(this.endDate, statementResponse.endDate)
         && Objects.equals(this.importedDateTimeUtc, statementResponse.importedDateTimeUtc)
         && Objects.equals(this.importSource, statementResponse.importSource)
+        && Objects.equals(this.startBalance, statementResponse.startBalance)
+        && Objects.equals(this.endBalance, statementResponse.endBalance)
         && Objects.equals(this.statementLines, statementResponse.statementLines);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        statementId, startDate, endDate, importedDateTimeUtc, importSource, statementLines);
+        statementId,
+        startDate,
+        endDate,
+        importedDateTimeUtc,
+        importSource,
+        startBalance,
+        endBalance,
+        statementLines);
   }
 
   @Override
@@ -307,6 +421,8 @@ public class StatementResponse {
         .append(toIndentedString(importedDateTimeUtc))
         .append("\n");
     sb.append("    importSource: ").append(toIndentedString(importSource)).append("\n");
+    sb.append("    startBalance: ").append(toIndentedString(startBalance)).append("\n");
+    sb.append("    endBalance: ").append(toIndentedString(endBalance)).append("\n");
     sb.append("    statementLines: ").append(toIndentedString(statementLines)).append("\n");
     sb.append("}");
     return sb.toString();

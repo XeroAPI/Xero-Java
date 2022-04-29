@@ -43,20 +43,35 @@ public class Employment {
     /** C */
     C("C"),
 
+    /** F */
+    F("F"),
+
     /** H */
     H("H"),
+
+    /** I */
+    I("I"),
 
     /** J */
     J("J"),
 
+    /** L */
+    L("L"),
+
     /** M */
     M("M"),
 
-    /** Z */
-    Z("Z"),
+    /** S */
+    S("S"),
+
+    /** V */
+    V("V"),
 
     /** X */
-    X("X");
+    X("X"),
+
+    /** Z */
+    Z("Z");
 
     private String value;
 

@@ -36,6 +36,9 @@ public class SubscriptionItem {
   @JsonProperty("product")
   private Product product;
 
+  @JsonProperty("quantity")
+  private Integer quantity;
+
   @JsonProperty("startDate")
   private OffsetDateTime startDate;
   /**
@@ -240,6 +243,48 @@ public class SubscriptionItem {
   }
 
   /**
+   * The quantity of the item. For a fixed product, it is 1. For a per-seat product, it is a
+   * positive integer. For metered products, it is always null.
+   *
+   * @param quantity Integer
+   * @return SubscriptionItem
+   */
+  public SubscriptionItem quantity(Integer quantity) {
+    this.quantity = quantity;
+    return this;
+  }
+
+  /**
+   * The quantity of the item. For a fixed product, it is 1. For a per-seat product, it is a
+   * positive integer. For metered products, it is always null.
+   *
+   * @return quantity
+   */
+  @ApiModelProperty(
+      value =
+          "The quantity of the item. For a fixed product, it is 1. For a per-seat product, it is a"
+              + " positive integer. For metered products, it is always null.")
+  /**
+   * The quantity of the item. For a fixed product, it is 1. For a per-seat product, it is a
+   * positive integer. For metered products, it is always null.
+   *
+   * @return quantity Integer
+   */
+  public Integer getQuantity() {
+    return quantity;
+  }
+
+  /**
+   * The quantity of the item. For a fixed product, it is 1. For a per-seat product, it is a
+   * positive integer. For metered products, it is always null.
+   *
+   * @param quantity Integer
+   */
+  public void setQuantity(Integer quantity) {
+    this.quantity = quantity;
+  }
+
+  /**
    * Date the subscription started, or will start. Note: this could be in the future for downgrades
    * or reduced number of seats that haven&#39;t taken effect yet.
    *
@@ -373,6 +418,7 @@ public class SubscriptionItem {
         && Objects.equals(this.id, subscriptionItem.id)
         && Objects.equals(this.price, subscriptionItem.price)
         && Objects.equals(this.product, subscriptionItem.product)
+        && Objects.equals(this.quantity, subscriptionItem.quantity)
         && Objects.equals(this.startDate, subscriptionItem.startDate)
         && Objects.equals(this.status, subscriptionItem.status)
         && Objects.equals(this.testMode, subscriptionItem.testMode);
@@ -380,7 +426,7 @@ public class SubscriptionItem {
 
   @Override
   public int hashCode() {
-    return Objects.hash(endDate, id, price, product, startDate, status, testMode);
+    return Objects.hash(endDate, id, price, product, quantity, startDate, status, testMode);
   }
 
   @Override
@@ -391,6 +437,7 @@ public class SubscriptionItem {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    price: ").append(toIndentedString(price)).append("\n");
     sb.append("    product: ").append(toIndentedString(product)).append("\n");
+    sb.append("    quantity: ").append(toIndentedString(quantity)).append("\n");
     sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    testMode: ").append(toIndentedString(testMode)).append("\n");
