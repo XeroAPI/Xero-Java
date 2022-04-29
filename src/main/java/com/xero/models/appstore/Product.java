@@ -28,16 +28,23 @@ public class Product {
 
   @JsonProperty("name")
   private String name;
+
+  @JsonProperty("seatUnit")
+  private String seatUnit;
   /**
    * The pricing model of the product: * FIXED: Customers are charged a fixed amount for each
-   * billing period * PER_SEAT: Customers are charged based on the number of units they purchase
+   * billing period * PER_SEAT: Customers are charged based on the number of units they purchase *
+   * METERED: Customers are charged per use of this product
    */
   public enum TypeEnum {
     /** FIXED */
     FIXED("FIXED"),
 
     /** PER_SEAT */
-    PER_SEAT("PER_SEAT");
+    PER_SEAT("PER_SEAT"),
+
+    /** METERED */
+    METERED("METERED");
 
     private String value;
 
@@ -84,8 +91,8 @@ public class Product {
   @JsonProperty("type")
   private TypeEnum type;
 
-  @JsonProperty("seatUnit")
-  private String seatUnit;
+  @JsonProperty("usageUnit")
+  private String usageUnit;
   /**
    * The unique identifier for the product
    *
@@ -157,49 +164,6 @@ public class Product {
   }
 
   /**
-   * The pricing model of the product: * FIXED: Customers are charged a fixed amount for each
-   * billing period * PER_SEAT: Customers are charged based on the number of units they purchase
-   *
-   * @param type TypeEnum
-   * @return Product
-   */
-  public Product type(TypeEnum type) {
-    this.type = type;
-    return this;
-  }
-
-  /**
-   * The pricing model of the product: * FIXED: Customers are charged a fixed amount for each
-   * billing period * PER_SEAT: Customers are charged based on the number of units they purchase
-   *
-   * @return type
-   */
-  @ApiModelProperty(
-      value =
-          "The pricing model of the product: * FIXED: Customers are charged a fixed amount for"
-              + " each billing period * PER_SEAT: Customers are charged based on the number of"
-              + " units they purchase ")
-  /**
-   * The pricing model of the product: * FIXED: Customers are charged a fixed amount for each
-   * billing period * PER_SEAT: Customers are charged based on the number of units they purchase
-   *
-   * @return type TypeEnum
-   */
-  public TypeEnum getType() {
-    return type;
-  }
-
-  /**
-   * The pricing model of the product: * FIXED: Customers are charged a fixed amount for each
-   * billing period * PER_SEAT: Customers are charged based on the number of units they purchase
-   *
-   * @param type TypeEnum
-   */
-  public void setType(TypeEnum type) {
-    this.type = type;
-  }
-
-  /**
    * The unit of the per seat product. e.g. \&quot;user\&quot;, \&quot;organisation\&quot;,
    * \&quot;SMS\&quot;, etc
    *
@@ -239,6 +203,93 @@ public class Product {
     this.seatUnit = seatUnit;
   }
 
+  /**
+   * The pricing model of the product: * FIXED: Customers are charged a fixed amount for each
+   * billing period * PER_SEAT: Customers are charged based on the number of units they purchase *
+   * METERED: Customers are charged per use of this product
+   *
+   * @param type TypeEnum
+   * @return Product
+   */
+  public Product type(TypeEnum type) {
+    this.type = type;
+    return this;
+  }
+
+  /**
+   * The pricing model of the product: * FIXED: Customers are charged a fixed amount for each
+   * billing period * PER_SEAT: Customers are charged based on the number of units they purchase *
+   * METERED: Customers are charged per use of this product
+   *
+   * @return type
+   */
+  @ApiModelProperty(
+      value =
+          "The pricing model of the product: * FIXED: Customers are charged a fixed amount for"
+              + " each billing period * PER_SEAT: Customers are charged based on the number of"
+              + " units they purchase * METERED: Customers are charged per use of this product ")
+  /**
+   * The pricing model of the product: * FIXED: Customers are charged a fixed amount for each
+   * billing period * PER_SEAT: Customers are charged based on the number of units they purchase *
+   * METERED: Customers are charged per use of this product
+   *
+   * @return type TypeEnum
+   */
+  public TypeEnum getType() {
+    return type;
+  }
+
+  /**
+   * The pricing model of the product: * FIXED: Customers are charged a fixed amount for each
+   * billing period * PER_SEAT: Customers are charged based on the number of units they purchase *
+   * METERED: Customers are charged per use of this product
+   *
+   * @param type TypeEnum
+   */
+  public void setType(TypeEnum type) {
+    this.type = type;
+  }
+
+  /**
+   * The unit of the usage product. e.g. \&quot;user\&quot;, \&quot;minutes\&quot;,
+   * \&quot;SMS\&quot;, etc
+   *
+   * @param usageUnit String
+   * @return Product
+   */
+  public Product usageUnit(String usageUnit) {
+    this.usageUnit = usageUnit;
+    return this;
+  }
+
+  /**
+   * The unit of the usage product. e.g. \&quot;user\&quot;, \&quot;minutes\&quot;,
+   * \&quot;SMS\&quot;, etc
+   *
+   * @return usageUnit
+   */
+  @ApiModelProperty(
+      value = "The unit of the usage product. e.g. \"user\", \"minutes\", \"SMS\", etc")
+  /**
+   * The unit of the usage product. e.g. \&quot;user\&quot;, \&quot;minutes\&quot;,
+   * \&quot;SMS\&quot;, etc
+   *
+   * @return usageUnit String
+   */
+  public String getUsageUnit() {
+    return usageUnit;
+  }
+
+  /**
+   * The unit of the usage product. e.g. \&quot;user\&quot;, \&quot;minutes\&quot;,
+   * \&quot;SMS\&quot;, etc
+   *
+   * @param usageUnit String
+   */
+  public void setUsageUnit(String usageUnit) {
+    this.usageUnit = usageUnit;
+  }
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -250,13 +301,14 @@ public class Product {
     Product product = (Product) o;
     return Objects.equals(this.id, product.id)
         && Objects.equals(this.name, product.name)
+        && Objects.equals(this.seatUnit, product.seatUnit)
         && Objects.equals(this.type, product.type)
-        && Objects.equals(this.seatUnit, product.seatUnit);
+        && Objects.equals(this.usageUnit, product.usageUnit);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, type, seatUnit);
+    return Objects.hash(id, name, seatUnit, type, usageUnit);
   }
 
   @Override
@@ -265,8 +317,9 @@ public class Product {
     sb.append("class Product {\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    seatUnit: ").append(toIndentedString(seatUnit)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
+    sb.append("    usageUnit: ").append(toIndentedString(usageUnit)).append("\n");
     sb.append("}");
     return sb.toString();
   }
