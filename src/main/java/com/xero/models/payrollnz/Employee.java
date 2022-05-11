@@ -274,7 +274,7 @@ public class Employee {
    * @return dateOfBirth
    */
   @ApiModelProperty(
-      example = "Wed Jan 02 00:00:00 GMT 2019",
+      example = "Wed Jan 02 00:00:00 UTC 2019",
       value = "Date of birth of the employee (YYYY-MM-DD)")
   /**
    * Date of birth of the employee (YYYY-MM-DD)
@@ -451,7 +451,7 @@ public class Employee {
    * @return startDate
    */
   @ApiModelProperty(
-      example = "Sun Jan 19 00:00:00 GMT 2020",
+      example = "Sun Jan 19 00:00:00 UTC 2020",
       value = "Employment start date of the employee at the time it was requested")
   /**
    * Employment start date of the employee at the time it was requested
@@ -488,7 +488,7 @@ public class Employee {
    * @return endDate
    */
   @ApiModelProperty(
-      example = "Sun Jan 19 00:00:00 GMT 2020",
+      example = "Sun Jan 19 00:00:00 UTC 2020",
       value = "Employment end date of the employee at the time it was requested")
   /**
    * Employment end date of the employee at the time it was requested

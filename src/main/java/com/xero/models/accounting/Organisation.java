@@ -535,7 +535,10 @@ public class Organisation {
     GST_CASHBOOK("GST_CASHBOOK"),
 
     /** NON_GST_CASHBOOK */
-    NON_GST_CASHBOOK("NON_GST_CASHBOOK");
+    NON_GST_CASHBOOK("NON_GST_CASHBOOK"),
+
+    /** ULTIMATE */
+    ULTIMATE("ULTIMATE");
 
     private String value;
 

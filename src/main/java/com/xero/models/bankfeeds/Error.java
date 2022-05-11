@@ -161,7 +161,7 @@ public class Error {
   }
 
   /**
-   * Human readable high level error description. maximum: 255
+   * Human readable high level error description.
    *
    * @return title
    */
@@ -233,7 +233,7 @@ public class Error {
   }
 
   /**
-   * Human readable detailed error description. maximum: 255
+   * Human readable detailed error description.
    *
    * @return detail
    */
