@@ -137,7 +137,7 @@ public class TaskCreateOrUpdate {
   }
 
   /**
-   * Estimated time to perform the task. EstimateMinutes has to be greater than 0 if provided.
+   * An estimated time to perform the task
    *
    * @param estimateMinutes Integer
    * @return TaskCreateOrUpdate
@@ -148,16 +148,13 @@ public class TaskCreateOrUpdate {
   }
 
   /**
-   * Estimated time to perform the task. EstimateMinutes has to be greater than 0 if provided.
+   * An estimated time to perform the task
    *
    * @return estimateMinutes
    */
-  @ApiModelProperty(
-      value =
-          "Estimated time to perform the task. EstimateMinutes has to be greater than 0 if"
-              + " provided.")
+  @ApiModelProperty(value = "An estimated time to perform the task")
   /**
-   * Estimated time to perform the task. EstimateMinutes has to be greater than 0 if provided.
+   * An estimated time to perform the task
    *
    * @return estimateMinutes Integer
    */
@@ -166,7 +163,7 @@ public class TaskCreateOrUpdate {
   }
 
   /**
-   * Estimated time to perform the task. EstimateMinutes has to be greater than 0 if provided.
+   * An estimated time to perform the task
    *
    * @param estimateMinutes Integer
    */

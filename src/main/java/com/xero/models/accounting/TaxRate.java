@@ -333,7 +333,10 @@ public class TaxRate {
     TXRCREINPUT("TXRCREINPUT"),
 
     /** TXRCESSINPUT */
-    TXRCESSINPUT("TXRCESSINPUT");
+    TXRCESSINPUT("TXRCESSINPUT"),
+
+    /** TXRCTSINPUT */
+    TXRCTSINPUT("TXRCTSINPUT");
 
     private String value;
 

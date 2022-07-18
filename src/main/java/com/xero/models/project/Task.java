@@ -36,28 +36,28 @@ public class Task {
   private ChargeType chargeType;
 
   @JsonProperty("estimateMinutes")
-  private Double estimateMinutes;
+  private Integer estimateMinutes;
 
   @JsonProperty("projectId")
   private UUID projectId;
 
   @JsonProperty("totalMinutes")
-  private Double totalMinutes;
+  private Integer totalMinutes;
 
   @JsonProperty("totalAmount")
   private Amount totalAmount;
 
   @JsonProperty("minutesInvoiced")
-  private Double minutesInvoiced;
+  private Integer minutesInvoiced;
 
   @JsonProperty("minutesToBeInvoiced")
-  private Double minutesToBeInvoiced;
+  private Integer minutesToBeInvoiced;
 
   @JsonProperty("fixedMinutes")
-  private Double fixedMinutes;
+  private Integer fixedMinutes;
 
   @JsonProperty("nonChargeableMinutes")
-  private Double nonChargeableMinutes;
+  private Integer nonChargeableMinutes;
 
   @JsonProperty("amountToBeInvoiced")
   private Amount amountToBeInvoiced;
@@ -270,10 +270,10 @@ public class Task {
   /**
    * An estimated time to perform the task
    *
-   * @param estimateMinutes Double
+   * @param estimateMinutes Integer
    * @return Task
    */
-  public Task estimateMinutes(Double estimateMinutes) {
+  public Task estimateMinutes(Integer estimateMinutes) {
     this.estimateMinutes = estimateMinutes;
     return this;
   }
@@ -287,18 +287,18 @@ public class Task {
   /**
    * An estimated time to perform the task
    *
-   * @return estimateMinutes Double
+   * @return estimateMinutes Integer
    */
-  public Double getEstimateMinutes() {
+  public Integer getEstimateMinutes() {
     return estimateMinutes;
   }
 
   /**
    * An estimated time to perform the task
    *
-   * @param estimateMinutes Double
+   * @param estimateMinutes Integer
    */
-  public void setEstimateMinutes(Double estimateMinutes) {
+  public void setEstimateMinutes(Integer estimateMinutes) {
     this.estimateMinutes = estimateMinutes;
   }
 
@@ -343,10 +343,10 @@ public class Task {
    * Total minutes which have been logged against the task. Logged by assigning a time entry to a
    * task
    *
-   * @param totalMinutes Double
+   * @param totalMinutes Integer
    * @return Task
    */
-  public Task totalMinutes(Double totalMinutes) {
+  public Task totalMinutes(Integer totalMinutes) {
     this.totalMinutes = totalMinutes;
     return this;
   }
@@ -365,9 +365,9 @@ public class Task {
    * Total minutes which have been logged against the task. Logged by assigning a time entry to a
    * task
    *
-   * @return totalMinutes Double
+   * @return totalMinutes Integer
    */
-  public Double getTotalMinutes() {
+  public Integer getTotalMinutes() {
     return totalMinutes;
   }
 
@@ -375,9 +375,9 @@ public class Task {
    * Total minutes which have been logged against the task. Logged by assigning a time entry to a
    * task
    *
-   * @param totalMinutes Double
+   * @param totalMinutes Integer
    */
-  public void setTotalMinutes(Double totalMinutes) {
+  public void setTotalMinutes(Integer totalMinutes) {
     this.totalMinutes = totalMinutes;
   }
 
@@ -419,10 +419,10 @@ public class Task {
   /**
    * Minutes on this task which have been invoiced.
    *
-   * @param minutesInvoiced Double
+   * @param minutesInvoiced Integer
    * @return Task
    */
-  public Task minutesInvoiced(Double minutesInvoiced) {
+  public Task minutesInvoiced(Integer minutesInvoiced) {
     this.minutesInvoiced = minutesInvoiced;
     return this;
   }
@@ -436,28 +436,28 @@ public class Task {
   /**
    * Minutes on this task which have been invoiced.
    *
-   * @return minutesInvoiced Double
+   * @return minutesInvoiced Integer
    */
-  public Double getMinutesInvoiced() {
+  public Integer getMinutesInvoiced() {
     return minutesInvoiced;
   }
 
   /**
    * Minutes on this task which have been invoiced.
    *
-   * @param minutesInvoiced Double
+   * @param minutesInvoiced Integer
    */
-  public void setMinutesInvoiced(Double minutesInvoiced) {
+  public void setMinutesInvoiced(Integer minutesInvoiced) {
     this.minutesInvoiced = minutesInvoiced;
   }
 
   /**
    * Minutes on this task which have not been invoiced.
    *
-   * @param minutesToBeInvoiced Double
+   * @param minutesToBeInvoiced Integer
    * @return Task
    */
-  public Task minutesToBeInvoiced(Double minutesToBeInvoiced) {
+  public Task minutesToBeInvoiced(Integer minutesToBeInvoiced) {
     this.minutesToBeInvoiced = minutesToBeInvoiced;
     return this;
   }
@@ -471,28 +471,28 @@ public class Task {
   /**
    * Minutes on this task which have not been invoiced.
    *
-   * @return minutesToBeInvoiced Double
+   * @return minutesToBeInvoiced Integer
    */
-  public Double getMinutesToBeInvoiced() {
+  public Integer getMinutesToBeInvoiced() {
     return minutesToBeInvoiced;
   }
 
   /**
    * Minutes on this task which have not been invoiced.
    *
-   * @param minutesToBeInvoiced Double
+   * @param minutesToBeInvoiced Integer
    */
-  public void setMinutesToBeInvoiced(Double minutesToBeInvoiced) {
+  public void setMinutesToBeInvoiced(Integer minutesToBeInvoiced) {
     this.minutesToBeInvoiced = minutesToBeInvoiced;
   }
 
   /**
    * Minutes logged against this task if its charge type is &#x60;FIXED&#x60;.
    *
-   * @param fixedMinutes Double
+   * @param fixedMinutes Integer
    * @return Task
    */
-  public Task fixedMinutes(Double fixedMinutes) {
+  public Task fixedMinutes(Integer fixedMinutes) {
     this.fixedMinutes = fixedMinutes;
     return this;
   }
@@ -506,28 +506,28 @@ public class Task {
   /**
    * Minutes logged against this task if its charge type is &#x60;FIXED&#x60;.
    *
-   * @return fixedMinutes Double
+   * @return fixedMinutes Integer
    */
-  public Double getFixedMinutes() {
+  public Integer getFixedMinutes() {
     return fixedMinutes;
   }
 
   /**
    * Minutes logged against this task if its charge type is &#x60;FIXED&#x60;.
    *
-   * @param fixedMinutes Double
+   * @param fixedMinutes Integer
    */
-  public void setFixedMinutes(Double fixedMinutes) {
+  public void setFixedMinutes(Integer fixedMinutes) {
     this.fixedMinutes = fixedMinutes;
   }
 
   /**
    * Minutes logged against this task if its charge type is &#x60;NON_CHARGEABLE&#x60;.
    *
-   * @param nonChargeableMinutes Double
+   * @param nonChargeableMinutes Integer
    * @return Task
    */
-  public Task nonChargeableMinutes(Double nonChargeableMinutes) {
+  public Task nonChargeableMinutes(Integer nonChargeableMinutes) {
     this.nonChargeableMinutes = nonChargeableMinutes;
     return this;
   }
@@ -542,18 +542,18 @@ public class Task {
   /**
    * Minutes logged against this task if its charge type is &#x60;NON_CHARGEABLE&#x60;.
    *
-   * @return nonChargeableMinutes Double
+   * @return nonChargeableMinutes Integer
    */
-  public Double getNonChargeableMinutes() {
+  public Integer getNonChargeableMinutes() {
     return nonChargeableMinutes;
   }
 
   /**
    * Minutes logged against this task if its charge type is &#x60;NON_CHARGEABLE&#x60;.
    *
-   * @param nonChargeableMinutes Double
+   * @param nonChargeableMinutes Integer
    */
-  public void setNonChargeableMinutes(Double nonChargeableMinutes) {
+  public void setNonChargeableMinutes(Integer nonChargeableMinutes) {
     this.nonChargeableMinutes = nonChargeableMinutes;
   }
 
