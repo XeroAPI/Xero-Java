@@ -5153,7 +5153,7 @@ ul.nav-tabs {
     },
     "HasAttachments" : {
       "type" : "boolean",
-      "description" : "boolean to indicate if an invoice has an attachment",
+      "description" : "Boolean to indicate if an invoice has an attachment",
       "readOnly" : true,
       "example" : false,
       "default" : false
@@ -5164,6 +5164,30 @@ ul.nav-tabs {
       "items" : {
         "$ref" : "#/components/schemas/Attachment"
       }
+    },
+    "ApprovedForSending" : {
+      "type" : "boolean",
+      "description" : "Boolean to indicate whether the invoice has been approved for sending",
+      "example" : false,
+      "default" : false
+    },
+    "SendCopy" : {
+      "type" : "boolean",
+      "description" : "Boolean to indicate whether a copy is sent to sender's email",
+      "example" : false,
+      "default" : false
+    },
+    "MarkAsSent" : {
+      "type" : "boolean",
+      "description" : "Boolean to indicate whether the invoice in the Xero app displays as \"sent\"",
+      "example" : false,
+      "default" : false
+    },
+    "IncludePDF" : {
+      "type" : "boolean",
+      "description" : "Boolean to indicate whether to include PDF attachment",
+      "example" : false,
+      "default" : false
     }
   },
   "description" : "",
@@ -6004,7 +6028,7 @@ ul.nav-tabs {
           <nav id="scrollingNav">
             <ul class="sidenav nav nav-list">
               <li class="nav-header" data-group="Accounting"><strong>SDK: </strong><span id='sdk-name'></span></li>
-              <li class="nav-header" data-group="Accounting"><strong>VSN: </strong>4.18.0</li>
+              <li class="nav-header" data-group="Accounting"><strong>VSN: </strong>4.19.0</li>
               <li class="nav-header" data-group="Accounting"><a href="#api-Accounting">Methods</a></li>
               <li data-group="Accounting" data-name="createAccount" class="">
                 <a href="#api-Accounting-createAccount">createAccount</a>
@@ -6161,6 +6185,9 @@ ul.nav-tabs {
               </li>
               <li data-group="Accounting" data-name="createRepeatingInvoiceHistory" class="">
                 <a href="#api-Accounting-createRepeatingInvoiceHistory">createRepeatingInvoiceHistory</a>
+              </li>
+              <li data-group="Accounting" data-name="createRepeatingInvoices" class="">
+                <a href="#api-Accounting-createRepeatingInvoices">createRepeatingInvoices</a>
               </li>
               <li data-group="Accounting" data-name="createTaxRates" class="">
                 <a href="#api-Accounting-createTaxRates">createTaxRates</a>
@@ -6657,6 +6684,9 @@ ul.nav-tabs {
               <li data-group="Accounting" data-name="updateOrCreateQuotes" class="">
                 <a href="#api-Accounting-updateOrCreateQuotes">updateOrCreateQuotes</a>
               </li>
+              <li data-group="Accounting" data-name="updateOrCreateRepeatingInvoices" class="">
+                <a href="#api-Accounting-updateOrCreateRepeatingInvoices">updateOrCreateRepeatingInvoices</a>
+              </li>
               <li data-group="Accounting" data-name="updatePurchaseOrder" class="">
                 <a href="#api-Accounting-updatePurchaseOrder">updatePurchaseOrder</a>
               </li>
@@ -6674,6 +6704,9 @@ ul.nav-tabs {
               </li>
               <li data-group="Accounting" data-name="updateReceiptAttachmentByFileName" class="">
                 <a href="#api-Accounting-updateReceiptAttachmentByFileName">updateReceiptAttachmentByFileName</a>
+              </li>
+              <li data-group="Accounting" data-name="updateRepeatingInvoice" class="">
+                <a href="#api-Accounting-updateRepeatingInvoice">updateRepeatingInvoice</a>
               </li>
               <li data-group="Accounting" data-name="updateRepeatingInvoiceAttachmentByFileName" class="">
                 <a href="#api-Accounting-updateRepeatingInvoiceAttachmentByFileName">updateRepeatingInvoiceAttachmentByFileName</a>
@@ -15878,6 +15911,163 @@ Xero identifier for Tenant
   "required" : true
 }
     </script>
+                  </table>
+                </article>
+              </div>
+              <hr>
+              <div id="api-Accounting-createRepeatingInvoices">
+                <article id="api-Accounting-createRepeatingInvoices-0" data-group="User" data-name="createRepeatingInvoices" data-version="0">
+                  <div class="pull-left">
+                    <h1>createRepeatingInvoices</h1>
+                    <p>Creates one or more repeating invoice templates</p>
+                  </div>
+                  <div class="pull-right"></div>
+                  <div class="clearfix"></div>
+                  <p></p>
+                  <p class="marked"></p>
+                  <p></p>
+                  <br />
+                  <pre class="prettyprint language-html prettyprinted" data-type="put"><code><span class="pln">/RepeatingInvoices</span></code></pre>
+                  <p>
+                  <h3>Usage and SDK Samples</h3>
+                  </p>
+                  <ul class="nav nav-tabs nav-tabs-examples">
+                    <li class=""><a href="#examples-Accounting-createRepeatingInvoices-0-java">Java</a></li>
+                  </ul>
+                  <div class="tab-content">
+                    <div class="tab-pane" id="examples-Accounting-createRepeatingInvoices-0-java">
+                      <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
+import org.openapitools.client.api.client.AccountingApi;
+import org.openapitools.client.models.accounting.*;
+
+import java.io.File;
+import java.util.*;
+
+public class AccountingApiExample {
+    private AccountingApi apiInstance;
+    
+    public static void main(String[] args) {
+        String accessToken = "YOUR_ACCESS_TOKEN";
+        ApiClient defaultClient = new ApiClient();
+
+        apiInstance = AccountingApi.getInstance(defaultClient);
+        String xeroTenantId = 'YOUR_XERO_TENANT_ID';
+        Boolean summarizeErrors = true;
+
+        try {
+            RepeatingInvoices result = apiInstance.createRepeatingInvoices(accessToken, xeroTenantId, repeatingInvoices, summarizeErrors);
+            System.out.println(result);
+        } catch (XeroException e) {
+            System.err.println("Exception when calling AccountingApi#createRepeatingInvoices");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                    </div>
+                  </div>
+                  <h2>Scopes</h2>
+                  <table>
+                    
+                    <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
+                    
+                  </table>
+                  <h2>Parameters</h2>
+                  <div class="methodsubtabletitle">Header parameters</div>
+                  <table id="methodsubtable">
+                    <tr>
+                      <th width="150px">Name</th>
+                      <th>Description</th>
+                    </tr>
+                    <tr><td style="width:150px;">xero-tenant-id<span style="color:red;">*</span></td>
+<td>
+
+
+    <div id="d2e199_createRepeatingInvoices_xeroTenantId">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+Xero identifier for Tenant
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                  </table>
+                  <div class="methodsubtabletitle">Body parameters</div>
+                  <table id="methodsubtable">
+                    <tr>
+                      <th width="150px">Name</th>
+                      <th>Description</th>
+                    </tr>
+                    <tr>
+  <td style="width:150px;">repeatingInvoices <span style="color:red;">*</span></td>
+  <td>
+    <div class="json-schema-view">
+      <div class="primitive">
+        <span class="type">
+        RepeatingInvoices
+        </span>
+        <div class="inner description marked">
+          RepeatingInvoices with an array of repeating invoice objects in body of request
+        </div>
+      </div>
+      <div class="inner required">
+        Required
+      </div>
+    </div>
+    <script type="application/ld+json">
+      {
+  "description" : "RepeatingInvoices with an array of repeating invoice objects in body of request",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/RepeatingInvoices"
+      },
+      "example" : "{ \"RepeatingInvoices\": [ { \"Schedule\": { \"Period\": 1, \"Unit\": \"MONTHLY\", \"DueDate\": 10, \"DueDateType\": \"OFFOLLOWINGMONTH\", \"StartDate\": \"\\/Date(1555286400000+0000)\\/\" }, \"Type\": \"ACCREC\", \"Reference\": \"[Week]\", \"ApprovedForSending\": false, \"SendCopy\": false, \"MarkAsSent\": false, \"IncludePDF\": false, \"Contact\": { \"ContactID\": \"430fa14a-f945-44d3-9f97-5df5e28441b8\", \"Name\": \"Liam Gallagher\" }, \"Status\": \"AUTHORISED\", \"LineAmountTypes\": \"Exclusive\", \"LineItems\": [ { \"Description\": \"Guitars Fender Strat\", \"UnitAmount\": 5000.00, \"TaxType\": \"OUTPUT2\", \"TaxAmount\": 750.00, \"LineAmount\": 5000.00, \"AccountCode\": \"200\", \"Tracking\": [], \"Quantity\": 1.0000, \"LineItemID\": \"13a8353c-d2af-4d5b-920c-438449f08900\", \"DiscountEnteredAsPercent\": true } ], \"CurrencyCode\": \"NZD\" } ] }"
+    }
+  },
+  "required" : true
+}
+    </script>
+                  </table>
+                  <div class="methodsubtabletitle">Query parameters</div>
+                  <table id="methodsubtable">
+                    <tr>
+                      <th width="150px">Name</th>
+                      <th>Description</th>
+                    </tr>
+                    <tr><td style="width:150px;">summarizeErrors</td>
+<td>
+
+
+    <div id="d2e199_createRepeatingInvoices_summarizeErrors">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Boolean
+                </span>
+
+                    <div class="inner description marked">
+If false return 200 OK and mix of successfully created objects and any with validation errors
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
                   </table>
                 </article>
               </div>
@@ -42548,6 +42738,163 @@ If false return 200 OK and mix of successfully created objects and any with vali
                 </article>
               </div>
               <hr>
+              <div id="api-Accounting-updateOrCreateRepeatingInvoices">
+                <article id="api-Accounting-updateOrCreateRepeatingInvoices-0" data-group="User" data-name="updateOrCreateRepeatingInvoices" data-version="0">
+                  <div class="pull-left">
+                    <h1>updateOrCreateRepeatingInvoices</h1>
+                    <p>Creates or deletes one or more repeating invoice templates</p>
+                  </div>
+                  <div class="pull-right"></div>
+                  <div class="clearfix"></div>
+                  <p></p>
+                  <p class="marked"></p>
+                  <p></p>
+                  <br />
+                  <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/RepeatingInvoices</span></code></pre>
+                  <p>
+                  <h3>Usage and SDK Samples</h3>
+                  </p>
+                  <ul class="nav nav-tabs nav-tabs-examples">
+                    <li class=""><a href="#examples-Accounting-updateOrCreateRepeatingInvoices-0-java">Java</a></li>
+                  </ul>
+                  <div class="tab-content">
+                    <div class="tab-pane" id="examples-Accounting-updateOrCreateRepeatingInvoices-0-java">
+                      <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
+import org.openapitools.client.api.client.AccountingApi;
+import org.openapitools.client.models.accounting.*;
+
+import java.io.File;
+import java.util.*;
+
+public class AccountingApiExample {
+    private AccountingApi apiInstance;
+    
+    public static void main(String[] args) {
+        String accessToken = "YOUR_ACCESS_TOKEN";
+        ApiClient defaultClient = new ApiClient();
+
+        apiInstance = AccountingApi.getInstance(defaultClient);
+        String xeroTenantId = 'YOUR_XERO_TENANT_ID';
+        Boolean summarizeErrors = true;
+
+        try {
+            RepeatingInvoices result = apiInstance.updateOrCreateRepeatingInvoices(accessToken, xeroTenantId, repeatingInvoices, summarizeErrors);
+            System.out.println(result);
+        } catch (XeroException e) {
+            System.err.println("Exception when calling AccountingApi#updateOrCreateRepeatingInvoices");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                    </div>
+                  </div>
+                  <h2>Scopes</h2>
+                  <table>
+                    
+                    <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
+                    
+                  </table>
+                  <h2>Parameters</h2>
+                  <div class="methodsubtabletitle">Header parameters</div>
+                  <table id="methodsubtable">
+                    <tr>
+                      <th width="150px">Name</th>
+                      <th>Description</th>
+                    </tr>
+                    <tr><td style="width:150px;">xero-tenant-id<span style="color:red;">*</span></td>
+<td>
+
+
+    <div id="d2e199_updateOrCreateRepeatingInvoices_xeroTenantId">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+Xero identifier for Tenant
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                  </table>
+                  <div class="methodsubtabletitle">Body parameters</div>
+                  <table id="methodsubtable">
+                    <tr>
+                      <th width="150px">Name</th>
+                      <th>Description</th>
+                    </tr>
+                    <tr>
+  <td style="width:150px;">repeatingInvoices <span style="color:red;">*</span></td>
+  <td>
+    <div class="json-schema-view">
+      <div class="primitive">
+        <span class="type">
+        RepeatingInvoices
+        </span>
+        <div class="inner description marked">
+          RepeatingInvoices with an array of repeating invoice objects in body of request
+        </div>
+      </div>
+      <div class="inner required">
+        Required
+      </div>
+    </div>
+    <script type="application/ld+json">
+      {
+  "description" : "RepeatingInvoices with an array of repeating invoice objects in body of request",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/RepeatingInvoices"
+      },
+      "example" : "{ \"RepeatingInvoices\": [ { \"Schedule\": { \"Period\": 1, \"Unit\": \"MONTHLY\", \"DueDate\": 10, \"DueDateType\": \"OFFOLLOWINGMONTH\", \"StartDate\": \"\\/Date(1555286400000+0000)\\/\" }, \"Type\": \"ACCREC\", \"Reference\": \"[Week]\", \"ApprovedForSending\": false, \"SendCopy\": false, \"MarkAsSent\": false, \"IncludePDF\": false, \"Contact\": { \"ContactID\": \"430fa14a-f945-44d3-9f97-5df5e28441b8\", \"Name\": \"Liam Gallagher\" }, \"Status\": \"AUTHORISED\", \"LineAmountTypes\": \"Exclusive\", \"LineItems\": [ { \"Description\": \"Guitars Fender Strat\", \"UnitAmount\": 5000.00, \"TaxType\": \"OUTPUT2\", \"TaxAmount\": 750.00, \"LineAmount\": 5000.00, \"AccountCode\": \"200\", \"Tracking\": [], \"Quantity\": 1.0000, \"LineItemID\": \"13a8353c-d2af-4d5b-920c-438449f08900\", \"DiscountEnteredAsPercent\": true } ], \"CurrencyCode\": \"NZD\" } ] }"
+    }
+  },
+  "required" : true
+}
+    </script>
+                  </table>
+                  <div class="methodsubtabletitle">Query parameters</div>
+                  <table id="methodsubtable">
+                    <tr>
+                      <th width="150px">Name</th>
+                      <th>Description</th>
+                    </tr>
+                    <tr><td style="width:150px;">summarizeErrors</td>
+<td>
+
+
+    <div id="d2e199_updateOrCreateRepeatingInvoices_summarizeErrors">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Boolean
+                </span>
+
+                    <div class="inner description marked">
+If false return 200 OK and mix of successfully created objects and any with validation errors
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                  </table>
+                </article>
+              </div>
+              <hr>
               <div id="api-Accounting-updatePurchaseOrder">
                 <article id="api-Accounting-updatePurchaseOrder-0" data-group="User" data-name="updatePurchaseOrder" data-version="0">
                   <div class="pull-left">
@@ -43665,6 +44012,169 @@ Xero identifier for Tenant
         "type" : "string",
         "format" : "byte"
       }
+    }
+  },
+  "required" : true
+}
+    </script>
+                  </table>
+                </article>
+              </div>
+              <hr>
+              <div id="api-Accounting-updateRepeatingInvoice">
+                <article id="api-Accounting-updateRepeatingInvoice-0" data-group="User" data-name="updateRepeatingInvoice" data-version="0">
+                  <div class="pull-left">
+                    <h1>updateRepeatingInvoice</h1>
+                    <p>Deletes a specific repeating invoice template</p>
+                  </div>
+                  <div class="pull-right"></div>
+                  <div class="clearfix"></div>
+                  <p></p>
+                  <p class="marked"></p>
+                  <p></p>
+                  <br />
+                  <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/RepeatingInvoices/{RepeatingInvoiceID}</span></code></pre>
+                  <p>
+                  <h3>Usage and SDK Samples</h3>
+                  </p>
+                  <ul class="nav nav-tabs nav-tabs-examples">
+                    <li class=""><a href="#examples-Accounting-updateRepeatingInvoice-0-java">Java</a></li>
+                  </ul>
+                  <div class="tab-content">
+                    <div class="tab-pane" id="examples-Accounting-updateRepeatingInvoice-0-java">
+                      <pre class="prettyprint"><code class="language-java">import org.openapitools.client.api.*;
+import org.openapitools.client.api.client.AccountingApi;
+import org.openapitools.client.models.accounting.*;
+
+import java.io.File;
+import java.util.*;
+
+public class AccountingApiExample {
+    private AccountingApi apiInstance;
+    
+    public static void main(String[] args) {
+        String accessToken = "YOUR_ACCESS_TOKEN";
+        ApiClient defaultClient = new ApiClient();
+
+        apiInstance = AccountingApi.getInstance(defaultClient);
+        String xeroTenantId = 'YOUR_XERO_TENANT_ID';
+        UUID repeatingInvoiceID = UUID.fromString("00000000-0000-0000-0000-000000000000");
+        UUID repeatingInvoiceID = '00000000-0000-0000-0000-000000000000';
+
+        try {
+            RepeatingInvoices result = apiInstance.updateRepeatingInvoice(accessToken, xeroTenantId, repeatingInvoiceID, repeatingInvoices);
+            System.out.println(result);
+        } catch (XeroException e) {
+            System.err.println("Exception when calling AccountingApi#updateRepeatingInvoice");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                    </div>
+                  </div>
+                  <h2>Scopes</h2>
+                  <table>
+                    
+                    <tr>
+                      <td>accounting.transactions</td>
+                      <td>Grant read-write access to bank transactions, credit notes, invoices, repeating invoices</td>
+                    </tr>
+                    
+                  </table>
+                  <h2>Parameters</h2>
+                  <div class="methodsubtabletitle">Path parameters</div>
+                  <table id="methodsubtable">
+                    <tr>
+                      <th width="150px">Name</th>
+                      <th>Description</th>
+                    </tr>
+                    <tr><td style="width:150px;">RepeatingInvoiceID<span style="color:red;">*</span></td>
+<td>
+
+
+    <div id="d2e199_updateRepeatingInvoice_repeatingInvoiceID">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    UUID
+                </span>
+                    <span class="format">
+                        (uuid)
+                    </span>
+
+                    <div class="inner description marked">
+Unique identifier for a Repeating Invoice
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                  </table>
+                  <div class="methodsubtabletitle">Header parameters</div>
+                  <table id="methodsubtable">
+                    <tr>
+                      <th width="150px">Name</th>
+                      <th>Description</th>
+                    </tr>
+                    <tr><td style="width:150px;">xero-tenant-id<span style="color:red;">*</span></td>
+<td>
+
+
+    <div id="d2e199_updateRepeatingInvoice_xeroTenantId">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+Xero identifier for Tenant
+                    </div>
+            </div>
+                <div class="inner required">
+                    Required
+                </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                  </table>
+                  <div class="methodsubtabletitle">Body parameters</div>
+                  <table id="methodsubtable">
+                    <tr>
+                      <th width="150px">Name</th>
+                      <th>Description</th>
+                    </tr>
+                    <tr>
+  <td style="width:150px;">repeatingInvoices <span style="color:red;">*</span></td>
+  <td>
+    <div class="json-schema-view">
+      <div class="primitive">
+        <span class="type">
+        RepeatingInvoices
+        </span>
+        <div class="inner description marked">
+          
+        </div>
+      </div>
+      <div class="inner required">
+        Required
+      </div>
+    </div>
+    <script type="application/ld+json">
+      {
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/RepeatingInvoices"
+      },
+      "example" : "{ \"Schedule\": { \"Period\": 1, \"Unit\": \"MONTHLY\", \"DueDate\": 10, \"DueDateType\": \"OFFOLLOWINGMONTH\", \"StartDate\": \"\\/Date(1555286400000+0000)\\/\", \"EndDate\": \"\\/Date(1569801600000+0000)\\/\", \"NextScheduledDate\": \"\\/Date(1555286400000+0000)\\/\" }, \"RepeatingInvoiceID\": \"428c0d75-909f-4b04-8403-a48dc27283b0\", \"Type\": \"ACCREC\", \"Reference\": \"[Week]\", \"HasAttachments\": true, \"ApprovedForSending\": false, \"SendCopy\": false, \"MarkAsSent\": false, \"IncludePDF\": false, \"ID\": \"428c0d75-909f-4b04-8403-a48dc27283b0\", \"Contact\": { \"ContactID\": \"430fa14a-f945-44d3-9f97-5df5e28441b8\", \"Name\": \"Liam Gallagher\", \"Addresses\": [], \"Phones\": [], \"ContactGroups\": [], \"ContactPersons\": [], \"HasValidationErrors\": false }, \"Status\": \"DELETED\", \"LineAmountTypes\": \"Exclusive\", \"LineItems\": [ { \"Description\": \"Guitars Fender Strat\", \"UnitAmount\": 5000.00, \"TaxType\": \"OUTPUT2\", \"TaxAmount\": 750.00, \"LineAmount\": 5000.00, \"AccountCode\": \"200\", \"Tracking\": [], \"Quantity\": 1.0000, \"LineItemID\": \"13a8353c-d2af-4d5b-920c-438449f08900\", \"DiscountEnteredAsPercent\": true } ], \"SubTotal\": 5000.00, \"TotalTax\": 750.00, \"Total\": 5750.00, \"CurrencyCode\": \"NZD\" }"
     }
   },
   "required" : true

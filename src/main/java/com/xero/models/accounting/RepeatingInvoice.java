@@ -173,6 +173,18 @@ public class RepeatingInvoice {
 
   @JsonProperty("Attachments")
   private List<Attachment> attachments = new ArrayList<Attachment>();
+
+  @JsonProperty("ApprovedForSending")
+  private Boolean approvedForSending = false;
+
+  @JsonProperty("SendCopy")
+  private Boolean sendCopy = false;
+
+  @JsonProperty("MarkAsSent")
+  private Boolean markAsSent = false;
+
+  @JsonProperty("IncludePDF")
+  private Boolean includePDF = false;
   /**
    * See Invoice Types
    *
@@ -678,15 +690,15 @@ public class RepeatingInvoice {
   }
 
   /**
-   * boolean to indicate if an invoice has an attachment
+   * Boolean to indicate if an invoice has an attachment
    *
    * @return hasAttachments
    */
   @ApiModelProperty(
       example = "false",
-      value = "boolean to indicate if an invoice has an attachment")
+      value = "Boolean to indicate if an invoice has an attachment")
   /**
-   * boolean to indicate if an invoice has an attachment
+   * Boolean to indicate if an invoice has an attachment
    *
    * @return hasAttachments Boolean
    */
@@ -743,6 +755,154 @@ public class RepeatingInvoice {
     this.attachments = attachments;
   }
 
+  /**
+   * Boolean to indicate whether the invoice has been approved for sending
+   *
+   * @param approvedForSending Boolean
+   * @return RepeatingInvoice
+   */
+  public RepeatingInvoice approvedForSending(Boolean approvedForSending) {
+    this.approvedForSending = approvedForSending;
+    return this;
+  }
+
+  /**
+   * Boolean to indicate whether the invoice has been approved for sending
+   *
+   * @return approvedForSending
+   */
+  @ApiModelProperty(
+      example = "false",
+      value = "Boolean to indicate whether the invoice has been approved for sending")
+  /**
+   * Boolean to indicate whether the invoice has been approved for sending
+   *
+   * @return approvedForSending Boolean
+   */
+  public Boolean getApprovedForSending() {
+    return approvedForSending;
+  }
+
+  /**
+   * Boolean to indicate whether the invoice has been approved for sending
+   *
+   * @param approvedForSending Boolean
+   */
+  public void setApprovedForSending(Boolean approvedForSending) {
+    this.approvedForSending = approvedForSending;
+  }
+
+  /**
+   * Boolean to indicate whether a copy is sent to sender&#39;s email
+   *
+   * @param sendCopy Boolean
+   * @return RepeatingInvoice
+   */
+  public RepeatingInvoice sendCopy(Boolean sendCopy) {
+    this.sendCopy = sendCopy;
+    return this;
+  }
+
+  /**
+   * Boolean to indicate whether a copy is sent to sender&#39;s email
+   *
+   * @return sendCopy
+   */
+  @ApiModelProperty(
+      example = "false",
+      value = "Boolean to indicate whether a copy is sent to sender's email")
+  /**
+   * Boolean to indicate whether a copy is sent to sender&#39;s email
+   *
+   * @return sendCopy Boolean
+   */
+  public Boolean getSendCopy() {
+    return sendCopy;
+  }
+
+  /**
+   * Boolean to indicate whether a copy is sent to sender&#39;s email
+   *
+   * @param sendCopy Boolean
+   */
+  public void setSendCopy(Boolean sendCopy) {
+    this.sendCopy = sendCopy;
+  }
+
+  /**
+   * Boolean to indicate whether the invoice in the Xero app displays as \&quot;sent\&quot;
+   *
+   * @param markAsSent Boolean
+   * @return RepeatingInvoice
+   */
+  public RepeatingInvoice markAsSent(Boolean markAsSent) {
+    this.markAsSent = markAsSent;
+    return this;
+  }
+
+  /**
+   * Boolean to indicate whether the invoice in the Xero app displays as \&quot;sent\&quot;
+   *
+   * @return markAsSent
+   */
+  @ApiModelProperty(
+      example = "false",
+      value = "Boolean to indicate whether the invoice in the Xero app displays as \"sent\"")
+  /**
+   * Boolean to indicate whether the invoice in the Xero app displays as \&quot;sent\&quot;
+   *
+   * @return markAsSent Boolean
+   */
+  public Boolean getMarkAsSent() {
+    return markAsSent;
+  }
+
+  /**
+   * Boolean to indicate whether the invoice in the Xero app displays as \&quot;sent\&quot;
+   *
+   * @param markAsSent Boolean
+   */
+  public void setMarkAsSent(Boolean markAsSent) {
+    this.markAsSent = markAsSent;
+  }
+
+  /**
+   * Boolean to indicate whether to include PDF attachment
+   *
+   * @param includePDF Boolean
+   * @return RepeatingInvoice
+   */
+  public RepeatingInvoice includePDF(Boolean includePDF) {
+    this.includePDF = includePDF;
+    return this;
+  }
+
+  /**
+   * Boolean to indicate whether to include PDF attachment
+   *
+   * @return includePDF
+   */
+  @ApiModelProperty(
+      example = "false",
+      value = "Boolean to indicate whether to include PDF attachment")
+  /**
+   * Boolean to indicate whether to include PDF attachment
+   *
+   * @return includePDF Boolean
+   */
+  public Boolean getIncludePDF() {
+    return includePDF;
+  }
+
+  /**
+   * Boolean to indicate whether to include PDF attachment
+   *
+   * @param includePDF Boolean
+   */
+  public void setIncludePDF(Boolean includePDF) {
+    this.includePDF = includePDF;
+  }
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -767,7 +927,11 @@ public class RepeatingInvoice {
         && Objects.equals(this.repeatingInvoiceID, repeatingInvoice.repeatingInvoiceID)
         && Objects.equals(this.ID, repeatingInvoice.ID)
         && Objects.equals(this.hasAttachments, repeatingInvoice.hasAttachments)
-        && Objects.equals(this.attachments, repeatingInvoice.attachments);
+        && Objects.equals(this.attachments, repeatingInvoice.attachments)
+        && Objects.equals(this.approvedForSending, repeatingInvoice.approvedForSending)
+        && Objects.equals(this.sendCopy, repeatingInvoice.sendCopy)
+        && Objects.equals(this.markAsSent, repeatingInvoice.markAsSent)
+        && Objects.equals(this.includePDF, repeatingInvoice.includePDF);
   }
 
   @Override
@@ -788,7 +952,11 @@ public class RepeatingInvoice {
         repeatingInvoiceID,
         ID,
         hasAttachments,
-        attachments);
+        attachments,
+        approvedForSending,
+        sendCopy,
+        markAsSent,
+        includePDF);
   }
 
   @Override
@@ -811,6 +979,10 @@ public class RepeatingInvoice {
     sb.append("    ID: ").append(toIndentedString(ID)).append("\n");
     sb.append("    hasAttachments: ").append(toIndentedString(hasAttachments)).append("\n");
     sb.append("    attachments: ").append(toIndentedString(attachments)).append("\n");
+    sb.append("    approvedForSending: ").append(toIndentedString(approvedForSending)).append("\n");
+    sb.append("    sendCopy: ").append(toIndentedString(sendCopy)).append("\n");
+    sb.append("    markAsSent: ").append(toIndentedString(markAsSent)).append("\n");
+    sb.append("    includePDF: ").append(toIndentedString(includePDF)).append("\n");
     sb.append("}");
     return sb.toString();
   }
