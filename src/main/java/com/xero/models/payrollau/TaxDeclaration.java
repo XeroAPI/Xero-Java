@@ -69,6 +69,9 @@ public class TaxDeclaration {
   @JsonProperty("HasStudentStartupLoan")
   private Boolean hasStudentStartupLoan;
 
+  @JsonProperty("HasLoanOrStudentDebt")
+  private Boolean hasLoanOrStudentDebt;
+
   @JsonProperty("UpdatedDateUTC")
   private String updatedDateUTC;
   /**
@@ -625,6 +628,54 @@ public class TaxDeclaration {
   }
 
   /**
+   * If the employee has any of the following loans or debts: Higher Education Loan Program
+   * (HELP/HECS), VET Student Loan (VSL), Financial Supplement (FS), Student Start-up Loan (SSL), or
+   * Trade Support Loan (TSL)
+   *
+   * @param hasLoanOrStudentDebt Boolean
+   * @return TaxDeclaration
+   */
+  public TaxDeclaration hasLoanOrStudentDebt(Boolean hasLoanOrStudentDebt) {
+    this.hasLoanOrStudentDebt = hasLoanOrStudentDebt;
+    return this;
+  }
+
+  /**
+   * If the employee has any of the following loans or debts: Higher Education Loan Program
+   * (HELP/HECS), VET Student Loan (VSL), Financial Supplement (FS), Student Start-up Loan (SSL), or
+   * Trade Support Loan (TSL)
+   *
+   * @return hasLoanOrStudentDebt
+   */
+  @ApiModelProperty(
+      example = "true",
+      value =
+          "If the employee has any of the following loans or debts: Higher Education Loan Program"
+              + " (HELP/HECS), VET Student Loan (VSL), Financial Supplement (FS), Student Start-up"
+              + " Loan (SSL), or Trade Support Loan (TSL)")
+  /**
+   * If the employee has any of the following loans or debts: Higher Education Loan Program
+   * (HELP/HECS), VET Student Loan (VSL), Financial Supplement (FS), Student Start-up Loan (SSL), or
+   * Trade Support Loan (TSL)
+   *
+   * @return hasLoanOrStudentDebt Boolean
+   */
+  public Boolean getHasLoanOrStudentDebt() {
+    return hasLoanOrStudentDebt;
+  }
+
+  /**
+   * If the employee has any of the following loans or debts: Higher Education Loan Program
+   * (HELP/HECS), VET Student Loan (VSL), Financial Supplement (FS), Student Start-up Loan (SSL), or
+   * Trade Support Loan (TSL)
+   *
+   * @param hasLoanOrStudentDebt Boolean
+   */
+  public void setHasLoanOrStudentDebt(Boolean hasLoanOrStudentDebt) {
+    this.hasLoanOrStudentDebt = hasLoanOrStudentDebt;
+  }
+
+  /**
    * Last modified timestamp
    *
    * @return updatedDateUTC
@@ -684,6 +735,7 @@ public class TaxDeclaration {
             this.approvedWithholdingVariationPercentage,
             taxDeclaration.approvedWithholdingVariationPercentage)
         && Objects.equals(this.hasStudentStartupLoan, taxDeclaration.hasStudentStartupLoan)
+        && Objects.equals(this.hasLoanOrStudentDebt, taxDeclaration.hasLoanOrStudentDebt)
         && Objects.equals(this.updatedDateUTC, taxDeclaration.updatedDateUTC);
   }
 
@@ -705,6 +757,7 @@ public class TaxDeclaration {
         eligibleToReceiveLeaveLoading,
         approvedWithholdingVariationPercentage,
         hasStudentStartupLoan,
+        hasLoanOrStudentDebt,
         updatedDateUTC);
   }
 
@@ -742,6 +795,9 @@ public class TaxDeclaration {
         .append("\n");
     sb.append("    hasStudentStartupLoan: ")
         .append(toIndentedString(hasStudentStartupLoan))
+        .append("\n");
+    sb.append("    hasLoanOrStudentDebt: ")
+        .append(toIndentedString(hasLoanOrStudentDebt))
         .append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
     sb.append("}");
