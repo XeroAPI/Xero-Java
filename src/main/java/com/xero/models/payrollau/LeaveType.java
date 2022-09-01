@@ -49,6 +49,12 @@ public class LeaveType {
 
   @JsonProperty("CurrentRecord")
   private Boolean currentRecord;
+
+  @JsonProperty("LeaveCategoryCode")
+  private LeaveCategoryCode leaveCategoryCode;
+
+  @JsonProperty("SGCExempt")
+  private Boolean sgCExempt;
   /**
    * Name of the earnings rate (max length &#x3D; 100)
    *
@@ -383,6 +389,80 @@ public class LeaveType {
     this.currentRecord = currentRecord;
   }
 
+  /**
+   * leaveCategoryCode
+   *
+   * @param leaveCategoryCode LeaveCategoryCode
+   * @return LeaveType
+   */
+  public LeaveType leaveCategoryCode(LeaveCategoryCode leaveCategoryCode) {
+    this.leaveCategoryCode = leaveCategoryCode;
+    return this;
+  }
+
+  /**
+   * Get leaveCategoryCode
+   *
+   * @return leaveCategoryCode
+   */
+  @ApiModelProperty(value = "")
+  /**
+   * leaveCategoryCode
+   *
+   * @return leaveCategoryCode LeaveCategoryCode
+   */
+  public LeaveCategoryCode getLeaveCategoryCode() {
+    return leaveCategoryCode;
+  }
+
+  /**
+   * leaveCategoryCode
+   *
+   * @param leaveCategoryCode LeaveCategoryCode
+   */
+  public void setLeaveCategoryCode(LeaveCategoryCode leaveCategoryCode) {
+    this.leaveCategoryCode = leaveCategoryCode;
+  }
+
+  /**
+   * Set this to indicate that the leave type is exempt from superannuation guarantee contribution
+   *
+   * @param sgCExempt Boolean
+   * @return LeaveType
+   */
+  public LeaveType sgCExempt(Boolean sgCExempt) {
+    this.sgCExempt = sgCExempt;
+    return this;
+  }
+
+  /**
+   * Set this to indicate that the leave type is exempt from superannuation guarantee contribution
+   *
+   * @return sgCExempt
+   */
+  @ApiModelProperty(
+      example = "true",
+      value =
+          "Set this to indicate that the leave type is exempt from superannuation guarantee"
+              + " contribution")
+  /**
+   * Set this to indicate that the leave type is exempt from superannuation guarantee contribution
+   *
+   * @return sgCExempt Boolean
+   */
+  public Boolean getSgCExempt() {
+    return sgCExempt;
+  }
+
+  /**
+   * Set this to indicate that the leave type is exempt from superannuation guarantee contribution
+   *
+   * @param sgCExempt Boolean
+   */
+  public void setSgCExempt(Boolean sgCExempt) {
+    this.sgCExempt = sgCExempt;
+  }
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -400,7 +480,9 @@ public class LeaveType {
         && Objects.equals(this.updatedDateUTC, leaveType.updatedDateUTC)
         && Objects.equals(this.isPaidLeave, leaveType.isPaidLeave)
         && Objects.equals(this.showOnPayslip, leaveType.showOnPayslip)
-        && Objects.equals(this.currentRecord, leaveType.currentRecord);
+        && Objects.equals(this.currentRecord, leaveType.currentRecord)
+        && Objects.equals(this.leaveCategoryCode, leaveType.leaveCategoryCode)
+        && Objects.equals(this.sgCExempt, leaveType.sgCExempt);
   }
 
   @Override
@@ -414,7 +496,9 @@ public class LeaveType {
         updatedDateUTC,
         isPaidLeave,
         showOnPayslip,
-        currentRecord);
+        currentRecord,
+        leaveCategoryCode,
+        sgCExempt);
   }
 
   @Override
@@ -430,6 +514,8 @@ public class LeaveType {
     sb.append("    isPaidLeave: ").append(toIndentedString(isPaidLeave)).append("\n");
     sb.append("    showOnPayslip: ").append(toIndentedString(showOnPayslip)).append("\n");
     sb.append("    currentRecord: ").append(toIndentedString(currentRecord)).append("\n");
+    sb.append("    leaveCategoryCode: ").append(toIndentedString(leaveCategoryCode)).append("\n");
+    sb.append("    sgCExempt: ").append(toIndentedString(sgCExempt)).append("\n");
     sb.append("}");
     return sb.toString();
   }
