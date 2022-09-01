@@ -53,7 +53,7 @@ public class Employee {
 
   @JsonProperty("Email")
   private String email;
-  /** The employee’s gender. See Employee Gender */
+  /** The employee’s gender. See Employee Gender */
   public enum GenderEnum {
     /** N */
     N("N"),
@@ -601,7 +601,7 @@ public class Employee {
   }
 
   /**
-   * The employee’s gender. See Employee Gender
+   * The employee’s gender. See Employee Gender
    *
    * @param gender GenderEnum
    * @return Employee
@@ -612,13 +612,13 @@ public class Employee {
   }
 
   /**
-   * The employee’s gender. See Employee Gender
+   * The employee’s gender. See Employee Gender
    *
    * @return gender
    */
-  @ApiModelProperty(example = "F", value = "The employee’s gender. See Employee Gender")
+  @ApiModelProperty(example = "F", value = "The employee’s gender. See Employee Gender")
   /**
-   * The employee’s gender. See Employee Gender
+   * The employee’s gender. See Employee Gender
    *
    * @return gender GenderEnum
    */
@@ -627,7 +627,7 @@ public class Employee {
   }
 
   /**
-   * The employee’s gender. See Employee Gender
+   * The employee’s gender. See Employee Gender
    *
    * @param gender GenderEnum
    */

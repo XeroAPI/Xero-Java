@@ -1292,7 +1292,7 @@ ul.nav-tabs {
     },
     "Gender" : {
       "type" : "string",
-      "description" : "The employee’s gender. See Employee Gender",
+      "description" : "The employee’s gender. See Employee Gender",
       "example" : "F",
       "enum" : [ "N", "M", "F", "I" ]
     },
@@ -1627,6 +1627,13 @@ ul.nav-tabs {
   },
   "description" : ""
 };
+      defs["LeaveCategoryCode"] = {
+  "title" : "",
+  "type" : "string",
+  "description" : "Code used to identify the Leave Category",
+  "example" : "ANNUALLEAVE",
+  "enum" : [ "ANNUALLEAVE", "LONGSERVICELEAVE", "PERSONALCARERSLEAVE", "ROSTEREDDAYOFF", "TIMEOFFINLIEU", "COMPASSIONATEANDBEREAVEMENTLEAVE", "STUDYLEAVE", "FAMILYANDDOMESTICVIOLENCELEAVE", "SPECIALPAIDLEAVE", "COMMUNITYSERVICELEAVE", "JURYDUTYLEAVE", "DEFENCERESERVELEAVE" ]
+};
       defs["LeaveEarningsLine"] = {
   "title" : "",
   "type" : "object",
@@ -1810,6 +1817,14 @@ ul.nav-tabs {
     "CurrentRecord" : {
       "type" : "boolean",
       "description" : "Is the current record",
+      "example" : true
+    },
+    "LeaveCategoryCode" : {
+      "$ref" : "#/components/schemas/LeaveCategoryCode"
+    },
+    "SGCExempt" : {
+      "type" : "boolean",
+      "description" : "Set this to indicate that the leave type is exempt from superannuation guarantee contribution",
       "example" : true
     }
   },
