@@ -46,7 +46,7 @@ public class BankFeedsApi {
   private ApiClient apiClient;
   private static BankFeedsApi instance = null;
   private String userAgent = "Default";
-  private String version = "4.20.0";
+  private String version = "4.21.0";
   static final Logger logger = LoggerFactory.getLogger(BankFeedsApi.class);
 
   /** BankFeedsApi */
