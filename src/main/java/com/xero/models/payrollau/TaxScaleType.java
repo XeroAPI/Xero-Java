@@ -15,30 +15,30 @@ package com.xero.models.payrollau;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Gets or Sets EmploymentBasis */
-public enum EmploymentBasis {
+/** Gets or Sets TaxScaleType */
+public enum TaxScaleType {
 
-  /** FULLTIME */
-  FULLTIME("FULLTIME"),
+  /** REGULAR */
+  REGULAR("REGULAR"),
 
-  /** PARTTIME */
-  PARTTIME("PARTTIME"),
+  /** ACTORSARTISTSENTERTAINERS */
+  ACTORSARTISTSENTERTAINERS("ACTORSARTISTSENTERTAINERS"),
 
-  /** CASUAL */
-  CASUAL("CASUAL"),
+  /** HORTICULTURISTORSHEARER */
+  HORTICULTURISTORSHEARER("HORTICULTURISTORSHEARER"),
 
-  /** LABOURHIRE */
-  LABOURHIRE("LABOURHIRE"),
+  /** SENIORORPENSIONER */
+  SENIORORPENSIONER("SENIORORPENSIONER"),
 
-  /** SUPERINCOMESTREAM */
-  SUPERINCOMESTREAM("SUPERINCOMESTREAM"),
+  /** WORKINGHOLIDAYMAKER */
+  WORKINGHOLIDAYMAKER("WORKINGHOLIDAYMAKER"),
 
-  /** NONEMPLOYEE */
-  NONEMPLOYEE("NONEMPLOYEE");
+  /** FOREIGN */
+  FOREIGN("FOREIGN");
 
   private String value;
 
-  EmploymentBasis(String value) {
+  TaxScaleType(String value) {
     this.value = value;
   }
 
@@ -64,8 +64,8 @@ public enum EmploymentBasis {
    * @param value String
    */
   @JsonCreator
-  public static EmploymentBasis fromValue(String value) {
-    for (EmploymentBasis b : EmploymentBasis.values()) {
+  public static TaxScaleType fromValue(String value) {
+    for (TaxScaleType b : TaxScaleType.values()) {
       if (b.value.equals(value)) {
         return b;
       }
