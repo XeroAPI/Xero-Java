@@ -15,30 +15,27 @@ package com.xero.models.payrollau;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Gets or Sets EmploymentBasis */
-public enum EmploymentBasis {
+/** Gets or Sets IncomeType */
+public enum IncomeType {
 
-  /** FULLTIME */
-  FULLTIME("FULLTIME"),
+  /** SALARYANDWAGES */
+  SALARYANDWAGES("SALARYANDWAGES"),
 
-  /** PARTTIME */
-  PARTTIME("PARTTIME"),
-
-  /** CASUAL */
-  CASUAL("CASUAL"),
-
-  /** LABOURHIRE */
-  LABOURHIRE("LABOURHIRE"),
-
-  /** SUPERINCOMESTREAM */
-  SUPERINCOMESTREAM("SUPERINCOMESTREAM"),
+  /** WORKINGHOLIDAYMAKER */
+  WORKINGHOLIDAYMAKER("WORKINGHOLIDAYMAKER"),
 
   /** NONEMPLOYEE */
-  NONEMPLOYEE("NONEMPLOYEE");
+  NONEMPLOYEE("NONEMPLOYEE"),
+
+  /** CLOSELYHELDPAYEES */
+  CLOSELYHELDPAYEES("CLOSELYHELDPAYEES"),
+
+  /** LABOURHIRE */
+  LABOURHIRE("LABOURHIRE");
 
   private String value;
 
-  EmploymentBasis(String value) {
+  IncomeType(String value) {
     this.value = value;
   }
 
@@ -64,8 +61,8 @@ public enum EmploymentBasis {
    * @param value String
    */
   @JsonCreator
-  public static EmploymentBasis fromValue(String value) {
-    for (EmploymentBasis b : EmploymentBasis.values()) {
+  public static IncomeType fromValue(String value) {
+    for (IncomeType b : IncomeType.values()) {
       if (b.value.equals(value)) {
         return b;
       }

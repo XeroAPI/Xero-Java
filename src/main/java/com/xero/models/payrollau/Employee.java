@@ -242,6 +242,18 @@ public class Employee {
   @JsonProperty("TaxDeclaration")
   private TaxDeclaration taxDeclaration;
 
+  @JsonProperty("IncomeType")
+  private IncomeType incomeType;
+
+  @JsonProperty("EmploymentType")
+  private EmploymentType employmentType;
+
+  @JsonProperty("CountryOfResidence")
+  private CountryOfResidence countryOfResidence;
+
+  @JsonProperty("IsSTP2Qualified")
+  private Boolean isSTP2Qualified;
+
   @JsonProperty("LeaveBalances")
   private List<LeaveBalance> leaveBalances = new ArrayList<LeaveBalance>();
 
@@ -1359,6 +1371,154 @@ public class Employee {
   }
 
   /**
+   * incomeType
+   *
+   * @param incomeType IncomeType
+   * @return Employee
+   */
+  public Employee incomeType(IncomeType incomeType) {
+    this.incomeType = incomeType;
+    return this;
+  }
+
+  /**
+   * Get incomeType
+   *
+   * @return incomeType
+   */
+  @ApiModelProperty(value = "")
+  /**
+   * incomeType
+   *
+   * @return incomeType IncomeType
+   */
+  public IncomeType getIncomeType() {
+    return incomeType;
+  }
+
+  /**
+   * incomeType
+   *
+   * @param incomeType IncomeType
+   */
+  public void setIncomeType(IncomeType incomeType) {
+    this.incomeType = incomeType;
+  }
+
+  /**
+   * employmentType
+   *
+   * @param employmentType EmploymentType
+   * @return Employee
+   */
+  public Employee employmentType(EmploymentType employmentType) {
+    this.employmentType = employmentType;
+    return this;
+  }
+
+  /**
+   * Get employmentType
+   *
+   * @return employmentType
+   */
+  @ApiModelProperty(value = "")
+  /**
+   * employmentType
+   *
+   * @return employmentType EmploymentType
+   */
+  public EmploymentType getEmploymentType() {
+    return employmentType;
+  }
+
+  /**
+   * employmentType
+   *
+   * @param employmentType EmploymentType
+   */
+  public void setEmploymentType(EmploymentType employmentType) {
+    this.employmentType = employmentType;
+  }
+
+  /**
+   * countryOfResidence
+   *
+   * @param countryOfResidence CountryOfResidence
+   * @return Employee
+   */
+  public Employee countryOfResidence(CountryOfResidence countryOfResidence) {
+    this.countryOfResidence = countryOfResidence;
+    return this;
+  }
+
+  /**
+   * Get countryOfResidence
+   *
+   * @return countryOfResidence
+   */
+  @ApiModelProperty(value = "")
+  /**
+   * countryOfResidence
+   *
+   * @return countryOfResidence CountryOfResidence
+   */
+  public CountryOfResidence getCountryOfResidence() {
+    return countryOfResidence;
+  }
+
+  /**
+   * countryOfResidence
+   *
+   * @param countryOfResidence CountryOfResidence
+   */
+  public void setCountryOfResidence(CountryOfResidence countryOfResidence) {
+    this.countryOfResidence = countryOfResidence;
+  }
+
+  /**
+   * Indicates if the employee has been updated for STP Phase 2 compliance. Doesn&#39;t indicate
+   * that the employee is payable.
+   *
+   * @param isSTP2Qualified Boolean
+   * @return Employee
+   */
+  public Employee isSTP2Qualified(Boolean isSTP2Qualified) {
+    this.isSTP2Qualified = isSTP2Qualified;
+    return this;
+  }
+
+  /**
+   * Indicates if the employee has been updated for STP Phase 2 compliance. Doesn&#39;t indicate
+   * that the employee is payable.
+   *
+   * @return isSTP2Qualified
+   */
+  @ApiModelProperty(
+      example = "true",
+      value =
+          "Indicates if the employee has been updated for STP Phase 2 compliance. Doesn't indicate"
+              + " that the employee is payable.")
+  /**
+   * Indicates if the employee has been updated for STP Phase 2 compliance. Doesn&#39;t indicate
+   * that the employee is payable.
+   *
+   * @return isSTP2Qualified Boolean
+   */
+  public Boolean getIsSTP2Qualified() {
+    return isSTP2Qualified;
+  }
+
+  /**
+   * Indicates if the employee has been updated for STP Phase 2 compliance. Doesn&#39;t indicate
+   * that the employee is payable.
+   *
+   * @param isSTP2Qualified Boolean
+   */
+  public void setIsSTP2Qualified(Boolean isSTP2Qualified) {
+    this.isSTP2Qualified = isSTP2Qualified;
+  }
+
+  /**
    * leaveBalances
    *
    * @param leaveBalances List&lt;LeaveBalance&gt;
@@ -1655,6 +1815,10 @@ public class Employee {
         && Objects.equals(this.payTemplate, employee.payTemplate)
         && Objects.equals(this.openingBalances, employee.openingBalances)
         && Objects.equals(this.taxDeclaration, employee.taxDeclaration)
+        && Objects.equals(this.incomeType, employee.incomeType)
+        && Objects.equals(this.employmentType, employee.employmentType)
+        && Objects.equals(this.countryOfResidence, employee.countryOfResidence)
+        && Objects.equals(this.isSTP2Qualified, employee.isSTP2Qualified)
         && Objects.equals(this.leaveBalances, employee.leaveBalances)
         && Objects.equals(this.leaveLines, employee.leaveLines)
         && Objects.equals(this.superMemberships, employee.superMemberships)
@@ -1692,6 +1856,10 @@ public class Employee {
         payTemplate,
         openingBalances,
         taxDeclaration,
+        incomeType,
+        employmentType,
+        countryOfResidence,
+        isSTP2Qualified,
         leaveBalances,
         leaveLines,
         superMemberships,
@@ -1736,6 +1904,10 @@ public class Employee {
     sb.append("    payTemplate: ").append(toIndentedString(payTemplate)).append("\n");
     sb.append("    openingBalances: ").append(toIndentedString(openingBalances)).append("\n");
     sb.append("    taxDeclaration: ").append(toIndentedString(taxDeclaration)).append("\n");
+    sb.append("    incomeType: ").append(toIndentedString(incomeType)).append("\n");
+    sb.append("    employmentType: ").append(toIndentedString(employmentType)).append("\n");
+    sb.append("    countryOfResidence: ").append(toIndentedString(countryOfResidence)).append("\n");
+    sb.append("    isSTP2Qualified: ").append(toIndentedString(isSTP2Qualified)).append("\n");
     sb.append("    leaveBalances: ").append(toIndentedString(leaveBalances)).append("\n");
     sb.append("    leaveLines: ").append(toIndentedString(leaveLines)).append("\n");
     sb.append("    superMemberships: ").append(toIndentedString(superMemberships)).append("\n");

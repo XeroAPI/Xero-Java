@@ -36,11 +36,23 @@ public class TaxDeclaration {
   @JsonProperty("TaxFileNumber")
   private String taxFileNumber;
 
+  @JsonProperty("ABN")
+  private String ABN;
+
   @JsonProperty("AustralianResidentForTaxPurposes")
   private Boolean australianResidentForTaxPurposes;
 
   @JsonProperty("ResidencyStatus")
   private ResidencyStatus residencyStatus;
+
+  @JsonProperty("TaxScaleType")
+  private TaxScaleType taxScaleType;
+
+  @JsonProperty("WorkCondition")
+  private WorkCondition workCondition;
+
+  @JsonProperty("SeniorMaritalStatus")
+  private SeniorMaritalStatus seniorMaritalStatus;
 
   @JsonProperty("TaxFreeThresholdClaimed")
   private Boolean taxFreeThresholdClaimed;
@@ -215,6 +227,50 @@ public class TaxDeclaration {
   }
 
   /**
+   * 11-digit Australian Business Number e.g 21006819692 or an empty string (\&quot;\&quot;) to
+   * unset a previously set value. Only applicable, and mandatory if income type is NONEMPLOYEE.
+   *
+   * @param ABN String
+   * @return TaxDeclaration
+   */
+  public TaxDeclaration ABN(String ABN) {
+    this.ABN = ABN;
+    return this;
+  }
+
+  /**
+   * 11-digit Australian Business Number e.g 21006819692 or an empty string (\&quot;\&quot;) to
+   * unset a previously set value. Only applicable, and mandatory if income type is NONEMPLOYEE.
+   *
+   * @return ABN
+   */
+  @ApiModelProperty(
+      example = "21006819692",
+      value =
+          "11-digit Australian Business Number e.g 21006819692 or an empty string (\"\") to unset"
+              + " a previously set value. Only applicable, and mandatory if income type is"
+              + " NONEMPLOYEE.")
+  /**
+   * 11-digit Australian Business Number e.g 21006819692 or an empty string (\&quot;\&quot;) to
+   * unset a previously set value. Only applicable, and mandatory if income type is NONEMPLOYEE.
+   *
+   * @return ABN String
+   */
+  public String getABN() {
+    return ABN;
+  }
+
+  /**
+   * 11-digit Australian Business Number e.g 21006819692 or an empty string (\&quot;\&quot;) to
+   * unset a previously set value. Only applicable, and mandatory if income type is NONEMPLOYEE.
+   *
+   * @param ABN String
+   */
+  public void setABN(String ABN) {
+    this.ABN = ABN;
+  }
+
+  /**
    * If the employee is Australian resident for tax purposes. e.g true or false
    *
    * @param australianResidentForTaxPurposes Boolean
@@ -284,6 +340,111 @@ public class TaxDeclaration {
    */
   public void setResidencyStatus(ResidencyStatus residencyStatus) {
     this.residencyStatus = residencyStatus;
+  }
+
+  /**
+   * taxScaleType
+   *
+   * @param taxScaleType TaxScaleType
+   * @return TaxDeclaration
+   */
+  public TaxDeclaration taxScaleType(TaxScaleType taxScaleType) {
+    this.taxScaleType = taxScaleType;
+    return this;
+  }
+
+  /**
+   * Get taxScaleType
+   *
+   * @return taxScaleType
+   */
+  @ApiModelProperty(value = "")
+  /**
+   * taxScaleType
+   *
+   * @return taxScaleType TaxScaleType
+   */
+  public TaxScaleType getTaxScaleType() {
+    return taxScaleType;
+  }
+
+  /**
+   * taxScaleType
+   *
+   * @param taxScaleType TaxScaleType
+   */
+  public void setTaxScaleType(TaxScaleType taxScaleType) {
+    this.taxScaleType = taxScaleType;
+  }
+
+  /**
+   * workCondition
+   *
+   * @param workCondition WorkCondition
+   * @return TaxDeclaration
+   */
+  public TaxDeclaration workCondition(WorkCondition workCondition) {
+    this.workCondition = workCondition;
+    return this;
+  }
+
+  /**
+   * Get workCondition
+   *
+   * @return workCondition
+   */
+  @ApiModelProperty(value = "")
+  /**
+   * workCondition
+   *
+   * @return workCondition WorkCondition
+   */
+  public WorkCondition getWorkCondition() {
+    return workCondition;
+  }
+
+  /**
+   * workCondition
+   *
+   * @param workCondition WorkCondition
+   */
+  public void setWorkCondition(WorkCondition workCondition) {
+    this.workCondition = workCondition;
+  }
+
+  /**
+   * seniorMaritalStatus
+   *
+   * @param seniorMaritalStatus SeniorMaritalStatus
+   * @return TaxDeclaration
+   */
+  public TaxDeclaration seniorMaritalStatus(SeniorMaritalStatus seniorMaritalStatus) {
+    this.seniorMaritalStatus = seniorMaritalStatus;
+    return this;
+  }
+
+  /**
+   * Get seniorMaritalStatus
+   *
+   * @return seniorMaritalStatus
+   */
+  @ApiModelProperty(value = "")
+  /**
+   * seniorMaritalStatus
+   *
+   * @return seniorMaritalStatus SeniorMaritalStatus
+   */
+  public SeniorMaritalStatus getSeniorMaritalStatus() {
+    return seniorMaritalStatus;
+  }
+
+  /**
+   * seniorMaritalStatus
+   *
+   * @param seniorMaritalStatus SeniorMaritalStatus
+   */
+  public void setSeniorMaritalStatus(SeniorMaritalStatus seniorMaritalStatus) {
+    this.seniorMaritalStatus = seniorMaritalStatus;
   }
 
   /**
@@ -718,9 +879,13 @@ public class TaxDeclaration {
         && Objects.equals(this.employmentBasis, taxDeclaration.employmentBasis)
         && Objects.equals(this.tfNExemptionType, taxDeclaration.tfNExemptionType)
         && Objects.equals(this.taxFileNumber, taxDeclaration.taxFileNumber)
+        && Objects.equals(this.ABN, taxDeclaration.ABN)
         && Objects.equals(
             this.australianResidentForTaxPurposes, taxDeclaration.australianResidentForTaxPurposes)
         && Objects.equals(this.residencyStatus, taxDeclaration.residencyStatus)
+        && Objects.equals(this.taxScaleType, taxDeclaration.taxScaleType)
+        && Objects.equals(this.workCondition, taxDeclaration.workCondition)
+        && Objects.equals(this.seniorMaritalStatus, taxDeclaration.seniorMaritalStatus)
         && Objects.equals(this.taxFreeThresholdClaimed, taxDeclaration.taxFreeThresholdClaimed)
         && Objects.equals(this.taxOffsetEstimatedAmount, taxDeclaration.taxOffsetEstimatedAmount)
         && Objects.equals(this.hasHELPDebt, taxDeclaration.hasHELPDebt)
@@ -746,8 +911,12 @@ public class TaxDeclaration {
         employmentBasis,
         tfNExemptionType,
         taxFileNumber,
+        ABN,
         australianResidentForTaxPurposes,
         residencyStatus,
+        taxScaleType,
+        workCondition,
+        seniorMaritalStatus,
         taxFreeThresholdClaimed,
         taxOffsetEstimatedAmount,
         hasHELPDebt,
@@ -769,10 +938,16 @@ public class TaxDeclaration {
     sb.append("    employmentBasis: ").append(toIndentedString(employmentBasis)).append("\n");
     sb.append("    tfNExemptionType: ").append(toIndentedString(tfNExemptionType)).append("\n");
     sb.append("    taxFileNumber: ").append(toIndentedString(taxFileNumber)).append("\n");
+    sb.append("    ABN: ").append(toIndentedString(ABN)).append("\n");
     sb.append("    australianResidentForTaxPurposes: ")
         .append(toIndentedString(australianResidentForTaxPurposes))
         .append("\n");
     sb.append("    residencyStatus: ").append(toIndentedString(residencyStatus)).append("\n");
+    sb.append("    taxScaleType: ").append(toIndentedString(taxScaleType)).append("\n");
+    sb.append("    workCondition: ").append(toIndentedString(workCondition)).append("\n");
+    sb.append("    seniorMaritalStatus: ")
+        .append(toIndentedString(seniorMaritalStatus))
+        .append("\n");
     sb.append("    taxFreeThresholdClaimed: ")
         .append(toIndentedString(taxFreeThresholdClaimed))
         .append("\n");

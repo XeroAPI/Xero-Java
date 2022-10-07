@@ -698,7 +698,7 @@ public class Account {
   }
 
   /**
-   * The tax type from TaxRates
+   * The tax type from taxRates
    *
    * @param taxType String
    * @return Account
@@ -709,13 +709,13 @@ public class Account {
   }
 
   /**
-   * The tax type from TaxRates
+   * The tax type from taxRates
    *
    * @return taxType
    */
-  @ApiModelProperty(value = "The tax type from TaxRates")
+  @ApiModelProperty(value = "The tax type from taxRates")
   /**
-   * The tax type from TaxRates
+   * The tax type from taxRates
    *
    * @return taxType String
    */
@@ -724,7 +724,7 @@ public class Account {
   }
 
   /**
-   * The tax type from TaxRates
+   * The tax type from taxRates
    *
    * @param taxType String
    */

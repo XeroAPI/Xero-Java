@@ -15,30 +15,18 @@ package com.xero.models.payrollau;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-/** Gets or Sets EmploymentBasis */
-public enum EmploymentBasis {
+/** Gets or Sets EmploymentType */
+public enum EmploymentType {
 
-  /** FULLTIME */
-  FULLTIME("FULLTIME"),
+  /** EMPLOYEE */
+  EMPLOYEE("EMPLOYEE"),
 
-  /** PARTTIME */
-  PARTTIME("PARTTIME"),
-
-  /** CASUAL */
-  CASUAL("CASUAL"),
-
-  /** LABOURHIRE */
-  LABOURHIRE("LABOURHIRE"),
-
-  /** SUPERINCOMESTREAM */
-  SUPERINCOMESTREAM("SUPERINCOMESTREAM"),
-
-  /** NONEMPLOYEE */
-  NONEMPLOYEE("NONEMPLOYEE");
+  /** CONTRACTOR */
+  CONTRACTOR("CONTRACTOR");
 
   private String value;
 
-  EmploymentBasis(String value) {
+  EmploymentType(String value) {
     this.value = value;
   }
 
@@ -64,8 +52,8 @@ public enum EmploymentBasis {
    * @param value String
    */
   @JsonCreator
-  public static EmploymentBasis fromValue(String value) {
-    for (EmploymentBasis b : EmploymentBasis.values()) {
+  public static EmploymentType fromValue(String value) {
+    for (EmploymentType b : EmploymentType.values()) {
       if (b.value.equals(value)) {
         return b;
       }

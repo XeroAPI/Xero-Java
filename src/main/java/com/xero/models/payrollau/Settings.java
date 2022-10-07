@@ -30,6 +30,9 @@ public class Settings {
 
   @JsonProperty("DaysInPayrollYear")
   private Integer daysInPayrollYear;
+
+  @JsonProperty("EmployeesAreSTP2")
+  private Boolean employeesAreSTP2;
   /**
    * Payroll Account details for SuperExpense, SuperLiabilty, WagesExpense, PAYGLiability &amp;
    * WagesPayable.
@@ -157,6 +160,44 @@ public class Settings {
     this.daysInPayrollYear = daysInPayrollYear;
   }
 
+  /**
+   * Indicates if the organisation has been enabled for STP Phase 2 editing of employees.
+   *
+   * @param employeesAreSTP2 Boolean
+   * @return Settings
+   */
+  public Settings employeesAreSTP2(Boolean employeesAreSTP2) {
+    this.employeesAreSTP2 = employeesAreSTP2;
+    return this;
+  }
+
+  /**
+   * Indicates if the organisation has been enabled for STP Phase 2 editing of employees.
+   *
+   * @return employeesAreSTP2
+   */
+  @ApiModelProperty(
+      example = "true",
+      value =
+          "Indicates if the organisation has been enabled for STP Phase 2 editing of employees.")
+  /**
+   * Indicates if the organisation has been enabled for STP Phase 2 editing of employees.
+   *
+   * @return employeesAreSTP2 Boolean
+   */
+  public Boolean getEmployeesAreSTP2() {
+    return employeesAreSTP2;
+  }
+
+  /**
+   * Indicates if the organisation has been enabled for STP Phase 2 editing of employees.
+   *
+   * @param employeesAreSTP2 Boolean
+   */
+  public void setEmployeesAreSTP2(Boolean employeesAreSTP2) {
+    this.employeesAreSTP2 = employeesAreSTP2;
+  }
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -168,12 +209,13 @@ public class Settings {
     Settings settings = (Settings) o;
     return Objects.equals(this.accounts, settings.accounts)
         && Objects.equals(this.trackingCategories, settings.trackingCategories)
-        && Objects.equals(this.daysInPayrollYear, settings.daysInPayrollYear);
+        && Objects.equals(this.daysInPayrollYear, settings.daysInPayrollYear)
+        && Objects.equals(this.employeesAreSTP2, settings.employeesAreSTP2);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(accounts, trackingCategories, daysInPayrollYear);
+    return Objects.hash(accounts, trackingCategories, daysInPayrollYear, employeesAreSTP2);
   }
 
   @Override
@@ -183,6 +225,7 @@ public class Settings {
     sb.append("    accounts: ").append(toIndentedString(accounts)).append("\n");
     sb.append("    trackingCategories: ").append(toIndentedString(trackingCategories)).append("\n");
     sb.append("    daysInPayrollYear: ").append(toIndentedString(daysInPayrollYear)).append("\n");
+    sb.append("    employeesAreSTP2: ").append(toIndentedString(employeesAreSTP2)).append("\n");
     sb.append("}");
     return sb.toString();
   }

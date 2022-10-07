@@ -364,7 +364,7 @@ public class JournalLine {
   }
 
   /**
-   * The tax type from TaxRates
+   * The tax type from taxRates
    *
    * @param taxType String
    * @return JournalLine
@@ -375,13 +375,13 @@ public class JournalLine {
   }
 
   /**
-   * The tax type from TaxRates
+   * The tax type from taxRates
    *
    * @return taxType
    */
-  @ApiModelProperty(value = "The tax type from TaxRates")
+  @ApiModelProperty(value = "The tax type from taxRates")
   /**
-   * The tax type from TaxRates
+   * The tax type from taxRates
    *
    * @return taxType String
    */
@@ -390,7 +390,7 @@ public class JournalLine {
   }
 
   /**
-   * The tax type from TaxRates
+   * The tax type from taxRates
    *
    * @param taxType String
    */
