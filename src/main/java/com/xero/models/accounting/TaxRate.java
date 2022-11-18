@@ -357,7 +357,16 @@ public class TaxRate {
     NONEINPUT("NONEINPUT"),
 
     /** NOTREPORTED */
-    NOTREPORTED("NOTREPORTED");
+    NOTREPORTED("NOTREPORTED"),
+
+    /** SROVRRS */
+    SROVRRS("SROVRRS"),
+
+    /** SROVRLVG */
+    SROVRLVG("SROVRLVG"),
+
+    /** SRLVG */
+    SRLVG("SRLVG");
 
     private String value;
 

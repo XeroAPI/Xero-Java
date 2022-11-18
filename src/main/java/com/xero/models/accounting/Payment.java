@@ -48,6 +48,9 @@ public class Payment {
   @JsonProperty("CreditNoteNumber")
   private String creditNoteNumber;
 
+  @JsonProperty("BatchPayment")
+  private BatchPayment batchPayment;
+
   @JsonProperty("Account")
   private Account account;
 
@@ -433,6 +436,41 @@ public class Payment {
    */
   public void setCreditNoteNumber(String creditNoteNumber) {
     this.creditNoteNumber = creditNoteNumber;
+  }
+
+  /**
+   * batchPayment
+   *
+   * @param batchPayment BatchPayment
+   * @return Payment
+   */
+  public Payment batchPayment(BatchPayment batchPayment) {
+    this.batchPayment = batchPayment;
+    return this;
+  }
+
+  /**
+   * Get batchPayment
+   *
+   * @return batchPayment
+   */
+  @ApiModelProperty(value = "")
+  /**
+   * batchPayment
+   *
+   * @return batchPayment BatchPayment
+   */
+  public BatchPayment getBatchPayment() {
+    return batchPayment;
+  }
+
+  /**
+   * batchPayment
+   *
+   * @param batchPayment BatchPayment
+   */
+  public void setBatchPayment(BatchPayment batchPayment) {
+    this.batchPayment = batchPayment;
   }
 
   /**
@@ -1210,6 +1248,7 @@ public class Payment {
         && Objects.equals(this.overpayment, payment.overpayment)
         && Objects.equals(this.invoiceNumber, payment.invoiceNumber)
         && Objects.equals(this.creditNoteNumber, payment.creditNoteNumber)
+        && Objects.equals(this.batchPayment, payment.batchPayment)
         && Objects.equals(this.account, payment.account)
         && Objects.equals(this.code, payment.code)
         && Objects.equals(this.date, payment.date)
@@ -1241,6 +1280,7 @@ public class Payment {
         overpayment,
         invoiceNumber,
         creditNoteNumber,
+        batchPayment,
         account,
         code,
         date,
@@ -1273,6 +1313,7 @@ public class Payment {
     sb.append("    overpayment: ").append(toIndentedString(overpayment)).append("\n");
     sb.append("    invoiceNumber: ").append(toIndentedString(invoiceNumber)).append("\n");
     sb.append("    creditNoteNumber: ").append(toIndentedString(creditNoteNumber)).append("\n");
+    sb.append("    batchPayment: ").append(toIndentedString(batchPayment)).append("\n");
     sb.append("    account: ").append(toIndentedString(account)).append("\n");
     sb.append("    code: ").append(toIndentedString(code)).append("\n");
     sb.append("    date: ").append(toIndentedString(date)).append("\n");
