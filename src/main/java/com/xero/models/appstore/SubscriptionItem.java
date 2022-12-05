@@ -18,14 +18,14 @@ import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
 import java.util.UUID;
-import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
 
 /** SubscriptionItem */
 public class SubscriptionItem {
   StringUtil util = new StringUtil();
 
   @JsonProperty("endDate")
-  private OffsetDateTime endDate;
+  private LocalDateTime endDate;
 
   @JsonProperty("id")
   private UUID id;
@@ -40,7 +40,7 @@ public class SubscriptionItem {
   private Integer quantity;
 
   @JsonProperty("startDate")
-  private OffsetDateTime startDate;
+  private LocalDateTime startDate;
   /**
    * Status of the subscription item. Available statuses are ACTIVE, CANCELED, and
    * PENDING_ACTIVATION.
@@ -105,10 +105,10 @@ public class SubscriptionItem {
   /**
    * Date when the subscription to this product will end
    *
-   * @param endDate OffsetDateTime
+   * @param endDate LocalDateTime
    * @return SubscriptionItem
    */
-  public SubscriptionItem endDate(OffsetDateTime endDate) {
+  public SubscriptionItem endDate(LocalDateTime endDate) {
     this.endDate = endDate;
     return this;
   }
@@ -122,18 +122,18 @@ public class SubscriptionItem {
   /**
    * Date when the subscription to this product will end
    *
-   * @return endDate OffsetDateTime
+   * @return endDate LocalDateTime
    */
-  public OffsetDateTime getEndDate() {
+  public LocalDateTime getEndDate() {
     return endDate;
   }
 
   /**
    * Date when the subscription to this product will end
    *
-   * @param endDate OffsetDateTime
+   * @param endDate LocalDateTime
    */
-  public void setEndDate(OffsetDateTime endDate) {
+  public void setEndDate(LocalDateTime endDate) {
     this.endDate = endDate;
   }
 
@@ -288,10 +288,10 @@ public class SubscriptionItem {
    * Date the subscription started, or will start. Note: this could be in the future for downgrades
    * or reduced number of seats that haven&#39;t taken effect yet.
    *
-   * @param startDate OffsetDateTime
+   * @param startDate LocalDateTime
    * @return SubscriptionItem
    */
-  public SubscriptionItem startDate(OffsetDateTime startDate) {
+  public SubscriptionItem startDate(LocalDateTime startDate) {
     this.startDate = startDate;
     return this;
   }
@@ -311,9 +311,9 @@ public class SubscriptionItem {
    * Date the subscription started, or will start. Note: this could be in the future for downgrades
    * or reduced number of seats that haven&#39;t taken effect yet.
    *
-   * @return startDate OffsetDateTime
+   * @return startDate LocalDateTime
    */
-  public OffsetDateTime getStartDate() {
+  public LocalDateTime getStartDate() {
     return startDate;
   }
 
@@ -321,9 +321,9 @@ public class SubscriptionItem {
    * Date the subscription started, or will start. Note: this could be in the future for downgrades
    * or reduced number of seats that haven&#39;t taken effect yet.
    *
-   * @param startDate OffsetDateTime
+   * @param startDate LocalDateTime
    */
-  public void setStartDate(OffsetDateTime startDate) {
+  public void setStartDate(LocalDateTime startDate) {
     this.startDate = startDate;
   }
 

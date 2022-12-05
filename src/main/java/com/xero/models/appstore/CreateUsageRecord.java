@@ -16,7 +16,7 @@ import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
-import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
 
 /** Data transfer object for public create usage end point */
 @ApiModel(description = "Data transfer object for public create usage end point")
@@ -27,7 +27,7 @@ public class CreateUsageRecord {
   private Integer quantity;
 
   @JsonProperty("timestamp")
-  private OffsetDateTime timestamp;
+  private LocalDateTime timestamp;
   /**
    * The initial quantity for the usage record. Must be a whole number that is greater than or equal
    * to 0
@@ -74,10 +74,10 @@ public class CreateUsageRecord {
   /**
    * DateTime in UTC of when the the product was consumed/used
    *
-   * @param timestamp OffsetDateTime
+   * @param timestamp LocalDateTime
    * @return CreateUsageRecord
    */
-  public CreateUsageRecord timestamp(OffsetDateTime timestamp) {
+  public CreateUsageRecord timestamp(LocalDateTime timestamp) {
     this.timestamp = timestamp;
     return this;
   }
@@ -93,18 +93,18 @@ public class CreateUsageRecord {
   /**
    * DateTime in UTC of when the the product was consumed/used
    *
-   * @return timestamp OffsetDateTime
+   * @return timestamp LocalDateTime
    */
-  public OffsetDateTime getTimestamp() {
+  public LocalDateTime getTimestamp() {
     return timestamp;
   }
 
   /**
    * DateTime in UTC of when the the product was consumed/used
    *
-   * @param timestamp OffsetDateTime
+   * @param timestamp LocalDateTime
    */
-  public void setTimestamp(OffsetDateTime timestamp) {
+  public void setTimestamp(LocalDateTime timestamp) {
     this.timestamp = timestamp;
   }
 

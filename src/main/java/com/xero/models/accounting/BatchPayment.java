@@ -171,13 +171,13 @@ public class BatchPayment {
   private StatusEnum status;
 
   @JsonProperty("TotalAmount")
-  private String totalAmount;
+  private Double totalAmount;
 
   @JsonProperty("UpdatedDateUTC")
   private String updatedDateUTC;
 
   @JsonProperty("IsReconciled")
-  private String isReconciled;
+  private Boolean isReconciled;
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
@@ -698,9 +698,9 @@ public class BatchPayment {
   /**
    * The total of the payments that make up the batch (read-only)
    *
-   * @return totalAmount String
+   * @return totalAmount Double
    */
-  public String getTotalAmount() {
+  public Double getTotalAmount() {
     return totalAmount;
   }
 
@@ -746,9 +746,9 @@ public class BatchPayment {
   /**
    * Booelan that tells you if the batch payment has been reconciled (read-only)
    *
-   * @return isReconciled String
+   * @return isReconciled Boolean
    */
-  public String getIsReconciled() {
+  public Boolean getIsReconciled() {
     return isReconciled;
   }
 
