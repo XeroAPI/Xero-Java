@@ -20,17 +20,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
-import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
 
 /** Subscription */
 public class Subscription {
   StringUtil util = new StringUtil();
 
   @JsonProperty("currentPeriodEnd")
-  private OffsetDateTime currentPeriodEnd;
+  private LocalDateTime currentPeriodEnd;
 
   @JsonProperty("endDate")
-  private OffsetDateTime endDate;
+  private LocalDateTime endDate;
 
   @JsonProperty("id")
   private UUID id;
@@ -42,7 +42,7 @@ public class Subscription {
   private List<Plan> plans = new ArrayList<Plan>();
 
   @JsonProperty("startDate")
-  private OffsetDateTime startDate;
+  private LocalDateTime startDate;
   /** Status of the subscription. Available statuses are ACTIVE, CANCELED, and PAST_DUE. */
   public enum StatusEnum {
     /** ACTIVE */
@@ -104,10 +104,10 @@ public class Subscription {
   /**
    * End of the current period that the subscription has been invoiced for.
    *
-   * @param currentPeriodEnd OffsetDateTime
+   * @param currentPeriodEnd LocalDateTime
    * @return Subscription
    */
-  public Subscription currentPeriodEnd(OffsetDateTime currentPeriodEnd) {
+  public Subscription currentPeriodEnd(LocalDateTime currentPeriodEnd) {
     this.currentPeriodEnd = currentPeriodEnd;
     return this;
   }
@@ -123,18 +123,18 @@ public class Subscription {
   /**
    * End of the current period that the subscription has been invoiced for.
    *
-   * @return currentPeriodEnd OffsetDateTime
+   * @return currentPeriodEnd LocalDateTime
    */
-  public OffsetDateTime getCurrentPeriodEnd() {
+  public LocalDateTime getCurrentPeriodEnd() {
     return currentPeriodEnd;
   }
 
   /**
    * End of the current period that the subscription has been invoiced for.
    *
-   * @param currentPeriodEnd OffsetDateTime
+   * @param currentPeriodEnd LocalDateTime
    */
-  public void setCurrentPeriodEnd(OffsetDateTime currentPeriodEnd) {
+  public void setCurrentPeriodEnd(LocalDateTime currentPeriodEnd) {
     this.currentPeriodEnd = currentPeriodEnd;
   }
 
@@ -142,10 +142,10 @@ public class Subscription {
    * If the subscription has been canceled, this is the date when the subscription ends. If null,
    * the subscription is active and has not been cancelled
    *
-   * @param endDate OffsetDateTime
+   * @param endDate LocalDateTime
    * @return Subscription
    */
-  public Subscription endDate(OffsetDateTime endDate) {
+  public Subscription endDate(LocalDateTime endDate) {
     this.endDate = endDate;
     return this;
   }
@@ -164,9 +164,9 @@ public class Subscription {
    * If the subscription has been canceled, this is the date when the subscription ends. If null,
    * the subscription is active and has not been cancelled
    *
-   * @return endDate OffsetDateTime
+   * @return endDate LocalDateTime
    */
-  public OffsetDateTime getEndDate() {
+  public LocalDateTime getEndDate() {
     return endDate;
   }
 
@@ -174,9 +174,9 @@ public class Subscription {
    * If the subscription has been canceled, this is the date when the subscription ends. If null,
    * the subscription is active and has not been cancelled
    *
-   * @param endDate OffsetDateTime
+   * @param endDate LocalDateTime
    */
-  public void setEndDate(OffsetDateTime endDate) {
+  public void setEndDate(LocalDateTime endDate) {
     this.endDate = endDate;
   }
 
@@ -301,10 +301,10 @@ public class Subscription {
   /**
    * Date when the subscription was first created.
    *
-   * @param startDate OffsetDateTime
+   * @param startDate LocalDateTime
    * @return Subscription
    */
-  public Subscription startDate(OffsetDateTime startDate) {
+  public Subscription startDate(LocalDateTime startDate) {
     this.startDate = startDate;
     return this;
   }
@@ -318,18 +318,18 @@ public class Subscription {
   /**
    * Date when the subscription was first created.
    *
-   * @return startDate OffsetDateTime
+   * @return startDate LocalDateTime
    */
-  public OffsetDateTime getStartDate() {
+  public LocalDateTime getStartDate() {
     return startDate;
   }
 
   /**
    * Date when the subscription was first created.
    *
-   * @param startDate OffsetDateTime
+   * @param startDate LocalDateTime
    */
-  public void setStartDate(OffsetDateTime startDate) {
+  public void setStartDate(LocalDateTime startDate) {
     this.startDate = startDate;
   }
 

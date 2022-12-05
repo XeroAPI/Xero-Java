@@ -16,7 +16,7 @@ import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.Objects;
-import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.LocalDateTime;
 
 /** UsageRecord */
 public class UsageRecord {
@@ -35,7 +35,7 @@ public class UsageRecord {
   private Boolean testMode;
 
   @JsonProperty("recordedAt")
-  private OffsetDateTime recordedAt;
+  private LocalDateTime recordedAt;
 
   @JsonProperty("usageRecordId")
   private String usageRecordId;
@@ -188,10 +188,10 @@ public class UsageRecord {
   /**
    * The time when this usage was recorded in UTC
    *
-   * @param recordedAt OffsetDateTime
+   * @param recordedAt LocalDateTime
    * @return UsageRecord
    */
-  public UsageRecord recordedAt(OffsetDateTime recordedAt) {
+  public UsageRecord recordedAt(LocalDateTime recordedAt) {
     this.recordedAt = recordedAt;
     return this;
   }
@@ -205,18 +205,18 @@ public class UsageRecord {
   /**
    * The time when this usage was recorded in UTC
    *
-   * @return recordedAt OffsetDateTime
+   * @return recordedAt LocalDateTime
    */
-  public OffsetDateTime getRecordedAt() {
+  public LocalDateTime getRecordedAt() {
     return recordedAt;
   }
 
   /**
    * The time when this usage was recorded in UTC
    *
-   * @param recordedAt OffsetDateTime
+   * @param recordedAt LocalDateTime
    */
-  public void setRecordedAt(OffsetDateTime recordedAt) {
+  public void setRecordedAt(LocalDateTime recordedAt) {
     this.recordedAt = recordedAt;
   }
 
