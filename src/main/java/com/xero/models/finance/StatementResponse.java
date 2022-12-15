@@ -46,6 +46,12 @@ public class StatementResponse {
   @JsonProperty("endBalance")
   private Double endBalance;
 
+  @JsonProperty("indicativeStartBalance")
+  private Double indicativeStartBalance;
+
+  @JsonProperty("indicativeEndBalance")
+  private Double indicativeEndBalance;
+
   @JsonProperty("statementLines")
   private List<StatementLineResponse> statementLines = new ArrayList<StatementLineResponse>();
   /**
@@ -247,7 +253,8 @@ public class StatementResponse {
 
   /**
    * Opening balance sourced from imported bank statements (if supplied). Note, for manually
-   * uploaded statements, this balance is also manual and usually not supplied.
+   * uploaded statements, this balance is also manual and usually not supplied. Where not supplied,
+   * the value will be 0.
    *
    * @param startBalance Double
    * @return StatementResponse
@@ -259,17 +266,20 @@ public class StatementResponse {
 
   /**
    * Opening balance sourced from imported bank statements (if supplied). Note, for manually
-   * uploaded statements, this balance is also manual and usually not supplied.
+   * uploaded statements, this balance is also manual and usually not supplied. Where not supplied,
+   * the value will be 0.
    *
    * @return startBalance
    */
   @ApiModelProperty(
       value =
           "Opening balance sourced from imported bank statements (if supplied). Note, for manually"
-              + " uploaded statements, this balance is also manual and usually not supplied.")
+              + " uploaded statements, this balance is also manual and usually not supplied. Where"
+              + " not supplied, the value will be 0.")
   /**
    * Opening balance sourced from imported bank statements (if supplied). Note, for manually
-   * uploaded statements, this balance is also manual and usually not supplied.
+   * uploaded statements, this balance is also manual and usually not supplied. Where not supplied,
+   * the value will be 0.
    *
    * @return startBalance Double
    */
@@ -279,7 +289,8 @@ public class StatementResponse {
 
   /**
    * Opening balance sourced from imported bank statements (if supplied). Note, for manually
-   * uploaded statements, this balance is also manual and usually not supplied.
+   * uploaded statements, this balance is also manual and usually not supplied. Where not supplied,
+   * the value will be 0.
    *
    * @param startBalance Double
    */
@@ -289,7 +300,8 @@ public class StatementResponse {
 
   /**
    * Closing balance sourced from imported bank statements (if supplied). Note, for manually
-   * uploaded statements, this balance is also manual and usually not supplied.
+   * uploaded statements, this balance is also manual and usually not supplied. Where not supplied,
+   * the value will be 0.
    *
    * @param endBalance Double
    * @return StatementResponse
@@ -301,17 +313,20 @@ public class StatementResponse {
 
   /**
    * Closing balance sourced from imported bank statements (if supplied). Note, for manually
-   * uploaded statements, this balance is also manual and usually not supplied.
+   * uploaded statements, this balance is also manual and usually not supplied. Where not supplied,
+   * the value will be 0.
    *
    * @return endBalance
    */
   @ApiModelProperty(
       value =
           "Closing balance sourced from imported bank statements (if supplied). Note, for manually"
-              + " uploaded statements, this balance is also manual and usually not supplied.")
+              + " uploaded statements, this balance is also manual and usually not supplied. Where"
+              + " not supplied, the value will be 0.")
   /**
    * Closing balance sourced from imported bank statements (if supplied). Note, for manually
-   * uploaded statements, this balance is also manual and usually not supplied.
+   * uploaded statements, this balance is also manual and usually not supplied. Where not supplied,
+   * the value will be 0.
    *
    * @return endBalance Double
    */
@@ -321,12 +336,131 @@ public class StatementResponse {
 
   /**
    * Closing balance sourced from imported bank statements (if supplied). Note, for manually
-   * uploaded statements, this balance is also manual and usually not supplied.
+   * uploaded statements, this balance is also manual and usually not supplied. Where not supplied,
+   * the value will be 0.
    *
    * @param endBalance Double
    */
   public void setEndBalance(Double endBalance) {
     this.endBalance = endBalance;
+  }
+
+  /**
+   * Opening statement balance calculated in Xero (&#x3D; bank account conversion balance plus sum
+   * of imported bank statement lines). Note: If indicative statement balance doesn&#39;t match
+   * imported statement balance for the same date, either the conversion (opening at inception)
+   * balance in Xero is wrong or there&#39;s an error in the bank statement lines in Xero. Ref:
+   * https://central.xero.com/s/article/Compare-the-statement-balance-in-Xero-to-your-actual-bank-balance?userregion&#x3D;true
+   *
+   * @param indicativeStartBalance Double
+   * @return StatementResponse
+   */
+  public StatementResponse indicativeStartBalance(Double indicativeStartBalance) {
+    this.indicativeStartBalance = indicativeStartBalance;
+    return this;
+  }
+
+  /**
+   * Opening statement balance calculated in Xero (&#x3D; bank account conversion balance plus sum
+   * of imported bank statement lines). Note: If indicative statement balance doesn&#39;t match
+   * imported statement balance for the same date, either the conversion (opening at inception)
+   * balance in Xero is wrong or there&#39;s an error in the bank statement lines in Xero. Ref:
+   * https://central.xero.com/s/article/Compare-the-statement-balance-in-Xero-to-your-actual-bank-balance?userregion&#x3D;true
+   *
+   * @return indicativeStartBalance
+   */
+  @ApiModelProperty(
+      value =
+          "Opening statement balance calculated in Xero (= bank account conversion balance plus"
+              + " sum of imported bank statement lines). Note: If indicative statement balance"
+              + " doesn't match imported statement balance for the same date, either the"
+              + " conversion (opening at inception) balance in Xero is wrong or there's an error"
+              + " in the bank statement lines in Xero. Ref:"
+              + " https://central.xero.com/s/article/Compare-the-statement-balance-in-Xero-to-your-actual-bank-balance?userregion=true"
+              + " ")
+  /**
+   * Opening statement balance calculated in Xero (&#x3D; bank account conversion balance plus sum
+   * of imported bank statement lines). Note: If indicative statement balance doesn&#39;t match
+   * imported statement balance for the same date, either the conversion (opening at inception)
+   * balance in Xero is wrong or there&#39;s an error in the bank statement lines in Xero. Ref:
+   * https://central.xero.com/s/article/Compare-the-statement-balance-in-Xero-to-your-actual-bank-balance?userregion&#x3D;true
+   *
+   * @return indicativeStartBalance Double
+   */
+  public Double getIndicativeStartBalance() {
+    return indicativeStartBalance;
+  }
+
+  /**
+   * Opening statement balance calculated in Xero (&#x3D; bank account conversion balance plus sum
+   * of imported bank statement lines). Note: If indicative statement balance doesn&#39;t match
+   * imported statement balance for the same date, either the conversion (opening at inception)
+   * balance in Xero is wrong or there&#39;s an error in the bank statement lines in Xero. Ref:
+   * https://central.xero.com/s/article/Compare-the-statement-balance-in-Xero-to-your-actual-bank-balance?userregion&#x3D;true
+   *
+   * @param indicativeStartBalance Double
+   */
+  public void setIndicativeStartBalance(Double indicativeStartBalance) {
+    this.indicativeStartBalance = indicativeStartBalance;
+  }
+
+  /**
+   * Closing statement balance calculated in Xero (&#x3D; bank account conversion balance plus sum
+   * of imported bank statement lines). Note: If indicative statement balance doesn&#39;t match
+   * imported statement balance for the same date, either the conversion (opening at inception)
+   * balance in Xero is wrong or there&#39;s an error in the bank statement lines in Xero. Ref:
+   * https://central.xero.com/s/article/Compare-the-statement-balance-in-Xero-to-your-actual-bank-balance?userregion&#x3D;true
+   *
+   * @param indicativeEndBalance Double
+   * @return StatementResponse
+   */
+  public StatementResponse indicativeEndBalance(Double indicativeEndBalance) {
+    this.indicativeEndBalance = indicativeEndBalance;
+    return this;
+  }
+
+  /**
+   * Closing statement balance calculated in Xero (&#x3D; bank account conversion balance plus sum
+   * of imported bank statement lines). Note: If indicative statement balance doesn&#39;t match
+   * imported statement balance for the same date, either the conversion (opening at inception)
+   * balance in Xero is wrong or there&#39;s an error in the bank statement lines in Xero. Ref:
+   * https://central.xero.com/s/article/Compare-the-statement-balance-in-Xero-to-your-actual-bank-balance?userregion&#x3D;true
+   *
+   * @return indicativeEndBalance
+   */
+  @ApiModelProperty(
+      value =
+          "Closing statement balance calculated in Xero (= bank account conversion balance plus"
+              + " sum of imported bank statement lines). Note: If indicative statement balance"
+              + " doesn't match imported statement balance for the same date, either the"
+              + " conversion (opening at inception) balance in Xero is wrong or there's an error"
+              + " in the bank statement lines in Xero. Ref:"
+              + " https://central.xero.com/s/article/Compare-the-statement-balance-in-Xero-to-your-actual-bank-balance?userregion=true"
+              + "  ")
+  /**
+   * Closing statement balance calculated in Xero (&#x3D; bank account conversion balance plus sum
+   * of imported bank statement lines). Note: If indicative statement balance doesn&#39;t match
+   * imported statement balance for the same date, either the conversion (opening at inception)
+   * balance in Xero is wrong or there&#39;s an error in the bank statement lines in Xero. Ref:
+   * https://central.xero.com/s/article/Compare-the-statement-balance-in-Xero-to-your-actual-bank-balance?userregion&#x3D;true
+   *
+   * @return indicativeEndBalance Double
+   */
+  public Double getIndicativeEndBalance() {
+    return indicativeEndBalance;
+  }
+
+  /**
+   * Closing statement balance calculated in Xero (&#x3D; bank account conversion balance plus sum
+   * of imported bank statement lines). Note: If indicative statement balance doesn&#39;t match
+   * imported statement balance for the same date, either the conversion (opening at inception)
+   * balance in Xero is wrong or there&#39;s an error in the bank statement lines in Xero. Ref:
+   * https://central.xero.com/s/article/Compare-the-statement-balance-in-Xero-to-your-actual-bank-balance?userregion&#x3D;true
+   *
+   * @param indicativeEndBalance Double
+   */
+  public void setIndicativeEndBalance(Double indicativeEndBalance) {
+    this.indicativeEndBalance = indicativeEndBalance;
   }
 
   /**
@@ -394,6 +528,8 @@ public class StatementResponse {
         && Objects.equals(this.importSource, statementResponse.importSource)
         && Objects.equals(this.startBalance, statementResponse.startBalance)
         && Objects.equals(this.endBalance, statementResponse.endBalance)
+        && Objects.equals(this.indicativeStartBalance, statementResponse.indicativeStartBalance)
+        && Objects.equals(this.indicativeEndBalance, statementResponse.indicativeEndBalance)
         && Objects.equals(this.statementLines, statementResponse.statementLines);
   }
 
@@ -407,6 +543,8 @@ public class StatementResponse {
         importSource,
         startBalance,
         endBalance,
+        indicativeStartBalance,
+        indicativeEndBalance,
         statementLines);
   }
 
@@ -423,6 +561,12 @@ public class StatementResponse {
     sb.append("    importSource: ").append(toIndentedString(importSource)).append("\n");
     sb.append("    startBalance: ").append(toIndentedString(startBalance)).append("\n");
     sb.append("    endBalance: ").append(toIndentedString(endBalance)).append("\n");
+    sb.append("    indicativeStartBalance: ")
+        .append(toIndentedString(indicativeStartBalance))
+        .append("\n");
+    sb.append("    indicativeEndBalance: ")
+        .append(toIndentedString(indicativeEndBalance))
+        .append("\n");
     sb.append("    statementLines: ").append(toIndentedString(statementLines)).append("\n");
     sb.append("}");
     return sb.toString();

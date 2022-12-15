@@ -30,6 +30,9 @@ public class StatementLineResponse {
   @JsonProperty("postedDate")
   private LocalDate postedDate;
 
+  @JsonProperty("payee")
+  private String payee;
+
   @JsonProperty("reference")
   private String reference;
 
@@ -130,6 +133,41 @@ public class StatementLineResponse {
    */
   public void setPostedDate(LocalDate postedDate) {
     this.postedDate = postedDate;
+  }
+
+  /**
+   * Payee description of statement line
+   *
+   * @param payee String
+   * @return StatementLineResponse
+   */
+  public StatementLineResponse payee(String payee) {
+    this.payee = payee;
+    return this;
+  }
+
+  /**
+   * Payee description of statement line
+   *
+   * @return payee
+   */
+  @ApiModelProperty(value = "Payee description of statement line")
+  /**
+   * Payee description of statement line
+   *
+   * @return payee String
+   */
+  public String getPayee() {
+    return payee;
+  }
+
+  /**
+   * Payee description of statement line
+   *
+   * @param payee String
+   */
+  public void setPayee(String payee) {
+    this.payee = payee;
   }
 
   /**
@@ -557,6 +595,7 @@ public class StatementLineResponse {
     StatementLineResponse statementLineResponse = (StatementLineResponse) o;
     return Objects.equals(this.statementLineId, statementLineResponse.statementLineId)
         && Objects.equals(this.postedDate, statementLineResponse.postedDate)
+        && Objects.equals(this.payee, statementLineResponse.payee)
         && Objects.equals(this.reference, statementLineResponse.reference)
         && Objects.equals(this.notes, statementLineResponse.notes)
         && Objects.equals(this.chequeNo, statementLineResponse.chequeNo)
@@ -575,6 +614,7 @@ public class StatementLineResponse {
     return Objects.hash(
         statementLineId,
         postedDate,
+        payee,
         reference,
         notes,
         chequeNo,
@@ -594,6 +634,7 @@ public class StatementLineResponse {
     sb.append("class StatementLineResponse {\n");
     sb.append("    statementLineId: ").append(toIndentedString(statementLineId)).append("\n");
     sb.append("    postedDate: ").append(toIndentedString(postedDate)).append("\n");
+    sb.append("    payee: ").append(toIndentedString(payee)).append("\n");
     sb.append("    reference: ").append(toIndentedString(reference)).append("\n");
     sb.append("    notes: ").append(toIndentedString(notes)).append("\n");
     sb.append("    chequeNo: ").append(toIndentedString(chequeNo)).append("\n");

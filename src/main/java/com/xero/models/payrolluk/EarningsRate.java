@@ -34,7 +34,7 @@ public class EarningsRate {
     ALLOWANCE("Allowance"),
 
     /** BACKPAY */
-    BACKPAY("Backpay"),
+    BACKPAY("BackPay"),
 
     /** BONUS */
     BONUS("Bonus"),
