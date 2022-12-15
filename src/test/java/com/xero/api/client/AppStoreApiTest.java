@@ -55,7 +55,7 @@ public class AppStoreApiTest {
         accessToken = "123";
         xeroTenantId = "xyz";
         
-		defaultClient = new ApiClient("https://xero-app-store.getsandbox.com:443/appstore/2.0",null,null,null,null);
+		defaultClient = new ApiClient("https://ec5d3540-e90b-47b9-9a5d-95180950a89b.mock.pstmn.io/appstore/2.0",null,null,null,null);
         appStoreApi = AppStoreApi.getInstance(defaultClient);
         
 		// ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs

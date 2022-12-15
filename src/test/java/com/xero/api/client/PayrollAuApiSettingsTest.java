@@ -56,7 +56,7 @@ public class PayrollAuApiSettingsTest {
         
         // Init projectApi client
         // NEW Sandbox for API Mocking
-		defaultClient = new ApiClient("https://xero-payroll-au.getsandbox.com:443/payroll.xro/1.0",null,null,null,null);
+		defaultClient = new ApiClient("https://5f9f95f1-25c8-40dd-8b10-8192c658dd79.mock.pstmn.io/payroll.xro/1.0",null,null,null,null);
         payrollAuApi = PayrollAuApi.getInstance(defaultClient);   
        
 	}

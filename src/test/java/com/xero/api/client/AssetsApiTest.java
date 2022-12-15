@@ -56,8 +56,8 @@ public class AssetsApiTest {
         accessToken = "123";
         xeroTenantId = "xyz";
         
-        // Init clienthttps://xero-bank-feeds.getsandbox.com:443/bankfeeds.xro/1.0
-		defaultClient = new ApiClient("https://xero-assets.getsandbox.com:443/assets.xro/1.0",null,null,null,null);
+        // Init clienthttps://3e140044-4914-47dd-b4e1-df0cc040a44f.mock.pstmn.io/bankfeeds.xro/1.0
+		defaultClient = new ApiClient("https://0a44a319-84a5-4918-91ce-338acd97a84d.mock.pstmn.io/assets.xro/1.0",null,null,null,null);
         assetApi = AssetApi.getInstance(defaultClient);	
         
 		// ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs

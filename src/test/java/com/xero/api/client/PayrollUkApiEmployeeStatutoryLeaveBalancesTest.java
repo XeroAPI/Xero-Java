@@ -56,7 +56,7 @@ public class PayrollUkApiEmployeeStatutoryLeaveBalancesTest {
         
         // Init projectApi client
         // NEW Sandbox for API Mocking
-		defaultClient = new ApiClient("https://xero-payroll-uk.getsandbox.com:443/payroll.xro/2.0",null,null,null,null);
+		defaultClient = new ApiClient("https://ba3fd247-8fc6-4d7c-bcd1-bdbea4ea1803.mock.pstmn.io/payroll.xro/2.0",null,null,null,null);
         payrollUkApi = PayrollUkApi.getInstance(defaultClient);   
        
 	}

@@ -41,6 +41,12 @@ public class EarningsRate {
   @JsonProperty("IsReportableAsW1")
   private Boolean isReportableAsW1;
 
+  @JsonProperty("AllowanceContributesToAnnualLeaveRate")
+  private Boolean allowanceContributesToAnnualLeaveRate;
+
+  @JsonProperty("AllowanceContributesToOvertimeRate")
+  private Boolean allowanceContributesToOvertimeRate;
+
   @JsonProperty("EarningsType")
   private EarningsType earningsType;
 
@@ -300,6 +306,96 @@ public class EarningsRate {
    */
   public void setIsReportableAsW1(Boolean isReportableAsW1) {
     this.isReportableAsW1 = isReportableAsW1;
+  }
+
+  /**
+   * Boolean to determine if the allowance earnings rate contributes towards annual leave rate. Only
+   * applicable if EarningsType is ALLOWANCE and RateType is RATEPERUNIT
+   *
+   * @param allowanceContributesToAnnualLeaveRate Boolean
+   * @return EarningsRate
+   */
+  public EarningsRate allowanceContributesToAnnualLeaveRate(
+      Boolean allowanceContributesToAnnualLeaveRate) {
+    this.allowanceContributesToAnnualLeaveRate = allowanceContributesToAnnualLeaveRate;
+    return this;
+  }
+
+  /**
+   * Boolean to determine if the allowance earnings rate contributes towards annual leave rate. Only
+   * applicable if EarningsType is ALLOWANCE and RateType is RATEPERUNIT
+   *
+   * @return allowanceContributesToAnnualLeaveRate
+   */
+  @ApiModelProperty(
+      example = "false",
+      value =
+          "Boolean to determine if the allowance earnings rate contributes towards annual leave"
+              + " rate. Only applicable if EarningsType is ALLOWANCE and RateType is RATEPERUNIT")
+  /**
+   * Boolean to determine if the allowance earnings rate contributes towards annual leave rate. Only
+   * applicable if EarningsType is ALLOWANCE and RateType is RATEPERUNIT
+   *
+   * @return allowanceContributesToAnnualLeaveRate Boolean
+   */
+  public Boolean getAllowanceContributesToAnnualLeaveRate() {
+    return allowanceContributesToAnnualLeaveRate;
+  }
+
+  /**
+   * Boolean to determine if the allowance earnings rate contributes towards annual leave rate. Only
+   * applicable if EarningsType is ALLOWANCE and RateType is RATEPERUNIT
+   *
+   * @param allowanceContributesToAnnualLeaveRate Boolean
+   */
+  public void setAllowanceContributesToAnnualLeaveRate(
+      Boolean allowanceContributesToAnnualLeaveRate) {
+    this.allowanceContributesToAnnualLeaveRate = allowanceContributesToAnnualLeaveRate;
+  }
+
+  /**
+   * Boolean to determine if the allowance earnings rate contributes towards overtime allowance
+   * rate. Only applicable if EarningsType is ALLOWANCE and RateType is RATEPERUNIT
+   *
+   * @param allowanceContributesToOvertimeRate Boolean
+   * @return EarningsRate
+   */
+  public EarningsRate allowanceContributesToOvertimeRate(
+      Boolean allowanceContributesToOvertimeRate) {
+    this.allowanceContributesToOvertimeRate = allowanceContributesToOvertimeRate;
+    return this;
+  }
+
+  /**
+   * Boolean to determine if the allowance earnings rate contributes towards overtime allowance
+   * rate. Only applicable if EarningsType is ALLOWANCE and RateType is RATEPERUNIT
+   *
+   * @return allowanceContributesToOvertimeRate
+   */
+  @ApiModelProperty(
+      example = "false",
+      value =
+          "Boolean to determine if the allowance earnings rate contributes towards overtime"
+              + " allowance rate. Only applicable if EarningsType is ALLOWANCE and RateType is"
+              + " RATEPERUNIT")
+  /**
+   * Boolean to determine if the allowance earnings rate contributes towards overtime allowance
+   * rate. Only applicable if EarningsType is ALLOWANCE and RateType is RATEPERUNIT
+   *
+   * @return allowanceContributesToOvertimeRate Boolean
+   */
+  public Boolean getAllowanceContributesToOvertimeRate() {
+    return allowanceContributesToOvertimeRate;
+  }
+
+  /**
+   * Boolean to determine if the allowance earnings rate contributes towards overtime allowance
+   * rate. Only applicable if EarningsType is ALLOWANCE and RateType is RATEPERUNIT
+   *
+   * @param allowanceContributesToOvertimeRate Boolean
+   */
+  public void setAllowanceContributesToOvertimeRate(Boolean allowanceContributesToOvertimeRate) {
+    this.allowanceContributesToOvertimeRate = allowanceContributesToOvertimeRate;
   }
 
   /**
@@ -755,6 +851,12 @@ public class EarningsRate {
         && Objects.equals(this.isExemptFromTax, earningsRate.isExemptFromTax)
         && Objects.equals(this.isExemptFromSuper, earningsRate.isExemptFromSuper)
         && Objects.equals(this.isReportableAsW1, earningsRate.isReportableAsW1)
+        && Objects.equals(
+            this.allowanceContributesToAnnualLeaveRate,
+            earningsRate.allowanceContributesToAnnualLeaveRate)
+        && Objects.equals(
+            this.allowanceContributesToOvertimeRate,
+            earningsRate.allowanceContributesToOvertimeRate)
         && Objects.equals(this.earningsType, earningsRate.earningsType)
         && Objects.equals(this.earningsRateID, earningsRate.earningsRateID)
         && Objects.equals(this.rateType, earningsRate.rateType)
@@ -779,6 +881,8 @@ public class EarningsRate {
         isExemptFromTax,
         isExemptFromSuper,
         isReportableAsW1,
+        allowanceContributesToAnnualLeaveRate,
+        allowanceContributesToOvertimeRate,
         earningsType,
         earningsRateID,
         rateType,
@@ -803,6 +907,12 @@ public class EarningsRate {
     sb.append("    isExemptFromTax: ").append(toIndentedString(isExemptFromTax)).append("\n");
     sb.append("    isExemptFromSuper: ").append(toIndentedString(isExemptFromSuper)).append("\n");
     sb.append("    isReportableAsW1: ").append(toIndentedString(isReportableAsW1)).append("\n");
+    sb.append("    allowanceContributesToAnnualLeaveRate: ")
+        .append(toIndentedString(allowanceContributesToAnnualLeaveRate))
+        .append("\n");
+    sb.append("    allowanceContributesToOvertimeRate: ")
+        .append(toIndentedString(allowanceContributesToOvertimeRate))
+        .append("\n");
     sb.append("    earningsType: ").append(toIndentedString(earningsType)).append("\n");
     sb.append("    earningsRateID: ").append(toIndentedString(earningsRateID)).append("\n");
     sb.append("    rateType: ").append(toIndentedString(rateType)).append("\n");

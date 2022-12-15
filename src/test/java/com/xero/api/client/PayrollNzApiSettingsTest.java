@@ -57,7 +57,7 @@ public class PayrollNzApiSettingsTest {
         
         // Init projectApi client
         // NEW Sandbox for API Mocking
-		defaultClient = new ApiClient("https://xero-payroll-nz.getsandbox.com:443/payroll.xro/2.0",null,null,null,null);
+		defaultClient = new ApiClient("https://5d4d8dd7-b3b2-4151-87c6-31841929f349.mock.pstmn.io/payroll.xro/2.0",null,null,null,null);
         payrollNzApi = PayrollNzApi.getInstance(defaultClient);   
        
 	}
