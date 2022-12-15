@@ -57,7 +57,7 @@ public class ProjectsApiProjectsTest {
         
         // Init projectApi client
         // NEW Sandbox for API Mocking
-		defaultClient = new ApiClient("https://xero-projects.getsandbox.com:443/projects.xro/2.0",null,null,null,null);
+		defaultClient = new ApiClient("https://3fe1c2ee-7113-4035-9e6d-53dad2fb2af3.mock.pstmn.io/projects.xro/2.0",null,null,null,null);
         projectApi = projectApi.getInstance(defaultClient);   
        
         // ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs

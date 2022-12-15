@@ -55,7 +55,7 @@ public class FinanceApiTest {
         accessToken = "123";
         xeroTenantId = "xyz";
         
-		defaultClient = new ApiClient("https://xero-finance.getsandbox.com:443/finance.xro/1.0",null,null,null,null);
+		defaultClient = new ApiClient("https://73cb2c15-a3e8-4230-86d6-8af203c03b5f.mock.pstmn.io/finance.xro/1.0",null,null,null,null);
         financeApi = FinanceApi.getInstance(defaultClient);
         
 		// ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
