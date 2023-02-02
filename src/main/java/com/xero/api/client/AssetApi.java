@@ -678,7 +678,7 @@ public class AssetApi {
       String key = "status";
       Object value = status;
       if (value instanceof Collection) {
-        uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+        uriBuilder = uriBuilder.queryParam(key, String.join(",", (Collection) value));
       } else if (value instanceof Object[]) {
         uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
       } else {
@@ -689,7 +689,7 @@ public class AssetApi {
       String key = "page";
       Object value = page;
       if (value instanceof Collection) {
-        uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+        uriBuilder = uriBuilder.queryParam(key, String.join(",", (Collection) value));
       } else if (value instanceof Object[]) {
         uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
       } else {
@@ -700,7 +700,7 @@ public class AssetApi {
       String key = "pageSize";
       Object value = pageSize;
       if (value instanceof Collection) {
-        uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+        uriBuilder = uriBuilder.queryParam(key, String.join(",", (Collection) value));
       } else if (value instanceof Object[]) {
         uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
       } else {
@@ -711,7 +711,7 @@ public class AssetApi {
       String key = "orderBy";
       Object value = orderBy;
       if (value instanceof Collection) {
-        uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+        uriBuilder = uriBuilder.queryParam(key, String.join(",", (Collection) value));
       } else if (value instanceof Object[]) {
         uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
       } else {
@@ -722,7 +722,7 @@ public class AssetApi {
       String key = "sortDirection";
       Object value = sortDirection;
       if (value instanceof Collection) {
-        uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+        uriBuilder = uriBuilder.queryParam(key, String.join(",", (Collection) value));
       } else if (value instanceof Object[]) {
         uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
       } else {
@@ -733,7 +733,7 @@ public class AssetApi {
       String key = "filterBy";
       Object value = filterBy;
       if (value instanceof Collection) {
-        uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+        uriBuilder = uriBuilder.queryParam(key, String.join(",", (Collection) value));
       } else if (value instanceof Object[]) {
         uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
       } else {
