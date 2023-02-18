@@ -1017,7 +1017,7 @@ public class PayrollAuApi {
       String key = "where";
       Object value = where;
       if (value instanceof Collection) {
-        uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+        uriBuilder = uriBuilder.queryParam(key, String.join(",", (Collection) value));
       } else if (value instanceof Object[]) {
         uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
       } else {
@@ -1028,7 +1028,7 @@ public class PayrollAuApi {
       String key = "order";
       Object value = order;
       if (value instanceof Collection) {
-        uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+        uriBuilder = uriBuilder.queryParam(key, String.join(",", (Collection) value));
       } else if (value instanceof Object[]) {
         uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
       } else {
@@ -1039,7 +1039,7 @@ public class PayrollAuApi {
       String key = "page";
       Object value = page;
       if (value instanceof Collection) {
-        uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+        uriBuilder = uriBuilder.queryParam(key, String.join(",", (Collection) value));
       } else if (value instanceof Object[]) {
         uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
       } else {
@@ -1245,7 +1245,7 @@ public class PayrollAuApi {
       String key = "where";
       Object value = where;
       if (value instanceof Collection) {
-        uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+        uriBuilder = uriBuilder.queryParam(key, String.join(",", (Collection) value));
       } else if (value instanceof Object[]) {
         uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
       } else {
@@ -1256,7 +1256,7 @@ public class PayrollAuApi {
       String key = "order";
       Object value = order;
       if (value instanceof Collection) {
-        uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+        uriBuilder = uriBuilder.queryParam(key, String.join(",", (Collection) value));
       } else if (value instanceof Object[]) {
         uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
       } else {
@@ -1267,7 +1267,7 @@ public class PayrollAuApi {
       String key = "page";
       Object value = page;
       if (value instanceof Collection) {
-        uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+        uriBuilder = uriBuilder.queryParam(key, String.join(",", (Collection) value));
       } else if (value instanceof Object[]) {
         uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
       } else {
@@ -1384,7 +1384,7 @@ public class PayrollAuApi {
       String key = "where";
       Object value = where;
       if (value instanceof Collection) {
-        uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+        uriBuilder = uriBuilder.queryParam(key, String.join(",", (Collection) value));
       } else if (value instanceof Object[]) {
         uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
       } else {
@@ -1395,7 +1395,7 @@ public class PayrollAuApi {
       String key = "order";
       Object value = order;
       if (value instanceof Collection) {
-        uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+        uriBuilder = uriBuilder.queryParam(key, String.join(",", (Collection) value));
       } else if (value instanceof Object[]) {
         uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
       } else {
@@ -1406,7 +1406,7 @@ public class PayrollAuApi {
       String key = "page";
       Object value = page;
       if (value instanceof Collection) {
-        uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+        uriBuilder = uriBuilder.queryParam(key, String.join(",", (Collection) value));
       } else if (value instanceof Object[]) {
         uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
       } else {
@@ -1609,7 +1609,7 @@ public class PayrollAuApi {
       String key = "where";
       Object value = where;
       if (value instanceof Collection) {
-        uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+        uriBuilder = uriBuilder.queryParam(key, String.join(",", (Collection) value));
       } else if (value instanceof Object[]) {
         uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
       } else {
@@ -1620,7 +1620,7 @@ public class PayrollAuApi {
       String key = "order";
       Object value = order;
       if (value instanceof Collection) {
-        uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+        uriBuilder = uriBuilder.queryParam(key, String.join(",", (Collection) value));
       } else if (value instanceof Object[]) {
         uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
       } else {
@@ -1631,7 +1631,7 @@ public class PayrollAuApi {
       String key = "page";
       Object value = page;
       if (value instanceof Collection) {
-        uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+        uriBuilder = uriBuilder.queryParam(key, String.join(",", (Collection) value));
       } else if (value instanceof Object[]) {
         uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
       } else {
@@ -1841,7 +1841,7 @@ public class PayrollAuApi {
       String key = "where";
       Object value = where;
       if (value instanceof Collection) {
-        uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+        uriBuilder = uriBuilder.queryParam(key, String.join(",", (Collection) value));
       } else if (value instanceof Object[]) {
         uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
       } else {
@@ -1852,7 +1852,7 @@ public class PayrollAuApi {
       String key = "order";
       Object value = order;
       if (value instanceof Collection) {
-        uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+        uriBuilder = uriBuilder.queryParam(key, String.join(",", (Collection) value));
       } else if (value instanceof Object[]) {
         uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
       } else {
@@ -1863,7 +1863,7 @@ public class PayrollAuApi {
       String key = "page";
       Object value = page;
       if (value instanceof Collection) {
-        uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+        uriBuilder = uriBuilder.queryParam(key, String.join(",", (Collection) value));
       } else if (value instanceof Object[]) {
         uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
       } else {
@@ -2211,7 +2211,7 @@ public class PayrollAuApi {
       String key = "ABN";
       Object value = ABN;
       if (value instanceof Collection) {
-        uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+        uriBuilder = uriBuilder.queryParam(key, String.join(",", (Collection) value));
       } else if (value instanceof Object[]) {
         uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
       } else {
@@ -2222,7 +2222,7 @@ public class PayrollAuApi {
       String key = "USI";
       Object value = USI;
       if (value instanceof Collection) {
-        uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+        uriBuilder = uriBuilder.queryParam(key, String.join(",", (Collection) value));
       } else if (value instanceof Object[]) {
         uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
       } else {
@@ -2339,7 +2339,7 @@ public class PayrollAuApi {
       String key = "where";
       Object value = where;
       if (value instanceof Collection) {
-        uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+        uriBuilder = uriBuilder.queryParam(key, String.join(",", (Collection) value));
       } else if (value instanceof Object[]) {
         uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
       } else {
@@ -2350,7 +2350,7 @@ public class PayrollAuApi {
       String key = "order";
       Object value = order;
       if (value instanceof Collection) {
-        uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+        uriBuilder = uriBuilder.queryParam(key, String.join(",", (Collection) value));
       } else if (value instanceof Object[]) {
         uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
       } else {
@@ -2361,7 +2361,7 @@ public class PayrollAuApi {
       String key = "page";
       Object value = page;
       if (value instanceof Collection) {
-        uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+        uriBuilder = uriBuilder.queryParam(key, String.join(",", (Collection) value));
       } else if (value instanceof Object[]) {
         uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
       } else {
@@ -2566,7 +2566,7 @@ public class PayrollAuApi {
       String key = "where";
       Object value = where;
       if (value instanceof Collection) {
-        uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+        uriBuilder = uriBuilder.queryParam(key, String.join(",", (Collection) value));
       } else if (value instanceof Object[]) {
         uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
       } else {
@@ -2577,7 +2577,7 @@ public class PayrollAuApi {
       String key = "order";
       Object value = order;
       if (value instanceof Collection) {
-        uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+        uriBuilder = uriBuilder.queryParam(key, String.join(",", (Collection) value));
       } else if (value instanceof Object[]) {
         uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
       } else {
@@ -2588,7 +2588,7 @@ public class PayrollAuApi {
       String key = "page";
       Object value = page;
       if (value instanceof Collection) {
-        uriBuilder = uriBuilder.queryParam(key, ((Collection) value).toArray());
+        uriBuilder = uriBuilder.queryParam(key, String.join(",", (Collection) value));
       } else if (value instanceof Object[]) {
         uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
       } else {

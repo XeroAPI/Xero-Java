@@ -89,7 +89,7 @@ public class XeroRateLimitException extends XeroException {
     /** get retry after seconds
     * @return Long the number of seconds to wait before resuming API calls
     */
-    public long getRetryAfterSeconds() {
+    public Long getRetryAfterSeconds() {
         return retryAfterSeconds;
     }
 }
