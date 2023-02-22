@@ -49,6 +49,9 @@ public class LeaveApplication {
   @JsonProperty("Description")
   private String description;
 
+  @JsonProperty("PayOutType")
+  private PayOutType payOutType;
+
   @JsonProperty("LeavePeriods")
   private List<LeavePeriod> leavePeriods = new ArrayList<LeavePeriod>();
 
@@ -369,6 +372,41 @@ public class LeaveApplication {
   }
 
   /**
+   * payOutType
+   *
+   * @param payOutType PayOutType
+   * @return LeaveApplication
+   */
+  public LeaveApplication payOutType(PayOutType payOutType) {
+    this.payOutType = payOutType;
+    return this;
+  }
+
+  /**
+   * Get payOutType
+   *
+   * @return payOutType
+   */
+  @ApiModelProperty(value = "")
+  /**
+   * payOutType
+   *
+   * @return payOutType PayOutType
+   */
+  public PayOutType getPayOutType() {
+    return payOutType;
+  }
+
+  /**
+   * payOutType
+   *
+   * @param payOutType PayOutType
+   */
+  public void setPayOutType(PayOutType payOutType) {
+    this.payOutType = payOutType;
+  }
+
+  /**
    * leavePeriods
    *
    * @param leavePeriods List&lt;LeavePeriod&gt;
@@ -512,6 +550,7 @@ public class LeaveApplication {
         && Objects.equals(this.startDate, leaveApplication.startDate)
         && Objects.equals(this.endDate, leaveApplication.endDate)
         && Objects.equals(this.description, leaveApplication.description)
+        && Objects.equals(this.payOutType, leaveApplication.payOutType)
         && Objects.equals(this.leavePeriods, leaveApplication.leavePeriods)
         && Objects.equals(this.updatedDateUTC, leaveApplication.updatedDateUTC)
         && Objects.equals(this.validationErrors, leaveApplication.validationErrors);
@@ -527,6 +566,7 @@ public class LeaveApplication {
         startDate,
         endDate,
         description,
+        payOutType,
         leavePeriods,
         updatedDateUTC,
         validationErrors);
@@ -543,6 +583,7 @@ public class LeaveApplication {
     sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
     sb.append("    endDate: ").append(toIndentedString(endDate)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    payOutType: ").append(toIndentedString(payOutType)).append("\n");
     sb.append("    leavePeriods: ").append(toIndentedString(leavePeriods)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
     sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");

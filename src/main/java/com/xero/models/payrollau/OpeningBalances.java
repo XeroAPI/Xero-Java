@@ -46,6 +46,10 @@ public class OpeningBalances {
 
   @JsonProperty("LeaveLines")
   private List<LeaveLine> leaveLines = new ArrayList<LeaveLine>();
+
+  @JsonProperty("PaidLeaveEarningsLines")
+  private List<PaidLeaveEarningsLine> paidLeaveEarningsLines =
+      new ArrayList<PaidLeaveEarningsLine>();
   /**
    * Opening Balance Date. (YYYY-MM-DD)
    *
@@ -391,6 +395,57 @@ public class OpeningBalances {
     this.leaveLines = leaveLines;
   }
 
+  /**
+   * paidLeaveEarningsLines
+   *
+   * @param paidLeaveEarningsLines List&lt;PaidLeaveEarningsLine&gt;
+   * @return OpeningBalances
+   */
+  public OpeningBalances paidLeaveEarningsLines(
+      List<PaidLeaveEarningsLine> paidLeaveEarningsLines) {
+    this.paidLeaveEarningsLines = paidLeaveEarningsLines;
+    return this;
+  }
+
+  /**
+   * paidLeaveEarningsLines
+   *
+   * @param paidLeaveEarningsLinesItem PaidLeaveEarningsLine
+   * @return OpeningBalances
+   */
+  public OpeningBalances addPaidLeaveEarningsLinesItem(
+      PaidLeaveEarningsLine paidLeaveEarningsLinesItem) {
+    if (this.paidLeaveEarningsLines == null) {
+      this.paidLeaveEarningsLines = new ArrayList<PaidLeaveEarningsLine>();
+    }
+    this.paidLeaveEarningsLines.add(paidLeaveEarningsLinesItem);
+    return this;
+  }
+
+  /**
+   * Get paidLeaveEarningsLines
+   *
+   * @return paidLeaveEarningsLines
+   */
+  @ApiModelProperty(value = "")
+  /**
+   * paidLeaveEarningsLines
+   *
+   * @return paidLeaveEarningsLines List<PaidLeaveEarningsLine>
+   */
+  public List<PaidLeaveEarningsLine> getPaidLeaveEarningsLines() {
+    return paidLeaveEarningsLines;
+  }
+
+  /**
+   * paidLeaveEarningsLines
+   *
+   * @param paidLeaveEarningsLines List&lt;PaidLeaveEarningsLine&gt;
+   */
+  public void setPaidLeaveEarningsLines(List<PaidLeaveEarningsLine> paidLeaveEarningsLines) {
+    this.paidLeaveEarningsLines = paidLeaveEarningsLines;
+  }
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -406,7 +461,8 @@ public class OpeningBalances {
         && Objects.equals(this.deductionLines, openingBalances.deductionLines)
         && Objects.equals(this.superLines, openingBalances.superLines)
         && Objects.equals(this.reimbursementLines, openingBalances.reimbursementLines)
-        && Objects.equals(this.leaveLines, openingBalances.leaveLines);
+        && Objects.equals(this.leaveLines, openingBalances.leaveLines)
+        && Objects.equals(this.paidLeaveEarningsLines, openingBalances.paidLeaveEarningsLines);
   }
 
   @Override
@@ -418,7 +474,8 @@ public class OpeningBalances {
         deductionLines,
         superLines,
         reimbursementLines,
-        leaveLines);
+        leaveLines,
+        paidLeaveEarningsLines);
   }
 
   @Override
@@ -432,6 +489,9 @@ public class OpeningBalances {
     sb.append("    superLines: ").append(toIndentedString(superLines)).append("\n");
     sb.append("    reimbursementLines: ").append(toIndentedString(reimbursementLines)).append("\n");
     sb.append("    leaveLines: ").append(toIndentedString(leaveLines)).append("\n");
+    sb.append("    paidLeaveEarningsLines: ")
+        .append(toIndentedString(paidLeaveEarningsLines))
+        .append("\n");
     sb.append("}");
     return sb.toString();
   }

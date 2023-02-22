@@ -29,6 +29,9 @@ public class LeaveEarningsLine {
 
   @JsonProperty("NumberOfUnits")
   private Double numberOfUnits;
+
+  @JsonProperty("PayOutType")
+  private PayOutType payOutType;
   /**
    * Xero identifier
    *
@@ -134,6 +137,41 @@ public class LeaveEarningsLine {
     this.numberOfUnits = numberOfUnits;
   }
 
+  /**
+   * payOutType
+   *
+   * @param payOutType PayOutType
+   * @return LeaveEarningsLine
+   */
+  public LeaveEarningsLine payOutType(PayOutType payOutType) {
+    this.payOutType = payOutType;
+    return this;
+  }
+
+  /**
+   * Get payOutType
+   *
+   * @return payOutType
+   */
+  @ApiModelProperty(value = "")
+  /**
+   * payOutType
+   *
+   * @return payOutType PayOutType
+   */
+  public PayOutType getPayOutType() {
+    return payOutType;
+  }
+
+  /**
+   * payOutType
+   *
+   * @param payOutType PayOutType
+   */
+  public void setPayOutType(PayOutType payOutType) {
+    this.payOutType = payOutType;
+  }
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -145,12 +183,13 @@ public class LeaveEarningsLine {
     LeaveEarningsLine leaveEarningsLine = (LeaveEarningsLine) o;
     return Objects.equals(this.earningsRateID, leaveEarningsLine.earningsRateID)
         && Objects.equals(this.ratePerUnit, leaveEarningsLine.ratePerUnit)
-        && Objects.equals(this.numberOfUnits, leaveEarningsLine.numberOfUnits);
+        && Objects.equals(this.numberOfUnits, leaveEarningsLine.numberOfUnits)
+        && Objects.equals(this.payOutType, leaveEarningsLine.payOutType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(earningsRateID, ratePerUnit, numberOfUnits);
+    return Objects.hash(earningsRateID, ratePerUnit, numberOfUnits, payOutType);
   }
 
   @Override
@@ -160,6 +199,7 @@ public class LeaveEarningsLine {
     sb.append("    earningsRateID: ").append(toIndentedString(earningsRateID)).append("\n");
     sb.append("    ratePerUnit: ").append(toIndentedString(ratePerUnit)).append("\n");
     sb.append("    numberOfUnits: ").append(toIndentedString(numberOfUnits)).append("\n");
+    sb.append("    payOutType: ").append(toIndentedString(payOutType)).append("\n");
     sb.append("}");
     return sb.toString();
   }
