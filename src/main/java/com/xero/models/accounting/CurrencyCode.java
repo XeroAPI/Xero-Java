@@ -105,6 +105,9 @@ public enum CurrencyCode {
   /** CHF */
   CHF("CHF"),
 
+  /** CLF */
+  CLF("CLF"),
+
   /** CLP */
   CLP("CLP"),
 
@@ -141,6 +144,9 @@ public enum CurrencyCode {
   /** DZD */
   DZD("DZD"),
 
+  /** EEK */
+  EEK("EEK"),
+
   /** EGP */
   EGP("EGP"),
 
@@ -164,9 +170,6 @@ public enum CurrencyCode {
 
   /** GEL */
   GEL("GEL"),
-
-  /** GGP */
-  GGP("GGP"),
 
   /** GHS */
   GHS("GHS"),
@@ -207,9 +210,6 @@ public enum CurrencyCode {
   /** ILS */
   ILS("ILS"),
 
-  /** IMP */
-  IMP("IMP"),
-
   /** INR */
   INR("INR"),
 
@@ -221,9 +221,6 @@ public enum CurrencyCode {
 
   /** ISK */
   ISK("ISK"),
-
-  /** JEP */
-  JEP("JEP"),
 
   /** JMD */
   JMD("JMD"),
@@ -279,6 +276,9 @@ public enum CurrencyCode {
   /** LTL */
   LTL("LTL"),
 
+  /** LVL */
+  LVL("LVL"),
+
   /** LYD */
   LYD("LYD"),
 
@@ -303,6 +303,9 @@ public enum CurrencyCode {
   /** MOP */
   MOP("MOP"),
 
+  /** MRO */
+  MRO("MRO"),
+
   /** MRU */
   MRU("MRU"),
 
@@ -317,6 +320,9 @@ public enum CurrencyCode {
 
   /** MXN */
   MXN("MXN"),
+
+  /** MXV */
+  MXV("MXV"),
 
   /** MYR */
   MYR("MYR"),
@@ -402,20 +408,26 @@ public enum CurrencyCode {
   /** SHP */
   SHP("SHP"),
 
+  /** SKK */
+  SKK("SKK"),
+
+  /** SLE */
+  SLE("SLE"),
+
   /** SLL */
   SLL("SLL"),
 
   /** SOS */
   SOS("SOS"),
 
-  /** SPL */
-  SPL("SPL"),
-
   /** SRD */
   SRD("SRD"),
 
   /** STN */
-  STN("STN"),
+  STN("STD"),
+
+  /** STD */
+  STD("STN"),
 
   /** SVC */
   SVC("SVC"),
@@ -447,9 +459,6 @@ public enum CurrencyCode {
   /** TTD */
   TTD("TTD"),
 
-  /** TVD */
-  TVD("TVD"),
-
   /** TWD */
   TWD("TWD"),
 
@@ -474,6 +483,9 @@ public enum CurrencyCode {
   /** VEF */
   VEF("VEF"),
 
+  /** VES */
+  VES("VES"),
+
   /** VND */
   VND("VND"),
 
@@ -488,9 +500,6 @@ public enum CurrencyCode {
 
   /** XCD */
   XCD("XCD"),
-
-  /** XDR */
-  XDR("XDR"),
 
   /** XOF */
   XOF("XOF"),
