@@ -366,7 +366,22 @@ public class TaxRate {
     SROVRLVG("SROVRLVG"),
 
     /** SRLVG */
-    SRLVG("SRLVG");
+    SRLVG("SRLVG"),
+
+    /** IM */
+    IM("IM"),
+
+    /** IMESS */
+    IMESS("IMESS"),
+
+    /** IMN33 */
+    IMN33("IMN33"),
+
+    /** IMRE */
+    IMRE("IMRE"),
+
+    /** BADDEBTRECOVERY */
+    BADDEBTRECOVERY("BADDEBTRECOVERY");
 
     private String value;
 
