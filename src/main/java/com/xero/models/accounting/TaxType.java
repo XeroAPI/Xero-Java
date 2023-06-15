@@ -274,7 +274,37 @@ public enum TaxType {
   TXRCESSY23("TXRCESSY23"),
 
   /** TXRCTSY23 */
-  TXRCTSY23("TXRCTSY23");
+  TXRCTSY23("TXRCTSY23"),
+
+  /** IM */
+  IM("IM"),
+
+  /** IMY23 */
+  IMY23("IMY23"),
+
+  /** IMESS */
+  IMESS("IMESS"),
+
+  /** IMESSY23 */
+  IMESSY23("IMESSY23"),
+
+  /** IMN33 */
+  IMN33("IMN33"),
+
+  /** IMN33Y23 */
+  IMN33Y23("IMN33Y23"),
+
+  /** IMRE */
+  IMRE("IMRE"),
+
+  /** IMREY23 */
+  IMREY23("IMREY23"),
+
+  /** BADDEBTRECOVERY */
+  BADDEBTRECOVERY("BADDEBTRECOVERY"),
+
+  /** BADDEBTRECOVERYY23 */
+  BADDEBTRECOVERYY23("BADDEBTRECOVERYY23");
 
   private String value;
 
