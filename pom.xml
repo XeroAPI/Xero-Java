@@ -5,7 +5,7 @@
     <artifactId>xero-java</artifactId>
     <packaging>jar</packaging>
     <name>xero-java</name>
-    <version>4.28.0</version>
+    <version>4.28.1</version>
     <url>https://github.com/XeroAPI/Xero-Java</url>
     <description>This is the official Java SDK for Xero API</description>
     <licenses>
@@ -138,6 +138,21 @@
             <artifactId>jersey-media-json-jackson</artifactId>
             <version>${jersey-version}</version>
         </dependency>
+
+        <!-- jakarta -->
+
+        <dependency>
+            <groupId>jakarta.ws.rs</groupId>
+            <artifactId>jakarta.ws.rs-api</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-common</artifactId>
+            <version>3.1.2</version>
+        </dependency>
+
         <!-- Base64 encoding that works in both JVM and Android -->
         <dependency>
             <groupId>com.brsanthu</groupId>
