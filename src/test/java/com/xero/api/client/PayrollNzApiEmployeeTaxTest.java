@@ -93,7 +93,7 @@ public class PayrollNzApiEmployeeTaxTest {
         
         UUID employeeId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
         EmployeeTax employeeTax = new EmployeeTax();
-        EmployeeTaxObject response = payrollNzApi.updateEmployeeTax(accessToken, xeroTenantId, employeeId,employeeTax);
+        EmployeeTaxObject response = payrollNzApi.updateEmployeeTax(accessToken, xeroTenantId, employeeId,employeeTax, null);
         
         // assertThat(response.getEmployeeTax().getIrdNumber() , is(equalTo("111111111")));
         // assertThat(response.getEmployeeTax().getTaxCode() , is(equalTo(com.xero.models.payrollnz.TaxCode.M)));

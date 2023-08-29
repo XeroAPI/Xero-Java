@@ -117,7 +117,7 @@ public class AccountingApiContactGroupTest {
         System.out.println("@Test - createContactGroupTest");
 
         ContactGroups contactGroups = new ContactGroups();
-        ContactGroups response = accountingApi.createContactGroup(accessToken,xeroTenantId,contactGroups);
+        ContactGroups response = accountingApi.createContactGroup(accessToken,xeroTenantId,contactGroups, null);
         assertThat(response.getContactGroups().get(0).getContactGroupID(), is(equalTo(UUID.fromString("d7a86b80-8dac-4d89-a334-9dcf5753676c"))));
         assertThat(response.getContactGroups().get(0).getName(), is(equalTo("Suppliers")));
         assertThat(response.getContactGroups().get(0).getStatus(), is(equalTo(com.xero.models.accounting.ContactGroup.StatusEnum.ACTIVE)));
@@ -130,7 +130,7 @@ public class AccountingApiContactGroupTest {
 
         UUID contactGroupID = UUID.fromString("13f47537-7c1d-4e62-966e-617d76558fc5");
         ContactGroups contactGroups = new ContactGroups();
-        ContactGroups response = accountingApi.updateContactGroup(accessToken,xeroTenantId,contactGroupID, contactGroups);
+        ContactGroups response = accountingApi.updateContactGroup(accessToken,xeroTenantId,contactGroupID, contactGroups, null);
         assertThat(response.getContactGroups().get(0).getContactGroupID(), is(equalTo(UUID.fromString("13f47537-7c1d-4e62-966e-617d76558fc5"))));
         assertThat(response.getContactGroups().get(0).getName(), is(equalTo("Supplier Vendor")));
         assertThat(response.getContactGroups().get(0).getStatus(), is(equalTo(com.xero.models.accounting.ContactGroup.StatusEnum.ACTIVE)));
@@ -143,7 +143,7 @@ public class AccountingApiContactGroupTest {
 
         UUID contactGroupID = UUID.fromString("13f47537-7c1d-4e62-966e-617d76558fc5");
         Contacts contacts = new Contacts();
-        Contacts response = accountingApi.createContactGroupContacts(accessToken,xeroTenantId,contactGroupID, contacts);
+        Contacts response = accountingApi.createContactGroupContacts(accessToken,xeroTenantId,contactGroupID, contacts, null);
         assertThat(response.getContacts().get(0).getContactID(), is(equalTo(UUID.fromString("a3675fc4-f8dd-4f03-ba5b-f1870566bcd7"))));
         //System.out.println(response.getContacts().get(0).toString());
     }

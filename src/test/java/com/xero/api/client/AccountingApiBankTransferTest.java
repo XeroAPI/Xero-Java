@@ -124,7 +124,7 @@ public class AccountingApiBankTransferTest {
     	System.out.println("@Test - createBankTransfer");
 
         BankTransfers bankTransfers = new BankTransfers();
-        BankTransfers response = accountingApi.createBankTransfer(accessToken,xeroTenantId,bankTransfers);
+        BankTransfers response = accountingApi.createBankTransfer(accessToken,xeroTenantId,bankTransfers,null);
 		assertThat(response.getBankTransfers().get(0).getBankTransferID(), is(equalTo(UUID.fromString("76eea4b6-f026-464c-b6f3-5fb39a196145"))));
 		assertThat(response.getBankTransfers().get(0).getFromBankTransactionID(), is(equalTo(UUID.fromString("e4059952-5acb-4a56-b076-53fad85f2930"))));
 		assertThat(response.getBankTransfers().get(0).getToBankAccount().getName(), is(equalTo("Business Wells Fargo")));
@@ -141,7 +141,7 @@ public class AccountingApiBankTransferTest {
         UUID bankTransferID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");  
         String fileName = "sample5.jpg";
         
-        Attachments response = accountingApi.createBankTransferAttachmentByFileName(accessToken,xeroTenantId,bankTransferID, fileName, bytes);
+        Attachments response = accountingApi.createBankTransferAttachmentByFileName(accessToken,xeroTenantId,bankTransferID, fileName, bytes,null);
        	assertThat(response.getAttachments().get(0).getAttachmentID(), is(equalTo(UUID.fromString("9478be4c-c707-48c1-b4a7-83d8eaf442b5"))));
         assertThat(response.getAttachments().get(0).getFileName(), is(equalTo("sample5.jpg")));
         assertThat(response.getAttachments().get(0).getMimeType(), is(equalTo("image/jpg")));

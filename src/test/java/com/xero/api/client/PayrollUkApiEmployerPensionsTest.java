@@ -112,7 +112,7 @@ public class PayrollUkApiEmployerPensionsTest {
         System.out.println("@Test UK Payroll - createBenefitTest");
        
         Benefit benefit = new Benefit();
-        BenefitObject response = payrollUkApi.createBenefit(accessToken, xeroTenantId, benefit);
+        BenefitObject response = payrollUkApi.createBenefit(accessToken, xeroTenantId, benefit, null);
         
         assertThat(response.getBenefit().getId(), is(equalTo(UUID.fromString("d295bf25-fb61-4f91-9b62-a9ae87633746"))));
         assertThat(response.getBenefit().getLiabilityAccountId(), is(equalTo(UUID.fromString("e0faa299-ca0d-4b0a-9e32-0dfabdf9179a"))));

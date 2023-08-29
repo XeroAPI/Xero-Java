@@ -46,7 +46,10 @@ public enum ProblemType {
   SERVICE_UNAVAILABLE("service-unavailable"),
 
   /** UNAUTHORIZED */
-  UNAUTHORIZED("unauthorized");
+  UNAUTHORIZED("unauthorized"),
+
+  /** RATE_LIMIT_ERROR */
+  RATE_LIMIT_ERROR("rate-limit-error");
 
   private String value;
 

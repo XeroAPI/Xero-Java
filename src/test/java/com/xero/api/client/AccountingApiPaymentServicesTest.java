@@ -85,7 +85,7 @@ public class AccountingApiPaymentServicesTest {
     public void createPaymentServiceTest() throws IOException {
         System.out.println("@Test - createPaymentService");
         PaymentServices paymentServices = new PaymentServices();
-        PaymentServices response = accountingApi.createPaymentService(accessToken,xeroTenantId,paymentServices);
+        PaymentServices response = accountingApi.createPaymentService(accessToken,xeroTenantId,paymentServices, null);
 
         assertThat(response.getPaymentServices().get(0).getPaymentServiceID(), is(equalTo(UUID.fromString("54b3b4f6-0443-4fba-bcd1-61ec0c35ca55"))));
         assertThat(response.getPaymentServices().get(0).getPaymentServiceName(), is(equalTo("PayUpNow")));

@@ -89,7 +89,7 @@ public class AccountingApiManualJournalsTest {
     public void createManualJournalsTest() throws IOException {
         System.out.println("@Test - createManualJournals");
         ManualJournals manualJournals = new ManualJournals();
-        ManualJournals response = accountingApi.createManualJournals(accessToken,xeroTenantId,manualJournals, false);
+        ManualJournals response = accountingApi.createManualJournals(accessToken,xeroTenantId,manualJournals, null, false);
 
         assertThat(response.getManualJournals().get(0).getNarration(), is(equalTo("Foo bar")));
         assertThat(response.getManualJournals().get(0).getJournalLines().get(0).getLineAmount(), is(equalTo(100.0)));
@@ -125,7 +125,7 @@ public class AccountingApiManualJournalsTest {
         System.out.println("@Test - createManualJournalAttachmentByFileName");
         UUID manualJournalID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         String fileName = "sample5.jpg";
-        Attachments response = accountingApi.createManualJournalAttachmentByFileName(accessToken,xeroTenantId,manualJournalID, fileName, body);
+        Attachments response = accountingApi.createManualJournalAttachmentByFileName(accessToken,xeroTenantId,manualJournalID, fileName, body, null);
 
         assertThat(response.getAttachments().get(0).getAttachmentID(), is(equalTo(UUID.fromString("47ac97ff-d4f9-48a0-8a8e-49fae29129e7"))));
         assertThat(response.getAttachments().get(0).getFileName(), is(equalTo("foobar.jpg")));
@@ -210,7 +210,7 @@ public class AccountingApiManualJournalsTest {
         System.out.println("@Test - updateManualJournal");
         UUID manualJournalID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         ManualJournals manualJournals = new ManualJournals();
-        ManualJournals response = accountingApi.updateManualJournal(accessToken,xeroTenantId,manualJournalID, manualJournals);
+        ManualJournals response = accountingApi.updateManualJournal(accessToken,xeroTenantId,manualJournalID, manualJournals, null);
 
         assertThat(response.getManualJournals().get(0).getNarration(), is(equalTo("Hello Xero")));
         assertThat(response.getManualJournals().get(0).getJournalLines().get(0).getLineAmount(), is(equalTo(100.0)));

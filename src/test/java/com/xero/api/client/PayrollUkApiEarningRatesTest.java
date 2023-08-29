@@ -117,7 +117,7 @@ public class PayrollUkApiEarningRatesTest {
         System.out.println("@Test UK Payroll - createEarningsRateTest");
        
         EarningsRate earningsRate = new EarningsRate();
-        EarningsRateObject response = payrollUkApi.createEarningsRate(accessToken, xeroTenantId, earningsRate);
+        EarningsRateObject response = payrollUkApi.createEarningsRate(accessToken, xeroTenantId, earningsRate, null);
         
         assertThat(response.getEarningsRate().getEarningsRateID(),is(equalTo(UUID.fromString("fcf811a8-3843-4e87-8431-c62e83158aef"))));
         assertThat(response.getEarningsRate().getExpenseAccountID(), is(equalTo(UUID.fromString("4b03500d-32fd-4616-8d70-e1e56e0519c6"))));

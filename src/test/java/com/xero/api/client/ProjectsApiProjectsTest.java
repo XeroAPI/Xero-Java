@@ -134,7 +134,7 @@ public class ProjectsApiProjectsTest {
         System.out.println("@Test - createProjectsTest");
 
         ProjectCreateOrUpdate projectCreateOrUpdate = new ProjectCreateOrUpdate();
-        Project response = projectApi.createProject(accessToken, xeroTenantId, projectCreateOrUpdate);
+        Project response = projectApi.createProject(accessToken, xeroTenantId, projectCreateOrUpdate, null);
         
         assertThat(response.getContactId(), is(equalTo(UUID.fromString("216830cb-9a68-487e-928b-c1a7ccc4fc81"))));
         assertThat(response.getProjectId(), is(equalTo(UUID.fromString("ed957eee-bc6f-4f52-a663-aa42e6af9620"))));

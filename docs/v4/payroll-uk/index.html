@@ -3506,7 +3506,7 @@ ul.nav-tabs {
           <nav id="scrollingNav">
             <ul class="sidenav nav nav-list">
               <li class="nav-header" data-group="PayrollUk"><strong>SDK: </strong><span id='sdk-name'></span></li>
-              <li class="nav-header" data-group="PayrollUk"><strong>VSN: </strong>4.28.0</li>
+              <li class="nav-header" data-group="PayrollUk"><strong>VSN: </strong>4.29.0</li>
               <li class="nav-header" data-group="PayrollUk"><a href="#api-PayrollUk">Methods</a></li>
               <li data-group="PayrollUk" data-name="approveTimesheet" class="">
                 <a href="#api-PayrollUk-approveTimesheet">approveTimesheet</a>
@@ -3775,9 +3775,10 @@ public class PayrollUkApiExample {
         String xeroTenantId = 'xeroTenantId_example';
         UUID timesheetID = UUID.fromString("38400000-8cf0-11bd-b23e-10b96e4ef00d");
         UUID timesheetID = '38400000-8cf0-11bd-b23e-10b96e4ef00d';
+        String idempotencyKey = 'KEY_VALUE';
 
         try {
-            TimesheetObject result = apiInstance.approveTimesheet(accessToken, xeroTenantId, timesheetID);
+            TimesheetObject result = apiInstance.approveTimesheet(accessToken, xeroTenantId, timesheetID, idempotencyKey);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling PayrollUkApi#approveTimesheet");
@@ -3859,6 +3860,26 @@ Xero identifier for Tenant
 </td>
 </tr>
 
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_approveTimesheet_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
                   </table>
                 </article>
               </div>
@@ -3900,6 +3921,7 @@ public class PayrollUkApiExample {
 
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'xeroTenantId_example';
+        String idempotencyKey = 'KEY_VALUE';
         
         Benefit benefit = new Benefit();
         benefit.setName("Benefit Name");
@@ -3908,7 +3930,7 @@ public class PayrollUkApiExample {
         benefit.setIsCalculatingOnQualifyingEarnings(true);
 
         try {
-            BenefitObject result = apiInstance.createBenefit(accessToken, xeroTenantId, benefit);
+            BenefitObject result = apiInstance.createBenefit(accessToken, xeroTenantId, benefit, idempotencyKey);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling PayrollUkApi#createBenefit");
@@ -3952,6 +3974,26 @@ Xero identifier for Tenant
                 <div class="inner required">
                     Required
                 </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_createBenefit_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
         </div>
     </div>
 </td>
@@ -4034,6 +4076,7 @@ public class PayrollUkApiExample {
 
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'xeroTenantId_example';
+        String idempotencyKey = 'KEY_VALUE';
         
         Deduction deduction = new Deduction();
         deduction.setDeductionName("Test Deduction");
@@ -4042,7 +4085,7 @@ public class PayrollUkApiExample {
         deduction.setCalculationType(com.xero.models.payrolluk.Deduction.CalculationTypeEnum.PercentageOfGross);
 
         try {
-            DeductionObject result = apiInstance.createDeduction(accessToken, xeroTenantId, deduction);
+            DeductionObject result = apiInstance.createDeduction(accessToken, xeroTenantId, deduction, idempotencyKey);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling PayrollUkApi#createDeduction");
@@ -4086,6 +4129,26 @@ Xero identifier for Tenant
                 <div class="inner required">
                     Required
                 </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_createDeduction_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
         </div>
     </div>
 </td>
@@ -4168,6 +4231,7 @@ public class PayrollUkApiExample {
 
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'xeroTenantId_example';
+        String idempotencyKey = 'KEY_VALUE';
         
         EarningsRate earningsRate = new EarningsRate();
         earningsRate.setEarningsType(com.xero.models.payrolluk.EarningsRate.EarningsTypeEnum.RegularEarnings);
@@ -4176,7 +4240,7 @@ public class PayrollUkApiExample {
         earningsRate.setTypeOfUnits("Type");
 
         try {
-            EarningsRateObject result = apiInstance.createEarningsRate(accessToken, xeroTenantId, earningsRate);
+            EarningsRateObject result = apiInstance.createEarningsRate(accessToken, xeroTenantId, earningsRate, idempotencyKey);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling PayrollUkApi#createEarningsRate");
@@ -4220,6 +4284,26 @@ Xero identifier for Tenant
                 <div class="inner required">
                     Required
                 </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_createEarningsRate_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
         </div>
     </div>
 </td>
@@ -4302,6 +4386,7 @@ public class PayrollUkApiExample {
 
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'xeroTenantId_example';
+        String idempotencyKey = 'KEY_VALUE';
         LocalDate dateOfBirth = LocalDate.of(2000, Month.OCTOBER, 28);
         
         Address address = new Address();
@@ -4317,7 +4402,7 @@ public class PayrollUkApiExample {
         employee.setAddress(address);
 
         try {
-            EmployeeObject result = apiInstance.createEmployee(accessToken, xeroTenantId, employee);
+            EmployeeObject result = apiInstance.createEmployee(accessToken, xeroTenantId, employee, idempotencyKey);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling PayrollUkApi#createEmployee");
@@ -4361,6 +4446,26 @@ Xero identifier for Tenant
                 <div class="inner required">
                     Required
                 </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_createEmployee_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
         </div>
     </div>
 </td>
@@ -4445,6 +4550,7 @@ public class PayrollUkApiExample {
         String xeroTenantId = 'xeroTenantId_example';
         UUID employeeID = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
         UUID employeeID = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
+        String idempotencyKey = 'KEY_VALUE';
         
         EarningsTemplate earningsTemplate = new EarningsTemplate();
         earningsTemplate.setPayTemplateEarningID(UUID.fromString("00000000-0000-0000-0000-000000000000"));
@@ -4458,7 +4564,7 @@ public class PayrollUkApiExample {
         earningsTemplates.add(earningsTemplate);
 
         try {
-            EarningsTemplateObject result = apiInstance.createEmployeeEarningsTemplate(accessToken, xeroTenantId, employeeID, earningsTemplate);
+            EarningsTemplateObject result = apiInstance.createEmployeeEarningsTemplate(accessToken, xeroTenantId, employeeID, earningsTemplate, idempotencyKey);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling PayrollUkApi#createEmployeeEarningsTemplate");
@@ -4535,6 +4641,26 @@ Xero identifier for Tenant
                 <div class="inner required">
                     Required
                 </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_createEmployeeEarningsTemplate_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
         </div>
     </div>
 </td>
@@ -4618,6 +4744,7 @@ public class PayrollUkApiExample {
         String xeroTenantId = 'xeroTenantId_example';
         UUID employeeID = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
         UUID employeeID = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
+        String idempotencyKey = 'KEY_VALUE';
         LocalDate startDate = LocalDate.of(2020, Month.OCTOBER, 28);
         LocalDate endDate = LocalDate.of(2020, Month.OCTOBER, 30);
         
@@ -4627,7 +4754,7 @@ public class PayrollUkApiExample {
         employeeLeave.setEndDate(endDate);
 
         try {
-            EmployeeLeaveObject result = apiInstance.createEmployeeLeave(accessToken, xeroTenantId, employeeID, employeeLeave);
+            EmployeeLeaveObject result = apiInstance.createEmployeeLeave(accessToken, xeroTenantId, employeeID, employeeLeave, idempotencyKey);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling PayrollUkApi#createEmployeeLeave");
@@ -4704,6 +4831,26 @@ Xero identifier for Tenant
                 <div class="inner required">
                     Required
                 </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_createEmployeeLeave_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
         </div>
     </div>
 </td>
@@ -4788,6 +4935,7 @@ public class PayrollUkApiExample {
         String xeroTenantId = 'xeroTenantId_example';
         UUID employeeID = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
         UUID employeeID = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
+        String idempotencyKey = 'KEY_VALUE';
         
         EmployeeLeaveType employeeLeaveType = new EmployeeLeaveType();
         employeeLeaveType.setLeaveTypeID(UUID.fromString("00000000-0000-0000-0000-000000000000"));
@@ -4795,7 +4943,7 @@ public class PayrollUkApiExample {
         employeeLeaveType.setOpeningBalance(5.25);
 
         try {
-            EmployeeLeaveTypeObject result = apiInstance.createEmployeeLeaveType(accessToken, xeroTenantId, employeeID, employeeLeaveType);
+            EmployeeLeaveTypeObject result = apiInstance.createEmployeeLeaveType(accessToken, xeroTenantId, employeeID, employeeLeaveType, idempotencyKey);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling PayrollUkApi#createEmployeeLeaveType");
@@ -4872,6 +5020,26 @@ Xero identifier for Tenant
                 <div class="inner required">
                     Required
                 </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_createEmployeeLeaveType_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
         </div>
     </div>
 </td>
@@ -4956,6 +5124,7 @@ public class PayrollUkApiExample {
         String xeroTenantId = 'xeroTenantId_example';
         UUID employeeID = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
         UUID employeeID = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
+        String idempotencyKey = 'KEY_VALUE';
         
         EmployeeOpeningBalances employeeOpeningBalances = new EmployeeOpeningBalances();
         employeeOpeningBalances.setStatutoryMaternityPay(0.0);
@@ -4965,7 +5134,7 @@ public class PayrollUkApiExample {
         employeeOpeningBalances.setStatutorySickPay(0.0);
 
         try {
-            EmployeeOpeningBalancesObject result = apiInstance.createEmployeeOpeningBalances(accessToken, xeroTenantId, employeeID, employeeOpeningBalances);
+            EmployeeOpeningBalancesObject result = apiInstance.createEmployeeOpeningBalances(accessToken, xeroTenantId, employeeID, employeeOpeningBalances, idempotencyKey);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling PayrollUkApi#createEmployeeOpeningBalances");
@@ -5042,6 +5211,26 @@ Xero identifier for Tenant
                 <div class="inner required">
                     Required
                 </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_createEmployeeOpeningBalances_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
         </div>
     </div>
 </td>
@@ -5126,6 +5315,7 @@ public class PayrollUkApiExample {
         String xeroTenantId = 'xeroTenantId_example';
         UUID employeeID = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
         UUID employeeID = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
+        String idempotencyKey = 'KEY_VALUE';
         
         BankAccount bankAccount = new BankAccount();
         bankAccount.setAccountName("Charlotte Danes");
@@ -5139,7 +5329,7 @@ public class PayrollUkApiExample {
         paymentMethod.setBankAccounts(bankAccounts);
 
         try {
-            PaymentMethodObject result = apiInstance.createEmployeePaymentMethod(accessToken, xeroTenantId, employeeID, paymentMethod);
+            PaymentMethodObject result = apiInstance.createEmployeePaymentMethod(accessToken, xeroTenantId, employeeID, paymentMethod, idempotencyKey);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling PayrollUkApi#createEmployeePaymentMethod");
@@ -5216,6 +5406,26 @@ Xero identifier for Tenant
                 <div class="inner required">
                     Required
                 </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_createEmployeePaymentMethod_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
         </div>
     </div>
 </td>
@@ -5300,6 +5510,7 @@ public class PayrollUkApiExample {
         String xeroTenantId = 'xeroTenantId_example';
         UUID employeeID = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
         UUID employeeID = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
+        String idempotencyKey = 'KEY_VALUE';
         
         SalaryAndWage salaryAndWage = new SalaryAndWage();
         salaryAndWage.setEarningsRateID(UUID.fromString("00000000-0000-0000-0000-000000000000"));
@@ -5309,7 +5520,7 @@ public class PayrollUkApiExample {
         salaryAndWage.setStatus(com.xero.models.payrolluk.SalaryAndWage.StatusEnum.ACTIVE);
 
         try {
-            SalaryAndWageObject result = apiInstance.createEmployeeSalaryAndWage(accessToken, xeroTenantId, employeeID, salaryAndWage);
+            SalaryAndWageObject result = apiInstance.createEmployeeSalaryAndWage(accessToken, xeroTenantId, employeeID, salaryAndWage, idempotencyKey);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling PayrollUkApi#createEmployeeSalaryAndWage");
@@ -5386,6 +5597,26 @@ Xero identifier for Tenant
                 <div class="inner required">
                     Required
                 </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_createEmployeeSalaryAndWage_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
         </div>
     </div>
 </td>
@@ -5468,6 +5699,7 @@ public class PayrollUkApiExample {
 
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'xeroTenantId_example';
+        String idempotencyKey = 'KEY_VALUE';
         LocalDate startDate = LocalDate.of(2020, Month.OCTOBER, 28);
         LocalDate endDate = LocalDate.of(2020, Month.OCTOBER, 30);
         
@@ -5478,7 +5710,7 @@ public class PayrollUkApiExample {
         employeeStatutorySickLeave.setEndDate(endDate);
 
         try {
-            EmployeeStatutorySickLeaveObject result = apiInstance.createEmployeeStatutorySickLeave(accessToken, xeroTenantId, employeeStatutorySickLeave);
+            EmployeeStatutorySickLeaveObject result = apiInstance.createEmployeeStatutorySickLeave(accessToken, xeroTenantId, employeeStatutorySickLeave, idempotencyKey);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling PayrollUkApi#createEmployeeStatutorySickLeave");
@@ -5522,6 +5754,26 @@ Xero identifier for Tenant
                 <div class="inner required">
                     Required
                 </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_createEmployeeStatutorySickLeave_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
         </div>
     </div>
 </td>
@@ -5606,6 +5858,7 @@ public class PayrollUkApiExample {
         String xeroTenantId = 'xeroTenantId_example';
         UUID employeeID = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
         UUID employeeID = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
+        String idempotencyKey = 'KEY_VALUE';
         LocalDate startDate = LocalDate.of(2020, Month.OCTOBER, 28);
         
         Employment employment = new Employment();
@@ -5613,7 +5866,7 @@ public class PayrollUkApiExample {
         employment.setStartDate(startDate);
 
         try {
-            EmploymentObject result = apiInstance.createEmployment(accessToken, xeroTenantId, employeeID, employment);
+            EmploymentObject result = apiInstance.createEmployment(accessToken, xeroTenantId, employeeID, employment, idempotencyKey);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling PayrollUkApi#createEmployment");
@@ -5690,6 +5943,26 @@ Xero identifier for Tenant
                 <div class="inner required">
                     Required
                 </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_createEmployment_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
         </div>
     </div>
 </td>
@@ -5772,6 +6045,7 @@ public class PayrollUkApiExample {
 
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'xeroTenantId_example';
+        String idempotencyKey = 'KEY_VALUE';
         
         LeaveType leaveType = new LeaveType();
         leaveType.setName("LeaveType");
@@ -5779,7 +6053,7 @@ public class PayrollUkApiExample {
         leaveType.setShowOnPayslip(true);
 
         try {
-            LeaveTypeObject result = apiInstance.createLeaveType(accessToken, xeroTenantId, leaveType);
+            LeaveTypeObject result = apiInstance.createLeaveType(accessToken, xeroTenantId, leaveType, idempotencyKey);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling PayrollUkApi#createLeaveType");
@@ -5823,6 +6097,26 @@ Xero identifier for Tenant
                 <div class="inner required">
                     Required
                 </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_createLeaveType_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
         </div>
     </div>
 </td>
@@ -5907,6 +6201,7 @@ public class PayrollUkApiExample {
         String xeroTenantId = 'xeroTenantId_example';
         UUID employeeID = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
         UUID employeeID = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
+        String idempotencyKey = 'KEY_VALUE';
         
         EarningsTemplate earningsTemplate = new EarningsTemplate();
         earningsTemplate.setPayTemplateEarningID(UUID.fromString("00000000-0000-0000-0000-000000000000"));
@@ -5920,7 +6215,7 @@ public class PayrollUkApiExample {
         earningsTemplates.add(earningsTemplate);
 
         try {
-            EmployeePayTemplates result = apiInstance.createMultipleEmployeeEarningsTemplate(accessToken, xeroTenantId, employeeID, earningsTemplate);
+            EmployeePayTemplates result = apiInstance.createMultipleEmployeeEarningsTemplate(accessToken, xeroTenantId, employeeID, earningsTemplate, idempotencyKey);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling PayrollUkApi#createMultipleEmployeeEarningsTemplate");
@@ -5997,6 +6292,26 @@ Xero identifier for Tenant
                 <div class="inner required">
                     Required
                 </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_createMultipleEmployeeEarningsTemplate_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
         </div>
     </div>
 </td>
@@ -6079,6 +6394,7 @@ public class PayrollUkApiExample {
 
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'xeroTenantId_example';
+        String idempotencyKey = 'KEY_VALUE';
         LocalDate startDate = LocalDate.of(2020, Month.OCTOBER, 28);
         LocalDate paymentDate = LocalDate.of(2020, Month.OCTOBER, 30);
         
@@ -6088,7 +6404,7 @@ public class PayrollUkApiExample {
         payRunCalendar.setPaymentDate(paymentDate);
 
         try {
-            PayRunCalendarObject result = apiInstance.createPayRunCalendar(accessToken, xeroTenantId, payRunCalendar);
+            PayRunCalendarObject result = apiInstance.createPayRunCalendar(accessToken, xeroTenantId, payRunCalendar, idempotencyKey);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling PayrollUkApi#createPayRunCalendar");
@@ -6132,6 +6448,26 @@ Xero identifier for Tenant
                 <div class="inner required">
                     Required
                 </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_createPayRunCalendar_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
         </div>
     </div>
 </td>
@@ -6214,13 +6550,14 @@ public class PayrollUkApiExample {
 
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'xeroTenantId_example';
+        String idempotencyKey = 'KEY_VALUE';
         
         Reimbursement reimbursement = new Reimbursement();
         reimbursement.setName("Test Reimbursement");
         reimbursement.setAccountID(UUID.fromString("00000000-0000-0000-0000-000000000000"));
 
         try {
-            ReimbursementObject result = apiInstance.createReimbursement(accessToken, xeroTenantId, reimbursement);
+            ReimbursementObject result = apiInstance.createReimbursement(accessToken, xeroTenantId, reimbursement, idempotencyKey);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling PayrollUkApi#createReimbursement");
@@ -6264,6 +6601,26 @@ Xero identifier for Tenant
                 <div class="inner required">
                     Required
                 </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_createReimbursement_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
         </div>
     </div>
 </td>
@@ -6346,6 +6703,7 @@ public class PayrollUkApiExample {
 
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'xeroTenantId_example';
+        String idempotencyKey = 'KEY_VALUE';
         LocalDate startDate = LocalDate.of(2020, Month.OCTOBER, 28);
         LocalDate endDate = LocalDate.of(2020, Month.OCTOBER, 30);
         
@@ -6356,7 +6714,7 @@ public class PayrollUkApiExample {
         timesheet.setEndDate(endDate);
 
         try {
-            TimesheetObject result = apiInstance.createTimesheet(accessToken, xeroTenantId, timesheet);
+            TimesheetObject result = apiInstance.createTimesheet(accessToken, xeroTenantId, timesheet, idempotencyKey);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling PayrollUkApi#createTimesheet");
@@ -6400,6 +6758,26 @@ Xero identifier for Tenant
                 <div class="inner required">
                     Required
                 </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_createTimesheet_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
         </div>
     </div>
 </td>
@@ -6484,6 +6862,7 @@ public class PayrollUkApiExample {
         String xeroTenantId = 'xeroTenantId_example';
         UUID timesheetID = UUID.fromString("38400000-8cf0-11bd-b23e-10b96e4ef00d");
         UUID timesheetID = '38400000-8cf0-11bd-b23e-10b96e4ef00d';
+        String idempotencyKey = 'KEY_VALUE';
         LocalDate date = LocalDate.of(2020, Month.OCTOBER, 28);
         
         TimesheetLine timesheetLine = new TimesheetLine();
@@ -6494,7 +6873,7 @@ public class PayrollUkApiExample {
         timesheetLine.setNumberOfUnits(6);
 
         try {
-            TimesheetLineObject result = apiInstance.createTimesheetLine(accessToken, xeroTenantId, timesheetID, timesheetLine);
+            TimesheetLineObject result = apiInstance.createTimesheetLine(accessToken, xeroTenantId, timesheetID, timesheetLine, idempotencyKey);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling PayrollUkApi#createTimesheetLine");
@@ -6571,6 +6950,26 @@ Xero identifier for Tenant
                 <div class="inner required">
                     Required
                 </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_createTimesheetLine_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
         </div>
     </div>
 </td>
@@ -12684,9 +13083,10 @@ public class PayrollUkApiExample {
         String xeroTenantId = 'xeroTenantId_example';
         UUID timesheetID = UUID.fromString("38400000-8cf0-11bd-b23e-10b96e4ef00d");
         UUID timesheetID = '38400000-8cf0-11bd-b23e-10b96e4ef00d';
+        String idempotencyKey = 'KEY_VALUE';
 
         try {
-            TimesheetObject result = apiInstance.revertTimesheet(accessToken, xeroTenantId, timesheetID);
+            TimesheetObject result = apiInstance.revertTimesheet(accessToken, xeroTenantId, timesheetID, idempotencyKey);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling PayrollUkApi#revertTimesheet");
@@ -12768,6 +13168,26 @@ Xero identifier for Tenant
 </td>
 </tr>
 
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_revertTimesheet_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
                   </table>
                 </article>
               </div>
@@ -12811,6 +13231,7 @@ public class PayrollUkApiExample {
         String xeroTenantId = 'xeroTenantId_example';
         UUID employeeID = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
         UUID employeeID = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
+        String idempotencyKey = 'KEY_VALUE';
         LocalDate dateOfBirth = LocalDate.of(2000, Month.OCTOBER, 28);
         
         Address address = new Address();
@@ -12826,7 +13247,7 @@ public class PayrollUkApiExample {
         employee.setAddress(address);
 
         try {
-            EmployeeObject result = apiInstance.updateEmployee(accessToken, xeroTenantId, employeeID, employee);
+            EmployeeObject result = apiInstance.updateEmployee(accessToken, xeroTenantId, employeeID, employee, idempotencyKey);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling PayrollUkApi#updateEmployee");
@@ -12903,6 +13324,26 @@ Xero identifier for Tenant
                 <div class="inner required">
                     Required
                 </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_updateEmployee_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
         </div>
     </div>
 </td>
@@ -12989,6 +13430,7 @@ public class PayrollUkApiExample {
         UUID employeeID = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
         UUID payTemplateEarningID = UUID.fromString("3fa85f64-5717-4562-b3fc-2c963f66afa6");
         UUID payTemplateEarningID = '3fa85f64-5717-4562-b3fc-2c963f66afa6';
+        String idempotencyKey = 'KEY_VALUE';
         
         EarningsTemplate earningsTemplate = new EarningsTemplate();
         earningsTemplate.setPayTemplateEarningID(UUID.fromString("00000000-0000-0000-0000-000000000000"));
@@ -13002,7 +13444,7 @@ public class PayrollUkApiExample {
         earningsTemplates.add(earningsTemplate);
 
         try {
-            EarningsTemplateObject result = apiInstance.updateEmployeeEarningsTemplate(accessToken, xeroTenantId, employeeID, payTemplateEarningID, earningsTemplate);
+            EarningsTemplateObject result = apiInstance.updateEmployeeEarningsTemplate(accessToken, xeroTenantId, employeeID, payTemplateEarningID, earningsTemplate, idempotencyKey);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling PayrollUkApi#updateEmployeeEarningsTemplate");
@@ -13110,6 +13552,26 @@ Xero identifier for Tenant
 </td>
 </tr>
 
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_updateEmployeeEarningsTemplate_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
                   </table>
                   <div class="methodsubtabletitle">Body parameters</div>
                   <table id="methodsubtable">
@@ -13191,6 +13653,7 @@ public class PayrollUkApiExample {
         UUID employeeID = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
         UUID leaveID = UUID.fromString("c4be24e5-e840-4c92-9eaa-2d86cd596314");
         UUID leaveID = 'c4be24e5-e840-4c92-9eaa-2d86cd596314';
+        String idempotencyKey = 'KEY_VALUE';
         LocalDate startDate = LocalDate.of(2020, Month.OCTOBER, 28);
         LocalDate endDate = LocalDate.of(2020, Month.OCTOBER, 30);
         
@@ -13200,7 +13663,7 @@ public class PayrollUkApiExample {
         employeeLeave.setEndDate(endDate);
 
         try {
-            EmployeeLeaveObject result = apiInstance.updateEmployeeLeave(accessToken, xeroTenantId, employeeID, leaveID, employeeLeave);
+            EmployeeLeaveObject result = apiInstance.updateEmployeeLeave(accessToken, xeroTenantId, employeeID, leaveID, employeeLeave, idempotencyKey);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling PayrollUkApi#updateEmployeeLeave");
@@ -13308,6 +13771,26 @@ Xero identifier for Tenant
 </td>
 </tr>
 
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_updateEmployeeLeave_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
                   </table>
                   <div class="methodsubtabletitle">Body parameters</div>
                   <table id="methodsubtable">
@@ -13387,6 +13870,7 @@ public class PayrollUkApiExample {
         String xeroTenantId = 'xeroTenantId_example';
         UUID employeeID = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
         UUID employeeID = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
+        String idempotencyKey = 'KEY_VALUE';
         
         EmployeeOpeningBalances employeeOpeningBalances = new EmployeeOpeningBalances();
         employeeOpeningBalances.setStatutoryMaternityPay(0.0);
@@ -13396,7 +13880,7 @@ public class PayrollUkApiExample {
         employeeOpeningBalances.setStatutorySickPay(0.0);
 
         try {
-            EmployeeOpeningBalancesObject result = apiInstance.updateEmployeeOpeningBalances(accessToken, xeroTenantId, employeeID, employeeOpeningBalances);
+            EmployeeOpeningBalancesObject result = apiInstance.updateEmployeeOpeningBalances(accessToken, xeroTenantId, employeeID, employeeOpeningBalances, idempotencyKey);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling PayrollUkApi#updateEmployeeOpeningBalances");
@@ -13473,6 +13957,26 @@ Xero identifier for Tenant
                 <div class="inner required">
                     Required
                 </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_updateEmployeeOpeningBalances_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
         </div>
     </div>
 </td>
@@ -13559,6 +14063,7 @@ public class PayrollUkApiExample {
         UUID employeeID = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
         UUID salaryAndWagesID = UUID.fromString("3fa85f64-5717-4562-b3fc-2c963f66afa6");
         UUID salaryAndWagesID = '3fa85f64-5717-4562-b3fc-2c963f66afa6';
+        String idempotencyKey = 'KEY_VALUE';
         
         SalaryAndWage salaryAndWage = new SalaryAndWage();
         salaryAndWage.setEarningsRateID(UUID.fromString("00000000-0000-0000-0000-000000000000"));
@@ -13568,7 +14073,7 @@ public class PayrollUkApiExample {
         salaryAndWage.setStatus(com.xero.models.payrolluk.SalaryAndWage.StatusEnum.ACTIVE);
 
         try {
-            SalaryAndWageObject result = apiInstance.updateEmployeeSalaryAndWage(accessToken, xeroTenantId, employeeID, salaryAndWagesID, salaryAndWage);
+            SalaryAndWageObject result = apiInstance.updateEmployeeSalaryAndWage(accessToken, xeroTenantId, employeeID, salaryAndWagesID, salaryAndWage, idempotencyKey);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling PayrollUkApi#updateEmployeeSalaryAndWage");
@@ -13676,6 +14181,26 @@ Xero identifier for Tenant
 </td>
 </tr>
 
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_updateEmployeeSalaryAndWage_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
                   </table>
                   <div class="methodsubtabletitle">Body parameters</div>
                   <table id="methodsubtable">
@@ -13755,6 +14280,7 @@ public class PayrollUkApiExample {
         String xeroTenantId = 'xeroTenantId_example';
         UUID payRunID = UUID.fromString("38400000-8cf0-11bd-b23e-10b96e4ef00d");
         UUID payRunID = '38400000-8cf0-11bd-b23e-10b96e4ef00d';
+        String idempotencyKey = 'KEY_VALUE';
         LocalDate startDate = LocalDate.of(2020, Month.OCTOBER, 28);
         LocalDate paymentDate = LocalDate.of(2020, Month.OCTOBER, 30);
         
@@ -13764,7 +14290,7 @@ public class PayrollUkApiExample {
         payRunCalendar.setPaymentDate(paymentDate);
 
         try {
-            PayRunObject result = apiInstance.updatePayRun(accessToken, xeroTenantId, payRunID, payRun);
+            PayRunObject result = apiInstance.updatePayRun(accessToken, xeroTenantId, payRunID, payRun, idempotencyKey);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling PayrollUkApi#updatePayRun");
@@ -13841,6 +14367,26 @@ Xero identifier for Tenant
                 <div class="inner required">
                     Required
                 </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_updatePayRun_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
         </div>
     </div>
 </td>
@@ -13927,6 +14473,7 @@ public class PayrollUkApiExample {
         UUID timesheetID = '38400000-8cf0-11bd-b23e-10b96e4ef00d';
         UUID timesheetLineID = UUID.fromString("38400000-8cf0-11bd-b23e-10b96e4ef00d");
         UUID timesheetLineID = '38400000-8cf0-11bd-b23e-10b96e4ef00d';
+        String idempotencyKey = 'KEY_VALUE';
         LocalDate date = LocalDate.of(2020, Month.OCTOBER, 28);
         
         TimesheetLine timesheetLine = new TimesheetLine();
@@ -13937,7 +14484,7 @@ public class PayrollUkApiExample {
         timesheetLine.setNumberOfUnits(6);
 
         try {
-            TimesheetLineObject result = apiInstance.updateTimesheetLine(accessToken, xeroTenantId, timesheetID, timesheetLineID, timesheetLine);
+            TimesheetLineObject result = apiInstance.updateTimesheetLine(accessToken, xeroTenantId, timesheetID, timesheetLineID, timesheetLine, idempotencyKey);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling PayrollUkApi#updateTimesheetLine");
@@ -14040,6 +14587,26 @@ Xero identifier for Tenant
                 <div class="inner required">
                     Required
                 </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_updateTimesheetLine_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
         </div>
     </div>
 </td>

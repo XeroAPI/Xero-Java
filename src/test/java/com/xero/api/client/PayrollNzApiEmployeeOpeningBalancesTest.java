@@ -88,7 +88,7 @@ public class PayrollNzApiEmployeeOpeningBalancesTest {
         UUID employeeId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
         List<EmployeeOpeningBalance> employeeOpeningBalances = new ArrayList<>();
       
-        EmployeeOpeningBalancesObject response = payrollNzApi.createEmployeeOpeningBalances(accessToken, xeroTenantId, employeeId, employeeOpeningBalances);
+        EmployeeOpeningBalancesObject response = payrollNzApi.createEmployeeOpeningBalances(accessToken, xeroTenantId, employeeId, employeeOpeningBalances, null);
       
         assertThat(response.getOpeningBalances().get(0).getPeriodEndDate(), is(equalTo(LocalDate.of(2020, 10, 01))));
         assertThat(response.getOpeningBalances().get(0).getDaysPaid(), is(equalTo(3)));

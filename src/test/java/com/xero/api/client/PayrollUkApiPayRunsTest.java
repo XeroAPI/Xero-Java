@@ -131,7 +131,7 @@ public class PayrollUkApiPayRunsTest {
        
         UUID payRunID = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e"); 
         PayRun payRun = new PayRun();
-        PayRunObject response = payrollUkApi.updatePayRun(accessToken, xeroTenantId, payRunID, payRun);
+        PayRunObject response = payrollUkApi.updatePayRun(accessToken, xeroTenantId, payRunID, payRun, null);
         
         assertThat(response.getPayRun().getPayRunID(), is(equalTo(UUID.fromString("e0a59d82-6229-4be4-9d66-49891b4d933e"))));
         assertThat(response.getPayRun().getPayrollCalendarID(), is(equalTo(UUID.fromString("216d80e6-af55-47b1-b718-9457c3f5d2fe"))));

@@ -104,7 +104,7 @@ public class PayrollNzApiDeductionsTest {
         System.out.println("@Test NZ Payroll - createDeductionTest");
        
         Deduction deduction = new Deduction();
-        DeductionObject response = payrollNzApi.createDeduction(accessToken, xeroTenantId, deduction);
+        DeductionObject response = payrollNzApi.createDeduction(accessToken, xeroTenantId, deduction, null);
         
         assertThat(response.getDeduction().getDeductionId(), is(equalTo(UUID.fromString("0ee805eb-f5b0-4061-9b35-d9ea550da04e"))));
         assertThat(response.getDeduction().getLiabilityAccountId(), is(equalTo(UUID.fromString("568f2e9a-0870-46cc-8678-f83f132ed4e3"))));

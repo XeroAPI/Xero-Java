@@ -72,7 +72,7 @@ public class PayrollUkApiEmployeeStatutorySickLeaveTest {
         
         UUID employeeId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
         EmployeeStatutorySickLeave employeeStatutorySickLeave = new EmployeeStatutorySickLeave();
-        EmployeeStatutorySickLeaveObject response = payrollUkApi.createEmployeeStatutorySickLeave(accessToken, xeroTenantId, employeeStatutorySickLeave);
+        EmployeeStatutorySickLeaveObject response = payrollUkApi.createEmployeeStatutorySickLeave(accessToken, xeroTenantId, employeeStatutorySickLeave, null);
         
         assertThat(response.getStatutorySickLeave().getStatutoryLeaveID(),  is(equalTo(UUID.fromString("a2b5a1fb-ae21-47b4-876d-0b61fa6b37ab"))));
         assertThat(response.getStatutorySickLeave().getEmployeeID(),  is(equalTo(UUID.fromString("aad6b292-7b94-408b-93f6-e489867e3fb0"))));

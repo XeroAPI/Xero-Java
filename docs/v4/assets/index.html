@@ -1388,7 +1388,7 @@ ul.nav-tabs {
           <nav id="scrollingNav">
             <ul class="sidenav nav nav-list">
               <li class="nav-header" data-group="Asset"><strong>SDK: </strong><span id='sdk-name'></span></li>
-              <li class="nav-header" data-group="Asset"><strong>VSN: </strong>4.28.0</li>
+              <li class="nav-header" data-group="Asset"><strong>VSN: </strong>4.29.0</li>
               <li class="nav-header" data-group="Asset"><a href="#api-Asset">Methods</a></li>
               <li data-group="Asset" data-name="createAsset" class="">
                 <a href="#api-Asset-createAsset">createAsset</a>
@@ -1463,6 +1463,7 @@ public class AssetApiExample {
 
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'YOUR_XERO_TENANT_ID';
+        String idempotencyKey = 'KEY_VALUE';
         
         Asset asset = new Asset();
         asset.setassetName("Other Computer");
@@ -1470,7 +1471,7 @@ public class AssetApiExample {
         asset.setStatus(com.xero.models.assets.AssetStatus.DRAFT);
 
         try {
-            Asset result = apiInstance.createAsset(accessToken, xeroTenantId, asset);
+            Asset result = apiInstance.createAsset(accessToken, xeroTenantId, asset, idempotencyKey);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AssetApi#createAsset");
@@ -1514,6 +1515,26 @@ Xero identifier for Tenant
                 <div class="inner required">
                     Required
                 </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_createAsset_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
         </div>
     </div>
 </td>
@@ -1597,6 +1618,7 @@ public class AssetApiExample {
 
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'YOUR_XERO_TENANT_ID';
+        String idempotencyKey = 'KEY_VALUE';
         
         BookDepreciationSetting bookDepreciationSetting = new BookDepreciationSetting();
         bookDepreciationSetting.setDepreciationMethod("DiminishingValue100");
@@ -1612,7 +1634,7 @@ public class AssetApiExample {
         assetType.setBookDepreciationSetting(bookDepreciationSetting);
 
         try {
-            AssetType result = apiInstance.createAssetType(accessToken, xeroTenantId, assetType);
+            AssetType result = apiInstance.createAssetType(accessToken, xeroTenantId, idempotencyKey, assetType);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AssetApi#createAssetType");
@@ -1656,6 +1678,26 @@ Xero identifier for Tenant
                 <div class="inner required">
                     Required
                 </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_createAssetType_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
         </div>
     </div>
 </td>

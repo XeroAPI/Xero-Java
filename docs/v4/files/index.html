@@ -1129,7 +1129,7 @@ ul.nav-tabs {
           <nav id="scrollingNav">
             <ul class="sidenav nav nav-list">
               <li class="nav-header" data-group="Files"><strong>SDK: </strong><span id='sdk-name'></span></li>
-              <li class="nav-header" data-group="Files"><strong>VSN: </strong>4.28.0</li>
+              <li class="nav-header" data-group="Files"><strong>VSN: </strong>4.29.0</li>
               <li class="nav-header" data-group="Files"><a href="#api-Files">Methods</a></li>
               <li data-group="Files" data-name="createFileAssociation" class="">
                 <a href="#api-Files-createFileAssociation">createFileAssociation</a>
@@ -1242,9 +1242,10 @@ public class FilesApiExample {
         String xeroTenantId = 'YOUR_XERO_TENANT_ID';
         UUID fileId = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
         UUID fileId = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
+        String idempotencyKey = 'KEY_VALUE';
 
         try {
-            Association result = apiInstance.createFileAssociation(accessToken, xeroTenantId, fileId, association);
+            Association result = apiInstance.createFileAssociation(accessToken, xeroTenantId, fileId, idempotencyKey, association);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling FilesApi#createFileAssociation");
@@ -1326,6 +1327,26 @@ Xero identifier for Tenant
 </td>
 </tr>
 
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_createFileAssociation_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
                   </table>
                   <div class="methodsubtabletitle">Body parameters</div>
                   <table id="methodsubtable">
@@ -1399,9 +1420,10 @@ public class FilesApiExample {
 
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'YOUR_XERO_TENANT_ID';
+        String idempotencyKey = 'KEY_VALUE';
 
         try {
-            Folder result = apiInstance.createFolder(accessToken, xeroTenantId, folder);
+            Folder result = apiInstance.createFolder(accessToken, xeroTenantId, idempotencyKey, folder);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling FilesApi#createFolder");
@@ -1445,6 +1467,26 @@ Xero identifier for Tenant
                 <div class="inner required">
                     Required
                 </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_createFolder_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
         </div>
     </div>
 </td>
@@ -3111,9 +3153,10 @@ public class FilesApiExample {
         String xeroTenantId = 'YOUR_XERO_TENANT_ID';
         UUID fileId = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
         UUID fileId = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
+        String idempotencyKey = 'KEY_VALUE';
 
         try {
-            FileObject result = apiInstance.updateFile(accessToken, xeroTenantId, fileId, fileObject);
+            FileObject result = apiInstance.updateFile(accessToken, xeroTenantId, fileId, idempotencyKey, fileObject);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling FilesApi#updateFile");
@@ -3195,6 +3238,26 @@ Xero identifier for Tenant
 </td>
 </tr>
 
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_updateFile_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
                   </table>
                   <div class="methodsubtabletitle">Body parameters</div>
                   <table id="methodsubtable">
@@ -3270,9 +3333,10 @@ public class FilesApiExample {
         String xeroTenantId = 'YOUR_XERO_TENANT_ID';
         UUID folderId = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
         UUID folderId = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
+        String idempotencyKey = 'KEY_VALUE';
 
         try {
-            Folder result = apiInstance.updateFolder(accessToken, xeroTenantId, folderId, folder);
+            Folder result = apiInstance.updateFolder(accessToken, xeroTenantId, folderId, folder, idempotencyKey);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling FilesApi#updateFolder");
@@ -3349,6 +3413,26 @@ Xero identifier for Tenant
                 <div class="inner required">
                     Required
                 </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_updateFolder_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
         </div>
     </div>
 </td>
@@ -3434,10 +3518,11 @@ public class FilesApiExample {
         byte[] body = BYTE_ARRAY_DATA_HERE;
         String name = 'name_example';
         String filename = 'filename_example';
+        String idempotencyKey = 'KEY_VALUE';
         String mimeType = 'mimeType_example';
 
         try {
-            FileObject result = apiInstance.uploadFile(accessToken, xeroTenantId, body, name, filename, mimeType);
+            FileObject result = apiInstance.uploadFile(accessToken, xeroTenantId, body, name, filename, idempotencyKey, mimeType);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling FilesApi#uploadFile");
@@ -3481,6 +3566,26 @@ Xero identifier for Tenant
                 <div class="inner required">
                     Required
                 </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_uploadFile_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
         </div>
     </div>
 </td>
@@ -3631,10 +3736,11 @@ public class FilesApiExample {
         byte[] body = BYTE_ARRAY_DATA_HERE;
         String name = 'name_example';
         String filename = 'filename_example';
+        String idempotencyKey = 'KEY_VALUE';
         String mimeType = 'mimeType_example';
 
         try {
-            FileObject result = apiInstance.uploadFileToFolder(accessToken, xeroTenantId, folderId, body, name, filename, mimeType);
+            FileObject result = apiInstance.uploadFileToFolder(accessToken, xeroTenantId, folderId, body, name, filename, idempotencyKey, mimeType);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling FilesApi#uploadFileToFolder");
@@ -3711,6 +3817,26 @@ Xero identifier for Tenant
                 <div class="inner required">
                     Required
                 </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">Idempotency-Key</td>
+<td>
+
+
+    <div id="d2e199_uploadFileToFolder_idempotencyKey">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+This allows you to safely retry requests without the risk of duplicate processing. 128 character max.
+                    </div>
+            </div>
         </div>
     </div>
 </td>

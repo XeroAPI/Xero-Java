@@ -73,7 +73,7 @@ public class PayrollNzApiEmployeeLeaveSetupTest {
         UUID employeeId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
         EmployeeLeaveSetup employeeLeaveSetup = new EmployeeLeaveSetup();
 
-        EmployeeLeaveSetupObject response = payrollNzApi.createEmployeeLeaveSetup(accessToken, xeroTenantId, employeeId, employeeLeaveSetup);
+        EmployeeLeaveSetupObject response = payrollNzApi.createEmployeeLeaveSetup(accessToken, xeroTenantId, employeeId, employeeLeaveSetup, null);
         
         assertThat(response.getLeaveSetup().getHolidayPayOpeningBalance(), is(equalTo(10.0)));
         assertThat(response.getLeaveSetup().getAnnualLeaveOpeningBalance(), is(equalTo(100.0)));

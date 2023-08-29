@@ -118,7 +118,7 @@ public class AccountingApiAccountsTest {
 	public void testCreateAccount() throws Exception {
 		System.out.println("@Test - createAccount");
 		Account acct = new Account();
-		Accounts newAccount = accountingApi.createAccount(accessToken,xeroTenantId,acct);
+		Accounts newAccount = accountingApi.createAccount(accessToken,xeroTenantId,acct,null);
 		assertThat(newAccount.getAccounts().get(0).getName(), is(equalTo("Foobar")));	
 	}
 
@@ -127,7 +127,7 @@ public class AccountingApiAccountsTest {
 		System.out.println("@Test - updateAccount");
 		UUID accountID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");	
 		Accounts accts = new Accounts();
-		Accounts updatedAccount = accountingApi.updateAccount(accessToken,xeroTenantId,accountID, accts);
+		Accounts updatedAccount = accountingApi.updateAccount(accessToken,xeroTenantId,accountID, accts, null);
 		assertThat(updatedAccount.getAccounts().get(0).getName(), is(equalTo("BarFoo")));
 	}
 
@@ -162,7 +162,7 @@ public class AccountingApiAccountsTest {
 		File bytes = new File(classLoader.getResource("helo-heros.jpg").getFile());
     
 		String newFileName = "sample5.jpg";
-		Attachments createAccountsAttachments = accountingApi.createAccountAttachmentByFileName(accessToken,xeroTenantId,accountID, newFileName, bytes);					
+		Attachments createAccountsAttachments = accountingApi.createAccountAttachmentByFileName(accessToken,xeroTenantId,accountID, newFileName, bytes, null);					
 
 		assertThat(createAccountsAttachments.getAttachments().get(0).getAttachmentID().toString(), is(equalTo("ab95b276-9dce-4925-9077-439818ba270f")));
 		assertThat(createAccountsAttachments.getAttachments().get(0).getFileName().toString(), is(equalTo("sample5.jpg")));

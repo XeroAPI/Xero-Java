@@ -93,7 +93,7 @@ public class PayrollNzApiSalaryAndWagesTest {
         
         SalaryAndWage salaryAndWage = new SalaryAndWage();        
         UUID employeeId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
-        SalaryAndWageObject response =  payrollNzApi.createEmployeeSalaryAndWage(accessToken, xeroTenantId, employeeId, salaryAndWage);
+        SalaryAndWageObject response =  payrollNzApi.createEmployeeSalaryAndWage(accessToken, xeroTenantId, employeeId, salaryAndWage, null);
         
         assertThat(response.getSalaryAndWages().getSalaryAndWagesID(), is(equalTo(UUID.fromString("0211c70c-93d5-4da1-a570-b66d8df2ca15"))));
         assertThat(response.getSalaryAndWages().getEarningsRateID(), is(equalTo(UUID.fromString("f9d8f5b5-9049-47f4-8541-35e200f750a5"))));
@@ -137,7 +137,7 @@ public class PayrollNzApiSalaryAndWagesTest {
         SalaryAndWage salaryAndWage = new SalaryAndWage();        
         UUID employeeId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
         UUID salaryAndWagesId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
-        SalaryAndWageObject response =  payrollNzApi.updateEmployeeSalaryAndWage(accessToken, xeroTenantId, employeeId, salaryAndWagesId, salaryAndWage);
+        SalaryAndWageObject response =  payrollNzApi.updateEmployeeSalaryAndWage(accessToken, xeroTenantId, employeeId, salaryAndWagesId, salaryAndWage, null);
         
         assertThat(response.getSalaryAndWages().getSalaryAndWagesID(), is(equalTo(UUID.fromString("1912d614-99d0-43e6-8d63-5b539dcfe358"))));
         assertThat(response.getSalaryAndWages().getEarningsRateID(), is(equalTo(UUID.fromString("f9d8f5b5-9049-47f4-8541-35e200f750a5"))));

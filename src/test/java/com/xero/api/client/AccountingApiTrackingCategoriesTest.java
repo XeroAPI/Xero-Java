@@ -84,7 +84,7 @@ public class AccountingApiTrackingCategoriesTest {
     public void createTrackingCategoryTest() throws IOException {
         System.out.println("@Test - createTrackingCategory");
         TrackingCategory trackingCategory = new TrackingCategory();
-        TrackingCategories response = accountingApi.createTrackingCategory(accessToken,xeroTenantId,trackingCategory);
+        TrackingCategories response = accountingApi.createTrackingCategory(accessToken,xeroTenantId,trackingCategory,null);
 
         assertThat(response.getTrackingCategories().get(0).getTrackingCategoryID(), is(equalTo(UUID.fromString("b1df776b-b093-4730-b6ea-590cca40e723"))));
         assertThat(response.getTrackingCategories().get(0).getName(), is(equalTo("FooBar")));
@@ -97,7 +97,7 @@ public class AccountingApiTrackingCategoriesTest {
         System.out.println("@Test - createTrackingOptions");
         UUID trackingCategoryID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         TrackingOption trackingOption = new TrackingOption();
-        TrackingOptions response = accountingApi.createTrackingOptions(accessToken,xeroTenantId,trackingCategoryID, trackingOption);
+        TrackingOptions response = accountingApi.createTrackingOptions(accessToken,xeroTenantId,trackingCategoryID, trackingOption, null);
 
         assertThat(response.getOptions().get(0).getTrackingOptionID(), is(equalTo(UUID.fromString("34669548-b989-487a-979f-0787d04568a2"))));
         assertThat(response.getOptions().get(0).getName(), is(equalTo("Bar40423")));
@@ -161,7 +161,7 @@ public class AccountingApiTrackingCategoriesTest {
         System.out.println("@Test - updateTrackingCategory");
         UUID trackingCategoryID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         TrackingCategory trackingCategory = new TrackingCategory();
-        TrackingCategories response = accountingApi.updateTrackingCategory(accessToken,xeroTenantId,trackingCategoryID, trackingCategory);
+        TrackingCategories response = accountingApi.updateTrackingCategory(accessToken,xeroTenantId,trackingCategoryID, trackingCategory, null);
 
         assertThat(response.getTrackingCategories().get(0).getTrackingCategoryID(), is(equalTo(UUID.fromString("b1df776b-b093-4730-b6ea-590cca40e723"))));
         assertThat(response.getTrackingCategories().get(0).getName(), is(equalTo("BarFoo")));

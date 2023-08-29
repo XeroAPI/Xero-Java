@@ -68,7 +68,7 @@ public class AccountingApiPaymentsTest {
     public void createPaymentsTest() throws IOException {
         System.out.println("@Test - createPayments");
         Payments payments = new Payments();
-        Payments response = accountingApi.createPayments(accessToken,xeroTenantId,payments,true);
+        Payments response = accountingApi.createPayments(accessToken,xeroTenantId,payments,null,true);
 
         assertThat(response.getPayments().get(0).getInvoice().getInvoiceNumber(), is(equalTo("INV-0004")));
         assertThat(response.getPayments().get(0).getAccount().getCode(), is(equalTo("970")));
@@ -93,7 +93,7 @@ public class AccountingApiPaymentsTest {
         System.out.println("@Test - deletePayment");
         UUID paymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         PaymentDelete paymentDelete = new PaymentDelete();
-        Payments response = accountingApi.deletePayment(accessToken,xeroTenantId,paymentID, paymentDelete);
+        Payments response = accountingApi.deletePayment(accessToken,xeroTenantId,paymentID, paymentDelete, null);
 
         assertThat(response.getPayments().get(0).getAccount().getCode(), is(equalTo("033")));
         assertThat(response.getPayments().get(0).getDateAsDate(), is(equalTo(LocalDate.of(2019,9,02))));  

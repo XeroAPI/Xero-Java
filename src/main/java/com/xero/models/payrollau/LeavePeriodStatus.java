@@ -22,7 +22,13 @@ public enum LeavePeriodStatus {
   SCHEDULED("SCHEDULED"),
 
   /** PROCESSED */
-  PROCESSED("PROCESSED");
+  PROCESSED("PROCESSED"),
+
+  /** REQUESTED */
+  REQUESTED("REQUESTED"),
+
+  /** REJECTED */
+  REJECTED("REJECTED");
 
   private String value;
 

@@ -112,7 +112,7 @@ public class PayrollUkApiPayRunCalendarsTest {
         System.out.println("@Test UK Payroll - createPayRunCalendarTest");
        
         PayRunCalendar payRunCalendar = new PayRunCalendar();
-        PayRunCalendarObject response = payrollUkApi.createPayRunCalendar(accessToken, xeroTenantId, payRunCalendar);
+        PayRunCalendarObject response = payrollUkApi.createPayRunCalendar(accessToken, xeroTenantId, payRunCalendar, null);
         
         assertThat(response.getPayRunCalendar().getPayrollCalendarID(),is(equalTo(UUID.fromString("5f29322d-9123-49be-bef0-9b14c35653d1"))));
         assertThat(response.getPayRunCalendar().getCalendarType(), is(equalTo(com.xero.models.payrolluk.PayRunCalendar.CalendarTypeEnum.WEEKLY)));

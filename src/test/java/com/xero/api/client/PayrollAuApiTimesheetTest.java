@@ -137,7 +137,7 @@ public class PayrollAuApiTimesheetTest {
         numOfUnitList.add(0.0);
         numOfUnitList.add(5.0);
         
-        Timesheets response = payrollAuApi.createTimesheet(accessToken, xeroTenantId, timesheets);
+        Timesheets response = payrollAuApi.createTimesheet(accessToken, xeroTenantId, timesheets, null);
         
         assertThat(response.getTimesheets().get(0).getEmployeeID(), is(equalTo(UUID.fromString("b34e89ff-770d-4099-b7e5-f968767118bc"))));       
         assertThat(response.getTimesheets().get(0).getStartDateAsDate() , is(equalTo(LocalDate.of(2019,11,8))));
@@ -167,7 +167,7 @@ public class PayrollAuApiTimesheetTest {
         numOfUnitList.add(0.0);
         numOfUnitList.add(5.0);
         
-        Timesheets response = payrollAuApi.updateTimesheet(accessToken, xeroTenantId, timesheetId, timesheets);
+        Timesheets response = payrollAuApi.updateTimesheet(accessToken, xeroTenantId, timesheetId, null, timesheets);
         
         assertThat(response.getTimesheets().get(0).getEmployeeID(), is(equalTo(UUID.fromString("b34e89ff-770d-4099-b7e5-f968767118bc"))));       
         assertThat(response.getTimesheets().get(0).getStartDateAsDate() , is(equalTo(LocalDate.of(2019,11,8))));

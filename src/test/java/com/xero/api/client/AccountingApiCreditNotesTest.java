@@ -90,7 +90,7 @@ public class AccountingApiCreditNotesTest {
         Boolean summarizeErrors = false;
         Integer unitdp = null;
         CreditNotes creditNotes = new CreditNotes();
-        CreditNotes response = accountingApi.createCreditNotes(accessToken,xeroTenantId,creditNotes,summarizeErrors, unitdp);
+        CreditNotes response = accountingApi.createCreditNotes(accessToken,xeroTenantId,creditNotes,null,summarizeErrors, unitdp);
         
         assertThat(response.getCreditNotes().get(0).getType(), is(equalTo(com.xero.models.accounting.CreditNote.TypeEnum.ACCPAYCREDIT)));
         assertThat(response.getCreditNotes().get(0).getStatus(), is(equalTo(com.xero.models.accounting.CreditNote.StatusEnum.DRAFT)));
@@ -124,7 +124,7 @@ public class AccountingApiCreditNotesTest {
         System.out.println("@Test - createCreditNoteAllocation");
         UUID creditNoteID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         Allocations allocations = new Allocations();
-        Allocations response = accountingApi.createCreditNoteAllocation(accessToken,xeroTenantId,creditNoteID, allocations, false);
+        Allocations response = accountingApi.createCreditNoteAllocation(accessToken,xeroTenantId,creditNoteID, allocations, null, false);
         
         assertThat(response.getAllocations().get(0).getAmount(), is(equalTo(1.0)));
         assertThat(response.getAllocations().get(0).getDateAsDate(), is(equalTo(LocalDate.of(2019, 03, 05))));
@@ -246,7 +246,7 @@ public class AccountingApiCreditNotesTest {
         UUID creditNoteID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         Integer unitdp = null;
         CreditNotes creditNotes = new CreditNotes();
-        CreditNotes response = accountingApi.updateCreditNote(accessToken,xeroTenantId,creditNoteID, creditNotes, unitdp);
+        CreditNotes response = accountingApi.updateCreditNote(accessToken,xeroTenantId,creditNoteID, creditNotes, null, unitdp);
 
         assertThat(response.getCreditNotes().get(0).getType(), is(equalTo(com.xero.models.accounting.CreditNote.TypeEnum.ACCPAYCREDIT)));
         assertThat(response.getCreditNotes().get(0).getDateAsDate(), is(equalTo(LocalDate.of(2019, 01, 05))));

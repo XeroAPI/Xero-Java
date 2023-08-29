@@ -87,7 +87,7 @@ public class AssetsApiTest {
 
         Asset newAsset = new Asset();
         try {
-		    Asset response = assetApi.createAsset(accessToken,xeroTenantId,newAsset);
+		    Asset response = assetApi.createAsset(accessToken,xeroTenantId,newAsset,null);
             assertThat(response.getAssetId().toString(), (equalTo("2257c64a-77ca-444c-a5ea-fa9a588c7039")));
 		    assertThat(response.getAssetName().toString(), (equalTo("Computer74863")));
 		    assertThat(response.getAssetNumber().toString(), (equalTo("123477544")));
@@ -201,7 +201,7 @@ public class AssetsApiTest {
 
         AssetType newAssetType = new AssetType();
         try {
-		    AssetType response = assetApi.createAssetType(accessToken,xeroTenantId,newAssetType);
+		    AssetType response = assetApi.createAssetType(accessToken,xeroTenantId,null,newAssetType);
 
             assertThat(response.getAssetTypeId().toString(), (equalTo("85509b5d-308e-420d-9532-b85105058916")));
 		    assertThat(response.getAssetTypeName().toString(), (equalTo("Machinery11004")));
