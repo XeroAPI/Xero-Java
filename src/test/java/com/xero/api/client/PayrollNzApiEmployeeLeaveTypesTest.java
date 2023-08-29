@@ -92,7 +92,7 @@ public class PayrollNzApiEmployeeLeaveTypesTest {
         
         UUID employeeId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
         EmployeeLeaveType employeeLeaveType  = new EmployeeLeaveType();
-        EmployeeLeaveTypeObject response = payrollNzApi.createEmployeeLeaveType(accessToken, xeroTenantId, employeeId, employeeLeaveType);
+        EmployeeLeaveTypeObject response = payrollNzApi.createEmployeeLeaveType(accessToken, xeroTenantId, employeeId, employeeLeaveType, null);
         
         assertThat(response.getLeaveType().getLeaveTypeID(), is(equalTo(UUID.fromString("35da97ae-05b9-427f-9a98-69157ba42cec"))));
         assertThat(response.getLeaveType().getScheduleOfAccrual(), is(equalTo(com.xero.models.payrollnz.EmployeeLeaveType.ScheduleOfAccrualEnum.ANNUALLYAFTER6MONTHS)));

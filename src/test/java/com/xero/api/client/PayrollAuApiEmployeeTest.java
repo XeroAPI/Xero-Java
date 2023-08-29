@@ -94,7 +94,7 @@ public class PayrollAuApiEmployeeTest {
         System.out.println("@Test - createEmployeeTest");
         
         List<Employee> employee = new ArrayList<>();
-        Employees response = payrollAuApi.createEmployee(accessToken, xeroTenantId, employee);
+        Employees response = payrollAuApi.createEmployee(accessToken, xeroTenantId, employee, null);
         
         assertThat(response.getEmployees().get(0).getFirstName(), is(equalTo("Albus")));
         assertThat(response.getEmployees().get(0).getLastName(), is(equalTo("Dumbledore")));
@@ -210,7 +210,7 @@ public class PayrollAuApiEmployeeTest {
         
         UUID employeeId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
         List<Employee> employees = new ArrayList<>();
-        Employees response = payrollAuApi.updateEmployee(accessToken, xeroTenantId, employeeId, employees);
+        Employees response = payrollAuApi.updateEmployee(accessToken, xeroTenantId, employeeId, null, employees);
         
         assertThat(response.getEmployees().get(0).getFirstName(), is(equalTo("Albus")));
         assertThat(response.getEmployees().get(0).getLastName(), is(equalTo("Dumbledore")));

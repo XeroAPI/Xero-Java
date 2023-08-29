@@ -211,7 +211,7 @@ public class PayrollNzApiPaySlipsTest {
        
         UUID paySlipId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
         PaySlip paySlip = new PaySlip();
-        PaySlipObject response = payrollNzApi.updatePaySlipLineItems(accessToken, xeroTenantId, paySlipId, paySlip);
+        PaySlipObject response = payrollNzApi.updatePaySlipLineItems(accessToken, xeroTenantId, paySlipId, paySlip, null);
         
         assertThat(response.getPaySlip().getPaySlipID(),is(equalTo(UUID.fromString("51a01760-cf9d-4ba1-bf3a-2065d4f8e073"))));
         assertThat(response.getPaySlip().getEmployeeID(),is(equalTo(UUID.fromString("68342973-c405-4b86-b5d3-d7b877c27995"))));

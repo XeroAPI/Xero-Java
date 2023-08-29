@@ -90,7 +90,7 @@ public class PayrollUkApiEmployeePayTemplatesTest {
         UUID employeeId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
         UUID payTemplateEarningID = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
         EarningsTemplate earningsTemplate = new EarningsTemplate();
-        EarningsTemplateObject response = payrollUkApi.updateEmployeeEarningsTemplate(accessToken, xeroTenantId, employeeId, payTemplateEarningID, earningsTemplate);
+        EarningsTemplateObject response = payrollUkApi.updateEmployeeEarningsTemplate(accessToken, xeroTenantId, employeeId, payTemplateEarningID, earningsTemplate, null);
          
         assertThat(response.getEarningTemplate().getEarningsRateID(), is(equalTo(UUID.fromString("87f5b43a-cf51-4b74-92de-94c819e82d27"))));
         assertThat(response.getEarningTemplate().getPayTemplateEarningID(), is(equalTo(UUID.fromString("4e2a0753-56b9-423d-8068-624473bd1c00"))));
@@ -107,7 +107,7 @@ public class PayrollUkApiEmployeePayTemplatesTest {
         
         UUID employeeId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
         List<EarningsTemplate> earningsTemplate = new ArrayList<>();
-        EmployeePayTemplates response = payrollUkApi.createMultipleEmployeeEarningsTemplate(accessToken, xeroTenantId, employeeId, earningsTemplate);
+        EmployeePayTemplates response = payrollUkApi.createMultipleEmployeeEarningsTemplate(accessToken, xeroTenantId, employeeId, earningsTemplate, null);
          
         assertThat(response.getEarningTemplates().get(0).getPayTemplateEarningID(), is(equalTo(UUID.fromString("6b32533d-1111-4a92-ac52-7641315a1719"))));
         assertThat(response.getEarningTemplates().get(0).getEarningsRateID(), is(equalTo(UUID.fromString("87f5b43a-cf51-4b74-92de-94c819e82d27"))));

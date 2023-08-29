@@ -89,7 +89,7 @@ public class AccountingApiRepeatingInvoicesTest {
         System.out.println("@Test - createRepeatingInvoiceAttachmentByFileName");
         UUID repeatingInvoiceID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         String fileName = "sample5.jpg";
-        Attachments response = accountingApi.createRepeatingInvoiceAttachmentByFileName(accessToken,xeroTenantId,repeatingInvoiceID, fileName, body);
+        Attachments response = accountingApi.createRepeatingInvoiceAttachmentByFileName(accessToken,xeroTenantId,repeatingInvoiceID, fileName, body, null);
 
         assertThat(response.getAttachments().get(0).getAttachmentID(), is(equalTo(UUID.fromString("e078e56c-9a2b-4f6c-a1fa-5d19b0dab611"))));
         assertThat(response.getAttachments().get(0).getFileName(), is(equalTo("foobar.jpg")));

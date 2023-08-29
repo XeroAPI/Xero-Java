@@ -89,7 +89,7 @@ public class PayrollNzApiPaymentMethodsTest {
         int page = 1;
         UUID employeeId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e"); 
         PaymentMethod paymentMethod = new PaymentMethod();
-        PaymentMethodObject response = payrollNzApi.createEmployeePaymentMethod(accessToken, xeroTenantId, employeeId, paymentMethod);
+        PaymentMethodObject response = payrollNzApi.createEmployeePaymentMethod(accessToken, xeroTenantId, employeeId, paymentMethod, null);
         
         // assertThat(response.getPaymentMethod().getPaymentMethod(), is(equalTo(com.xero.models.payrollnz.PaymentMethod.PaymentMethodEnum.ELECTRONICALLY)));
         // assertThat(response.getPaymentMethod().getBankAccounts().get(0).getAccountName(), is(equalTo("Sid BofA")));

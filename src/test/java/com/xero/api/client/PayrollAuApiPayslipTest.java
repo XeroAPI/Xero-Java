@@ -118,7 +118,7 @@ public class PayrollAuApiPayslipTest {
         
         UUID payslipId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
         List<com.xero.models.payrollau.PayslipLines> payslipObject = new ArrayList<>(); 
-        com.xero.models.payrollau.Payslips response = payrollAuApi.updatePayslip(accessToken, xeroTenantId, payslipId, payslipObject);
+        com.xero.models.payrollau.Payslips response = payrollAuApi.updatePayslip(accessToken, xeroTenantId, payslipId, null, payslipObject);
         
 // Can not write test until I can 
 // make the call and get a live response back for the OAS to use

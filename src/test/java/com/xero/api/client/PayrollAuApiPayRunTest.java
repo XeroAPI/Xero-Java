@@ -130,7 +130,7 @@ public class PayrollAuApiPayRunTest {
         System.out.println("@Test - createPayRunTest");
         
         List<PayRun> payRuns = new ArrayList<>();
-        PayRuns response = payrollAuApi.createPayRun(accessToken, xeroTenantId, payRuns);
+        PayRuns response = payrollAuApi.createPayRun(accessToken, xeroTenantId, payRuns, null);
         
         assertThat(response.getPayRuns().get(0).getPayrollCalendarID(), is(equalTo(UUID.fromString("78bb86b9-e1ea-47ac-b75d-f087a81931de"))));
         assertThat(response.getPayRuns().get(0).getPayRunID(), is(equalTo(UUID.fromString("d1348fab-f47a-4697-beea-922ee262407a"))));
@@ -148,7 +148,7 @@ public class PayrollAuApiPayRunTest {
         
         UUID payRunId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
         List<PayRun> payRuns = new ArrayList<>();
-        PayRuns response = payrollAuApi.updatePayRun(accessToken, xeroTenantId,payRunId, payRuns);
+        PayRuns response = payrollAuApi.updatePayRun(accessToken, xeroTenantId,payRunId, null, payRuns);
         
         assertThat(response.getPayRuns().get(0).getPayrollCalendarID(), is(equalTo(UUID.fromString("78bb86b9-e1ea-47ac-b75d-f087a81931de"))));
         assertThat(response.getPayRuns().get(0).getPayRunID(), is(equalTo(UUID.fromString("f8fcda54-643f-4406-902a-d7b020d0a036"))));

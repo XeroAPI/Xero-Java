@@ -59,7 +59,7 @@ public class BankfeedApiFeedConnectionTest {
 		System.out.println("@Test - createFeedConnections");
 
         FeedConnections feedConnections = new FeedConnections();
-        FeedConnections response = bankfeedsApi.createFeedConnections(accessToken,xeroTenantId,feedConnections);        
+        FeedConnections response = bankfeedsApi.createFeedConnections(accessToken,xeroTenantId,feedConnections,null);        
         assertThat(response.getItems().get(0).getId().toString(), (equalTo("2a19d46c-2a92-4e50-9401-dcf2cb895be7")));
 		assertThat(response.getItems().get(0).getAccountToken(), (equalTo("foobar71760")));
 		assertThat(response.getItems().get(0).getStatus(), is(equalTo(com.xero.models.bankfeeds.FeedConnection.StatusEnum.PENDING)));   
@@ -105,7 +105,7 @@ public class BankfeedApiFeedConnectionTest {
 		System.out.println("@Test - deleteFeedConnection");
         
         FeedConnections deleteFeedConnections = new FeedConnections();
-        FeedConnections response = bankfeedsApi.deleteFeedConnections(accessToken,xeroTenantId,deleteFeedConnections);
+        FeedConnections response = bankfeedsApi.deleteFeedConnections(accessToken,xeroTenantId,deleteFeedConnections,null);
         assertThat(response.getItems().get(0).getId().toString(), (equalTo("b4cc693b-24d9-42ec-a6d4-2943d253ff63")));
 		assertThat(response.getItems().get(0).getStatus(), is(equalTo(com.xero.models.bankfeeds.FeedConnection.StatusEnum.PENDING)));   
         assertThat(response.getItems().get(1).getAccountToken(), (equalTo("10000125")));

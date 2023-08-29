@@ -88,7 +88,7 @@ public class AccountingApiExpenseClaimsTest {
     public void createExpenseClaimTest() throws IOException {
         System.out.println("@Test - createExpenseClaim");
         ExpenseClaims expenseClaims = new ExpenseClaims();
-        ExpenseClaims response = accountingApi.createExpenseClaims(accessToken,xeroTenantId,expenseClaims);
+        ExpenseClaims response = accountingApi.createExpenseClaims(accessToken,xeroTenantId,expenseClaims,null);
 
         assertThat(response.getExpenseClaims().get(0).getExpenseClaimID(), is(equalTo(UUID.fromString("646b15ab-b874-4e13-82ae-f4385b2ac4b6"))));
         assertThat(response.getExpenseClaims().get(0).getStatus(), is(equalTo(com.xero.models.accounting.ExpenseClaim.StatusEnum.SUBMITTED)));
@@ -176,7 +176,7 @@ public class AccountingApiExpenseClaimsTest {
         System.out.println("@Test - updateExpenseClaim");
         UUID expenseClaimID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         ExpenseClaims expenseClaims = new ExpenseClaims();
-        ExpenseClaims response = accountingApi.updateExpenseClaim(accessToken,xeroTenantId,expenseClaimID, expenseClaims);
+        ExpenseClaims response = accountingApi.updateExpenseClaim(accessToken,xeroTenantId,expenseClaimID, expenseClaims, null);
 
         // TODO: test validations
         assertThat(response.getExpenseClaims().get(0).getExpenseClaimID(), is(equalTo(UUID.fromString("646b15ab-b874-4e13-82ae-f4385b2ac4b6"))));

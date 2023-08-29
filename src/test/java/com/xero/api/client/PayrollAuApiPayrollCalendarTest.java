@@ -86,7 +86,7 @@ public class PayrollAuApiPayrollCalendarTest {
         System.out.println("@Test - createPayrollCalendarTest");
         
         List<PayrollCalendar> payrollCalendars = new ArrayList<>();   
-        PayrollCalendars response = payrollAuApi.createPayrollCalendar(accessToken, xeroTenantId, payrollCalendars);
+        PayrollCalendars response = payrollAuApi.createPayrollCalendar(accessToken, xeroTenantId, payrollCalendars, null);
         
         assertThat(response.getPayrollCalendars().get(0).getName(), is(equalTo("MyCal37127")));
         assertThat(response.getPayrollCalendars().get(0).getCalendarType(), is(equalTo(com.xero.models.payrollau.CalendarType.WEEKLY)));

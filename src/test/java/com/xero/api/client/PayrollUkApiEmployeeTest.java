@@ -94,7 +94,7 @@ public class PayrollUkApiEmployeeTest {
         System.out.println("@Test UK Payroll - createEmployeeTest");
         
         Employee employee = new Employee();
-        EmployeeObject response = payrollUkApi.createEmployee(accessToken, xeroTenantId, employee);
+        EmployeeObject response = payrollUkApi.createEmployee(accessToken, xeroTenantId, employee, null);
         
         assertThat(response.getEmployee().getEmployeeID(), is(equalTo(UUID.fromString("316146c7-26a4-4065-b9bd-346d0557ea96"))));
         assertThat(response.getEmployee().getTitle(), is(equalTo("Mr")));
@@ -143,7 +143,7 @@ public class PayrollUkApiEmployeeTest {
         
         UUID employeeId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
         Employee employee = new Employee();
-        EmployeeObject response = payrollUkApi.updateEmployee(accessToken, xeroTenantId, employeeId, employee);
+        EmployeeObject response = payrollUkApi.updateEmployee(accessToken, xeroTenantId, employeeId, employee, null);
         
         assertThat(response.getEmployee().getEmployeeID(), is(equalTo(UUID.fromString("aad6b292-7b94-408b-93f6-e489867e3fb0"))));
         assertThat(response.getEmployee().getTitle(), is(equalTo("Mr")));

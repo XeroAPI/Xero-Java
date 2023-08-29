@@ -138,7 +138,6 @@ public class AccountingApiContactsTest {
         assertThat(response.getContacts().get(0).getFirstName(), is(equalTo("Blake")));
         assertThat(response.getContacts().get(0).getLastName(), is(equalTo("Kohler")));
         assertThat(response.getContacts().get(0).getEmailAddress(), is(equalTo("bk@krave.co")));
-        assertThat(response.getContacts().get(0).getSkypeUserName(), is(equalTo("blake")));
         assertThat(response.getContacts().get(0).getContactPersons().get(0).getFirstName(), is(equalTo("Sue")));
         assertThat(response.getContacts().get(0).getContactPersons().get(0).getLastName(), is(equalTo("Johnson")));
         assertThat(response.getContacts().get(0).getContactPersons().get(0).getEmailAddress(), is(equalTo("sue.johnson@krave.com")));
@@ -205,7 +204,7 @@ public class AccountingApiContactsTest {
 
         UUID contactID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         Contacts contacts = new Contacts();
-        Contacts response = accountingApi.updateContact(accessToken,xeroTenantId,contactID,contacts);
+        Contacts response = accountingApi.updateContact(accessToken,xeroTenantId,contactID,contacts, null);
         assertThat(response.getContacts().get(0).getContactID(), is(equalTo(UUID.fromString("d5be01fb-b09f-4c3a-9c67-e10c2a03412c"))));
         assertThat(response.getContacts().get(0).getContactStatus(), is(equalTo(com.xero.models.accounting.Contact.ContactStatusEnum.ACTIVE)));
         assertThat(response.getContacts().get(0).getName(), is(equalTo("FooBar")));
@@ -231,7 +230,7 @@ public class AccountingApiContactsTest {
         UUID contactID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");  
         String fileName = "sample5.jpg";
         
-        Attachments response = accountingApi.createContactAttachmentByFileName(accessToken,xeroTenantId,contactID, fileName, body);
+        Attachments response = accountingApi.createContactAttachmentByFileName(accessToken,xeroTenantId,contactID, fileName, body, null);
         assertThat(response.getAttachments().get(0).getAttachmentID(), is(equalTo(UUID.fromString("27e37b01-6996-4ebe-836c-95fd472ad674"))));
         assertThat(response.getAttachments().get(0).getFileName(), is(equalTo("sample5.jpg")));
         assertThat(response.getAttachments().get(0).getMimeType(), is(equalTo("image/jpg")));

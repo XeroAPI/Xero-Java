@@ -11,7 +11,9 @@
 
 package com.xero.models.accounting;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
@@ -86,6 +88,79 @@ public class TenNinetyNineContact {
 
   @JsonProperty("ContactId")
   private UUID contactId;
+
+  @JsonProperty("LegalName")
+  private String legalName;
+
+  @JsonProperty("BusinessName")
+  private String businessName;
+  /** Contact federal tax classification */
+  public enum FederalTaxClassificationEnum {
+    /** SOLE_PROPRIETOR */
+    SOLE_PROPRIETOR("SOLE_PROPRIETOR"),
+
+    /** PARTNERSHIP */
+    PARTNERSHIP("PARTNERSHIP"),
+
+    /** TRUST_OR_ESTATE */
+    TRUST_OR_ESTATE("TRUST_OR_ESTATE"),
+
+    /** NONPROFIT */
+    NONPROFIT("NONPROFIT"),
+
+    /** C_CORP */
+    C_CORP("C_CORP"),
+
+    /** S_CORP */
+    S_CORP("S_CORP"),
+
+    /** OTHER */
+    OTHER("OTHER");
+
+    private String value;
+
+    FederalTaxClassificationEnum(String value) {
+      this.value = value;
+    }
+
+    /**
+     * getValue
+     *
+     * @return String value
+     */
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    /**
+     * toString
+     *
+     * @return String value
+     */
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
+    @JsonCreator
+    public static FederalTaxClassificationEnum fromValue(String value) {
+      for (FederalTaxClassificationEnum b : FederalTaxClassificationEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  @JsonProperty("FederalTaxClassification")
+  private FederalTaxClassificationEnum federalTaxClassification;
   /**
    * Box 1 on 1099 Form
    *
@@ -856,6 +931,112 @@ public class TenNinetyNineContact {
     this.contactId = contactId;
   }
 
+  /**
+   * Contact legal name
+   *
+   * @param legalName String
+   * @return TenNinetyNineContact
+   */
+  public TenNinetyNineContact legalName(String legalName) {
+    this.legalName = legalName;
+    return this;
+  }
+
+  /**
+   * Contact legal name
+   *
+   * @return legalName
+   */
+  @ApiModelProperty(value = "Contact legal name")
+  /**
+   * Contact legal name
+   *
+   * @return legalName String
+   */
+  public String getLegalName() {
+    return legalName;
+  }
+
+  /**
+   * Contact legal name
+   *
+   * @param legalName String
+   */
+  public void setLegalName(String legalName) {
+    this.legalName = legalName;
+  }
+
+  /**
+   * Contact business name
+   *
+   * @param businessName String
+   * @return TenNinetyNineContact
+   */
+  public TenNinetyNineContact businessName(String businessName) {
+    this.businessName = businessName;
+    return this;
+  }
+
+  /**
+   * Contact business name
+   *
+   * @return businessName
+   */
+  @ApiModelProperty(value = "Contact business name")
+  /**
+   * Contact business name
+   *
+   * @return businessName String
+   */
+  public String getBusinessName() {
+    return businessName;
+  }
+
+  /**
+   * Contact business name
+   *
+   * @param businessName String
+   */
+  public void setBusinessName(String businessName) {
+    this.businessName = businessName;
+  }
+
+  /**
+   * Contact federal tax classification
+   *
+   * @param federalTaxClassification FederalTaxClassificationEnum
+   * @return TenNinetyNineContact
+   */
+  public TenNinetyNineContact federalTaxClassification(
+      FederalTaxClassificationEnum federalTaxClassification) {
+    this.federalTaxClassification = federalTaxClassification;
+    return this;
+  }
+
+  /**
+   * Contact federal tax classification
+   *
+   * @return federalTaxClassification
+   */
+  @ApiModelProperty(value = "Contact federal tax classification")
+  /**
+   * Contact federal tax classification
+   *
+   * @return federalTaxClassification FederalTaxClassificationEnum
+   */
+  public FederalTaxClassificationEnum getFederalTaxClassification() {
+    return federalTaxClassification;
+  }
+
+  /**
+   * Contact federal tax classification
+   *
+   * @param federalTaxClassification FederalTaxClassificationEnum
+   */
+  public void setFederalTaxClassification(FederalTaxClassificationEnum federalTaxClassification) {
+    this.federalTaxClassification = federalTaxClassification;
+  }
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -886,7 +1067,11 @@ public class TenNinetyNineContact {
         && Objects.equals(this.email, tenNinetyNineContact.email)
         && Objects.equals(this.streetAddress, tenNinetyNineContact.streetAddress)
         && Objects.equals(this.taxID, tenNinetyNineContact.taxID)
-        && Objects.equals(this.contactId, tenNinetyNineContact.contactId);
+        && Objects.equals(this.contactId, tenNinetyNineContact.contactId)
+        && Objects.equals(this.legalName, tenNinetyNineContact.legalName)
+        && Objects.equals(this.businessName, tenNinetyNineContact.businessName)
+        && Objects.equals(
+            this.federalTaxClassification, tenNinetyNineContact.federalTaxClassification);
   }
 
   @Override
@@ -913,7 +1098,10 @@ public class TenNinetyNineContact {
         email,
         streetAddress,
         taxID,
-        contactId);
+        contactId,
+        legalName,
+        businessName,
+        federalTaxClassification);
   }
 
   @Override
@@ -942,6 +1130,11 @@ public class TenNinetyNineContact {
     sb.append("    streetAddress: ").append(toIndentedString(streetAddress)).append("\n");
     sb.append("    taxID: ").append(toIndentedString(taxID)).append("\n");
     sb.append("    contactId: ").append(toIndentedString(contactId)).append("\n");
+    sb.append("    legalName: ").append(toIndentedString(legalName)).append("\n");
+    sb.append("    businessName: ").append(toIndentedString(businessName)).append("\n");
+    sb.append("    federalTaxClassification: ")
+        .append(toIndentedString(federalTaxClassification))
+        .append("\n");
     sb.append("}");
     return sb.toString();
   }

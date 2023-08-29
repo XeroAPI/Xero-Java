@@ -95,7 +95,7 @@ public class PayrollUkApiEmployeeLeaveTest {
         EmployeeLeave employeeLeave = new EmployeeLeave();
         UUID employeeId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
         
-        EmployeeLeaveObject response = payrollUkApi.createEmployeeLeave(accessToken, xeroTenantId, employeeId, employeeLeave);
+        EmployeeLeaveObject response = payrollUkApi.createEmployeeLeave(accessToken, xeroTenantId, employeeId, employeeLeave, null);
         
         assertThat(response.getLeave().getLeaveID(), is(equalTo(UUID.fromString("bdfedc6b-363b-4801-8ba6-9a074d400b31"))));
         assertThat(response.getLeave().getLeaveTypeID(), is(equalTo(UUID.fromString("1d2778ee-86ea-45c0-bbf8-1045485f6b3f"))));
@@ -141,7 +141,7 @@ public class PayrollUkApiEmployeeLeaveTest {
         UUID leaveId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
         
         EmployeeLeave employeeLeave = new EmployeeLeave();
-        EmployeeLeaveObject response = payrollUkApi.updateEmployeeLeave(accessToken, xeroTenantId, employeeId, leaveId, employeeLeave);
+        EmployeeLeaveObject response = payrollUkApi.updateEmployeeLeave(accessToken, xeroTenantId, employeeId, leaveId, employeeLeave, null);
         
         assertThat(response.getLeave().getLeaveID(), is(equalTo(UUID.fromString("8340b795-50c1-428e-9fda-90badf081ab4"))));
         assertThat(response.getLeave().getLeaveTypeID(), is(equalTo(UUID.fromString("ed08dffe-788e-4b24-9630-f0fa2f4d164c"))));

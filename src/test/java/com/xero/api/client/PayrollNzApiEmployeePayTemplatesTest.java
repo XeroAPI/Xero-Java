@@ -90,7 +90,7 @@ public class PayrollNzApiEmployeePayTemplatesTest {
         UUID employeeId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
         UUID payTemplateEarningID = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
         EarningsTemplate earningsTemplate = new EarningsTemplate();
-        EarningsTemplateObject response = payrollNzApi.updateEmployeeEarningsTemplate(accessToken, xeroTenantId, employeeId, payTemplateEarningID, earningsTemplate);
+        EarningsTemplateObject response = payrollNzApi.updateEmployeeEarningsTemplate(accessToken, xeroTenantId, employeeId, payTemplateEarningID, earningsTemplate, null);
          
         assertThat(response.getEarningTemplate().getEarningsRateID(), is(equalTo(UUID.fromString("f9d8f5b5-9049-47f4-8541-35e200f750a5"))));
         assertThat(response.getEarningTemplate().getPayTemplateEarningID(), is(equalTo(UUID.fromString("1527cf6c-93db-41bf-aba2-9d6af1d3c499"))));
@@ -107,7 +107,7 @@ public class PayrollNzApiEmployeePayTemplatesTest {
         
         UUID employeeId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
         EarningsTemplate earningsTemplate = new EarningsTemplate();
-        EarningsTemplateObject response = payrollNzApi.createEmployeeEarningsTemplate(accessToken, xeroTenantId, employeeId, earningsTemplate);
+        EarningsTemplateObject response = payrollNzApi.createEmployeeEarningsTemplate(accessToken, xeroTenantId, employeeId, earningsTemplate, null);
          
         assertThat(response.getEarningTemplate().getPayTemplateEarningID(), is(equalTo(UUID.fromString("11b4e492-5d56-4eac-a9ce-687d7b9a4a84"))));
         assertThat(response.getEarningTemplate().getEarningsRateID(), is(equalTo(UUID.fromString("f9d8f5b5-9049-47f4-8541-35e200f750a5"))));
@@ -124,7 +124,7 @@ public class PayrollNzApiEmployeePayTemplatesTest {
         
         UUID employeeId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
         List<EarningsTemplate> earningsTemplate = new ArrayList<>();
-        EmployeeEarningsTemplates response = payrollNzApi.createMultipleEmployeeEarningsTemplate(accessToken, xeroTenantId, employeeId, earningsTemplate);
+        EmployeeEarningsTemplates response = payrollNzApi.createMultipleEmployeeEarningsTemplate(accessToken, xeroTenantId, employeeId, earningsTemplate, null);
          
         assertThat(response.getEarningTemplates().get(0).getPayTemplateEarningID(), is(equalTo(UUID.fromString("1527cf6c-93db-41bf-aba2-9d6af1d3c499"))));
         assertThat(response.getEarningTemplates().get(0).getEarningsRateID(), is(equalTo(UUID.fromString("f9d8f5b5-9049-47f4-8541-35e200f750a5"))));

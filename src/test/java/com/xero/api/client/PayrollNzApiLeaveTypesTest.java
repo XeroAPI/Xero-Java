@@ -105,7 +105,7 @@ public class PayrollNzApiLeaveTypesTest {
         System.out.println("@Test NZ Payroll - createLeaveTypeTest");
        
         LeaveType leaveType = new LeaveType();
-        LeaveTypeObject response = payrollNzApi.createLeaveType(accessToken, xeroTenantId, leaveType);
+        LeaveTypeObject response = payrollNzApi.createLeaveType(accessToken, xeroTenantId, leaveType, null);
         
         assertThat(response.getLeaveType().getLeaveTypeID(),is(equalTo(UUID.fromString("80464f55-b5c9-4d05-84c7-219d98baa3e2"))));
         assertThat(response.getLeaveType().getName(), is(equalTo("My wqwhhiktun Leave")));

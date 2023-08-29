@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.ZoneId;
@@ -25,6 +26,9 @@ import org.threeten.bp.ZoneId;
 /** Allocation */
 public class Allocation {
   StringUtil util = new StringUtil();
+
+  @JsonProperty("AllocationID")
+  private UUID allocationID;
 
   @JsonProperty("Invoice")
   private Invoice invoice;
@@ -44,11 +48,49 @@ public class Allocation {
   @JsonProperty("Date")
   private String date;
 
+  @JsonProperty("IsDeleted")
+  private Boolean isDeleted;
+
   @JsonProperty("StatusAttributeString")
   private String statusAttributeString;
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
+  /**
+   * Xero generated unique identifier
+   *
+   * @param allocationID UUID
+   * @return Allocation
+   */
+  public Allocation allocationID(UUID allocationID) {
+    this.allocationID = allocationID;
+    return this;
+  }
+
+  /**
+   * Xero generated unique identifier
+   *
+   * @return allocationID
+   */
+  @ApiModelProperty(value = "Xero generated unique identifier")
+  /**
+   * Xero generated unique identifier
+   *
+   * @return allocationID UUID
+   */
+  public UUID getAllocationID() {
+    return allocationID;
+  }
+
+  /**
+   * Xero generated unique identifier
+   *
+   * @param allocationID UUID
+   */
+  public void setAllocationID(UUID allocationID) {
+    this.allocationID = allocationID;
+  }
+
   /**
    * invoice
    *
@@ -288,6 +330,21 @@ public class Allocation {
   }
 
   /**
+   * A flag that returns true when the allocation is succesfully deleted
+   *
+   * @return isDeleted
+   */
+  @ApiModelProperty(value = "A flag that returns true when the allocation is succesfully deleted")
+  /**
+   * A flag that returns true when the allocation is succesfully deleted
+   *
+   * @return isDeleted Boolean
+   */
+  public Boolean getIsDeleted() {
+    return isDeleted;
+  }
+
+  /**
    * A string to indicate if a invoice status
    *
    * @param statusAttributeString String
@@ -380,12 +437,14 @@ public class Allocation {
       return false;
     }
     Allocation allocation = (Allocation) o;
-    return Objects.equals(this.invoice, allocation.invoice)
+    return Objects.equals(this.allocationID, allocation.allocationID)
+        && Objects.equals(this.invoice, allocation.invoice)
         && Objects.equals(this.overpayment, allocation.overpayment)
         && Objects.equals(this.prepayment, allocation.prepayment)
         && Objects.equals(this.creditNote, allocation.creditNote)
         && Objects.equals(this.amount, allocation.amount)
         && Objects.equals(this.date, allocation.date)
+        && Objects.equals(this.isDeleted, allocation.isDeleted)
         && Objects.equals(this.statusAttributeString, allocation.statusAttributeString)
         && Objects.equals(this.validationErrors, allocation.validationErrors);
   }
@@ -393,12 +452,14 @@ public class Allocation {
   @Override
   public int hashCode() {
     return Objects.hash(
+        allocationID,
         invoice,
         overpayment,
         prepayment,
         creditNote,
         amount,
         date,
+        isDeleted,
         statusAttributeString,
         validationErrors);
   }
@@ -407,12 +468,14 @@ public class Allocation {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Allocation {\n");
+    sb.append("    allocationID: ").append(toIndentedString(allocationID)).append("\n");
     sb.append("    invoice: ").append(toIndentedString(invoice)).append("\n");
     sb.append("    overpayment: ").append(toIndentedString(overpayment)).append("\n");
     sb.append("    prepayment: ").append(toIndentedString(prepayment)).append("\n");
     sb.append("    creditNote: ").append(toIndentedString(creditNote)).append("\n");
     sb.append("    amount: ").append(toIndentedString(amount)).append("\n");
     sb.append("    date: ").append(toIndentedString(date)).append("\n");
+    sb.append("    isDeleted: ").append(toIndentedString(isDeleted)).append("\n");
     sb.append("    statusAttributeString: ")
         .append(toIndentedString(statusAttributeString))
         .append("\n");

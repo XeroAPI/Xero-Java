@@ -109,7 +109,7 @@ public class PayrollUkApiLeaveTypesTest {
         System.out.println("@Test UK Payroll - createLeaveTypeTest");
        
         LeaveType leaveType = new LeaveType();
-        LeaveTypeObject response = payrollUkApi.createLeaveType(accessToken, xeroTenantId, leaveType);
+        LeaveTypeObject response = payrollUkApi.createLeaveType(accessToken, xeroTenantId, leaveType, null);
         
         assertThat(response.getLeaveType().getLeaveTypeID(),is(equalTo(UUID.fromString("4c027a23-6e7b-4547-808b-c34b2b140fef"))));
         assertThat(response.getLeaveType().getName(), is(equalTo("My opebvwbfxf Leave")));

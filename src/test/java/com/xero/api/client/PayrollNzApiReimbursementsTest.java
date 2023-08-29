@@ -122,7 +122,7 @@ public class PayrollNzApiReimbursementsTest {
         System.out.println("@Test NZ Payroll - createReimbursementTest");
        
         Reimbursement reimbursement = new Reimbursement();
-        ReimbursementObject response = payrollNzApi.createReimbursement(accessToken, xeroTenantId, reimbursement);
+        ReimbursementObject response = payrollNzApi.createReimbursement(accessToken, xeroTenantId, reimbursement, null);
         
         // assertThat(response.getReimbursement().getReimbursementID(),is(equalTo(UUID.fromString("2b1b587a-39f6-43f8-9dd9-a858314333c8"))));
         // assertThat(response.getReimbursement().getName(), is(equalTo("My new Reimburse")));

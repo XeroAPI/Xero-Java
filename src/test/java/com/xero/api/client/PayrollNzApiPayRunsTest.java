@@ -129,7 +129,7 @@ public class PayrollNzApiPayRunsTest {
         System.out.println("@Test NZ Payroll - createPayRunTest");
        
         PayRun payRun = new PayRun();
-        PayRunObject response = payrollNzApi.createPayRun(accessToken, xeroTenantId, payRun);
+        PayRunObject response = payrollNzApi.createPayRun(accessToken, xeroTenantId, payRun, null);
         
         assertThat(response.getPayRun().getPayRunID(), is(equalTo(UUID.fromString("591dbf2f-786b-4814-8c61-93bebaee47f9"))));
         assertThat(response.getPayRun().getPayrollCalendarID(), is(equalTo(UUID.fromString("9aa56064-990f-4ad3-a189-d966d8f6a030"))));
@@ -166,7 +166,7 @@ public class PayrollNzApiPayRunsTest {
        
         UUID payRunID = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e"); 
         PayRun payRun = new PayRun();
-        PayRunObject response = payrollNzApi.updatePayRun(accessToken, xeroTenantId, payRunID, payRun);
+        PayRunObject response = payrollNzApi.updatePayRun(accessToken, xeroTenantId, payRunID, payRun, null);
         
         assertThat(response.getPayRun().getPayRunID(), is(equalTo(UUID.fromString("8ba9831d-38e4-43d4-808e-472a5d195bce"))));
         assertThat(response.getPayRun().getPayrollCalendarID(), is(equalTo(UUID.fromString("9aa56064-990f-4ad3-a189-d966d8f6a030"))));

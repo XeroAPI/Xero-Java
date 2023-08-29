@@ -72,7 +72,7 @@ public class PayrollNzApiEmploymentTest {
         
         Employment employment = new Employment();
         UUID employeeId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
-        EmploymentObject response = payrollNzApi.createEmployment(accessToken, xeroTenantId, employeeId, employment);
+        EmploymentObject response = payrollNzApi.createEmployment(accessToken, xeroTenantId, employeeId, employment, null);
         
         assertThat(response.getEmployment().getPayrollCalendarID(), is(equalTo(UUID.fromString("9aa56064-990f-4ad3-a189-d966d8f6a030"))));
         assertThat(response.getEmployment().getStartDate(), is(equalTo(LocalDate.of(2020, 9, 02))));

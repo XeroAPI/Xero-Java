@@ -105,7 +105,7 @@ public class PayrollAuApiSuperFundTest {
         System.out.println("@Test - createSuperfundTest");
         
         List<SuperFund> superFunds = new ArrayList<>();        
-        SuperFunds response = payrollAuApi.createSuperfund(accessToken, xeroTenantId, superFunds);
+        SuperFunds response = payrollAuApi.createSuperfund(accessToken, xeroTenantId, superFunds, null);
         
         assertThat(response.getSuperFunds().get(0).getSuperFundID(), is(equalTo(UUID.fromString("e02e44eb-2dba-4d5e-84da-8a0c3a4a4fef"))));        
         assertThat(response.getSuperFunds().get(0).getType(), is(equalTo(com.xero.models.payrollau.SuperFundType.REGULATED)));
@@ -124,7 +124,7 @@ public class PayrollAuApiSuperFundTest {
         
         UUID superFundId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
         List<SuperFund> superFunds = new ArrayList<>();        
-        SuperFunds response = payrollAuApi.updateSuperfund(accessToken, xeroTenantId, superFundId, superFunds);
+        SuperFunds response = payrollAuApi.updateSuperfund(accessToken, xeroTenantId, superFundId, null, superFunds);
         
         assertThat(response.getSuperFunds().get(0).getSuperFundID(), is(equalTo(UUID.fromString("fde8e070-bf59-4e56-b1d7-c75a09474b8d"))));        
         assertThat(response.getSuperFunds().get(0).getType(), is(equalTo(com.xero.models.payrollau.SuperFundType.REGULATED)));

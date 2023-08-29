@@ -112,7 +112,7 @@ public class PayrollNzApiEarningRatesTest {
         System.out.println("@Test NZ Payroll - createEarningsRateTest");
        
         EarningsRate earningsRate = new EarningsRate();
-        EarningsRateObject response = payrollNzApi.createEarningsRate(accessToken, xeroTenantId, earningsRate);
+        EarningsRateObject response = payrollNzApi.createEarningsRate(accessToken, xeroTenantId, earningsRate, null);
         
         assertThat(response.getEarningsRate().getEarningsRateID(),is(equalTo(UUID.fromString("4369b0ef-a64d-42e1-bb6d-f2fc984de133"))));
         assertThat(response.getEarningsRate().getExpenseAccountID(), is(equalTo(UUID.fromString("e4eb36f6-97e3-4427-a394-dd4e1b355c2e"))));

@@ -88,7 +88,7 @@ public class AccountingApiReceiptsTest {
     public void createReceiptTest() throws IOException {
         System.out.println("@Test - createReceipt");
         Receipts receipts = new Receipts();
-        Receipts response = accountingApi.createReceipt(accessToken,xeroTenantId,receipts,4);
+        Receipts response = accountingApi.createReceipt(accessToken,xeroTenantId,receipts, null, 4);
 
         assertThat(response.getReceipts().get(0).getDateAsDate(), is(equalTo(LocalDate.of(2019,03,14))));  
         assertThat(response.getReceipts().get(0).getContact().getContactID(), is(equalTo(UUID.fromString("430fa14a-f945-44d3-9f97-5df5e28441b8"))));
@@ -114,7 +114,7 @@ public class AccountingApiReceiptsTest {
         System.out.println("@Test - createReceiptAttachmentByFileName");
         UUID receiptID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         String fileName = "sample5.jpg";
-        Attachments response = accountingApi.createReceiptAttachmentByFileName(accessToken,xeroTenantId,receiptID, fileName, body);
+        Attachments response = accountingApi.createReceiptAttachmentByFileName(accessToken,xeroTenantId,receiptID, fileName, body, null);
 
         assertThat(response.getAttachments().get(0).getAttachmentID(), is(equalTo(UUID.fromString("3451e34c-66a6-42b0-91e2-88618bdc169b"))));
         assertThat(response.getAttachments().get(0).getFileName(), is(equalTo("foobar.jpg")));
@@ -204,7 +204,7 @@ public class AccountingApiReceiptsTest {
         System.out.println("@Test - updateReceipt");
         UUID receiptID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         Receipts receipts = new Receipts();
-        Receipts response = accountingApi.updateReceipt(accessToken,xeroTenantId,receiptID, receipts,4);
+        Receipts response = accountingApi.updateReceipt(accessToken,xeroTenantId,receiptID, receipts, null, 4);
 
         assertThat(response.getReceipts().get(0).getDateAsDate(), is(equalTo(LocalDate.of(2019,03,16))));  
         assertThat(response.getReceipts().get(0).getContact().getContactID(), is(equalTo(UUID.fromString("430fa14a-f945-44d3-9f97-5df5e28441b8"))));

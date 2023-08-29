@@ -107,7 +107,7 @@ public class PayrollNzApiSuperannuationsTest {
         System.out.println("@Test NZ Payroll - createSuperannuationTest");
        
         Benefit benefit = new Benefit();
-        SuperannuationObject response = payrollNzApi.createSuperannuation(accessToken, xeroTenantId, benefit);
+        SuperannuationObject response = payrollNzApi.createSuperannuation(accessToken, xeroTenantId, benefit, null);
         
         assertThat(response.getBenefit().getId(), is(equalTo(UUID.fromString("8905a754-7ce8-40e2-9fa5-f819deb7adce"))));
         assertThat(response.getBenefit().getLiabilityAccountId(), is(equalTo(UUID.fromString("568f2e9a-0870-46cc-8678-f83f132ed4e3"))));

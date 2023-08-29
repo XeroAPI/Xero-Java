@@ -215,7 +215,7 @@ public class AccountingApiPurchaseOrdersTest {
         System.out.println("@Test - updatePurchaseOrder");
         UUID purchaseOrderID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         PurchaseOrders purchaseOrders = new PurchaseOrders();
-        PurchaseOrders response = accountingApi.updatePurchaseOrder(accessToken,xeroTenantId,purchaseOrderID, purchaseOrders);
+        PurchaseOrders response = accountingApi.updatePurchaseOrder(accessToken,xeroTenantId,purchaseOrderID, purchaseOrders, null);
 
         assertThat(response.getPurchaseOrders().get(0).getContact().getContactID(), is(equalTo(UUID.fromString("430fa14a-f945-44d3-9f97-5df5e28441b8"))));
         assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getLineItemID(), is(equalTo(UUID.fromString("d1d9b2cd-c9f2-4445-8d98-0b8096cf4dae"))));

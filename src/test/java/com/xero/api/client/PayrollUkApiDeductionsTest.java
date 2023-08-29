@@ -111,7 +111,7 @@ public class PayrollUkApiDeductionsTest {
         System.out.println("@Test UK Payroll - createDeductionTest");
        
         Deduction deduction = new Deduction();
-        DeductionObject response = payrollUkApi.createDeduction(accessToken, xeroTenantId, deduction);
+        DeductionObject response = payrollUkApi.createDeduction(accessToken, xeroTenantId, deduction, null);
         
         assertThat(response.getDeduction().getDeductionId(), is(equalTo(UUID.fromString("b3695b29-750f-4957-98b4-678e4a529043"))));
         assertThat(response.getDeduction().getLiabilityAccountId(), is(equalTo(UUID.fromString("e0faa299-ca0d-4b0a-9e32-0dfabdf9179a"))));

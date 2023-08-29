@@ -109,9 +109,6 @@ public class Contact {
   @JsonProperty("EmailAddress")
   private String emailAddress;
 
-  @JsonProperty("SkypeUserName")
-  private String skypeUserName;
-
   @JsonProperty("ContactPersons")
   private List<ContactPerson> contactPersons = new ArrayList<ContactPerson>();
 
@@ -695,41 +692,6 @@ public class Contact {
    */
   public void setEmailAddress(String emailAddress) {
     this.emailAddress = emailAddress;
-  }
-
-  /**
-   * Skype user name of contact
-   *
-   * @param skypeUserName String
-   * @return Contact
-   */
-  public Contact skypeUserName(String skypeUserName) {
-    this.skypeUserName = skypeUserName;
-    return this;
-  }
-
-  /**
-   * Skype user name of contact
-   *
-   * @return skypeUserName
-   */
-  @ApiModelProperty(value = "Skype user name of contact")
-  /**
-   * Skype user name of contact
-   *
-   * @return skypeUserName String
-   */
-  public String getSkypeUserName() {
-    return skypeUserName;
-  }
-
-  /**
-   * Skype user name of contact
-   *
-   * @param skypeUserName String
-   */
-  public void setSkypeUserName(String skypeUserName) {
-    this.skypeUserName = skypeUserName;
   }
 
   /**
@@ -2015,7 +1977,6 @@ public class Contact {
         && Objects.equals(this.lastName, contact.lastName)
         && Objects.equals(this.companyNumber, contact.companyNumber)
         && Objects.equals(this.emailAddress, contact.emailAddress)
-        && Objects.equals(this.skypeUserName, contact.skypeUserName)
         && Objects.equals(this.contactPersons, contact.contactPersons)
         && Objects.equals(this.bankAccountDetails, contact.bankAccountDetails)
         && Objects.equals(this.taxNumber, contact.taxNumber)
@@ -2064,7 +2025,6 @@ public class Contact {
         lastName,
         companyNumber,
         emailAddress,
-        skypeUserName,
         contactPersons,
         bankAccountDetails,
         taxNumber,
@@ -2113,7 +2073,6 @@ public class Contact {
     sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
     sb.append("    companyNumber: ").append(toIndentedString(companyNumber)).append("\n");
     sb.append("    emailAddress: ").append(toIndentedString(emailAddress)).append("\n");
-    sb.append("    skypeUserName: ").append(toIndentedString(skypeUserName)).append("\n");
     sb.append("    contactPersons: ").append(toIndentedString(contactPersons)).append("\n");
     sb.append("    bankAccountDetails: ").append(toIndentedString(bankAccountDetails)).append("\n");
     sb.append("    taxNumber: ").append(toIndentedString(taxNumber)).append("\n");

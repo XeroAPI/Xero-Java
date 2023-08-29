@@ -122,7 +122,7 @@ public class ProjectsApiTimeEntriesTest {
         TimeEntryCreateOrUpdate timeEntryCreateOrUpdate = new TimeEntryCreateOrUpdate();
         UUID projectId = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");
 
-        TimeEntry response = projectApi.createTimeEntry(accessToken, xeroTenantId, projectId, timeEntryCreateOrUpdate);
+        TimeEntry response = projectApi.createTimeEntry(accessToken, xeroTenantId, projectId, timeEntryCreateOrUpdate, null);
         assertThat(response.getTimeEntryId(),is(equalTo(UUID.fromString("c6539534-f1d2-43a6-80df-3bd1f8aca24d"))));
         assertThat(response.getUserId(), is(equalTo(UUID.fromString("740add2a-a703-4b8a-a670-1093919c2040"))));
         assertThat(response.getProjectId(), is(equalTo(UUID.fromString("b021e7cb-1903-4292-b48b-5b27b4271e3e"))));

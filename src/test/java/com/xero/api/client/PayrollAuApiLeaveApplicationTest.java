@@ -113,7 +113,7 @@ public class PayrollAuApiLeaveApplicationTest {
         System.out.println("@Test - createLeaveApplicationTest");
         
         List<LeaveApplication> leaveApplications = new ArrayList<>();        
-        LeaveApplications response = payrollAuApi.createLeaveApplication(accessToken, xeroTenantId, leaveApplications);
+        LeaveApplications response = payrollAuApi.createLeaveApplication(accessToken, xeroTenantId, leaveApplications, null);
         
         assertThat(response.getLeaveApplications().get(0).getTitle(), is(equalTo("Hello World")));
         assertThat(response.getLeaveApplications().get(0).getLeaveApplicationID() , is(equalTo(UUID.fromString("5f7097e4-51f2-46cc-921b-45bc73ea7831"))));
@@ -135,7 +135,7 @@ public class PayrollAuApiLeaveApplicationTest {
         
         UUID leaveApplicationId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
         List<LeaveApplication> leaveApplications = new ArrayList<>();
-        LeaveApplications response = payrollAuApi.updateLeaveApplication(accessToken, xeroTenantId, leaveApplicationId, leaveApplications);
+        LeaveApplications response = payrollAuApi.updateLeaveApplication(accessToken, xeroTenantId, leaveApplicationId, leaveApplications, null);
         
         assertThat(response.getLeaveApplications().get(0).getTitle(), is(equalTo("vacation")));
         assertThat(response.getLeaveApplications().get(0).getLeaveApplicationID() , is(equalTo(UUID.fromString("1d4cd583-0107-4386-936b-672eb3d1f624"))));

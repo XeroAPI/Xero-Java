@@ -120,7 +120,7 @@ public class PayrollUkApiTimesheetsTest {
         int page = 1;
         UUID timesheetID = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e"); 
         Timesheet timesheet = new Timesheet();
-        TimesheetObject response = payrollUkApi.createTimesheet(accessToken, xeroTenantId, timesheet);
+        TimesheetObject response = payrollUkApi.createTimesheet(accessToken, xeroTenantId, timesheet, null);
         
         assertThat(response.getTimesheet().getTimesheetID(),is(equalTo(UUID.fromString("88d2038a-06f7-4b8a-bdab-809804c0aa1d"))));
         assertThat(response.getTimesheet().getPayrollCalendarID(),is(equalTo(UUID.fromString("216d80e6-af55-47b1-b718-9457c3f5d2fe"))));
@@ -144,7 +144,7 @@ public class PayrollUkApiTimesheetsTest {
        
         UUID timesheetID = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e"); 
         TimesheetLine timesheetLine = new TimesheetLine();
-        TimesheetLineObject response = payrollUkApi.createTimesheetLine(accessToken, xeroTenantId, timesheetID, timesheetLine);
+        TimesheetLineObject response = payrollUkApi.createTimesheetLine(accessToken, xeroTenantId, timesheetID, timesheetLine, null);
         
         assertThat(response.getTimesheetLine().getTimesheetLineID(),is(equalTo(UUID.fromString("56fce87e-7f0d-4c19-8f74-7f5656651c81"))));
         assertThat(response.getTimesheetLine().getDate(), is(equalTo(LocalDate.of(2020, 04, 14))));
@@ -161,7 +161,7 @@ public class PayrollUkApiTimesheetsTest {
         UUID timesheetID = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e"); 
         UUID timesheetLineID = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e"); 
         TimesheetLine timesheetLine = new TimesheetLine();
-        TimesheetLineObject response = payrollUkApi.updateTimesheetLine(accessToken, xeroTenantId, timesheetID, timesheetLineID, timesheetLine);
+        TimesheetLineObject response = payrollUkApi.updateTimesheetLine(accessToken, xeroTenantId, timesheetID, timesheetLineID, timesheetLine, null);
         
         assertThat(response.getTimesheetLine().getTimesheetLineID(),is(equalTo(UUID.fromString("c88edcad-af32-4536-a682-9a4772c21c8d"))));
         assertThat(response.getTimesheetLine().getDate(), is(equalTo(LocalDate.of(2020, 04, 14))));
