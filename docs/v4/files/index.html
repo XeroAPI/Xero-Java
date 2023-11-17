@@ -1129,7 +1129,7 @@ ul.nav-tabs {
           <nav id="scrollingNav">
             <ul class="sidenav nav nav-list">
               <li class="nav-header" data-group="Files"><strong>SDK: </strong><span id='sdk-name'></span></li>
-              <li class="nav-header" data-group="Files"><strong>VSN: </strong>4.29.0</li>
+              <li class="nav-header" data-group="Files"><strong>VSN: </strong>4.29.1</li>
               <li class="nav-header" data-group="Files"><a href="#api-Files">Methods</a></li>
               <li data-group="Files" data-name="createFileAssociation" class="">
                 <a href="#api-Files-createFileAssociation">createFileAssociation</a>
@@ -1973,9 +1973,13 @@ public class FilesApiExample {
         String xeroTenantId = 'YOUR_XERO_TENANT_ID';
         UUID objectId = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
         UUID objectId = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
+        Integer pagesize = 50;
+        Integer page = 2;
+        String sort = 'Associations/{ObjectId}?sort=CreatedDateUtc';
+        String direction = 'Associations/{ObjectId}?sort=CreatedDateUtc&direction=DESC';
 
         try {
-            array[Association] result = apiInstance.getAssociationsByObject(accessToken, xeroTenantId, objectId);
+            array[Association] result = apiInstance.getAssociationsByObject(accessToken, xeroTenantId, objectId, pagesize, page, sort, direction);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling FilesApi#getAssociationsByObject");
@@ -2057,6 +2061,93 @@ Xero identifier for Tenant
                 <div class="inner required">
                     Required
                 </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                  </table>
+                  <div class="methodsubtabletitle">Query parameters</div>
+                  <table id="methodsubtable">
+                    <tr>
+                      <th width="150px">Name</th>
+                      <th>Description</th>
+                    </tr>
+                    <tr><td style="width:150px;">pagesize</td>
+<td>
+
+
+    <div id="d2e199_getAssociationsByObject_pagesize">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Integer
+                </span>
+
+                    <div class="inner description marked">
+pass an optional page size value
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">page</td>
+<td>
+
+
+    <div id="d2e199_getAssociationsByObject_page">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Integer
+                </span>
+
+                    <div class="inner description marked">
+number of records to skip for pagination
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">sort</td>
+<td>
+
+
+    <div id="d2e199_getAssociationsByObject_sort">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+values to sort by
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">direction</td>
+<td>
+
+
+    <div id="d2e199_getAssociationsByObject_direction">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+direction to sort by
+                    </div>
+            </div>
         </div>
     </div>
 </td>
