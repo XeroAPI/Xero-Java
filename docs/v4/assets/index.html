@@ -1388,7 +1388,7 @@ ul.nav-tabs {
           <nav id="scrollingNav">
             <ul class="sidenav nav nav-list">
               <li class="nav-header" data-group="Asset"><strong>SDK: </strong><span id='sdk-name'></span></li>
-              <li class="nav-header" data-group="Asset"><strong>VSN: </strong>4.29.1</li>
+              <li class="nav-header" data-group="Asset"><strong>VSN: </strong>4.30.0</li>
               <li class="nav-header" data-group="Asset"><a href="#api-Asset">Methods</a></li>
               <li data-group="Asset" data-name="createAsset" class="">
                 <a href="#api-Asset-createAsset">createAsset</a>
@@ -1779,7 +1779,6 @@ public class AssetApiExample {
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'YOUR_XERO_TENANT_ID';
         UUID id = UUID.fromString("00000000-0000-0000-0000-000000000000");
-        UUID id = '00000000-0000-0000-0000-000000000000';
 
         try {
             Asset result = apiInstance.getAssetById(accessToken, xeroTenantId, id);

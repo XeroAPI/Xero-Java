@@ -2699,7 +2699,6 @@ ul.nav-tabs {
 };
       defs["Settings_TrackingCategories"] = {
   "title" : "",
-  "type" : "object",
   "properties" : {
     "EmployeeGroups" : {
       "$ref" : "#/components/schemas/Settings_TrackingCategories_EmployeeGroups"
@@ -2712,7 +2711,6 @@ ul.nav-tabs {
 };
       defs["Settings_TrackingCategories_EmployeeGroups"] = {
   "title" : "",
-  "type" : "object",
   "properties" : {
     "TrackingCategoryID" : {
       "type" : "string",
@@ -2729,7 +2727,6 @@ ul.nav-tabs {
 };
       defs["Settings_TrackingCategories_TimesheetCategories"] = {
   "title" : "",
-  "type" : "object",
   "properties" : {
     "TrackingCategoryID" : {
       "type" : "string",
@@ -3411,7 +3408,7 @@ ul.nav-tabs {
           <nav id="scrollingNav">
             <ul class="sidenav nav nav-list">
               <li class="nav-header" data-group="PayrollAu"><strong>SDK: </strong><span id='sdk-name'></span></li>
-              <li class="nav-header" data-group="PayrollAu"><strong>VSN: </strong>4.29.1</li>
+              <li class="nav-header" data-group="PayrollAu"><strong>VSN: </strong>4.30.0</li>
               <li class="nav-header" data-group="PayrollAu"><a href="#api-PayrollAu">Methods</a></li>
               <li data-group="PayrollAu" data-name="approveLeaveApplication" class="">
                 <a href="#api-PayrollAu-approveLeaveApplication">approveLeaveApplication</a>
@@ -3565,7 +3562,6 @@ public class PayrollAuApiExample {
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'xeroTenantId_example';
         UUID leaveApplicationID = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
-        UUID leaveApplicationID = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
         String idempotencyKey = 'KEY_VALUE';
 
         try {
@@ -4863,7 +4859,6 @@ public class PayrollAuApiExample {
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'xeroTenantId_example';
         UUID employeeID = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
-        UUID employeeID = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
 
         try {
             Employees result = apiInstance.getEmployee(accessToken, xeroTenantId, employeeID);
@@ -5187,7 +5182,6 @@ public class PayrollAuApiExample {
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'xeroTenantId_example';
         UUID leaveApplicationID = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
-        UUID leaveApplicationID = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
 
         try {
             LeaveApplications result = apiInstance.getLeaveApplication(accessToken, xeroTenantId, leaveApplicationID);
@@ -5895,7 +5889,6 @@ public class PayrollAuApiExample {
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'xeroTenantId_example';
         UUID payRunID = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
-        UUID payRunID = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
 
         try {
             PayRuns result = apiInstance.getPayRun(accessToken, xeroTenantId, payRunID);
@@ -6219,7 +6212,6 @@ public class PayrollAuApiExample {
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'xeroTenantId_example';
         UUID payrollCalendarID = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
-        UUID payrollCalendarID = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
 
         try {
             PayrollCalendars result = apiInstance.getPayrollCalendar(accessToken, xeroTenantId, payrollCalendarID);
@@ -6543,7 +6535,6 @@ public class PayrollAuApiExample {
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'xeroTenantId_example';
         UUID payslipID = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
-        UUID payslipID = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
 
         try {
             PayslipObject result = apiInstance.getPayslip(accessToken, xeroTenantId, payslipID);
@@ -6772,7 +6763,6 @@ public class PayrollAuApiExample {
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'xeroTenantId_example';
         UUID superFundID = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
-        UUID superFundID = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
 
         try {
             SuperFunds result = apiInstance.getSuperfund(accessToken, xeroTenantId, superFundID);
@@ -7242,7 +7232,6 @@ public class PayrollAuApiExample {
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'xeroTenantId_example';
         UUID timesheetID = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
-        UUID timesheetID = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
 
         try {
             TimesheetObject result = apiInstance.getTimesheet(accessToken, xeroTenantId, timesheetID);
@@ -7566,7 +7555,6 @@ public class PayrollAuApiExample {
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'xeroTenantId_example';
         UUID leaveApplicationID = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
-        UUID leaveApplicationID = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
         String idempotencyKey = 'KEY_VALUE';
 
         try {
@@ -7714,7 +7702,6 @@ public class PayrollAuApiExample {
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'xeroTenantId_example';
         UUID employeeID = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
-        UUID employeeID = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
         String idempotencyKey = 'KEY_VALUE';
         LocalDate dateOfBirth = LocalDate.of(2000, Month.OCTOBER, 28);
         
@@ -7910,7 +7897,6 @@ public class PayrollAuApiExample {
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'xeroTenantId_example';
         UUID leaveApplicationID = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
-        UUID leaveApplicationID = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
         String idempotencyKey = 'KEY_VALUE';
         LocalDate startDate = LocalDate.of(2020, Month.OCTOBER, 28);
         LocalDate endDate = LocalDate.of(2020, Month.OCTOBER, 30);
@@ -8106,7 +8092,6 @@ public class PayrollAuApiExample {
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'xeroTenantId_example';
         UUID payRunID = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
-        UUID payRunID = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
         String idempotencyKey = 'KEY_VALUE';
         
         PayRun payRun = new PayRun();
@@ -8292,7 +8277,6 @@ public class PayrollAuApiExample {
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'xeroTenantId_example';
         UUID payslipID = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
-        UUID payslipID = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
         String idempotencyKey = 'KEY_VALUE';
         
         EarningsLine earningsLine = new EarningsLine();
@@ -8489,7 +8473,6 @@ public class PayrollAuApiExample {
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'xeroTenantId_example';
         UUID superFundID = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
-        UUID superFundID = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
         String idempotencyKey = 'KEY_VALUE';
         
         SuperFund superFund = new SuperFund();
@@ -8676,7 +8659,6 @@ public class PayrollAuApiExample {
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'xeroTenantId_example';
         UUID timesheetID = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
-        UUID timesheetID = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
         String idempotencyKey = 'KEY_VALUE';
         LocalDate startDate = LocalDate.of(2020, Month.OCTOBER, 23);
         LocalDate endDate = LocalDate.of(2020, Month.OCTOBER, 30);

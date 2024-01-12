@@ -240,7 +240,7 @@ public class Statement {
    * @return startDate
    */
   @ApiModelProperty(
-      example = "Fri Jul 27 00:00:00 UTC 2018",
+      example = "Fri Jul 27 00:00:00 GMT 2018",
       value =
           "Opening balance date (can be no older than one year from the current date) ISO-8601"
               + " YYYY-MM-DD")
@@ -279,7 +279,7 @@ public class Statement {
    * @return endDate
    */
   @ApiModelProperty(
-      example = "Fri Jul 27 00:00:00 UTC 2018",
+      example = "Fri Jul 27 00:00:00 GMT 2018",
       value = "Closing balance date ISO-8601 YYYY-MM-DD")
   /**
    * Closing balance date ISO-8601 YYYY-MM-DD

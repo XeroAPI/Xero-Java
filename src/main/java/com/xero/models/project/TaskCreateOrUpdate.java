@@ -43,7 +43,7 @@ public class TaskCreateOrUpdate {
   }
 
   /**
-   * Name of the task. Max length 100 characters.
+   * Name of the task. Max length 100 characters. maximum: 100
    *
    * @return name
    */

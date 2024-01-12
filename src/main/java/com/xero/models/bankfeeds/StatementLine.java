@@ -68,7 +68,7 @@ public class StatementLine {
    * @return postedDate
    */
   @ApiModelProperty(
-      example = "Sun Jun 10 00:00:00 UTC 2018",
+      example = "Sun Jun 10 00:00:00 GMT 2018",
       value =
           "The date that the transaction was processed or cleared as seen in internet banking"
               + " ISO-8601 YYYY-MM-DD")
@@ -104,7 +104,7 @@ public class StatementLine {
   }
 
   /**
-   * Transaction description
+   * Transaction description maximum: 2000
    *
    * @return description
    */
@@ -252,7 +252,7 @@ public class StatementLine {
   }
 
   /**
-   * Typically the merchant or payee name
+   * Typically the merchant or payee name maximum: 255
    *
    * @return payeeName
    */
@@ -289,7 +289,7 @@ public class StatementLine {
   }
 
   /**
-   * Optional field to enhance the Description
+   * Optional field to enhance the Description maximum: 255
    *
    * @return reference
    */
@@ -326,7 +326,7 @@ public class StatementLine {
   }
 
   /**
-   * The cheque/check number
+   * The cheque/check number maximum: 20
    *
    * @return chequeNumber
    */
@@ -361,7 +361,7 @@ public class StatementLine {
   }
 
   /**
-   * Descriptive transaction type
+   * Descriptive transaction type maximum: 30
    *
    * @return transactionType
    */

@@ -1014,6 +1014,28 @@ ul.nav-tabs {
   "description" : "The Object Type",
   "enum" : [ "Unknown", "Accpay", "AccPayCredit", "AccPayPayment", "AccRec", "AccRecCredit", "AccRecPayment", "Adjustment", "ApCreditPayment", "ApOverPayment", "ApOverPaymentPayment", "ApOverPaymentSourcePayment", "ApPrepayment", "ApPrepaymentPayment", "ApPrepaymentSourcePayment", "ArCreditPayment", "ArOverPayment", "ArOverpaymentPayment", "ArOverpaymentSourcePayment", "ArPrepayment", "ArPrepaymentPayment", "ArPrepaymentSourcePayment", "CashPaid", "CashRec", "ExpPayment", "ManJournal", "PurchaseOrder", "Receipt", "Transfer", "Account", "Contact", "Business", "Employee", "Person", "User", "Org", "FixedAsset", "PayRun", "PriceListItem", "Bank", "Current", "Equity", "Expense", "Fixed", "Liability", "Prepayment", "Revenue", "Sales", "Overheads", "Depreciatn", "OtherIncome", "DirectCosts", "Currliab", "Termliab", "NonCurrent", "SalesQuote" ]
 };
+      defs["UploadObject"] = {
+  "title" : "",
+  "required" : [ "body", "filename", "name" ],
+  "type" : "object",
+  "properties" : {
+    "body" : {
+      "type" : "string",
+      "format" : "byte"
+    },
+    "name" : {
+      "type" : "string",
+      "description" : "exact name of the file you are uploading"
+    },
+    "filename" : {
+      "type" : "string"
+    },
+    "mimeType" : {
+      "type" : "string"
+    }
+  },
+  "description" : ""
+};
       defs["User"] = {
   "title" : "",
   "required" : [ "Id" ],
@@ -1129,7 +1151,7 @@ ul.nav-tabs {
           <nav id="scrollingNav">
             <ul class="sidenav nav nav-list">
               <li class="nav-header" data-group="Files"><strong>SDK: </strong><span id='sdk-name'></span></li>
-              <li class="nav-header" data-group="Files"><strong>VSN: </strong>4.29.1</li>
+              <li class="nav-header" data-group="Files"><strong>VSN: </strong>4.30.0</li>
               <li class="nav-header" data-group="Files"><a href="#api-Files">Methods</a></li>
               <li data-group="Files" data-name="createFileAssociation" class="">
                 <a href="#api-Files-createFileAssociation">createFileAssociation</a>
@@ -1241,7 +1263,6 @@ public class FilesApiExample {
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'YOUR_XERO_TENANT_ID';
         UUID fileId = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
-        UUID fileId = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
         String idempotencyKey = 'KEY_VALUE';
 
         try {
@@ -1566,7 +1587,6 @@ public class FilesApiExample {
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'YOUR_XERO_TENANT_ID';
         UUID fileId = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
-        UUID fileId = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
 
         try {
              result = apiInstance.deleteFile(accessToken, xeroTenantId, fileId);
@@ -1692,9 +1712,7 @@ public class FilesApiExample {
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'YOUR_XERO_TENANT_ID';
         UUID fileId = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
-        UUID fileId = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
         UUID objectId = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
-        UUID objectId = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
 
         try {
              result = apiInstance.deleteFileAssociation(accessToken, xeroTenantId, fileId, objectId);
@@ -1846,7 +1864,6 @@ public class FilesApiExample {
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'YOUR_XERO_TENANT_ID';
         UUID folderId = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
-        UUID folderId = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
 
         try {
              result = apiInstance.deleteFolder(accessToken, xeroTenantId, folderId);
@@ -1972,7 +1989,6 @@ public class FilesApiExample {
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'YOUR_XERO_TENANT_ID';
         UUID objectId = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
-        UUID objectId = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
         Integer pagesize = 50;
         Integer page = 2;
         String sort = 'Associations/{ObjectId}?sort=CreatedDateUtc';
@@ -2326,7 +2342,6 @@ public class FilesApiExample {
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'YOUR_XERO_TENANT_ID';
         UUID fileId = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
-        UUID fileId = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
 
         try {
             FileObject result = apiInstance.getFile(accessToken, xeroTenantId, fileId);
@@ -2458,7 +2473,6 @@ public class FilesApiExample {
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'YOUR_XERO_TENANT_ID';
         UUID fileId = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
-        UUID fileId = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
 
         try {
             array[Association] result = apiInstance.getFileAssociations(accessToken, xeroTenantId, fileId);
@@ -2590,7 +2604,6 @@ public class FilesApiExample {
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'YOUR_XERO_TENANT_ID';
         UUID fileId = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
-        UUID fileId = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
 
         try {
             ByteArrayInputStream result = apiInstance.getFileContent(accessToken, xeroTenantId, fileId);
@@ -2889,7 +2902,6 @@ public class FilesApiExample {
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'YOUR_XERO_TENANT_ID';
         UUID folderId = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
-        UUID folderId = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
 
         try {
             Folder result = apiInstance.getFolder(accessToken, xeroTenantId, folderId);
@@ -3243,7 +3255,6 @@ public class FilesApiExample {
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'YOUR_XERO_TENANT_ID';
         UUID fileId = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
-        UUID fileId = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
         String idempotencyKey = 'KEY_VALUE';
 
         try {
@@ -3423,7 +3434,6 @@ public class FilesApiExample {
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'YOUR_XERO_TENANT_ID';
         UUID folderId = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
-        UUID folderId = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
         String idempotencyKey = 'KEY_VALUE';
 
         try {
@@ -3823,7 +3833,6 @@ public class FilesApiExample {
         apiInstance = AccountingApi.getInstance(defaultClient);
         String xeroTenantId = 'YOUR_XERO_TENANT_ID';
         UUID folderId = UUID.fromString("4ff1e5cc-9835-40d5-bb18-09fdb118db9c");
-        UUID folderId = '4ff1e5cc-9835-40d5-bb18-09fdb118db9c';
         byte[] body = BYTE_ARRAY_DATA_HERE;
         String name = 'name_example';
         String filename = 'filename_example';

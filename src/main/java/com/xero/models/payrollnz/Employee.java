@@ -115,6 +115,9 @@ public class Employee {
 
   @JsonProperty("createdDateUTC")
   private LocalDateTime createdDateUTC;
+
+  @JsonProperty("jobTitle")
+  private String jobTitle;
   /**
    * Xero unique identifier for the employee
    *
@@ -274,7 +277,7 @@ public class Employee {
    * @return dateOfBirth
    */
   @ApiModelProperty(
-      example = "Wed Jan 02 00:00:00 UTC 2019",
+      example = "Wed Jan 02 00:00:00 GMT 2019",
       value = "Date of birth of the employee (YYYY-MM-DD)")
   /**
    * Date of birth of the employee (YYYY-MM-DD)
@@ -451,7 +454,7 @@ public class Employee {
    * @return startDate
    */
   @ApiModelProperty(
-      example = "Sun Jan 19 00:00:00 UTC 2020",
+      example = "Sun Jan 19 00:00:00 GMT 2020",
       value = "Employment start date of the employee at the time it was requested")
   /**
    * Employment start date of the employee at the time it was requested
@@ -488,7 +491,7 @@ public class Employee {
    * @return endDate
    */
   @ApiModelProperty(
-      example = "Sun Jan 19 00:00:00 UTC 2020",
+      example = "Sun Jan 19 00:00:00 GMT 2020",
       value = "Employment end date of the employee at the time it was requested")
   /**
    * Employment end date of the employee at the time it was requested
@@ -613,6 +616,41 @@ public class Employee {
     this.createdDateUTC = createdDateUTC;
   }
 
+  /**
+   * Employee&#39;s job title
+   *
+   * @param jobTitle String
+   * @return Employee
+   */
+  public Employee jobTitle(String jobTitle) {
+    this.jobTitle = jobTitle;
+    return this;
+  }
+
+  /**
+   * Employee&#39;s job title
+   *
+   * @return jobTitle
+   */
+  @ApiModelProperty(example = "General Manager", value = "Employee's job title")
+  /**
+   * Employee&#39;s job title
+   *
+   * @return jobTitle String
+   */
+  public String getJobTitle() {
+    return jobTitle;
+  }
+
+  /**
+   * Employee&#39;s job title
+   *
+   * @param jobTitle String
+   */
+  public void setJobTitle(String jobTitle) {
+    this.jobTitle = jobTitle;
+  }
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -635,7 +673,8 @@ public class Employee {
         && Objects.equals(this.endDate, employee.endDate)
         && Objects.equals(this.payrollCalendarID, employee.payrollCalendarID)
         && Objects.equals(this.updatedDateUTC, employee.updatedDateUTC)
-        && Objects.equals(this.createdDateUTC, employee.createdDateUTC);
+        && Objects.equals(this.createdDateUTC, employee.createdDateUTC)
+        && Objects.equals(this.jobTitle, employee.jobTitle);
   }
 
   @Override
@@ -654,7 +693,8 @@ public class Employee {
         endDate,
         payrollCalendarID,
         updatedDateUTC,
-        createdDateUTC);
+        createdDateUTC,
+        jobTitle);
   }
 
   @Override
@@ -675,6 +715,7 @@ public class Employee {
     sb.append("    payrollCalendarID: ").append(toIndentedString(payrollCalendarID)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
     sb.append("    createdDateUTC: ").append(toIndentedString(createdDateUTC)).append("\n");
+    sb.append("    jobTitle: ").append(toIndentedString(jobTitle)).append("\n");
     sb.append("}");
     return sb.toString();
   }
