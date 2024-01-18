@@ -381,7 +381,10 @@ public class TaxRate {
     IMRE("IMRE"),
 
     /** BADDEBTRECOVERY */
-    BADDEBTRECOVERY("BADDEBTRECOVERY");
+    BADDEBTRECOVERY("BADDEBTRECOVERY"),
+
+    /** USSALESTAX */
+    USSALESTAX("USSALESTAX");
 
     private String value;
 
