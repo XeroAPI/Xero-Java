@@ -520,10 +520,7 @@ public enum CurrencyCode {
   ZMK("ZMK"),
 
   /** ZWD */
-  ZWD("ZWD"),
-
-  /** EMPTY_CURRENCY */
-  EMPTY_CURRENCY("");
+  ZWD("ZWD");
 
   private String value;
 

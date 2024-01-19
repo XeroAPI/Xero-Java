@@ -17,8 +17,8 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * Country of residence as a valid ISO 3166-1 alpha-2 country code e.g. \&quot;AU\&quot;,
- * \&quot;NZ\&quot;, \&quot;CA\&quot; or an empty string (\&quot;\&quot;) to unset a previously set
- * value. Only applicable, and mandatory if income type is WORKINGHOLIDAYMAKER.
+ * \&quot;NZ\&quot;, \&quot;CA\&quot;. Only applicable, and mandatory if income type is
+ * WORKINGHOLIDAYMAKER.
  */
 public enum CountryOfResidence {
 
@@ -770,10 +770,7 @@ public enum CountryOfResidence {
   SX("SX"),
 
   /** SS */
-  SS("SS"),
-
-  /** EMPTY */
-  EMPTY("");
+  SS("SS");
 
   private String value;
 
