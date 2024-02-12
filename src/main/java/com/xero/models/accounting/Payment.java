@@ -226,6 +226,9 @@ public class Payment {
 
   @JsonProperty("ValidationErrors")
   private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
+
+  @JsonProperty("Warnings")
+  private List<ValidationError> warnings = new ArrayList<ValidationError>();
   /**
    * invoice
    *
@@ -1233,6 +1236,55 @@ public class Payment {
     this.validationErrors = validationErrors;
   }
 
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warnings List&lt;ValidationError&gt;
+   * @return Payment
+   */
+  public Payment warnings(List<ValidationError> warnings) {
+    this.warnings = warnings;
+    return this;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warningsItem ValidationError
+   * @return Payment
+   */
+  public Payment addWarningsItem(ValidationError warningsItem) {
+    if (this.warnings == null) {
+      this.warnings = new ArrayList<ValidationError>();
+    }
+    this.warnings.add(warningsItem);
+    return this;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @return warnings
+   */
+  @ApiModelProperty(value = "Displays array of warning messages from the API")
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @return warnings List<ValidationError>
+   */
+  public List<ValidationError> getWarnings() {
+    return warnings;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warnings List&lt;ValidationError&gt;
+   */
+  public void setWarnings(List<ValidationError> warnings) {
+    this.warnings = warnings;
+  }
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -1268,7 +1320,8 @@ public class Payment {
         && Objects.equals(this.hasAccount, payment.hasAccount)
         && Objects.equals(this.hasValidationErrors, payment.hasValidationErrors)
         && Objects.equals(this.statusAttributeString, payment.statusAttributeString)
-        && Objects.equals(this.validationErrors, payment.validationErrors);
+        && Objects.equals(this.validationErrors, payment.validationErrors)
+        && Objects.equals(this.warnings, payment.warnings);
   }
 
   @Override
@@ -1300,7 +1353,8 @@ public class Payment {
         hasAccount,
         hasValidationErrors,
         statusAttributeString,
-        validationErrors);
+        validationErrors,
+        warnings);
   }
 
   @Override
@@ -1338,6 +1392,7 @@ public class Payment {
         .append(toIndentedString(statusAttributeString))
         .append("\n");
     sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
+    sb.append("    warnings: ").append(toIndentedString(warnings)).append("\n");
     sb.append("}");
     return sb.toString();
   }

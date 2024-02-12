@@ -86,7 +86,7 @@ public class AccountingApiPrepaymentsTest {
         System.out.println("@Test - createPrepaymentAllocation");
         UUID prepaymentID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         Allocations allocations = new Allocations();
-        Allocations response = accountingApi.createPrepaymentAllocations(accessToken,xeroTenantId,prepaymentID, allocations, null, false);
+        Allocations response = accountingApi.createPrepaymentAllocations(accessToken,xeroTenantId,prepaymentID, allocations, false, null);
 
         assertThat(response.getAllocations().get(0).getAmount(), is(equalTo(1.0)));
         assertThat(response.getAllocations().get(0).getDateAsDate(), is(equalTo(LocalDate.of(2019,03,13))));

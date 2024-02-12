@@ -68,7 +68,7 @@ public class AccountingApiPaymentsTest {
     public void createPaymentsTest() throws IOException {
         System.out.println("@Test - createPayments");
         Payments payments = new Payments();
-        Payments response = accountingApi.createPayments(accessToken,xeroTenantId,payments,null,true);
+        Payments response = accountingApi.createPayments(accessToken,xeroTenantId,payments,true, null);
 
         assertThat(response.getPayments().get(0).getInvoice().getInvoiceNumber(), is(equalTo("INV-0004")));
         assertThat(response.getPayments().get(0).getAccount().getCode(), is(equalTo("970")));

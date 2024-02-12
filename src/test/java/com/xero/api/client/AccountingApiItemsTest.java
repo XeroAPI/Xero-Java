@@ -85,7 +85,7 @@ public class AccountingApiItemsTest {
     public void createItemTest() throws IOException {
         System.out.println("@Test - createItem");
         Items items = new Items();
-        Items response = accountingApi.updateOrCreateItems(accessToken,xeroTenantId,items,null,false,4);
+        Items response = accountingApi.updateOrCreateItems(accessToken,xeroTenantId,items,false,4, null);
 
         assertThat(response.getItems().get(0).getCode(), is(equalTo("abc65591")));
         assertThat(response.getItems().get(0).getName(), is(equalTo("Hello11350")));
@@ -158,7 +158,7 @@ public class AccountingApiItemsTest {
         System.out.println("@Test - updateItem");
         UUID itemID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         Items items = new Items();
-        Items response = accountingApi.updateItem(accessToken,xeroTenantId,itemID, items, null, 4);
+        Items response = accountingApi.updateItem(accessToken,xeroTenantId,itemID, items, 4, null);
 
         assertThat(response.getItems().get(0).getCode(), is(equalTo("abc38306")));
         assertThat(response.getItems().get(0).getName(), is(equalTo("Hello8746")));

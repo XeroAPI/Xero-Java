@@ -1129,7 +1129,7 @@ ul.nav-tabs {
           <nav id="scrollingNav">
             <ul class="sidenav nav nav-list">
               <li class="nav-header" data-group="Files"><strong>SDK: </strong><span id='sdk-name'></span></li>
-              <li class="nav-header" data-group="Files"><strong>VSN: </strong>4.30.1</li>
+              <li class="nav-header" data-group="Files"><strong>VSN: </strong>5.0.0</li>
               <li class="nav-header" data-group="Files"><a href="#api-Files">Methods</a></li>
               <li data-group="Files" data-name="createFileAssociation" class="">
                 <a href="#api-Files-createFileAssociation">createFileAssociation</a>
@@ -1245,7 +1245,7 @@ public class FilesApiExample {
         String idempotencyKey = 'KEY_VALUE';
 
         try {
-            Association result = apiInstance.createFileAssociation(accessToken, xeroTenantId, fileId, idempotencyKey, association);
+            Association result = apiInstance.createFileAssociation(accessToken, xeroTenantId, fileId, association, idempotencyKey);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling FilesApi#createFileAssociation");
@@ -1355,7 +1355,7 @@ This allows you to safely retry requests without the risk of duplicate processin
                       <th>Description</th>
                     </tr>
                     <tr>
-  <td style="width:150px;">association </td>
+  <td style="width:150px;">association <span style="color:red;">*</span></td>
   <td>
     <div class="json-schema-view">
       <div class="primitive">
@@ -1365,6 +1365,9 @@ This allows you to safely retry requests without the risk of duplicate processin
         <div class="inner description marked">
           
         </div>
+      </div>
+      <div class="inner required">
+        Required
       </div>
     </div>
     <script type="application/ld+json">
@@ -1376,7 +1379,8 @@ This allows you to safely retry requests without the risk of duplicate processin
       },
       "example" : "{ \"ObjectId\": \"1270bf7c-5d18-473a-9231-1e36c4bd33ed\", \"ObjectGroup\": \"Contact\", \"ObjectType\": \"Business\" }"
     }
-  }
+  },
+  "required" : true
 }
     </script>
                   </table>
@@ -1423,7 +1427,7 @@ public class FilesApiExample {
         String idempotencyKey = 'KEY_VALUE';
 
         try {
-            Folder result = apiInstance.createFolder(accessToken, xeroTenantId, idempotencyKey, folder);
+            Folder result = apiInstance.createFolder(accessToken, xeroTenantId, folder, idempotencyKey);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling FilesApi#createFolder");
@@ -1500,7 +1504,7 @@ This allows you to safely retry requests without the risk of duplicate processin
                       <th>Description</th>
                     </tr>
                     <tr>
-  <td style="width:150px;">folder </td>
+  <td style="width:150px;">folder <span style="color:red;">*</span></td>
   <td>
     <div class="json-schema-view">
       <div class="primitive">
@@ -1510,6 +1514,9 @@ This allows you to safely retry requests without the risk of duplicate processin
         <div class="inner description marked">
           
         </div>
+      </div>
+      <div class="inner required">
+        Required
       </div>
     </div>
     <script type="application/ld+json">
@@ -1521,7 +1528,8 @@ This allows you to safely retry requests without the risk of duplicate processin
       },
       "example" : "{ \"Name\": \"My Docs\" }"
     }
-  }
+  },
+  "required" : true
 }
     </script>
                   </table>
@@ -3247,7 +3255,7 @@ public class FilesApiExample {
         String idempotencyKey = 'KEY_VALUE';
 
         try {
-            FileObject result = apiInstance.updateFile(accessToken, xeroTenantId, fileId, idempotencyKey, fileObject);
+            FileObject result = apiInstance.updateFile(accessToken, xeroTenantId, fileId, fileObject, idempotencyKey);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling FilesApi#updateFile");
@@ -3357,7 +3365,7 @@ This allows you to safely retry requests without the risk of duplicate processin
                       <th>Description</th>
                     </tr>
                     <tr>
-  <td style="width:150px;">fileObject </td>
+  <td style="width:150px;">fileObject <span style="color:red;">*</span></td>
   <td>
     <div class="json-schema-view">
       <div class="primitive">
@@ -3367,6 +3375,9 @@ This allows you to safely retry requests without the risk of duplicate processin
         <div class="inner description marked">
           
         </div>
+      </div>
+      <div class="inner required">
+        Required
       </div>
     </div>
     <script type="application/ld+json">
@@ -3378,7 +3389,8 @@ This allows you to safely retry requests without the risk of duplicate processin
       },
       "example" : "{ \"FolderId\": \"bf924975-7097-46f2-a143-1ecfbab3c8c3\" }"
     }
-  }
+  },
+  "required" : true
 }
     </script>
                   </table>

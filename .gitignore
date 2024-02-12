@@ -140,3 +140,5 @@ nbdist/
 .nb-gradle/
 *.log
 .build_notes.md
+
+.vscode
