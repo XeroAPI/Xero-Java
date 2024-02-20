@@ -5,7 +5,7 @@
     <artifactId>xero-java</artifactId>
     <packaging>jar</packaging>
     <name>xero-java</name>
-    <version>5.0.0-beta</version>
+    <version>5.0.0</version>
     <url>https://github.com/XeroAPI/Xero-Java</url>
     <description>This is the official Java SDK for Xero API</description>
     <licenses>
@@ -256,9 +256,9 @@
 						<goals>
 							<goal>sign</goal>
 						</goals>
-                        <!-- <configuration>
-                                <passphraseServerId>gpg.passphrase</passphraseServerId>
-                        </configuration> -->
+                        <configuration>
+							<passphraseServerId>gpg.passphrase</passphraseServerId>
+                        </configuration>
 					</execution>
 				</executions>
 			</plugin>
@@ -279,7 +279,6 @@
                 <version>3.0.0-M4</version>
                 <configuration>
                     <argLine>-Duser.timezone=GMT-08:00</argLine>
-                    <skipTests>true</skipTests>
                 </configuration>
             </plugin>
 		</plugins>
