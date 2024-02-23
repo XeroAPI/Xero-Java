@@ -87,7 +87,7 @@ public class BankfeedApiStatementTest {
 		System.out.println("@Test - createStatements");
 
 		Statements newStatements = new Statements();
-		Statements response = bankfeedsApi.createStatements(accessToken,xeroTenantId,null,newStatements);
+		Statements response = bankfeedsApi.createStatements(accessToken,xeroTenantId,newStatements, null);
        assertThat(response.getItems().get(0).getId().toString(), (equalTo("d69b02b7-a30c-464a-99cf-ba9770373c61")));
 		assertThat(response.getItems().get(0).getFeedConnectionId().toString(), (equalTo("6a4b9ff5-3a5f-4321-936b-4796163550f6")));
 		assertThat(response.getItems().get(0).getStatus(), is(equalTo(com.xero.models.bankfeeds.Statement.StatusEnum.PENDING)));   
@@ -98,7 +98,7 @@ public class BankfeedApiStatementTest {
 		System.out.println("@Test - getStatement");
 
 		Statements newStatements = new Statements();
-		Statements response = bankfeedsApi.createStatements(accessToken,xeroTenantId,null,newStatements);
+		Statements response = bankfeedsApi.createStatements(accessToken,xeroTenantId,newStatements, null);
        	assertThat(response.getItems().get(0).getId().toString(), (equalTo("d69b02b7-a30c-464a-99cf-ba9770373c61")));
 		assertThat(response.getItems().get(0).getFeedConnectionId().toString(), (equalTo("6a4b9ff5-3a5f-4321-936b-4796163550f6")));
 		assertThat(response.getItems().get(0).getStatus(), is(equalTo(com.xero.models.bankfeeds.Statement.StatusEnum.PENDING))); 

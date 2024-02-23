@@ -187,7 +187,7 @@ public class AccountingApiQuotesTest {
         System.out.println("@Test - createQuote");
 
         Quotes newQuote = new Quotes();
-        Quotes quotes = accountingApi.createQuotes(accessToken, xeroTenantId, newQuote, null, false);
+        Quotes quotes = accountingApi.createQuotes(accessToken, xeroTenantId, newQuote, false, null);
 
         assert(quotes.getQuotes().size() == 1);
 		assertThat(quotes.getQuotes().get(0).getQuoteID(), is(equalTo(UUID.fromString("60031d53-6488-4321-9cbd-c1db6dbf9ba4"))));
@@ -253,7 +253,7 @@ public class AccountingApiQuotesTest {
         System.out.println("@Test - updateOrCreateQuote");
 
         Quotes newQuote = new Quotes();
-        Quotes quotes = accountingApi.updateOrCreateQuotes(accessToken, xeroTenantId, newQuote, null, false);
+        Quotes quotes = accountingApi.updateOrCreateQuotes(accessToken, xeroTenantId, newQuote, false, null);
 
         assert(quotes.getQuotes().size() == 1);
 		assertThat(quotes.getQuotes().get(0).getQuoteID(), is(equalTo(UUID.fromString("fd53e0b7-4d24-4c20-be85-043a62ea5847"))));
