@@ -111,8 +111,8 @@ public class AccountingApiTaxRatesTest {
         System.out.println("@Test - getTaxRates");
         String where = null;
         String order = null;
-        String taxType = null;
-        TaxRates response = accountingApi.getTaxRates(accessToken,xeroTenantId,where, order, taxType);
+        
+        TaxRates response = accountingApi.getTaxRates(accessToken, xeroTenantId,where, order);
 
         assertThat(response.getTaxRates().get(0).getName(), is(equalTo("15% GST on Expenses")));
         assertThat(response.getTaxRates().get(0).getTaxType(), is(equalTo("INPUT2")));

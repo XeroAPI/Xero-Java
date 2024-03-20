@@ -25528,6 +25528,94 @@ public class AccountingApi {
   }
 
   /**
+   * Retrieves a specific tax rate according to given TaxType code
+   *
+   * <p><b>200</b> - Success - return response of type TaxRates array with one TaxRate
+   *
+   * @param xeroTenantId Xero identifier for Tenant
+   * @param taxType A valid TaxType code
+   * @param accessToken Authorization token for user set in header of each request
+   * @return TaxRates
+   * @throws IOException if an error occurs while attempting to invoke the API *
+   */
+  public TaxRates getTaxRateByTaxType(String accessToken, String xeroTenantId, String taxType)
+      throws IOException {
+    try {
+      TypeReference<TaxRates> typeRef = new TypeReference<TaxRates>() {};
+      HttpResponse response =
+          getTaxRateByTaxTypeForHttpResponse(accessToken, xeroTenantId, taxType);
+      return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
+    } catch (HttpResponseException e) {
+      if (logger.isDebugEnabled()) {
+        logger.debug(
+            "------------------ HttpResponseException "
+                + e.getStatusCode()
+                + " : getTaxRateByTaxType -------------------");
+        logger.debug(e.toString());
+      }
+      XeroApiExceptionHandler handler = new XeroApiExceptionHandler();
+      handler.execute(e);
+    } catch (IOException ioe) {
+      throw ioe;
+    }
+    return null;
+  }
+
+  /**
+   * Retrieves a specific tax rate according to given TaxType code
+   *
+   * <p><b>200</b> - Success - return response of type TaxRates array with one TaxRate
+   *
+   * @param xeroTenantId Xero identifier for Tenant
+   * @param taxType A valid TaxType code
+   * @param accessToken Authorization token for user set in header of each request
+   * @return HttpResponse
+   * @throws IOException if an error occurs while attempting to invoke the API
+   */
+  public HttpResponse getTaxRateByTaxTypeForHttpResponse(
+      String accessToken, String xeroTenantId, String taxType) throws IOException {
+    // verify the required parameter 'xeroTenantId' is set
+    if (xeroTenantId == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'xeroTenantId' when calling getTaxRateByTaxType");
+    } // verify the required parameter 'taxType' is set
+    if (taxType == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'taxType' when calling getTaxRateByTaxType");
+    }
+    if (accessToken == null) {
+      throw new IllegalArgumentException(
+          "Missing the required parameter 'accessToken' when calling getTaxRateByTaxType");
+    }
+    HttpHeaders headers = new HttpHeaders();
+    headers.set("xero-tenant-id", xeroTenantId);
+    headers.setAccept("application/json");
+    headers.setUserAgent(this.getUserAgent());
+    // create a map of path variables
+    final Map<String, Object> uriVariables = new HashMap<String, Object>();
+    uriVariables.put("TaxType", taxType);
+
+    UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/TaxRates/{TaxType}");
+    String url = uriBuilder.buildFromMap(uriVariables).toString();
+    GenericUrl genericUrl = new GenericUrl(url);
+    if (logger.isDebugEnabled()) {
+      logger.debug("GET " + genericUrl.toString());
+    }
+
+    HttpContent content = null;
+    Credential credential =
+        new Credential(BearerToken.authorizationHeaderAccessMethod()).setAccessToken(accessToken);
+    HttpTransport transport = apiClient.getHttpTransport();
+    HttpRequestFactory requestFactory = transport.createRequestFactory(credential);
+    return requestFactory
+        .buildRequest(HttpMethods.GET, genericUrl, content)
+        .setHeaders(headers)
+        .setConnectTimeout(apiClient.getConnectionTimeout())
+        .setReadTimeout(apiClient.getReadTimeout())
+        .execute();
+  }
+
+  /**
    * Retrieves tax rates
    *
    * <p><b>200</b> - Success - return response of type TaxRates array with TaxRates
@@ -25535,18 +25623,15 @@ public class AccountingApi {
    * @param xeroTenantId Xero identifier for Tenant
    * @param where Filter by an any element
    * @param order Order by an any element
-   * @param taxType Filter by tax type
    * @param accessToken Authorization token for user set in header of each request
    * @return TaxRates
    * @throws IOException if an error occurs while attempting to invoke the API *
    */
-  public TaxRates getTaxRates(
-      String accessToken, String xeroTenantId, String where, String order, String taxType)
+  public TaxRates getTaxRates(String accessToken, String xeroTenantId, String where, String order)
       throws IOException {
     try {
       TypeReference<TaxRates> typeRef = new TypeReference<TaxRates>() {};
-      HttpResponse response =
-          getTaxRatesForHttpResponse(accessToken, xeroTenantId, where, order, taxType);
+      HttpResponse response = getTaxRatesForHttpResponse(accessToken, xeroTenantId, where, order);
       return apiClient.getObjectMapper().readValue(response.getContent(), typeRef);
     } catch (HttpResponseException e) {
       if (logger.isDebugEnabled()) {
@@ -25572,14 +25657,12 @@ public class AccountingApi {
    * @param xeroTenantId Xero identifier for Tenant
    * @param where Filter by an any element
    * @param order Order by an any element
-   * @param taxType Filter by tax type
    * @param accessToken Authorization token for user set in header of each request
    * @return HttpResponse
    * @throws IOException if an error occurs while attempting to invoke the API
    */
   public HttpResponse getTaxRatesForHttpResponse(
-      String accessToken, String xeroTenantId, String where, String order, String taxType)
-      throws IOException {
+      String accessToken, String xeroTenantId, String where, String order) throws IOException {
     // verify the required parameter 'xeroTenantId' is set
     if (xeroTenantId == null) {
       throw new IllegalArgumentException(
@@ -25617,26 +25700,6 @@ public class AccountingApi {
     if (order != null) {
       String key = "order";
       Object value = order;
-      if (value instanceof Collection) {
-        List valueList = new ArrayList<>((Collection) value);
-        if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
-          List<String> list = new ArrayList<String>();
-          for (int i = 0; i < valueList.size(); i++) {
-            list.add(valueList.get(i).toString());
-          }
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", list));
-        } else {
-          uriBuilder = uriBuilder.queryParam(key, String.join(",", valueList));
-        }
-      } else if (value instanceof Object[]) {
-        uriBuilder = uriBuilder.queryParam(key, (Object[]) value);
-      } else {
-        uriBuilder = uriBuilder.queryParam(key, value);
-      }
-    }
-    if (taxType != null) {
-      String key = "TaxType";
-      Object value = taxType;
       if (value instanceof Collection) {
         List valueList = new ArrayList<>((Collection) value);
         if (!valueList.isEmpty() && valueList.get(0) instanceof UUID) {
