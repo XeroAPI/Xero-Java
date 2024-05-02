@@ -384,7 +384,10 @@ public class TaxRate {
     BADDEBTRECOVERY("BADDEBTRECOVERY"),
 
     /** USSALESTAX */
-    USSALESTAX("USSALESTAX");
+    USSALESTAX("USSALESTAX"),
+
+    /** BLINPUT3 */
+    BLINPUT3("BLINPUT3");
 
     private String value;
 

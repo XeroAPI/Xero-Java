@@ -36,9 +36,6 @@ public enum AllowanceType {
   /** OTHER */
   OTHER("OTHER"),
 
-  /** JOBKEEPER */
-  JOBKEEPER("JOBKEEPER"),
-
   /** TOOLS */
   TOOLS("TOOLS"),
 
