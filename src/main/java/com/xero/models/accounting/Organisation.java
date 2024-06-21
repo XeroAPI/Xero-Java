@@ -541,7 +541,16 @@ public class Organisation {
     ULTIMATE("ULTIMATE"),
 
     /** LITE */
-    LITE("LITE");
+    LITE("LITE"),
+
+    /** IGNITE */
+    IGNITE("IGNITE"),
+
+    /** GROW */
+    GROW("GROW"),
+
+    /** COMPREHENSIVE */
+    COMPREHENSIVE("COMPREHENSIVE");
 
     private String value;
 
