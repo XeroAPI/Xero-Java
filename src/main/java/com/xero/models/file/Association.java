@@ -21,6 +21,15 @@ import java.util.UUID;
 public class Association {
   StringUtil util = new StringUtil();
 
+  @JsonProperty("SendWithObject")
+  private Boolean sendWithObject;
+
+  @JsonProperty("Name")
+  private String name;
+
+  @JsonProperty("Size")
+  private Integer size;
+
   @JsonProperty("FileId")
   private UUID fileId;
 
@@ -32,6 +41,140 @@ public class Association {
 
   @JsonProperty("ObjectType")
   private ObjectType objectType;
+  /**
+   * Boolean flag to determines whether the file is sent with the document it is attached to on
+   * client facing communications. Note- The SendWithObject element is only returned when using
+   * /Associations/{ObjectId} endpoint.
+   *
+   * @param sendWithObject Boolean
+   * @return Association
+   */
+  public Association sendWithObject(Boolean sendWithObject) {
+    this.sendWithObject = sendWithObject;
+    return this;
+  }
+
+  /**
+   * Boolean flag to determines whether the file is sent with the document it is attached to on
+   * client facing communications. Note- The SendWithObject element is only returned when using
+   * /Associations/{ObjectId} endpoint.
+   *
+   * @return sendWithObject
+   */
+  @ApiModelProperty(
+      example = "true",
+      value =
+          "Boolean flag to determines whether the file is sent with the document it is attached to"
+              + " on client facing communications. Note- The SendWithObject element is only"
+              + " returned when using /Associations/{ObjectId} endpoint.")
+  /**
+   * Boolean flag to determines whether the file is sent with the document it is attached to on
+   * client facing communications. Note- The SendWithObject element is only returned when using
+   * /Associations/{ObjectId} endpoint.
+   *
+   * @return sendWithObject Boolean
+   */
+  public Boolean getSendWithObject() {
+    return sendWithObject;
+  }
+
+  /**
+   * Boolean flag to determines whether the file is sent with the document it is attached to on
+   * client facing communications. Note- The SendWithObject element is only returned when using
+   * /Associations/{ObjectId} endpoint.
+   *
+   * @param sendWithObject Boolean
+   */
+  public void setSendWithObject(Boolean sendWithObject) {
+    this.sendWithObject = sendWithObject;
+  }
+
+  /**
+   * The name of the associated file. Note- The Name element is only returned when using
+   * /Associations/{ObjectId} endpoint.
+   *
+   * @param name String
+   * @return Association
+   */
+  public Association name(String name) {
+    this.name = name;
+    return this;
+  }
+
+  /**
+   * The name of the associated file. Note- The Name element is only returned when using
+   * /Associations/{ObjectId} endpoint.
+   *
+   * @return name
+   */
+  @ApiModelProperty(
+      example = "Test.pdf",
+      value =
+          "The name of the associated file. Note- The Name element is only returned when using"
+              + " /Associations/{ObjectId} endpoint.")
+  /**
+   * The name of the associated file. Note- The Name element is only returned when using
+   * /Associations/{ObjectId} endpoint.
+   *
+   * @return name String
+   */
+  public String getName() {
+    return name;
+  }
+
+  /**
+   * The name of the associated file. Note- The Name element is only returned when using
+   * /Associations/{ObjectId} endpoint.
+   *
+   * @param name String
+   */
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  /**
+   * The size of the associated file in bytes. Note- The Size element is only returned when using
+   * /Associations/{ObjectId} endpoint.
+   *
+   * @param size Integer
+   * @return Association
+   */
+  public Association size(Integer size) {
+    this.size = size;
+    return this;
+  }
+
+  /**
+   * The size of the associated file in bytes. Note- The Size element is only returned when using
+   * /Associations/{ObjectId} endpoint.
+   *
+   * @return size
+   */
+  @ApiModelProperty(
+      example = "12357",
+      value =
+          "The size of the associated file in bytes. Note- The Size element is only returned when"
+              + " using /Associations/{ObjectId} endpoint.")
+  /**
+   * The size of the associated file in bytes. Note- The Size element is only returned when using
+   * /Associations/{ObjectId} endpoint.
+   *
+   * @return size Integer
+   */
+  public Integer getSize() {
+    return size;
+  }
+
+  /**
+   * The size of the associated file in bytes. Note- The Size element is only returned when using
+   * /Associations/{ObjectId} endpoint.
+   *
+   * @param size Integer
+   */
+  public void setSize(Integer size) {
+    this.size = size;
+  }
+
   /**
    * The unique identifier of the file
    *
@@ -188,7 +331,10 @@ public class Association {
       return false;
     }
     Association association = (Association) o;
-    return Objects.equals(this.fileId, association.fileId)
+    return Objects.equals(this.sendWithObject, association.sendWithObject)
+        && Objects.equals(this.name, association.name)
+        && Objects.equals(this.size, association.size)
+        && Objects.equals(this.fileId, association.fileId)
         && Objects.equals(this.objectId, association.objectId)
         && Objects.equals(this.objectGroup, association.objectGroup)
         && Objects.equals(this.objectType, association.objectType);
@@ -196,13 +342,16 @@ public class Association {
 
   @Override
   public int hashCode() {
-    return Objects.hash(fileId, objectId, objectGroup, objectType);
+    return Objects.hash(sendWithObject, name, size, fileId, objectId, objectGroup, objectType);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Association {\n");
+    sb.append("    sendWithObject: ").append(toIndentedString(sendWithObject)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    size: ").append(toIndentedString(size)).append("\n");
     sb.append("    fileId: ").append(toIndentedString(fileId)).append("\n");
     sb.append("    objectId: ").append(toIndentedString(objectId)).append("\n");
     sb.append("    objectGroup: ").append(toIndentedString(objectGroup)).append("\n");
