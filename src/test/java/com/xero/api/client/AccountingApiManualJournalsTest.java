@@ -6,8 +6,6 @@ import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Every.everyItem;
 
@@ -192,7 +190,8 @@ public class AccountingApiManualJournalsTest {
         String where = null;
         String order = null;
         Integer page = null;
-        ManualJournals response = accountingApi.getManualJournals(accessToken,xeroTenantId,ifModifiedSince, where, order, page);
+        Integer pageSize = null;
+        GetManualJournalsResponse response = accountingApi.getManualJournals(accessToken,xeroTenantId,ifModifiedSince, where, order, page, pageSize);
 
         assertThat(response.getManualJournals().get(0).getNarration(), is(equalTo("Reversal: These aren't the droids you are looking for")));
         assertThat(response.getManualJournals().get(0).getDateAsDate(), is(equalTo(LocalDate.of(2019,03,21))));  

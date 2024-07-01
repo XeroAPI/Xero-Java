@@ -6,8 +6,6 @@ import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Every.everyItem;
 
@@ -232,7 +230,8 @@ public class AccountingApiInvoicesTest {
         Boolean createdByMyApp = null;
         Integer unitdp = null;
         Boolean summaryOnly = null;
-        Invoices response = accountingApi.getInvoices(accessToken, xeroTenantId, ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp, unitdp, summaryOnly);
+        Integer pageSize = null;
+        GetInvoicesResponse response = accountingApi.getInvoices(accessToken, xeroTenantId, ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp, unitdp, summaryOnly, pageSize);
 
         assertThat(response.getInvoices().get(0).getType(), is(equalTo(com.xero.models.accounting.Invoice.TypeEnum.ACCREC)));
         assertThat(response.getInvoices().get(0).getDateAsDate(), is(equalTo(LocalDate.of(2018,10,20))));  

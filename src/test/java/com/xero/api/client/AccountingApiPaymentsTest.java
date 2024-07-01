@@ -6,8 +6,6 @@ import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Every.everyItem;
 
@@ -141,7 +139,7 @@ public class AccountingApiPaymentsTest {
         OffsetDateTime ifModifiedSince = null;
         String where = null;
         String order = null;
-        Payments response = accountingApi.getPayments(accessToken,xeroTenantId,ifModifiedSince, where, order,1);
+        GetPaymentsResponse response = accountingApi.getPayments(accessToken,xeroTenantId,ifModifiedSince, where, order,1, null);
 
         assertThat(response.getPayments().get(0).getInvoice().getInvoiceNumber(), is(equalTo("INV-0002")));
         assertThat(response.getPayments().get(0).getAccount().getCode(), is(equalTo("970")));

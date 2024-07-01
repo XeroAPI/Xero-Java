@@ -6,8 +6,6 @@ import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Every.everyItem;
 
@@ -208,7 +206,8 @@ public class AccountingApiCreditNotesTest {
         String order = null;
         Integer page = null;
         Integer unitdp = null;
-        CreditNotes response = accountingApi.getCreditNotes(accessToken,xeroTenantId,ifModifiedSince, where, order, page,unitdp);
+        Integer pageSize = null;
+        GetCreditNotesResponse response = accountingApi.getCreditNotes(accessToken,xeroTenantId,ifModifiedSince, where, order, page, unitdp, pageSize);
 
         assertThat(response.getCreditNotes().get(0).getType(), is(equalTo(com.xero.models.accounting.CreditNote.TypeEnum.ACCRECCREDIT)));
         assertThat(response.getCreditNotes().get(0).getDateAsDate(), is(equalTo(LocalDate.of(2019, 03, 05))));  

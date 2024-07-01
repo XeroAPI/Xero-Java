@@ -6,8 +6,6 @@ import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Every.everyItem;
 
@@ -150,7 +148,8 @@ public class AccountingApiOverpaymentsTest {
         String order = null;
         Integer page = null;
         Integer unitdp = null;
-        Overpayments response = accountingApi.getOverpayments(accessToken,xeroTenantId,ifModifiedSince, where, order, page,unitdp);
+        
+        GetOverpaymentsResponse response = accountingApi.getOverpayments(accessToken,xeroTenantId,ifModifiedSince, where, order, page, unitdp);
 
         assertThat(response.getOverpayments().get(0).getDateAsDate(), is(equalTo(LocalDate.of(2019,03,12))));  
         assertThat(response.getOverpayments().get(0).getStatus(), is(equalTo(com.xero.models.accounting.Overpayment.StatusEnum.AUTHORISED)));
