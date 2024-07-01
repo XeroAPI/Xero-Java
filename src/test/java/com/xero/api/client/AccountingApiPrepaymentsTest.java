@@ -6,8 +6,6 @@ import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Every.everyItem;
 
@@ -146,7 +144,7 @@ public class AccountingApiPrepaymentsTest {
         String order = null;
         Integer page = null;
         Integer unitdp = null;
-        Prepayments response = accountingApi.getPrepayments(accessToken,xeroTenantId,ifModifiedSince, where, order, page, unitdp);
+        GetPrepaymentsResponse response = accountingApi.getPrepayments(accessToken,xeroTenantId,ifModifiedSince, where, order, page, unitdp);
 
         assertThat(response.getPrepayments().get(0).getType().toString(), is(equalTo("RECEIVE-PREPAYMENT")));
         assertThat(response.getPrepayments().get(0).getContact().getName(), is(equalTo("Luke Skywalker")));

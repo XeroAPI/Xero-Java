@@ -6,8 +6,6 @@ import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Every.everyItem;
 
@@ -182,7 +180,8 @@ public class AccountingApiPurchaseOrdersTest {
         String dateTo = null;
         String order = null;
         Integer page = null;
-        PurchaseOrders response = accountingApi.getPurchaseOrders(accessToken,xeroTenantId,ifModifiedSince, status, dateFrom, dateTo, order, page);
+        Integer pageSize = null;
+        GetPurchaseOrdersResponse response = accountingApi.getPurchaseOrders(accessToken,xeroTenantId,ifModifiedSince, status, dateFrom, dateTo, order, page, pageSize);
 
         assertThat(response.getPurchaseOrders().get(0).getContact().getContactID(), is(equalTo(UUID.fromString("430fa14a-f945-44d3-9f97-5df5e28441b8"))));
         assertThat(response.getPurchaseOrders().get(0).getLineItems().get(0).getLineItemID(), is(equalTo(UUID.fromString("0f7b54b8-bfa4-4c5d-9c22-73dbd5796e54"))));
