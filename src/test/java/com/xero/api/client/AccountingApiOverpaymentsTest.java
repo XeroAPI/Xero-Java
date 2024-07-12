@@ -148,8 +148,9 @@ public class AccountingApiOverpaymentsTest {
         String order = null;
         Integer page = null;
         Integer unitdp = null;
+        Integer pageSize = null;
         
-        GetOverpaymentsResponse response = accountingApi.getOverpayments(accessToken,xeroTenantId,ifModifiedSince, where, order, page, unitdp);
+        Overpayments response = accountingApi.getOverpayments(accessToken,xeroTenantId,ifModifiedSince, where, order, page, unitdp, pageSize);
 
         assertThat(response.getOverpayments().get(0).getDateAsDate(), is(equalTo(LocalDate.of(2019,03,12))));  
         assertThat(response.getOverpayments().get(0).getStatus(), is(equalTo(com.xero.models.accounting.Overpayment.StatusEnum.AUTHORISED)));

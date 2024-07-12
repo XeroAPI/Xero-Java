@@ -6,8 +6,6 @@ import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Every.everyItem;
 
@@ -96,7 +94,7 @@ public class AccountingApiContactsTest {
         List<UUID> ids = new ArrayList();
         Boolean includeArchived = null;
         Boolean summaryOnly = null;
-        GetContactsResponse response = accountingApi.getContacts(accessToken,xeroTenantId,ifModifiedSince, where, order, ids, null, includeArchived, summaryOnly, null, null);
+        Contacts response = accountingApi.getContacts(accessToken,xeroTenantId,ifModifiedSince, where, order, ids, null, includeArchived, summaryOnly, null, null);
 
         assertThat(response.getContacts().get(0).getContactID(), is(equalTo(UUID.fromString("5cc8cf28-567e-4d43-b287-687cfcaec47c"))));
         assertThat(response.getContacts().get(0).getName(), is(equalTo("Katherine Warren")));

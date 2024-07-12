@@ -207,7 +207,7 @@ public class AccountingApiCreditNotesTest {
         Integer page = null;
         Integer unitdp = null;
         Integer pageSize = null;
-        GetCreditNotesResponse response = accountingApi.getCreditNotes(accessToken,xeroTenantId,ifModifiedSince, where, order, page, unitdp, pageSize);
+        CreditNotes response = accountingApi.getCreditNotes(accessToken,xeroTenantId,ifModifiedSince, where, order, page, unitdp, pageSize);
 
         assertThat(response.getCreditNotes().get(0).getType(), is(equalTo(com.xero.models.accounting.CreditNote.TypeEnum.ACCRECCREDIT)));
         assertThat(response.getCreditNotes().get(0).getDateAsDate(), is(equalTo(LocalDate.of(2019, 03, 05))));  
