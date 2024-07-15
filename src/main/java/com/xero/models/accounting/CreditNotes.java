@@ -22,8 +22,46 @@ import java.util.Objects;
 public class CreditNotes {
   StringUtil util = new StringUtil();
 
+  @JsonProperty("pagination")
+  private Pagination pagination;
+
   @JsonProperty("CreditNotes")
   private List<CreditNote> creditNotes = new ArrayList<CreditNote>();
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return CreditNotes
+   */
+  public CreditNotes pagination(Pagination pagination) {
+    this.pagination = pagination;
+    return this;
+  }
+
+  /**
+   * Get pagination
+   *
+   * @return pagination
+   */
+  @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
+  public Pagination getPagination() {
+    return pagination;
+  }
+
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
+  public void setPagination(Pagination pagination) {
+    this.pagination = pagination;
+  }
+
   /**
    * creditNotes
    *
@@ -82,18 +120,20 @@ public class CreditNotes {
       return false;
     }
     CreditNotes creditNotes = (CreditNotes) o;
-    return Objects.equals(this.creditNotes, creditNotes.creditNotes);
+    return Objects.equals(this.pagination, creditNotes.pagination)
+        && Objects.equals(this.creditNotes, creditNotes.creditNotes);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(creditNotes);
+    return Objects.hash(pagination, creditNotes);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class CreditNotes {\n");
+    sb.append("    pagination: ").append(toIndentedString(pagination)).append("\n");
     sb.append("    creditNotes: ").append(toIndentedString(creditNotes)).append("\n");
     sb.append("}");
     return sb.toString();

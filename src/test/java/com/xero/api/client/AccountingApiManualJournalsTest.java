@@ -191,7 +191,7 @@ public class AccountingApiManualJournalsTest {
         String order = null;
         Integer page = null;
         Integer pageSize = null;
-        GetManualJournalsResponse response = accountingApi.getManualJournals(accessToken,xeroTenantId,ifModifiedSince, where, order, page, pageSize);
+        ManualJournals response = accountingApi.getManualJournals(accessToken,xeroTenantId,ifModifiedSince, where, order, page, pageSize);
 
         assertThat(response.getManualJournals().get(0).getNarration(), is(equalTo("Reversal: These aren't the droids you are looking for")));
         assertThat(response.getManualJournals().get(0).getDateAsDate(), is(equalTo(LocalDate.of(2019,03,21))));  

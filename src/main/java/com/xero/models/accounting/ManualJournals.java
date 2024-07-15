@@ -22,8 +22,46 @@ import java.util.Objects;
 public class ManualJournals {
   StringUtil util = new StringUtil();
 
+  @JsonProperty("pagination")
+  private Pagination pagination;
+
   @JsonProperty("ManualJournals")
   private List<ManualJournal> manualJournals = new ArrayList<ManualJournal>();
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return ManualJournals
+   */
+  public ManualJournals pagination(Pagination pagination) {
+    this.pagination = pagination;
+    return this;
+  }
+
+  /**
+   * Get pagination
+   *
+   * @return pagination
+   */
+  @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
+  public Pagination getPagination() {
+    return pagination;
+  }
+
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
+  public void setPagination(Pagination pagination) {
+    this.pagination = pagination;
+  }
+
   /**
    * manualJournals
    *
@@ -82,18 +120,20 @@ public class ManualJournals {
       return false;
     }
     ManualJournals manualJournals = (ManualJournals) o;
-    return Objects.equals(this.manualJournals, manualJournals.manualJournals);
+    return Objects.equals(this.pagination, manualJournals.pagination)
+        && Objects.equals(this.manualJournals, manualJournals.manualJournals);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(manualJournals);
+    return Objects.hash(pagination, manualJournals);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ManualJournals {\n");
+    sb.append("    pagination: ").append(toIndentedString(pagination)).append("\n");
     sb.append("    manualJournals: ").append(toIndentedString(manualJournals)).append("\n");
     sb.append("}");
     return sb.toString();

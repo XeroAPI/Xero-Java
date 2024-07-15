@@ -13,33 +13,31 @@ package com.xero.models.accounting;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.xero.api.StringUtil;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
 
-/** Pagination information */
-@ApiModel(description = "Pagination information")
-public class PageInfo {
+/** Pagination */
+public class Pagination {
   StringUtil util = new StringUtil();
 
-  @JsonProperty("Page")
+  @JsonProperty("page")
   private Integer page;
 
-  @JsonProperty("PageSize")
+  @JsonProperty("pageSize")
   private Integer pageSize;
 
-  @JsonProperty("TotalPages")
-  private Integer totalPages;
+  @JsonProperty("pageCount")
+  private Integer pageCount;
 
-  @JsonProperty("TotalRows")
-  private Integer totalRows;
+  @JsonProperty("itemCount")
+  private Integer itemCount;
   /**
    * page
    *
    * @param page Integer
-   * @return PageInfo
+   * @return Pagination
    */
-  public PageInfo page(Integer page) {
+  public Pagination page(Integer page) {
     this.page = page;
     return this;
   }
@@ -72,9 +70,9 @@ public class PageInfo {
    * pageSize
    *
    * @param pageSize Integer
-   * @return PageInfo
+   * @return Pagination
    */
-  public PageInfo pageSize(Integer pageSize) {
+  public Pagination pageSize(Integer pageSize) {
     this.pageSize = pageSize;
     return this;
   }
@@ -104,73 +102,73 @@ public class PageInfo {
   }
 
   /**
-   * totalPages
+   * pageCount
    *
-   * @param totalPages Integer
-   * @return PageInfo
+   * @param pageCount Integer
+   * @return Pagination
    */
-  public PageInfo totalPages(Integer totalPages) {
-    this.totalPages = totalPages;
+  public Pagination pageCount(Integer pageCount) {
+    this.pageCount = pageCount;
     return this;
   }
 
   /**
-   * Get totalPages
+   * Get pageCount
    *
-   * @return totalPages
+   * @return pageCount
    */
   @ApiModelProperty(value = "")
   /**
-   * totalPages
+   * pageCount
    *
-   * @return totalPages Integer
+   * @return pageCount Integer
    */
-  public Integer getTotalPages() {
-    return totalPages;
+  public Integer getPageCount() {
+    return pageCount;
   }
 
   /**
-   * totalPages
+   * pageCount
    *
-   * @param totalPages Integer
+   * @param pageCount Integer
    */
-  public void setTotalPages(Integer totalPages) {
-    this.totalPages = totalPages;
+  public void setPageCount(Integer pageCount) {
+    this.pageCount = pageCount;
   }
 
   /**
-   * totalRows
+   * itemCount
    *
-   * @param totalRows Integer
-   * @return PageInfo
+   * @param itemCount Integer
+   * @return Pagination
    */
-  public PageInfo totalRows(Integer totalRows) {
-    this.totalRows = totalRows;
+  public Pagination itemCount(Integer itemCount) {
+    this.itemCount = itemCount;
     return this;
   }
 
   /**
-   * Get totalRows
+   * Get itemCount
    *
-   * @return totalRows
+   * @return itemCount
    */
   @ApiModelProperty(value = "")
   /**
-   * totalRows
+   * itemCount
    *
-   * @return totalRows Integer
+   * @return itemCount Integer
    */
-  public Integer getTotalRows() {
-    return totalRows;
+  public Integer getItemCount() {
+    return itemCount;
   }
 
   /**
-   * totalRows
+   * itemCount
    *
-   * @param totalRows Integer
+   * @param itemCount Integer
    */
-  public void setTotalRows(Integer totalRows) {
-    this.totalRows = totalRows;
+  public void setItemCount(Integer itemCount) {
+    this.itemCount = itemCount;
   }
 
   @Override
@@ -181,26 +179,26 @@ public class PageInfo {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PageInfo pageInfo = (PageInfo) o;
-    return Objects.equals(this.page, pageInfo.page)
-        && Objects.equals(this.pageSize, pageInfo.pageSize)
-        && Objects.equals(this.totalPages, pageInfo.totalPages)
-        && Objects.equals(this.totalRows, pageInfo.totalRows);
+    Pagination pagination = (Pagination) o;
+    return Objects.equals(this.page, pagination.page)
+        && Objects.equals(this.pageSize, pagination.pageSize)
+        && Objects.equals(this.pageCount, pagination.pageCount)
+        && Objects.equals(this.itemCount, pagination.itemCount);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(page, pageSize, totalPages, totalRows);
+    return Objects.hash(page, pageSize, pageCount, itemCount);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PageInfo {\n");
+    sb.append("class Pagination {\n");
     sb.append("    page: ").append(toIndentedString(page)).append("\n");
     sb.append("    pageSize: ").append(toIndentedString(pageSize)).append("\n");
-    sb.append("    totalPages: ").append(toIndentedString(totalPages)).append("\n");
-    sb.append("    totalRows: ").append(toIndentedString(totalRows)).append("\n");
+    sb.append("    pageCount: ").append(toIndentedString(pageCount)).append("\n");
+    sb.append("    itemCount: ").append(toIndentedString(itemCount)).append("\n");
     sb.append("}");
     return sb.toString();
   }

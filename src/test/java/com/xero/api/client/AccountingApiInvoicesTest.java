@@ -231,7 +231,8 @@ public class AccountingApiInvoicesTest {
         Integer unitdp = null;
         Boolean summaryOnly = null;
         Integer pageSize = null;
-        GetInvoicesResponse response = accountingApi.getInvoices(accessToken, xeroTenantId, ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp, unitdp, summaryOnly, pageSize);
+        String searchTerm = null;
+        Invoices response = accountingApi.getInvoices(accessToken, xeroTenantId, ifModifiedSince, where, order, ids, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp, unitdp, summaryOnly, pageSize, searchTerm);
 
         assertThat(response.getInvoices().get(0).getType(), is(equalTo(com.xero.models.accounting.Invoice.TypeEnum.ACCREC)));
         assertThat(response.getInvoices().get(0).getDateAsDate(), is(equalTo(LocalDate.of(2018,10,20))));  

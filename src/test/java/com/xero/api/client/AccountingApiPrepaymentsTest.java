@@ -144,7 +144,8 @@ public class AccountingApiPrepaymentsTest {
         String order = null;
         Integer page = null;
         Integer unitdp = null;
-        GetPrepaymentsResponse response = accountingApi.getPrepayments(accessToken,xeroTenantId,ifModifiedSince, where, order, page, unitdp);
+        Integer pageSize = null;
+        Prepayments response = accountingApi.getPrepayments(accessToken,xeroTenantId,ifModifiedSince, where, order, page, unitdp, pageSize);
 
         assertThat(response.getPrepayments().get(0).getType().toString(), is(equalTo("RECEIVE-PREPAYMENT")));
         assertThat(response.getPrepayments().get(0).getContact().getName(), is(equalTo("Luke Skywalker")));
