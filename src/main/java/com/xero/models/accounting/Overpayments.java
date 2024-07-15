@@ -22,8 +22,46 @@ import java.util.Objects;
 public class Overpayments {
   StringUtil util = new StringUtil();
 
+  @JsonProperty("pagination")
+  private Pagination pagination;
+
   @JsonProperty("Overpayments")
   private List<Overpayment> overpayments = new ArrayList<Overpayment>();
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return Overpayments
+   */
+  public Overpayments pagination(Pagination pagination) {
+    this.pagination = pagination;
+    return this;
+  }
+
+  /**
+   * Get pagination
+   *
+   * @return pagination
+   */
+  @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
+  public Pagination getPagination() {
+    return pagination;
+  }
+
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
+  public void setPagination(Pagination pagination) {
+    this.pagination = pagination;
+  }
+
   /**
    * overpayments
    *
@@ -82,18 +120,20 @@ public class Overpayments {
       return false;
     }
     Overpayments overpayments = (Overpayments) o;
-    return Objects.equals(this.overpayments, overpayments.overpayments);
+    return Objects.equals(this.pagination, overpayments.pagination)
+        && Objects.equals(this.overpayments, overpayments.overpayments);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(overpayments);
+    return Objects.hash(pagination, overpayments);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Overpayments {\n");
+    sb.append("    pagination: ").append(toIndentedString(pagination)).append("\n");
     sb.append("    overpayments: ").append(toIndentedString(overpayments)).append("\n");
     sb.append("}");
     return sb.toString();

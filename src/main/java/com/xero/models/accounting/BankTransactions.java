@@ -22,8 +22,46 @@ import java.util.Objects;
 public class BankTransactions {
   StringUtil util = new StringUtil();
 
+  @JsonProperty("pagination")
+  private Pagination pagination;
+
   @JsonProperty("BankTransactions")
   private List<BankTransaction> bankTransactions = new ArrayList<BankTransaction>();
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return BankTransactions
+   */
+  public BankTransactions pagination(Pagination pagination) {
+    this.pagination = pagination;
+    return this;
+  }
+
+  /**
+   * Get pagination
+   *
+   * @return pagination
+   */
+  @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
+  public Pagination getPagination() {
+    return pagination;
+  }
+
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
+  public void setPagination(Pagination pagination) {
+    this.pagination = pagination;
+  }
+
   /**
    * bankTransactions
    *
@@ -82,18 +120,20 @@ public class BankTransactions {
       return false;
     }
     BankTransactions bankTransactions = (BankTransactions) o;
-    return Objects.equals(this.bankTransactions, bankTransactions.bankTransactions);
+    return Objects.equals(this.pagination, bankTransactions.pagination)
+        && Objects.equals(this.bankTransactions, bankTransactions.bankTransactions);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(bankTransactions);
+    return Objects.hash(pagination, bankTransactions);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class BankTransactions {\n");
+    sb.append("    pagination: ").append(toIndentedString(pagination)).append("\n");
     sb.append("    bankTransactions: ").append(toIndentedString(bankTransactions)).append("\n");
     sb.append("}");
     return sb.toString();

@@ -543,6 +543,18 @@ public class Organisation {
     /** LITE */
     LITE("LITE"),
 
+    /** ULTIMATE_10 */
+    ULTIMATE_10("ULTIMATE_10"),
+
+    /** ULTIMATE_20 */
+    ULTIMATE_20("ULTIMATE_20"),
+
+    /** ULTIMATE_50 */
+    ULTIMATE_50("ULTIMATE_50"),
+
+    /** ULTIMATE_100 */
+    ULTIMATE_100("ULTIMATE_100"),
+
     /** IGNITE */
     IGNITE("IGNITE"),
 

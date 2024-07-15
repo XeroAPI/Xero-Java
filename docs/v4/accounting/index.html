@@ -1463,6 +1463,9 @@ ul.nav-tabs {
   "title" : "",
   "type" : "object",
   "properties" : {
+    "pagination" : {
+      "$ref" : "#/components/schemas/Pagination"
+    },
     "BankTransactions" : {
       "type" : "array",
       "items" : {
@@ -2318,6 +2321,9 @@ ul.nav-tabs {
   "title" : "",
   "type" : "object",
   "properties" : {
+    "pagination" : {
+      "$ref" : "#/components/schemas/Pagination"
+    },
     "Contacts" : {
       "type" : "array",
       "items" : {
@@ -2553,6 +2559,9 @@ ul.nav-tabs {
   "title" : "",
   "type" : "object",
   "properties" : {
+    "pagination" : {
+      "$ref" : "#/components/schemas/Pagination"
+    },
     "CreditNotes" : {
       "type" : "array",
       "items" : {
@@ -2857,267 +2866,6 @@ ul.nav-tabs {
   "externalDocs" : {
     "url" : "http://developer.xero.com/documentation/api/organisation/"
   }
-};
-      defs["GetBankTransactionsResponse"] = {
-  "title" : "",
-  "type" : "object",
-  "properties" : {
-    "Id" : {
-      "type" : "string"
-    },
-    "Status" : {
-      "type" : "string"
-    },
-    "ProviderName" : {
-      "type" : "string"
-    },
-    "DateTimeUTC" : {
-      "type" : "string"
-    },
-    "PageInfo" : {
-      "$ref" : "#/components/schemas/PageInfo"
-    },
-    "BankTransactions" : {
-      "minItems" : 1,
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/BankTransaction"
-      }
-    }
-  },
-  "description" : ""
-};
-      defs["GetContactsResponse"] = {
-  "title" : "",
-  "type" : "object",
-  "properties" : {
-    "Id" : {
-      "type" : "string"
-    },
-    "Status" : {
-      "type" : "string"
-    },
-    "ProviderName" : {
-      "type" : "string"
-    },
-    "DateTimeUTC" : {
-      "type" : "string"
-    },
-    "PageInfo" : {
-      "$ref" : "#/components/schemas/PageInfo"
-    },
-    "Contacts" : {
-      "minItems" : 1,
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/Contact"
-      }
-    }
-  },
-  "description" : ""
-};
-      defs["GetCreditNotesResponse"] = {
-  "title" : "",
-  "type" : "object",
-  "properties" : {
-    "Id" : {
-      "type" : "string"
-    },
-    "Status" : {
-      "type" : "string"
-    },
-    "ProviderName" : {
-      "type" : "string"
-    },
-    "DateTimeUTC" : {
-      "type" : "string"
-    },
-    "PageInfo" : {
-      "$ref" : "#/components/schemas/PageInfo"
-    },
-    "CreditNotes" : {
-      "minItems" : 1,
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/CreditNote"
-      }
-    }
-  },
-  "description" : ""
-};
-      defs["GetInvoicesResponse"] = {
-  "title" : "",
-  "type" : "object",
-  "properties" : {
-    "Id" : {
-      "type" : "string"
-    },
-    "Status" : {
-      "type" : "string"
-    },
-    "ProviderName" : {
-      "type" : "string"
-    },
-    "DateTimeUTC" : {
-      "type" : "string"
-    },
-    "PageInfo" : {
-      "$ref" : "#/components/schemas/PageInfo"
-    },
-    "Invoices" : {
-      "minItems" : 1,
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/Invoice"
-      }
-    }
-  },
-  "description" : ""
-};
-      defs["GetManualJournalsResponse"] = {
-  "title" : "",
-  "type" : "object",
-  "properties" : {
-    "Id" : {
-      "type" : "string"
-    },
-    "Status" : {
-      "type" : "string"
-    },
-    "ProviderName" : {
-      "type" : "string"
-    },
-    "DateTimeUTC" : {
-      "type" : "string"
-    },
-    "PageInfo" : {
-      "$ref" : "#/components/schemas/PageInfo"
-    },
-    "ManualJournals" : {
-      "minItems" : 1,
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/ManualJournal"
-      }
-    }
-  },
-  "description" : ""
-};
-      defs["GetOverpaymentsResponse"] = {
-  "title" : "",
-  "type" : "object",
-  "properties" : {
-    "Id" : {
-      "type" : "string"
-    },
-    "Status" : {
-      "type" : "string"
-    },
-    "ProviderName" : {
-      "type" : "string"
-    },
-    "DateTimeUTC" : {
-      "type" : "string"
-    },
-    "PageInfo" : {
-      "$ref" : "#/components/schemas/PageInfo"
-    },
-    "Overpayments" : {
-      "minItems" : 1,
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/Overpayment"
-      }
-    }
-  },
-  "description" : ""
-};
-      defs["GetPaymentsResponse"] = {
-  "title" : "",
-  "type" : "object",
-  "properties" : {
-    "Id" : {
-      "type" : "string"
-    },
-    "Status" : {
-      "type" : "string"
-    },
-    "ProviderName" : {
-      "type" : "string"
-    },
-    "DateTimeUTC" : {
-      "type" : "string"
-    },
-    "PageInfo" : {
-      "$ref" : "#/components/schemas/PageInfo"
-    },
-    "Payments" : {
-      "minItems" : 1,
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/Payment"
-      }
-    }
-  },
-  "description" : ""
-};
-      defs["GetPrepaymentsResponse"] = {
-  "title" : "",
-  "type" : "object",
-  "properties" : {
-    "Id" : {
-      "type" : "string"
-    },
-    "Status" : {
-      "type" : "string"
-    },
-    "ProviderName" : {
-      "type" : "string"
-    },
-    "DateTimeUTC" : {
-      "type" : "string"
-    },
-    "PageInfo" : {
-      "$ref" : "#/components/schemas/PageInfo"
-    },
-    "Prepayments" : {
-      "minItems" : 1,
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/Prepayment"
-      }
-    }
-  },
-  "description" : ""
-};
-      defs["GetPurchaseOrdersResponse"] = {
-  "title" : "",
-  "type" : "object",
-  "properties" : {
-    "Id" : {
-      "type" : "string"
-    },
-    "Status" : {
-      "type" : "string"
-    },
-    "ProviderName" : {
-      "type" : "string"
-    },
-    "DateTimeUTC" : {
-      "type" : "string"
-    },
-    "PageInfo" : {
-      "$ref" : "#/components/schemas/PageInfo"
-    },
-    "PurchaseOrders" : {
-      "minItems" : 1,
-      "type" : "array",
-      "items" : {
-        "$ref" : "#/components/schemas/PurchaseOrder"
-      }
-    }
-  },
-  "description" : ""
 };
       defs["HistoryRecord"] = {
   "title" : "",
@@ -3527,6 +3275,9 @@ ul.nav-tabs {
   "title" : "",
   "type" : "object",
   "properties" : {
+    "pagination" : {
+      "$ref" : "#/components/schemas/Pagination"
+    },
     "Invoices" : {
       "type" : "array",
       "items" : {
@@ -4163,6 +3914,9 @@ ul.nav-tabs {
   "title" : "",
   "type" : "object",
   "properties" : {
+    "pagination" : {
+      "$ref" : "#/components/schemas/Pagination"
+    },
     "ManualJournals" : {
       "type" : "array",
       "items" : {
@@ -4321,7 +4075,7 @@ ul.nav-tabs {
     "Class" : {
       "type" : "string",
       "description" : "Organisation Classes describe which plan the Xero organisation is on (e.g. DEMO, TRIAL, PREMIUM)",
-      "enum" : [ "DEMO", "TRIAL", "STARTER", "STANDARD", "PREMIUM", "PREMIUM_20", "PREMIUM_50", "PREMIUM_100", "LEDGER", "GST_CASHBOOK", "NON_GST_CASHBOOK", "ULTIMATE", "LITE", "IGNITE", "GROW", "COMPREHENSIVE" ]
+      "enum" : [ "DEMO", "TRIAL", "STARTER", "STANDARD", "PREMIUM", "PREMIUM_20", "PREMIUM_50", "PREMIUM_100", "LEDGER", "GST_CASHBOOK", "NON_GST_CASHBOOK", "ULTIMATE", "LITE", "ULTIMATE_10", "ULTIMATE_20", "ULTIMATE_50", "ULTIMATE_100", "IGNITE", "GROW", "COMPREHENSIVE" ]
     },
     "Edition" : {
       "type" : "string",
@@ -4497,6 +4251,9 @@ ul.nav-tabs {
   "title" : "",
   "type" : "object",
   "properties" : {
+    "pagination" : {
+      "$ref" : "#/components/schemas/Pagination"
+    },
     "Overpayments" : {
       "type" : "array",
       "items" : {
@@ -4507,24 +4264,24 @@ ul.nav-tabs {
   "description" : "",
   "x-isObjectArray" : true
 };
-      defs["PageInfo"] = {
+      defs["Pagination"] = {
   "title" : "",
   "type" : "object",
   "properties" : {
-    "Page" : {
+    "page" : {
       "type" : "integer"
     },
-    "PageSize" : {
+    "pageSize" : {
       "type" : "integer"
     },
-    "TotalPages" : {
+    "pageCount" : {
       "type" : "integer"
     },
-    "TotalRows" : {
+    "itemCount" : {
       "type" : "integer"
     }
   },
-  "description" : "Pagination information"
+  "description" : ""
 };
       defs["Payment"] = {
   "title" : "",
@@ -4762,6 +4519,9 @@ ul.nav-tabs {
   "title" : "",
   "type" : "object",
   "properties" : {
+    "pagination" : {
+      "$ref" : "#/components/schemas/Pagination"
+    },
     "Payments" : {
       "type" : "array",
       "items" : {
@@ -4927,6 +4687,9 @@ ul.nav-tabs {
   "title" : "",
   "type" : "object",
   "properties" : {
+    "pagination" : {
+      "$ref" : "#/components/schemas/Pagination"
+    },
     "Prepayments" : {
       "type" : "array",
       "items" : {
@@ -5126,6 +4889,9 @@ ul.nav-tabs {
   "title" : "",
   "type" : "object",
   "properties" : {
+    "pagination" : {
+      "$ref" : "#/components/schemas/Pagination"
+    },
     "PurchaseOrders" : {
       "type" : "array",
       "items" : {
@@ -6376,7 +6142,7 @@ ul.nav-tabs {
           <nav id="scrollingNav">
             <ul class="sidenav nav nav-list">
               <li class="nav-header" data-group="Accounting"><strong>SDK: </strong><span id='sdk-name'></span></li>
-              <li class="nav-header" data-group="Accounting"><strong>VSN: </strong>7.0.0</li>
+              <li class="nav-header" data-group="Accounting"><strong>VSN: </strong>8.0.0</li>
               <li class="nav-header" data-group="Accounting"><a href="#api-Accounting">Methods</a></li>
               <li data-group="Accounting" data-name="createAccount" class="">
                 <a href="#api-Accounting-createAccount">createAccount</a>
@@ -13460,13 +13226,13 @@ public class AccountingApiExample {
         List&lt;ManualJournalLine&gt; manualJournalLines = new ArrayList&lt;ManualJournalLine&gt;();
         
         ManualJournalLine credit = new ManualJournalLine();
-        credit.setLineAmount(100.0);
+        credit.setLineAmount(-100.0);
         credit.setAccountCode("400");
         credit.setDescription("Hello there");
         manualJournalLines.add(credit);
         
         ManualJournalLine debit = new ManualJournalLine();
-        debit.setLineAmount(-100.0);
+        debit.setLineAmount(100.0);
         debit.setAccountCode("120");
         debit.setDescription("Hello there");
         manualJournalLines.add(debit);
@@ -21678,7 +21444,7 @@ public class AccountingApiExample {
         Integer pageSize = 100;
 
         try {
-            GetBankTransactionsResponse result = apiInstance.getBankTransactions(accessToken, xeroTenantId, ifModifiedSince, where, order, page, unitdp, pageSize);
+            BankTransactions result = apiInstance.getBankTransactions(accessToken, xeroTenantId, ifModifiedSince, where, order, page, unitdp, pageSize);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#getBankTransactions");
@@ -25410,7 +25176,7 @@ public class AccountingApiExample {
         Integer pageSize = 100;
 
         try {
-            GetContactsResponse result = apiInstance.getContacts(accessToken, xeroTenantId, ifModifiedSince, where, order, iDs, page, includeArchived, summaryOnly, searchTerm, pageSize);
+            Contacts result = apiInstance.getContacts(accessToken, xeroTenantId, ifModifiedSince, where, order, iDs, page, includeArchived, summaryOnly, searchTerm, pageSize);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#getContacts");
@@ -26627,7 +26393,7 @@ public class AccountingApiExample {
         Integer pageSize = 100;
 
         try {
-            GetCreditNotesResponse result = apiInstance.getCreditNotes(accessToken, xeroTenantId, ifModifiedSince, where, order, page, unitdp, pageSize);
+            CreditNotes result = apiInstance.getCreditNotes(accessToken, xeroTenantId, ifModifiedSince, where, order, page, unitdp, pageSize);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#getCreditNotes");
@@ -28767,9 +28533,10 @@ public class AccountingApiExample {
         Integer unitdp = 4;
         Boolean summaryOnly = true;
         Integer pageSize = 100;
+        String searchTerm = 'SearchTerm=REF12';
 
         try {
-            GetInvoicesResponse result = apiInstance.getInvoices(accessToken, xeroTenantId, ifModifiedSince, where, order, iDs, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp, unitdp, summaryOnly, pageSize);
+            Invoices result = apiInstance.getInvoices(accessToken, xeroTenantId, ifModifiedSince, where, order, iDs, invoiceNumbers, contactIDs, statuses, page, includeArchived, createdByMyApp, unitdp, summaryOnly, pageSize, searchTerm);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#getInvoices");
@@ -29092,6 +28859,26 @@ Use summaryOnly=true in GET Contacts and Invoices endpoint to retrieve a smaller
 
                     <div class="inner description marked">
 Number of records to retrieve per page
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">searchTerm</td>
+<td>
+
+
+    <div id="d2e199_getInvoices_searchTerm">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    String
+                </span>
+
+                    <div class="inner description marked">
+Search parameter that performs a case-insensitive text search across the fields e.g. InvoiceNumber, Reference.
                     </div>
             </div>
         </div>
@@ -31054,7 +30841,7 @@ public class AccountingApiExample {
         Integer pageSize = 100;
 
         try {
-            GetManualJournalsResponse result = apiInstance.getManualJournals(accessToken, xeroTenantId, ifModifiedSince, where, order, page, pageSize);
+            ManualJournals result = apiInstance.getManualJournals(accessToken, xeroTenantId, ifModifiedSince, where, order, page, pageSize);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#getManualJournals");
@@ -32119,9 +31906,10 @@ public class AccountingApiExample {
         String order = 'Status ASC';
         Integer page = 1;
         Integer unitdp = 4;
+        Integer pageSize = 100;
 
         try {
-            GetOverpaymentsResponse result = apiInstance.getOverpayments(accessToken, xeroTenantId, ifModifiedSince, where, order, page, unitdp);
+            Overpayments result = apiInstance.getOverpayments(accessToken, xeroTenantId, ifModifiedSince, where, order, page, unitdp, pageSize);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#getOverpayments");
@@ -32278,6 +32066,26 @@ e.g. page=1 – Up to 100 overpayments will be returned in a single API call wit
 
                     <div class="inner description marked">
 e.g. unitdp=4 – (Unit Decimal Places) You can opt in to use four decimal places for unit amounts
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">pageSize</td>
+<td>
+
+
+    <div id="d2e199_getOverpayments_pageSize">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Integer
+                </span>
+
+                    <div class="inner description marked">
+Number of records to retrieve per page
                     </div>
             </div>
         </div>
@@ -32690,7 +32498,7 @@ public class AccountingApiExample {
         Integer pageSize = 100;
 
         try {
-            GetPaymentsResponse result = apiInstance.getPayments(accessToken, xeroTenantId, ifModifiedSince, where, order, page, pageSize);
+            Payments result = apiInstance.getPayments(accessToken, xeroTenantId, ifModifiedSince, where, order, page, pageSize);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#getPayments");
@@ -33165,9 +32973,10 @@ public class AccountingApiExample {
         String order = 'Reference ASC';
         Integer page = 1;
         Integer unitdp = 4;
+        Integer pageSize = 100;
 
         try {
-            GetPrepaymentsResponse result = apiInstance.getPrepayments(accessToken, xeroTenantId, ifModifiedSince, where, order, page, unitdp);
+            Prepayments result = apiInstance.getPrepayments(accessToken, xeroTenantId, ifModifiedSince, where, order, page, unitdp, pageSize);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#getPrepayments");
@@ -33324,6 +33133,26 @@ e.g. page=1 – Up to 100 prepayments will be returned in a single API call with
 
                     <div class="inner description marked">
 e.g. unitdp=4 – (Unit Decimal Places) You can opt in to use four decimal places for unit amounts
+                    </div>
+            </div>
+        </div>
+    </div>
+</td>
+</tr>
+
+                    <tr><td style="width:150px;">pageSize</td>
+<td>
+
+
+    <div id="d2e199_getPrepayments_pageSize">
+        <div class="json-schema-view">
+            <div class="primitive">
+                <span class="type">
+                    Integer
+                </span>
+
+                    <div class="inner description marked">
+Number of records to retrieve per page
                     </div>
             </div>
         </div>
@@ -34402,7 +34231,7 @@ public class AccountingApiExample {
         Integer pageSize = 100;
 
         try {
-            GetPurchaseOrdersResponse result = apiInstance.getPurchaseOrders(accessToken, xeroTenantId, ifModifiedSince, status, dateFrom, dateTo, order, page, pageSize);
+            PurchaseOrders result = apiInstance.getPurchaseOrders(accessToken, xeroTenantId, ifModifiedSince, status, dateFrom, dateTo, order, page, pageSize);
             System.out.println(result);
         } catch (XeroException e) {
             System.err.println("Exception when calling AccountingApi#getPurchaseOrders");
@@ -43860,13 +43689,13 @@ public class AccountingApiExample {
         List&lt;ManualJournalLine&gt; manualJournalLines = new ArrayList&lt;ManualJournalLine&gt;();
         
         ManualJournalLine credit = new ManualJournalLine();
-        credit.setLineAmount(100.0);
+        credit.setLineAmount(-100.0);
         credit.setAccountCode("400");
         credit.setDescription("Hello there");
         manualJournalLines.add(credit);
         
         ManualJournalLine debit = new ManualJournalLine();
-        debit.setLineAmount(-100.0);
+        debit.setLineAmount(100.0);
         debit.setAccountCode("120");
         debit.setDescription("Hello there");
         manualJournalLines.add(debit);
@@ -45530,13 +45359,13 @@ public class AccountingApiExample {
         List&lt;ManualJournalLine&gt; manualJournalLines = new ArrayList&lt;ManualJournalLine&gt;();
         
         ManualJournalLine credit = new ManualJournalLine();
-        credit.setLineAmount(100.0);
+        credit.setLineAmount(-100.0);
         credit.setAccountCode("400");
         credit.setDescription("Hello there");
         manualJournalLines.add(credit);
         
         ManualJournalLine debit = new ManualJournalLine();
-        debit.setLineAmount(-100.0);
+        debit.setLineAmount(100.0);
         debit.setAccountCode("120");
         debit.setDescription("Hello there");
         manualJournalLines.add(debit);

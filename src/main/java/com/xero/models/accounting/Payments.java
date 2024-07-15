@@ -22,8 +22,46 @@ import java.util.Objects;
 public class Payments {
   StringUtil util = new StringUtil();
 
+  @JsonProperty("pagination")
+  private Pagination pagination;
+
   @JsonProperty("Payments")
   private List<Payment> payments = new ArrayList<Payment>();
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   * @return Payments
+   */
+  public Payments pagination(Pagination pagination) {
+    this.pagination = pagination;
+    return this;
+  }
+
+  /**
+   * Get pagination
+   *
+   * @return pagination
+   */
+  @ApiModelProperty(value = "")
+  /**
+   * pagination
+   *
+   * @return pagination Pagination
+   */
+  public Pagination getPagination() {
+    return pagination;
+  }
+
+  /**
+   * pagination
+   *
+   * @param pagination Pagination
+   */
+  public void setPagination(Pagination pagination) {
+    this.pagination = pagination;
+  }
+
   /**
    * payments
    *
@@ -82,18 +120,20 @@ public class Payments {
       return false;
     }
     Payments payments = (Payments) o;
-    return Objects.equals(this.payments, payments.payments);
+    return Objects.equals(this.pagination, payments.pagination)
+        && Objects.equals(this.payments, payments.payments);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(payments);
+    return Objects.hash(pagination, payments);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Payments {\n");
+    sb.append("    pagination: ").append(toIndentedString(pagination)).append("\n");
     sb.append("    payments: ").append(toIndentedString(payments)).append("\n");
     sb.append("}");
     return sb.toString();
