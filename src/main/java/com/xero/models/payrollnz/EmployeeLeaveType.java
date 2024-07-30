@@ -18,6 +18,7 @@ import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
 import java.util.UUID;
+import org.threeten.bp.LocalDate;
 
 /** EmployeeLeaveType */
 public class EmployeeLeaveType {
@@ -107,6 +108,9 @@ public class EmployeeLeaveType {
 
   @JsonProperty("annualLeaveTotalAmountPaid")
   private Double annualLeaveTotalAmountPaid;
+
+  @JsonProperty("scheduleOfAccrualDate")
+  private LocalDate scheduleOfAccrualDate;
   /**
    * The Xero identifier for leave type
    *
@@ -489,6 +493,43 @@ public class EmployeeLeaveType {
     this.annualLeaveTotalAmountPaid = annualLeaveTotalAmountPaid;
   }
 
+  /**
+   * The date when an employee becomes entitled to their accrual.
+   *
+   * @param scheduleOfAccrualDate LocalDate
+   * @return EmployeeLeaveType
+   */
+  public EmployeeLeaveType scheduleOfAccrualDate(LocalDate scheduleOfAccrualDate) {
+    this.scheduleOfAccrualDate = scheduleOfAccrualDate;
+    return this;
+  }
+
+  /**
+   * The date when an employee becomes entitled to their accrual.
+   *
+   * @return scheduleOfAccrualDate
+   */
+  @ApiModelProperty(
+      example = "Sun Jan 19 00:00:00 UTC 2020",
+      value = "The date when an employee becomes entitled to their accrual.")
+  /**
+   * The date when an employee becomes entitled to their accrual.
+   *
+   * @return scheduleOfAccrualDate LocalDate
+   */
+  public LocalDate getScheduleOfAccrualDate() {
+    return scheduleOfAccrualDate;
+  }
+
+  /**
+   * The date when an employee becomes entitled to their accrual.
+   *
+   * @param scheduleOfAccrualDate LocalDate
+   */
+  public void setScheduleOfAccrualDate(LocalDate scheduleOfAccrualDate) {
+    this.scheduleOfAccrualDate = scheduleOfAccrualDate;
+  }
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -510,7 +551,8 @@ public class EmployeeLeaveType {
             this.includeHolidayPayEveryPay, employeeLeaveType.includeHolidayPayEveryPay)
         && Objects.equals(this.showAnnualLeaveInAdvance, employeeLeaveType.showAnnualLeaveInAdvance)
         && Objects.equals(
-            this.annualLeaveTotalAmountPaid, employeeLeaveType.annualLeaveTotalAmountPaid);
+            this.annualLeaveTotalAmountPaid, employeeLeaveType.annualLeaveTotalAmountPaid)
+        && Objects.equals(this.scheduleOfAccrualDate, employeeLeaveType.scheduleOfAccrualDate);
   }
 
   @Override
@@ -525,7 +567,8 @@ public class EmployeeLeaveType {
         percentageOfGrossEarnings,
         includeHolidayPayEveryPay,
         showAnnualLeaveInAdvance,
-        annualLeaveTotalAmountPaid);
+        annualLeaveTotalAmountPaid,
+        scheduleOfAccrualDate);
   }
 
   @Override
@@ -551,6 +594,9 @@ public class EmployeeLeaveType {
         .append("\n");
     sb.append("    annualLeaveTotalAmountPaid: ")
         .append(toIndentedString(annualLeaveTotalAmountPaid))
+        .append("\n");
+    sb.append("    scheduleOfAccrualDate: ")
+        .append(toIndentedString(scheduleOfAccrualDate))
         .append("\n");
     sb.append("}");
     return sb.toString();

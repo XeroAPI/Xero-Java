@@ -25,6 +25,9 @@ public class CreditNotes {
   @JsonProperty("pagination")
   private Pagination pagination;
 
+  @JsonProperty("Warnings")
+  private List<ValidationError> warnings = new ArrayList<ValidationError>();
+
   @JsonProperty("CreditNotes")
   private List<CreditNote> creditNotes = new ArrayList<CreditNote>();
   /**
@@ -60,6 +63,55 @@ public class CreditNotes {
    */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warnings List&lt;ValidationError&gt;
+   * @return CreditNotes
+   */
+  public CreditNotes warnings(List<ValidationError> warnings) {
+    this.warnings = warnings;
+    return this;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warningsItem ValidationError
+   * @return CreditNotes
+   */
+  public CreditNotes addWarningsItem(ValidationError warningsItem) {
+    if (this.warnings == null) {
+      this.warnings = new ArrayList<ValidationError>();
+    }
+    this.warnings.add(warningsItem);
+    return this;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @return warnings
+   */
+  @ApiModelProperty(value = "Displays array of warning messages from the API")
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @return warnings List<ValidationError>
+   */
+  public List<ValidationError> getWarnings() {
+    return warnings;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warnings List&lt;ValidationError&gt;
+   */
+  public void setWarnings(List<ValidationError> warnings) {
+    this.warnings = warnings;
   }
 
   /**
@@ -121,12 +173,13 @@ public class CreditNotes {
     }
     CreditNotes creditNotes = (CreditNotes) o;
     return Objects.equals(this.pagination, creditNotes.pagination)
+        && Objects.equals(this.warnings, creditNotes.warnings)
         && Objects.equals(this.creditNotes, creditNotes.creditNotes);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pagination, creditNotes);
+    return Objects.hash(pagination, warnings, creditNotes);
   }
 
   @Override
@@ -134,6 +187,7 @@ public class CreditNotes {
     StringBuilder sb = new StringBuilder();
     sb.append("class CreditNotes {\n");
     sb.append("    pagination: ").append(toIndentedString(pagination)).append("\n");
+    sb.append("    warnings: ").append(toIndentedString(warnings)).append("\n");
     sb.append("    creditNotes: ").append(toIndentedString(creditNotes)).append("\n");
     sb.append("}");
     return sb.toString();

@@ -25,6 +25,9 @@ public class ManualJournals {
   @JsonProperty("pagination")
   private Pagination pagination;
 
+  @JsonProperty("Warnings")
+  private List<ValidationError> warnings = new ArrayList<ValidationError>();
+
   @JsonProperty("ManualJournals")
   private List<ManualJournal> manualJournals = new ArrayList<ManualJournal>();
   /**
@@ -60,6 +63,55 @@ public class ManualJournals {
    */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warnings List&lt;ValidationError&gt;
+   * @return ManualJournals
+   */
+  public ManualJournals warnings(List<ValidationError> warnings) {
+    this.warnings = warnings;
+    return this;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warningsItem ValidationError
+   * @return ManualJournals
+   */
+  public ManualJournals addWarningsItem(ValidationError warningsItem) {
+    if (this.warnings == null) {
+      this.warnings = new ArrayList<ValidationError>();
+    }
+    this.warnings.add(warningsItem);
+    return this;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @return warnings
+   */
+  @ApiModelProperty(value = "Displays array of warning messages from the API")
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @return warnings List<ValidationError>
+   */
+  public List<ValidationError> getWarnings() {
+    return warnings;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warnings List&lt;ValidationError&gt;
+   */
+  public void setWarnings(List<ValidationError> warnings) {
+    this.warnings = warnings;
   }
 
   /**
@@ -121,12 +173,13 @@ public class ManualJournals {
     }
     ManualJournals manualJournals = (ManualJournals) o;
     return Objects.equals(this.pagination, manualJournals.pagination)
+        && Objects.equals(this.warnings, manualJournals.warnings)
         && Objects.equals(this.manualJournals, manualJournals.manualJournals);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pagination, manualJournals);
+    return Objects.hash(pagination, warnings, manualJournals);
   }
 
   @Override
@@ -134,6 +187,7 @@ public class ManualJournals {
     StringBuilder sb = new StringBuilder();
     sb.append("class ManualJournals {\n");
     sb.append("    pagination: ").append(toIndentedString(pagination)).append("\n");
+    sb.append("    warnings: ").append(toIndentedString(warnings)).append("\n");
     sb.append("    manualJournals: ").append(toIndentedString(manualJournals)).append("\n");
     sb.append("}");
     return sb.toString();

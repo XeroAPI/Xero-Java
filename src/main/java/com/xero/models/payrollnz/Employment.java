@@ -30,6 +30,12 @@ public class Employment {
 
   @JsonProperty("startDate")
   private LocalDate startDate;
+
+  @JsonProperty("engagementType")
+  private String engagementType;
+
+  @JsonProperty("fixedTermEndDate")
+  private LocalDate fixedTermEndDate;
   /**
    * Xero unique identifier for the payroll calendar of the employee
    *
@@ -138,6 +144,78 @@ public class Employment {
     this.startDate = startDate;
   }
 
+  /**
+   * Engagement type of the employee
+   *
+   * @param engagementType String
+   * @return Employment
+   */
+  public Employment engagementType(String engagementType) {
+    this.engagementType = engagementType;
+    return this;
+  }
+
+  /**
+   * Engagement type of the employee
+   *
+   * @return engagementType
+   */
+  @ApiModelProperty(example = "Permanent", value = "Engagement type of the employee")
+  /**
+   * Engagement type of the employee
+   *
+   * @return engagementType String
+   */
+  public String getEngagementType() {
+    return engagementType;
+  }
+
+  /**
+   * Engagement type of the employee
+   *
+   * @param engagementType String
+   */
+  public void setEngagementType(String engagementType) {
+    this.engagementType = engagementType;
+  }
+
+  /**
+   * End date for an employee with a fixed-term engagement type
+   *
+   * @param fixedTermEndDate LocalDate
+   * @return Employment
+   */
+  public Employment fixedTermEndDate(LocalDate fixedTermEndDate) {
+    this.fixedTermEndDate = fixedTermEndDate;
+    return this;
+  }
+
+  /**
+   * End date for an employee with a fixed-term engagement type
+   *
+   * @return fixedTermEndDate
+   */
+  @ApiModelProperty(
+      example = "Sun Jan 19 00:00:00 UTC 2020",
+      value = "End date for an employee with a fixed-term engagement type")
+  /**
+   * End date for an employee with a fixed-term engagement type
+   *
+   * @return fixedTermEndDate LocalDate
+   */
+  public LocalDate getFixedTermEndDate() {
+    return fixedTermEndDate;
+  }
+
+  /**
+   * End date for an employee with a fixed-term engagement type
+   *
+   * @param fixedTermEndDate LocalDate
+   */
+  public void setFixedTermEndDate(LocalDate fixedTermEndDate) {
+    this.fixedTermEndDate = fixedTermEndDate;
+  }
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -149,12 +227,15 @@ public class Employment {
     Employment employment = (Employment) o;
     return Objects.equals(this.payrollCalendarID, employment.payrollCalendarID)
         && Objects.equals(this.payRunCalendarID, employment.payRunCalendarID)
-        && Objects.equals(this.startDate, employment.startDate);
+        && Objects.equals(this.startDate, employment.startDate)
+        && Objects.equals(this.engagementType, employment.engagementType)
+        && Objects.equals(this.fixedTermEndDate, employment.fixedTermEndDate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(payrollCalendarID, payRunCalendarID, startDate);
+    return Objects.hash(
+        payrollCalendarID, payRunCalendarID, startDate, engagementType, fixedTermEndDate);
   }
 
   @Override
@@ -164,6 +245,8 @@ public class Employment {
     sb.append("    payrollCalendarID: ").append(toIndentedString(payrollCalendarID)).append("\n");
     sb.append("    payRunCalendarID: ").append(toIndentedString(payRunCalendarID)).append("\n");
     sb.append("    startDate: ").append(toIndentedString(startDate)).append("\n");
+    sb.append("    engagementType: ").append(toIndentedString(engagementType)).append("\n");
+    sb.append("    fixedTermEndDate: ").append(toIndentedString(fixedTermEndDate)).append("\n");
     sb.append("}");
     return sb.toString();
   }

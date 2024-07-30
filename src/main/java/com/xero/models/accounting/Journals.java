@@ -22,8 +22,60 @@ import java.util.Objects;
 public class Journals {
   StringUtil util = new StringUtil();
 
+  @JsonProperty("Warnings")
+  private List<ValidationError> warnings = new ArrayList<ValidationError>();
+
   @JsonProperty("Journals")
   private List<Journal> journals = new ArrayList<Journal>();
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warnings List&lt;ValidationError&gt;
+   * @return Journals
+   */
+  public Journals warnings(List<ValidationError> warnings) {
+    this.warnings = warnings;
+    return this;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warningsItem ValidationError
+   * @return Journals
+   */
+  public Journals addWarningsItem(ValidationError warningsItem) {
+    if (this.warnings == null) {
+      this.warnings = new ArrayList<ValidationError>();
+    }
+    this.warnings.add(warningsItem);
+    return this;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @return warnings
+   */
+  @ApiModelProperty(value = "Displays array of warning messages from the API")
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @return warnings List<ValidationError>
+   */
+  public List<ValidationError> getWarnings() {
+    return warnings;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warnings List&lt;ValidationError&gt;
+   */
+  public void setWarnings(List<ValidationError> warnings) {
+    this.warnings = warnings;
+  }
+
   /**
    * journals
    *
@@ -82,18 +134,20 @@ public class Journals {
       return false;
     }
     Journals journals = (Journals) o;
-    return Objects.equals(this.journals, journals.journals);
+    return Objects.equals(this.warnings, journals.warnings)
+        && Objects.equals(this.journals, journals.journals);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(journals);
+    return Objects.hash(warnings, journals);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Journals {\n");
+    sb.append("    warnings: ").append(toIndentedString(warnings)).append("\n");
     sb.append("    journals: ").append(toIndentedString(journals)).append("\n");
     sb.append("}");
     return sb.toString();

@@ -25,6 +25,9 @@ public class BankTransactions {
   @JsonProperty("pagination")
   private Pagination pagination;
 
+  @JsonProperty("Warnings")
+  private List<ValidationError> warnings = new ArrayList<ValidationError>();
+
   @JsonProperty("BankTransactions")
   private List<BankTransaction> bankTransactions = new ArrayList<BankTransaction>();
   /**
@@ -60,6 +63,55 @@ public class BankTransactions {
    */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warnings List&lt;ValidationError&gt;
+   * @return BankTransactions
+   */
+  public BankTransactions warnings(List<ValidationError> warnings) {
+    this.warnings = warnings;
+    return this;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warningsItem ValidationError
+   * @return BankTransactions
+   */
+  public BankTransactions addWarningsItem(ValidationError warningsItem) {
+    if (this.warnings == null) {
+      this.warnings = new ArrayList<ValidationError>();
+    }
+    this.warnings.add(warningsItem);
+    return this;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @return warnings
+   */
+  @ApiModelProperty(value = "Displays array of warning messages from the API")
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @return warnings List<ValidationError>
+   */
+  public List<ValidationError> getWarnings() {
+    return warnings;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warnings List&lt;ValidationError&gt;
+   */
+  public void setWarnings(List<ValidationError> warnings) {
+    this.warnings = warnings;
   }
 
   /**
@@ -121,12 +173,13 @@ public class BankTransactions {
     }
     BankTransactions bankTransactions = (BankTransactions) o;
     return Objects.equals(this.pagination, bankTransactions.pagination)
+        && Objects.equals(this.warnings, bankTransactions.warnings)
         && Objects.equals(this.bankTransactions, bankTransactions.bankTransactions);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pagination, bankTransactions);
+    return Objects.hash(pagination, warnings, bankTransactions);
   }
 
   @Override
@@ -134,6 +187,7 @@ public class BankTransactions {
     StringBuilder sb = new StringBuilder();
     sb.append("class BankTransactions {\n");
     sb.append("    pagination: ").append(toIndentedString(pagination)).append("\n");
+    sb.append("    warnings: ").append(toIndentedString(warnings)).append("\n");
     sb.append("    bankTransactions: ").append(toIndentedString(bankTransactions)).append("\n");
     sb.append("}");
     return sb.toString();

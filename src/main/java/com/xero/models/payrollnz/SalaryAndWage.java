@@ -154,6 +154,58 @@ public class SalaryAndWage {
 
   @JsonProperty("paymentType")
   private PaymentTypeEnum paymentType;
+  /** The type of the Working Pattern of the corresponding salary and wages */
+  public enum WorkPatternTypeEnum {
+    /** DAYSANDHOURS */
+    DAYSANDHOURS("DaysAndHours"),
+
+    /** REGULARWEEK */
+    REGULARWEEK("RegularWeek");
+
+    private String value;
+
+    WorkPatternTypeEnum(String value) {
+      this.value = value;
+    }
+
+    /**
+     * getValue
+     *
+     * @return String value
+     */
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    /**
+     * toString
+     *
+     * @return String value
+     */
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
+    @JsonCreator
+    public static WorkPatternTypeEnum fromValue(String value) {
+      for (WorkPatternTypeEnum b : WorkPatternTypeEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  @JsonProperty("workPatternType")
+  private WorkPatternTypeEnum workPatternType;
   /**
    * Xero unique identifier for a salary and wages record
    *
@@ -514,6 +566,41 @@ public class SalaryAndWage {
     this.paymentType = paymentType;
   }
 
+  /**
+   * The type of the Working Pattern of the corresponding salary and wages
+   *
+   * @param workPatternType WorkPatternTypeEnum
+   * @return SalaryAndWage
+   */
+  public SalaryAndWage workPatternType(WorkPatternTypeEnum workPatternType) {
+    this.workPatternType = workPatternType;
+    return this;
+  }
+
+  /**
+   * The type of the Working Pattern of the corresponding salary and wages
+   *
+   * @return workPatternType
+   */
+  @ApiModelProperty(value = "The type of the Working Pattern of the corresponding salary and wages")
+  /**
+   * The type of the Working Pattern of the corresponding salary and wages
+   *
+   * @return workPatternType WorkPatternTypeEnum
+   */
+  public WorkPatternTypeEnum getWorkPatternType() {
+    return workPatternType;
+  }
+
+  /**
+   * The type of the Working Pattern of the corresponding salary and wages
+   *
+   * @param workPatternType WorkPatternTypeEnum
+   */
+  public void setWorkPatternType(WorkPatternTypeEnum workPatternType) {
+    this.workPatternType = workPatternType;
+  }
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -532,7 +619,8 @@ public class SalaryAndWage {
         && Objects.equals(this.effectiveFrom, salaryAndWage.effectiveFrom)
         && Objects.equals(this.annualSalary, salaryAndWage.annualSalary)
         && Objects.equals(this.status, salaryAndWage.status)
-        && Objects.equals(this.paymentType, salaryAndWage.paymentType);
+        && Objects.equals(this.paymentType, salaryAndWage.paymentType)
+        && Objects.equals(this.workPatternType, salaryAndWage.workPatternType);
   }
 
   @Override
@@ -547,7 +635,8 @@ public class SalaryAndWage {
         effectiveFrom,
         annualSalary,
         status,
-        paymentType);
+        paymentType,
+        workPatternType);
   }
 
   @Override
@@ -568,6 +657,7 @@ public class SalaryAndWage {
     sb.append("    annualSalary: ").append(toIndentedString(annualSalary)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    paymentType: ").append(toIndentedString(paymentType)).append("\n");
+    sb.append("    workPatternType: ").append(toIndentedString(workPatternType)).append("\n");
     sb.append("}");
     return sb.toString();
   }
