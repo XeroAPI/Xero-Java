@@ -25,6 +25,9 @@ public class Prepayments {
   @JsonProperty("pagination")
   private Pagination pagination;
 
+  @JsonProperty("Warnings")
+  private List<ValidationError> warnings = new ArrayList<ValidationError>();
+
   @JsonProperty("Prepayments")
   private List<Prepayment> prepayments = new ArrayList<Prepayment>();
   /**
@@ -60,6 +63,55 @@ public class Prepayments {
    */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warnings List&lt;ValidationError&gt;
+   * @return Prepayments
+   */
+  public Prepayments warnings(List<ValidationError> warnings) {
+    this.warnings = warnings;
+    return this;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warningsItem ValidationError
+   * @return Prepayments
+   */
+  public Prepayments addWarningsItem(ValidationError warningsItem) {
+    if (this.warnings == null) {
+      this.warnings = new ArrayList<ValidationError>();
+    }
+    this.warnings.add(warningsItem);
+    return this;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @return warnings
+   */
+  @ApiModelProperty(value = "Displays array of warning messages from the API")
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @return warnings List<ValidationError>
+   */
+  public List<ValidationError> getWarnings() {
+    return warnings;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warnings List&lt;ValidationError&gt;
+   */
+  public void setWarnings(List<ValidationError> warnings) {
+    this.warnings = warnings;
   }
 
   /**
@@ -121,12 +173,13 @@ public class Prepayments {
     }
     Prepayments prepayments = (Prepayments) o;
     return Objects.equals(this.pagination, prepayments.pagination)
+        && Objects.equals(this.warnings, prepayments.warnings)
         && Objects.equals(this.prepayments, prepayments.prepayments);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pagination, prepayments);
+    return Objects.hash(pagination, warnings, prepayments);
   }
 
   @Override
@@ -134,6 +187,7 @@ public class Prepayments {
     StringBuilder sb = new StringBuilder();
     sb.append("class Prepayments {\n");
     sb.append("    pagination: ").append(toIndentedString(pagination)).append("\n");
+    sb.append("    warnings: ").append(toIndentedString(warnings)).append("\n");
     sb.append("    prepayments: ").append(toIndentedString(prepayments)).append("\n");
     sb.append("}");
     return sb.toString();

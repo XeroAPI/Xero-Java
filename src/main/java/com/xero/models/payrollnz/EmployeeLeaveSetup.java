@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
+import org.threeten.bp.LocalDate;
 
 /** EmployeeLeaveSetup */
 public class EmployeeLeaveSetup {
@@ -40,6 +41,12 @@ public class EmployeeLeaveSetup {
 
   @JsonProperty("sickLeaveOpeningBalance")
   private Double sickLeaveOpeningBalance;
+
+  @JsonProperty("SickLeaveScheduleOfAccrual")
+  private String sickLeaveScheduleOfAccrual;
+
+  @JsonProperty("SickLeaveAnniversaryDate")
+  private LocalDate sickLeaveAnniversaryDate;
   /**
    * Identifier if holiday pay will be included in each payslip
    *
@@ -330,6 +337,86 @@ public class EmployeeLeaveSetup {
     this.sickLeaveOpeningBalance = sickLeaveOpeningBalance;
   }
 
+  /**
+   * Set Schedule of Accrual Type for Sick Leave
+   *
+   * @param sickLeaveScheduleOfAccrual String
+   * @return EmployeeLeaveSetup
+   */
+  public EmployeeLeaveSetup sickLeaveScheduleOfAccrual(String sickLeaveScheduleOfAccrual) {
+    this.sickLeaveScheduleOfAccrual = sickLeaveScheduleOfAccrual;
+    return this;
+  }
+
+  /**
+   * Set Schedule of Accrual Type for Sick Leave
+   *
+   * @return sickLeaveScheduleOfAccrual
+   */
+  @ApiModelProperty(
+      example = "OnAnniversaryDate",
+      value = "Set Schedule of Accrual Type for Sick Leave")
+  /**
+   * Set Schedule of Accrual Type for Sick Leave
+   *
+   * @return sickLeaveScheduleOfAccrual String
+   */
+  public String getSickLeaveScheduleOfAccrual() {
+    return sickLeaveScheduleOfAccrual;
+  }
+
+  /**
+   * Set Schedule of Accrual Type for Sick Leave
+   *
+   * @param sickLeaveScheduleOfAccrual String
+   */
+  public void setSickLeaveScheduleOfAccrual(String sickLeaveScheduleOfAccrual) {
+    this.sickLeaveScheduleOfAccrual = sickLeaveScheduleOfAccrual;
+  }
+
+  /**
+   * If Sick Leave Schedule of Accrual is \&quot;OnAnniversaryDate\&quot;, this is the date when
+   * entitled to Sick Leave
+   *
+   * @param sickLeaveAnniversaryDate LocalDate
+   * @return EmployeeLeaveSetup
+   */
+  public EmployeeLeaveSetup sickLeaveAnniversaryDate(LocalDate sickLeaveAnniversaryDate) {
+    this.sickLeaveAnniversaryDate = sickLeaveAnniversaryDate;
+    return this;
+  }
+
+  /**
+   * If Sick Leave Schedule of Accrual is \&quot;OnAnniversaryDate\&quot;, this is the date when
+   * entitled to Sick Leave
+   *
+   * @return sickLeaveAnniversaryDate
+   */
+  @ApiModelProperty(
+      example = "Sun Jan 19 00:00:00 UTC 2020",
+      value =
+          "If Sick Leave Schedule of Accrual is \"OnAnniversaryDate\", this is the date when"
+              + " entitled to Sick Leave")
+  /**
+   * If Sick Leave Schedule of Accrual is \&quot;OnAnniversaryDate\&quot;, this is the date when
+   * entitled to Sick Leave
+   *
+   * @return sickLeaveAnniversaryDate LocalDate
+   */
+  public LocalDate getSickLeaveAnniversaryDate() {
+    return sickLeaveAnniversaryDate;
+  }
+
+  /**
+   * If Sick Leave Schedule of Accrual is \&quot;OnAnniversaryDate\&quot;, this is the date when
+   * entitled to Sick Leave
+   *
+   * @param sickLeaveAnniversaryDate LocalDate
+   */
+  public void setSickLeaveAnniversaryDate(LocalDate sickLeaveAnniversaryDate) {
+    this.sickLeaveAnniversaryDate = sickLeaveAnniversaryDate;
+  }
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -351,7 +438,11 @@ public class EmployeeLeaveSetup {
             this.sickLeaveHoursToAccrueAnnually, employeeLeaveSetup.sickLeaveHoursToAccrueAnnually)
         && Objects.equals(
             this.sickLeaveMaximumHoursToAccrue, employeeLeaveSetup.sickLeaveMaximumHoursToAccrue)
-        && Objects.equals(this.sickLeaveOpeningBalance, employeeLeaveSetup.sickLeaveOpeningBalance);
+        && Objects.equals(this.sickLeaveOpeningBalance, employeeLeaveSetup.sickLeaveOpeningBalance)
+        && Objects.equals(
+            this.sickLeaveScheduleOfAccrual, employeeLeaveSetup.sickLeaveScheduleOfAccrual)
+        && Objects.equals(
+            this.sickLeaveAnniversaryDate, employeeLeaveSetup.sickLeaveAnniversaryDate);
   }
 
   @Override
@@ -363,7 +454,9 @@ public class EmployeeLeaveSetup {
         negativeAnnualLeaveBalancePaidAmount,
         sickLeaveHoursToAccrueAnnually,
         sickLeaveMaximumHoursToAccrue,
-        sickLeaveOpeningBalance);
+        sickLeaveOpeningBalance,
+        sickLeaveScheduleOfAccrual,
+        sickLeaveAnniversaryDate);
   }
 
   @Override
@@ -388,6 +481,12 @@ public class EmployeeLeaveSetup {
         .append("\n");
     sb.append("    sickLeaveOpeningBalance: ")
         .append(toIndentedString(sickLeaveOpeningBalance))
+        .append("\n");
+    sb.append("    sickLeaveScheduleOfAccrual: ")
+        .append(toIndentedString(sickLeaveScheduleOfAccrual))
+        .append("\n");
+    sb.append("    sickLeaveAnniversaryDate: ")
+        .append(toIndentedString(sickLeaveAnniversaryDate))
         .append("\n");
     sb.append("}");
     return sb.toString();

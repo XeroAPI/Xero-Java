@@ -25,6 +25,9 @@ public class PurchaseOrders {
   @JsonProperty("pagination")
   private Pagination pagination;
 
+  @JsonProperty("Warnings")
+  private List<ValidationError> warnings = new ArrayList<ValidationError>();
+
   @JsonProperty("PurchaseOrders")
   private List<PurchaseOrder> purchaseOrders = new ArrayList<PurchaseOrder>();
   /**
@@ -60,6 +63,55 @@ public class PurchaseOrders {
    */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warnings List&lt;ValidationError&gt;
+   * @return PurchaseOrders
+   */
+  public PurchaseOrders warnings(List<ValidationError> warnings) {
+    this.warnings = warnings;
+    return this;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warningsItem ValidationError
+   * @return PurchaseOrders
+   */
+  public PurchaseOrders addWarningsItem(ValidationError warningsItem) {
+    if (this.warnings == null) {
+      this.warnings = new ArrayList<ValidationError>();
+    }
+    this.warnings.add(warningsItem);
+    return this;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @return warnings
+   */
+  @ApiModelProperty(value = "Displays array of warning messages from the API")
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @return warnings List<ValidationError>
+   */
+  public List<ValidationError> getWarnings() {
+    return warnings;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warnings List&lt;ValidationError&gt;
+   */
+  public void setWarnings(List<ValidationError> warnings) {
+    this.warnings = warnings;
   }
 
   /**
@@ -121,12 +173,13 @@ public class PurchaseOrders {
     }
     PurchaseOrders purchaseOrders = (PurchaseOrders) o;
     return Objects.equals(this.pagination, purchaseOrders.pagination)
+        && Objects.equals(this.warnings, purchaseOrders.warnings)
         && Objects.equals(this.purchaseOrders, purchaseOrders.purchaseOrders);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pagination, purchaseOrders);
+    return Objects.hash(pagination, warnings, purchaseOrders);
   }
 
   @Override
@@ -134,6 +187,7 @@ public class PurchaseOrders {
     StringBuilder sb = new StringBuilder();
     sb.append("class PurchaseOrders {\n");
     sb.append("    pagination: ").append(toIndentedString(pagination)).append("\n");
+    sb.append("    warnings: ").append(toIndentedString(warnings)).append("\n");
     sb.append("    purchaseOrders: ").append(toIndentedString(purchaseOrders)).append("\n");
     sb.append("}");
     return sb.toString();

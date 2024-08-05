@@ -25,6 +25,9 @@ public class Contacts {
   @JsonProperty("pagination")
   private Pagination pagination;
 
+  @JsonProperty("Warnings")
+  private List<ValidationError> warnings = new ArrayList<ValidationError>();
+
   @JsonProperty("Contacts")
   private List<Contact> contacts = new ArrayList<Contact>();
   /**
@@ -60,6 +63,55 @@ public class Contacts {
    */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warnings List&lt;ValidationError&gt;
+   * @return Contacts
+   */
+  public Contacts warnings(List<ValidationError> warnings) {
+    this.warnings = warnings;
+    return this;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warningsItem ValidationError
+   * @return Contacts
+   */
+  public Contacts addWarningsItem(ValidationError warningsItem) {
+    if (this.warnings == null) {
+      this.warnings = new ArrayList<ValidationError>();
+    }
+    this.warnings.add(warningsItem);
+    return this;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @return warnings
+   */
+  @ApiModelProperty(value = "Displays array of warning messages from the API")
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @return warnings List<ValidationError>
+   */
+  public List<ValidationError> getWarnings() {
+    return warnings;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warnings List&lt;ValidationError&gt;
+   */
+  public void setWarnings(List<ValidationError> warnings) {
+    this.warnings = warnings;
   }
 
   /**
@@ -121,12 +173,13 @@ public class Contacts {
     }
     Contacts contacts = (Contacts) o;
     return Objects.equals(this.pagination, contacts.pagination)
+        && Objects.equals(this.warnings, contacts.warnings)
         && Objects.equals(this.contacts, contacts.contacts);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pagination, contacts);
+    return Objects.hash(pagination, warnings, contacts);
   }
 
   @Override
@@ -134,6 +187,7 @@ public class Contacts {
     StringBuilder sb = new StringBuilder();
     sb.append("class Contacts {\n");
     sb.append("    pagination: ").append(toIndentedString(pagination)).append("\n");
+    sb.append("    warnings: ").append(toIndentedString(warnings)).append("\n");
     sb.append("    contacts: ").append(toIndentedString(contacts)).append("\n");
     sb.append("}");
     return sb.toString();

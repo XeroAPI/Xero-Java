@@ -25,6 +25,9 @@ public class Invoices {
   @JsonProperty("pagination")
   private Pagination pagination;
 
+  @JsonProperty("Warnings")
+  private List<ValidationError> warnings = new ArrayList<ValidationError>();
+
   @JsonProperty("Invoices")
   private List<Invoice> invoices = new ArrayList<Invoice>();
   /**
@@ -60,6 +63,55 @@ public class Invoices {
    */
   public void setPagination(Pagination pagination) {
     this.pagination = pagination;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warnings List&lt;ValidationError&gt;
+   * @return Invoices
+   */
+  public Invoices warnings(List<ValidationError> warnings) {
+    this.warnings = warnings;
+    return this;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warningsItem ValidationError
+   * @return Invoices
+   */
+  public Invoices addWarningsItem(ValidationError warningsItem) {
+    if (this.warnings == null) {
+      this.warnings = new ArrayList<ValidationError>();
+    }
+    this.warnings.add(warningsItem);
+    return this;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @return warnings
+   */
+  @ApiModelProperty(value = "Displays array of warning messages from the API")
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @return warnings List<ValidationError>
+   */
+  public List<ValidationError> getWarnings() {
+    return warnings;
+  }
+
+  /**
+   * Displays array of warning messages from the API
+   *
+   * @param warnings List&lt;ValidationError&gt;
+   */
+  public void setWarnings(List<ValidationError> warnings) {
+    this.warnings = warnings;
   }
 
   /**
@@ -121,12 +173,13 @@ public class Invoices {
     }
     Invoices invoices = (Invoices) o;
     return Objects.equals(this.pagination, invoices.pagination)
+        && Objects.equals(this.warnings, invoices.warnings)
         && Objects.equals(this.invoices, invoices.invoices);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(pagination, invoices);
+    return Objects.hash(pagination, warnings, invoices);
   }
 
   @Override
@@ -134,6 +187,7 @@ public class Invoices {
     StringBuilder sb = new StringBuilder();
     sb.append("class Invoices {\n");
     sb.append("    pagination: ").append(toIndentedString(pagination)).append("\n");
+    sb.append("    warnings: ").append(toIndentedString(warnings)).append("\n");
     sb.append("    invoices: ").append(toIndentedString(invoices)).append("\n");
     sb.append("}");
     return sb.toString();
