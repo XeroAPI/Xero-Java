@@ -106,7 +106,7 @@ public class PayrollUkApi {
   private ApiClient apiClient;
   private static PayrollUkApi instance = null;
   private String userAgent = "Default";
-  private String version = "8.1.0";
+  private String version = "8.1.1";
   static final Logger logger = LoggerFactory.getLogger(PayrollUkApi.class);
 
   /** PayrollUkApi */
