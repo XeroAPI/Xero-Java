@@ -932,18 +932,18 @@ public class CreditNote {
   }
 
   /**
-   * boolean to indicate if a credit note has been sent to a contact via the Xero app (currently
-   * read only)
+   * Boolean to set whether the credit note in the Xero app should be marked as “sent”. This can be
+   * set only on credit notes that have been approved
    *
    * @return sentToContact
    */
   @ApiModelProperty(
       value =
-          "boolean to indicate if a credit note has been sent to a contact via  the Xero app"
-              + " (currently read only)")
+          "Boolean to set whether the credit note in the Xero app should be marked as “sent”. This"
+              + " can be set only on credit notes that have been approved")
   /**
-   * boolean to indicate if a credit note has been sent to a contact via the Xero app (currently
-   * read only)
+   * Boolean to set whether the credit note in the Xero app should be marked as “sent”. This can be
+   * set only on credit notes that have been approved
    *
    * @return sentToContact Boolean
    */
