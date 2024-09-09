@@ -37,5 +37,3 @@ jobs:
                 cd Xero-Java
                 export GPG_TTY=$(tty)
                 mvn clean verify -DskipTests=true -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE_TEST }}
-              env:
-                GPG_TTY: $(tty)
