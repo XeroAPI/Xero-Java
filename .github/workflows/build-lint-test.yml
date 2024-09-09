@@ -21,11 +21,29 @@ jobs:
                 java-version: '11'
                 cache: maven
 
+            - name: Configure GPG
+              run: |
+                mkdir -p ~/.gnupg
+                chmod 700 ~/.gnupg
+                echo "use-agent" > ~/.gnupg/gpg.conf
+                echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
+                echo "default-cache-ttl 600" >> ~/.gnupg/gpg-agent.conf
+                echo "max-cache-ttl 7200" >> ~/.gnupg/gpg-agent.conf
+                gpgconf --reload gpg-agent
+
             - name: Import GPG Key
               run: |
                 echo "${{ secrets.GPG_PRIVATE_KEY_TEST }}" | gpg --batch --import
+                gpg --list-secret-keys
               env: 
                 GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY_TEST}}
+
+            - name: GPG Configuration and Key Status
+              run: |
+                gpg --list-keys
+                gpg --list-secret-keys
+                gpg --version
+                gpgconf --list-dir
 
             - name: Build and test post generation
               # run: |
@@ -33,5 +51,7 @@ jobs:
               #   mvn clean verify -DskipTests=true
               run: |
                 export GPG_TTY=$(tty)
-                mvn clean verify -DskipTests=true -Dgpg.passphrase=Aravinth120996! -X
+                mvn clean verify -DskipTests=true -Dgpg.passphrase=Aravinth120996! -X       
               working-directory: Xero-Java
+              env:
+                GPG_PASSPHRASE: Aravinth120996!
