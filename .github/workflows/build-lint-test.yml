@@ -21,18 +21,21 @@ jobs:
                 java-version: '11'
                 cache: maven
             
-            - name: Import GPG Key
-              run: |
-                echo "${{ secrets.GPG_PRIVATE_KEY }}" > /tmp/private-key.asc
-                gpg --batch --import /tmp/private-key.asc
-                gpg --list-secret-keys
-              env:
-                GPG_TTY: $(tty)
+            # - name: Import GPG Key
+            #   run: |
+            #     echo "${{ secrets.GPG_PRIVATE_KEY }}" > /tmp/private-key.asc
+            #     gpg --batch --import /tmp/private-key.asc
+            #     gpg --list-secret-keys
+            #   env:
+            #     GPG_TTY: $(tty)
 
             - name: Build and test post generation
               run: |
                 cd Xero-Java
-                export GPG_TTY=$(tty)
-                mvn clean verify -DskipTests=true -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }}
-              env:
-                GPG_TTY: $(tty)
+                mvn clean verify -DskipTests=true
+              # run: |
+              #   cd Xero-Java
+              #   export GPG_TTY=$(tty)
+              #   mvn clean verify -DskipTests=true -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }}
+              # env:
+              #   GPG_TTY: $(tty)
