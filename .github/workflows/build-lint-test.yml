@@ -23,7 +23,12 @@ jobs:
             
             - name: Import GPG Key
               run: |
+                sudo apt-get update
+                sudo apt-get install -y gnupg
+
                 echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --import
+
+                echo "use-agent" >> ~/.gnupg/gpg.conf
                 
                 gpg-connect-agent reloadagent /bye
               env:
