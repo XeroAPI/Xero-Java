@@ -38,17 +38,7 @@ jobs:
               env: 
                 GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY}}
 
-            - name: GPG Configuration and Key Status
-              run: |
-                gpg --list-keys
-                gpg --list-secret-keys
-                gpg --version
-                gpgconf --list-dir
-
             - name: Build and test post generation
-              # run: |
-              #   cd Xero-Java
-              #   mvn clean verify -DskipTests=true
               run: |
                 export GPG_TTY=$(tty)
                 mvn clean verify -DskipTests=true -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }}      
