@@ -33,10 +33,10 @@ jobs:
 
             - name: Import GPG Key
               run: |
-                echo "${{ secrets.GPG_PRIVATE_KEY_TEST }}" | gpg --batch --import
+                echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import
                 gpg --list-secret-keys
               env: 
-                GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY_TEST}}
+                GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY}}
 
             - name: GPG Configuration and Key Status
               run: |
@@ -51,7 +51,7 @@ jobs:
               #   mvn clean verify -DskipTests=true
               run: |
                 export GPG_TTY=$(tty)
-                mvn clean verify -DskipTests=true -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE_TEST }}      
+                mvn clean verify -DskipTests=true -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }}      
               working-directory: Xero-Java
               env:
-                GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE_TEST }}
+                GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
