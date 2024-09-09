@@ -1,0 +1,34 @@
+name: Java Build, Lint and Test
+
+on:
+    push:
+
+jobs:
+    build-test-lint:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout Xero-Java repo
+              uses: actions/checkout@v4
+              with:
+                repository: XeroAPI/Xero-Java
+                path: Xero-Java
+
+            - name: Set up JDK environment
+              uses: actions/setup-java@v4
+              with: 
+                distribution: 'temurin'
+                java-version: '11'
+                cache: maven
+            
+            - name: Import GPG Key
+              run: |
+               echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import
+              env: 
+                GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY}}
+
+            - name: Build and test post generation
+              run: |
+                export GPG_TTY=$(tty)
+                mvn clean verify -DskipTests=true -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }}
+              working-directory: Xero-Java
