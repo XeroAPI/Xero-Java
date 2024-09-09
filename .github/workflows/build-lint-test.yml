@@ -23,7 +23,7 @@ jobs:
             
             - name: Import GPG Key
               run: |
-                echo "${{ secrets.GPG_PRIVATE_KEY_TEST }}" > /tmp/private-key.asc
+                echo "${{ secrets.GPG_PRIVATE_KEY }}" > /tmp/private-key.asc
                 gpg --batch --import /tmp/private-key.asc
                 gpg --list-secret-keys
               env:
