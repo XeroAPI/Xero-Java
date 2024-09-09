@@ -23,10 +23,10 @@ jobs:
             
             - name: Import GPG Key
               run: |
-                echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --import
-                 echo "${{ secrets.GPG_PASSPHRASE }}" | gpg --batch --yes --pinentry-mode loopback --passphrase-fd 0 --import
+                echo "${{ secrets.GPG_PRIVATE_KEY_TEST }}" | gpg --import
+                 echo "${{ secrets.GPG_PASSPHRASE_TEST }}" | gpg --batch --yes --pinentry-mode loopback --passphrase-fd 0 --import
               env:
-                GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+                GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE_TEST }}
 
             - name: Build and test post generation
               # run: |
