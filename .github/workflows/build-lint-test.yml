@@ -23,8 +23,8 @@ jobs:
             
             - name: Import GPG Key
               run: |
-                sudo apt-get update
-                sudo apt-get install -y gnupg
+                mkdir -p ~/.gnupg
+                chmod 700 ~/.gnupg
 
                 echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --import
 
