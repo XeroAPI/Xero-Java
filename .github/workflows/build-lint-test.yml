@@ -23,27 +23,10 @@ jobs:
             
             - name: Import GPG Key
               run: |
-                sudo apt-get update
-                sudo apt-get install -y gnupg
-
-                # Create .gnupg directory
-                mkdir -p ~/.gnupg
-                chmod 700 ~/.gnupg
-
-                # Import the GPG private key
-                echo "${{ secrets.GPG_PRIVATE_KEY_TEST }}" | gpg --batch --import
-
-                # Configure GPG
-                echo "use-agent" >> ~/.gnupg/gpg.conf
-                echo "pinentry-mode loopback" >> ~/.gnupg/gpg-agent.conf
-
-                # Restart GPG agent
-                gpgconf --kill gpg-agent
-                gpgconf --launch gpg-agent
-
-
+                echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --import
+                 echo "${{ secrets.GPG_PASSPHRASE }}" | gpg --batch --yes --pinentry-mode loopback --passphrase-fd 0 --import
               env:
-                GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY_TEST }}
+                GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
 
             - name: Build and test post generation
               # run: |
