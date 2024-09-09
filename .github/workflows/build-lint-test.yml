@@ -21,10 +21,23 @@ jobs:
                 java-version: '11'
                 cache: maven
             
+            - name: Configure GPG
+              run: |
+                mkdir -p ~/.gnupg
+                chmod 700 ~/.gnupg
+                echo "use-agent" > ~/.gnupg/gpg.conf
+                echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
+                echo "default-cache-ttl 600" >> ~/.gnupg/gpg-agent.conf
+                echo "max-cache-ttl 7200" >> ~/.gnupg/gpg-agent.conf
+                gpgconf --reload gpg-agent
+              env:
+                GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE_TEST }}
+
             - name: Import GPG Key
               run: |
                 echo "${{ secrets.GPG_PRIVATE_KEY_TEST }}" | gpg --import
-                 echo "${{ secrets.GPG_PASSPHRASE_TEST }}" | gpg --batch --yes --pinentry-mode loopback --passphrase-fd 0 --import
+                gpg --list-secret-keys --keyid-format LONG
+                echo "${{ secrets.GPG_PASSPHRASE_TEST }}" | gpg --batch --yes --pinentry-mode loopback --passphrase-fd 0 --import
               env:
                 GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE_TEST }}
 
