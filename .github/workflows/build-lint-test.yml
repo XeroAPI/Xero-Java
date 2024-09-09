@@ -23,11 +23,13 @@ jobs:
             
             - name: Import GPG Key
               run: |
-                echo "${{ secrets.GPG_PRIVATE_KEY }}" > /tmp/private-key.asc
-                gpg --batch --import /tmp/private-key.asc
-                gpg --list-secret-keys
+                echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --import
+                
+                echo "default-cache-ttl 600" >> ~/.gnupg/gpg-agent.conf
+                echo "max-cache-ttl 7200" >> ~/.gnupg/gpg-agent.conf
+                gpg-connect-agent reloadagent /bye
               env:
-                GPG_TTY: $(tty)
+                GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
 
             - name: Build and test post generation
               # run: |
@@ -35,5 +37,6 @@ jobs:
               #   mvn clean verify -DskipTests=true
               run: |
                 cd Xero-Java
-                export GPG_TTY=$(tty)
                 mvn clean verify -DskipTests=true -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }}
+              env:
+                GPG_TTY: $(tty)
