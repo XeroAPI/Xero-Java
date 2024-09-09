@@ -25,6 +25,7 @@ jobs:
               run: |
                echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import
               env: 
+                GPG_TTY: $(tty)
                 GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY}}
 
             - name: Build and test post generation
