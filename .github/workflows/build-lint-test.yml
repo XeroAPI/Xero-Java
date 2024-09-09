@@ -25,8 +25,6 @@ jobs:
               run: |
                 echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --import
                 
-                echo "default-cache-ttl 600" >> ~/.gnupg/gpg-agent.conf
-                echo "max-cache-ttl 7200" >> ~/.gnupg/gpg-agent.conf
                 gpg-connect-agent reloadagent /bye
               env:
                 GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
