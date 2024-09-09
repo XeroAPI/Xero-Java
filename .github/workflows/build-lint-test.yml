@@ -23,14 +23,14 @@ jobs:
             
             - name: Import GPG Key
               run: |
-               echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import
+               echo "${{ secrets.GPG_PRIVATE_KEY_TEST }}" | gpg --batch --import
               env: 
                 GPG_TTY: $(tty)
-                GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY}}
+                GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY_TEST}}
 
             - name: Build and test post generation
               run: |
                 cd Xero-Java
                 export GPG_TTY=$(tty)
-                mvn clean verify -DskipTests=true -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }}
+                mvn clean verify -DskipTests=true -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE_TEST }}
               # working-directory: Xero-Java
