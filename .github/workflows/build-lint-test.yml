@@ -32,6 +32,6 @@ jobs:
               #   cd Xero-Java
               #   mvn clean verify -DskipTests=true
               run: |
-                cd Xero-Java
                 export GPG_TTY=$(tty)
                 mvn clean verify -DskipTests=true -Dgpg.passphrase=Aravinth120996! -X
+              working-directory: Xero-Java
