@@ -51,7 +51,7 @@ jobs:
               #   mvn clean verify -DskipTests=true
               run: |
                 export GPG_TTY=$(tty)
-                mvn clean verify -DskipTests=true -Dgpg.passphrase= ${{ secrets.GPG_PASSPHRASE_TEST }}      
+                mvn clean verify -DskipTests=true -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE_TEST }}      
               working-directory: Xero-Java
               env:
                 GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE_TEST }}
