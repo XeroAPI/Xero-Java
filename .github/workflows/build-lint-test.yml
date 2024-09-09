@@ -30,6 +30,7 @@ jobs:
 
             - name: Build and test post generation
               run: |
+                cd Xero-Java
                 export GPG_TTY=$(tty)
                 mvn clean verify -DskipTests=true -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }}
               # working-directory: Xero-Java
