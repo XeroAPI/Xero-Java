@@ -23,16 +23,11 @@ jobs:
             
             - name: Import GPG Key
               run: |
-                mkdir -p ~/.gnupg
-                chmod 700 ~/.gnupg
 
-                echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --import
+                echo "${{ secrets.GPG_PRIVATE_KEY_TEST }}" | gpg --batch --import
 
-                echo "use-agent" >> ~/.gnupg/gpg.conf
-                
-                gpg-connect-agent reloadagent /bye
               env:
-                GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+                GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY_TEST }}
 
             - name: Build and test post generation
               # run: |
@@ -40,6 +35,6 @@ jobs:
               #   mvn clean verify -DskipTests=true
               run: |
                 cd Xero-Java
-                mvn clean verify -DskipTests=true -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }}
+                mvn clean verify -DskipTests=true -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE_TEST }}
               env:
                 GPG_TTY: $(tty)
