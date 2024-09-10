@@ -1,46 +1,18 @@
 package com.xero.api.client;
 
-import static org.junit.Assert.assertTrue;
+import java.io.IOException;
+import java.util.UUID;
 
-import org.junit.*;
-
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.hamcrest.core.Every.everyItem;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.xero.api.ApiClient;
-import com.xero.api.client.*;
-import com.xero.models.payrolluk.*;
-import com.xero.models.payrolluk.Benefit.CalculationTypeEnum;
-import com.xero.models.payrolluk.Benefit.CategoryEnum;
-
-import java.io.File;
-import java.net.URL;
-
-import com.google.api.client.auth.oauth2.BearerToken;
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
-
-import org.threeten.bp.*;
-import java.io.IOException;
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import java.io.File;
-import java.io.IOException;
-
-import org.apache.commons.io.IOUtils;
-
-import java.util.Calendar;
-import java.util.Map;
-import java.util.UUID;
-import java.util.List;
-import java.util.ArrayList;
-import java.math.BigDecimal;
+import com.xero.models.payrolluk.Deduction;
+import com.xero.models.payrolluk.DeductionObject;
+import com.xero.models.payrolluk.Deductions;
 
 public class PayrollUkApiDeductionsTest {
 
@@ -58,7 +30,7 @@ public class PayrollUkApiDeductionsTest {
         
         // Init projectApi client
         // NEW Sandbox for API Mocking
-		defaultClient = new ApiClient("https://ba3fd247-8fc6-4d7c-bcd1-bdbea4ea1803.mock.pstmn.io/payroll.xro/2.0",null,null,null,null);
+		defaultClient = new ApiClient("http://127.0.0.1:4017",null,null,null,null);
         payrollUkApi = PayrollUkApi.getInstance(defaultClient);   
        
 	}
@@ -111,6 +83,10 @@ public class PayrollUkApiDeductionsTest {
         System.out.println("@Test UK Payroll - createDeductionTest");
        
         Deduction deduction = new Deduction();
+        deduction.setDeductionName("Test Name");
+        deduction.setDeductionCategory(com.xero.models.payrolluk.Deduction.DeductionCategoryEnum.SALARYSACRIFICE);
+        deduction.setLiabilityAccountId(UUID.randomUUID());
+        deduction.calculationType(com.xero.models.payrolluk.Deduction.CalculationTypeEnum.FIXEDAMOUNT);
         DeductionObject response = payrollUkApi.createDeduction(accessToken, xeroTenantId, deduction, null);
         
         assertThat(response.getDeduction().getDeductionId(), is(equalTo(UUID.fromString("b3695b29-750f-4957-98b4-678e4a529043"))));

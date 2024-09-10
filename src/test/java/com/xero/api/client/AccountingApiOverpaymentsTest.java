@@ -57,7 +57,7 @@ public class AccountingApiOverpaymentsTest {
         
         // Init AccountingApi client
         // NEW Sandbox for API Mocking
-		defaultClient = new ApiClient("https://25faf04a-c71e-40e7-b7ce-f1fae0149465.mock.pstmn.io/api.xro/2.0",null,null,null,null);
+		defaultClient = new ApiClient("http://127.0.0.1:4010",null,null,null,null);
         accountingApi = AccountingApi.getInstance(defaultClient);   
        
         ClassLoader classLoader = getClass().getClassLoader();

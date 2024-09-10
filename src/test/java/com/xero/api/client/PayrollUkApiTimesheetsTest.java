@@ -1,47 +1,24 @@
 package com.xero.api.client;
 
-import static org.junit.Assert.assertTrue;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
-import org.junit.*;
-
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.hamcrest.core.Every.everyItem;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import org.junit.Before;
+import org.junit.Test;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.LocalDateTime;
 
 import com.xero.api.ApiClient;
-import com.xero.api.client.*;
-import com.xero.models.payrolluk.*;
-import com.xero.models.payrolluk.Benefit.CalculationTypeEnum;
-import com.xero.models.payrolluk.Benefit.CategoryEnum;
-
-import java.io.File;
-import java.net.URL;
-
-import com.google.api.client.auth.oauth2.BearerToken;
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
-
-import org.threeten.bp.*;
-import org.threeten.bp.temporal.ChronoUnit;
-import java.io.IOException;
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import java.io.File;
-import java.io.IOException;
-
-import org.apache.commons.io.IOUtils;
-
-import java.util.Calendar;
-import java.util.Map;
-import java.util.UUID;
-import java.util.List;
-import java.util.ArrayList;
-import java.math.BigDecimal;
+import com.xero.models.payrolluk.Timesheet;
+import com.xero.models.payrolluk.TimesheetLine;
+import com.xero.models.payrolluk.TimesheetLineObject;
+import com.xero.models.payrolluk.TimesheetObject;
+import com.xero.models.payrolluk.Timesheets;
 
 public class PayrollUkApiTimesheetsTest {
 
@@ -59,7 +36,7 @@ public class PayrollUkApiTimesheetsTest {
         
         // Init projectApi client
         // NEW Sandbox for API Mocking
-		defaultClient = new ApiClient("https://ba3fd247-8fc6-4d7c-bcd1-bdbea4ea1803.mock.pstmn.io/payroll.xro/2.0",null,null,null,null);
+		defaultClient = new ApiClient("http://127.0.0.1:4017",null,null,null,null);
         payrollUkApi = PayrollUkApi.getInstance(defaultClient);   
        
 	}
@@ -118,8 +95,19 @@ public class PayrollUkApiTimesheetsTest {
         System.out.println("@Test UK Payroll - createTimesheetTest");
        
         int page = 1;
-        UUID timesheetID = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e"); 
+        UUID timesheetID = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
+        List<TimesheetLine> timesheetLines = new ArrayList<>(); 
+        TimesheetLine timesheetLine = new TimesheetLine();
+        timesheetLine.setEarningsRateID(UUID.randomUUID());
+        timesheetLine.setNumberOfUnits(12.00);
+        timesheetLine.setDate(LocalDate.now());
+        timesheetLines.add(timesheetLine);
         Timesheet timesheet = new Timesheet();
+        timesheet.setTimesheetLines(timesheetLines);
+        timesheet.setPayrollCalendarID(UUID.randomUUID());
+        timesheet.setEndDate(LocalDate.of(2020, 04, 19));
+        timesheet.setStartDate(LocalDate.of(2020, 04, 13));
+        timesheet.setEmployeeID(UUID.randomUUID());
         TimesheetObject response = payrollUkApi.createTimesheet(accessToken, xeroTenantId, timesheet, null);
         
         assertThat(response.getTimesheet().getTimesheetID(),is(equalTo(UUID.fromString("88d2038a-06f7-4b8a-bdab-809804c0aa1d"))));
@@ -144,6 +132,9 @@ public class PayrollUkApiTimesheetsTest {
        
         UUID timesheetID = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e"); 
         TimesheetLine timesheetLine = new TimesheetLine();
+        timesheetLine.setEarningsRateID(UUID.randomUUID());
+        timesheetLine.setNumberOfUnits(12.00);
+        timesheetLine.setDate(LocalDate.now());
         TimesheetLineObject response = payrollUkApi.createTimesheetLine(accessToken, xeroTenantId, timesheetID, timesheetLine, null);
         
         assertThat(response.getTimesheetLine().getTimesheetLineID(),is(equalTo(UUID.fromString("56fce87e-7f0d-4c19-8f74-7f5656651c81"))));
@@ -161,6 +152,9 @@ public class PayrollUkApiTimesheetsTest {
         UUID timesheetID = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e"); 
         UUID timesheetLineID = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e"); 
         TimesheetLine timesheetLine = new TimesheetLine();
+        timesheetLine.setEarningsRateID(UUID.randomUUID());
+        timesheetLine.setNumberOfUnits(12.00);
+        timesheetLine.setDate(LocalDate.now());
         TimesheetLineObject response = payrollUkApi.updateTimesheetLine(accessToken, xeroTenantId, timesheetID, timesheetLineID, timesheetLine, null);
         
         assertThat(response.getTimesheetLine().getTimesheetLineID(),is(equalTo(UUID.fromString("c88edcad-af32-4536-a682-9a4772c21c8d"))));

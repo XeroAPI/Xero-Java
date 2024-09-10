@@ -1,44 +1,19 @@
 package com.xero.api.client;
 
-import static org.junit.Assert.assertTrue;
+import java.io.IOException;
+import java.util.UUID;
 
-import org.junit.*;
-
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.hamcrest.core.Every.everyItem;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import org.junit.Before;
+import org.junit.Test;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.OffsetDateTime;
 
 import com.xero.api.ApiClient;
-import com.xero.api.client.*;
-import com.xero.models.accounting.*;
-
-import java.io.File;
-import java.net.URL;
-
-import com.google.api.client.auth.oauth2.BearerToken;
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
-
-import org.threeten.bp.*;
-import java.io.IOException;
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import java.io.File;
-import java.io.IOException;
-
-import org.apache.commons.io.IOUtils;
-
-import java.util.Calendar;
-import java.util.Map;
-import java.util.UUID;
-import java.util.List;
-import java.util.ArrayList;
-import java.math.BigDecimal;
+import com.xero.models.accounting.ReportWithRows;
+import com.xero.models.accounting.Reports;
 
 public class AccountingApiReportsTest {
 
@@ -56,7 +31,7 @@ public class AccountingApiReportsTest {
         xeroTenantId = "xyz";
         
         // Init AccountingApi client
-        defaultClient = new ApiClient("https://25faf04a-c71e-40e7-b7ce-f1fae0149465.mock.pstmn.io/api.xro/2.0",null,null,null,null);
+        defaultClient = new ApiClient("http://127.0.0.1:4010",null,null,null,null);
         accountingApi = AccountingApi.getInstance(defaultClient);   
 
         // ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
@@ -121,7 +96,7 @@ public class AccountingApiReportsTest {
     public void getReportAgedReceivablesByContactTest() throws IOException {
         System.out.println("@Test - getReportAgedReceivablesByContact");
         UUID contactId = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        LocalDate date = null;
+        LocalDate date = LocalDate.of(2019, 10, 31);
         LocalDate fromDate = null;
         LocalDate toDate = null;
         ReportWithRows response = accountingApi.getReportAgedReceivablesByContact(accessToken,xeroTenantId,contactId, date, fromDate, toDate);
@@ -254,9 +229,9 @@ public class AccountingApiReportsTest {
 
         Reports response = accountingApi.getReportTenNinetyNine(accessToken,xeroTenantId,reportYear);
 
-        assertThat(response.getReports().get(0).getReportName(), is(equalTo("1099 report")));
-        assertThat(response.getReports().get(0).getReportDate(), is(equalTo("1 Jan 2016 to 31 Dec 2016")));
-        assertThat(response.getReports().get(0).getContacts().get(0).getBox3(), is(equalTo(1000.00)));  
+        assertThat(response.getReports().get(0).getReportName(), is(equalTo("1099-NEC report")));
+        assertThat(response.getReports().get(0).getReportDate(), is(equalTo("1 Jan 2023 to 31 Dec 2023")));
+        assertThat(response.getReports().get(0).getContacts().get(0).getBox4(), is(equalTo(1150.00)));  
         assertThat(response.getReports().get(0).getContacts().get(0).getName(), is(equalTo("Bank West")));
         assertThat(response.getReports().get(0).getContacts().get(0).getFederalTaxIDType(), is(equalTo("SSN")));
         assertThat(response.getReports().get(0).getContacts().get(0).getCity(), is(equalTo("Pinehaven")));
@@ -265,7 +240,7 @@ public class AccountingApiReportsTest {
         assertThat(response.getReports().get(0).getContacts().get(0).getEmail(), is(equalTo("jack@bowest.com")));
         assertThat(response.getReports().get(0).getContacts().get(0).getTaxID(), is(equalTo("234-22-2223")));
         assertThat(response.getReports().get(0).getContacts().get(0).getContactId(), is(equalTo(UUID.fromString("81d5706a-8057-4338-8511-747cd85f4c68"))));
-        assertThat(response.getReports().get(0).getContacts().get(2).getBox1(), is(equalTo(5543.75)));  
+        assertThat(response.getReports().get(0).getContacts().get(0).getBox1(), is(equalTo(0.00)));  
 
         //System.out.println(response.getReports().toString());
     }

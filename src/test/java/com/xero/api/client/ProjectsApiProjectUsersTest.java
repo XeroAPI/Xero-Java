@@ -57,7 +57,7 @@ public class ProjectsApiProjectUsersTest {
         
         // Init projectApi client
         // NEW Sandbox for API Mocking
-		defaultClient = new ApiClient("https://3fe1c2ee-7113-4035-9e6d-53dad2fb2af3.mock.pstmn.io/projects.xro/2.0",null,null,null,null);
+		defaultClient = new ApiClient("http://127.0.0.1:4018",null,null,null,null);
         projectApi = ProjectApi.getInstance(defaultClient);   
        
         // ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
@@ -92,9 +92,9 @@ public class ProjectsApiProjectUsersTest {
         assertThat(response.getPagination().getItemCount(), is(equalTo(2)));
         assertThat(response.getPagination().getPageCount(), is(equalTo(1)));
         assertThat(response.getPagination().getPageSize(), is(equalTo(50)));
-        assertThat(response.getItems().get(0).getUserId(), is(equalTo(UUID.fromString("740add2a-a703-4b8a-a670-1093919c2040"))));
-        assertThat(response.getItems().get(0).getName(), is(equalTo("Sidney Maestre")));
-        assertThat(response.getItems().get(0).getEmail(), is(equalTo("sid.maestre@xero.com")));
+        assertThat(response.getItems().get(0).getUserId(), is(equalTo(UUID.fromString("00000000-0000-0000-0000-000000000000"))));
+        assertThat(response.getItems().get(0).getName(), is(equalTo("Test User")));
+        assertThat(response.getItems().get(0).getEmail(), is(equalTo("test@xero.com")));
 
        // System.out.println(response.toString());
     }
