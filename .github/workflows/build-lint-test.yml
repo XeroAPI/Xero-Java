@@ -26,6 +26,7 @@ jobs:
                 mkdir -p ~/.gnupg
                 chmod 700 ~/.gnupg
                 echo "use-agent" > ~/.gnupg/gpg.conf
+                echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
 
             - name: Import GPG Key
               run: |
