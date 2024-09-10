@@ -24,6 +24,7 @@ jobs:
             - name: Configure GPG
               run: |
                 if [ ! -d "~/.gnupg" ]; then
+                  echo "Creating ~/.gnupg directory..."
                   mkdir -p ~/.gnupg
                   chmod 700 ~/.gnupg
                   echo "use-agent" > ~/.gnupg/gpg.conf
