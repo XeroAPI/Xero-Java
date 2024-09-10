@@ -23,8 +23,6 @@ jobs:
 
             - name: Configure GPG
               run: |
-                mkdir -p ~/.gnupg
-                chmod 700 ~/.gnupg
                 echo "use-agent" > ~/.gnupg/gpg.conf
                 echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
                 echo "default-cache-ttl 600" >> ~/.gnupg/gpg-agent.conf
