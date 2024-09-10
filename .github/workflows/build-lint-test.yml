@@ -24,7 +24,7 @@ jobs:
             - name: Import GPG Key
               run: |
                 mkdir -p ~/.gnupg
-                echo "use-agent" > ~/.gnupg/gpg.conf
+                chmod 700 ~/.gnupg
                 echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
                 echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import
               env: 
