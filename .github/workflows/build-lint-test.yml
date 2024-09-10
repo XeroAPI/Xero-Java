@@ -25,7 +25,7 @@ jobs:
               run: |
                 mkdir -p ~/.gnupg
                 chmod 700 ~/.gnupg
-                echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
+                echo "pinentry-mode loopback" > ~/.gnupg/gpg.conf
                 echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import
               env: 
                 GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY}}
