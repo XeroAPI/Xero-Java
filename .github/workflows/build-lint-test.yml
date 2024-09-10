@@ -27,7 +27,6 @@ jobs:
                   echo "Creating ~/.gnupg directory..."
                   mkdir -p ~/.gnupg
 
-                  echo "use-agent" > ~/.gnupg/gpg.conf
                   echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
                 else
                   echo "~/.gnupg directory already exists."
@@ -44,3 +43,5 @@ jobs:
                 export GPG_TTY=$(tty)
                 mvn clean verify -DskipTests=true -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }}  
               working-directory: Xero-Java
+
+                                # echo "use-agent" > ~/.gnupg/gpg.conf
