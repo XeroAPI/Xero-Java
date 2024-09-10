@@ -23,11 +23,14 @@ jobs:
 
             - name: Configure GPG
               run: |
-                mkdir -p ~/.gnupg
-                chmod 700 ~/.gnupg
-                echo "use-agent" > ~/.gnupg/gpg.conf
-                echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
-
+                if [ ! -d "~/.gnupg" ]; then
+                  mkdir -p ~/.gnupg
+                  chmod 700 ~/.gnupg
+                  echo "use-agent" > ~/.gnupg/gpg.conf
+                  echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
+                else
+                  echo "~/.gnupg directory already exists."
+                fi
             - name: Import GPG Key
               run: |
                 echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import
