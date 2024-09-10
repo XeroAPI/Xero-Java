@@ -23,16 +23,6 @@ jobs:
 
             - name: Import GPG Key
               run: |
-                if command -v gpg > /dev/null 2>&1; then
-                  echo "GPG is installed."
-                  gpg --version
-                else
-                  echo "GPG is not installed."
-                exit 1
-                fi
-                mkdir -p ~/.gnupg
-                chmod 700 ~/.gnupg
-                echo "pinentry-mode loopback" > ~/.gnupg/gpg.conf
                 echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import
               env: 
                 GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY}}
