@@ -21,17 +21,17 @@ jobs:
                 java-version: '11'
                 cache: maven
 
-            # - name: Configure GPG
-            #   run: |
-            #     if [ ! -d "~/.gnupg" ]; then
-            #       echo "Creating ~/.gnupg directory..."
-            #       mkdir -p ~/.gnupg
-            #       chmod 700 ~/.gnupg
-            #       echo "use-agent" > ~/.gnupg/gpg.conf
-            #       echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
-            #     else
-            #       echo "~/.gnupg directory already exists."
-            #     fi
+            - name: Configure GPG
+              run: |
+                if [ ! -d "~/.gnupg" ]; then
+                  echo "Creating ~/.gnupg directory..."
+                  mkdir -p ~/.gnupg
+                  chmod 700 ~/.gnupg
+                  echo "use-agent" > ~/.gnupg/gpg.conf
+                  echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
+                else
+                  echo "~/.gnupg directory already exists."
+                fi
 
             - name: Import GPG Key
               run: |
