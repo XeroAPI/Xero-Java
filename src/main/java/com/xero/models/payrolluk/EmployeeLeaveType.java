@@ -18,6 +18,7 @@ import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Objects;
 import java.util.UUID;
+import org.threeten.bp.LocalDate;
 
 /** EmployeeLeaveType */
 public class EmployeeLeaveType {
@@ -95,6 +96,9 @@ public class EmployeeLeaveType {
 
   @JsonProperty("rateAccruedHourly")
   private Double rateAccruedHourly;
+
+  @JsonProperty("scheduleOfAccrualDate")
+  private LocalDate scheduleOfAccrualDate;
   /**
    * The Xero identifier for leave type
    *
@@ -320,6 +324,49 @@ public class EmployeeLeaveType {
     this.rateAccruedHourly = rateAccruedHourly;
   }
 
+  /**
+   * The date when an employee becomes entitled to their accrual. Only applicable when
+   * scheduleOfAccrual is \&quot;OnAnniversaryDate\&quot;
+   *
+   * @param scheduleOfAccrualDate LocalDate
+   * @return EmployeeLeaveType
+   */
+  public EmployeeLeaveType scheduleOfAccrualDate(LocalDate scheduleOfAccrualDate) {
+    this.scheduleOfAccrualDate = scheduleOfAccrualDate;
+    return this;
+  }
+
+  /**
+   * The date when an employee becomes entitled to their accrual. Only applicable when
+   * scheduleOfAccrual is \&quot;OnAnniversaryDate\&quot;
+   *
+   * @return scheduleOfAccrualDate
+   */
+  @ApiModelProperty(
+      example = "Mon Apr 01 00:00:00 UTC 2024",
+      value =
+          "The date when an employee becomes entitled to their accrual. Only applicable when"
+              + " scheduleOfAccrual is \"OnAnniversaryDate\"")
+  /**
+   * The date when an employee becomes entitled to their accrual. Only applicable when
+   * scheduleOfAccrual is \&quot;OnAnniversaryDate\&quot;
+   *
+   * @return scheduleOfAccrualDate LocalDate
+   */
+  public LocalDate getScheduleOfAccrualDate() {
+    return scheduleOfAccrualDate;
+  }
+
+  /**
+   * The date when an employee becomes entitled to their accrual. Only applicable when
+   * scheduleOfAccrual is \&quot;OnAnniversaryDate\&quot;
+   *
+   * @param scheduleOfAccrualDate LocalDate
+   */
+  public void setScheduleOfAccrualDate(LocalDate scheduleOfAccrualDate) {
+    this.scheduleOfAccrualDate = scheduleOfAccrualDate;
+  }
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -334,7 +381,8 @@ public class EmployeeLeaveType {
         && Objects.equals(this.hoursAccruedAnnually, employeeLeaveType.hoursAccruedAnnually)
         && Objects.equals(this.maximumToAccrue, employeeLeaveType.maximumToAccrue)
         && Objects.equals(this.openingBalance, employeeLeaveType.openingBalance)
-        && Objects.equals(this.rateAccruedHourly, employeeLeaveType.rateAccruedHourly);
+        && Objects.equals(this.rateAccruedHourly, employeeLeaveType.rateAccruedHourly)
+        && Objects.equals(this.scheduleOfAccrualDate, employeeLeaveType.scheduleOfAccrualDate);
   }
 
   @Override
@@ -345,7 +393,8 @@ public class EmployeeLeaveType {
         hoursAccruedAnnually,
         maximumToAccrue,
         openingBalance,
-        rateAccruedHourly);
+        rateAccruedHourly,
+        scheduleOfAccrualDate);
   }
 
   @Override
@@ -360,6 +409,9 @@ public class EmployeeLeaveType {
     sb.append("    maximumToAccrue: ").append(toIndentedString(maximumToAccrue)).append("\n");
     sb.append("    openingBalance: ").append(toIndentedString(openingBalance)).append("\n");
     sb.append("    rateAccruedHourly: ").append(toIndentedString(rateAccruedHourly)).append("\n");
+    sb.append("    scheduleOfAccrualDate: ")
+        .append(toIndentedString(scheduleOfAccrualDate))
+        .append("\n");
     sb.append("}");
     return sb.toString();
   }
