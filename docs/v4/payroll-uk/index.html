@@ -4948,7 +4948,7 @@ public class PayrollUkApiExample {
         employeeLeaveType.setLeaveTypeID(UUID.fromString("00000000-0000-0000-0000-000000000000"));
         employeeLeaveType.setScheduleOfAccrual(com.xero.models.payrolluk.EmployeeLeaveType.ScheduleOfAccrualEnum.BeginningOfCalendarYear);
         employeeLeaveType.setOpeningBalance(5.25);
-        employeeLeaveType.setScheduleOfAccrualDate();
+        employeeLeaveType.setScheduleOfAccrualDate(2024-05-01);
 
         try {
             EmployeeLeaveTypeObject result = apiInstance.createEmployeeLeaveType(accessToken, xeroTenantId, employeeID, employeeLeaveType, idempotencyKey);
