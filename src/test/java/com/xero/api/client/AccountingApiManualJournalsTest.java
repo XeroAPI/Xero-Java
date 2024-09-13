@@ -1,42 +1,16 @@
 package com.xero.api.client;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
-import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.hamcrest.core.Every.everyItem;
-
 import com.xero.api.ApiClient;
-import com.xero.api.client.*;
 import com.xero.models.accounting.*;
 
 import java.io.File;
-import java.net.URL;
-
-import com.google.api.client.auth.oauth2.BearerToken;
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
-
 import org.threeten.bp.*;
 import java.io.IOException;
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import java.io.File;
-import java.io.IOException;
-
-import org.apache.commons.io.IOUtils;
-
-import java.util.Calendar;
-import java.util.Map;
 import java.util.UUID;
-import java.util.List;
-import java.util.ArrayList;
-import java.math.BigDecimal;
 
 public class AccountingApiManualJournalsTest {
 
@@ -57,7 +31,7 @@ public class AccountingApiManualJournalsTest {
         
         // Init AccountingApi client
         // NEW Sandbox for API Mocking
-		defaultClient = new ApiClient("https://25faf04a-c71e-40e7-b7ce-f1fae0149465.mock.pstmn.io/api.xro/2.0",null,null,null,null);
+		defaultClient = new ApiClient("http://127.0.0.1:4010",null,null,null,null);
         accountingApi = AccountingApi.getInstance(defaultClient);   
        
         ClassLoader classLoader = getClass().getClassLoader();
@@ -112,7 +86,7 @@ public class AccountingApiManualJournalsTest {
         assertThat(response.getManualJournals().get(0).getShowOnCashBasisReports(), is(equalTo(true)));
         assertThat(response.getManualJournals().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-03-14T20:39:32.920Z"))));
         assertThat(response.getManualJournals().get(0).getManualJournalID(), is(equalTo(UUID.fromString("d312dd5e-a53e-46d1-9d51-c569ef4570b7"))));
-        assertThat(response.getManualJournals().get(0).getWarnings().get(0).getMessage(), is(equalTo("Account code '476' has been removed as it does not match a recognised account.")));
+        assertThat(response.getManualJournals().get(0).getWarnings().get(0).getMessage(), is(equalTo("Account code ''476'' has been removed as it does not match a recognised account.")));
         assertThat(response.getManualJournals().get(0).getValidationErrors().get(0).getMessage(), is(equalTo("The total debits (100.00) must equal total credits (-10.00)")));
         //System.out.println(response.getManualJournals().get(0).toString());
     }
@@ -140,11 +114,11 @@ public class AccountingApiManualJournalsTest {
         UUID manualJournalID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         ManualJournals response = accountingApi.getManualJournal(accessToken,xeroTenantId,manualJournalID);
 
-        assertThat(response.getManualJournals().get(0).getNarration(), is(equalTo("These aren't the droids you are looking for")));
+        assertThat(response.getManualJournals().get(0).getNarration(), is(equalTo("These aren''t the droids you are looking for")));
         assertThat(response.getManualJournals().get(0).getJournalLines().get(0).getLineAmount(), is(equalTo(100.0)));
         assertThat(response.getManualJournals().get(0).getJournalLines().get(0).getLineAmount().toString(), is(equalTo("100.0")));
         assertThat(response.getManualJournals().get(0).getJournalLines().get(0).getAccountCode(), is(equalTo("429")));
-        assertThat(response.getManualJournals().get(0).getJournalLines().get(0).getDescription(), is(equalTo("These aren't the droids you are looking for")));
+        assertThat(response.getManualJournals().get(0).getNarration(), is(equalTo("These aren''t the droids you are looking for")));
         assertThat(response.getManualJournals().get(0).getJournalLines().get(0).getTaxType(), is(equalTo("NONE")));
         assertThat(response.getManualJournals().get(0).getJournalLines().get(0).getIsBlank(), is(equalTo(false)));
         assertThat(response.getManualJournals().get(0).getJournalLines().get(1).getLineAmount(), is(equalTo(-100.0)));
@@ -193,7 +167,7 @@ public class AccountingApiManualJournalsTest {
         Integer pageSize = null;
         ManualJournals response = accountingApi.getManualJournals(accessToken,xeroTenantId,ifModifiedSince, where, order, page, pageSize);
 
-        assertThat(response.getManualJournals().get(0).getNarration(), is(equalTo("Reversal: These aren't the droids you are looking for")));
+        assertThat(response.getManualJournals().get(0).getNarration(), is(equalTo("Reversal: These aren''t the droids you are looking for")));
         assertThat(response.getManualJournals().get(0).getDateAsDate(), is(equalTo(LocalDate.of(2019,03,21))));  
         assertThat(response.getManualJournals().get(0).getLineAmountTypes(), is(equalTo(com.xero.models.accounting.LineAmountTypes.NOTAX)));
         assertThat(response.getManualJournals().get(0).getStatus(), is(equalTo(com.xero.models.accounting.ManualJournal.StatusEnum.POSTED)));

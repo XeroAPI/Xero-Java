@@ -1,42 +1,16 @@
 package com.xero.api.client;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
-import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.hamcrest.core.Every.everyItem;
-
 import com.xero.api.ApiClient;
-import com.xero.api.client.*;
 import com.xero.models.accounting.*;
 
 import java.io.File;
-import java.net.URL;
-
-import com.google.api.client.auth.oauth2.BearerToken;
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
-
 import org.threeten.bp.*;
 import java.io.IOException;
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import java.io.File;
-import java.io.IOException;
-
-import org.apache.commons.io.IOUtils;
-
-import java.util.Calendar;
-import java.util.Map;
 import java.util.UUID;
-import java.util.List;
-import java.util.ArrayList;
-import java.math.BigDecimal;
 
 public class AccountingApiBankTransactionTest {
 
@@ -55,7 +29,7 @@ public class AccountingApiBankTransactionTest {
         
         // Init AccountingApi client
         // NEW Sandbox for API Mocking
-		defaultClient = new ApiClient("https://25faf04a-c71e-40e7-b7ce-f1fae0149465.mock.pstmn.io/api.xro/2.0",null,null,null,null);
+		defaultClient = new ApiClient("http://127.0.0.1:4010",null,null,null,null);
         
         accountingApi = AccountingApi.getInstance(defaultClient);	
         
@@ -158,8 +132,8 @@ public class AccountingApiBankTransactionTest {
         UUID bankTransactionID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");
         ClassLoader classLoader = getClass().getClassLoader();
 		File bytes = new File(classLoader.getResource("helo-heros.jpg").getFile());
-        String fileName = "sample5.jpg";
-		
+        String fileName = "helo-heros.jpg";
+        System.out.println("File path: " + bytes.getAbsolutePath());
         Attachments response = accountingApi.createBankTransactionAttachmentByFileName(accessToken,xeroTenantId,bankTransactionID, fileName, bytes, null);
 		assertThat(response.getAttachments().get(0).getAttachmentID(), is(equalTo(UUID.fromString("4508a692-e52c-4ad8-a138-2f13e22bf57b"))));
 		assertThat(response.getAttachments().get(0).getFileName().toString(), is(equalTo("sample5.jpg")));
