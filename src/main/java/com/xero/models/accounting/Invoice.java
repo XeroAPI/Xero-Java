@@ -277,6 +277,9 @@ public class Invoice {
 
   @JsonProperty("Warnings")
   private List<ValidationError> warnings = new ArrayList<ValidationError>();
+
+  @JsonProperty("InvoiceAddresses")
+  private List<InvoiceAddress> invoiceAddresses = new ArrayList<InvoiceAddress>();
   /**
    * See Invoice Types
    *
@@ -1577,6 +1580,55 @@ public class Invoice {
     this.warnings = warnings;
   }
 
+  /**
+   * An array of addresses used to auto calculate sales tax
+   *
+   * @param invoiceAddresses List&lt;InvoiceAddress&gt;
+   * @return Invoice
+   */
+  public Invoice invoiceAddresses(List<InvoiceAddress> invoiceAddresses) {
+    this.invoiceAddresses = invoiceAddresses;
+    return this;
+  }
+
+  /**
+   * An array of addresses used to auto calculate sales tax
+   *
+   * @param invoiceAddressesItem InvoiceAddress
+   * @return Invoice
+   */
+  public Invoice addInvoiceAddressesItem(InvoiceAddress invoiceAddressesItem) {
+    if (this.invoiceAddresses == null) {
+      this.invoiceAddresses = new ArrayList<InvoiceAddress>();
+    }
+    this.invoiceAddresses.add(invoiceAddressesItem);
+    return this;
+  }
+
+  /**
+   * An array of addresses used to auto calculate sales tax
+   *
+   * @return invoiceAddresses
+   */
+  @ApiModelProperty(value = "An array of addresses used to auto calculate sales tax")
+  /**
+   * An array of addresses used to auto calculate sales tax
+   *
+   * @return invoiceAddresses List<InvoiceAddress>
+   */
+  public List<InvoiceAddress> getInvoiceAddresses() {
+    return invoiceAddresses;
+  }
+
+  /**
+   * An array of addresses used to auto calculate sales tax
+   *
+   * @param invoiceAddresses List&lt;InvoiceAddress&gt;
+   */
+  public void setInvoiceAddresses(List<InvoiceAddress> invoiceAddresses) {
+    this.invoiceAddresses = invoiceAddresses;
+  }
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -1625,7 +1677,8 @@ public class Invoice {
         && Objects.equals(this.hasErrors, invoice.hasErrors)
         && Objects.equals(this.statusAttributeString, invoice.statusAttributeString)
         && Objects.equals(this.validationErrors, invoice.validationErrors)
-        && Objects.equals(this.warnings, invoice.warnings);
+        && Objects.equals(this.warnings, invoice.warnings)
+        && Objects.equals(this.invoiceAddresses, invoice.invoiceAddresses);
   }
 
   @Override
@@ -1670,7 +1723,8 @@ public class Invoice {
         hasErrors,
         statusAttributeString,
         validationErrors,
-        warnings);
+        warnings,
+        invoiceAddresses);
   }
 
   @Override
@@ -1721,6 +1775,7 @@ public class Invoice {
         .append("\n");
     sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("    warnings: ").append(toIndentedString(warnings)).append("\n");
+    sb.append("    invoiceAddresses: ").append(toIndentedString(invoiceAddresses)).append("\n");
     sb.append("}");
     return sb.toString();
   }
