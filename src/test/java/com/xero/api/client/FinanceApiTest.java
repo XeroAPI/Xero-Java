@@ -55,7 +55,7 @@ public class FinanceApiTest {
         accessToken = "123";
         xeroTenantId = "xyz";
         
-		defaultClient = new ApiClient("https://73cb2c15-a3e8-4230-86d6-8af203c03b5f.mock.pstmn.io/finance.xro/1.0",null,null,null,null);
+		defaultClient = new ApiClient("http://127.0.0.1:4014",null,null,null,null);
         financeApi = FinanceApi.getInstance(defaultClient);
         
 		// ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
@@ -116,7 +116,7 @@ public class FinanceApiTest {
         try {
             LockHistoryResponse response = financeApi.getAccountingActivityLockHistory(accessToken, "73151de8-3676-4887-a021-edec960dd537", null);
             assertThat(response.getOrganisationId().toString(), (equalTo("73151de8-3676-4887-a021-edec960dd537")));
-            assertThat(response.getLockDates().get(1).getUpdatedDateUtc().toString(), (equalTo("2019-01-20T10:50:03Z")));
+            assertThat(response.getLockDates().get(1).getUpdatedDateUtc().toString(), (equalTo("2019-01-21T10:59:33Z")));
 
         } catch (XeroApiException xe) {
             System.out.println(xe.toString());
@@ -212,7 +212,6 @@ public class FinanceApiTest {
 		System.out.println("@Test - getFinancialStatementContactsRevenue");
         List<UUID> contacts = new ArrayList<UUID>();
         contacts.add(UUID.fromString("1f580fe2-0659-31ee-eeb4-5c49d15d8bfa"));
-        contacts.add(UUID.fromString("20e94281-4751-fb7e-ee5e-96b43ae93c8a"));
         try {
             IncomeByContactResponse response = financeApi.getFinancialStatementContactsRevenue(accessToken, "73151de8-3676-4887-a021-edec960dd537",contacts,true,null,null);
             assertThat(response.getContacts().get(0).getName(), (equalTo("FirstContact")));
@@ -226,7 +225,6 @@ public class FinanceApiTest {
 		System.out.println("@Test - getFinancialStatementContactsExpense");
         List<UUID> contacts = new ArrayList<UUID>();
         contacts.add(UUID.fromString("1f580fe2-0659-31ee-eeb4-5c49d15d8bfa"));
-        contacts.add(UUID.fromString("20e94281-4751-fb7e-ee5e-96b43ae93c8a"));
         try {
             IncomeByContactResponse response = financeApi.getFinancialStatementContactsExpense(accessToken, "73151de8-3676-4887-a021-edec960dd537",contacts,true,null,null);
             assertThat(response.getContacts().get(0).getName(), (equalTo("FirstContact")));

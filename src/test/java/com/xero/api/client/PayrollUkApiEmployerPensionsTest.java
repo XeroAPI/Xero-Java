@@ -1,46 +1,20 @@
 package com.xero.api.client;
 
-import static org.junit.Assert.assertTrue;
+import java.io.IOException;
+import java.util.UUID;
 
-import org.junit.*;
-
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.hamcrest.core.Every.everyItem;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.xero.api.ApiClient;
-import com.xero.api.client.*;
-import com.xero.models.payrolluk.*;
+import com.xero.models.payrolluk.Benefit;
 import com.xero.models.payrolluk.Benefit.CalculationTypeEnum;
 import com.xero.models.payrolluk.Benefit.CategoryEnum;
-
-import java.io.File;
-import java.net.URL;
-
-import com.google.api.client.auth.oauth2.BearerToken;
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
-
-import org.threeten.bp.*;
-import java.io.IOException;
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import java.io.File;
-import java.io.IOException;
-
-import org.apache.commons.io.IOUtils;
-
-import java.util.Calendar;
-import java.util.Map;
-import java.util.UUID;
-import java.util.List;
-import java.util.ArrayList;
-import java.math.BigDecimal;
+import com.xero.models.payrolluk.BenefitObject;
+import com.xero.models.payrolluk.Benefits;
 
 public class PayrollUkApiEmployerPensionsTest {
 
@@ -58,7 +32,7 @@ public class PayrollUkApiEmployerPensionsTest {
         
         // Init projectApi client
         // NEW Sandbox for API Mocking
-		defaultClient = new ApiClient("https://ba3fd247-8fc6-4d7c-bcd1-bdbea4ea1803.mock.pstmn.io/payroll.xro/2.0",null,null,null,null);
+		defaultClient = new ApiClient("http://127.0.0.1:4017",null,null,null,null);
         payrollUkApi = PayrollUkApi.getInstance(defaultClient);   
        
 	}
@@ -112,6 +86,12 @@ public class PayrollUkApiEmployerPensionsTest {
         System.out.println("@Test UK Payroll - createBenefitTest");
        
         Benefit benefit = new Benefit();
+        benefit.setName("New Benefit");
+        benefit.setCategory(CategoryEnum.OTHER);
+        benefit.setLiabilityAccountId(UUID.randomUUID());
+        benefit.setExpenseAccountId(UUID.randomUUID());
+        benefit.setCalculationType(CalculationTypeEnum.FIXEDAMOUNT);
+        benefit.setPercentage(12.00);
         BenefitObject response = payrollUkApi.createBenefit(accessToken, xeroTenantId, benefit, null);
         
         assertThat(response.getBenefit().getId(), is(equalTo(UUID.fromString("d295bf25-fb61-4f91-9b62-a9ae87633746"))));

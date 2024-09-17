@@ -1,47 +1,17 @@
 package com.xero.api.client;
 
-import static org.junit.Assert.assertTrue;
+import java.io.IOException;
+import java.util.UUID;
 
-import org.junit.*;
-
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.hamcrest.core.Every.everyItem;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.xero.api.ApiClient;
-import com.xero.api.client.*;
-import com.xero.models.payrolluk.*;
-import com.xero.models.payrolluk.Benefit.CalculationTypeEnum;
-import com.xero.models.payrolluk.Benefit.CategoryEnum;
-
-import java.io.File;
-import java.net.URL;
-
-import com.google.api.client.auth.oauth2.BearerToken;
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
-
-import org.threeten.bp.*;
-import org.threeten.bp.temporal.ChronoUnit;
-import java.io.IOException;
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import java.io.File;
-import java.io.IOException;
-
-import org.apache.commons.io.IOUtils;
-
-import java.util.Calendar;
-import java.util.Map;
-import java.util.UUID;
-import java.util.List;
-import java.util.ArrayList;
-import java.math.BigDecimal;
+import com.xero.models.payrolluk.PaymentMethod;
+import com.xero.models.payrolluk.PaymentMethodObject;
 
 public class PayrollUkApiPaymentMethodsTest {
 
@@ -59,7 +29,7 @@ public class PayrollUkApiPaymentMethodsTest {
         
         // Init projectApi client
         // NEW Sandbox for API Mocking
-		defaultClient = new ApiClient("https://ba3fd247-8fc6-4d7c-bcd1-bdbea4ea1803.mock.pstmn.io/payroll.xro/2.0",null,null,null,null);
+		defaultClient = new ApiClient("http://127.0.0.1:4017",null,null,null,null);
         payrollUkApi = PayrollUkApi.getInstance(defaultClient);   
        
 	}
@@ -92,6 +62,7 @@ public class PayrollUkApiPaymentMethodsTest {
         int page = 1;
         UUID employeeId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e"); 
         PaymentMethod paymentMethod = new PaymentMethod();
+        paymentMethod.setPaymentMethod(com.xero.models.payrolluk.PaymentMethod.PaymentMethodEnum.ELECTRONICALLY);
         PaymentMethodObject response = payrollUkApi.createEmployeePaymentMethod(accessToken, xeroTenantId, employeeId, paymentMethod, null);
         
         assertThat(response.getPaymentMethod().getPaymentMethod(), is(equalTo(com.xero.models.payrolluk.PaymentMethod.PaymentMethodEnum.ELECTRONICALLY)));

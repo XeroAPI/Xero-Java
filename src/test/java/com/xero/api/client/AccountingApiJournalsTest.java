@@ -1,44 +1,18 @@
 package com.xero.api.client;
 
-import static org.junit.Assert.assertTrue;
+import java.io.IOException;
+import java.util.UUID;
 
-import org.junit.*;
-
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.hamcrest.core.Every.everyItem;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import org.junit.Before;
+import org.junit.Test;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.OffsetDateTime;
 
 import com.xero.api.ApiClient;
-import com.xero.api.client.*;
-import com.xero.models.accounting.*;
-
-import java.io.File;
-import java.net.URL;
-
-import com.google.api.client.auth.oauth2.BearerToken;
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
-
-import org.threeten.bp.*;
-import java.io.IOException;
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import java.io.File;
-import java.io.IOException;
-
-import org.apache.commons.io.IOUtils;
-
-import java.util.Calendar;
-import java.util.Map;
-import java.util.UUID;
-import java.util.List;
-import java.util.ArrayList;
-import java.math.BigDecimal;
+import com.xero.models.accounting.Journals;
 
 public class AccountingApiJournalsTest {
 
@@ -57,7 +31,7 @@ public class AccountingApiJournalsTest {
         
         // Init AccountingApi client
         // NEW Sandbox for API Mocking
-		defaultClient = new ApiClient("https://25faf04a-c71e-40e7-b7ce-f1fae0149465.mock.pstmn.io/api.xro/2.0",null,null,null,null);
+		defaultClient = new ApiClient("http://127.0.0.1:4010",null,null,null,null);
         accountingApi = AccountingApi.getInstance(defaultClient);   
        
         // ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
@@ -83,8 +57,7 @@ public class AccountingApiJournalsTest {
     @Test
     public void getJournalTest() throws IOException {
         System.out.println("@Test - getJournal");
-        UUID journalID = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
-        Journals response = accountingApi.getJournal(accessToken,xeroTenantId,journalID);
+        Journals response = accountingApi.getJournalByNumber(accessToken,xeroTenantId,1);
 
         assertThat(response.getJournals().get(0).getJournalID(), is(equalTo(UUID.fromString("1b31feeb-aa23-404c-8c19-24c827c53661"))));
         assertThat(response.getJournals().get(0).getJournalDateAsDate(), is(equalTo(LocalDate.of(2018,10,20))));  

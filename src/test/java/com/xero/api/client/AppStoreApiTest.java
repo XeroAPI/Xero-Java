@@ -1,44 +1,15 @@
 package com.xero.api.client;
 
-import static org.junit.Assert.assertTrue;
+import java.util.UUID;
 
-import org.junit.After;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.*;
-
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.hamcrest.core.Every.everyItem;
 
 import com.xero.api.ApiClient;
 import com.xero.api.XeroApiException;
-import com.xero.api.client.*;
-import com.xero.models.appstore.*;
-
-import java.io.File;
-import java.net.URL;
-
-import com.google.api.client.auth.oauth2.BearerToken;
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
-
-import org.threeten.bp.*;
-import java.io.IOException;
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import java.util.Calendar;
-import java.util.Map;
-import java.util.UUID;
-
-import java.util.List;
-
-import org.apache.commons.io.IOUtils;
+import com.xero.models.appstore.Subscription;
 
 public class AppStoreApiTest {
 
@@ -55,7 +26,7 @@ public class AppStoreApiTest {
         accessToken = "123";
         xeroTenantId = "xyz";
         
-		defaultClient = new ApiClient("https://ec5d3540-e90b-47b9-9a5d-95180950a89b.mock.pstmn.io/appstore/2.0",null,null,null,null);
+		defaultClient = new ApiClient("http://127.0.0.1:4011",null,null,null,null);
         appStoreApi = AppStoreApi.getInstance(defaultClient);
         
 		// ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
