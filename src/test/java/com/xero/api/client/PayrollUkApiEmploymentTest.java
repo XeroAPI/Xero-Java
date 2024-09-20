@@ -43,8 +43,8 @@ public class PayrollUkApiEmploymentTest {
         System.out.println("@Test UK Payroll - createEmploymentTest");
         
         Employment employment = new Employment();
-        employment.setEmployeeNumber("007");
         employment.setPayrollCalendarID(UUID.randomUUID());
+        employment.setEmployeeNumber("007");
         employment.setStartDate(LocalDate.of(2024, 04, 01));
         employment.setNiCategory(NiCategoryEnum.A);
         UUID employeeId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");

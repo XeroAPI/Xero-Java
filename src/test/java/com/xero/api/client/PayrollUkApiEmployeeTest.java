@@ -90,9 +90,9 @@ public class PayrollUkApiEmployeeTest {
         assertThat(response.getEmployee().getFirstName(), is(equalTo("Mike")));
         assertThat(response.getEmployee().getLastName(), is(equalTo("Fancy")));
         assertThat(response.getEmployee().getDateOfBirth(), is(equalTo(LocalDate.of(1999, 01, 01))));
-        assertThat(response.getEmployee().getAddress().getAddressLine1(), is(equalTo("101 Green St")));
-        assertThat(response.getEmployee().getAddress().getCity(), is(equalTo("San Francisco")));
-        assertThat(response.getEmployee().getAddress().getPostCode(), is(equalTo("6TGR4F")));
+        assertThat(response.getEmployee().getAddress().getAddressLine1(), is(equalTo("171 Midsummer")));
+        assertThat(response.getEmployee().getAddress().getCity(), is(equalTo("Milton Keyness")));
+        assertThat(response.getEmployee().getAddress().getPostCode(), is(equalTo("MK9 1EB")));
         assertThat(response.getEmployee().getEmail(), is(equalTo("mike@starkindustries.com")));
         assertThat(response.getEmployee().getGender() , is(equalTo(com.xero.models.payrolluk.Employee.GenderEnum.M)));
         assertThat(response.getEmployee().getUpdatedDateUTC(), is(equalTo(LocalDateTime.of(2020, 03, 25, 03, 12, 10) )));  
@@ -150,7 +150,7 @@ public class PayrollUkApiEmployeeTest {
 
         EmployeeObject response = payrollUkApi.updateEmployee(accessToken, xeroTenantId, employeeId, employee, null);
         
-        assertThat(response.getEmployee().getEmployeeID(), is(equalTo(UUID.fromString("aad6b292-7b94-408b-93f6-e489867e3fb0"))));
+        assertThat(response.getEmployee().getEmployeeID(), is(equalTo(UUID.fromString("07f0f9fc-cc95-46ac-9a8a-aa03779f2bde"))));
         assertThat(response.getEmployee().getTitle(), is(equalTo("Mr")));
         assertThat(response.getEmployee().getFirstName(), is(equalTo("Mike")));
         assertThat(response.getEmployee().getLastName(), is(equalTo("Johnllsbkrhwopson")));
