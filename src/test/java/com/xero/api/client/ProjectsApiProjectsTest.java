@@ -1,44 +1,16 @@
 package com.xero.api.client;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.hamcrest.core.Every.everyItem;
-
 import com.xero.api.ApiClient;
-import com.xero.api.client.*;
 import com.xero.models.project.*;
-
-import java.io.File;
-import java.net.URL;
-
-import com.google.api.client.auth.oauth2.BearerToken;
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
 
 import org.threeten.bp.*;
 import java.io.IOException;
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import java.io.File;
-import java.io.IOException;
-
-import org.apache.commons.io.IOUtils;
-
-import java.util.Calendar;
-import java.util.Map;
 import java.util.UUID;
 import java.util.List;
-import java.util.ArrayList;
-import java.math.BigDecimal;
 
 public class ProjectsApiProjectsTest {
 
@@ -57,7 +29,7 @@ public class ProjectsApiProjectsTest {
         
         // Init projectApi client
         // NEW Sandbox for API Mocking
-		defaultClient = new ApiClient("https://3fe1c2ee-7113-4035-9e6d-53dad2fb2af3.mock.pstmn.io/projects.xro/2.0",null,null,null,null);
+		defaultClient = new ApiClient("http://127.0.0.1:4018",null,null,null,null);
         projectApi = projectApi.getInstance(defaultClient);   
        
         // ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
@@ -94,8 +66,8 @@ public class ProjectsApiProjectsTest {
         assertThat(response.getPagination().getItemCount(), is(equalTo(9)));
         assertThat(response.getPagination().getPageCount(), is(equalTo(1)));
         assertThat(response.getPagination().getPageSize(), is(equalTo(50)));
-        assertThat(response.getItems().get(0).getContactId(), is(equalTo(UUID.fromString("216830cb-9a68-487e-928b-c1a7ccc4fc81"))));
-        assertThat(response.getItems().get(0).getProjectId(), is(equalTo(UUID.fromString("b021e7cb-1903-4292-b48b-5b27b4271e3e"))));
+        assertThat(response.getItems().get(0).getContactId(), is(equalTo(UUID.fromString("00000000-0000-0000-0000-000000000000"))));
+        assertThat(response.getItems().get(0).getProjectId(), is(equalTo(UUID.fromString("00000000-0000-0000-0000-000000000000"))));
         assertThat(response.getItems().get(0).getName(), is(equalTo("FooProject28916")));
         assertThat(response.getItems().get(0).getCurrencyCode(), is(equalTo(com.xero.models.project.CurrencyCode.AUD)));
         assertThat(response.getItems().get(0).getMinutesLogged(), is(equalTo(180)));
@@ -134,10 +106,11 @@ public class ProjectsApiProjectsTest {
         System.out.println("@Test - createProjectsTest");
 
         ProjectCreateOrUpdate projectCreateOrUpdate = new ProjectCreateOrUpdate();
+        projectCreateOrUpdate.setName("New Kitchen");
         Project response = projectApi.createProject(accessToken, xeroTenantId, projectCreateOrUpdate, null);
         
-        assertThat(response.getContactId(), is(equalTo(UUID.fromString("216830cb-9a68-487e-928b-c1a7ccc4fc81"))));
-        assertThat(response.getProjectId(), is(equalTo(UUID.fromString("ed957eee-bc6f-4f52-a663-aa42e6af9620"))));
+        assertThat(response.getContactId(), is(equalTo(UUID.fromString("00000000-0000-0000-0000-000000000000"))));
+        assertThat(response.getProjectId(), is(equalTo(UUID.fromString("00000000-0000-0000-0000-000000000000"))));
         assertThat(response.getName(), is(equalTo("New Kitchen")));
         assertThat(response.getCurrencyCode(), is(equalTo(com.xero.models.project.CurrencyCode.AUD)));
         assertThat(response.getMinutesLogged(), is(equalTo(0)));
@@ -178,9 +151,9 @@ public class ProjectsApiProjectsTest {
         UUID projectId = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
         Project response = projectApi.getProject(accessToken, xeroTenantId, projectId);
         
-        assertThat(response.getContactId(), is(equalTo(UUID.fromString("216830cb-9a68-487e-928b-c1a7ccc4fc81"))));
-        assertThat(response.getProjectId(), is(equalTo(UUID.fromString("b021e7cb-1903-4292-b48b-5b27b4271e3e"))));
-        assertThat(response.getName(), is(equalTo("FooProject28916")));
+        assertThat(response.getContactId(), is(equalTo(UUID.fromString("00000000-0000-0000-0000-000000000000"))));
+        assertThat(response.getProjectId(), is(equalTo(UUID.fromString("00000000-0000-0000-0000-000000000000"))));
+        assertThat(response.getName(), is(equalTo("Remodeling 2012")));
         assertThat(response.getCurrencyCode(), is(equalTo(com.xero.models.project.CurrencyCode.AUD)));
         assertThat(response.getMinutesLogged(), is(equalTo(180)));
         assertThat(response.getTotalTaskAmount().getCurrency(), is(equalTo(com.xero.models.project.CurrencyCode.AUD)));
