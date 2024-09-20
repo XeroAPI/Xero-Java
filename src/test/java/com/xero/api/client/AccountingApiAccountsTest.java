@@ -127,17 +127,13 @@ public class AccountingApiAccountsTest {
 	public void testCreateAccountAttachmentByFileName() throws Exception {		
 		
 		System.out.println("@Test - createAccountAttachmentByFileName");
-        Accounts accounts = accountingApi.getAccounts(accessToken,xeroTenantId,null, null, null);
-        UUID accountID = accounts.getAccounts().get(0).getAccountID();
-		// UUID accountID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");
+        UUID accountID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");
 
 		ClassLoader classLoader = getClass().getClassLoader();
 		File bytes = new File(classLoader.getResource("helo-heros.jpg").getFile());
     
-		String newFileName = bytes.getName();
-        String idempotencyKey = null;
-        // String idempotencyKey = "KEY_VALUE";
-		Attachments createAccountsAttachments = accountingApi.createAccountAttachmentByFileName(accessToken,xeroTenantId,accountID, newFileName, bytes, idempotencyKey);
+		String newFileName = "sample5.jpg";
+		Attachments createAccountsAttachments = accountingApi.createAccountAttachmentByFileName(accessToken,xeroTenantId,accountID, newFileName, bytes, null);
 
 		assertThat(createAccountsAttachments.getAttachments().get(0).getAttachmentID().toString(), is(equalTo("ab95b276-9dce-4925-9077-439818ba270f")));
 		assertThat(createAccountsAttachments.getAttachments().get(0).getFileName().toString(), is(equalTo("sample5.jpg")));

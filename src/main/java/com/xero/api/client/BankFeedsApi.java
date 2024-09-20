@@ -327,7 +327,7 @@ public class BankFeedsApi {
     HttpHeaders headers = new HttpHeaders();
     headers.set("Xero-Tenant-Id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
-    headers.setAccept("application/jsonapplication/problem+json");
+    headers.setAccept("application/json;application/problem+json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Statements");
     String url = uriBuilder.build().toString();
@@ -872,7 +872,7 @@ public class BankFeedsApi {
     headers.set("Xero-Tenant-Id", xeroTenantId);
     headers.set("Xero-Application-Id", xeroApplicationId);
     headers.set("Xero-User-Id", xeroUserId);
-    headers.setAccept("application/jsonapplication/problem+json");
+    headers.setAccept("application/json;application/problem+json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Statements");
     if (page != null) {
