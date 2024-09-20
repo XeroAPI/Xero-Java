@@ -132,8 +132,7 @@ public class AccountingApiBankTransactionTest {
         UUID bankTransactionID = UUID.fromString("297c2dc5-cc47-4afd-8ec8-74990b8761e9");
         ClassLoader classLoader = getClass().getClassLoader();
 		File bytes = new File(classLoader.getResource("helo-heros.jpg").getFile());
-        String fileName = "helo-heros.jpg";
-        System.out.println("File path: " + bytes.getAbsolutePath());
+        String fileName = "sample5.jpg";
         Attachments response = accountingApi.createBankTransactionAttachmentByFileName(accessToken,xeroTenantId,bankTransactionID, fileName, bytes, null);
 		assertThat(response.getAttachments().get(0).getAttachmentID(), is(equalTo(UUID.fromString("4508a692-e52c-4ad8-a138-2f13e22bf57b"))));
 		assertThat(response.getAttachments().get(0).getFileName().toString(), is(equalTo("sample5.jpg")));
