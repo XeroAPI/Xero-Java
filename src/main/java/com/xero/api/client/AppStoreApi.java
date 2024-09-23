@@ -170,6 +170,7 @@ public class AppStoreApi {
     }
     HttpHeaders headers = new HttpHeaders();
     headers.setAccept("application/json");
+    headers.setContentType("");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -257,6 +258,7 @@ public class AppStoreApi {
     }
     HttpHeaders headers = new HttpHeaders();
     headers.setAccept("application/json");
+    headers.setContentType("");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -372,6 +374,7 @@ public class AppStoreApi {
     HttpHeaders headers = new HttpHeaders();
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -504,6 +507,7 @@ public class AppStoreApi {
     HttpHeaders headers = new HttpHeaders();
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();

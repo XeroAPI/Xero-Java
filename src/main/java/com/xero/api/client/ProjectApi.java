@@ -204,6 +204,7 @@ public class ProjectApi {
     headers.set("Xero-Tenant-Id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Projects");
     String url = uriBuilder.build().toString();
@@ -316,6 +317,7 @@ public class ProjectApi {
     headers.set("Xero-Tenant-Id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -435,6 +437,7 @@ public class ProjectApi {
     headers.set("Xero-Tenant-Id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -533,6 +536,7 @@ public class ProjectApi {
     HttpHeaders headers = new HttpHeaders();
     headers.set("Xero-Tenant-Id", xeroTenantId);
     headers.setAccept("application/json");
+    headers.setContentType("");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -632,6 +636,7 @@ public class ProjectApi {
     HttpHeaders headers = new HttpHeaders();
     headers.set("Xero-Tenant-Id", xeroTenantId);
     headers.setAccept("application/json");
+    headers.setContentType("");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -727,6 +732,7 @@ public class ProjectApi {
     HttpHeaders headers = new HttpHeaders();
     headers.set("Xero-Tenant-Id", xeroTenantId);
     headers.setAccept("application/json");
+    headers.setContentType("");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -821,6 +827,7 @@ public class ProjectApi {
     HttpHeaders headers = new HttpHeaders();
     headers.set("Xero-Tenant-Id", xeroTenantId);
     headers.setAccept("application/json");
+    headers.setContentType("");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/ProjectsUsers");
     if (page != null) {
@@ -972,6 +979,7 @@ public class ProjectApi {
     HttpHeaders headers = new HttpHeaders();
     headers.set("Xero-Tenant-Id", xeroTenantId);
     headers.setAccept("application/json");
+    headers.setContentType("");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Projects");
     if (projectIds != null) {
@@ -1169,6 +1177,7 @@ public class ProjectApi {
     HttpHeaders headers = new HttpHeaders();
     headers.set("Xero-Tenant-Id", xeroTenantId);
     headers.setAccept("application/json");
+    headers.setContentType("");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -1294,6 +1303,7 @@ public class ProjectApi {
     HttpHeaders headers = new HttpHeaders();
     headers.set("Xero-Tenant-Id", xeroTenantId);
     headers.setAccept("application/json");
+    headers.setContentType("");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -1542,6 +1552,7 @@ public class ProjectApi {
     HttpHeaders headers = new HttpHeaders();
     headers.set("Xero-Tenant-Id", xeroTenantId);
     headers.setAccept("application/json");
+    headers.setContentType("");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -1847,6 +1858,7 @@ public class ProjectApi {
     HttpHeaders headers = new HttpHeaders();
     headers.set("Xero-Tenant-Id", xeroTenantId);
     headers.setAccept("application/json");
+    headers.setContentType("");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -1960,6 +1972,7 @@ public class ProjectApi {
     headers.set("Xero-Tenant-Id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -2073,6 +2086,7 @@ public class ProjectApi {
     headers.set("Xero-Tenant-Id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -2194,6 +2208,7 @@ public class ProjectApi {
     headers.set("Xero-Tenant-Id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -2322,6 +2337,7 @@ public class ProjectApi {
     headers.set("Xero-Tenant-Id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
