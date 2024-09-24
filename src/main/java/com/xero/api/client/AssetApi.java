@@ -197,6 +197,7 @@ public class AssetApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Assets");
     String url = uriBuilder.build().toString();
@@ -306,6 +307,7 @@ public class AssetApi {
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
     headers.setAccept("application/json");
+    headers.setContentType("application/json");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/AssetTypes");
     String url = uriBuilder.build().toString();
