@@ -528,7 +528,6 @@ public class AccountingApi {
     HttpHeaders headers = new HttpHeaders();
     headers.set("xero-tenant-id", xeroTenantId);
     headers.set("Idempotency-Key", idempotencyKey);
-    headers.setContentType("application/octet-stream");
     headers.setAccept("application/json");
     headers.setContentType("application/octet-stream");
     headers.setUserAgent(this.getUserAgent());
