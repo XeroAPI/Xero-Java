@@ -229,6 +229,9 @@ public class CreditNote {
 
   @JsonProperty("Warnings")
   private List<ValidationError> warnings = new ArrayList<ValidationError>();
+
+  @JsonProperty("InvoiceAddresses")
+  private List<InvoiceAddress> invoiceAddresses = new ArrayList<InvoiceAddress>();
   /**
    * See Credit Note Types
    *
@@ -1403,6 +1406,55 @@ public class CreditNote {
     this.warnings = warnings;
   }
 
+  /**
+   * An array of addresses used to auto calculate sales tax
+   *
+   * @param invoiceAddresses List&lt;InvoiceAddress&gt;
+   * @return CreditNote
+   */
+  public CreditNote invoiceAddresses(List<InvoiceAddress> invoiceAddresses) {
+    this.invoiceAddresses = invoiceAddresses;
+    return this;
+  }
+
+  /**
+   * An array of addresses used to auto calculate sales tax
+   *
+   * @param invoiceAddressesItem InvoiceAddress
+   * @return CreditNote
+   */
+  public CreditNote addInvoiceAddressesItem(InvoiceAddress invoiceAddressesItem) {
+    if (this.invoiceAddresses == null) {
+      this.invoiceAddresses = new ArrayList<InvoiceAddress>();
+    }
+    this.invoiceAddresses.add(invoiceAddressesItem);
+    return this;
+  }
+
+  /**
+   * An array of addresses used to auto calculate sales tax
+   *
+   * @return invoiceAddresses
+   */
+  @ApiModelProperty(value = "An array of addresses used to auto calculate sales tax")
+  /**
+   * An array of addresses used to auto calculate sales tax
+   *
+   * @return invoiceAddresses List<InvoiceAddress>
+   */
+  public List<InvoiceAddress> getInvoiceAddresses() {
+    return invoiceAddresses;
+  }
+
+  /**
+   * An array of addresses used to auto calculate sales tax
+   *
+   * @param invoiceAddresses List&lt;InvoiceAddress&gt;
+   */
+  public void setInvoiceAddresses(List<InvoiceAddress> invoiceAddresses) {
+    this.invoiceAddresses = invoiceAddresses;
+  }
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -1441,7 +1493,8 @@ public class CreditNote {
         && Objects.equals(this.hasAttachments, creditNote.hasAttachments)
         && Objects.equals(this.hasErrors, creditNote.hasErrors)
         && Objects.equals(this.validationErrors, creditNote.validationErrors)
-        && Objects.equals(this.warnings, creditNote.warnings);
+        && Objects.equals(this.warnings, creditNote.warnings)
+        && Objects.equals(this.invoiceAddresses, creditNote.invoiceAddresses);
   }
 
   @Override
@@ -1476,7 +1529,8 @@ public class CreditNote {
         hasAttachments,
         hasErrors,
         validationErrors,
-        warnings);
+        warnings,
+        invoiceAddresses);
   }
 
   @Override
@@ -1515,6 +1569,7 @@ public class CreditNote {
     sb.append("    hasErrors: ").append(toIndentedString(hasErrors)).append("\n");
     sb.append("    validationErrors: ").append(toIndentedString(validationErrors)).append("\n");
     sb.append("    warnings: ").append(toIndentedString(warnings)).append("\n");
+    sb.append("    invoiceAddresses: ").append(toIndentedString(invoiceAddresses)).append("\n");
     sb.append("}");
     return sb.toString();
   }
