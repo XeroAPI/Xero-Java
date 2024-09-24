@@ -43,7 +43,7 @@ public class PayrollNzApiStatutoryDeductionsTest {
         int page = 1;
         StatutoryDeductions response = payrollNzApi.getStatutoryDeductions(accessToken, xeroTenantId, page);
         
-        assertThat(response.getStatutoryDeductions().get(0).getId(), is(equalTo(UUID.fromString("00000000-0000-0000-0000-000000000000"))));
+        assertThat(response.getStatutoryDeductions().get(0).getId(), is(equalTo(UUID.fromString("e3731829-9801-4809-a1a1-bbe40cd18b7e"))));
         assertThat(response.getStatutoryDeductions().get(0).getLiabilityAccountId(), is(equalTo(UUID.fromString("fa5cdc43-643b-4ad8-b4ac-3ffe0d0f4488"))));
         assertThat(response.getStatutoryDeductions().get(0).getName(), is(equalTo("Child Support")));
         assertThat(response.getStatutoryDeductions().get(0).getStatutoryDeductionCategory(), is(equalTo(com.xero.models.payrollnz.StatutoryDeductionCategory.CHILDSUPPORT)));
@@ -59,7 +59,7 @@ public class PayrollNzApiStatutoryDeductionsTest {
         UUID deductionId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
         StatutoryDeductionObject response = payrollNzApi.getStatutoryDeduction(accessToken, xeroTenantId, deductionId);
         
-        assertThat(response.getStatutoryDeduction().getId(), is(equalTo(UUID.fromString("00000000-0000-0000-0000-000000000000"))));
+        assertThat(response.getStatutoryDeduction().getId(), is(equalTo(UUID.fromString("e3731829-9801-4809-a1a1-bbe40cd18b7e"))));
         assertThat(response.getStatutoryDeduction().getLiabilityAccountId(), is(equalTo(UUID.fromString("fa5cdc43-643b-4ad8-b4ac-3ffe0d0f4488"))));
         assertThat(response.getStatutoryDeduction().getName(), is(equalTo("Child Support")));
         assertThat(response.getStatutoryDeduction().getStatutoryDeductionCategory(), is(equalTo(com.xero.models.payrollnz.StatutoryDeductionCategory.CHILDSUPPORT)));

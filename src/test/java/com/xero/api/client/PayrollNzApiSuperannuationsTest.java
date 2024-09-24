@@ -43,7 +43,7 @@ public class PayrollNzApiSuperannuationsTest {
         int page = 1;
         Superannuations response = payrollNzApi.getSuperannuations(accessToken, xeroTenantId, page);
         
-        assertThat(response.getBenefits().get(0).getId(), is(equalTo(UUID.fromString("00000000-0000-0000-0000-000000000000"))));
+        assertThat(response.getBenefits().get(0).getId(), is(equalTo(UUID.fromString("563273ea-0dae-4f82-86a4-e0db77c008ea"))));
         assertThat(response.getBenefits().get(0).getLiabilityAccountId(), is(equalTo(UUID.fromString("fa5cdc43-643b-4ad8-b4ac-3ffe0d0f4488"))));
         assertThat(response.getBenefits().get(0).getExpenseAccountId(), is(equalTo(UUID.fromString("b343c3b0-5941-4166-82b4-dd926622e0e2"))));
         assertThat(response.getBenefits().get(0).getName(), is(equalTo("KiwiSaver")));
@@ -61,7 +61,7 @@ public class PayrollNzApiSuperannuationsTest {
         UUID superannuationId = UUID.fromString("cdfb8371-0b21-4b8a-8903-1024df6c391e");
         SuperannuationObject response = payrollNzApi.getSuperannuation(accessToken, xeroTenantId, superannuationId);
         
-        assertThat(response.getBenefit().getId(), is(equalTo(UUID.fromString("00000000-0000-0000-0000-000000000000"))));
+        assertThat(response.getBenefit().getId(), is(equalTo(UUID.fromString("563273ea-0dae-4f82-86a4-e0db77c008ea"))));
         assertThat(response.getBenefit().getLiabilityAccountId(), is(equalTo(UUID.fromString("fa5cdc43-643b-4ad8-b4ac-3ffe0d0f4488"))));
         assertThat(response.getBenefit().getExpenseAccountId(), is(equalTo(UUID.fromString("b343c3b0-5941-4166-82b4-dd926622e0e2"))));
         assertThat(response.getBenefit().getName(), is(equalTo("KiwiSaver")));
@@ -85,7 +85,7 @@ public class PayrollNzApiSuperannuationsTest {
         benefit.setPercentage(12.00);
         SuperannuationObject response = payrollNzApi.createSuperannuation(accessToken, xeroTenantId, benefit, null);
         
-        assertThat(response.getBenefit().getId(), is(equalTo(UUID.fromString("00000000-0000-0000-0000-000000000000"))));
+        assertThat(response.getBenefit().getId(), is(equalTo(UUID.fromString("8905a754-7ce8-40e2-9fa5-f819deb7adce"))));
         assertThat(response.getBenefit().getLiabilityAccountId(), is(equalTo(UUID.fromString("568f2e9a-0870-46cc-8678-f83f132ed4e3"))));
         assertThat(response.getBenefit().getExpenseAccountId(), is(equalTo(UUID.fromString("e4eb36f6-97e3-4427-a394-dd4e1b355c2e"))));
         assertThat(response.getBenefit().getName(), is(equalTo("SidSaver")));

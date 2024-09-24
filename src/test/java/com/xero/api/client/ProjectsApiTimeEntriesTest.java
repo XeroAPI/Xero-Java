@@ -74,10 +74,10 @@ public class ProjectsApiTimeEntriesTest {
         assertThat(response.getPagination().getItemCount(), is(equalTo(9)));
         assertThat(response.getPagination().getPageCount(), is(equalTo(1)));
         assertThat(response.getPagination().getPageSize(), is(equalTo(50)));
-        assertThat(response.getItems().get(0).getTimeEntryId(),is(equalTo(UUID.fromString("00000000-0000-0000-0000-000000000000"))));
-        assertThat(response.getItems().get(0).getUserId(), is(equalTo(UUID.fromString("00000000-0000-0000-0000-000000000000"))));
-        assertThat(response.getItems().get(0).getProjectId(), is(equalTo(UUID.fromString("00000000-0000-0000-0000-000000000000"))));
-        assertThat(response.getItems().get(0).getTaskId(), is(equalTo(UUID.fromString("00000000-0000-0000-0000-000000000000"))));
+        assertThat(response.getItems().get(0).getTimeEntryId(),is(equalTo(UUID.fromString("3cd35eca-704f-4bca-b258-236028ae8ed1"))));
+        assertThat(response.getItems().get(0).getUserId(), is(equalTo(UUID.fromString("740add2a-a703-4b8a-a670-1093919c2040"))));
+        assertThat(response.getItems().get(0).getProjectId(), is(equalTo(UUID.fromString("b021e7cb-1903-4292-b48b-5b27b4271e3e"))));
+        assertThat(response.getItems().get(0).getTaskId(), is(equalTo(UUID.fromString("7be77337-feec-4458-bb1b-dbaa5a4aafce"))));
         assertThat(response.getItems().get(0).getDateUtc(), is(equalTo(OffsetDateTime.parse("2020-02-27T15:00Z"))));
         assertThat(response.getItems().get(0).getDateEnteredUtc(), is(equalTo(OffsetDateTime.parse("2020-02-28T03:24:29.221564100Z"))));
         assertThat(response.getItems().get(0).getDuration(), is(equalTo(45)));
@@ -97,10 +97,10 @@ public class ProjectsApiTimeEntriesTest {
         UUID projectId = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");
 
         TimeEntry response = projectApi.createTimeEntry(accessToken, xeroTenantId, projectId, timeEntryCreateOrUpdate, null);
-        assertThat(response.getTimeEntryId(),is(equalTo(UUID.fromString("00000000-0000-0000-0000-000000000000"))));
-        assertThat(response.getUserId(), is(equalTo(UUID.fromString("00000000-0000-0000-0000-000000000000"))));
-        assertThat(response.getProjectId(), is(equalTo(UUID.fromString("00000000-0000-0000-0000-000000000000"))));
-        assertThat(response.getTaskId(), is(equalTo(UUID.fromString("00000000-0000-0000-0000-000000000000"))));
+        assertThat(response.getTimeEntryId(),is(equalTo(UUID.fromString("c6539534-f1d2-43a6-80df-3bd1f8aca24d"))));
+        assertThat(response.getUserId(), is(equalTo(UUID.fromString("c6539534-f1d2-43a6-80df-3bd1f8aca24d"))));
+        assertThat(response.getProjectId(), is(equalTo(UUID.fromString("b021e7cb-1903-4292-b48b-5b27b4271e3e"))));
+        assertThat(response.getTaskId(), is(equalTo(UUID.fromString("7be77337-feec-4458-bb1b-dbaa5a4aafce"))));
         assertThat(response.getDateUtc(), is(equalTo(OffsetDateTime.parse("2020-02-26T15:00Z"))));
         assertThat(response.getDateEnteredUtc(), is(equalTo(OffsetDateTime.parse("2020-02-28T20:37:42.865283200Z"))));
         assertThat(response.getDuration(), is(equalTo(30)));
@@ -116,10 +116,10 @@ public class ProjectsApiTimeEntriesTest {
         UUID timeEntryId = UUID.fromString("8138a266-fb42-49b2-a104-014b7045753d");  
 
         TimeEntry response = projectApi.getTimeEntry(accessToken, xeroTenantId, projectId, timeEntryId);
-        assertThat(response.getTimeEntryId(),is(equalTo(UUID.fromString("00000000-0000-0000-0000-000000000000"))));
-        assertThat(response.getUserId(), is(equalTo(UUID.fromString("00000000-0000-0000-0000-000000000000"))));
-        assertThat(response.getProjectId(), is(equalTo(UUID.fromString("00000000-0000-0000-0000-000000000000"))));
-        assertThat(response.getTaskId(), is(equalTo(UUID.fromString("00000000-0000-0000-0000-000000000000"))));
+        assertThat(response.getTimeEntryId(),is(equalTo(UUID.fromString("3cd35eca-704f-4bca-b258-236028ae8ed1"))));
+        assertThat(response.getUserId(), is(equalTo(UUID.fromString("740add2a-a703-4b8a-a670-1093919c2040"))));
+        assertThat(response.getProjectId(), is(equalTo(UUID.fromString("b021e7cb-1903-4292-b48b-5b27b4271e3e"))));
+        assertThat(response.getTaskId(), is(equalTo(UUID.fromString("7be77337-feec-4458-bb1b-dbaa5a4aafce"))));
         assertThat(response.getDateUtc(), is(equalTo(OffsetDateTime.parse("2020-02-27T15:00Z"))));
         assertThat(response.getDateEnteredUtc(), is(equalTo(OffsetDateTime.parse("2020-02-21T21:41:22.264272700Z"))));
         assertThat(response.getDuration(), is(equalTo(45)));

@@ -62,7 +62,7 @@ public class ProjectsApiProjectUsersTest {
         assertThat(response.getPagination().getItemCount(), is(equalTo(2)));
         assertThat(response.getPagination().getPageCount(), is(equalTo(1)));
         assertThat(response.getPagination().getPageSize(), is(equalTo(50)));
-        assertThat(response.getItems().get(0).getUserId(), is(equalTo(UUID.fromString("00000000-0000-0000-0000-000000000000"))));
+        assertThat(response.getItems().get(0).getUserId(), is(equalTo(UUID.fromString("740add2a-a703-4b8a-a670-1093919c2040"))));
         assertThat(response.getItems().get(0).getName(), is(equalTo("Test User")));
         assertThat(response.getItems().get(0).getEmail(), is(equalTo("test@xero.com")));
 
