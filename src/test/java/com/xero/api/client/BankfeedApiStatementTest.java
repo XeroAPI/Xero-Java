@@ -1,44 +1,14 @@
 package com.xero.api.client;
 
-import static org.junit.Assert.assertTrue;
-
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.*;
-
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.hamcrest.core.Every.everyItem;
-
 import com.xero.api.ApiClient;
-import com.xero.api.client.*;
+import com.xero.api.util.ConfigurationLoader;
 import com.xero.models.bankfeeds.*;
 
-import java.io.File;
-import java.net.URL;
-
-import com.google.api.client.auth.oauth2.BearerToken;
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
-
 import org.threeten.bp.*;
-import java.io.IOException;
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import java.util.Calendar;
-import java.util.Map;
-import java.util.UUID;
-
-import java.io.File;
-import java.io.IOException;
-
-import org.apache.commons.io.IOUtils;
 
 public class BankfeedApiStatementTest {
 
@@ -56,10 +26,8 @@ public class BankfeedApiStatementTest {
         accessToken = "123";
         xeroTenantId = "xyz";
         
-        // Init AccountingApi client
-		//defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/bankfeeds/1.0.0",null,null,null,null);
-		defaultClient = new ApiClient("https://3e140044-4914-47dd-b4e1-df0cc040a44f.mock.pstmn.io/bankfeeds.xro/1.0",null,null,null,null);
-        bankfeedsApi = BankFeedsApi.getInstance(defaultClient);	
+        defaultClient = new ApiClient(ConfigurationLoader.getProperty("bankfeeds.api.url"),null,null,null,null);
+        bankfeedsApi = BankFeedsApi.getInstance(defaultClient); 
         
 		// ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
 		if (setUpIsDone) {
