@@ -34,7 +34,7 @@ public class AssetsApiTest {
         xeroTenantId = "xyz";
         
         Properties properties = new Properties();
-        try (InputStream input = AssetsApiTest.class.getClassLoader().getResourceAsStream("config.properties")){
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")){
             properties.load(input);
             defaultClient = new ApiClient(properties.getProperty("assets.api.url"),null,null,null,null);
             assetApi = AssetApi.getInstance(defaultClient); 

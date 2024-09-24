@@ -27,7 +27,7 @@ public class FinanceApiTest {
         accessToken = "123";
         xeroTenantId = "xyz";
         Properties properties = new Properties();
-        try (InputStream input = FinanceApiTest.class.getClassLoader().getResourceAsStream("config.properties")){
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")){
             properties.load(input);
             defaultClient = new ApiClient(properties.getProperty("finance.api.url"),null,null,null,null);
             financeApi = FinanceApi.getInstance(defaultClient); 

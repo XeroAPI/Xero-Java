@@ -31,7 +31,7 @@ public class BankfeedApiStatementTest {
         // Init AccountingApi client
 		//defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/bankfeeds/1.0.0",null,null,null,null);
         Properties properties = new Properties();
-        try (InputStream input = BankfeedApiStatementTest.class.getClassLoader().getResourceAsStream("config.properties")){
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")){
             properties.load(input);
             defaultClient = new ApiClient(properties.getProperty("bankfeeds.api.url"),null,null,null,null);
             bankfeedsApi = BankFeedsApi.getInstance(defaultClient); 

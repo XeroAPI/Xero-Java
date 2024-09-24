@@ -31,7 +31,7 @@ public class AccountingApiContactGroupTest {
         // Init AccountingApi client
         // NEW Sandbox for API Mocking
         Properties properties = new Properties();
-        try (InputStream input = AccountingApiContactGroupTest.class.getClassLoader().getResourceAsStream("config.properties")){
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")){
             properties.load(input);
             defaultClient = new ApiClient(properties.getProperty("accounting.api.url"),null,null,null,null);
             accountingApi = AccountingApi.getInstance(defaultClient); 
