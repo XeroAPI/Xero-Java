@@ -1,44 +1,18 @@
 package com.xero.api.client;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.*;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
-import static org.hamcrest.Matchers.containsInAnyOrder;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.hamcrest.core.Every.everyItem;
-
 import com.xero.api.ApiClient;
-import com.xero.api.client.*;
+import com.xero.api.util.ConfigurationLoader;
 import com.xero.models.payrollau.*;
-
-import java.io.File;
-import java.net.URL;
-
-import com.google.api.client.auth.oauth2.BearerToken;
-import com.google.api.client.auth.oauth2.Credential;
-import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.HttpTransport;
-import com.google.api.client.http.javanet.NetHttpTransport;
 
 import org.threeten.bp.*;
 import java.io.IOException;
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import java.io.File;
-import java.io.IOException;
-
-import org.apache.commons.io.IOUtils;
-
-import java.util.Calendar;
-import java.util.Map;
 import java.util.UUID;
 import java.util.List;
 import java.util.ArrayList;
-import java.math.BigDecimal;
 
 public class PayrollAuApiLeaveApplicationTest {
 
@@ -54,11 +28,8 @@ public class PayrollAuApiLeaveApplicationTest {
         accessToken = "123";
         xeroTenantId = "xyz";
         
-        // Init projectApi client
-        // NEW Sandbox for API Mocking
-		defaultClient = new ApiClient("https://5f9f95f1-25c8-40dd-8b10-8192c658dd79.mock.pstmn.io/payroll.xro/1.0",null,null,null,null);
-        payrollAuApi = PayrollAuApi.getInstance(defaultClient);   
-       
+        defaultClient = new ApiClient(ConfigurationLoader.getProperty("payrollau.api.url"),null,null,null,null);
+        payrollAuApi = PayrollAuApi.getInstance(defaultClient);    
 	}
 
 	public void tearDown() {
@@ -102,7 +73,7 @@ public class PayrollAuApiLeaveApplicationTest {
         assertThat(response.getLeaveApplications().get(0).getEndDateAsDate(), is(equalTo(LocalDate.of(2019,11,12))));
         assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getPayPeriodStartDateAsDate() , is(equalTo(LocalDate.of(2019,11,8))));
         assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getPayPeriodEndDateAsDate() , is(equalTo(LocalDate.of(2019,11,14))));        
-        assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getNumberOfUnits(), is(equalTo(0.0)));
+        assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getNumberOfUnits(), is(equalTo(7.6)));
         assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getLeavePeriodStatus(), is(equalTo(com.xero.models.payrollau.LeavePeriodStatus.SCHEDULED)));
         assertThat(response.getLeaveApplications().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-13T05:30:08Z"))));  
         //System.out.println(response.toString());
@@ -123,7 +94,7 @@ public class PayrollAuApiLeaveApplicationTest {
         assertThat(response.getLeaveApplications().get(0).getEndDateAsDate(), is(equalTo(LocalDate.of(2019,11,01))));
         assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getPayPeriodStartDateAsDate() , is(equalTo(LocalDate.of(2019,11,1))));
         assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getPayPeriodEndDateAsDate() , is(equalTo(LocalDate.of(2019,11,07))));        
-        assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getNumberOfUnits(), is(equalTo(0.6)));
+        assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getNumberOfUnits(), is(equalTo(7.6)));
         assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getLeavePeriodStatus(), is(equalTo(com.xero.models.payrollau.LeavePeriodStatus.SCHEDULED)));
         assertThat(response.getLeaveApplications().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-13T21:16:31.897Z"))));  
         //System.out.println(response.toString());
@@ -146,7 +117,7 @@ public class PayrollAuApiLeaveApplicationTest {
         assertThat(response.getLeaveApplications().get(0).getDescription(), is(equalTo("My updated Description")));        
         assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getPayPeriodStartDateAsDate() , is(equalTo(LocalDate.of(2019,11,01))));
         assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getPayPeriodEndDateAsDate() , is(equalTo(LocalDate.of(2019,11,07))));        
-        assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getNumberOfUnits(), is(equalTo(0.6)));
+        assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getNumberOfUnits(), is(equalTo(7.6)));
         assertThat(response.getLeaveApplications().get(0).getLeavePeriods().get(0).getLeavePeriodStatus(), is(equalTo(com.xero.models.payrollau.LeavePeriodStatus.SCHEDULED)));
         assertThat(response.getLeaveApplications().get(0).getUpdatedDateUTCAsDate(), is(equalTo(OffsetDateTime.parse("2019-11-13T21:16:32.293Z"))));  
         //System.out.println(response.toString());
