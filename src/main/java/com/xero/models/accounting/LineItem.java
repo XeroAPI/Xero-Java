@@ -11,9 +11,12 @@
 
 package com.xero.models.accounting;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.xero.api.StringUtil;
 import io.swagger.annotations.ApiModelProperty;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -67,6 +70,73 @@ public class LineItem {
 
   @JsonProperty("RepeatingInvoiceID")
   private UUID repeatingInvoiceID;
+  /** The type of taxability */
+  public enum TaxabilityEnum {
+    /** TAXABLE */
+    TAXABLE("TAXABLE"),
+
+    /** NON_TAXABLE */
+    NON_TAXABLE("NON_TAXABLE"),
+
+    /** EXEMPT */
+    EXEMPT("EXEMPT"),
+
+    /** PART_TAXABLE */
+    PART_TAXABLE("PART_TAXABLE"),
+
+    /** NOT_APPLICABLE */
+    NOT_APPLICABLE("NOT_APPLICABLE");
+
+    private String value;
+
+    TaxabilityEnum(String value) {
+      this.value = value;
+    }
+
+    /**
+     * getValue
+     *
+     * @return String value
+     */
+    @JsonValue
+    public String getValue() {
+      return value;
+    }
+
+    /**
+     * toString
+     *
+     * @return String value
+     */
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    /**
+     * fromValue
+     *
+     * @param value String
+     */
+    @JsonCreator
+    public static TaxabilityEnum fromValue(String value) {
+      for (TaxabilityEnum b : TaxabilityEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+  }
+
+  @JsonProperty("Taxability")
+  private TaxabilityEnum taxability;
+
+  @JsonProperty("SalesTaxCodeId")
+  private BigDecimal salesTaxCodeId;
+
+  @JsonProperty("TaxBreakdown")
+  private List<TaxBreakdownComponent> taxBreakdown = new ArrayList<TaxBreakdownComponent>();
   /**
    * LineItem unique ID
    *
@@ -674,6 +744,125 @@ public class LineItem {
     this.repeatingInvoiceID = repeatingInvoiceID;
   }
 
+  /**
+   * The type of taxability
+   *
+   * @param taxability TaxabilityEnum
+   * @return LineItem
+   */
+  public LineItem taxability(TaxabilityEnum taxability) {
+    this.taxability = taxability;
+    return this;
+  }
+
+  /**
+   * The type of taxability
+   *
+   * @return taxability
+   */
+  @ApiModelProperty(value = "The type of taxability")
+  /**
+   * The type of taxability
+   *
+   * @return taxability TaxabilityEnum
+   */
+  public TaxabilityEnum getTaxability() {
+    return taxability;
+  }
+
+  /**
+   * The type of taxability
+   *
+   * @param taxability TaxabilityEnum
+   */
+  public void setTaxability(TaxabilityEnum taxability) {
+    this.taxability = taxability;
+  }
+
+  /**
+   * The ID of the sales tax code
+   *
+   * @param salesTaxCodeId BigDecimal
+   * @return LineItem
+   */
+  public LineItem salesTaxCodeId(BigDecimal salesTaxCodeId) {
+    this.salesTaxCodeId = salesTaxCodeId;
+    return this;
+  }
+
+  /**
+   * The ID of the sales tax code
+   *
+   * @return salesTaxCodeId
+   */
+  @ApiModelProperty(value = "The ID of the sales tax code")
+  /**
+   * The ID of the sales tax code
+   *
+   * @return salesTaxCodeId BigDecimal
+   */
+  public BigDecimal getSalesTaxCodeId() {
+    return salesTaxCodeId;
+  }
+
+  /**
+   * The ID of the sales tax code
+   *
+   * @param salesTaxCodeId BigDecimal
+   */
+  public void setSalesTaxCodeId(BigDecimal salesTaxCodeId) {
+    this.salesTaxCodeId = salesTaxCodeId;
+  }
+
+  /**
+   * An array of tax components defined for this line item
+   *
+   * @param taxBreakdown List&lt;TaxBreakdownComponent&gt;
+   * @return LineItem
+   */
+  public LineItem taxBreakdown(List<TaxBreakdownComponent> taxBreakdown) {
+    this.taxBreakdown = taxBreakdown;
+    return this;
+  }
+
+  /**
+   * An array of tax components defined for this line item
+   *
+   * @param taxBreakdownItem TaxBreakdownComponent
+   * @return LineItem
+   */
+  public LineItem addTaxBreakdownItem(TaxBreakdownComponent taxBreakdownItem) {
+    if (this.taxBreakdown == null) {
+      this.taxBreakdown = new ArrayList<TaxBreakdownComponent>();
+    }
+    this.taxBreakdown.add(taxBreakdownItem);
+    return this;
+  }
+
+  /**
+   * An array of tax components defined for this line item
+   *
+   * @return taxBreakdown
+   */
+  @ApiModelProperty(value = "An array of tax components defined for this line item")
+  /**
+   * An array of tax components defined for this line item
+   *
+   * @return taxBreakdown List<TaxBreakdownComponent>
+   */
+  public List<TaxBreakdownComponent> getTaxBreakdown() {
+    return taxBreakdown;
+  }
+
+  /**
+   * An array of tax components defined for this line item
+   *
+   * @param taxBreakdown List&lt;TaxBreakdownComponent&gt;
+   */
+  public void setTaxBreakdown(List<TaxBreakdownComponent> taxBreakdown) {
+    this.taxBreakdown = taxBreakdown;
+  }
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -697,7 +886,10 @@ public class LineItem {
         && Objects.equals(this.tracking, lineItem.tracking)
         && Objects.equals(this.discountRate, lineItem.discountRate)
         && Objects.equals(this.discountAmount, lineItem.discountAmount)
-        && Objects.equals(this.repeatingInvoiceID, lineItem.repeatingInvoiceID);
+        && Objects.equals(this.repeatingInvoiceID, lineItem.repeatingInvoiceID)
+        && Objects.equals(this.taxability, lineItem.taxability)
+        && Objects.equals(this.salesTaxCodeId, lineItem.salesTaxCodeId)
+        && Objects.equals(this.taxBreakdown, lineItem.taxBreakdown);
   }
 
   @Override
@@ -717,7 +909,10 @@ public class LineItem {
         tracking,
         discountRate,
         discountAmount,
-        repeatingInvoiceID);
+        repeatingInvoiceID,
+        taxability,
+        salesTaxCodeId,
+        taxBreakdown);
   }
 
   @Override
@@ -739,6 +934,9 @@ public class LineItem {
     sb.append("    discountRate: ").append(toIndentedString(discountRate)).append("\n");
     sb.append("    discountAmount: ").append(toIndentedString(discountAmount)).append("\n");
     sb.append("    repeatingInvoiceID: ").append(toIndentedString(repeatingInvoiceID)).append("\n");
+    sb.append("    taxability: ").append(toIndentedString(taxability)).append("\n");
+    sb.append("    salesTaxCodeId: ").append(toIndentedString(salesTaxCodeId)).append("\n");
+    sb.append("    taxBreakdown: ").append(toIndentedString(taxBreakdown)).append("\n");
     sb.append("}");
     return sb.toString();
   }
