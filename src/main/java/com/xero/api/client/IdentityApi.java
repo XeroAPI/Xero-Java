@@ -167,7 +167,6 @@ public class IdentityApi {
     }
     HttpHeaders headers = new HttpHeaders();
     headers.setAccept("");
-    headers.setContentType("");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -243,7 +242,6 @@ public class IdentityApi {
     }
     HttpHeaders headers = new HttpHeaders();
     headers.setAccept("application/json");
-    headers.setContentType("");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Connections");
     if (authEventId != null) {

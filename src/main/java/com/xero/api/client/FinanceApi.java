@@ -195,7 +195,6 @@ public class FinanceApi {
     HttpHeaders headers = new HttpHeaders();
     headers.set("xero-tenant-id", xeroTenantId);
     headers.setAccept("application/json");
-    headers.setContentType("");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder =
         UriBuilder.fromUri(apiClient.getBasePath() + "/AccountingActivities/AccountUsage");
@@ -333,7 +332,6 @@ public class FinanceApi {
     HttpHeaders headers = new HttpHeaders();
     headers.set("xero-tenant-id", xeroTenantId);
     headers.setAccept("application/json");
-    headers.setContentType("");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder =
         UriBuilder.fromUri(apiClient.getBasePath() + "/AccountingActivities/LockHistory");
@@ -451,7 +449,6 @@ public class FinanceApi {
     HttpHeaders headers = new HttpHeaders();
     headers.set("xero-tenant-id", xeroTenantId);
     headers.setAccept("application/json");
-    headers.setContentType("");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder =
         UriBuilder.fromUri(apiClient.getBasePath() + "/AccountingActivities/ReportHistory");
@@ -572,7 +569,6 @@ public class FinanceApi {
     HttpHeaders headers = new HttpHeaders();
     headers.set("xero-tenant-id", xeroTenantId);
     headers.setAccept("application/json");
-    headers.setContentType("");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder =
         UriBuilder.fromUri(apiClient.getBasePath() + "/AccountingActivities/UserActivities");
@@ -730,7 +726,6 @@ public class FinanceApi {
     HttpHeaders headers = new HttpHeaders();
     headers.set("xero-tenant-id", xeroTenantId);
     headers.setAccept("application/json");
-    headers.setContentType("");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder =
         UriBuilder.fromUri(apiClient.getBasePath() + "/BankStatementsPlus/statements");
@@ -952,7 +947,6 @@ public class FinanceApi {
     HttpHeaders headers = new HttpHeaders();
     headers.set("xero-tenant-id", xeroTenantId);
     headers.setAccept("application/json");
-    headers.setContentType("");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/CashValidation");
     if (balanceDate != null) {
@@ -1107,7 +1101,6 @@ public class FinanceApi {
     HttpHeaders headers = new HttpHeaders();
     headers.set("xero-tenant-id", xeroTenantId);
     headers.setAccept("application/json");
-    headers.setContentType("");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder =
         UriBuilder.fromUri(apiClient.getBasePath() + "/FinancialStatements/BalanceSheet");
@@ -1232,7 +1225,6 @@ public class FinanceApi {
     HttpHeaders headers = new HttpHeaders();
     headers.set("xero-tenant-id", xeroTenantId);
     headers.setAccept("application/json");
-    headers.setContentType("");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder =
         UriBuilder.fromUri(apiClient.getBasePath() + "/FinancialStatements/Cashflow");
@@ -1402,7 +1394,6 @@ public class FinanceApi {
     HttpHeaders headers = new HttpHeaders();
     headers.set("xero-tenant-id", xeroTenantId);
     headers.setAccept("application/json");
-    headers.setContentType("");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder =
         UriBuilder.fromUri(apiClient.getBasePath() + "/FinancialStatements/contacts/expense");
@@ -1612,7 +1603,6 @@ public class FinanceApi {
     HttpHeaders headers = new HttpHeaders();
     headers.set("xero-tenant-id", xeroTenantId);
     headers.setAccept("application/json");
-    headers.setContentType("");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder =
         UriBuilder.fromUri(apiClient.getBasePath() + "/FinancialStatements/contacts/revenue");
@@ -1791,7 +1781,6 @@ public class FinanceApi {
     HttpHeaders headers = new HttpHeaders();
     headers.set("xero-tenant-id", xeroTenantId);
     headers.setAccept("application/json");
-    headers.setContentType("");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder =
         UriBuilder.fromUri(apiClient.getBasePath() + "/FinancialStatements/ProfitAndLoss");
@@ -1923,7 +1912,6 @@ public class FinanceApi {
     HttpHeaders headers = new HttpHeaders();
     headers.set("xero-tenant-id", xeroTenantId);
     headers.setAccept("application/json");
-    headers.setContentType("");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder =
         UriBuilder.fromUri(apiClient.getBasePath() + "/FinancialStatements/TrialBalance");

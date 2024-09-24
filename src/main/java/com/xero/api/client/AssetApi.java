@@ -398,7 +398,6 @@ public class AssetApi {
     HttpHeaders headers = new HttpHeaders();
     headers.set("xero-tenant-id", xeroTenantId);
     headers.setAccept("application/json");
-    headers.setContentType("");
     headers.setUserAgent(this.getUserAgent());
     // create a map of path variables
     final Map<String, Object> uriVariables = new HashMap<String, Object>();
@@ -485,7 +484,6 @@ public class AssetApi {
     HttpHeaders headers = new HttpHeaders();
     headers.set("xero-tenant-id", xeroTenantId);
     headers.setAccept("application/json");
-    headers.setContentType("");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Settings");
     String url = uriBuilder.build().toString();
@@ -568,7 +566,6 @@ public class AssetApi {
     HttpHeaders headers = new HttpHeaders();
     headers.set("xero-tenant-id", xeroTenantId);
     headers.setAccept("application/json");
-    headers.setContentType("");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/AssetTypes");
     String url = uriBuilder.build().toString();
@@ -698,7 +695,6 @@ public class AssetApi {
     HttpHeaders headers = new HttpHeaders();
     headers.set("xero-tenant-id", xeroTenantId);
     headers.setAccept("application/json");
-    headers.setContentType("");
     headers.setUserAgent(this.getUserAgent());
     UriBuilder uriBuilder = UriBuilder.fromUri(apiClient.getBasePath() + "/Assets");
     if (status != null) {
