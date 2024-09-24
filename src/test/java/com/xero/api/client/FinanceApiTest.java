@@ -6,6 +6,7 @@ import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 import com.xero.api.ApiClient;
 import com.xero.api.XeroApiException;
+import com.xero.api.util.ConfigurationLoader;
 import com.xero.models.finance.*;
 
 import java.util.*;
@@ -26,15 +27,8 @@ public class FinanceApiTest {
 		// Set Access Token and Tenant Id
         accessToken = "123";
         xeroTenantId = "xyz";
-        Properties properties = new Properties();
-        try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")){
-            properties.load(input);
-            defaultClient = new ApiClient(properties.getProperty("finance.api.url"),null,null,null,null);
-            financeApi = FinanceApi.getInstance(defaultClient); 
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        defaultClient = new ApiClient(ConfigurationLoader.getProperty("finance.api.url"),null,null,null,null);
+        financeApi = FinanceApi.getInstance(defaultClient); 
         
 		// ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
 		if (setUpIsDone) {

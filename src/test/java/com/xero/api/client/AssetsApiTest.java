@@ -6,15 +6,12 @@ import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 import com.xero.api.ApiClient;
 import com.xero.api.XeroApiException;
+import com.xero.api.util.ConfigurationLoader;
 import com.xero.models.assets.*;
 import com.xero.models.assets.BookDepreciationSetting.DepreciationMethodEnum;
 
 import org.threeten.bp.*;
 import java.util.UUID;
-import java.util.Properties;
-import java.io.IOException;
-import java.io.InputStream;
-
 import java.util.List;
 
 public class AssetsApiTest {
@@ -33,15 +30,8 @@ public class AssetsApiTest {
         accessToken = "123";
         xeroTenantId = "xyz";
         
-        Properties properties = new Properties();
-        try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")){
-            properties.load(input);
-            defaultClient = new ApiClient(properties.getProperty("assets.api.url"),null,null,null,null);
-            assetApi = AssetApi.getInstance(defaultClient); 
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }  
+        defaultClient = new ApiClient(ConfigurationLoader.getProperty("assets.api.url"),null,null,null,null);
+        assetApi = AssetApi.getInstance(defaultClient);  
         
 		// ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
 		if (setUpIsDone) {

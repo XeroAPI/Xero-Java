@@ -6,12 +6,10 @@ import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 import com.xero.api.ApiClient;
 import com.xero.api.XeroApiException;
+import com.xero.api.util.ConfigurationLoader;
 import com.xero.models.appstore.*;
 
 import java.util.UUID;
-import java.util.Properties;
-import java.io.IOException;
-import java.io.InputStream;
 
 public class AppStoreApiTest {
 
@@ -27,16 +25,9 @@ public class AppStoreApiTest {
 		// Set Access Token and Tenant Id
         accessToken = "123";
         xeroTenantId = "xyz";
-        
-        Properties properties = new Properties();
-        try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")){
-            properties.load(input);
-            defaultClient = new ApiClient(properties.getProperty("appstore.api.url"),null,null,null,null);
-            appStoreApi = AppStoreApi.getInstance(defaultClient); 
 
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }  
+        defaultClient = new ApiClient(ConfigurationLoader.getProperty("appstore.api.url"),null,null,null,null);
+        appStoreApi = AppStoreApi.getInstance(defaultClient);   
         
 		// ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
 		if (setUpIsDone) {

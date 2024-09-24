@@ -5,12 +5,10 @@ import org.junit.Test;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 import com.xero.api.ApiClient;
+import com.xero.api.util.ConfigurationLoader;
 import com.xero.models.bankfeeds.*;
 
 import org.threeten.bp.*;
-import java.util.Properties;
-import java.io.IOException;
-import java.io.InputStream;
 
 public class BankfeedApiStatementTest {
 
@@ -28,17 +26,8 @@ public class BankfeedApiStatementTest {
         accessToken = "123";
         xeroTenantId = "xyz";
         
-        // Init AccountingApi client
-		//defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/bankfeeds/1.0.0",null,null,null,null);
-        Properties properties = new Properties();
-        try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")){
-            properties.load(input);
-            defaultClient = new ApiClient(properties.getProperty("bankfeeds.api.url"),null,null,null,null);
-            bankfeedsApi = BankFeedsApi.getInstance(defaultClient); 
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        defaultClient = new ApiClient(ConfigurationLoader.getProperty("bankfeeds.api.url"),null,null,null,null);
+        bankfeedsApi = BankFeedsApi.getInstance(defaultClient); 
         
 		// ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
 		if (setUpIsDone) {
