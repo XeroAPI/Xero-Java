@@ -5,13 +5,13 @@ import org.junit.*;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 import com.xero.api.ApiClient;
+import com.xero.api.util.ConfigurationLoader;
 import com.xero.models.payrolluk.*;
 import com.xero.models.payrolluk.Benefit.CalculationTypeEnum;
 import com.xero.models.payrolluk.Benefit.CategoryEnum;
 
 import java.io.IOException;
 import java.util.*;
-import java.io.InputStream;
 
 public class PayrollUkApiEmployerPensionsTest {
 
@@ -27,18 +27,8 @@ public class PayrollUkApiEmployerPensionsTest {
         accessToken = "123";
         xeroTenantId = "xyz";
         
-        // Init projectApi client
-        // NEW Sandbox for API Mocking
-        Properties properties = new Properties();
-        try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")){
-            properties.load(input);
-            defaultClient = new ApiClient(properties.getProperty("payrolluk.api.url"),null,null,null,null);
-            payrollUkApi = PayrollUkApi.getInstance(defaultClient); 
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-       
+        defaultClient = new ApiClient(ConfigurationLoader.getProperty("payrolluk.api.url"),null,null,null,null);
+        payrollUkApi = PayrollUkApi.getInstance(defaultClient);   
 	}
 
 	public void tearDown() {

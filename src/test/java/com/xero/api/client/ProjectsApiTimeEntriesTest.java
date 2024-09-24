@@ -5,6 +5,7 @@ import org.junit.*;
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
 import com.xero.api.ApiClient;
+import com.xero.api.util.ConfigurationLoader;
 import com.xero.models.project.*;
 
 import org.threeten.bp.*;
@@ -26,18 +27,8 @@ public class ProjectsApiTimeEntriesTest {
 		// Set Access Token and Tenant Id
         accessToken = "123";
         xeroTenantId = "xyz";
-        
-        // Init projectsApi client
-        // NEW Sandbox for API Mocking
-        Properties properties = new Properties();
-        try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")){
-            properties.load(input);
-            defaultClient = new ApiClient(properties.getProperty("projects.api.url"),null,null,null,null);
-            projectApi = ProjectApi.getInstance(defaultClient); 
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        defaultClient = new ApiClient(ConfigurationLoader.getProperty("projects.api.url"),null,null,null,null);
+        projectApi = ProjectApi.getInstance(defaultClient); 
        
         // ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
         if (setUpIsDone) {
