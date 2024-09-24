@@ -15,6 +15,7 @@ The **Xero-Java** SDK makes it easy for developers to access Xero's APIs in thei
 - [App Store Subscriptions](#app-store-subscriptions)
 - [API Clients](#api-clients)
 - [Usage Examples](#usage-examples)
+- [Running Test(s) in Local](#running-tests-in-local)
 - [SDK conventions](#sdk-conventions)
 - [Participating in Xero’s developer community](#participating-in-xeros-developoer-community)
 
@@ -677,7 +678,17 @@ try {
     System.out.println(e.getMessage());
 }
 ```
+## Running Test(s) in Local
+For Running Test cases PRISM Mock Server needs to be started in the local machine.
+Steps to Run Test(s)
+* Install PRISM from npm using the command:  **npm install -g @stoplight/prism-cli**
+* Verify Installation: **prism --version**
+* Navigate to **Xero-Java--> src--> test--> util** folder in the terminal
+* Execute the script **./start-prism.sh**
+* This will start the PRISM Server in Local
+* Run **mvn clean verify -DskipTests=false** to build the Java code along with Test Cases.
 
+---
 ## SDK conventions
 
 ### Working with dates
