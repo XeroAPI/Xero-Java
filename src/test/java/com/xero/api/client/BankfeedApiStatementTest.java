@@ -8,6 +8,9 @@ import com.xero.api.ApiClient;
 import com.xero.models.bankfeeds.*;
 
 import org.threeten.bp.*;
+import java.util.Properties;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class BankfeedApiStatementTest {
 
@@ -27,8 +30,15 @@ public class BankfeedApiStatementTest {
         
         // Init AccountingApi client
 		//defaultClient = new ApiClient("https://virtserver.swaggerhub.com/Xero/bankfeeds/1.0.0",null,null,null,null);
-		defaultClient = new ApiClient("http://127.0.0.1:4013",null,null,null,null);
-        bankfeedsApi = BankFeedsApi.getInstance(defaultClient);	
+        Properties properties = new Properties();
+        try (InputStream input = BankfeedApiStatementTest.class.getClassLoader().getResourceAsStream("config.properties")){
+            properties.load(input);
+            defaultClient = new ApiClient(properties.getProperty("bankfeeds.api.url"),null,null,null,null);
+            bankfeedsApi = BankFeedsApi.getInstance(defaultClient); 
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
         
 		// ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
 		if (setUpIsDone) {

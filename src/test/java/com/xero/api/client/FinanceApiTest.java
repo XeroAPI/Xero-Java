@@ -8,9 +8,9 @@ import com.xero.api.ApiClient;
 import com.xero.api.XeroApiException;
 import com.xero.models.finance.*;
 
-import java.util.UUID;
-
 import java.util.*;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class FinanceApiTest {
 
@@ -26,9 +26,15 @@ public class FinanceApiTest {
 		// Set Access Token and Tenant Id
         accessToken = "123";
         xeroTenantId = "xyz";
-        
-		defaultClient = new ApiClient("http://127.0.0.1:4014",null,null,null,null);
-        financeApi = FinanceApi.getInstance(defaultClient);
+        Properties properties = new Properties();
+        try (InputStream input = FinanceApiTest.class.getClassLoader().getResourceAsStream("config.properties")){
+            properties.load(input);
+            defaultClient = new ApiClient(properties.getProperty("finance.api.url"),null,null,null,null);
+            financeApi = FinanceApi.getInstance(defaultClient); 
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
         
 		// ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
 		if (setUpIsDone) {

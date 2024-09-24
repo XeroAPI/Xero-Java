@@ -8,6 +8,8 @@ import com.xero.api.ApiClient;
 import com.xero.models.accounting.*;
 
 import java.io.IOException;
+import java.util.Properties;
+import java.io.InputStream;
 
 public class AccountingApiTaxRatesTest {
 
@@ -26,8 +28,15 @@ public class AccountingApiTaxRatesTest {
         
         // Init AccountingApi client
         // NEW Sandbox for API Mocking
-		defaultClient = new ApiClient("http://127.0.0.1:4010",null,null,null,null);
-        accountingApi = AccountingApi.getInstance(defaultClient);   
+        Properties properties = new Properties();
+        try (InputStream input = AccountingApiTaxRatesTest.class.getClassLoader().getResourceAsStream("config.properties")){
+            properties.load(input);
+            defaultClient = new ApiClient(properties.getProperty("accounting.api.url"),null,null,null,null);
+            accountingApi = AccountingApi.getInstance(defaultClient); 
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }  
 
         // ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
         if (setUpIsDone) {

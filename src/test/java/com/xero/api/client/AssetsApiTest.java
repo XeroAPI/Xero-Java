@@ -11,6 +11,9 @@ import com.xero.models.assets.BookDepreciationSetting.DepreciationMethodEnum;
 
 import org.threeten.bp.*;
 import java.util.UUID;
+import java.util.Properties;
+import java.io.IOException;
+import java.io.InputStream;
 
 import java.util.List;
 
@@ -30,8 +33,15 @@ public class AssetsApiTest {
         accessToken = "123";
         xeroTenantId = "xyz";
         
-		defaultClient = new ApiClient("http://127.0.0.1:4012",null,null,null,null);
-        assetApi = AssetApi.getInstance(defaultClient);	
+        Properties properties = new Properties();
+        try (InputStream input = AssetsApiTest.class.getClassLoader().getResourceAsStream("config.properties")){
+            properties.load(input);
+            defaultClient = new ApiClient(properties.getProperty("assets.api.url"),null,null,null,null);
+            assetApi = AssetApi.getInstance(defaultClient); 
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }  
         
 		// ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
 		if (setUpIsDone) {

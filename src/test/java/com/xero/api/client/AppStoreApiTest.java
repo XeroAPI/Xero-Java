@@ -9,6 +9,9 @@ import com.xero.api.XeroApiException;
 import com.xero.models.appstore.*;
 
 import java.util.UUID;
+import java.util.Properties;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class AppStoreApiTest {
 
@@ -25,8 +28,15 @@ public class AppStoreApiTest {
         accessToken = "123";
         xeroTenantId = "xyz";
         
-		defaultClient = new ApiClient("http://127.0.0.1:4011",null,null,null,null);
-        appStoreApi = AppStoreApi.getInstance(defaultClient);
+        Properties properties = new Properties();
+        try (InputStream input = AppStoreApiTest.class.getClassLoader().getResourceAsStream("config.properties")){
+            properties.load(input);
+            defaultClient = new ApiClient(properties.getProperty("appstore.api.url"),null,null,null,null);
+            appStoreApi = AppStoreApi.getInstance(defaultClient); 
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }  
         
 		// ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
 		if (setUpIsDone) {
