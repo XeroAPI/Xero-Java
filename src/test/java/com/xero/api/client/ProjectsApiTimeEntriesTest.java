@@ -9,9 +9,8 @@ import com.xero.models.project.*;
 
 import org.threeten.bp.*;
 import java.io.IOException;
-import java.util.UUID;
-
-import java.util.List;
+import java.util.*;
+import java.io.InputStream;
 
 public class ProjectsApiTimeEntriesTest {
 
@@ -30,8 +29,15 @@ public class ProjectsApiTimeEntriesTest {
         
         // Init projectsApi client
         // NEW Sandbox for API Mocking
-		defaultClient = new ApiClient("http://127.0.0.1:4018",null,null,null,null);
-        projectApi = ProjectApi.getInstance(defaultClient);   
+        Properties properties = new Properties();
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")){
+            properties.load(input);
+            defaultClient = new ApiClient(properties.getProperty("projects.api.url"),null,null,null,null);
+            projectApi = ProjectApi.getInstance(defaultClient); 
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
        
         // ADDED TO MANAGE RATE LIMITS while using SwaggerHub to mock APIs
         if (setUpIsDone) {

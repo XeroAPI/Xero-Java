@@ -8,7 +8,8 @@ import com.xero.api.ApiClient;
 import com.xero.models.payrolluk.*;
 
 import java.io.IOException;
-import java.util.UUID;
+import java.util.*;
+import java.io.InputStream;
 
 public class PayrollUkApiEmployeeTaxTest {
 
@@ -26,8 +27,15 @@ public class PayrollUkApiEmployeeTaxTest {
         
         // Init projectApi client
         // NEW Sandbox for API Mocking
-		defaultClient = new ApiClient("http://127.0.0.1:4015",null,null,null,null);
-        payrollUkApi = PayrollUkApi.getInstance(defaultClient);   
+        Properties properties = new Properties();
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")){
+            properties.load(input);
+            defaultClient = new ApiClient(properties.getProperty("payrolluk.api.url"),null,null,null,null);
+            payrollUkApi = PayrollUkApi.getInstance(defaultClient); 
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
        
 	}
 
