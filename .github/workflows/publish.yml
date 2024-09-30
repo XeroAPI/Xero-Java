@@ -1,5 +1,4 @@
-name: Java Build, Lint and Test
-
+name: Publish
 on:
     push:
     release:
@@ -30,5 +29,7 @@ jobs:
                 GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY}}
 
             - name: Publish to Maven
-              run: mvn clean deploy -P release -DskipTests=true -Dusername=${{ secrets.MAVEN_USERNAME }} -Dpassword=${{ secrets.MAVEN_TOKEN }}
+              run: |
+                export GPG_TTY=$(tty)
+                mvn clean deploy -P release -DskipTests=true -Dusername=${{ secrets.MAVEN_USERNAME }} -Dpassword=${{ secrets.MAVEN_TOKEN }}
               working-directory: Xero-Java
