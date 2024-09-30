@@ -1,5 +1,6 @@
 name: Publish
 on:
+    push:
     release:
         types: [published]
 
@@ -20,25 +21,15 @@ jobs:
                 distribution: 'temurin'
                 java-version: '11'
                 cache: maven
+                server-id: ossrh
+                server-username: ${{ secrets.MAVEN_USERNAME }}
+                server-password: ${{ secrets.MAVEN_TOKEN }}
 
             - name: Import GPG Key
               run: |
                 echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import
               env: 
                 GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY}}
-
-            - name: Configure Maven settings
-              run: |
-                mkdir -p ~/.m2
-                echo "<settings>
-                        <servers>
-                            <server>
-                              <id>ossrh</id>
-                              <username>${{ secrets.MAVEN_USERNAME }}</username>
-                              <password>${{ secrets.MAVEN_TOKEN }}</password>
-                            </server>
-                          </servers>
-                        </settings>" > ~/.m2/settings.xml
 
             - name: Publish to Maven
               run: |
