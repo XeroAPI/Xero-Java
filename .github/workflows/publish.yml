@@ -1,6 +1,5 @@
 name: Publish
 on:
-    push:
     release:
         types: [published]
 
@@ -31,8 +30,15 @@ jobs:
             - name: Configure Maven settings
               run: |
                 mkdir -p ~/.m2
-                cp .github/settings.xml ~/.m2/settings.xml
-              working-directory: Xero-Java
+                echo "<settings>
+                        <servers>
+                            <server>
+                              <id>ossrh</id>
+                              <username>${{ secrets.MAVEN_USERNAME }}</username>
+                              <password>${{ secrets.MAVEN_TOKEN }}</password>
+                            </server>
+                          </servers>
+                        </settings>" > ~/.m2/settings.xml
 
             - name: Publish to Maven
               run: |
