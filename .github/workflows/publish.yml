@@ -31,5 +31,5 @@ jobs:
             - name: Publish to Maven
               run: |
                 export GPG_TTY=$(tty)
-                mvn clean deploy -P release -DskipTests=true -Dusername=${{ secrets.MAVEN_USERNAME }} -Dpassword=${{ secrets.MAVEN_TOKEN }}
+                mvn clean deploy -P release -DskipTests=true -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }} -Dusername=${{ secrets.MAVEN_USERNAME }} -Dpassword=${{ secrets.MAVEN_TOKEN }}
               working-directory: Xero-Java
