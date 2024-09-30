@@ -32,6 +32,7 @@ jobs:
               run: |
                 mkdir -p ~/.m2
                 cp .github/settings.xml ~/.m2/settings.xml
+              working-directory: Xero-Java
 
             - name: Publish to Maven
               run: |
