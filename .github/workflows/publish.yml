@@ -28,8 +28,21 @@ jobs:
               env: 
                 GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY}}
 
+            - name: Configure Maven settings
+              run: |
+                mkdir -p ~/.m2
+                echo "<settings>
+                        <servers>
+                            <server>
+                              <id>ossrh</id>
+                              <username>${{ secrets.MAVEN_USERNAME }}</username>
+                              <password>${{ secrets.MAVEN_TOKEN }}</password>
+                            </server>
+                          </servers>
+                        </settings>" > ~/.m2/settings.xml
+
             - name: Publish to Maven
               run: |
                 export GPG_TTY=$(tty)
-                mvn clean deploy -P release -DskipTests=true -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }} -Dusername=${{ secrets.MAVEN_USERNAME }} -Dpassword=${{ secrets.MAVEN_TOKEN }}
+                mvn clean deploy -DskipTests=true -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }}
               working-directory: Xero-Java
