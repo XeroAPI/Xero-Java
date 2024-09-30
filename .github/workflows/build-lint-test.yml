@@ -20,6 +20,7 @@ jobs:
                 distribution: 'temurin'
                 java-version: '11'
                 cache: maven
+                gpg-passphrase: GPG_PASSPHRASE
 
             - name: Import GPG Key
               run: |
@@ -30,5 +31,7 @@ jobs:
             - name: Build and test post generation
               run: |
                 export GPG_TTY=$(tty)
-                mvn clean verify -DskipTests=true -Dgpg.passphrase=${{ secrets.GPG_PASSPHRASE }}  
+                mvn clean verify -DskipTests=true
+              env:
+                GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}  
               working-directory: Xero-Java
