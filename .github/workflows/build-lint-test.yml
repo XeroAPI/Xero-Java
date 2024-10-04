@@ -32,5 +32,5 @@ jobs:
                 export GPG_TTY=$(tty)
                 mvn clean verify -DskipTests=true
               env:
-                GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}  
+                MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}  
               working-directory: Xero-Java
