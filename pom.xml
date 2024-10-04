@@ -173,7 +173,7 @@
 			 <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
+                <version>3.3.1</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -203,7 +203,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
-				<version>3.8</version>
+				<version>3.25.0</version>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -315,7 +315,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
-		<swagger-annotations-version>1.6.3</swagger-annotations-version>
+		<swagger-annotations-version>1.6.14</swagger-annotations-version>
 		<google-api-client-version>2.7.0</google-api-client-version>
 		<jersey-common-version>2.25.1</jersey-common-version>
 		<jackson-version>2.18.0</jackson-version>
