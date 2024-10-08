@@ -133,7 +133,9 @@ public class Employment {
    *
    * @return payrollCalendarID
    */
-  @ApiModelProperty(value = "Xero unique identifier for the payroll calendar of the employee")
+  @ApiModelProperty(
+      required = true,
+      value = "Xero unique identifier for the payroll calendar of the employee")
   /**
    * Xero unique identifier for the payroll calendar of the employee
    *
@@ -168,7 +170,7 @@ public class Employment {
    *
    * @return startDate
    */
-  @ApiModelProperty(value = "Start date of the employment (YYYY-MM-DD)")
+  @ApiModelProperty(required = true, value = "Start date of the employment (YYYY-MM-DD)")
   /**
    * Start date of the employment (YYYY-MM-DD)
    *
@@ -203,7 +205,7 @@ public class Employment {
    *
    * @return employeeNumber
    */
-  @ApiModelProperty(example = "7", value = "The employment number of the employee")
+  @ApiModelProperty(example = "7", required = true, value = "The employment number of the employee")
   /**
    * The employment number of the employee
    *
@@ -238,7 +240,7 @@ public class Employment {
    *
    * @return niCategory
    */
-  @ApiModelProperty(example = "A", value = "The NI Category of the employee")
+  @ApiModelProperty(example = "A", required = true, value = "The NI Category of the employee")
   /**
    * The NI Category of the employee
    *
