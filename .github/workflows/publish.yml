@@ -3,10 +3,6 @@ on:
     release:
         types: [published]
 
-    pull_request:
-      branches:
-        - master
-
 jobs:
     publish:
         runs-on: ubuntu-latest
@@ -56,10 +52,9 @@ jobs:
                 export GPG_TTY=$(tty)
                 mvn clean deploy -DskipTests=true
               env:
-                test: test
-                # MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
-                # MAVEN_PASSWORD: ${{ secrets.MAVEN_TOKEN }}
-                # GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+                MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
+                MAVEN_PASSWORD: ${{ secrets.MAVEN_TOKEN }}
+                GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
               working-directory: Xero-Java
 
     notify-slack-on-success:
