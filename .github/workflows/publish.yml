@@ -2,6 +2,9 @@ name: Publish
 on:
     release:
         types: [published]
+    pull_request:
+      branches:
+        - master
 
 jobs:
     publish:
@@ -41,21 +44,21 @@ jobs:
               env:
                  GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
-            - name: Import GPG Key
-              run: |
-                echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import
-              env: 
-                GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY}}
+            # - name: Import GPG Key
+            #   run: |
+            #     echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import
+            #   env: 
+            #     GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY}}
 
-            - name: Publish to Maven
-              run: |
-                export GPG_TTY=$(tty)
-                mvn clean deploy -DskipTests=true
-              env:
-                MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
-                MAVEN_PASSWORD: ${{ secrets.MAVEN_TOKEN }}
-                GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
-              working-directory: Xero-Java
+            # - name: Publish to Maven
+            #   run: |
+            #     export GPG_TTY=$(tty)
+            #     mvn clean deploy -DskipTests=true
+            #   env:
+            #     MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
+            #     MAVEN_PASSWORD: ${{ secrets.MAVEN_TOKEN }}
+            #     GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+            #   working-directory: Xero-Java
 
     notify-slack-on-success:
       runs-on: ubuntu-latest
