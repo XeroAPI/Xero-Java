@@ -68,7 +68,10 @@ public class BatchPayment {
     PAYBATCH("PAYBATCH"),
 
     /** RECBATCH */
-    RECBATCH("RECBATCH");
+    RECBATCH("RECBATCH"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
@@ -123,7 +126,10 @@ public class BatchPayment {
     AUTHORISED("AUTHORISED"),
 
     /** DELETED */
-    DELETED("DELETED");
+    DELETED("DELETED"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 

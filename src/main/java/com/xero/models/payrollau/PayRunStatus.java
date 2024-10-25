@@ -22,7 +22,10 @@ public enum PayRunStatus {
   DRAFT("DRAFT"),
 
   /** POSTED */
-  POSTED("POSTED");
+  POSTED("POSTED"),
+
+  /** UNKNOWN_DEFAULT_OPEN_API */
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private String value;
 

@@ -65,7 +65,10 @@ public class Employee {
     F("F"),
 
     /** I */
-    I("I");
+    I("I"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
@@ -183,7 +186,10 @@ public class Employee {
     C("C"),
 
     /** T */
-    T("T");
+    T("T"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 

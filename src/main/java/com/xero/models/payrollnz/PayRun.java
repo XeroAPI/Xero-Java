@@ -52,7 +52,10 @@ public class PayRun {
     DRAFT("Draft"),
 
     /** POSTED */
-    POSTED("Posted");
+    POSTED("Posted"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
@@ -107,7 +110,10 @@ public class PayRun {
     UNSCHEDULED("Unscheduled"),
 
     /** EARLIERYEARUPDATE */
-    EARLIERYEARUPDATE("EarlierYearUpdate");
+    EARLIERYEARUPDATE("EarlierYearUpdate"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 

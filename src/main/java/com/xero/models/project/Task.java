@@ -79,7 +79,10 @@ public class Task {
     INVOICED("INVOICED"),
 
     /** LOCKED */
-    LOCKED("LOCKED");
+    LOCKED("LOCKED"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 

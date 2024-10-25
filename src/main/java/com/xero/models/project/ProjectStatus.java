@@ -22,7 +22,10 @@ public enum ProjectStatus {
   INPROGRESS("INPROGRESS"),
 
   /** CLOSED */
-  CLOSED("CLOSED");
+  CLOSED("CLOSED"),
+
+  /** UNKNOWN_DEFAULT_OPEN_API */
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private String value;
 

@@ -30,7 +30,10 @@ public class Action {
     ALLOWED("ALLOWED"),
 
     /** NOT_ALLOWED */
-    NOT_ALLOWED("NOT-ALLOWED");
+    NOT_ALLOWED("NOT-ALLOWED"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 

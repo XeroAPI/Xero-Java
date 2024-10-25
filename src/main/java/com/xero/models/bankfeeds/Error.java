@@ -103,7 +103,10 @@ public class Error {
     ACCOUNT_NOT_VALID("account-not-valid"),
 
     /** FEED_NOT_FOUND_OR_ALREADY_DELETED */
-    FEED_NOT_FOUND_OR_ALREADY_DELETED("feed-not-found-or-already-deleted");
+    FEED_NOT_FOUND_OR_ALREADY_DELETED("feed-not-found-or-already-deleted"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 

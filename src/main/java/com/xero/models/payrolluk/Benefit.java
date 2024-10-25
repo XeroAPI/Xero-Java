@@ -34,7 +34,10 @@ public class Benefit {
     STAKEHOLDERPENSION("StakeholderPension"),
 
     /** OTHER */
-    OTHER("Other");
+    OTHER("Other"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
@@ -98,7 +101,10 @@ public class Benefit {
     FIXEDAMOUNT("FixedAmount"),
 
     /** PERCENTAGEOFGROSS */
-    PERCENTAGEOFGROSS("PercentageOfGross");
+    PERCENTAGEOFGROSS("PercentageOfGross"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 

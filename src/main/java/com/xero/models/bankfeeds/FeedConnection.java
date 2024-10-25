@@ -46,7 +46,10 @@ public class FeedConnection {
     BANK("BANK"),
 
     /** CREDITCARD */
-    CREDITCARD("CREDITCARD");
+    CREDITCARD("CREDITCARD"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
@@ -104,7 +107,10 @@ public class FeedConnection {
     PENDING("PENDING"),
 
     /** REJECTED */
-    REJECTED("REJECTED");
+    REJECTED("REJECTED"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 

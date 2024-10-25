@@ -50,7 +50,10 @@ public class Account {
     ARCHIVED("ARCHIVED"),
 
     /** DELETED */
-    DELETED("DELETED");
+    DELETED("DELETED"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
@@ -114,7 +117,10 @@ public class Account {
     NONE("NONE"),
 
     /** EMPTY */
-    EMPTY("");
+    EMPTY(""),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
@@ -187,7 +193,10 @@ public class Account {
     LIABILITY("LIABILITY"),
 
     /** REVENUE */
-    REVENUE("REVENUE");
+    REVENUE("REVENUE"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
@@ -299,7 +308,10 @@ public class Account {
     CISMATERIALS("CISMATERIALS"),
 
     /** EMPTY */
-    EMPTY("");
+    EMPTY(""),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 

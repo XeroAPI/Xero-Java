@@ -53,7 +53,10 @@ public class SubscriptionItem {
     CANCELED("CANCELED"),
 
     /** PENDING_ACTIVATION */
-    PENDING_ACTIVATION("PENDING_ACTIVATION");
+    PENDING_ACTIVATION("PENDING_ACTIVATION"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 

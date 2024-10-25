@@ -36,7 +36,10 @@ public class ContactGroup {
     ACTIVE("ACTIVE"),
 
     /** DELETED */
-    DELETED("DELETED");
+    DELETED("DELETED"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 

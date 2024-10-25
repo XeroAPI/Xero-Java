@@ -46,7 +46,10 @@ public class Account {
     WAGESPAYABLE("WAGESPAYABLE"),
 
     /** WAGESEXPENSE */
-    WAGESEXPENSE("WAGESEXPENSE");
+    WAGESEXPENSE("WAGESEXPENSE"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 

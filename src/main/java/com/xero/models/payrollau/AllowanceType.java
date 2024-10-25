@@ -43,7 +43,10 @@ public enum AllowanceType {
   TASKS("TASKS"),
 
   /** QUALIFICATIONS */
-  QUALIFICATIONS("QUALIFICATIONS");
+  QUALIFICATIONS("QUALIFICATIONS"),
+
+  /** UNKNOWN_DEFAULT_OPEN_API */
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private String value;
 

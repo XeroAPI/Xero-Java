@@ -34,7 +34,10 @@ public enum CalendarType {
   TWICEMONTHLY("TWICEMONTHLY"),
 
   /** QUARTERLY */
-  QUARTERLY("QUARTERLY");
+  QUARTERLY("QUARTERLY"),
+
+  /** UNKNOWN_DEFAULT_OPEN_API */
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private String value;
 

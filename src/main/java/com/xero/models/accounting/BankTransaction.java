@@ -53,7 +53,10 @@ public class BankTransaction {
     RECEIVE_TRANSFER("RECEIVE-TRANSFER"),
 
     /** SPEND_TRANSFER */
-    SPEND_TRANSFER("SPEND-TRANSFER");
+    SPEND_TRANSFER("SPEND-TRANSFER"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
@@ -135,7 +138,10 @@ public class BankTransaction {
     DELETED("DELETED"),
 
     /** VOIDED */
-    VOIDED("VOIDED");
+    VOIDED("VOIDED"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 

@@ -63,7 +63,10 @@ public class LinkedTransaction {
     BILLED("BILLED"),
 
     /** VOIDED */
-    VOIDED("VOIDED");
+    VOIDED("VOIDED"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
@@ -112,7 +115,10 @@ public class LinkedTransaction {
   /** This will always be BILLABLEEXPENSE. More types may be added in future. */
   public enum TypeEnum {
     /** BILLABLEEXPENSE */
-    BILLABLEEXPENSE("BILLABLEEXPENSE");
+    BILLABLEEXPENSE("BILLABLEEXPENSE"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
@@ -170,7 +176,10 @@ public class LinkedTransaction {
     ACCPAY("ACCPAY"),
 
     /** SPEND */
-    SPEND("SPEND");
+    SPEND("SPEND"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 

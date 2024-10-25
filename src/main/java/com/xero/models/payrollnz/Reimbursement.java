@@ -43,7 +43,10 @@ public class Reimbursement {
     NOGST("NoGST"),
 
     /** GSTINCLUSIVE */
-    GSTINCLUSIVE("GSTInclusive");
+    GSTINCLUSIVE("GSTInclusive"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
@@ -98,7 +101,10 @@ public class Reimbursement {
     FIXEDAMOUNT("FixedAmount"),
 
     /** RATEPERUNIT */
-    RATEPERUNIT("RatePerUnit");
+    RATEPERUNIT("RatePerUnit"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
@@ -153,7 +159,10 @@ public class Reimbursement {
     HOURS("Hours"),
 
     /** KM */
-    KM("km");
+    KM("km"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 

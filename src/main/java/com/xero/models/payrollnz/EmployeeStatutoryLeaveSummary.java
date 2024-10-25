@@ -44,7 +44,10 @@ public class EmployeeStatutoryLeaveSummary {
     PATERNITY("Paternity"),
 
     /** SHAREDPARENTAL */
-    SHAREDPARENTAL("Sharedparental");
+    SHAREDPARENTAL("Sharedparental"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
@@ -108,7 +111,10 @@ public class EmployeeStatutoryLeaveSummary {
     IN_PROGRESS("In-Progress"),
 
     /** COMPLETED */
-    COMPLETED("Completed");
+    COMPLETED("Completed"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
