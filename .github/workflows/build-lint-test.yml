@@ -48,6 +48,5 @@ jobs:
               working-directory: Xero-Java
   
             - name: Stop PRISM
-              if: success() || failure()
               run: pkill -f prism
               working-directory: Xero-Java
