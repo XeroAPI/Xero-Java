@@ -37,7 +37,10 @@ public class Account {
     WAGESEXPENSE("WAGESEXPENSE"),
 
     /** BANK */
-    BANK("BANK");
+    BANK("BANK"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 

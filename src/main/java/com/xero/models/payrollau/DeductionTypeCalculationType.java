@@ -25,7 +25,10 @@ public enum DeductionTypeCalculationType {
   PRETAX("PRETAX"),
 
   /** POSTTAX */
-  POSTTAX("POSTTAX");
+  POSTTAX("POSTTAX"),
+
+  /** UNKNOWN_DEFAULT_OPEN_API */
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private String value;
 

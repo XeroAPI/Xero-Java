@@ -53,7 +53,10 @@ public class Invoice {
     AROVERPAYMENT("AROVERPAYMENT"),
 
     /** ARPREPAYMENT */
-    ARPREPAYMENT("ARPREPAYMENT");
+    ARPREPAYMENT("ARPREPAYMENT"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
@@ -150,7 +153,10 @@ public class Invoice {
     PAID("PAID"),
 
     /** VOIDED */
-    VOIDED("VOIDED");
+    VOIDED("VOIDED"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 

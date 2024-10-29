@@ -22,7 +22,10 @@ public enum EntitlementFinalPayPayoutType {
   NOTPAIDOUT("NOTPAIDOUT"),
 
   /** PAIDOUT */
-  PAIDOUT("PAIDOUT");
+  PAIDOUT("PAIDOUT"),
+
+  /** UNKNOWN_DEFAULT_OPEN_API */
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private String value;
 

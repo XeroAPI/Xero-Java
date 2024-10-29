@@ -41,7 +41,10 @@ public class Prepayment {
     ARPREPAYMENT("ARPREPAYMENT"),
 
     /** APPREPAYMENT */
-    APPREPAYMENT("APPREPAYMENT");
+    APPREPAYMENT("APPREPAYMENT"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
@@ -102,7 +105,10 @@ public class Prepayment {
     PAID("PAID"),
 
     /** VOIDED */
-    VOIDED("VOIDED");
+    VOIDED("VOIDED"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 

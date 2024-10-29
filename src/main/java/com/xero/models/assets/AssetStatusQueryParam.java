@@ -25,7 +25,10 @@ public enum AssetStatusQueryParam {
   REGISTERED("REGISTERED"),
 
   /** DISPOSED */
-  DISPOSED("DISPOSED");
+  DISPOSED("DISPOSED"),
+
+  /** UNKNOWN_DEFAULT_OPEN_API */
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private String value;
 

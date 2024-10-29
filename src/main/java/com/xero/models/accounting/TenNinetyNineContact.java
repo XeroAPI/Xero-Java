@@ -115,7 +115,10 @@ public class TenNinetyNineContact {
     S_CORP("S_CORP"),
 
     /** OTHER */
-    OTHER("OTHER");
+    OTHER("OTHER"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 

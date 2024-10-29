@@ -74,7 +74,10 @@ public class Organisation {
     UKONRAMP("UKONRAMP"),
 
     /** USONRAMP */
-    USONRAMP("USONRAMP");
+    USONRAMP("USONRAMP"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
@@ -159,7 +162,10 @@ public class Organisation {
     SUPERANNUATION_FUND("SUPERANNUATION_FUND"),
 
     /** TRUST */
-    TRUST("TRUST");
+    TRUST("TRUST"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
@@ -256,7 +262,10 @@ public class Organisation {
     FLATRATEACCRUAL("FLATRATEACCRUAL"),
 
     /** ACCRUALS */
-    ACCRUALS("ACCRUALS");
+    ACCRUALS("ACCRUALS"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
@@ -347,7 +356,10 @@ public class Organisation {
     YEARLY("YEARLY"),
 
     /** NONE */
-    NONE("NONE");
+    NONE("NONE"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
@@ -450,7 +462,10 @@ public class Organisation {
     SUPERANNUATION_FUND("SUPERANNUATION_FUND"),
 
     /** TRUST */
-    TRUST("TRUST");
+    TRUST("TRUST"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
@@ -562,7 +577,10 @@ public class Organisation {
     GROW("GROW"),
 
     /** COMPREHENSIVE */
-    COMPREHENSIVE("COMPREHENSIVE");
+    COMPREHENSIVE("COMPREHENSIVE"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
@@ -617,7 +635,10 @@ public class Organisation {
     BUSINESS("BUSINESS"),
 
     /** PARTNER */
-    PARTNER("PARTNER");
+    PARTNER("PARTNER"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 

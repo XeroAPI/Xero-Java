@@ -28,7 +28,10 @@ public enum LeaveTypeContributionType {
   EMPLOYERADDITIONAL("EMPLOYERADDITIONAL"),
 
   /** EMPLOYEE */
-  EMPLOYEE("EMPLOYEE");
+  EMPLOYEE("EMPLOYEE"),
+
+  /** UNKNOWN_DEFAULT_OPEN_API */
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private String value;
 

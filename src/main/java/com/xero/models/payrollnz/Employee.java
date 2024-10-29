@@ -51,7 +51,10 @@ public class Employee {
     M("M"),
 
     /** F */
-    F("F");
+    F("F"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
@@ -212,7 +215,7 @@ public class Employee {
    *
    * @return firstName
    */
-  @ApiModelProperty(example = "Karen", value = "First name of employee")
+  @ApiModelProperty(example = "Karen", required = true, value = "First name of employee")
   /**
    * First name of employee
    *
@@ -247,7 +250,7 @@ public class Employee {
    *
    * @return lastName
    */
-  @ApiModelProperty(example = "Jones", value = "Last name of employee")
+  @ApiModelProperty(example = "Jones", required = true, value = "Last name of employee")
   /**
    * Last name of employee
    *
@@ -284,6 +287,7 @@ public class Employee {
    */
   @ApiModelProperty(
       example = "Wed Jan 02 00:00:00 UTC 2019",
+      required = true,
       value = "Date of birth of the employee (YYYY-MM-DD)")
   /**
    * Date of birth of the employee (YYYY-MM-DD)
@@ -319,7 +323,7 @@ public class Employee {
    *
    * @return address
    */
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(required = true, value = "")
   /**
    * address
    *

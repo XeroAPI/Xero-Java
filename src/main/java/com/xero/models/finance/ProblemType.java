@@ -49,7 +49,10 @@ public enum ProblemType {
   UNAUTHORIZED("unauthorized"),
 
   /** RATE_LIMIT_ERROR */
-  RATE_LIMIT_ERROR("rate-limit-error");
+  RATE_LIMIT_ERROR("rate-limit-error"),
+
+  /** UNKNOWN_DEFAULT_OPEN_API */
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private String value;
 

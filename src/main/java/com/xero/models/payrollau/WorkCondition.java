@@ -25,7 +25,10 @@ public enum WorkCondition {
   THREELESSPERFORMANCESPERWEEK("THREELESSPERFORMANCESPERWEEK"),
 
   /** NONE */
-  NONE("NONE");
+  NONE("NONE"),
+
+  /** UNKNOWN_DEFAULT_OPEN_API */
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private String value;
 

@@ -38,7 +38,10 @@ public class EmployeeLeaveType {
     EACHPAYPERIOD("EachPayPeriod"),
 
     /** ONHOURWORKED */
-    ONHOURWORKED("OnHourWorked");
+    ONHOURWORKED("OnHourWorked"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 

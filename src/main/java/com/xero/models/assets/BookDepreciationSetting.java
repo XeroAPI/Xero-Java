@@ -40,7 +40,10 @@ public class BookDepreciationSetting {
     DIMINISHINGVALUE200("DiminishingValue200"),
 
     /** FULLDEPRECIATION */
-    FULLDEPRECIATION("FullDepreciation");
+    FULLDEPRECIATION("FullDepreciation"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
@@ -92,7 +95,10 @@ public class BookDepreciationSetting {
     FULLMONTH("FullMonth"),
 
     /** ACTUALDAYS */
-    ACTUALDAYS("ActualDays");
+    ACTUALDAYS("ActualDays"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
@@ -153,7 +159,10 @@ public class BookDepreciationSetting {
     LIFE("Life"),
 
     /** NONE */
-    NONE("None");
+    NONE("None"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
