@@ -50,7 +50,10 @@ public class Timesheet {
     APPROVED("Approved"),
 
     /** COMPLETED */
-    COMPLETED("Completed");
+    COMPLETED("Completed"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 

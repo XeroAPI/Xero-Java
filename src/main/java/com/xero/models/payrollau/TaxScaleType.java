@@ -34,7 +34,10 @@ public enum TaxScaleType {
   WORKINGHOLIDAYMAKER("WORKINGHOLIDAYMAKER"),
 
   /** FOREIGN */
-  FOREIGN("FOREIGN");
+  FOREIGN("FOREIGN"),
+
+  /** UNKNOWN_DEFAULT_OPEN_API */
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private String value;
 

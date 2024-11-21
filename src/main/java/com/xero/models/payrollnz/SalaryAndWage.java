@@ -56,7 +56,10 @@ public class SalaryAndWage {
     PENDING("Pending"),
 
     /** HISTORY */
-    HISTORY("History");
+    HISTORY("History"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
@@ -108,7 +111,10 @@ public class SalaryAndWage {
     SALARY("Salary"),
 
     /** HOURLY */
-    HOURLY("Hourly");
+    HOURLY("Hourly"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
@@ -160,7 +166,10 @@ public class SalaryAndWage {
     DAYSANDHOURS("DaysAndHours"),
 
     /** REGULARWEEK */
-    REGULARWEEK("RegularWeek");
+    REGULARWEEK("RegularWeek"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 

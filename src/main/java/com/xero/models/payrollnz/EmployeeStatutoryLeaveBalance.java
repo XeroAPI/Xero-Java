@@ -36,7 +36,10 @@ public class EmployeeStatutoryLeaveBalance {
     PATERNITY("Paternity"),
 
     /** SHAREDPARENTAL */
-    SHAREDPARENTAL("Sharedparental");
+    SHAREDPARENTAL("Sharedparental"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
@@ -88,7 +91,10 @@ public class EmployeeStatutoryLeaveBalance {
   /** The units will be \&quot;Hours\&quot; */
   public enum UnitsEnum {
     /** HOURS */
-    HOURS("Hours");
+    HOURS("Hours"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 

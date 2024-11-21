@@ -61,7 +61,10 @@ public class TimeEntry {
     LOCKED("LOCKED"),
 
     /** INVOICED */
-    INVOICED("INVOICED");
+    INVOICED("INVOICED"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 

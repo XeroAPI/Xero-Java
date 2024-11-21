@@ -73,7 +73,10 @@ public class EarningsRate {
     TIPS_NON_DIRECT_("Tips(Non-Direct)"),
 
     /** WITHHOLDINGINCOME */
-    WITHHOLDINGINCOME("WithholdingIncome");
+    WITHHOLDINGINCOME("WithholdingIncome"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
@@ -128,7 +131,10 @@ public class EarningsRate {
     MULTIPLEOFORDINARYEARNINGSRATE("MultipleOfOrdinaryEarningsRate"),
 
     /** FIXEDAMOUNT */
-    FIXEDAMOUNT("FixedAmount");
+    FIXEDAMOUNT("FixedAmount"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 

@@ -38,7 +38,10 @@ public class Overpayment {
     SPEND_OVERPAYMENT("SPEND-OVERPAYMENT"),
 
     /** AROVERPAYMENT */
-    AROVERPAYMENT("AROVERPAYMENT");
+    AROVERPAYMENT("AROVERPAYMENT"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
@@ -99,7 +102,10 @@ public class Overpayment {
     PAID("PAID"),
 
     /** VOIDED */
-    VOIDED("VOIDED");
+    VOIDED("VOIDED"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 

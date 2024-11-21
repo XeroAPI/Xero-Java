@@ -31,7 +31,10 @@ public enum IncomeType {
   CLOSELYHELDPAYEES("CLOSELYHELDPAYEES"),
 
   /** LABOURHIRE */
-  LABOURHIRE("LABOURHIRE");
+  LABOURHIRE("LABOURHIRE"),
+
+  /** UNKNOWN_DEFAULT_OPEN_API */
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private String value;
 

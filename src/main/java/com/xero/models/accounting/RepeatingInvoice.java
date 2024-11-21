@@ -30,7 +30,10 @@ public class RepeatingInvoice {
     ACCPAY("ACCPAY"),
 
     /** ACCREC */
-    ACCREC("ACCREC");
+    ACCREC("ACCREC"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
@@ -106,7 +109,10 @@ public class RepeatingInvoice {
     AUTHORISED("AUTHORISED"),
 
     /** DELETED */
-    DELETED("DELETED");
+    DELETED("DELETED"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 

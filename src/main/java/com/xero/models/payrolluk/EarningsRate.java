@@ -97,7 +97,10 @@ public class EarningsRate {
     TIPSDIRECT("TipsDirect"),
 
     /** TERMINATIONPAY */
-    TERMINATIONPAY("TerminationPay");
+    TERMINATIONPAY("TerminationPay"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
@@ -152,7 +155,10 @@ public class EarningsRate {
     MULTIPLEOFORDINARYEARNINGSRATE("MultipleOfOrdinaryEarningsRate"),
 
     /** FIXEDAMOUNT */
-    FIXEDAMOUNT("FixedAmount");
+    FIXEDAMOUNT("FixedAmount"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 

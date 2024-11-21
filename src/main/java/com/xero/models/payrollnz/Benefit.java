@@ -37,7 +37,10 @@ public class Benefit {
     COMPLYINGFUND("ComplyingFund"),
 
     /** OTHER */
-    OTHER("Other");
+    OTHER("Other"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 
@@ -95,7 +98,10 @@ public class Benefit {
     FIXEDAMOUNT("FixedAmount"),
 
     /** PERCENTAGEOFTAXABLEEARNINGS */
-    PERCENTAGEOFTAXABLEEARNINGS("PercentageOfTaxableEarnings");
+    PERCENTAGEOFTAXABLEEARNINGS("PercentageOfTaxableEarnings"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 

@@ -385,7 +385,10 @@ public enum TaxType {
   BLINPUT3Y23("BLINPUT3Y23"),
 
   /** BLINPUT3Y24 */
-  BLINPUT3Y24("BLINPUT3Y24");
+  BLINPUT3Y24("BLINPUT3Y24"),
+
+  /** UNKNOWN_DEFAULT_OPEN_API */
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private String value;
 

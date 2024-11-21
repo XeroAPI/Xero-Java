@@ -52,7 +52,10 @@ public class Subscription {
     CANCELED("CANCELED"),
 
     /** PAST_DUE */
-    PAST_DUE("PAST_DUE");
+    PAST_DUE("PAST_DUE"),
+
+    /** UNKNOWN_DEFAULT_OPEN_API */
+    UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
     private String value;
 

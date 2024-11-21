@@ -49,7 +49,10 @@ public enum StatutoryDeductionCategory {
   VOLUNTARYSTUDENTLOAN("VoluntaryStudentLoan"),
 
   /** KIWISAVER */
-  KIWISAVER("KiwiSaver");
+  KIWISAVER("KiwiSaver"),
+
+  /** UNKNOWN_DEFAULT_OPEN_API */
+  UNKNOWN_DEFAULT_OPEN_API("unknown_default_open_api");
 
   private String value;
 
