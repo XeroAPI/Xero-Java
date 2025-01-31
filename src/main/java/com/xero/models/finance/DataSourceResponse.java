@@ -23,9 +23,6 @@ public class DataSourceResponse {
   @JsonProperty("directBankFeed")
   private Double directBankFeed;
 
-  @JsonProperty("indirectBankFeed")
-  private Double indirectBankFeed;
-
   @JsonProperty("fileUpload")
   private Double fileUpload;
 
@@ -35,9 +32,6 @@ public class DataSourceResponse {
   @JsonProperty("directBankFeedPos")
   private Double directBankFeedPos;
 
-  @JsonProperty("indirectBankFeedPos")
-  private Double indirectBankFeedPos;
-
   @JsonProperty("fileUploadPos")
   private Double fileUploadPos;
 
@@ -46,9 +40,6 @@ public class DataSourceResponse {
 
   @JsonProperty("directBankFeedNeg")
   private Double directBankFeedNeg;
-
-  @JsonProperty("indirectBankFeedNeg")
-  private Double indirectBankFeedNeg;
 
   @JsonProperty("fileUploadNeg")
   private Double fileUploadNeg;
@@ -110,41 +101,6 @@ public class DataSourceResponse {
    */
   public void setDirectBankFeed(Double directBankFeed) {
     this.directBankFeed = directBankFeed;
-  }
-
-  /**
-   * No longer in use.
-   *
-   * @param indirectBankFeed Double
-   * @return DataSourceResponse
-   */
-  public DataSourceResponse indirectBankFeed(Double indirectBankFeed) {
-    this.indirectBankFeed = indirectBankFeed;
-    return this;
-  }
-
-  /**
-   * No longer in use.
-   *
-   * @return indirectBankFeed
-   */
-  @ApiModelProperty(value = "No longer in use.")
-  /**
-   * No longer in use.
-   *
-   * @return indirectBankFeed Double
-   */
-  public Double getIndirectBankFeed() {
-    return indirectBankFeed;
-  }
-
-  /**
-   * No longer in use.
-   *
-   * @param indirectBankFeed Double
-   */
-  public void setIndirectBankFeed(Double indirectBankFeed) {
-    this.indirectBankFeed = indirectBankFeed;
   }
 
   /**
@@ -283,41 +239,6 @@ public class DataSourceResponse {
    */
   public void setDirectBankFeedPos(Double directBankFeedPos) {
     this.directBankFeedPos = directBankFeedPos;
-  }
-
-  /**
-   * No longer in use.
-   *
-   * @param indirectBankFeedPos Double
-   * @return DataSourceResponse
-   */
-  public DataSourceResponse indirectBankFeedPos(Double indirectBankFeedPos) {
-    this.indirectBankFeedPos = indirectBankFeedPos;
-    return this;
-  }
-
-  /**
-   * No longer in use.
-   *
-   * @return indirectBankFeedPos
-   */
-  @ApiModelProperty(value = "No longer in use.")
-  /**
-   * No longer in use.
-   *
-   * @return indirectBankFeedPos Double
-   */
-  public Double getIndirectBankFeedPos() {
-    return indirectBankFeedPos;
-  }
-
-  /**
-   * No longer in use.
-   *
-   * @param indirectBankFeedPos Double
-   */
-  public void setIndirectBankFeedPos(Double indirectBankFeedPos) {
-    this.indirectBankFeedPos = indirectBankFeedPos;
   }
 
   /**
@@ -464,41 +385,6 @@ public class DataSourceResponse {
    */
   public void setDirectBankFeedNeg(Double directBankFeedNeg) {
     this.directBankFeedNeg = directBankFeedNeg;
-  }
-
-  /**
-   * No longer in use.
-   *
-   * @param indirectBankFeedNeg Double
-   * @return DataSourceResponse
-   */
-  public DataSourceResponse indirectBankFeedNeg(Double indirectBankFeedNeg) {
-    this.indirectBankFeedNeg = indirectBankFeedNeg;
-    return this;
-  }
-
-  /**
-   * No longer in use.
-   *
-   * @return indirectBankFeedNeg
-   */
-  @ApiModelProperty(value = "No longer in use.")
-  /**
-   * No longer in use.
-   *
-   * @return indirectBankFeedNeg Double
-   */
-  public Double getIndirectBankFeedNeg() {
-    return indirectBankFeedNeg;
-  }
-
-  /**
-   * No longer in use.
-   *
-   * @param indirectBankFeedNeg Double
-   */
-  public void setIndirectBankFeedNeg(Double indirectBankFeedNeg) {
-    this.indirectBankFeedNeg = indirectBankFeedNeg;
   }
 
   /**
@@ -741,15 +627,12 @@ public class DataSourceResponse {
     }
     DataSourceResponse dataSourceResponse = (DataSourceResponse) o;
     return Objects.equals(this.directBankFeed, dataSourceResponse.directBankFeed)
-        && Objects.equals(this.indirectBankFeed, dataSourceResponse.indirectBankFeed)
         && Objects.equals(this.fileUpload, dataSourceResponse.fileUpload)
         && Objects.equals(this.manual, dataSourceResponse.manual)
         && Objects.equals(this.directBankFeedPos, dataSourceResponse.directBankFeedPos)
-        && Objects.equals(this.indirectBankFeedPos, dataSourceResponse.indirectBankFeedPos)
         && Objects.equals(this.fileUploadPos, dataSourceResponse.fileUploadPos)
         && Objects.equals(this.manualPos, dataSourceResponse.manualPos)
         && Objects.equals(this.directBankFeedNeg, dataSourceResponse.directBankFeedNeg)
-        && Objects.equals(this.indirectBankFeedNeg, dataSourceResponse.indirectBankFeedNeg)
         && Objects.equals(this.fileUploadNeg, dataSourceResponse.fileUploadNeg)
         && Objects.equals(this.manualNeg, dataSourceResponse.manualNeg)
         && Objects.equals(this.otherPos, dataSourceResponse.otherPos)
@@ -761,15 +644,12 @@ public class DataSourceResponse {
   public int hashCode() {
     return Objects.hash(
         directBankFeed,
-        indirectBankFeed,
         fileUpload,
         manual,
         directBankFeedPos,
-        indirectBankFeedPos,
         fileUploadPos,
         manualPos,
         directBankFeedNeg,
-        indirectBankFeedNeg,
         fileUploadNeg,
         manualNeg,
         otherPos,
@@ -782,19 +662,12 @@ public class DataSourceResponse {
     StringBuilder sb = new StringBuilder();
     sb.append("class DataSourceResponse {\n");
     sb.append("    directBankFeed: ").append(toIndentedString(directBankFeed)).append("\n");
-    sb.append("    indirectBankFeed: ").append(toIndentedString(indirectBankFeed)).append("\n");
     sb.append("    fileUpload: ").append(toIndentedString(fileUpload)).append("\n");
     sb.append("    manual: ").append(toIndentedString(manual)).append("\n");
     sb.append("    directBankFeedPos: ").append(toIndentedString(directBankFeedPos)).append("\n");
-    sb.append("    indirectBankFeedPos: ")
-        .append(toIndentedString(indirectBankFeedPos))
-        .append("\n");
     sb.append("    fileUploadPos: ").append(toIndentedString(fileUploadPos)).append("\n");
     sb.append("    manualPos: ").append(toIndentedString(manualPos)).append("\n");
     sb.append("    directBankFeedNeg: ").append(toIndentedString(directBankFeedNeg)).append("\n");
-    sb.append("    indirectBankFeedNeg: ")
-        .append(toIndentedString(indirectBankFeedNeg))
-        .append("\n");
     sb.append("    fileUploadNeg: ").append(toIndentedString(fileUploadNeg)).append("\n");
     sb.append("    manualNeg: ").append(toIndentedString(manualNeg)).append("\n");
     sb.append("    otherPos: ").append(toIndentedString(otherPos)).append("\n");
