@@ -31,13 +31,25 @@ public class LeavePeriod {
 
   @JsonProperty("numberOfUnits")
   private Double numberOfUnits;
-  /** Period Status */
+
+  @JsonProperty("numberOfUnitsTaken")
+  private Double numberOfUnitsTaken;
+
+  @JsonProperty("typeOfUnits")
+  private String typeOfUnits;
+
+  @JsonProperty("typeOfUnitsTaken")
+  private String typeOfUnitsTaken;
+  /** Status of leave */
   public enum PeriodStatusEnum {
     /** APPROVED */
     APPROVED("Approved"),
 
     /** COMPLETED */
-    COMPLETED("Completed");
+    COMPLETED("Completed"),
+
+    /** ESTIMATED */
+    ESTIMATED("Estimated");
 
     private String value;
 
@@ -189,7 +201,112 @@ public class LeavePeriod {
   }
 
   /**
-   * Period Status
+   * The number of units taken for the leave
+   *
+   * @param numberOfUnitsTaken Double
+   * @return LeavePeriod
+   */
+  public LeavePeriod numberOfUnitsTaken(Double numberOfUnitsTaken) {
+    this.numberOfUnitsTaken = numberOfUnitsTaken;
+    return this;
+  }
+
+  /**
+   * The number of units taken for the leave
+   *
+   * @return numberOfUnitsTaken
+   */
+  @ApiModelProperty(value = "The number of units taken for the leave")
+  /**
+   * The number of units taken for the leave
+   *
+   * @return numberOfUnitsTaken Double
+   */
+  public Double getNumberOfUnitsTaken() {
+    return numberOfUnitsTaken;
+  }
+
+  /**
+   * The number of units taken for the leave
+   *
+   * @param numberOfUnitsTaken Double
+   */
+  public void setNumberOfUnitsTaken(Double numberOfUnitsTaken) {
+    this.numberOfUnitsTaken = numberOfUnitsTaken;
+  }
+
+  /**
+   * The type of units paid for the leave
+   *
+   * @param typeOfUnits String
+   * @return LeavePeriod
+   */
+  public LeavePeriod typeOfUnits(String typeOfUnits) {
+    this.typeOfUnits = typeOfUnits;
+    return this;
+  }
+
+  /**
+   * The type of units paid for the leave
+   *
+   * @return typeOfUnits
+   */
+  @ApiModelProperty(value = "The type of units paid for the leave")
+  /**
+   * The type of units paid for the leave
+   *
+   * @return typeOfUnits String
+   */
+  public String getTypeOfUnits() {
+    return typeOfUnits;
+  }
+
+  /**
+   * The type of units paid for the leave
+   *
+   * @param typeOfUnits String
+   */
+  public void setTypeOfUnits(String typeOfUnits) {
+    this.typeOfUnits = typeOfUnits;
+  }
+
+  /**
+   * The type of units taken for the leave
+   *
+   * @param typeOfUnitsTaken String
+   * @return LeavePeriod
+   */
+  public LeavePeriod typeOfUnitsTaken(String typeOfUnitsTaken) {
+    this.typeOfUnitsTaken = typeOfUnitsTaken;
+    return this;
+  }
+
+  /**
+   * The type of units taken for the leave
+   *
+   * @return typeOfUnitsTaken
+   */
+  @ApiModelProperty(value = "The type of units taken for the leave")
+  /**
+   * The type of units taken for the leave
+   *
+   * @return typeOfUnitsTaken String
+   */
+  public String getTypeOfUnitsTaken() {
+    return typeOfUnitsTaken;
+  }
+
+  /**
+   * The type of units taken for the leave
+   *
+   * @param typeOfUnitsTaken String
+   */
+  public void setTypeOfUnitsTaken(String typeOfUnitsTaken) {
+    this.typeOfUnitsTaken = typeOfUnitsTaken;
+  }
+
+  /**
+   * Status of leave
    *
    * @param periodStatus PeriodStatusEnum
    * @return LeavePeriod
@@ -200,13 +317,13 @@ public class LeavePeriod {
   }
 
   /**
-   * Period Status
+   * Status of leave
    *
    * @return periodStatus
    */
-  @ApiModelProperty(value = "Period Status")
+  @ApiModelProperty(value = "Status of leave")
   /**
-   * Period Status
+   * Status of leave
    *
    * @return periodStatus PeriodStatusEnum
    */
@@ -215,7 +332,7 @@ public class LeavePeriod {
   }
 
   /**
-   * Period Status
+   * Status of leave
    *
    * @param periodStatus PeriodStatusEnum
    */
@@ -235,12 +352,22 @@ public class LeavePeriod {
     return Objects.equals(this.periodStartDate, leavePeriod.periodStartDate)
         && Objects.equals(this.periodEndDate, leavePeriod.periodEndDate)
         && Objects.equals(this.numberOfUnits, leavePeriod.numberOfUnits)
+        && Objects.equals(this.numberOfUnitsTaken, leavePeriod.numberOfUnitsTaken)
+        && Objects.equals(this.typeOfUnits, leavePeriod.typeOfUnits)
+        && Objects.equals(this.typeOfUnitsTaken, leavePeriod.typeOfUnitsTaken)
         && Objects.equals(this.periodStatus, leavePeriod.periodStatus);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(periodStartDate, periodEndDate, numberOfUnits, periodStatus);
+    return Objects.hash(
+        periodStartDate,
+        periodEndDate,
+        numberOfUnits,
+        numberOfUnitsTaken,
+        typeOfUnits,
+        typeOfUnitsTaken,
+        periodStatus);
   }
 
   @Override
@@ -250,6 +377,9 @@ public class LeavePeriod {
     sb.append("    periodStartDate: ").append(toIndentedString(periodStartDate)).append("\n");
     sb.append("    periodEndDate: ").append(toIndentedString(periodEndDate)).append("\n");
     sb.append("    numberOfUnits: ").append(toIndentedString(numberOfUnits)).append("\n");
+    sb.append("    numberOfUnitsTaken: ").append(toIndentedString(numberOfUnitsTaken)).append("\n");
+    sb.append("    typeOfUnits: ").append(toIndentedString(typeOfUnits)).append("\n");
+    sb.append("    typeOfUnitsTaken: ").append(toIndentedString(typeOfUnitsTaken)).append("\n");
     sb.append("    periodStatus: ").append(toIndentedString(periodStatus)).append("\n");
     sb.append("}");
     return sb.toString();

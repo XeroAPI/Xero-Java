@@ -39,6 +39,12 @@ public class LeaveType {
 
   @JsonProperty("isActive")
   private Boolean isActive;
+
+  @JsonProperty("typeOfUnits")
+  private String typeOfUnits;
+
+  @JsonProperty("typeOfUnitsToAccrue")
+  private String typeOfUnitsToAccrue;
   /**
    * Xero unique identifier for the leave type
    *
@@ -253,6 +259,76 @@ public class LeaveType {
     this.isActive = isActive;
   }
 
+  /**
+   * The type of units to be paid for the leave type
+   *
+   * @param typeOfUnits String
+   * @return LeaveType
+   */
+  public LeaveType typeOfUnits(String typeOfUnits) {
+    this.typeOfUnits = typeOfUnits;
+    return this;
+  }
+
+  /**
+   * The type of units to be paid for the leave type
+   *
+   * @return typeOfUnits
+   */
+  @ApiModelProperty(value = "The type of units to be paid for the leave type")
+  /**
+   * The type of units to be paid for the leave type
+   *
+   * @return typeOfUnits String
+   */
+  public String getTypeOfUnits() {
+    return typeOfUnits;
+  }
+
+  /**
+   * The type of units to be paid for the leave type
+   *
+   * @param typeOfUnits String
+   */
+  public void setTypeOfUnits(String typeOfUnits) {
+    this.typeOfUnits = typeOfUnits;
+  }
+
+  /**
+   * The type of units to be accrued for the leave type
+   *
+   * @param typeOfUnitsToAccrue String
+   * @return LeaveType
+   */
+  public LeaveType typeOfUnitsToAccrue(String typeOfUnitsToAccrue) {
+    this.typeOfUnitsToAccrue = typeOfUnitsToAccrue;
+    return this;
+  }
+
+  /**
+   * The type of units to be accrued for the leave type
+   *
+   * @return typeOfUnitsToAccrue
+   */
+  @ApiModelProperty(value = "The type of units to be accrued for the leave type")
+  /**
+   * The type of units to be accrued for the leave type
+   *
+   * @return typeOfUnitsToAccrue String
+   */
+  public String getTypeOfUnitsToAccrue() {
+    return typeOfUnitsToAccrue;
+  }
+
+  /**
+   * The type of units to be accrued for the leave type
+   *
+   * @param typeOfUnitsToAccrue String
+   */
+  public void setTypeOfUnitsToAccrue(String typeOfUnitsToAccrue) {
+    this.typeOfUnitsToAccrue = typeOfUnitsToAccrue;
+  }
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -267,12 +343,22 @@ public class LeaveType {
         && Objects.equals(this.isPaidLeave, leaveType.isPaidLeave)
         && Objects.equals(this.showOnPayslip, leaveType.showOnPayslip)
         && Objects.equals(this.updatedDateUTC, leaveType.updatedDateUTC)
-        && Objects.equals(this.isActive, leaveType.isActive);
+        && Objects.equals(this.isActive, leaveType.isActive)
+        && Objects.equals(this.typeOfUnits, leaveType.typeOfUnits)
+        && Objects.equals(this.typeOfUnitsToAccrue, leaveType.typeOfUnitsToAccrue);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(leaveTypeID, name, isPaidLeave, showOnPayslip, updatedDateUTC, isActive);
+    return Objects.hash(
+        leaveTypeID,
+        name,
+        isPaidLeave,
+        showOnPayslip,
+        updatedDateUTC,
+        isActive,
+        typeOfUnits,
+        typeOfUnitsToAccrue);
   }
 
   @Override
@@ -285,6 +371,10 @@ public class LeaveType {
     sb.append("    showOnPayslip: ").append(toIndentedString(showOnPayslip)).append("\n");
     sb.append("    updatedDateUTC: ").append(toIndentedString(updatedDateUTC)).append("\n");
     sb.append("    isActive: ").append(toIndentedString(isActive)).append("\n");
+    sb.append("    typeOfUnits: ").append(toIndentedString(typeOfUnits)).append("\n");
+    sb.append("    typeOfUnitsToAccrue: ")
+        .append(toIndentedString(typeOfUnitsToAccrue))
+        .append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -39,6 +39,12 @@ public class EmployeeLeaveSetup {
   @JsonProperty("sickLeaveMaximumHoursToAccrue")
   private Double sickLeaveMaximumHoursToAccrue;
 
+  @JsonProperty("SickLeaveToAccrueAnnually")
+  private Double sickLeaveToAccrueAnnually;
+
+  @JsonProperty("SickLeaveMaximumToAccrue")
+  private Double sickLeaveMaximumToAccrue;
+
   @JsonProperty("sickLeaveOpeningBalance")
   private Double sickLeaveOpeningBalance;
 
@@ -47,6 +53,9 @@ public class EmployeeLeaveSetup {
 
   @JsonProperty("SickLeaveAnniversaryDate")
   private LocalDate sickLeaveAnniversaryDate;
+
+  @JsonProperty("AnnualLeaveAnniversaryDate")
+  private LocalDate annualLeaveAnniversaryDate;
   /**
    * Identifier if holiday pay will be included in each payslip
    *
@@ -209,8 +218,7 @@ public class EmployeeLeaveSetup {
   }
 
   /**
-   * Number of hours accrued annually for sick leave. Multiply the number of days they&#39;re
-   * entitled to by the hours worked per day
+   * Deprecated use SickLeaveToAccrueAnnually
    *
    * @param sickLeaveHoursToAccrueAnnually Double
    * @return EmployeeLeaveSetup
@@ -221,19 +229,13 @@ public class EmployeeLeaveSetup {
   }
 
   /**
-   * Number of hours accrued annually for sick leave. Multiply the number of days they&#39;re
-   * entitled to by the hours worked per day
+   * Deprecated use SickLeaveToAccrueAnnually
    *
    * @return sickLeaveHoursToAccrueAnnually
    */
-  @ApiModelProperty(
-      example = "100.5",
-      value =
-          "Number of hours accrued annually for sick leave. Multiply the number of days they're"
-              + " entitled to by the hours worked per day")
+  @ApiModelProperty(example = "100.5", value = "Deprecated use SickLeaveToAccrueAnnually")
   /**
-   * Number of hours accrued annually for sick leave. Multiply the number of days they&#39;re
-   * entitled to by the hours worked per day
+   * Deprecated use SickLeaveToAccrueAnnually
    *
    * @return sickLeaveHoursToAccrueAnnually Double
    */
@@ -242,8 +244,7 @@ public class EmployeeLeaveSetup {
   }
 
   /**
-   * Number of hours accrued annually for sick leave. Multiply the number of days they&#39;re
-   * entitled to by the hours worked per day
+   * Deprecated use SickLeaveToAccrueAnnually
    *
    * @param sickLeaveHoursToAccrueAnnually Double
    */
@@ -252,8 +253,7 @@ public class EmployeeLeaveSetup {
   }
 
   /**
-   * Maximum number of hours accrued annually for sick leave. Multiply the maximum days they can
-   * accrue by the hours worked per day
+   * Deprecated use SickLeaveMaximumToAccrue
    *
    * @param sickLeaveMaximumHoursToAccrue Double
    * @return EmployeeLeaveSetup
@@ -264,19 +264,13 @@ public class EmployeeLeaveSetup {
   }
 
   /**
-   * Maximum number of hours accrued annually for sick leave. Multiply the maximum days they can
-   * accrue by the hours worked per day
+   * Deprecated use SickLeaveMaximumToAccrue
    *
    * @return sickLeaveMaximumHoursToAccrue
    */
-  @ApiModelProperty(
-      example = "200.5",
-      value =
-          "Maximum number of hours accrued annually for sick leave. Multiply the maximum days they"
-              + " can accrue by the hours worked per day")
+  @ApiModelProperty(example = "200.5", value = "Deprecated use SickLeaveMaximumToAccrue")
   /**
-   * Maximum number of hours accrued annually for sick leave. Multiply the maximum days they can
-   * accrue by the hours worked per day
+   * Deprecated use SickLeaveMaximumToAccrue
    *
    * @return sickLeaveMaximumHoursToAccrue Double
    */
@@ -285,13 +279,99 @@ public class EmployeeLeaveSetup {
   }
 
   /**
-   * Maximum number of hours accrued annually for sick leave. Multiply the maximum days they can
-   * accrue by the hours worked per day
+   * Deprecated use SickLeaveMaximumToAccrue
    *
    * @param sickLeaveMaximumHoursToAccrue Double
    */
   public void setSickLeaveMaximumHoursToAccrue(Double sickLeaveMaximumHoursToAccrue) {
     this.sickLeaveMaximumHoursToAccrue = sickLeaveMaximumHoursToAccrue;
+  }
+
+  /**
+   * Number of units accrued annually for sick leave. The type of units is determined by the
+   * property \&quot;TypeOfUnitsToAccrue\&quot; on the \&quot;Sick Leave\&quot; leave type
+   *
+   * @param sickLeaveToAccrueAnnually Double
+   * @return EmployeeLeaveSetup
+   */
+  public EmployeeLeaveSetup sickLeaveToAccrueAnnually(Double sickLeaveToAccrueAnnually) {
+    this.sickLeaveToAccrueAnnually = sickLeaveToAccrueAnnually;
+    return this;
+  }
+
+  /**
+   * Number of units accrued annually for sick leave. The type of units is determined by the
+   * property \&quot;TypeOfUnitsToAccrue\&quot; on the \&quot;Sick Leave\&quot; leave type
+   *
+   * @return sickLeaveToAccrueAnnually
+   */
+  @ApiModelProperty(
+      example = "100.5",
+      value =
+          "Number of units accrued annually for sick leave. The type of units is determined by the"
+              + " property \"TypeOfUnitsToAccrue\" on the \"Sick Leave\" leave type")
+  /**
+   * Number of units accrued annually for sick leave. The type of units is determined by the
+   * property \&quot;TypeOfUnitsToAccrue\&quot; on the \&quot;Sick Leave\&quot; leave type
+   *
+   * @return sickLeaveToAccrueAnnually Double
+   */
+  public Double getSickLeaveToAccrueAnnually() {
+    return sickLeaveToAccrueAnnually;
+  }
+
+  /**
+   * Number of units accrued annually for sick leave. The type of units is determined by the
+   * property \&quot;TypeOfUnitsToAccrue\&quot; on the \&quot;Sick Leave\&quot; leave type
+   *
+   * @param sickLeaveToAccrueAnnually Double
+   */
+  public void setSickLeaveToAccrueAnnually(Double sickLeaveToAccrueAnnually) {
+    this.sickLeaveToAccrueAnnually = sickLeaveToAccrueAnnually;
+  }
+
+  /**
+   * Maximum number of units accrued annually for sick leave. The type of units is determined by the
+   * property \&quot;TypeOfUnitsToAccrue\&quot; on the \&quot;Sick Leave\&quot; leave type
+   *
+   * @param sickLeaveMaximumToAccrue Double
+   * @return EmployeeLeaveSetup
+   */
+  public EmployeeLeaveSetup sickLeaveMaximumToAccrue(Double sickLeaveMaximumToAccrue) {
+    this.sickLeaveMaximumToAccrue = sickLeaveMaximumToAccrue;
+    return this;
+  }
+
+  /**
+   * Maximum number of units accrued annually for sick leave. The type of units is determined by the
+   * property \&quot;TypeOfUnitsToAccrue\&quot; on the \&quot;Sick Leave\&quot; leave type
+   *
+   * @return sickLeaveMaximumToAccrue
+   */
+  @ApiModelProperty(
+      example = "200.5",
+      value =
+          "Maximum number of units accrued annually for sick leave. The type of units is"
+              + " determined by the property \"TypeOfUnitsToAccrue\" on the \"Sick Leave\" leave"
+              + " type")
+  /**
+   * Maximum number of units accrued annually for sick leave. The type of units is determined by the
+   * property \&quot;TypeOfUnitsToAccrue\&quot; on the \&quot;Sick Leave\&quot; leave type
+   *
+   * @return sickLeaveMaximumToAccrue Double
+   */
+  public Double getSickLeaveMaximumToAccrue() {
+    return sickLeaveMaximumToAccrue;
+  }
+
+  /**
+   * Maximum number of units accrued annually for sick leave. The type of units is determined by the
+   * property \&quot;TypeOfUnitsToAccrue\&quot; on the \&quot;Sick Leave\&quot; leave type
+   *
+   * @param sickLeaveMaximumToAccrue Double
+   */
+  public void setSickLeaveMaximumToAccrue(Double sickLeaveMaximumToAccrue) {
+    this.sickLeaveMaximumToAccrue = sickLeaveMaximumToAccrue;
   }
 
   /**
@@ -376,7 +456,7 @@ public class EmployeeLeaveSetup {
 
   /**
    * If Sick Leave Schedule of Accrual is \&quot;OnAnniversaryDate\&quot;, this is the date when
-   * entitled to Sick Leave
+   * entitled to Sick Leave. When null the Employee&#39;s start date is used as the anniversary date
    *
    * @param sickLeaveAnniversaryDate LocalDate
    * @return EmployeeLeaveSetup
@@ -388,7 +468,7 @@ public class EmployeeLeaveSetup {
 
   /**
    * If Sick Leave Schedule of Accrual is \&quot;OnAnniversaryDate\&quot;, this is the date when
-   * entitled to Sick Leave
+   * entitled to Sick Leave. When null the Employee&#39;s start date is used as the anniversary date
    *
    * @return sickLeaveAnniversaryDate
    */
@@ -396,10 +476,11 @@ public class EmployeeLeaveSetup {
       example = "Sun Jan 19 00:00:00 UTC 2020",
       value =
           "If Sick Leave Schedule of Accrual is \"OnAnniversaryDate\", this is the date when"
-              + " entitled to Sick Leave")
+              + " entitled to Sick Leave. When null the Employee's start date is used as the"
+              + " anniversary date")
   /**
    * If Sick Leave Schedule of Accrual is \&quot;OnAnniversaryDate\&quot;, this is the date when
-   * entitled to Sick Leave
+   * entitled to Sick Leave. When null the Employee&#39;s start date is used as the anniversary date
    *
    * @return sickLeaveAnniversaryDate LocalDate
    */
@@ -409,12 +490,55 @@ public class EmployeeLeaveSetup {
 
   /**
    * If Sick Leave Schedule of Accrual is \&quot;OnAnniversaryDate\&quot;, this is the date when
-   * entitled to Sick Leave
+   * entitled to Sick Leave. When null the Employee&#39;s start date is used as the anniversary date
    *
    * @param sickLeaveAnniversaryDate LocalDate
    */
   public void setSickLeaveAnniversaryDate(LocalDate sickLeaveAnniversaryDate) {
     this.sickLeaveAnniversaryDate = sickLeaveAnniversaryDate;
+  }
+
+  /**
+   * The first date the employee will accrue Annual Leave. When null the Employee&#39;s start date
+   * is used as the anniversary date
+   *
+   * @param annualLeaveAnniversaryDate LocalDate
+   * @return EmployeeLeaveSetup
+   */
+  public EmployeeLeaveSetup annualLeaveAnniversaryDate(LocalDate annualLeaveAnniversaryDate) {
+    this.annualLeaveAnniversaryDate = annualLeaveAnniversaryDate;
+    return this;
+  }
+
+  /**
+   * The first date the employee will accrue Annual Leave. When null the Employee&#39;s start date
+   * is used as the anniversary date
+   *
+   * @return annualLeaveAnniversaryDate
+   */
+  @ApiModelProperty(
+      example = "Sun Jan 19 00:00:00 UTC 2020",
+      value =
+          "The first date the employee will accrue Annual Leave. When null the Employee's start"
+              + " date is used as the anniversary date")
+  /**
+   * The first date the employee will accrue Annual Leave. When null the Employee&#39;s start date
+   * is used as the anniversary date
+   *
+   * @return annualLeaveAnniversaryDate LocalDate
+   */
+  public LocalDate getAnnualLeaveAnniversaryDate() {
+    return annualLeaveAnniversaryDate;
+  }
+
+  /**
+   * The first date the employee will accrue Annual Leave. When null the Employee&#39;s start date
+   * is used as the anniversary date
+   *
+   * @param annualLeaveAnniversaryDate LocalDate
+   */
+  public void setAnnualLeaveAnniversaryDate(LocalDate annualLeaveAnniversaryDate) {
+    this.annualLeaveAnniversaryDate = annualLeaveAnniversaryDate;
   }
 
   @Override
@@ -438,11 +562,17 @@ public class EmployeeLeaveSetup {
             this.sickLeaveHoursToAccrueAnnually, employeeLeaveSetup.sickLeaveHoursToAccrueAnnually)
         && Objects.equals(
             this.sickLeaveMaximumHoursToAccrue, employeeLeaveSetup.sickLeaveMaximumHoursToAccrue)
+        && Objects.equals(
+            this.sickLeaveToAccrueAnnually, employeeLeaveSetup.sickLeaveToAccrueAnnually)
+        && Objects.equals(
+            this.sickLeaveMaximumToAccrue, employeeLeaveSetup.sickLeaveMaximumToAccrue)
         && Objects.equals(this.sickLeaveOpeningBalance, employeeLeaveSetup.sickLeaveOpeningBalance)
         && Objects.equals(
             this.sickLeaveScheduleOfAccrual, employeeLeaveSetup.sickLeaveScheduleOfAccrual)
         && Objects.equals(
-            this.sickLeaveAnniversaryDate, employeeLeaveSetup.sickLeaveAnniversaryDate);
+            this.sickLeaveAnniversaryDate, employeeLeaveSetup.sickLeaveAnniversaryDate)
+        && Objects.equals(
+            this.annualLeaveAnniversaryDate, employeeLeaveSetup.annualLeaveAnniversaryDate);
   }
 
   @Override
@@ -454,9 +584,12 @@ public class EmployeeLeaveSetup {
         negativeAnnualLeaveBalancePaidAmount,
         sickLeaveHoursToAccrueAnnually,
         sickLeaveMaximumHoursToAccrue,
+        sickLeaveToAccrueAnnually,
+        sickLeaveMaximumToAccrue,
         sickLeaveOpeningBalance,
         sickLeaveScheduleOfAccrual,
-        sickLeaveAnniversaryDate);
+        sickLeaveAnniversaryDate,
+        annualLeaveAnniversaryDate);
   }
 
   @Override
@@ -479,6 +612,12 @@ public class EmployeeLeaveSetup {
     sb.append("    sickLeaveMaximumHoursToAccrue: ")
         .append(toIndentedString(sickLeaveMaximumHoursToAccrue))
         .append("\n");
+    sb.append("    sickLeaveToAccrueAnnually: ")
+        .append(toIndentedString(sickLeaveToAccrueAnnually))
+        .append("\n");
+    sb.append("    sickLeaveMaximumToAccrue: ")
+        .append(toIndentedString(sickLeaveMaximumToAccrue))
+        .append("\n");
     sb.append("    sickLeaveOpeningBalance: ")
         .append(toIndentedString(sickLeaveOpeningBalance))
         .append("\n");
@@ -487,6 +626,9 @@ public class EmployeeLeaveSetup {
         .append("\n");
     sb.append("    sickLeaveAnniversaryDate: ")
         .append(toIndentedString(sickLeaveAnniversaryDate))
+        .append("\n");
+    sb.append("    annualLeaveAnniversaryDate: ")
+        .append(toIndentedString(annualLeaveAnniversaryDate))
         .append("\n");
     sb.append("}");
     return sb.toString();

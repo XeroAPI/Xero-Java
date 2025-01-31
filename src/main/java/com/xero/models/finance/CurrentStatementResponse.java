@@ -263,7 +263,7 @@ public class CurrentStatementResponse {
 
   /**
    * Looking at the most recent bank statement, this field indicates the source of the data (direct
-   * bank feed, indirect bank feed, file upload, or manual keying).
+   * bank feed, file upload, or manual keying).
    *
    * @param importSourceType String
    * @return CurrentStatementResponse
@@ -275,17 +275,17 @@ public class CurrentStatementResponse {
 
   /**
    * Looking at the most recent bank statement, this field indicates the source of the data (direct
-   * bank feed, indirect bank feed, file upload, or manual keying).
+   * bank feed, file upload, or manual keying).
    *
    * @return importSourceType
    */
   @ApiModelProperty(
       value =
           "Looking at the most recent bank statement, this field indicates the source of the data"
-              + " (direct bank feed, indirect bank feed, file upload, or manual keying).")
+              + " (direct bank feed, file upload, or manual keying).")
   /**
    * Looking at the most recent bank statement, this field indicates the source of the data (direct
-   * bank feed, indirect bank feed, file upload, or manual keying).
+   * bank feed, file upload, or manual keying).
    *
    * @return importSourceType String
    */
@@ -295,7 +295,7 @@ public class CurrentStatementResponse {
 
   /**
    * Looking at the most recent bank statement, this field indicates the source of the data (direct
-   * bank feed, indirect bank feed, file upload, or manual keying).
+   * bank feed, file upload, or manual keying).
    *
    * @param importSourceType String
    */
